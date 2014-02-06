@@ -35,9 +35,9 @@
 
     self.UIurl.text = self.connection.url;
     
-    self.UIerrorCode.text = self.connection.lastErrorCode ? [NSString stringWithFormat:@"%@ %d %@",
+    self.UIerrorCode.text = self.connection.lastErrorCode ? [NSString stringWithFormat:@"%@ %ld %@",
                                                              self.connection.lastErrorCode.domain,
-                                                             self.connection.lastErrorCode.code,
+                                                             (long)self.connection.lastErrorCode.code,
                                                              self.connection.lastErrorCode.localizedDescription ?
                                                              self.connection.lastErrorCode.localizedDescription : @""]
                                                             : @"<no error>";

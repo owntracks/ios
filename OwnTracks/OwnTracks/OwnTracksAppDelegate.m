@@ -77,12 +77,13 @@
         state = self.coreData.documentState;
         if (state || ![CoreData theManagedObjectContext]) {
 #ifdef DEBUG
-            NSLog(@"APP Waiting for document to open documentState = 0x%02x theManagedObjectContext = %@",
-                  self.coreData.documentState, [CoreData theManagedObjectContext]);
+            NSLog(@"APP Waiting for document to open documentState = 0x%02lx theManagedObjectContext = %@",
+                  (long)self.coreData.documentState,
+                  [CoreData theManagedObjectContext]);
 #endif
             if (state & UIDocumentStateInConflict || state & UIDocumentStateSavingError) {
                 [AlertView alert:@"App Failure"
-                         message:[NSString stringWithFormat:@"Open document documentState = 0x%02x", state]];
+                         message:[NSString stringWithFormat:@"Open document documentState = 0x%02lx", (long)state]];
                 break;
             }
             [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
@@ -182,7 +183,9 @@
                                    @(UIDeviceBatteryStateFull): @"full"
                                    };
     
-    NSLog(@"App batteryLevelChanged %@ (%d)", states[@([UIDevice currentDevice].batteryState)], [UIDevice currentDevice].batteryState);
+    NSLog(@"App batteryLevelChanged %@ (%ld)",
+          states[@([UIDevice currentDevice].batteryState)],
+          (long)[UIDevice currentDevice].batteryState);
 #endif
 }
 #endif
@@ -207,9 +210,9 @@
         
         NSError *error;
         NSString *extension = [url pathExtension];
-        if ([extension isEqualToString:@"otrc"]) {
+        if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
             error = [self.settings fromStream:input];
-        } else if ([extension isEqualToString:@"otrw"]) {
+        } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
             error = [self waypointsFromStream:input];
         } else {
             error = [NSError errorWithDomain:@"OwnTracks" code:2 userInfo:@{@"extension":extension}];
@@ -243,14 +246,21 @@
             NSArray *waypoints = dictionary[@"waypoints"];
             for (NSDictionary *waypoint in waypoints) {
                 if ([waypoint[@"_type"] isEqualToString:@"waypoint"]) {
+#ifdef DEBUG
+                    NSLog(@"Waypoint tst:%g lon:%g lat:%g",
+                          [waypoint[@"tst"] doubleValue],
+                          [waypoint[@"lon"] doubleValue],
+                          [waypoint[@"lat"] doubleValue]
+                          );
+#endif
                     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
                                                                                    [waypoint[@"lat"] doubleValue],
                                                                                    [waypoint[@"lon"] doubleValue]
                                                                                    );
                     CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate
                                                                          altitude:0
-                                                               horizontalAccuracy:[waypoint[@"acc"] doubleValue]
-                                                                 verticalAccuracy:-1
+                                                               horizontalAccuracy:0
+                                                                 verticalAccuracy:0
                                                                         timestamp:[NSDate dateWithTimeIntervalSince1970:[waypoint[@"tst"] doubleValue]]];
                     
                     [Location locationWithTopic:[self.settings theGeneralTopic]
@@ -337,9 +347,9 @@
     }
     
     if (self.coreData.documentState) {
-        NSString *message = [NSString stringWithFormat:@"Open CoreData %@ 0x%02x",
+        NSString *message = [NSString stringWithFormat:@"Open CoreData %@ 0x%02lx",
                              self.coreData.fileURL,
-                             self.coreData.documentState];
+                             (long)self.coreData.documentState];
         [AlertView alert:@"App Failure" message:message];
     }
     if (![CLLocationManager significantLocationChangeMonitoringAvailable]) {
@@ -578,7 +588,7 @@
                 CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate
                                                                      altitude:0
                                                            horizontalAccuracy:[dictionary[@"acc"] doubleValue]
-                                                             verticalAccuracy:-1
+                                                             verticalAccuracy:0
                                                                     timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]];
                 
                 Location *newLocation = [Location locationWithTopic:deviceName
@@ -870,7 +880,7 @@
     
     NSInteger number = [UIApplication sharedApplication].applicationIconBadgeNumber;
     if (number) {
-        [self notification:[NSString stringWithFormat:@"OwnTracks has %d undelivered messages", number]
+        [self notification:[NSString stringWithFormat:@"OwnTracks has %ld undelivered messages", (long)number]
                      after:0
                   userInfo:@{@"notify": @"undelivered"}];
     }

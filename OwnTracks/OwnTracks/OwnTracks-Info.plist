@@ -12,23 +12,47 @@
 			<key>CFBundleTypeIconFiles</key>
 			<array>
 				<string>icon_ipad320</string>
+				<string>icon_iphone@2x</string>
+				<string>icon_iphone</string>
+				<string>icon_ipad320</string>
+				<string>icon_ipad64</string>
 			</array>
 			<key>CFBundleTypeName</key>
-			<string>OwnTracks Configuration Files</string>
+			<string>OwnTracks Configuration File</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>org.owntracks</string>
+				<string>org.owntracks.otrc</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>icon_ipad320</string>
+				<string>icon_iphone@2x</string>
+				<string>icon_iphone</string>
+				<string>icon_ipad320</string>
+				<string>icon_ipad64</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>OwnTracks Waypoints File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.owntracks.otrw</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.owntracks.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>org.mqttitude.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -36,15 +60,13 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>6.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>6.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSContactsUsageDescription</key>
-	<string>OwnTracks displays pictures of your friends on the map and links your friends to the address book</string>
 	<key>NSLocationUsageDescription</key>
 	<string>OwnTracks monitors your location and publishes it to your MQTT server</string>
 	<key>UIBackgroundModes</key>
@@ -66,29 +88,60 @@
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
-			<key>UITypeIconFile</key>
-			<string>icon_iphone</string>
-			<key>UITypeReferenceURL</key>
-			<string>http:/www.owntracks.org</string>
-			<key>UITypeTagSpecification</key>
-			<string>application/json</string>
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.json</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>OwnTracks Configuration File</string>
+			<key>UTTypeIconFile</key>
+			<string>icon_iphone</string>
 			<key>UTTypeIdentifier</key>
-			<string>org.owntracks</string>
+			<string>org.owntracks.otrc</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.owntracks.org</string>
 			<key>UTTypeSize320IconFile</key>
 			<string>icon_ipad320</string>
 			<key>UTTypeSize64IconFile</key>
 			<string>icon_ipad64</string>
-			<key>public.filename-extension</key>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>otrc</string>
+					<string>mqtc</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>application/json</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
 			<array>
-				<string>otrc</string>
-				<string>otrw</string>
+				<string>public.json</string>
 			</array>
+			<key>UTTypeDescription</key>
+			<string>OwnTracks Waypoints File</string>
+			<key>UTTypeIconFile</key>
+			<string>icon_iphone</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.owntracks.otrw</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.owntracks.org</string>
+			<key>UTTypeSize320IconFile</key>
+			<string>icon_ipad320</string>
+			<key>UTTypeSize64IconFile</key>
+			<string>icon_ipad64</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>otrw</string>
+					<string>mqtw</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>application/json</string>
+			</dict>
 		</dict>
 	</array>
 </dict>

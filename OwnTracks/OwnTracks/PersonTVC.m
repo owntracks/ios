@@ -42,8 +42,8 @@
     /* pre-sort persons per sections */
     for (NSString *key in self.sections.allKeys) {
         NSArray *persons = [[self.sections valueForKey:key] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            ABRecordRef ABRecordRef1 = ABAddressBookGetPersonWithRecordID([Friend theABRef], [obj1 integerValue]);
-            ABRecordRef ABRecordRef2 = ABAddressBookGetPersonWithRecordID([Friend theABRef], [obj2 integerValue]);
+            ABRecordRef ABRecordRef1 = ABAddressBookGetPersonWithRecordID([Friend theABRef], [obj1 intValue]);
+            ABRecordRef ABRecordRef2 = ABAddressBookGetPersonWithRecordID([Friend theABRef], [obj2 intValue]);
             CFComparisonResult r = ABPersonComparePeopleByName(ABRecordRef1, ABRecordRef2, ABPersonGetSortOrdering());
             return (NSComparisonResult)r;
         }];
@@ -94,7 +94,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"person" forIndexPath:indexPath];
     
     NSArray *persons = [self sortedPersonsInSection: indexPath.section];
-    ABRecordRef person = ABAddressBookGetPersonWithRecordID([Friend theABRef], [persons[indexPath.row] integerValue]);
+    ABRecordRef person = ABAddressBookGetPersonWithRecordID([Friend theABRef], [persons[indexPath.row] intValue]);
 
     cell.textLabel.text = CFBridgingRelease(ABRecordCopyCompositeName(person));
     cell.imageView.image = [Friend imageDataOfPerson:person] ?

@@ -21,7 +21,7 @@
 @property (strong, nonatomic) MQTTSession *session;
 
 @property (strong, nonatomic) NSString *host;
-@property (nonatomic) NSInteger port;
+@property (nonatomic) UInt32 port;
 @property (nonatomic) BOOL tls;
 @property (nonatomic) NSInteger keepalive;
 @property (nonatomic) BOOL clean;
@@ -73,17 +73,17 @@
      withClientId:(NSString *)clientId
 {
 #ifdef DEBUG
-    NSLog(@"Connection connectTo: %@:%@@%@:%d %@ (%d) c%d / %@ %@ q%d r%d as %@",
+    NSLog(@"Connection connectTo: %@:%@@%@:%ld %@ (%ld) c%d / %@ %@ q%ld r%d as %@",
           auth ? user : @"",
           auth ? pass : @"",
           host,
-          port,
+          (long)port,
           tls ? @"TLS" : @"PLAIN",
-          keepalive,
+          (long)keepalive,
           clean,
           willTopic,
           [Connection dataToString:will],
-          willQos,
+          (long)willQos,
           willRetainFlag,
           clientId
           );
@@ -144,7 +144,7 @@
 - (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(NSInteger)qos retain:(BOOL)retainFlag
 {
 #ifdef DEBUG
-    NSLog(@"Connection sendData:%@ %@ q%d r%d", topic, [Connection dataToString:data], qos, retainFlag);
+    NSLog(@"Connection sendData:%@ %@ q%ld r%d", topic, [Connection dataToString:data], (long)qos, retainFlag);
 #endif
     
     if (self.state != state_connected) {
@@ -263,7 +263,7 @@
 - (void)buffered:(MQTTSession *)session queued:(NSUInteger)queued flowingIn:(NSUInteger)flowingIn flowingOut:(NSUInteger)flowingOut
 {
 #ifdef DEBUG
-    NSLog(@"Connection buffered q%u i%u o%u", queued, flowingIn, flowingOut);
+    NSLog(@"Connection buffered q%lu i%lu o%lu", (unsigned long)queued, (unsigned long)flowingIn, (unsigned long)flowingOut);
 #endif
     if ((queued + flowingIn + flowingOut) && self.state == state_connected) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
@@ -289,10 +289,10 @@
 
 - (NSString *)url
 {
-    return [NSString stringWithFormat:@"%@%@:%d",
+    return [NSString stringWithFormat:@"%@%@:%ld",
             self.auth ? [NSString stringWithFormat:@"%@@", self.user] : @"",
             self.host,
-            self.port
+            (long)self.port
             ];
 }
 
@@ -321,7 +321,7 @@
                                    @(state_closed): @"closed"
                                    };
     
-    NSLog(@"Connection state %@ (%d)", states[@(self.state)], self.state);
+    NSLog(@"Connection state %@ (%ld)", states[@(self.state)], (long)self.state);
 #endif
     [self.delegate showState:self.state];
 }
