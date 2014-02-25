@@ -418,9 +418,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8411B827189FDB140019D2D6 /* MQTTitude */ = {
+		8411B827189FDB140019D2D6 /* OwnTracks */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8411B85A189FDB140019D2D6 /* Build configuration list for PBXNativeTarget "MQTTitude" */;
+			buildConfigurationList = 8411B85A189FDB140019D2D6 /* Build configuration list for PBXNativeTarget "OwnTracks" */;
 			buildPhases = (
 				8411B824189FDB140019D2D6 /* Sources */,
 				8411B825189FDB140019D2D6 /* Frameworks */,
@@ -430,7 +430,7 @@
 			);
 			dependencies = (
 			);
-			name = MQTTitude;
+			name = OwnTracks;
 			productName = OwnTracks;
 			productReference = 8411B828189FDB140019D2D6 /* OwnTracks.app */;
 			productType = "com.apple.product-type.application";
@@ -493,7 +493,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8411B827189FDB140019D2D6 /* MQTTitude */,
+				8411B827189FDB140019D2D6 /* OwnTracks */,
 				8411B847189FDB140019D2D6 /* OwnTracksTests */,
 			);
 		};
@@ -611,7 +611,7 @@
 /* Begin PBXTargetDependency section */
 		8411B84F189FDB140019D2D6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8411B827189FDB140019D2D6 /* MQTTitude */;
+			target = 8411B827189FDB140019D2D6 /* OwnTracks */;
 			targetProxy = 8411B84E189FDB140019D2D6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -669,7 +669,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -702,7 +702,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -800,7 +800,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8411B85A189FDB140019D2D6 /* Build configuration list for PBXNativeTarget "MQTTitude" */ = {
+		8411B85A189FDB140019D2D6 /* Build configuration list for PBXNativeTarget "OwnTracks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8411B85B189FDB140019D2D6 /* Debug */,
