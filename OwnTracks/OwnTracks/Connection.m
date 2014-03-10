@@ -283,7 +283,9 @@
                                port:self.port
                            usingSSL:self.tls];
     } else {
+#ifdef DEBUG
         NSLog(@"Connection not starting, can't connect");
+#endif
     }
 }
 

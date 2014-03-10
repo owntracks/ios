@@ -14,33 +14,12 @@
 {
     self = [super init];
     if (self) {
-        NSDictionary *appDefaults = @{
-                                      @"mindist_preference" : @(200),
-                                      @"mintime_preference" : @(180),
-                                      @"deviceid_preference" : @"",
-                                      @"clientid_preference" : @"",
-                                      @"subscription_preference" : @"owntracks/#",
-                                      @"subscriptionqos_preference": @(1),
-                                      @"topic_preference" : @"",
-                                      @"retain_preference": @(TRUE),
-                                      @"qos_preference": @(1),
-                                      @"host_preference" : @"host",
-                                      @"port_preference" : @(8883),
-                                      @"tls_preference": @(YES),
-                                      @"auth_preference": @(YES),
-                                      @"user_preference": @"user",
-                                      @"pass_preference": @"pass",
-                                      @"keepalive_preference" : @(60),
-                                      @"clean_preference" : @(NO),
-                                      @"will_preference": @"lwt",
-                                      @"willtopic_preference": @"",
-                                      @"willretain_preference":@(NO),
-                                      @"willqos_preference": @(1),
-                                      @"monitoring_preference": @(1),
-                                      @"ab_preference": @(YES)
-                                      };
+        
+        NSURL *bundleURL = [[NSBundle mainBundle] bundleURL];
+        NSURL *plistURL = [bundleURL URLByAppendingPathComponent:@"Settings.plist"];
+
+        NSDictionary *appDefaults = [NSDictionary dictionaryWithContentsOfURL:plistURL];
         [self registerDefaults:appDefaults];
-        [self synchronize];
     }
     return self;
 }

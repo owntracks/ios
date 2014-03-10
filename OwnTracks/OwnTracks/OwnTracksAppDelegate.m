@@ -75,20 +75,13 @@
     
     do {
         state = self.coreData.documentState;
-        if (state || ![CoreData theManagedObjectContext]) {
-#ifdef DEBUG
+        if (state & UIDocumentStateClosed || ![CoreData theManagedObjectContext]) {
             NSLog(@"APP Waiting for document to open documentState = 0x%02lx theManagedObjectContext = %@",
                   (long)self.coreData.documentState,
                   [CoreData theManagedObjectContext]);
-#endif
-            if (state & UIDocumentStateInConflict || state & UIDocumentStateSavingError) {
-                [AlertView alert:@"App Failure"
-                         message:[NSString stringWithFormat:@"Open document documentState = 0x%02lx", (long)state]];
-                break;
-            }
             [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         }
-    } while (state || ![CoreData theManagedObjectContext]);
+    } while (state & UIDocumentStateClosed || ![CoreData theManagedObjectContext]);
     
     /*
      * CLLocationManager
@@ -373,7 +366,7 @@
     NSLog(@"App applicationWillTerminate");
 #endif
     [self.settings synchronize];
-    [self saveContext];
+    [self saveContext];    
     [self notification:@"OwnTracks terminated. Tap to restart" after:REMINDER_AFTER userInfo:nil];
 }
 

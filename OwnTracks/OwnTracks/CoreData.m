@@ -22,6 +22,7 @@ static NSManagedObjectContext *theManagedObjectContext = nil;
 {
     NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     url = [url URLByAppendingPathComponent:@"OwnTracks"];
+
     self = [super initWithFileURL:url];
     
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:

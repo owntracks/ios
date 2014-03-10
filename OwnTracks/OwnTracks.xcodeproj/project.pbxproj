@@ -11,7 +11,6 @@
 		8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82D189FDB140019D2D6 /* CoreGraphics.framework */; };
 		8411B830189FDB140019D2D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82F189FDB140019D2D6 /* UIKit.framework */; };
 		8411B832189FDB140019D2D6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B831189FDB140019D2D6 /* CoreData.framework */; };
-		8411B838189FDB140019D2D6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8411B836189FDB140019D2D6 /* InfoPlist.strings */; };
 		8411B83A189FDB140019D2D6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B839189FDB140019D2D6 /* main.m */; };
 		8411B83E189FDB140019D2D6 /* OwnTracksAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B83D189FDB140019D2D6 /* OwnTracksAppDelegate.m */; };
 		8411B843189FDB140019D2D6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8411B842189FDB140019D2D6 /* Images.xcassets */; };
@@ -22,7 +21,6 @@
 		8411B855189FDB140019D2D6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8411B853189FDB140019D2D6 /* InfoPlist.strings */; };
 		8411B857189FDB140019D2D6 /* OwnTracksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B856189FDB140019D2D6 /* OwnTracksTests.m */; };
 		8411B861189FDD200019D2D6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B860189FDD200019D2D6 /* MapKit.framework */; };
-		8411B864189FDE0D0019D2D6 /* MQTTClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B863189FDE0D0019D2D6 /* MQTTClient.framework */; };
 		8411B866189FDFDE0019D2D6 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8411B865189FDFDE0019D2D6 /* Settings.bundle */; };
 		8411B878189FE1ED0019D2D6 /* Friend+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B869189FE1ED0019D2D6 /* Friend+Create.m */; };
 		8411B87A189FE1ED0019D2D6 /* Location+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B86D189FE1ED0019D2D6 /* Location+Create.m */; };
@@ -33,18 +31,13 @@
 		8411B891189FE9CE0019D2D6 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B890189FE9CE0019D2D6 /* Settings.m */; };
 		8411B894189FEA9D0019D2D6 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B893189FEA9D0019D2D6 /* CoreDataTableViewController.m */; };
 		8411B896189FEAE60019D2D6 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8411B895189FEAE60019D2D6 /* Storyboard.storyboard */; };
-		8411B8CB189FEB790019D2D6 /* Center.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8411B898189FEB790019D2D6 /* Center.svg */; };
 		8411B8CC189FEB790019D2D6 /* connection.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B899189FEB790019D2D6 /* connection.png */; };
-		8411B8CD189FEB790019D2D6 /* Connection.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8411B89A189FEB790019D2D6 /* Connection.svg */; };
 		8411B8CE189FEB790019D2D6 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B89B189FEB790019D2D6 /* Default-568h@2x.png */; };
 		8411B8CF189FEB790019D2D6 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B89C189FEB790019D2D6 /* Default.png */; };
 		8411B8D0189FEB790019D2D6 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B89D189FEB790019D2D6 /* Default@2x.png */; };
-		8411B8D1189FEB790019D2D6 /* FriendsOff.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8411B89E189FEB790019D2D6 /* FriendsOff.svg */; };
 		8411B8D2189FEB790019D2D6 /* FriendsOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B89F189FEB790019D2D6 /* FriendsOn.png */; };
-		8411B8D3189FEB790019D2D6 /* FriendsOn.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8A0189FEB790019D2D6 /* FriendsOn.svg */; };
 		8411B8D4189FEB790019D2D6 /* FriendsOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8A1189FEB790019D2D6 /* FriendsOn@2x.png */; };
 		8411B8D5189FEB790019D2D6 /* HybridOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8A2189FEB790019D2D6 /* HybridOn.png */; };
-		8411B8D6189FEB790019D2D6 /* HybridOn.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8A3189FEB790019D2D6 /* HybridOn.svg */; };
 		8411B8D7189FEB790019D2D6 /* HybridOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8A4189FEB790019D2D6 /* HybridOn@2x.png */; };
 		8411B8D8189FEB790019D2D6 /* icon_57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8A5189FEB790019D2D6 /* icon_57x57.png */; };
 		8411B8D9189FEB790019D2D6 /* icon_ipad320.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8A6189FEB790019D2D6 /* icon_ipad320.png */; };
@@ -57,31 +50,22 @@
 		8411B8E0189FEB790019D2D6 /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8AD189FEB790019D2D6 /* iTunesArtwork@2x.png */; };
 		8411B8E1189FEB790019D2D6 /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8AE189FEB790019D2D6 /* Location.gpx */; };
 		8411B8E2189FEB790019D2D6 /* LocationOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8AF189FEB790019D2D6 /* LocationOff.png */; };
-		8411B8E3189FEB790019D2D6 /* LocationOff.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8B0189FEB790019D2D6 /* LocationOff.svg */; };
 		8411B8E4189FEB790019D2D6 /* LocationOff@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8B1189FEB790019D2D6 /* LocationOff@2x.png */; };
 		8411B8E5189FEB790019D2D6 /* LocationOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8B2189FEB790019D2D6 /* LocationOn.png */; };
-		8411B8E6189FEB790019D2D6 /* LocationOn.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8B3189FEB790019D2D6 /* LocationOn.svg */; };
 		8411B8E7189FEB790019D2D6 /* LocationOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8B4189FEB790019D2D6 /* LocationOn@2x.png */; };
 		8411B8E8189FEB790019D2D6 /* move.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8B5189FEB790019D2D6 /* move.png */; };
-		8411B8E9189FEB790019D2D6 /* Move.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8B6189FEB790019D2D6 /* Move.svg */; };
 		8411B8EA189FEB790019D2D6 /* Move@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8B7189FEB790019D2D6 /* Move@2x.png */; };
 		8411B8EB189FEB790019D2D6 /* Pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8B8189FEB790019D2D6 /* Pin.png */; };
-		8411B8EC189FEB790019D2D6 /* Pin.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8B9189FEB790019D2D6 /* Pin.svg */; };
 		8411B8ED189FEB790019D2D6 /* Pin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8BA189FEB790019D2D6 /* Pin@2x.png */; };
-		8411B8EE189FEB790019D2D6 /* Satellite.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8BB189FEB790019D2D6 /* Satellite.svg */; };
 		8411B8EF189FEB790019D2D6 /* SatelliteOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8BC189FEB790019D2D6 /* SatelliteOff.png */; };
 		8411B8F0189FEB790019D2D6 /* SatelliteOff@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8BD189FEB790019D2D6 /* SatelliteOff@2x.png */; };
 		8411B8F1189FEB790019D2D6 /* SatelliteOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8BE189FEB790019D2D6 /* SatelliteOn.png */; };
-		8411B8F2189FEB790019D2D6 /* SatelliteOn.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8BF189FEB790019D2D6 /* SatelliteOn.svg */; };
 		8411B8F3189FEB790019D2D6 /* SatelliteOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8C0189FEB790019D2D6 /* SatelliteOn@2x.png */; };
 		8411B8F5189FEB790019D2D6 /* UserTrackingFollow.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8C2189FEB790019D2D6 /* UserTrackingFollow.png */; };
-		8411B8F6189FEB790019D2D6 /* UserTrackingFollow.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8C3189FEB790019D2D6 /* UserTrackingFollow.svg */; };
 		8411B8F7189FEB790019D2D6 /* UserTrackingFollow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8C4189FEB790019D2D6 /* UserTrackingFollow@2x.png */; };
 		8411B8F8189FEB790019D2D6 /* UserTrackingFollowWithHeading.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8C5189FEB790019D2D6 /* UserTrackingFollowWithHeading.png */; };
-		8411B8F9189FEB790019D2D6 /* UserTrackingFollowWithHeading.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8C6189FEB790019D2D6 /* UserTrackingFollowWithHeading.svg */; };
 		8411B8FA189FEB790019D2D6 /* UserTrackingFollowWithHeading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8C7189FEB790019D2D6 /* UserTrackingFollowWithHeading@2x.png */; };
 		8411B8FB189FEB790019D2D6 /* UserTrackingNone.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8C8189FEB790019D2D6 /* UserTrackingNone.png */; };
-		8411B8FC189FEB790019D2D6 /* UserTrackingNone.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8C9189FEB790019D2D6 /* UserTrackingNone.svg */; };
 		8411B8FD189FEB790019D2D6 /* UserTrackingNone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8CA189FEB790019D2D6 /* UserTrackingNone@2x.png */; };
 		8411B90C189FEC070019D2D6 /* EditLocationTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B8FF189FEC070019D2D6 /* EditLocationTVC.m */; };
 		8411B90D189FEC070019D2D6 /* FriendAnnotationV.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B901189FEC070019D2D6 /* FriendAnnotationV.m */; };
@@ -92,6 +76,8 @@
 		8411B912189FEC070019D2D6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B90B189FEC070019D2D6 /* ViewController.m */; };
 		8411B915189FF1A80019D2D6 /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B914189FF1A80019D2D6 /* Friend.m */; };
 		8411B918189FF1A80019D2D6 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B917189FF1A80019D2D6 /* Location.m */; };
+		8432AA7518BD127300E817D3 /* MQTTClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B863189FDE0D0019D2D6 /* MQTTClient.framework */; };
+		849D457E18CDB1F300201BF3 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -210,6 +196,7 @@
 		8411B914189FF1A80019D2D6 /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
 		8411B916189FF1A80019D2D6 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		8411B917189FF1A80019D2D6 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		849D457B18CDACDF00201BF3 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,7 +204,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8411B864189FDE0D0019D2D6 /* MQTTClient.framework in Frameworks */,
+				8432AA7518BD127300E817D3 /* MQTTClient.framework in Frameworks */,
 				8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */,
 				8411B832189FDB140019D2D6 /* CoreData.framework in Frameworks */,
 				8411B861189FDD200019D2D6 /* MapKit.framework in Frameworks */,
@@ -288,6 +275,7 @@
 				8411B88D189FE9940019D2D6 /* Connection.m */,
 				8411B88F189FE9CE0019D2D6 /* Settings.h */,
 				8411B890189FE9CE0019D2D6 /* Settings.m */,
+				849D457B18CDACDF00201BF3 /* Settings.plist */,
 				8411B8FE189FEC070019D2D6 /* EditLocationTVC.h */,
 				8411B8FF189FEC070019D2D6 /* EditLocationTVC.m */,
 				8411B900189FEC070019D2D6 /* FriendAnnotationV.h */,
@@ -504,19 +492,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8411B838189FDB140019D2D6 /* InfoPlist.strings in Resources */,
-				8411B8F2189FEB790019D2D6 /* SatelliteOn.svg in Resources */,
+				849D457E18CDB1F300201BF3 /* Settings.plist in Resources */,
 				8411B8D7189FEB790019D2D6 /* HybridOn@2x.png in Resources */,
-				8411B8EE189FEB790019D2D6 /* Satellite.svg in Resources */,
 				8411B8FD189FEB790019D2D6 /* UserTrackingNone@2x.png in Resources */,
-				8411B8F9189FEB790019D2D6 /* UserTrackingFollowWithHeading.svg in Resources */,
 				8411B8F7189FEB790019D2D6 /* UserTrackingFollow@2x.png in Resources */,
-				8411B8EC189FEB790019D2D6 /* Pin.svg in Resources */,
-				8411B8E6189FEB790019D2D6 /* LocationOn.svg in Resources */,
 				8411B8CF189FEB790019D2D6 /* Default.png in Resources */,
 				8411B8F5189FEB790019D2D6 /* UserTrackingFollow.png in Resources */,
 				8411B8F8189FEB790019D2D6 /* UserTrackingFollowWithHeading.png in Resources */,
-				8411B8E3189FEB790019D2D6 /* LocationOff.svg in Resources */,
 				8411B8DA189FEB790019D2D6 /* icon_ipad64.png in Resources */,
 				8411B8D0189FEB790019D2D6 /* Default@2x.png in Resources */,
 				8411B866189FDFDE0019D2D6 /* Settings.bundle in Resources */,
@@ -530,20 +512,13 @@
 				8411B8E8189FEB790019D2D6 /* move.png in Resources */,
 				8411B8ED189FEB790019D2D6 /* Pin@2x.png in Resources */,
 				8411B8EF189FEB790019D2D6 /* SatelliteOff.png in Resources */,
-				8411B8FC189FEB790019D2D6 /* UserTrackingNone.svg in Resources */,
-				8411B8E9189FEB790019D2D6 /* Move.svg in Resources */,
-				8411B8D3189FEB790019D2D6 /* FriendsOn.svg in Resources */,
-				8411B8F6189FEB790019D2D6 /* UserTrackingFollow.svg in Resources */,
-				8411B8CD189FEB790019D2D6 /* Connection.svg in Resources */,
 				8411B8DC189FEB790019D2D6 /* icon_iphone@2x.png in Resources */,
-				8411B8CB189FEB790019D2D6 /* Center.svg in Resources */,
 				8411B8D8189FEB790019D2D6 /* icon_57x57.png in Resources */,
 				8411B8EA189FEB790019D2D6 /* Move@2x.png in Resources */,
 				8411B8DB189FEB790019D2D6 /* icon_iphone.png in Resources */,
 				8411B8FB189FEB790019D2D6 /* UserTrackingNone.png in Resources */,
 				8411B896189FEAE60019D2D6 /* Storyboard.storyboard in Resources */,
 				8411B8DF189FEB790019D2D6 /* iTunesArtwork@2x in Resources */,
-				8411B8D6189FEB790019D2D6 /* HybridOn.svg in Resources */,
 				8411B8CE189FEB790019D2D6 /* Default-568h@2x.png in Resources */,
 				8411B8F3189FEB790019D2D6 /* SatelliteOn@2x.png in Resources */,
 				8411B8D9189FEB790019D2D6 /* icon_ipad320.png in Resources */,
@@ -554,7 +529,6 @@
 				8411B8E4189FEB790019D2D6 /* LocationOff@2x.png in Resources */,
 				8411B8DD189FEB790019D2D6 /* iTunesArtwork in Resources */,
 				8411B8E0189FEB790019D2D6 /* iTunesArtwork@2x.png in Resources */,
-				8411B8D1189FEB790019D2D6 /* FriendsOff.svg in Resources */,
 				8411B8E1189FEB790019D2D6 /* Location.gpx in Resources */,
 				8411B8E2189FEB790019D2D6 /* LocationOff.png in Resources */,
 				8411B8D4189FEB790019D2D6 /* FriendsOn@2x.png in Resources */,
@@ -718,6 +692,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/ckrey/MQTT-Client-Framework/MQTTClient/dist",
+					"/Users/ckrey/Developer/MQTT-Client-Framework/MQTTClient/dist",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
@@ -737,6 +712,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/ckrey/MQTT-Client-Framework/MQTTClient/dist",
+					"/Users/ckrey/Developer/MQTT-Client-Framework/MQTTClient/dist",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
