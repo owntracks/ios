@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIeffectiveWillTopic;
 @property (weak, nonatomic) IBOutlet UITextField *UIeffectiveDeviceId;
 
+@property (strong, nonatomic) UIDocumentInteractionController *dic;
+
 @end
 
 @implementation StatusTVC
@@ -50,31 +52,24 @@
 
 - (IBAction)send:(UIBarButtonItem *)sender
 {
-    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
-    picker.mailComposeDelegate = self;
-    
-    [picker setSubject:[NSString stringWithFormat:@"OwnTracks config %@", self.UIeffectiveClientId.text]];
-    
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [picker addAttachmentData:[delegate.settings toData] mimeType:@"application/json"
-                     fileName:[NSString stringWithFormat:@"Config-%@.otrc", self.UIeffectiveClientId.text]];
+    NSError *error;
     
-    NSString *emailBody = @"see attached file";
-    [picker setMessageBody:emailBody isHTML:NO];
+    NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
+                                                                 inDomain:NSUserDomainMask
+                                                        appropriateForURL:nil
+                                                                   create:YES
+                                                                    error:&error];
+    NSString *fileName = [NSString stringWithFormat:@"config.otrc"];
+    NSURL *fileURL = [directoryURL URLByAppendingPathComponent:fileName];
     
-    [self presentViewController:picker animated:YES completion:^{
-        // done
-    }];
+    [[NSFileManager defaultManager] createFileAtPath:[fileURL path]
+                                            contents:[delegate.settings toData]
+                                          attributes:nil];
+    
+    self.dic = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
+    self.dic.delegate = self;
+    [self.dic presentOptionsMenuFromBarButtonItem:sender animated:YES];
 }
-
-- (void)mailComposeController:(MFMailComposeViewController *)controller
-          didFinishWithResult:(MFMailComposeResult)result
-                        error:(NSError *)error
-{
-    [controller dismissViewControllerAnimated:YES completion:^{
-        // done
-    }];
-}
-
 
 @end
