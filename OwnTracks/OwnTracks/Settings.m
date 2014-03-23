@@ -110,6 +110,9 @@
             string = dictionary[@"ab"];
             if (string) [self setObject:@([string integerValue]) forKey:@"ab_preference"];
             
+            string = dictionary[@"positions"];
+            if (string) [self setObject:@([string integerValue]) forKey:@"positions_preference"];
+            
         } else {
             return [NSError errorWithDomain:@"OwnTracks Settings" code:1 userInfo:@{@"_type": dictionary[@"_type"]}];
         }

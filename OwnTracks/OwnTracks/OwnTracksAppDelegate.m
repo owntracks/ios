@@ -26,7 +26,6 @@
 #define BACKGROUND_DISCONNECT_AFTER 8.0
 #define REMINDER_AFTER 300.0
 
-#define MAX_OWN_LOCATIONS 50
 #define MAX_OTHER_LOCATIONS 1
 
 #undef REMOTE_NOTIFICATIONS
@@ -467,6 +466,29 @@
 #ifdef DEBUG
     NSLog(@"App didStartMonitoringForRegion %@", region);
 #endif
+    if ([region containsCoordinate:self.manager.location.coordinate]) {
+#ifdef DEBUG
+        NSLog(@"App is already in region %@", region);
+#endif
+        NSString *message = [NSString stringWithFormat:@"Already in %@", region.identifier];
+        [self notification:message userInfo:nil];
+        
+        NSMutableDictionary *addon = [[NSMutableDictionary alloc] init];
+        [addon setObject:@"enter" forKey:@"event" ];
+        
+        for (Location *location in [Location allRegionsOfTopic:[self.settings theGeneralTopic]
+                                        inManagedObjectContext:[CoreData theManagedObjectContext]]) {
+            if ([location.remark isEqualToString:region.identifier]) {
+                if ([location.share boolValue]) {
+                    if (location.remark) {
+                        [addon setValue:location.remark forKey:@"desc"];
+                    }
+                }
+            }
+        }
+        
+        [self publishLocation:[manager location] automatic:TRUE addon:addon];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
@@ -626,8 +648,10 @@
 
 - (void)messageDelivered:(UInt16)msgID
 {
+#ifdef DEBUG
     NSString *message = [NSString stringWithFormat:@"Message delivered id=%u", msgID];
     [self notification:message userInfo:nil];
+#endif
 }
 
 - (void)totalBuffered:(NSUInteger)count
@@ -760,13 +784,15 @@
                                     retain:[self.settings boolForKey:@"retain_preference"]];
     
     if (msgID <= 0) {
+#ifdef DEBUG
+
         NSString *message = [NSString stringWithFormat:@"Location %@",
                              (msgID == -1) ? @"queued" : @"sent"];
         [self notification:message userInfo:nil];
-        
+#endif
     }
     
-    [self limitLocationsWith:newLocation.belongsTo toMaximum:MAX_OWN_LOCATIONS];
+    [self limitLocationsWith:newLocation.belongsTo toMaximum:[self.settings integerForKey:@"positions_preference"]];
     
     /**
      *   In background, set timer to disconnect after BACKGROUND_DISCONNECT_AFTER sec. IOS will suspend app after 10 sec.
@@ -804,10 +830,11 @@
                                     retain:NO];
     
     if (msgID <= 0) {
+#ifdef DEBUG
         NSString *message = [NSString stringWithFormat:@"Waypoint %@",
                              (msgID == -1) ? @"queued" : @"sent"];
         [self notification:message userInfo:nil];
-        
+#endif
     }
     [self saveContext];
 }

@@ -104,7 +104,7 @@
         willRetainFlag != self.willRetainFlag ||
         ![clientId isEqualToString:self.clientId]) {
         self.host = host;
-        self.port = port;
+        self.port = (int)port;
         self.tls = tls;
         self.keepalive = keepalive;
         self.clean = clean;

@@ -187,6 +187,7 @@
 - (CLCircularRegion *)circularRegion
 {
     CLCircularRegion *circularRegion = nil;
+    NSLog(@"circularRegion d%hhd t%@ c%@.%@ a%@ r%@ %f", self.isDeleted, self.timestamp, self.latitude, self.longitude, self.automatic, self.remark, self.radius);
     if (![self.automatic boolValue] && self.remark && self.radius > 0) {
         circularRegion = [[CLCircularRegion alloc] initWithCenter:self.coordinate
                                                            radius:self.radius

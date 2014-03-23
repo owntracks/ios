@@ -48,5 +48,7 @@
 	<integer>1</integer>
 	<key>ab_preference</key>
 	<true/>
+	<key>positions_preference</key>
+	<integer>50</integer>
 </dict>
 </plist>

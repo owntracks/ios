@@ -8,12 +8,6 @@
 
 #import "CoreData.h"
 
-@interface CoreData()
-
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
-@end
-
 static NSManagedObjectContext *theManagedObjectContext = nil;
 
 @implementation CoreData

@@ -112,7 +112,7 @@
         if (indexPath) {
             if ([segue.identifier isEqualToString:@"setPerson:"]) {
                 NSArray *persons = [self sortedPersonsInSection: indexPath.section];
-                self.person = ABAddressBookGetPersonWithRecordID([Friend theABRef], [persons[indexPath.row] integerValue]);
+                self.person = ABAddressBookGetPersonWithRecordID([Friend theABRef], [persons[indexPath.row] intValue]);
             }
         }
     } else {
