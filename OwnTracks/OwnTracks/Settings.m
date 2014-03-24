@@ -37,6 +37,7 @@
 #endif
         
         if ([dictionary[@"_type"] isEqualToString:@"configuration"]) {
+            NSString *stringOld;
             NSString *string;
             
             string = dictionary[@"deviceid"];
@@ -45,33 +46,44 @@
             string = dictionary[@"clientid"];
             if (string) [self setObject:string forKey:@"clientid_preference"];
             
-            string = dictionary[@"subscription"];
+            string = dictionary[@"subTopic"];
+            stringOld = dictionary[@"subscription"];
             if (string) [self setObject:string forKey:@"subscription_preference"];
+            else if (stringOld) [self setObject:stringOld forKey:@"subscription_preference"];
             
-            string = dictionary[@"topic"];
+            string = dictionary[@"pubTopicBase"];
+            stringOld = dictionary[@"topic"];
             if (string) [self setObject:string forKey:@"topic_preference"];
+            else if (stringOld) [self setObject:stringOld forKey:@"topic_preference"];
             
             string = dictionary[@"host"];
             if (string) [self setObject:string forKey:@"host_preference"];
             
-            string = dictionary[@"user"];
+            string = dictionary[@"username"];
+            stringOld = dictionary[@"user"];
             if (string) [self setObject:string forKey:@"user_preference"];
+            else if (stringOld) [self setObject:stringOld forKey:@"user_preference"];
             
             string = dictionary[@"pass"];
+            stringOld = dictionary[@"password"];
             if (string) [self setObject:string forKey:@"pass_preference"];
+            else if (stringOld) [self setObject:stringOld forKey:@"pass_preference"];
             
-            string = dictionary[@"will"];
-            if (string) [self setObject:string forKey:@"will_preference"];
-            
-            string = dictionary[@"willtopic"];
+            string = dictionary[@"willTopic"];
+            stringOld = dictionary[@"willtopic"];
             if (string) [self setObject:string forKey:@"willtopic_preference"];
+            else if (stringOld) [self setObject:stringOld forKey:@"willtopic_preference"];
             
             
-            string = dictionary[@"subscriptionqos"];
+            string = dictionary[@"subQos"];
+            stringOld = dictionary[@"subscriptionqos"];
             if (string) [self setObject:@([string integerValue]) forKey:@"subscriptionqos_preference"];
+            else if (stringOld) [self setObject:@([stringOld integerValue]) forKey:@"subscriptionqos_preference"];
             
-            string = dictionary[@"qos"];
+            string = dictionary[@"pubQos"];
+            stringOld = dictionary[@"qos"];
             if (string) [self setObject:@([string integerValue]) forKey:@"qos_preference"];
+            else if (stringOld) [self setObject:@([stringOld integerValue]) forKey:@"qos_preference"];
             
             string = dictionary[@"port"];
             if (string) [self setObject:@([string integerValue]) forKey:@"port_preference"];
@@ -79,21 +91,29 @@
             string = dictionary[@"keepalive"];
             if (string) [self setObject:@([string integerValue]) forKey:@"keepalive_preference"];
             
-            string = dictionary[@"willqos"];
+            string = dictionary[@"willQos"];
+            stringOld = dictionary[@"willqos"];
             if (string) [self setObject:@([string integerValue]) forKey:@"willqos_preference"];
+            else if (stringOld) [self setObject:@([stringOld integerValue]) forKey:@"willqos_preference"];
             
-            string = dictionary[@"mindist"];
+            string = dictionary[@"locatorDisplacement"];
+            stringOld = dictionary[@"mindist"];
             if (string) [self setObject:@([string integerValue]) forKey:@"mindist_preference"];
+            else if (stringOld) [self setObject:@([stringOld integerValue]) forKey:@"mindist_preference"];
             
-            string = dictionary[@"mintime"];
+            string = dictionary[@"locatorInterval"];
+            stringOld = dictionary[@"mintime"];
             if (string) [self setObject:@([string integerValue]) forKey:@"mintime_preference"];
+            else if (stringOld) [self setObject:@([stringOld integerValue]) forKey:@"mintime_preference"];
             
             string = dictionary[@"monitoring"];
             if (string) [self setObject:@([string integerValue]) forKey:@"monitoring_preference"];
             
             
-            string = dictionary[@"retain"];
+            string = dictionary[@"pubRetain"];
+            stringOld = dictionary[@"retain"];
             if (string) [self setObject:@([string integerValue]) forKey:@"retain_preference"];
+            else if (stringOld) [self setObject:@([stringOld integerValue]) forKey:@"retain_preference"];
             
             string = dictionary[@"tls"];
             if (string) [self setObject:@([string integerValue]) forKey:@"tls_preference"];
@@ -101,14 +121,20 @@
             string = dictionary[@"auth"];
             if (string) [self setObject:@([string integerValue]) forKey:@"auth_preference"];
             
-            string = dictionary[@"clean"];
+            string = dictionary[@"cleanSession"];
+            stringOld = dictionary[@"clean"];
             if (string) [self setObject:@([string integerValue]) forKey:@"clean_preference"];
+            else if (stringOld) [self setObject:@([stringOld integerValue]) forKey:@"clean_preference"];
             
-            string = dictionary[@"willretain"];
+            string = dictionary[@"willRetain"];
+            stringOld = dictionary[@"willretain"];
             if (string) [self setObject:@([string integerValue]) forKey:@"willretain_preference"];
+            else if (stringOld) [self setObject:@([stringOld integerValue]) forKey:@"willretain_preference"];
             
-            string = dictionary[@"ab"];
+            string = dictionary[@"updateAddressBook"];
+            stringOld = dictionary[@"ab"];
             if (string) [self setObject:@([string integerValue]) forKey:@"ab_preference"];
+            else if (stringOld) [self setObject:@([stringOld integerValue]) forKey:@"ab_preference"];
             
             string = dictionary[@"positions"];
             if (string) [self setObject:@([string integerValue]) forKey:@"positions_preference"];
@@ -129,29 +155,29 @@
     NSDictionary *dict = @{@"_type": @"configuration",
                            @"deviceid": [self objectForKey:@"deviceid_preference"],
                            @"clientid": [self objectForKey:@"clientid_preference"],
-                           @"subsription": [self objectForKey:@"subscription_preference"],
-                           @"topic": [self objectForKey:@"topic_preference"],
+                           @"subTopic": [self objectForKey:@"subscription_preference"],
+                           @"pubTopicBase": [self objectForKey:@"topic_preference"],
                            @"host": [self objectForKey:@"host_preference"],
-                           @"user": [self objectForKey:@"user_preference"],
-                           @"pass": @"password",
-                           @"will": [self objectForKey:@"will_preference"],
-                           @"willtopic": [self objectForKey:@"willtopic_preference"],
+                           @"username": [self objectForKey:@"user_preference"],
+                           @"password": @"password",
+                           @"willTopic": [self objectForKey:@"willtopic_preference"],
                            
-                           @"subscriptionqos": [self objectForKey:@"subscriptionqos_preference"],
-                           @"qos": [self objectForKey:@"qos_preference"],
+                           @"subQos": [self objectForKey:@"subscriptionqos_preference"],
+                           @"pubQos": [self objectForKey:@"qos_preference"],
                            @"port": [self objectForKey:@"port_preference"],
                            @"keepalive": [self objectForKey:@"keepalive_preference"],
-                           @"willqos": [self objectForKey:@"willqos_preference"],
-                           @"mindist": [self objectForKey:@"mindist_preference"],
-                           @"mintime": [self objectForKey:@"mintime_preference"],
+                           @"willQos": [self objectForKey:@"willqos_preference"],
+                           @"locatorDisplacement": [self objectForKey:@"mindist_preference"],
+                           @"locatorInterval": [self objectForKey:@"mintime_preference"],
                            @"monitoring": [self objectForKey:@"monitoring_preference"],
                            
-                           @"retain": [self objectForKey:@"retain_preference"],
+                           @"pubRetain": [self objectForKey:@"retain_preference"],
                            @"tls": [self objectForKey:@"tls_preference"],
                            @"auth": [self objectForKey:@"auth_preference"],
-                           @"clean": [self objectForKey:@"clean_preference"],
-                           @"willretain": [self objectForKey:@"willretain_preference"],
-                           @"ab": [self objectForKey:@"ab_preference"],
+                           @"cleanSession": [self objectForKey:@"clean_preference"],
+                           @"willRetain": [self objectForKey:@"willretain_preference"],
+                           @"updateAddressBook": [self objectForKey:@"ab_preference"],
+                           @"positions": [self objectForKey:@"positions_preference"],
                            };
     
     NSError *error;

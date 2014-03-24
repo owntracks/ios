@@ -36,8 +36,6 @@
 	<integer>60</integer>
 	<key>clean_preference</key>
 	<false/>
-	<key>will_preference</key>
-	<string>lwt</string>
 	<key>willtopic_preference</key>
 	<string></string>
 	<key>willretain_preference</key>

@@ -210,20 +210,6 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>Will</string>
-			<key>Key</key>
-			<string>will_preference</string>
-			<key>KeyboardType</key>
-			<string>Alphabet</string>
-			<key>DefaultValue</key>
-			<string>lwt</string>
-			<key>AutocorrectionType</key>
-			<string>No</string>
-		</dict>
-		<dict>
-			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
 			<string>Will QoS Level</string>
