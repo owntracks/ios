@@ -21,7 +21,6 @@
 		8411B855189FDB140019D2D6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8411B853189FDB140019D2D6 /* InfoPlist.strings */; };
 		8411B857189FDB140019D2D6 /* OwnTracksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B856189FDB140019D2D6 /* OwnTracksTests.m */; };
 		8411B861189FDD200019D2D6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B860189FDD200019D2D6 /* MapKit.framework */; };
-		8411B866189FDFDE0019D2D6 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8411B865189FDFDE0019D2D6 /* Settings.bundle */; };
 		8411B878189FE1ED0019D2D6 /* Friend+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B869189FE1ED0019D2D6 /* Friend+Create.m */; };
 		8411B87A189FE1ED0019D2D6 /* Location+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B86D189FE1ED0019D2D6 /* Location+Create.m */; };
 		8411B87F189FE35C0019D2D6 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */; };
@@ -77,7 +76,9 @@
 		8411B915189FF1A80019D2D6 /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B914189FF1A80019D2D6 /* Friend.m */; };
 		8411B918189FF1A80019D2D6 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B917189FF1A80019D2D6 /* Location.m */; };
 		8432AA7518BD127300E817D3 /* MQTTClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B863189FDE0D0019D2D6 /* MQTTClient.framework */; };
-		849D457E18CDB1F300201BF3 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
+		8479EEB218E4288800923B24 /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB118E4288800923B24 /* Setting.m */; };
+		8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB418E4289E00923B24 /* Setting+Create.m */; };
+		8479EEB718E4529900923B24 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		840BBDD318E4274200DC113C /* Model 6.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 6.2.xcdatamodel"; sourceTree = "<group>"; };
 		8411B828189FDB140019D2D6 /* OwnTracks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OwnTracks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8411B82B189FDB140019D2D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8411B82D189FDB140019D2D6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -111,7 +113,6 @@
 		8411B860189FDD200019D2D6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8411B862189FDD300019D2D6 /* OwnTracks.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OwnTracks.entitlements; sourceTree = "<group>"; };
 		8411B863189FDE0D0019D2D6 /* MQTTClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MQTTClient.framework; path = "../../MQTT-Client-Framework/MQTTClient/dist/MQTTClient.framework"; sourceTree = "<group>"; };
-		8411B865189FDFDE0019D2D6 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		8411B868189FE1ED0019D2D6 /* Friend+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Friend+Create.h"; sourceTree = "<group>"; };
 		8411B869189FE1ED0019D2D6 /* Friend+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Friend+Create.m"; sourceTree = "<group>"; };
 		8411B86C189FE1ED0019D2D6 /* Location+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Location+Create.h"; sourceTree = "<group>"; };
@@ -196,6 +197,10 @@
 		8411B914189FF1A80019D2D6 /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
 		8411B916189FF1A80019D2D6 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		8411B917189FF1A80019D2D6 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		8479EEB018E4288800923B24 /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
+		8479EEB118E4288800923B24 /* Setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
+		8479EEB318E4289E00923B24 /* Setting+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Setting+Create.h"; path = "../../Setting+Create.h"; sourceTree = "<group>"; };
+		8479EEB418E4289E00923B24 /* Setting+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Setting+Create.m"; path = "../../Setting+Create.m"; sourceTree = "<group>"; };
 		849D457B18CDACDF00201BF3 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -305,7 +310,6 @@
 				8411B836189FDB140019D2D6 /* InfoPlist.strings */,
 				8411B839189FDB140019D2D6 /* main.m */,
 				8411B83B189FDB140019D2D6 /* OwnTracks-Prefix.pch */,
-				8411B865189FDFDE0019D2D6 /* Settings.bundle */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -333,11 +337,15 @@
 			children = (
 				8411B892189FEA9D0019D2D6 /* CoreDataTableViewController.h */,
 				8411B893189FEA9D0019D2D6 /* CoreDataTableViewController.m */,
+				8479EEB318E4289E00923B24 /* Setting+Create.h */,
+				8479EEB418E4289E00923B24 /* Setting+Create.m */,
 				8411B868189FE1ED0019D2D6 /* Friend+Create.h */,
 				8411B869189FE1ED0019D2D6 /* Friend+Create.m */,
 				8411B86C189FE1ED0019D2D6 /* Location+Create.h */,
 				8411B86D189FE1ED0019D2D6 /* Location+Create.m */,
 				8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */,
+				8479EEB018E4288800923B24 /* Setting.h */,
+				8479EEB118E4288800923B24 /* Setting.m */,
 				8411B916189FF1A80019D2D6 /* Location.h */,
 				8411B917189FF1A80019D2D6 /* Location.m */,
 				8411B913189FF1A80019D2D6 /* Friend.h */,
@@ -492,7 +500,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				849D457E18CDB1F300201BF3 /* Settings.plist in Resources */,
+				8479EEB718E4529900923B24 /* Settings.plist in Resources */,
 				8411B8D7189FEB790019D2D6 /* HybridOn@2x.png in Resources */,
 				8411B8FD189FEB790019D2D6 /* UserTrackingNone@2x.png in Resources */,
 				8411B8F7189FEB790019D2D6 /* UserTrackingFollow@2x.png in Resources */,
@@ -501,7 +509,6 @@
 				8411B8F8189FEB790019D2D6 /* UserTrackingFollowWithHeading.png in Resources */,
 				8411B8DA189FEB790019D2D6 /* icon_ipad64.png in Resources */,
 				8411B8D0189FEB790019D2D6 /* Default@2x.png in Resources */,
-				8411B866189FDFDE0019D2D6 /* Settings.bundle in Resources */,
 				8411B8F0189FEB790019D2D6 /* SatelliteOff@2x.png in Resources */,
 				8411B8DE189FEB790019D2D6 /* iTunesArtwork.png in Resources */,
 				8411B8EB189FEB790019D2D6 /* Pin.png in Resources */,
@@ -564,10 +571,12 @@
 				8411B90F189FEC070019D2D6 /* LocationTVC.m in Sources */,
 				8411B88B189FE79B0019D2D6 /* CoreData.m in Sources */,
 				8411B87A189FE1ED0019D2D6 /* Location+Create.m in Sources */,
+				8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */,
 				8411B878189FE1ED0019D2D6 /* Friend+Create.m in Sources */,
 				8411B918189FF1A80019D2D6 /* Location.m in Sources */,
 				8411B83E189FDB140019D2D6 /* OwnTracksAppDelegate.m in Sources */,
 				8411B891189FE9CE0019D2D6 /* Settings.m in Sources */,
+				8479EEB218E4288800923B24 /* Setting.m in Sources */,
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -794,9 +803,10 @@
 		8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				840BBDD318E4274200DC113C /* Model 6.2.xcdatamodel */,
 				8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */;
+			currentVersion = 840BBDD318E4274200DC113C /* Model 6.2.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

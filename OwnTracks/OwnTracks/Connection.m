@@ -198,7 +198,7 @@
             if (self.clean || !self.reconnectFlag) {
                 OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
                 NSString *topic = [delegate.settings stringForKey:@"subscription_preference"];
-                UInt8 qos =[delegate.settings integerForKey:@"subscriptionqos_preference"];
+                UInt8 qos =[delegate.settings intForKey:@"subscriptionqos_preference"];
                 if (topic && ![topic isEqualToString:@""]) {
                     [self.session subscribeToTopic:topic atLevel:qos];
                 }

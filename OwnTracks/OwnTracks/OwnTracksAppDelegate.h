@@ -18,7 +18,7 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) CLLocationManager *manager;
-@property (nonatomic) NSInteger monitoring;
+@property (nonatomic) int monitoring;
 @property (strong, nonatomic) Connection *connection;
 @property (strong, nonatomic) Settings *settings;
 

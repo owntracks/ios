@@ -19,8 +19,13 @@
         <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
         <relationship name="belongsTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Friend" inverseName="hasLocations" inverseEntity="Friend" syncable="YES"/>
     </entity>
+    <entity name="Setting" representedClassName="Setting" syncable="YES">
+        <attribute name="key" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Friend" positionX="0" positionY="0" width="128" height="103"/>
+        <element name="Friend" positionX="0" positionY="0" width="128" height="105"/>
         <element name="Location" positionX="0" positionY="0" width="128" height="210"/>
+        <element name="Setting" positionX="9" positionY="90" width="128" height="75"/>
     </elements>
 </model>

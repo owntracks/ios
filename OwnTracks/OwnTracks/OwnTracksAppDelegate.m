@@ -49,8 +49,6 @@
     
     self.backgroundTask = UIBackgroundTaskInvalid;
     
-    self.settings = [[Settings alloc] init];
-    
     return YES;
 }
 
@@ -83,6 +81,12 @@
     } while (state & UIDocumentStateClosed || ![CoreData theManagedObjectContext]);
     
     /*
+     * Settings
+     */
+    
+    self.settings = [[Settings alloc] init];
+    
+    /*
      * CLLocationManager
      */
     
@@ -92,7 +96,7 @@
             self.locationLastSent = [NSDate date]; // Do not sent old locations
             self.manager.delegate = self;
             
-            self.monitoring = [self.settings integerForKey:@"monitoring_preference"];
+            self.monitoring = [self.settings intForKey:@"monitoring_preference"];
             
             for (CLRegion *region in self.manager.monitoredRegions) {
                 [self.manager stopMonitoringForRegion:region];
@@ -364,8 +368,7 @@
 #ifdef DEBUG
     NSLog(@"App applicationWillTerminate");
 #endif
-    [self.settings synchronize];
-    [self saveContext];    
+    [self saveContext];
     [self notification:@"OwnTracks terminated. Tap to restart" after:REMINDER_AFTER userInfo:nil];
 }
 
@@ -690,7 +693,6 @@
     [self saveContext];
     [self connectionOff];
     self.monitoring = 0;
-    [self.settings synchronize];
     exit(0);
 }
 - (void)sendNow
@@ -710,14 +712,14 @@
     [self.connection disconnect];
 }
 
-- (void)setMonitoring:(NSInteger)monitoring
+- (void)setMonitoring:(int)monitoring
 {
 #ifdef DEBUG
     NSLog(@"App monitoring=%ld", (long)monitoring);
 #endif
     
     _monitoring = monitoring;
-    [self.settings setObject:@(monitoring) forKey:@"monitoring_preference"];
+    [self.settings setInt:monitoring forKey:@"monitoring_preference"];
     
     switch (monitoring) {
         case 2:
@@ -780,7 +782,7 @@
     
     long msgID = [self.connection sendData:data
                                      topic:[self.settings theGeneralTopic]
-                                       qos:[self.settings integerForKey:@"qos_preference"]
+                                       qos:[self.settings intForKey:@"qos_preference"]
                                     retain:[self.settings boolForKey:@"retain_preference"]];
     
     if (msgID <= 0) {
@@ -792,7 +794,7 @@
 #endif
     }
     
-    [self limitLocationsWith:newLocation.belongsTo toMaximum:[self.settings integerForKey:@"positions_preference"]];
+    [self limitLocationsWith:newLocation.belongsTo toMaximum:[self.settings intForKey:@"positions_preference"]];
     
     /**
      *   In background, set timer to disconnect after BACKGROUND_DISCONNECT_AFTER sec. IOS will suspend app after 10 sec.
@@ -826,7 +828,7 @@
     
     long msgID = [self.connection sendData:data
                                      topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/waypoints"]
-                                       qos:[self.settings integerForKey:@"qos_preference"]
+                                       qos:[self.settings intForKey:@"qos_preference"]
                                     retain:NO];
     
     if (msgID <= 0) {
@@ -873,10 +875,10 @@
 - (void)connect
 {
     [self.connection connectTo:[self.settings stringForKey:@"host_preference"]
-                          port:[self.settings integerForKey:@"port_preference"]
+                          port:[self.settings intForKey:@"port_preference"]
                            tls:[self.settings boolForKey:@"tls_preference"]
-                     keepalive:[self.settings integerForKey:@"keepalive_preference"]
-                         clean:[self.settings integerForKey:@"clean_preference"]
+                     keepalive:[self.settings intForKey:@"keepalive_preference"]
+                         clean:[self.settings intForKey:@"clean_preference"]
                           auth:[self.settings boolForKey:@"auth_preference"]
                           user:[self.settings stringForKey:@"user_preference"]
                           pass:[self.settings stringForKey:@"pass_preference"]
@@ -884,7 +886,7 @@
                           will:[self jsonToData:@{
                                                   @"tst": [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]],
                                                   @"_type": @"lwt"}]
-                       willQos:[self.settings integerForKey:@"willqos_preference"]
+                       willQos:[self.settings intForKey:@"willqos_preference"]
                 willRetainFlag:[self.settings boolForKey:@"willretain_preference"]
                   withClientId:[self.settings theClientId]];
 }
