@@ -8,17 +8,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>App settings...</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
-			<key>Title</key>
-			<string>...have moved</string>
-			<key>DefaultValue</key>
-			<string>inside the app</string>
-			<key>Key</key>
-			<string>havemoved</string>
+			<string>Settings have moved inside the app</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>
