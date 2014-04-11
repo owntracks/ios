@@ -183,8 +183,8 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="version" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b3Z-oB-6VW">
-                                                    <rect key="frame" x="85" y="7" width="215" height="30"/>
+                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="version" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b3Z-oB-6VW">
+                                                    <rect key="frame" x="85" y="7" width="102" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="bWa-ap-eH2"/>
@@ -193,11 +193,29 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NV0-Oj-MKP">
+                                                    <rect key="frame" x="195" y="7" width="105" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="At3-KF-ijg"/>
+                                                        <constraint firstAttribute="width" constant="105" id="LzZ-bA-QsV"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Documentation">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="documentationPressed:" destination="KLm-gU-upL" eventType="touchUpInside" id="duD-bq-xsO"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="NV0-Oj-MKP" firstAttribute="leading" secondItem="b3Z-oB-6VW" secondAttribute="trailing" constant="8" symbolic="YES" id="Gos-nx-mAD"/>
+                                                <constraint firstAttribute="trailing" secondItem="NV0-Oj-MKP" secondAttribute="trailing" constant="20" symbolic="YES" id="OuI-DA-jIX"/>
+                                                <constraint firstItem="NV0-Oj-MKP" firstAttribute="top" secondItem="qme-Db-dpc" secondAttribute="top" constant="7" id="uQo-m9-sa7"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <constraints>
                                             <constraint firstItem="b3Z-oB-6VW" firstAttribute="top" secondItem="pbJ-XE-zQs" secondAttribute="top" constant="7" id="4xO-Po-LzG"/>
-                                            <constraint firstAttribute="trailing" secondItem="b3Z-oB-6VW" secondAttribute="trailing" constant="20" id="7WZ-V3-flW"/>
                                             <constraint firstItem="0PP-Jk-URW" firstAttribute="leading" secondItem="pbJ-XE-zQs" secondAttribute="leading" constant="20" id="dgT-GC-Hqv"/>
                                             <constraint firstItem="0PP-Jk-URW" firstAttribute="centerY" secondItem="pbJ-XE-zQs" secondAttribute="centerY" constant="-0.5" id="gdP-N8-Ia0"/>
                                             <constraint firstItem="b3Z-oB-6VW" firstAttribute="leading" secondItem="0PP-Jk-URW" secondAttribute="trailing" constant="8" symbolic="YES" id="tsM-lH-G1E"/>
@@ -623,7 +641,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="289"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <mutableString key="text">MQTT client code based on:
+                                                    <string key="text">MQTT client code based on:
 
 mqttIO-iOS-SDK
 iOS SDK for MQTT
@@ -636,7 +654,7 @@ Redistribution and use in source and binary forms, with or without modification,
 
 Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</mutableString>
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>

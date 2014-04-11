@@ -154,4 +154,9 @@
     [self.dic presentOptionsMenuFromBarButtonItem:sender animated:YES];
 }
 
+- (IBAction)documentationPressed:(UIButton *)sender {
+    [[UIApplication sharedApplication] openURL:
+     [NSURL URLWithString:@"https://github.com/owntracks/owntracks/wiki"]];
+}
+
 @end
