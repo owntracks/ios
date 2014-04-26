@@ -23,6 +23,7 @@
 
 + (NSArray *)allLocationsInManagedObjectContext:(NSManagedObjectContext *)context;
 + (NSArray *)allRegionsOfTopic:(NSString *)topic inManagedObjectContext:(NSManagedObjectContext *)context;
++ (NSArray *)allWaypointsOfTopic:(NSString *)topic inManagedObjectContext:(NSManagedObjectContext *)context;
 + (NSArray *)allAutomaticLocationsWithFriend:(Friend *)friend inManagedObjectContext:(NSManagedObjectContext *)context;
 
 @property (nonatomic, readonly) CLLocationCoordinate2D coordinate;

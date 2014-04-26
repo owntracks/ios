@@ -73,9 +73,23 @@
 + (NSArray *)allRegionsOfTopic:(NSString *)topic inManagedObjectContext:(NSManagedObjectContext *)context
 {
     Friend *friend = [Friend friendWithTopic:topic inManagedObjectContext:context];
-
+    
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Location"];
     request.predicate = [NSPredicate predicateWithFormat:@"belongsTo = %@ AND automatic = FALSE AND regionradius > 0 AND remark != NIL", friend];
+    
+    NSError *error = nil;
+    
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+    
+    return matches;
+}
+
++ (NSArray *)allWaypointsOfTopic:(NSString *)topic inManagedObjectContext:(NSManagedObjectContext *)context
+{
+    Friend *friend = [Friend friendWithTopic:topic inManagedObjectContext:context];
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Location"];
+    request.predicate = [NSPredicate predicateWithFormat:@"belongsTo = %@ AND automatic = FALSE AND remark != NIL", friend];
     
     NSError *error = nil;
     

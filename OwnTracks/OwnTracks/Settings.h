@@ -10,6 +10,7 @@
 
 @interface Settings : NSObject
 - (NSError *)fromStream:(NSInputStream *)input;
+- (NSError *)waypointsFromStream:(NSInputStream *)input;
 - (NSData *)toData;
 
 - (NSString *)stringForKey:(NSString *)key;

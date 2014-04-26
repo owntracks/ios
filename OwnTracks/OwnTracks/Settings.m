@@ -9,6 +9,7 @@
 #import "Settings.h"
 #import "Setting+Create.h"
 #import "CoreData.h"
+#import "Location+Create.h"
 
 @interface Settings ()
 @property (strong, nonatomic) NSDictionary *appDefaults;
@@ -144,6 +145,9 @@
             string = dictionary[@"positions"];
             if (string) [self setString:string forKey:@"positions_preference"];
             
+            NSArray *waypoints = dictionary[@"waypoints"];
+            [self setWaypoints:waypoints];
+            
         } else {
             return [NSError errorWithDomain:@"OwnTracks Settings" code:1 userInfo:@{@"_type": dictionary[@"_type"]}];
         }
@@ -154,8 +158,82 @@
     return nil;
 }
 
+- (NSError *)waypointsFromStream:(NSInputStream *)input
+{
+    NSError *error;
+    
+    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithStream:input options:0 error:&error];
+    if (dictionary) {
+#ifdef DEBUG
+        for (NSString *key in [dictionary allKeys]) {
+            NSLog(@"Waypoints %@:%@", key, dictionary[key]);
+        }
+#endif
+        
+        if ([dictionary[@"_type"] isEqualToString:@"waypoints"]) {
+            NSArray *waypoints = dictionary[@"waypoints"];
+            [self setWaypoints:waypoints];
+        } else {
+            return [NSError errorWithDomain:@"OwnTracks Waypoints" code:1 userInfo:@{@"_type": dictionary[@"_type"]}];
+        }
+    } else {
+        return error;
+    }
+    return nil;
+}
+
+- (void)setWaypoints:(NSArray *)waypoints
+{
+    if (waypoints) {
+        for (NSDictionary *waypoint in waypoints) {
+            if ([waypoint[@"_type"] isEqualToString:@"waypoint"]) {
+#ifdef DEBUG
+                NSLog(@"Waypoint tst:%g lon:%g lat:%g",
+                      [waypoint[@"tst"] doubleValue],
+                      [waypoint[@"lon"] doubleValue],
+                      [waypoint[@"lat"] doubleValue]
+                      );
+#endif
+                CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
+                                                                               [waypoint[@"lat"] doubleValue],
+                                                                               [waypoint[@"lon"] doubleValue]
+                                                                               );
+                CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate
+                                                                     altitude:0
+                                                           horizontalAccuracy:0
+                                                             verticalAccuracy:0
+                                                                    timestamp:[NSDate dateWithTimeIntervalSince1970:[waypoint[@"tst"] doubleValue]]];
+                
+                [Location locationWithTopic:[self theGeneralTopic]
+                                  timestamp:location.timestamp
+                                 coordinate:location.coordinate
+                                   accuracy:location.horizontalAccuracy
+                                  automatic:NO
+                                     remark:waypoint[@"desc"]
+                                     radius:[waypoint[@"rad"] doubleValue]
+                                      share:YES
+                     inManagedObjectContext:[CoreData theManagedObjectContext]];
+            }
+        }
+    }
+}
+
 - (NSData *)toData
 {
+    NSMutableArray *waypoints = [[NSMutableArray alloc] init];
+    
+    for (Location *location in [Location allWaypointsOfTopic:[self theGeneralTopic]
+                                    inManagedObjectContext:[CoreData theManagedObjectContext]]) {
+        NSDictionary *waypoint = @{@"_type": @"waypoint",
+                                   @"lat": [NSString stringWithFormat:@"%g", location.coordinate.latitude],
+                                   @"lon": [NSString stringWithFormat:@"%g", location.coordinate.longitude],
+                                   @"tst": [NSString stringWithFormat:@"%.0f", [location.timestamp timeIntervalSince1970]],
+                                   @"rad": [NSString stringWithFormat:@"%g", location.radius],
+                                   @"desc": location.remark
+                                   };
+        [waypoints addObject:waypoint];
+    }
+    
     NSDictionary *dict = @{@"_type": @"configuration",
                            @"deviceid": [self stringForKey:@"deviceid_preference"],
                            @"clientid": [self stringForKey:@"clientid_preference"],
@@ -182,6 +260,8 @@
                            @"willRetain": [self stringForKey:@"willretain_preference"],
                            @"updateAddressBook": [self stringForKey:@"ab_preference"],
                            @"positions": [self stringForKey:@"positions_preference"],
+                           
+                           @"waypoints": waypoints
                            };
     
     NSError *error;

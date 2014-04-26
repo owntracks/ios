@@ -209,7 +209,7 @@
         if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
             error = [self.settings fromStream:input];
         } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
-            error = [self waypointsFromStream:input];
+            error = [self.settings waypointsFromStream:input];
         } else {
             error = [NSError errorWithDomain:@"OwnTracks" code:2 userInfo:@{@"extension":extension}];
         }
@@ -225,60 +225,6 @@
     }
     return TRUE;
 }
-
-- (NSError *)waypointsFromStream:(NSInputStream *)input
-{
-    NSError *error;
-    
-    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithStream:input options:0 error:&error];
-    if (dictionary) {
-#ifdef DEBUG
-        for (NSString *key in [dictionary allKeys]) {
-            NSLog(@"Waypoints %@:%@", key, dictionary[key]);
-        }
-#endif
-        
-        if ([dictionary[@"_type"] isEqualToString:@"waypoints"]) {
-            NSArray *waypoints = dictionary[@"waypoints"];
-            for (NSDictionary *waypoint in waypoints) {
-                if ([waypoint[@"_type"] isEqualToString:@"waypoint"]) {
-#ifdef DEBUG
-                    NSLog(@"Waypoint tst:%g lon:%g lat:%g",
-                          [waypoint[@"tst"] doubleValue],
-                          [waypoint[@"lon"] doubleValue],
-                          [waypoint[@"lat"] doubleValue]
-                          );
-#endif
-                    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
-                                                                                   [waypoint[@"lat"] doubleValue],
-                                                                                   [waypoint[@"lon"] doubleValue]
-                                                                                   );
-                    CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate
-                                                                         altitude:0
-                                                               horizontalAccuracy:0
-                                                                 verticalAccuracy:0
-                                                                        timestamp:[NSDate dateWithTimeIntervalSince1970:[waypoint[@"tst"] doubleValue]]];
-                    
-                    [Location locationWithTopic:[self.settings theGeneralTopic]
-                                      timestamp:location.timestamp
-                                     coordinate:location.coordinate
-                                       accuracy:location.horizontalAccuracy
-                                      automatic:NO
-                                         remark:waypoint[@"desc"]
-                                         radius:[waypoint[@"rad"] doubleValue]
-                                          share:YES
-                         inManagedObjectContext:[CoreData theManagedObjectContext]];
-                }
-            }
-        } else {
-            return [NSError errorWithDomain:@"OwnTracks Waypoints" code:1 userInfo:@{@"_type": dictionary[@"_type"]}];
-        }
-    } else {
-        return error;
-    }
-    return nil;
-}
-
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
