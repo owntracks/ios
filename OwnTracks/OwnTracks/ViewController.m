@@ -442,7 +442,11 @@ typedef enum {
                 renderer.fillColor = [UIColor colorWithRed:0.5 green:0.5 blue:1.0 alpha:0.333];
             }
         } else if ([location.region isKindOfClass:[CLBeaconRegion class]]) {
-            renderer.fillColor = [UIColor colorWithRed:0.5 green:1.0 blue:0.5 alpha:0.333];
+            if ([location.region containsCoordinate:[delegate.manager location].coordinate]) {
+                renderer.fillColor = [UIColor colorWithRed:0.5 green:1.0 blue:0.5 alpha:0.333];
+            } else {
+                renderer.fillColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.5 alpha:0.333];
+            }
         } else {
             renderer.fillColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.333];
         }
@@ -494,7 +498,7 @@ typedef enum {
 
     [self.mapView addAnnotations:[Location allLocationsInManagedObjectContext:[CoreData theManagedObjectContext]]];
     
-    NSArray *overlays = [Location allRegionsOfTopic:[delegate.settings theGeneralTopic]
+    NSArray *overlays = [Location allWaypointsOfTopic:[delegate.settings theGeneralTopic]
                               inManagedObjectContext:[CoreData theManagedObjectContext]];
     [self.mapView addOverlays:overlays];
     for (Location *location in overlays) {
@@ -576,15 +580,12 @@ typedef enum {
                 [self.mapView removeAnnotation:location];
                 if ([location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]]) {
                     [self.mapView removeOverlay:location];
-                    for (CLCircularRegion *circularRegion in delegate.manager.monitoredRegions) {
-                        if (circularRegion.center.latitude == location.coordinate.latitude &&
-                            circularRegion.center.longitude == location.coordinate.longitude) {
+                    for (CLRegion *region in delegate.manager.monitoredRegions) {
+                        if ([region.identifier isEqualToString:location.remark]) {
 #ifdef DEBUG
-                            NSLog(@"stopMonitoringForRegion %@ %.0f",
-                                  circularRegion.identifier,
-                                  circularRegion.radius);
+                            NSLog(@"stopMonitoringForRegion %@", region.identifier);
 #endif
-                            [delegate.manager stopMonitoringForRegion:circularRegion];
+                            [delegate.manager stopMonitoringForRegion:region];
                         }
                     }
                 }
@@ -595,15 +596,12 @@ typedef enum {
                 [self.mapView addAnnotation:location];
                 if ([location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]]) {
                     [self.mapView removeOverlay:location];
-                    for (CLCircularRegion *circularRegion in delegate.manager.monitoredRegions) {
-                        if (circularRegion.center.latitude == location.coordinate.latitude &&
-                            circularRegion.center.longitude == location.coordinate.longitude) {
+                    for (CLRegion *region in delegate.manager.monitoredRegions) {
+                        if ([region.identifier isEqualToString:location.remark]) {
 #ifdef DEBUG
-                            NSLog(@"stopMonitoringForRegion %@ %.0f",
-                                  circularRegion.identifier,
-                                  circularRegion.radius);
+                            NSLog(@"stopMonitoringForRegion %@", region.identifier);
 #endif
-                            [delegate.manager stopMonitoringForRegion:circularRegion];
+                            [delegate.manager stopMonitoringForRegion:region];
                         }
                     }
                     

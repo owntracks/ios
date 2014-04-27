@@ -117,7 +117,7 @@
      */
     
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert];
-#endif
+#endif // REMOTE_NOTIFICATIONS
     
 #ifdef BATTERY_MONITORING
     
@@ -226,19 +226,20 @@
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 #ifdef DEBUG
     NSLog(@"App applicationWillResignActive");
 #endif
     [self saveContext];
+    
+    for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
+        [self.manager stopRangingBeaconsInRegion:beaconRegion];
+    }
+    
     [self.connection disconnect];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 #ifdef DEBUG
     NSLog(@"App applicationDidEnterBackground");
 #endif
@@ -266,7 +267,6 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 #ifdef DEBUG
     NSLog(@"App applicationWillEnterForeground");
 #endif
@@ -274,7 +274,6 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 #ifdef DEBUG
     NSLog(@"App applicationDidBecomeActive");
 #endif
@@ -365,7 +364,7 @@
     NSMutableDictionary *addon = [[NSMutableDictionary alloc] init];
     [addon setObject:@"enter" forKey:@"event" ];
     
-    for (Location *location in [Location allRegionsOfTopic:[self.settings theGeneralTopic]
+    for (Location *location in [Location allWaypointsOfTopic:[self.settings theGeneralTopic]
                                     inManagedObjectContext:[CoreData theManagedObjectContext]]) {
         if ([location.remark isEqualToString:region.identifier]) {
             location.remark = region.identifier; // this touches the location and updates the overlay
@@ -378,6 +377,13 @@
     }
     
     [self publishLocation:[manager location] automatic:TRUE addon:addon];
+    
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+        if ([region isKindOfClass:[CLBeaconRegion class]]) {
+            CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
+            [self.manager startRangingBeaconsInRegion:beaconRegion];
+        }
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
@@ -392,7 +398,7 @@
     NSMutableDictionary *addon = [[NSMutableDictionary alloc] init];
     [addon setObject:@"leave" forKey:@"event" ];
     
-    for (Location *location in [Location allRegionsOfTopic:[self.settings theGeneralTopic]
+    for (Location *location in [Location allWaypointsOfTopic:[self.settings theGeneralTopic]
                                     inManagedObjectContext:[CoreData theManagedObjectContext]]) {
         if ([location.remark isEqualToString:region.identifier]) {
             location.remark = region.identifier; // this touches the location and updates the overlay
@@ -405,6 +411,11 @@
     }
     
     [self publishLocation:[manager location] automatic:TRUE addon:addon];
+    
+    if ([region isKindOfClass:[CLBeaconRegion class]]) {
+        CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
+        [self.manager stopRangingBeaconsInRegion:beaconRegion];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
@@ -418,7 +429,7 @@
 -(void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
 #ifdef DEBUG
-    NSLog(@"App didDetermineState %d %@", state, region);
+    NSLog(@"App didDetermineState %ld %@", (long)state, region);
 #endif
     if (state == CLRegionStateInside) {
         NSString *message = [NSString stringWithFormat:@"Already in %@", region.identifier];
@@ -427,8 +438,11 @@
         NSMutableDictionary *addon = [[NSMutableDictionary alloc] init];
         [addon setObject:@"enter" forKey:@"event" ];
         
-        for (Location *location in [Location allRegionsOfTopic:[self.settings theGeneralTopic]
+        for (Location *location in [Location allWaypointsOfTopic:[self.settings theGeneralTopic]
                                         inManagedObjectContext:[CoreData theManagedObjectContext]]) {
+#ifdef DEBUG
+            NSLog(@"App searching for matching location %@ %@", location.remark, region.identifier);
+#endif
             if ([location.remark isEqualToString:region.identifier]) {
                 if ([location.share boolValue]) {
                     if (location.remark) {
@@ -441,6 +455,12 @@
         [self publishLocation:[manager location] automatic:TRUE addon:addon];
     }
 
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+        if ([region isKindOfClass:[CLBeaconRegion class]]) {
+            CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
+            [self.manager startRangingBeaconsInRegion:beaconRegion];
+        }
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
@@ -450,6 +470,48 @@
 #endif
     NSString *message = [NSString stringWithFormat:@"monitoringDidFailForRegion %@ %@", region, error];
     [AlertView alert:@"App locationManager" message:message];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
+{
+#ifdef DEBUG
+    NSLog(@"App didRangeBeacons %@ %@", beacons, region);
+#endif
+    
+    for (CLBeacon *beacon in beacons) {
+        
+        NSDictionary *jsonObject = @{
+                                     @"_type": @"beacon",
+                                     @"tst": [NSString stringWithFormat:@"%.0f", [self.manager.location.timestamp timeIntervalSince1970]],
+                                     @"uuid": [beacon.proximityUUID UUIDString],
+                                     @"major": beacon.major,
+                                     @"minor": beacon.minor,
+                                     @"prox": @(beacon.proximity),
+                                     @"acc": @(round(beacon.accuracy)),
+                                     @"rssi": @(beacon.rssi)
+                                     };
+        
+        long msgID = [self.connection sendData:[self jsonToData:jsonObject]
+                                         topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/beacons"]
+                                           qos:[self.settings intForKey:@"qos_preference"]
+                                        retain:NO];
+        
+        if (msgID <= 0) {
+#ifdef DEBUG
+            NSString *message = [NSString stringWithFormat:@"Beacon %@",
+                                 (msgID == -1) ? @"queued" : @"sent"];
+            [self notification:message userInfo:nil];
+#endif
+        }
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error
+{
+#ifdef DEBUG
+    NSLog(@"App rangingBeaconsDidFailForRegion %@ %@", region, error);
+#endif
+    
 }
 
 #pragma ConnectionDelegate
@@ -518,7 +580,7 @@
 #endif
             // data other than json is silently ignored
         }
-#endif
+#endif // REMOTE_COMMANDS
         
     } else if ([topic isEqualToString:[NSString stringWithFormat:@"%@/%@", [self.settings theGeneralTopic], @"waypoints"]]) {
         // received own waypoint
@@ -847,6 +909,11 @@
 #endif
     
     self.disconnectTimer = nil;
+    
+    for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
+        [self.manager stopRangingBeaconsInRegion:beaconRegion];
+    }
+    
     [self.connection disconnect];
     
     NSInteger number = [UIApplication sharedApplication].applicationIconBadgeNumber;

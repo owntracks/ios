@@ -155,7 +155,7 @@
 
 - (NSString *)radiusText
 {
-    return [NSString stringWithFormat:@"%.0f", self.radius];
+    return [NSString stringWithFormat:@"%.0f", [self.regionradius doubleValue]];
 }
 
 - (CLLocationCoordinate2D)coordinate
@@ -201,23 +201,18 @@
 - (CLRegion *)region
 {
     CLRegion *region = nil;
-    
-    NSLog(@"region t%@ c%@.%@ a%@ r%@ %f",
-          self.timestamp,
-          self.latitude,
-          self.longitude,
-          self.automatic,
-          self.remark,
-          self.radius);
-    
+        
     if (![self.automatic boolValue] && self.remark) {
-        if (self.radius > 0) {
+        if ([self.regionradius doubleValue] > 0) {
             region = [[CLCircularRegion alloc] initWithCenter:self.coordinate
-                                                       radius:self.radius
+                                                       radius:[self.regionradius doubleValue]
                                                    identifier:self.remark];
         } else {
-            region = [[CLBeaconRegion alloc] initWithProximityUUID:[[NSUUID alloc] initWithUUIDString:self.remark]
-                                                        identifier:self.remark];
+            CLBeaconRegion *beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:
+                                            [[NSUUID alloc] initWithUUIDString:self.remark]
+                                                                              identifier:self.remark];
+            beaconRegion.notifyEntryStateOnDisplay = TRUE;
+            region = beaconRegion;
         }
     }
     return region;
@@ -239,7 +234,13 @@
 
 - (CLLocationDistance)radius
 {
-    return [self.regionradius doubleValue];
+    CLLocationDistance radius = [self.regionradius doubleValue];
+    
+    if (self.region && radius == 0) {
+        radius = 66;
+    }
+    
+    return radius;
 }
 
 

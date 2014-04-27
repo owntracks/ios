@@ -228,7 +228,7 @@
                                    @"lat": [NSString stringWithFormat:@"%g", location.coordinate.latitude],
                                    @"lon": [NSString stringWithFormat:@"%g", location.coordinate.longitude],
                                    @"tst": [NSString stringWithFormat:@"%.0f", [location.timestamp timeIntervalSince1970]],
-                                   @"rad": [NSString stringWithFormat:@"%g", location.radius],
+                                   @"rad": [NSString stringWithFormat:@"%g", [location.regionradius doubleValue]],
                                    @"desc": location.remark
                                    };
         [waypoints addObject:waypoint];
