@@ -91,19 +91,17 @@
      */
     
     if ([CLLocationManager locationServicesEnabled]) {
-        if ([CLLocationManager significantLocationChangeMonitoringAvailable]) {
-            self.manager = [[CLLocationManager alloc] init];
-            self.locationLastSent = [NSDate date]; // Do not sent old locations
-            self.manager.delegate = self;
-            
-            self.monitoring = [self.settings intForKey:@"monitoring_preference"];
-            
-            for (CLRegion *region in self.manager.monitoredRegions) {
-                [self.manager stopMonitoringForRegion:region];
-            }
+        self.manager = [[CLLocationManager alloc] init];
+        self.locationLastSent = [NSDate date]; // Do not sent old locations
+        self.manager.delegate = self;
+        
+        self.monitoring = [self.settings intForKey:@"monitoring_preference"];
+        
+        for (CLRegion *region in self.manager.monitoredRegions) {
+            [self.manager stopMonitoringForRegion:region];
         }
     }
-    
+
     /*
      * MQTT connection
      */
@@ -244,8 +242,7 @@
 #ifdef DEBUG
     NSLog(@"App applicationDidEnterBackground");
 #endif
-    self.backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^
-                           {
+    self.backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
 #ifdef DEBUG
                                NSLog(@"BackgroundTaskExpirationHandler");
 #endif
@@ -301,7 +298,7 @@
     if (![CLLocationManager locationServicesEnabled]) {
         CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
         NSString *message = [NSString stringWithFormat:@"%@ %d",
-                             @"ANot authorized for CoreLocation",
+                             @"Not authorized for CoreLocation",
                              status];
         [AlertView alert:@"App Failure" message:message];
     }
@@ -415,10 +412,15 @@
 #ifdef DEBUG
     NSLog(@"App didStartMonitoringForRegion %@", region);
 #endif
-    if ([region containsCoordinate:self.manager.location.coordinate]) {
+    [self.manager requestStateForRegion:region];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
+{
 #ifdef DEBUG
-        NSLog(@"App is already in region %@", region);
+    NSLog(@"App didDetermineState %d %@", state, region);
 #endif
+    if (state == CLRegionStateInside) {
         NSString *message = [NSString stringWithFormat:@"Already in %@", region.identifier];
         [self notification:message userInfo:nil];
         
@@ -438,6 +440,7 @@
         
         [self publishLocation:[manager location] automatic:TRUE addon:addon];
     }
+
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error

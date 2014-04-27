@@ -198,16 +198,29 @@
     }
 }
 
-- (CLCircularRegion *)circularRegion
+- (CLRegion *)region
 {
-    CLCircularRegion *circularRegion = nil;
-    NSLog(@"circularRegion d%d t%@ c%@.%@ a%@ r%@ %f", self.isDeleted, self.timestamp, self.latitude, self.longitude, self.automatic, self.remark, self.radius);
-    if (![self.automatic boolValue] && self.remark && self.radius > 0) {
-        circularRegion = [[CLCircularRegion alloc] initWithCenter:self.coordinate
-                                                           radius:self.radius
-                                                       identifier:self.remark];
+    CLRegion *region = nil;
+    
+    NSLog(@"region t%@ c%@.%@ a%@ r%@ %f",
+          self.timestamp,
+          self.latitude,
+          self.longitude,
+          self.automatic,
+          self.remark,
+          self.radius);
+    
+    if (![self.automatic boolValue] && self.remark) {
+        if (self.radius > 0) {
+            region = [[CLCircularRegion alloc] initWithCenter:self.coordinate
+                                                       radius:self.radius
+                                                   identifier:self.remark];
+        } else {
+            region = [[CLBeaconRegion alloc] initWithProximityUUID:[[NSUUID alloc] initWithUUIDString:self.remark]
+                                                        identifier:self.remark];
+        }
     }
-    return circularRegion;
+    return region;
 }
 
 - (BOOL)sharedWaypoint

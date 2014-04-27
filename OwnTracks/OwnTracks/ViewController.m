@@ -435,10 +435,16 @@ typedef enum {
         MKCircleRenderer *renderer = [[MKCircleRenderer alloc] initWithCircle:overlay];
         
         Location *location = (Location *)overlay;
-        if ([location.circularRegion containsCoordinate:[delegate.manager location].coordinate]) {
-            renderer.fillColor = [UIColor colorWithRed:1.0 green:0.5 blue:0.5 alpha:0.333];
+        if ([location.region isKindOfClass:[CLCircularRegion class]]) {
+            if ([location.region containsCoordinate:[delegate.manager location].coordinate]) {
+                renderer.fillColor = [UIColor colorWithRed:1.0 green:0.5 blue:0.5 alpha:0.333];
+            } else {
+                renderer.fillColor = [UIColor colorWithRed:0.5 green:0.5 blue:1.0 alpha:0.333];
+            }
+        } else if ([location.region isKindOfClass:[CLBeaconRegion class]]) {
+            renderer.fillColor = [UIColor colorWithRed:0.5 green:1.0 blue:0.5 alpha:0.333];
         } else {
-            renderer.fillColor = [UIColor colorWithRed:0.5 green:0.5 blue:1.0 alpha:0.333];
+            renderer.fillColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.333];
         }
         return renderer;
         
@@ -492,7 +498,7 @@ typedef enum {
                               inManagedObjectContext:[CoreData theManagedObjectContext]];
     [self.mapView addOverlays:overlays];
     for (Location *location in overlays) {
-        [delegate.manager startMonitoringForRegion:location.circularRegion];
+        [delegate.manager startMonitoringForRegion:location.region];
     }
 }
 
@@ -560,8 +566,8 @@ typedef enum {
                 [self.mapView addAnnotation:location];
                 if ([location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]]) {
                     [self.mapView addOverlay:location];
-                    if (location.circularRegion) {
-                        [delegate.manager startMonitoringForRegion:location.circularRegion];
+                    if (location.region) {
+                        [delegate.manager startMonitoringForRegion:location.region];
                     }
                 }
                 break;
@@ -602,8 +608,8 @@ typedef enum {
                     }
                     
                     [self.mapView addOverlay:location];
-                    if (location.circularRegion) {
-                        [delegate.manager startMonitoringForRegion:location.circularRegion];
+                    if (location.region) {
+                        [delegate.manager startMonitoringForRegion:location.region];
                     }
                 }
                 break;

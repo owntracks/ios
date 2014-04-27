@@ -33,7 +33,7 @@
 - (NSString *)locationText;
 - (NSString *)coordinateText;
 - (NSString *)radiusText;
-- (CLCircularRegion *)circularRegion;
+- (CLRegion *)region;
 - (BOOL)sharedWaypoint;
 - (CLLocationDistance)radius;
 
