@@ -441,14 +441,6 @@ typedef enum {
             } else {
                 renderer.fillColor = [UIColor colorWithRed:0.5 green:0.5 blue:1.0 alpha:0.333];
             }
-        } else if ([location.region isKindOfClass:[CLBeaconRegion class]]) {
-            if ([location.region containsCoordinate:[delegate.manager location].coordinate]) {
-                renderer.fillColor = [UIColor colorWithRed:0.5 green:1.0 blue:0.5 alpha:0.333];
-            } else {
-                renderer.fillColor = [UIColor colorWithRed:1.0 green:1.0 blue:0.5 alpha:0.333];
-            }
-        } else {
-            renderer.fillColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.333];
         }
         return renderer;
         
@@ -502,7 +494,12 @@ typedef enum {
                               inManagedObjectContext:[CoreData theManagedObjectContext]];
     [self.mapView addOverlays:overlays];
     for (Location *location in overlays) {
-        [delegate.manager startMonitoringForRegion:location.region];
+        if (location.region) {
+#ifdef DEBUG
+            NSLog(@"startMonitoringForRegion %@", location.region.identifier);
+#endif
+            [delegate.manager startMonitoringForRegion:location.region];
+        }
     }
 }
 
@@ -571,6 +568,9 @@ typedef enum {
                 if ([location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]]) {
                     [self.mapView addOverlay:location];
                     if (location.region) {
+#ifdef DEBUG
+                        NSLog(@"startMonitoringForRegion %@", location.region.identifier);
+#endif
                         [delegate.manager startMonitoringForRegion:location.region];
                     }
                 }
@@ -607,6 +607,9 @@ typedef enum {
                     
                     [self.mapView addOverlay:location];
                     if (location.region) {
+#ifdef DEBUG
+                        NSLog(@"startMonitoringForRegion %@", location.region.identifier);
+#endif
                         [delegate.manager startMonitoringForRegion:location.region];
                     }
                 }

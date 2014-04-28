@@ -10,6 +10,8 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import "Friend+Create.h"
 
+#define IBEACON
+
 @implementation Location (Create)
 
 + (Location *)locationWithTopic:(NSString *)topic
@@ -62,20 +64,6 @@
 {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Location"];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
-    
-    NSError *error = nil;
-    
-    NSArray *matches = [context executeFetchRequest:request error:&error];
-    
-    return matches;
-}
-
-+ (NSArray *)allRegionsOfTopic:(NSString *)topic inManagedObjectContext:(NSManagedObjectContext *)context
-{
-    Friend *friend = [Friend friendWithTopic:topic inManagedObjectContext:context];
-    
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Location"];
-    request.predicate = [NSPredicate predicateWithFormat:@"belongsTo = %@ AND automatic = FALSE AND regionradius > 0 AND remark != NIL", friend];
     
     NSError *error = nil;
     
@@ -201,18 +189,76 @@
 - (CLRegion *)region
 {
     CLRegion *region = nil;
+    
+    // a location qualifies being a region if
+    //
+    // it was not created automatically
+    // it has a remark which is not zero length
+    //
+    // it either has
+    // a radius > 0 set: then it is a circular region
+    //
+    // a remark that is a valid UUID string: then it is treated a beacon region
+    //
+    
+    if (![self.automatic boolValue] && self.remark && self.remark.length) {
         
-    if (![self.automatic boolValue] && self.remark) {
         if ([self.regionradius doubleValue] > 0) {
             region = [[CLCircularRegion alloc] initWithCenter:self.coordinate
                                                        radius:[self.regionradius doubleValue]
                                                    identifier:self.remark];
+#ifdef IBEACON
         } else {
-            CLBeaconRegion *beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:
-                                            [[NSUUID alloc] initWithUUIDString:self.remark]
+            NSArray *components = [self.remark componentsSeparatedByString:@":"];
+            if (components) {
+                NSUUID *uuid = nil;
+                NSNumber *major = nil;
+                NSNumber *minor = nil;
+                
+                if ([components count] > 0) {
+                    uuid = [[NSUUID alloc] initWithUUIDString:components[0]];
+                }
+
+                if ([components count] > 1) {
+                    unsigned int u;
+                    if ([[NSScanner scannerWithString:components[1]] scanHexInt:&u]) {
+                        major = @(u);
+                    }
+                }
+                
+                if ([components count] > 2) {
+                    unsigned int u;
+                    if ([[NSScanner scannerWithString:components[2]] scanHexInt:&u]) {
+                        minor = @(u);
+                    }
+                }
+
+                if (uuid) {
+                    CLBeaconRegion *beaconRegion;
+
+                    if (major) {
+                        if (minor) {
+                            beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
+                                                                                   major:[major intValue]
+                                                                                   minor:[minor intValue]
                                                                               identifier:self.remark];
-            beaconRegion.notifyEntryStateOnDisplay = TRUE;
-            region = beaconRegion;
+                        } else {
+                            beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
+                                                                                   major:[major intValue]
+                                                                              identifier:self.remark];
+                        }
+                    } else {
+                        beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
+                                                                          identifier:self.remark];
+                    }
+                    
+                    // make sure the app is woken up if the device is switched on within the beacon region
+                    beaconRegion.notifyEntryStateOnDisplay = TRUE;
+                    region = beaconRegion;
+                }
+            }
+#endif // IBEACON
+            
         }
     }
     return region;
@@ -234,13 +280,7 @@
 
 - (CLLocationDistance)radius
 {
-    CLLocationDistance radius = [self.regionradius doubleValue];
-    
-    if (self.region && radius == 0) {
-        radius = 66;
-    }
-    
-    return radius;
+    return [self.regionradius doubleValue];
 }
 
 

@@ -31,6 +31,7 @@
 #undef REMOTE_NOTIFICATIONS
 #undef REMOTE_COMMANDS
 #define BATTERY_MONITORING
+#undef RANGING
 
 @implementation OwnTracksAppDelegate
 
@@ -231,9 +232,12 @@
 #endif
     [self saveContext];
     
+#ifdef RANGING
+    // stop ranging when going background as connection will be cut
     for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
         [self.manager stopRangingBeaconsInRegion:beaconRegion];
     }
+#endif //RANGING
     
     [self.connection disconnect];
 }
@@ -378,12 +382,16 @@
     
     [self publishLocation:[manager location] automatic:TRUE addon:addon];
     
-    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+#ifdef RANGING
+    // start rainging if not in background
+    if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
         if ([region isKindOfClass:[CLBeaconRegion class]]) {
             CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
             [self.manager startRangingBeaconsInRegion:beaconRegion];
         }
     }
+#endif // RANGING
+    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
@@ -412,10 +420,14 @@
     
     [self publishLocation:[manager location] automatic:TRUE addon:addon];
     
+#ifdef RANGING
+    // stop ranging when leaving region
     if ([region isKindOfClass:[CLBeaconRegion class]]) {
         CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
         [self.manager stopRangingBeaconsInRegion:beaconRegion];
     }
+#endif // RANGING
+    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
@@ -432,7 +444,7 @@
     NSLog(@"App didDetermineState %ld %@", (long)state, region);
 #endif
     if (state == CLRegionStateInside) {
-        NSString *message = [NSString stringWithFormat:@"Already in %@", region.identifier];
+        NSString *message = [NSString stringWithFormat:@"In %@", region.identifier];
         [self notification:message userInfo:nil];
         
         NSMutableDictionary *addon = [[NSMutableDictionary alloc] init];
@@ -455,12 +467,16 @@
         [self publishLocation:[manager location] automatic:TRUE addon:addon];
     }
 
-    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+#ifdef RANGING
+    // start ranging when not in background
+    if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
         if ([region isKindOfClass:[CLBeaconRegion class]]) {
             CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
             [self.manager startRangingBeaconsInRegion:beaconRegion];
         }
     }
+#endif // RANGING 
+    
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
@@ -471,6 +487,8 @@
     NSString *message = [NSString stringWithFormat:@"monitoringDidFailForRegion %@ %@", region, error];
     [AlertView alert:@"App locationManager" message:message];
 }
+
+#ifdef RANGING
 
 -(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
@@ -513,6 +531,7 @@
 #endif
     
 }
+#endif // RANGING
 
 #pragma ConnectionDelegate
 
@@ -813,6 +832,9 @@
     
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
         if (self.disconnectTimer) {
+#ifdef DEBUG
+            NSLog(@"App timer still running %@", self.disconnectTimer);
+#endif
             [self.disconnectTimer invalidate];
         }
         self.disconnectTimer = [NSTimer timerWithTimeInterval:BACKGROUND_DISCONNECT_AFTER
@@ -822,6 +844,9 @@
         NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
         [runLoop addTimer:self.disconnectTimer
                   forMode:NSDefaultRunLoopMode];
+#ifdef DEBUG
+        NSLog(@"App timerWithTimeInterval %@", self.disconnectTimer);
+#endif
     }
     [self saveContext];
 }
@@ -910,9 +935,12 @@
     
     self.disconnectTimer = nil;
     
+#ifdef RANGING
+    // stop ranging when disconnecting in background
     for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
         [self.manager stopRangingBeaconsInRegion:beaconRegion];
     }
+#endif // RANGING
     
     [self.connection disconnect];
     
