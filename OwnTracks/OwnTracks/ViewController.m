@@ -592,31 +592,13 @@ typedef enum {
                 break;
                 
             case NSFetchedResultsChangeUpdate:
+            case NSFetchedResultsChangeMove:
                 [self.mapView removeAnnotation:location];
-                [self.mapView addAnnotation:location];
                 if ([location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]]) {
                     [self.mapView removeOverlay:location];
-                    for (CLRegion *region in delegate.manager.monitoredRegions) {
-                        if ([region.identifier isEqualToString:location.remark]) {
-#ifdef DEBUG
-                            NSLog(@"stopMonitoringForRegion %@", region.identifier);
-#endif
-                            [delegate.manager stopMonitoringForRegion:region];
-                        }
-                    }
-                    
                     [self.mapView addOverlay:location];
-                    if (location.region) {
-#ifdef DEBUG
-                        NSLog(@"startMonitoringForRegion %@", location.region.identifier);
-#endif
-                        [delegate.manager startMonitoringForRegion:location.region];
-                    }
                 }
-                break;
-                
-            case NSFetchedResultsChangeMove:
-                //
+                [self.mapView addAnnotation:location];
                 break;
         }
     }

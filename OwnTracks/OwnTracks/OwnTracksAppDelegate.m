@@ -362,36 +362,7 @@
 #ifdef DEBUG
     NSLog(@"App didEnterRegion %@", region);
 #endif
-    NSString *message = [NSString stringWithFormat:@"Entering %@", region.identifier];
-    [self notification:message userInfo:nil];
-    
-    NSMutableDictionary *addon = [[NSMutableDictionary alloc] init];
-    [addon setObject:@"enter" forKey:@"event" ];
-    
-    for (Location *location in [Location allWaypointsOfTopic:[self.settings theGeneralTopic]
-                                    inManagedObjectContext:[CoreData theManagedObjectContext]]) {
-        if ([location.remark isEqualToString:region.identifier]) {
-            location.remark = region.identifier; // this touches the location and updates the overlay
-            if ([location.share boolValue]) {
-                if (location.remark) {
-                    [addon setValue:location.remark forKey:@"desc"];
-                }
-            }
-        }
-    }
-    
-    [self publishLocation:[manager location] automatic:TRUE addon:addon];
-    
-#ifdef RANGING
-    // start rainging if not in background
-    if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
-        if ([region isKindOfClass:[CLBeaconRegion class]]) {
-            CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
-            [self.manager startRangingBeaconsInRegion:beaconRegion];
-        }
-    }
-#endif // RANGING
-    
+    //[self processEnter:region];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
@@ -399,35 +370,7 @@
 #ifdef DEBUG
     NSLog(@"App didExitRegion %@", region);
 #endif
-    
-    NSString *message = [NSString stringWithFormat:@"Leaving %@", region.identifier];
-    [self notification:message userInfo:nil];
-    
-    NSMutableDictionary *addon = [[NSMutableDictionary alloc] init];
-    [addon setObject:@"leave" forKey:@"event" ];
-    
-    for (Location *location in [Location allWaypointsOfTopic:[self.settings theGeneralTopic]
-                                    inManagedObjectContext:[CoreData theManagedObjectContext]]) {
-        if ([location.remark isEqualToString:region.identifier]) {
-            location.remark = region.identifier; // this touches the location and updates the overlay
-            if ([location.share boolValue]) {
-                if (location.remark) {
-                    [addon setValue:location.remark forKey:@"desc"];
-                }
-            }
-        }
-    }
-    
-    [self publishLocation:[manager location] automatic:TRUE addon:addon];
-    
-#ifdef RANGING
-    // stop ranging when leaving region
-    if ([region isKindOfClass:[CLBeaconRegion class]]) {
-        CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
-        [self.manager stopRangingBeaconsInRegion:beaconRegion];
-    }
-#endif // RANGING
-    
+    //[self processLeave:region];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
@@ -441,43 +384,16 @@
 -(void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
 {
 #ifdef DEBUG
+    
     NSLog(@"App didDetermineState %ld %@", (long)state, region);
 #endif
     if (state == CLRegionStateInside) {
-        NSString *message = [NSString stringWithFormat:@"In %@", region.identifier];
-        [self notification:message userInfo:nil];
-        
-        NSMutableDictionary *addon = [[NSMutableDictionary alloc] init];
-        [addon setObject:@"enter" forKey:@"event" ];
-        
-        for (Location *location in [Location allWaypointsOfTopic:[self.settings theGeneralTopic]
-                                        inManagedObjectContext:[CoreData theManagedObjectContext]]) {
-#ifdef DEBUG
-            NSLog(@"App searching for matching location %@ %@", location.remark, region.identifier);
-#endif
-            if ([location.remark isEqualToString:region.identifier]) {
-                if ([location.share boolValue]) {
-                    if (location.remark) {
-                        [addon setValue:location.remark forKey:@"desc"];
-                    }
-                }
-            }
-        }
-        
-        [self publishLocation:[manager location] automatic:TRUE addon:addon];
+        [self processEnter:region];
+    } else if (state == CLRegionStateOutside) {
+        [self processLeave:region];
     }
-
-#ifdef RANGING
-    // start ranging when not in background
-    if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
-        if ([region isKindOfClass:[CLBeaconRegion class]]) {
-            CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
-            [self.manager startRangingBeaconsInRegion:beaconRegion];
-        }
-    }
-#endif // RANGING 
-    
 }
+
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
 {
@@ -486,6 +402,73 @@
 #endif
     NSString *message = [NSString stringWithFormat:@"monitoringDidFailForRegion %@ %@", region, error];
     [AlertView alert:@"App locationManager" message:message];
+}
+        
+        
+- (void)processEnter:(CLRegion *)region
+{
+    NSString *message = [NSString stringWithFormat:@"Entering %@", region.identifier];
+    [self notification:message userInfo:nil];
+    
+    NSMutableDictionary *addon = [[NSMutableDictionary alloc] init];
+    [addon setObject:@"enter" forKey:@"event" ];
+    
+    for (Location *location in [Location allWaypointsOfTopic:[self.settings theGeneralTopic]
+                                      inManagedObjectContext:[CoreData theManagedObjectContext]]) {
+        if ([location.remark isEqualToString:region.identifier]) {
+            location.remark = region.identifier; // this touches the location and updates the overlay
+            if ([location.share boolValue]) {
+                if (location.remark) {
+                    [addon setValue:location.remark forKey:@"desc"];
+                }
+            }
+        }
+    }
+    
+    [self publishLocation:[self.manager location] automatic:TRUE addon:addon];
+    
+#ifdef RANGING
+    // start rainging if not in background
+    if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
+        if ([region isKindOfClass:[CLBeaconRegion class]]) {
+            CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
+            [self.manager startRangingBeaconsInRegion:beaconRegion];
+        }
+    }
+#endif // RANGING
+}
+
+- (void)processLeave:(CLRegion *)region
+{
+    NSString *message = [NSString stringWithFormat:@"Leaving %@", region.identifier];
+    [self notification:message userInfo:nil];
+    
+    NSMutableDictionary *addon = [[NSMutableDictionary alloc] init];
+    [addon setObject:@"leave" forKey:@"event" ];
+    
+    for (Location *location in [Location allWaypointsOfTopic:[self.settings theGeneralTopic]
+                                      inManagedObjectContext:[CoreData theManagedObjectContext]]) {
+        if ([location.remark isEqualToString:region.identifier]) {
+            location.remark = region.identifier; // this touches the location and updates the overlay
+            if ([location.share boolValue]) {
+                if (location.remark) {
+                    [addon setValue:location.remark forKey:@"desc"];
+                }
+            }
+        }
+    }
+    
+    [self publishLocation:[self.manager location] automatic:TRUE addon:addon];
+    
+#ifdef RANGING
+    // stop ranging when leaving region
+    if ([region isKindOfClass:[CLBeaconRegion class]]) {
+        CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
+        [self.manager stopRangingBeaconsInRegion:beaconRegion];
+    }
+#endif // RANGING
+    
+
 }
 
 #ifdef RANGING
@@ -831,22 +814,22 @@
      **/
     
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
-        if (self.disconnectTimer) {
+        if (self.disconnectTimer && self.disconnectTimer.isValid) {
 #ifdef DEBUG
-            NSLog(@"App timer still running %@", self.disconnectTimer);
+            NSLog(@"App timer still running %@", self.disconnectTimer.fireDate);
 #endif
-            [self.disconnectTimer invalidate];
+        } else {
+            self.disconnectTimer = [NSTimer timerWithTimeInterval:BACKGROUND_DISCONNECT_AFTER
+                                                           target:self
+                                                         selector:@selector(disconnectInBackground)
+                                                         userInfo:Nil repeats:FALSE];
+            NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
+            [runLoop addTimer:self.disconnectTimer
+                      forMode:NSDefaultRunLoopMode];
+#ifdef DEBUG
+            NSLog(@"App timerWithTimeInterval %@", self.disconnectTimer.fireDate);
+#endif
         }
-        self.disconnectTimer = [NSTimer timerWithTimeInterval:BACKGROUND_DISCONNECT_AFTER
-                                                       target:self
-                                                     selector:@selector(disconnectInBackground)
-                                                     userInfo:Nil repeats:FALSE];
-        NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
-        [runLoop addTimer:self.disconnectTimer
-                  forMode:NSDefaultRunLoopMode];
-#ifdef DEBUG
-        NSLog(@"App timerWithTimeInterval %@", self.disconnectTimer);
-#endif
     }
     [self saveContext];
 }

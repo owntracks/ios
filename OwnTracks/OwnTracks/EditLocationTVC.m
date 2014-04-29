@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *UIshare;
 
 @property (nonatomic) BOOL needsUpdate;
+@property (strong, nonatomic) CLRegion *oldRegion;
 @end
 
 @implementation EditLocationTVC
@@ -41,6 +42,12 @@
         if ([self.location sharedWaypoint]) {
             [delegate sendWayPoint:self.location];
         }
+        if (self.oldRegion) {
+            [delegate.manager stopMonitoringForRegion:self.oldRegion];
+        }
+        if ([self.location region]) {
+            [delegate.manager startMonitoringForRegion:[self.location region]];
+        }
     }
 }
 - (void)viewWillAppear:(BOOL)animated
@@ -51,6 +58,7 @@
 
     [self.location getReverseGeoCode];
     [self setup];
+    self.oldRegion = [self.location region];
 }
 
 - (void)setup
