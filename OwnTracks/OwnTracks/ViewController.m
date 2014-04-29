@@ -581,7 +581,7 @@ typedef enum {
                 if ([location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]]) {
                     [self.mapView removeOverlay:location];
                     for (CLRegion *region in delegate.manager.monitoredRegions) {
-                        if ([region.identifier isEqualToString:location.remark]) {
+                        if ([region.identifier isEqualToString:location.region.identifier]) {
 #ifdef DEBUG
                             NSLog(@"stopMonitoringForRegion %@", region.identifier);
 #endif

@@ -215,20 +215,20 @@
                 NSNumber *major = nil;
                 NSNumber *minor = nil;
                 
-                if ([components count] > 0) {
-                    uuid = [[NSUUID alloc] initWithUUIDString:components[0]];
+                if ([components count] > 1) {
+                    uuid = [[NSUUID alloc] initWithUUIDString:components[1]];
                 }
 
-                if ([components count] > 1) {
+                if ([components count] > 2) {
                     unsigned int u;
-                    if ([[NSScanner scannerWithString:components[1]] scanHexInt:&u]) {
+                    if ([[NSScanner scannerWithString:components[2]] scanHexInt:&u]) {
                         major = @(u);
                     }
                 }
                 
-                if ([components count] > 2) {
+                if ([components count] > 3) {
                     unsigned int u;
-                    if ([[NSScanner scannerWithString:components[2]] scanHexInt:&u]) {
+                    if ([[NSScanner scannerWithString:components[3]] scanHexInt:&u]) {
                         minor = @(u);
                     }
                 }
@@ -241,15 +241,15 @@
                             beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
                                                                                    major:[major intValue]
                                                                                    minor:[minor intValue]
-                                                                              identifier:self.remark];
+                                                                              identifier:components[0]];
                         } else {
                             beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
                                                                                    major:[major intValue]
-                                                                              identifier:self.remark];
+                                                                              identifier:components[0]];
                         }
                     } else {
                         beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
-                                                                          identifier:self.remark];
+                                                                          identifier:components[0]];
                     }
                     
                     // make sure the app is woken up if the device is switched on within the beacon region
@@ -266,7 +266,7 @@
 
 - (BOOL)sharedWaypoint
 {
-    if (self.remark && [self.share boolValue]) {
+    if (self.remark && self.remark.length && [self.share boolValue]) {
         return TRUE;
     } else {
         return FALSE;

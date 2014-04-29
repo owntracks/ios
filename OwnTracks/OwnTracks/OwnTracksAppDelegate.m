@@ -415,12 +415,10 @@
     
     for (Location *location in [Location allWaypointsOfTopic:[self.settings theGeneralTopic]
                                       inManagedObjectContext:[CoreData theManagedObjectContext]]) {
-        if ([location.remark isEqualToString:region.identifier]) {
-            location.remark = region.identifier; // this touches the location and updates the overlay
+        if ([region.identifier isEqualToString:location.region.identifier]) {
+            location.remark = location.remark; // this touches the location and updates the overlay
             if ([location.share boolValue]) {
-                if (location.remark) {
-                    [addon setValue:location.remark forKey:@"desc"];
-                }
+                [addon setValue:region.identifier forKey:@"desc"];
             }
         }
     }
@@ -448,12 +446,10 @@
     
     for (Location *location in [Location allWaypointsOfTopic:[self.settings theGeneralTopic]
                                       inManagedObjectContext:[CoreData theManagedObjectContext]]) {
-        if ([location.remark isEqualToString:region.identifier]) {
-            location.remark = region.identifier; // this touches the location and updates the overlay
+        if ([region.identifier isEqualToString:location.region.identifier]) {
+            location.remark = location.remark; // this touches the location and updates the overlay
             if ([location.share boolValue]) {
-                if (location.remark) {
-                    [addon setValue:location.remark forKey:@"desc"];
-                }
+                [addon setValue:region.identifier forKey:@"desc"];
             }
         }
     }
