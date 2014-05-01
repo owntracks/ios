@@ -80,6 +80,10 @@
 		8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB418E4289E00923B24 /* Setting+Create.m */; };
 		8479EEB718E4529900923B24 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
 		84903D9818E48EE300D2EF21 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 84903D9718E48EE300D2EF21 /* Settings.bundle */; };
+		84A2C2651910DC40001A2883 /* iBeacon.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A2C2631910DC40001A2883 /* iBeacon.png */; };
+		84A2C2661910DC40001A2883 /* iBeacon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A2C2641910DC40001A2883 /* iBeacon@2x.png */; };
+		84A2C2691910EE3F001A2883 /* iBeaconOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A2C2671910EE3F001A2883 /* iBeaconOn.png */; };
+		84A2C26A1910EE3F001A2883 /* iBeaconOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A2C2681910EE3F001A2883 /* iBeaconOn@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -204,6 +208,10 @@
 		8479EEB418E4289E00923B24 /* Setting+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Setting+Create.m"; path = "../../Setting+Create.m"; sourceTree = "<group>"; };
 		84903D9718E48EE300D2EF21 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		849D457B18CDACDF00201BF3 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
+		84A2C2631910DC40001A2883 /* iBeacon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iBeacon.png; sourceTree = "<group>"; };
+		84A2C2641910DC40001A2883 /* iBeacon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iBeacon@2x.png"; sourceTree = "<group>"; };
+		84A2C2671910EE3F001A2883 /* iBeaconOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iBeaconOn.png; sourceTree = "<group>"; };
+		84A2C2681910EE3F001A2883 /* iBeaconOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iBeaconOn@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -360,6 +368,10 @@
 		8411B897189FEB790019D2D6 /* assets */ = {
 			isa = PBXGroup;
 			children = (
+				84A2C2671910EE3F001A2883 /* iBeaconOn.png */,
+				84A2C2681910EE3F001A2883 /* iBeaconOn@2x.png */,
+				84A2C2631910DC40001A2883 /* iBeacon.png */,
+				84A2C2641910DC40001A2883 /* iBeacon@2x.png */,
 				8411B898189FEB790019D2D6 /* Center.svg */,
 				8411B899189FEB790019D2D6 /* connection.png */,
 				8411B89A189FEB790019D2D6 /* Connection.svg */,
@@ -505,6 +517,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8479EEB718E4529900923B24 /* Settings.plist in Resources */,
+				84A2C2651910DC40001A2883 /* iBeacon.png in Resources */,
 				8411B8D7189FEB790019D2D6 /* HybridOn@2x.png in Resources */,
 				8411B8FD189FEB790019D2D6 /* UserTrackingNone@2x.png in Resources */,
 				8411B8F7189FEB790019D2D6 /* UserTrackingFollow@2x.png in Resources */,
@@ -519,12 +532,14 @@
 				8411B8E5189FEB790019D2D6 /* LocationOn.png in Resources */,
 				8411B8E7189FEB790019D2D6 /* LocationOn@2x.png in Resources */,
 				8411B8D2189FEB790019D2D6 /* FriendsOn.png in Resources */,
+				84A2C2691910EE3F001A2883 /* iBeaconOn.png in Resources */,
 				8411B8F1189FEB790019D2D6 /* SatelliteOn.png in Resources */,
 				8411B8E8189FEB790019D2D6 /* move.png in Resources */,
 				8411B8ED189FEB790019D2D6 /* Pin@2x.png in Resources */,
 				8411B8EF189FEB790019D2D6 /* SatelliteOff.png in Resources */,
 				8411B8DC189FEB790019D2D6 /* icon_iphone@2x.png in Resources */,
 				8411B8D8189FEB790019D2D6 /* icon_57x57.png in Resources */,
+				84A2C26A1910EE3F001A2883 /* iBeaconOn@2x.png in Resources */,
 				8411B8EA189FEB790019D2D6 /* Move@2x.png in Resources */,
 				8411B8DB189FEB790019D2D6 /* icon_iphone.png in Resources */,
 				8411B8FB189FEB790019D2D6 /* UserTrackingNone.png in Resources */,
@@ -539,6 +554,7 @@
 				84903D9818E48EE300D2EF21 /* Settings.bundle in Resources */,
 				8411B8D5189FEB790019D2D6 /* HybridOn.png in Resources */,
 				8411B8E4189FEB790019D2D6 /* LocationOff@2x.png in Resources */,
+				84A2C2661910DC40001A2883 /* iBeacon@2x.png in Resources */,
 				8411B8DD189FEB790019D2D6 /* iTunesArtwork in Resources */,
 				8411B8E0189FEB790019D2D6 /* iTunesArtwork@2x.png in Resources */,
 				8411B8E1189FEB790019D2D6 /* Location.gpx in Resources */,

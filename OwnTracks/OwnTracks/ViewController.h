@@ -12,7 +12,8 @@
 #import <MapKit/MapKit.h>
 #import <MQTTClient/MQTTClient.h>
 #import "Connection.h"
+#import "OwnTracksAppDelegate.h"
 
-@interface ViewController : UIViewController <MKMapViewDelegate, NSFetchedResultsControllerDelegate, UIActionSheetDelegate>
+@interface ViewController : UIViewController <MKMapViewDelegate, NSFetchedResultsControllerDelegate, UIActionSheetDelegate, RangingDelegate>
 
 @end

@@ -115,6 +115,9 @@
             string = dictionary[@"monitoring"];
             if (string) [self setString:string forKey:@"monitoring_preference"];
             
+            string = dictionary[@"ranging"];
+            if (string) [self setString:string forKey:@"ranging_preference"];
+            
             
             string = dictionary[@"pubRetain"];
             stringOld = dictionary[@"retain"];
@@ -252,6 +255,7 @@
                            @"locatorDisplacement": [self stringForKey:@"mindist_preference"],
                            @"locatorInterval": [self stringForKey:@"mintime_preference"],
                            @"monitoring": [self stringForKey:@"monitoring_preference"],
+                           @"ranging": [self stringForKey:@"ranging_preference"],
                            
                            @"pubRetain": [self stringForKey:@"retain_preference"],
                            @"tls": [self stringForKey:@"tls_preference"],

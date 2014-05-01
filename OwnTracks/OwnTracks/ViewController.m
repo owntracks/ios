@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "OwnTracksAppDelegate.h"
 #import "StatusTVC.h"
 #import "FriendAnnotationV.h"
 #import "FriendTVC.h"
@@ -23,8 +22,11 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *locationButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *mapModeButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *friendsButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *beaconButton;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UIProgressView *progress;
+
+@property (nonatomic) BOOL beaconOn;
 
 @property (strong, nonatomic) NSFetchedResultsController *frc;
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
@@ -51,6 +53,9 @@ typedef enum {
 
     self.mapView.delegate = self;
     
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.delegate = self;
+    
     // Tracking Mode
     self.friends = friendsTrack;
     
@@ -69,6 +74,7 @@ typedef enum {
     [self friends:nil];
     [self mapMode:nil];
     [self location:nil];
+    [self beaconPressed:nil];
     
     if ([CoreData theManagedObjectContext]) {
         if (!self.frc) {
@@ -262,6 +268,24 @@ typedef enum {
     }
 }
 
+- (IBAction)beaconPressed:(UIBarButtonItem *)sender {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (sender) {
+        delegate.ranging = !delegate.ranging;
+        if (delegate.ranging) {
+            [self disappearingActionSheet:@"iBeacon Ranging On" button:sender];
+        } else {
+            [self disappearingActionSheet:@"iBeacon Ranging Off" button:sender];
+        }
+
+    }
+    if (delegate.ranging) {
+        self.beaconButton.image = [UIImage imageNamed:@"iBeaconOn.png"];
+    } else {
+        self.beaconButton.image = [UIImage imageNamed:@"iBeacon.png"];
+    }
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     /*
@@ -308,6 +332,37 @@ typedef enum {
     return rect;
 }
 
+
+
+#pragma RangingDelegate
+- (void)didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
+{
+    if ([region isKindOfClass:[CLBeaconRegion class]]) {
+        switch (state) {
+            case CLRegionStateInside:
+                self.beaconButton.tintColor = [UIColor colorWithRed:190.0/255.0 green:0.0 blue:0.0 alpha:1.0];
+                break;
+            case CLRegionStateOutside:
+                self.beaconButton.tintColor = [UIColor colorWithRed:0.0 green:0.0 blue:190.0/255.0 alpha:1.0];
+                break;
+            case CLRegionStateUnknown:
+            default:
+                self.beaconButton.tintColor = [UIColor colorWithRed:190.0/255.0 green:190.0/255.0 blue:190.0/255.0 alpha:1.0];
+                break;
+        }
+    }
+}
+
+- (void)didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
+{
+    self.beaconOn = !self.beaconOn;
+    if (self.beaconOn) {
+        self.beaconButton.image = [UIImage imageNamed:@"iBeaconOn.png"];
+    } else {
+        self.beaconButton.image = [UIImage imageNamed:@"iBeacon.png"];
+    }
+}
+
 #pragma ConnectionDelegate
 
 - (void)showState:(NSInteger)state
@@ -315,18 +370,18 @@ typedef enum {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
     switch (delegate.connection.state) {
         case state_connected:
-            self.connectionButton.tintColor = [UIColor greenColor];
+            self.connectionButton.tintColor = [UIColor colorWithRed:0.0 green:190.0/255 blue:0.0 alpha:1.0];
             break;
         case state_error:
-            self.connectionButton.tintColor = [UIColor redColor];
+            self.connectionButton.tintColor = [UIColor colorWithRed:190.0/255.0 green:0.0 blue:0.0 alpha:1.0];
             break;
         case state_connecting:
         case state_closing:
-            self.connectionButton.tintColor = [UIColor yellowColor];
+            self.connectionButton.tintColor = [UIColor colorWithRed:190.0/255.0 green:190.0/255.0 blue:0.0 alpha:1.0];
             break;
         case state_starting:
         default:
-            self.connectionButton.tintColor = [UIColor blueColor];
+            self.connectionButton.tintColor = [UIColor colorWithRed:0.0 green:0.0 blue:190.0/255.0 alpha:1.0];
             break;
     }
 }

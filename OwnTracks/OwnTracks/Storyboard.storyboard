@@ -30,6 +30,7 @@
                                             <action selector="friends:" destination="HII-kF-avN" id="XD3-Tf-h5Q"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="l8U-VX-iOd"/>
                                     <barButtonItem tag="5" image="SatelliteOff.png" style="plain" id="WHg-de-nht">
                                         <color key="tintColor" red="0.0" green="0.4963788777" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -43,10 +44,17 @@
                                             <action selector="action:" destination="HII-kF-avN" id="pgb-9J-XW3"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="TYu-cn-KyG"/>
                                     <barButtonItem tag="4" image="Move.png" style="plain" id="Yil-yv-Mgw">
                                         <color key="tintColor" red="0.0" green="0.4963788777" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="location:" destination="HII-kF-avN" id="jp3-aA-lKu"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="khX-zw-95x"/>
+                                    <barButtonItem image="iBeacon.png" id="Uuz-hl-Qhf">
+                                        <connections>
+                                            <action selector="beaconPressed:" destination="HII-kF-avN" id="WPf-J5-9yf"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="6V4-Dv-SIB"/>
@@ -94,6 +102,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="beaconButton" destination="Uuz-hl-Qhf" id="ET4-ag-Qcw"/>
                         <outlet property="connectionButton" destination="mJP-Uf-uGD" id="LDS-dJ-5hR"/>
                         <outlet property="friendsButton" destination="OG2-Ko-DXh" id="Eg8-EM-tBC"/>
                         <outlet property="locationButton" destination="Yil-yv-Mgw" id="VF6-SA-Qeu"/>
@@ -1697,6 +1706,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <image name="SatelliteOff.png" width="22" height="22"/>
         <image name="UserTrackingNone.png" width="22" height="21"/>
         <image name="connection.png" width="20" height="20"/>
+        <image name="iBeacon.png" width="22" height="22"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

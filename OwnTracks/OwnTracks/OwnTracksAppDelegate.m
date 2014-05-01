@@ -29,9 +29,6 @@
 #define MAX_OTHER_LOCATIONS 1
 
 #undef REMOTE_NOTIFICATIONS
-#undef REMOTE_COMMANDS
-#define BATTERY_MONITORING
-#undef RANGING
 
 @implementation OwnTracksAppDelegate
 
@@ -97,6 +94,7 @@
         self.manager.delegate = self;
         
         self.monitoring = [self.settings intForKey:@"monitoring_preference"];
+        self.ranging = [self.settings boolForKey:@"ranging_preference"];
         
         for (CLRegion *region in self.manager.monitoredRegions) {
             [self.manager stopMonitoringForRegion:region];
@@ -120,8 +118,6 @@
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert];
 #endif // REMOTE_NOTIFICATIONS
     
-#ifdef BATTERY_MONITORING
-    
     // Register for battery level and state change notifications.
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(batteryLevelChanged:)
@@ -133,7 +129,6 @@
     
     
     [[UIDevice currentDevice] setBatteryMonitoringEnabled:TRUE];
-#endif
     
     return YES;
 }
@@ -158,7 +153,6 @@
     }
 }
 
-#ifdef BATTERY_MONITORING
 - (void)batteryLevelChanged:(NSNotification *)notification
 {
 #ifdef DEBUG
@@ -183,7 +177,6 @@
           (long)[UIDevice currentDevice].batteryState);
 #endif
 }
-#endif
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
@@ -232,12 +225,10 @@
 #endif
     [self saveContext];
     
-#ifdef RANGING
     // stop ranging when going background as connection will be cut
     for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
         [self.manager stopRangingBeaconsInRegion:beaconRegion];
     }
-#endif //RANGING
     
     [self.connection disconnect];
 }
@@ -306,6 +297,7 @@
         [AlertView alert:@"App Failure" message:message];
     }
     [self.connection connectToLast];
+    self.ranging = self.ranging;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -392,8 +384,12 @@
     } else if (state == CLRegionStateOutside) {
         [self processLeave:region];
     }
-}
 
+    if (self.delegate) {
+        [self.delegate didDetermineState:state forRegion:region];
+    }
+
+}
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
 {
@@ -425,15 +421,15 @@
     
     [self publishLocation:[self.manager location] automatic:TRUE addon:addon];
     
-#ifdef RANGING
     // start rainging if not in background
-    if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
-        if ([region isKindOfClass:[CLBeaconRegion class]]) {
-            CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
-            [self.manager startRangingBeaconsInRegion:beaconRegion];
+    if (self.ranging) {
+        if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
+            if ([region isKindOfClass:[CLBeaconRegion class]]) {
+                CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
+                [self.manager startRangingBeaconsInRegion:beaconRegion];
+            }
         }
     }
-#endif // RANGING
 }
 
 - (void)processLeave:(CLRegion *)region
@@ -456,18 +452,12 @@
     
     [self publishLocation:[self.manager location] automatic:TRUE addon:addon];
     
-#ifdef RANGING
     // stop ranging when leaving region
     if ([region isKindOfClass:[CLBeaconRegion class]]) {
         CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
         [self.manager stopRangingBeaconsInRegion:beaconRegion];
     }
-#endif // RANGING
-    
-
 }
-
-#ifdef RANGING
 
 -(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
@@ -501,6 +491,10 @@
 #endif
         }
     }
+    
+    if (self.delegate) {
+        [self.delegate didRangeBeacons:beacons inRegion:region];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error
@@ -508,9 +502,7 @@
 #ifdef DEBUG
     NSLog(@"App rangingBeaconsDidFailForRegion %@ %@", region, error);
 #endif
-    
 }
-#endif // RANGING
 
 #pragma ConnectionDelegate
 
@@ -550,38 +542,49 @@
     if ([topic isEqualToString:[self.settings theGeneralTopic]]) {
         // received own data
         
-#ifdef REMOTE_COMMANDS
-    } else if ([topic isEqualToString:[NSString stringWithFormat:@"%@/%@", [self theGeneralTopic], @"msg"]]) {
-#ifdef DEBUG
-        NSLog(@"App received msg %@", data);
-#endif
         NSError *error;
         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
         if (dictionary) {
-            if ([dictionary[@"_type"] isEqualToString:@"msg"]) {
-                NSLog(@"App msg received text:%@ from:%@",
-                      dictionary[@"text"],
-                      dictionary[@"from"]
-                      );
-                [self notification:[NSString stringWithFormat:@"%@ from %@",
-                                    dictionary[@"text"],
-                                    dictionary[@"from"]]];
+            if ([dictionary[@"_type"] isEqualToString:@"cmd"]) {
+#ifdef DEBUG
+                NSLog(@"App msg received cmd:%@", dictionary[@"action"]);
+#endif
+                if ([dictionary[@"action"] isEqualToString:@"dump"]) {
+                    NSData *data = [self.settings toData];
+                    long msgID = [self.connection sendData:data
+                                                     topic:[self.settings theGeneralTopic]
+                                                       qos:[self.settings intForKey:@"qos_preference"]
+                                                    retain:NO];
+                    
+                    if (msgID <= 0) {
+#ifdef DEBUG
+                        NSString *message = [NSString stringWithFormat:@"Dump %@",
+                                             (msgID == -1) ? @"queued" : @"sent"];
+                        [self notification:message userInfo:nil];
+#endif
+                    }
+                } else if ([dictionary[@"action"] isEqualToString:@"reportLocation"]) {
+                    [self publishLocation:self.manager.location automatic:NO addon:nil];
+                } else {
+#ifdef DEBUG
+                    NSLog(@"App received unknown action %@", dictionary[@"action"]);
+#endif
+                }
             } else {
 #ifdef DEBUG
-                NSLog(@"App received unknown record type %@)", dictionary[@"_type"]);
+                NSLog(@"App received unknown record type %@", dictionary[@"_type"]);
 #endif
-                // data other than json _type msg is silently ignored
             }
         } else {
 #ifdef DEBUG
-            NSLog(@"App received illegal json %@)", error);
+            NSLog(@"App received illegal json %@", error);
 #endif
-            // data other than json is silently ignored
         }
-#endif // REMOTE_COMMANDS
         
     } else if ([topic isEqualToString:[NSString stringWithFormat:@"%@/%@", [self.settings theGeneralTopic], @"waypoints"]]) {
         // received own waypoint
+    } else if ([topic isEqualToString:[NSString stringWithFormat:@"%@/%@", [self.settings theGeneralTopic], @"beacons"]]) {
+        // received own beacon
     } else {
         // received other data
         NSString *deviceName = topic;
@@ -693,17 +696,6 @@
 
 #pragma actions
 
-- (void)switchOff
-{
-#ifdef DEBUG
-    NSLog(@"App switchOff");
-#endif
-    
-    [self saveContext];
-    [self connectionOff];
-    self.monitoring = 0;
-    exit(0);
-}
 - (void)sendNow
 {
 #ifdef DEBUG
@@ -752,6 +744,31 @@
             [self.manager stopUpdatingLocation];
             [self.manager stopMonitoringSignificantLocationChanges];
             break;
+    }
+}
+
+- (void)setRanging:(BOOL)ranging
+{
+#ifdef DEBUG
+    NSLog(@"App ranging=%d", ranging);
+#endif
+
+    _ranging = ranging;
+    [self.settings setBool:ranging forKey:@"ranging_preference"];
+
+    if (!ranging) {
+        for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
+#ifdef DEBUG
+            NSLog(@"stopRangingBeaconsInRegion %@", beaconRegion.identifier);
+#endif
+            [self.manager stopRangingBeaconsInRegion:beaconRegion];
+        }
+    }
+    for (CLRegion *region in self.manager.monitoredRegions) {
+#ifdef DEBUG
+        NSLog(@"requestStateForRegion %@", region.identifier);
+#endif
+        [self.manager requestStateForRegion:region];
     }
 }
 
@@ -914,12 +931,10 @@
     
     self.disconnectTimer = nil;
     
-#ifdef RANGING
     // stop ranging when disconnecting in background
     for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
         [self.manager stopRangingBeaconsInRegion:beaconRegion];
     }
-#endif // RANGING
     
     [self.connection disconnect];
     
@@ -974,12 +989,10 @@
         [jsonObject addEntriesFromDictionary:addon];
     }
     
-#ifdef BATTERY_MONITORING
     if ([type isEqualToString:@"location"]) {
         [jsonObject setValue:[NSString stringWithFormat:@"%.0f", [UIDevice currentDevice].batteryLevel != -1.0 ?
                               [UIDevice currentDevice].batteryLevel * 100.0 : -1.0] forKey:@"batt"];
     }
-#endif
     
     return [self jsonToData:jsonObject];
 }
