@@ -12,6 +12,7 @@
 - (NSError *)fromStream:(NSInputStream *)input;
 - (NSError *)waypointsFromStream:(NSInputStream *)input;
 - (NSData *)toData;
+- (NSDictionary *)toDictionary;
 
 - (NSString *)stringForKey:(NSString *)key;
 - (int)intForKey:(NSString *)key;

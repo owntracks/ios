@@ -117,6 +117,9 @@
             
             string = dictionary[@"ranging"];
             if (string) [self setString:string forKey:@"ranging_preference"];
+
+            string = dictionary[@"cmd"];
+            if (string) [self setString:string forKey:@"cmd_preference"];
             
             
             string = dictionary[@"pubRetain"];
@@ -221,7 +224,7 @@
     }
 }
 
-- (NSData *)toData
+- (NSDictionary *)toDictionary
 {
     NSMutableArray *waypoints = [[NSMutableArray alloc] init];
     
@@ -256,6 +259,7 @@
                            @"locatorInterval": [self stringForKey:@"mintime_preference"],
                            @"monitoring": [self stringForKey:@"monitoring_preference"],
                            @"ranging": [self stringForKey:@"ranging_preference"],
+                           @"cmd": [self stringForKey:@"cmd_preference"],
                            
                            @"pubRetain": [self stringForKey:@"retain_preference"],
                            @"tls": [self stringForKey:@"tls_preference"],
@@ -267,6 +271,12 @@
                            
                            @"waypoints": waypoints
                            };
+    return dict;
+}
+
+- (NSData *)toData
+{
+    NSDictionary *dict = [self toDictionary];
     
     NSError *error;
     NSData *myData = [NSJSONSerialization dataWithJSONObject:dict

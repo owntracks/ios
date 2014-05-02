@@ -46,6 +46,8 @@
 	<integer>1</integer>
 	<key>ranging_preference</key>
 	<false/>
+	<key>cmd_preference</key>
+	<false/>
 	<key>ab_preference</key>
 	<true/>
 	<key>positions_preference</key>

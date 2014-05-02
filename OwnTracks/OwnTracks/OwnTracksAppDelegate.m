@@ -423,12 +423,12 @@
     
     // start rainging if not in background
     if (self.ranging) {
-        if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
+        //if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
             if ([region isKindOfClass:[CLBeaconRegion class]]) {
                 CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
                 [self.manager startRangingBeaconsInRegion:beaconRegion];
             }
-        }
+        //}
     }
 }
 
@@ -549,26 +549,31 @@
 #ifdef DEBUG
                 NSLog(@"App msg received cmd:%@", dictionary[@"action"]);
 #endif
-                if ([dictionary[@"action"] isEqualToString:@"dump"]) {
-                    NSData *data = [self.settings toData];
-                    long msgID = [self.connection sendData:data
-                                                     topic:[self.settings theGeneralTopic]
-                                                       qos:[self.settings intForKey:@"qos_preference"]
-                                                    retain:NO];
-                    
-                    if (msgID <= 0) {
+                if ([self.settings boolForKey:@"cmd_preference"]) {
+                    if ([dictionary[@"action"] isEqualToString:@"dump"]) {
+                        NSDictionary *dumpDict = @{
+                                               @"_type":@"dump",
+                                               @"configuration":[self.settings toDictionary],
+                                               };
+                        long msgID = [self.connection sendData:[self jsonToData:dumpDict]
+                                                         topic:[self.settings theGeneralTopic]
+                                                           qos:[self.settings intForKey:@"qos_preference"]
+                                                        retain:NO];
+                        
+                        if (msgID <= 0) {
 #ifdef DEBUG
-                        NSString *message = [NSString stringWithFormat:@"Dump %@",
-                                             (msgID == -1) ? @"queued" : @"sent"];
-                        [self notification:message userInfo:nil];
+                            NSString *message = [NSString stringWithFormat:@"Dump %@",
+                                                 (msgID == -1) ? @"queued" : @"sent"];
+                            [self notification:message userInfo:nil];
+#endif
+                        }
+                    } else if ([dictionary[@"action"] isEqualToString:@"reportLocation"]) {
+                        [self publishLocation:self.manager.location automatic:NO addon:nil];
+                    } else {
+#ifdef DEBUG
+                        NSLog(@"App received unknown action %@", dictionary[@"action"]);
 #endif
                     }
-                } else if ([dictionary[@"action"] isEqualToString:@"reportLocation"]) {
-                    [self publishLocation:self.manager.location automatic:NO addon:nil];
-                } else {
-#ifdef DEBUG
-                    NSLog(@"App received unknown action %@", dictionary[@"action"]);
-#endif
                 }
             } else {
 #ifdef DEBUG

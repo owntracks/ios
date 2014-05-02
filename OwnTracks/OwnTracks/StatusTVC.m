@@ -35,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UITopic;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *UIQos;
 @property (weak, nonatomic) IBOutlet UISwitch *UIRetain;
+@property (weak, nonatomic) IBOutlet UISwitch *UICMD;
 @property (weak, nonatomic) IBOutlet UITextField *UIClientID;
 @property (weak, nonatomic) IBOutlet UITextField *UIPort;
 @property (weak, nonatomic) IBOutlet UISwitch *UITLS;
@@ -77,6 +78,7 @@
     if (self.UITopic) [delegate.settings setString:self.UITopic.text forKey:@"topic_preference"];
     if (self.UIQos) [delegate.settings setInt:(int)self.UIQos.selectedSegmentIndex forKey:@"qos_preference"];
     if (self.UIRetain) [delegate.settings setBool:self.UIRetain.on forKey:@"retain_preference"];
+    if (self.UICMD) [delegate.settings setBool:self.UICMD.on forKey:@"cmd_preference"];
     if (self.UIClientID) [delegate.settings setString:self.UIClientID.text forKey:@"clientid_preference"];
     if (self.UIPort) [delegate.settings setString:self.UIPort.text forKey:@"port_preference"];
     if (self.UITLS) [delegate.settings setBool:self.UITLS.on forKey:@"tls_preference"];
@@ -121,6 +123,7 @@
     self.UITopic.text =                             [delegate.settings stringForKey:@"topic_preference"];
     self.UIQos.selectedSegmentIndex =               [delegate.settings intForKey:@"qos_preference"];
     self.UIRetain.on =                              [delegate.settings boolForKey:@"retain_preference"];
+    self.UICMD.on =                                 [delegate.settings boolForKey:@"cmd_preference"];
     self.UIClientID.text =                          [delegate.settings stringForKey:@"clientid_preference"];
     self.UIPort.text =                              [delegate.settings stringForKey:@"port_preference"];
     self.UITLS.on =                                 [delegate.settings boolForKey:@"tls_preference"];
