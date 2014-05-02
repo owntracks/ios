@@ -491,7 +491,8 @@ typedef enum {
         
         Location *location = (Location *)overlay;
         if ([location.region isKindOfClass:[CLCircularRegion class]]) {
-            if ([location.region containsCoordinate:[delegate.manager location].coordinate]) {
+            CLCircularRegion *circularRegion = (CLCircularRegion *)location.region;
+            if ([circularRegion containsCoordinate:[delegate.manager location].coordinate]) {
                 renderer.fillColor = [UIColor colorWithRed:1.0 green:0.5 blue:0.5 alpha:0.333];
             } else {
                 renderer.fillColor = [UIColor colorWithRed:0.5 green:0.5 blue:1.0 alpha:0.333];
