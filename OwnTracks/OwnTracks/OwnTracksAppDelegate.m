@@ -354,55 +354,6 @@
 #ifdef DEBUG
     NSLog(@"App didEnterRegion %@", region);
 #endif
-    //[self processEnter:region];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
-{
-#ifdef DEBUG
-    NSLog(@"App didExitRegion %@", region);
-#endif
-    //[self processLeave:region];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
-{
-#ifdef DEBUG
-    NSLog(@"App didStartMonitoringForRegion %@", region);
-#endif
-    [self.manager requestStateForRegion:region];
-}
-
--(void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
-{
-#ifdef DEBUG
-    
-    NSLog(@"App didDetermineState %ld %@", (long)state, region);
-#endif
-    if (state == CLRegionStateInside) {
-        [self processEnter:region];
-    } else if (state == CLRegionStateOutside) {
-        [self processLeave:region];
-    }
-
-    if (self.delegate) {
-        [self.delegate didDetermineState:state forRegion:region];
-    }
-
-}
-
-- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
-{
-#ifdef DEBUG
-    NSLog(@"App monitoringDidFailForRegion %@ %@", region, error);
-#endif
-    NSString *message = [NSString stringWithFormat:@"monitoringDidFailForRegion %@ %@", region, error];
-    [AlertView alert:@"App locationManager" message:message];
-}
-        
-        
-- (void)processEnter:(CLRegion *)region
-{
     NSString *message = [NSString stringWithFormat:@"Entering %@", region.identifier];
     [self notification:message userInfo:nil];
     
@@ -420,20 +371,14 @@
     }
     
     [self publishLocation:[self.manager location] automatic:TRUE addon:addon];
-    
-    // start rainging if not in background
-    if (self.ranging) {
-        //if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
-            if ([region isKindOfClass:[CLBeaconRegion class]]) {
-                CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
-                [self.manager startRangingBeaconsInRegion:beaconRegion];
-            }
-        //}
-    }
 }
 
-- (void)processLeave:(CLRegion *)region
+- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
+#ifdef DEBUG
+    NSLog(@"App didExitRegion %@", region);
+#endif
+    
     NSString *message = [NSString stringWithFormat:@"Leaving %@", region.identifier];
     [self notification:message userInfo:nil];
     
@@ -451,14 +396,55 @@
     }
     
     [self publishLocation:[self.manager location] automatic:TRUE addon:addon];
-    
-    // stop ranging when leaving region
-    if ([region isKindOfClass:[CLBeaconRegion class]]) {
-        CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
-        [self.manager stopRangingBeaconsInRegion:beaconRegion];
-    }
 }
 
+- (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
+{
+#ifdef DEBUG
+    NSLog(@"App didStartMonitoringForRegion %@", region);
+#endif
+    [self.manager requestStateForRegion:region];
+}
+
+-(void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
+{
+#ifdef DEBUG
+    
+    NSLog(@"App didDetermineState %ld %@", (long)state, region);
+#endif
+    if (state == CLRegionStateInside) {
+        // start rainging if not in background
+        if (self.ranging) {
+            //if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
+            if ([region isKindOfClass:[CLBeaconRegion class]]) {
+                CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
+                [self.manager startRangingBeaconsInRegion:beaconRegion];
+            }
+            //}
+        }
+    } else if (state == CLRegionStateOutside) {
+        // stop ranging when leaving region
+        if ([region isKindOfClass:[CLBeaconRegion class]]) {
+            CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
+            [self.manager stopRangingBeaconsInRegion:beaconRegion];
+        }
+    }
+
+    if (self.delegate) {
+        [self.delegate didDetermineState:state forRegion:region];
+    }
+
+}
+
+- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
+{
+#ifdef DEBUG
+    NSLog(@"App monitoringDidFailForRegion %@ %@", region, error);
+#endif
+    NSString *message = [NSString stringWithFormat:@"monitoringDidFailForRegion %@ %@", region, error];
+    [AlertView alert:@"App locationManager" message:message];
+}
+        
 -(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
 #ifdef DEBUG

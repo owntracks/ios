@@ -60,22 +60,22 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>7.1.1</string>
+	<string>7.1.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>7.1.1</string>
+	<string>7.1.2</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationUsageDescription</key>
 	<string>OwnTracks monitors your location and publishes it to your MQTT server</string>
-	<key>NSMainNibFile~ipad</key>
-	<string>Storyboard-iPad</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
+	<string>Storyboard</string>
+	<key>UIMainStoryboardFile~ipad</key>
 	<string>Storyboard</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
