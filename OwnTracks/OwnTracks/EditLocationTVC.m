@@ -33,6 +33,18 @@
     _location = location;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.title = [self.location nameText];
+    
+    [self.location getReverseGeoCode];
+    [self setup];
+    self.oldRegion = [self.location region];
+}
+
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -50,17 +62,6 @@
         }
     }
 }
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    self.title = [self.location nameText];
-
-    [self.location getReverseGeoCode];
-    [self setup];
-    self.oldRegion = [self.location region];
-}
-
 - (void)setup
 {
     self.UIlatitude.text = [NSString stringWithFormat:@"%g", [self.location.latitude doubleValue]];
@@ -142,16 +143,17 @@
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     self.location = [Location locationWithTopic:[delegate.settings theGeneralTopic]
                                       timestamp:[NSDate date]
-                                     coordinate:CLLocationCoordinate2DMake(0, 0)
-                                       accuracy:0
+                                     coordinate:delegate.manager.location.coordinate
+                                       accuracy:delegate.manager.location.horizontalAccuracy
                                       automatic:NO
-                                         remark:@""
+                                         remark:@"new location"
                                          radius:0
                                           share:NO
                          inManagedObjectContext:[CoreData theManagedObjectContext]
                      ];
     [self setup];
 }
+
 - (IBAction)navigatePressed:(UIButton *)sender {
     MKPlacemark* place = [[MKPlacemark alloc] initWithCoordinate: self.location.coordinate addressDictionary: nil];
     MKMapItem* destination = [[MKMapItem alloc] initWithPlacemark: place];

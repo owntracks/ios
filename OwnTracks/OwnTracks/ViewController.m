@@ -20,8 +20,6 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *connectionButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *locationButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *mapModeButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *friendsButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *beaconButton;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UIProgressView *progress;
@@ -31,15 +29,6 @@
 @property (strong, nonatomic) NSFetchedResultsController *frc;
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
 
-typedef enum {
-    friendsCenter = 0,
-    friendsAllFriends,
-    friendsTrack,
-    friendsHeading,
-    friendsFriend
-} friendsMode;
-
-@property (nonatomic) friendsMode friends;
 @end
 
 @implementation ViewController
@@ -55,12 +44,9 @@ typedef enum {
     
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     delegate.delegate = self;
-    
-    // Tracking Mode
-    self.friends = friendsTrack;
-    
-    // Map Mode
+ 
     self.mapView.mapType = MKMapTypeStandard;
+    self.mapView.showsUserLocation = TRUE;
 }
 
 
@@ -71,10 +57,8 @@ typedef enum {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [self showState:delegate.connection.state];
     
-    [self friends:nil];
-    [self mapMode:nil];
-    [self location:nil];
-    [self beaconPressed:nil];
+    [self monitoringButtonImage];
+    [self beaconButtonImage];
     
     if ([CoreData theManagedObjectContext]) {
         if (!self.frc) {
@@ -109,19 +93,151 @@ typedef enum {
     }
     
     [self.mapView setVisibleMapRect:[self centeredRect:coordinate] animated:YES];
-    self.friends = friendsFriend; // this will set the move mode to not follow when the map appeares again
+    self.mapView.userTrackingMode = MKUserTrackingModeNone;
+}
+
+#define ACTION_MONITORING @"Location Monitoring Mode"
+#define ACTION_MAP @"Map Modes"
+#define ACTION_CONNECTION @"Connection"
+#define ACTION_BEACON @"iBeacon"
+
+- (IBAction)location:(UIBarButtonItem *)sender
+{
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:ACTION_MONITORING
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:
+                                  @"Manual",
+                                  @"Significant Changes",
+                                  @"Move Mode",
+                                  @"Publish Now",
+                                  nil];
+    [actionSheet showFromBarButtonItem:sender animated:YES];
+}
+
+- (IBAction)friends:(UIBarButtonItem *)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:ACTION_MAP
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:
+                                  @"No Tracking",
+                                  @"Follow",
+                                  @"Follow with Heading",
+                                  @"Show all Friends",
+                                  @"Standard Map",
+                                  @"Satellite Map",
+                                  @"Hybrid Map",
+                                  nil];
+    [actionSheet showFromBarButtonItem:sender animated:YES];
 }
 
 
-- (IBAction)location:(UIBarButtonItem *)sender {
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
-    if (sender) {
-        delegate.monitoring = (delegate.monitoring + 3 - 1) % 3;
-        NSArray *modeNames = @[@"Manual",
-                               @"Significant Changes",
-                               @"Move"];
-        [self disappearingActionSheet:[NSString stringWithFormat:@"Publish mode %@", modeNames[delegate.monitoring]] button:sender];
+
+    if ([actionSheet.title isEqualToString:ACTION_MONITORING]) {
+        switch (buttonIndex - actionSheet.firstOtherButtonIndex) {
+            case 0:
+                delegate.monitoring = 0;
+                break;
+            case 1:
+                delegate.monitoring = 1;
+                break;
+            case 2:
+                delegate.monitoring = 2;
+                break;
+            case 3:
+                [delegate sendNow];
+                break;
+        }
+        
+        [self monitoringButtonImage];
+        
+    } else if ([actionSheet.title isEqualToString:ACTION_MAP]) {
+        switch (buttonIndex - actionSheet.firstOtherButtonIndex) {
+            case 0:
+                self.mapView.userTrackingMode = MKUserTrackingModeNone;
+                break;
+            case 1:
+                self.mapView.userTrackingMode = MKUserTrackingModeFollow;
+                break;
+            case 2:
+                self.mapView.userTrackingMode = MKUserTrackingModeFollowWithHeading;
+                break;
+            case 3:
+            {
+                CLLocationCoordinate2D center = delegate.manager.location.coordinate;
+                MKMapRect rect = [self centeredRect:center];
+                
+                for (Location *location in [Location allLocationsInManagedObjectContext:[CoreData theManagedObjectContext]])
+                {
+                    MKMapPoint point = MKMapPointForCoordinate(location.coordinate);
+                    if (point.x < rect.origin.x) {
+                        rect.size.width += rect.origin.x - point.x;
+                        rect.origin.x = point.x;
+                    }
+                    if (point.x > rect.origin.x + rect.size.width) {
+                        rect.size.width += point.x - rect.origin.x;
+                    }
+                    if (point.y < rect.origin.y) {
+                        rect.size.height += rect.origin.y - point.y;
+                        rect.origin.y = point.y;
+                    }
+                    if (point.y > rect.origin.y + rect.size.height) {
+                        rect.size.height += point.y - rect.origin.y;
+                    }
+                }
+                
+                rect.origin.x -= rect.size.width/10.0;
+                rect.origin.y -= rect.size.height/10.0;
+                rect.size.width *= 1.2;
+                rect.size.height *= 1.2;
+                
+                self.mapView.userTrackingMode = MKUserTrackingModeNone;
+                [self.mapView setVisibleMapRect:rect animated:YES];
+                break;
+            }
+            case 4:
+                self.mapView.mapType = MKMapTypeStandard;
+                break;
+            case 5:
+                self.mapView.mapType = MKMapTypeSatellite;
+                break;
+            case 6:
+                self.mapView.mapType = MKMapTypeHybrid;
+                break;
+        }
+    } else if ([actionSheet.title isEqualToString:ACTION_BEACON]) {
+        switch (buttonIndex - actionSheet.firstOtherButtonIndex) {
+            case 0:
+                delegate.ranging = YES;
+                break;
+            case 1:
+                delegate.ranging = NO;
+                break;
+        }
+        [self beaconButtonImage];
+        
+    } else if ([actionSheet.title isEqualToString:ACTION_CONNECTION]) {
+        switch (buttonIndex - actionSheet.firstOtherButtonIndex) {
+            case 0:
+                [delegate connectionOff];
+                [delegate reconnect];
+                break;
+            case 1:
+                [delegate connectionOff];
+                break;
+        }
     }
+}
+
+- (void)monitoringButtonImage
+{
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
+
     switch (delegate.monitoring) {
         case 2:
             self.locationButton.image = [UIImage imageNamed:@"Move.png"];
@@ -136,149 +252,34 @@ typedef enum {
     }
 }
 
-- (IBAction)action:(UIBarButtonItem *)sender {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
-    [delegate sendNow];
-    [self disappearingActionSheet:@"Publish location now" button:sender];
-}
-
 - (IBAction)connection:(UIBarButtonItem *)sender {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
-    switch (delegate.connection.state) {
-        case state_connected:
-            [delegate connectionOff];
-            [self disappearingActionSheet:@"MQTT disconnect!" button:sender];
-            break;
-        case state_error:
-        case state_starting:
-        case state_connecting:
-        case state_closing:
-        default:
-            [delegate reconnect];
-            [self disappearingActionSheet:@"MQTT reconnect!" button:sender];
-            break;
-    }
-}
-
-- (IBAction)friends:(UIBarButtonItem *)sender {
-    if (sender) {
-        self.friends++;
-        if (self.friends > friendsHeading) {
-            self.friends = friendsCenter;
-        }
-        NSArray *modeNames = @[@"centered",
-                               @"shows all friends",
-                               @"follows",
-                               @"follows with heading"];
-        [self disappearingActionSheet:[NSString stringWithFormat:@"Map %@", modeNames[self.friends]] button:sender];
-    }
-    
-    self.mapView.showsUserLocation = TRUE;
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    CLLocationCoordinate2D center = delegate.manager.location.coordinate;
-
-    switch (self.friends) {
-        case friendsHeading:
-            self.mapView.userTrackingMode = MKUserTrackingModeFollowWithHeading;
-            self.friendsButton.image = [UIImage imageNamed:@"UserTrackingFollowWithHeading.png"];
-            break;
-        case friendsTrack:
-            self.mapView.userTrackingMode = MKUserTrackingModeFollow;
-            self.friendsButton.image = [UIImage imageNamed:@"UserTrackingFollow.png"];
-            break;
-        case friendsAllFriends:
-        {
-            MKMapRect rect = [self centeredRect:center];
-            
-            for (Location *location in [Location allLocationsInManagedObjectContext:[CoreData theManagedObjectContext]])
-            {
-                MKMapPoint point = MKMapPointForCoordinate(location.coordinate);
-                if (point.x < rect.origin.x) {
-                    rect.size.width += rect.origin.x - point.x;
-                    rect.origin.x = point.x;
-                }
-                if (point.x > rect.origin.x + rect.size.width) {
-                    rect.size.width += point.x - rect.origin.x;
-                }
-                if (point.y < rect.origin.y) {
-                    rect.size.height += rect.origin.y - point.y;
-                    rect.origin.y = point.y;
-                }
-                if (point.y > rect.origin.y + rect.size.height) {
-                    rect.size.height += point.y - rect.origin.y;
-                }
-            }
-            
-            rect.origin.x -= rect.size.width/10.0;
-            rect.origin.y -= rect.size.height/10.0;
-            rect.size.width *= 1.2;
-            rect.size.height *= 1.2;
-
-            self.mapView.userTrackingMode = MKUserTrackingModeNone;
-            [self.mapView setVisibleMapRect:rect animated:YES];
-            self.friendsButton.image = [UIImage imageNamed:@"FriendsOn.png"];
-            break;
-        }
-        case friendsCenter:
-            self.mapView.userTrackingMode = MKUserTrackingModeNone;
-            [self.mapView setVisibleMapRect:[self centeredRect:center] animated:YES];
-            self.friendsButton.image = [UIImage imageNamed:@"UserTrackingNone.png"];
-            break;
-        case friendsFriend:
-        default:
-            /*
-             * If selected from friends submenues, map stays there until changed by user
-             */
-            self.mapView.userTrackingMode = MKUserTrackingModeNone;
-            self.friendsButton.image = [UIImage imageNamed:@"UserTrackingNone.png"];
-            break;
-    }
-}
-
-- (IBAction)mapMode:(UIBarButtonItem *)sender {
-    if (sender) {
-        switch (self.mapView.mapType) {
-            case  MKMapTypeStandard:
-                self.mapView.mapType = MKMapTypeSatellite;
-                [self disappearingActionSheet:@"Map mode satellite" button:sender];
-                break;
-            case MKMapTypeSatellite:
-                self.mapView.mapType = MKMapTypeHybrid;
-                [self disappearingActionSheet:@"Map mode hybrid" button:sender];
-                break;
-            case MKMapTypeHybrid:
-            default:
-                self.mapView.mapType = MKMapTypeStandard;
-                [self disappearingActionSheet:@"Map standard" button:sender];
-                break;
-        }
-    }
-    switch (self.mapView.mapType) {
-        case  MKMapTypeStandard:
-            self.mapModeButton.image = [UIImage imageNamed:@"SatelliteOff.png"];
-            break;
-        case MKMapTypeSatellite:
-            self.mapModeButton.image = [UIImage imageNamed:@"SatelliteOn.png"];
-            break;
-        case MKMapTypeHybrid:
-            self.mapModeButton.image = [UIImage imageNamed:@"HybridOn.png"];
-
-        default:
-            break;
-    }
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:ACTION_CONNECTION
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:
+                                  @"(Re-)Connect",
+                                  @"Disconnect",
+                                  nil];
+    [actionSheet showFromBarButtonItem:sender animated:YES];
 }
 
 - (IBAction)beaconPressed:(UIBarButtonItem *)sender {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
-    if (sender) {
-        delegate.ranging = !delegate.ranging;
-        if (delegate.ranging) {
-            [self disappearingActionSheet:@"iBeacon Ranging On" button:sender];
-        } else {
-            [self disappearingActionSheet:@"iBeacon Ranging Off" button:sender];
-        }
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:ACTION_BEACON
+                                                             delegate:self
+                                                    cancelButtonTitle:@"Cancel"
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:
+                                  @"Start Ranging",
+                                  @"Stop Ranging",
+                                  nil];
+    [actionSheet showFromBarButtonItem:sender animated:YES];
+}
 
-    }
+- (void)beaconButtonImage
+{
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
+
     if (delegate.ranging) {
         self.beaconButton.image = [UIImage imageNamed:@"iBeaconOn.png"];
     } else {

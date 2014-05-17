@@ -10,8 +10,6 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import "Friend+Create.h"
 
-#define IBEACON
-
 @implementation Location (Create)
 
 + (Location *)locationWithTopic:(NSString *)topic
@@ -207,7 +205,6 @@
             region = [[CLCircularRegion alloc] initWithCenter:self.coordinate
                                                        radius:[self.regionradius doubleValue]
                                                    identifier:self.remark];
-#ifdef IBEACON
         } else {
             NSArray *components = [self.remark componentsSeparatedByString:@":"];
             if (components) {
@@ -252,12 +249,13 @@
                                                                           identifier:components[0]];
                     }
                     
+                    region = beaconRegion;
+                    
                     // make sure the app is woken up if the device is switched on within the beacon region
                     // beaconRegion.notifyEntryStateOnDisplay = TRUE;
-                    region = beaconRegion;
+                    
                 }
             }
-#endif // IBEACON
             
         }
     }

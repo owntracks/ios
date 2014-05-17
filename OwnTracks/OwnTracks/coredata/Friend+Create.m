@@ -168,7 +168,10 @@
             [self ABsetTopic:nil record:oldrecord];
         }
         
-        [self ABsetTopic:self.topic record:record];
+        if (record) {
+            [self ABsetTopic:self.topic record:record];
+        }
+        
     } else {
         ABRecordID abRecordID = ABRecordGetRecordID(record);
         self.abRecordId = @(abRecordID);
@@ -220,7 +223,6 @@ ABRecordRef recordWithTopic(CFStringRef topic)
 
 - (void)ABsetTopic:(NSString *)topic record:(ABRecordRef)record
 {
-    
     CFErrorRef errorRef;
 
     ABMutableMultiValueRef relationsRW;

@@ -24,27 +24,13 @@
                                 <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem tag="2" image="UserTrackingNone.png" style="plain" id="OG2-Ko-DXh">
+                                    <barButtonItem tag="2" image="UserTrackingFollow.png" style="plain" id="OG2-Ko-DXh">
                                         <color key="tintColor" red="0.0" green="0.4963788777" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="friends:" destination="HII-kF-avN" id="XD3-Tf-h5Q"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="l8U-VX-iOd"/>
-                                    <barButtonItem tag="5" image="SatelliteOff.png" style="plain" id="WHg-de-nht">
-                                        <color key="tintColor" red="0.0" green="0.4963788777" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <connections>
-                                            <action selector="mapMode:" destination="HII-kF-avN" id="0in-iC-7sv"/>
-                                        </connections>
-                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="DXi-04-kMZ"/>
-                                    <barButtonItem tag="3" image="Pin.png" style="plain" id="zfI-EJ-Mu6">
-                                        <color key="tintColor" red="0.0" green="0.4963788777" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <connections>
-                                            <action selector="action:" destination="HII-kF-avN" id="pgb-9J-XW3"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="TYu-cn-KyG"/>
                                     <barButtonItem tag="4" image="Move.png" style="plain" id="Yil-yv-Mgw">
                                         <color key="tintColor" red="0.0" green="0.4963788777" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
@@ -104,9 +90,7 @@
                     <connections>
                         <outlet property="beaconButton" destination="Uuz-hl-Qhf" id="ET4-ag-Qcw"/>
                         <outlet property="connectionButton" destination="mJP-Uf-uGD" id="LDS-dJ-5hR"/>
-                        <outlet property="friendsButton" destination="OG2-Ko-DXh" id="Eg8-EM-tBC"/>
                         <outlet property="locationButton" destination="Yil-yv-Mgw" id="VF6-SA-Qeu"/>
-                        <outlet property="mapModeButton" destination="WHg-de-nht" id="T1k-9F-NMO"/>
                         <outlet property="mapView" destination="eED-yn-0ps" id="ySD-3E-pwJ"/>
                         <outlet property="progress" destination="qjN-oP-uMc" id="7SF-Ak-6CU"/>
                         <outlet property="toolbar" destination="XET-fL-22T" id="GVN-2n-mb5"/>
@@ -126,10 +110,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
-                            <tableViewSection headerTitle="" id="NLO-OJ-EgQ">
+                            <tableViewSection headerTitle="Connection" id="NLO-OJ-EgQ">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Iy1-qt-5Oj">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Iy1-qt-5Oj" id="oZS-yY-7wO">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -154,7 +138,7 @@
                             <tableViewSection headerTitle="Last Error" id="KLQ-Dr-AAl">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="131" id="K7A-54-wOx">
-                                        <rect key="frame" x="0.0" y="130" width="320" height="131"/>
+                                        <rect key="frame" x="0.0" y="152" width="320" height="131"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K7A-54-wOx" id="cgm-vw-7oL">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
@@ -181,7 +165,7 @@
                             <tableViewSection headerTitle="Effective Settings" id="7HG-RN-lXh">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="pbJ-XE-zQs">
-                                        <rect key="frame" x="0.0" y="283" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="305" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pbJ-XE-zQs" id="qme-Db-dpc">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -232,7 +216,7 @@
                                         </constraints>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="8K7-ym-dsw">
-                                        <rect key="frame" x="0.0" y="327" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="349" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8K7-ym-dsw" id="zxO-ZU-eLm">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -266,7 +250,7 @@
                                         </constraints>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="NsA-MT-Zml">
-                                        <rect key="frame" x="0.0" y="371" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="393" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NsA-MT-Zml" id="Ut8-GY-qJD">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -300,7 +284,7 @@
                                         </constraints>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="XF5-TA-daq">
-                                        <rect key="frame" x="0.0" y="415" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="437" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XF5-TA-daq" id="fSH-Qu-rH0">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -333,7 +317,7 @@
                                         </constraints>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="8VR-3f-FXr">
-                                        <rect key="frame" x="0.0" y="459" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="481" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8VR-3f-FXr" id="knJ-h0-Siv">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -2093,9 +2077,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     </scenes>
     <resources>
         <image name="Move.png" width="22" height="21"/>
-        <image name="Pin.png" width="22" height="21"/>
-        <image name="SatelliteOff.png" width="22" height="22"/>
-        <image name="UserTrackingNone.png" width="22" height="21"/>
+        <image name="UserTrackingFollow.png" width="22" height="21"/>
         <image name="connection.png" width="20" height="20"/>
         <image name="iBeacon.png" width="22" height="22"/>
     </resources>

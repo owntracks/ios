@@ -84,6 +84,9 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         Friend *friend = [self.fetchedResultsController objectAtIndexPath:indexPath];
         [self.fetchedResultsController.managedObjectContext deleteObject:friend];
+        
+        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegate sendEmpty:friend];
     }
 }
 

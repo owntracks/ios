@@ -838,6 +838,23 @@
     [self saveContext];
 }
 
+- (void)sendEmpty:(Friend *)friend
+{
+    long msgID = [self.connection sendData:nil
+                                     topic:friend.topic
+                                       qos:[self.settings intForKey:@"qos_preference"]
+                                    retain:YES];
+    
+    if (msgID <= 0) {
+#ifdef DEBUG
+        NSString *message = [NSString stringWithFormat:@"Delete send for %@ %@",
+                             friend.topic,
+                             (msgID == -1) ? @"queued" : @"sent"];
+        [self notification:message userInfo:nil];
+#endif
+    }
+}
+
 - (void)sendWayPoint:(Location *)location
 {
     NSMutableDictionary *addon = [[NSMutableDictionary alloc]init];

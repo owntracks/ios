@@ -32,6 +32,7 @@
 
 - (void)sendNow;
 - (void)sendWayPoint:(Location *)location;
+- (void)sendEmpty:(Friend *)friend;
 - (void)reconnect;
 - (void)connectionOff;
 - (void)saveContext;
