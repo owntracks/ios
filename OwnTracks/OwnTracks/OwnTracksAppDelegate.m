@@ -17,6 +17,7 @@
 @property (strong, nonatomic) NSTimer *activityTimer;
 @property (strong, nonatomic) UIAlertView *alertView;
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
+@property (strong, nonatomic) void (^completionHandler)(UIBackgroundFetchResult);
 @property (strong, nonatomic) CoreData *coreData;
 @property (strong, nonatomic) NSDate *locationLastSent;
 @property (strong, nonatomic) NSString *processingMessage;
@@ -46,6 +47,12 @@
 #endif
     
     self.backgroundTask = UIBackgroundTaskInvalid;
+    self.completionHandler = nil;
+    
+#ifdef DEBUG
+    NSLog(@"App setMinimumBackgroundFetchInterval %f", UIApplicationBackgroundFetchIntervalMinimum);
+#endif
+    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
     return YES;
 }
@@ -93,12 +100,19 @@
         self.locationLastSent = [NSDate date]; // Do not sent old locations
         self.manager.delegate = self;
         
-        self.monitoring = [self.settings intForKey:@"monitoring_preference"];
-        self.ranging = [self.settings boolForKey:@"ranging_preference"];
-        
         for (CLRegion *region in self.manager.monitoredRegions) {
+#ifdef DEBUG
+            NSLog(@"stopMonitoringForRegion %@", region.identifier);
+            for (CLRegion *region in self.manager.monitoredRegions) {
+                NSLog(@"region %@", region.identifier);
+            }
+#endif
             [self.manager stopMonitoringForRegion:region];
         }
+
+        self.monitoring = [self.settings intForKey:@"monitoring_preference"];
+        self.ranging = [self.settings boolForKey:@"ranging_preference"];
+
     }
 
     /*
@@ -178,7 +192,10 @@
 #endif
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
 {
 #ifdef DEBUG
     NSLog(@"App openURL %@ from %@ annotation %@", url, sourceApplication, annotation);
@@ -322,6 +339,16 @@
     }
 }
 
+- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+#ifdef DEBUG
+    NSLog(@"App performFetchWithCompletionHandler");
+#endif
+
+    self.completionHandler = completionHandler;
+    [self publishLocation:[self.manager location] automatic:TRUE addon:@{@"event": @"ping"}];
+}
+
 #pragma CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
@@ -441,7 +468,7 @@
 #ifdef DEBUG
     NSLog(@"App monitoringDidFailForRegion %@ %@", region, error);
 #endif
-    NSString *message = [NSString stringWithFormat:@"monitoringDidFailForRegion %@ %@", region, error];
+    NSString *message = [NSString stringWithFormat:@"%@ %@", region, error];
     [AlertView alert:@"App locationManager" message:message];
 }
         
@@ -455,7 +482,7 @@
         
         NSDictionary *jsonObject = @{
                                      @"_type": @"beacon",
-                                     @"tst": [NSString stringWithFormat:@"%.0f", [self.manager.location.timestamp timeIntervalSince1970]],
+                                     @"tst": @(floor([self.manager.location.timestamp timeIntervalSince1970])),
                                      @"uuid": [beacon.proximityUUID UUIDString],
                                      @"major": beacon.major,
                                      @"minor": beacon.minor,
@@ -519,6 +546,13 @@
 #endif
             [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
             self.backgroundTask = UIBackgroundTaskInvalid;
+        }
+        if (self.completionHandler) {
+#ifdef DEBUG
+            NSLog(@"App completionHandler");
+#endif
+            self.completionHandler(UIBackgroundFetchResultNewData);
+            self.completionHandler = nil;
         }
     }
 }
@@ -812,7 +846,12 @@
     }
     
     [self limitLocationsWith:newLocation.belongsTo toMaximum:[self.settings intForKey:@"positions_preference"]];
-    
+    [self startBackgroundTimer];
+    [self saveContext];
+}
+
+- (void)startBackgroundTimer
+{
     /**
      *   In background, set timer to disconnect after BACKGROUND_DISCONNECT_AFTER sec. IOS will suspend app after 10 sec.
      **/
@@ -835,7 +874,6 @@
 #endif
         }
     }
-    [self saveContext];
 }
 
 - (void)sendEmpty:(Friend *)friend

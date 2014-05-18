@@ -174,20 +174,23 @@
                 
                 for (Location *location in [Location allLocationsInManagedObjectContext:[CoreData theManagedObjectContext]])
                 {
-                    MKMapPoint point = MKMapPointForCoordinate(location.coordinate);
-                    if (point.x < rect.origin.x) {
-                        rect.size.width += rect.origin.x - point.x;
-                        rect.origin.x = point.x;
-                    }
-                    if (point.x > rect.origin.x + rect.size.width) {
-                        rect.size.width += point.x - rect.origin.x;
-                    }
-                    if (point.y < rect.origin.y) {
-                        rect.size.height += rect.origin.y - point.y;
-                        rect.origin.y = point.y;
-                    }
-                    if (point.y > rect.origin.y + rect.size.height) {
-                        rect.size.height += point.y - rect.origin.y;
+                    CLLocationCoordinate2D coordinate = location.coordinate;
+                    if (coordinate.latitude != 0 || coordinate.longitude != 0) {
+                        MKMapPoint point = MKMapPointForCoordinate(coordinate);
+                        if (point.x < rect.origin.x) {
+                            rect.size.width += rect.origin.x - point.x;
+                            rect.origin.x = point.x;
+                        }
+                        if (point.x > rect.origin.x + rect.size.width) {
+                            rect.size.width += point.x - rect.origin.x;
+                        }
+                        if (point.y < rect.origin.y) {
+                            rect.size.height += rect.origin.y - point.y;
+                            rect.origin.y = point.y;
+                        }
+                        if (point.y > rect.origin.y + rect.size.height) {
+                            rect.size.height += point.y - rect.origin.y;
+                        }
                     }
                 }
                 
@@ -411,9 +414,8 @@
     } else {
         if ([annotation isKindOfClass:[Location class]]) {
             Location *location = (Location *)annotation;
-            
             OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-
+            
             if ([location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]]) {
                 MKPinAnnotationView *pinAnnotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_SELF];
                 if (!pinAnnotationView) {
@@ -447,7 +449,7 @@
                     } else {
                         color = [UIColor blueColor];
                     }
-
+                    
                     MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_PICTURE];
                     FriendAnnotationV *friendAnnotationV;
                     if (annotationView) {
@@ -477,7 +479,6 @@
                         return pinAnnotationView;
                     }
                 }
-                
             }
         }
         return nil;
@@ -545,15 +546,19 @@
     }
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
 
-    [self.mapView addAnnotations:[Location allLocationsInManagedObjectContext:[CoreData theManagedObjectContext]]];
+    [self.mapView addAnnotations:[Location allValidLocationsInManagedObjectContext:[CoreData theManagedObjectContext]]];
     
     NSArray *overlays = [Location allWaypointsOfTopic:[delegate.settings theGeneralTopic]
                               inManagedObjectContext:[CoreData theManagedObjectContext]];
+
     [self.mapView addOverlays:overlays];
     for (Location *location in overlays) {
         if (location.region) {
 #ifdef DEBUG
             NSLog(@"startMonitoringForRegion %@", location.region.identifier);
+            for (CLRegion *region in delegate.manager.monitoredRegions) {
+                NSLog(@"region %@", region.identifier);
+            }
 #endif
             [delegate.manager startMonitoringForRegion:location.region];
         }
@@ -617,16 +622,22 @@
     {
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         Location *location = (Location *)anObject;
+        CLLocationCoordinate2D coordinate = location.coordinate;
         
         switch(type)
         {
             case NSFetchedResultsChangeInsert:
-                [self.mapView addAnnotation:location];
+                if (coordinate.latitude != 0 || coordinate.longitude !=0) {
+                    [self.mapView addAnnotation:location];
+                }
                 if ([location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]]) {
                     [self.mapView addOverlay:location];
                     if (location.region) {
 #ifdef DEBUG
                         NSLog(@"startMonitoringForRegion %@", location.region.identifier);
+                        for (CLRegion *region in delegate.manager.monitoredRegions) {
+                            NSLog(@"region %@", region.identifier);
+                        }
 #endif
                         [delegate.manager startMonitoringForRegion:location.region];
                     }
@@ -641,6 +652,9 @@
                         if ([region.identifier isEqualToString:location.region.identifier]) {
 #ifdef DEBUG
                             NSLog(@"stopMonitoringForRegion %@", region.identifier);
+                            for (CLRegion *region in delegate.manager.monitoredRegions) {
+                                NSLog(@"region %@", region.identifier);
+                            }
 #endif
                             [delegate.manager stopMonitoringForRegion:region];
                         }
@@ -655,7 +669,9 @@
                     [self.mapView removeOverlay:location];
                     [self.mapView addOverlay:location];
                 }
-                [self.mapView addAnnotation:location];
+                if (coordinate.latitude != 0 || coordinate.longitude !=0) {
+                    [self.mapView addAnnotation:location];
+                }
                 break;
         }
     }

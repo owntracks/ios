@@ -70,6 +70,19 @@
     return matches;
 }
 
++ (NSArray *)allValidLocationsInManagedObjectContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Location"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
+    request.predicate = [NSPredicate predicateWithFormat:@"latitude != 0 OR longitude != 0"];
+    
+    NSError *error = nil;
+    
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+    
+    return matches;
+}
+
 + (NSArray *)allWaypointsOfTopic:(NSString *)topic inManagedObjectContext:(NSManagedObjectContext *)context
 {
     Friend *friend = [Friend friendWithTopic:topic inManagedObjectContext:context];
