@@ -18,11 +18,9 @@
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *connectionButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *locationButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *beaconButton;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
-@property (weak, nonatomic) IBOutlet UIProgressView *progress;
 
 @property (nonatomic) BOOL beaconOn;
 
@@ -53,10 +51,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [self showState:delegate.connection.state];
-    
+        
     [self monitoringButtonImage];
     [self beaconButtonImage];
     
@@ -72,7 +67,6 @@
             self.frc.delegate = self;
         }
     }
-    
 }
 
 #pragma UI actions
@@ -98,14 +92,13 @@
 
 #define ACTION_MONITORING @"Location Monitoring Mode"
 #define ACTION_MAP @"Map Modes"
-#define ACTION_CONNECTION @"Connection"
 #define ACTION_BEACON @"iBeacon"
 
 - (IBAction)location:(UIBarButtonItem *)sender
 {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:ACTION_MONITORING
                                                              delegate:self
-                                                    cancelButtonTitle:@"Cancel"
+                                                    cancelButtonTitle:([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ? @"Cancel" : nil
                                                destructiveButtonTitle:nil
                                                     otherButtonTitles:
                                   @"Manual",
@@ -119,7 +112,7 @@
 - (IBAction)friends:(UIBarButtonItem *)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:ACTION_MAP
                                                              delegate:self
-                                                    cancelButtonTitle:@"Cancel"
+                                                    cancelButtonTitle:([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ? @"Cancel" : nil
                                                destructiveButtonTitle:nil
                                                     otherButtonTitles:
                                   @"No Tracking",
@@ -133,6 +126,17 @@
     [actionSheet showFromBarButtonItem:sender animated:YES];
 }
 
+- (IBAction)beaconPressed:(UIBarButtonItem *)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:ACTION_BEACON
+                                                             delegate:self
+                                                    cancelButtonTitle:([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ? @"Cancel" : nil
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:
+                                  @"Start Ranging",
+                                  @"Stop Ranging",
+                                  nil];
+    [actionSheet showFromBarButtonItem:sender animated:YES];
+}
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -224,16 +228,6 @@
         }
         [self beaconButtonImage];
         
-    } else if ([actionSheet.title isEqualToString:ACTION_CONNECTION]) {
-        switch (buttonIndex - actionSheet.firstOtherButtonIndex) {
-            case 0:
-                [delegate connectionOff];
-                [delegate reconnect];
-                break;
-            case 1:
-                [delegate connectionOff];
-                break;
-        }
     }
 }
 
@@ -253,30 +247,6 @@
             self.locationButton.image = [UIImage imageNamed:@"LocationOff.png"];
             break;
     }
-}
-
-- (IBAction)connection:(UIBarButtonItem *)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:ACTION_CONNECTION
-                                                             delegate:self
-                                                    cancelButtonTitle:@"Cancel"
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:
-                                  @"(Re-)Connect",
-                                  @"Disconnect",
-                                  nil];
-    [actionSheet showFromBarButtonItem:sender animated:YES];
-}
-
-- (IBAction)beaconPressed:(UIBarButtonItem *)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:ACTION_BEACON
-                                                             delegate:self
-                                                    cancelButtonTitle:@"Cancel"
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:
-                                  @"Start Ranging",
-                                  @"Stop Ranging",
-                                  nil];
-    [actionSheet showFromBarButtonItem:sender animated:YES];
 }
 
 - (void)beaconButtonImage
@@ -364,39 +334,6 @@
         self.beaconButton.image = [UIImage imageNamed:@"iBeaconOn.png"];
     } else {
         self.beaconButton.image = [UIImage imageNamed:@"iBeacon.png"];
-    }
-}
-
-#pragma ConnectionDelegate
-
-- (void)showState:(NSInteger)state
-{
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
-    switch (delegate.connection.state) {
-        case state_connected:
-            self.connectionButton.tintColor = [UIColor colorWithRed:0.0 green:190.0/255 blue:0.0 alpha:1.0];
-            break;
-        case state_error:
-            self.connectionButton.tintColor = [UIColor colorWithRed:190.0/255.0 green:0.0 blue:0.0 alpha:1.0];
-            break;
-        case state_connecting:
-        case state_closing:
-            self.connectionButton.tintColor = [UIColor colorWithRed:190.0/255.0 green:190.0/255.0 blue:0.0 alpha:1.0];
-            break;
-        case state_starting:
-        default:
-            self.connectionButton.tintColor = [UIColor colorWithRed:0.0 green:0.0 blue:190.0/255.0 alpha:1.0];
-            break;
-    }
-}
-
-- (void)totalBuffered:(NSUInteger)count
-{
-    if (count) {
-        self.progress.hidden = FALSE;
-        [self.progress setProgress:1.0 / (count + 1) animated:YES];
-    } else {
-        self.progress.hidden = TRUE;
     }
 }
 
@@ -694,39 +631,6 @@
     } else {
         [self endSuspensionOfUpdatesDueToContextChanges];
     }
-}
-
-#pragma action sheet
-
-- (void)disappearingActionSheet:(NSString *)title button:(UIBarButtonItem *)button
-{
-#ifdef DEBUG
-    NSLog(@"App disappearingActionSheet %@", title);
-#endif
-    
-    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:title
-                                                                 delegate:nil
-                                                        cancelButtonTitle:nil
-                                                   destructiveButtonTitle:nil
-                                                        otherButtonTitles:nil];
-        actionSheet.delegate = self;
-        [actionSheet showFromBarButtonItem:button animated:YES];
-        [self performSelector:@selector(dismissActionSheetAfterDelay:) withObject:actionSheet afterDelay:0.75];
-    }
-}
-
-- (void)dismissActionSheetAfterDelay:(UIActionSheet *)actionSheet
-{
-    [actionSheet dismissWithClickedButtonIndex:0 animated:YES];
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    // this is a hack because otherwise the progress bar is grey after the actionsheet was displayed
-    float progress = self.progress.progress;
-    [self.progress setProgress:progress*0.9 animated:YES];
-    [self.progress setProgress:progress animated:YES];
 }
 
 @end

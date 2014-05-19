@@ -15,6 +15,8 @@
 
 
 @interface StatusTVC ()
+@property (weak, nonatomic) IBOutlet UITextField *UIstatus;
+@property (weak, nonatomic) IBOutlet UIProgressView *UIprogress;
 @property (weak, nonatomic) IBOutlet UITextField *UIurl;
 @property (weak, nonatomic) IBOutlet UITextField *UIVersion;
 @property (weak, nonatomic) IBOutlet UITextView *UIerrorCode;
@@ -56,6 +58,10 @@
 {
     [super viewWillAppear:animated];
     
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate addObserver:self forKeyPath:@"connectionState" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    [delegate addObserver:self forKeyPath:@"connectionBuffered" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    
     [self updated];
 }
 
@@ -64,6 +70,8 @@
     [super viewWillDisappear:animated];
     
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate removeObserver:self forKeyPath:@"connectionState" context:nil];
+    [delegate removeObserver:self forKeyPath:@"connectionBuffered" context:nil];
 
     if (self.UIDeviceID) [delegate.settings setString:self.UIDeviceID.text forKey:@"deviceid_preference"];
     if (self.UILocatorDisplacement) [delegate.settings setString:self.UILocatorDisplacement.text forKey:@"mindist_preference"];
@@ -88,21 +96,49 @@
     if (self.UIWillTopic) [delegate.settings setString:self.UIWillTopic.text forKey:@"willtopic_preference"];
     if (self.UIWillQos) [delegate.settings setInt:(int)self.UIWillQos.selectedSegmentIndex forKey:@"willqos_preference"];
     if (self.UIWillRetain) [delegate.settings setBool:self.UIWillRetain.on forKey:@"willretain_preference"];
-    
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
     [self updated];
 }
 
 - (void)updated
 {
     self.UIurl.text = self.connection.url;
-    self.UIerrorCode.text = self.connection.lastErrorCode ? [NSString stringWithFormat:@"%@ %ld %@",
-                                                             self.connection.lastErrorCode.domain,
-                                                             (long)self.connection.lastErrorCode.code,
-                                                             self.connection.lastErrorCode.localizedDescription ?
-                                                             self.connection.lastErrorCode.localizedDescription : @""]
-                                                        : @"<no error>";
-
+    
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+
+    const NSDictionary *states = @{
+                                   @(state_starting): @"starting",
+                                   @(state_connecting): @"connecting",
+                                   @(state_error): @"error",
+                                   @(state_connected): @"connected",
+                                   @(state_closing): @"closing",
+                                   @(state_closed): @"closed"
+                                   };
+    self.UIstatus.text = [NSString stringWithFormat:@"%@ (%ld)", states[delegate.connectionState], [delegate.connectionState longValue]];
+    switch ([delegate.connectionState longValue]) {
+        case state_connected:
+            self.UIstatus.backgroundColor = [UIColor greenColor];
+            break;
+        case state_starting:
+            self.UIstatus.backgroundColor = [UIColor lightGrayColor];
+            break;
+        case state_closing:
+        case state_connecting:
+        case state_closed:
+            self.UIstatus.backgroundColor = [UIColor yellowColor];
+            break;
+        case state_error:
+        default:
+            self.UIstatus.backgroundColor = [UIColor redColor];
+            break;
+    }
+
+    [self.UIprogress setProgress:1.0 / ([delegate.connectionBuffered intValue] + 1) animated:YES];
+
+    self.UIerrorCode.text = self.connection.lastErrorCode ? self.connection.lastErrorCode.localizedDescription : @"<no error>";
 
     self.UIVersion.text =                           [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
     self.UIeffectiveDeviceId.text =                 [delegate.settings theDeviceId];
@@ -127,7 +163,7 @@
     self.UIClientID.text =                          [delegate.settings stringForKey:@"clientid_preference"];
     self.UIPort.text =                              [delegate.settings stringForKey:@"port_preference"];
     self.UITLS.on =                                 [delegate.settings boolForKey:@"tls_preference"];
-    self.UIAuth.on =                                 [delegate.settings boolForKey:@"auth_preference"];
+    self.UIAuth.on =                                [delegate.settings boolForKey:@"auth_preference"];
     self.UICleanSession.on =                        [delegate.settings boolForKey:@"clean_preference"];
     self.UIKeepAlive.text =                         [delegate.settings stringForKey:@"keepalive_preference"];
     self.UIWillTopic.text =                         [delegate.settings stringForKey:@"willtopic_preference"];
@@ -135,8 +171,7 @@
     self.UIWillRetain.on =                          [delegate.settings boolForKey:@"willretain_preference"];
 }
 
-- (IBAction)send:(UIBarButtonItem *)sender
-{
+- (IBAction)exportPressed:(UIButton *)sender {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     NSError *error;
     
@@ -154,12 +189,50 @@
     
     self.dic = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
     self.dic.delegate = self;
-    [self.dic presentOptionsMenuFromBarButtonItem:sender animated:YES];
+    [self.dic presentOptionsMenuFromRect:sender.window.frame
+                                  inView:self.tableView
+                                animated:YES];
 }
 
 - (IBAction)documentationPressed:(UIButton *)sender {
     [[UIApplication sharedApplication] openURL:
      [NSURL URLWithString:@"https://github.com/owntracks/owntracks/wiki"]];
+}
+- (IBAction)connectPressed:(UIButton *)sender {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+
+    [delegate connectionOff];
+    [delegate reconnect];
+}
+- (IBAction)disconnectPressed:(UIButton *)sender {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    [delegate connectionOff];
+}
+- (IBAction)useridChanged:(UITextField *)sender {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate.settings setString:sender.text forKey:@"user_preference"];
+    [self updated];
+}
+- (IBAction)clientidChanged:(UITextField *)sender {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate.settings setString:sender.text forKey:@"clientid_preference"];
+    [self updated];
+}
+- (IBAction)deviceidChanged:(UITextField *)sender {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate.settings setString:sender.text forKey:@"deviceid_preference"];
+    [self updated];
+}
+- (IBAction)topicChanged:(UITextField *)sender {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate.settings setString:sender.text forKey:@"topic_preference"];
+    [self updated];
+}
+- (IBAction)willtopicChanged:(UITextField *)sender {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate.settings setString:sender.text forKey:@"willtopic_preference"];
+    [self updated];
 }
 
 @end

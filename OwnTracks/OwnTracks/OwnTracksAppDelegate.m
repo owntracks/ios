@@ -21,7 +21,7 @@
 @property (strong, nonatomic) CoreData *coreData;
 @property (strong, nonatomic) NSDate *locationLastSent;
 @property (strong, nonatomic) NSString *processingMessage;
-
+@property (strong, nonatomic) CMStepCounter *stepCounter;
 @end
 
 #define BACKGROUND_DISCONNECT_AFTER 8.0
@@ -315,6 +315,7 @@
     }
     [self.connection connectToLast];
     self.ranging = self.ranging;
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -346,7 +347,7 @@
 #endif
 
     self.completionHandler = completionHandler;
-    [self publishLocation:[self.manager location] automatic:TRUE addon:@{@"event": @"ping"}];
+    [self publishLocation:[self.manager location] automatic:TRUE addon:@{@"event": @"ping",@"desc":@""}];
 }
 
 #pragma CLLocationManagerDelegate
@@ -521,17 +522,7 @@
 
 - (void)showState:(NSInteger)state
 {
-    id<ConnectionDelegate> cd;
-    
-    if ([self.window.rootViewController isKindOfClass:[UINavigationController class]]) {
-        UINavigationController *nc = (UINavigationController *)self.window.rootViewController;
-        if ([nc.topViewController respondsToSelector:@selector(showState:)]) {
-            cd = (id<ConnectionDelegate>)nc.topViewController;
-        }
-    } else if ([self.window.rootViewController respondsToSelector:@selector(showState:)]) {
-        cd = (id<ConnectionDelegate>)self.window.rootViewController;
-    }
-    [cd showState:state];
+    self.connectionState = @(state);
     
     /**
      ** This is a hack to ensure the connection gets gracefully closed at the server
@@ -589,6 +580,46 @@
                         }
                     } else if ([dictionary[@"action"] isEqualToString:@"reportLocation"]) {
                         [self publishLocation:self.manager.location automatic:NO addon:nil];
+                    } else if ([dictionary[@"action"] isEqualToString:@"reportSteps"]) {
+#ifdef DEBUG
+                        NSLog(@"StepCounter availability %d",
+                              [CMStepCounter isStepCountingAvailable]
+                              );
+#endif
+                        //if ([CMStepCounter isStepCountingAvailable]) {
+                            if (!self.stepCounter) {
+                                self.stepCounter = [[CMStepCounter alloc] init];
+                            }
+                            [self.stepCounter queryStepCountStartingFrom:[NSDate dateWithTimeIntervalSinceNow:-24.0*3600.0]
+                                                                      to:[NSDate date]
+                                                                 toQueue:[[NSOperationQueue alloc] init]
+                                                             withHandler:^(NSInteger steps, NSError *error)
+                             {
+                                 dispatch_async(dispatch_get_main_queue(),
+                                                ^{
+                                                    
+                                                    NSDictionary *jsonObject = @{
+                                                                                 @"_type": @"steps",
+                                                                                 @"tst": @(floor([[NSDate date] timeIntervalSince1970])),
+                                                                                 @"steps": @(steps)
+                                                                                 };
+                                                    
+                                                    long msgID = [self.connection sendData:[self jsonToData:jsonObject]
+                                                                                     topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/steps"]
+                                                                                       qos:[self.settings intForKey:@"qos_preference"]
+                                                                                    retain:NO];
+                                                    
+                                                    if (msgID <= 0) {
+#ifdef DEBUG
+                                                        NSString *message = [NSString stringWithFormat:@"Steps %@",
+                                                                             (msgID == -1) ? @"queued" : @"sent"];
+                                                        [self notification:message userInfo:nil];
+#endif
+                                                    }
+                                                });
+                             }];
+                        //}
+
                     } else {
 #ifdef DEBUG
                         NSLog(@"App received unknown action %@", dictionary[@"action"]);
@@ -655,17 +686,22 @@
                                                              radius:[dictionary[@"rad"] doubleValue]
                                                               share:NO
                                              inManagedObjectContext:[CoreData theManagedObjectContext]];
-                [self limitLocationsWith:newLocation.belongsTo toMaximum:MAX_OTHER_LOCATIONS];
                 
-                if (dictionary[@"event"]) {
-                    NSString * name = [newLocation.belongsTo name];
-                    [self notification:[NSString stringWithFormat:@"%@ %@s %@",
-                                        name ? name : newLocation.belongsTo.topic,
-                                        dictionary[@"event"],
-                                        newLocation.remark]
-                              userInfo:@{@"notify": @"friend"}];
+                NSString *event = dictionary[@"event"];
+
+                if (event) {
+                    if ([event isEqualToString:@"enter"] || [event isEqualToString:@"leave"]) {
+                        NSString *name = [newLocation.belongsTo name];
+                        [self notification:[NSString stringWithFormat:@"%@ %@s %@",
+                                            name ? name : newLocation.belongsTo.topic,
+                                            event,
+                                            newLocation.remark]
+                                  userInfo:@{@"notify": @"friend"}];
+                    }
                 }
-                
+
+                [self limitLocationsWith:newLocation.belongsTo toMaximum:MAX_OTHER_LOCATIONS];
+
             } else if ([dictionary[@"_type"] isEqualToString:@"deviceToken"]) {
                 Friend *friend = [Friend friendWithTopic:deviceName inManagedObjectContext:[CoreData theManagedObjectContext]];
                 friend.device = dictionary[@"deviceToken"];
@@ -696,18 +732,10 @@
 
 - (void)totalBuffered:(NSUInteger)count
 {
-    id<ConnectionDelegate> cd;
-    
-    if ([self.window.rootViewController isKindOfClass:[UINavigationController class]]) {
-        UINavigationController *nc = (UINavigationController *)self.window.rootViewController;
-        if ([nc.topViewController respondsToSelector:@selector(totalBuffered:)]) {
-            cd = (id<ConnectionDelegate>)nc.topViewController;
-        }
-    } else if ([self.window.rootViewController respondsToSelector:@selector(totalBuffered:)]) {
-        cd = (id<ConnectionDelegate>)self.window.rootViewController;
-    }
-    [cd totalBuffered:count];
+    self.connectionBuffered = @(count);
+
     [UIApplication sharedApplication].applicationIconBadgeNumber = count;
+
     if (!count) {
         NSArray *notifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
         for (UILocalNotification *notification in notifications) {

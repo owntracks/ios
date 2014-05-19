@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <CoreMotion/CoreMotion.h>
+
 #import "Connection.h"
 #import "Location+Create.h"
 #import "Settings.h"
@@ -24,11 +26,15 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (weak, nonatomic) id<RangingDelegate> delegate;
+
 @property (strong, nonatomic) CLLocationManager *manager;
 @property (nonatomic) int monitoring;
 @property (nonatomic) BOOL ranging;
 @property (strong, nonatomic) Connection *connection;
 @property (strong, nonatomic) Settings *settings;
+
+@property (strong, nonatomic) NSNumber *connectionState;
+@property (strong, nonatomic) NSNumber *connectionBuffered;
 
 - (void)sendNow;
 - (void)sendWayPoint:(Location *)location;
