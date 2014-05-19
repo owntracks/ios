@@ -94,15 +94,15 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    [self updated];
+    [self updatedStatus];
 }
 
-- (void)updated
+- (void)updatedStatus
 {
-    self.UIurl.text = self.connection.url;
-    
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-
+    
+    self.UIurl.text = delegate.connection.url;
+    
     const NSDictionary *states = @{
                                    @(state_starting): @"idle",
                                    @(state_connecting): @"connecting",
@@ -114,7 +114,7 @@
     
     self.UIerrorCode.text = [NSString stringWithFormat:@"%@ %@",
                              states[delegate.connectionState],
-                             self.connection.lastErrorCode ? self.connection.lastErrorCode.localizedDescription : @""];
+                             delegate.connection.lastErrorCode ? delegate.connection.lastErrorCode.localizedDescription : @""];
     
     switch ([delegate.connectionState longValue]) {
         case state_connected:
@@ -131,13 +131,21 @@
     }
     
     [self.UIprogress setProgress:1.0 / ([delegate.connectionBuffered intValue] + 1) animated:YES];
+}
 
+- (void)updated
+{
+    [self updatedStatus];
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    self.UIurl.text = delegate.connection.url;
+    
     self.UIVersion.text =                           [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
     self.UIeffectiveDeviceId.text =                 [delegate.settings theDeviceId];
     self.UIeffectiveClientId.text =                 [delegate.settings theClientId];
     self.UIeffectiveTopic.text =                    [delegate.settings theGeneralTopic];
     self.UIeffectiveWillTopic.text =                [delegate.settings theWillTopic];
-
+    
     self.UIDeviceID.text =                          [delegate.settings stringForKey:@"deviceid_preference"];
     self.UILocatorDisplacement.text =               [delegate.settings stringForKey:@"mindist_preference"];
     self.UILocatorInterval.text =                   [delegate.settings stringForKey:@"mintime_preference"];

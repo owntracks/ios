@@ -11,6 +11,5 @@
 
 @interface LocationTVC : CoreDataTableViewController
 @property (strong, nonatomic) Friend *friend;
-@property (strong, nonatomic) Location *selectedLocation;
 
 @end

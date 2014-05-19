@@ -51,7 +51,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-        
+    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    
     [self monitoringButtonImage];
     [self beaconButtonImage];
     
@@ -69,26 +71,18 @@
     }
 }
 
-#pragma UI actions
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
 
-/*
- * setCenter is the unwind action from the friends submenues
- */
-- (IBAction)setCenter:(UIStoryboardSegue *)segue {
-    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(0, 0);
-    
-    if ([segue.sourceViewController isKindOfClass:[FriendTVC class]]) {
-        FriendTVC *friendTVC = (FriendTVC *)segue.sourceViewController;
-        coordinate = friendTVC.selectedLocation.coordinate;
-    }
-    if ([segue.sourceViewController isKindOfClass:[LocationTVC class]]) {
-        LocationTVC *locationTVC = (LocationTVC *)segue.sourceViewController;
-        coordinate = locationTVC.selectedLocation.coordinate;
-    }
-    
+- (void)setCenter:(Location *)location {
+    CLLocationCoordinate2D coordinate = location.coordinate;
     [self.mapView setVisibleMapRect:[self centeredRect:coordinate] animated:YES];
     self.mapView.userTrackingMode = MKUserTrackingModeNone;
 }
+
+#pragma UI actions
 
 #define ACTION_MONITORING @"Location Monitoring Mode"
 #define ACTION_MAP @"Map Modes"
@@ -163,13 +157,13 @@
     } else if ([actionSheet.title isEqualToString:ACTION_MAP]) {
         switch (buttonIndex - actionSheet.firstOtherButtonIndex) {
             case 0:
-                self.mapView.userTrackingMode = MKUserTrackingModeNone;
+                [self.mapView setUserTrackingMode:MKUserTrackingModeNone animated:YES];
                 break;
             case 1:
-                self.mapView.userTrackingMode = MKUserTrackingModeFollow;
+                [self.mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
                 break;
             case 2:
-                self.mapView.userTrackingMode = MKUserTrackingModeFollowWithHeading;
+                [self.mapView setUserTrackingMode:MKUserTrackingModeFollowWithHeading animated:YES];
                 break;
             case 3:
             {
@@ -203,7 +197,7 @@
                 rect.size.width *= 1.2;
                 rect.size.height *= 1.2;
                 
-                self.mapView.userTrackingMode = MKUserTrackingModeNone;
+                [self.mapView setUserTrackingMode:MKUserTrackingModeNone animated:YES];
                 [self.mapView setVisibleMapRect:rect animated:YES];
                 break;
             }
@@ -263,17 +257,6 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     /*
-     * segue for connection status view
-     */
-    
-    if ([segue.identifier isEqualToString:@"setConnection:"]) {
-        if ([segue.destinationViewController respondsToSelector:@selector(setConnection:)]) {
-            OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-            [segue.destinationViewController performSelector:@selector(setConnection:) withObject:delegate.connection];
-        }
-    }
-    
-    /*
      * segue for location detail view
      */
     
@@ -284,7 +267,6 @@
             [segue.destinationViewController performSelector:@selector(setLocation:) withObject:location];
         }
     }
-    
 }
 
 #pragma centeredRect

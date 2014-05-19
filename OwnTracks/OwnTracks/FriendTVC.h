@@ -10,5 +10,4 @@
 #import "Friend+Create.h"
 
 @interface FriendTVC : CoreDataTableViewController
-@property (strong, nonatomic) Location * selectedLocation;
 @end

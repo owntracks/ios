@@ -10,6 +10,5 @@
 #import "Connection.h"
 
 @interface StatusTVC : UITableViewController <UIDocumentInteractionControllerDelegate>
-@property (weak, nonatomic) Connection *connection;
 
 @end

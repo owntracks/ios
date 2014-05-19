@@ -90,11 +90,22 @@
                 [segue.destinationViewController performSelector:@selector(setLocation:) withObject:location];
             }
         }
-        if ([segue.identifier isEqualToString:@"setCenter:"]) {
-            Location *location = [self.fetchedResultsController objectAtIndexPath:indexPath];
-            self.selectedLocation = location;
-        }
+    }
+}
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Location *location = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    UITabBarController *tbc = self.tabBarController;
+    NSArray *vcs = tbc.viewControllers;
+    UINavigationController *nc = vcs[0];
+    UIViewController *vc = nc.topViewController;
+    
+    
+    if ([vc respondsToSelector:@selector(setCenter:)]) {
+        [vc performSelector:@selector(setCenter:)
+                 withObject:location];
+        tbc.selectedIndex = 0;
     }
 }
 
@@ -128,5 +139,6 @@
         self.title = self.friend.name ? self.friend.name : self.friend.topic;
     }
 }
+
 
 @end

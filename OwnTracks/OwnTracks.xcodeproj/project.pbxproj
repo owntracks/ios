@@ -55,6 +55,10 @@
 		8411B918189FF1A80019D2D6 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B917189FF1A80019D2D6 /* Location.m */; };
 		8432AA7518BD127300E817D3 /* MQTTClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B863189FDE0D0019D2D6 /* MQTTClient.framework */; };
 		845F003D192A5CDE00919FB8 /* QosTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845F003C192A5CDE00919FB8 /* QosTVC.m */; };
+		846216A1192A8067002BDCFF /* FriendsOn.svg in Resources */ = {isa = PBXBuildFile; fileRef = 8462169F192A8067002BDCFF /* FriendsOn.svg */; };
+		846216A2192A8067002BDCFF /* FriendsOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 846216A0192A8067002BDCFF /* FriendsOn.png */; };
+		846216A5192A8750002BDCFF /* owntracks.png in Resources */ = {isa = PBXBuildFile; fileRef = 846216A3192A8750002BDCFF /* owntracks.png */; };
+		846216A6192A8750002BDCFF /* owntracks@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 846216A4192A8750002BDCFF /* owntracks@2x.png */; };
 		8479EEB218E4288800923B24 /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB118E4288800923B24 /* Setting.m */; };
 		8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB418E4289E00923B24 /* Setting+Create.m */; };
 		8479EEB718E4529900923B24 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
@@ -176,6 +180,10 @@
 		8411B917189FF1A80019D2D6 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		845F003B192A5CDE00919FB8 /* QosTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QosTVC.h; path = ../QosTVC.h; sourceTree = "<group>"; };
 		845F003C192A5CDE00919FB8 /* QosTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QosTVC.m; path = ../QosTVC.m; sourceTree = "<group>"; };
+		8462169F192A8067002BDCFF /* FriendsOn.svg */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = FriendsOn.svg; sourceTree = "<group>"; };
+		846216A0192A8067002BDCFF /* FriendsOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FriendsOn.png; sourceTree = "<group>"; };
+		846216A3192A8750002BDCFF /* owntracks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = owntracks.png; sourceTree = "<group>"; };
+		846216A4192A8750002BDCFF /* owntracks@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "owntracks@2x.png"; sourceTree = "<group>"; };
 		8479EEB018E4288800923B24 /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
 		8479EEB118E4288800923B24 /* Setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
 		8479EEB318E4289E00923B24 /* Setting+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Setting+Create.h"; path = "../../Setting+Create.h"; sourceTree = "<group>"; };
@@ -378,6 +386,8 @@
 				84EDFCDD1926D49400056D5A /* iBeacon-source.png */,
 				84EDFCDE1926D49400056D5A /* iBeacon-source.psd */,
 				84EDFCDF1926D49400056D5A /* iBeacon@2x.psd */,
+				8462169F192A8067002BDCFF /* FriendsOn.svg */,
+				846216A0192A8067002BDCFF /* FriendsOn.png */,
 				84EDFD0C1926D7F600056D5A /* Launch Images */,
 				84EDFCFD1926D7DE00056D5A /* App Icons */,
 				8411B842189FDB140019D2D6 /* Images.xcassets */,
@@ -392,6 +402,8 @@
 				8411B8B2189FEB790019D2D6 /* LocationOn.png */,
 				8411B8B3189FEB790019D2D6 /* LocationOn.svg */,
 				8411B8B4189FEB790019D2D6 /* LocationOn@2x.png */,
+				846216A3192A8750002BDCFF /* owntracks.png */,
+				846216A4192A8750002BDCFF /* owntracks@2x.png */,
 				8411B8B5189FEB790019D2D6 /* move.png */,
 				8411B8B6189FEB790019D2D6 /* Move.svg */,
 				8411B8B7189FEB790019D2D6 /* Move@2x.png */,
@@ -545,6 +557,7 @@
 				84EDFCFA1926D49400056D5A /* icon72.png in Resources */,
 				84A2C2691910EE3F001A2883 /* iBeaconOn.png in Resources */,
 				8411B8E8189FEB790019D2D6 /* move.png in Resources */,
+				846216A2192A8067002BDCFF /* FriendsOn.png in Resources */,
 				84EDFCF11926D49400056D5A /* icon29@2x.png in Resources */,
 				84EDFD0A1926D7F100056D5A /* default@2x.png in Resources */,
 				84EDFCEF1926D49400056D5A /* iBeacon@2x.psd in Resources */,
@@ -553,6 +566,7 @@
 				84EDFCF71926D49400056D5A /* icon57@2x.png in Resources */,
 				8411B896189FEAE60019D2D6 /* Storyboard.storyboard in Resources */,
 				84EDFCF41926D49400056D5A /* icon50.png in Resources */,
+				846216A5192A8750002BDCFF /* owntracks.png in Resources */,
 				84EDFD061926D7F100056D5A /* default-landscape@2x.png in Resources */,
 				8411B8D9189FEB790019D2D6 /* icon_ipad320.png in Resources */,
 				8411B843189FDB140019D2D6 /* Images.xcassets in Resources */,
@@ -567,9 +581,11 @@
 				84EDFCF51926D49400056D5A /* icon50@2x.png in Resources */,
 				8411B8E0189FEB790019D2D6 /* iTunesArtwork@2x.png in Resources */,
 				8411B8E1189FEB790019D2D6 /* Location.gpx in Resources */,
+				846216A1192A8067002BDCFF /* FriendsOn.svg in Resources */,
 				8411B8E2189FEB790019D2D6 /* LocationOff.png in Resources */,
 				84EDFCFC1926D49400056D5A /* icon76@2x.png in Resources */,
 				84EDFCF61926D49400056D5A /* icon57.png in Resources */,
+				846216A6192A8750002BDCFF /* owntracks@2x.png in Resources */,
 				84EDFCFB1926D49400056D5A /* icon76.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
