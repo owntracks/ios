@@ -13,5 +13,7 @@
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>
+	<key>Title</key>
+	<string>OwnTracks Settings</string>
 </dict>
 </plist>

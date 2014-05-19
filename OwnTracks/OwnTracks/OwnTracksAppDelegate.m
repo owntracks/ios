@@ -347,7 +347,7 @@
 #endif
 
     self.completionHandler = completionHandler;
-    [self publishLocation:[self.manager location] automatic:TRUE addon:@{@"event": @"ping",@"desc":@""}];
+    [self publishLocation:[self.manager location] automatic:TRUE addon:nil];
 }
 
 #pragma CLLocationManagerDelegate

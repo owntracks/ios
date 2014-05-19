@@ -54,6 +54,7 @@
 		8411B915189FF1A80019D2D6 /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B914189FF1A80019D2D6 /* Friend.m */; };
 		8411B918189FF1A80019D2D6 /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B917189FF1A80019D2D6 /* Location.m */; };
 		8432AA7518BD127300E817D3 /* MQTTClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B863189FDE0D0019D2D6 /* MQTTClient.framework */; };
+		845F003D192A5CDE00919FB8 /* QosTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845F003C192A5CDE00919FB8 /* QosTVC.m */; };
 		8479EEB218E4288800923B24 /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB118E4288800923B24 /* Setting.m */; };
 		8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB418E4289E00923B24 /* Setting+Create.m */; };
 		8479EEB718E4529900923B24 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
@@ -173,6 +174,8 @@
 		8411B914189FF1A80019D2D6 /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
 		8411B916189FF1A80019D2D6 /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		8411B917189FF1A80019D2D6 /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		845F003B192A5CDE00919FB8 /* QosTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QosTVC.h; path = ../QosTVC.h; sourceTree = "<group>"; };
+		845F003C192A5CDE00919FB8 /* QosTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QosTVC.m; path = ../QosTVC.m; sourceTree = "<group>"; };
 		8479EEB018E4288800923B24 /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
 		8479EEB118E4288800923B24 /* Setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
 		8479EEB318E4289E00923B24 /* Setting+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Setting+Create.h"; path = "../../Setting+Create.h"; sourceTree = "<group>"; };
@@ -300,6 +303,8 @@
 				8411B907189FEC070019D2D6 /* PersonTVC.m */,
 				8411B908189FEC070019D2D6 /* StatusTVC.h */,
 				8411B909189FEC070019D2D6 /* StatusTVC.m */,
+				845F003B192A5CDE00919FB8 /* QosTVC.h */,
+				845F003C192A5CDE00919FB8 /* QosTVC.m */,
 				8411B90A189FEC070019D2D6 /* ViewController.h */,
 				8411B90B189FEC070019D2D6 /* ViewController.m */,
 				8411B834189FDB140019D2D6 /* Supporting Files */,
@@ -601,6 +606,7 @@
 				8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */,
 				8411B878189FE1ED0019D2D6 /* Friend+Create.m in Sources */,
 				8411B918189FF1A80019D2D6 /* Location.m in Sources */,
+				845F003D192A5CDE00919FB8 /* QosTVC.m in Sources */,
 				8411B83E189FDB140019D2D6 /* OwnTracksAppDelegate.m in Sources */,
 				8411B891189FE9CE0019D2D6 /* Settings.m in Sources */,
 				8479EEB218E4288800923B24 /* Setting.m in Sources */,

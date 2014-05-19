@@ -7,16 +7,13 @@
 //
 
 #import "StatusTVC.h"
-#import <errno.h>
-#import <CoreFoundation/CFError.h>
-#import <mach/mach_error.h>
-#import <Security/SecureTransport.h>
+#import "QosTVC.h"
 #import "OwnTracksAppDelegate.h"
 
 
 @interface StatusTVC ()
-@property (weak, nonatomic) IBOutlet UITextField *UIstatus;
 @property (weak, nonatomic) IBOutlet UIProgressView *UIprogress;
+@property (weak, nonatomic) IBOutlet UISwitch *UIconnection;
 @property (weak, nonatomic) IBOutlet UITextField *UIurl;
 @property (weak, nonatomic) IBOutlet UITextField *UIVersion;
 @property (weak, nonatomic) IBOutlet UITextView *UIerrorCode;
@@ -33,9 +30,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UISubscription;
 @property (weak, nonatomic) IBOutlet UISwitch *UIUpdateAddressBook;
 @property (weak, nonatomic) IBOutlet UITextField *UIPositionsToKeep;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *UISubscriptionQos;
 @property (weak, nonatomic) IBOutlet UITextField *UITopic;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *UIQos;
 @property (weak, nonatomic) IBOutlet UISwitch *UIRetain;
 @property (weak, nonatomic) IBOutlet UISwitch *UICMD;
 @property (weak, nonatomic) IBOutlet UITextField *UIClientID;
@@ -45,8 +40,10 @@
 @property (weak, nonatomic) IBOutlet UISwitch *UIAuth;
 @property (weak, nonatomic) IBOutlet UITextField *UIKeepAlive;
 @property (weak, nonatomic) IBOutlet UITextField *UIWillTopic;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *UIWillQos;
 @property (weak, nonatomic) IBOutlet UISwitch *UIWillRetain;
+@property (weak, nonatomic) IBOutlet UITextField *UIqos;
+@property (weak, nonatomic) IBOutlet UITextField *UIwillqos;
+@property (weak, nonatomic) IBOutlet UITextField *UIsubscriptionqos;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
 
@@ -82,9 +79,7 @@
     if (self.UISubscription) [delegate.settings setString:self.UISubscription.text forKey:@"subscription_preference"];
     if (self.UIUpdateAddressBook) [delegate.settings setBool:self.UIUpdateAddressBook.on forKey:@"ab_preference"];
     if (self.UIPositionsToKeep) [delegate.settings setString:self.UIPositionsToKeep.text forKey:@"positions_preference"];
-    if (self.UISubscriptionQos) [delegate.settings setInt:(int)self.UISubscriptionQos.selectedSegmentIndex forKey:@"subscriptionqos_preference"];
     if (self.UITopic) [delegate.settings setString:self.UITopic.text forKey:@"topic_preference"];
-    if (self.UIQos) [delegate.settings setInt:(int)self.UIQos.selectedSegmentIndex forKey:@"qos_preference"];
     if (self.UIRetain) [delegate.settings setBool:self.UIRetain.on forKey:@"retain_preference"];
     if (self.UICMD) [delegate.settings setBool:self.UICMD.on forKey:@"cmd_preference"];
     if (self.UIClientID) [delegate.settings setString:self.UIClientID.text forKey:@"clientid_preference"];
@@ -94,7 +89,6 @@
     if (self.UICleanSession) [delegate.settings setBool:self.UICleanSession.on forKey:@"clean_preference"];
     if (self.UIKeepAlive) [delegate.settings setString:self.UIKeepAlive.text forKey:@"keepalive_preference"];
     if (self.UIWillTopic) [delegate.settings setString:self.UIWillTopic.text forKey:@"willtopic_preference"];
-    if (self.UIWillQos) [delegate.settings setInt:(int)self.UIWillQos.selectedSegmentIndex forKey:@"willqos_preference"];
     if (self.UIWillRetain) [delegate.settings setBool:self.UIWillRetain.on forKey:@"willretain_preference"];
 }
 
@@ -110,35 +104,33 @@
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
 
     const NSDictionary *states = @{
-                                   @(state_starting): @"starting",
+                                   @(state_starting): @"idle",
                                    @(state_connecting): @"connecting",
                                    @(state_error): @"error",
                                    @(state_connected): @"connected",
                                    @(state_closing): @"closing",
                                    @(state_closed): @"closed"
                                    };
-    self.UIstatus.text = [NSString stringWithFormat:@"%@ (%ld)", states[delegate.connectionState], [delegate.connectionState longValue]];
+    
+    self.UIerrorCode.text = [NSString stringWithFormat:@"%@ %@",
+                             states[delegate.connectionState],
+                             self.connection.lastErrorCode ? self.connection.lastErrorCode.localizedDescription : @""];
+    
     switch ([delegate.connectionState longValue]) {
         case state_connected:
-            self.UIstatus.backgroundColor = [UIColor greenColor];
+            self.UIconnection.on = TRUE;
             break;
         case state_starting:
-            self.UIstatus.backgroundColor = [UIColor lightGrayColor];
-            break;
         case state_closing:
         case state_connecting:
         case state_closed:
-            self.UIstatus.backgroundColor = [UIColor yellowColor];
-            break;
         case state_error:
         default:
-            self.UIstatus.backgroundColor = [UIColor redColor];
+            self.UIconnection.on = FALSE;
             break;
     }
-
+    
     [self.UIprogress setProgress:1.0 / ([delegate.connectionBuffered intValue] + 1) animated:YES];
-
-    self.UIerrorCode.text = self.connection.lastErrorCode ? self.connection.lastErrorCode.localizedDescription : @"<no error>";
 
     self.UIVersion.text =                           [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
     self.UIeffectiveDeviceId.text =                 [delegate.settings theDeviceId];
@@ -155,9 +147,9 @@
     self.UISubscription.text =                      [delegate.settings stringForKey:@"subscription_preference"];
     self.UIUpdateAddressBook.on =                   [delegate.settings boolForKey:@"ab_preference"];
     self.UIPositionsToKeep.text =                   [delegate.settings stringForKey:@"positions_preference"];
-    self.UISubscriptionQos.selectedSegmentIndex =   [delegate.settings intForKey:@"subscriptionqos_preference"];
+    self.UIsubscriptionqos.text =                   [self qosString:[delegate.settings intForKey:@"subscriptionqos_preference"]];
     self.UITopic.text =                             [delegate.settings stringForKey:@"topic_preference"];
-    self.UIQos.selectedSegmentIndex =               [delegate.settings intForKey:@"qos_preference"];
+    self.UIqos.text =                               [self qosString:[delegate.settings intForKey:@"qos_preference"]];
     self.UIRetain.on =                              [delegate.settings boolForKey:@"retain_preference"];
     self.UICMD.on =                                 [delegate.settings boolForKey:@"cmd_preference"];
     self.UIClientID.text =                          [delegate.settings stringForKey:@"clientid_preference"];
@@ -167,7 +159,7 @@
     self.UICleanSession.on =                        [delegate.settings boolForKey:@"clean_preference"];
     self.UIKeepAlive.text =                         [delegate.settings stringForKey:@"keepalive_preference"];
     self.UIWillTopic.text =                         [delegate.settings stringForKey:@"willtopic_preference"];
-    self.UIWillQos.selectedSegmentIndex =           [delegate.settings intForKey:@"willqos_preference"];
+    self.UIwillqos.text =                           [self qosString:[delegate.settings intForKey:@"willqos_preference"]];
     self.UIWillRetain.on =                          [delegate.settings boolForKey:@"willretain_preference"];
 }
 
@@ -198,41 +190,69 @@
     [[UIApplication sharedApplication] openURL:
      [NSURL URLWithString:@"https://github.com/owntracks/owntracks/wiki"]];
 }
-- (IBAction)connectPressed:(UIButton *)sender {
+
+- (IBAction)connectionSwitched:(UISwitch *)sender {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
 
-    [delegate connectionOff];
-    [delegate reconnect];
+    if (sender.on) {
+        [delegate connectionOff];
+        [delegate reconnect];
+    } else {
+        [delegate connectionOff];
+    }
 }
-- (IBAction)disconnectPressed:(UIButton *)sender {
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    
-    [delegate connectionOff];
+
+    if ([segue.destinationViewController respondsToSelector:@selector(setEditQos:)] &&
+        [segue.destinationViewController respondsToSelector:@selector(setEditIdentifier:)]) {
+        if ([segue.identifier isEqualToString:@"setQos:"]) {
+            [segue.destinationViewController performSelector:@selector(setEditQos:)
+                                                  withObject:@([delegate.settings intForKey:@"qos_preference"])];
+            [segue.destinationViewController performSelector:@selector(setEditIdentifier:)
+                                                  withObject:@"qos_preference"];
+        }
+        if ([segue.identifier isEqualToString:@"setWillQos:"]) {
+            [segue.destinationViewController performSelector:@selector(setEditQos:)
+                                                  withObject:@([delegate.settings intForKey:@"willqos_preference"])];
+            [segue.destinationViewController performSelector:@selector(setEditIdentifier:)
+                                                  withObject:@"willqos_preference"];
+        }
+        if ([segue.identifier isEqualToString:@"setSubscriptionQos:"]) {
+            [segue.destinationViewController performSelector:@selector(setEditQos:)
+                                                  withObject:@([delegate.settings intForKey:@"subscriptionqos_preference"])];
+            [segue.destinationViewController performSelector:@selector(setEditIdentifier:)
+                                                  withObject:@"subscriptionqos_preference"];
+        }
+    }
 }
-- (IBAction)useridChanged:(UITextField *)sender {
+
+- (IBAction)setQoS:(UIStoryboardSegue *)segue {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate.settings setString:sender.text forKey:@"user_preference"];
-    [self updated];
+
+    if ([segue.sourceViewController respondsToSelector:@selector(editQos)] &&
+        [segue.sourceViewController respondsToSelector:@selector(editIdentifier)]) {
+        NSNumber *qos = [segue.sourceViewController performSelector:@selector(editQos)];
+        NSString *identifier = [segue.sourceViewController performSelector:@selector(editIdentifier)];
+        
+        [delegate.settings setInt:[qos intValue] forKey:identifier];
+        [self updated];
+    }
 }
-- (IBAction)clientidChanged:(UITextField *)sender {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate.settings setString:sender.text forKey:@"clientid_preference"];
-    [self updated];
-}
-- (IBAction)deviceidChanged:(UITextField *)sender {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate.settings setString:sender.text forKey:@"deviceid_preference"];
-    [self updated];
-}
-- (IBAction)topicChanged:(UITextField *)sender {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate.settings setString:sender.text forKey:@"topic_preference"];
-    [self updated];
-}
-- (IBAction)willtopicChanged:(UITextField *)sender {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate.settings setString:sender.text forKey:@"willtopic_preference"];
-    [self updated];
+
+- (NSString *)qosString:(int)qos
+{
+    switch (qos) {
+        case 2:
+            return @"exactly once";
+        case 1:
+            return @"at least once";
+        case 0:
+        default:
+            return @"at most once";
+    }
 }
 
 @end
