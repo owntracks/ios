@@ -51,7 +51,7 @@ enum state {
 - (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(NSInteger)qos retain:(BOOL)retainFlag;
 - (void)disconnect;
 
-- (NSString *)url;
+- (NSString *)parameters;
 + (NSString *)dataToString:(NSData *)data;
 
 @end

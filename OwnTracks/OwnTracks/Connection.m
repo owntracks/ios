@@ -122,8 +122,8 @@
 #endif
 
         self.session = [[MQTTSession alloc] initWithClientId:clientId
-                                                    userName:auth ? user : @""
-                                                    password:auth ? pass : @""
+                                                    userName:auth ? user : nil
+                                                    password:auth ? pass : nil
                                                    keepAlive:keepalive
                                                 cleanSession:clean
                                                         will:YES
@@ -289,12 +289,16 @@
     }
 }
 
-- (NSString *)url
+- (NSString *)parameters
 {
-    return [NSString stringWithFormat:@"%@%@:%ld",
+    return [NSString stringWithFormat:@"%@://%@%@:%ld c%d k%ld as %@",
+            self.tls ? @"mqtts" : @"mqtt",
             self.auth ? [NSString stringWithFormat:@"%@@", self.user] : @"",
             self.host,
-            (long)self.port
+            (long)self.port,
+            self.clean,
+            (long)self.keepalive,
+            self.clientId
             ];
 }
 

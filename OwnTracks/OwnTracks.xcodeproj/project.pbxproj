@@ -68,6 +68,10 @@
 		84A2C2661910DC40001A2883 /* iBeacon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A2C2641910DC40001A2883 /* iBeacon@2x.png */; };
 		84A2C2691910EE3F001A2883 /* iBeaconOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A2C2671910EE3F001A2883 /* iBeaconOn.png */; };
 		84A2C26A1910EE3F001A2883 /* iBeaconOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84A2C2681910EE3F001A2883 /* iBeaconOn@2x.png */; };
+		84D48372192BBC2500AA09DE /* connectionsmall.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D48370192BBC2500AA09DE /* connectionsmall.png */; };
+		84D48373192BBC2500AA09DE /* ConnectionSmall.svg in Resources */ = {isa = PBXBuildFile; fileRef = 84D48371192BBC2500AA09DE /* ConnectionSmall.svg */; };
+		84D48376192BBEF600AA09DE /* connectionmiddle.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D48374192BBEF600AA09DE /* connectionmiddle.png */; };
+		84D48377192BBEF600AA09DE /* ConnectionMiddle.svg in Resources */ = {isa = PBXBuildFile; fileRef = 84D48375192BBEF600AA09DE /* ConnectionMiddle.svg */; };
 		84EDFCED1926D49400056D5A /* iBeacon-source.png in Resources */ = {isa = PBXBuildFile; fileRef = 84EDFCDD1926D49400056D5A /* iBeacon-source.png */; };
 		84EDFCEE1926D49400056D5A /* iBeacon-source.psd in Resources */ = {isa = PBXBuildFile; fileRef = 84EDFCDE1926D49400056D5A /* iBeacon-source.psd */; };
 		84EDFCEF1926D49400056D5A /* iBeacon@2x.psd in Resources */ = {isa = PBXBuildFile; fileRef = 84EDFCDF1926D49400056D5A /* iBeacon@2x.psd */; };
@@ -195,6 +199,10 @@
 		84A2C2641910DC40001A2883 /* iBeacon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iBeacon@2x.png"; sourceTree = "<group>"; };
 		84A2C2671910EE3F001A2883 /* iBeaconOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iBeaconOn.png; sourceTree = "<group>"; };
 		84A2C2681910EE3F001A2883 /* iBeaconOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iBeaconOn@2x.png"; sourceTree = "<group>"; };
+		84D48370192BBC2500AA09DE /* connectionsmall.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connectionsmall.png; sourceTree = "<group>"; };
+		84D48371192BBC2500AA09DE /* ConnectionSmall.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ConnectionSmall.svg; sourceTree = "<group>"; };
+		84D48374192BBEF600AA09DE /* connectionmiddle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connectionmiddle.png; sourceTree = "<group>"; };
+		84D48375192BBEF600AA09DE /* ConnectionMiddle.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ConnectionMiddle.svg; sourceTree = "<group>"; };
 		84EDFCDD1926D49400056D5A /* iBeacon-source.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iBeacon-source.png"; sourceTree = "<group>"; };
 		84EDFCDE1926D49400056D5A /* iBeacon-source.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iBeacon-source.psd"; sourceTree = "<group>"; };
 		84EDFCDF1926D49400056D5A /* iBeacon@2x.psd */ = {isa = PBXFileReference; lastKnownFileType = file; path = "iBeacon@2x.psd"; sourceTree = "<group>"; };
@@ -383,6 +391,10 @@
 				84A2C2641910DC40001A2883 /* iBeacon@2x.png */,
 				8411B899189FEB790019D2D6 /* connection.png */,
 				8411B89A189FEB790019D2D6 /* Connection.svg */,
+				84D48370192BBC2500AA09DE /* connectionsmall.png */,
+				84D48371192BBC2500AA09DE /* ConnectionSmall.svg */,
+				84D48374192BBEF600AA09DE /* connectionmiddle.png */,
+				84D48375192BBEF600AA09DE /* ConnectionMiddle.svg */,
 				84EDFCDD1926D49400056D5A /* iBeacon-source.png */,
 				84EDFCDE1926D49400056D5A /* iBeacon-source.psd */,
 				84EDFCDF1926D49400056D5A /* iBeacon@2x.psd */,
@@ -545,9 +557,11 @@
 				84EDFD091926D7F100056D5A /* default.png in Resources */,
 				8411B8F7189FEB790019D2D6 /* UserTrackingFollow@2x.png in Resources */,
 				8411B8F5189FEB790019D2D6 /* UserTrackingFollow.png in Resources */,
+				84D48377192BBEF600AA09DE /* ConnectionMiddle.svg in Resources */,
 				8411B8DA189FEB790019D2D6 /* icon_ipad64.png in Resources */,
 				84EDFCF81926D49400056D5A /* icon60@2x.png in Resources */,
 				84EDFCF01926D49400056D5A /* icon29.png in Resources */,
+				84D48376192BBEF600AA09DE /* connectionmiddle.png in Resources */,
 				8411B8DE189FEB790019D2D6 /* iTunesArtwork.png in Resources */,
 				84EDFD071926D7F100056D5A /* default-portrait.png in Resources */,
 				84EDFD051926D7F100056D5A /* default-landscape.png in Resources */,
@@ -568,6 +582,7 @@
 				84EDFCF41926D49400056D5A /* icon50.png in Resources */,
 				846216A5192A8750002BDCFF /* owntracks.png in Resources */,
 				84EDFD061926D7F100056D5A /* default-landscape@2x.png in Resources */,
+				84D48373192BBC2500AA09DE /* ConnectionSmall.svg in Resources */,
 				8411B8D9189FEB790019D2D6 /* icon_ipad320.png in Resources */,
 				8411B843189FDB140019D2D6 /* Images.xcassets in Resources */,
 				8411B8CC189FEB790019D2D6 /* connection.png in Resources */,
@@ -585,6 +600,7 @@
 				8411B8E2189FEB790019D2D6 /* LocationOff.png in Resources */,
 				84EDFCFC1926D49400056D5A /* icon76@2x.png in Resources */,
 				84EDFCF61926D49400056D5A /* icon57.png in Resources */,
+				84D48372192BBC2500AA09DE /* connectionsmall.png in Resources */,
 				846216A6192A8750002BDCFF /* owntracks@2x.png in Resources */,
 				84EDFCFB1926D49400056D5A /* icon76.png in Resources */,
 			);

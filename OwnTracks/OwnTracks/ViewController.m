@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *locationButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *beaconButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *connectionButton;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 
 @property (nonatomic) BOOL beaconOn;
@@ -52,10 +53,15 @@
 {
     [super viewWillAppear:animated];
     
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate addObserver:self forKeyPath:@"connectionState" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    [delegate addObserver:self forKeyPath:@"connectionBuffered" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     [self monitoringButtonImage];
     [self beaconButtonImage];
+    [self connectionButtonImage];
     
     if ([CoreData theManagedObjectContext]) {
         if (!self.frc) {
@@ -73,6 +79,10 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate removeObserver:self forKeyPath:@"connectionState" context:nil];
+    [delegate removeObserver:self forKeyPath:@"connectionBuffered" context:nil];
+    
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
@@ -82,11 +92,18 @@
     self.mapView.userTrackingMode = MKUserTrackingModeNone;
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    [self connectionButtonImage];
+}
+
+
 #pragma UI actions
 
 #define ACTION_MONITORING @"Location Monitoring Mode"
 #define ACTION_MAP @"Map Modes"
 #define ACTION_BEACON @"iBeacon"
+#define ACTION_CONNECTION @"MQTT Connection"
 
 - (IBAction)location:(UIBarButtonItem *)sender
 {
@@ -128,6 +145,18 @@
                                                     otherButtonTitles:
                                   @"Start Ranging",
                                   @"Stop Ranging",
+                                  nil];
+    [actionSheet showFromBarButtonItem:sender animated:YES];
+}
+
+- (IBAction)connectionPressed:(UIBarButtonItem *)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:ACTION_CONNECTION
+                                                             delegate:self
+                                                    cancelButtonTitle:([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ? @"Cancel" : nil
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:
+                                  @"(Re-)Connect",
+                                  @"Disconnect",
                                   nil];
     [actionSheet showFromBarButtonItem:sender animated:YES];
 }
@@ -222,6 +251,17 @@
         }
         [self beaconButtonImage];
         
+    } else if ([actionSheet.title isEqualToString:ACTION_CONNECTION]) {
+        switch (buttonIndex - actionSheet.firstOtherButtonIndex) {
+            case 0:
+                [delegate connectionOff];
+                [delegate reconnect];
+                break;
+            case 1:
+                [delegate connectionOff];
+                break;
+        }
+        [self connectionButtonImage];
     }
 }
 
@@ -246,11 +286,43 @@
 - (void)beaconButtonImage
 {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
-
+    
     if (delegate.ranging) {
         self.beaconButton.image = [UIImage imageNamed:@"iBeaconOn.png"];
     } else {
         self.beaconButton.image = [UIImage imageNamed:@"iBeacon.png"];
+    }
+}
+
+- (void)connectionButtonImage
+{
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
+    
+    switch ([delegate.connectionState intValue]) {
+        case state_connected:
+            self.connectionButton.tintColor = [UIColor colorWithRed:0.0 green:190.0/255.0 blue:0.0 alpha:1.0];
+            break;
+        case state_starting:
+            self.connectionButton.tintColor = [UIColor colorWithRed:0.0 green:0.0 blue:190.0/255.0 alpha:1.0];
+            break;
+        case state_closed:
+        case state_closing:
+        case state_connecting:
+            self.connectionButton.tintColor = [UIColor colorWithRed:190.0/255.0 green:190.0/255.0 blue:0.0 alpha:1.0];
+            break;
+        case state_error:
+            self.connectionButton.tintColor = [UIColor colorWithRed:190.0/255.0 green:0.0 blue:0.0 alpha:1.0];
+            break;
+    }
+    
+    if ([delegate.connectionBuffered intValue]) {
+        if ([delegate.connectionBuffered intValue] % 2) {
+            self.connectionButton.image = [UIImage imageNamed:@"connectionsmall.png"];
+        } else {
+            self.connectionButton.image = [UIImage imageNamed:@"connectionmiddle.png"];
+        }
+    } else {
+        self.connectionButton.image = [UIImage imageNamed:@"connection.png"];
     }
 }
 
