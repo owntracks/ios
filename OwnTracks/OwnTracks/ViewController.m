@@ -17,13 +17,15 @@
 #import "Location+Create.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *locationButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *beaconButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *connectionButton;
-@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 
 @property (nonatomic) BOOL beaconOn;
+
+@property (strong, nonatomic) UIBarButtonItem *rootPopoverButtonItem;
 
 @property (strong, nonatomic) NSFetchedResultsController *frc;
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
@@ -36,7 +38,6 @@
 
 - (void)viewDidLoad
 {
-
     [super viewDidLoad];
 
     self.mapView.delegate = self;
@@ -46,15 +47,87 @@
  
     self.mapView.mapType = MKMapTypeStandard;
     self.mapView.showsUserLocation = TRUE;
+    
+    UISplitViewController *splitViewController;
+    
+    if (self.splitViewController) {
+        splitViewController = self.splitViewController;
+    }
+    
+    if (splitViewController) {
+        splitViewController.delegate = self;
+    }
+    
 }
 
+- (BOOL)splitViewController:(UISplitViewController *)svc
+   shouldHideViewController:(UIViewController *)vc
+              inOrientation:(UIInterfaceOrientation)orientation
+{
+    return YES;
+}
+
+- (void)splitViewController:(UISplitViewController *)svc
+          popoverController:(UIPopoverController *)pc
+  willPresentViewController:(UIViewController *)aViewController
+{
+    //
+}
+
+- (void)splitViewController:(UISplitViewController *)svc
+    willHideViewController:(UIViewController *)aViewController
+         withBarButtonItem:(UIBarButtonItem *)barButtonItem
+      forPopoverController:(UIPopoverController *)pc
+{
+    [self showRootPopoverButtonItem:barButtonItem];
+}
+
+- (void)splitViewController:(UISplitViewController *)svc
+     willShowViewController:(UIViewController *)aViewController
+  invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
+{
+    [self invalidateRootPopoverButtonItem:barButtonItem];
+}
+
+
+- (void)showRootPopoverButtonItem:(UIBarButtonItem *)barButtonItem {
+    barButtonItem.image = [UIImage imageNamed:@"Friends"];
+    self.rootPopoverButtonItem = barButtonItem;
+
+    NSMutableArray *toolBarItems = [self.toolbar.items mutableCopy];
+    [toolBarItems insertObject:barButtonItem atIndex:0];
+    [self.toolbar setItems:toolBarItems animated:YES];
+}
+
+
+- (void)invalidateRootPopoverButtonItem:(UIBarButtonItem *)barButtonItem {
+    NSMutableArray *toolBarItems = [self.toolbar.items mutableCopy];
+    [toolBarItems removeObject:barButtonItem];
+    [self.toolbar setItems:toolBarItems animated:YES];
+
+    self.rootPopoverButtonItem = nil;
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
-
+    if (self.rootPopoverButtonItem) {
+        if (![self.toolbar.items containsObject:self.rootPopoverButtonItem]) {
+            NSMutableArray *toolBarItems = [self.toolbar.items mutableCopy];
+            [toolBarItems insertObject:self.rootPopoverButtonItem atIndex:0];
+            [self.toolbar setItems:toolBarItems animated:YES];
+        }
+    } else {
+        if ([self.toolbar.items containsObject:self.rootPopoverButtonItem]) {
+            NSMutableArray *toolBarItems = [self.toolbar.items mutableCopy];
+            [toolBarItems removeObject:self.rootPopoverButtonItem];
+            [self.toolbar setItems:toolBarItems animated:YES];
+        }
+    }
+    
+    [self performSelector:@selector(hideNavBar) withObject:nil afterDelay:2.0];
+    
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate addObserver:self forKeyPath:@"connectionState" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     [delegate addObserver:self forKeyPath:@"connectionBuffered" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
@@ -75,6 +148,11 @@
             self.frc.delegate = self;
         }
     }
+}
+
+- (void)hideNavBar
+{
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

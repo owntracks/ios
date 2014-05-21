@@ -74,7 +74,6 @@
                         <outlet property="connectionButton" destination="cdW-ta-bSy" id="dKv-9n-Tos"/>
                         <outlet property="locationButton" destination="Yil-yv-Mgw" id="VF6-SA-Qeu"/>
                         <outlet property="mapView" destination="eED-yn-0ps" id="ySD-3E-pwJ"/>
-                        <outlet property="toolbar" destination="XET-fL-22T" id="GVN-2n-mb5"/>
                         <segue destination="m9c-8c-Xj9" kind="push" identifier="showDetail:" id="Hb0-uO-VBI"/>
                     </connections>
                 </viewController>
@@ -1512,7 +1511,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hcc-3n-8aC">
-                                                    <rect key="frame" x="239" y="7" width="61" height="30"/>
+                                                    <rect key="frame" x="20" y="7" width="61" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="Eoc-Z7-iZr"/>
@@ -1528,7 +1527,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="hcc-3n-8aC" firstAttribute="top" secondItem="FO5-Bs-fjE" secondAttribute="top" constant="7" id="0Kh-Cn-San"/>
-                                                <constraint firstAttribute="trailing" secondItem="hcc-3n-8aC" secondAttribute="trailing" constant="20" symbolic="YES" id="W8q-13-8v2"/>
+                                                <constraint firstItem="hcc-3n-8aC" firstAttribute="leading" secondItem="FO5-Bs-fjE" secondAttribute="leading" constant="20" symbolic="YES" id="Z9n-YF-84Z"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -2074,8 +2073,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Hb0-uO-VBI"/>
-        <segue reference="pyw-ln-xtX"/>
         <segue reference="Pyi-UA-Loc"/>
+        <segue reference="pyw-ln-xtX"/>
+        <segue reference="Hb0-uO-VBI"/>
     </inferredMetricsTieBreakers>
 </document>

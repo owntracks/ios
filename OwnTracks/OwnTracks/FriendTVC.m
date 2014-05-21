@@ -74,16 +74,27 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Friend *friend = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    UITabBarController *tbc = self.tabBarController;
-    NSArray *vcs = tbc.viewControllers;
-    UINavigationController *nc = vcs[0];
-    UIViewController *vc = nc.topViewController;
     
+    UITabBarController *tbc;
+    UINavigationController *nc;
+
+    if (self.splitViewController) {
+        UISplitViewController *svc = self.splitViewController;
+        nc = svc.viewControllers[1];
+    } else {
+        tbc = self.tabBarController;
+        NSArray *vcs = tbc.viewControllers;
+        nc = vcs[0];
+    }
+    
+    UIViewController *vc = nc.topViewController;
 
     if ([vc respondsToSelector:@selector(setCenter:)]) {
         [vc performSelector:@selector(setCenter:)
                  withObject:[self newestLocation:friend]];
-        tbc.selectedIndex = 0;
+        if (tbc) {
+            tbc.selectedIndex = 0;
+        }
     }
 }
 

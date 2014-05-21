@@ -77,7 +77,7 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Storyboard</string>
 	<key>UIMainStoryboardFile~ipad</key>
-	<string>Storyboard</string>
+	<string>Storyboard-iPad</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

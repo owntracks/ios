@@ -51,6 +51,8 @@
 		8479EEB718E4529900923B24 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
 		847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847F8B5719295C65003876D4 /* CoreMotion.framework */; };
 		84903D9818E48EE300D2EF21 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 84903D9718E48EE300D2EF21 /* Settings.bundle */; };
+		8499BA95192CF86200FA95C7 /* Storyboard-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8499BA94192CF86200FA95C7 /* Storyboard-iPad.storyboard */; };
+		8499BA98192D085700FA95C7 /* DetailNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8499BA97192D085700FA95C7 /* DetailNC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +134,9 @@
 		8479EEB418E4289E00923B24 /* Setting+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Setting+Create.m"; path = "../../Setting+Create.m"; sourceTree = "<group>"; };
 		847F8B5719295C65003876D4 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		84903D9718E48EE300D2EF21 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		8499BA94192CF86200FA95C7 /* Storyboard-iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Storyboard-iPad.storyboard"; sourceTree = "<group>"; };
+		8499BA96192D085600FA95C7 /* DetailNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailNC.h; sourceTree = "<group>"; };
+		8499BA97192D085700FA95C7 /* DetailNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailNC.m; sourceTree = "<group>"; };
 		849D457B18CDACDF00201BF3 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -230,6 +235,8 @@
 				845F003C192A5CDE00919FB8 /* QosTVC.m */,
 				8411B90A189FEC070019D2D6 /* ViewController.h */,
 				8411B90B189FEC070019D2D6 /* ViewController.m */,
+				8499BA96192D085600FA95C7 /* DetailNC.h */,
+				8499BA97192D085700FA95C7 /* DetailNC.m */,
 				8411B834189FDB140019D2D6 /* Supporting Files */,
 			);
 			path = OwnTracks;
@@ -239,6 +246,7 @@
 			isa = PBXGroup;
 			children = (
 				8411B895189FEAE60019D2D6 /* Storyboard.storyboard */,
+				8499BA94192CF86200FA95C7 /* Storyboard-iPad.storyboard */,
 				8411B862189FDD300019D2D6 /* OwnTracks.entitlements */,
 				8411B835189FDB140019D2D6 /* OwnTracks-Info.plist */,
 				8411B836189FDB140019D2D6 /* InfoPlist.strings */,
@@ -395,6 +403,7 @@
 				8479EEB718E4529900923B24 /* Settings.plist in Resources */,
 				8411B8DA189FEB790019D2D6 /* icon_ipad64.png in Resources */,
 				8411B8DE189FEB790019D2D6 /* iTunesArtwork.png in Resources */,
+				8499BA95192CF86200FA95C7 /* Storyboard-iPad.storyboard in Resources */,
 				8411B896189FEAE60019D2D6 /* Storyboard.storyboard in Resources */,
 				8411B8D9189FEB790019D2D6 /* icon_ipad320.png in Resources */,
 				8411B843189FDB140019D2D6 /* Images.xcassets in Resources */,
@@ -431,6 +440,7 @@
 				8411B88A189FE79B0019D2D6 /* AlertView.m in Sources */,
 				8411B90E189FEC070019D2D6 /* FriendTVC.m in Sources */,
 				8411B90F189FEC070019D2D6 /* LocationTVC.m in Sources */,
+				8499BA98192D085700FA95C7 /* DetailNC.m in Sources */,
 				8411B88B189FE79B0019D2D6 /* CoreData.m in Sources */,
 				8411B87A189FE1ED0019D2D6 /* Location+Create.m in Sources */,
 				8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */,
