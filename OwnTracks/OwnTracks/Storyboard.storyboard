@@ -27,27 +27,27 @@
                                     <constraint firstAttribute="height" constant="44" id="5hF-dU-UJW"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem tag="2" image="UserTrackingFollow.png" id="OG2-Ko-DXh">
+                                    <barButtonItem tag="2" image="Tracking" id="OG2-Ko-DXh">
                                         <color key="tintColor" red="0.0" green="0.4963788777" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="friends:" destination="HII-kF-avN" id="XD3-Tf-h5Q"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="DXi-04-kMZ"/>
-                                    <barButtonItem tag="4" image="Move.png" id="Yil-yv-Mgw">
+                                    <barButtonItem tag="4" image="FastMode" id="Yil-yv-Mgw">
                                         <color key="tintColor" red="0.0" green="0.4963788777" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <action selector="location:" destination="HII-kF-avN" id="jp3-aA-lKu"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="khX-zw-95x"/>
-                                    <barButtonItem image="iBeacon.png" id="Uuz-hl-Qhf">
+                                    <barButtonItem image="iBeaconOff" id="Uuz-hl-Qhf">
                                         <connections>
                                             <action selector="beaconPressed:" destination="HII-kF-avN" id="WPf-J5-9yf"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="q41-CR-dc2"/>
-                                    <barButtonItem image="connection.png" id="cdW-ta-bSy">
+                                    <barButtonItem image="ConnectionOn" id="cdW-ta-bSy">
                                         <connections>
                                             <action selector="connectionPressed:" destination="HII-kF-avN" id="N5b-Yw-NZk"/>
                                         </connections>
@@ -1639,7 +1639,7 @@
         <scene sceneID="Fwy-Au-VqF">
             <objects>
                 <navigationController hidesBottomBarWhenPushed="YES" id="HEo-wr-wj3" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="OwnTracks" image="owntracks.png" id="HCO-pB-vNN"/>
+                    <tabBarItem key="tabBarItem" title="OwnTracks" image="OnwTracks" id="HCO-pB-vNN"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="aK3-EO-u98">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2019,11 +2019,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
             </objects>
             <point key="canvasLocation" x="2992" y="-412"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Navigation Controller - Settings-->
         <scene sceneID="nD6-wc-qDz">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="1fv-da-wyA" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" systemItem="more" id="gcM-Zd-NhW"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="Settings" id="gcM-Zd-NhW"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="7gP-MP-F0C"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6hJ-Lb-khP">
@@ -2043,7 +2043,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <scene sceneID="ni9-nE-Tp8">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="v5R-yR-9TY" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Friends" image="FriendsOn.png" id="msF-bI-hEJ"/>
+                    <tabBarItem key="tabBarItem" title="Friends" image="Friends" id="msF-bI-hEJ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HAz-7E-YjW">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2060,12 +2060,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         </scene>
     </scenes>
     <resources>
-        <image name="FriendsOn.png" width="22" height="22"/>
-        <image name="Move.png" width="22" height="21"/>
-        <image name="UserTrackingFollow.png" width="22" height="21"/>
-        <image name="connection.png" width="20" height="20"/>
-        <image name="iBeacon.png" width="22" height="22"/>
-        <image name="owntracks.png" width="29" height="29"/>
+        <image name="ConnectionOn" width="32" height="32"/>
+        <image name="FastMode" width="32" height="32"/>
+        <image name="Friends" width="32" height="32"/>
+        <image name="OnwTracks" width="32" height="32"/>
+        <image name="Settings" width="32" height="32"/>
+        <image name="Tracking" width="32" height="32"/>
+        <image name="iBeaconOff" width="32" height="32"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

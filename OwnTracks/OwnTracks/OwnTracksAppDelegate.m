@@ -347,7 +347,7 @@
 #endif
 
     self.completionHandler = completionHandler;
-    [self publishLocation:[self.manager location] automatic:TRUE addon:nil];
+    [self publishLocation:[self.manager location] automatic:TRUE addon:@{@"t":@"p"}];
 }
 
 #pragma CLLocationManagerDelegate
@@ -385,20 +385,7 @@
     NSString *message = [NSString stringWithFormat:@"Entering %@", region.identifier];
     [self notification:message userInfo:nil];
     
-    NSMutableDictionary *addon = [[NSMutableDictionary alloc] init];
-    [addon setObject:@"enter" forKey:@"event" ];
-    
-    for (Location *location in [Location allWaypointsOfTopic:[self.settings theGeneralTopic]
-                                      inManagedObjectContext:[CoreData theManagedObjectContext]]) {
-        if ([region.identifier isEqualToString:location.region.identifier]) {
-            location.remark = location.remark; // this touches the location and updates the overlay
-            if ([location.share boolValue]) {
-                [addon setValue:region.identifier forKey:@"desc"];
-            }
-        }
-    }
-    
-    [self publishLocation:[self.manager location] automatic:TRUE addon:addon];
+    [self eventMessage:region enter:YES];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
@@ -410,8 +397,18 @@
     NSString *message = [NSString stringWithFormat:@"Leaving %@", region.identifier];
     [self notification:message userInfo:nil];
     
+    [self eventMessage:region enter:NO];
+}
+
+- (void)eventMessage:(CLRegion *)region enter:(BOOL)enter
+{
     NSMutableDictionary *addon = [[NSMutableDictionary alloc] init];
-    [addon setObject:@"leave" forKey:@"event" ];
+    [addon setObject:enter ? @"enter" : @"leave" forKey:@"event" ];
+    if ([region isKindOfClass:[CLCircularRegion class]]) {
+        [addon setObject:@"c" forKey:@"t" ];
+    } else {
+        [addon setObject:@"b" forKey:@"t" ];
+    }
     
     for (Location *location in [Location allWaypointsOfTopic:[self.settings theGeneralTopic]
                                       inManagedObjectContext:[CoreData theManagedObjectContext]]) {
@@ -579,7 +576,7 @@
 #endif
                         }
                     } else if ([dictionary[@"action"] isEqualToString:@"reportLocation"]) {
-                        [self publishLocation:self.manager.location automatic:NO addon:nil];
+                        [self publishLocation:self.manager.location automatic:NO addon:@{@"t":@"r"}];
                     } else if ([dictionary[@"action"] isEqualToString:@"reportSteps"]) {
 #ifdef DEBUG
                         NSLog(@"StepCounter availability %d",
@@ -755,7 +752,7 @@
     NSLog(@"App sendNow");
 #endif
     
-    [self publishLocation:[self.manager location] automatic:FALSE addon:nil];
+    [self publishLocation:[self.manager location] automatic:FALSE addon:@{@"t":@"u"}];
 }
 - (void)connectionOff
 {
@@ -830,7 +827,7 @@
 #ifdef DEBUG
     NSLog(@"App activityTimer");
 #endif
-    [self publishLocation:[self.manager location] automatic:TRUE addon:nil];
+    [self publishLocation:[self.manager location] automatic:TRUE addon:@{@"t":@"t"}];
 }
 
 - (void)reconnect

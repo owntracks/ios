@@ -70,7 +70,7 @@
     
     cell.detailTextLabel.text = [location locationText];
     
-    cell.imageView.image = location.belongsTo.image ? [UIImage imageWithData:[location.belongsTo image]] : [UIImage imageNamed:@"icon_57x57"];
+    cell.imageView.image = location.belongsTo.image ? [UIImage imageWithData:[location.belongsTo image]] : [UIImage imageNamed:@"TableView"];
     
     return cell;
 }

@@ -46,7 +46,7 @@
     
     cell.detailTextLabel.text = location ? [location subtitle] : @"???";
     
-    cell.imageView.image = friend.image ? [UIImage imageWithData:friend.image] : [UIImage imageNamed:@"icon_57x57"];
+    cell.imageView.image = friend.image ? [UIImage imageWithData:friend.image] : [UIImage imageNamed:@"TableView"];
     
     return cell;
 }

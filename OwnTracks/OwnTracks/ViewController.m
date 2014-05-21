@@ -53,11 +53,11 @@
 {
     [super viewWillAppear:animated];
     
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate addObserver:self forKeyPath:@"connectionState" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     [delegate addObserver:self forKeyPath:@"connectionBuffered" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
-    
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     [self monitoringButtonImage];
     [self beaconButtonImage];
@@ -83,7 +83,7 @@
     [delegate removeObserver:self forKeyPath:@"connectionState" context:nil];
     [delegate removeObserver:self forKeyPath:@"connectionBuffered" context:nil];
     
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
 - (void)setCenter:(Location *)location {
@@ -271,14 +271,14 @@
 
     switch (delegate.monitoring) {
         case 2:
-            self.locationButton.image = [UIImage imageNamed:@"Move.png"];
+            self.locationButton.image = [UIImage imageNamed:@"FastMode"];
             break;
         case 1:
-            self.locationButton.image = [UIImage imageNamed:@"LocationOn.png"];
+            self.locationButton.image = [UIImage imageNamed:@"PlayMode"];
             break;
         case 0:
         default:
-            self.locationButton.image = [UIImage imageNamed:@"LocationOff.png"];
+            self.locationButton.image = [UIImage imageNamed:@"StopMode"];
             break;
     }
 }
@@ -288,9 +288,9 @@
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
     
     if (delegate.ranging) {
-        self.beaconButton.image = [UIImage imageNamed:@"iBeaconOn.png"];
+        self.beaconButton.image = [UIImage imageNamed:@"iBeaconOn"];
     } else {
-        self.beaconButton.image = [UIImage imageNamed:@"iBeacon.png"];
+        self.beaconButton.image = [UIImage imageNamed:@"iBeaconOff"];
     }
 }
 
@@ -317,12 +317,12 @@
     
     if ([delegate.connectionBuffered intValue]) {
         if ([delegate.connectionBuffered intValue] % 2) {
-            self.connectionButton.image = [UIImage imageNamed:@"connectionsmall.png"];
+            self.connectionButton.image = [UIImage imageNamed:@"ConnectionMid"];
         } else {
-            self.connectionButton.image = [UIImage imageNamed:@"connectionmiddle.png"];
+            self.connectionButton.image = [UIImage imageNamed:@"ConnectionOff"];
         }
     } else {
-        self.connectionButton.image = [UIImage imageNamed:@"connection.png"];
+        self.connectionButton.image = [UIImage imageNamed:@"ConnectionOn"];
     }
 }
 
@@ -385,9 +385,9 @@
 {
     self.beaconOn = !self.beaconOn;
     if (self.beaconOn) {
-        self.beaconButton.image = [UIImage imageNamed:@"iBeaconOn.png"];
+        self.beaconButton.image = [UIImage imageNamed:@"iBeaconOn"];
     } else {
-        self.beaconButton.image = [UIImage imageNamed:@"iBeacon.png"];
+        self.beaconButton.image = [UIImage imageNamed:@"iBeaconOff"];
     }
 }
 

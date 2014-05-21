@@ -98,7 +98,7 @@
 
     cell.textLabel.text = CFBridgingRelease(ABRecordCopyCompositeName(person));
     cell.imageView.image = [Friend imageDataOfPerson:person] ?
-        [UIImage imageWithData:[Friend imageDataOfPerson:person]] : [UIImage imageNamed:@"icon_57x57"];
+        [UIImage imageWithData:[Friend imageDataOfPerson:person]] : [UIImage imageNamed:@"icon40"];
     
     return cell;
 }
