@@ -20,7 +20,7 @@ enum state {
 };
 
 - (void)showState:(NSInteger)state;
-- (void)handleMessage:(NSData *)data onTopic:(NSString *)topic;
+- (void)handleMessage:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained;
 - (void)messageDelivered:(UInt16)msgID;
 - (void)totalBuffered:(NSUInteger)count;
 

@@ -545,7 +545,7 @@
     }
 }
 
-- (void)handleMessage:(NSData *)data onTopic:(NSString *)topic
+- (void)handleMessage:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained
 {
     if ([topic isEqualToString:[self.settings theGeneralTopic]]) {
         // received own data
@@ -684,16 +684,22 @@
                                                               share:NO
                                              inManagedObjectContext:[CoreData theManagedObjectContext]];
                 
-                NSString *event = dictionary[@"event"];
-
-                if (event) {
-                    if ([event isEqualToString:@"enter"] || [event isEqualToString:@"leave"]) {
-                        NSString *name = [newLocation.belongsTo name];
-                        [self notification:[NSString stringWithFormat:@"%@ %@s %@",
-                                            name ? name : newLocation.belongsTo.topic,
-                                            event,
-                                            newLocation.remark]
-                                  userInfo:@{@"notify": @"friend"}];
+                if (retained) {
+#ifdef DEBUG
+                    NSLog(@"App ignoring retained event");
+#endif
+                } else {
+                    NSString *event = dictionary[@"event"];
+                    
+                    if (event) {
+                        if ([event isEqualToString:@"enter"] || [event isEqualToString:@"leave"]) {
+                            NSString *name = [newLocation.belongsTo name];
+                            [self notification:[NSString stringWithFormat:@"%@ %@s %@",
+                                                name ? name : newLocation.belongsTo.topic,
+                                                event,
+                                                newLocation.remark]
+                                      userInfo:@{@"notify": @"friend"}];
+                        }
                     }
                 }
 
@@ -721,7 +727,7 @@
 
 - (void)messageDelivered:(UInt16)msgID
 {
-#ifdef DEBUG
+#ifdef DEBUG_LOW_LEVEL
     NSString *message = [NSString stringWithFormat:@"Message delivered id=%u", msgID];
     [self notification:message userInfo:nil];
 #endif

@@ -71,8 +71,8 @@
 	<string>OwnTracks monitors your location and publishes it to your MQTT server</string>
 	<key>UIBackgroundModes</key>
 	<array>
-		<string>location</string>
 		<string>fetch</string>
+		<string>location</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Storyboard</string>

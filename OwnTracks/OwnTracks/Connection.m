@@ -254,10 +254,8 @@
 #ifdef DEBUG
     NSLog(@"Connection received %@ %@", topic, [Connection dataToString:data]);
 #endif
-    [self.delegate handleMessage:data onTopic:topic];
-    if ([self.delegate respondsToSelector:@selector(saveContext)]) {
-        [self.delegate performSelector:@selector(saveContext)];
-    }
+    
+    [self.delegate handleMessage:data onTopic:topic retained:retained];
 }
 
 - (void)buffered:(MQTTSession *)session queued:(NSUInteger)queued flowingIn:(NSUInteger)flowingIn flowingOut:(NSUInteger)flowingOut
