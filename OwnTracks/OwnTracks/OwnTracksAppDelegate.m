@@ -29,8 +29,6 @@
 
 #define MAX_OTHER_LOCATIONS 1
 
-#undef REMOTE_NOTIFICATIONS
-
 @implementation OwnTracksAppDelegate
 
 #pragma ApplicationDelegate
@@ -38,11 +36,11 @@
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 #ifdef DEBUG
-    NSLog(@"App willFinishLaunchingWithOptions");
+    NSLog(@"willFinishLaunchingWithOptions");
     NSEnumerator *enumerator = [launchOptions keyEnumerator];
     NSString *key;
     while ((key = [enumerator nextObject])) {
-        NSLog(@"App options %@:%@", key, [[launchOptions objectForKey:key] description]);
+        NSLog(@"%@:%@", key, [[launchOptions objectForKey:key] description]);
     }
 #endif
     
@@ -50,7 +48,7 @@
     self.completionHandler = nil;
     
 #ifdef DEBUG
-    NSLog(@"App setMinimumBackgroundFetchInterval %f", UIApplicationBackgroundFetchIntervalMinimum);
+    NSLog(@"setMinimumBackgroundFetchInterval %f", UIApplicationBackgroundFetchIntervalMinimum);
 #endif
     [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
@@ -60,11 +58,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 #ifdef DEBUG
-    NSLog(@"App didFinishLaunchingWithOptions");
+    NSLog(@"didFinishLaunchingWithOptions");
     NSEnumerator *enumerator = [launchOptions keyEnumerator];
     NSString *key;
     while ((key = [enumerator nextObject])) {
-        NSLog(@"App options %@:%@", key, [[launchOptions objectForKey:key] description]);
+        NSLog(@"%@:%@", key, [[launchOptions objectForKey:key] description]);
     }
 #endif
     
@@ -78,7 +76,7 @@
     do {
         state = self.coreData.documentState;
         if (state & UIDocumentStateClosed || ![CoreData theManagedObjectContext]) {
-            NSLog(@"APP Waiting for document to open documentState = 0x%02lx theManagedObjectContext = %@",
+            NSLog(@"documentState 0x%02lx theManagedObjectContext %@",
                   (long)self.coreData.documentState,
                   [CoreData theManagedObjectContext]);
             [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
@@ -124,14 +122,6 @@
     
     [self connect];
     
-#ifdef REMOTE_NOTIFICATIONS
-    /*
-     * Remote Notifications
-     */
-    
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert];
-#endif // REMOTE_NOTIFICATIONS
-    
     // Register for battery level and state change notifications.
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(batteryLevelChanged:)
@@ -154,14 +144,14 @@
         if ([managedObjectContext hasChanges]) {
             NSError *error = nil;
 #ifdef DEBUG
-            NSLog(@"App save context");
+            NSLog(@"save");
 #endif
             if (![managedObjectContext save:&error]) {
-                NSString *message = [NSString stringWithFormat:@"CoreData unresolved error %@, %@", error, [error userInfo]];
+                NSString *message = [NSString stringWithFormat:@"%@", error.localizedDescription];
 #ifdef DEBUG
                 NSLog(@"%@", message);
 #endif
-                [AlertView alert:@"App Failure" message:[message substringToIndex:128]];
+                [AlertView alert:@"save" message:[message substringToIndex:128]];
             }
         }
     }
@@ -170,7 +160,7 @@
 - (void)batteryLevelChanged:(NSNotification *)notification
 {
 #ifdef DEBUG
-    NSLog(@"App batteryLevelChanged %.0f", [UIDevice currentDevice].batteryLevel);
+    NSLog(@"batteryLevelChanged %.0f", [UIDevice currentDevice].batteryLevel);
 #endif
     
     // No, we do not want to switch off location monitoring when battery gets low
@@ -186,7 +176,7 @@
                                    @(UIDeviceBatteryStateFull): @"full"
                                    };
     
-    NSLog(@"App batteryLevelChanged %@ (%ld)",
+    NSLog(@"batteryStateChanged %@ (%ld)",
           states[@([UIDevice currentDevice].batteryState)],
           (long)[UIDevice currentDevice].batteryState);
 #endif
@@ -198,18 +188,18 @@
          annotation:(id)annotation
 {
 #ifdef DEBUG
-    NSLog(@"App openURL %@ from %@ annotation %@", url, sourceApplication, annotation);
+    NSLog(@"openURL %@ from %@ annotation %@", url, sourceApplication, annotation);
 #endif
     
     if (url) {
         NSInputStream *input = [NSInputStream inputStreamWithURL:url];
         if ([input streamError]) {
-            self.processingMessage = [NSString stringWithFormat:@"Error nputStreamWithURL %@ %@", [input streamError], url];
+            self.processingMessage = [NSString stringWithFormat:@"inputStreamWithURL %@ %@", [input streamError], url];
             return FALSE;
         }
         [input open];
         if ([input streamError]) {
-            self.processingMessage = [NSString stringWithFormat:@"Error open %@ %@", [input streamError], url];
+            self.processingMessage = [NSString stringWithFormat:@"open %@ %@", [input streamError], url];
             return FALSE;
         }
         
@@ -226,7 +216,7 @@
         if (error) {
             self.processingMessage = [NSString stringWithFormat:@"Error processing file %@: %@",
                                       [url lastPathComponent],
-                                      error];
+                                      error.localizedDescription];
             return FALSE;
         }
         self.processingMessage = [NSString stringWithFormat:@"File %@ successfully processed)",
@@ -238,7 +228,7 @@
 - (void)applicationWillResignActive:(UIApplication *)application
 {
 #ifdef DEBUG
-    NSLog(@"App applicationWillResignActive");
+    NSLog(@"applicationWillResignActive");
 #endif
     [self saveContext];
     
@@ -253,7 +243,7 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
 #ifdef DEBUG
-    NSLog(@"App applicationDidEnterBackground");
+    NSLog(@"applicationDidEnterBackground");
 #endif
     self.backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
 #ifdef DEBUG
@@ -270,7 +260,7 @@
                                }
                            }];
     if ([UIApplication sharedApplication].applicationIconBadgeNumber) {
-        [self notification:@"OwnTracks has undelivered messages. Tap to restart"
+        [self notification:@"Undelivered messages. Tap to restart"
                      after:REMINDER_AFTER
                   userInfo:@{@"notify": @"undelivered"}];
     }
@@ -280,38 +270,35 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
 #ifdef DEBUG
-    NSLog(@"App applicationWillEnterForeground");
+    NSLog(@"applicationWillEnterForeground");
 #endif
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
 #ifdef DEBUG
-    NSLog(@"App applicationDidBecomeActive");
+    NSLog(@"applicationDidBecomeActive");
 #endif
     
     if (self.processingMessage) {
-        [AlertView alert:@"App File Processing" message:self.processingMessage];
+        [AlertView alert:@"openURL" message:self.processingMessage];
         self.processingMessage = nil;
         [self reconnect];
     }
     
     if (self.coreData.documentState) {
-        NSString *message = [NSString stringWithFormat:@"Open CoreData %@ 0x%02lx",
-                             self.coreData.fileURL,
-                             (long)self.coreData.documentState];
-        [AlertView alert:@"App Failure" message:message];
+        NSString *message = [NSString stringWithFormat:@"documentState 0x%02lx %@",
+                             (long)self.coreData.documentState,
+                             self.coreData.fileURL];
+        [AlertView alert:@"CoreData" message:message];
     }
     if (![CLLocationManager significantLocationChangeMonitoringAvailable]) {
-        NSString *message = @"No significant location change monitoring available";
-        [AlertView alert:@"App Failure" message:message];
+        [AlertView alert:@"CLLocationManager" message:@"no significantLocationChangeMonitoringAvailable"];
     }
     if (![CLLocationManager locationServicesEnabled]) {
         CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
-        NSString *message = [NSString stringWithFormat:@"%@ %d",
-                             @"Not authorized for CoreLocation",
-                             status];
-        [AlertView alert:@"App Failure" message:message];
+        NSString *message = [NSString stringWithFormat:@"authorizationStatus %d", status];
+        [AlertView alert:@"CLLocationManager" message:message];
     }
     [self.connection connectToLast];
     self.ranging = self.ranging;
@@ -322,16 +309,16 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 #ifdef DEBUG
-    NSLog(@"App applicationWillTerminate");
+    NSLog(@"applicationWillTerminate");
 #endif
     [self saveContext];
-    [self notification:@"OwnTracks terminated. Tap to restart" after:REMINDER_AFTER userInfo:nil];
+    [self notification:@"App terminated. Tap to restart" after:REMINDER_AFTER userInfo:nil];
 }
 
 - (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notification
 {
 #ifdef DEBUG
-    NSLog(@"App didReceiveLocalNotification %@", notification.alertBody);
+    NSLog(@"didReceiveLocalNotification %@", notification.alertBody);
 #endif
     if (notification.userInfo) {
         if ([notification.userInfo[@"notify"] isEqualToString:@"friend"]) {
@@ -343,11 +330,16 @@
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
 #ifdef DEBUG
-    NSLog(@"App performFetchWithCompletionHandler");
+    NSLog(@"performFetchWithCompletionHandler");
 #endif
 
     self.completionHandler = completionHandler;
-    [self publishLocation:[self.manager location] automatic:TRUE addon:@{@"t":@"p"}];
+    if (self.monitoring) {
+        [self publishLocation:[self.manager location] automatic:TRUE addon:@{@"t":@"p"}];
+    } else {
+        [self.connection connectToLast];
+        [self startBackgroundTimer];
+    }
 }
 
 #pragma CLLocationManagerDelegate
@@ -355,12 +347,12 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
 #ifdef DEBUG
-    NSLog(@"App didUpdateLocations");
+    NSLog(@"didUpdateLocations");
 #endif
     
     for (CLLocation *location in locations) {
 #ifdef DEBUG
-        NSLog(@"App location %@", [location description]);
+        NSLog(@"%@", [location description]);
 #endif
         if ([location.timestamp compare:self.locationLastSent] != NSOrderedAscending ) {
             [self publishLocation:location automatic:YES addon:nil];
@@ -371,16 +363,16 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
 #ifdef DEBUG
-    NSLog(@"App locationManager:didFailWithError %@", error);
+    NSLog(@"didFailWithError %@", error.localizedDescription);
 #endif
-    NSString *message = [NSString stringWithFormat:@"didFailWithError %@", error];
-    [AlertView alert:@"App locationManager" message:message];
+    NSString *message = [NSString stringWithFormat:@"%@", error.localizedDescription];
+    [AlertView alert:@"didFailWithError" message:message];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
 #ifdef DEBUG
-    NSLog(@"App didEnterRegion %@", region);
+    NSLog(@"didEnterRegion %@", region);
 #endif
     NSString *message = [NSString stringWithFormat:@"Entering %@", region.identifier];
     [self notification:message userInfo:nil];
@@ -391,7 +383,7 @@
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
 #ifdef DEBUG
-    NSLog(@"App didExitRegion %@", region);
+    NSLog(@"didExitRegion %@", region);
 #endif
     
     NSString *message = [NSString stringWithFormat:@"Leaving %@", region.identifier];
@@ -426,7 +418,7 @@
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
 {
 #ifdef DEBUG
-    NSLog(@"App didStartMonitoringForRegion %@", region);
+    NSLog(@"didStartMonitoringForRegion %@", region);
 #endif
     [self.manager requestStateForRegion:region];
 }
@@ -435,7 +427,7 @@
 {
 #ifdef DEBUG
     
-    NSLog(@"App didDetermineState %ld %@", (long)state, region);
+    NSLog(@"didDetermineState %ld %@", (long)state, region);
 #endif
     if (state == CLRegionStateInside) {
         // start rainging if not in background
@@ -464,10 +456,10 @@
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
 {
 #ifdef DEBUG
-    NSLog(@"App monitoringDidFailForRegion %@ %@", region, error);
+    NSLog(@"monitoringDidFailForRegion %@ %@", region, error.localizedDescription);
 #endif
-    NSString *message = [NSString stringWithFormat:@"%@ %@", region, error];
-    [AlertView alert:@"App locationManager" message:message];
+    NSString *message = [NSString stringWithFormat:@"%@ %@", region, error.localizedDescription];
+    [AlertView alert:@"monitoringDidFailForRegion" message:message];
 }
         
 -(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
@@ -511,7 +503,7 @@
 - (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error
 {
 #ifdef DEBUG
-    NSLog(@"App rangingBeaconsDidFailForRegion %@ %@", region, error);
+    NSLog(@"App rangingBeaconsDidFailForRegion %@ %@", region, error.localizedDescription);
 #endif
 }
 
@@ -530,14 +522,14 @@
     if (state == state_closed) {
         if (self.backgroundTask) {
 #ifdef DEBUG
-            NSLog(@"App endBackGroundTask");
+            NSLog(@"endBackGroundTask");
 #endif
             [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
             self.backgroundTask = UIBackgroundTaskInvalid;
         }
         if (self.completionHandler) {
 #ifdef DEBUG
-            NSLog(@"App completionHandler");
+            NSLog(@"completionHandler");
 #endif
             self.completionHandler(UIBackgroundFetchResultNewData);
             self.completionHandler = nil;
@@ -583,54 +575,55 @@
                               [CMStepCounter isStepCountingAvailable]
                               );
 #endif
-                        //if ([CMStepCounter isStepCountingAvailable]) {
-                            if (!self.stepCounter) {
-                                self.stepCounter = [[CMStepCounter alloc] init];
-                            }
-                            [self.stepCounter queryStepCountStartingFrom:[NSDate dateWithTimeIntervalSinceNow:-24.0*3600.0]
-                                                                      to:[NSDate date]
-                                                                 toQueue:[[NSOperationQueue alloc] init]
-                                                             withHandler:^(NSInteger steps, NSError *error)
-                             {
-                                 dispatch_async(dispatch_get_main_queue(),
-                                                ^{
-                                                    
-                                                    NSDictionary *jsonObject = @{
-                                                                                 @"_type": @"steps",
-                                                                                 @"tst": @(floor([[NSDate date] timeIntervalSince1970])),
-                                                                                 @"steps": @(steps)
-                                                                                 };
-                                                    
-                                                    long msgID = [self.connection sendData:[self jsonToData:jsonObject]
-                                                                                     topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/steps"]
-                                                                                       qos:[self.settings intForKey:@"qos_preference"]
-                                                                                    retain:NO];
-                                                    
-                                                    if (msgID <= 0) {
+                        if (!self.stepCounter) {
+                            self.stepCounter = [[CMStepCounter alloc] init];
+                        }
+                        [self.stepCounter queryStepCountStartingFrom:[NSDate dateWithTimeIntervalSinceNow:-24.0*3600.0]
+                                                                  to:[NSDate date]
+                                                             toQueue:[[NSOperationQueue alloc] init]
+                                                         withHandler:^(NSInteger steps, NSError *error)
+                         {
 #ifdef DEBUG
-                                                        NSString *message = [NSString stringWithFormat:@"Steps %@",
-                                                                             (msgID == -1) ? @"queued" : @"sent"];
-                                                        [self notification:message userInfo:nil];
+                             NSLog(@"StepCounter queryStepCountStartingFrom handler %ld %@", (long)steps, error.localizedDescription);
 #endif
-                                                    }
-                                                });
-                             }];
-                        //}
-
+                             
+                             dispatch_async(dispatch_get_main_queue(),
+                                            ^{
+                                                
+                                                NSDictionary *jsonObject = @{
+                                                                             @"_type": @"steps",
+                                                                             @"tst": @(floor([[NSDate date] timeIntervalSince1970])),
+                                                                             @"steps": @(steps)
+                                                                             };
+                                                
+                                                long msgID = [self.connection sendData:[self jsonToData:jsonObject]
+                                                                                 topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/steps"]
+                                                                                   qos:[self.settings intForKey:@"qos_preference"]
+                                                                                retain:NO];
+                                                
+                                                if (msgID <= 0) {
+#ifdef DEBUG
+                                                    NSString *message = [NSString stringWithFormat:@"Steps %@",
+                                                                         (msgID == -1) ? @"queued" : @"sent"];
+                                                    [self notification:message userInfo:nil];
+#endif
+                                                }
+                                            });
+                         }];
                     } else {
 #ifdef DEBUG
-                        NSLog(@"App received unknown action %@", dictionary[@"action"]);
+                        NSLog(@"unknown action %@", dictionary[@"action"]);
 #endif
                     }
                 }
             } else {
 #ifdef DEBUG
-                NSLog(@"App received unknown record type %@", dictionary[@"_type"]);
+                NSLog(@"unknown record type %@", dictionary[@"_type"]);
 #endif
             }
         } else {
 #ifdef DEBUG
-            NSLog(@"App received illegal json %@", error);
+            NSLog(@"illegal json %@", error.localizedDescription);
 #endif
         }
         
@@ -705,19 +698,15 @@
 
                 [self limitLocationsWith:newLocation.belongsTo toMaximum:MAX_OTHER_LOCATIONS];
 
-            } else if ([dictionary[@"_type"] isEqualToString:@"deviceToken"]) {
-                Friend *friend = [Friend friendWithTopic:deviceName inManagedObjectContext:[CoreData theManagedObjectContext]];
-                friend.device = dictionary[@"deviceToken"];
-                
             } else {
 #ifdef DEBUG
-                NSLog(@"App received unknown record type %@)", dictionary[@"_type"]);
+                NSLog(@"unknown record type %@)", dictionary[@"_type"]);
 #endif
                 // data other than json _type location/waypoint is silently ignored
             }
         } else {
 #ifdef DEBUG
-            NSLog(@"App received illegal json %@)", error);
+            NSLog(@"illegal json %@)", error.localizedDescription);
 #endif
             // data other than json is silently ignored
         }
@@ -1017,7 +1006,9 @@
     
     NSInteger number = [UIApplication sharedApplication].applicationIconBadgeNumber;
     if (number) {
-        [self notification:[NSString stringWithFormat:@"OwnTracks has %ld undelivered messages", (long)number]
+        [self notification:[NSString stringWithFormat:@"OwnTracks has %ld undelivered message%@",
+                            (long)number,
+                            (number > 1) ? @"s" : @""]
                      after:0
                   userInfo:@{@"notify": @"undelivered"}];
     }
@@ -1031,12 +1022,12 @@
         NSError *error;
         data = [NSJSONSerialization dataWithJSONObject:jsonObject options:0 /* not pretty printed */ error:&error];
         if (!data) {
-            NSString *message = [NSString stringWithFormat:@"Error %@ serializing JSON Object: %@", [error description], [jsonObject description]];
-            [AlertView alert:@"App Failure" message:message];
+            NSString *message = [NSString stringWithFormat:@"%@ %@", error.localizedDescription, [jsonObject description]];
+            [AlertView alert:@"dataWithJSONObject" message:message];
         }
     } else {
-        NSString *message = [NSString stringWithFormat:@"No valid JSON Object: %@", [jsonObject description]];
-        [AlertView alert:@"App Failure" message:message];
+        NSString *message = [NSString stringWithFormat:@"%@", [jsonObject description]];
+        [AlertView alert:@"isValidJSONObject" message:message];
     }
     return data;
 }
@@ -1073,51 +1064,5 @@
     
     return [self jsonToData:jsonObject];
 }
-
-#ifdef REMOTE_NOTIFICATIONS
-
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
-{
-#ifdef DEBUG
-    NSLog(@"App didFailToRegisterForRemoteNotificationsWithError %@", error);
-#endif
-    NSString *message = [NSString stringWithFormat:@"App didFailToRegisterForRemoteNotificationsWithError %@", error];
-    [AlertView alert:@"App Failure" message:message];
-    
-}
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
-#ifdef DEBUG
-    NSLog(@"App didReceiveRemoteNotification %@", userInfo);
-#endif
-}
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{
-#ifdef DEBUG
-    NSLog(@"App didReceiveRemoteNotification fetchCompletionHandler %@", userInfo);
-#endif
-    completionHandler(UIBackgroundFetchResultNewData);
-}
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-#ifdef DEBUG
-    NSLog(@"App didRegisterForRemoteNotificationsWithDeviceToken %@", deviceToken);
-#endif
-    
-    NSDictionary *jsonObject = @{
-                                 @"tst": [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]],
-                                 @"dev": [NSString stringWithFormat:@"%@", [deviceToken description]],
-                                 @"_type": [NSString stringWithFormat:@"%@", @"deviceToken"]
-                                 };
-    
-    [self.connection sendData:[self jsonToData:jsonObject]
-                        topic:[NSString stringWithFormat:@"%@/deviceToken", self.theGeneralTopic]
-                          qos:1
-                       retain:YES];
-}
-#endif // REMOTE_NOTIFICATIONS
-
 
 @end

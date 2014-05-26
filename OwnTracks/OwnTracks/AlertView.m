@@ -26,7 +26,7 @@
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
                                                             message:message
-                                                           delegate:self
+                                                           delegate:nil
                                                   cancelButtonTitle:interval ? nil : @"OK"
                                                   otherButtonTitles:nil];
         [alertView show];
