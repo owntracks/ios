@@ -183,7 +183,7 @@
                                    @(MQTTSessionEventConnectionError): @"connection error",
                                    @(MQTTSessionEventProtocolError): @"protocoll error"
                                    };
-    NSLog(@"Connection MQTT eventCode: %@ (%d) %@", events[@(eventCode)], eventCode, error);
+    NSLog(@"Connection MQTT eventCode: %@ (%ld) %@", events[@(eventCode)], (long)eventCode, error);
 #endif
     [self.reconnectTimer invalidate];
     switch (eventCode) {

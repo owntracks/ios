@@ -101,13 +101,10 @@
         for (CLRegion *region in self.manager.monitoredRegions) {
 #ifdef DEBUG
             NSLog(@"stopMonitoringForRegion %@", region.identifier);
-            for (CLRegion *region in self.manager.monitoredRegions) {
-                NSLog(@"region %@", region.identifier);
-            }
 #endif
             [self.manager stopMonitoringForRegion:region];
         }
-
+        
         self.monitoring = [self.settings intForKey:@"monitoring_preference"];
         self.ranging = [self.settings boolForKey:@"ranging_preference"];
 
@@ -457,11 +454,16 @@
 {
 #ifdef DEBUG
     NSLog(@"monitoringDidFailForRegion %@ %@", region, error.localizedDescription);
+    for (CLRegion *monitoredRegion in manager.monitoredRegions) {
+        NSLog(@"monitoredRegion: %@", monitoredRegion);
+    }
 #endif
-    NSString *message = [NSString stringWithFormat:@"%@ %@", region, error.localizedDescription];
-    [AlertView alert:@"monitoringDidFailForRegion" message:message];
+    if ((error.domain != kCLErrorDomain || error.code != 5) && [manager.monitoredRegions containsObject:region]) {
+        NSString *message = [NSString stringWithFormat:@"%@ %@", region, error.localizedDescription];
+        [AlertView alert:@"monitoringDidFailForRegion" message:message];
+    }
 }
-        
+
 -(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
 #ifdef DEBUG

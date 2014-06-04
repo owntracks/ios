@@ -57,18 +57,12 @@
         if (self.oldRegion) {
 #ifdef DEBUG
             NSLog(@"stopMonitoringForRegion %@", self.oldRegion.identifier);
-            for (CLRegion *region in delegate.manager.monitoredRegions) {
-                NSLog(@"region %@", region.identifier);
-            }
 #endif
             [delegate.manager stopMonitoringForRegion:self.oldRegion];
         }
         if ([self.location region]) {
 #ifdef DEBUG
             NSLog(@"startMonitoringForRegion %@", self.location.region.identifier);
-            for (CLRegion *region in delegate.manager.monitoredRegions) {
-                NSLog(@"region %@", region.identifier);
-            }
 #endif
 
             [delegate.manager startMonitoringForRegion:[self.location region]];
