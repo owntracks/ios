@@ -422,5 +422,17 @@
     return deviceId;
 }
 
+- (NSString *)theSubscriptions
+{
+    NSString *subscriptions;
+    subscriptions = [self stringForKey:@"subscription_preference"];
+    
+    if (!subscriptions || [subscriptions isEqualToString:@""]) {
+        subscriptions = [NSString stringWithFormat:@"owntracks/+/+ owntracks/%@/#", [self theId]];
+    }
+    return subscriptions;
+}
+
+
 
 @end

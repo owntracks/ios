@@ -263,13 +263,8 @@
                     }
                     
                     region = beaconRegion;
-                    
-                    // make sure the app is woken up if the device is switched on within the beacon region
-                    // beaconRegion.notifyEntryStateOnDisplay = TRUE;
-                    
                 }
             }
-            
         }
     }
     return region;
