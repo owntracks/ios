@@ -726,25 +726,25 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Advanced" id="0Ro-vI-1nm">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="vzM-Qh-h3c">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="vzM-Qh-h3c">
                                         <rect key="frame" x="0.0" y="1007" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vzM-Qh-h3c" id="Tav-id-k2j">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="253" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subscription" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bgd-LP-eFG">
-                                                    <rect key="frame" x="20" y="11" width="97" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sub." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bgd-LP-eFG">
+                                                    <rect key="frame" x="20" y="11" width="36" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="width" constant="36" id="OT8-Ya-YoI"/>
                                                         <constraint firstAttribute="height" constant="21" id="Tre-dV-ZOb"/>
-                                                        <constraint firstAttribute="width" constant="97" id="XER-jw-NLI"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="subscription" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KpV-nU-wLz">
-                                                    <rect key="frame" x="125" y="7" width="175" height="30"/>
+                                                    <rect key="frame" x="64" y="7" width="169" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="qY6-a6-6LL"/>
@@ -761,6 +761,9 @@
                                                 <constraint firstItem="KpV-nU-wLz" firstAttribute="leading" secondItem="Bgd-LP-eFG" secondAttribute="trailing" constant="8" id="x8a-Q5-FU9"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="rSR-tC-puA" kind="push" trigger="accessoryAction" id="pwE-5i-Vsy"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="KC6-wa-Kzz">
                                         <rect key="frame" x="0.0" y="1051" width="320" height="44"/>
@@ -1917,6 +1920,27 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Subscriptions (whitespace separated)" id="Uxq-qC-xkX">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="hih-3Y-ktG">
+                                        <rect key="frame" x="0.0" y="487" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hih-3Y-ktG" id="Pro-Kx-kiy">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="effectivesubscriptions" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NdI-pB-pPb">
+                                                    <rect key="frame" x="20" y="7" width="280" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="rSR-tC-puA" id="4eP-jG-vsx"/>
@@ -1929,6 +1953,7 @@
                         <outlet property="UIeffectiveDeviceId" destination="Szz-hd-dlg" id="FaZ-w0-cj1"/>
                         <outlet property="UIeffectiveTopic" destination="biH-42-av9" id="hTG-jS-8r5"/>
                         <outlet property="UIeffectiveWillTopic" destination="ZaF-ds-DuU" id="cEa-8v-lzl"/>
+                        <outlet property="UIeffectivesubscriptions" destination="NdI-pB-pPb" id="FwZ-04-xo9"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fhz-ys-UjD" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2073,8 +2098,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Hb0-uO-VBI"/>
         <segue reference="fYg-iY-91D"/>
-        <segue reference="pyw-ln-xtX"/>
+        <segue reference="d9Z-oL-s4W"/>
+        <segue reference="Hb0-uO-VBI"/>
     </inferredMetricsTieBreakers>
 </document>

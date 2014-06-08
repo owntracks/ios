@@ -541,8 +541,25 @@
 
 - (void)handleMessage:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained
 {
-    if ([topic isEqualToString:[self.settings theGeneralTopic]]) {
-        // received own data
+    NSArray *topicComponents = [topic componentsSeparatedByCharactersInSet:
+                                [NSCharacterSet characterSetWithCharactersInString:@"/"]];
+    NSArray *baseComponents = [[self.settings theGeneralTopic] componentsSeparatedByCharactersInSet:
+                               [NSCharacterSet characterSetWithCharactersInString:@"/"]];
+    
+    NSString *device = @"";
+    BOOL ownDevice = true;
+    
+    for (int i = 0; i < [baseComponents count]; i++) {
+        if (device.length) {
+            device = [device stringByAppendingString:@"/"];
+        }
+        device = [device stringByAppendingString:topicComponents[i]];
+        if (![baseComponents[i] isEqualToString:topicComponents [i]]) {
+            ownDevice = false;
+        }
+    }
+    
+    if (ownDevice) {
         
         NSError *error;
         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
@@ -557,8 +574,12 @@
                                                @"_type":@"dump",
                                                @"configuration":[self.settings toDictionary],
                                                };
+#ifdef DEBUG
+                        NSLog(@"App sending dump to:%@", topic);
+#endif
+
                         long msgID = [self.connection sendData:[self jsonToData:dumpDict]
-                                                         topic:[self.settings theGeneralTopic]
+                                                         topic:topic
                                                            qos:[self.settings intForKey:@"qos_preference"]
                                                         retain:NO];
                         
@@ -580,8 +601,34 @@
                         if (!self.stepCounter) {
                             self.stepCounter = [[CMStepCounter alloc] init];
                         }
-                        [self.stepCounter queryStepCountStartingFrom:[NSDate dateWithTimeIntervalSinceNow:-24.0*3600.0]
-                                                                  to:[NSDate date]
+                        
+                        NSDate *to;
+                        NSDate *from;
+                        if (dictionary[@"to"]) {
+                            to = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"to"] doubleValue]];
+                        } else {
+                            to = [NSDate date];
+                        }
+                        if (dictionary[@"from"]) {
+                            from = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"from"] doubleValue]];
+                        } else {
+                            NSDateComponents *components = [[NSCalendar currentCalendar]
+                                                            components: NSCalendarUnitDay |
+                                                            NSCalendarUnitHour |
+                                                            NSCalendarUnitMinute |
+                                                            NSCalendarUnitSecond |
+                                                            NSCalendarUnitMonth |
+                                                            NSCalendarUnitYear
+                                                            fromDate:to];
+                            components.hour = 0;
+                            components.minute = 0;
+                            components.second = 0;
+                            
+                            from = [[NSCalendar currentCalendar] dateFromComponents:components];
+                        }
+                        
+                        [self.stepCounter queryStepCountStartingFrom:from
+                                                                  to:to
                                                              toQueue:[[NSOperationQueue alloc] init]
                                                          withHandler:^(NSInteger steps, NSError *error)
                          {
@@ -595,7 +642,9 @@
                                                 NSDictionary *jsonObject = @{
                                                                              @"_type": @"steps",
                                                                              @"tst": @(floor([[NSDate date] timeIntervalSince1970])),
-                                                                             @"steps": @(steps)
+                                                                             @"from": @(floor([from timeIntervalSince1970])),
+                                                                             @"to": @(floor([to  timeIntervalSince1970])),
+                                                                             @"steps": error ? @(-1) : @(steps)
                                                                              };
                                                 
                                                 long msgID = [self.connection sendData:[self jsonToData:jsonObject]
@@ -618,6 +667,12 @@
 #endif
                     }
                 }
+            } else if ([dictionary[@"_type"] isEqualToString:@"waypoint"]) {
+                // received own waypoint
+            } else if ([dictionary[@"_type"] isEqualToString:@"beacon"]) {
+                // received own beacon
+            } else if ([dictionary[@"_type"] isEqualToString:@"location"]) {
+                // received own beacon
             } else {
 #ifdef DEBUG
                 NSLog(@"unknown record type %@", dictionary[@"_type"]);
@@ -629,88 +684,85 @@
 #endif
         }
         
-    } else if ([topic isEqualToString:[NSString stringWithFormat:@"%@/%@", [self.settings theGeneralTopic], @"waypoints"]]) {
-        // received own waypoint
-    } else if ([topic isEqualToString:[NSString stringWithFormat:@"%@/%@", [self.settings theGeneralTopic], @"beacons"]]) {
-        // received own beacon
-    } else {
-        // received other data
-        NSString *deviceName = topic;
-        if ([[deviceName lastPathComponent] isEqualToString:@"deviceToken"]) {
-            deviceName = [deviceName stringByDeletingLastPathComponent];
-        }
-        if ([[deviceName lastPathComponent] isEqualToString:@"waypoints"]) {
-            deviceName = [deviceName stringByDeletingLastPathComponent];
-        }
-        NSError *error;
-        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-        if (dictionary) {
-            if ([dictionary[@"_type"] isEqualToString:@"location"] ||
-                [dictionary[@"_type"] isEqualToString:@"waypoint"]) {
+    } else /* not ownDevice */ {
+        
+        if (data.length) {
+            
+            NSError *error;
+            NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            if (dictionary) {
+                if ([dictionary[@"_type"] isEqualToString:@"location"] ||
+                    [dictionary[@"_type"] isEqualToString:@"waypoint"]) {
 #ifdef DEBUG
-                NSLog(@"App json received lat:%g lon:%g acc:%.0f tst:%.0f rad:%.0f event:%@ desc:%@",
-                      [dictionary[@"lat"] doubleValue],
-                      [dictionary[@"lon"] doubleValue],
-                      [dictionary[@"acc"] doubleValue],
-                      [dictionary[@"tst"] doubleValue],
-                      [dictionary[@"rad"] doubleValue],
-                      dictionary[@"event"],
-                      dictionary[@"desc"]
-                      );
+                    NSLog(@"App json received lat:%g lon:%g acc:%.0f tst:%.0f rad:%.0f event:%@ desc:%@",
+                          [dictionary[@"lat"] doubleValue],
+                          [dictionary[@"lon"] doubleValue],
+                          [dictionary[@"acc"] doubleValue],
+                          [dictionary[@"tst"] doubleValue],
+                          [dictionary[@"rad"] doubleValue],
+                          dictionary[@"event"],
+                          dictionary[@"desc"]
+                          );
 #endif
-                CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
-                                                                               [dictionary[@"lat"] doubleValue],
-                                                                               [dictionary[@"lon"] doubleValue]
-                                                                               );
-                
-                CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate
-                                                                     altitude:0
-                                                           horizontalAccuracy:[dictionary[@"acc"] doubleValue]
-                                                             verticalAccuracy:0
-                                                                    timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]];
-                
-                Location *newLocation = [Location locationWithTopic:deviceName
-                                                          timestamp:location.timestamp
-                                                         coordinate:location.coordinate
-                                                           accuracy:location.horizontalAccuracy
-                                                          automatic:[dictionary[@"_type"] isEqualToString:@"location"] ? TRUE : FALSE
-                                                             remark:dictionary[@"desc"]
-                                                             radius:[dictionary[@"rad"] doubleValue]
-                                                              share:NO
-                                             inManagedObjectContext:[CoreData theManagedObjectContext]];
-                
-                if (retained) {
-#ifdef DEBUG
-                    NSLog(@"App ignoring retained event");
-#endif
-                } else {
-                    NSString *event = dictionary[@"event"];
+                    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
+                                                                                   [dictionary[@"lat"] doubleValue],
+                                                                                   [dictionary[@"lon"] doubleValue]
+                                                                                   );
                     
-                    if (event) {
-                        if ([event isEqualToString:@"enter"] || [event isEqualToString:@"leave"]) {
-                            NSString *name = [newLocation.belongsTo name];
-                            [self notification:[NSString stringWithFormat:@"%@ %@s %@",
-                                                name ? name : newLocation.belongsTo.topic,
-                                                event,
-                                                newLocation.remark]
-                                      userInfo:@{@"notify": @"friend"}];
+                    CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate
+                                                                         altitude:0
+                                                               horizontalAccuracy:[dictionary[@"acc"] doubleValue]
+                                                                 verticalAccuracy:0
+                                                                        timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]];
+                    
+                    Location *newLocation = [Location locationWithTopic:device
+                                                              timestamp:location.timestamp
+                                                             coordinate:location.coordinate
+                                                               accuracy:location.horizontalAccuracy
+                                                              automatic:[dictionary[@"_type"] isEqualToString:@"location"] ? TRUE : FALSE
+                                                                 remark:dictionary[@"desc"]
+                                                                 radius:[dictionary[@"rad"] doubleValue]
+                                                                  share:NO
+                                                 inManagedObjectContext:[CoreData theManagedObjectContext]];
+                    
+                    if (retained) {
+#ifdef DEBUG
+                        NSLog(@"App ignoring retained event");
+#endif
+                    } else {
+                        NSString *event = dictionary[@"event"];
+                        
+                        if (event) {
+                            if ([event isEqualToString:@"enter"] || [event isEqualToString:@"leave"]) {
+                                NSString *name = [newLocation.belongsTo name];
+                                [self notification:[NSString stringWithFormat:@"%@ %@s %@",
+                                                    name ? name : newLocation.belongsTo.topic,
+                                                    event,
+                                                    newLocation.remark]
+                                          userInfo:@{@"notify": @"friend"}];
+                            }
                         }
                     }
+                    
+                    [self limitLocationsWith:newLocation.belongsTo toMaximum:MAX_OTHER_LOCATIONS];
+                    
+                } else {
+#ifdef DEBUG
+                    NSLog(@"unknown record type %@)", dictionary[@"_type"]);
+#endif
+                    // data other than json _type location/waypoint is silently ignored
                 }
-
-                [self limitLocationsWith:newLocation.belongsTo toMaximum:MAX_OTHER_LOCATIONS];
-
             } else {
 #ifdef DEBUG
-                NSLog(@"unknown record type %@)", dictionary[@"_type"]);
+                NSLog(@"illegal json %@)", error.localizedDescription);
 #endif
-                // data other than json _type location/waypoint is silently ignored
+                // data other than json is silently ignored
             }
-        } else {
-#ifdef DEBUG
-            NSLog(@"illegal json %@)", error.localizedDescription);
-#endif
-            // data other than json is silently ignored
+        } else /* data.length == 0 -> delete friend */ {
+            Friend *friend = [Friend existsFriendWithTopic:device inManagedObjectContext:[CoreData theManagedObjectContext]];
+            if (friend) {
+                [[CoreData theManagedObjectContext] deleteObject:friend];
+            }
         }
     }
     [self saveContext];

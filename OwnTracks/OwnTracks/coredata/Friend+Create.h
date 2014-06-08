@@ -12,6 +12,9 @@
 @interface Friend (Create)
 + (ABAddressBookRef)theABRef;
 
++ (Friend *)existsFriendWithTopic:(NSString *)topic
+     inManagedObjectContext:(NSManagedObjectContext *)context;
+
 + (Friend *)friendWithTopic:(NSString *)topic
      inManagedObjectContext:(NSManagedObjectContext *)context;
 

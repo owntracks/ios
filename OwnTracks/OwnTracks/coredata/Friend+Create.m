@@ -58,7 +58,7 @@
     return ab;
 }
 
-+ (Friend *)friendWithTopic:(NSString *)topic
++ (Friend *)existsFriendWithTopic:(NSString *)topic
      inManagedObjectContext:(NSManagedObjectContext *)context
 
 {
@@ -75,22 +75,29 @@
     if (!matches || [matches count] > 1) {
         // handle error
     } else {
-        
-        if (![matches count]) {
-            //create new friend
-            friend = [NSEntityDescription insertNewObjectForEntityForName:@"Friend" inManagedObjectContext:context];
-            
-            friend.topic = topic;
-            
-            friend.device = nil;
-            friend.abRecordId = @(kABRecordInvalidID);
-            friend.hasLocations = [[NSSet alloc] init];
-        } else {
-            // friend exists already
+        if ([matches count]) {
             friend = [matches lastObject];
         }
     }
     
+    return friend;
+}
+
++ (Friend *)friendWithTopic:(NSString *)topic
+     inManagedObjectContext:(NSManagedObjectContext *)context
+
+{
+    Friend *friend = [self existsFriendWithTopic:topic inManagedObjectContext:context];
+    
+    if (!friend) {
+        friend = [NSEntityDescription insertNewObjectForEntityForName:@"Friend" inManagedObjectContext:context];
+        
+        friend.topic = topic;
+        
+        friend.abRecordId = @(kABRecordInvalidID);
+        friend.hasLocations = [[NSSet alloc] init];
+    }
+
     return friend;
 }
 

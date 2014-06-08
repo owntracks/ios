@@ -28,5 +28,6 @@
 - (NSString *)theWillTopic;
 - (NSString *)theClientId;
 - (NSString *)theDeviceId;
+- (NSString *)theSubscriptions;
 
 @end

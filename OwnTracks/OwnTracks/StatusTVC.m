@@ -12,6 +12,7 @@
 
 
 @interface StatusTVC ()
+@property (weak, nonatomic) IBOutlet UITextField *UIeffectivesubscriptions;
 @property (weak, nonatomic) IBOutlet UITextView *UIparameters;
 @property (weak, nonatomic) IBOutlet UITextField *UIstatus;
 @property (weak, nonatomic) IBOutlet UITextView *UIstatusField;
@@ -135,6 +136,7 @@
     self.UIeffectiveClientId.text =                 [delegate.settings theClientId];
     self.UIeffectiveTopic.text =                    [delegate.settings theGeneralTopic];
     self.UIeffectiveWillTopic.text =                [delegate.settings theWillTopic];
+    self.UIeffectivesubscriptions.text =            [delegate.settings theSubscriptions];
     
     self.UIparameters.text =                        [delegate.connection parameters];
     

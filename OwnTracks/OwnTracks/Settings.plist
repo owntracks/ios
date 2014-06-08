@@ -11,7 +11,7 @@
 	<key>clientid_preference</key>
 	<string></string>
 	<key>subscription_preference</key>
-	<string>owntracks/#</string>
+	<string></string>
 	<key>subscriptionqos_preference</key>
 	<integer>1</integer>
 	<key>topic_preference</key>

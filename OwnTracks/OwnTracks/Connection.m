@@ -197,11 +197,16 @@
              */
             if (self.clean || !self.reconnectFlag) {
                 OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-                NSString *topic = [delegate.settings stringForKey:@"subscription_preference"];
                 UInt8 qos =[delegate.settings intForKey:@"subscriptionqos_preference"];
-                if (topic && ![topic isEqualToString:@""]) {
-                    [self.session subscribeToTopic:topic atLevel:qos];
+
+                NSArray *topicFilters = [[delegate.settings theSubscriptions] componentsSeparatedByCharactersInSet:
+                                         [NSCharacterSet whitespaceCharacterSet]];
+                for (NSString *topicFilter in topicFilters) {
+                    if (topicFilter.length) {
+                        [self.session subscribeToTopic:topicFilter atLevel:qos];
+                    }
                 }
+
                 self.reconnectFlag = TRUE;
             }
 
