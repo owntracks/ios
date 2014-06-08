@@ -15,44 +15,13 @@
 + (ABAddressBookRef)theABRef
 {
     static ABAddressBookRef ab = nil;
-    static BOOL isGranted = YES;
     
     if (!ab) {
-        if (isGranted) {
-#ifdef DEBUG
-            NSLog(@"ABAddressBookCreateWithOptions");
-#endif
-            CFErrorRef cfError;
-            ab = ABAddressBookCreateWithOptions(NULL, &cfError);
-            if (ab) {
-#ifdef DEBUG
-                NSLog(@"ABAddressBookCreateWithOptions successful");
-#endif
-            } else {
-                CFStringRef errorDescription = CFErrorCopyDescription(cfError);
-                [Friend error:[NSString stringWithFormat:@"ABAddressBookCreateWithOptions not successfull %@", errorDescription]];
-                CFRelease(errorDescription);
-                isGranted = NO;
-            }
-            
-#ifdef DEBUG
-            NSLog(@"ABAddressBookRequestAccessWithCompletion");
-#endif
-            
-            ABAddressBookRequestAccessWithCompletion(ab, ^(bool granted, CFErrorRef error) {
-                if (granted) {
-#ifdef DEBUG
-                    NSLog(@"ABAddressBookRequestAccessCompletionHandler successful");
-#endif
-                } else {
-                    isGranted = NO;
-                }
-            });
-        } else {
-            //Error message should have appeared once
-            //[Friend error:[NSString stringWithFormat:@"ABAddressBookRequestAccessWithCompletion not successfull"]];
+        ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
+        if (status == kABAuthorizationStatusAuthorized || status == kABAuthorizationStatusNotDetermined) {
+            CFErrorRef error;
+            ab = ABAddressBookCreateWithOptions(NULL, &error);
         }
-        
     }
     
     return ab;
@@ -77,7 +46,6 @@
     } else {
         
         if (![matches count]) {
-            //create new friend
             friend = [NSEntityDescription insertNewObjectForEntityForName:@"Friend" inManagedObjectContext:context];
             
             friend.topic = topic;
@@ -86,7 +54,6 @@
             friend.abRecordId = @(kABRecordInvalidID);
             friend.hasLocations = [[NSSet alloc] init];
         } else {
-            // friend exists already
             friend = [matches lastObject];
         }
     }
@@ -98,22 +65,41 @@
 {
     ABRecordRef record = [self recordOfFriend];
     
-    if (record) {
-        return [Friend nameOfPerson:record];
-    } else {
-        return nil;
-    }
+    return [Friend nameOfPerson:record];
 }
+
++ (NSString *)nameOfPerson:(ABRecordRef)record
+{
+    NSString *name = nil;
+    
+    if (record) {
+        name =  CFBridgingRelease(ABRecordCopyValue(record, kABPersonNicknameProperty));
+        if (!name) {
+            name = CFBridgingRelease(ABRecordCopyCompositeName(record));
+        }
+    }
+    return name;
+}
+
 
 - (NSData *)image
 {
     ABRecordRef record = [self recordOfFriend];
     
+    return [Friend imageDataOfPerson:record];
+}
+
++ (NSData *)imageDataOfPerson:(ABRecordRef)record
+{
+    NSData *imageData = nil;
+    
     if (record) {
-        return [Friend imageDataOfPerson:record];
-    } else {
-       return nil;
+        if (ABPersonHasImageData(record)) {
+            CFDataRef ir = ABPersonCopyImageDataWithFormat(record, kABPersonImageFormatThumbnail);
+            imageData = CFBridgingRelease(ir);
+        }
     }
+    return imageData;
 }
 
 - (ABRecordRef)recordOfFriend
@@ -124,37 +110,16 @@
 
     if ([delegate.settings boolForKey:@"ab_preference"]) {
         record = recordWithTopic((__bridge CFStringRef)(self.topic));
-        //NSLog(@"Friend ABRecordRef by topic =  %p", record);
     } else {
         if ([self.abRecordId intValue] != kABRecordInvalidID) {
-            record = ABAddressBookGetPersonWithRecordID([Friend theABRef],
-                                                              [self.abRecordId intValue]);
-            //NSLog(@"Friend ABRecordRef by abRecordID =  %p", record);
+            ABAddressBookRef ab = [Friend theABRef];
+            if (ab) {
+                record = ABAddressBookGetPersonWithRecordID(ab, [self.abRecordId intValue]);
+            }
         }
     }
     
     return record;
-}
-
-+ (NSString *)nameOfPerson:(ABRecordRef)record
-{
-    NSString *name;
-    name =  CFBridgingRelease(ABRecordCopyValue(record, kABPersonNicknameProperty));
-    if (!name) {
-        name = CFBridgingRelease(ABRecordCopyCompositeName(record));
-    }
-    return name;
-}
-
-+ (NSData *)imageDataOfPerson:(ABRecordRef)record
-{
-    NSData *imageData = nil;
-    
-    if (ABPersonHasImageData(record)) {
-        CFDataRef ir = ABPersonCopyImageDataWithFormat(record, kABPersonImageFormatThumbnail);
-        imageData = CFBridgingRelease(ir);
-    }
-    return imageData;
 }
 
 - (void)linkToAB:(ABRecordRef)record
@@ -188,35 +153,37 @@
 ABRecordRef recordWithTopic(CFStringRef topic)
 {
     ABRecordRef theRecord = NULL;
-    
-    CFArrayRef records = ABAddressBookCopyArrayOfAllPeople([Friend theABRef]);
-    
-    if (records) {
-        for (CFIndex i = 0; i < CFArrayGetCount(records); i++) {
-            ABRecordRef record = CFArrayGetValueAtIndex(records, i);
-            
-            ABMultiValueRef relations = ABRecordCopyValue(record, kABPersonRelatedNamesProperty);
-            if (relations) {
-                CFIndex relationsCount = ABMultiValueGetCount(relations);
+    ABAddressBookRef ab = [Friend theABRef];
+    if (ab) {
+        CFArrayRef records = ABAddressBookCopyArrayOfAllPeople(ab);
+        
+        if (records) {
+            for (CFIndex i = 0; i < CFArrayGetCount(records); i++) {
+                ABRecordRef record = CFArrayGetValueAtIndex(records, i);
                 
-                for (CFIndex k = 0 ; k < relationsCount ; k++) {
-                    CFStringRef label = ABMultiValueCopyLabelAtIndex(relations, k);
-                    CFStringRef value = ABMultiValueCopyValueAtIndex(relations, k);
-                    if(CFStringCompare(label, RELATION_NAME, kCFCompareCaseInsensitive) == kCFCompareEqualTo) {
-                        if(CFStringCompare(value, topic, kCFCompareCaseInsensitive) == kCFCompareEqualTo) {
-                            theRecord = record;
-                            CFRelease(label);
-                            CFRelease(value);
-                            break;
+                ABMultiValueRef relations = ABRecordCopyValue(record, kABPersonRelatedNamesProperty);
+                if (relations) {
+                    CFIndex relationsCount = ABMultiValueGetCount(relations);
+                    
+                    for (CFIndex k = 0 ; k < relationsCount ; k++) {
+                        CFStringRef label = ABMultiValueCopyLabelAtIndex(relations, k);
+                        CFStringRef value = ABMultiValueCopyValueAtIndex(relations, k);
+                        if(CFStringCompare(label, RELATION_NAME, kCFCompareCaseInsensitive) == kCFCompareEqualTo) {
+                            if(CFStringCompare(value, topic, kCFCompareCaseInsensitive) == kCFCompareEqualTo) {
+                                theRecord = record;
+                                CFRelease(label);
+                                CFRelease(value);
+                                break;
+                            }
                         }
+                        CFRelease(label);
+                        CFRelease(value);
                     }
-                    CFRelease(label);
-                    CFRelease(value);
+                    CFRelease(relations);
                 }
-                CFRelease(relations);
             }
+            CFRelease(records);
         }
-        CFRelease(records);
     }
     return theRecord;
 }
@@ -244,11 +211,11 @@ ABRecordRef recordWithTopic(CFStringRef topic)
         if(CFStringCompare(label, RELATION_NAME, kCFCompareCaseInsensitive) == kCFCompareEqualTo) {
             if (topic) {
                 if (!ABMultiValueReplaceValueAtIndex(relationsRW, (__bridge CFTypeRef)(topic), i)) {
-                    [Friend error:[NSString stringWithFormat:@"Friend error ABMultiValueReplaceValueAtIndex %@ %ld", topic, i]];
+                    NSLog(@"Friend error ABMultiValueReplaceValueAtIndex %@ %ld", topic, i);
                 }
             } else {
                 if (!ABMultiValueRemoveValueAndLabelAtIndex(relationsRW, i))  {
-                    [Friend error:[NSString stringWithFormat:@"Friend error ABMultiValueRemoveValueAndLabelAtIndex %ld", i]];
+                    NSLog(@"Friend error ABMultiValueRemoveValueAndLabelAtIndex %ld", i);
                 }
             }
             CFRelease(label);
@@ -259,37 +226,24 @@ ABRecordRef recordWithTopic(CFStringRef topic)
     if (i == relationsCount) {
         if (topic) {
             if (!ABMultiValueAddValueAndLabel(relationsRW, (__bridge CFStringRef)(self.topic), RELATION_NAME, NULL)) {
-                [Friend error:[NSString stringWithFormat:@"Friend error ABMultiValueAddValueAndLabel %@ %@", topic, RELATION_NAME]];
+                NSLog(@"Friend error ABMultiValueAddValueAndLabel %@ %@", topic, RELATION_NAME);
             }
         }
     }
         
     if (!ABRecordSetValue(record, kABPersonRelatedNamesProperty, relationsRW, &errorRef)) {
-        [Friend error:[NSString stringWithFormat:@"Friend error ABRecordSetValue %@", errorRef]];
+        NSLog(@"Friend error ABRecordSetValue %@", errorRef);
     }
     CFRelease(relationsRW);
     
-    if (ABAddressBookHasUnsavedChanges([Friend theABRef])) {
-        if (!ABAddressBookSave([Friend theABRef], &errorRef)) {
-            [Friend error:[NSString stringWithFormat:@"Friend error ABAddressBookSave %@", errorRef]];
+    ABAddressBookRef ab = [Friend theABRef];
+    if (ab) {
+        if (ABAddressBookHasUnsavedChanges(ab)) {
+            if (!ABAddressBookSave(ab, &errorRef)) {
+                NSLog(@"Friend error ABAddressBookSave %@", errorRef);
+            }
         }
     }
-}
-
-+ (void)error:(NSString *)message
-{
-#ifdef DEBUG
-    NSLog(@"Friend error %@", message);
-#endif
-    
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:[NSBundle mainBundle].infoDictionary[@"CFBundleName"]
-                                                        message:message
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-    
-    [alertView show];
-    
 }
 
 @end

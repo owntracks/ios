@@ -18,39 +18,42 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.sections = [[NSMutableDictionary alloc] init];
-    CFArrayRef records = ABAddressBookCopyArrayOfAllPeople([Friend theABRef]);
     
-    if (records) {
-        for (int i = 0; i < CFArrayGetCount(records); i++)
-        {
-            ABRecordRef person = CFArrayGetValueAtIndex(records, i);
-            NSString *name = CFBridgingRelease(ABRecordCopyCompositeName(person));
-            NSString *key = [[name substringToIndex:1] uppercaseString];
-            if (key) {
-                NSMutableArray *array = [self.sections valueForKey:key];
-                if (!array) {
-                    array = [[NSMutableArray alloc] init];
+    ABAddressBookRef ab = [Friend theABRef];
+    if (ab) {
+        CFArrayRef records = ABAddressBookCopyArrayOfAllPeople(ab);
+        
+        if (records) {
+            for (int i = 0; i < CFArrayGetCount(records); i++)
+            {
+                ABRecordRef person = CFArrayGetValueAtIndex(records, i);
+                NSString *name = CFBridgingRelease(ABRecordCopyCompositeName(person));
+                NSString *key = [[name substringToIndex:1] uppercaseString];
+                if (key) {
+                    NSMutableArray *array = [self.sections valueForKey:key];
+                    if (!array) {
+                        array = [[NSMutableArray alloc] init];
+                    }
+                    [array addObject:@(ABRecordGetRecordID(person))];
+                    [self.sections setValue:array forKey:key];
                 }
-                [array addObject:@(ABRecordGetRecordID(person))];
-                [self.sections setValue:array forKey:key];
             }
+            CFRelease(records);
         }
-        CFRelease(records);
+    
+        for (NSString *key in self.sections.allKeys) {
+            NSArray *persons = [[self.sections valueForKey:key] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                ABRecordRef ABRecordRef1 = ABAddressBookGetPersonWithRecordID(ab, [obj1 intValue]);
+                ABRecordRef ABRecordRef2 = ABAddressBookGetPersonWithRecordID(ab, [obj2 intValue]);
+                CFComparisonResult r = ABPersonComparePeopleByName(ABRecordRef1, ABRecordRef2, ABPersonGetSortOrdering());
+                return (NSComparisonResult)r;
+            }];
+            
+            [self.sections setValue:persons forKey:key];
+        }
     }
+    
     self.tableView.sectionIndexMinimumDisplayRowCount = 8;
-    
-    /* pre-sort persons per sections */
-    for (NSString *key in self.sections.allKeys) {
-        NSArray *persons = [[self.sections valueForKey:key] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-            ABRecordRef ABRecordRef1 = ABAddressBookGetPersonWithRecordID([Friend theABRef], [obj1 intValue]);
-            ABRecordRef ABRecordRef2 = ABAddressBookGetPersonWithRecordID([Friend theABRef], [obj2 intValue]);
-            CFComparisonResult r = ABPersonComparePeopleByName(ABRecordRef1, ABRecordRef2, ABPersonGetSortOrdering());
-            return (NSComparisonResult)r;
-        }];
-
-        [self.sections setValue:persons forKey:key];
-    }
-    
     [super viewWillAppear:animated];
 }
 
@@ -94,9 +97,13 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"person" forIndexPath:indexPath];
     
     NSArray *persons = [self sortedPersonsInSection: indexPath.section];
-    ABRecordRef person = ABAddressBookGetPersonWithRecordID([Friend theABRef], [persons[indexPath.row] intValue]);
-
-    cell.textLabel.text = CFBridgingRelease(ABRecordCopyCompositeName(person));
+    ABRecordRef person = NULL;
+    ABAddressBookRef ab = [Friend theABRef];
+    if (ab) {
+        person = ABAddressBookGetPersonWithRecordID([Friend theABRef], [persons[indexPath.row] intValue]);
+    }
+    
+    cell.textLabel.text = [Friend nameOfPerson:person] ? [Friend nameOfPerson:person] : @"unknown";
     cell.imageView.image = [Friend imageDataOfPerson:person] ?
         [UIImage imageWithData:[Friend imageDataOfPerson:person]] : [UIImage imageNamed:@"icon40"];
     
@@ -112,7 +119,12 @@
         if (indexPath) {
             if ([segue.identifier isEqualToString:@"setPerson:"]) {
                 NSArray *persons = [self sortedPersonsInSection: indexPath.section];
-                self.person = ABAddressBookGetPersonWithRecordID([Friend theABRef], [persons[indexPath.row] intValue]);
+                ABAddressBookRef ab = [Friend theABRef];
+                if (ab) {
+                    self.person = ABAddressBookGetPersonWithRecordID(ab, [persons[indexPath.row] intValue]);
+                } else {
+                    self.person = nil;
+                }
             }
         }
     } else {

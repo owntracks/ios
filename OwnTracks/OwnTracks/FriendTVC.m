@@ -13,14 +13,94 @@
 #import "Location+Create.h"
 #import "CoreData.h"
 
-@interface FriendTVC ()
+@interface FriendTVC () <UIAlertViewDelegate>
+@property (strong, nonatomic) UIAlertView *alertView;
 @end
 
 @implementation FriendTVC
 
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
+    
+#ifdef DEBUG
+    switch (status) {
+        case kABAuthorizationStatusRestricted:
+            NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusRestricted");
+            break;
+            
+        case kABAuthorizationStatusDenied:
+            NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusDenied");
+            break;
+            
+        case kABAuthorizationStatusAuthorized:
+            NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusAuthorized");
+            break;
+            
+        case kABAuthorizationStatusNotDetermined:
+        default:
+            NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusNotDetermined");
+            break;
+    }
+#endif
+    
+#define SETTINGSURL [NSURL URLWithString:@"settings://root=PRIVACY"]
+    
+    BOOL canCallSettings = [[UIApplication sharedApplication] canOpenURL:SETTINGSURL];
+    
+    switch (status) {
+        case kABAuthorizationStatusRestricted:
+            self.alertView = [[UIAlertView alloc] initWithTitle:@"Addressbook Access"
+                                                        message:@"has been restricted, possibly due to restrictions such as parental controls."
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:canCallSettings ? @"Settings" : nil, nil];
+            [self.alertView show];
+            break;
+            
+        case kABAuthorizationStatusDenied:
+            self.alertView = [[UIAlertView alloc] initWithTitle:@"Addressbook Access"
+                                                        message:@"has been denied by user. Go to Settings/Privacy/Contacts to change"
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:canCallSettings ? @"Settings" : nil, nil];
+            [self.alertView show];
+            break;
+            
+        case kABAuthorizationStatusAuthorized:
+            break;
+            
+        case kABAuthorizationStatusNotDetermined:
+        default:
+            NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusNotDetermined");
+            ABAddressBookRef ab = ABAddressBookCreateWithOptions(NULL, NULL);
+            ABAddressBookRequestAccessWithCompletion(ab, ^(bool granted, CFErrorRef error) {
+#ifdef DEBUG
+                if (granted) {
+                    NSLog(@"ABAddressBookRequestAccessCompletionHandler granted");
+                } else {
+                    NSLog(@"ABAddressBookRequestAccessCompletionHandler denied");
+                }
+#endif
+            });
+            break;
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == alertView.firstOtherButtonIndex + 0) {
+        [[UIApplication sharedApplication] openURL:SETTINGSURL];
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Friend"];
     
