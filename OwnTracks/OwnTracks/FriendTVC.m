@@ -13,7 +13,7 @@
 #import "Location+Create.h"
 #import "CoreData.h"
 
-@interface FriendTVC () <UIAlertViewDelegate>
+@interface FriendTVC ()
 @property (strong, nonatomic) UIAlertView *alertView;
 @end
 
@@ -47,26 +47,22 @@
     }
 #endif
     
-#define SETTINGSURL [NSURL URLWithString:@"settings://root=PRIVACY"]
-    
-    BOOL canCallSettings = [[UIApplication sharedApplication] canOpenURL:SETTINGSURL];
-    
     switch (status) {
         case kABAuthorizationStatusRestricted:
             self.alertView = [[UIAlertView alloc] initWithTitle:@"Addressbook Access"
                                                         message:@"has been restricted, possibly due to restrictions such as parental controls."
-                                                       delegate:self
+                                                       delegate:nil
                                               cancelButtonTitle:@"OK"
-                                              otherButtonTitles:canCallSettings ? @"Settings" : nil, nil];
+                                              otherButtonTitles:nil];
             [self.alertView show];
             break;
             
         case kABAuthorizationStatusDenied:
             self.alertView = [[UIAlertView alloc] initWithTitle:@"Addressbook Access"
                                                         message:@"has been denied by user. Go to Settings/Privacy/Contacts to change"
-                                                       delegate:self
+                                                       delegate:nil
                                               cancelButtonTitle:@"OK"
-                                              otherButtonTitles:canCallSettings ? @"Settings" : nil, nil];
+                                              otherButtonTitles:nil];
             [self.alertView show];
             break;
             
@@ -87,13 +83,6 @@
 #endif
             });
             break;
-    }
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == alertView.firstOtherButtonIndex + 0) {
-        [[UIApplication sharedApplication] openURL:SETTINGSURL];
     }
 }
 

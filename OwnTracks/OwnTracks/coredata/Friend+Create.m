@@ -44,20 +44,7 @@
     if (!matches || [matches count] > 1) {
         // handle error
     } else {
-<<<<<<< HEAD
-        
-        if (![matches count]) {
-            friend = [NSEntityDescription insertNewObjectForEntityForName:@"Friend" inManagedObjectContext:context];
-            
-            friend.topic = topic;
-            
-            friend.device = nil;
-            friend.abRecordId = @(kABRecordInvalidID);
-            friend.hasLocations = [[NSSet alloc] init];
-        } else {
-=======
         if ([matches count]) {
->>>>>>> FETCH_HEAD
             friend = [matches lastObject];
         }
     }

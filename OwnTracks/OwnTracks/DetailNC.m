@@ -27,6 +27,7 @@
     
     if (splitViewController) {
         splitViewController.delegate = self;
+        splitViewController.presentsWithGesture = false;
     }
 }
 
