@@ -87,16 +87,43 @@
     if (![self.location.automatic boolValue] && [self.location.belongsTo.topic
                                                  isEqualToString:[delegate.settings theGeneralTopic]]) {
         self.UIlatitude.enabled = TRUE;
+        self.UIlatitude.userInteractionEnabled = TRUE;
+        self.UIlatitude.textColor = [UIColor blackColor];
+
         self.UIlongitude.enabled = TRUE;
+        self.UIlongitude.userInteractionEnabled = TRUE;
+        self.UIlongitude.textColor = [UIColor blackColor];
+
         self.UIremark.enabled = TRUE;
+        self.UIremark.userInteractionEnabled = TRUE;
+        self.UIremark.textColor = [UIColor blackColor];
+
         self.UIradius.enabled = TRUE;
+        self.UIradius.userInteractionEnabled = TRUE;
+        self.UIradius.textColor = [UIColor blackColor];
+
         self.UIshare.enabled = TRUE;
+        self.UIshare.userInteractionEnabled = TRUE;
+
     } else {
         self.UIlatitude.enabled = FALSE;
+        self.UIlatitude.userInteractionEnabled = FALSE;
+        self.UIlatitude.textColor = [UIColor lightGrayColor];
+        
         self.UIlongitude.enabled = FALSE;
+        self.UIlongitude.userInteractionEnabled = FALSE;
+        self.UIlongitude.textColor = [UIColor lightGrayColor];
+        
         self.UIremark.enabled = FALSE;
+        self.UIremark.userInteractionEnabled = FALSE;
+        self.UIremark.textColor = [UIColor lightGrayColor];
+        
         self.UIradius.enabled = FALSE;
+        self.UIradius.userInteractionEnabled = FALSE;
+        self.UIradius.textColor = [UIColor lightGrayColor];
+        
         self.UIshare.enabled = FALSE;
+        self.UIshare.userInteractionEnabled = FALSE;
     }
     if ([self.location.belongsTo.topic
          isEqualToString:[delegate.settings theGeneralTopic]]) {
