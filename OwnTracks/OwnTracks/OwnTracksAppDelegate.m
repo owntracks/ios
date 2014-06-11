@@ -570,97 +570,13 @@
 #endif
                 if ([self.settings boolForKey:@"cmd_preference"]) {
                     if ([dictionary[@"action"] isEqualToString:@"dump"]) {
-                        NSDictionary *dumpDict = @{
-                                               @"_type":@"dump",
-                                               @"configuration":[self.settings toDictionary],
-                                               };
-#ifdef DEBUG
-                        NSLog(@"App sending dump to:%@", topic);
-#endif
-
-                        long msgID = [self.connection sendData:[self jsonToData:dumpDict]
-                                                         topic:topic
-                                                           qos:[self.settings intForKey:@"qos_preference"]
-                                                        retain:NO];
-                        
-                        if (msgID <= 0) {
-#ifdef DEBUG
-                            NSString *message = [NSString stringWithFormat:@"Dump %@",
-                                                 (msgID == -1) ? @"queued" : @"sent"];
-                            [self notification:message userInfo:nil];
-#endif
-                        }
+                        [self dumpTo:topic];
                     } else if ([dictionary[@"action"] isEqualToString:@"reportLocation"]) {
-                        [self publishLocation:self.manager.location automatic:NO addon:@{@"t":@"r"}];
+                        if (self.monitoring) {
+                            [self publishLocation:self.manager.location automatic:NO addon:@{@"t":@"r"}];
+                        }
                     } else if ([dictionary[@"action"] isEqualToString:@"reportSteps"]) {
-#ifdef DEBUG
-                        NSLog(@"StepCounter availability %d",
-                              [CMStepCounter isStepCountingAvailable]
-                              );
-#endif
-                        if (!self.stepCounter) {
-                            self.stepCounter = [[CMStepCounter alloc] init];
-                        }
-                        
-                        NSDate *to;
-                        NSDate *from;
-                        if (dictionary[@"to"]) {
-                            to = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"to"] doubleValue]];
-                        } else {
-                            to = [NSDate date];
-                        }
-                        if (dictionary[@"from"]) {
-                            from = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"from"] doubleValue]];
-                        } else {
-                            NSDateComponents *components = [[NSCalendar currentCalendar]
-                                                            components: NSCalendarUnitDay |
-                                                            NSCalendarUnitHour |
-                                                            NSCalendarUnitMinute |
-                                                            NSCalendarUnitSecond |
-                                                            NSCalendarUnitMonth |
-                                                            NSCalendarUnitYear
-                                                            fromDate:to];
-                            components.hour = 0;
-                            components.minute = 0;
-                            components.second = 0;
-                            
-                            from = [[NSCalendar currentCalendar] dateFromComponents:components];
-                        }
-                        
-                        [self.stepCounter queryStepCountStartingFrom:from
-                                                                  to:to
-                                                             toQueue:[[NSOperationQueue alloc] init]
-                                                         withHandler:^(NSInteger steps, NSError *error)
-                         {
-#ifdef DEBUG
-                             NSLog(@"StepCounter queryStepCountStartingFrom handler %ld %@", (long)steps, error.localizedDescription);
-#endif
-                             
-                             dispatch_async(dispatch_get_main_queue(),
-                                            ^{
-                                                
-                                                NSDictionary *jsonObject = @{
-                                                                             @"_type": @"steps",
-                                                                             @"tst": @(floor([[NSDate date] timeIntervalSince1970])),
-                                                                             @"from": @(floor([from timeIntervalSince1970])),
-                                                                             @"to": @(floor([to  timeIntervalSince1970])),
-                                                                             @"steps": error ? @(-1) : @(steps)
-                                                                             };
-                                                
-                                                long msgID = [self.connection sendData:[self jsonToData:jsonObject]
-                                                                                 topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/steps"]
-                                                                                   qos:[self.settings intForKey:@"qos_preference"]
-                                                                                retain:NO];
-                                                
-                                                if (msgID <= 0) {
-#ifdef DEBUG
-                                                    NSString *message = [NSString stringWithFormat:@"Steps %@",
-                                                                         (msgID == -1) ? @"queued" : @"sent"];
-                                                    [self notification:message userInfo:nil];
-#endif
-                                                }
-                                            });
-                         }];
+                        [self stepsFrom:dictionary[@"from"] to:dictionary[@"to"]];
                     } else {
 #ifdef DEBUG
                         NSLog(@"unknown action %@", dictionary[@"action"]);
@@ -791,6 +707,104 @@
             }
         }
     }
+}
+
+- (void)dumpTo:(NSString *)topic
+{
+    NSDictionary *dumpDict = @{
+                               @"_type":@"dump",
+                               @"configuration":[self.settings toDictionary],
+                               };
+#ifdef DEBUG
+    NSLog(@"App sending dump to:%@", topic);
+#endif
+    
+    long msgID = [self.connection sendData:[self jsonToData:dumpDict]
+                                     topic:topic
+                                       qos:[self.settings intForKey:@"qos_preference"]
+                                    retain:NO];
+    
+    if (msgID <= 0) {
+#ifdef DEBUG
+        NSString *message = [NSString stringWithFormat:@"Dump %@",
+                             (msgID == -1) ? @"queued" : @"sent"];
+        [self notification:message userInfo:nil];
+#endif
+    }
+
+}
+
+- (void)stepsFrom:(NSNumber *)from to:(NSNumber *)to
+{
+#ifdef DEBUG
+    NSLog(@"StepCounter availability %d",
+          [CMStepCounter isStepCountingAvailable]
+          );
+#endif
+    if (!self.stepCounter) {
+        self.stepCounter = [[CMStepCounter alloc] init];
+    }
+    
+    NSDate *toDate;
+    NSDate *fromDate;
+    if (to && [to isKindOfClass:[NSNumber class]]) {
+        toDate = [NSDate dateWithTimeIntervalSince1970:[to doubleValue]];
+    } else {
+        toDate = [NSDate date];
+    }
+    if (from && [from isKindOfClass:[NSNumber class]]) {
+        fromDate = [NSDate dateWithTimeIntervalSince1970:[from doubleValue]];
+    } else {
+        NSDateComponents *components = [[NSCalendar currentCalendar]
+                                        components: NSCalendarUnitDay |
+                                        NSCalendarUnitHour |
+                                        NSCalendarUnitMinute |
+                                        NSCalendarUnitSecond |
+                                        NSCalendarUnitMonth |
+                                        NSCalendarUnitYear
+                                        fromDate:toDate];
+        components.hour = 0;
+        components.minute = 0;
+        components.second = 0;
+        
+        fromDate = [[NSCalendar currentCalendar] dateFromComponents:components];
+    }
+    
+    [self.stepCounter queryStepCountStartingFrom:fromDate
+                                              to:toDate
+                                         toQueue:[[NSOperationQueue alloc] init]
+                                     withHandler:^(NSInteger steps, NSError *error)
+     {
+#ifdef DEBUG
+         NSLog(@"StepCounter queryStepCountStartingFrom handler %ld %@", (long)steps, error.localizedDescription);
+#endif
+         
+         dispatch_async(dispatch_get_main_queue(),
+                        ^{
+                            
+                            NSDictionary *jsonObject = @{
+                                                         @"_type": @"steps",
+                                                         @"tst": @(floor([[NSDate date] timeIntervalSince1970])),
+                                                         @"from": @(floor([fromDate timeIntervalSince1970])),
+                                                         @"to": @(floor([toDate timeIntervalSince1970])),
+                                                         @"steps": error ? @(-1) : @(steps)
+                                                         };
+                            
+                            long msgID = [self.connection sendData:[self jsonToData:jsonObject]
+                                                             topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/steps"]
+                                                               qos:[self.settings intForKey:@"qos_preference"]
+                                                            retain:NO];
+                            
+                            if (msgID <= 0) {
+#ifdef DEBUG
+                                NSString *message = [NSString stringWithFormat:@"Steps %@",
+                                                     (msgID == -1) ? @"queued" : @"sent"];
+                                [self notification:message userInfo:nil];
+#endif
+                            }
+                        });
+     }];
+
 }
 
 #pragma actions
