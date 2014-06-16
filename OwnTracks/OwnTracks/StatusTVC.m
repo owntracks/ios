@@ -254,7 +254,6 @@
     [self.UIUserID resignFirstResponder];
     [self.UIPassword resignFirstResponder];
     [self.UIClientID resignFirstResponder];
-    [self.UIHost resignFirstResponder];
     [self.UIKeepAlive resignFirstResponder];
     [self.UIDeviceID resignFirstResponder];
     [self.UITopic resignFirstResponder];
@@ -262,7 +261,7 @@
     [self.UISubscription resignFirstResponder];
     [self.UILocatorDisplacement resignFirstResponder];
     [self.UILocatorInterval resignFirstResponder];
-
+    [self.UIPositionsToKeep resignFirstResponder];
 }
 
 - (IBAction)checkConnection:(UIButton *)sender {
