@@ -427,7 +427,7 @@
     NSLog(@"didDetermineState %ld %@", (long)state, region);
 #endif
     if (state == CLRegionStateInside) {
-        // start rainging if not in background
+        // start ranging if not in background
         if (self.ranging) {
             //if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
             if ([region isKindOfClass:[CLBeaconRegion class]]) {
@@ -697,16 +697,6 @@
     self.connectionBuffered = @(count);
 
     [UIApplication sharedApplication].applicationIconBadgeNumber = count;
-
-    if (!count) {
-        NSArray *notifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
-        for (UILocalNotification *notification in notifications) {
-            if (notification.userInfo) {
-                if ([notification.userInfo[@"notify"] isEqualToString:@"undelivered"])
-                    [[UIApplication sharedApplication] cancelLocalNotification:notification];
-            }
-        }
-    }
 }
 
 - (void)dumpTo:(NSString *)topic
@@ -1033,9 +1023,14 @@
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.alertBody = message;
     notification.alertLaunchImage = @"itunesArtwork.png";
-    notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:after];
     notification.userInfo = userInfo;
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+
+    if (after) {
+        notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:after];
+        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    } else {
+        [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
+    }
 }
 
 - (void)connect
