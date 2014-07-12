@@ -47,11 +47,13 @@
     self.backgroundTask = UIBackgroundTaskInvalid;
     self.completionHandler = nil;
     
-#ifdef DEBUG
-    NSLog(@"setMinimumBackgroundFetchInterval %f", UIApplicationBackgroundFetchIntervalMinimum);
-#endif
-    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
+#ifdef DEBUG
+        NSLog(@"setMinimumBackgroundFetchInterval %f", UIApplicationBackgroundFetchIntervalMinimum);
+#endif
+        [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    }
     return YES;
 }
 
@@ -229,9 +231,10 @@
 #endif
     [self saveContext];
     
-    // stop ranging when going background as connection will be cut
-    for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
-        [self.manager stopRangingBeaconsInRegion:beaconRegion];
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
+        for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
+            [self.manager stopRangingBeaconsInRegion:beaconRegion];
+        }
     }
     
     [self.connection disconnect];
@@ -427,17 +430,13 @@
     NSLog(@"didDetermineState %ld %@", (long)state, region);
 #endif
     if (state == CLRegionStateInside) {
-        // start ranging if not in background
         if (self.ranging) {
-            //if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
             if ([region isKindOfClass:[CLBeaconRegion class]]) {
                 CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
                 [self.manager startRangingBeaconsInRegion:beaconRegion];
             }
-            //}
         }
     } else if (state == CLRegionStateOutside) {
-        // stop ranging when leaving region
         if ([region isKindOfClass:[CLBeaconRegion class]]) {
             CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
             [self.manager stopRangingBeaconsInRegion:beaconRegion];
@@ -859,12 +858,14 @@
     _ranging = ranging;
     [self.settings setBool:ranging forKey:@"ranging_preference"];
 
-    if (!ranging) {
-        for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
+        if (!ranging) {
+            for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
 #ifdef DEBUG
-            NSLog(@"stopRangingBeaconsInRegion %@", beaconRegion.identifier);
+                NSLog(@"stopRangingBeaconsInRegion %@", beaconRegion.identifier);
 #endif
-            [self.manager stopRangingBeaconsInRegion:beaconRegion];
+                [self.manager stopRangingBeaconsInRegion:beaconRegion];
+            }
         }
     }
     for (CLRegion *region in self.manager.monitoredRegions) {
@@ -915,8 +916,7 @@
                                     retain:[self.settings boolForKey:@"retain_preference"]];
     
     if (msgID <= 0) {
-#ifdef DEBUG
-
+#ifdef DEBUG_LOW_LEVEL
         NSString *message = [NSString stringWithFormat:@"Location %@",
                              (msgID == -1) ? @"queued" : @"sent"];
         [self notification:message userInfo:nil];
@@ -1011,26 +1011,30 @@
 
 - (void)notification:(NSString *)message userInfo:(NSDictionary *)userInfo
 {
-    [self notification:message after:0 userInfo:userInfo];
-}
-
-- (void)notification:(NSString *)message after:(NSTimeInterval)after userInfo:(NSDictionary *)userInfo
-{
 #ifdef DEBUG
-    NSLog(@"App notification %@", message);
+    NSLog(@"App notification %@ userinfo %@", message, userInfo);
 #endif
     
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.alertBody = message;
     notification.alertLaunchImage = @"itunesArtwork.png";
     notification.userInfo = userInfo;
+    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
 
-    if (after) {
-        notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:after];
-        [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    } else {
-        [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
-    }
+}
+
+- (void)notification:(NSString *)message after:(NSTimeInterval)after userInfo:(NSDictionary *)userInfo
+{
+#ifdef DEBUG
+    NSLog(@"App notification %@ userinfo %@ after %f", message, userInfo, after);
+#endif
+    
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = message;
+    notification.alertLaunchImage = @"itunesArtwork.png";
+    notification.userInfo = userInfo;
+    notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:after];
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
 }
 
 - (void)connect
@@ -1060,9 +1064,10 @@
     
     self.disconnectTimer = nil;
     
-    // stop ranging when disconnecting in background
-    for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
-        [self.manager stopRangingBeaconsInRegion:beaconRegion];
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
+        for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
+            [self.manager stopRangingBeaconsInRegion:beaconRegion];
+        }
     }
     
     [self.connection disconnect];
