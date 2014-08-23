@@ -44,6 +44,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIqos;
 @property (weak, nonatomic) IBOutlet UITextField *UIwillqos;
 @property (weak, nonatomic) IBOutlet UITextField *UIsubscriptionqos;
+@property (weak, nonatomic) IBOutlet UITextField *UItrackerid;
+@property (weak, nonatomic) IBOutlet UISwitch *UIextendedData;
+@property (weak, nonatomic) IBOutlet UISwitch *UIallowRemoteLocation;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
 
@@ -78,6 +81,7 @@
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
 
     if (self.UIDeviceID) [delegate.settings setString:self.UIDeviceID.text forKey:@"deviceid_preference"];
+    if (self.UItrackerid) [delegate.settings setString:self.UItrackerid.text forKey:@"trackerid_preference"];
     if (self.UILocatorDisplacement) [delegate.settings setString:self.UILocatorDisplacement.text forKey:@"mindist_preference"];
     if (self.UILocatorInterval) [delegate.settings setString:self.UILocatorInterval.text forKey:@"mintime_preference"];
     if (self.UIHost) [delegate.settings setString:self.UIHost.text forKey:@"host_preference"];
@@ -85,6 +89,8 @@
     if (self.UIPassword) [delegate.settings setString:self.UIPassword.text forKey:@"pass_preference"];
     if (self.UISubscription) [delegate.settings setString:self.UISubscription.text forKey:@"subscription_preference"];
     if (self.UIUpdateAddressBook) [delegate.settings setBool:self.UIUpdateAddressBook.on forKey:@"ab_preference"];
+    if (self.UIallowRemoteLocation) [delegate.settings setBool:self.UIallowRemoteLocation.on forKey:@"allowremotelocation_preference"];
+    if (self.UIextendedData) [delegate.settings setBool:self.UIextendedData.on forKey:@"extendeddata_preference"];
     if (self.UIPositionsToKeep) [delegate.settings setString:self.UIPositionsToKeep.text forKey:@"positions_preference"];
     if (self.UITopic) [delegate.settings setString:self.UITopic.text forKey:@"topic_preference"];
     if (self.UIRetain) [delegate.settings setBool:self.UIRetain.on forKey:@"retain_preference"];
@@ -141,6 +147,7 @@
     self.UIparameters.text =                        [delegate.connection parameters];
     
     self.UIDeviceID.text =                          [delegate.settings stringForKey:@"deviceid_preference"];
+    self.UItrackerid.text =                         [delegate.settings stringForKey:@"trackerid_preference"];
     self.UILocatorDisplacement.text =               [delegate.settings stringForKey:@"mindist_preference"];
     self.UILocatorInterval.text =                   [delegate.settings stringForKey:@"mintime_preference"];
     self.UIHost.text =                              [delegate.settings stringForKey:@"host_preference"];
@@ -148,6 +155,8 @@
     self.UIPassword.text =                          [delegate.settings stringForKey:@"pass_preference"];
     self.UISubscription.text =                      [delegate.settings stringForKey:@"subscription_preference"];
     self.UIUpdateAddressBook.on =                   [delegate.settings boolForKey:@"ab_preference"];
+    self.UIallowRemoteLocation.on =                 [delegate.settings boolForKey:@"allowremotelocation_preference"];
+    self.UIextendedData.on =                        [delegate.settings boolForKey:@"extendeddata_preference"];
     self.UIPositionsToKeep.text =                   [delegate.settings stringForKey:@"positions_preference"];
     self.UIsubscriptionqos.text =                   [self qosString:[delegate.settings intForKey:@"subscriptionqos_preference"]];
     self.UITopic.text =                             [delegate.settings stringForKey:@"topic_preference"];
@@ -254,6 +263,7 @@
     [self.UIUserID resignFirstResponder];
     [self.UIPassword resignFirstResponder];
     [self.UIClientID resignFirstResponder];
+    [self.UItrackerid resignFirstResponder];
     [self.UIKeepAlive resignFirstResponder];
     [self.UIDeviceID resignFirstResponder];
     [self.UITopic resignFirstResponder];

@@ -2,7 +2,7 @@
 //  Friend.m
 //  OwnTracks
 //
-//  Created by Christoph Krey on 04.06.14.
+//  Created by Christoph Krey on 23.08.14.
 //  Copyright (c) 2014 OwnTracks. All rights reserved.
 //
 
@@ -14,6 +14,7 @@
 
 @dynamic abRecordId;
 @dynamic topic;
+@dynamic tid;
 @dynamic hasLocations;
 
 @end

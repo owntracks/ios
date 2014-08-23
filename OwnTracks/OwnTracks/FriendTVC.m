@@ -109,7 +109,10 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friend"];
     
     Friend *friend = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = friend.name ? friend.name : friend.topic;
+    cell.textLabel.text = [NSString stringWithFormat:@"%@%@",
+                           (friend.tid && ![friend.tid isEqualToString:@""]) ?
+                            [NSString stringWithFormat:@"'%@' ", friend.tid] : @"",
+                           friend.name ? friend.name : friend.topic];
     
     Location *location = [self newestLocation:friend];
     

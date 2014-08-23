@@ -2,7 +2,7 @@
 //  Location.m
 //  OwnTracks
 //
-//  Created by Christoph Krey on 03.02.14.
+//  Created by Christoph Krey on 21.08.14.
 //  Copyright (c) 2014 OwnTracks. All rights reserved.
 //
 
@@ -22,6 +22,10 @@
 @dynamic remark;
 @dynamic share;
 @dynamic timestamp;
+@dynamic verticalaccuracy;
+@dynamic speed;
+@dynamic altitude;
+@dynamic course;
 @dynamic belongsTo;
 
 @end

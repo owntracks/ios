@@ -571,7 +571,7 @@
                     if ([dictionary[@"action"] isEqualToString:@"dump"]) {
                         [self dumpTo:topic];
                     } else if ([dictionary[@"action"] isEqualToString:@"reportLocation"]) {
-                        if (self.monitoring) {
+                        if (self.monitoring || [self.settings boolForKey:@"allowremotelocation_preference"]) {
                             [self publishLocation:self.manager.location automatic:NO addon:@{@"t":@"r"}];
                         }
                     } else if ([dictionary[@"action"] isEqualToString:@"reportSteps"]) {
@@ -609,11 +609,16 @@
                 if ([dictionary[@"_type"] isEqualToString:@"location"] ||
                     [dictionary[@"_type"] isEqualToString:@"waypoint"]) {
 #ifdef DEBUG
-                    NSLog(@"App json received lat:%g lon:%g acc:%.0f tst:%.0f rad:%.0f event:%@ desc:%@",
+                    NSLog(@"App json received lat:%g lon:%g acc:%.0f tst:%.0f alt:%g vac:%0.f cog:%g vel:%g tid:%@ rad:%.0f event:%@ desc:%@",
                           [dictionary[@"lat"] doubleValue],
                           [dictionary[@"lon"] doubleValue],
                           [dictionary[@"acc"] doubleValue],
                           [dictionary[@"tst"] doubleValue],
+                          [dictionary[@"alt"] doubleValue],
+                          [dictionary[@"vac"] doubleValue],
+                          [dictionary[@"cog"] doubleValue],
+                          [dictionary[@"vel"] doubleValue],
+                          dictionary[@"tid"],
                           [dictionary[@"rad"] doubleValue],
                           dictionary[@"event"],
                           dictionary[@"desc"]
@@ -625,16 +630,22 @@
                                                                                    );
                     
                     CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate
-                                                                         altitude:0
+                                                                         altitude:[dictionary[@"alt"] doubleValue]
                                                                horizontalAccuracy:[dictionary[@"acc"] doubleValue]
-                                                                 verticalAccuracy:0
+                                                                 verticalAccuracy:[dictionary[@"vac"] doubleValue]
+                                                                           course:[dictionary[@"cog"] doubleValue]
+                                                                            speed:[dictionary[@"vel"] doubleValue]
                                                                         timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]];
                     
                     Location *newLocation = [Location locationWithTopic:device
+                                                                    tid:dictionary[@"tid"]
                                                               timestamp:location.timestamp
                                                              coordinate:location.coordinate
                                                                accuracy:location.horizontalAccuracy
-                                                              automatic:[dictionary[@"_type"] isEqualToString:@"location"] ? TRUE : FALSE
+                                                               altitude:location.altitude
+                                                       verticalaccuracy:location.verticalAccuracy
+                                                                  speed:location.speed
+                                                                 course:location.course                                                               automatic:[dictionary[@"_type"] isEqualToString:@"location"] ? TRUE : FALSE
                                                                  remark:dictionary[@"desc"]
                                                                  radius:[dictionary[@"rad"] doubleValue]
                                                                   share:NO
@@ -899,9 +910,14 @@
     self.locationLastSent = location.timestamp;
     
     Location *newLocation = [Location locationWithTopic:[self.settings theGeneralTopic]
+                                                    tid:[self.settings stringForKey:@"trackerid_preference"]
                                               timestamp:location.timestamp
                                              coordinate:location.coordinate
                                                accuracy:location.horizontalAccuracy
+                                               altitude:location.altitude
+                                       verticalaccuracy:location.verticalAccuracy
+                                                  speed:location.speed
+                                                 course:location.course
                                               automatic:automatic
                                                  remark:nil
                                                  radius:0
@@ -1116,6 +1132,24 @@
         [jsonObject setValue:[NSString stringWithFormat:@"%.0f", acc] forKey:@"acc"];
     }
     
+    if ([self.settings boolForKey:@"extendeddata_preference"]) {
+        double alt = [location.altitude doubleValue];
+        [jsonObject setValue:[NSString stringWithFormat:@"%.0f", alt] forKey:@"alt"];
+        
+        double vac = [location.verticalaccuracy doubleValue];
+        [jsonObject setValue:[NSString stringWithFormat:@"%.0f", vac] forKey:@"vac"];
+        
+        double vel = [location.speed doubleValue];
+        [jsonObject setValue:[NSString stringWithFormat:@"%.0f", vel] forKey:@"vel"];
+        
+        double cog = [location.course doubleValue];
+        [jsonObject setValue:[NSString stringWithFormat:@"%g", cog] forKey:@"cog"];
+    }
+    
+    NSString *trackerID = [self.settings stringForKey:@"trackerid_preference"];
+    if (trackerID && trackerID.length) {
+        [jsonObject setValue:trackerID forKeyPath:@"tid"];
+    }
     double rad = [location.regionradius doubleValue];
     if (rad > 0) {
         [jsonObject setValue:[NSString stringWithFormat:@"%.0f", rad] forKey:@"rad"];

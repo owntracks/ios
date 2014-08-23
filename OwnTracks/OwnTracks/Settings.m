@@ -49,6 +49,9 @@
             string = dictionary[@"deviceid"];
             if (string) [self setString:string forKey:@"deviceid_preference"];
             
+            string = dictionary[@"trackerid"];
+            if (string) [self setString:string forKey:@"trackerid_preference"];
+            
             string = dictionary[@"clientid"];
             if (string) [self setString:string forKey:@"clientid_preference"];
             
@@ -151,6 +154,12 @@
             string = dictionary[@"positions"];
             if (string) [self setString:string forKey:@"positions_preference"];
             
+            string = dictionary[@"allowRemoteLocation"];
+            if (string) [self setString:string forKey:@"allowremotelocation_preference"];
+            
+            string = dictionary[@"extendedData"];
+            if (string) [self setString:string forKey:@"extendeddata_preference"];
+            
             NSArray *waypoints = dictionary[@"waypoints"];
             [self setWaypoints:waypoints];
             
@@ -208,12 +217,19 @@
                                                                      altitude:0
                                                            horizontalAccuracy:0
                                                              verticalAccuracy:0
+                                                                       course:0
+                                                                        speed:0
                                                                     timestamp:[NSDate dateWithTimeIntervalSince1970:[waypoint[@"tst"] doubleValue]]];
                 
                 [Location locationWithTopic:[self theGeneralTopic]
+                                        tid:nil
                                   timestamp:location.timestamp
                                  coordinate:location.coordinate
                                    accuracy:location.horizontalAccuracy
+                                   altitude:location.altitude
+                           verticalaccuracy:location.verticalAccuracy
+                                      speed:location.speed
+                                     course:location.course
                                   automatic:NO
                                      remark:waypoint[@"desc"]
                                      radius:[waypoint[@"rad"] doubleValue]
@@ -267,6 +283,8 @@
                            @"cleanSession": [self stringForKey:@"clean_preference"],
                            @"willRetain": [self stringForKey:@"willretain_preference"],
                            @"updateAddressBook": [self stringForKey:@"ab_preference"],
+                           @"allowRemoteLocation": [self stringForKey:@"allowremotelocation_preference"],
+                           @"extendedData": [self stringForKey:@"extendeddata_preference"],
                            @"positions": [self stringForKey:@"positions_preference"],
                            
                            @"waypoints": waypoints

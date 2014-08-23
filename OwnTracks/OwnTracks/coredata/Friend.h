@@ -2,7 +2,7 @@
 //  Friend.h
 //  OwnTracks
 //
-//  Created by Christoph Krey on 04.06.14.
+//  Created by Christoph Krey on 23.08.14.
 //  Copyright (c) 2014 OwnTracks. All rights reserved.
 //
 
@@ -15,6 +15,7 @@
 
 @property (nonatomic, retain) NSNumber * abRecordId;
 @property (nonatomic, retain) NSString * topic;
+@property (nonatomic, retain) NSString * tid;
 @property (nonatomic, retain) NSSet *hasLocations;
 @end
 

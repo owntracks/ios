@@ -173,6 +173,30 @@
 
 #pragma mark - MQTT Callback methods
 
+- (void)connected:(MQTTSession *)session sessionPresent:(BOOL)sessionPresent
+{
+    self.lastErrorCode = nil;
+    self.state = state_connected;
+    
+    /*
+     * if clean-session is set or if it's the first time we connect in non-clean-session-mode, subscribe to topic
+     */
+    if (self.clean || !self.reconnectFlag || !sessionPresent) {
+        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        UInt8 qos =[delegate.settings intForKey:@"subscriptionqos_preference"];
+        
+        NSArray *topicFilters = [[delegate.settings theSubscriptions] componentsSeparatedByCharactersInSet:
+                                 [NSCharacterSet whitespaceCharacterSet]];
+        for (NSString *topicFilter in topicFilters) {
+            if (topicFilter.length) {
+                [self.session subscribeToTopic:topicFilter atLevel:qos];
+            }
+        }
+        
+        self.reconnectFlag = TRUE;
+    }
+}
+
 - (void)handleEvent:(MQTTSession *)session event:(MQTTSessionEvent)eventCode error:(NSError *)error
 {
 #ifdef DEBUG
@@ -188,30 +212,8 @@
     [self.reconnectTimer invalidate];
     switch (eventCode) {
         case MQTTSessionEventConnected:
-        {
-            self.lastErrorCode = nil;
-            self.state = state_connected;
-            
-            /*
-             * if clean-session is set or if it's the first time we connect in non-clean-session-mode, subscribe to topic
-             */
-            if (self.clean || !self.reconnectFlag) {
-                OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-                UInt8 qos =[delegate.settings intForKey:@"subscriptionqos_preference"];
-
-                NSArray *topicFilters = [[delegate.settings theSubscriptions] componentsSeparatedByCharactersInSet:
-                                         [NSCharacterSet whitespaceCharacterSet]];
-                for (NSString *topicFilter in topicFilters) {
-                    if (topicFilter.length) {
-                        [self.session subscribeToTopic:topicFilter atLevel:qos];
-                    }
-                }
-
-                self.reconnectFlag = TRUE;
-            }
-
+            // handled in connected callback
             break;
-        }
         case MQTTSessionEventConnectionClosed:
             /* this informs the caller that the connection is closed
              * specifically, the caller can end the background task now */

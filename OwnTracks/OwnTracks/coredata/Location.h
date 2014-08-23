@@ -2,7 +2,7 @@
 //  Location.h
 //  OwnTracks
 //
-//  Created by Christoph Krey on 03.02.14.
+//  Created by Christoph Krey on 21.08.14.
 //  Copyright (c) 2014 OwnTracks. All rights reserved.
 //
 
@@ -23,6 +23,10 @@
 @property (nonatomic, retain) NSString * remark;
 @property (nonatomic, retain) NSNumber * share;
 @property (nonatomic, retain) NSDate * timestamp;
+@property (nonatomic, retain) NSNumber * verticalaccuracy;
+@property (nonatomic, retain) NSNumber * speed;
+@property (nonatomic, retain) NSNumber * altitude;
+@property (nonatomic, retain) NSNumber * course;
 @property (nonatomic, retain) Friend *belongsTo;
 
 @end

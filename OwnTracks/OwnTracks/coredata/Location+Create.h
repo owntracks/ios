@@ -12,14 +12,19 @@
 @interface Location (Create) <MKAnnotation, MKOverlay>
 
 + (Location *)locationWithTopic:(NSString *)topic
+                            tid:(NSString *)tid
                       timestamp:(NSDate *)timestamp
                      coordinate:(CLLocationCoordinate2D)coordinate
                        accuracy:(CLLocationAccuracy)accuracy
+                       altitude:(CLLocationDistance)altitude
+               verticalaccuracy:(CLLocationAccuracy)verticalaccuracy
+                          speed:(CLLocationSpeed)speed
+                         course:(CLLocationDirection)course
                       automatic:(BOOL)automatic
                          remark:(NSString *)remark
                          radius:(CLLocationDistance)radius
                           share:(BOOL)share
-     inManagedObjectContext:(NSManagedObjectContext *)context;
+         inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (NSArray *)allLocationsInManagedObjectContext:(NSManagedObjectContext *)context;
 + (NSArray *)allValidLocationsInManagedObjectContext:(NSManagedObjectContext *)context;

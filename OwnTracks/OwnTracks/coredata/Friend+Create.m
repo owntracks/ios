@@ -53,6 +53,7 @@
 }
 
 + (Friend *)friendWithTopic:(NSString *)topic
+                        tid:(NSString *)tid
      inManagedObjectContext:(NSManagedObjectContext *)context
 
 {
@@ -66,6 +67,8 @@
         friend.abRecordId = @(kABRecordInvalidID);
         friend.hasLocations = [[NSSet alloc] init];
     }
+    
+    friend.tid = tid;
 
     return friend;
 }

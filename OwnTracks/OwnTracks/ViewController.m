@@ -484,72 +484,34 @@
     } else {
         if ([annotation isKindOfClass:[Location class]]) {
             Location *location = (Location *)annotation;
-            OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
             
-            if ([location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]]) {
-                MKPinAnnotationView *pinAnnotationView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_SELF];
-                if (!pinAnnotationView) {
-                    pinAnnotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:REUSE_ID_SELF];
-                    pinAnnotationView.canShowCallout = YES;
-                }
-                if ([location.automatic boolValue]) {
-                    pinAnnotationView.pinColor = MKPinAnnotationColorRed;
-                } else {
-                    pinAnnotationView.pinColor = MKPinAnnotationColorPurple;
-                }
-                
-                if (!location.justcreated || [location.justcreated boolValue]) {
-                    pinAnnotationView.animatesDrop = YES;
-                    location.justcreated = @(FALSE);
-                }
-                pinAnnotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-                
-                return pinAnnotationView;
+            MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_PICTURE];
+            FriendAnnotationV *friendAnnotationV;
+            if (annotationView) {
+                friendAnnotationV = (FriendAnnotationV *)annotationView;
             } else {
-                Friend *friend = location.belongsTo;
-                if (friend && [friend image]) {
-                    UIColor *color;
-                    
-                    if ([location.automatic boolValue]) {
-                        if ([location.timestamp compare:[NSDate dateWithTimeIntervalSinceNow:OLD_TIME]] == NSOrderedAscending) {
-                            color = [UIColor redColor];
-                        } else {
-                            color = [UIColor greenColor];
-                        }
-                    } else {
-                        color = [UIColor blueColor];
-                    }
-                    
-                    MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_PICTURE];
-                    FriendAnnotationV *friendAnnotationV;
-                    if (annotationView) {
-                        friendAnnotationV = (FriendAnnotationV *)annotationView;
-                    } else {
-                        friendAnnotationV = [[FriendAnnotationV alloc] initWithAnnotation:annotation reuseIdentifier:REUSE_ID_PICTURE];
-                        friendAnnotationV.canShowCallout = YES;
-                    }
-                    friendAnnotationV.personImage = [UIImage imageWithData:[friend image]];
-                    friendAnnotationV.circleColor = color;
-                    [friendAnnotationV setNeedsDisplay];
-                    
-                    friendAnnotationV.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-                    
-                    return friendAnnotationV;
+                friendAnnotationV = [[FriendAnnotationV alloc] initWithAnnotation:annotation reuseIdentifier:REUSE_ID_PICTURE];
+                friendAnnotationV.canShowCallout = YES;
+            }
+            friendAnnotationV.personImage = [UIImage imageWithData:[location.belongsTo image]];
+            if (location.belongsTo.tid != nil) {
+                friendAnnotationV.tid = location.belongsTo.tid;
+            } else {
+                NSUInteger length = [location nameText].length;
+                if (length > 2) {
+                    friendAnnotationV.tid = [[location nameText] substringFromIndex:length - 2].uppercaseString;
                 } else {
-                    MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_OTHER];
-                    if (annotationView) {
-                        return annotationView;
-                    } else {
-                        MKPinAnnotationView *pinAnnotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:REUSE_ID_OTHER];
-                        pinAnnotationView.pinColor = MKPinAnnotationColorGreen;
-                        pinAnnotationView.canShowCallout = YES;
-                        
-                        pinAnnotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-                        
-                        return pinAnnotationView;
-                    }
+                    friendAnnotationV.tid = [location nameText].uppercaseString;
                 }
             }
+            friendAnnotationV.speed = [location.speed doubleValue];
+            friendAnnotationV.course = [location.course doubleValue];
+            friendAnnotationV.automatic = [location.automatic boolValue];
+            [friendAnnotationV setNeedsDisplay];
+            
+            friendAnnotationV.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            
+            return friendAnnotationV;
         }
         return nil;
     }

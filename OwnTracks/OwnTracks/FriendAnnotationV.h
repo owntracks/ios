@@ -9,7 +9,10 @@
 #import <MapKit/MapKit.h>
 
 @interface FriendAnnotationV : MKAnnotationView
+@property (strong, nonatomic) NSString *tid;
 @property (strong, nonatomic) UIImage *personImage;
-@property (strong, nonatomic) UIColor *circleColor;
+@property (nonatomic) double speed;
+@property (nonatomic) double course;
+@property (nonatomic) BOOL automatic;
 
 @end

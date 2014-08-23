@@ -13,18 +13,23 @@
 @implementation Location (Create)
 
 + (Location *)locationWithTopic:(NSString *)topic
+                            tid:(NSString *)tid
                       timestamp:(NSDate *)timestamp
                      coordinate:(CLLocationCoordinate2D)coordinate
                        accuracy:(CLLocationAccuracy)accuracy
+                       altitude:(CLLocationDistance)altitude
+               verticalaccuracy:(CLLocationAccuracy)verticalaccuracy
+                          speed:(CLLocationSpeed)speed
+                         course:(CLLocationDirection)course
                       automatic:(BOOL)automatic
-                      remark:(NSString *)remark
-                      radius:(CLLocationDistance)radius
+                         remark:(NSString *)remark
+                         radius:(CLLocationDistance)radius
                           share:(BOOL)share
-         inManagedObjectContext:(NSManagedObjectContext *)context;
+         inManagedObjectContext:(NSManagedObjectContext *)context
 {
     Location *location = nil;
     
-    Friend *friend = [Friend friendWithTopic:topic inManagedObjectContext:context];
+    Friend *friend = [Friend friendWithTopic:topic tid:tid inManagedObjectContext:context];
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Location"];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
@@ -49,6 +54,10 @@
         location.timestamp = timestamp;
         [location setCoordinate:coordinate];
         location.accuracy = @(accuracy);
+        location.altitude = @(altitude);
+        location.verticalaccuracy = @(verticalaccuracy);
+        location.speed = @(speed);
+        location.course = @(course);
         location.automatic = @(automatic);
         location.remark = remark;
         location.regionradius = @(radius);
@@ -85,7 +94,7 @@
 
 + (NSArray *)allWaypointsOfTopic:(NSString *)topic inManagedObjectContext:(NSManagedObjectContext *)context
 {
-    Friend *friend = [Friend friendWithTopic:topic inManagedObjectContext:context];
+    Friend *friend = [Friend existsFriendWithTopic:topic inManagedObjectContext:context];
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Location"];
     request.predicate = [NSPredicate predicateWithFormat:@"belongsTo = %@ AND automatic = FALSE AND remark != NIL", friend];
@@ -138,10 +147,14 @@
 }
 - (NSString *)locationText
 {
-    return [NSString stringWithFormat:@"%@ (±%.0fm)",
+    return [NSString stringWithFormat:@"%@ (±%.0fm) ✈︎%0.fm %0.fkm/h %0.f°",
             (self.placemark) ? self.placemark :
             [NSString stringWithFormat:@"%g,%g", self.coordinate.latitude, self.coordinate.longitude],
-            [self.accuracy doubleValue]];
+            [self.accuracy doubleValue],
+            [self.altitude doubleValue],
+            [self.speed doubleValue],
+            [self.course doubleValue]
+            ];
 }
 
 - (NSString *)coordinateText

@@ -21,6 +21,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIremark;
 @property (weak, nonatomic) IBOutlet UITextField *UIradius;
 @property (weak, nonatomic) IBOutlet UISwitch *UIshare;
+@property (weak, nonatomic) IBOutlet UITextField *UIaltitude;
+@property (weak, nonatomic) IBOutlet UITextField *UIspeed;
+@property (weak, nonatomic) IBOutlet UITextField *UIcourse;
 
 @property (nonatomic) BOOL needsUpdate;
 @property (strong, nonatomic) CLRegion *oldRegion;
@@ -75,6 +78,9 @@
     self.UIlongitude.text = [NSString stringWithFormat:@"%g", [self.location.longitude doubleValue]];
     
     self.UItimestamp.text = [self.location timestampText];
+    self.UIaltitude.text = [NSString stringWithFormat:@"%g", [self.location.altitude doubleValue]];
+    self.UIspeed.text = [NSString stringWithFormat:@"%g", [self.location.speed doubleValue]];
+    self.UIcourse.text = [NSString stringWithFormat:@"%g", [self.location.course doubleValue]];
     
     [self.location addObserver:self forKeyPath:@"placemark" options:NSKeyValueObservingOptionNew context:nil];
     self.UIplace.text = self.location.placemark;
@@ -137,6 +143,10 @@
     self.location.latitude = @([sender.text doubleValue]);
     self.location.placemark = nil;
     self.location.accuracy = @(0);
+    self.location.altitude = @(0);
+    self.location.verticalaccuracy = @(0);
+    self.location.speed = @(0);
+    self.location.course = @(0);
     self.needsUpdate = TRUE;
 }
 
@@ -144,6 +154,10 @@
     self.location.longitude = @([sender.text doubleValue]);
     self.location.placemark = nil;
     self.location.accuracy = @(0);
+    self.location.altitude = @(0);
+    self.location.verticalaccuracy = @(0);
+    self.location.speed = @(0);
+    self.location.course = @(0);
     self.needsUpdate = TRUE;
 }
 
@@ -156,6 +170,10 @@
     if (![sender.text isEqualToString:self.location.remark]) {
         self.location.remark = sender.text;
         self.location.accuracy = @(0);
+        self.location.altitude = @(0);
+        self.location.verticalaccuracy = @(0);
+        self.location.speed = @(0);
+        self.location.course = @(0);
         self.needsUpdate = TRUE;
     }
 }
@@ -176,9 +194,14 @@
 
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     self.location = [Location locationWithTopic:[delegate.settings theGeneralTopic]
+                                            tid:[delegate.settings stringForKey:@"trackerid_preference"]
                                       timestamp:[NSDate date]
                                      coordinate:delegate.manager.location.coordinate
                                        accuracy:delegate.manager.location.horizontalAccuracy
+                                       altitude:delegate.manager.location.altitude
+                               verticalaccuracy:delegate.manager.location.verticalAccuracy
+                                          speed:delegate.manager.location.speed
+                                         course:delegate.manager.location.course
                                       automatic:NO
                                          remark:@"new location"
                                          radius:0

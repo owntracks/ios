@@ -16,6 +16,7 @@
      inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (Friend *)friendWithTopic:(NSString *)topic
+                        tid:(NSString *)tid
      inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (NSString *)nameOfPerson:(ABRecordRef)record;

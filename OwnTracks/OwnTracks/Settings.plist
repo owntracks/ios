@@ -50,6 +50,12 @@
 	<false/>
 	<key>ab_preference</key>
 	<true/>
+	<key>allowremotelocation_preference</key>
+	<true/>
+	<key>extendeddata_preference</key>
+	<true/>
+	<key>trackerid_preference</key>
+	<string></string>
 	<key>positions_preference</key>
 	<integer>50</integer>
 </dict>
