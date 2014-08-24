@@ -1146,10 +1146,7 @@
         [jsonObject setValue:[NSString stringWithFormat:@"%g", cog] forKey:@"cog"];
     }
     
-    NSString *trackerID = [self.settings stringForKey:@"trackerid_preference"];
-    if (trackerID) {
-        [jsonObject setValue:trackerID forKeyPath:@"tid"];
-    }
+    [jsonObject setValue:[location.belongsTo getEffectiveTid] forKeyPath:@"tid"];
     
     double rad = [location.regionradius doubleValue];
     if (rad > 0) {
