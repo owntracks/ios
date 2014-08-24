@@ -10,6 +10,8 @@
 #import "EditLocationTVC.h"
 #import "Location+Create.h"
 #import "PersonTVC.h"
+#import "FriendAnnotationV.h"
+#import "OwnTracksAppDelegate.h"
 
 @interface LocationTVC ()
 @end
@@ -70,7 +72,16 @@
     
     cell.detailTextLabel.text = [location locationText];
     
-    cell.imageView.image = location.belongsTo.image ? [UIImage imageWithData:[location.belongsTo image]] : [UIImage imageNamed:@"TableView"];
+    FriendAnnotationV *friendAnnotationView = [[FriendAnnotationV alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    friendAnnotationView.personImage = self.friend.image ? [UIImage imageWithData:self.friend.image] : nil;
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    friendAnnotationView.me = [self.friend.topic isEqualToString:[delegate.settings theGeneralTopic]];
+    friendAnnotationView.automatic = [location.automatic boolValue];
+    friendAnnotationView.speed = [location.speed doubleValue];
+    friendAnnotationView.course = [location.course doubleValue];
+    friendAnnotationView.tid = [self.friend getEffectiveTid];
+    [friendAnnotationView getImage];
+    cell.imageView.image = [friendAnnotationView getImage];
     
     return cell;
 }

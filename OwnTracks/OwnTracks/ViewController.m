@@ -493,20 +493,18 @@
                 friendAnnotationV = [[FriendAnnotationV alloc] initWithAnnotation:annotation reuseIdentifier:REUSE_ID_PICTURE];
                 friendAnnotationV.canShowCallout = YES;
             }
+            
             friendAnnotationV.personImage = [UIImage imageWithData:[location.belongsTo image]];
-            if (location.belongsTo.tid != nil) {
-                friendAnnotationV.tid = location.belongsTo.tid;
-            } else {
-                NSUInteger length = [location nameText].length;
-                if (length > 2) {
-                    friendAnnotationV.tid = [[location nameText] substringFromIndex:length - 2].uppercaseString;
-                } else {
-                    friendAnnotationV.tid = [location nameText].uppercaseString;
-                }
-            }
+            
+            friendAnnotationV.tid = [location.belongsTo getEffectiveTid];
+            
             friendAnnotationV.speed = [location.speed doubleValue];
             friendAnnotationV.course = [location.course doubleValue];
             friendAnnotationV.automatic = [location.automatic boolValue];
+            
+            OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+            friendAnnotationV.me = [location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]];
+                        
             [friendAnnotationV setNeedsDisplay];
             
             friendAnnotationV.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];

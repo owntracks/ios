@@ -43,7 +43,7 @@
 	<key>willqos_preference</key>
 	<integer>1</integer>
 	<key>monitoring_preference</key>
-	<integer>1</integer>
+	<integer>0</integer>
 	<key>ranging_preference</key>
 	<false/>
 	<key>cmd_preference</key>

@@ -14,5 +14,7 @@
 @property (nonatomic) double speed;
 @property (nonatomic) double course;
 @property (nonatomic) BOOL automatic;
+@property (nonatomic) BOOL me;
+- (UIImage *)getImage;
 
 @end

@@ -12,6 +12,7 @@
 #import "Friend+Create.h"
 #import "Location+Create.h"
 #import "CoreData.h"
+#import "FriendAnnotationV.h"
 
 @interface FriendTVC ()
 @property (strong, nonatomic) UIAlertView *alertView;
@@ -109,16 +110,22 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friend"];
     
     Friend *friend = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@%@",
-                           (friend.tid && ![friend.tid isEqualToString:@""]) ?
-                            [NSString stringWithFormat:@"'%@' ", friend.tid] : @"",
-                           friend.name ? friend.name : friend.topic];
+    cell.textLabel.text = friend.name ? friend.name : friend.topic;
     
     Location *location = [self newestLocation:friend];
     
     cell.detailTextLabel.text = location ? [location subtitle] : @"???";
     
-    cell.imageView.image = friend.image ? [UIImage imageWithData:friend.image] : [UIImage imageNamed:@"TableView"];
+    FriendAnnotationV *friendAnnotationView = [[FriendAnnotationV alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    friendAnnotationView.personImage = friend.image ? [UIImage imageWithData:friend.image] : nil;
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    friendAnnotationView.me = [friend.topic isEqualToString:[delegate.settings theGeneralTopic]];
+    friendAnnotationView.automatic = [location.automatic boolValue];
+    friendAnnotationView.speed = [location.speed doubleValue];
+    friendAnnotationView.course = [location.course doubleValue];
+    friendAnnotationView.tid = [friend getEffectiveTid];
+    [friendAnnotationView getImage];
+    cell.imageView.image = [friendAnnotationView getImage];
     
     return cell;
 }

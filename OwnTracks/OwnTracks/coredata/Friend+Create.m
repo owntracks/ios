@@ -258,4 +258,21 @@ ABRecordRef recordWithTopic(CFStringRef topic)
     }
 }
 
+- (NSString *)getEffectiveTid {
+    NSString *tid;
+    if (self.tid != nil && ![self.tid isEqualToString:@""]) {
+        tid = self.tid;
+    } else {
+        NSUInteger length = self.topic.length;
+        if (length > 2) {
+            tid = [self.topic substringFromIndex:length - 2].uppercaseString;
+        } else {
+            tid = self.topic.uppercaseString;
+        }
+    }
+    return tid;
+}
+
+
+
 @end

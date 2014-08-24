@@ -26,5 +26,6 @@
 - (void)linkToAB:(ABRecordRef)record;
 - (NSString *)name;
 - (NSData *)image;
+- (NSString *)getEffectiveTid;
 
 @end
