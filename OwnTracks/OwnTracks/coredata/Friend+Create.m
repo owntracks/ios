@@ -96,9 +96,13 @@
 
 - (NSData *)image
 {
+    NSData *data = nil;
     ABRecordRef record = [self recordOfFriend];
-    
-    return [Friend imageDataOfPerson:record];
+    if (record) {
+        data = [Friend imageDataOfPerson:record];
+        CFRelease(record);
+    }
+    return data;
 }
 
 + (NSData *)imageDataOfPerson:(ABRecordRef)record
@@ -127,6 +131,7 @@
             ABAddressBookRef ab = [Friend theABRef];
             if (ab) {
                 record = ABAddressBookGetPersonWithRecordID(ab, [self.abRecordId intValue]);
+                CFRetain(record);
             }
         }
     }
@@ -143,6 +148,7 @@
         
         if (oldrecord) {
             [self ABsetTopic:nil record:oldrecord];
+            CFRelease(oldrecord);
         }
         
         if (record) {
@@ -192,6 +198,10 @@ ABRecordRef recordWithTopic(CFStringRef topic)
                         CFRelease(value);
                     }
                     CFRelease(relations);
+                }
+                if (theRecord) {
+                    CFRetain(theRecord);
+                    break;
                 }
             }
             CFRelease(records);
@@ -272,6 +282,23 @@ ABRecordRef recordWithTopic(CFStringRef topic)
     }
     return tid;
 }
+
+- (Location *)newestLocation
+{
+    Location *newestLocation;
+    
+    for (Location *location in self.hasLocations) {
+        if (!newestLocation) {
+            newestLocation = location;
+        } else {
+            if ([newestLocation.timestamp compare:location.timestamp] == NSOrderedAscending) {
+                newestLocation = location;
+            }
+        }
+    }
+    return newestLocation;
+}
+
 
 
 

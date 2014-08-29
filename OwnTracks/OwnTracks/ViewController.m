@@ -472,7 +472,6 @@
 
 #pragma MKMapViewDelegate
 
-#define REUSE_ID_SELF @"Annotation_self"
 #define REUSE_ID_OTHER @"Annotation_other"
 #define REUSE_ID_PICTURE @"Annotation_picture"
 #define OLD_TIME -12*60*60
@@ -495,16 +494,14 @@
             }
             
             friendAnnotationV.personImage = [UIImage imageWithData:[location.belongsTo image]];
-            
             friendAnnotationV.tid = [location.belongsTo getEffectiveTid];
-            
             friendAnnotationV.speed = [location.speed doubleValue];
             friendAnnotationV.course = [location.course doubleValue];
             friendAnnotationV.automatic = [location.automatic boolValue];
             
             OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
             friendAnnotationV.me = [location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]];
-                        
+            
             [friendAnnotationV setNeedsDisplay];
             
             friendAnnotationV.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];

@@ -1029,6 +1029,7 @@
                         <outlet property="UICMD" destination="A7N-FN-Iyf" id="I29-rB-sx1"/>
                         <outlet property="UICleanSession" destination="cTM-hi-FBg" id="9wg-qc-1ah"/>
                         <outlet property="UIClientID" destination="BtU-kE-LXH" id="YyT-HG-Sag"/>
+                        <outlet property="UIDeviceID" destination="e0q-hc-0z2" id="p13-ZQ-TG4"/>
                         <outlet property="UIHost" destination="tQs-PK-sbV" id="HF8-Qb-dKp"/>
                         <outlet property="UIKeepAlive" destination="3Ya-nG-biw" id="Ucs-fT-kvu"/>
                         <outlet property="UILocatorDisplacement" destination="cUp-TJ-pAm" id="EQ5-z1-pE8"/>

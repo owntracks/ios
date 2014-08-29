@@ -1642,6 +1642,7 @@
                         <outlet property="UICMD" destination="dvq-3p-437" id="ERp-gA-4vV"/>
                         <outlet property="UICleanSession" destination="I9P-gg-NA9" id="WgS-Px-3bc"/>
                         <outlet property="UIClientID" destination="NTW-ZT-PzE" id="pIJ-ON-4Uv"/>
+                        <outlet property="UIDeviceID" destination="ZgR-nb-gkF" id="UdN-IV-xU0"/>
                         <outlet property="UIHost" destination="VgE-3d-Tex" id="00q-lO-6IH"/>
                         <outlet property="UIKeepAlive" destination="dxi-7F-R1p" id="zwc-dk-apw"/>
                         <outlet property="UILocatorDisplacement" destination="3jd-AQ-x99" id="uRo-Jx-69C"/>

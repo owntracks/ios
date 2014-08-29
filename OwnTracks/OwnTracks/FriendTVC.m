@@ -112,7 +112,7 @@
     Friend *friend = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = friend.name ? friend.name : friend.topic;
     
-    Location *location = [self newestLocation:friend];
+    Location *location = [friend newestLocation];
     
     cell.detailTextLabel.text = location ? [location subtitle] : @"???";
     
@@ -170,7 +170,7 @@
 
     if ([vc respondsToSelector:@selector(setCenter:)]) {
         [vc performSelector:@selector(setCenter:)
-                 withObject:[self newestLocation:friend]];
+                 withObject:[friend newestLocation]];
         if (tbc) {
             tbc.selectedIndex = 0;
         }
@@ -191,24 +191,6 @@
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         [delegate sendEmpty:friend];
     }
-}
-
-#pragma newestLocation
-
-- (Location *)newestLocation:(Friend *)friend
-{
-    Location *newestLocation;
-    
-    for (Location *location in friend.hasLocations) {
-        if (!newestLocation) {
-            newestLocation = location;
-        } else {
-            if ([newestLocation.timestamp compare:location.timestamp] == NSOrderedAscending) {
-                newestLocation = location;
-            }
-        }
-    }
-    return newestLocation;
 }
 
 @end

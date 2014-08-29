@@ -16,11 +16,11 @@
 #define FENCE_FRIEND_COLOR [UIColor greenColor]
 #define FENCE_ME_COLOR [UIColor orangeColor]
 #define FENCE_MANUAL_COLOR [UIColor blueColor]
-#define FENCE_WIDTH 3.0
+#define FENCE_WIDTH 5.0
 
 #define ID_COLOR [UIColor blackColor]
-#define ID_FONTSIZE 20
-#define ID_INSET 3
+#define ID_FONTSIZE 20.0
+#define ID_INSET 3.0
 
 #define COURSE_COLOR [UIColor blueColor]
 #define COURSE_WIDTH 10.0
@@ -97,25 +97,18 @@
             UIFont *font = [UIFont boldSystemFontOfSize:ID_FONTSIZE];
             NSDictionary *attributes = @{NSFontAttributeName: font,
                                          NSForegroundColorAttributeName: ID_COLOR};
-            NSString *text;
-            if (self.automatic) {
-                text = self.tid;
-            } else {
-                text = @"***";
-            }
-            
-            
-            CGRect boundingRect = [text boundingRectWithSize:rect.size options:0 attributes:attributes context:nil];
+            CGRect boundingRect = [self.tid boundingRectWithSize:rect.size options:0 attributes:attributes context:nil];
             
             CGRect textRect = CGRectMake(rect.origin.x + (rect.size.width - boundingRect.size.width) / 2,
                                          rect.origin.y + (rect.size.height - boundingRect.size.height) / 2,
                                          boundingRect.size.width, boundingRect.size.height);
             
-            [text drawInRect:textRect withAttributes:attributes];
+            [self.tid drawInRect:textRect withAttributes:attributes];
         }
     }
     
     // FENCE
+    [circle setLineWidth:FENCE_WIDTH];
     if (self.me) {
         if (self.automatic) {
             [FENCE_ME_COLOR setStroke];

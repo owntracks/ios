@@ -215,6 +215,7 @@
             // handled in connected callback
             break;
         case MQTTSessionEventConnectionClosed:
+        case MQTTSessionEventConnectionClosedByBroker:
             /* this informs the caller that the connection is closed
              * specifically, the caller can end the background task now */
             self.state = state_closed;

@@ -27,5 +27,6 @@
 - (NSString *)name;
 - (NSData *)image;
 - (NSString *)getEffectiveTid;
+- (Location *)newestLocation;
 
 @end
