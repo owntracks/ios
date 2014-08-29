@@ -41,9 +41,13 @@
 
 - (void)setPersonImage:(UIImage *)image
 {
-    _personImage = [UIImage imageWithCGImage:image.CGImage
-                                       scale:(MAX(image.size.width, image.size.height) / CIRCLE_SIZE)
-                                 orientation:UIImageOrientationUp];
+    if (image) {
+        _personImage = [UIImage imageWithCGImage:image.CGImage
+                                           scale:(MAX(image.size.width, image.size.height) / CIRCLE_SIZE)
+                                     orientation:UIImageOrientationUp];
+    } else {
+        _personImage = nil;
+    }
 }
 
 - (UIImage *)getImage {
@@ -94,16 +98,27 @@
     // ID
     if (self.personImage == nil) {
         if ((self.tid != nil && ![self.tid isEqualToString:@""]) || !self.automatic) {
+            NSLog(@"TID %@", self.tid);
+
             UIFont *font = [UIFont boldSystemFontOfSize:ID_FONTSIZE];
-            NSDictionary *attributes = @{NSFontAttributeName: font,
-                                         NSForegroundColorAttributeName: ID_COLOR};
-            CGRect boundingRect = [self.tid boundingRectWithSize:rect.size options:0 attributes:attributes context:nil];
-            
-            CGRect textRect = CGRectMake(rect.origin.x + (rect.size.width - boundingRect.size.width) / 2,
-                                         rect.origin.y + (rect.size.height - boundingRect.size.height) / 2,
-                                         boundingRect.size.width, boundingRect.size.height);
-            
-            [self.tid drawInRect:textRect withAttributes:attributes];
+            if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
+                NSDictionary *attributes = @{NSFontAttributeName: font,
+                                             NSForegroundColorAttributeName: ID_COLOR};
+                CGRect boundingRect = [self.tid boundingRectWithSize:rect.size options:0 attributes:attributes context:nil];
+                CGRect textRect = CGRectMake(rect.origin.x + (rect.size.width - boundingRect.size.width) / 2,
+                                             rect.origin.y + (rect.size.height - boundingRect.size.height) / 2,
+                                             boundingRect.size.width, boundingRect.size.height);
+                
+                [self.tid drawInRect:textRect withAttributes:attributes];
+            } else {
+                CGSize textSize = [self.tid sizeWithFont:font];
+                NSLog(@"TextSize %f,%f", textSize.width, textSize.height);
+                CGRect textRect = CGRectMake(rect.origin.x + (rect.size.width - textSize.width) / 2,
+                                             rect.origin.y + (rect.size.height - textSize.height) / 2,
+                                             textSize.width, textSize.height);
+                [ID_COLOR set];
+                [self.tid drawInRect:textRect withFont:font];
+            }
         }
     }
     

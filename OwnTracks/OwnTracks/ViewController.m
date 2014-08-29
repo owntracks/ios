@@ -492,8 +492,10 @@
                 friendAnnotationV = [[FriendAnnotationV alloc] initWithAnnotation:annotation reuseIdentifier:REUSE_ID_PICTURE];
                 friendAnnotationV.canShowCallout = YES;
             }
-            
-            friendAnnotationV.personImage = [UIImage imageWithData:[location.belongsTo image]];
+
+            NSData *data = [location.belongsTo image];
+            UIImage *image = [UIImage imageWithData:data];
+            friendAnnotationV.personImage = image;
             friendAnnotationV.tid = [location.belongsTo getEffectiveTid];
             friendAnnotationV.speed = [location.speed doubleValue];
             friendAnnotationV.course = [location.course doubleValue];
