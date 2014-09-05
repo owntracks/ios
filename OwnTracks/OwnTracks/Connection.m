@@ -181,7 +181,7 @@
     /*
      * if clean-session is set or if it's the first time we connect in non-clean-session-mode, subscribe to topic
      */
-    if (self.clean || !self.reconnectFlag || !sessionPresent) {
+    if (self.clean || !self.reconnectFlag) {
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         UInt8 qos =[delegate.settings intForKey:@"subscriptionqos_preference"];
         

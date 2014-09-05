@@ -98,8 +98,6 @@
     // ID
     if (self.personImage == nil) {
         if ((self.tid != nil && ![self.tid isEqualToString:@""]) || !self.automatic) {
-            NSLog(@"TID %@", self.tid);
-
             UIFont *font = [UIFont boldSystemFontOfSize:ID_FONTSIZE];
             if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
                 NSDictionary *attributes = @{NSFontAttributeName: font,

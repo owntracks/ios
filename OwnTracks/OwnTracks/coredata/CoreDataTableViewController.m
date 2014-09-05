@@ -111,12 +111,12 @@
         {
             case NSFetchedResultsChangeInsert:
                 NSLog(@"NSFetchResultsController didChangeSection indexSetWithIndex %lu", (unsigned long)sectionIndex);
-                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
                 break;
                 
             case NSFetchedResultsChangeDelete:
                 NSLog(@"NSFetchResultsController didChangeSection indexSetWithIndex %lu", (unsigned long)sectionIndex);
-                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationAutomatic];
                 break;
         }
     }
@@ -135,23 +135,23 @@
         {
             case NSFetchedResultsChangeInsert:
                 NSLog(@"NSFetchResultsController didChangeObject insertRowsatIndexPaths %@", indexPath);
-                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 break;
                 
             case NSFetchedResultsChangeDelete:
                 NSLog(@"NSFetchResultsController didChangeObject deleteRowsatIndexPaths %@", indexPath);
-                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 break;
                 
             case NSFetchedResultsChangeUpdate:
                 NSLog(@"NSFetchResultsController didChangeObject reloadRowsatIndexPaths %@", indexPath);
-                [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 break;
                 
             case NSFetchedResultsChangeMove:
                 NSLog(@"NSFetchResultsController didChangeObject moveRowsatIndexPaths %@", indexPath);
-                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+                [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
                 break;
         }
     }

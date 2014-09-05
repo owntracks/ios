@@ -194,14 +194,44 @@
 {
     if (!self.placemark) {
         CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-        CLLocation *location = [[CLLocation alloc] initWithCoordinate:self.coordinate altitude:0 horizontalAccuracy:0 verticalAccuracy:0 course:0 speed:0 timestamp:0];
+        CLLocation *location = [[CLLocation alloc] initWithCoordinate:self.coordinate
+                                                             altitude:[self.altitude doubleValue]
+                                                   horizontalAccuracy:[self.accuracy doubleValue]
+                                                     verticalAccuracy:[self.verticalaccuracy doubleValue]
+                                                               course:[self.course doubleValue]
+                                                                speed:[self.speed doubleValue]
+                                                            timestamp:self.timestamp];
         [geocoder reverseGeocodeLocation:location completionHandler:
          ^(NSArray *placemarks, NSError *error) {
              if (!self.isDeleted) {
                  if ([placemarks count] > 0) {
                      CLPlacemark *placemark = placemarks[0];
-                     self.placemark = ABCreateStringWithAddressDictionary (placemark.addressDictionary, TRUE);
-                     self.placemark = [self.placemark stringByReplacingOccurrencesOfString:@"\n" withString:@", "];
+#ifdef DEBUG
+                     NSLog(@"Placemark *%@*%@*%@*%@*%@*%@*%@*%@*%@*%@*%@*%@*%@*%@*%@*",
+                           placemark.name,
+                           placemark.addressDictionary,
+                           placemark.areasOfInterest,
+                           placemark.ISOcountryCode,
+                           placemark.country,
+                           placemark.postalCode,
+                           placemark.administrativeArea,
+                           placemark.subAdministrativeArea,
+                           placemark.locality,
+                           placemark.subLocality,
+                           placemark.thoroughfare,
+                           placemark.subThoroughfare,
+                           placemark.region,
+                           placemark.inlandWater,
+                           placemark.ocean
+                           );
+#endif
+                     NSArray *address = placemark.addressDictionary[@"FormattedAddressLines"];
+                     if (address && [address count] >= 1) {
+                         self.placemark = address[0];
+                         for (int i = 1; i < [address count]; i++) {
+                             self.placemark = [NSString stringWithFormat:@"%@, %@", self.placemark, address[i]];
+                         }
+                     }
                  } else {
                      self.placemark = nil;
                  }
