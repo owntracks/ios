@@ -916,7 +916,7 @@
                                                accuracy:location.horizontalAccuracy
                                                altitude:location.altitude
                                        verticalaccuracy:location.verticalAccuracy
-                                                  speed:location.speed * 3600.0 / 1000.0
+                                                  speed:(location.speed == -1) ? -1 : location.speed * 3600.0 / 1000.0
                                                  course:location.course
                                               automatic:automatic
                                                  remark:nil

@@ -134,19 +134,21 @@
     [circle stroke];
 
     // Course
-    UIBezierPath *course = [UIBezierPath bezierPathWithOvalInRect:
-                            CGRectMake(
-                                       rect.origin.x + rect.size.width / 2 + CIRCLE_SIZE / 2 * cos((self.course -90 )/ 360 * 2 * M_PI) - COURSE_WIDTH / 2,
-                                       rect.origin.y + rect.size.height / 2 + CIRCLE_SIZE / 2 * sin((self.course -90 )/ 360 * 2 * M_PI) - COURSE_WIDTH / 2,
-                                       COURSE_WIDTH,
-                                       COURSE_WIDTH
-                                       )
-                            ];
-    [COURSE_COLOR setFill];
-    [course fill];
-    [CIRCLE_COLOR setStroke];
-    [course setLineWidth:1.0];
-    [course stroke];
+    if (self.course >= 0) {
+        UIBezierPath *course = [UIBezierPath bezierPathWithOvalInRect:
+                                CGRectMake(
+                                           rect.origin.x + rect.size.width / 2 + CIRCLE_SIZE / 2 * cos((self.course -90 )/ 360 * 2 * M_PI) - COURSE_WIDTH / 2,
+                                           rect.origin.y + rect.size.height / 2 + CIRCLE_SIZE / 2 * sin((self.course -90 )/ 360 * 2 * M_PI) - COURSE_WIDTH / 2,
+                                           COURSE_WIDTH,
+                                           COURSE_WIDTH
+                                           )
+                                ];
+        [COURSE_COLOR setFill];
+        [course fill];
+        [CIRCLE_COLOR setStroke];
+        [course setLineWidth:1.0];
+        [course stroke];
+    }
 }
 
 
