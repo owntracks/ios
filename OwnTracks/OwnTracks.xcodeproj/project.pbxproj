@@ -28,7 +28,6 @@
 		8411B88B189FE79B0019D2D6 /* CoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B889189FE79B0019D2D6 /* CoreData.m */; };
 		8411B88E189FE9940019D2D6 /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B88D189FE9940019D2D6 /* Connection.m */; };
 		8411B891189FE9CE0019D2D6 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B890189FE9CE0019D2D6 /* Settings.m */; };
-		8411B894189FEA9D0019D2D6 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B893189FEA9D0019D2D6 /* CoreDataTableViewController.m */; };
 		8411B896189FEAE60019D2D6 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8411B895189FEAE60019D2D6 /* Storyboard.storyboard */; };
 		8411B8D9189FEB790019D2D6 /* icon_ipad320.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8A6189FEB790019D2D6 /* icon_ipad320.png */; };
 		8411B8DA189FEB790019D2D6 /* icon_ipad64.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8A7189FEB790019D2D6 /* icon_ipad64.png */; };
@@ -99,8 +98,6 @@
 		8411B88D189FE9940019D2D6 /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connection.m; sourceTree = "<group>"; };
 		8411B88F189FE9CE0019D2D6 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		8411B890189FE9CE0019D2D6 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
-		8411B892189FEA9D0019D2D6 /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
-		8411B893189FEA9D0019D2D6 /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		8411B895189FEAE60019D2D6 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		8411B8A6189FEB790019D2D6 /* icon_ipad320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_ipad320.png; sourceTree = "<group>"; };
 		8411B8A7189FEB790019D2D6 /* icon_ipad64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_ipad64.png; sourceTree = "<group>"; };
@@ -278,8 +275,6 @@
 		8411B867189FE1ED0019D2D6 /* coredata */ = {
 			isa = PBXGroup;
 			children = (
-				8411B892189FEA9D0019D2D6 /* CoreDataTableViewController.h */,
-				8411B893189FEA9D0019D2D6 /* CoreDataTableViewController.m */,
 				8479EEB318E4289E00923B24 /* Setting+Create.h */,
 				8479EEB418E4289E00923B24 /* Setting+Create.m */,
 				8411B868189FE1ED0019D2D6 /* Friend+Create.h */,
@@ -430,7 +425,6 @@
 				8411B83A189FDB140019D2D6 /* main.m in Sources */,
 				8411B90C189FEC070019D2D6 /* EditLocationTVC.m in Sources */,
 				8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */,
-				8411B894189FEA9D0019D2D6 /* CoreDataTableViewController.m in Sources */,
 				8411B912189FEC070019D2D6 /* ViewController.m in Sources */,
 				8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */,
 				8411B87F189FE35C0019D2D6 /* Model.xcdatamodeld in Sources */,

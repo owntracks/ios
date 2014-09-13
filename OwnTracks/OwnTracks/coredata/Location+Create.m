@@ -43,13 +43,11 @@
         // handle error
     } else {
         if (![matches count]) {
-            //create new location
             location = [NSEntityDescription insertNewObjectForEntityForName:@"Location" inManagedObjectContext:context];
-            location.justcreated = @(TRUE);
         } else {
             location = [matches lastObject];
-            location.justcreated = @(TRUE);
         }
+        location.justcreated = @(TRUE);
         location.belongsTo = friend;
         location.timestamp = timestamp;
         [location setCoordinate:coordinate];

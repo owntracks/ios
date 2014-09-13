@@ -637,6 +637,8 @@
             case NSFetchedResultsChangeDelete:
                 //
                 break;
+            default:
+                break;
         }
     }
 }

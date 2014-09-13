@@ -6,10 +6,9 @@
 //  Copyright (c) 2013 Christoph Krey. All rights reserved.
 //
 
-#import "CoreDataTableViewController.h"
 #import "Friend+Create.h"
 
-@interface LocationTVC : CoreDataTableViewController
+@interface LocationTVC : UITableViewController <NSFetchedResultsControllerDelegate>
 @property (strong, nonatomic) Friend *friend;
 
 @end

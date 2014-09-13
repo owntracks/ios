@@ -1015,7 +1015,8 @@
 
 - (void)limitLocationsWith:(Friend *)friend toMaximum:(NSInteger)max
 {
-    NSArray *allLocations = [Location allAutomaticLocationsWithFriend:friend inManagedObjectContext:[CoreData theManagedObjectContext]];
+    NSArray *allLocations = [Location allAutomaticLocationsWithFriend:friend
+                                               inManagedObjectContext:[CoreData theManagedObjectContext]];
     
     for (NSInteger i = [allLocations count]; i > max; i--) {
         Location *location = allLocations[i - 1];

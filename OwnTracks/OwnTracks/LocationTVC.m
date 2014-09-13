@@ -14,76 +14,21 @@
 #import "OwnTracksAppDelegate.h"
 
 @interface LocationTVC ()
+
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
-@implementation LocationTVC 
+@implementation LocationTVC
 
 - (void)setFriend:(Friend *)friend
 {
-    _friend = friend;
-    
-    self.title = [friend name] ? [friend name] : friend.topic;
-    
-    if (friend && friend.managedObjectContext) {
-        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Location"];
-        
-        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"automatic" ascending:YES],
-                                    [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
-        request.predicate = [NSPredicate predicateWithFormat:@"belongsTo = %@", friend];
-
-        self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                                            managedObjectContext:friend.managedObjectContext
-                                                                              sectionNameKeyPath:@"automatic"
-                                                                                       cacheName:nil];
-    } else {
-        self.fetchedResultsController = nil;
+    if (_friend != friend) {
+        _friend = friend;
     }
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"location"];
-    Location *location = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
-    UIFont *fontBold = [UIFont boldSystemFontOfSize:[UIFont systemFontSize] + 2];
-    NSDictionary *attributesBold = [NSDictionary dictionaryWithObject:fontBold
-                                                               forKey:NSFontAttributeName];
-    NSMutableAttributedString *as = [[NSMutableAttributedString alloc]
-                                     initWithString:(![location.automatic boolValue] && location.remark) ? location.remark :
-                                     location.timestamp ?
-                                     [NSDateFormatter localizedStringFromDate:location.timestamp
-                                                                    dateStyle:NSDateFormatterShortStyle
-                                                                    timeStyle:NSDateFormatterMediumStyle] : @"???"
-                                     attributes:attributesBold];
-    
-    if (![location.automatic boolValue]) {
-        UIFont *fontLight = [UIFont systemFontOfSize:[UIFont smallSystemFontSize]];
-        NSDictionary *attributesLight = [NSDictionary dictionaryWithObject:fontLight
-                                                                    forKey:NSFontAttributeName];
-        
-        [as appendAttributedString:[[NSAttributedString alloc]
-                                    initWithString:[NSString stringWithFormat:@": %@ %@",
-                                                    location.regionradius,
-                                                    [location sharedWaypoint] ? @"✔︎" : @"✘"]
-                                    attributes:attributesLight]];
-    }
-    cell.textLabel.attributedText = as;
-    
-    cell.detailTextLabel.text = [location locationText];
-    
-    FriendAnnotationV *friendAnnotationView = [[FriendAnnotationV alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    friendAnnotationView.personImage = self.friend.image ? [UIImage imageWithData:self.friend.image] : nil;
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    friendAnnotationView.me = [self.friend.topic isEqualToString:[delegate.settings theGeneralTopic]];
-    friendAnnotationView.automatic = [location.automatic boolValue];
-    friendAnnotationView.speed = [location.speed doubleValue];
-    friendAnnotationView.course = [location.course doubleValue];
-    friendAnnotationView.tid = [self.friend getEffectiveTid];
-    [friendAnnotationView getImage];
-    cell.imageView.image = [friendAnnotationView getImage];
-    
-    return cell;
+    self.title = [self.friend name] ? [self.friend name] : self.friend.topic;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -130,26 +75,13 @@
     }
 }
 
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index];
+}
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if ([self numberOfSectionsInTableView:tableView] > 1) {
-        return section ? @"Location Updates" : @"Waypoints and Regions";
-    } else {
-        return nil;
-    }
-}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        Location *location = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        [self.fetchedResultsController.managedObjectContext deleteObject:location];
-    }
+    return section ? @"Location Updates" : @"Waypoints and Regions";
 }
 
 - (IBAction)setPerson:(UIStoryboardSegue *)segue {
@@ -161,5 +93,209 @@
     }
 }
 
+#pragma mark - Table View
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+#ifdef DEBUG
+    NSLog(@"numberOfSectionsInTableView=%lu", (unsigned long)[[self.fetchedResultsController sections] count]);
+#endif
+    return [[self.fetchedResultsController sections] count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
+#ifdef DEBUG
+    NSLog(@"numberOfRowsInSection %ld=%lu", (long)section, (unsigned long)[sectionInfo numberOfObjects]);
+#endif
+    return [sectionInfo numberOfObjects];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"location" forIndexPath:indexPath];
+    [self configureCell:cell atIndexPath:indexPath];
+    return cell;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        
+        NSError *error = nil;
+        if (![context save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return NO;
+}
+
+
+
+#pragma mark - Fetched results controller
+
+- (NSFetchedResultsController *)fetchedResultsController
+{
+    if (_fetchedResultsController != nil) {
+        return _fetchedResultsController;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Location"
+                                              inManagedObjectContext:self.friend.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"belongsTo = %@", self.friend];
+    
+    [fetchRequest setFetchBatchSize:20];
+    
+    NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"automatic" ascending:YES];
+    NSSortDescriptor *sortDescriptor2 = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO];
+    
+    NSArray *sortDescriptors = @[sortDescriptor1, sortDescriptor2];
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc]
+                                                             initWithFetchRequest:fetchRequest
+                                                             managedObjectContext:self.friend.managedObjectContext
+                                                             sectionNameKeyPath:@"automatic"
+                                                             cacheName:nil];
+    aFetchedResultsController.delegate = self;
+    self.fetchedResultsController = aFetchedResultsController;
+    
+    NSError *error = nil;
+    if (![self.fetchedResultsController performFetch:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    
+#ifdef DEBUG
+    NSLog(@"fetchedResultsControllser %@", _fetchedResultsController);
+#endif
+    return _fetchedResultsController;
+}
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+    [self.tableView beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
+{
+#ifdef DEBUG
+    NSLog(@"didChangeSection type=%lu", type);
+#endif
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+        default:
+            break;
+    }
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath
+{
+    UITableView *tableView = self.tableView;
+#ifdef DEBUG
+    NSLog(@"didChangeObject type=%lu %@ %@ %@", type, anObject, indexPath, newIndexPath);
+#endif
+
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            if (newIndexPath) {
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            if (indexPath) {
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            if (indexPath) {
+            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            }
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            if (indexPath && newIndexPath) {
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            }
+            break;
+    }
+}
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    [self.tableView endUpdates];
+}
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+#ifdef DEBUG
+    NSLog(@"configureCell %@", indexPath);
+#endif
+    Location *location = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    UIFont *fontBold = [UIFont boldSystemFontOfSize:[UIFont systemFontSize] + 2];
+    NSDictionary *attributesBold = [NSDictionary dictionaryWithObject:fontBold
+                                                               forKey:NSFontAttributeName];
+    NSMutableAttributedString *as = [[NSMutableAttributedString alloc]
+                                     initWithString:(![location.automatic boolValue] && location.remark) ? location.remark :
+                                     location.timestamp ?
+                                     [NSDateFormatter localizedStringFromDate:location.timestamp
+                                                                    dateStyle:NSDateFormatterShortStyle
+                                                                    timeStyle:NSDateFormatterMediumStyle] : @"???"
+                                     attributes:attributesBold];
+    
+    if (![location.automatic boolValue]) {
+        UIFont *fontLight = [UIFont systemFontOfSize:[UIFont smallSystemFontSize]];
+        NSDictionary *attributesLight = [NSDictionary dictionaryWithObject:fontLight
+                                                                    forKey:NSFontAttributeName];
+        
+        [as appendAttributedString:[[NSAttributedString alloc]
+                                    initWithString:[NSString stringWithFormat:@": %@ %@",
+                                                    location.regionradius,
+                                                    [location sharedWaypoint] ? @"✔︎" : @"✘"]
+                                    attributes:attributesLight]];
+    }
+    cell.textLabel.attributedText = as;
+    
+    cell.detailTextLabel.text = [location locationText];
+    
+    FriendAnnotationV *friendAnnotationView = [[FriendAnnotationV alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    friendAnnotationView.personImage = self.friend.image ? [UIImage imageWithData:self.friend.image] : nil;
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    friendAnnotationView.me = [self.friend.topic isEqualToString:[delegate.settings theGeneralTopic]];
+    friendAnnotationView.automatic = [location.automatic boolValue];
+    friendAnnotationView.speed = [location.speed doubleValue];
+    friendAnnotationView.course = [location.course doubleValue];
+    friendAnnotationView.tid = [self.friend getEffectiveTid];
+    [friendAnnotationView getImage];
+    cell.imageView.image = [friendAnnotationView getImage];
+}
 
 @end

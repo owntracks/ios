@@ -6,8 +6,7 @@
 //  Copyright (c) 2013 Christoph Krey. All rights reserved.
 //
 
-#import "CoreDataTableViewController.h"
 #import "Friend+Create.h"
 
-@interface FriendTVC : CoreDataTableViewController
+@interface FriendTVC : UITableViewController <NSFetchedResultsControllerDelegate>
 @end
