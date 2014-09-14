@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 29.09.13.
-//  Copyright (c) 2013 Christoph Krey. All rights reserved.
+//  Copyright (c) 2013, 2014 Christoph Krey. All rights reserved.
 //
 
 #import "LocationTVC.h"
@@ -196,7 +196,7 @@
            atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
 {
 #ifdef DEBUG
-    NSLog(@"didChangeSection type=%lu", type);
+    NSLog(@"didChangeSection type=%lu", (unsigned long)type);
 #endif
     switch(type) {
         case NSFetchedResultsChangeInsert:
@@ -217,7 +217,7 @@
 {
     UITableView *tableView = self.tableView;
 #ifdef DEBUG
-    NSLog(@"didChangeObject type=%lu %@ %@ %@", type, anObject, indexPath, newIndexPath);
+    NSLog(@"didChangeObject type=%lu %@ %@ %@", (unsigned long)type, anObject, indexPath, newIndexPath);
 #endif
 
     switch(type) {

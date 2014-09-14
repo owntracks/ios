@@ -609,17 +609,17 @@
                 if ([dictionary[@"_type"] isEqualToString:@"location"] ||
                     [dictionary[@"_type"] isEqualToString:@"waypoint"]) {
 #ifdef DEBUG
-                    NSLog(@"App json received lat:%g lon:%g acc:%.0f tst:%.0f alt:%g vac:%0.f cog:%g vel:%g tid:%@ rad:%.0f event:%@ desc:%@",
-                          [dictionary[@"lat"] doubleValue],
-                          [dictionary[@"lon"] doubleValue],
-                          [dictionary[@"acc"] doubleValue],
-                          [dictionary[@"tst"] doubleValue],
-                          [dictionary[@"alt"] doubleValue],
-                          [dictionary[@"vac"] doubleValue],
-                          [dictionary[@"cog"] doubleValue],
-                          [dictionary[@"vel"] doubleValue],
+                    NSLog(@"App json received lat:%@ lon:%@ acc:%@ tst:%@ alt:%@ vac:%@ cog:%@ vel:%@ tid:%@ rad:%@ event:%@ desc:%@",
+                          dictionary[@"lat"],
+                          dictionary[@"lon"],
+                          dictionary[@"acc"],
+                          dictionary[@"tst"],
+                          dictionary[@"alt"],
+                          dictionary[@"vac"],
+                          dictionary[@"cog"],
+                          dictionary[@"vel"],
                           dictionary[@"tid"],
-                          [dictionary[@"rad"] doubleValue],
+                          dictionary[@"rad"],
                           dictionary[@"event"],
                           dictionary[@"desc"]
                           );
@@ -630,11 +630,11 @@
                                                                                    );
                     
                     CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate
-                                                                         altitude:[dictionary[@"alt"] doubleValue]
+                                                                         altitude:[dictionary[@"alt"] intValue]
                                                                horizontalAccuracy:[dictionary[@"acc"] doubleValue]
-                                                                 verticalAccuracy:[dictionary[@"vac"] doubleValue]
-                                                                           course:[dictionary[@"cog"] doubleValue]
-                                                                            speed:[dictionary[@"vel"] doubleValue]
+                                                                 verticalAccuracy:[dictionary[@"vac"] intValue]
+                                                                           course:[dictionary[@"cog"] intValue]
+                                                                            speed:[dictionary[@"vel"] intValue]
                                                                         timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]];
                     
                     Location *newLocation = [Location locationWithTopic:device
@@ -1134,17 +1134,17 @@
     }
     
     if ([self.settings boolForKey:@"extendeddata_preference"]) {
-        double alt = [location.altitude doubleValue];
-        [jsonObject setValue:[NSString stringWithFormat:@"%.0f", alt] forKey:@"alt"];
+        int alt = [location.altitude intValue];
+        [jsonObject setValue:@(alt) forKey:@"alt"];
         
-        double vac = [location.verticalaccuracy doubleValue];
-        [jsonObject setValue:[NSString stringWithFormat:@"%.0f", vac] forKey:@"vac"];
+        int vac = [location.verticalaccuracy intValue];
+        [jsonObject setValue:@(vac) forKey:@"vac"];
         
-        double vel = [location.speed doubleValue];
-        [jsonObject setValue:[NSString stringWithFormat:@"%.0f", vel] forKey:@"vel"];
+        int vel = [location.speed intValue];
+        [jsonObject setValue:@(vel) forKey:@"vel"];
         
-        double cog = [location.course doubleValue];
-        [jsonObject setValue:[NSString stringWithFormat:@"%g", cog] forKey:@"cog"];
+        int cog = [location.course intValue];
+        [jsonObject setValue:@(cog) forKey:@"cog"];
     }
     
     [jsonObject setValue:[location.belongsTo getEffectiveTid] forKeyPath:@"tid"];
