@@ -472,7 +472,7 @@
 
 #pragma MKMapViewDelegate
 
-#define REUSE_ID_OTHER @"Annotation_other"
+#define REUSE_ID_PIN @"Annotation_pin"
 #define REUSE_ID_PICTURE @"Annotation_picture"
 #define OLD_TIME -12*60*60
 
@@ -483,35 +483,64 @@
     } else {
         if ([annotation isKindOfClass:[Location class]]) {
             Location *location = (Location *)annotation;
-            
-            MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_PICTURE];
-            FriendAnnotationV *friendAnnotationV;
-            if (annotationView) {
-                friendAnnotationV = (FriendAnnotationV *)annotationView;
-            } else {
-                friendAnnotationV = [[FriendAnnotationV alloc] initWithAnnotation:annotation reuseIdentifier:REUSE_ID_PICTURE];
-                friendAnnotationV.canShowCallout = YES;
-            }
-
-            NSData *data = [location.belongsTo image];
-            UIImage *image = [UIImage imageWithData:data];
-            friendAnnotationV.personImage = image;
-            friendAnnotationV.tid = [location.belongsTo getEffectiveTid];
-            friendAnnotationV.speed = [location.speed doubleValue];
-            friendAnnotationV.course = [location.course doubleValue];
-            friendAnnotationV.automatic = [location.automatic boolValue];
+            MKAnnotationView *annotationView;
             
             OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-            friendAnnotationV.me = [location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]];
-            
-            [friendAnnotationV setNeedsDisplay];
-            
-            friendAnnotationV.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-            
-            return friendAnnotationV;
+            if ([location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]]) {
+                if (location == [location.belongsTo newestLocation]) {
+                    annotationView = [self pictureAnnotationView:mapView location:location];
+                } else {
+                    annotationView = [self pinAnnotationView:mapView location:location];
+                }
+            } else {
+                annotationView = [self pictureAnnotationView:mapView location:location];
+            }
+            annotationView.canShowCallout = YES;
+            annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            [annotationView setNeedsDisplay];
+            return annotationView;
         }
         return nil;
     }
+}
+
+- (MKAnnotationView *)pictureAnnotationView:(MKMapView *)mapView location:(Location *)location {
+    MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_PICTURE];
+    FriendAnnotationV *friendAnnotationV;
+    if (annotationView) {
+        friendAnnotationV = (FriendAnnotationV *)annotationView;
+    } else {
+        friendAnnotationV = [[FriendAnnotationV alloc] initWithAnnotation:location reuseIdentifier:REUSE_ID_PICTURE];
+    }
+    
+    NSData *data = [location.belongsTo image];
+    UIImage *image = [UIImage imageWithData:data];
+    friendAnnotationV.personImage = image;
+    friendAnnotationV.tid = [location.belongsTo getEffectiveTid];
+    friendAnnotationV.speed = [location.speed doubleValue];
+    friendAnnotationV.course = [location.course doubleValue];
+    friendAnnotationV.automatic = [location.automatic boolValue];
+    
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    friendAnnotationV.me = [location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]];
+    return friendAnnotationV;
+}
+
+- (MKAnnotationView *)pinAnnotationView:(MKMapView *)mapView location:(Location *)location {
+    MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_PIN];
+    MKPinAnnotationView *pinAnnotationView;
+    if (annotationView) {
+        pinAnnotationView = (MKPinAnnotationView *)annotationView;
+    } else {
+        pinAnnotationView  = [[MKPinAnnotationView alloc] initWithAnnotation:location reuseIdentifier:REUSE_ID_PIN];
+    }
+    
+    if ([location.automatic boolValue]) {
+        pinAnnotationView.pinColor = MKPinAnnotationColorRed;
+    } else {
+        pinAnnotationView.pinColor = MKPinAnnotationColorPurple;
+    }
+    return pinAnnotationView;
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
@@ -700,7 +729,7 @@
                     [self.mapView removeOverlay:location];
                     [self.mapView addOverlay:location];
                 }
-                if (coordinate.latitude != 0 || coordinate.longitude !=0) {
+                if (coordinate.latitude != 0 || coordinate.longitude != 0) {
                     [self.mapView addAnnotation:location];
                 }
                 break;

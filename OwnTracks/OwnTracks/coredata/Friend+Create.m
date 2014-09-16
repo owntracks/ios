@@ -293,7 +293,7 @@ ABRecordRef recordWithTopic(CFStringRef topic)
         } else {
             if ([newestLocation.timestamp compare:location.timestamp] == NSOrderedAscending) {
                 newestLocation = location;
-            }
+            } 
         }
     }
     return newestLocation;

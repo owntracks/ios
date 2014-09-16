@@ -78,9 +78,9 @@
     self.UIlongitude.text = [NSString stringWithFormat:@"%g", [self.location.longitude doubleValue]];
     
     self.UItimestamp.text = [self.location timestampText];
-    self.UIaltitude.text = [NSString stringWithFormat:@"%g", [self.location.altitude doubleValue]];
-    self.UIspeed.text = [NSString stringWithFormat:@"%g", [self.location.speed doubleValue]];
-    self.UIcourse.text = [NSString stringWithFormat:@"%g", [self.location.course doubleValue]];
+    self.UIaltitude.text = [NSString stringWithFormat:@"%d", [self.location.altitude intValue]];
+    self.UIspeed.text = [NSString stringWithFormat:@"%d", [self.location.speed intValue]];
+    self.UIcourse.text = [NSString stringWithFormat:@"%d", [self.location.course intValue]];
     
     [self.location addObserver:self forKeyPath:@"placemark" options:NSKeyValueObservingOptionNew context:nil];
     self.UIplace.text = self.location.placemark;

@@ -48,6 +48,9 @@
             location = [matches lastObject];
         }
         location.justcreated = @(TRUE);
+        for (Location *otherLocation in friend.hasLocations) {
+            otherLocation.justcreated = @(TRUE);
+        }
         location.belongsTo = friend;
         location.timestamp = timestamp;
         [location setCoordinate:coordinate];
