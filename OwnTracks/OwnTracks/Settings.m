@@ -159,6 +159,9 @@
             
             string = dictionary[@"extendedData"];
             if (string) [self setString:string forKey:@"extendeddata_preference"];
+
+            string = dictionary[@"tid"];
+            if (string) [self setString:string forKey:@"trackerid_preference"];
             
             NSArray *waypoints = dictionary[@"waypoints"];
             [self setWaypoints:waypoints];
@@ -263,7 +266,7 @@
                            @"pubTopicBase": [self stringForKey:@"topic_preference"],
                            @"host": [self stringForKey:@"host_preference"],
                            @"username": [self stringForKey:@"user_preference"],
-                           @"password": @"password",
+                           @"password": [self stringForKey:@"pass_preference"],
                            @"willTopic": [self stringForKey:@"willtopic_preference"],
                            
                            @"subQos": [self stringForKey:@"subscriptionqos_preference"],
@@ -286,6 +289,7 @@
                            @"allowRemoteLocation": [self stringForKey:@"allowremotelocation_preference"],
                            @"extendedData": [self stringForKey:@"extendeddata_preference"],
                            @"positions": [self stringForKey:@"positions_preference"],
+                           @"tid": [self stringForKey:@"trackerid_preference"],
                            
                            @"waypoints": waypoints
                            };

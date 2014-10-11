@@ -22,6 +22,7 @@
 @property (strong, nonatomic) NSDate *locationLastSent;
 @property (strong, nonatomic) NSString *processingMessage;
 @property (strong, nonatomic) CMStepCounter *stepCounter;
+@property (strong, nonatomic) CMPedometer *pedometer;
 @end
 
 #define BACKGROUND_DISCONNECT_AFTER 8.0
@@ -736,15 +737,6 @@
 
 - (void)stepsFrom:(NSNumber *)from to:(NSNumber *)to
 {
-#ifdef DEBUG
-    NSLog(@"StepCounter availability %d",
-          [CMStepCounter isStepCountingAvailable]
-          );
-#endif
-    if (!self.stepCounter) {
-        self.stepCounter = [[CMStepCounter alloc] init];
-    }
-    
     NSDate *toDate;
     NSDate *fromDate;
     if (to && [to isKindOfClass:[NSNumber class]]) {
@@ -770,41 +762,102 @@
         fromDate = [[NSCalendar currentCalendar] dateFromComponents:components];
     }
     
-    [self.stepCounter queryStepCountStartingFrom:fromDate
-                                              to:toDate
-                                         toQueue:[[NSOperationQueue alloc] init]
-                                     withHandler:^(NSInteger steps, NSError *error)
-     {
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
 #ifdef DEBUG
-         NSLog(@"StepCounter queryStepCountStartingFrom handler %ld %@", (long)steps, error.localizedDescription);
+        NSLog(@"isStepCountingAvailable %d", [CMPedometer isStepCountingAvailable]);
+        NSLog(@"isFloorCountingAvailable %d", [CMPedometer isFloorCountingAvailable]);
+        NSLog(@"isDistanceAvailable %d", [CMPedometer isDistanceAvailable]);
 #endif
-         
-         dispatch_async(dispatch_get_main_queue(),
-                        ^{
-                            
-                            NSDictionary *jsonObject = @{
-                                                         @"_type": @"steps",
-                                                         @"tst": @(floor([[NSDate date] timeIntervalSince1970])),
-                                                         @"from": @(floor([fromDate timeIntervalSince1970])),
-                                                         @"to": @(floor([toDate timeIntervalSince1970])),
-                                                         @"steps": error ? @(-1) : @(steps)
-                                                         };
-                            
-                            long msgID = [self.connection sendData:[self jsonToData:jsonObject]
-                                                             topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/steps"]
-                                                               qos:[self.settings intForKey:@"qos_preference"]
-                                                            retain:NO];
-                            
-                            if (msgID <= 0) {
+        if (!self.pedometer) {
+            self.pedometer = [[CMPedometer alloc] init];
+        }
+        [self.pedometer queryPedometerDataFromDate:fromDate
+                                            toDate:toDate
+                                       withHandler:^(CMPedometerData *pedometerData, NSError *error) {
 #ifdef DEBUG
-                                NSString *message = [NSString stringWithFormat:@"Steps %@",
-                                                     (msgID == -1) ? @"queued" : @"sent"];
-                                [self notification:message userInfo:nil];
+             NSLog(@"StepCounter queryPedometerDataFromDate handler %ld %ld %ld %ld %@",
+                   [pedometerData.numberOfSteps longValue],
+                   [pedometerData.floorsAscended longValue],
+                   [pedometerData.floorsDescended longValue],
+                   [pedometerData.distance longValue],
+                   error.localizedDescription);
 #endif
-                            }
-                        });
-     }];
-
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 
+                 NSMutableDictionary *jsonObject = [[NSMutableDictionary alloc] init];
+                 [jsonObject addEntriesFromDictionary:@{
+                                              @"_type": @"steps",
+                                              @"tst": @(floor([[NSDate date] timeIntervalSince1970])),
+                                              @"from": @(floor([fromDate timeIntervalSince1970])),
+                                              @"to": @(floor([toDate timeIntervalSince1970])),
+                                              }];
+                  if (pedometerData) {
+                      [jsonObject setObject:pedometerData.numberOfSteps forKey:@"steps"];
+                      if (pedometerData.floorsAscended) {
+                          [jsonObject setObject:pedometerData.floorsAscended forKey:@"floorsup"];
+                      }
+                      if (pedometerData.floorsDescended) {
+                          [jsonObject setObject:pedometerData.floorsDescended forKey:@"floorsdown"];
+                      }
+                      if (pedometerData.distance) {
+                          [jsonObject setObject:pedometerData.distance forKey:@"distance"];
+                      }
+                  } else {
+                      [jsonObject setObject:@(-1) forKey:@"steps"];
+                  }
+                 
+                 [self.connection sendData:[self jsonToData:jsonObject]
+                                     topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/steps"]
+                                       qos:[self.settings intForKey:@"qos_preference"]
+                                    retain:NO];
+             });
+         }];
+        
+    } else if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
+#ifdef DEBUG
+        NSLog(@"isStepCountingAvailable %d", [CMStepCounter isStepCountingAvailable]);
+#endif
+        if (!self.stepCounter) {
+            self.stepCounter = [[CMStepCounter alloc] init];
+        }
+        [self.stepCounter queryStepCountStartingFrom:fromDate
+                                                  to:toDate
+                                             toQueue:[[NSOperationQueue alloc] init]
+                                         withHandler:^(NSInteger steps, NSError *error)
+         {
+#ifdef DEBUG
+             NSLog(@"StepCounter queryStepCountStartingFrom handler %ld %@", (long)steps, error.localizedDescription);
+#endif
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 
+                 NSDictionary *jsonObject = @{
+                                              @"_type": @"steps",
+                                              @"tst": @(floor([[NSDate date] timeIntervalSince1970])),
+                                              @"from": @(floor([fromDate timeIntervalSince1970])),
+                                              @"to": @(floor([toDate timeIntervalSince1970])),
+                                              @"steps": error ? @(-1) : @(steps)
+                                              };
+                 
+                 [self.connection sendData:[self jsonToData:jsonObject]
+                                     topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/steps"]
+                                       qos:[self.settings intForKey:@"qos_preference"]
+                                    retain:NO];
+             });
+         }];
+    } else {
+        NSDictionary *jsonObject = @{
+                                     @"_type": @"steps",
+                                     @"tst": @(floor([[NSDate date] timeIntervalSince1970])),
+                                     @"from": @(floor([fromDate timeIntervalSince1970])),
+                                     @"to": @(floor([toDate timeIntervalSince1970])),
+                                     @"steps": @(-1)
+                                     };
+        
+        [self.connection sendData:[self jsonToData:jsonObject]
+                            topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/steps"]
+                              qos:[self.settings intForKey:@"qos_preference"]
+                           retain:NO];
+    }
 }
 
 #pragma actions

@@ -282,4 +282,37 @@
     [delegate reconnect];
 }
 
+- (IBAction)tidChanged:(UITextField *)sender {
+
+    if (sender.text.length > 2) {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:@"TrackerID invalid"
+                                  message:@"TrackerID may be empty or up to 2 characters long"
+                                  delegate:self
+                                  cancelButtonTitle:nil
+                                  otherButtonTitles:@"OK", nil];
+        [alertView show];
+    } else {
+        for (int i = 0; i < sender.text.length; i++) {
+            if (![[NSCharacterSet alphanumericCharacterSet] characterIsMember:[sender.text characterAtIndex:i]]) {
+                UIAlertView *alertView = [[UIAlertView alloc]
+                                          initWithTitle:@"TrackerID invalid"
+                                          message:@"TrackerID may contain alphanumeric characters only"
+                                          delegate:self
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"OK", nil];
+                [alertView show];
+                break;
+            }
+        }
+        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegate.settings setString:sender.text forKey:@"trackerid_preference"];
+    }
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    self.UItrackerid.text = [delegate.settings stringForKey:@"trackerid_preference"];
+}
+
 @end
