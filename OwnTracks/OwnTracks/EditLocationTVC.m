@@ -61,14 +61,14 @@
 #ifdef DEBUG
             NSLog(@"stopMonitoringForRegion %@", self.oldRegion.identifier);
 #endif
-            [delegate.manager stopMonitoringForRegion:self.oldRegion];
+            [[LocationManager sharedInstance] stopRegion:self.oldRegion];
         }
         if ([self.location region]) {
 #ifdef DEBUG
             NSLog(@"startMonitoringForRegion %@", self.location.region.identifier);
 #endif
 
-            [delegate.manager startMonitoringForRegion:[self.location region]];
+            [[LocationManager sharedInstance] startRegion:[self.location region]];
         }
     }
 }
@@ -193,15 +193,16 @@
     [self.location removeObserver:self forKeyPath:@"placemark"];
 
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    CLLocation *location = [LocationManager sharedInstance].location;
     self.location = [Location locationWithTopic:[delegate.settings theGeneralTopic]
                                             tid:[delegate.settings stringForKey:@"trackerid_preference"]
                                       timestamp:[NSDate date]
-                                     coordinate:delegate.manager.location.coordinate
-                                       accuracy:delegate.manager.location.horizontalAccuracy
-                                       altitude:delegate.manager.location.altitude
-                               verticalaccuracy:delegate.manager.location.verticalAccuracy
-                                          speed:delegate.manager.location.speed
-                                         course:delegate.manager.location.course
+                                     coordinate:location.coordinate
+                                       accuracy:location.horizontalAccuracy
+                                       altitude:location.altitude
+                               verticalaccuracy:location.verticalAccuracy
+                                          speed:location.speed
+                                         course:location.course
                                       automatic:NO
                                          remark:@"new location"
                                          radius:0
