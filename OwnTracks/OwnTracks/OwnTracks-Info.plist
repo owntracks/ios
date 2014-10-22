@@ -60,13 +60,15 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>7.3.4</string>
+	<string>7.3.5</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>7.3.4</string>
+	<string>7.3.5</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>OwnTracks monitors your location and publishes it to your MQTT server</string>
 	<key>NSLocationUsageDescription</key>
 	<string>OwnTracks monitors your location and publishes it to your MQTT server</string>
 	<key>UIBackgroundModes</key>

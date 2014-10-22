@@ -98,6 +98,11 @@
     
     if ([CLLocationManager locationServicesEnabled]) {
         self.manager = [[CLLocationManager alloc] init];
+        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+            if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
+                [self.manager requestAlwaysAuthorization];
+            }
+        }
         self.locationLastSent = [NSDate date]; // Do not sent old locations
         self.manager.delegate = self;
         
