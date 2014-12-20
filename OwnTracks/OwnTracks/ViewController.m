@@ -650,11 +650,9 @@
         switch(type)
         {
             case NSFetchedResultsChangeInsert:
-                //
-                break;
-                
             case NSFetchedResultsChangeDelete:
-                //
+            case NSFetchedResultsChangeUpdate:
+            default:
                 break;
             default:
                 break;
