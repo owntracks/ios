@@ -243,6 +243,8 @@
         }
     }
     
+    [self.activityTimer invalidate];
+
     [self.connection disconnect];
 }
 
@@ -308,7 +310,7 @@
     }
     [self.connection connectToLast];
     self.ranging = self.ranging;
-    
+    self.monitoring = self.monitoring;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -901,6 +903,7 @@
             [self.manager stopMonitoringSignificantLocationChanges];
             
             [self.manager startUpdatingLocation];
+            [self.activityTimer invalidate];
             self.activityTimer = [NSTimer timerWithTimeInterval:[self.settings doubleForKey:@"mintime_preference"] target:self selector:@selector(activityTimer:) userInfo:Nil repeats:YES];
             [[NSRunLoop currentRunLoop] addTimer:self.activityTimer forMode:NSRunLoopCommonModes];
             break;
@@ -1145,6 +1148,7 @@
         }
     }
     
+    [self.activityTimer invalidate];
     [self.connection disconnect];
     
     NSInteger number = [UIApplication sharedApplication].applicationIconBadgeNumber;
