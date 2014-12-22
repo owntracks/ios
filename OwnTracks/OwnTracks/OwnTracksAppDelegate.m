@@ -99,7 +99,7 @@
     if ([CLLocationManager locationServicesEnabled]) {
         self.manager = [[CLLocationManager alloc] init];
         if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
-            if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
+            if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
                 [self.manager requestAlwaysAuthorization];
             }
         }
