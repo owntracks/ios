@@ -10,26 +10,24 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreMotion/CoreMotion.h>
 
+#import "LocationManager.h"
 #import "Connection.h"
 #import "Location+Create.h"
 #import "Settings.h"
 
 @protocol RangingDelegate <NSObject>
 
-- (void)didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region;
-- (void)didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region;
+- (void)regionState:(CLRegion *)region inside:(BOOL)inside;
+- (void)beaconInRange:(CLBeacon *)beacon;
 
 @end
 
-@interface OwnTracksAppDelegate : UIResponder <UIApplicationDelegate, CLLocationManagerDelegate, ConnectionDelegate>
+@interface OwnTracksAppDelegate : UIResponder <UIApplicationDelegate, ConnectionDelegate, LocationManagerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property (weak, nonatomic) id<RangingDelegate> delegate;
 
-@property (strong, nonatomic) CLLocationManager *manager;
-@property (nonatomic) int monitoring;
-@property (nonatomic) BOOL ranging;
 @property (strong, nonatomic) Connection *connection;
 @property (strong, nonatomic) Settings *settings;
 

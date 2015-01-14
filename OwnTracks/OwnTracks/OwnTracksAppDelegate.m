@@ -19,7 +19,6 @@
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
 @property (strong, nonatomic) void (^completionHandler)(UIBackgroundFetchResult);
 @property (strong, nonatomic) CoreData *coreData;
-@property (strong, nonatomic) NSDate *locationLastSent;
 @property (strong, nonatomic) NSString *processingMessage;
 @property (strong, nonatomic) CMStepCounter *stepCounter;
 @property (strong, nonatomic) CMPedometer *pedometer;
@@ -55,6 +54,18 @@
 #endif
         [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     }
+    
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes: UIUserNotificationTypeAlert |
+                                                UIUserNotificationTypeBadge |
+                                                UIUserNotificationTypeSound
+                                                                                 categories:[NSSet setWithObjects:nil]];
+#ifdef DEBUG
+        NSLog(@"registerUserNotificationSettings %@", settings);
+#endif
+        [application registerUserNotificationSettings:settings];
+    }
+    
     return YES;
 }
 
@@ -69,10 +80,6 @@
     }
 #endif
     
-    /*
-     * Core Data using UIManagedDocument
-     */
-    
     self.coreData = [[CoreData alloc] init];
     UIDocumentState state;
     
@@ -86,58 +93,27 @@
         }
     } while (state & UIDocumentStateClosed || ![CoreData theManagedObjectContext]);
     
-    /*
-     * Settings
-     */
-    
     self.settings = [[Settings alloc] init];
-    
-    /*
-     * CLLocationManager
-     */
-    
-    if ([CLLocationManager locationServicesEnabled]) {
-        self.manager = [[CLLocationManager alloc] init];
-        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
-            if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
-                [self.manager requestAlwaysAuthorization];
-            }
-        }
-        self.locationLastSent = [NSDate date]; // Do not sent old locations
-        self.manager.delegate = self;
-        
-        for (CLRegion *region in self.manager.monitoredRegions) {
-#ifdef DEBUG
-            NSLog(@"stopMonitoringForRegion %@", region.identifier);
-#endif
-            [self.manager stopMonitoringForRegion:region];
-        }
-        
-        self.monitoring = [self.settings intForKey:@"monitoring_preference"];
-        self.ranging = [self.settings boolForKey:@"ranging_preference"];
-
-    }
-
-    /*
-     * MQTT connection
-     */
     
     self.connection = [[Connection alloc] init];
     self.connection.delegate = self;
-    
     [self connect];
     
-    // Register for battery level and state change notifications.
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(batteryLevelChanged:)
                                                  name:UIDeviceBatteryLevelDidChangeNotification object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(batteryStateChanged:)
                                                  name:UIDeviceBatteryStateDidChangeNotification object:nil];
-    
-    
     [[UIDevice currentDevice] setBatteryMonitoringEnabled:TRUE];
+    
+    LocationManager *locationManager = [LocationManager sharedInstance];
+    locationManager.delegate = self;
+    locationManager.monitoring = [self.settings intForKey:@"monitoring_preference"];
+    locationManager.ranging = [self.settings boolForKey:@"ranging_preference"];
+    locationManager.minDist = [self.settings doubleForKey:@"mindist_preference"];
+    locationManager.minTime = [self.settings doubleForKey:@"mintime_preference"];
+    [locationManager start];
     
     return YES;
 }
@@ -236,15 +212,7 @@
     NSLog(@"applicationWillResignActive");
 #endif
     [self saveContext];
-    
-    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
-        for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
-            [self.manager stopRangingBeaconsInRegion:beaconRegion];
-        }
-    }
-    
-    [self.activityTimer invalidate];
-
+    [[LocationManager sharedInstance] sleep];
     [self.connection disconnect];
 }
 
@@ -300,17 +268,8 @@
                              self.coreData.fileURL];
         [AlertView alert:@"CoreData" message:message];
     }
-    if (![CLLocationManager significantLocationChangeMonitoringAvailable]) {
-        [AlertView alert:@"CLLocationManager" message:@"no significantLocationChangeMonitoringAvailable"];
-    }
-    if (![CLLocationManager locationServicesEnabled]) {
-        CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
-        NSString *message = [NSString stringWithFormat:@"authorizationStatus %d", status];
-        [AlertView alert:@"CLLocationManager" message:message];
-    }
     [self.connection connectToLast];
-    self.ranging = self.ranging;
-    self.monitoring = self.monitoring;
+    [[LocationManager sharedInstance] wakeup];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -319,6 +278,7 @@
 #ifdef DEBUG
     NSLog(@"applicationWillTerminate");
 #endif
+    [[LocationManager sharedInstance] stop];
     [self saveContext];
     [self notification:@"App terminated. Tap to restart" after:REMINDER_AFTER userInfo:nil];
 }
@@ -342,66 +302,37 @@
 #endif
 
     self.completionHandler = completionHandler;
-    if (self.monitoring) {
-        [self publishLocation:[self.manager location] automatic:TRUE addon:@{@"t":@"p"}];
+    if ([LocationManager sharedInstance].monitoring) {
+        [self publishLocation:[LocationManager sharedInstance].location automatic:TRUE addon:@{@"t":@"p"}];
     } else {
         [self.connection connectToLast];
         [self startBackgroundTimer];
     }
 }
 
-#pragma CLLocationManagerDelegate
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
 #ifdef DEBUG
-    NSLog(@"didUpdateLocations");
+    NSLog(@"didRegisterUserNotificationSettings %@", notificationSettings);
 #endif
-    
-    for (CLLocation *location in locations) {
-#ifdef DEBUG
-        NSLog(@"%@", [location description]);
-#endif
-        if ([location.timestamp compare:self.locationLastSent] != NSOrderedAscending ) {
-            [self publishLocation:location automatic:YES addon:nil];
-        }
-    }
 }
 
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-#ifdef DEBUG
-    NSLog(@"didFailWithError %@", error.localizedDescription);
-#endif
-    NSString *message = [NSString stringWithFormat:@"%@", error.localizedDescription];
-    [AlertView alert:@"didFailWithError" message:message];
+/*
+ *
+ * LocationManagerDelegate
+ *
+ */
+
+- (void)newLocation:(CLLocation *)location {
+    [self publishLocation:location automatic:YES addon:nil];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
-{
-#ifdef DEBUG
-    NSLog(@"didEnterRegion %@", region);
-#endif
-    NSString *message = [NSString stringWithFormat:@"Entering %@", region.identifier];
+- (void)timerLocation:(CLLocation *)location {
+    [self publishLocation:location automatic:YES addon:@{@"t": @"t"}];
+}
+
+- (void)regionEvent:(CLRegion *)region enter:(BOOL)enter {
+    NSString *message = [NSString stringWithFormat:@"%@ %@", (enter ? @"Entering" : @"Leaving"), region.identifier];
     [self notification:message userInfo:nil];
-    
-    [self eventMessage:region enter:YES];
-}
-
-- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
-{
-#ifdef DEBUG
-    NSLog(@"didExitRegion %@", region);
-#endif
-    
-    NSString *message = [NSString stringWithFormat:@"Leaving %@", region.identifier];
-    [self notification:message userInfo:nil];
-    
-    [self eventMessage:region enter:NO];
-}
-
-- (void)eventMessage:(CLRegion *)region enter:(BOOL)enter
-{
     NSMutableDictionary *addon = [[NSMutableDictionary alloc] init];
     [addon setObject:enter ? @"enter" : @"leave" forKey:@"event" ];
     if ([region isKindOfClass:[CLCircularRegion class]]) {
@@ -420,93 +351,37 @@
         }
     }
     
-    [self publishLocation:[self.manager location] automatic:TRUE addon:addon];
+    [self publishLocation:[LocationManager sharedInstance].location automatic:TRUE addon:addon];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
-{
-#ifdef DEBUG
-    NSLog(@"didStartMonitoringForRegion %@", region);
-#endif
-    [self.manager requestStateForRegion:region];
+- (void)regionState:(CLRegion *)region inside:(BOOL)inside {
+    [self.delegate regionState:region inside:inside];
 }
 
--(void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
-{
+- (void)beaconInRange:(CLBeacon *)beacon {
+    NSDictionary *jsonObject = @{
+                                 @"_type": @"beacon",
+                                 @"tst": @(floor([[LocationManager sharedInstance].location.timestamp timeIntervalSince1970])),
+                                 @"uuid": [beacon.proximityUUID UUIDString],
+                                 @"major": beacon.major,
+                                 @"minor": beacon.minor,
+                                 @"prox": @(beacon.proximity),
+                                 @"acc": @(round(beacon.accuracy)),
+                                 @"rssi": @(beacon.rssi)
+                                 };
+    long msgID = [self.connection sendData:[self jsonToData:jsonObject]
+                                     topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/beacons"]
+                                       qos:[self.settings intForKey:@"qos_preference"]
+                                    retain:NO];
+    if (msgID <= 0) {
 #ifdef DEBUG
-    
-    NSLog(@"didDetermineState %ld %@", (long)state, region);
+        NSString *message = [NSString stringWithFormat:@"Beacon %@",
+                             (msgID == -1) ? @"queued" : @"sent"];
+        [self notification:message userInfo:nil];
 #endif
-    if (state == CLRegionStateInside) {
-        if (self.ranging) {
-            if ([region isKindOfClass:[CLBeaconRegion class]]) {
-                CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
-                [self.manager startRangingBeaconsInRegion:beaconRegion];
-            }
-        }
-    } else if (state == CLRegionStateOutside) {
-        if ([region isKindOfClass:[CLBeaconRegion class]]) {
-            CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
-            [self.manager stopRangingBeaconsInRegion:beaconRegion];
-        }
-    }
-
-    if (self.delegate) {
-        [self.delegate didDetermineState:state forRegion:region];
-    }
-
-}
-
-- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error
-{
-#ifdef DEBUG
-    NSLog(@"monitoringDidFailForRegion %@ %@", region, error.localizedDescription);
-    for (CLRegion *monitoredRegion in manager.monitoredRegions) {
-        NSLog(@"monitoredRegion: %@", monitoredRegion);
-    }
-#endif
-    if ((error.domain != kCLErrorDomain || error.code != 5) && [manager.monitoredRegions containsObject:region]) {
-        NSString *message = [NSString stringWithFormat:@"%@ %@", region, error.localizedDescription];
-        [AlertView alert:@"monitoringDidFailForRegion" message:message];
-    }
-}
-
--(void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
-{
-#ifdef DEBUG
-    NSLog(@"App didRangeBeacons %@ %@", beacons, region);
-#endif
-    
-    for (CLBeacon *beacon in beacons) {
-        
-        NSDictionary *jsonObject = @{
-                                     @"_type": @"beacon",
-                                     @"tst": @(floor([self.manager.location.timestamp timeIntervalSince1970])),
-                                     @"uuid": [beacon.proximityUUID UUIDString],
-                                     @"major": beacon.major,
-                                     @"minor": beacon.minor,
-                                     @"prox": @(beacon.proximity),
-                                     @"acc": @(round(beacon.accuracy)),
-                                     @"rssi": @(beacon.rssi)
-                                     };
-        
-        long msgID = [self.connection sendData:[self jsonToData:jsonObject]
-                                         topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/beacons"]
-                                           qos:[self.settings intForKey:@"qos_preference"]
-                                        retain:NO];
-        
-        if (msgID <= 0) {
-#ifdef DEBUG
-            NSString *message = [NSString stringWithFormat:@"Beacon %@",
-                                 (msgID == -1) ? @"queued" : @"sent"];
-            [self notification:message userInfo:nil];
-#endif
-        }
     }
     
-    if (self.delegate) {
-        [self.delegate didRangeBeacons:beacons inRegion:region];
-    }
+    [self.delegate beaconInRange:beacon];
 }
 
 - (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error
@@ -579,8 +454,8 @@
                     if ([dictionary[@"action"] isEqualToString:@"dump"]) {
                         [self dumpTo:topic];
                     } else if ([dictionary[@"action"] isEqualToString:@"reportLocation"]) {
-                        if (self.monitoring || [self.settings boolForKey:@"allowremotelocation_preference"]) {
-                            [self publishLocation:self.manager.location automatic:NO addon:@{@"t":@"r"}];
+                        if ([LocationManager sharedInstance].monitoring || [self.settings boolForKey:@"allowremotelocation_preference"]) {
+                            [self publishLocation:[LocationManager sharedInstance].location automatic:NO addon:@{@"t":@"r"}];
                         }
                     } else if ([dictionary[@"action"] isEqualToString:@"reportSteps"]) {
                         [self stepsFrom:dictionary[@"from"] to:dictionary[@"to"]];
@@ -874,9 +749,9 @@
 #ifdef DEBUG
     NSLog(@"App sendNow");
 #endif
-    
-    [self publishLocation:[self.manager location] automatic:FALSE addon:@{@"t":@"u"}];
+    [self publishLocation:[LocationManager sharedInstance].location automatic:FALSE addon:@{@"t":@"u"}];
 }
+
 - (void)connectionOff
 {
 #ifdef DEBUG
@@ -884,76 +759,6 @@
 #endif
     
     [self.connection disconnect];
-}
-
-- (void)setMonitoring:(int)monitoring
-{
-#ifdef DEBUG
-    NSLog(@"App monitoring=%ld", (long)monitoring);
-#endif
-    
-    _monitoring = monitoring;
-    [self.settings setInt:monitoring forKey:@"monitoring_preference"];
-    
-    switch (monitoring) {
-        case 2:
-            self.manager.distanceFilter = [self.settings doubleForKey:@"mindist_preference"];
-            self.manager.desiredAccuracy = kCLLocationAccuracyBest;
-            self.manager.pausesLocationUpdatesAutomatically = YES;
-            [self.manager stopMonitoringSignificantLocationChanges];
-            
-            [self.manager startUpdatingLocation];
-            [self.activityTimer invalidate];
-            self.activityTimer = [NSTimer timerWithTimeInterval:[self.settings doubleForKey:@"mintime_preference"] target:self selector:@selector(activityTimer:) userInfo:Nil repeats:YES];
-            [[NSRunLoop currentRunLoop] addTimer:self.activityTimer forMode:NSRunLoopCommonModes];
-            break;
-        case 1:
-            [self.activityTimer invalidate];
-            [self.manager stopUpdatingLocation];
-            [self.manager startMonitoringSignificantLocationChanges];
-            break;
-        case 0:
-        default:
-            [self.activityTimer invalidate];
-            [self.manager stopUpdatingLocation];
-            [self.manager stopMonitoringSignificantLocationChanges];
-            break;
-    }
-}
-
-- (void)setRanging:(BOOL)ranging
-{
-#ifdef DEBUG
-    NSLog(@"App ranging=%d", ranging);
-#endif
-
-    _ranging = ranging;
-    [self.settings setBool:ranging forKey:@"ranging_preference"];
-
-    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
-        if (!ranging) {
-            for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
-#ifdef DEBUG
-                NSLog(@"stopRangingBeaconsInRegion %@", beaconRegion.identifier);
-#endif
-                [self.manager stopRangingBeaconsInRegion:beaconRegion];
-            }
-        }
-    }
-    for (CLRegion *region in self.manager.monitoredRegions) {
-#ifdef DEBUG
-        NSLog(@"requestStateForRegion %@", region.identifier);
-#endif
-        [self.manager requestStateForRegion:region];
-    }
-}
-
-- (void)activityTimer:(NSTimer *)timer
-{
-#ifdef DEBUG
-    NSLog(@"App activityTimer");
-#endif
-    [self publishLocation:[self.manager location] automatic:TRUE addon:@{@"t":@"t"}];
 }
 
 - (void)reconnect
@@ -968,8 +773,6 @@
 
 - (void)publishLocation:(CLLocation *)location automatic:(BOOL)automatic addon:(NSDictionary *)addon
 {
-    self.locationLastSent = location.timestamp;
-    
     Location *newLocation = [Location locationWithTopic:[self.settings theGeneralTopic]
                                                     tid:[self.settings stringForKey:@"trackerid_preference"]
                                               timestamp:location.timestamp
@@ -1139,16 +942,8 @@
 #ifdef DEBUG
     NSLog(@"App disconnectInBackground");
 #endif
-    
+    [[LocationManager sharedInstance] sleep];
     self.disconnectTimer = nil;
-    
-    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
-        for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
-            [self.manager stopRangingBeaconsInRegion:beaconRegion];
-        }
-    }
-    
-    [self.activityTimer invalidate];
     [self.connection disconnect];
     
     NSInteger number = [UIApplication sharedApplication].applicationIconBadgeNumber;

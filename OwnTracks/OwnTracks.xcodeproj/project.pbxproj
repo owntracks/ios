@@ -51,6 +51,7 @@
 		848794B419A6240100DF56EB /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 848794B319A6240100DF56EB /* Location.m */; };
 		8499BA95192CF86200FA95C7 /* Storyboard-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8499BA94192CF86200FA95C7 /* Storyboard-iPad.storyboard */; };
 		8499BA98192D085700FA95C7 /* DetailNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8499BA97192D085700FA95C7 /* DetailNC.m */; };
+		84B7397A1A65629200B103F4 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B739791A65629200B103F4 /* LocationManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +136,8 @@
 		8499BA96192D085600FA95C7 /* DetailNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailNC.h; sourceTree = "<group>"; };
 		8499BA97192D085700FA95C7 /* DetailNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailNC.m; sourceTree = "<group>"; };
 		849D457B18CDACDF00201BF3 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
+		84B739781A65629200B103F4 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
+		84B739791A65629200B103F4 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		84C38C14193F88C200F56D04 /* Model 7.2.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.2.2.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -208,6 +211,8 @@
 				8411B867189FE1ED0019D2D6 /* coredata */,
 				8411B83C189FDB140019D2D6 /* OwnTracksAppDelegate.h */,
 				8411B83D189FDB140019D2D6 /* OwnTracksAppDelegate.m */,
+				84B739781A65629200B103F4 /* LocationManager.h */,
+				84B739791A65629200B103F4 /* LocationManager.m */,
 				8411B886189FE79B0019D2D6 /* AlertView.h */,
 				8411B887189FE79B0019D2D6 /* AlertView.m */,
 				8411B888189FE79B0019D2D6 /* CoreData.h */,
@@ -441,6 +446,7 @@
 				8411B878189FE1ED0019D2D6 /* Friend+Create.m in Sources */,
 				845F003D192A5CDE00919FB8 /* QosTVC.m in Sources */,
 				8411B83E189FDB140019D2D6 /* OwnTracksAppDelegate.m in Sources */,
+				84B7397A1A65629200B103F4 /* LocationManager.m in Sources */,
 				8411B891189FE9CE0019D2D6 /* Settings.m in Sources */,
 				8479EEB218E4288800923B24 /* Setting.m in Sources */,
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,

@@ -15,6 +15,7 @@
 #import "CoreData.h"
 #import "Friend+Create.h"
 #import "Location+Create.h"
+#import "LocationManager.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
@@ -45,9 +46,6 @@
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     delegate.delegate = self;
  
-    self.mapView.mapType = MKMapTypeStandard;
-    self.mapView.showsUserLocation = TRUE;
-    
     UISplitViewController *splitViewController;
     
     if (self.splitViewController) {
@@ -58,6 +56,9 @@
         splitViewController.delegate = self;
         splitViewController.presentsWithGesture = false;
     }
+    
+    self.mapView.mapType = MKMapTypeStandard;
+    self.mapView.showsUserLocation = TRUE;
     
 }
 
@@ -136,6 +137,13 @@
     [self monitoringButtonImage];
     [self beaconButtonImage];
     [self connectionButtonImage];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [[LocationManager sharedInstance] resetRegions];
+    
     
     if ([CoreData theManagedObjectContext]) {
         if (!self.frc) {
@@ -247,19 +255,19 @@
     if ([actionSheet.title isEqualToString:ACTION_MONITORING]) {
         switch (buttonIndex - actionSheet.firstOtherButtonIndex) {
             case 0:
-                delegate.monitoring = 0;
+                [LocationManager sharedInstance].monitoring = 0;
                 break;
             case 1:
-                delegate.monitoring = 1;
+                [LocationManager sharedInstance].monitoring = 1;
                 break;
             case 2:
-                delegate.monitoring = 2;
+                [LocationManager sharedInstance].monitoring = 2;
                 break;
             case 3:
                 [delegate sendNow];
                 break;
         }
-        
+        [delegate.settings setInt:[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"];
         [self monitoringButtonImage];
         
     } else if ([actionSheet.title isEqualToString:ACTION_MAP]) {
@@ -275,7 +283,7 @@
                 break;
             case 3:
             {
-                CLLocationCoordinate2D center = delegate.manager.location.coordinate;
+                CLLocationCoordinate2D center = [LocationManager sharedInstance].location.coordinate;
                 MKMapRect rect = [self centeredRect:center];
                 
                 for (Location *location in [Location allLocationsInManagedObjectContext:[CoreData theManagedObjectContext]])
@@ -322,12 +330,13 @@
     } else if ([actionSheet.title isEqualToString:ACTION_BEACON]) {
         switch (buttonIndex - actionSheet.firstOtherButtonIndex) {
             case 0:
-                delegate.ranging = YES;
+                [LocationManager sharedInstance].ranging = YES;
                 break;
             case 1:
-                delegate.ranging = NO;
+                [LocationManager sharedInstance].ranging = NO;
                 break;
         }
+        [delegate.settings setBool:[LocationManager sharedInstance].ranging forKey:@"ranging_preference"];
         [self beaconButtonImage];
         
     } else if ([actionSheet.title isEqualToString:ACTION_CONNECTION]) {
@@ -346,9 +355,7 @@
 
 - (void)monitoringButtonImage
 {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
-
-    switch (delegate.monitoring) {
+    switch ([LocationManager sharedInstance].monitoring) {
         case 2:
             self.locationButton.image = [UIImage imageNamed:@"FastMode"];
             break;
@@ -364,9 +371,7 @@
 
 - (void)beaconButtonImage
 {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    if (delegate.ranging) {
+    if ([LocationManager sharedInstance].ranging) {
         self.beaconButton.image = [UIImage imageNamed:@"iBeaconOn"];
     } else {
         self.beaconButton.image = [UIImage imageNamed:@"iBeaconOff"];
@@ -442,26 +447,17 @@
 
 
 #pragma RangingDelegate
-- (void)didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region
-{
+- (void)regionState:(CLRegion *)region inside:(BOOL)inside {
     if ([region isKindOfClass:[CLBeaconRegion class]]) {
-        switch (state) {
-            case CLRegionStateInside:
-                self.beaconButton.tintColor = [UIColor colorWithRed:190.0/255.0 green:0.0 blue:0.0 alpha:1.0];
-                break;
-            case CLRegionStateOutside:
-                self.beaconButton.tintColor = [UIColor colorWithRed:0.0 green:0.0 blue:190.0/255.0 alpha:1.0];
-                break;
-            case CLRegionStateUnknown:
-            default:
-                self.beaconButton.tintColor = [UIColor colorWithRed:190.0/255.0 green:190.0/255.0 blue:190.0/255.0 alpha:1.0];
-                break;
+        if (inside) {
+            self.beaconButton.tintColor = [UIColor colorWithRed:190.0/255.0 green:0.0 blue:0.0 alpha:1.0];
+        } else {
+            self.beaconButton.tintColor = [UIColor colorWithRed:0.0 green:0.0 blue:190.0/255.0 alpha:1.0];
         }
     }
 }
 
-- (void)didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
-{
+- (void)beaconInRange:(CLBeacon *)beacon {
     self.beaconOn = !self.beaconOn;
     if (self.beaconOn) {
         self.beaconButton.image = [UIImage imageNamed:@"iBeaconOn"];
@@ -546,13 +542,12 @@
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
 {
     if ([overlay isKindOfClass:[Location class]]) {
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
         MKCircleRenderer *renderer = [[MKCircleRenderer alloc] initWithCircle:overlay];
         
         Location *location = (Location *)overlay;
         if ([location.region isKindOfClass:[CLCircularRegion class]]) {
             CLCircularRegion *circularRegion = (CLCircularRegion *)location.region;
-            if ([circularRegion containsCoordinate:[delegate.manager location].coordinate]) {
+            if ([circularRegion containsCoordinate:[LocationManager sharedInstance].location.coordinate]) {
                 renderer.fillColor = [UIColor colorWithRed:1.0 green:0.5 blue:0.5 alpha:0.333];
             } else {
                 renderer.fillColor = [UIColor colorWithRed:0.5 green:0.5 blue:1.0 alpha:0.333];
@@ -612,13 +607,7 @@
     [self.mapView addOverlays:overlays];
     for (Location *location in overlays) {
         if (location.region) {
-#ifdef DEBUG
-            NSLog(@"startMonitoringForRegion %@", location.region.identifier);
-            for (CLRegion *region in delegate.manager.monitoredRegions) {
-                NSLog(@"region %@", region.identifier);
-            }
-#endif
-            [delegate.manager startMonitoringForRegion:location.region];
+            [[LocationManager sharedInstance] startRegion:location.region];
         }
     }
 }
@@ -660,12 +649,8 @@
         switch(type)
         {
             case NSFetchedResultsChangeInsert:
-                //
-                break;
-                
             case NSFetchedResultsChangeDelete:
-                //
-                break;
+            case NSFetchedResultsChangeUpdate:
             default:
                 break;
         }
@@ -693,13 +678,7 @@
                 if ([location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]]) {
                     [self.mapView addOverlay:location];
                     if (location.region) {
-#ifdef DEBUG
-                        NSLog(@"startMonitoringForRegion %@", location.region.identifier);
-                        for (CLRegion *region in delegate.manager.monitoredRegions) {
-                            NSLog(@"region %@", region.identifier);
-                        }
-#endif
-                        [delegate.manager startMonitoringForRegion:location.region];
+                        [[LocationManager sharedInstance] startRegion:location.region];
                     }
                 }
                 break;
@@ -708,17 +687,7 @@
                 [self.mapView removeAnnotation:location];
                 if ([location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]]) {
                     [self.mapView removeOverlay:location];
-                    for (CLRegion *region in delegate.manager.monitoredRegions) {
-                        if ([region.identifier isEqualToString:location.region.identifier]) {
-#ifdef DEBUG
-                            NSLog(@"stopMonitoringForRegion %@", region.identifier);
-                            for (CLRegion *region in delegate.manager.monitoredRegions) {
-                                NSLog(@"region %@", region.identifier);
-                            }
-#endif
-                            [delegate.manager stopMonitoringForRegion:region];
-                        }
-                    }
+                    [[LocationManager sharedInstance] stopRegion:location.region];
                 }
                 break;
                 
