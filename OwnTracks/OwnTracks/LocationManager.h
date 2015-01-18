@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 21.10.14.
-//  Copyright (c) 2014 OwnTracks. All rights reserved.
+//  Copyright (c) 2014-2015 OwnTracks. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

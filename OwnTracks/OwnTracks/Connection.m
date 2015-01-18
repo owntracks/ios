@@ -3,12 +3,18 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 25.08.13.
-//  Copyright (c) 2013, 2014 Christoph Krey. All rights reserved.
+//  Copyright (c) 2013-2015 Christoph Krey. All rights reserved.
 //
 
 #import "Connection.h"
 #import "CoreData.h"
 #import "OwnTracksAppDelegate.h"
+
+#ifdef DEBUG
+#define DEBUGCONN FALSE
+#else
+#define DEBUGCONN FALSE
+#endif
 
 @interface Connection()
 
@@ -45,10 +51,7 @@
 
 - (id)init
 {
-#ifdef DEBUG
-    NSLog(@"Connection init");
-#endif
-
+   if (DEBUGCONN) NSLog(@"Connection init");
     self = [super init];
     self.state = state_starting;
     return self;
@@ -72,23 +75,21 @@
    willRetainFlag:(BOOL)willRetainFlag
      withClientId:(NSString *)clientId
 {
-#ifdef DEBUG
-    NSLog(@"Connection connectTo: %@:%@@%@:%ld %@ (%ld) c%d / %@ %@ q%ld r%d as %@",
-          auth ? user : @"",
-          auth ? pass : @"",
-          host,
-          (long)port,
-          tls ? @"TLS" : @"PLAIN",
-          (long)keepalive,
-          clean,
-          willTopic,
-          [Connection dataToString:will],
-          (long)willQos,
-          willRetainFlag,
-          clientId
-          );
-#endif
-
+    if (DEBUGCONN) NSLog(@"Connection connectTo: %@:%@@%@:%ld %@ (%ld) c%d / %@ %@ q%ld r%d as %@",
+                         auth ? user : @"",
+                         auth ? pass : @"",
+                         host,
+                         (long)port,
+                         tls ? @"TLS" : @"PLAIN",
+                         (long)keepalive,
+                         clean,
+                         willTopic,
+                         [Connection dataToString:will],
+                         (long)willQos,
+                         willRetainFlag,
+                         clientId
+                         );
+    
     if (!self.session ||
         ![host isEqualToString:self.host] ||
         port != self.port ||
@@ -117,10 +118,7 @@
         self.willRetainFlag = willRetainFlag;
         self.clientId = clientId;
         
-#ifdef DEBUG
-        NSLog(@"Connection new session");
-#endif
-
+        if (DEBUGCONN) NSLog(@"Connection new session");
         self.session = [[MQTTSession alloc] initWithClientId:clientId
                                                     userName:auth ? user : nil
                                                     password:auth ? pass : nil
@@ -143,9 +141,7 @@
 
 - (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(NSInteger)qos retain:(BOOL)retainFlag
 {
-#ifdef DEBUG
-    NSLog(@"Connection sendData:%@ %@ q%ld r%d", topic, [Connection dataToString:data], (long)qos, retainFlag);
-#endif
+    if (DEBUGCONN) NSLog(@"Connection sendData:%@ %@ q%ld r%d", topic, [Connection dataToString:data], (long)qos, retainFlag);
     
     if (self.state != state_connected) {
         [self connectToLast];
@@ -159,9 +155,7 @@
 
 - (void)disconnect
 {
-#ifdef DEBUG
-    NSLog(@"Connection disconnect:");
-#endif
+    if (DEBUGCONN) NSLog(@"Connection disconnect:");
     self.state = state_closing;
     [self.session close];
 
@@ -199,16 +193,16 @@
 
 - (void)handleEvent:(MQTTSession *)session event:(MQTTSessionEvent)eventCode error:(NSError *)error
 {
-#ifdef DEBUG
-    const NSDictionary *events = @{
-                                   @(MQTTSessionEventConnected): @"connected",
-                                   @(MQTTSessionEventConnectionRefused): @"connection refused",
-                                   @(MQTTSessionEventConnectionClosed): @"connection closed",
-                                   @(MQTTSessionEventConnectionError): @"connection error",
-                                   @(MQTTSessionEventProtocolError): @"protocoll error"
-                                   };
-    NSLog(@"Connection MQTT eventCode: %@ (%ld) %@", events[@(eventCode)], (long)eventCode, error);
-#endif
+    if (DEBUGCONN) {
+        const NSDictionary *events = @{
+                                       @(MQTTSessionEventConnected): @"connected",
+                                       @(MQTTSessionEventConnectionRefused): @"connection refused",
+                                       @(MQTTSessionEventConnectionClosed): @"connection closed",
+                                       @(MQTTSessionEventConnectionError): @"connection error",
+                                       @(MQTTSessionEventProtocolError): @"protocoll error"
+                                       };
+        NSLog(@"Connection MQTT eventCode: %@ (%ld) %@", events[@(eventCode)], (long)eventCode, error);
+    }
     [self.reconnectTimer invalidate];
     switch (eventCode) {
         case MQTTSessionEventConnected:
@@ -225,9 +219,7 @@
         case MQTTSessionEventConnectionRefused:
         case MQTTSessionEventConnectionError:
         {
-#ifdef DEBUG
-            NSLog(@"Connection setTimer %f", self.reconnectTime);
-#endif
+            if (DEBUGCONN) NSLog(@"Connection setTimer %f", self.reconnectTime);
             self.reconnectTimer = [NSTimer timerWithTimeInterval:self.reconnectTime
                                                           target:self
                                                         selector:@selector(reconnect)
@@ -257,20 +249,13 @@
  *
  */
 
-- (void)newMessage:(MQTTSession *)session data:(NSData *)data onTopic:(NSString *)topic qos:(MQTTQosLevel)qos retained:(BOOL)retained mid:(unsigned int)mid
-{
-#ifdef DEBUG
-    NSLog(@"Connection received %@ %@", topic, [Connection dataToString:data]);
-#endif
-    
+- (void)newMessage:(MQTTSession *)session data:(NSData *)data onTopic:(NSString *)topic qos:(MQTTQosLevel)qos retained:(BOOL)retained mid:(unsigned int)mid {
+    if (DEBUGCONN) NSLog(@"Connection received %@ %@", topic, [Connection dataToString:data]);
     [self.delegate handleMessage:data onTopic:topic retained:retained];
 }
 
-- (void)buffered:(MQTTSession *)session queued:(NSUInteger)queued flowingIn:(NSUInteger)flowingIn flowingOut:(NSUInteger)flowingOut
-{
-#ifdef DEBUG
-    NSLog(@"Connection buffered q%lu i%lu o%lu", (unsigned long)queued, (unsigned long)flowingIn, (unsigned long)flowingOut);
-#endif
+- (void)buffered:(MQTTSession *)session queued:(NSUInteger)queued flowingIn:(NSUInteger)flowingIn flowingOut:(NSUInteger)flowingOut {
+    if (DEBUGCONN) NSLog(@"Connection buffered q%lu i%lu o%lu", (unsigned long)queued, (unsigned long)flowingIn, (unsigned long)flowingOut);
     if ((queued + flowingIn + flowingOut) && self.state == state_connected) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
     } else {
@@ -281,22 +266,18 @@
 
 #pragma internal helpers
 
-- (void)connectToInternal
-{
+- (void)connectToInternal {
     if (self.state == state_starting) {
         self.state = state_connecting;
         [self.session connectToHost:self.host
                                port:self.port
                            usingSSL:self.tls];
     } else {
-#ifdef DEBUG
-        NSLog(@"Connection not starting, can't connect");
-#endif
+       if (DEBUGCONN)  NSLog(@"Connection not starting, can't connect");
     }
 }
 
-- (NSString *)parameters
-{
+- (NSString *)parameters {
     return [NSString stringWithFormat:@"%@://%@%@:%ld c%d k%ld as %@",
             self.tls ? @"mqtts" : @"mqtt",
             self.auth ? [NSString stringWithFormat:@"%@@", self.user] : @"",
@@ -308,8 +289,7 @@
             ];
 }
 
-+ (NSString *)dataToString:(NSData *)data
-{
++ (NSString *)dataToString:(NSData *)data {
     /* the following lines are necessary to convert data which is possibly not null-terminated into a string */
     NSString *message = [[NSString alloc] init];
     for (int i = 0; i < data.length; i++) {
@@ -320,29 +300,25 @@
     return message;
 }
 
-- (void)setState:(NSInteger)state
-{
+- (void)setState:(NSInteger)state {
     _state = state;
-#ifdef DEBUG
-    const NSDictionary *states = @{
-                                   @(state_starting): @"starting",
-                                   @(state_connecting): @"connecting",
-                                   @(state_error): @"error",
-                                   @(state_connected): @"connected",
-                                   @(state_closing): @"closing",
-                                   @(state_closed): @"closed"
-                                   };
-    
-    NSLog(@"Connection state %@ (%ld)", states[@(self.state)], (long)self.state);
-#endif
+    if (DEBUGCONN) {
+        const NSDictionary *states = @{
+                                       @(state_starting): @"starting",
+                                       @(state_connecting): @"connecting",
+                                       @(state_error): @"error",
+                                       @(state_connected): @"connected",
+                                       @(state_closing): @"closing",
+                                       @(state_closed): @"closed"
+                                       };
+        
+        NSLog(@"Connection state %@ (%ld)", states[@(self.state)], (long)self.state);
+    }
     [self.delegate showState:self.state];
 }
 
-- (void)reconnect
-{
-#ifdef DEBUG
-    NSLog(@"Connection reconnect");
-#endif
+- (void)reconnect {
+    if (DEBUGCONN) NSLog(@"Connection reconnect");
     
     self.reconnectTimer = nil;
     self.state = state_starting;
@@ -353,11 +329,8 @@
     [self connectToInternal];
 }
 
-- (void)connectToLast
-{
-#ifdef DEBUG
-    NSLog(@"Connection connectToLast");
-#endif
+- (void)connectToLast {
+    if (DEBUGCONN) NSLog(@"Connection connectToLast");
     
     self.reconnectTime = RECONNECT_TIMER;
     

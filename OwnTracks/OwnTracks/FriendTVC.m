@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 29.09.13.
-//  Copyright (c) 2013, 2014 Christoph Krey. All rights reserved.
+//  Copyright (c) 2013-2015 Christoph Krey. All rights reserved.
 //
 
 #import "OwnTracksAppDelegate.h"
@@ -262,7 +262,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            [self configureCell:[tableView cellForRowAtIndexPath:newIndexPath] atIndexPath:newIndexPath];
             break;
             
         case NSFetchedResultsChangeMove:
@@ -279,7 +279,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 #ifdef DEBUG
-    NSLog(@"configureCell %@", indexPath);
+    NSLog(@"FriendTVC configureCell %ld/%ld", (long)indexPath.section, (long)indexPath.row);
 #endif
     Friend *friend = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = friend.name ? friend.name : friend.topic;

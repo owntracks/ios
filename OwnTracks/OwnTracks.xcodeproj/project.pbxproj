@@ -41,9 +41,9 @@
 		8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B907189FEC070019D2D6 /* PersonTVC.m */; };
 		8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B909189FEC070019D2D6 /* StatusTVC.m */; };
 		8411B912189FEC070019D2D6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B90B189FEC070019D2D6 /* ViewController.m */; };
-		8432AA7518BD127300E817D3 /* MQTTClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B863189FDE0D0019D2D6 /* MQTTClient.framework */; };
 		845F003D192A5CDE00919FB8 /* QosTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845F003C192A5CDE00919FB8 /* QosTVC.m */; };
 		8474B15619A8CBA800427427 /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 8474B15519A8CBA800427427 /* Friend.m */; };
+		8479623F1A671387000B7D35 /* MQTTClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B863189FDE0D0019D2D6 /* MQTTClient.framework */; };
 		8479EEB218E4288800923B24 /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB118E4288800923B24 /* Setting.m */; };
 		8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB418E4289E00923B24 /* Setting+Create.m */; };
 		8479EEB718E4529900923B24 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
@@ -146,8 +146,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8479623F1A671387000B7D35 /* MQTTClient.framework in Frameworks */,
 				847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */,
-				8432AA7518BD127300E817D3 /* MQTTClient.framework in Frameworks */,
 				8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */,
 				8411B832189FDB140019D2D6 /* CoreData.framework in Frameworks */,
 				8411B861189FDD200019D2D6 /* MapKit.framework in Frameworks */,
@@ -577,6 +577,10 @@
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
 				INFOPLIST_FILE = "OwnTracks/OwnTracks-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/ckrey/MQTT-Client-Framework/MQTTClient/dist/MQTTClient.framework/Versions/A",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -600,6 +604,10 @@
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
 				INFOPLIST_FILE = "OwnTracks/OwnTracks-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/ckrey/MQTT-Client-Framework/MQTTClient/dist/MQTTClient.framework/Versions/A",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";

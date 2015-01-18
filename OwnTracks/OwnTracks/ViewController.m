@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 17.08.13.
-//  Copyright (c) 2013, 2014 Christoph Krey. All rights reserved.
+//  Copyright (c) 2013-2015 Christoph Krey. All rights reserved.
 //
 
 #import "ViewController.h"
@@ -16,6 +16,12 @@
 #import "Friend+Create.h"
 #import "Location+Create.h"
 #import "LocationManager.h"
+
+#ifdef DEBUG
+#define DEBUGVIEW FALSE
+#else
+#define DEBUGVIEW FALSE
+#endif
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
@@ -562,16 +568,12 @@
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
-#ifdef DEBUG
-    NSLog(@"didSelectAnnotationView");
-#endif
+    if (DEBUGVIEW) NSLog(@"didSelectAnnotationView");
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
-#ifdef DEBUG
-    NSLog(@"calloutAccessoryControlTapped");
-#endif
+    if (DEBUGVIEW) NSLog(@"calloutAccessoryControlTapped");
     [self performSegueWithIdentifier:@"showDetail:" sender:view];
 }
 
@@ -581,21 +583,22 @@
 {
     if (self.frc) {
         if (self.frc.fetchRequest.predicate) {
-#ifdef DEBUG
-            NSLog(@"[%@ %@] fetching %@ with predicate: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.frc.fetchRequest.entityName, self.frc.fetchRequest.predicate);
-#endif
+           if (DEBUGVIEW)  NSLog(@"[%@ %@] fetching %@ with predicate: %@",
+                                 NSStringFromClass([self class]),
+                                 NSStringFromSelector(_cmd),
+                                 self.frc.fetchRequest.entityName,
+                                 self.frc.fetchRequest.predicate);
         } else {
-#ifdef DEBUG
-            NSLog(@"[%@ %@] fetching all %@ (i.e., no predicate)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.frc.fetchRequest.entityName);
-#endif
+            if (DEBUGVIEW) NSLog(@"[%@ %@] fetching all %@ (i.e., no predicate)",
+                                 NSStringFromClass([self class]),
+                                 NSStringFromSelector(_cmd),
+                                 self.frc.fetchRequest.entityName);
         }
         NSError *error;
         [self.frc performFetch:&error];
         if (error) NSLog(@"[%@ %@] %@ (%@)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [error localizedDescription], [error localizedFailureReason]);
     } else {
-#ifdef DEBUG
-        NSLog(@"[%@ %@] no NSFetchedResultsController (yet?)", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-#endif
+        if (DEBUGVIEW) NSLog(@"[%@ %@] no NSFetchedResultsController (yet?)", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     }
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
 
@@ -622,14 +625,10 @@
             self.title = newfrc.fetchRequest.entity.name;
         }
         if (newfrc) {
-#ifdef DEBUG
-            NSLog(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), oldfrc ? @"updated" : @"set");
-#endif
+            if (DEBUGVIEW) NSLog(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), oldfrc ? @"updated" : @"set");
             [self performFetch];
         } else {
-#ifdef DEBUG
-            NSLog(@"[%@ %@] reset to nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-#endif
+            if (DEBUGVIEW) NSLog(@"[%@ %@] reset to nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         }
     }
 }
