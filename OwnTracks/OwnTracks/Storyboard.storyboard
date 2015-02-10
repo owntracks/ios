@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="e04-OU-xZ4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="e04-OU-xZ4">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
         <!--OwnTracks-->
@@ -45,6 +46,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="q41-CR-dc2"/>
+                                    <barButtonItem enabled="NO" title="0" id="fgY-5h-lUd"/>
                                     <barButtonItem image="ConnectionOn" id="cdW-ta-bSy">
                                         <connections>
                                             <action selector="connectionPressed:" destination="HII-kF-avN" id="N5b-Yw-NZk"/>
@@ -69,6 +71,7 @@
                     <navigationItem key="navigationItem" title="OwnTracks" id="OeB-EW-2jx"/>
                     <connections>
                         <outlet property="beaconButton" destination="Uuz-hl-Qhf" id="ET4-ag-Qcw"/>
+                        <outlet property="bufferedItem" destination="fgY-5h-lUd" id="wyC-pt-viX"/>
                         <outlet property="connectionButton" destination="cdW-ta-bSy" id="dKv-9n-Tos"/>
                         <outlet property="locationButton" destination="Yil-yv-Mgw" id="VF6-SA-Qeu"/>
                         <outlet property="mapView" destination="eED-yn-0ps" id="ySD-3E-pwJ"/>

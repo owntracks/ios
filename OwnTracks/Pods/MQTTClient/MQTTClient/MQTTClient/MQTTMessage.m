@@ -2,7 +2,7 @@
 // MQTTMessage.m
 // MQTTClient.framework
 //
-// Copyright (c) 2013, 2014, Christoph Krey
+// Copyright (c) 2013-2015, Christoph Krey
 //
 // based on
 //
@@ -18,6 +18,12 @@
 // 
 
 #import "MQTTMessage.h"
+
+#ifdef DEBUG
+#define DEBUGMSG FALSE
+#else
+#define DEBUGMSG FALSE
+#endif
 
 @implementation MQTTMessage
 
@@ -67,9 +73,17 @@
             [data appendMQTTString:@"MQTT"];
             [data appendByte:4];
             break;
-        default:
+        case 3:
             [data appendMQTTString:@"MQIsdp"];
             [data appendByte:3];
+            break;
+        case 0:
+            [data appendMQTTString:@""];
+            [data appendByte:protocolLevel];
+            break;
+        default:
+            [data appendMQTTString:@"MQTT"];
+            [data appendByte:protocolLevel];
             break;
     }
     [data appendByte:flags];
@@ -249,7 +263,10 @@
 {
     if (string) {
         UInt8 buf[2];
+        if (DEBUGMSG) NSLog(@"String=%@", string);
         const char* utf8String = [string UTF8String];
+        if (DEBUGMSG) NSLog(@"UTF8=%s", utf8String);
+
         size_t strLen = strlen(utf8String);
         buf[0] = strLen / 256;
         buf[1] = strLen % 256;

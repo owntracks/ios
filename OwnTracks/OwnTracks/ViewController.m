@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *locationButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *beaconButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *connectionButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *bufferedItem;
 
 @property (nonatomic) BOOL beaconOn;
 
@@ -405,8 +406,10 @@
             break;
     }
     
-    if ([delegate.connectionBuffered intValue]) {
-        if ([delegate.connectionBuffered intValue] % 2) {
+    int buffered = [delegate.connectionBuffered intValue];
+    self.bufferedItem.title = buffered ? [NSString stringWithFormat:@"%d", buffered] : @"";
+    if (buffered) {
+        if (buffered % 2) {
             self.connectionButton.image = [UIImage imageNamed:@"ConnectionMid"];
         } else {
             self.connectionButton.image = [UIImage imageNamed:@"ConnectionOff"];

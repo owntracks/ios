@@ -9,9 +9,11 @@
 #import "Connection.h"
 #import "CoreData.h"
 #import "OwnTracksAppDelegate.h"
+#import "Message+Create.h"
+#import "CoreData.h"
 
 #ifdef DEBUG
-#define DEBUGCONN FALSE
+#define DEBUGCONN TRUE
 #else
 #define DEBUGCONN FALSE
 #endif
@@ -137,6 +139,18 @@
         self.reconnectFlag = FALSE;
     }
     [self connectToInternal];
+    
+    NSArray *messages = [Message allMessagesInManagedObjectContext:[CoreData theManagedObjectContext]];
+    if (DEBUGCONN) NSLog(@"re-sending %lu messages", (unsigned long)messages.count);
+    
+    for (Message *message in messages) {
+        NSData *data = message.data;
+        NSString *topic = message.topic;
+        MQTTQosLevel qos = [message.qos intValue];
+        BOOL retained = [message.retained boolValue];
+        [[CoreData theManagedObjectContext] deleteObject:message];
+        [self sendData:data topic:topic qos:qos retain:retained];
+    }
 }
 
 - (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(NSInteger)qos retain:(BOOL)retainFlag
@@ -150,6 +164,16 @@
                                      onTopic:topic
                                       retain:retainFlag
                                          qos:qos];
+    if (DEBUGCONN) NSLog(@"sendData m%u", msgId);
+    if (msgId) {
+        [Message messageWithMid:msgId
+                      timestamp:[NSDate date]
+                           data:data
+                          topic:topic
+                            qos:qos
+                       retained:retainFlag
+         inManagedObjectContext:[CoreData theManagedObjectContext]];
+    }
     return msgId;
 }
 
@@ -186,7 +210,6 @@
                 [self.session subscribeToTopic:topicFilter atLevel:qos];
             }
         }
-        
         self.reconnectFlag = TRUE;
     }
 }
@@ -239,7 +262,12 @@
 
 - (void)messageDelivered:(MQTTSession *)session msgID:(UInt16)msgID
 {
+    if (DEBUGCONN) NSLog(@"messageDelivered m%u", msgID);
     [self.delegate messageDelivered:msgID];
+    Message *message = [Message existsMessageWithMid:msgID inManagedObjectContext:[CoreData theManagedObjectContext]];
+    if (message) {
+        [[CoreData theManagedObjectContext] deleteObject:message];
+    }
 }
 
 /*
@@ -254,14 +282,14 @@
     [self.delegate handleMessage:data onTopic:topic retained:retained];
 }
 
-- (void)buffered:(MQTTSession *)session queued:(NSUInteger)queued flowingIn:(NSUInteger)flowingIn flowingOut:(NSUInteger)flowingOut {
-    if (DEBUGCONN) NSLog(@"Connection buffered q%lu i%lu o%lu", (unsigned long)queued, (unsigned long)flowingIn, (unsigned long)flowingOut);
-    if ((queued + flowingIn + flowingOut) && self.state == state_connected) {
+- (void)buffered:(MQTTSession *)session flowingIn:(NSUInteger)flowingIn flowingOut:(NSUInteger)flowingOut {
+    if (DEBUGCONN) NSLog(@"Connection buffered i%lu o%lu", (unsigned long)flowingIn, (unsigned long)flowingOut);
+    if ((flowingIn + flowingOut) && self.state == state_connected) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
     } else {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
     }
-    [self.delegate totalBuffered:queued ? queued : flowingOut ? flowingOut : flowingIn];
+    [self.delegate totalBuffered:flowingOut ? flowingOut : flowingIn];
 }
 
 #pragma internal helpers

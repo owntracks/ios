@@ -2,7 +2,7 @@
 // MQTTSession.m
 // MQTTClient.framework
 //
-// Copyright (c) 2013, 2014, Christoph Krey
+// Copyright (c) 2013-2015, Christoph Krey
 //
 // based on
 //
@@ -44,7 +44,6 @@
 @property (nonatomic) UInt16 txMsgId;
 @property (strong, nonatomic) NSMutableDictionary *txFlows;
 @property (strong, nonatomic) NSMutableDictionary *rxFlows;
-@property (strong, nonatomic) NSMutableArray *queue;
 
 @property (nonatomic) BOOL synchronPub;
 @property (nonatomic) UInt16 synchronPubMid;
@@ -133,17 +132,10 @@
     self.runLoop = runLoop;
     self.runLoopMode = runLoopMode;
    
-    self.queue = [NSMutableArray array];
     self.txMsgId = 1;
     self.txFlows = [[NSMutableDictionary alloc] init];
     self.rxFlows = [[NSMutableDictionary alloc] init];
-    
-    if ([self.delegate respondsToSelector:@selector(buffered:queued:flowingIn:flowingOut:)]) {
-        [self.delegate buffered:self
-                         queued:[self.queue count]
-                      flowingIn:[self.rxFlows count]
-                     flowingOut:[self.txFlows count]];
-    }
+    [self tell];
     
     return self;
 }
@@ -154,10 +146,10 @@
         clientId = [NSString stringWithFormat:@"MQTTClient%.0f",fmod([[NSDate date] timeIntervalSince1970], 1.0) * 1000000.0];
     }
     
-    NSAssert(clientId.length > 0 || self.cleanSessionFlag, @"clientId must be at least 1 character long if cleanSessionFlag is off");
+    //NSAssert(clientId.length > 0 || self.cleanSessionFlag, @"clientId must be at least 1 character long if cleanSessionFlag is off");
     
-    NSAssert([clientId dataUsingEncoding:NSUTF8StringEncoding], @"clientId contains non-UTF8 characters");
-    NSAssert([clientId dataUsingEncoding:NSUTF8StringEncoding].length <= 65535L, @"clientId may not be longer than 65535 bytes in UTF8 representation");
+    //NSAssert([clientId dataUsingEncoding:NSUTF8StringEncoding], @"clientId contains non-UTF8 characters");
+    //NSAssert([clientId dataUsingEncoding:NSUTF8StringEncoding].length <= 65535L, @"clientId may not be longer than 65535 bytes in UTF8 representation");
     
     _clientId = clientId;
 }
@@ -165,8 +157,8 @@
 - (void)setUserName:(NSString *)userName
 {
     if (userName) {
-        NSAssert([userName dataUsingEncoding:NSUTF8StringEncoding], @"userName contains non-UTF8 characters");
-        NSAssert([userName dataUsingEncoding:NSUTF8StringEncoding].length <= 65535L, @"userName may not be longer than 65535 bytes in UTF8 representation");
+        //NSAssert([userName dataUsingEncoding:NSUTF8StringEncoding], @"userName contains non-UTF8 characters");
+        //NSAssert([userName dataUsingEncoding:NSUTF8StringEncoding].length <= 65535L, @"userName may not be longer than 65535 bytes in UTF8 representation");
     }
     
     _userName = userName;
@@ -175,16 +167,16 @@
 - (void)setPassword:(NSString *)password
 {
     if (password) {
-        NSAssert(self.userName, @"password specified without userName");
-        NSAssert([password dataUsingEncoding:NSUTF8StringEncoding], @"password contains non-UTF8 characters");
-        NSAssert([password dataUsingEncoding:NSUTF8StringEncoding].length <= 65535L, @"password may not be longer than 65535 bytes in UTF8 representation");
+        //NSAssert(self.userName, @"password specified without userName");
+        //NSAssert([password dataUsingEncoding:NSUTF8StringEncoding], @"password contains non-UTF8 characters");
+        //NSAssert([password dataUsingEncoding:NSUTF8StringEncoding].length <= 65535L, @"password may not be longer than 65535 bytes in UTF8 representation");
     }
     _password = password;
 }
 
 - (void)setProtocolLevel:(UInt8)protocolLevel
 {
-    NSAssert(protocolLevel == 3 || protocolLevel == 4, @"allowed protocolLevel values are 3 or 4 only");
+    //NSAssert(protocolLevel == 3 || protocolLevel == 4, @"allowed protocolLevel values are 3 or 4 only");
 
     _protocolLevel = protocolLevel;
 }
@@ -482,7 +474,7 @@
 {
     if (DEBUGSESS) NSLog(@"%@ subscribeToTopic:%@ atLevel:%d]", self, topic, qosLevel);
     
-    NSAssert(qosLevel >= 0 && qosLevel <= 2, @"qosLevel must be 0, 1, or 2");
+    //NSAssert(qosLevel >= 0 && qosLevel <= 2, @"qosLevel must be 0, 1, or 2");
 
     UInt16 mid = [self nextMsgId];
     [self send:[MQTTMessage subscribeMessageWithMessageId:mid
@@ -518,11 +510,9 @@
 {
    if (DEBUGSESS) NSLog(@"%@ subscribeToTopics:%@]", self, topics);
 
-#ifndef NS_BLOCK_ASSERTIONS
-    for (NSNumber *qos in [topics allValues]) {
-        NSAssert([qos intValue] >= 0 && [qos intValue] <= 2, @"qosLevel must be 0, 1, or 2");
-    }
-#endif
+    //for (NSNumber *qos in [topics allValues]) {
+        //NSAssert([qos intValue] >= 0 && [qos intValue] <= 2, @"qosLevel must be 0, 1, or 2");
+    //}
 
     UInt16 mid = [self nextMsgId];
     [self send:[MQTTMessage subscribeMessageWithMessageId:mid
@@ -624,7 +614,7 @@
         data = [[NSData alloc] init];
     }
     
-    NSAssert(qos >= 0 && qos <= 2, @"qos must be 0, 1, or 2");
+    //NSAssert(qos >= 0 && qos <= 2, @"qos must be 0, 1, or 2");
     
     UInt16 msgId = [self nextMsgId];
     MQTTMessage *msg = [MQTTMessage publishMessageWithData:data
@@ -638,12 +628,7 @@
         flow.msg = msg;
         flow.deadline = [NSDate dateWithTimeIntervalSinceNow:DUPTIMEOUT];
         self.txFlows[[NSNumber numberWithUnsignedInt:(uint)msgId]] = flow;
-        if ([self.delegate respondsToSelector:@selector(buffered:queued:flowingIn:flowingOut:)]) {
-            [self.delegate buffered:self
-                             queued:[self.queue count]
-                          flowingIn:[self.rxFlows count]
-                         flowingOut:[self.txFlows count]];
-        }
+        [self tell];
     }
     [self send:msg];
     
@@ -768,12 +753,7 @@
         [self.delegate connectionClosed:self];
     }
 
-    if ([self.delegate respondsToSelector:@selector(buffered:queued:flowingIn:flowingOut:)]) {
-        [self.delegate buffered:self
-                         queued:[self.queue count]
-                      flowingIn:[self.rxFlows count]
-                     flowingOut:[self.txFlows count]];
-    }
+    [self tell];
     self.synchronPub = FALSE;
     self.synchronPubMid = 0;
     self.synchronSub = FALSE;
@@ -851,17 +831,7 @@
                 case MQTTSessionStatusConnecting:
                     break;
                 case MQTTSessionStatusConnected:
-                    if ([self.queue count] > 0) {
-                        MQTTMessage *msg = (self.queue)[0];
-                        [self.queue removeObjectAtIndex:0];
-                        if ([self.delegate respondsToSelector:@selector(buffered:queued:flowingIn:flowingOut:)]) {
-                            [self.delegate buffered:self
-                                             queued:[self.queue count]
-                                          flowingIn:[self.rxFlows count]
-                                         flowingOut:[self.txFlows count]];
-                        }
-                        [self.encoder encodeMessage:msg];
-                    }
+                    [self tell];
                     [self checkTxFlows];
                     break;
                 case MQTTSessionStatusDisconnecting:
@@ -914,7 +884,24 @@
 - (void)decoder:(MQTTDecoder*)sender newMessage:(MQTTMessage*)msg
 {
     if ([self.delegate respondsToSelector:@selector(received:type:qos:retained:duped:mid:data:)]) {
-        [self.delegate received:self type:msg.type qos:msg.qos retained:msg.retainFlag duped:msg.dupFlag mid:0 data:msg.data];
+        [self.delegate received:self
+                           type:msg.type
+                            qos:msg.qos
+                       retained:msg.retainFlag
+                          duped:msg.dupFlag
+                            mid:0
+                           data:msg.data];
+    }
+    if ([self.delegate respondsToSelector:@selector(ignoreReceived:type:qos:retained:duped:mid:data:)]) {
+        if ([self.delegate ignoreReceived:self
+                                     type:msg.type
+                                      qos:msg.qos
+                                 retained:msg.retainFlag
+                                    duped:msg.dupFlag
+                                      mid:0
+                                     data:msg.data]) {
+            return;
+        }
     }
     switch (self.status) {
         case MQTTSessionStatusConnecting:
@@ -959,22 +946,7 @@
                             }
 
                             self.synchronConnect = FALSE;
-                            
-                            if ([self.queue count] > 0) {
-                                if (self.encoder.status == MQTTEncoderStatusReady) {
-                                    MQTTMessage *msg = (self.queue)[0];
-                                    [self.queue removeObjectAtIndex:0];
-                                    if ([self.delegate respondsToSelector:@selector(buffered:queued:flowingIn:flowingOut:)]) {
-                                        [self.delegate buffered:self
-                                                         queued:[self.queue count]
-                                                      flowingIn:[self.rxFlows count]
-                                                     flowingOut:[self.txFlows count]];
-                                    }
-                                    [self.encoder encodeMessage:msg];
-                                }
-                            }
-                        }
-                        else {
+                        } else {
                             NSString *errorDescription;
                             switch (bytes[1]) {
                                 case 1:
@@ -1093,12 +1065,7 @@
                                           @"retained": @(msg.retainFlag),
                                           @"mid": @(msgId)};
                     (self.rxFlows)[[NSNumber numberWithUnsignedInt:msgId]] = dict;
-                    if ([self.delegate respondsToSelector:@selector(buffered:queued:flowingIn:flowingOut:)]) {
-                        [self.delegate buffered:self
-                                         queued:[self.queue count]
-                                      flowingIn:[self.rxFlows count]
-                                     flowingOut:[self.txFlows count]];
-                    }
+                    [self tell];
                     [self send:[MQTTMessage pubrecMessageWithMessageId:msgId]];
                 }
             }
@@ -1118,12 +1085,7 @@
                 if ([[flow msg] type] == MQTTPublish && [[flow msg] qos] == 1) {
                     
                     [self.txFlows removeObjectForKey:msgId];
-                    if ([self.delegate respondsToSelector:@selector(buffered:queued:flowingIn:flowingOut:)]) {
-                        [self.delegate buffered:self
-                                         queued:[self.queue count]
-                                      flowingIn:[self.rxFlows count]
-                                     flowingOut:[self.txFlows count]];
-                    }
+                    [self tell];
                     if ([self.delegate respondsToSelector:@selector(messageDelivered:msgID:)]) {
                         [self.delegate messageDelivered:self msgID:[msgId unsignedIntValue]];
                     }
@@ -1214,12 +1176,7 @@
                 }
 
                 [self.rxFlows removeObjectForKey:msgId];
-                if ([self.delegate respondsToSelector:@selector(buffered:queued:flowingIn:flowingOut:)]) {
-                    [self.delegate buffered:self
-                                     queued:[self.queue count]
-                                  flowingIn:[self.rxFlows count]
-                                 flowingOut:[self.txFlows count]];
-                }
+                [self tell];
             }
             [self send:[MQTTMessage pubcompMessageWithMessageId:[msgId unsignedIntegerValue]]];
         }
@@ -1235,12 +1192,7 @@
             MQttTxFlow *flow = (self.txFlows)[msgId];
             if (flow != nil && [[flow msg] type] == MQTTPubrel) {
                 [self.txFlows removeObjectForKey:msgId];
-                if ([self.delegate respondsToSelector:@selector(buffered:queued:flowingIn:flowingOut:)]) {
-                    [self.delegate buffered:self
-                                     queued:[self.queue count]
-                                  flowingIn:[self.rxFlows count]
-                                 flowingOut:[self.txFlows count]];
-                }
+                [self tell];
                 if ([self.delegate respondsToSelector:@selector(messageDelivered:msgID:)]) {
                     [self.delegate messageDelivered:self msgID:[msgId unsignedIntValue]];
                 }
@@ -1292,15 +1244,6 @@
     if ([self.encoder status] == MQTTEncoderStatusReady) {
         [self.encoder encodeMessage:msg];
     }
-    else {
-        [self.queue addObject:msg];
-        if ([self.delegate respondsToSelector:@selector(buffered:queued:flowingIn:flowingOut:)]) {
-            [self.delegate buffered:self
-                             queued:[self.queue count]
-                          flowingIn:[self.rxFlows count]
-                         flowingOut:[self.txFlows count]];
-        }
-    }
 }
 
 - (UInt16)nextMsgId {
@@ -1309,6 +1252,20 @@
         self.txMsgId++;
     }
     return self.txMsgId;
+}
+
+- (void)tell {
+    if ([self.delegate respondsToSelector:@selector(buffered:flowingIn:flowingOut:)]) {
+        [self.delegate buffered:self
+                      flowingIn:[self.rxFlows count]
+                     flowingOut:[self.txFlows count]];
+    }
+    if ([self.delegate respondsToSelector:@selector(buffered:queued:flowingIn:flowingOut:)]) {
+        [self.delegate buffered:self
+                         queued:0
+                      flowingIn:[self.rxFlows count]
+                     flowingOut:[self.txFlows count]];
+    }
 }
 
 @end
