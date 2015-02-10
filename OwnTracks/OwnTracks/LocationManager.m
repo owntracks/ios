@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 21.10.14.
-//  Copyright (c) 2014 OwnTracks. All rights reserved.
+//  Copyright (c) 2014-2015 OwnTracks. All rights reserved.
 //
 
 #import "LocationManager.h"
@@ -19,6 +19,30 @@
 @property (strong, nonatomic) CLLocationManager *manager;
 @property (strong, nonatomic) NSDate *lastUsedLocationTime;
 @property (strong, nonatomic) NSTimer *activityTimer;
+@property (strong, nonatomic) NSMutableSet *pendingRegionEvents;
+- (void)holdDownExpired:(NSTimer *)timer;
+@end
+
+@interface PendingRegionEvent : NSObject
+@property (strong, nonatomic) CLRegion *region;
+@property (strong, nonatomic) NSTimer *holdDownTimer;
+
+@end
+
+@implementation PendingRegionEvent
+
++ (PendingRegionEvent *)holdDown:(CLRegion *)region for:(NSTimeInterval)interval to:(id)to{
+    PendingRegionEvent *p = [[PendingRegionEvent alloc] init];
+    p.region = region;
+    p.holdDownTimer = [NSTimer timerWithTimeInterval:interval
+                                              target:to
+                                            selector:@selector(holdDownExpired:)
+                                            userInfo:p
+                                             repeats:NO];
+    [[NSRunLoop currentRunLoop] addTimer:p.holdDownTimer forMode:NSRunLoopCommonModes];
+    return p;
+}
+
 @end
 
 @implementation LocationManager
@@ -36,24 +60,24 @@ static LocationManager *theInstance = nil;
     self.manager = [[CLLocationManager alloc] init];
     self.manager.delegate = self;
     self.lastUsedLocationTime = [NSDate date];
-    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
-        [self.manager requestAlwaysAuthorization];
-    }
-    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
-    if (DEBUGLM) NSLog(@"authorizationStatus=%d", status);
+    self.pendingRegionEvents = [[NSMutableSet alloc] init];
+    [self authorize];
     return self;
 }
 
 - (void)start {
-    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
-    if (DEBUGLM) NSLog(@"authorizationStatus=%d", status);
+    [self authorize];
 }
 
 - (void)wakeup {
+    [self authorize];
+}
+
+- (void)authorize {
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     if (DEBUGLM) NSLog(@"authorizationStatus=%d", status);
     if (status == kCLAuthorizationStatusNotDetermined) {
-        if (DEBUGLM) NSLog(@"sysemversion=%@", [[UIDevice currentDevice] systemVersion]);
+        if (DEBUGLM) NSLog(@"systemVersion=%@", [[UIDevice currentDevice] systemVersion]);
         if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
             [self.manager requestAlwaysAuthorization];
         }
@@ -66,7 +90,7 @@ static LocationManager *theInstance = nil;
             [self.manager stopRangingBeaconsInRegion:beaconRegion];
         }
     }
-
+    [self.activityTimer invalidate];
 }
 
 - (void)stop {
@@ -77,6 +101,7 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)stopRegion:(CLRegion *)region {
+    [self removeHoldDown:region];
     [self.manager stopMonitoringForRegion:region];
 }
 
@@ -91,8 +116,7 @@ static LocationManager *theInstance = nil;
     return self.manager.location;
 }
 
-- (void)setMonitoring:(int)monitoring
-{
+- (void)setMonitoring:(int)monitoring {
     if (DEBUGLM) NSLog(@"monitoring=%ld", (long)monitoring);
     _monitoring = monitoring;
     
@@ -144,7 +168,6 @@ static LocationManager *theInstance = nil;
     if (DEBUGLM) NSLog(@"activityTimer");
     [self.delegate timerLocation:self.manager.location];
 }
-
 
 
 /*
@@ -215,7 +238,7 @@ static LocationManager *theInstance = nil;
     if (DEBUGLM) NSLog(@"didUpdateLocations");
     
     for (CLLocation *location in locations) {
-        if (DEBUGLM) NSLog(@"%@", [location description]);
+        if (DEBUGLM) NSLog(@"Location: %@", [location description]);
         if ([location.timestamp compare:self.lastUsedLocationTime] != NSOrderedAscending ) {
             [self.delegate newLocation:location];
         }
@@ -255,13 +278,45 @@ static LocationManager *theInstance = nil;
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
     if (DEBUGLM) NSLog(@"didEnterRegion %@", region);
-    [self.delegate regionEvent:region enter:YES];
+    if (![self removeHoldDown:region]) {
+        [self.delegate regionEvent:region enter:YES];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
     if (DEBUGLM) NSLog(@"didExitRegion %@", region);
-    [self.delegate regionEvent:region enter:NO];
+    if ([region.identifier hasPrefix:@"-"]) {
+                [self removeHoldDown:region];
+        [self.pendingRegionEvents addObject:[PendingRegionEvent holdDown:region for:3.0 to:self]];
+    } else {
+        [self.delegate regionEvent:region enter:NO];
+    }
+}
+
+- (BOOL)removeHoldDown:(CLRegion *)region {
+    if (DEBUGLM) NSLog(@"removeHoldDown %@ [%lu]", region.identifier, (unsigned long)self.pendingRegionEvents.count);
+
+    for (PendingRegionEvent *p in self.pendingRegionEvents) {
+        if (p.region == region) {
+            if (DEBUGLM) NSLog(@"holdDownInvalidated %@", region.identifier);
+            [p.holdDownTimer invalidate];
+            p.region = nil;
+            [self.pendingRegionEvents removeObject:p];
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
+- (void)holdDownExpired:(NSTimer *)timer {
+    if (DEBUGLM) NSLog(@"holdDownExpired %@", timer.userInfo);
+    if ([timer.userInfo isKindOfClass:[PendingRegionEvent class]]) {
+        PendingRegionEvent *p = (PendingRegionEvent *)timer.userInfo;
+        if (DEBUGLM) NSLog(@"holdDownExpired %@", p.region.identifier);
+        [self.delegate regionEvent:p.region enter:NO];
+        [self removeHoldDown:p.region];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
@@ -342,3 +397,4 @@ static LocationManager *theInstance = nil;
 }
 
 @end
+

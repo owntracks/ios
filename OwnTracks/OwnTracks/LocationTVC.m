@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 29.09.13.
-//  Copyright (c) 2013, 2014 Christoph Krey. All rights reserved.
+//  Copyright (c) 2013-2015 Christoph Krey. All rights reserved.
 //
 
 #import "LocationTVC.h"
@@ -196,7 +196,7 @@
            atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
 {
 #ifdef DEBUG
-    NSLog(@"didChangeSection type=%lu", (unsigned long)type);
+    NSLog(@"didChangeSection atIndex:%lu forChangeType:%lu ", (unsigned long)sectionIndex, (unsigned long)type);
 #endif
     switch(type) {
         case NSFetchedResultsChangeInsert:
@@ -217,32 +217,36 @@
 {
     UITableView *tableView = self.tableView;
 #ifdef DEBUG
-    NSLog(@"didChangeObject type=%lu %@ %@ %@", (unsigned long)type, anObject, indexPath, newIndexPath);
+    NSLog(@"didChangeObject:%@ atIndexPath:%ld/%ld forChangeType:%lu newIndexPath:%ld/%ld",
+          anObject,
+          (long)indexPath.section, (long)indexPath.row,
+          (unsigned long)type,
+          (long)newIndexPath.section, (long)newIndexPath.row);
 #endif
-
+    
     switch(type) {
         case NSFetchedResultsChangeInsert:
             if (newIndexPath) {
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             }
             break;
             
         case NSFetchedResultsChangeDelete:
             if (indexPath) {
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             }
             break;
             
         case NSFetchedResultsChangeUpdate:
             if (indexPath) {
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+                [self configureCell:[tableView cellForRowAtIndexPath:newIndexPath] atIndexPath:newIndexPath];
             }
             break;
             
         case NSFetchedResultsChangeMove:
             if (indexPath && newIndexPath) {
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             }
             break;
     }
@@ -256,7 +260,7 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
 #ifdef DEBUG
-    NSLog(@"configureCell %@", indexPath);
+    NSLog(@"LocationTVC configureCell %ld/%ld", (long)indexPath.section, (long)indexPath.row);
 #endif
     Location *location = [self.fetchedResultsController objectAtIndexPath:indexPath];
     

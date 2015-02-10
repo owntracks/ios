@@ -3,10 +3,11 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 03.02.14.
-//  Copyright (c) 2014 OwnTracks. All rights reserved.
+//  Copyright (c) 2014-2015 OwnTracks. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
 #import <CoreMotion/CoreMotion.h>
 
 #import "LocationManager.h"

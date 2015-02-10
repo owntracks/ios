@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 17.08.13.
-//  Copyright (c) 2013, 2014 Christoph Krey. All rights reserved.
+//  Copyright (c) 2013-2015 Christoph Krey. All rights reserved.
 //
 
 #import "ViewController.h"
@@ -17,12 +17,19 @@
 #import "Location+Create.h"
 #import "LocationManager.h"
 
+#ifdef DEBUG
+#define DEBUGVIEW FALSE
+#else
+#define DEBUGVIEW FALSE
+#endif
+
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *locationButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *beaconButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *connectionButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *bufferedItem;
 
 @property (nonatomic) BOOL beaconOn;
 
@@ -59,6 +66,7 @@
     
     self.mapView.mapType = MKMapTypeStandard;
     self.mapView.showsUserLocation = TRUE;
+    
 }
 
 - (BOOL)splitViewController:(UISplitViewController *)svc
@@ -136,14 +144,14 @@
     [self monitoringButtonImage];
     [self beaconButtonImage];
     [self connectionButtonImage];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     [[LocationManager sharedInstance] resetRegions];
-
+    
+    
     if ([CoreData theManagedObjectContext]) {
         if (!self.frc) {
             NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Location"];
@@ -250,7 +258,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
+
     if ([actionSheet.title isEqualToString:ACTION_MONITORING]) {
         switch (buttonIndex - actionSheet.firstOtherButtonIndex) {
             case 0:
@@ -262,10 +270,9 @@
             case 2:
                 [LocationManager sharedInstance].monitoring = 2;
                 break;
-            case 3:{
+            case 3:
                 [delegate sendNow];
                 break;
-            }
         }
         [delegate.settings setInt:[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"];
         [self monitoringButtonImage];
@@ -399,8 +406,10 @@
             break;
     }
     
-    if ([delegate.connectionBuffered intValue]) {
-        if ([delegate.connectionBuffered intValue] % 2) {
+    int buffered = [delegate.connectionBuffered intValue];
+    self.bufferedItem.title = buffered ? [NSString stringWithFormat:@"%d", buffered] : @"";
+    if (buffered) {
+        if (buffered % 2) {
             self.connectionButton.image = [UIImage imageNamed:@"ConnectionMid"];
         } else {
             self.connectionButton.image = [UIImage imageNamed:@"ConnectionOff"];
@@ -457,8 +466,7 @@
     }
 }
 
-- (void)beaconInRange:beacon
-{
+- (void)beaconInRange:(CLBeacon *)beacon {
     self.beaconOn = !self.beaconOn;
     if (self.beaconOn) {
         self.beaconButton.image = [UIImage imageNamed:@"iBeaconOn"];
@@ -563,16 +571,12 @@
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
-#ifdef DEBUG
-    NSLog(@"didSelectAnnotationView");
-#endif
+    if (DEBUGVIEW) NSLog(@"didSelectAnnotationView");
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
-#ifdef DEBUG
-    NSLog(@"calloutAccessoryControlTapped");
-#endif
+    if (DEBUGVIEW) NSLog(@"calloutAccessoryControlTapped");
     [self performSegueWithIdentifier:@"showDetail:" sender:view];
 }
 
@@ -582,21 +586,22 @@
 {
     if (self.frc) {
         if (self.frc.fetchRequest.predicate) {
-#ifdef DEBUG
-            NSLog(@"[%@ %@] fetching %@ with predicate: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.frc.fetchRequest.entityName, self.frc.fetchRequest.predicate);
-#endif
+           if (DEBUGVIEW)  NSLog(@"[%@ %@] fetching %@ with predicate: %@",
+                                 NSStringFromClass([self class]),
+                                 NSStringFromSelector(_cmd),
+                                 self.frc.fetchRequest.entityName,
+                                 self.frc.fetchRequest.predicate);
         } else {
-#ifdef DEBUG
-            NSLog(@"[%@ %@] fetching all %@ (i.e., no predicate)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.frc.fetchRequest.entityName);
-#endif
+            if (DEBUGVIEW) NSLog(@"[%@ %@] fetching all %@ (i.e., no predicate)",
+                                 NSStringFromClass([self class]),
+                                 NSStringFromSelector(_cmd),
+                                 self.frc.fetchRequest.entityName);
         }
         NSError *error;
         [self.frc performFetch:&error];
         if (error) NSLog(@"[%@ %@] %@ (%@)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [error localizedDescription], [error localizedFailureReason]);
     } else {
-#ifdef DEBUG
-        NSLog(@"[%@ %@] no NSFetchedResultsController (yet?)", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-#endif
+        if (DEBUGVIEW) NSLog(@"[%@ %@] no NSFetchedResultsController (yet?)", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     }
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
 
@@ -623,14 +628,10 @@
             self.title = newfrc.fetchRequest.entity.name;
         }
         if (newfrc) {
-#ifdef DEBUG
-            NSLog(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), oldfrc ? @"updated" : @"set");
-#endif
+            if (DEBUGVIEW) NSLog(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), oldfrc ? @"updated" : @"set");
             [self performFetch];
         } else {
-#ifdef DEBUG
-            NSLog(@"[%@ %@] reset to nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-#endif
+            if (DEBUGVIEW) NSLog(@"[%@ %@] reset to nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         }
     }
 }
@@ -652,8 +653,11 @@
             case NSFetchedResultsChangeInsert:
             case NSFetchedResultsChangeDelete:
             case NSFetchedResultsChangeUpdate:
+<<<<<<< HEAD
             default:
                 break;
+=======
+>>>>>>> 7.3.4-bug-fix
             default:
                 break;
         }

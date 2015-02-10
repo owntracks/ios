@@ -3,12 +3,20 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 25.08.13.
-//  Copyright (c) 2013, 2014 Christoph Krey. All rights reserved.
+//  Copyright (c) 2013-2015 Christoph Krey. All rights reserved.
 //
 
 #import "Connection.h"
 #import "CoreData.h"
 #import "OwnTracksAppDelegate.h"
+#import "Message+Create.h"
+#import "CoreData.h"
+
+#ifdef DEBUG
+#define DEBUGCONN TRUE
+#else
+#define DEBUGCONN FALSE
+#endif
 
 @interface Connection()
 
@@ -41,17 +49,11 @@
 #define RECONNECT_TIMER 1.0
 #define RECONNECT_TIMER_MAX 64.0
 
-#ifdef DEBUG
-#define DEBUGCONN FALSE
-#else
-#define DEBUGCONN FALSE
-#endif
-
 @implementation Connection
 
 - (id)init
 {
-    if (DEBUGCONN) NSLog(@"Connection init");
+   if (DEBUGCONN) NSLog(@"Connection init");
     self = [super init];
     self.state = state_starting;
     return self;
@@ -89,6 +91,7 @@
                          willRetainFlag,
                          clientId
                          );
+    
     if (!self.session ||
         ![host isEqualToString:self.host] ||
         port != self.port ||
@@ -136,11 +139,24 @@
         self.reconnectFlag = FALSE;
     }
     [self connectToInternal];
+    
+    NSArray *messages = [Message allMessagesInManagedObjectContext:[CoreData theManagedObjectContext]];
+    if (DEBUGCONN) NSLog(@"re-sending %lu messages", (unsigned long)messages.count);
+    
+    for (Message *message in messages) {
+        NSData *data = message.data;
+        NSString *topic = message.topic;
+        MQTTQosLevel qos = [message.qos intValue];
+        BOOL retained = [message.retained boolValue];
+        [[CoreData theManagedObjectContext] deleteObject:message];
+        [self sendData:data topic:topic qos:qos retain:retained];
+    }
 }
 
 - (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(NSInteger)qos retain:(BOOL)retainFlag
 {
     if (DEBUGCONN) NSLog(@"Connection sendData:%@ %@ q%ld r%d", topic, [Connection dataToString:data], (long)qos, retainFlag);
+    
     if (self.state != state_connected) {
         [self connectToLast];
     }
@@ -148,12 +164,22 @@
                                      onTopic:topic
                                       retain:retainFlag
                                          qos:qos];
+    if (DEBUGCONN) NSLog(@"sendData m%u", msgId);
+    if (msgId) {
+        [Message messageWithMid:msgId
+                      timestamp:[NSDate date]
+                           data:data
+                          topic:topic
+                            qos:qos
+                       retained:retainFlag
+         inManagedObjectContext:[CoreData theManagedObjectContext]];
+    }
     return msgId;
 }
 
 - (void)disconnect
 {
-   if (DEBUGCONN)  NSLog(@"Connection disconnect:");
+    if (DEBUGCONN) NSLog(@"Connection disconnect:");
     self.state = state_closing;
     [self.session close];
 
@@ -184,7 +210,6 @@
                 [self.session subscribeToTopic:topicFilter atLevel:qos];
             }
         }
-        
         self.reconnectFlag = TRUE;
     }
 }
@@ -217,7 +242,7 @@
         case MQTTSessionEventConnectionRefused:
         case MQTTSessionEventConnectionError:
         {
-           if (DEBUGCONN)  NSLog(@"Connection setTimer %f", self.reconnectTime);
+            if (DEBUGCONN) NSLog(@"Connection setTimer %f", self.reconnectTime);
             self.reconnectTimer = [NSTimer timerWithTimeInterval:self.reconnectTime
                                                           target:self
                                                         selector:@selector(reconnect)
@@ -237,7 +262,12 @@
 
 - (void)messageDelivered:(MQTTSession *)session msgID:(UInt16)msgID
 {
+    if (DEBUGCONN) NSLog(@"messageDelivered m%u", msgID);
     [self.delegate messageDelivered:msgID];
+    Message *message = [Message existsMessageWithMid:msgID inManagedObjectContext:[CoreData theManagedObjectContext]];
+    if (message) {
+        [[CoreData theManagedObjectContext] deleteObject:message];
+    }
 }
 
 /*
@@ -247,40 +277,35 @@
  *
  */
 
-- (void)newMessage:(MQTTSession *)session data:(NSData *)data onTopic:(NSString *)topic qos:(MQTTQosLevel)qos retained:(BOOL)retained mid:(unsigned int)mid
-{
+- (void)newMessage:(MQTTSession *)session data:(NSData *)data onTopic:(NSString *)topic qos:(MQTTQosLevel)qos retained:(BOOL)retained mid:(unsigned int)mid {
     if (DEBUGCONN) NSLog(@"Connection received %@ %@", topic, [Connection dataToString:data]);
     [self.delegate handleMessage:data onTopic:topic retained:retained];
 }
 
-- (void)buffered:(MQTTSession *)session queued:(NSUInteger)queued flowingIn:(NSUInteger)flowingIn flowingOut:(NSUInteger)flowingOut
-{
-    if (DEBUGCONN) NSLog(@"Connection buffered q%lu i%lu o%lu",
-                         (unsigned long)queued, (unsigned long)flowingIn, (unsigned long)flowingOut);
-    if ((queued + flowingIn + flowingOut) && self.state == state_connected) {
+- (void)buffered:(MQTTSession *)session flowingIn:(NSUInteger)flowingIn flowingOut:(NSUInteger)flowingOut {
+    if (DEBUGCONN) NSLog(@"Connection buffered i%lu o%lu", (unsigned long)flowingIn, (unsigned long)flowingOut);
+    if ((flowingIn + flowingOut) && self.state == state_connected) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
     } else {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
     }
-    [self.delegate totalBuffered:queued ? queued : flowingOut ? flowingOut : flowingIn];
+    [self.delegate totalBuffered:flowingOut ? flowingOut : flowingIn];
 }
 
 #pragma internal helpers
 
-- (void)connectToInternal
-{
+- (void)connectToInternal {
     if (self.state == state_starting) {
         self.state = state_connecting;
         [self.session connectToHost:self.host
                                port:self.port
                            usingSSL:self.tls];
     } else {
-        if (DEBUGCONN) NSLog(@"Connection not starting, can't connect");
+       if (DEBUGCONN)  NSLog(@"Connection not starting, can't connect");
     }
 }
 
-- (NSString *)parameters
-{
+- (NSString *)parameters {
     return [NSString stringWithFormat:@"%@://%@%@:%ld c%d k%ld as %@",
             self.tls ? @"mqtts" : @"mqtt",
             self.auth ? [NSString stringWithFormat:@"%@@", self.user] : @"",
@@ -292,8 +317,7 @@
             ];
 }
 
-+ (NSString *)dataToString:(NSData *)data
-{
++ (NSString *)dataToString:(NSData *)data {
     /* the following lines are necessary to convert data which is possibly not null-terminated into a string */
     NSString *message = [[NSString alloc] init];
     for (int i = 0; i < data.length; i++) {
@@ -304,8 +328,7 @@
     return message;
 }
 
-- (void)setState:(NSInteger)state
-{
+- (void)setState:(NSInteger)state {
     _state = state;
     if (DEBUGCONN) {
         const NSDictionary *states = @{
@@ -322,9 +345,9 @@
     [self.delegate showState:self.state];
 }
 
-- (void)reconnect
-{
+- (void)reconnect {
     if (DEBUGCONN) NSLog(@"Connection reconnect");
+    
     self.reconnectTimer = nil;
     self.state = state_starting;
 
@@ -334,9 +357,9 @@
     [self connectToInternal];
 }
 
-- (void)connectToLast
-{
+- (void)connectToLast {
     if (DEBUGCONN) NSLog(@"Connection connectToLast");
+    
     self.reconnectTime = RECONNECT_TIMER;
     
     [self connectToInternal];

@@ -41,8 +41,6 @@
 		8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B907189FEC070019D2D6 /* PersonTVC.m */; };
 		8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B909189FEC070019D2D6 /* StatusTVC.m */; };
 		8411B912189FEC070019D2D6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B90B189FEC070019D2D6 /* ViewController.m */; };
-		8432AA7518BD127300E817D3 /* MQTTClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B863189FDE0D0019D2D6 /* MQTTClient.framework */; };
-		8446CDD819F6968E006ED31D /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8446CDD719F6968E006ED31D /* LocationManager.m */; };
 		845F003D192A5CDE00919FB8 /* QosTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845F003C192A5CDE00919FB8 /* QosTVC.m */; };
 		8474B15619A8CBA800427427 /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 8474B15519A8CBA800427427 /* Friend.m */; };
 		8479EEB218E4288800923B24 /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB118E4288800923B24 /* Setting.m */; };
@@ -52,6 +50,10 @@
 		848794B419A6240100DF56EB /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 848794B319A6240100DF56EB /* Location.m */; };
 		8499BA95192CF86200FA95C7 /* Storyboard-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8499BA94192CF86200FA95C7 /* Storyboard-iPad.storyboard */; };
 		8499BA98192D085700FA95C7 /* DetailNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8499BA97192D085700FA95C7 /* DetailNC.m */; };
+		84B7397A1A65629200B103F4 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B739791A65629200B103F4 /* LocationManager.m */; };
+		84C756A91A89F92D003BC8A8 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C756A81A89F92D003BC8A8 /* Message.m */; };
+		84C756AD1A89FB4F003BC8A8 /* Message+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C756AC1A89FB4F003BC8A8 /* Message+Create.m */; };
+		C0F7B8BC24608F7AD9213FBD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A35A5DAD31E7CD8F9CC2BEFB /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		360F842C00CA8867E789B841 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		840BBDD318E4274200DC113C /* Model 6.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 6.2.xcdatamodel"; sourceTree = "<group>"; };
 		8411B828189FDB140019D2D6 /* OwnTracks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OwnTracks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8411B82B189FDB140019D2D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -119,8 +122,6 @@
 		8411B909189FEC070019D2D6 /* StatusTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusTVC.m; sourceTree = "<group>"; };
 		8411B90A189FEC070019D2D6 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		8411B90B189FEC070019D2D6 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		8446CDD619F6968E006ED31D /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
-		8446CDD719F6968E006ED31D /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		845F003B192A5CDE00919FB8 /* QosTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QosTVC.h; path = ../QosTVC.h; sourceTree = "<group>"; };
 		845F003C192A5CDE00919FB8 /* QosTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QosTVC.m; path = ../QosTVC.m; sourceTree = "<group>"; };
 		8474B15319A8CB7D00427427 /* Model 7.3.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.1.xcdatamodel"; sourceTree = "<group>"; };
@@ -138,7 +139,16 @@
 		8499BA96192D085600FA95C7 /* DetailNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailNC.h; sourceTree = "<group>"; };
 		8499BA97192D085700FA95C7 /* DetailNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailNC.m; sourceTree = "<group>"; };
 		849D457B18CDACDF00201BF3 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
+		84B739781A65629200B103F4 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
+		84B739791A65629200B103F4 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		84C38C14193F88C200F56D04 /* Model 7.2.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.2.2.xcdatamodel"; sourceTree = "<group>"; };
+		84C756A61A89F706003BC8A8 /* Model 7.4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.4.xcdatamodel"; sourceTree = "<group>"; };
+		84C756A71A89F92D003BC8A8 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		84C756A81A89F92D003BC8A8 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		84C756AB1A89FB4F003BC8A8 /* Message+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Message+Create.h"; sourceTree = "<group>"; };
+		84C756AC1A89FB4F003BC8A8 /* Message+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Message+Create.m"; sourceTree = "<group>"; };
+		A35A5DAD31E7CD8F9CC2BEFB /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0F95E30D637DDE6FB77559C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,12 +157,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */,
-				8432AA7518BD127300E817D3 /* MQTTClient.framework in Frameworks */,
 				8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */,
 				8411B832189FDB140019D2D6 /* CoreData.framework in Frameworks */,
 				8411B861189FDD200019D2D6 /* MapKit.framework in Frameworks */,
 				8411B830189FDB140019D2D6 /* UIKit.framework in Frameworks */,
 				8411B82C189FDB140019D2D6 /* Foundation.framework in Frameworks */,
+				C0F7B8BC24608F7AD9213FBD /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,6 +180,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		189E1018F339C35357B32B12 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F0F95E30D637DDE6FB77559C /* Pods.debug.xcconfig */,
+				360F842C00CA8867E789B841 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		8411B81F189FDB140019D2D6 = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +196,7 @@
 				8411B850189FDB140019D2D6 /* OwnTracksTests */,
 				8411B82A189FDB140019D2D6 /* Frameworks */,
 				8411B829189FDB140019D2D6 /* Products */,
+				189E1018F339C35357B32B12 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -200,6 +220,7 @@
 				8411B82F189FDB140019D2D6 /* UIKit.framework */,
 				8411B831189FDB140019D2D6 /* CoreData.framework */,
 				8411B849189FDB140019D2D6 /* XCTest.framework */,
+				A35A5DAD31E7CD8F9CC2BEFB /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -211,8 +232,8 @@
 				8411B867189FE1ED0019D2D6 /* coredata */,
 				8411B83C189FDB140019D2D6 /* OwnTracksAppDelegate.h */,
 				8411B83D189FDB140019D2D6 /* OwnTracksAppDelegate.m */,
-				8446CDD619F6968E006ED31D /* LocationManager.h */,
-				8446CDD719F6968E006ED31D /* LocationManager.m */,
+				84B739781A65629200B103F4 /* LocationManager.h */,
+				84B739791A65629200B103F4 /* LocationManager.m */,
 				8411B886189FE79B0019D2D6 /* AlertView.h */,
 				8411B887189FE79B0019D2D6 /* AlertView.m */,
 				8411B888189FE79B0019D2D6 /* CoreData.h */,
@@ -286,7 +307,11 @@
 				8411B869189FE1ED0019D2D6 /* Friend+Create.m */,
 				8411B86C189FE1ED0019D2D6 /* Location+Create.h */,
 				8411B86D189FE1ED0019D2D6 /* Location+Create.m */,
+				84C756AB1A89FB4F003BC8A8 /* Message+Create.h */,
+				84C756AC1A89FB4F003BC8A8 /* Message+Create.m */,
 				8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */,
+				84C756A71A89F92D003BC8A8 /* Message.h */,
+				84C756A81A89F92D003BC8A8 /* Message.m */,
 				8474B15419A8CBA800427427 /* Friend.h */,
 				8474B15519A8CBA800427427 /* Friend.m */,
 				848794B219A6240100DF56EB /* Location.h */,
@@ -317,9 +342,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8411B85A189FDB140019D2D6 /* Build configuration list for PBXNativeTarget "OwnTracks" */;
 			buildPhases = (
+				CA1576B396DD314B90121039 /* Check Pods Manifest.lock */,
 				8411B824189FDB140019D2D6 /* Sources */,
 				8411B825189FDB140019D2D6 /* Frameworks */,
 				8411B826189FDB140019D2D6 /* Resources */,
+				91A94BEF7F5441F8C95B188E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -422,12 +449,47 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		91A94BEF7F5441F8C95B188E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CA1576B396DD314B90121039 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8411B824189FDB140019D2D6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				8411B83A189FDB140019D2D6 /* main.m in Sources */,
+				84C756A91A89F92D003BC8A8 /* Message.m in Sources */,
+				84C756AD1A89FB4F003BC8A8 /* Message+Create.m in Sources */,
 				8411B90C189FEC070019D2D6 /* EditLocationTVC.m in Sources */,
 				8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */,
 				8411B912189FEC070019D2D6 /* ViewController.m in Sources */,
@@ -446,7 +508,7 @@
 				8411B878189FE1ED0019D2D6 /* Friend+Create.m in Sources */,
 				845F003D192A5CDE00919FB8 /* QosTVC.m in Sources */,
 				8411B83E189FDB140019D2D6 /* OwnTracksAppDelegate.m in Sources */,
-				8446CDD819F6968E006ED31D /* LocationManager.m in Sources */,
+				84B7397A1A65629200B103F4 /* LocationManager.m in Sources */,
 				8411B891189FE9CE0019D2D6 /* Settings.m in Sources */,
 				8479EEB218E4288800923B24 /* Setting.m in Sources */,
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,
@@ -523,7 +585,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -555,7 +617,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -563,20 +625,19 @@
 		};
 		8411B85B189FDB140019D2D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F0F95E30D637DDE6FB77559C /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = OwnTracks/OwnTracks.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/ckrey/MQTT-Client-Framework/MQTTClient/dist",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
 				INFOPLIST_FILE = "OwnTracks/OwnTracks-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -586,20 +647,19 @@
 		};
 		8411B85C189FDB140019D2D6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 360F842C00CA8867E789B841 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = OwnTracks/OwnTracks.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/ckrey/MQTT-Client-Framework/MQTTClient/dist",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
 				INFOPLIST_FILE = "OwnTracks/OwnTracks-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -687,9 +747,10 @@
 				84C38C14193F88C200F56D04 /* Model 7.2.2.xcdatamodel */,
 				848794B119A6234B00DF56EB /* Model 7.3.xcdatamodel */,
 				8474B15319A8CB7D00427427 /* Model 7.3.1.xcdatamodel */,
+				84C756A61A89F706003BC8A8 /* Model 7.4.xcdatamodel */,
 				8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 8474B15319A8CB7D00427427 /* Model 7.3.1.xcdatamodel */;
+			currentVersion = 84C756A61A89F706003BC8A8 /* Model 7.4.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
