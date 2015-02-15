@@ -653,11 +653,6 @@
             case NSFetchedResultsChangeInsert:
             case NSFetchedResultsChangeDelete:
             case NSFetchedResultsChangeUpdate:
-<<<<<<< HEAD
-            default:
-                break;
-=======
->>>>>>> 7.3.4-bug-fix
             default:
                 break;
         }

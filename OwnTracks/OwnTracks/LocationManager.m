@@ -10,7 +10,7 @@
 #import "AlertView.h"
 
 #ifdef DEBUG
-#define DEBUGLM TRUE
+#define DEBUGLM FALSE
 #else
 #define DEBUGLM FALSE
 #endif

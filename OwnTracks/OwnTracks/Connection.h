@@ -52,6 +52,5 @@ enum state {
 - (void)disconnect;
 
 - (NSString *)parameters;
-+ (NSString *)dataToString:(NSData *)data;
 
 @end

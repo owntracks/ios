@@ -13,7 +13,7 @@
 #import "CoreData.h"
 
 #ifdef DEBUG
-#define DEBUGCONN TRUE
+#define DEBUGCONN FALSE
 #else
 #define DEBUGCONN FALSE
 #endif
@@ -86,7 +86,7 @@
                          (long)keepalive,
                          clean,
                          willTopic,
-                         [Connection dataToString:will],
+                         [[NSString alloc] initWithData:will encoding:NSUTF8StringEncoding],
                          (long)willQos,
                          willRetainFlag,
                          clientId
@@ -155,7 +155,11 @@
 
 - (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(NSInteger)qos retain:(BOOL)retainFlag
 {
-    if (DEBUGCONN) NSLog(@"Connection sendData:%@ %@ q%ld r%d", topic, [Connection dataToString:data], (long)qos, retainFlag);
+    if (DEBUGCONN) NSLog(@"Connection sendData:%@ %@ q%ld r%d",
+                         topic,
+                         [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding],
+                         (long)qos,
+                         retainFlag);
     
     if (self.state != state_connected) {
         [self connectToLast];
@@ -278,7 +282,7 @@
  */
 
 - (void)newMessage:(MQTTSession *)session data:(NSData *)data onTopic:(NSString *)topic qos:(MQTTQosLevel)qos retained:(BOOL)retained mid:(unsigned int)mid {
-    if (DEBUGCONN) NSLog(@"Connection received %@ %@", topic, [Connection dataToString:data]);
+    if (DEBUGCONN) NSLog(@"Connection received %@ %@", topic, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     [self.delegate handleMessage:data onTopic:topic retained:retained];
 }
 
@@ -315,17 +319,6 @@
             (long)self.keepalive,
             self.clientId
             ];
-}
-
-+ (NSString *)dataToString:(NSData *)data {
-    /* the following lines are necessary to convert data which is possibly not null-terminated into a string */
-    NSString *message = [[NSString alloc] init];
-    for (int i = 0; i < data.length; i++) {
-        char c;
-        [data getBytes:&c range:NSMakeRange(i, 1)];
-        message = [message stringByAppendingFormat:@"%c", c];
-    }
-    return message;
 }
 
 - (void)setState:(NSInteger)state {
