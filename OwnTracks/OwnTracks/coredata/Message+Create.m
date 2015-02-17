@@ -70,6 +70,11 @@
     for (Message *message in allMessages) {
         [context deleteObject:message];
     }
+    NSError *error = nil;
+    if (![context save:&error]) {
+        NSString *message = [NSString stringWithFormat:@"%@", error.localizedDescription];
+        NSLog(@"managedObjectContext save error: %@", message);
+    }
 }
 
 @end

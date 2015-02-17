@@ -137,20 +137,21 @@
         [self.session setDelegate:self];
         self.reconnectTime = RECONNECT_TIMER;
         self.reconnectFlag = FALSE;
+        
+        NSArray *messages = [Message allMessagesInManagedObjectContext:[CoreData theManagedObjectContext]];
+        if (DEBUGCONN) NSLog(@"re-sending %lu messages", (unsigned long)messages.count);
+        
+        for (Message *message in messages) {
+            NSData *data = message.data;
+            NSString *topic = message.topic;
+            MQTTQosLevel qos = [message.qos intValue];
+            BOOL retained = [message.retained boolValue];
+            [[CoreData theManagedObjectContext] deleteObject:message];
+            [self sendData:data topic:topic qos:qos retain:retained];
+        }
     }
     [self connectToInternal];
     
-    NSArray *messages = [Message allMessagesInManagedObjectContext:[CoreData theManagedObjectContext]];
-    if (DEBUGCONN) NSLog(@"re-sending %lu messages", (unsigned long)messages.count);
-    
-    for (Message *message in messages) {
-        NSData *data = message.data;
-        NSString *topic = message.topic;
-        MQTTQosLevel qos = [message.qos intValue];
-        BOOL retained = [message.retained boolValue];
-        [[CoreData theManagedObjectContext] deleteObject:message];
-        [self sendData:data topic:topic qos:qos retain:retained];
-    }
 }
 
 - (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(NSInteger)qos retain:(BOOL)retainFlag
