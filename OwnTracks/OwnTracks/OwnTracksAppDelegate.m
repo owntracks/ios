@@ -520,6 +520,7 @@
 }
 
 - (void)totalBuffered:(NSUInteger)count {
+    if (DEBUGAPP) NSLog(@"totalBuffered %u", count);
     self.connectionBuffered = @(count);
 
     [UIApplication sharedApplication].applicationIconBadgeNumber = count;
@@ -834,12 +835,12 @@
 }
 
 - (void)disconnectInBackground {
-    if (DEBUGAPP) NSLog(@"App disconnectInBackground");
+    if (DEBUGAPP) NSLog(@"App disconnectInBackground %d", [UIApplication sharedApplication].applicationIconBadgeNumber);
+    NSInteger number = [UIApplication sharedApplication].applicationIconBadgeNumber;
     [[LocationManager sharedInstance] sleep];
     self.disconnectTimer = nil;
     [self.connection disconnect];
     
-    NSInteger number = [UIApplication sharedApplication].applicationIconBadgeNumber;
     if (number) {
         [self notification:[NSString stringWithFormat:@"OwnTracks has %ld undelivered message%@",
                             (long)number,
