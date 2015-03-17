@@ -17,7 +17,7 @@
 
 @interface LocationManager()
 @property (strong, nonatomic) CLLocationManager *manager;
-@property (strong, nonatomic) NSDate *lastUsedLocationTime;
+@property (strong, nonatomic) CLLocation *lastUsedLocation;
 @property (strong, nonatomic) NSTimer *activityTimer;
 @property (strong, nonatomic) NSMutableSet *pendingRegionEvents;
 - (void)holdDownExpired:(NSTimer *)timer;
@@ -59,7 +59,7 @@ static LocationManager *theInstance = nil;
     self = [super init];
     self.manager = [[CLLocationManager alloc] init];
     self.manager.delegate = self;
-    self.lastUsedLocationTime = [NSDate date];
+    self.lastUsedLocation = [[CLLocation alloc] initWithLatitude:0 longitude:0];
     self.pendingRegionEvents = [[NSMutableSet alloc] init];
     [self authorize];
     return self;
@@ -112,8 +112,18 @@ static LocationManager *theInstance = nil;
 }
 
 - (CLLocation *)location {
-    self.lastUsedLocationTime = self.manager.location.timestamp;
+    self.lastUsedLocation = self.manager.location;
     return self.manager.location;
+}
+
+- (void)setMinDist:(double)minDist {
+    _minDist = minDist;
+    self.monitoring = self.monitoring;
+}
+
+- (void)setMinTime:(double)minTime {
+    _minTime = minTime;
+    self.monitoring = self.monitoring;
 }
 
 - (void)setMonitoring:(int)monitoring {
@@ -126,6 +136,7 @@ static LocationManager *theInstance = nil;
             self.manager.desiredAccuracy = kCLLocationAccuracyBest;
             self.manager.pausesLocationUpdatesAutomatically = YES;
             [self.manager stopMonitoringSignificantLocationChanges];
+            [self.activityTimer invalidate];
             
             [self.manager startUpdatingLocation];
             self.activityTimer = [NSTimer timerWithTimeInterval:self.minTime target:self selector:@selector(activityTimer:) userInfo:Nil repeats:YES];
@@ -238,8 +249,8 @@ static LocationManager *theInstance = nil;
     if (DEBUGLM) NSLog(@"didUpdateLocations");
     
     for (CLLocation *location in locations) {
-        if (DEBUGLM) NSLog(@"Location: %@", [location description]);
-        if ([location.timestamp compare:self.lastUsedLocationTime] != NSOrderedAscending ) {
+        if (DEBUGLM) NSLog(@"Location: %@", location);
+        if ([location.timestamp compare:self.lastUsedLocation.timestamp] != NSOrderedAscending ) {
             [self.delegate newLocation:location];
         }
     }

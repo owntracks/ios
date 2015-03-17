@@ -52,6 +52,17 @@
     return friend;
 }
 
++ (NSArray *)allFriendsInManagedObjectContext:(NSManagedObjectContext *)context {    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Friend"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"topic" ascending:YES]];
+    
+    NSError *error = nil;
+    
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+    
+    return matches;
+}
+
 + (Friend *)friendWithTopic:(NSString *)topic
                         tid:(NSString *)tid
      inManagedObjectContext:(NSManagedObjectContext *)context

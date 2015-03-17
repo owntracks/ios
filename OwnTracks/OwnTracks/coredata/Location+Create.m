@@ -195,13 +195,8 @@
 {
     if (!self.placemark) {
         CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-        CLLocation *location = [[CLLocation alloc] initWithCoordinate:self.coordinate
-                                                             altitude:[self.altitude doubleValue]
-                                                   horizontalAccuracy:[self.accuracy doubleValue]
-                                                     verticalAccuracy:[self.verticalaccuracy doubleValue]
-                                                               course:[self.course doubleValue]
-                                                                speed:[self.speed doubleValue]
-                                                            timestamp:self.timestamp];
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:[self.latitude doubleValue]
+                                                          longitude:[self.longitude doubleValue]];
         [geocoder reverseGeocodeLocation:location completionHandler:
          ^(NSArray *placemarks, NSError *error) {
              if (!self.isDeleted) {

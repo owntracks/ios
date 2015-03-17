@@ -8,6 +8,12 @@
 
 #import "CoreData.h"
 
+#ifdef DEBUG
+#define DEBUGCORE FALSE
+#else
+#define DEBUGCORE FALSE
+#endif
+
 static NSManagedObjectContext *theManagedObjectContext = nil;
 
 @implementation CoreData
@@ -26,24 +32,24 @@ static NSManagedObjectContext *theManagedObjectContext = nil;
     self.persistentStoreOptions = options;
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:[url path]]) {
-        NSLog(@"Document creation %@\n", [url path]);
+        if (DEBUGCORE) NSLog(@"Document creation %@\n", [url path]);
         [self saveToURL:url forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success){
             if (success) {
-                NSLog(@"Document created %@\n", [url path]);
+                if (DEBUGCORE) NSLog(@"Document created %@\n", [url path]);
                 theManagedObjectContext = self.managedObjectContext;
             }
         }];
     } else {
         if (self.documentState == UIDocumentStateClosed) {
-            NSLog(@"Document opening %@\n", [url path]);
+            if (DEBUGCORE) NSLog(@"Document opening %@\n", [url path]);
             [self openWithCompletionHandler:^(BOOL success){
                 if (success) {
-                    NSLog(@"Document opened %@\n", [url path]);
+                    if (DEBUGCORE) NSLog(@"Document opened %@\n", [url path]);
                     theManagedObjectContext = self.managedObjectContext;
                 }
             }];
         } else {
-            NSLog(@"Document used %@\n", [url path]);
+            if (DEBUGCORE) NSLog(@"Document used %@\n", [url path]);
             theManagedObjectContext = self.managedObjectContext;
         }
     }
@@ -53,13 +59,13 @@ static NSManagedObjectContext *theManagedObjectContext = nil;
 
 - (void)handleError:(NSError *)error userInteractionPermitted:(BOOL)userInteractionPermitted
 {
-    NSLog(@"CoreData handleError: %@", error);
+    if (DEBUGCORE) NSLog(@"CoreData handleError: %@", error);
     [self finishedHandlingError:error recovered:NO];
 }
 
 - (void)userInteractionNoLongerPermittedForError:(NSError *)error
 {
-    NSLog(@"CoreData userInteractionNoLongerPermittedForError: %@", error);
+    if (DEBUGCORE) NSLog(@"CoreData userInteractionNoLongerPermittedForError: %@", error);
 }
 
 + (NSManagedObjectContext *)theManagedObjectContext

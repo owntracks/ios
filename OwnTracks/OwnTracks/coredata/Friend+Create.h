@@ -22,6 +22,7 @@
 + (NSString *)nameOfPerson:(ABRecordRef)record;
 + (NSData *)imageDataOfPerson:(ABRecordRef)record;
 
++ (NSArray *)allFriendsInManagedObjectContext:(NSManagedObjectContext *)context;
 
 - (void)linkToAB:(ABRecordRef)record;
 - (NSString *)name;

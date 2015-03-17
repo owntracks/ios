@@ -28,6 +28,7 @@
 @property (strong, nonatomic) NSString *processingMessage;
 @property (strong, nonatomic) CMStepCounter *stepCounter;
 @property (strong, nonatomic) CMPedometer *pedometer;
+@property (strong, nonatomic) NSUserDefaults *mySharedDefaults;
 @end
 
 #define BACKGROUND_DISCONNECT_AFTER 8.0
@@ -86,9 +87,9 @@
     do {
         state = self.coreData.documentState;
         if (state & UIDocumentStateClosed || ![CoreData theManagedObjectContext]) {
-            NSLog(@"documentState 0x%02lx theManagedObjectContext %@",
-                  (long)self.coreData.documentState,
-                  [CoreData theManagedObjectContext]);
+            if (DEBUGAPP) NSLog(@"documentState 0x%02lx theManagedObjectContext %@",
+                                (long)self.coreData.documentState,
+                                [CoreData theManagedObjectContext]);
             [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         }
     } while (state & UIDocumentStateClosed || ![CoreData theManagedObjectContext]);
@@ -115,11 +116,41 @@
     locationManager.minTime = [self.settings doubleForKey:@"mintime_preference"];
     [locationManager start];
     
+    self.mySharedDefaults = [[NSUserDefaults alloc] initWithSuiteName: @"group.org.owntracks.Owntracks"];
+    [self share];
     return YES;
+}
+
+- (void)share {
+    NSManagedObjectContext *managedObjectContext = [CoreData theManagedObjectContext];
+    NSArray *friends = [Friend allFriendsInManagedObjectContext:managedObjectContext];
+    NSMutableDictionary *closeFriends = [[NSMutableDictionary alloc] init];
+    for (Friend *friend in friends) {
+        if (![friend.topic isEqualToString:[self.settings theGeneralTopic]]) {
+            NSString *name = friend.name;
+            Location *location = [friend newestLocation];
+            if (DEBUGAPP) NSLog(@"friend %@ @ %@ ", name, location);
+            if (name) {
+                NSMutableDictionary *aFriend = [[NSMutableDictionary alloc] init];
+                
+                NSTimeInterval interval = [location.timestamp timeIntervalSinceNow];
+                [aFriend setObject:@(interval) forKey:@"interval"];
+                
+                CLLocationDistance distance =[[LocationManager sharedInstance].location distanceFromLocation:
+                                              [[CLLocation alloc] initWithLatitude:[location.latitude floatValue] longitude:[location.longitude floatValue]]];
+                [aFriend setObject:@(distance) forKey:@"distance"];
+                
+                [closeFriends setObject:aFriend forKey:name];
+            }
+        }
+    }
+    [self.mySharedDefaults setObject:closeFriends forKey:@"closeFriends"];
 }
 
 - (void)saveContext {
     NSManagedObjectContext *managedObjectContext = [CoreData theManagedObjectContext];
+    [self share];
+    
     if (managedObjectContext != nil) {
         if ([managedObjectContext hasChanges]) {
             NSError *error = nil;
@@ -158,37 +189,40 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
     if (DEBUGAPP) NSLog(@"openURL %@ from %@ annotation %@", url, sourceApplication, annotation);
+    if (DEBUGAPP) NSLog(@"URL scheme %@ extension %@", url.scheme, url.pathExtension);
     
     if (url) {
-        NSInputStream *input = [NSInputStream inputStreamWithURL:url];
-        if ([input streamError]) {
-            self.processingMessage = [NSString stringWithFormat:@"inputStreamWithURL %@ %@", [input streamError], url];
-            return FALSE;
+        if (![url.scheme isEqualToString:@"owntracks"]) {
+            NSInputStream *input = [NSInputStream inputStreamWithURL:url];
+            if ([input streamError]) {
+                self.processingMessage = [NSString stringWithFormat:@"inputStreamWithURL %@ %@", [input streamError], url];
+                return FALSE;
+            }
+            [input open];
+            if ([input streamError]) {
+                self.processingMessage = [NSString stringWithFormat:@"open %@ %@", [input streamError], url];
+                return FALSE;
+            }
+            
+            NSError *error;
+            NSString *extension = [url pathExtension];
+            if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
+                error = [self.settings fromStream:input];
+            } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
+                error = [self.settings waypointsFromStream:input];
+            } else {
+                error = [NSError errorWithDomain:@"OwnTracks" code:2 userInfo:@{@"extension":extension}];
+            }
+            
+            if (error) {
+                self.processingMessage = [NSString stringWithFormat:@"Error processing file %@: %@",
+                                          [url lastPathComponent],
+                                          error.localizedDescription];
+                return FALSE;
+            }
+            self.processingMessage = [NSString stringWithFormat:@"File %@ successfully processed)",
+                                      [url lastPathComponent]];
         }
-        [input open];
-        if ([input streamError]) {
-            self.processingMessage = [NSString stringWithFormat:@"open %@ %@", [input streamError], url];
-            return FALSE;
-        }
-        
-        NSError *error;
-        NSString *extension = [url pathExtension];
-        if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
-            error = [self.settings fromStream:input];
-        } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
-            error = [self.settings waypointsFromStream:input];
-        } else {
-            error = [NSError errorWithDomain:@"OwnTracks" code:2 userInfo:@{@"extension":extension}];
-        }
-        
-        if (error) {
-            self.processingMessage = [NSString stringWithFormat:@"Error processing file %@: %@",
-                                      [url lastPathComponent],
-                                      error.localizedDescription];
-            return FALSE;
-        }
-        self.processingMessage = [NSString stringWithFormat:@"File %@ successfully processed)",
-                                  [url lastPathComponent]];
     }
     return TRUE;
 }
@@ -213,11 +247,12 @@
                                    self.backgroundTask = UIBackgroundTaskInvalid;
                                }
                            }];
-    if ([UIApplication sharedApplication].applicationIconBadgeNumber) {
-        [self notification:@"Undelivered messages. Tap to restart"
-                     after:REMINDER_AFTER
-                  userInfo:@{@"notify": @"undelivered"}];
-    }
+
+    //if ([UIApplication sharedApplication].applicationIconBadgeNumber) {
+    //    [self notification:@"Undelivered messages. Tap to restart"
+    //                 after:REMINDER_AFTER
+    //              userInfo:@{@"notify": @"undelivered"}];
+    //}
 }
 
 
@@ -520,7 +555,7 @@
 }
 
 - (void)totalBuffered:(NSUInteger)count {
-    if (DEBUGAPP) NSLog(@"totalBuffered %u", count);
+    if (DEBUGAPP) NSLog(@"totalBuffered %lu", (unsigned long)count);
     self.connectionBuffered = @(count);
 
     [UIApplication sharedApplication].applicationIconBadgeNumber = count;
@@ -835,19 +870,20 @@
 }
 
 - (void)disconnectInBackground {
-    if (DEBUGAPP) NSLog(@"App disconnectInBackground %d", [UIApplication sharedApplication].applicationIconBadgeNumber);
-    NSInteger number = [UIApplication sharedApplication].applicationIconBadgeNumber;
+    if (DEBUGAPP) NSLog(@"App disconnectInBackground %ld",
+                        (long)[UIApplication sharedApplication].applicationIconBadgeNumber);
     [[LocationManager sharedInstance] sleep];
     self.disconnectTimer = nil;
     [self.connection disconnect];
     
-    if (number) {
-        [self notification:[NSString stringWithFormat:@"OwnTracks has %ld undelivered message%@",
-                            (long)number,
-                            (number > 1) ? @"s" : @""]
-                     after:0
-                  userInfo:@{@"notify": @"undelivered"}];
-    }
+    //NSInteger number = [UIApplication sharedApplication].applicationIconBadgeNumber;
+    //if (number) {
+    //    [self notification:[NSString stringWithFormat:@"OwnTracks has %ld undelivered message%@",
+    //                        (long)number,
+    //                        (number > 1) ? @"s" : @""]
+    //                 after:0
+    //              userInfo:@{@"notify": @"undelivered"}];
+    //}
 }
 
 - (NSData *)jsonToData:(NSDictionary *)jsonObject {
