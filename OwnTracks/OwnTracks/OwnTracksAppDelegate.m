@@ -11,6 +11,7 @@
 #import "Friend+Create.h"
 #import "Location+Create.h"
 #import "AlertView.h"
+#import <NotificationCenter/NotificationCenter.h>
 
 #ifdef DEBUG
 #define DEBUGAPP FALSE
@@ -140,12 +141,17 @@
                                               [[CLLocation alloc] initWithLatitude:[location.latitude floatValue] longitude:[location.longitude floatValue]]];
                 [aFriend setObject:@(distance) forKey:@"distance"];
                 
+                [aFriend setObject:location.latitude forKey:@"latitude"];
+                [aFriend setObject:location.longitude forKey:@"longitude"];
+                
                 [closeFriends setObject:aFriend forKey:name];
             }
         }
     }
     [self.mySharedDefaults setObject:closeFriends forKey:@"closeFriends"];
-}
+    [[NCWidgetController widgetController] setHasContent:(closeFriends.count > 0)
+                           forWidgetWithBundleIdentifier:@"org.mqttitude.MQTTitude.OwnTracksWidget"];
+    }
 
 - (void)saveContext {
     NSManagedObjectContext *managedObjectContext = [CoreData theManagedObjectContext];
