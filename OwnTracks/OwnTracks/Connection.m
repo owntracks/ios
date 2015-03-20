@@ -9,7 +9,6 @@
 #import "Connection.h"
 #import "CoreData.h"
 #import "OwnTracksAppDelegate.h"
-#import "Message+Create.h"
 #import "CoreData.h"
 
 #ifdef DEBUG
@@ -138,17 +137,6 @@
         self.reconnectTime = RECONNECT_TIMER;
         self.reconnectFlag = FALSE;
         
-        NSArray *messages = [Message allMessagesInManagedObjectContext:[CoreData theManagedObjectContext]];
-        if (DEBUGCONN) NSLog(@"re-sending %lu messages", (unsigned long)messages.count);
-        
-        for (Message *message in messages) {
-            NSData *data = message.data;
-            NSString *topic = message.topic;
-            MQTTQosLevel qos = [message.qos intValue];
-            BOOL retained = [message.retained boolValue];
-            [[CoreData theManagedObjectContext] deleteObject:message];
-            [self sendData:data topic:topic qos:qos retain:retained];
-        }
     }
     [self connectToInternal];
     
@@ -170,15 +158,6 @@
                                       retain:retainFlag
                                          qos:qos];
     if (DEBUGCONN) NSLog(@"sendData m%u", msgId);
-    if (msgId) {
-        [Message messageWithMid:msgId
-                      timestamp:[NSDate date]
-                           data:data
-                          topic:topic
-                            qos:qos
-                       retained:retainFlag
-         inManagedObjectContext:[CoreData theManagedObjectContext]];
-    }
     return msgId;
 }
 
@@ -269,10 +248,6 @@
 {
     if (DEBUGCONN) NSLog(@"messageDelivered m%u", msgID);
     [self.delegate messageDelivered:msgID];
-    Message *message = [Message existsMessageWithMid:msgID inManagedObjectContext:[CoreData theManagedObjectContext]];
-    if (message) {
-        [[CoreData theManagedObjectContext] deleteObject:message];
-    }
 }
 
 /*

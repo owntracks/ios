@@ -29,7 +29,6 @@
 @property (strong, nonatomic) NSString *processingMessage;
 @property (strong, nonatomic) CMStepCounter *stepCounter;
 @property (strong, nonatomic) CMPedometer *pedometer;
-@property (strong, nonatomic) NSUserDefaults *mySharedDefaults;
 @end
 
 #define BACKGROUND_DISCONNECT_AFTER 8.0
@@ -117,46 +116,11 @@
     locationManager.minTime = [self.settings doubleForKey:@"mintime_preference"];
     [locationManager start];
     
-    self.mySharedDefaults = [[NSUserDefaults alloc] initWithSuiteName: @"group.org.owntracks.Owntracks"];
-    [self share];
     return YES;
 }
 
-- (void)share {
-    NSManagedObjectContext *managedObjectContext = [CoreData theManagedObjectContext];
-    NSArray *friends = [Friend allFriendsInManagedObjectContext:managedObjectContext];
-    NSMutableDictionary *closeFriends = [[NSMutableDictionary alloc] init];
-    for (Friend *friend in friends) {
-        if (![friend.topic isEqualToString:[self.settings theGeneralTopic]]) {
-            NSString *name = friend.name;
-            Location *location = [friend newestLocation];
-            if (DEBUGAPP) NSLog(@"friend %@ @ %@ ", name, location);
-            if (name) {
-                NSMutableDictionary *aFriend = [[NSMutableDictionary alloc] init];
-                
-                NSTimeInterval interval = [location.timestamp timeIntervalSinceNow];
-                [aFriend setObject:@(interval) forKey:@"interval"];
-                
-                CLLocationDistance distance =[[LocationManager sharedInstance].location distanceFromLocation:
-                                              [[CLLocation alloc] initWithLatitude:[location.latitude floatValue] longitude:[location.longitude floatValue]]];
-                [aFriend setObject:@(distance) forKey:@"distance"];
-                
-                [aFriend setObject:location.latitude forKey:@"latitude"];
-                [aFriend setObject:location.longitude forKey:@"longitude"];
-                
-                [closeFriends setObject:aFriend forKey:name];
-            }
-        }
-    }
-    [self.mySharedDefaults setObject:closeFriends forKey:@"closeFriends"];
-    [[NCWidgetController widgetController] setHasContent:(closeFriends.count > 0)
-                           forWidgetWithBundleIdentifier:@"org.mqttitude.MQTTitude.OwnTracksWidget"];
-    }
-
 - (void)saveContext {
-    NSManagedObjectContext *managedObjectContext = [CoreData theManagedObjectContext];
-    [self share];
-    
+    NSManagedObjectContext *managedObjectContext = [CoreData theManagedObjectContext];    
     if (managedObjectContext != nil) {
         if ([managedObjectContext hasChanges]) {
             NSError *error = nil;
