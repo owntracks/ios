@@ -149,11 +149,10 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [[LocationManager sharedInstance] resetRegions];
-    
-    
     if ([CoreData theManagedObjectContext]) {
         if (!self.frc) {
+            [[LocationManager sharedInstance] resetRegions];
+            
             NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Location"];
             request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]];
             
