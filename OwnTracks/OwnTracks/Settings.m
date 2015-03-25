@@ -11,6 +11,14 @@
 #import "CoreData.h"
 #import "Location+Create.h"
 
+//#define OLD 1
+
+#ifdef DEBUG
+#define DEBUGSETTINGS TRUE
+#else
+#define DEBUGSETTINGS FALSE
+#endif
+
 @interface Settings ()
 @property (strong, nonatomic) NSDictionary *appDefaults;
 @end
@@ -24,7 +32,7 @@
         
         NSURL *bundleURL = [[NSBundle mainBundle] bundleURL];
         NSURL *plistURL = [bundleURL URLByAppendingPathComponent:@"Settings.plist"];
-
+        
         self.appDefaults = [NSDictionary dictionaryWithContentsOfURL:plistURL];
     }
     return self;
@@ -36,14 +44,13 @@
     
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithStream:input options:0 error:&error];
     if (dictionary) {
-#ifdef DEBUG
-        for (NSString *key in [dictionary allKeys]) {
-            NSLog(@"Configuration %@:%@", key, dictionary[key]);
+        if (DEBUGSETTINGS) {
+            for (NSString *key in [dictionary allKeys]) {
+                NSLog(@"Configuration %@:%@", key, dictionary[key]);
+            }
         }
-#endif
         
         if ([dictionary[@"_type"] isEqualToString:@"configuration"]) {
-            NSString *stringOld;
             NSString *string;
             
             string = dictionary[@"deviceid"];
@@ -56,43 +63,29 @@
             if (string) [self setString:string forKey:@"clientid_preference"];
             
             string = dictionary[@"subTopic"];
-            stringOld = dictionary[@"subscription"];
             if (string) [self setString:string forKey:@"subscription_preference"];
-            else if (stringOld) [self setString:string forKey:@"subscription_preference"];
             
             string = dictionary[@"pubTopicBase"];
-            stringOld = dictionary[@"topic"];
             if (string) [self setString:string forKey:@"topic_preference"];
-            else if (stringOld) [self setString:stringOld forKey:@"topic_preference"];
             
             string = dictionary[@"host"];
             if (string) [self setString:string forKey:@"host_preference"];
             
             string = dictionary[@"username"];
-            stringOld = dictionary[@"user"];
             if (string) [self setString:string forKey:@"user_preference"];
-            else if (stringOld) [self setString:stringOld forKey:@"user_preference"];
             
             string = dictionary[@"pass"];
-            stringOld = dictionary[@"password"];
             if (string) [self setString:string forKey:@"pass_preference"];
-            else if (stringOld) [self setString:stringOld forKey:@"pass_preference"];
             
             string = dictionary[@"willTopic"];
-            stringOld = dictionary[@"willtopic"];
             if (string) [self setString:string forKey:@"willtopic_preference"];
-            else if (stringOld) [self setString:stringOld forKey:@"willtopic_preference"];
             
             
             string = dictionary[@"subQos"];
-            stringOld = dictionary[@"subscriptionqos"];
             if (string) [self setString:string forKey:@"subscriptionqos_preference"];
-            else if (stringOld) [self setString:stringOld forKey:@"subscriptionqos_preference"];
             
             string = dictionary[@"pubQos"];
-            stringOld = dictionary[@"qos"];
             if (string) [self setString:string forKey:@"qos_preference"];
-            else if (stringOld) [self setString:stringOld forKey:@"qos_preference"];
             
             string = dictionary[@"port"];
             if (string) [self setString:string forKey:@"port_preference"];
@@ -101,19 +94,13 @@
             if (string) [self setString:string forKey:@"keepalive_preference"];
             
             string = dictionary[@"willQos"];
-            stringOld = dictionary[@"willqos"];
             if (string) [self setString:string forKey:@"willqos_preference"];
-            else if (stringOld) [self setString:stringOld forKey:@"willqos_preference"];
             
             string = dictionary[@"locatorDisplacement"];
-            stringOld = dictionary[@"mindist"];
             if (string) [self setString:string forKey:@"mindist_preference"];
-            else if (stringOld) [self setString:stringOld forKey:@"mindist_preference"];
             
             string = dictionary[@"locatorInterval"];
-            stringOld = dictionary[@"mintime"];
             if (string) [self setString:string forKey:@"mintime_preference"];
-            else if (stringOld) [self setString:stringOld forKey:@"mintime_preference"];
             
             string = dictionary[@"monitoring"];
             if (string) [self setString:string forKey:@"monitoring_preference"];
@@ -126,9 +113,7 @@
             
             
             string = dictionary[@"pubRetain"];
-            stringOld = dictionary[@"retain"];
             if (string) [self setString:string forKey:@"retain_preference"];
-            else if (stringOld) [self setString:stringOld forKey:@"retain_preference"];
             
             string = dictionary[@"tls"];
             if (string) [self setString:string forKey:@"tls_preference"];
@@ -137,19 +122,13 @@
             if (string) [self setString:string forKey:@"auth_preference"];
             
             string = dictionary[@"cleanSession"];
-            stringOld = dictionary[@"clean"];
             if (string) [self setString:string forKey:@"clean_preference"];
-            else if (stringOld) [self setString:stringOld forKey:@"clean_preference"];
             
             string = dictionary[@"willRetain"];
-            stringOld = dictionary[@"willretain"];
             if (string) [self setString:string forKey:@"willretain_preference"];
-            else if (stringOld) [self setString:stringOld forKey:@"willretain_preference"];
             
             string = dictionary[@"updateAddressBook"];
-            stringOld = dictionary[@"ab"];
             if (string) [self setString:string forKey:@"ab_preference"];
-            else if (stringOld) [self setString:stringOld forKey:@"ab_preference"];
             
             string = dictionary[@"positions"];
             if (string) [self setString:string forKey:@"positions_preference"];
@@ -205,13 +184,13 @@
     if (waypoints) {
         for (NSDictionary *waypoint in waypoints) {
             if ([waypoint[@"_type"] isEqualToString:@"waypoint"]) {
-#ifdef DEBUG
+                if (DEBUGSETTINGS) {
                 NSLog(@"Waypoint tst:%g lon:%g lat:%g",
                       [waypoint[@"tst"] doubleValue],
                       [waypoint[@"lon"] doubleValue],
                       [waypoint[@"lat"] doubleValue]
                       );
-#endif
+                }
                 CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
                                                                                [waypoint[@"lat"] doubleValue],
                                                                                [waypoint[@"lon"] doubleValue]
@@ -249,6 +228,7 @@
     
     for (Location *location in [Location allWaypointsOfTopic:[self theGeneralTopic]
                                     inManagedObjectContext:[CoreData theManagedObjectContext]]) {
+#ifdef OLD
         NSDictionary *waypoint = @{@"_type": @"waypoint",
                                    @"lat": [NSString stringWithFormat:@"%g", location.coordinate.latitude],
                                    @"lon": [NSString stringWithFormat:@"%g", location.coordinate.longitude],
@@ -256,9 +236,19 @@
                                    @"rad": [NSString stringWithFormat:@"%g", [location.regionradius doubleValue]],
                                    @"desc": location.remark
                                    };
+#else
+        NSDictionary *waypoint = @{@"_type": @"waypoint",
+                                   @"lat": @(location.coordinate.latitude),
+                                   @"lon": @(location.coordinate.longitude),
+                                   @"tst": @((int)[location.timestamp timeIntervalSince1970]),
+                                   @"rad": location.regionradius,
+                                   @"desc": location.remark
+                                   };
+#endif
         [waypoints addObject:waypoint];
     }
     
+#ifdef OLD
     NSDictionary *dict = @{@"_type": @"configuration",
                            @"deviceid": [self stringForKey:@"deviceid_preference"],
                            @"clientid": [self stringForKey:@"clientid_preference"],
@@ -293,6 +283,42 @@
                            
                            @"waypoints": waypoints
                            };
+#else
+    NSDictionary *dict = @{@"_type": @"configuration",
+                           @"deviceid": [self stringForKey:@"deviceid_preference"],
+                           @"clientid": [self stringForKey:@"clientid_preference"],
+                           @"subTopic": [self stringForKey:@"subscription_preference"],
+                           @"pubTopicBase": [self stringForKey:@"topic_preference"],
+                           @"host": [self stringForKey:@"host_preference"],
+                           @"username": [self stringForKey:@"user_preference"],
+                           @"password": [self stringForKey:@"pass_preference"],
+                           @"willTopic": [self stringForKey:@"willtopic_preference"],
+                           @"tid": [self stringForKey:@"trackerid_preference"],
+
+                           @"subQos": @([self intForKey:@"subscriptionqos_preference"]),
+                           @"pubQos": @([self intForKey:@"qos_preference"]),
+                           @"port": @([self intForKey:@"port_preference"]),
+                           @"keepalive": @([self intForKey:@"keepalive_preference"]),
+                           @"willQos": @([self intForKey:@"willqos_preference"]),
+                           @"locatorDisplacement": @([self intForKey:@"mindist_preference"]),
+                           @"locatorInterval": @([self intForKey:@"mintime_preference"]),
+                           @"monitoring": @([self intForKey:@"monitoring_preference"]),
+                           @"positions": @([self intForKey:@"positions_preference"]),
+                           
+                           @"ranging": @([self boolForKey:@"ranging_preference"]),
+                           @"cmd": @([self boolForKey:@"cmd_preference"]),
+                           @"pubRetain": @([self boolForKey:@"retain_preference"]),
+                           @"tls": @([self boolForKey:@"tls_preference"]),
+                           @"auth": @([self boolForKey:@"auth_preference"]),
+                           @"cleanSession": @([self boolForKey:@"clean_preference"]),
+                           @"willRetain": @([self boolForKey:@"willretain_preference"]),
+                           @"updateAddressBook": @([self boolForKey:@"ab_preference"]),
+                           @"allowRemoteLocation": @([self boolForKey:@"allowremotelocation_preference"]),
+                           @"extendedData": @([self boolForKey:@"extendeddata_preference"]),
+                           
+                           @"waypoints": waypoints
+                           };
+#endif
     return dict;
 }
 
@@ -337,26 +363,13 @@
     if (setting) {
         value = setting.value;
     } else {
-        // if value not found in Core Data, try to MIGRATE it from NSUserdefaults
-        id object = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+        // if not found in Core Data or NSUserdefaults, use defaults from .plist
+        id object = [self.appDefaults objectForKey:key];
         if (object) {
             if ([object isKindOfClass:[NSString class]]) {
                 value = (NSString *)object;
             } else if ([object isKindOfClass:[NSNumber class]]) {
                 value = [(NSNumber *)object stringValue];
-            }
-            if (value) {
-                [self setString:value forKey:key];
-            }
-        } else {
-            // if not found in Core Data or NSUserdefaults, use defaults from .plist
-            id object = [self.appDefaults objectForKey:key];
-            if (object) {
-                if ([object isKindOfClass:[NSString class]]) {
-                    value = (NSString *)object;
-                } else if ([object isKindOfClass:[NSNumber class]]) {
-                    value = [(NSNumber *)object stringValue];
-                }
             }
         }
     }

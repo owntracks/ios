@@ -501,6 +501,10 @@
             }
             annotationView.canShowCallout = YES;
             annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            UIButton *refreshButton = [UIButton buttonWithType:UIButtonTypeSystem];
+            [refreshButton setImage:[UIImage imageNamed:@"Refresh"] forState:UIControlStateNormal];
+            [refreshButton sizeToFit];
+            annotationView.leftCalloutAccessoryView = refreshButton;
             [annotationView setNeedsDisplay];
             return annotationView;
         }
@@ -576,7 +580,13 @@
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
     if (DEBUGVIEW) NSLog(@"calloutAccessoryControlTapped");
-    [self performSegueWithIdentifier:@"showDetail:" sender:view];
+    if (control == view.rightCalloutAccessoryView) {
+        [self performSegueWithIdentifier:@"showDetail:" sender:view];
+    } else if (control == view.leftCalloutAccessoryView) {
+        Location *location = (Location *)view.annotation;
+        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
+        [delegate requestLocationFromFriend:location.belongsTo];
+    }
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate

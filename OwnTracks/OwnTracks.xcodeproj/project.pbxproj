@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840B2F741AC0579E00E653F5 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840B2F721AC0579E00E653F5 /* Crashlytics.framework */; };
+		840B2F751AC0579E00E653F5 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840B2F731AC0579E00E653F5 /* Fabric.framework */; };
 		8411B82C189FDB140019D2D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82B189FDB140019D2D6 /* Foundation.framework */; };
 		8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82D189FDB140019D2D6 /* CoreGraphics.framework */; };
 		8411B830189FDB140019D2D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82F189FDB140019D2D6 /* UIKit.framework */; };
@@ -79,6 +81,8 @@
 
 /* Begin PBXFileReference section */
 		360F842C00CA8867E789B841 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		840B2F721AC0579E00E653F5 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		840B2F731AC0579E00E653F5 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		840BBDD318E4274200DC113C /* Model 6.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 6.2.xcdatamodel"; sourceTree = "<group>"; };
 		8411B828189FDB140019D2D6 /* OwnTracks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OwnTracks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8411B82B189FDB140019D2D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -167,8 +171,10 @@
 			files = (
 				847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */,
 				8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */,
+				840B2F741AC0579E00E653F5 /* Crashlytics.framework in Frameworks */,
 				8411B832189FDB140019D2D6 /* CoreData.framework in Frameworks */,
 				8411B861189FDD200019D2D6 /* MapKit.framework in Frameworks */,
+				840B2F751AC0579E00E653F5 /* Fabric.framework in Frameworks */,
 				8411B830189FDB140019D2D6 /* UIKit.framework in Frameworks */,
 				8411B82C189FDB140019D2D6 /* Foundation.framework in Frameworks */,
 				C0F7B8BC24608F7AD9213FBD /* libPods.a in Frameworks */,
@@ -201,6 +207,8 @@
 		8411B81F189FDB140019D2D6 = {
 			isa = PBXGroup;
 			children = (
+				840B2F721AC0579E00E653F5 /* Crashlytics.framework */,
+				840B2F731AC0579E00E653F5 /* Fabric.framework */,
 				8411B833189FDB140019D2D6 /* OwnTracks */,
 				8411B850189FDB140019D2D6 /* OwnTracksTests */,
 				8411B82A189FDB140019D2D6 /* Frameworks */,
@@ -354,6 +362,7 @@
 				8411B826189FDB140019D2D6 /* Resources */,
 				91A94BEF7F5441F8C95B188E /* Copy Pods Resources */,
 				844E826B1AB8061500516D1A /* Embed App Extensions */,
+				84B406F81AC0556D000A419B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -461,6 +470,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		84B406F81AC0556D000A419B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run d0b0c708e43f69036ebedad1766ad086074d30f6 afbb978d421ea300ef93b42e9cbb24582aa85ce48f6294656153d911727dafce";
+		};
 		91A94BEF7F5441F8C95B188E /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -641,7 +663,10 @@
 				CODE_SIGN_ENTITLEMENTS = OwnTracks/OwnTracks.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
 				INFOPLIST_FILE = "OwnTracks/OwnTracks-Info.plist";
@@ -663,7 +688,10 @@
 				CODE_SIGN_ENTITLEMENTS = OwnTracks/OwnTracks.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
 				INFOPLIST_FILE = "OwnTracks/OwnTracks-Info.plist";

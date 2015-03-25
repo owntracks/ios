@@ -35,6 +35,7 @@
 @property (strong, nonatomic) NSNumber *connectionBuffered;
 
 - (void)sendNow;
+- (void)requestLocationFromFriend:(Friend *)friend;
 - (void)sendWayPoint:(Location *)location;
 - (void)sendEmpty:(Friend *)friend;
 - (void)reconnect;

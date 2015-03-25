@@ -12,6 +12,10 @@
 #import "Location+Create.h"
 #import "AlertView.h"
 #import <NotificationCenter/NotificationCenter.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+
+//#define OLD 1
 
 #ifdef DEBUG
 #define DEBUGAPP FALSE
@@ -80,6 +84,7 @@
             NSLog(@"%@:%@", key, [[launchOptions objectForKey:key] description]);
         }
     }
+    [Fabric with:@[CrashlyticsKit]];
     
     self.coreData = [[CoreData alloc] init];
     UIDocumentState state;
@@ -217,12 +222,6 @@
                                    self.backgroundTask = UIBackgroundTaskInvalid;
                                }
                            }];
-
-    //if ([UIApplication sharedApplication].applicationIconBadgeNumber) {
-    //    [self notification:@"Undelivered messages. Tap to restart"
-    //                 after:REMINDER_AFTER
-    //              userInfo:@{@"notify": @"undelivered"}];
-    //}
 }
 
 
@@ -253,7 +252,6 @@
     if (DEBUGAPP) NSLog(@"applicationWillTerminate");
     [[LocationManager sharedInstance] stop];
     [self saveContext];
-    [self notification:@"App terminated. Tap to restart" after:REMINDER_AFTER userInfo:nil];
 }
 
 - (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notification {
@@ -334,17 +332,10 @@
                                  @"acc": @(round(beacon.accuracy)),
                                  @"rssi": @(beacon.rssi)
                                  };
-    long msgID = [self.connection sendData:[self jsonToData:jsonObject]
-                                     topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/beacons"]
-                                       qos:[self.settings intForKey:@"qos_preference"]
-                                    retain:NO];
-    if (msgID <= 0) {
-        if (DEBUGAPP) {
-            NSString *message = [NSString stringWithFormat:@"Beacon %@",
-                                 (msgID == -1) ? @"queued" : @"sent"];
-            [self notification:message userInfo:nil];
-        }
-    }
+    [self.connection sendData:[self jsonToData:jsonObject]
+                        topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/beacons"]
+                          qos:[self.settings intForKey:@"qos_preference"]
+                       retain:NO];
     
     [self.delegate beaconInRange:beacon];
 }
@@ -409,7 +400,7 @@
                         [self dumpTo:topic];
                     } else if ([dictionary[@"action"] isEqualToString:@"reportLocation"]) {
                         if ([LocationManager sharedInstance].monitoring || [self.settings boolForKey:@"allowremotelocation_preference"]) {
-                            [self publishLocation:[LocationManager sharedInstance].location automatic:NO addon:@{@"t":@"r"}];
+                            [self publishLocation:[LocationManager sharedInstance].location automatic:YES addon:@{@"t":@"r"}];
                         }
                     } else if ([dictionary[@"action"] isEqualToString:@"reportSteps"]) {
                         [self stepsFrom:dictionary[@"from"] to:dictionary[@"to"]];
@@ -536,21 +527,11 @@
                                @"_type":@"dump",
                                @"configuration":[self.settings toDictionary],
                                };
-    if (DEBUGAPP) NSLog(@"App sending dump to:%@", topic);
     
-    long msgID = [self.connection sendData:[self jsonToData:dumpDict]
-                                     topic:topic
-                                       qos:[self.settings intForKey:@"qos_preference"]
-                                    retain:NO];
-    
-    if (msgID <= 0) {
-        if (DEBUGAPP) {
-            NSString *message = [NSString stringWithFormat:@"Dump %@",
-                                 (msgID == -1) ? @"queued" : @"sent"];
-            [self notification:message userInfo:nil];
-        }
-    }
-
+    [self.connection sendData:[self jsonToData:dumpDict]
+                        topic:topic
+                          qos:[self.settings intForKey:@"qos_preference"]
+                       retain:NO];
 }
 
 - (void)stepsFrom:(NSNumber *)from to:(NSNumber *)to {
@@ -676,6 +657,7 @@
 - (void)sendNow {
     if (DEBUGAPP) NSLog(@"App sendNow");
     [self publishLocation:[LocationManager sharedInstance].location automatic:FALSE addon:@{@"t":@"u"}];
+
 }
 
 - (void)connectionOff {
@@ -707,18 +689,10 @@
     
     NSData *data = [self encodeLocationData:newLocation type:@"location" addon:addon];
     
-    long msgID = [self.connection sendData:data
-                                     topic:[self.settings theGeneralTopic]
-                                       qos:[self.settings intForKey:@"qos_preference"]
-                                    retain:[self.settings boolForKey:@"retain_preference"]];
-    
-    if (msgID <= 0) {
-        if (DEBUGAPP) {
-            NSString *message = [NSString stringWithFormat:@"Location %@",
-                                 (msgID == -1) ? @"queued" : @"sent"];
-            [self notification:message userInfo:nil];
-        }
-    }
+    [self.connection sendData:data
+                        topic:[self.settings theGeneralTopic]
+                          qos:[self.settings intForKey:@"qos_preference"]
+                       retain:[self.settings boolForKey:@"retain_preference"]];
     
     [self limitLocationsWith:newLocation.belongsTo toMaximum:[self.settings intForKey:@"positions_preference"]];
     [self startBackgroundTimer];
@@ -747,19 +721,22 @@
 }
 
 - (void)sendEmpty:(Friend *)friend {
-    long msgID = [self.connection sendData:nil
-                                     topic:friend.topic
-                                       qos:[self.settings intForKey:@"qos_preference"]
-                                    retain:YES];
+    [self.connection sendData:nil
+                        topic:friend.topic
+                          qos:[self.settings intForKey:@"qos_preference"]
+                       retain:YES];
+}
+
+- (void)requestLocationFromFriend:(Friend *)friend {
+    NSDictionary *jsonObject = @{
+                                 @"_type": @"cmd",
+                                 @"action": @"reportLocation"
+                                 };
     
-    if (msgID <= 0) {
-        if (DEBUGAPP) {
-            NSString *message = [NSString stringWithFormat:@"Delete send for %@ %@",
-                                 friend.topic,
-                                 (msgID == -1) ? @"queued" : @"sent"];
-            [self notification:message userInfo:nil];
-        }
-    }
+    [self.connection sendData:[self jsonToData:jsonObject]
+                        topic:[friend.topic stringByAppendingString:@"/steps"]
+                          qos:[self.settings intForKey:@"qos_preference"]
+                       retain:NO];
 }
 
 - (void)sendWayPoint:(Location *)location {
@@ -772,18 +749,11 @@
     NSData *data = [self encodeLocationData:location
                                        type:@"waypoint" addon:addon];
     
-    long msgID = [self.connection sendData:data
-                                     topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/waypoints"]
-                                       qos:[self.settings intForKey:@"qos_preference"]
-                                    retain:NO];
+    [self.connection sendData:data
+                        topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/waypoints"]
+                          qos:[self.settings intForKey:@"qos_preference"]
+                       retain:NO];
     
-    if (msgID <= 0) {
-        if (DEBUGAPP) {
-            NSString *message = [NSString stringWithFormat:@"Waypoint %@",
-                                 (msgID == -1) ? @"queued" : @"sent"];
-            [self notification:message userInfo:nil];
-        }
-    }
     [self saveContext];
 }
 
@@ -845,15 +815,6 @@
     [[LocationManager sharedInstance] sleep];
     self.disconnectTimer = nil;
     [self.connection disconnect];
-    
-    //NSInteger number = [UIApplication sharedApplication].applicationIconBadgeNumber;
-    //if (number) {
-    //    [self notification:[NSString stringWithFormat:@"OwnTracks has %ld undelivered message%@",
-    //                        (long)number,
-    //                        (number > 1) ? @"s" : @""]
-    //                 after:0
-    //              userInfo:@{@"notify": @"undelivered"}];
-    //}
 }
 
 - (NSData *)jsonToData:(NSDictionary *)jsonObject {
@@ -875,17 +836,26 @@
 
 
 - (NSData *)encodeLocationData:(Location *)location type:(NSString *)type addon:(NSDictionary *)addon {
-    NSMutableDictionary *jsonObject = [@{
-                                         @"lat": [NSString stringWithFormat:@"%g", location.coordinate.latitude],
-                                         @"lon": [NSString stringWithFormat:@"%g", location.coordinate.longitude],
-                                         @"tst": [NSString stringWithFormat:@"%.0f", [location.timestamp timeIntervalSince1970]],
-                                         @"_type": [NSString stringWithFormat:@"%@", type]
-                                         } mutableCopy];
+    NSMutableDictionary *jsonObject = [[NSMutableDictionary alloc] init];
+    [jsonObject setValue:[NSString stringWithFormat:@"%@", type] forKey:@"_type"];
     
+#ifdef OLD
+    [jsonObject setValue:[NSString stringWithFormat:@"%g", location.coordinate.latitude] forKey:@"lat"];
+    [jsonObject setValue:[NSString stringWithFormat:@"%g", location.coordinate.longitude] forKey:@"lon"];
+    [jsonObject setValue:[NSString stringWithFormat:@"%.0f", [location.timestamp timeIntervalSince1970]] forKey:@"tst"];
+#else
+    [jsonObject setValue:@(location.coordinate.latitude) forKey:@"lat"];
+    [jsonObject setValue:@(location.coordinate.longitude) forKey:@"lon"];
+    [jsonObject setValue:@((int)[location.timestamp timeIntervalSince1970]) forKey:@"tst"];
+#endif
     
     double acc = [location.accuracy doubleValue];
     if (acc > 0) {
+#ifdef OLD
         [jsonObject setValue:[NSString stringWithFormat:@"%.0f", acc] forKey:@"acc"];
+#else
+        [jsonObject setValue:@(acc) forKey:@"acc"];
+#endif
     }
     
     if ([self.settings boolForKey:@"extendeddata_preference"]) {
@@ -906,7 +876,11 @@
     
     double rad = [location.regionradius doubleValue];
     if (rad > 0) {
+#ifdef OLD
         [jsonObject setValue:[NSString stringWithFormat:@"%.0f", rad] forKey:@"rad"];
+#else
+        [jsonObject setValue:@((int)rad) forKey:@"rad"];
+#endif
     }
     
     if (addon) {
@@ -914,8 +888,12 @@
     }
     
     if ([type isEqualToString:@"location"]) {
-        [jsonObject setValue:[NSString stringWithFormat:@"%.0f", [UIDevice currentDevice].batteryLevel != -1.0 ?
-                              [UIDevice currentDevice].batteryLevel * 100.0 : -1.0] forKey:@"batt"];
+        int batteryLevel = [UIDevice currentDevice].batteryLevel != -1 ? [UIDevice currentDevice].batteryLevel * 100 : -1;
+#ifdef OLD
+        [jsonObject setValue:[NSString stringWithFormat:@"%d", batteryLevel] forKey:@"batt"];
+#else
+        [jsonObject setValue:@(batteryLevel) forKey:@"batt"];
+#endif
     }
     
     return [self jsonToData:jsonObject];

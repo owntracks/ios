@@ -23,6 +23,22 @@
 
 @implementation LocationTVC
 
+- (void)viewDidLoad {
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self
+                            action:@selector(commandReportLocation)
+                  forControlEvents:UIControlEventValueChanged];
+
+}
+
+- (void)commandReportLocation
+{
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate requestLocationFromFriend:self.friend];
+
+    [self.refreshControl endRefreshing];
+}
+
 - (void)setFriend:(Friend *)friend
 {
     if (_friend != friend) {
