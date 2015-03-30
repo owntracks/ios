@@ -463,7 +463,7 @@
     subscriptions = [self stringForKey:@"subscription_preference"];
     
     if (!subscriptions || [subscriptions isEqualToString:@""]) {
-        subscriptions = [NSString stringWithFormat:@"owntracks/+/+ owntracks/%@/#", [self theId]];
+        subscriptions = [NSString stringWithFormat:@"owntracks/+/+ owntracks/+/+/event owntracks/%@/cmd", [self theId]];
     }
     return subscriptions;
 }

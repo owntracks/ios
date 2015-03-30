@@ -26,9 +26,10 @@ enum state {
 
 @end
 
-@interface Connection: NSObject <MQTTSessionDelegate>
+@interface Connection: NSThread <MQTTSessionDelegate>
 
 @property (weak, nonatomic) id<ConnectionDelegate> delegate;
+@property (nonatomic) BOOL terminate;
 @property (nonatomic, readonly) NSInteger state;
 @property (nonatomic, readonly) NSError *lastErrorCode;
 

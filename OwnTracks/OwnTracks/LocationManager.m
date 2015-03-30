@@ -10,7 +10,7 @@
 #import "AlertView.h"
 
 #ifdef DEBUG
-#define DEBUGLM FALSE
+#define DEBUGLM TRUE
 #else
 #define DEBUGLM FALSE
 #endif
@@ -62,15 +62,43 @@ static LocationManager *theInstance = nil;
     self.lastUsedLocation = [[CLLocation alloc] initWithLatitude:0 longitude:0];
     self.pendingRegionEvents = [[NSMutableSet alloc] init];
     [self authorize];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification
+                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
+                                                          if (DEBUGLM) NSLog(@"UIApplicationWillEnterForegroundNotification");
+                                                          //
+                                                      }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
+                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
+                                                          if (DEBUGLM) NSLog(@"UIApplicationDidBecomeActiveNotification");
+                                                          [self wakeup];
+                                                      }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
+                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
+                                                          if (DEBUGLM) NSLog(@"UIApplicationWillResignActiveNotification");
+                                                          [self sleep];
+                                                      }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification
+                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
+                                                          if (DEBUGLM) NSLog(@"UIApplicationWillTerminateNotification");
+                                                          [self stop];
+                                                      }];
+
     return self;
 }
 
 - (void)start {
+    if (DEBUGLM) NSLog(@"start");
     [self authorize];
 }
 
 - (void)wakeup {
+    if (DEBUGLM) NSLog(@"wakeup");
     [self authorize];
+    for (CLRegion *region in self.manager.monitoredRegions) {
+        if (DEBUGLM) NSLog(@"requestStateForRegion %@", region.identifier);
+        [self.manager requestStateForRegion:region];
+    }
 }
 
 - (void)authorize {
@@ -85,6 +113,7 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)sleep {
+    if (DEBUGLM) NSLog(@"sleep");
     if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
         for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
             [self.manager stopRangingBeaconsInRegion:beaconRegion];
@@ -94,6 +123,7 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)stop {
+    if (DEBUGLM) NSLog(@"stop");
 }
 
 - (void)startRegion:(CLRegion *)region {
@@ -271,9 +301,11 @@ static LocationManager *theInstance = nil;
     if (DEBUGLM) NSLog(@"didDetermineState %ld %@", (long)state, region);
     if (state == CLRegionStateInside) {
         if (self.ranging) {
-            if ([region isKindOfClass:[CLBeaconRegion class]]) {
-                CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
-                [self.manager startRangingBeaconsInRegion:beaconRegion];
+            if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+                if ([region isKindOfClass:[CLBeaconRegion class]]) {
+                    CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
+                    [self.manager startRangingBeaconsInRegion:beaconRegion];
+                }
             }
         }
     } else if (state == CLRegionStateOutside) {

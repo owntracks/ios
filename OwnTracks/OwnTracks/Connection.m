@@ -12,15 +12,18 @@
 #import "CoreData.h"
 
 #ifdef DEBUG
-#define DEBUGCONN FALSE
+#define DEBUGCONN TRUE
 #else
 #define DEBUGCONN FALSE
 #endif
+
+#define BACKGROUND_DISCONNECT_AFTER 8.0
 
 @interface Connection()
 
 @property (nonatomic) NSInteger state;
 
+@property (strong, nonatomic) NSTimer *disconnectTimer;
 @property (strong, nonatomic) NSTimer *reconnectTimer;
 @property (nonatomic) double reconnectTime;
 @property (nonatomic) BOOL reconnectFlag;
@@ -55,12 +58,40 @@
    if (DEBUGCONN) NSLog(@"Connection init");
     self = [super init];
     self.state = state_starting;
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification
+                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
+                                                          if (DEBUGCONN) NSLog(@"UIApplicationWillEnterForegroundNotification");
+                                                      }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
+                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
+                                                          if (DEBUGCONN) NSLog(@"UIApplicationDidBecomeActiveNotification");
+                                                          [self connectToLast];
+                                                      }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification
+                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
+                                                          if (DEBUGCONN) NSLog(@"UIApplicationDidEnterBackgroundNotification");
+                                                      }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
+                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
+                                                          if (DEBUGCONN) NSLog(@"UIApplicationWillResignActiveNotification");
+                                                          [self disconnect];
+                                                      }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification
+                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
+                                                          if (DEBUGCONN) NSLog(@"UIApplicationWillTerminateNotification");
+                                                          self.terminate = true;
+                                                      }];
     return self;
 }
 
-/*
- * externally visible methods
- */
+- (void)main {
+    if (DEBUGCONN) NSLog(@"Connection main");
+    while (!self.terminate) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+    }
+    [self disconnect];
+}
 
 - (void)connectTo:(NSString *)host
              port:(NSInteger)port
@@ -139,8 +170,34 @@
         
     }
     [self connectToInternal];
-    
 }
+
+- (void)startBackgroundTimer {
+    if (DEBUGCONN) NSLog(@"startBackgroundTimer %ld",
+                         (long)[UIApplication sharedApplication].applicationIconBadgeNumber);
+    
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+        if (self.disconnectTimer && self.disconnectTimer.isValid) {
+            if (DEBUGCONN) NSLog(@"disconnectTimer.isValid %@", self.disconnectTimer.fireDate);
+        } else {
+            self.disconnectTimer = [NSTimer timerWithTimeInterval:BACKGROUND_DISCONNECT_AFTER
+                                                           target:self
+                                                         selector:@selector(disconnectInBackground)
+                                                         userInfo:Nil repeats:FALSE];
+            NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
+            [runLoop addTimer:self.disconnectTimer forMode:NSDefaultRunLoopMode];
+            if (DEBUGCONN) NSLog(@"disconnectTimer %@", self.disconnectTimer.fireDate);
+        }
+    }
+}
+
+- (void)disconnectInBackground {
+    if (DEBUGCONN) NSLog(@"disconnectInBackground %ld",
+                        (long)[UIApplication sharedApplication].applicationIconBadgeNumber);
+    self.disconnectTimer = nil;
+    [self disconnect];
+}
+
 
 - (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(NSInteger)qos retain:(BOOL)retainFlag
 {
@@ -250,13 +307,6 @@
     [self.delegate messageDelivered:msgID];
 }
 
-/*
- * Incoming Data Handler for subscriptions
- *
- * all incoming data is responded to by a publish of the current position
- *
- */
-
 - (void)newMessage:(MQTTSession *)session data:(NSData *)data onTopic:(NSString *)topic qos:(MQTTQosLevel)qos retained:(BOOL)retained mid:(unsigned int)mid {
     if (DEBUGCONN) NSLog(@"Connection received %@ %@", topic, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     [self.delegate handleMessage:data onTopic:topic retained:retained];
@@ -281,8 +331,9 @@
                                port:self.port
                            usingSSL:self.tls];
     } else {
-       if (DEBUGCONN)  NSLog(@"Connection not starting, can't connect");
+       if (DEBUGCONN) NSLog(@"Connection not starting, can't connect");
     }
+    [self startBackgroundTimer];
 }
 
 - (NSString *)parameters {

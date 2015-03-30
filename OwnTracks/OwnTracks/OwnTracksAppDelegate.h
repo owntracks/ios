@@ -40,6 +40,5 @@
 - (void)sendEmpty:(Friend *)friend;
 - (void)reconnect;
 - (void)connectionOff;
-- (void)saveContext;
 
 @end

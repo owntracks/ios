@@ -54,6 +54,17 @@ static NSManagedObjectContext *theManagedObjectContext = nil;
         }
     }
 
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
+                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
+                                                          if (DEBUGCORE) NSLog(@"UIApplicationWillResignActiveNotification");
+                                                          [CoreData saveContext];
+                                                      }];
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification
+                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
+                                                          if (DEBUGCORE) NSLog(@"UIApplicationWillTerminateNotification");
+                                                          [CoreData saveContext];
+                                                      }];
+
     return self;
 }
 
@@ -72,6 +83,20 @@ static NSManagedObjectContext *theManagedObjectContext = nil;
 {
     return theManagedObjectContext;
 }
+
++ (void)saveContext {
+    if (theManagedObjectContext != nil) {
+        if ([theManagedObjectContext hasChanges]) {
+            NSError *error = nil;
+            if (DEBUGCORE) NSLog(@"managedObjectContext save");
+            if (![theManagedObjectContext save:&error]) {
+                NSString *message = [NSString stringWithFormat:@"%@", error.localizedDescription];
+                if (DEBUGCORE) NSLog(@"managedObjectContext save error: %@", message);
+            }
+        }
+    }
+}
+
 
 
 @end

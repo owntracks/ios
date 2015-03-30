@@ -1,4 +1,4 @@
-//
+ //
 //  OwnTracksAppDelegate.m
 //  OwnTracks
 //
@@ -24,7 +24,6 @@
 #endif
 
 @interface OwnTracksAppDelegate()
-@property (strong, nonatomic) NSTimer *disconnectTimer;
 @property (strong, nonatomic) NSTimer *activityTimer;
 @property (strong, nonatomic) UIAlertView *alertView;
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
@@ -35,8 +34,6 @@
 @property (strong, nonatomic) CMPedometer *pedometer;
 @end
 
-#define BACKGROUND_DISCONNECT_AFTER 8.0
-#define REMINDER_AFTER 300.0
 
 #define MAX_OTHER_LOCATIONS 1
 
@@ -103,6 +100,7 @@
     
     self.connection = [[Connection alloc] init];
     self.connection.delegate = self;
+    [self.connection start];
     [self connect];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -122,21 +120,6 @@
     [locationManager start];
     
     return YES;
-}
-
-- (void)saveContext {
-    NSManagedObjectContext *managedObjectContext = [CoreData theManagedObjectContext];    
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges]) {
-            NSError *error = nil;
-            if (DEBUGAPP) NSLog(@"managedObjectContext save");
-            if (![managedObjectContext save:&error]) {
-                NSString *message = [NSString stringWithFormat:@"%@", error.localizedDescription];
-                if (DEBUGAPP) NSLog(@"managedObjectContext save error: %@", message);
-                [AlertView alert:@"save" message:[message substringToIndex:128]];
-            }
-        }
-    }
 }
 
 - (void)batteryLevelChanged:(NSNotification *)notification {
@@ -202,32 +185,21 @@
     return TRUE;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-    if (DEBUGAPP) NSLog(@"applicationWillResignActive");
-    [self saveContext];
-    [[LocationManager sharedInstance] sleep];
-    [self.connection disconnect];
-}
-
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     if (DEBUGAPP) NSLog(@"applicationDidEnterBackground");
     self.backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-                               if (DEBUGAPP) NSLog(@"BackgroundTaskExpirationHandler");
-                               /*
-                                * we might end up here if the connection could not be closed within the given
-                                * background time
-                                */
-                               if (self.backgroundTask) {
-                                   [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
-                                   self.backgroundTask = UIBackgroundTaskInvalid;
-                               }
-                           }];
+        if (DEBUGAPP) NSLog(@"BackgroundTaskExpirationHandler");
+        /*
+         * we might end up here if the connection could not be closed within the given
+         * background time
+         */
+        if (self.backgroundTask) {
+            [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
+            self.backgroundTask = UIBackgroundTaskInvalid;
+        }
+    }];
 }
 
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-    if (DEBUGAPP) NSLog(@"applicationWillEnterForeground");
-}
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     if (DEBUGAPP) NSLog(@"applicationDidBecomeActive");
@@ -244,14 +216,6 @@
                              self.coreData.fileURL];
         [AlertView alert:@"CoreData" message:message];
     }
-    [self.connection connectToLast];
-    [[LocationManager sharedInstance] wakeup];
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-    if (DEBUGAPP) NSLog(@"applicationWillTerminate");
-    [[LocationManager sharedInstance] stop];
-    [self saveContext];
 }
 
 - (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notification {
@@ -265,13 +229,12 @@
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     if (DEBUGAPP) NSLog(@"performFetchWithCompletionHandler");
-
     self.completionHandler = completionHandler;
+    [[LocationManager sharedInstance] wakeup];
+    [self.connection connectToLast];
+    
     if ([LocationManager sharedInstance].monitoring) {
         [self publishLocation:[LocationManager sharedInstance].location automatic:TRUE addon:@{@"t":@"p"}];
-    } else {
-        [self.connection connectToLast];
-        [self startBackgroundTimer];
     }
 }
 
@@ -294,27 +257,31 @@
 }
 
 - (void)regionEvent:(CLRegion *)region enter:(BOOL)enter {
-    NSString *message = [NSString stringWithFormat:@"%@ %@", (enter ? @"Entering" : @"Leaving"), region.identifier];
-    [self notification:message userInfo:nil];
-    NSMutableDictionary *addon = [[NSMutableDictionary alloc] init];
-    [addon setObject:enter ? @"enter" : @"leave" forKey:@"event" ];
-    if ([region isKindOfClass:[CLCircularRegion class]]) {
-        [addon setObject:@"c" forKey:@"t" ];
-    } else {
-        [addon setObject:@"b" forKey:@"t" ];
-    }
+    NSMutableDictionary *jsonObject = [@{
+                                         @"_type": @"transition",
+                                         @"lat": @([LocationManager sharedInstance].location.coordinate.latitude),
+                                         @"lon": @([LocationManager sharedInstance].location.coordinate.longitude),
+                                         @"tst": @(floor([[LocationManager sharedInstance].location.timestamp timeIntervalSince1970])),
+                                         @"acc": @([LocationManager sharedInstance].location.horizontalAccuracy),
+                                         @"tid": [self.settings stringForKey:@"trackerid_preference"],
+                                         @"event": enter ? @"enter" : @"leave"
+                                         } mutableCopy];
     
     for (Location *location in [Location allWaypointsOfTopic:[self.settings theGeneralTopic]
                                       inManagedObjectContext:[CoreData theManagedObjectContext]]) {
         if ([region.identifier isEqualToString:location.region.identifier]) {
             location.remark = location.remark; // this touches the location and updates the overlay
+            [jsonObject setValue:@(floor([location.timestamp timeIntervalSince1970])) forKey:@"wtst"];
             if ([location.share boolValue]) {
-                [addon setValue:region.identifier forKey:@"desc"];
+                [jsonObject setValue:region.identifier forKey:@"desc"];
             }
         }
     }
     
-    [self publishLocation:[LocationManager sharedInstance].location automatic:TRUE addon:addon];
+    [self.connection sendData:[self jsonToData:jsonObject]
+                        topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/event"]
+                          qos:[self.settings intForKey:@"qos_preference"]
+                       retain:NO];
 }
 
 - (void)regionState:(CLRegion *)region inside:(BOOL)inside {
@@ -333,15 +300,11 @@
                                  @"rssi": @(beacon.rssi)
                                  };
     [self.connection sendData:[self jsonToData:jsonObject]
-                        topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/beacons"]
+                        topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/beacon"]
                           qos:[self.settings intForKey:@"qos_preference"]
                        retain:NO];
     
     [self.delegate beaconInRange:beacon];
-}
-
-- (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error {
-    if (DEBUGAPP) NSLog(@"App rangingBeaconsDidFailForRegion %@ %@", region, error.localizedDescription);
 }
 
 #pragma ConnectionDelegate
@@ -400,7 +363,7 @@
                         [self dumpTo:topic];
                     } else if ([dictionary[@"action"] isEqualToString:@"reportLocation"]) {
                         if ([LocationManager sharedInstance].monitoring || [self.settings boolForKey:@"allowremotelocation_preference"]) {
-                            [self publishLocation:[LocationManager sharedInstance].location automatic:YES addon:@{@"t":@"r"}];
+                            [self publishLocation:[LocationManager sharedInstance].location automatic:YES addon:@{@"t": @"r"}];
                         }
                     } else if ([dictionary[@"action"] isEqualToString:@"reportSteps"]) {
                         [self stepsFrom:dictionary[@"from"] to:dictionary[@"to"]];
@@ -408,14 +371,8 @@
                         if (DEBUGAPP) NSLog(@"unknown action %@", dictionary[@"action"]);
                     }
                 }
-            } else if ([dictionary[@"_type"] isEqualToString:@"waypoint"]) {
-                // received own waypoint
-            } else if ([dictionary[@"_type"] isEqualToString:@"beacon"]) {
-                // received own beacon
-            } else if ([dictionary[@"_type"] isEqualToString:@"location"]) {
-                // received own beacon
             } else {
-                if (DEBUGAPP) NSLog(@"unknown record type %@", dictionary[@"_type"]);
+                if (DEBUGAPP) NSLog(@"unhandled record type %@", dictionary[@"_type"]);
             }
         } else {
             if (DEBUGAPP) NSLog(@"illegal json %@", error.localizedDescription);
@@ -428,8 +385,7 @@
             NSError *error;
             NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
             if (dictionary) {
-                if ([dictionary[@"_type"] isEqualToString:@"location"] ||
-                    [dictionary[@"_type"] isEqualToString:@"waypoint"]) {
+                if ([dictionary[@"_type"] isEqualToString:@"location"]) {
                     if (DEBUGAPP) NSLog(@"App json received lat:%@ lon:%@ acc:%@ tst:%@ alt:%@ vac:%@ cog:%@ vel:%@ tid:%@ rad:%@ event:%@ desc:%@",
                                         dictionary[@"lat"],
                                         dictionary[@"lon"],
@@ -465,38 +421,34 @@
                                                                altitude:location.altitude
                                                        verticalaccuracy:location.verticalAccuracy
                                                                   speed:location.speed
-                                                                 course:location.course                                                               automatic:[dictionary[@"_type"] isEqualToString:@"location"] ? TRUE : FALSE
+                                                                 course:location.course                                                               automatic:TRUE
                                                                  remark:dictionary[@"desc"]
                                                                  radius:[dictionary[@"rad"] doubleValue]
                                                                   share:NO
                                                  inManagedObjectContext:[CoreData theManagedObjectContext]];
-                    
-                    if (retained) {
-                        if (DEBUGAPP) NSLog(@"App ignoring retained event");
-                    } else {
-                        NSString *event = dictionary[@"event"];
-                        
-                        if (event) {
-                            if ([event isEqualToString:@"enter"] || [event isEqualToString:@"leave"]) {
-                                NSString *name = [newLocation.belongsTo name];
-                                [self notification:[NSString stringWithFormat:@"%@ %@s %@",
-                                                    name ? name : newLocation.belongsTo.topic,
-                                                    event,
-                                                    newLocation.remark]
-                                          userInfo:@{@"notify": @"friend"}];
-                            }
-                        }
-                    }
-                    
                     [self limitLocationsWith:newLocation.belongsTo toMaximum:MAX_OTHER_LOCATIONS];
                     
+                } else if ([dictionary[@"_type"] isEqualToString:@"transition"]) {
+                    if (DEBUGAPP) NSLog(@"App json received lat:%@ lon:%@ acc:%@ tst:%@ wtst:%@ tid:%@ event:%@ desc:%@",
+                                        dictionary[@"lat"],
+                                        dictionary[@"lon"],
+                                        dictionary[@"acc"],
+                                        dictionary[@"tst"],
+                                        dictionary[@"wtst"],
+                                        dictionary[@"tid"],
+                                        dictionary[@"event"],
+                                        dictionary[@"desc"]
+                                        );
+                    [self notification:[NSString stringWithFormat:@"%@ %@s %@",
+                                        dictionary[@"tid"],
+                                        dictionary[@"event"],
+                                        dictionary[@"desc"]]
+                              userInfo:@{@"notify": @"friend"}];
                 } else {
                     if (DEBUGAPP) NSLog(@"unknown record type %@)", dictionary[@"_type"]);
-                    // data other than json _type location/waypoint is silently ignored
                 }
             } else {
                 if (DEBUGAPP) NSLog(@"illegal json %@)", error.localizedDescription);
-                // data other than json is silently ignored
             }
         } else /* data.length == 0 -> delete friend */ {
             Friend *friend = [Friend existsFriendWithTopic:device inManagedObjectContext:[CoreData theManagedObjectContext]];
@@ -505,7 +457,7 @@
             }
         }
     }
-    [self saveContext];
+    [CoreData saveContext];
 }
 
 - (void)messageDelivered:(UInt16)msgID {
@@ -518,7 +470,7 @@
 - (void)totalBuffered:(NSUInteger)count {
     if (DEBUGAPP) NSLog(@"totalBuffered %lu", (unsigned long)count);
     self.connectionBuffered = @(count);
-
+    
     [UIApplication sharedApplication].applicationIconBadgeNumber = count;
 }
 
@@ -529,7 +481,7 @@
                                };
     
     [self.connection sendData:[self jsonToData:dumpDict]
-                        topic:topic
+                        topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/dump"]
                           qos:[self.settings intForKey:@"qos_preference"]
                        retain:NO];
 }
@@ -603,7 +555,7 @@
                                                }
                                                
                                                [self.connection sendData:[self jsonToData:jsonObject]
-                                                                   topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/steps"]
+                                                                   topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/step"]
                                                                      qos:[self.settings intForKey:@"qos_preference"]
                                                                   retain:NO];
                                            });
@@ -631,7 +583,7 @@
                                               };
                  
                  [self.connection sendData:[self jsonToData:jsonObject]
-                                     topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/steps"]
+                                     topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/step"]
                                        qos:[self.settings intForKey:@"qos_preference"]
                                     retain:NO];
              });
@@ -646,7 +598,7 @@
                                      };
         
         [self.connection sendData:[self jsonToData:jsonObject]
-                            topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/steps"]
+                            topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/step"]
                               qos:[self.settings intForKey:@"qos_preference"]
                            retain:NO];
     }
@@ -657,7 +609,7 @@
 - (void)sendNow {
     if (DEBUGAPP) NSLog(@"App sendNow");
     [self publishLocation:[LocationManager sharedInstance].location automatic:FALSE addon:@{@"t":@"u"}];
-
+    
 }
 
 - (void)connectionOff {
@@ -695,29 +647,8 @@
                        retain:[self.settings boolForKey:@"retain_preference"]];
     
     [self limitLocationsWith:newLocation.belongsTo toMaximum:[self.settings intForKey:@"positions_preference"]];
-    [self startBackgroundTimer];
-    [self saveContext];
-}
 
-- (void)startBackgroundTimer {
-    /**
-     *   In background, set timer to disconnect after BACKGROUND_DISCONNECT_AFTER sec. IOS will suspend app after 10 sec.
-     **/
-    
-    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
-        if (self.disconnectTimer && self.disconnectTimer.isValid) {
-            if (DEBUGAPP) NSLog(@"App timer still running %@", self.disconnectTimer.fireDate);
-        } else {
-            self.disconnectTimer = [NSTimer timerWithTimeInterval:BACKGROUND_DISCONNECT_AFTER
-                                                           target:self
-                                                         selector:@selector(disconnectInBackground)
-                                                         userInfo:Nil repeats:FALSE];
-            NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
-            [runLoop addTimer:self.disconnectTimer
-                      forMode:NSDefaultRunLoopMode];
-            if (DEBUGAPP) NSLog(@"App timerWithTimeInterval %@", self.disconnectTimer.fireDate);
-        }
-    }
+    [CoreData saveContext];
 }
 
 - (void)sendEmpty:(Friend *)friend {
@@ -734,7 +665,7 @@
                                  };
     
     [self.connection sendData:[self jsonToData:jsonObject]
-                        topic:[friend.topic stringByAppendingString:@"/steps"]
+                        topic:[friend.topic stringByAppendingString:@"/cmd"]
                           qos:[self.settings intForKey:@"qos_preference"]
                        retain:NO];
 }
@@ -750,11 +681,11 @@
                                        type:@"waypoint" addon:addon];
     
     [self.connection sendData:data
-                        topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/waypoints"]
+                        topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/waypoint"]
                           qos:[self.settings intForKey:@"qos_preference"]
                        retain:NO];
     
-    [self saveContext];
+    [CoreData saveContext];
 }
 
 - (void)limitLocationsWith:(Friend *)friend toMaximum:(NSInteger)max {
@@ -770,14 +701,14 @@
 #pragma internal helpers
 
 - (void)notification:(NSString *)message userInfo:(NSDictionary *)userInfo {
-   if (DEBUGAPP)  NSLog(@"App notification %@ userinfo %@", message, userInfo);
+    if (DEBUGAPP)  NSLog(@"App notification %@ userinfo %@", message, userInfo);
     
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.alertBody = message;
     notification.alertLaunchImage = @"itunesArtwork.png";
     notification.userInfo = userInfo;
     [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
-
+    
 }
 
 - (void)notification:(NSString *)message after:(NSTimeInterval)after userInfo:(NSDictionary *)userInfo {
@@ -807,14 +738,6 @@
                        willQos:[self.settings intForKey:@"willqos_preference"]
                 willRetainFlag:[self.settings boolForKey:@"willretain_preference"]
                   withClientId:[self.settings theClientId]];
-}
-
-- (void)disconnectInBackground {
-    if (DEBUGAPP) NSLog(@"App disconnectInBackground %ld",
-                        (long)[UIApplication sharedApplication].applicationIconBadgeNumber);
-    [[LocationManager sharedInstance] sleep];
-    self.disconnectTimer = nil;
-    [self.connection disconnect];
 }
 
 - (NSData *)jsonToData:(NSDictionary *)jsonObject {
