@@ -54,7 +54,6 @@
     self.backgroundTask = UIBackgroundTaskInvalid;
     self.completionHandler = nil;
     
-    
     if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
         if (DEBUGAPP) NSLog(@"setMinimumBackgroundFetchInterval %f", UIApplicationBackgroundFetchIntervalMinimum);
         [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
@@ -98,9 +97,22 @@
     
     self.settings = [[Settings alloc] init];
     
-    self.connection = [[Connection alloc] init];
-    self.connection.delegate = self;
-    [self.connection start];
+    [self share];
+    
+    MQTTQosLevel subscriptionQos =[self.settings intForKey:@"subscriptionqos_preference"];
+    NSArray *subscriptions = [[self.settings theSubscriptions] componentsSeparatedByCharactersInSet:
+                             [NSCharacterSet whitespaceCharacterSet]];
+
+    self.connectionOut = [[Connection alloc] init];
+    self.connectionOut.delegate = self;
+    [self.connectionOut start];
+
+    self.connectionIn = [[Connection alloc] init];
+    self.connectionIn.subscriptions = subscriptions;
+    self.connectionIn.subscriptionQos = subscriptionQos;
+    self.connectionIn.delegate = self;
+    [self.connectionIn start];
+    
     [self connect];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -231,7 +243,8 @@
     if (DEBUGAPP) NSLog(@"performFetchWithCompletionHandler");
     self.completionHandler = completionHandler;
     [[LocationManager sharedInstance] wakeup];
-    [self.connection connectToLast];
+    [self.connectionOut connectToLast];
+    [self.connectionIn connectToLast];
     
     if ([LocationManager sharedInstance].monitoring) {
         [self publishLocation:[LocationManager sharedInstance].location automatic:TRUE addon:@{@"t":@"p"}];
@@ -250,6 +263,7 @@
 
 - (void)newLocation:(CLLocation *)location {
     [self publishLocation:location automatic:YES addon:nil];
+    [self share];
 }
 
 - (void)timerLocation:(CLLocation *)location {
@@ -278,7 +292,7 @@
         }
     }
     
-    [self.connection sendData:[self jsonToData:jsonObject]
+    [self.connectionOut sendData:[self jsonToData:jsonObject]
                         topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/event"]
                           qos:[self.settings intForKey:@"qos_preference"]
                        retain:NO];
@@ -299,7 +313,7 @@
                                  @"acc": @(round(beacon.accuracy)),
                                  @"rssi": @(beacon.rssi)
                                  };
-    [self.connection sendData:[self jsonToData:jsonObject]
+    [self.connectionOut sendData:[self jsonToData:jsonObject]
                         topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/beacon"]
                           qos:[self.settings intForKey:@"qos_preference"]
                        retain:NO];
@@ -309,16 +323,17 @@
 
 #pragma ConnectionDelegate
 
-- (void)showState:(NSInteger)state {
-    self.connectionState = @(state);
-    
+- (void)showState:(Connection *)connection state:(NSInteger)state {
+    if (connection == self.connectionOut) {
+        self.connectionStateOut = @(state);
+    }
     /**
      ** This is a hack to ensure the connection gets gracefully closed at the server
      **
      ** If the background task is ended, occasionally the disconnect message is not received well before the server senses the tcp disconnect
      **/
     
-    if (state == state_closed) {
+    if ([self.connectionStateOut intValue] == state_closed) {
         if (self.backgroundTask) {
             if (DEBUGAPP) NSLog(@"endBackGroundTask");
             [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
@@ -332,7 +347,7 @@
     }
 }
 
-- (void)handleMessage:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
+- (void)handleMessage:(Connection *)connection data:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
     NSArray *topicComponents = [topic componentsSeparatedByCharactersInSet:
                                 [NSCharacterSet characterSetWithCharactersInString:@"/"]];
     NSArray *baseComponents = [[self.settings theGeneralTopic] componentsSeparatedByCharactersInSet:
@@ -458,20 +473,22 @@
         }
     }
     [CoreData saveContext];
+    [self share];
 }
 
-- (void)messageDelivered:(UInt16)msgID {
+- (void)messageDelivered:(Connection *)connection msgID:(UInt16)msgID {
     if (DEBUGAPP) {
         NSString *message = [NSString stringWithFormat:@"Message delivered id=%u", msgID];
         [self notification:message userInfo:nil];
     }
 }
 
-- (void)totalBuffered:(NSUInteger)count {
+- (void)totalBuffered:(Connection *)connection count:(NSUInteger)count {
     if (DEBUGAPP) NSLog(@"totalBuffered %lu", (unsigned long)count);
-    self.connectionBuffered = @(count);
-    
-    [UIApplication sharedApplication].applicationIconBadgeNumber = count;
+    if (connection == self.connectionOut) {
+        self.connectionBufferedOut = @(count);        
+        [UIApplication sharedApplication].applicationIconBadgeNumber = count;
+    }
 }
 
 - (void)dumpTo:(NSString *)topic {
@@ -480,7 +497,7 @@
                                @"configuration":[self.settings toDictionary],
                                };
     
-    [self.connection sendData:[self jsonToData:dumpDict]
+    [self.connectionOut sendData:[self jsonToData:dumpDict]
                         topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/dump"]
                           qos:[self.settings intForKey:@"qos_preference"]
                        retain:NO];
@@ -554,7 +571,7 @@
                                                    [jsonObject setObject:@(-1) forKey:@"steps"];
                                                }
                                                
-                                               [self.connection sendData:[self jsonToData:jsonObject]
+                                               [self.connectionOut sendData:[self jsonToData:jsonObject]
                                                                    topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/step"]
                                                                      qos:[self.settings intForKey:@"qos_preference"]
                                                                   retain:NO];
@@ -582,7 +599,7 @@
                                               @"steps": error ? @(-1) : @(steps)
                                               };
                  
-                 [self.connection sendData:[self jsonToData:jsonObject]
+                 [self.connectionOut sendData:[self jsonToData:jsonObject]
                                      topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/step"]
                                        qos:[self.settings intForKey:@"qos_preference"]
                                     retain:NO];
@@ -597,7 +614,7 @@
                                      @"steps": @(-1)
                                      };
         
-        [self.connection sendData:[self jsonToData:jsonObject]
+        [self.connectionOut sendData:[self jsonToData:jsonObject]
                             topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/step"]
                               qos:[self.settings intForKey:@"qos_preference"]
                            retain:NO];
@@ -614,12 +631,14 @@
 
 - (void)connectionOff {
     NSLog(@"App connectionOff");
-    [self.connection disconnect];
+    [self.connectionOut disconnect];
+    [self.connectionIn disconnect];
 }
 
 - (void)reconnect {
     if (DEBUGAPP) NSLog(@"App reconnect");
-    [self.connection disconnect];
+    [self.connectionOut disconnect];
+    [self.connectionIn disconnect];
     [self connect];
 }
 
@@ -641,7 +660,7 @@
     
     NSData *data = [self encodeLocationData:newLocation type:@"location" addon:addon];
     
-    [self.connection sendData:data
+    [self.connectionOut sendData:data
                         topic:[self.settings theGeneralTopic]
                           qos:[self.settings intForKey:@"qos_preference"]
                        retain:[self.settings boolForKey:@"retain_preference"]];
@@ -652,7 +671,7 @@
 }
 
 - (void)sendEmpty:(Friend *)friend {
-    [self.connection sendData:nil
+    [self.connectionOut sendData:nil
                         topic:friend.topic
                           qos:[self.settings intForKey:@"qos_preference"]
                        retain:YES];
@@ -664,7 +683,7 @@
                                  @"action": @"reportLocation"
                                  };
     
-    [self.connection sendData:[self jsonToData:jsonObject]
+    [self.connectionOut sendData:[self jsonToData:jsonObject]
                         topic:[friend.topic stringByAppendingString:@"/cmd"]
                           qos:[self.settings intForKey:@"qos_preference"]
                        retain:NO];
@@ -680,7 +699,7 @@
     NSData *data = [self encodeLocationData:location
                                        type:@"waypoint" addon:addon];
     
-    [self.connection sendData:data
+    [self.connectionOut sendData:data
                         topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/waypoint"]
                           qos:[self.settings intForKey:@"qos_preference"]
                        retain:NO];
@@ -723,21 +742,35 @@
 }
 
 - (void)connect {
-    [self.connection connectTo:[self.settings stringForKey:@"host_preference"]
-                          port:[self.settings intForKey:@"port_preference"]
-                           tls:[self.settings boolForKey:@"tls_preference"]
-                     keepalive:[self.settings intForKey:@"keepalive_preference"]
-                         clean:[self.settings intForKey:@"clean_preference"]
-                          auth:[self.settings boolForKey:@"auth_preference"]
-                          user:[self.settings stringForKey:@"user_preference"]
-                          pass:[self.settings stringForKey:@"pass_preference"]
-                     willTopic:[self.settings theWillTopic]
-                          will:[self jsonToData:@{
-                                                  @"tst": [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]],
-                                                  @"_type": @"lwt"}]
-                       willQos:[self.settings intForKey:@"willqos_preference"]
-                willRetainFlag:[self.settings boolForKey:@"willretain_preference"]
-                  withClientId:[self.settings theClientId]];
+    [self.connectionOut connectTo:[self.settings stringForKey:@"host_preference"]
+                             port:[self.settings intForKey:@"port_preference"]
+                              tls:[self.settings boolForKey:@"tls_preference"]
+                        keepalive:[self.settings intForKey:@"keepalive_preference"]
+                            clean:[self.settings intForKey:@"clean_preference"]
+                             auth:[self.settings boolForKey:@"auth_preference"]
+                             user:[self.settings stringForKey:@"user_preference"]
+                             pass:[self.settings stringForKey:@"pass_preference"]
+                        willTopic:[self.settings theWillTopic]
+                             will:[self jsonToData:@{
+                                                     @"tst": [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]],
+                                                     @"_type": @"lwt"}]
+                          willQos:[self.settings intForKey:@"willqos_preference"]
+                   willRetainFlag:[self.settings boolForKey:@"willretain_preference"]
+                     withClientId:[NSString stringWithFormat:@"%@-o", [self.settings theClientId]]];
+    
+    [self.connectionIn connectTo:[self.settings stringForKey:@"host_preference"]
+                             port:[self.settings intForKey:@"port_preference"]
+                              tls:[self.settings boolForKey:@"tls_preference"]
+                        keepalive:[self.settings intForKey:@"keepalive_preference"]
+                            clean:[self.settings intForKey:@"clean_preference"]
+                             auth:[self.settings boolForKey:@"auth_preference"]
+                             user:[self.settings stringForKey:@"user_preference"]
+                             pass:[self.settings stringForKey:@"pass_preference"]
+                        willTopic:nil
+                             will:nil
+                          willQos:MQTTQosLevelAtMostOnce
+                   willRetainFlag:NO
+                    withClientId:[NSString stringWithFormat:@"%@-i", [self.settings theClientId]]];
 }
 
 - (NSData *)jsonToData:(NSDictionary *)jsonObject {
@@ -821,5 +854,38 @@
     
     return [self jsonToData:jsonObject];
 }
+
+- (void)share {
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
+        NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+        NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
+        NSMutableDictionary *sharedFriends = [[NSMutableDictionary alloc] init];
+        CLLocation *myCLLocation = [LocationManager sharedInstance].location;
+        
+        for (Friend *friend in friends) {
+            NSString *name = [friend name];
+            NSData *image = [friend image];
+            Location *friendsLocation = [friend newestLocation];
+            CLLocation *friendsCLLocation = [[CLLocation alloc] initWithLatitude:[friendsLocation.latitude doubleValue]
+                                                                       longitude:[friendsLocation.longitude doubleValue]];
+            NSNumber *distance = @([myCLLocation distanceFromLocation:friendsCLLocation]);
+            if (name) {
+                NSMutableDictionary *aFriend = [[NSMutableDictionary alloc] init];
+                if (image) {
+                    [aFriend setObject:image forKey:@"image"];
+                }
+                [aFriend setObject:distance forKey:@"distance"];
+                [aFriend setObject:friendsLocation.longitude forKey:@"longitude"];
+                [aFriend setObject:friendsLocation.latitude forKey:@"latitude"];
+                [aFriend setObject:friendsLocation.timestamp forKey:@"timestamp"];
+                [aFriend setObject:friend.topic forKey:@"topic"];
+                [sharedFriends setObject:aFriend forKey:name];
+            }
+        }
+        if (DEBUGAPP) NSLog(@"sharedFriends %@", sharedFriends);
+        [shared setValue:sharedFriends forKey:@"sharedFriends"];
+    }
+}
+
 
 @end

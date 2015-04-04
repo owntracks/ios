@@ -138,8 +138,8 @@
     [self performSelector:@selector(hideNavBar) withObject:nil afterDelay:2.0];
     
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate addObserver:self forKeyPath:@"connectionState" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
-    [delegate addObserver:self forKeyPath:@"connectionBuffered" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    [delegate addObserver:self forKeyPath:@"connectionStateOut" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    [delegate addObserver:self forKeyPath:@"connectionBufferedOut" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     
     [self monitoringButtonImage];
     [self beaconButtonImage];
@@ -173,8 +173,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate removeObserver:self forKeyPath:@"connectionState" context:nil];
-    [delegate removeObserver:self forKeyPath:@"connectionBuffered" context:nil];
+    [delegate removeObserver:self forKeyPath:@"connectionStateOut" context:nil];
+    [delegate removeObserver:self forKeyPath:@"connectionBufferedOut" context:nil];
     
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
@@ -388,7 +388,7 @@
 {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    switch ([delegate.connectionState intValue]) {
+    switch ([delegate.connectionStateOut intValue]) {
         case state_connected:
             self.connectionButton.tintColor = [UIColor colorWithRed:0.0 green:190.0/255.0 blue:0.0 alpha:1.0];
             break;
@@ -405,7 +405,7 @@
             break;
     }
     
-    int buffered = [delegate.connectionBuffered intValue];
+    int buffered = [delegate.connectionBufferedOut intValue];
     self.bufferedItem.title = buffered ? [NSString stringWithFormat:@"%d", buffered] : @"";
     if (buffered) {
         if (buffered % 2) {

@@ -27,12 +27,12 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (weak, nonatomic) id<RangingDelegate> delegate;
-
-@property (strong, nonatomic) Connection *connection;
 @property (strong, nonatomic) Settings *settings;
 
-@property (strong, nonatomic) NSNumber *connectionState;
-@property (strong, nonatomic) NSNumber *connectionBuffered;
+@property (strong, nonatomic) Connection *connectionOut;
+@property (strong, nonatomic) Connection *connectionIn;
+@property (strong, nonatomic) NSNumber *connectionStateOut;
+@property (strong, nonatomic) NSNumber *connectionBufferedOut;
 
 - (void)sendNow;
 - (void)requestLocationFromFriend:(Friend *)friend;

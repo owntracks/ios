@@ -107,7 +107,8 @@
    willRetainFlag:(BOOL)willRetainFlag
      withClientId:(NSString *)clientId
 {
-    if (DEBUGCONN) NSLog(@"Connection connectTo: %@:%@@%@:%ld %@ (%ld) c%d / %@ %@ q%ld r%d as %@",
+    if (DEBUGCONN) NSLog(@"%@ connectTo: %@:%@@%@:%ld %@ (%ld) c%d / %@ %@ q%ld r%d as %@",
+                         self.clientId,
                          auth ? user : @"",
                          auth ? pass : @"",
                          host,
@@ -150,13 +151,13 @@
         self.willRetainFlag = willRetainFlag;
         self.clientId = clientId;
         
-        if (DEBUGCONN) NSLog(@"Connection new session");
+        if (DEBUGCONN) NSLog(@"%@ new session", self.clientId);
         self.session = [[MQTTSession alloc] initWithClientId:clientId
                                                     userName:auth ? user : nil
                                                     password:auth ? pass : nil
                                                    keepAlive:keepalive
                                                 cleanSession:clean
-                                                        will:YES
+                                                        will:willTopic != nil
                                                    willTopic:willTopic
                                                      willMsg:will
                                                      willQoS:willQos
@@ -165,6 +166,7 @@
                                                      runLoop:[NSRunLoop currentRunLoop]
                                                      forMode:NSDefaultRunLoopMode];
         [self.session setDelegate:self];
+        self.session.persistence.persistent = TRUE;
         self.reconnectTime = RECONNECT_TIMER;
         self.reconnectFlag = FALSE;
         
@@ -173,12 +175,13 @@
 }
 
 - (void)startBackgroundTimer {
-    if (DEBUGCONN) NSLog(@"startBackgroundTimer %ld",
-                         (long)[UIApplication sharedApplication].applicationIconBadgeNumber);
+    if (DEBUGCONN) NSLog(@"%@ startBackgroundTimer", self.clientId);
     
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
         if (self.disconnectTimer && self.disconnectTimer.isValid) {
-            if (DEBUGCONN) NSLog(@"disconnectTimer.isValid %@", self.disconnectTimer.fireDate);
+            if (DEBUGCONN) NSLog(@"%@ disconnectTimer.isValid %@",
+                                 self.clientId,
+                                 self.disconnectTimer.fireDate);
         } else {
             self.disconnectTimer = [NSTimer timerWithTimeInterval:BACKGROUND_DISCONNECT_AFTER
                                                            target:self
@@ -186,14 +189,15 @@
                                                          userInfo:Nil repeats:FALSE];
             NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
             [runLoop addTimer:self.disconnectTimer forMode:NSDefaultRunLoopMode];
-            if (DEBUGCONN) NSLog(@"disconnectTimer %@", self.disconnectTimer.fireDate);
+            if (DEBUGCONN) NSLog(@"%@ disconnectTimer %@",
+                                 self.clientId,
+                                 self.disconnectTimer.fireDate);
         }
     }
 }
 
 - (void)disconnectInBackground {
-    if (DEBUGCONN) NSLog(@"disconnectInBackground %ld",
-                        (long)[UIApplication sharedApplication].applicationIconBadgeNumber);
+    if (DEBUGCONN) NSLog(@"%@ disconnectInBackground", self.clientId);
     self.disconnectTimer = nil;
     [self disconnect];
 }
@@ -201,7 +205,8 @@
 
 - (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(NSInteger)qos retain:(BOOL)retainFlag
 {
-    if (DEBUGCONN) NSLog(@"Connection sendData:%@ %@ q%ld r%d",
+    if (DEBUGCONN) NSLog(@"%@ sendData:%@ %@ q%ld r%d",
+                         self.clientId,
                          topic,
                          [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding],
                          (long)qos,
@@ -214,13 +219,13 @@
                                      onTopic:topic
                                       retain:retainFlag
                                          qos:qos];
-    if (DEBUGCONN) NSLog(@"sendData m%u", msgId);
+    if (DEBUGCONN) NSLog(@"%@ sendData m%u", self.clientId, msgId);
     return msgId;
 }
 
 - (void)disconnect
 {
-    if (DEBUGCONN) NSLog(@"Connection disconnect:");
+    if (DEBUGCONN) NSLog(@"%@ disconnect:", self.clientId);
     self.state = state_closing;
     [self.session close];
 
@@ -241,14 +246,9 @@
      * if clean-session is set or if it's the first time we connect in non-clean-session-mode, subscribe to topic
      */
     if (self.clean || !self.reconnectFlag) {
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        UInt8 qos =[delegate.settings intForKey:@"subscriptionqos_preference"];
-        
-        NSArray *topicFilters = [[delegate.settings theSubscriptions] componentsSeparatedByCharactersInSet:
-                                 [NSCharacterSet whitespaceCharacterSet]];
-        for (NSString *topicFilter in topicFilters) {
+        for (NSString *topicFilter in self.subscriptions) {
             if (topicFilter.length) {
-                [self.session subscribeToTopic:topicFilter atLevel:qos];
+                [self.session subscribeToTopic:topicFilter atLevel:self.subscriptionQos];
             }
         }
         self.reconnectFlag = TRUE;
@@ -265,7 +265,10 @@
                                        @(MQTTSessionEventConnectionError): @"connection error",
                                        @(MQTTSessionEventProtocolError): @"protocoll error"
                                        };
-        NSLog(@"Connection MQTT eventCode: %@ (%ld) %@", events[@(eventCode)], (long)eventCode, error);
+        NSLog(@"%@ MQTT eventCode: %@ (%ld) %@",
+              self.clientId,
+              events[@(eventCode)],
+              (long)eventCode, error);
     }
     [self.reconnectTimer invalidate];
     switch (eventCode) {
@@ -283,7 +286,7 @@
         case MQTTSessionEventConnectionRefused:
         case MQTTSessionEventConnectionError:
         {
-            if (DEBUGCONN) NSLog(@"Connection setTimer %f", self.reconnectTime);
+            if (DEBUGCONN) NSLog(@"%@ setTimer %f", self.clientId, self.reconnectTime);
             self.reconnectTimer = [NSTimer timerWithTimeInterval:self.reconnectTime
                                                           target:self
                                                         selector:@selector(reconnect)
@@ -303,23 +306,31 @@
 
 - (void)messageDelivered:(MQTTSession *)session msgID:(UInt16)msgID
 {
-    if (DEBUGCONN) NSLog(@"messageDelivered m%u", msgID);
-    [self.delegate messageDelivered:msgID];
+    if (DEBUGCONN) NSLog(@"%@ messageDelivered m%u",
+                         self.clientId,
+                         msgID);
+    [self.delegate messageDelivered:self msgID:msgID];
 }
 
 - (void)newMessage:(MQTTSession *)session data:(NSData *)data onTopic:(NSString *)topic qos:(MQTTQosLevel)qos retained:(BOOL)retained mid:(unsigned int)mid {
-    if (DEBUGCONN) NSLog(@"Connection received %@ %@", topic, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-    [self.delegate handleMessage:data onTopic:topic retained:retained];
+    if (DEBUGCONN) NSLog(@"%@ received %@ %@",
+                         self.clientId,
+                         topic,
+                         [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    [self.delegate handleMessage:self data:data onTopic:topic retained:retained];
 }
 
 - (void)buffered:(MQTTSession *)session flowingIn:(NSUInteger)flowingIn flowingOut:(NSUInteger)flowingOut {
-    if (DEBUGCONN) NSLog(@"Connection buffered i%lu o%lu", (unsigned long)flowingIn, (unsigned long)flowingOut);
+    if (DEBUGCONN) NSLog(@"%@ buffered i%lu o%lu",
+                         self.clientId,
+                         (unsigned long)flowingIn,
+                         (unsigned long)flowingOut);
     if ((flowingIn + flowingOut) && self.state == state_connected) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
     } else {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
     }
-    [self.delegate totalBuffered:flowingOut ? flowingOut : flowingIn];
+    [self.delegate totalBuffered: self count:flowingOut ? flowingOut : flowingIn];
 }
 
 #pragma internal helpers
@@ -331,7 +342,7 @@
                                port:self.port
                            usingSSL:self.tls];
     } else {
-       if (DEBUGCONN) NSLog(@"Connection not starting, can't connect");
+       if (DEBUGCONN) NSLog(@"%@ not starting, can't connect", self.clientId);
     }
     [self startBackgroundTimer];
 }
@@ -360,13 +371,13 @@
                                        @(state_closed): @"closed"
                                        };
         
-        NSLog(@"Connection state %@ (%ld)", states[@(self.state)], (long)self.state);
+        NSLog(@"%@ state %@ (%ld)", self.clientId, states[@(self.state)], (long)self.state);
     }
-    [self.delegate showState:self.state];
+    [self.delegate showState:self state:self.state];
 }
 
 - (void)reconnect {
-    if (DEBUGCONN) NSLog(@"Connection reconnect");
+    if (DEBUGCONN) NSLog(@"%@ reconnect", self.clientId);
     
     self.reconnectTimer = nil;
     self.state = state_starting;
@@ -378,7 +389,7 @@
 }
 
 - (void)connectToLast {
-    if (DEBUGCONN) NSLog(@"Connection connectToLast");
+    if (DEBUGCONN) NSLog(@"%@ connectToLast", self.clientId);
     
     self.reconnectTime = RECONNECT_TIMER;
     

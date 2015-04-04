@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <MQTTClient/MQTTClient.h>
+
+@class Connection;
+
 @protocol ConnectionDelegate <NSObject>
 
 enum state {
@@ -19,10 +22,10 @@ enum state {
     state_closed
 };
 
-- (void)showState:(NSInteger)state;
-- (void)handleMessage:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained;
-- (void)messageDelivered:(UInt16)msgID;
-- (void)totalBuffered:(NSUInteger)count;
+- (void)showState:(Connection *)connection state:(NSInteger)state;
+- (void)handleMessage:(Connection *)connection data:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained;
+- (void)messageDelivered:(Connection *)connection msgID:(UInt16)msgID;
+- (void)totalBuffered:(Connection *)connection count:(NSUInteger)count;
 
 @end
 
@@ -32,6 +35,8 @@ enum state {
 @property (nonatomic) BOOL terminate;
 @property (nonatomic, readonly) NSInteger state;
 @property (nonatomic, readonly) NSError *lastErrorCode;
+@property (strong, nonatomic) NSArray *subscriptions;
+@property (nonatomic) MQTTQosLevel subscriptionQos;
 
 - (void)connectTo:(NSString *)host
              port:(NSInteger)port

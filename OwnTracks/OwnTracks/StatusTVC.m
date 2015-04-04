@@ -59,8 +59,8 @@
     [super viewWillAppear:animated];
     
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate addObserver:self forKeyPath:@"connectionState" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
-    [delegate addObserver:self forKeyPath:@"connectionBuffered" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    [delegate addObserver:self forKeyPath:@"connectionStateOut" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    [delegate addObserver:self forKeyPath:@"connectionBufferedOut" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     
     [self updated];
 }
@@ -70,8 +70,8 @@
     [super viewWillDisappear:animated];
     
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate removeObserver:self forKeyPath:@"connectionState" context:nil];
-    [delegate removeObserver:self forKeyPath:@"connectionBuffered" context:nil];
+    [delegate removeObserver:self forKeyPath:@"connectionStateOut" context:nil];
+    [delegate removeObserver:self forKeyPath:@"connectionBufferedOut" context:nil];
 
     [self updateValues];
 }
@@ -124,11 +124,11 @@
                                    };
     
     self.UIstatus.text = [NSString stringWithFormat:@"%@ %@",
-                          states[delegate.connectionState],
-                          delegate.connection.lastErrorCode ? delegate.connection.lastErrorCode.localizedDescription : @""];
+                          states[delegate.connectionStateOut],
+                          delegate.connectionOut.lastErrorCode ? delegate.connectionOut.lastErrorCode.localizedDescription : @""];
     self.UIstatusField.text = [NSString stringWithFormat:@"%@ %@",
-                               states[delegate.connectionState],
-                               delegate.connection.lastErrorCode ? delegate.connection.lastErrorCode.localizedDescription : @""];
+                               states[delegate.connectionStateOut],
+                               delegate.connectionOut.lastErrorCode ? delegate.connectionOut.lastErrorCode.localizedDescription : @""];
 }
 
 - (void)updated
@@ -144,7 +144,7 @@
     self.UIeffectiveWillTopic.text =                [delegate.settings theWillTopic];
     self.UIeffectivesubscriptions.text =            [delegate.settings theSubscriptions];
     
-    self.UIparameters.text =                        [delegate.connection parameters];
+    self.UIparameters.text =                        [delegate.connectionOut parameters];
     
     self.UIDeviceID.text =                          [delegate.settings stringForKey:@"deviceid_preference"];
     self.UItrackerid.text =                         [delegate.settings stringForKey:@"trackerid_preference"];
