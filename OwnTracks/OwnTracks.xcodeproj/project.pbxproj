@@ -63,6 +63,7 @@
 		84AB054D1ACFF2280028D8BF /* icon86@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84AB05441ACFF2280028D8BF /* icon86@2x.png */; };
 		84AB054E1ACFF2280028D8BF /* icon98@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84AB05451ACFF2280028D8BF /* icon98@2x.png */; };
 		84B7397A1A65629200B103F4 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B739791A65629200B103F4 /* LocationManager.m */; };
+		84CDB2501AD197AD005E272B /* Public.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84CDB24F1AD197AD005E272B /* Public.plist */; };
 		84D3072F1ACD644500FACB9E /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D3072E1ACD644500FACB9E /* NotificationCenter.framework */; };
 		84D307351ACD644500FACB9E /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D307341ACD644500FACB9E /* TodayViewController.m */; };
 		84D307371ACD644500FACB9E /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D307361ACD644500FACB9E /* MainInterface.storyboard */; };
@@ -217,6 +218,7 @@
 		84B739791A65629200B103F4 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		84C38C14193F88C200F56D04 /* Model 7.2.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.2.2.xcdatamodel"; sourceTree = "<group>"; };
 		84C756A61A89F706003BC8A8 /* Model 7.4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.4.xcdatamodel"; sourceTree = "<group>"; };
+		84CDB24F1AD197AD005E272B /* Public.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Public.plist; sourceTree = "<group>"; };
 		84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OwnTracksToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D3072E1ACD644500FACB9E /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		84D307321ACD644500FACB9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 				8411B88F189FE9CE0019D2D6 /* Settings.h */,
 				8411B890189FE9CE0019D2D6 /* Settings.m */,
 				849D457B18CDACDF00201BF3 /* Settings.plist */,
+				84CDB24F1AD197AD005E272B /* Public.plist */,
 				8411B8FE189FEC070019D2D6 /* EditLocationTVC.h */,
 				8411B8FF189FEC070019D2D6 /* EditLocationTVC.m */,
 				8411B900189FEC070019D2D6 /* FriendAnnotationV.h */,
@@ -712,6 +715,7 @@
 				8411B843189FDB140019D2D6 /* Images.xcassets in Resources */,
 				84AB054D1ACFF2280028D8BF /* icon86@2x.png in Resources */,
 				8411B8E0189FEB790019D2D6 /* iTunesArtwork@2x.png in Resources */,
+				84CDB2501AD197AD005E272B /* Public.plist in Resources */,
 				84AB054B1ACFF2280028D8BF /* icon44@2x.png in Resources */,
 				84AB05461ACFF2280028D8BF /* icon24@2x.png in Resources */,
 				84AB054E1ACFF2280028D8BF /* icon98@2x.png in Resources */,

@@ -30,4 +30,6 @@
 - (NSString *)theDeviceId;
 - (NSString *)theSubscriptions;
 
+- (BOOL)validInPublicMode:(NSString *)key;
+
 @end

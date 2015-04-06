@@ -14,8 +14,14 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSDictionary *sharedFriends;
 @property (nonatomic) int mode;
+@property (nonatomic) unsigned long offset;
+@property (weak, nonatomic) IBOutlet UILabel *label;
+@property (weak, nonatomic) IBOutlet UIButton *backward;
+@property (weak, nonatomic) IBOutlet UIButton *forward;
 
 @end
+
+#define PAGE 3
 
 @implementation TodayViewController
 
@@ -24,10 +30,11 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.mode = 0;
+    self.offset = 0;
 }
 
 - (CGSize)preferredContentSize {
-    CGSize size = CGSizeMake(320, 44*4);
+    CGSize size = CGSizeMake(320, 44 * PAGE + 31);
     return size;
 }
 
@@ -35,9 +42,20 @@
     NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
     self.sharedFriends = [shared valueForKey:@"sharedFriends"];
     NSLog(@"sharedFriends: %@", self.sharedFriends);
+    self.offset = 0;
+    [self show];
     [self.tableView reloadData];
 
     completionHandler(NCUpdateResultNewData);
+}
+
+- (void)show {
+    self.label.text = [NSString stringWithFormat:@"%lu - %lu / %lu",
+                  MIN(self.offset + 1, self.sharedFriends.count),
+                  MIN(self.offset + PAGE, self.sharedFriends.count),
+                  (unsigned long)self.sharedFriends.count];
+    self.forward.enabled = self.sharedFriends.count > self.offset + PAGE;
+    self.backward.enabled = self.offset >= PAGE;
 }
 
 - (UIEdgeInsets)widgetMarginInsetsForProposedMarginInsets:(UIEdgeInsets)defaultMarginInsets {
@@ -50,13 +68,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.sharedFriends.count;
+    return MIN(PAGE, self.sharedFriends.count);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sharedFriend" forIndexPath:indexPath];
     
-    NSString *name = [self.sharedFriends allKeys][indexPath.row];
+    NSString *name = [self.sharedFriends allKeys][indexPath.row + self.offset];
     NSDictionary *friend = self.sharedFriends[name];
     cell.textLabel.text = name;
     
@@ -117,6 +135,8 @@
         cell.imageView.image = [UIImage imageWithCGImage:image.CGImage
                                            scale:(MAX(image.size.width, image.size.height) / 44)
                                      orientation:UIImageOrientationUp];
+    } else {
+        cell.imageView.image = nil;
     }
     
     return cell;
@@ -126,5 +146,17 @@
     self.mode = (self.mode + 1) % 3;
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     [tableView reloadData];
+}
+
+- (IBAction)forwardPressed:(UIButton *)sender {
+    self.offset += PAGE;
+    [self show];
+    [self.tableView reloadData];
+}
+
+- (IBAction)backwardPressed:(UIButton *)sender {
+    self.offset -= PAGE;
+    [self show];
+    [self.tableView reloadData];
 }
 @end

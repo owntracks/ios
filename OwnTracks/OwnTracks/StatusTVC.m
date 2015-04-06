@@ -12,6 +12,7 @@
 
 
 @interface StatusTVC ()
+@property (weak, nonatomic) IBOutlet UISwitch *UIpublicMode;
 @property (weak, nonatomic) IBOutlet UITextField *UIeffectivesubscriptions;
 @property (weak, nonatomic) IBOutlet UITextView *UIparameters;
 @property (weak, nonatomic) IBOutlet UITextField *UIstatus;
@@ -47,6 +48,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UItrackerid;
 @property (weak, nonatomic) IBOutlet UISwitch *UIextendedData;
 @property (weak, nonatomic) IBOutlet UISwitch *UIallowRemoteLocation;
+@property (weak, nonatomic) IBOutlet UIButton *UIexport;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
 
@@ -90,6 +92,7 @@
     if (self.UISubscription) [delegate.settings setString:self.UISubscription.text forKey:@"subscription_preference"];
     if (self.UIUpdateAddressBook) [delegate.settings setBool:self.UIUpdateAddressBook.on forKey:@"ab_preference"];
     if (self.UIallowRemoteLocation) [delegate.settings setBool:self.UIallowRemoteLocation.on forKey:@"allowremotelocation_preference"];
+    if (self.UIpublicMode) [delegate.settings setBool:self.UIpublicMode.on forKey:@"publicMode"];
     if (self.UIextendedData) [delegate.settings setBool:self.UIextendedData.on forKey:@"extendeddata_preference"];
     if (self.UIPositionsToKeep) [delegate.settings setString:self.UIPositionsToKeep.text forKey:@"positions_preference"];
     if (self.UITopic) [delegate.settings setString:self.UITopic.text forKey:@"topic_preference"];
@@ -154,6 +157,7 @@
     self.UIUserID.text =                            [delegate.settings stringForKey:@"user_preference"];
     self.UIPassword.text =                          [delegate.settings stringForKey:@"pass_preference"];
     self.UISubscription.text =                      [delegate.settings stringForKey:@"subscription_preference"];
+    self.UIpublicMode.on =                          [delegate.settings boolForKey:@"publicMode"];
     self.UIUpdateAddressBook.on =                   [delegate.settings boolForKey:@"ab_preference"];
     self.UIallowRemoteLocation.on =                 [delegate.settings boolForKey:@"allowremotelocation_preference"];
     self.UIextendedData.on =                        [delegate.settings boolForKey:@"extendeddata_preference"];
@@ -172,6 +176,43 @@
     self.UIWillTopic.text =                         [delegate.settings stringForKey:@"willtopic_preference"];
     self.UIwillqos.text =                           [self qosString:[delegate.settings intForKey:@"willqos_preference"]];
     self.UIWillRetain.on =                          [delegate.settings boolForKey:@"willretain_preference"];
+    
+    NSMutableArray *hiddenFields = [[NSMutableArray alloc] init];
+    if (self.UIDeviceID) [hiddenFields addObject:self.UIDeviceID];
+    if (self.UIparameters) [hiddenFields addObject:self.UIparameters];
+    if (self.UItrackerid) [hiddenFields addObject:self.UItrackerid];
+    if (self.UIHost) [hiddenFields addObject:self.UIHost];
+    if (self.UIUserID) [hiddenFields addObject:self.UIUserID];
+    if (self.UIPassword) [hiddenFields addObject:self.UIPassword];
+    if (self.UISubscription) [hiddenFields addObject:self.UISubscription];
+    if (self.UIUpdateAddressBook) [hiddenFields addObject:self.UIUpdateAddressBook];
+    if (self.UIallowRemoteLocation) [hiddenFields addObject:self.UIallowRemoteLocation];
+    if (self.UIextendedData) [hiddenFields addObject:self.UIextendedData];
+    if (self.UIPositionsToKeep) [hiddenFields addObject:self.UIPositionsToKeep];
+    if (self.UIsubscriptionqos) [hiddenFields addObject:self.UIsubscriptionqos];
+    if (self.UITopic) [hiddenFields addObject:self.UITopic];
+    if (self.UIqos) [hiddenFields addObject:self.UIqos];
+    if (self.UIRetain) [hiddenFields addObject:self.UIRetain];
+    if (self.UICMD) [hiddenFields addObject:self.UICMD];
+    if (self.UIClientID) [hiddenFields addObject:self.UIClientID];
+    if (self.UIPort) [hiddenFields addObject:self.UIPort];
+    if (self.UITLS) [hiddenFields addObject:self.UITLS];
+    if (self.UIAuth) [hiddenFields addObject:self.UIAuth];
+    if (self.UICleanSession) [hiddenFields addObject:self.UICleanSession];
+    if (self.UIKeepAlive) [hiddenFields addObject:self.UIKeepAlive];
+    if (self.UIWillTopic) [hiddenFields addObject:self.UIWillTopic];
+    if (self.UIwillqos) [hiddenFields addObject:self.UIwillqos];
+    if (self.UIWillRetain) [hiddenFields addObject:self.UIWillRetain];
+    if (self.UIeffectiveDeviceId) [hiddenFields addObject:self.UIeffectiveDeviceId];
+    if (self.UIeffectiveClientId) [hiddenFields addObject:self.UIeffectiveClientId];
+    if (self.UIeffectiveTopic) [hiddenFields addObject:self.UIeffectiveTopic];
+    if (self.UIeffectiveWillTopic) [hiddenFields addObject:self.UIeffectiveWillTopic];
+    if (self.UIeffectivesubscriptions) [hiddenFields addObject:self.UIeffectivesubscriptions];
+
+    for (UIView *view in hiddenFields) {
+        view.hidden = [delegate.settings boolForKey:@"publicMode"];
+    }
+    self.UIexport.enabled = ![delegate.settings boolForKey:@"publicMode"];
 }
 
 - (IBAction)exportPressed:(UIButton *)sender {
@@ -313,6 +354,12 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     self.UItrackerid.text = [delegate.settings stringForKey:@"trackerid_preference"];
+}
+
+- (IBAction)publicModeChanged:(UISwitch *)sender {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    if (self.UIpublicMode) [delegate.settings setBool:self.UIpublicMode.on forKey:@"publicMode"];
+    [self updated];
 }
 
 @end

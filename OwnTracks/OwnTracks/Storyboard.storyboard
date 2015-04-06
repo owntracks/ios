@@ -134,10 +134,26 @@
                                                         <action selector="checkConnection:" destination="nAk-La-kdM" eventType="touchUpInside" id="fgg-De-8cf"/>
                                                     </connections>
                                                 </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Public Mode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVs-tL-Jll">
+                                                    <rect key="frame" x="146" y="11" width="97" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5z0-yw-XFl">
+                                                    <rect key="frame" x="251" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="publicModeChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="Sto-hy-gBR"/>
+                                                    </connections>
+                                                </switch>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="P4K-Co-8TG" firstAttribute="leading" secondItem="GUj-99-7gn" secondAttribute="leading" constant="20" symbolic="YES" id="5Er-bd-Agc"/>
                                                 <constraint firstAttribute="centerY" secondItem="P4K-Co-8TG" secondAttribute="centerY" id="YSG-Ea-Bm7"/>
+                                                <constraint firstAttribute="centerY" secondItem="5z0-yw-XFl" secondAttribute="centerY" id="htU-t7-RE4"/>
+                                                <constraint firstAttribute="trailing" secondItem="5z0-yw-XFl" secondAttribute="trailing" constant="20" symbolic="YES" id="ndT-pu-hT4"/>
+                                                <constraint firstItem="5z0-yw-XFl" firstAttribute="leading" secondItem="uVs-tL-Jll" secondAttribute="trailing" constant="8" symbolic="YES" id="qx1-OE-tJa"/>
+                                                <constraint firstAttribute="centerY" secondItem="uVs-tL-Jll" secondAttribute="centerY" id="zt9-oY-7nS"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -992,7 +1008,9 @@
                         <outlet property="UIWillRetain" destination="TzT-oM-LWj" id="eVA-lS-fiM"/>
                         <outlet property="UIWillTopic" destination="jSi-wl-PuC" id="9pG-3Z-M1r"/>
                         <outlet property="UIallowRemoteLocation" destination="L5Y-Zc-PTd" id="fTC-3j-phg"/>
+                        <outlet property="UIexport" destination="ysB-cv-35Y" id="QKh-Bs-pnD"/>
                         <outlet property="UIextendedData" destination="gHo-wc-Cgg" id="vQU-MV-xye"/>
+                        <outlet property="UIpublicMode" destination="5z0-yw-XFl" id="kJ0-v7-2Il"/>
                         <outlet property="UIqos" destination="EQS-gJ-XoJ" id="IGr-Nq-OAB"/>
                         <outlet property="UIstatus" destination="Dkt-W1-c4K" id="uXG-MW-TUE"/>
                         <outlet property="UIsubscriptionqos" destination="8pt-Fn-HD6" id="gRh-Om-SpN"/>
@@ -2042,8 +2060,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="DMp-iB-KHF"/>
         <segue reference="fYg-iY-91D"/>
-        <segue reference="d9Z-oL-s4W"/>
+        <segue reference="Cyr-xx-Iz2"/>
+        <segue reference="DMp-iB-KHF"/>
     </inferredMetricsTieBreakers>
 </document>

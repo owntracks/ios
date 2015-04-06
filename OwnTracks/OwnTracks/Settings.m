@@ -11,16 +11,15 @@
 #import "CoreData.h"
 #import "Location+Create.h"
 
-//#define OLD 1
-
 #ifdef DEBUG
-#define DEBUGSETTINGS TRUE
+#define DEBUGSETTINGS FALSE
 #else
 #define DEBUGSETTINGS FALSE
 #endif
 
 @interface Settings ()
 @property (strong, nonatomic) NSDictionary *appDefaults;
+@property (strong, nonatomic) NSDictionary *publicDefaults;
 @end
 
 @implementation Settings
@@ -31,9 +30,11 @@
     if (self) {
         
         NSURL *bundleURL = [[NSBundle mainBundle] bundleURL];
-        NSURL *plistURL = [bundleURL URLByAppendingPathComponent:@"Settings.plist"];
+        NSURL *settingsPlistURL = [bundleURL URLByAppendingPathComponent:@"Settings.plist"];
+        NSURL *publicPlistURL = [bundleURL URLByAppendingPathComponent:@"Public.plist"];
         
-        self.appDefaults = [NSDictionary dictionaryWithContentsOfURL:plistURL];
+        self.appDefaults = [NSDictionary dictionaryWithContentsOfURL:settingsPlistURL];
+        self.publicDefaults = [NSDictionary dictionaryWithContentsOfURL:publicPlistURL];
     }
     return self;
 }
@@ -136,9 +137,12 @@
             string = dictionary[@"allowRemoteLocation"];
             if (string) [self setString:string forKey:@"allowremotelocation_preference"];
             
+            string = dictionary[@"publicMode"];
+            if (string) [self setString:string forKey:@"publicMode"];
+            
             string = dictionary[@"extendedData"];
             if (string) [self setString:string forKey:@"extendeddata_preference"];
-
+            
             string = dictionary[@"tid"];
             if (string) [self setString:string forKey:@"trackerid_preference"];
             
@@ -228,15 +232,6 @@
     
     for (Location *location in [Location allWaypointsOfTopic:[self theGeneralTopic]
                                     inManagedObjectContext:[CoreData theManagedObjectContext]]) {
-#ifdef OLD
-        NSDictionary *waypoint = @{@"_type": @"waypoint",
-                                   @"lat": [NSString stringWithFormat:@"%g", location.coordinate.latitude],
-                                   @"lon": [NSString stringWithFormat:@"%g", location.coordinate.longitude],
-                                   @"tst": [NSString stringWithFormat:@"%.0f", [location.timestamp timeIntervalSince1970]],
-                                   @"rad": [NSString stringWithFormat:@"%g", [location.regionradius doubleValue]],
-                                   @"desc": location.remark
-                                   };
-#else
         NSDictionary *waypoint = @{@"_type": @"waypoint",
                                    @"lat": @(location.coordinate.latitude),
                                    @"lon": @(location.coordinate.longitude),
@@ -244,46 +239,9 @@
                                    @"rad": location.regionradius,
                                    @"desc": location.remark
                                    };
-#endif
         [waypoints addObject:waypoint];
     }
     
-#ifdef OLD
-    NSDictionary *dict = @{@"_type": @"configuration",
-                           @"deviceid": [self stringForKey:@"deviceid_preference"],
-                           @"clientid": [self stringForKey:@"clientid_preference"],
-                           @"subTopic": [self stringForKey:@"subscription_preference"],
-                           @"pubTopicBase": [self stringForKey:@"topic_preference"],
-                           @"host": [self stringForKey:@"host_preference"],
-                           @"username": [self stringForKey:@"user_preference"],
-                           @"password": [self stringForKey:@"pass_preference"],
-                           @"willTopic": [self stringForKey:@"willtopic_preference"],
-                           
-                           @"subQos": [self stringForKey:@"subscriptionqos_preference"],
-                           @"pubQos": [self stringForKey:@"qos_preference"],
-                           @"port": [self stringForKey:@"port_preference"],
-                           @"keepalive": [self stringForKey:@"keepalive_preference"],
-                           @"willQos": [self stringForKey:@"willqos_preference"],
-                           @"locatorDisplacement": [self stringForKey:@"mindist_preference"],
-                           @"locatorInterval": [self stringForKey:@"mintime_preference"],
-                           @"monitoring": [self stringForKey:@"monitoring_preference"],
-                           @"ranging": [self stringForKey:@"ranging_preference"],
-                           @"cmd": [self stringForKey:@"cmd_preference"],
-                           
-                           @"pubRetain": [self stringForKey:@"retain_preference"],
-                           @"tls": [self stringForKey:@"tls_preference"],
-                           @"auth": [self stringForKey:@"auth_preference"],
-                           @"cleanSession": [self stringForKey:@"clean_preference"],
-                           @"willRetain": [self stringForKey:@"willretain_preference"],
-                           @"updateAddressBook": [self stringForKey:@"ab_preference"],
-                           @"allowRemoteLocation": [self stringForKey:@"allowremotelocation_preference"],
-                           @"extendedData": [self stringForKey:@"extendeddata_preference"],
-                           @"positions": [self stringForKey:@"positions_preference"],
-                           @"tid": [self stringForKey:@"trackerid_preference"],
-                           
-                           @"waypoints": waypoints
-                           };
-#else
     NSDictionary *dict = @{@"_type": @"configuration",
                            @"deviceid": [self stringForKey:@"deviceid_preference"],
                            @"clientid": [self stringForKey:@"clientid_preference"],
@@ -314,11 +272,11 @@
                            @"willRetain": @([self boolForKey:@"willretain_preference"]),
                            @"updateAddressBook": @([self boolForKey:@"ab_preference"]),
                            @"allowRemoteLocation": @([self boolForKey:@"allowremotelocation_preference"]),
+                           @"publicMode": @([self boolForKey:@"publicMode"]),
                            @"extendedData": @([self boolForKey:@"extendeddata_preference"]),
                            
                            @"waypoints": waypoints
                            };
-#endif
     return dict;
 }
 
@@ -333,11 +291,21 @@
     return myData;
 }
 
+- (BOOL)validInPublicMode:(NSString *)key {
+    return ([key isEqualToString:@"publicMode"] ||
+            [key isEqualToString:@"monitoring_preference"] ||
+            [key isEqualToString:@"mindist_preference"] ||
+            [key isEqualToString:@"mintime_preference"] ||
+            [key isEqualToString:@"ranging_preference"]);
+
+}
 
 - (void)setString:(NSString *)string forKey:(NSString *)key
 {
-    Setting *setting = [Setting settingWithKey:key inManagedObjectContext:[CoreData theManagedObjectContext]];
-    setting.value = string;
+    if (![self boolForKey:@"publicMode"] || [self validInPublicMode:key]) {
+        Setting *setting = [Setting settingWithKey:key inManagedObjectContext:[CoreData theManagedObjectContext]];
+        setting.value = string;
+    }
 }
 
 - (void)setInt:(int)i forKey:(NSString *)key
@@ -357,6 +325,24 @@
 
 - (NSString *)stringForKey:(NSString *)key
 {
+    NSString *value = nil;
+
+    if ([[self stringForKeyRaw:@"publicMode"] boolValue] && ![self validInPublicMode:key]) {
+        id object = [self.publicDefaults objectForKey:key];
+        if (object) {
+            if ([object isKindOfClass:[NSString class]]) {
+                value = (NSString *)object;
+            } else if ([object isKindOfClass:[NSNumber class]]) {
+                value = [(NSNumber *)object stringValue];
+            }
+        }
+    } else {
+        value = [self stringForKeyRaw:key];
+    }
+    return value;
+}
+
+- (NSString *)stringForKeyRaw:(NSString *)key {
     NSString *value = nil;
     
     Setting *setting = [Setting existsSettingWithKey:key inManagedObjectContext:[CoreData theManagedObjectContext]];
@@ -398,7 +384,10 @@
     
     if (!topic || [topic isEqualToString:@""]) {
         topic = [NSString stringWithFormat:@"owntracks/%@", [self theId]];
+    } else if ([topic isEqualToString:@"%"]) {
+        topic = [NSString stringWithFormat:@"public/user/%@", [self theDeviceId]];
     }
+
     return topic;
 }
 
@@ -431,7 +420,7 @@
     NSString *user;
     user = [self stringForKey:@"user_preference"];
     NSString *deviceId;
-    deviceId = [self stringForKey:@"deviceid_preference"];
+    deviceId = [self theDeviceId];
     
     if (!user || [user isEqualToString:@""]) {
         if (!deviceId || [deviceId isEqualToString:@""]) {
@@ -454,6 +443,9 @@
 {
     NSString *deviceId;
     deviceId = [self stringForKey:@"deviceid_preference"];
+    if ([deviceId isEqualToString:@"%"]) {
+        deviceId = [[UIDevice currentDevice].identifierForVendor UUIDString];
+    }
     return deviceId;
 }
 
@@ -464,6 +456,8 @@
     
     if (!subscriptions || [subscriptions isEqualToString:@""]) {
         subscriptions = [NSString stringWithFormat:@"owntracks/+/+ owntracks/+/+/event owntracks/%@/cmd", [self theId]];
+    } else if ([subscriptions isEqualToString:@"%"]) {
+        subscriptions = [NSString stringWithFormat:@"public/user/+ public/user/+/event public/user/%@/cmd", [self theDeviceId]];
     }
     return subscriptions;
 }

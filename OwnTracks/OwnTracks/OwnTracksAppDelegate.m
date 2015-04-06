@@ -1,4 +1,4 @@
- //
+//
 //  OwnTracksAppDelegate.m
 //  OwnTracks
 //
@@ -32,6 +32,7 @@
 @property (strong, nonatomic) NSString *processingMessage;
 @property (strong, nonatomic) CMStepCounter *stepCounter;
 @property (strong, nonatomic) CMPedometer *pedometer;
+@property (strong, nonatomic) NSManagedObjectContext *queueManagedObjectContext;
 @end
 
 
@@ -101,12 +102,12 @@
     
     MQTTQosLevel subscriptionQos =[self.settings intForKey:@"subscriptionqos_preference"];
     NSArray *subscriptions = [[self.settings theSubscriptions] componentsSeparatedByCharactersInSet:
-                             [NSCharacterSet whitespaceCharacterSet]];
-
+                              [NSCharacterSet whitespaceCharacterSet]];
+    
     self.connectionOut = [[Connection alloc] init];
     self.connectionOut.delegate = self;
     [self.connectionOut start];
-
+    
     self.connectionIn = [[Connection alloc] init];
     self.connectionIn.subscriptions = subscriptions;
     self.connectionIn.subscriptionQos = subscriptionQos;
@@ -293,9 +294,9 @@
     }
     
     [self.connectionOut sendData:[self jsonToData:jsonObject]
-                        topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/event"]
-                          qos:[self.settings intForKey:@"qos_preference"]
-                       retain:NO];
+                           topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/event"]
+                             qos:[self.settings intForKey:@"qos_preference"]
+                          retain:NO];
 }
 
 - (void)regionState:(CLRegion *)region inside:(BOOL)inside {
@@ -314,9 +315,9 @@
                                  @"rssi": @(beacon.rssi)
                                  };
     [self.connectionOut sendData:[self jsonToData:jsonObject]
-                        topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/beacon"]
-                          qos:[self.settings intForKey:@"qos_preference"]
-                       retain:NO];
+                           topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/beacon"]
+                             qos:[self.settings intForKey:@"qos_preference"]
+                          retain:NO];
     
     [self.delegate beaconInRange:beacon];
 }
@@ -347,7 +348,17 @@
     }
 }
 
+- (NSManagedObjectContext *)queueManagedObjectContext
+{
+    if (!_queueManagedObjectContext) {
+        _queueManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        [_queueManagedObjectContext setParentContext:[CoreData theManagedObjectContext]];
+    }
+    return _queueManagedObjectContext;
+}
+
 - (void)handleMessage:(Connection *)connection data:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
+    if (DEBUGAPP) NSLog(@"handleMessage");
     NSArray *topicComponents = [topic componentsSeparatedByCharactersInSet:
                                 [NSCharacterSet characterSetWithCharactersInString:@"/"]];
     NSArray *baseComponents = [[self.settings theGeneralTopic] componentsSeparatedByCharactersInSet:
@@ -394,86 +405,91 @@
         }
         
     } else /* not ownDevice */ {
-        
-        if (data.length) {
-            
-            NSError *error;
-            NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-            if (dictionary) {
-                if ([dictionary[@"_type"] isEqualToString:@"location"]) {
-                    if (DEBUGAPP) NSLog(@"App json received lat:%@ lon:%@ acc:%@ tst:%@ alt:%@ vac:%@ cog:%@ vel:%@ tid:%@ rad:%@ event:%@ desc:%@",
-                                        dictionary[@"lat"],
-                                        dictionary[@"lon"],
-                                        dictionary[@"acc"],
-                                        dictionary[@"tst"],
-                                        dictionary[@"alt"],
-                                        dictionary[@"vac"],
-                                        dictionary[@"cog"],
-                                        dictionary[@"vel"],
-                                        dictionary[@"tid"],
-                                        dictionary[@"rad"],
-                                        dictionary[@"event"],
-                                        dictionary[@"desc"]
-                                        );
-                    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
-                                                                                   [dictionary[@"lat"] doubleValue],
-                                                                                   [dictionary[@"lon"] doubleValue]
-                                                                                   );
-                    
-                    CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate
-                                                                         altitude:[dictionary[@"alt"] intValue]
-                                                               horizontalAccuracy:[dictionary[@"acc"] doubleValue]
-                                                                 verticalAccuracy:[dictionary[@"vac"] intValue]
-                                                                           course:[dictionary[@"cog"] intValue]
-                                                                            speed:[dictionary[@"vel"] intValue]
-                                                                        timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]];
-                    
-                    Location *newLocation = [Location locationWithTopic:device
-                                                                    tid:dictionary[@"tid"]
-                                                              timestamp:location.timestamp
-                                                             coordinate:location.coordinate
-                                                               accuracy:location.horizontalAccuracy
-                                                               altitude:location.altitude
-                                                       verticalaccuracy:location.verticalAccuracy
-                                                                  speed:location.speed
-                                                                 course:location.course                                                               automatic:TRUE
-                                                                 remark:dictionary[@"desc"]
-                                                                 radius:[dictionary[@"rad"] doubleValue]
-                                                                  share:NO
-                                                 inManagedObjectContext:[CoreData theManagedObjectContext]];
-                    [self limitLocationsWith:newLocation.belongsTo toMaximum:MAX_OTHER_LOCATIONS];
-                    
-                } else if ([dictionary[@"_type"] isEqualToString:@"transition"]) {
-                    if (DEBUGAPP) NSLog(@"App json received lat:%@ lon:%@ acc:%@ tst:%@ wtst:%@ tid:%@ event:%@ desc:%@",
-                                        dictionary[@"lat"],
-                                        dictionary[@"lon"],
-                                        dictionary[@"acc"],
-                                        dictionary[@"tst"],
-                                        dictionary[@"wtst"],
-                                        dictionary[@"tid"],
-                                        dictionary[@"event"],
-                                        dictionary[@"desc"]
-                                        );
-                    [self notification:[NSString stringWithFormat:@"%@ %@s %@",
-                                        dictionary[@"tid"],
-                                        dictionary[@"event"],
-                                        dictionary[@"desc"]]
-                              userInfo:@{@"notify": @"friend"}];
+        [self.queueManagedObjectContext performBlock:^{
+            if (DEBUGAPP) NSLog(@"performBlock start");
+            if (data.length) {
+                
+                NSError *error;
+                NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                if (dictionary) {
+                    if ([dictionary[@"_type"] isEqualToString:@"location"]) {
+                        if (DEBUGAPP) NSLog(@"App json received lat:%@ lon:%@ acc:%@ tst:%@ alt:%@ vac:%@ cog:%@ vel:%@ tid:%@ rad:%@ event:%@ desc:%@",
+                                            dictionary[@"lat"],
+                                            dictionary[@"lon"],
+                                            dictionary[@"acc"],
+                                            dictionary[@"tst"],
+                                            dictionary[@"alt"],
+                                            dictionary[@"vac"],
+                                            dictionary[@"cog"],
+                                            dictionary[@"vel"],
+                                            dictionary[@"tid"],
+                                            dictionary[@"rad"],
+                                            dictionary[@"event"],
+                                            dictionary[@"desc"]
+                                            );
+                        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
+                                                                                       [dictionary[@"lat"] doubleValue],
+                                                                                       [dictionary[@"lon"] doubleValue]
+                                                                                       );
+                        
+                        CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate
+                                                                             altitude:[dictionary[@"alt"] intValue]
+                                                                   horizontalAccuracy:[dictionary[@"acc"] doubleValue]
+                                                                     verticalAccuracy:[dictionary[@"vac"] intValue]
+                                                                               course:[dictionary[@"cog"] intValue]
+                                                                                speed:[dictionary[@"vel"] intValue]
+                                                                            timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]];
+                        
+                        Location *newLocation = [Location locationWithTopic:device
+                                                                        tid:dictionary[@"tid"]
+                                                                  timestamp:location.timestamp
+                                                                 coordinate:location.coordinate
+                                                                   accuracy:location.horizontalAccuracy
+                                                                   altitude:location.altitude
+                                                           verticalaccuracy:location.verticalAccuracy
+                                                                      speed:location.speed
+                                                                     course:location.course                                                               automatic:TRUE
+                                                                     remark:dictionary[@"desc"]
+                                                                     radius:[dictionary[@"rad"] doubleValue]
+                                                                      share:NO
+                                                     inManagedObjectContext:self.queueManagedObjectContext];
+                        [self limitLocationsWith:newLocation.belongsTo
+                                       toMaximum:MAX_OTHER_LOCATIONS
+                          inManagedObjectContext:self.queueManagedObjectContext];
+                        
+                    } else if ([dictionary[@"_type"] isEqualToString:@"transition"]) {
+                        if (DEBUGAPP) NSLog(@"App json received lat:%@ lon:%@ acc:%@ tst:%@ wtst:%@ tid:%@ event:%@ desc:%@",
+                                            dictionary[@"lat"],
+                                            dictionary[@"lon"],
+                                            dictionary[@"acc"],
+                                            dictionary[@"tst"],
+                                            dictionary[@"wtst"],
+                                            dictionary[@"tid"],
+                                            dictionary[@"event"],
+                                            dictionary[@"desc"]
+                                            );
+                        [self notification:[NSString stringWithFormat:@"%@ %@s %@",
+                                            dictionary[@"tid"],
+                                            dictionary[@"event"],
+                                            dictionary[@"desc"]]
+                                  userInfo:@{@"notify": @"friend"}];
+                    } else {
+                        if (DEBUGAPP) NSLog(@"unknown record type %@)", dictionary[@"_type"]);
+                    }
                 } else {
-                    if (DEBUGAPP) NSLog(@"unknown record type %@)", dictionary[@"_type"]);
+                    if (DEBUGAPP) NSLog(@"illegal json %@)", error.localizedDescription);
                 }
-            } else {
-                if (DEBUGAPP) NSLog(@"illegal json %@)", error.localizedDescription);
+            } else /* data.length == 0 -> delete friend */ {
+                Friend *friend = [Friend existsFriendWithTopic:device inManagedObjectContext:self.queueManagedObjectContext];
+                if (friend) {
+                    [self.queueManagedObjectContext deleteObject:friend];
+                }
             }
-        } else /* data.length == 0 -> delete friend */ {
-            Friend *friend = [Friend existsFriendWithTopic:device inManagedObjectContext:[CoreData theManagedObjectContext]];
-            if (friend) {
-                [[CoreData theManagedObjectContext] deleteObject:friend];
-            }
-        }
+            [self.queueManagedObjectContext save:nil];
+            if (DEBUGAPP) NSLog(@"performBlock finish");
+            [self performSelectorOnMainThread:@selector(share) withObject:nil waitUntilDone:NO];
+        }];
     }
-    [CoreData saveContext];
-    [self share];
 }
 
 - (void)messageDelivered:(Connection *)connection msgID:(UInt16)msgID {
@@ -486,7 +502,7 @@
 - (void)totalBuffered:(Connection *)connection count:(NSUInteger)count {
     if (DEBUGAPP) NSLog(@"totalBuffered %lu", (unsigned long)count);
     if (connection == self.connectionOut) {
-        self.connectionBufferedOut = @(count);        
+        self.connectionBufferedOut = @(count);
         [UIApplication sharedApplication].applicationIconBadgeNumber = count;
     }
 }
@@ -498,9 +514,9 @@
                                };
     
     [self.connectionOut sendData:[self jsonToData:dumpDict]
-                        topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/dump"]
-                          qos:[self.settings intForKey:@"qos_preference"]
-                       retain:NO];
+                           topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/dump"]
+                             qos:[self.settings intForKey:@"qos_preference"]
+                          retain:NO];
 }
 
 - (void)stepsFrom:(NSNumber *)from to:(NSNumber *)to {
@@ -572,9 +588,9 @@
                                                }
                                                
                                                [self.connectionOut sendData:[self jsonToData:jsonObject]
-                                                                   topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/step"]
-                                                                     qos:[self.settings intForKey:@"qos_preference"]
-                                                                  retain:NO];
+                                                                      topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/step"]
+                                                                        qos:[self.settings intForKey:@"qos_preference"]
+                                                                     retain:NO];
                                            });
                                        }];
         
@@ -600,9 +616,9 @@
                                               };
                  
                  [self.connectionOut sendData:[self jsonToData:jsonObject]
-                                     topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/step"]
-                                       qos:[self.settings intForKey:@"qos_preference"]
-                                    retain:NO];
+                                        topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/step"]
+                                          qos:[self.settings intForKey:@"qos_preference"]
+                                       retain:NO];
              });
          }];
     } else {
@@ -615,9 +631,9 @@
                                      };
         
         [self.connectionOut sendData:[self jsonToData:jsonObject]
-                            topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/step"]
-                              qos:[self.settings intForKey:@"qos_preference"]
-                           retain:NO];
+                               topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/step"]
+                                 qos:[self.settings intForKey:@"qos_preference"]
+                              retain:NO];
     }
 }
 
@@ -661,20 +677,22 @@
     NSData *data = [self encodeLocationData:newLocation type:@"location" addon:addon];
     
     [self.connectionOut sendData:data
-                        topic:[self.settings theGeneralTopic]
-                          qos:[self.settings intForKey:@"qos_preference"]
-                       retain:[self.settings boolForKey:@"retain_preference"]];
+                           topic:[self.settings theGeneralTopic]
+                             qos:[self.settings intForKey:@"qos_preference"]
+                          retain:[self.settings boolForKey:@"retain_preference"]];
     
-    [self limitLocationsWith:newLocation.belongsTo toMaximum:[self.settings intForKey:@"positions_preference"]];
-
+    [self limitLocationsWith:newLocation.belongsTo
+                   toMaximum:[self.settings intForKey:@"positions_preference"]
+      inManagedObjectContext:[CoreData theManagedObjectContext]];
+    
     [CoreData saveContext];
 }
 
 - (void)sendEmpty:(Friend *)friend {
     [self.connectionOut sendData:nil
-                        topic:friend.topic
-                          qos:[self.settings intForKey:@"qos_preference"]
-                       retain:YES];
+                           topic:friend.topic
+                             qos:[self.settings intForKey:@"qos_preference"]
+                          retain:YES];
 }
 
 - (void)requestLocationFromFriend:(Friend *)friend {
@@ -684,9 +702,9 @@
                                  };
     
     [self.connectionOut sendData:[self jsonToData:jsonObject]
-                        topic:[friend.topic stringByAppendingString:@"/cmd"]
-                          qos:[self.settings intForKey:@"qos_preference"]
-                       retain:NO];
+                           topic:[friend.topic stringByAppendingString:@"/cmd"]
+                             qos:[self.settings intForKey:@"qos_preference"]
+                          retain:NO];
 }
 
 - (void)sendWayPoint:(Location *)location {
@@ -700,20 +718,20 @@
                                        type:@"waypoint" addon:addon];
     
     [self.connectionOut sendData:data
-                        topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/waypoint"]
-                          qos:[self.settings intForKey:@"qos_preference"]
-                       retain:NO];
+                           topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/waypoint"]
+                             qos:[self.settings intForKey:@"qos_preference"]
+                          retain:NO];
     
     [CoreData saveContext];
 }
 
-- (void)limitLocationsWith:(Friend *)friend toMaximum:(NSInteger)max {
+- (void)limitLocationsWith:(Friend *)friend toMaximum:(NSInteger)max inManagedObjectContext:(NSManagedObjectContext *)context {
     NSArray *allLocations = [Location allAutomaticLocationsWithFriend:friend
-                                               inManagedObjectContext:[CoreData theManagedObjectContext]];
+                                               inManagedObjectContext:context];
     
     for (NSInteger i = [allLocations count]; i > max; i--) {
         Location *location = allLocations[i - 1];
-        [[CoreData theManagedObjectContext] deleteObject:location];
+        [context deleteObject:location];
     }
 }
 
@@ -759,17 +777,17 @@
                      withClientId:[NSString stringWithFormat:@"%@-o", [self.settings theClientId]]];
     
     [self.connectionIn connectTo:[self.settings stringForKey:@"host_preference"]
-                             port:[self.settings intForKey:@"port_preference"]
-                              tls:[self.settings boolForKey:@"tls_preference"]
-                        keepalive:[self.settings intForKey:@"keepalive_preference"]
-                            clean:[self.settings intForKey:@"clean_preference"]
-                             auth:[self.settings boolForKey:@"auth_preference"]
-                             user:[self.settings stringForKey:@"user_preference"]
-                             pass:[self.settings stringForKey:@"pass_preference"]
-                        willTopic:nil
-                             will:nil
-                          willQos:MQTTQosLevelAtMostOnce
-                   willRetainFlag:NO
+                            port:[self.settings intForKey:@"port_preference"]
+                             tls:[self.settings boolForKey:@"tls_preference"]
+                       keepalive:[self.settings intForKey:@"keepalive_preference"]
+                           clean:[self.settings intForKey:@"clean_preference"]
+                            auth:[self.settings boolForKey:@"auth_preference"]
+                            user:[self.settings stringForKey:@"user_preference"]
+                            pass:[self.settings stringForKey:@"pass_preference"]
+                       willTopic:nil
+                            will:nil
+                         willQos:MQTTQosLevelAtMostOnce
+                  willRetainFlag:NO
                     withClientId:[NSString stringWithFormat:@"%@-i", [self.settings theClientId]]];
 }
 
@@ -882,7 +900,7 @@
                 [sharedFriends setObject:aFriend forKey:name];
             }
         }
-        if (DEBUGAPP) NSLog(@"sharedFriends %@", sharedFriends);
+        if (DEBUGAPP) NSLog(@"sharedFriends %@", [sharedFriends allKeys]);
         [shared setValue:sharedFriends forKey:@"sharedFriends"];
     }
 }

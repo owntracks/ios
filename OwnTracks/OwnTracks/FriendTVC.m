@@ -14,6 +14,12 @@
 #import "CoreData.h"
 #import "FriendAnnotationV.h"
 
+#ifdef DEBUG
+#define DEBUGFRIEND FALSE
+#else
+#define DEBUGFRIEND FALSE
+#endif
+
 @interface FriendTVC ()
 @property (strong, nonatomic) UIAlertView *alertView;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
@@ -31,27 +37,26 @@
 
     ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
     
-#ifdef DEBUG
-    switch (status) {
-        case kABAuthorizationStatusRestricted:
-            NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusRestricted");
-            break;
-            
-        case kABAuthorizationStatusDenied:
-            NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusDenied");
-            break;
-            
-        case kABAuthorizationStatusAuthorized:
-            NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusAuthorized");
-            break;
-            
-        case kABAuthorizationStatusNotDetermined:
-        default:
-            NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusNotDetermined");
-            break;
+    if (DEBUGFRIEND) {
+        switch (status) {
+            case kABAuthorizationStatusRestricted:
+                NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusRestricted");
+                break;
+                
+            case kABAuthorizationStatusDenied:
+                NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusDenied");
+                break;
+                
+            case kABAuthorizationStatusAuthorized:
+                NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusAuthorized");
+                break;
+                
+            case kABAuthorizationStatusNotDetermined:
+            default:
+                NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusNotDetermined");
+                break;
+        }
     }
-#endif
-    
     switch (status) {
         case kABAuthorizationStatusRestricted:
             self.alertView = [[UIAlertView alloc] initWithTitle:@"Addressbook Access"
@@ -76,17 +81,16 @@
             
         case kABAuthorizationStatusNotDetermined:
         default:
-            NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusNotDetermined");
+            if (DEBUGFRIEND) NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusNotDetermined");
             ABAddressBookRef ab = ABAddressBookCreateWithOptions(NULL, NULL);
             ABAddressBookRequestAccessWithCompletion(ab, ^(bool granted, CFErrorRef error) {
-#ifdef DEBUG
-                if (granted) {
-                    NSLog(@"ABAddressBookRequestAccessCompletionHandler granted");
-                } else {
-                    NSLog(@"ABAddressBookRequestAccessCompletionHandler denied");
-                }
-#endif
-            });
+                if (DEBUGFRIEND) {
+                    if (granted) {
+                        NSLog(@"ABAddressBookRequestAccessCompletionHandler granted");
+                    } else {
+                        NSLog(@"ABAddressBookRequestAccessCompletionHandler denied");
+                    }
+                }            });
             break;
     }
 }
@@ -179,7 +183,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         
         NSError *error = nil;
         if (![context save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            if (DEBUGFRIEND) NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
     }
@@ -214,7 +218,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSError *error = nil;
     if (![self.fetchedResultsController performFetch:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        if (DEBUGFRIEND) NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
     
@@ -274,9 +278,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-#ifdef DEBUG
-    NSLog(@"FriendTVC configureCell %ld/%ld", (long)indexPath.section, (long)indexPath.row);
-#endif
+    if (DEBUGFRIEND) NSLog(@"configureCell %ld/%ld", (long)indexPath.section, (long)indexPath.row);
     Friend *friend = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = friend.name ? friend.name : friend.topic;
     

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="M4Y-Lb-cyx">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Today View Controller-->
@@ -17,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Hk7-3Z-JeF">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="148"/>
+                                <rect key="frame" x="0.0" y="30" width="320" height="118"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sharedFriend" textLabel="0YG-ZB-KGI" detailTextLabel="h78-3f-Ome" style="IBUITableViewCellStyleSubtitle" id="eLU-me-XFA">
@@ -43,12 +44,49 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wOM-J5-pkE">
+                                <rect key="frame" x="16" y="0.0" width="69" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="69" id="2Jl-xQ-fk2"/>
+                                    <constraint firstAttribute="height" constant="30" id="fLr-Ai-GvT"/>
+                                </constraints>
+                                <state key="normal" title="Backward">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="backwardPressed:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="JjS-xY-Xgy"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bed-eO-POB">
+                                <rect key="frame" x="247" y="0.0" width="57" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="MlR-od-gWc"/>
+                                    <constraint firstAttribute="width" constant="57" id="N2G-o8-rR1"/>
+                                </constraints>
+                                <state key="normal" title="Forward">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="forwardPressed:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="Qp8-GR-N44"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1 - 3 / 6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1p-y7-Qo8">
+                                <rect key="frame" x="93" y="4" width="146" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="wOM-J5-pkE" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="4Mu-o4-GFg"/>
                             <constraint firstAttribute="trailing" secondItem="Hk7-3Z-JeF" secondAttribute="trailing" id="72s-rX-zX1"/>
+                            <constraint firstItem="bed-eO-POB" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="BYe-qH-VBf"/>
+                            <constraint firstItem="bed-eO-POB" firstAttribute="trailing" secondItem="S3S-Oj-5AN" secondAttribute="trailingMargin" id="F4b-1k-WG3"/>
+                            <constraint firstItem="wOM-J5-pkE" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="KXF-7i-dgr"/>
+                            <constraint firstItem="Hk7-3Z-JeF" firstAttribute="top" secondItem="bed-eO-POB" secondAttribute="bottom" id="ab5-Vd-YLe"/>
                             <constraint firstItem="Hk7-3Z-JeF" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="lSX-XI-lid"/>
+                            <constraint firstItem="Hk7-3Z-JeF" firstAttribute="top" secondItem="wOM-J5-pkE" secondAttribute="bottom" id="obD-ad-b4x"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="Hk7-3Z-JeF" secondAttribute="bottom" id="qek-AC-64X"/>
-                            <constraint firstItem="Hk7-3Z-JeF" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="uwQ-0e-99O"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
@@ -58,6 +96,9 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="148"/>
                     <connections>
+                        <outlet property="backward" destination="wOM-J5-pkE" id="1og-ad-6v2"/>
+                        <outlet property="forward" destination="bed-eO-POB" id="4cZ-m2-FFM"/>
+                        <outlet property="label" destination="B1p-y7-Qo8" id="5fj-l9-5f2"/>
                         <outlet property="tableView" destination="Hk7-3Z-JeF" id="reV-UO-byZ"/>
                     </connections>
                 </viewController>

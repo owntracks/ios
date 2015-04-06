@@ -13,6 +13,12 @@
 #import "FriendAnnotationV.h"
 #import "OwnTracksAppDelegate.h"
 
+#ifdef DEBUG
+#define DEBUGLOC FALSE
+#else
+#define DEBUGLOC FALSE
+#endif
+
 @interface LocationTVC ()
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
@@ -113,18 +119,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#ifdef DEBUG
-    NSLog(@"numberOfSectionsInTableView=%lu", (unsigned long)[[self.fetchedResultsController sections] count]);
-#endif
+    if (DEBUGLOC) NSLog(@"numberOfSectionsInTableView=%lu", (unsigned long)[[self.fetchedResultsController sections] count]);
     return [[self.fetchedResultsController sections] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-#ifdef DEBUG
-    NSLog(@"numberOfRowsInSection %ld=%lu", (long)section, (unsigned long)[sectionInfo numberOfObjects]);
-#endif
+    if (DEBUGLOC) NSLog(@"numberOfRowsInSection %ld=%lu", (long)section, (unsigned long)[sectionInfo numberOfObjects]);
     return [sectionInfo numberOfObjects];
 }
 
@@ -197,9 +199,7 @@
         abort();
     }
     
-#ifdef DEBUG
-    NSLog(@"fetchedResultsControllser %@", _fetchedResultsController);
-#endif
+    if (DEBUGLOC) NSLog(@"fetchedResultsControllser %@", _fetchedResultsController);
     return _fetchedResultsController;
 }
 
@@ -211,9 +211,7 @@
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
 {
-#ifdef DEBUG
-    NSLog(@"didChangeSection atIndex:%lu forChangeType:%lu ", (unsigned long)sectionIndex, (unsigned long)type);
-#endif
+    if (DEBUGLOC) NSLog(@"didChangeSection atIndex:%lu forChangeType:%lu ", (unsigned long)sectionIndex, (unsigned long)type);
     switch(type) {
         case NSFetchedResultsChangeInsert:
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
@@ -232,13 +230,11 @@
       newIndexPath:(NSIndexPath *)newIndexPath
 {
     UITableView *tableView = self.tableView;
-#ifdef DEBUG
-    NSLog(@"didChangeObject:%@ atIndexPath:%ld/%ld forChangeType:%lu newIndexPath:%ld/%ld",
+    if (DEBUGLOC) NSLog(@"didChangeObject:%@ atIndexPath:%ld/%ld forChangeType:%lu newIndexPath:%ld/%ld",
           anObject,
           (long)indexPath.section, (long)indexPath.row,
           (unsigned long)type,
           (long)newIndexPath.section, (long)newIndexPath.row);
-#endif
     
     switch(type) {
         case NSFetchedResultsChangeInsert:
@@ -254,7 +250,7 @@
             break;
             
         case NSFetchedResultsChangeUpdate:
-            if (indexPath) {
+            if (newIndexPath) {
                 [self configureCell:[tableView cellForRowAtIndexPath:newIndexPath] atIndexPath:newIndexPath];
             }
             break;
@@ -275,9 +271,7 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-#ifdef DEBUG
-    NSLog(@"LocationTVC configureCell %ld/%ld", (long)indexPath.section, (long)indexPath.row);
-#endif
+    if (DEBUGLOC) NSLog(@"configureCell %ld/%ld", (long)indexPath.section, (long)indexPath.row);
     Location *location = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     UIFont *fontBold = [UIFont boldSystemFontOfSize:[UIFont systemFontSize] + 2];

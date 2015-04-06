@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="2LL-Qe-Ldb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="2LL-Qe-Ldb">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
     </dependencies>
     <scenes>
         <!--OwnTracks-->
@@ -728,9 +728,25 @@
                                                         <action selector="checkConnection:" destination="wIr-Ka-wY2" eventType="touchUpInside" id="saa-rC-vZj"/>
                                                     </connections>
                                                 </button>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZWq-Yo-zcE">
+                                                    <rect key="frame" x="239" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="publicModeChanged:" destination="wIr-Ka-wY2" eventType="valueChanged" id="pCh-Rq-fHk"/>
+                                                    </connections>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Public Mode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKZ-Il-fqj">
+                                                    <rect key="frame" x="134" y="11" width="97" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="cKZ-Il-fqj" secondAttribute="centerY" id="28g-Zl-Nbu"/>
+                                                <constraint firstAttribute="trailing" secondItem="ZWq-Yo-zcE" secondAttribute="trailing" constant="20" symbolic="YES" id="Fnf-Zk-Jek"/>
                                                 <constraint firstItem="LEM-YI-w2c" firstAttribute="leading" secondItem="rMF-U1-eH7" secondAttribute="leading" constant="20" symbolic="YES" id="U8F-Vz-OUh"/>
+                                                <constraint firstItem="ZWq-Yo-zcE" firstAttribute="leading" secondItem="cKZ-Il-fqj" secondAttribute="trailing" constant="8" symbolic="YES" id="ebH-Yg-Hdl"/>
+                                                <constraint firstAttribute="centerY" secondItem="ZWq-Yo-zcE" secondAttribute="centerY" id="mBk-Lr-HvL"/>
                                                 <constraint firstAttribute="centerY" secondItem="LEM-YI-w2c" secondAttribute="centerY" id="ppC-UR-w8w"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1584,7 +1600,9 @@
                         <outlet property="UIWillRetain" destination="jrI-1b-UVy" id="q8f-Ze-ciJ"/>
                         <outlet property="UIWillTopic" destination="aam-Xg-vFW" id="gfc-Cd-ZRG"/>
                         <outlet property="UIallowRemoteLocation" destination="qo3-Z9-VKu" id="zJE-l4-K0Z"/>
+                        <outlet property="UIexport" destination="Dfl-i4-2hW" id="Fn4-LQ-OwL"/>
                         <outlet property="UIextendedData" destination="yf4-6B-QAB" id="ipj-pO-83Z"/>
+                        <outlet property="UIpublicMode" destination="ZWq-Yo-zcE" id="cRh-ft-REd"/>
                         <outlet property="UIqos" destination="sUY-ch-Z4O" id="yB8-3r-34S"/>
                         <outlet property="UIstatus" destination="z27-9u-VcL" id="wpC-Iz-24z"/>
                         <outlet property="UIsubscriptionqos" destination="JW9-1E-Qlr" id="1R2-IC-FDM"/>
