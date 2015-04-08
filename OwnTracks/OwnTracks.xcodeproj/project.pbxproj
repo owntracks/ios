@@ -45,7 +45,6 @@
 		8411B912189FEC070019D2D6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B90B189FEC070019D2D6 /* ViewController.m */; };
 		8426103A1ACFE67B00FE1A03 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842610391ACFE67B00FE1A03 /* Launch Screen.xib */; };
 		845F003D192A5CDE00919FB8 /* QosTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845F003C192A5CDE00919FB8 /* QosTVC.m */; };
-		8474B15619A8CBA800427427 /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 8474B15519A8CBA800427427 /* Friend.m */; };
 		8479EEB218E4288800923B24 /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB118E4288800923B24 /* Setting.m */; };
 		8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB418E4289E00923B24 /* Setting+Create.m */; };
 		8479EEB718E4529900923B24 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
@@ -78,6 +77,7 @@
 		84D307681ACDA62100FACB9E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AF468F1AB9571800E954E3 /* CoreLocation.framework */; };
 		84D3076B1ACDD68200FACB9E /* SharedFriendsRC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D3076A1ACDD68200FACB9E /* SharedFriendsRC.m */; };
 		84D3076C1ACDD8F200FACB9E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AF468F1AB9571800E954E3 /* CoreLocation.framework */; };
+		84F468E81AD4884200CF8C4F /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F468E71AD4884200CF8C4F /* Friend.m */; };
 		C0F7B8BC24608F7AD9213FBD /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A35A5DAD31E7CD8F9CC2BEFB /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -190,8 +190,6 @@
 		845F003B192A5CDE00919FB8 /* QosTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QosTVC.h; path = ../QosTVC.h; sourceTree = "<group>"; };
 		845F003C192A5CDE00919FB8 /* QosTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QosTVC.m; path = ../QosTVC.m; sourceTree = "<group>"; };
 		8474B15319A8CB7D00427427 /* Model 7.3.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.1.xcdatamodel"; sourceTree = "<group>"; };
-		8474B15419A8CBA800427427 /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
-		8474B15519A8CBA800427427 /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
 		8479EEB018E4288800923B24 /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
 		8479EEB118E4288800923B24 /* Setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
 		8479EEB318E4289E00923B24 /* Setting+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Setting+Create.h"; path = "../../Setting+Create.h"; sourceTree = "<group>"; };
@@ -241,6 +239,9 @@
 		84D307671ACD8F5300FACB9E /* OwnTracks WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "OwnTracks WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		84D307691ACDD68200FACB9E /* SharedFriendsRC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedFriendsRC.h; sourceTree = "<group>"; };
 		84D3076A1ACDD68200FACB9E /* SharedFriendsRC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedFriendsRC.m; sourceTree = "<group>"; };
+		84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.0.xcdatamodel"; sourceTree = "<group>"; };
+		84F468E61AD4884200CF8C4F /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
+		84F468E71AD4884200CF8C4F /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
 		A35A5DAD31E7CD8F9CC2BEFB /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0F95E30D637DDE6FB77559C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -433,8 +434,8 @@
 				8411B86C189FE1ED0019D2D6 /* Location+Create.h */,
 				8411B86D189FE1ED0019D2D6 /* Location+Create.m */,
 				8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */,
-				8474B15419A8CBA800427427 /* Friend.h */,
-				8474B15519A8CBA800427427 /* Friend.m */,
+				84F468E61AD4884200CF8C4F /* Friend.h */,
+				84F468E71AD4884200CF8C4F /* Friend.m */,
 				848794B219A6240100DF56EB /* Location.h */,
 				848794B319A6240100DF56EB /* Location.m */,
 				8479EEB018E4288800923B24 /* Setting.h */,
@@ -820,8 +821,8 @@
 				8411B87F189FE35C0019D2D6 /* Model.xcdatamodeld in Sources */,
 				8411B90D189FEC070019D2D6 /* FriendAnnotationV.m in Sources */,
 				8411B88A189FE79B0019D2D6 /* AlertView.m in Sources */,
-				8474B15619A8CBA800427427 /* Friend.m in Sources */,
 				8411B90E189FEC070019D2D6 /* FriendTVC.m in Sources */,
+				84F468E81AD4884200CF8C4F /* Friend.m in Sources */,
 				8411B90F189FEC070019D2D6 /* LocationTVC.m in Sources */,
 				8499BA98192D085700FA95C7 /* DetailNC.m in Sources */,
 				8411B88B189FE79B0019D2D6 /* CoreData.m in Sources */,
@@ -1273,9 +1274,10 @@
 				8474B15319A8CB7D00427427 /* Model 7.3.1.xcdatamodel */,
 				84C756A61A89F706003BC8A8 /* Model 7.4.xcdatamodel */,
 				84195B201ABCBC9400A9FA97 /* Model 7.5.xcdatamodel */,
+				84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */,
 				8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 84195B201ABCBC9400A9FA97 /* Model 7.5.xcdatamodel */;
+			currentVersion = 84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

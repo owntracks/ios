@@ -7,7 +7,6 @@
 //
 
 #import "Settings.h"
-#import "Setting+Create.h"
 #import "CoreData.h"
 #import "Location+Create.h"
 
@@ -296,6 +295,7 @@
             [key isEqualToString:@"monitoring_preference"] ||
             [key isEqualToString:@"mindist_preference"] ||
             [key isEqualToString:@"mintime_preference"] ||
+            [key isEqualToString:@"positions_preference"] ||
             [key isEqualToString:@"ranging_preference"]);
 
 }
@@ -455,9 +455,9 @@
     subscriptions = [self stringForKey:@"subscription_preference"];
     
     if (!subscriptions || [subscriptions isEqualToString:@""]) {
-        subscriptions = [NSString stringWithFormat:@"owntracks/+/+ owntracks/+/+/event owntracks/%@/cmd", [self theId]];
+        subscriptions = [NSString stringWithFormat:@"owntracks/+/+ owntracks/+/+/event owntracks/+/+/info owntracks/%@/cmd", [self theId]];
     } else if ([subscriptions isEqualToString:@"%"]) {
-        subscriptions = [NSString stringWithFormat:@"public/user/+ public/user/+/event public/user/%@/cmd", [self theDeviceId]];
+        subscriptions = [NSString stringWithFormat:@"public/user/+ public/user/+/event public/user/+/info public/user/%@/cmd", [self theDeviceId]];
     }
     return subscriptions;
 }

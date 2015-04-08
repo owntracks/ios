@@ -10,6 +10,7 @@
 #import "CoreData.h"
 #import "Friend+Create.h"
 #import "Location+Create.h"
+#import "Setting+Create.h"
 #import "AlertView.h"
 #import <NotificationCenter/NotificationCenter.h>
 #import <Fabric/Fabric.h>
@@ -30,6 +31,7 @@
 @property (strong, nonatomic) void (^completionHandler)(UIBackgroundFetchResult);
 @property (strong, nonatomic) CoreData *coreData;
 @property (strong, nonatomic) NSString *processingMessage;
+@property (nonatomic) BOOL publicWarning;
 @property (strong, nonatomic) CMStepCounter *stepCounter;
 @property (strong, nonatomic) CMPedometer *pedometer;
 @property (strong, nonatomic) NSManagedObjectContext *queueManagedObjectContext;
@@ -97,6 +99,10 @@
     } while (state & UIDocumentStateClosed || ![CoreData theManagedObjectContext]);
     
     self.settings = [[Settings alloc] init];
+    if (![Setting existsSettingWithKey:@"publicMode" inManagedObjectContext:[CoreData theManagedObjectContext]]) {
+        [self.settings setBool:TRUE forKey:@"publicMode"];
+        self.publicWarning = TRUE;
+    }
     
     [self share];
     
@@ -216,6 +222,11 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     if (DEBUGAPP) NSLog(@"applicationDidBecomeActive");
+
+    if (self.publicWarning) {
+        [AlertView alert:@"Public Mode" message:@"In public mode, your location is published anonymously to owntracks.org's shared broker. Find more information or change in Settings"];
+        self.publicWarning = FALSE;
+    }
     
     if (self.processingMessage) {
         [AlertView alert:@"openURL" message:self.processingMessage];
@@ -413,20 +424,6 @@
                 NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                 if (dictionary) {
                     if ([dictionary[@"_type"] isEqualToString:@"location"]) {
-                        if (DEBUGAPP) NSLog(@"App json received lat:%@ lon:%@ acc:%@ tst:%@ alt:%@ vac:%@ cog:%@ vel:%@ tid:%@ rad:%@ event:%@ desc:%@",
-                                            dictionary[@"lat"],
-                                            dictionary[@"lon"],
-                                            dictionary[@"acc"],
-                                            dictionary[@"tst"],
-                                            dictionary[@"alt"],
-                                            dictionary[@"vac"],
-                                            dictionary[@"cog"],
-                                            dictionary[@"vel"],
-                                            dictionary[@"tid"],
-                                            dictionary[@"rad"],
-                                            dictionary[@"event"],
-                                            dictionary[@"desc"]
-                                            );
                         CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
                                                                                        [dictionary[@"lat"] doubleValue],
                                                                                        [dictionary[@"lon"] doubleValue]
@@ -458,21 +455,26 @@
                           inManagedObjectContext:self.queueManagedObjectContext];
                         
                     } else if ([dictionary[@"_type"] isEqualToString:@"transition"]) {
-                        if (DEBUGAPP) NSLog(@"App json received lat:%@ lon:%@ acc:%@ tst:%@ wtst:%@ tid:%@ event:%@ desc:%@",
-                                            dictionary[@"lat"],
-                                            dictionary[@"lon"],
-                                            dictionary[@"acc"],
-                                            dictionary[@"tst"],
-                                            dictionary[@"wtst"],
-                                            dictionary[@"tid"],
-                                            dictionary[@"event"],
-                                            dictionary[@"desc"]
-                                            );
                         [self notification:[NSString stringWithFormat:@"%@ %@s %@",
                                             dictionary[@"tid"],
                                             dictionary[@"event"],
                                             dictionary[@"desc"]]
                                   userInfo:@{@"notify": @"friend"}];
+                        
+                    } else if ([dictionary[@"_type"] isEqualToString:@"card"]) {
+                        Friend *friend = [Friend friendWithTopic:device
+                                                             tid:nil
+                                          inManagedObjectContext:self.queueManagedObjectContext];
+                        if (friend) {
+                            friend.cardName = dictionary[@"name"];
+                            NSString *string = dictionary[@"face"];
+                            NSData *imageData = [[NSData alloc] initWithBase64EncodedString:string options:0];
+                            friend.cardImage = imageData;
+                            Location *location = [friend newestLocation];
+                            if (location) {
+                                location.timestamp = location.timestamp; // touch to trigger update
+                            }
+                        }
                     } else {
                         if (DEBUGAPP) NSLog(@"unknown record type %@)", dictionary[@"_type"]);
                     }
@@ -891,6 +893,8 @@
                 NSMutableDictionary *aFriend = [[NSMutableDictionary alloc] init];
                 if (image) {
                     [aFriend setObject:image forKey:@"image"];
+                } else {
+                    [aFriend setObject:[UIImage imageNamed:@"icon40"] forKey:@"image"];
                 }
                 [aFriend setObject:distance forKey:@"distance"];
                 [aFriend setObject:friendsLocation.longitude forKey:@"longitude"];

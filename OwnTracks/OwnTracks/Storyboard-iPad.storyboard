@@ -734,18 +734,21 @@
                                                         <action selector="publicModeChanged:" destination="wIr-Ka-wY2" eventType="valueChanged" id="pCh-Rq-fHk"/>
                                                     </connections>
                                                 </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Public Mode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cKZ-Il-fqj">
-                                                    <rect key="frame" x="134" y="11" width="97" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vca-Hv-5NZ">
+                                                    <rect key="frame" x="144" y="7" width="87" height="30"/>
+                                                    <state key="normal" title="Public Mode">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <segue destination="Vdq-8x-dhi" kind="push" id="1T8-oz-FY1"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="cKZ-Il-fqj" secondAttribute="centerY" id="28g-Zl-Nbu"/>
+                                                <constraint firstItem="ZWq-Yo-zcE" firstAttribute="leading" secondItem="vca-Hv-5NZ" secondAttribute="trailing" constant="8" symbolic="YES" id="5UK-y0-NmD"/>
                                                 <constraint firstAttribute="trailing" secondItem="ZWq-Yo-zcE" secondAttribute="trailing" constant="20" symbolic="YES" id="Fnf-Zk-Jek"/>
+                                                <constraint firstAttribute="centerY" secondItem="vca-Hv-5NZ" secondAttribute="centerY" id="Mcd-Ec-pdT"/>
                                                 <constraint firstItem="LEM-YI-w2c" firstAttribute="leading" secondItem="rMF-U1-eH7" secondAttribute="leading" constant="20" symbolic="YES" id="U8F-Vz-OUh"/>
-                                                <constraint firstItem="ZWq-Yo-zcE" firstAttribute="leading" secondItem="cKZ-Il-fqj" secondAttribute="trailing" constant="8" symbolic="YES" id="ebH-Yg-Hdl"/>
                                                 <constraint firstAttribute="centerY" secondItem="ZWq-Yo-zcE" secondAttribute="centerY" id="mBk-Lr-HvL"/>
                                                 <constraint firstAttribute="centerY" secondItem="LEM-YI-w2c" secondAttribute="centerY" id="ppC-UR-w8w"/>
                                             </constraints>
@@ -1618,6 +1621,49 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1520" y="-1622"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="h8E-g9-s2z">
+            <objects>
+                <viewController id="Vdq-8x-dhi" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WLJ-4P-vOe"/>
+                        <viewControllerLayoutGuide type="bottom" id="ifA-bW-MiR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jm9-Wa-mmT">
+                        <rect key="frame" x="0.0" y="0.0" width="308" height="1024"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="29T-mH-87F">
+                                <rect key="frame" x="0.0" y="64" width="308" height="911"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <mutableString key="text">Public Mode
+
+In public mode, you can get an impression of OwnTracks functionality.
+
+Your location will be anonymously published to owntrack.org's public broker and will be shared with all other users in public mode. Your data will not be stored and will only be forwarded to users connected at the same time.
+
+Please visit http://public.owntracks.org to obtain an OwnTracks user id and setup your private group of OwnTracks users.
+
+Or you may setup your own OwnTracks server for full privacy protection. More Info on http://owntracks.org</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="29T-mH-87F" firstAttribute="leading" secondItem="jm9-Wa-mmT" secondAttribute="leading" id="477-DP-pD1"/>
+                            <constraint firstItem="ifA-bW-MiR" firstAttribute="top" secondItem="29T-mH-87F" secondAttribute="bottom" id="6l9-Ga-6Y8"/>
+                            <constraint firstItem="29T-mH-87F" firstAttribute="top" secondItem="WLJ-4P-vOe" secondAttribute="bottom" id="EXQ-xu-tHV"/>
+                            <constraint firstAttribute="trailing" secondItem="29T-mH-87F" secondAttribute="trailing" id="zA7-vS-ogh"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="0Iq-Vy-3Ud"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8yb-XF-BRf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2118" y="-1983"/>
         </scene>
         <!--QoS-->
         <scene sceneID="gVD-E4-BEc">

@@ -134,26 +134,29 @@
                                                         <action selector="checkConnection:" destination="nAk-La-kdM" eventType="touchUpInside" id="fgg-De-8cf"/>
                                                     </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Public Mode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVs-tL-Jll">
-                                                    <rect key="frame" x="146" y="11" width="97" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5z0-yw-XFl">
                                                     <rect key="frame" x="251" y="6" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="publicModeChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="Sto-hy-gBR"/>
                                                     </connections>
                                                 </switch>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TTM-eN-kqS">
+                                                    <rect key="frame" x="156" y="7" width="87" height="30"/>
+                                                    <state key="normal" title="Public Mode">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <segue destination="IUE-60-afE" kind="push" id="g3f-fk-0e9"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="P4K-Co-8TG" firstAttribute="leading" secondItem="GUj-99-7gn" secondAttribute="leading" constant="20" symbolic="YES" id="5Er-bd-Agc"/>
+                                                <constraint firstItem="5z0-yw-XFl" firstAttribute="leading" secondItem="TTM-eN-kqS" secondAttribute="trailing" constant="8" symbolic="YES" id="7Tt-zn-AWg"/>
                                                 <constraint firstAttribute="centerY" secondItem="P4K-Co-8TG" secondAttribute="centerY" id="YSG-Ea-Bm7"/>
                                                 <constraint firstAttribute="centerY" secondItem="5z0-yw-XFl" secondAttribute="centerY" id="htU-t7-RE4"/>
                                                 <constraint firstAttribute="trailing" secondItem="5z0-yw-XFl" secondAttribute="trailing" constant="20" symbolic="YES" id="ndT-pu-hT4"/>
-                                                <constraint firstItem="5z0-yw-XFl" firstAttribute="leading" secondItem="uVs-tL-Jll" secondAttribute="trailing" constant="8" symbolic="YES" id="qx1-OE-tJa"/>
-                                                <constraint firstAttribute="centerY" secondItem="uVs-tL-Jll" secondAttribute="centerY" id="zt9-oY-7nS"/>
+                                                <constraint firstAttribute="centerY" secondItem="TTM-eN-kqS" secondAttribute="centerY" id="uK2-qU-KjY"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1025,7 +1028,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2208" y="-1934"/>
+            <point key="canvasLocation" x="2208" y="-1935"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="khr-I5-27q">
@@ -1923,6 +1926,45 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fhz-ys-UjD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2992" y="-1934"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="LPA-7x-9QW">
+            <objects>
+                <viewController id="IUE-60-afE" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="HTw-Ju-5Yg"/>
+                        <viewControllerLayoutGuide type="bottom" id="Tya-Ug-g0n"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Tdw-yz-1kI">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uho-CX-fYe">
+                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <mutableString key="text">Public Mode
+
+In public mode, you can get an impression of OwnTracks functionality.
+
+Your location will be anonymously published to owntrack.org's public broker and will be shared with all other users in public mode. Your data will not be stored and will only be forwarded to users connected at the same time.
+
+Please visit http://public.owntracks.org to obtain an OwnTracks user id and setup your private group of OwnTracks users.
+
+Or you may setup your own OwnTracks server for full privacy protection. More Info on http://owntracks.org
+
+When switching to and from public mode, all data on your iOS device will be deleted.</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="qGV-KT-VDq"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3HS-pd-Bel" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3337" y="-1594"/>
         </scene>
         <!--Credits and License-->
         <scene sceneID="frz-UA-kzP">

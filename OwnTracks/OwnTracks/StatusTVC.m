@@ -9,7 +9,8 @@
 #import "StatusTVC.h"
 #import "QosTVC.h"
 #import "OwnTracksAppDelegate.h"
-
+#import "Friend+Create.h"
+#import "CoreData.h"
 
 @interface StatusTVC ()
 @property (weak, nonatomic) IBOutlet UISwitch *UIpublicMode;
@@ -188,7 +189,6 @@
     if (self.UIUpdateAddressBook) [hiddenFields addObject:self.UIUpdateAddressBook];
     if (self.UIallowRemoteLocation) [hiddenFields addObject:self.UIallowRemoteLocation];
     if (self.UIextendedData) [hiddenFields addObject:self.UIextendedData];
-    if (self.UIPositionsToKeep) [hiddenFields addObject:self.UIPositionsToKeep];
     if (self.UIsubscriptionqos) [hiddenFields addObject:self.UIsubscriptionqos];
     if (self.UITopic) [hiddenFields addObject:self.UITopic];
     if (self.UIqos) [hiddenFields addObject:self.UIqos];
@@ -359,7 +359,18 @@
 - (IBAction)publicModeChanged:(UISwitch *)sender {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     if (self.UIpublicMode) [delegate.settings setBool:self.UIpublicMode.on forKey:@"publicMode"];
+
     [self updated];
+    [delegate connectionOff];
+    NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
+    for (Friend *friend in friends) {
+        [[CoreData theManagedObjectContext] deleteObject:friend];        
+    }
+    [CoreData saveContext];
+    
+    [self updateValues];
+    [delegate reconnect];
+
 }
 
 @end

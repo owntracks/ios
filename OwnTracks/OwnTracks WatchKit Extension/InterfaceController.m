@@ -40,7 +40,25 @@
     [self.table setNumberOfRows:self.sharedFriends.count withRowType:@"SharedFriendsRC"];
     for (NSInteger i = 0; i < self.table.numberOfRows; i++) {
         SharedFriendsRC *row = [self.table rowControllerAtIndex:i];
-        [row.label setText:[self itemText:i]];
+        NSString *name = [self.sharedFriends allKeys][i];
+        NSDictionary *friend = self.sharedFriends[name];
+
+        NSString *info = [self itemText:name];
+        
+        UIFont *fontBold = [UIFont boldSystemFontOfSize:[UIFont smallSystemFontSize]];
+        NSDictionary *attributesBold = @{NSFontAttributeName: fontBold};
+        
+        UIFont *fontLight = [UIFont systemFontOfSize:[UIFont smallSystemFontSize]];
+        NSDictionary *attributesLight = @{NSFontAttributeName: fontLight};
+        
+        NSMutableAttributedString *as = [[NSMutableAttributedString alloc]
+                                         initWithString:name attributes:attributesBold];
+        
+        [as appendAttributedString:[[NSAttributedString alloc]
+                                    initWithString:info attributes:attributesLight]];
+        
+        [row.label setAttributedText:as];
+        [row.image setImage:[UIImage imageWithData:friend[@"image"]]];
     }
 }
 
@@ -49,29 +67,28 @@
     [super didDeactivate];
 }
 
-- (NSString *)itemText:(NSInteger)i {
-    NSString *itemText;
-    NSString *name = [self.sharedFriends allKeys][i];
-    NSDictionary *friend = self.sharedFriends[name];
-    
+         - (NSString *)itemText:(NSString *)name {
+             NSString *itemText;
+             NSDictionary *friend = self.sharedFriends[name];
+             
     switch (self.mode) {
         default:
         case 0: {
             double distance = [friend[@"distance"] doubleValue];
-            itemText = [NSString stringWithFormat:@"%@\n%0.f km", name, distance / 1000.0];
+            itemText = [NSString stringWithFormat:@"\n%0.f km", distance / 1000.0];
             break;
         }
         case 1: {
             NSDate *timestamp = friend[@"timestamp"];
             NSTimeInterval interval = -[timestamp timeIntervalSinceNow];
             if (interval < 60) {
-                itemText = [NSString stringWithFormat:@"%@\n%0.f sec", name, interval];
+                itemText = [NSString stringWithFormat:@"\n%0.f sec", interval];
             } else if (interval < 3600) {
-                itemText = [NSString stringWithFormat:@"%@\n%0.f min", name, interval / 60];
+                itemText = [NSString stringWithFormat:@"\n%0.f min", interval / 60];
             } else if (interval < 24 * 3600) {
-                itemText = [NSString stringWithFormat:@"%@\n%0.f h", name, interval / 3600];
+                itemText = [NSString stringWithFormat:@"\n%0.f h", interval / 3600];
             } else {
-                itemText = [NSString stringWithFormat:@"%@\n%0.f d", name, interval / (24 * 3600)];
+                itemText = [NSString stringWithFormat:@"\n%0.f d", interval / (24 * 3600)];
             }
             break;
         }
@@ -121,7 +138,7 @@
                     break;
             }
 
-            itemText = [NSString stringWithFormat:@"%@\n%@", name, place];
+            itemText = [NSString stringWithFormat:@"\n%@", place];
             break;
         }
     }

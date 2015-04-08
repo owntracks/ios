@@ -2,8 +2,8 @@
 //  Friend.h
 //  OwnTracks
 //
-//  Created by Christoph Krey on 23.08.14.
-//  Copyright (c) 2014 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 07.04.15.
+//  Copyright (c) 2015 OwnTracks. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -14,8 +14,10 @@
 @interface Friend : NSManagedObject
 
 @property (nonatomic, retain) NSNumber * abRecordId;
-@property (nonatomic, retain) NSString * topic;
 @property (nonatomic, retain) NSString * tid;
+@property (nonatomic, retain) NSString * topic;
+@property (nonatomic, retain) NSString * cardName;
+@property (nonatomic, retain) NSData * cardImage;
 @property (nonatomic, retain) NSSet *hasLocations;
 @end
 

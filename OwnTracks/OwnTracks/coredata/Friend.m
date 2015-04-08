@@ -2,8 +2,8 @@
 //  Friend.m
 //  OwnTracks
 //
-//  Created by Christoph Krey on 23.08.14.
-//  Copyright (c) 2014 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 07.04.15.
+//  Copyright (c) 2015 OwnTracks. All rights reserved.
 //
 
 #import "Friend.h"
@@ -13,8 +13,10 @@
 @implementation Friend
 
 @dynamic abRecordId;
-@dynamic topic;
 @dynamic tid;
+@dynamic topic;
+@dynamic cardName;
+@dynamic cardImage;
 @dynamic hasLocations;
 
 @end

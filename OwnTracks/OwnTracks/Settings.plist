@@ -58,7 +58,5 @@
 	<string></string>
 	<key>positions_preference</key>
 	<integer>50</integer>
-	<key>publicMode</key>
-	<true/>
 </dict>
 </plist>

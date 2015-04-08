@@ -87,8 +87,12 @@
 - (NSString *)name
 {
     ABRecordRef record = [self recordOfFriend];
-    
-    return [Friend nameOfPerson:record];
+    NSString *abName = [Friend nameOfPerson:record];
+    if (abName) {
+        return abName;
+    } else {
+        return self.cardName;
+    }
 }
 
 + (NSString *)nameOfPerson:(ABRecordRef)record
@@ -113,7 +117,11 @@
         data = [Friend imageDataOfPerson:record];
         CFRelease(record);
     }
-    return data;
+    if (data) {
+        return data;
+    } else {
+        return self.cardImage;
+    }
 }
 
 + (NSData *)imageDataOfPerson:(ABRecordRef)record

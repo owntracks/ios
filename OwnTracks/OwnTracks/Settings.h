@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Setting+Create.h"
 
 @interface Settings : NSObject
 - (NSError *)fromStream:(NSInputStream *)input;

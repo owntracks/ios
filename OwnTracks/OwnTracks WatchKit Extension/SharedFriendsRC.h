@@ -11,5 +11,6 @@
 
 @interface SharedFriendsRC : NSObject
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *label;
+@property (weak, nonatomic) IBOutlet WKInterfaceImage *image;
 
 @end

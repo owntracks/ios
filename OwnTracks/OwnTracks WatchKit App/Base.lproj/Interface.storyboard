@@ -13,12 +13,20 @@
                         <table alignment="left" id="oti-XM-3zG">
                             <items>
                                 <tableRow identifier="SharedFriendsRC" id="2SI-RX-O1S" customClass="SharedFriendsRC">
-                                    <group key="rootItem" width="1" alignment="left" id="zAz-Du-kpC">
+                                    <group key="rootItem" width="1" alignment="left" contentMode="scaleAspectFill" id="zAz-Du-kpC">
                                         <items>
-                                            <label width="1" height="1" alignment="left" text="Label" numberOfLines="2" minimumScaleFactor="0.30000000000000016" id="hAw-D5-ikc"/>
+                                            <imageView width="40" height="40" alignment="left" image="icon40.png" contentMode="scaleAspectFit" id="QDa-ZV-olL"/>
+                                            <label width="1" height="1" alignment="left" numberOfLines="2" minimumScaleFactor="0.30000000000000016" id="hAw-D5-ikc">
+                                                <string key="text">Name
+Info</string>
+                                                <fontDescription key="font" type="boldSystem" pointSize="15"/>
+                                            </label>
                                         </items>
+                                        <color key="backgroundColor" red="0.2784313725" green="0.55294117649999996" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                     </group>
                                     <connections>
+                                        <outlet property="image" destination="QDa-ZV-olL" id="kI2-k0-pOA"/>
                                         <outlet property="label" destination="hAw-D5-ikc" id="tSI-bk-QjS"/>
                                     </connections>
                                 </tableRow>
