@@ -52,6 +52,7 @@
         
         if ([dictionary[@"_type"] isEqualToString:@"configuration"]) {
             NSString *string;
+            NSObject *object;
             
             string = dictionary[@"deviceid"];
             if (string) [self setString:string forKey:@"deviceid_preference"];
@@ -81,66 +82,83 @@
             if (string) [self setString:string forKey:@"willtopic_preference"];
             
             
-            string = dictionary[@"subQos"];
-            if (string) [self setString:string forKey:@"subscriptionqos_preference"];
+            object = dictionary[@"subQos"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                 forKey:@"subscriptionqos_preference"];
             
-            string = dictionary[@"pubQos"];
-            if (string) [self setString:string forKey:@"qos_preference"];
+            object = dictionary[@"pubQos"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                       forKey:@"qos_preference"];
             
-            string = dictionary[@"port"];
-            if (string) [self setString:string forKey:@"port_preference"];
+            object = dictionary[@"port"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                 forKey:@"port_preference"];
             
-            string = dictionary[@"keepalive"];
-            if (string) [self setString:string forKey:@"keepalive_preference"];
+            object = dictionary[@"keepalive"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                 forKey:@"keepalive_preference"];
             
-            string = dictionary[@"willQos"];
-            if (string) [self setString:string forKey:@"willqos_preference"];
+            object = dictionary[@"willQos"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                 forKey:@"willqos_preference"];
             
-            string = dictionary[@"locatorDisplacement"];
-            if (string) [self setString:string forKey:@"mindist_preference"];
+            object = dictionary[@"locatorDisplacement"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                 forKey:@"mindist_preference"];
             
-            string = dictionary[@"locatorInterval"];
-            if (string) [self setString:string forKey:@"mintime_preference"];
+            object = dictionary[@"locatorInterval"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                 forKey:@"mintime_preference"];
             
-            string = dictionary[@"monitoring"];
-            if (string) [self setString:string forKey:@"monitoring_preference"];
+            object = dictionary[@"monitoring"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                 forKey:@"monitoring_preference"];
             
-            string = dictionary[@"ranging"];
-            if (string) [self setString:string forKey:@"ranging_preference"];
+            object = dictionary[@"ranging"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                 forKey:@"ranging_preference"];
 
-            string = dictionary[@"cmd"];
-            if (string) [self setString:string forKey:@"cmd_preference"];
+            object = dictionary[@"cmd"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                 forKey:@"cmd_preference"];
             
             
-            string = dictionary[@"pubRetain"];
-            if (string) [self setString:string forKey:@"retain_preference"];
+            object = dictionary[@"pubRetain"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                 forKey:@"retain_preference"];
             
-            string = dictionary[@"tls"];
-            if (string) [self setString:string forKey:@"tls_preference"];
+            object = dictionary[@"tls"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                 forKey:@"tls_preference"];
             
-            string = dictionary[@"auth"];
-            if (string) [self setString:string forKey:@"auth_preference"];
+            object = dictionary[@"auth"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                 forKey:@"auth_preference"];
             
-            string = dictionary[@"cleanSession"];
-            if (string) [self setString:string forKey:@"clean_preference"];
+            object = dictionary[@"cleanSession"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                 forKey:@"clean_preference"];
             
-            string = dictionary[@"willRetain"];
-            if (string) [self setString:string forKey:@"willretain_preference"];
+            object = dictionary[@"willRetain"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                 forKey:@"willretain_preference"];
             
-            string = dictionary[@"updateAddressBook"];
-            if (string) [self setString:string forKey:@"ab_preference"];
+            object = dictionary[@"updateAddressBook"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                 forKey:@"ab_preference"];
             
-            string = dictionary[@"positions"];
-            if (string) [self setString:string forKey:@"positions_preference"];
+            object = dictionary[@"positions"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                 forKey:@"positions_preference"];
             
-            string = dictionary[@"allowRemoteLocation"];
-            if (string) [self setString:string forKey:@"allowremotelocation_preference"];
+            object = dictionary[@"allowRemoteLocation"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"allowremotelocation_preference"];
             
-            string = dictionary[@"publicMode"];
-            if (string) [self setString:string forKey:@"publicMode"];
+            object = dictionary[@"publicMode"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"publicMode"];
             
-            string = dictionary[@"extendedData"];
-            if (string) [self setString:string forKey:@"extendeddata_preference"];
+            object = dictionary[@"extendedData"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"extendeddata_preference"];
             
             string = dictionary[@"tid"];
             if (string) [self setString:string forKey:@"trackerid_preference"];

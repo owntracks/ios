@@ -99,24 +99,24 @@
     } while (state & UIDocumentStateClosed || ![CoreData theManagedObjectContext]);
     
     self.settings = [[Settings alloc] init];
-    if (![Setting existsSettingWithKey:@"publicMode" inManagedObjectContext:[CoreData theManagedObjectContext]]) {
-        [self.settings setBool:TRUE forKey:@"publicMode"];
-        self.publicWarning = TRUE;
+    if (![Setting existsSettingWithKey:@"publicMode"
+                inManagedObjectContext:[CoreData theManagedObjectContext]]) {
+        if (![Setting existsSettingWithKey:@"host_preference"
+                    inManagedObjectContext:[CoreData theManagedObjectContext]]) {
+             [self.settings setBool:TRUE forKey:@"publicMode"];
+             self.publicWarning = TRUE;
+        } else {
+            [self.settings setBool:FALSE forKey:@"publicMode"];
+        }
     }
     
     [self share];
-    
-    MQTTQosLevel subscriptionQos =[self.settings intForKey:@"subscriptionqos_preference"];
-    NSArray *subscriptions = [[self.settings theSubscriptions] componentsSeparatedByCharactersInSet:
-                              [NSCharacterSet whitespaceCharacterSet]];
     
     self.connectionOut = [[Connection alloc] init];
     self.connectionOut.delegate = self;
     [self.connectionOut start];
     
     self.connectionIn = [[Connection alloc] init];
-    self.connectionIn.subscriptions = subscriptions;
-    self.connectionIn.subscriptionQos = subscriptionQos;
     self.connectionIn.delegate = self;
     [self.connectionIn start];
     
@@ -778,6 +778,13 @@
                    willRetainFlag:[self.settings boolForKey:@"willretain_preference"]
                      withClientId:[NSString stringWithFormat:@"%@-o", [self.settings theClientId]]];
     
+    MQTTQosLevel subscriptionQos =[self.settings intForKey:@"subscriptionqos_preference"];
+    NSArray *subscriptions = [[self.settings theSubscriptions] componentsSeparatedByCharactersInSet:
+                              [NSCharacterSet whitespaceCharacterSet]];
+    
+    self.connectionIn.subscriptions = subscriptions;
+    self.connectionIn.subscriptionQos = subscriptionQos;
+
     [self.connectionIn connectTo:[self.settings stringForKey:@"host_preference"]
                             port:[self.settings intForKey:@"port_preference"]
                              tls:[self.settings boolForKey:@"tls_preference"]

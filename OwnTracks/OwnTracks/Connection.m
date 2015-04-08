@@ -169,7 +169,6 @@
         self.session.persistence.persistent = TRUE;
         self.reconnectTime = RECONNECT_TIMER;
         self.reconnectFlag = FALSE;
-        
     }
     [self connectToInternal];
 }
