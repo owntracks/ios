@@ -34,6 +34,7 @@
 @property (nonatomic) BOOL publicWarning;
 @property (strong, nonatomic) CMStepCounter *stepCounter;
 @property (strong, nonatomic) CMPedometer *pedometer;
+
 @property (strong, nonatomic) NSManagedObjectContext *queueManagedObjectContext;
 @end
 
@@ -86,6 +87,8 @@
     [Fabric with:@[CrashlyticsKit]];
     
     self.coreData = [[CoreData alloc] init];
+    self.inQueue = @(0);
+    
     UIDocumentState state;
     
     do {
@@ -139,6 +142,10 @@
     [locationManager start];
     
     return YES;
+}
+
+- (void)applicationWillResignActive:(UIApplication *)application {
+    [self share];    
 }
 
 - (void)batteryLevelChanged:(NSNotification *)notification {
@@ -412,10 +419,13 @@
                 if (DEBUGAPP) NSLog(@"unhandled record type %@", dictionary[@"_type"]);
             }
         } else {
-            if (DEBUGAPP) NSLog(@"illegal json %@", error.localizedDescription);
+            if (DEBUGAPP) NSLog(@"illegal json %@ %@", error.localizedDescription, data.description);
         }
         
     } else /* not ownDevice */ {
+        @synchronized (self.inQueue) {
+            self.inQueue = @([self.inQueue unsignedLongValue] + 1);
+        }
         [self.queueManagedObjectContext performBlock:^{
             if (DEBUGAPP) NSLog(@"performBlock start");
             if (data.length) {
@@ -472,14 +482,14 @@
                             friend.cardImage = imageData;
                             Location *location = [friend newestLocation];
                             if (location) {
-                                location.timestamp = location.timestamp; // touch to trigger update
+                                location.justcreated = @(TRUE); // touch to trigger update
                             }
                         }
                     } else {
                         if (DEBUGAPP) NSLog(@"unknown record type %@)", dictionary[@"_type"]);
                     }
                 } else {
-                    if (DEBUGAPP) NSLog(@"illegal json %@)", error.localizedDescription);
+                    if (DEBUGAPP) NSLog(@"illegal json %@, %@)", error.localizedDescription, data.description);
                 }
             } else /* data.length == 0 -> delete friend */ {
                 Friend *friend = [Friend existsFriendWithTopic:device inManagedObjectContext:self.queueManagedObjectContext];
@@ -488,8 +498,11 @@
                 }
             }
             [self.queueManagedObjectContext save:nil];
+            //[self performSelectorOnMainThread:@selector(share) withObject:nil waitUntilDone:NO];
             if (DEBUGAPP) NSLog(@"performBlock finish");
-            [self performSelectorOnMainThread:@selector(share) withObject:nil waitUntilDone:NO];
+            @synchronized (self.inQueue) {
+                self.inQueue = @([self.inQueue unsignedLongValue] - 1);
+            }
         }];
     }
 }
@@ -653,6 +666,13 @@
     [self.connectionIn disconnect];
 }
 
+- (void)syncProcessing {
+    while ([self.inQueue unsignedLongValue] > 0) {
+        if (DEBUGAPP) NSLog(@"syncProcessing %lu", [self.inQueue unsignedLongValue]);
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    };
+}
+
 - (void)reconnect {
     if (DEBUGAPP) NSLog(@"App reconnect");
     [self.connectionOut disconnect];
@@ -688,11 +708,12 @@
       inManagedObjectContext:[CoreData theManagedObjectContext]];
     
     [CoreData saveContext];
+    [self share];
 }
 
-- (void)sendEmpty:(Friend *)friend {
+- (void)sendEmpty:(NSString *)topic {
     [self.connectionOut sendData:nil
-                           topic:friend.topic
+                           topic:topic
                              qos:[self.settings intForKey:@"qos_preference"]
                           retain:YES];
 }

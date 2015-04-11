@@ -39,6 +39,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.UIlatitude.delegate = self;
+    self.UIlongitude.delegate = self;
+    self.UIremark.delegate = self;
+    self.UIradius.delegate = self;
     
     self.title = [self.location nameText];
     
@@ -47,6 +51,10 @@
     self.oldRegion = [self.location region];
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return TRUE;
+}
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -71,6 +79,7 @@
         }
     }
 }
+
 - (void)setup
 {
     self.UIlatitude.text = [NSString stringWithFormat:@"%g", [self.location.latitude doubleValue]];

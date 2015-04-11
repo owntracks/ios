@@ -150,7 +150,9 @@
             ABAddressBookRef ab = [Friend theABRef];
             if (ab) {
                 record = ABAddressBookGetPersonWithRecordID(ab, [self.abRecordId intValue]);
-                CFRetain(record);
+                if (record) {
+                    CFRetain(record);
+                }
             }
         }
     }

@@ -60,12 +60,31 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.UIHost.delegate = self;
+    self.UIPort.delegate = self;
+    self.UIUserID.delegate = self;
+    self.UIPassword.delegate = self;
+    self.UIClientID.delegate = self;
+    self.UIKeepAlive.delegate = self;
+    self.UItrackerid.delegate = self;
+    self.UIDeviceID.delegate = self;
+    self.UITopic.delegate = self;
+    self.UIWillTopic.delegate = self;
+    self.UISubscription.delegate = self;
+    self.UILocatorDisplacement.delegate = self;
+    self.UILocatorInterval.delegate = self;
+    self.UIPositionsToKeep.delegate = self;
     
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate addObserver:self forKeyPath:@"connectionStateOut" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     [delegate addObserver:self forKeyPath:@"connectionBufferedOut" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     
     [self updated];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return TRUE;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -319,6 +338,7 @@
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     
     [delegate connectionOff];
+    [delegate syncProcessing];
     [self updateValues];
     [delegate reconnect];
 }
@@ -362,6 +382,7 @@
 
     [self updated];
     [delegate connectionOff];
+    [delegate syncProcessing];
     NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
     for (Friend *friend in friends) {
         [[CoreData theManagedObjectContext] deleteObject:friend];        
@@ -370,7 +391,6 @@
     
     [self updateValues];
     [delegate reconnect];
-
 }
 
 @end

@@ -54,6 +54,9 @@
             NSString *string;
             NSObject *object;
             
+            object = dictionary[@"publicMode"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"publicMode"];
+            
             string = dictionary[@"deviceid"];
             if (string) [self setString:string forKey:@"deviceid_preference"];
             
@@ -75,7 +78,7 @@
             string = dictionary[@"username"];
             if (string) [self setString:string forKey:@"user_preference"];
             
-            string = dictionary[@"pass"];
+            string = dictionary[@"password"];
             if (string) [self setString:string forKey:@"pass_preference"];
             
             string = dictionary[@"willTopic"];
@@ -154,9 +157,6 @@
             object = dictionary[@"allowRemoteLocation"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"allowremotelocation_preference"];
             
-            object = dictionary[@"publicMode"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"publicMode"];
-            
             object = dictionary[@"extendedData"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"extendeddata_preference"];
             
@@ -225,7 +225,7 @@
                                                                     timestamp:[NSDate dateWithTimeIntervalSince1970:[waypoint[@"tst"] doubleValue]]];
                 
                 [Location locationWithTopic:[self theGeneralTopic]
-                                        tid:nil
+                                        tid:[self stringForKey:@"trackerid_preference"]
                                   timestamp:location.timestamp
                                  coordinate:location.coordinate
                                    accuracy:location.horizontalAccuracy

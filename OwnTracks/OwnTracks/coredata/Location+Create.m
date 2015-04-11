@@ -43,26 +43,29 @@
         // handle error
     } else {
         if (![matches count]) {
-            location = [NSEntityDescription insertNewObjectForEntityForName:@"Location" inManagedObjectContext:context];
+            location = [NSEntityDescription insertNewObjectForEntityForName:@"Location"
+                                                     inManagedObjectContext:context];
         } else {
             location = [matches lastObject];
         }
-        location.justcreated = @(TRUE);
-        for (Location *otherLocation in friend.hasLocations) {
-            otherLocation.justcreated = @(TRUE);
-        }
         location.belongsTo = friend;
         location.timestamp = timestamp;
+        location.automatic = @(automatic);
+
         [location setCoordinate:coordinate];
         location.accuracy = @(accuracy);
         location.altitude = @(altitude);
         location.verticalaccuracy = @(verticalaccuracy);
         location.speed = @(speed);
         location.course = @(course);
-        location.automatic = @(automatic);
         location.remark = remark;
         location.regionradius = @(radius);
         location.share = @(share);
+        
+        location.justcreated = @(TRUE);
+        for (Location *otherLocation in friend.hasLocations) {
+            otherLocation.justcreated = @(TRUE);
+        }
     }
     
     return location;

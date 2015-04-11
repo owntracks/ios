@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Location+Create.h"
 
-@interface EditLocationTVC : UITableViewController
+@interface EditLocationTVC : UITableViewController <UITextFieldDelegate>
 @property (strong, nonatomic) Location *location;
 @property (strong, nonatomic) MKMapView *mapView;
 

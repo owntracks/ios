@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="e04-OU-xZ4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="e04-OU-xZ4">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <scenes>
         <!--OwnTracks-->
@@ -46,7 +46,6 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="q41-CR-dc2"/>
-                                    <barButtonItem enabled="NO" title="0" id="fgY-5h-lUd"/>
                                     <barButtonItem image="ConnectionOn" id="cdW-ta-bSy">
                                         <connections>
                                             <action selector="connectionPressed:" destination="HII-kF-avN" id="N5b-Yw-NZk"/>
@@ -71,7 +70,6 @@
                     <navigationItem key="navigationItem" title="OwnTracks" id="OeB-EW-2jx"/>
                     <connections>
                         <outlet property="beaconButton" destination="Uuz-hl-Qhf" id="ET4-ag-Qcw"/>
-                        <outlet property="bufferedItem" destination="fgY-5h-lUd" id="wyC-pt-viX"/>
                         <outlet property="connectionButton" destination="cdW-ta-bSy" id="dKv-9n-Tos"/>
                         <outlet property="locationButton" destination="Yil-yv-Mgw" id="VF6-SA-Qeu"/>
                         <outlet property="mapView" destination="eED-yn-0ps" id="ySD-3E-pwJ"/>
@@ -202,7 +200,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="port" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZW3-WS-Wb7">
                                                     <rect key="frame" x="61" y="13" width="239" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -388,7 +386,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="keepalive" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Ya-nG-biw">
                                                     <rect key="frame" x="132" y="13" width="168" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -717,7 +715,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="displacement" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cUp-TJ-pAm">
                                                     <rect key="frame" x="159" y="13" width="141" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -744,7 +742,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="interval" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ewa-O1-50V">
                                                     <rect key="frame" x="165" y="13" width="135" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -771,7 +769,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="keep" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hm3-y3-kKf">
                                                     <rect key="frame" x="195" y="13" width="105" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -1196,7 +1194,7 @@
             <objects>
                 <tableViewController id="m9c-8c-Xj9" customClass="EditLocationTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="QKs-CU-YVj">
-                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -1316,7 +1314,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="radius" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wfQ-et-rkm">
                                                     <rect key="frame" x="253" y="13" width="47" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
                                                         <action selector="radiuschanged:" destination="m9c-8c-Xj9" eventType="editingChanged" id="hFr-Q7-FIh"/>
                                                         <action selector="radiuschanged:" destination="m9c-8c-Xj9" eventType="editingDidEnd" id="uq8-Uy-eii"/>
@@ -1942,7 +1940,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uho-CX-fYe">
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">Public Mode
+                                <string key="text">Public Mode
 
 In public mode, you can get an impression of OwnTracks functionality.
 
@@ -1952,7 +1950,7 @@ Please visit http://public.owntracks.org to obtain an OwnTracks user id and setu
 
 Or you may setup your own OwnTracks server for full privacy protection. More Info on http://owntracks.org
 
-When switching to and from public mode, all data on your iOS device will be deleted.</mutableString>
+When switching to and from public mode, all data on your iOS device will be deleted.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
@@ -2102,8 +2100,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="fYg-iY-91D"/>
+        <segue reference="Hb0-uO-VBI"/>
         <segue reference="Cyr-xx-Iz2"/>
-        <segue reference="DMp-iB-KHF"/>
+        <segue reference="fYg-iY-91D"/>
     </inferredMetricsTieBreakers>
 </document>

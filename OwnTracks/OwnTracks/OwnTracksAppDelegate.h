@@ -31,14 +31,17 @@
 
 @property (strong, nonatomic) Connection *connectionOut;
 @property (strong, nonatomic) Connection *connectionIn;
+
 @property (strong, nonatomic) NSNumber *connectionStateOut;
 @property (strong, nonatomic) NSNumber *connectionBufferedOut;
+@property (strong, nonatomic) NSNumber *inQueue;
 
 - (void)sendNow;
 - (void)requestLocationFromFriend:(Friend *)friend;
 - (void)sendWayPoint:(Location *)location;
-- (void)sendEmpty:(Friend *)friend;
+- (void)sendEmpty:(NSString *)topic;
 - (void)reconnect;
 - (void)connectionOff;
+- (void)syncProcessing;
 
 @end

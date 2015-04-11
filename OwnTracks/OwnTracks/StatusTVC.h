@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "Connection.h"
 
-@interface StatusTVC : UITableViewController <UIDocumentInteractionControllerDelegate, UIAlertViewDelegate>
+@interface StatusTVC : UITableViewController <UIDocumentInteractionControllerDelegate, UIAlertViewDelegate, UITextFieldDelegate>
 
 @end

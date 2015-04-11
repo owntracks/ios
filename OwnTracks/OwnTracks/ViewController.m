@@ -29,7 +29,9 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *locationButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *beaconButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *connectionButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *bufferedItem;
+
+@property (nonatomic) int connectionStateOut;
+@property (nonatomic) int connectionBufferedOut;
 
 @property (nonatomic) BOOL beaconOn;
 
@@ -138,8 +140,10 @@
     [self performSelector:@selector(hideNavBar) withObject:nil afterDelay:2.0];
     
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate addObserver:self forKeyPath:@"connectionStateOut" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
-    [delegate addObserver:self forKeyPath:@"connectionBufferedOut" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    [delegate addObserver:self forKeyPath:@"connectionStateOut"
+                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    [delegate addObserver:self forKeyPath:@"connectionBufferedOut"
+                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     
     [self monitoringButtonImage];
     [self beaconButtonImage];
@@ -175,7 +179,6 @@
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate removeObserver:self forKeyPath:@"connectionStateOut" context:nil];
     [delegate removeObserver:self forKeyPath:@"connectionBufferedOut" context:nil];
-    
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
@@ -187,6 +190,13 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)object;
+    if ([keyPath isEqualToString:@"connectionStateOut"]) {
+        self.connectionStateOut = [delegate.connectionStateOut intValue];
+    }
+    if ([keyPath isEqualToString:@"connectionBufferedOut"]) {
+        self.connectionBufferedOut = [delegate.connectionBufferedOut intValue];
+    }
     [self connectionButtonImage];
 }
 
@@ -386,9 +396,17 @@
 
 - (void)connectionButtonImage
 {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (self.connectionBufferedOut) {
+        if (self.connectionBufferedOut % 2) {
+            self.connectionButton.image = [UIImage imageNamed:@"ConnectionMid"];
+        } else {
+            self.connectionButton.image = [UIImage imageNamed:@"ConnectionOff"];
+        }
+    } else {
+        self.connectionButton.image = [UIImage imageNamed:@"ConnectionOn"];
+    }
     
-    switch ([delegate.connectionStateOut intValue]) {
+    switch (self.connectionStateOut) {
         case state_connected:
             self.connectionButton.tintColor = [UIColor colorWithRed:0.0 green:190.0/255.0 blue:0.0 alpha:1.0];
             break;
@@ -403,18 +421,6 @@
         case state_error:
             self.connectionButton.tintColor = [UIColor colorWithRed:190.0/255.0 green:0.0 blue:0.0 alpha:1.0];
             break;
-    }
-    
-    int buffered = [delegate.connectionBufferedOut intValue];
-    self.bufferedItem.title = buffered ? [NSString stringWithFormat:@"%d", buffered] : @"";
-    if (buffered) {
-        if (buffered % 2) {
-            self.connectionButton.image = [UIImage imageNamed:@"ConnectionMid"];
-        } else {
-            self.connectionButton.image = [UIImage imageNamed:@"ConnectionOff"];
-        }
-    } else {
-        self.connectionButton.image = [UIImage imageNamed:@"ConnectionOn"];
     }
 }
 
