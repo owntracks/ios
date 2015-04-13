@@ -78,6 +78,7 @@
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate addObserver:self forKeyPath:@"connectionStateOut" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     [delegate addObserver:self forKeyPath:@"connectionBufferedOut" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    [delegate addObserver:self forKeyPath:@"configLoad" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     
     [self updated];
 }
@@ -94,6 +95,7 @@
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate removeObserver:self forKeyPath:@"connectionStateOut" context:nil];
     [delegate removeObserver:self forKeyPath:@"connectionBufferedOut" context:nil];
+    [delegate removeObserver:self forKeyPath:@"configLoad" context:nil];
 
     [self updateValues];
 }
@@ -131,6 +133,9 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     [self updatedStatus];
+    if ([keyPath isEqualToString:@"configLoad"]) {
+        [self updated];
+    }
 }
 
 - (void)updatedStatus

@@ -19,7 +19,7 @@
 //#define OLD 1
 
 #ifdef DEBUG
-#define DEBUGAPP TRUE
+#define DEBUGAPP FALSE
 #else
 #define DEBUGAPP FALSE
 #endif
@@ -206,6 +206,7 @@
             }
             self.processingMessage = [NSString stringWithFormat:@"File %@ successfully processed)",
                                       [url lastPathComponent]];
+            self.configLoad = [NSDate date];
         }
     }
     return TRUE;

@@ -36,6 +36,8 @@
 @property (strong, nonatomic) NSNumber *connectionBufferedOut;
 @property (strong, nonatomic) NSNumber *inQueue;
 
+@property (strong, nonatomic) NSDate *configLoad;
+
 - (void)sendNow;
 - (void)requestLocationFromFriend:(Friend *)friend;
 - (void)sendWayPoint:(Location *)location;
