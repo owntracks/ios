@@ -62,9 +62,9 @@
         location.regionradius = @(radius);
         location.share = @(share);
         
-        location.justcreated = @(TRUE);
+        location.justcreated = @(![location.justcreated boolValue]);
         for (Location *otherLocation in friend.hasLocations) {
-            otherLocation.justcreated = @(TRUE);
+            otherLocation.justcreated = @(![otherLocation.justcreated boolValue]);
         }
     }
     

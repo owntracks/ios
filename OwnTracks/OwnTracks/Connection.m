@@ -12,7 +12,7 @@
 #import "CoreData.h"
 
 #ifdef DEBUG
-#define DEBUGCONN FALSE
+#define DEBUGCONN TRUE
 #else
 #define DEBUGCONN FALSE
 #endif

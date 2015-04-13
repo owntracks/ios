@@ -19,7 +19,7 @@
 //#define OLD 1
 
 #ifdef DEBUG
-#define DEBUGAPP FALSE
+#define DEBUGAPP TRUE
 #else
 #define DEBUGAPP FALSE
 #endif
@@ -106,8 +106,8 @@
                 inManagedObjectContext:[CoreData theManagedObjectContext]]) {
         if (![Setting existsSettingWithKey:@"host_preference"
                     inManagedObjectContext:[CoreData theManagedObjectContext]]) {
-             [self.settings setBool:TRUE forKey:@"publicMode"];
-             self.publicWarning = TRUE;
+            [self.settings setBool:TRUE forKey:@"publicMode"];
+            self.publicWarning = TRUE;
         } else {
             [self.settings setBool:FALSE forKey:@"publicMode"];
         }
@@ -145,7 +145,7 @@
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    [self share];    
+    [self share];
 }
 
 - (void)batteryLevelChanged:(NSNotification *)notification {
@@ -229,7 +229,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     if (DEBUGAPP) NSLog(@"applicationDidBecomeActive");
-
+    
     if (self.publicWarning) {
         [AlertView alert:@"Public Mode" message:@"In public mode, your location is published anonymously to owntracks.org's shared broker. Find more information or change in Settings"];
         self.publicWarning = FALSE;
@@ -290,6 +290,9 @@
 }
 
 - (void)regionEvent:(CLRegion *)region enter:(BOOL)enter {
+    NSString *message = [NSString stringWithFormat:@"%@ %@", (enter ? @"Entering" : @"Leaving"), region.identifier];
+    [self notification:message userInfo:nil];
+    
     NSMutableDictionary *jsonObject = [@{
                                          @"_type": @"transition",
                                          @"lat": @([LocationManager sharedInstance].location.coordinate.latitude),
@@ -415,6 +418,12 @@
                         if (DEBUGAPP) NSLog(@"unknown action %@", dictionary[@"action"]);
                     }
                 }
+            } else if ([dictionary[@"_type"] isEqualToString:@"card"]) {
+                Friend *friend = [Friend friendWithTopic:device
+                                                     tid:nil
+                                  inManagedObjectContext:[CoreData theManagedObjectContext]];
+                [self processFace:friend dictionary:dictionary];
+                
             } else {
                 if (DEBUGAPP) NSLog(@"unhandled record type %@", dictionary[@"_type"]);
             }
@@ -475,16 +484,8 @@
                         Friend *friend = [Friend friendWithTopic:device
                                                              tid:nil
                                           inManagedObjectContext:self.queueManagedObjectContext];
-                        if (friend) {
-                            friend.cardName = dictionary[@"name"];
-                            NSString *string = dictionary[@"face"];
-                            NSData *imageData = [[NSData alloc] initWithBase64EncodedString:string options:0];
-                            friend.cardImage = imageData;
-                            Location *location = [friend newestLocation];
-                            if (location) {
-                                location.justcreated = @(TRUE); // touch to trigger update
-                            }
-                        }
+                        [self processFace:friend dictionary:dictionary];
+                        
                     } else {
                         if (DEBUGAPP) NSLog(@"unknown record type %@)", dictionary[@"_type"]);
                     }
@@ -504,6 +505,19 @@
                 self.inQueue = @([self.inQueue unsignedLongValue] - 1);
             }
         }];
+    }
+}
+
+- (void)processFace:(Friend *)friend dictionary:(NSDictionary *)dictionary {
+    if (friend) {
+        friend.cardName = dictionary[@"name"];
+        NSString *string = dictionary[@"face"];
+        NSData *imageData = [[NSData alloc] initWithBase64EncodedString:string options:0];
+        friend.cardImage = imageData;
+        Location *location = [friend newestLocation];
+        if (location) {
+            location.justcreated = @(![location.justcreated boolValue]); // touch to trigger update
+        }
     }
 }
 
@@ -681,34 +695,38 @@
 }
 
 - (void)publishLocation:(CLLocation *)location automatic:(BOOL)automatic addon:(NSDictionary *)addon {
-    Location *newLocation = [Location locationWithTopic:[self.settings theGeneralTopic]
-                                                    tid:[self.settings stringForKey:@"trackerid_preference"]
-                                              timestamp:location.timestamp
-                                             coordinate:location.coordinate
-                                               accuracy:location.horizontalAccuracy
-                                               altitude:location.altitude
-                                       verticalaccuracy:location.verticalAccuracy
-                                                  speed:(location.speed == -1) ? -1 : location.speed * 3600.0 / 1000.0
-                                                 course:location.course
-                                              automatic:automatic
-                                                 remark:nil
-                                                 radius:0
-                                                  share:NO
-                                 inManagedObjectContext:[CoreData theManagedObjectContext]];
-    
-    NSData *data = [self encodeLocationData:newLocation type:@"location" addon:addon];
-    
-    [self.connectionOut sendData:data
-                           topic:[self.settings theGeneralTopic]
-                             qos:[self.settings intForKey:@"qos_preference"]
-                          retain:[self.settings boolForKey:@"retain_preference"]];
-    
-    [self limitLocationsWith:newLocation.belongsTo
-                   toMaximum:[self.settings intForKey:@"positions_preference"]
-      inManagedObjectContext:[CoreData theManagedObjectContext]];
-    
-    [CoreData saveContext];
-    [self share];
+    if (location) {
+        Location *newLocation = [Location locationWithTopic:[self.settings theGeneralTopic]
+                                                        tid:[self.settings stringForKey:@"trackerid_preference"]
+                                                  timestamp:location.timestamp
+                                                 coordinate:location.coordinate
+                                                   accuracy:location.horizontalAccuracy
+                                                   altitude:location.altitude
+                                           verticalaccuracy:location.verticalAccuracy
+                                                      speed:(location.speed == -1) ? -1 : location.speed * 3600.0 / 1000.0
+                                                     course:location.course
+                                                  automatic:automatic
+                                                     remark:nil
+                                                     radius:0
+                                                      share:NO
+                                     inManagedObjectContext:[CoreData theManagedObjectContext]];
+        
+        NSData *data = [self encodeLocationData:newLocation type:@"location" addon:addon];
+        
+        [self.connectionOut sendData:data
+                               topic:[self.settings theGeneralTopic]
+                                 qos:[self.settings intForKey:@"qos_preference"]
+                              retain:[self.settings boolForKey:@"retain_preference"]];
+        
+        [self limitLocationsWith:newLocation.belongsTo
+                       toMaximum:[self.settings intForKey:@"positions_preference"]
+          inManagedObjectContext:[CoreData theManagedObjectContext]];
+        
+        [CoreData saveContext];
+        [self share];
+    } else {
+        if (DEBUGAPP) NSLog(@"publishLocation (null) ignored");
+    }
 }
 
 - (void)sendEmpty:(NSString *)topic {
@@ -805,7 +823,7 @@
     
     self.connectionIn.subscriptions = subscriptions;
     self.connectionIn.subscriptionQos = subscriptionQos;
-
+    
     [self.connectionIn connectTo:[self.settings stringForKey:@"host_preference"]
                             port:[self.settings intForKey:@"port_preference"]
                              tls:[self.settings boolForKey:@"tls_preference"]
@@ -914,22 +932,24 @@
             NSString *name = [friend name];
             NSData *image = [friend image];
             Location *friendsLocation = [friend newestLocation];
-            CLLocation *friendsCLLocation = [[CLLocation alloc] initWithLatitude:[friendsLocation.latitude doubleValue]
-                                                                       longitude:[friendsLocation.longitude doubleValue]];
-            NSNumber *distance = @([myCLLocation distanceFromLocation:friendsCLLocation]);
-            if (name) {
-                NSMutableDictionary *aFriend = [[NSMutableDictionary alloc] init];
-                if (image) {
-                    [aFriend setObject:image forKey:@"image"];
-                } else {
-                    [aFriend setObject:[UIImage imageNamed:@"icon40"] forKey:@"image"];
+            if (friendsLocation) {
+                CLLocation *friendsCLLocation = [[CLLocation alloc] initWithLatitude:[friendsLocation.latitude doubleValue]
+                                                                           longitude:[friendsLocation.longitude doubleValue]];
+                NSNumber *distance = @([myCLLocation distanceFromLocation:friendsCLLocation]);
+                if (name) {
+                    NSMutableDictionary *aFriend = [[NSMutableDictionary alloc] init];
+                    if (image) {
+                        [aFriend setObject:image forKey:@"image"];
+                    } else {
+                        [aFriend setObject:[UIImage imageNamed:@"icon40"] forKey:@"image"];
+                    }
+                    [aFriend setObject:distance forKey:@"distance"];
+                    [aFriend setObject:friendsLocation.longitude forKey:@"longitude"];
+                    [aFriend setObject:friendsLocation.latitude forKey:@"latitude"];
+                    [aFriend setObject:friendsLocation.timestamp forKey:@"timestamp"];
+                    [aFriend setObject:friend.topic forKey:@"topic"];
+                    [sharedFriends setObject:aFriend forKey:name];
                 }
-                [aFriend setObject:distance forKey:@"distance"];
-                [aFriend setObject:friendsLocation.longitude forKey:@"longitude"];
-                [aFriend setObject:friendsLocation.latitude forKey:@"latitude"];
-                [aFriend setObject:friendsLocation.timestamp forKey:@"timestamp"];
-                [aFriend setObject:friend.topic forKey:@"topic"];
-                [sharedFriends setObject:aFriend forKey:name];
             }
         }
         if (DEBUGAPP) NSLog(@"sharedFriends %@", [sharedFriends allKeys]);
