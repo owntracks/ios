@@ -38,6 +38,24 @@ You experienced crashes when inserting new waypoints or watched incorrect list d
 * [FIX] password was not imported from config file
 * [FIX] crash when pointing to an invalid address book entry
 
+## OwnTracks 8.0.7
+>Release date: 2015-04-08 for alpha testers only
+
+* [FIX] re-subscribe to correct topics after change Public Mode
+* [FIX] import config new format (numbers and booleans instead of strings)
+* [FIX] auto enabling Public Mode only if first install
+
+## OwnTracks 8.0.6
+>Release date: 2015-04-08 for beta testers - laster revoked due to stability issues
+
+* [NEW] display images from address book or MQTT (face) on Today widget or Watch
+* [NEW] receive faces and names via MQTT and store in local db
+* [NEW] public mode as initial setting. Public mode connects to predifined broker, hiding
+	all other configuration fields
+* [FIX] no subscription to `cmd` subtopic
+
+
+
 Migrating to 8.0 from 7.5.1
 ===========================
 
