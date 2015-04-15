@@ -4,14 +4,14 @@ OwnTracks iOS App 8.0 Release Notes
 ## OwnTracks 8.0.10
 >Release date: 2015-04-13 for alpha testers only
 
-You were having problems bootstrapping a new install with the help of a saved config file
+You were having problems bootstrapping a new install with the help of a saved config file.
 
 * [FIX] loading config (.otrc) while settings tab was open did not update values #140
 
 ## OwnTracks 8.0.9
 >Release date: 2015-04-12 for alpha testers only
 
-You experienced crashes, missed faces on the map, missed enter/leave notifications
+You experienced crashes, missed faces on the map, missed enter/leave notifications.
 
 * [FIX] fixes a crash happening when a face is available for a user, but no locations
 	have been recorded yet #137
@@ -23,9 +23,9 @@ You experienced crashes, missed faces on the map, missed enter/leave notificatio
 ## OwnTracks 8.0.8
 >Release date: 2015-04-11 for alpha testers only
 
-You always missed the possibility to hide the keyboard in settings
-You wondered which updates OwnTracks is doing in the background
-You experienced crashes when inserting new waypoints or watched incorrect list display in location view
+You always missed the possibility to hide the keyboard in settings.
+You wondered which updates OwnTracks is doing in the background.
+You experienced crashes when inserting new waypoints or watched incorrect list display in location view.
 
 * [NEW] hit the return key in text inputs hides the keyboard (implies extended keyboard for numeric inputs)
 * [NEW] the number of received but not yet processed updates is displayed as a red badge next to the friends
