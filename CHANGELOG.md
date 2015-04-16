@@ -1,6 +1,14 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.0.11
+>Release date: 2015-04-16 for alpha testers only
+
+Extending Public Mode
+
+* [NEW] Public, Hosted, and Own modes
+* [FIX] Load correct image format for assigned friends without image in address book
+
 ## OwnTracks 8.0.10
 >Release date: 2015-04-13 for alpha testers only
 
