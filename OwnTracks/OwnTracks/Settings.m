@@ -19,6 +19,7 @@
 @interface Settings ()
 @property (strong, nonatomic) NSDictionary *appDefaults;
 @property (strong, nonatomic) NSDictionary *publicDefaults;
+@property (strong, nonatomic) NSDictionary *registeredDefaults;
 @end
 
 @implementation Settings
@@ -31,9 +32,11 @@
         NSURL *bundleURL = [[NSBundle mainBundle] bundleURL];
         NSURL *settingsPlistURL = [bundleURL URLByAppendingPathComponent:@"Settings.plist"];
         NSURL *publicPlistURL = [bundleURL URLByAppendingPathComponent:@"Public.plist"];
+        NSURL *registeredPlistURL = [bundleURL URLByAppendingPathComponent:@"Registered.plist"];
         
         self.appDefaults = [NSDictionary dictionaryWithContentsOfURL:settingsPlistURL];
         self.publicDefaults = [NSDictionary dictionaryWithContentsOfURL:publicPlistURL];
+        self.registeredDefaults = [NSDictionary dictionaryWithContentsOfURL:registeredPlistURL];
     }
     return self;
 }
@@ -54,8 +57,8 @@
             NSString *string;
             NSObject *object;
             
-            object = dictionary[@"publicMode"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"publicMode"];
+            object = dictionary[@"mode"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"mode"];
             
             string = dictionary[@"deviceid"];
             if (string) [self setString:string forKey:@"deviceid_preference"];
@@ -289,7 +292,7 @@
                            @"willRetain": @([self boolForKey:@"willretain_preference"]),
                            @"updateAddressBook": @([self boolForKey:@"ab_preference"]),
                            @"allowRemoteLocation": @([self boolForKey:@"allowremotelocation_preference"]),
-                           @"publicMode": @([self boolForKey:@"publicMode"]),
+                           @"publicMode": @([self intForKey:@"mode"]),
                            @"extendedData": @([self boolForKey:@"extendeddata_preference"]),
                            
                            @"waypoints": waypoints
@@ -309,18 +312,35 @@
 }
 
 - (BOOL)validInPublicMode:(NSString *)key {
-    return ([key isEqualToString:@"publicMode"] ||
+    return ([key isEqualToString:@"mode"] ||
             [key isEqualToString:@"monitoring_preference"] ||
             [key isEqualToString:@"mindist_preference"] ||
             [key isEqualToString:@"mintime_preference"] ||
             [key isEqualToString:@"positions_preference"] ||
+            [key isEqualToString:@"trackerid_preference"] ||
             [key isEqualToString:@"ranging_preference"]);
+    
+}
 
+- (BOOL)validInRegisteredMode:(NSString *)key {
+    return ([key isEqualToString:@"mode"] ||
+            [key isEqualToString:@"monitoring_preference"] ||
+            [key isEqualToString:@"mindist_preference"] ||
+            [key isEqualToString:@"mintime_preference"] ||
+            [key isEqualToString:@"positions_preference"] ||
+            [key isEqualToString:@"trackerid_preference"] ||
+            [key isEqualToString:@"user_preference"] ||
+            [key isEqualToString:@"pass_preference"] ||
+            [key isEqualToString:@"deviceid_preference"] ||
+            [key isEqualToString:@"ranging_preference"]);
+    
 }
 
 - (void)setString:(NSString *)string forKey:(NSString *)key
 {
-    if (![self boolForKey:@"publicMode"] || [self validInPublicMode:key]) {
+    if ([self intForKey:@"mode"] == 0 ||
+        ([self intForKey:@"mode"] == 1 && [self validInRegisteredMode:key]) ||
+        ([self intForKey:@"mode"] == 2 && [self validInPublicMode:key])) {
         Setting *setting = [Setting settingWithKey:key inManagedObjectContext:[CoreData theManagedObjectContext]];
         setting.value = string;
     }
@@ -345,8 +365,17 @@
 {
     NSString *value = nil;
 
-    if ([[self stringForKeyRaw:@"publicMode"] boolValue] && ![self validInPublicMode:key]) {
+    if ([[self stringForKeyRaw:@"mode"] intValue] == 2 && ![self validInPublicMode:key]) {
         id object = [self.publicDefaults objectForKey:key];
+        if (object) {
+            if ([object isKindOfClass:[NSString class]]) {
+                value = (NSString *)object;
+            } else if ([object isKindOfClass:[NSNumber class]]) {
+                value = [(NSNumber *)object stringValue];
+            }
+        }
+    } else if ([[self stringForKeyRaw:@"mode"] intValue] == 1 && ![self validInRegisteredMode:key]) {
+        id object = [self.registeredDefaults objectForKey:key];
         if (object) {
             if ([object isKindOfClass:[NSString class]]) {
                 value = (NSString *)object;
@@ -480,6 +509,23 @@
     return subscriptions;
 }
 
+- (NSString *)theUserId {
+    int mode = [self intForKey:@"mode"];
+    switch (mode) {
+        case 2:
+            return @"user";
+            break;
+        case 1:
+            return [NSString stringWithFormat:@"%@|%@",
+                    [self stringForKey:@"user_preference"],
+                    [self theDeviceId]];
+            break;
+        case 0:
+        default:
+            return [self stringForKey:@"user_preference"];
+            break;
+    }
+}
 
 
 @end

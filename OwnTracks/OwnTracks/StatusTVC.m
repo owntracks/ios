@@ -13,7 +13,7 @@
 #import "CoreData.h"
 
 @interface StatusTVC ()
-@property (weak, nonatomic) IBOutlet UISwitch *UIpublicMode;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *UImode;
 @property (weak, nonatomic) IBOutlet UITextField *UIeffectivesubscriptions;
 @property (weak, nonatomic) IBOutlet UITextView *UIparameters;
 @property (weak, nonatomic) IBOutlet UITextField *UIstatus;
@@ -114,7 +114,7 @@
     if (self.UISubscription) [delegate.settings setString:self.UISubscription.text forKey:@"subscription_preference"];
     if (self.UIUpdateAddressBook) [delegate.settings setBool:self.UIUpdateAddressBook.on forKey:@"ab_preference"];
     if (self.UIallowRemoteLocation) [delegate.settings setBool:self.UIallowRemoteLocation.on forKey:@"allowremotelocation_preference"];
-    if (self.UIpublicMode) [delegate.settings setBool:self.UIpublicMode.on forKey:@"publicMode"];
+    if (self.UImode) [delegate.settings setInt:(int)self.UImode.selectedSegmentIndex forKey:@"mode"];
     if (self.UIextendedData) [delegate.settings setBool:self.UIextendedData.on forKey:@"extendeddata_preference"];
     if (self.UIPositionsToKeep) [delegate.settings setString:self.UIPositionsToKeep.text forKey:@"positions_preference"];
     if (self.UITopic) [delegate.settings setString:self.UITopic.text forKey:@"topic_preference"];
@@ -182,7 +182,7 @@
     self.UIUserID.text =                            [delegate.settings stringForKey:@"user_preference"];
     self.UIPassword.text =                          [delegate.settings stringForKey:@"pass_preference"];
     self.UISubscription.text =                      [delegate.settings stringForKey:@"subscription_preference"];
-    self.UIpublicMode.on =                          [delegate.settings boolForKey:@"publicMode"];
+    self.UImode.selectedSegmentIndex =              [delegate.settings intForKey:@"mode"];
     self.UIUpdateAddressBook.on =                   [delegate.settings boolForKey:@"ab_preference"];
     self.UIallowRemoteLocation.on =                 [delegate.settings boolForKey:@"allowremotelocation_preference"];
     self.UIextendedData.on =                        [delegate.settings boolForKey:@"extendeddata_preference"];
@@ -202,41 +202,46 @@
     self.UIwillqos.text =                           [self qosString:[delegate.settings intForKey:@"willqos_preference"]];
     self.UIWillRetain.on =                          [delegate.settings boolForKey:@"willretain_preference"];
     
-    NSMutableArray *hiddenFields = [[NSMutableArray alloc] init];
-    if (self.UIDeviceID) [hiddenFields addObject:self.UIDeviceID];
-    if (self.UIparameters) [hiddenFields addObject:self.UIparameters];
-    if (self.UItrackerid) [hiddenFields addObject:self.UItrackerid];
-    if (self.UIHost) [hiddenFields addObject:self.UIHost];
-    if (self.UIUserID) [hiddenFields addObject:self.UIUserID];
-    if (self.UIPassword) [hiddenFields addObject:self.UIPassword];
-    if (self.UISubscription) [hiddenFields addObject:self.UISubscription];
-    if (self.UIUpdateAddressBook) [hiddenFields addObject:self.UIUpdateAddressBook];
-    if (self.UIallowRemoteLocation) [hiddenFields addObject:self.UIallowRemoteLocation];
-    if (self.UIextendedData) [hiddenFields addObject:self.UIextendedData];
-    if (self.UIsubscriptionqos) [hiddenFields addObject:self.UIsubscriptionqos];
-    if (self.UITopic) [hiddenFields addObject:self.UITopic];
-    if (self.UIqos) [hiddenFields addObject:self.UIqos];
-    if (self.UIRetain) [hiddenFields addObject:self.UIRetain];
-    if (self.UICMD) [hiddenFields addObject:self.UICMD];
-    if (self.UIClientID) [hiddenFields addObject:self.UIClientID];
-    if (self.UIPort) [hiddenFields addObject:self.UIPort];
-    if (self.UITLS) [hiddenFields addObject:self.UITLS];
-    if (self.UIAuth) [hiddenFields addObject:self.UIAuth];
-    if (self.UICleanSession) [hiddenFields addObject:self.UICleanSession];
-    if (self.UIKeepAlive) [hiddenFields addObject:self.UIKeepAlive];
-    if (self.UIWillTopic) [hiddenFields addObject:self.UIWillTopic];
-    if (self.UIwillqos) [hiddenFields addObject:self.UIwillqos];
-    if (self.UIWillRetain) [hiddenFields addObject:self.UIWillRetain];
-    if (self.UIeffectiveDeviceId) [hiddenFields addObject:self.UIeffectiveDeviceId];
-    if (self.UIeffectiveClientId) [hiddenFields addObject:self.UIeffectiveClientId];
-    if (self.UIeffectiveTopic) [hiddenFields addObject:self.UIeffectiveTopic];
-    if (self.UIeffectiveWillTopic) [hiddenFields addObject:self.UIeffectiveWillTopic];
-    if (self.UIeffectivesubscriptions) [hiddenFields addObject:self.UIeffectivesubscriptions];
-
-    for (UIView *view in hiddenFields) {
-        view.hidden = [delegate.settings boolForKey:@"publicMode"];
+    NSMutableArray *hiddenFieldsMode12 = [[NSMutableArray alloc] init];
+    if (self.UIparameters) [hiddenFieldsMode12 addObject:self.UIparameters];
+    if (self.UIHost) [hiddenFieldsMode12 addObject:self.UIHost];
+    if (self.UISubscription) [hiddenFieldsMode12 addObject:self.UISubscription];
+    if (self.UIUpdateAddressBook) [hiddenFieldsMode12 addObject:self.UIUpdateAddressBook];
+    if (self.UIallowRemoteLocation) [hiddenFieldsMode12 addObject:self.UIallowRemoteLocation];
+    if (self.UIextendedData) [hiddenFieldsMode12 addObject:self.UIextendedData];
+    if (self.UIsubscriptionqos) [hiddenFieldsMode12 addObject:self.UIsubscriptionqos];
+    if (self.UITopic) [hiddenFieldsMode12 addObject:self.UITopic];
+    if (self.UIqos) [hiddenFieldsMode12 addObject:self.UIqos];
+    if (self.UIRetain) [hiddenFieldsMode12 addObject:self.UIRetain];
+    if (self.UICMD) [hiddenFieldsMode12 addObject:self.UICMD];
+    if (self.UIPort) [hiddenFieldsMode12 addObject:self.UIPort];
+    if (self.UITLS) [hiddenFieldsMode12 addObject:self.UITLS];
+    if (self.UIAuth) [hiddenFieldsMode12 addObject:self.UIAuth];
+    if (self.UICleanSession) [hiddenFieldsMode12 addObject:self.UICleanSession];
+    if (self.UIKeepAlive) [hiddenFieldsMode12 addObject:self.UIKeepAlive];
+    if (self.UIWillTopic) [hiddenFieldsMode12 addObject:self.UIWillTopic];
+    if (self.UIwillqos) [hiddenFieldsMode12 addObject:self.UIwillqos];
+    if (self.UIWillRetain) [hiddenFieldsMode12 addObject:self.UIWillRetain];
+    if (self.UIeffectiveDeviceId) [hiddenFieldsMode12 addObject:self.UIeffectiveDeviceId];
+    if (self.UIeffectiveClientId) [hiddenFieldsMode12 addObject:self.UIeffectiveClientId];
+    if (self.UIeffectiveTopic) [hiddenFieldsMode12 addObject:self.UIeffectiveTopic];
+    if (self.UIeffectiveWillTopic) [hiddenFieldsMode12 addObject:self.UIeffectiveWillTopic];
+    if (self.UIeffectivesubscriptions) [hiddenFieldsMode12 addObject:self.UIeffectivesubscriptions];
+    
+    NSMutableArray *hiddenFieldsMode2 = [[NSMutableArray alloc] init];
+    if (self.UIDeviceID) [hiddenFieldsMode2 addObject:self.UIDeviceID];
+    if (self.UIUserID) [hiddenFieldsMode2 addObject:self.UIUserID];
+    if (self.UIPassword) [hiddenFieldsMode2 addObject:self.UIPassword];
+    if (self.UIClientID) [hiddenFieldsMode2 addObject:self.UIClientID];
+    
+    int mode = [delegate.settings intForKey:@"mode"];
+    for (UIView *view in hiddenFieldsMode12) {
+        view.hidden = (mode == 1 || mode == 2);
     }
-    self.UIexport.enabled = ![delegate.settings boolForKey:@"publicMode"];
+    for (UIView *view in hiddenFieldsMode2) {
+        view.hidden = (mode == 2);
+    }
+    self.UIexport.enabled = (mode != 2);
 }
 
 - (IBAction)exportPressed:(UIButton *)sender {
@@ -381,13 +386,14 @@
     self.UItrackerid.text = [delegate.settings stringForKey:@"trackerid_preference"];
 }
 
-- (IBAction)publicModeChanged:(UISwitch *)sender {
+- (IBAction)modeChanged:(UISegmentedControl *)sender {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    if (self.UIpublicMode) [delegate.settings setBool:self.UIpublicMode.on forKey:@"publicMode"];
+    if (self.UImode) [delegate.settings setInt:(int)sender.selectedSegmentIndex forKey:@"mode"];
 
     [self updated];
     [delegate connectionOff];
     [delegate syncProcessing];
+    [[LocationManager sharedInstance] resetRegions];
     NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
     for (Friend *friend in friends) {
         [[CoreData theManagedObjectContext] deleteObject:friend];        

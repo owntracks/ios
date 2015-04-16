@@ -44,6 +44,7 @@
 		8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B909189FEC070019D2D6 /* StatusTVC.m */; };
 		8411B912189FEC070019D2D6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B90B189FEC070019D2D6 /* ViewController.m */; };
 		8426103A1ACFE67B00FE1A03 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842610391ACFE67B00FE1A03 /* Launch Screen.xib */; };
+		8455DFBE1ADF2BD8003C7BC8 /* Registered.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8455DFBD1ADF2BD8003C7BC8 /* Registered.plist */; };
 		845F003D192A5CDE00919FB8 /* QosTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845F003C192A5CDE00919FB8 /* QosTVC.m */; };
 		8479EEB218E4288800923B24 /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB118E4288800923B24 /* Setting.m */; };
 		8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB418E4289E00923B24 /* Setting+Create.m */; };
@@ -163,6 +164,7 @@
 		8411B90B189FEC070019D2D6 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		84195B201ABCBC9400A9FA97 /* Model 7.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.5.xcdatamodel"; sourceTree = "<group>"; };
 		842610391ACFE67B00FE1A03 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
+		8455DFBD1ADF2BD8003C7BC8 /* Registered.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Registered.plist; sourceTree = "<group>"; };
 		845F003B192A5CDE00919FB8 /* QosTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QosTVC.h; path = ../QosTVC.h; sourceTree = "<group>"; };
 		845F003C192A5CDE00919FB8 /* QosTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QosTVC.m; path = ../QosTVC.m; sourceTree = "<group>"; };
 		8474B15319A8CB7D00427427 /* Model 7.3.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.1.xcdatamodel"; sourceTree = "<group>"; };
@@ -328,10 +330,9 @@
 				8411B889189FE79B0019D2D6 /* CoreData.m */,
 				8411B88C189FE9940019D2D6 /* Connection.h */,
 				8411B88D189FE9940019D2D6 /* Connection.m */,
-				8411B88F189FE9CE0019D2D6 /* Settings.h */,
-				8411B890189FE9CE0019D2D6 /* Settings.m */,
 				849D457B18CDACDF00201BF3 /* Settings.plist */,
 				84CDB24F1AD197AD005E272B /* Public.plist */,
+				8455DFBD1ADF2BD8003C7BC8 /* Registered.plist */,
 				8411B8FE189FEC070019D2D6 /* EditLocationTVC.h */,
 				8411B8FF189FEC070019D2D6 /* EditLocationTVC.m */,
 				8411B900189FEC070019D2D6 /* FriendAnnotationV.h */,
@@ -342,6 +343,8 @@
 				8411B905189FEC070019D2D6 /* LocationTVC.m */,
 				8411B906189FEC070019D2D6 /* PersonTVC.h */,
 				8411B907189FEC070019D2D6 /* PersonTVC.m */,
+				8411B88F189FE9CE0019D2D6 /* Settings.h */,
+				8411B890189FE9CE0019D2D6 /* Settings.m */,
 				8411B908189FEC070019D2D6 /* StatusTVC.h */,
 				8411B909189FEC070019D2D6 /* StatusTVC.m */,
 				845F003B192A5CDE00919FB8 /* QosTVC.h */,
@@ -631,6 +634,7 @@
 				84AB054C1ACFF2280028D8BF /* icon80@2x.png in Resources */,
 				8411B843189FDB140019D2D6 /* Images.xcassets in Resources */,
 				84AB054D1ACFF2280028D8BF /* icon86@2x.png in Resources */,
+				8455DFBE1ADF2BD8003C7BC8 /* Registered.plist in Resources */,
 				8411B8E0189FEB790019D2D6 /* iTunesArtwork@2x.png in Resources */,
 				84CDB2501AD197AD005E272B /* Public.plist in Resources */,
 				84AB054B1ACFF2280028D8BF /* icon44@2x.png in Resources */,

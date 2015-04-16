@@ -719,6 +719,10 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LEM-YI-w2c">
                                                     <rect key="frame" x="20" y="7" width="44" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="44" id="NyD-rB-r3g"/>
+                                                        <constraint firstAttribute="height" constant="30" id="ywm-6j-iSH"/>
+                                                    </constraints>
                                                     <state key="normal" title="Check">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -726,15 +730,24 @@
                                                         <action selector="checkConnection:" destination="wIr-Ka-wY2" eventType="touchUpInside" id="saa-rC-vZj"/>
                                                     </connections>
                                                 </button>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZWq-Yo-zcE">
-                                                    <rect key="frame" x="239" y="6" width="51" height="31"/>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Zd5-UM-LTU">
+                                                    <rect key="frame" x="120" y="7" width="168" height="29"/>
+                                                    <segments>
+                                                        <segment title="Own"/>
+                                                        <segment title="Hosted"/>
+                                                        <segment title="Public"/>
+                                                    </segments>
                                                     <connections>
-                                                        <action selector="publicModeChanged:" destination="wIr-Ka-wY2" eventType="valueChanged" id="pCh-Rq-fHk"/>
+                                                        <action selector="modeChanged:" destination="wIr-Ka-wY2" eventType="valueChanged" id="mXm-uo-xu7"/>
                                                     </connections>
-                                                </switch>
+                                                </segmentedControl>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vca-Hv-5NZ">
-                                                    <rect key="frame" x="144" y="7" width="87" height="30"/>
-                                                    <state key="normal" title="Public Mode">
+                                                    <rect key="frame" x="72" y="6" width="40" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="eg5-gS-ltf"/>
+                                                        <constraint firstAttribute="height" constant="30" id="gXt-9l-yWy"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Mode">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
@@ -743,12 +756,13 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="ZWq-Yo-zcE" firstAttribute="leading" secondItem="vca-Hv-5NZ" secondAttribute="trailing" constant="8" symbolic="YES" id="5UK-y0-NmD"/>
-                                                <constraint firstAttribute="trailing" secondItem="ZWq-Yo-zcE" secondAttribute="trailing" constant="20" symbolic="YES" id="Fnf-Zk-Jek"/>
+                                                <constraint firstAttribute="trailing" secondItem="Zd5-UM-LTU" secondAttribute="trailing" constant="20" symbolic="YES" id="H1h-ml-jqV"/>
                                                 <constraint firstAttribute="centerY" secondItem="vca-Hv-5NZ" secondAttribute="centerY" id="Mcd-Ec-pdT"/>
                                                 <constraint firstItem="LEM-YI-w2c" firstAttribute="leading" secondItem="rMF-U1-eH7" secondAttribute="leading" constant="20" symbolic="YES" id="U8F-Vz-OUh"/>
-                                                <constraint firstAttribute="centerY" secondItem="ZWq-Yo-zcE" secondAttribute="centerY" id="mBk-Lr-HvL"/>
+                                                <constraint firstAttribute="centerY" secondItem="Zd5-UM-LTU" secondAttribute="centerY" id="WXz-au-2Bq"/>
+                                                <constraint firstItem="vca-Hv-5NZ" firstAttribute="leading" secondItem="LEM-YI-w2c" secondAttribute="trailing" constant="8" symbolic="YES" id="Y3c-Yh-1aV"/>
                                                 <constraint firstAttribute="centerY" secondItem="LEM-YI-w2c" secondAttribute="centerY" id="ppC-UR-w8w"/>
+                                                <constraint firstItem="Zd5-UM-LTU" firstAttribute="leading" secondItem="vca-Hv-5NZ" secondAttribute="trailing" constant="8" symbolic="YES" id="z4f-iK-bJq"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1603,7 +1617,7 @@
                         <outlet property="UIallowRemoteLocation" destination="qo3-Z9-VKu" id="zJE-l4-K0Z"/>
                         <outlet property="UIexport" destination="Dfl-i4-2hW" id="Fn4-LQ-OwL"/>
                         <outlet property="UIextendedData" destination="yf4-6B-QAB" id="ipj-pO-83Z"/>
-                        <outlet property="UIpublicMode" destination="ZWq-Yo-zcE" id="cRh-ft-REd"/>
+                        <outlet property="UImode" destination="Zd5-UM-LTU" id="o7b-if-j99"/>
                         <outlet property="UIqos" destination="sUY-ch-Z4O" id="yB8-3r-34S"/>
                         <outlet property="UIstatus" destination="z27-9u-VcL" id="wpC-Iz-24z"/>
                         <outlet property="UIsubscriptionqos" destination="JW9-1E-Qlr" id="1R2-IC-FDM"/>

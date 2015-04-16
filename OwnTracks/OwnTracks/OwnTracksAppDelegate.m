@@ -102,14 +102,14 @@
     } while (state & UIDocumentStateClosed || ![CoreData theManagedObjectContext]);
     
     self.settings = [[Settings alloc] init];
-    if (![Setting existsSettingWithKey:@"publicMode"
+    if (![Setting existsSettingWithKey:@"mode"
                 inManagedObjectContext:[CoreData theManagedObjectContext]]) {
         if (![Setting existsSettingWithKey:@"host_preference"
                     inManagedObjectContext:[CoreData theManagedObjectContext]]) {
-            [self.settings setBool:TRUE forKey:@"publicMode"];
+            [self.settings setInt:2 forKey:@"mode"];
             self.publicWarning = TRUE;
         } else {
-            [self.settings setBool:FALSE forKey:@"publicMode"];
+            [self.settings setInt:0 forKey:@"mode"];
         }
     }
     
@@ -676,7 +676,7 @@
 }
 
 - (void)connectionOff {
-    NSLog(@"App connectionOff");
+    if (DEBUGAPP) NSLog(@"App connectionOff");
     [self.connectionOut disconnect];
     [self.connectionIn disconnect];
 }
@@ -808,7 +808,7 @@
                         keepalive:[self.settings intForKey:@"keepalive_preference"]
                             clean:[self.settings intForKey:@"clean_preference"]
                              auth:[self.settings boolForKey:@"auth_preference"]
-                             user:[self.settings stringForKey:@"user_preference"]
+                             user:[self.settings theUserId]
                              pass:[self.settings stringForKey:@"pass_preference"]
                         willTopic:[self.settings theWillTopic]
                              will:[self jsonToData:@{
@@ -831,7 +831,7 @@
                        keepalive:[self.settings intForKey:@"keepalive_preference"]
                            clean:[self.settings intForKey:@"clean_preference"]
                             auth:[self.settings boolForKey:@"auth_preference"]
-                            user:[self.settings stringForKey:@"user_preference"]
+                            user:[self.settings theUserId]
                             pass:[self.settings stringForKey:@"pass_preference"]
                        willTopic:nil
                             will:nil

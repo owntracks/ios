@@ -125,6 +125,10 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P4K-Co-8TG">
                                                     <rect key="frame" x="20" y="7" width="44" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="44" id="Fvi-b3-kV5"/>
+                                                        <constraint firstAttribute="height" constant="30" id="ZIO-Pl-UkE"/>
+                                                    </constraints>
                                                     <state key="normal" title="Check">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -132,28 +136,38 @@
                                                         <action selector="checkConnection:" destination="nAk-La-kdM" eventType="touchUpInside" id="fgg-De-8cf"/>
                                                     </connections>
                                                 </button>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5z0-yw-XFl">
-                                                    <rect key="frame" x="251" y="6" width="51" height="31"/>
-                                                    <connections>
-                                                        <action selector="publicModeChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="Sto-hy-gBR"/>
-                                                    </connections>
-                                                </switch>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TTM-eN-kqS">
-                                                    <rect key="frame" x="156" y="7" width="87" height="30"/>
-                                                    <state key="normal" title="Public Mode">
+                                                    <rect key="frame" x="72" y="7" width="40" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="CSt-y5-sdq"/>
+                                                        <constraint firstAttribute="height" constant="30" id="DAg-31-Tau"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Mode">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
                                                         <segue destination="IUE-60-afE" kind="push" id="g3f-fk-0e9"/>
                                                     </connections>
                                                 </button>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2MJ-7K-q1Z">
+                                                    <rect key="frame" x="120" y="7" width="180" height="29"/>
+                                                    <segments>
+                                                        <segment title="Own"/>
+                                                        <segment title="Hosted"/>
+                                                        <segment title="Public"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="modeChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="GnH-B4-ez8"/>
+                                                    </connections>
+                                                </segmentedControl>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="2MJ-7K-q1Z" secondAttribute="trailing" constant="20" symbolic="YES" id="46g-rZ-O2e"/>
                                                 <constraint firstItem="P4K-Co-8TG" firstAttribute="leading" secondItem="GUj-99-7gn" secondAttribute="leading" constant="20" symbolic="YES" id="5Er-bd-Agc"/>
-                                                <constraint firstItem="5z0-yw-XFl" firstAttribute="leading" secondItem="TTM-eN-kqS" secondAttribute="trailing" constant="8" symbolic="YES" id="7Tt-zn-AWg"/>
+                                                <constraint firstItem="TTM-eN-kqS" firstAttribute="leading" secondItem="P4K-Co-8TG" secondAttribute="trailing" constant="8" symbolic="YES" id="ElS-S4-0HF"/>
                                                 <constraint firstAttribute="centerY" secondItem="P4K-Co-8TG" secondAttribute="centerY" id="YSG-Ea-Bm7"/>
-                                                <constraint firstAttribute="centerY" secondItem="5z0-yw-XFl" secondAttribute="centerY" id="htU-t7-RE4"/>
-                                                <constraint firstAttribute="trailing" secondItem="5z0-yw-XFl" secondAttribute="trailing" constant="20" symbolic="YES" id="ndT-pu-hT4"/>
+                                                <constraint firstItem="2MJ-7K-q1Z" firstAttribute="leading" secondItem="TTM-eN-kqS" secondAttribute="trailing" constant="8" symbolic="YES" id="d4J-6B-yQZ"/>
+                                                <constraint firstAttribute="centerY" secondItem="2MJ-7K-q1Z" secondAttribute="centerY" id="rVA-BL-yVR"/>
                                                 <constraint firstAttribute="centerY" secondItem="TTM-eN-kqS" secondAttribute="centerY" id="uK2-qU-KjY"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1011,7 +1025,7 @@
                         <outlet property="UIallowRemoteLocation" destination="L5Y-Zc-PTd" id="fTC-3j-phg"/>
                         <outlet property="UIexport" destination="ysB-cv-35Y" id="QKh-Bs-pnD"/>
                         <outlet property="UIextendedData" destination="gHo-wc-Cgg" id="vQU-MV-xye"/>
-                        <outlet property="UIpublicMode" destination="5z0-yw-XFl" id="kJ0-v7-2Il"/>
+                        <outlet property="UImode" destination="2MJ-7K-q1Z" id="BMF-12-Hp9"/>
                         <outlet property="UIqos" destination="EQS-gJ-XoJ" id="IGr-Nq-OAB"/>
                         <outlet property="UIstatus" destination="Dkt-W1-c4K" id="uXG-MW-TUE"/>
                         <outlet property="UIsubscriptionqos" destination="8pt-Fn-HD6" id="gRh-Om-SpN"/>

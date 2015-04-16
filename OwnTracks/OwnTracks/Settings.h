@@ -29,8 +29,10 @@
 - (NSString *)theWillTopic;
 - (NSString *)theClientId;
 - (NSString *)theDeviceId;
+- (NSString *)theUserId;
 - (NSString *)theSubscriptions;
 
 - (BOOL)validInPublicMode:(NSString *)key;
+- (BOOL)validInRegisteredMode:(NSString *)key;
 
 @end
