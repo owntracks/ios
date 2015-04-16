@@ -932,6 +932,10 @@
         for (Friend *friend in friends) {
             NSString *name = [friend name];
             NSData *image = [friend image];
+            if (!image) {
+                image = UIImageJPEGRepresentation([UIImage imageNamed:@"icon40"], 0.5);
+            }
+
             Location *friendsLocation = [friend newestLocation];
             if (friendsLocation) {
                 CLLocation *friendsCLLocation = [[CLLocation alloc] initWithLatitude:[friendsLocation.latitude doubleValue]
@@ -939,11 +943,7 @@
                 NSNumber *distance = @([myCLLocation distanceFromLocation:friendsCLLocation]);
                 if (name) {
                     NSMutableDictionary *aFriend = [[NSMutableDictionary alloc] init];
-                    if (image) {
-                        [aFriend setObject:image forKey:@"image"];
-                    } else {
-                        [aFriend setObject:[UIImage imageNamed:@"icon40"] forKey:@"image"];
-                    }
+                    [aFriend setObject:image forKey:@"image"];
                     [aFriend setObject:distance forKey:@"distance"];
                     [aFriend setObject:friendsLocation.longitude forKey:@"longitude"];
                     [aFriend setObject:friendsLocation.latitude forKey:@"latitude"];
