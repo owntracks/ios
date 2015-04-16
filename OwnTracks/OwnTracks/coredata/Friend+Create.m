@@ -9,14 +9,17 @@
 #import "Friend+Create.h"
 #import "Location+Create.h"
 #import "OwnTracksAppDelegate.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 @implementation Friend (Create)
+static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 + (ABAddressBookRef)theABRef
 {
     static ABAddressBookRef ab = nil;
     
     if (!ab) {
+        DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
         ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
         if (status == kABAuthorizationStatusAuthorized || status == kABAuthorizationStatusNotDetermined) {
             CFErrorRef error;
@@ -254,11 +257,11 @@ ABRecordRef recordWithTopic(CFStringRef topic)
         if(CFStringCompare(label, RELATION_NAME, kCFCompareCaseInsensitive) == kCFCompareEqualTo) {
             if (topic) {
                 if (!ABMultiValueReplaceValueAtIndex(relationsRW, (__bridge CFTypeRef)(topic), i)) {
-                    NSLog(@"Friend error ABMultiValueReplaceValueAtIndex %@ %ld", topic, i);
+                    DDLogError(@"Friend error ABMultiValueReplaceValueAtIndex %@ %ld", topic, i);
                 }
             } else {
                 if (!ABMultiValueRemoveValueAndLabelAtIndex(relationsRW, i))  {
-                    NSLog(@"Friend error ABMultiValueRemoveValueAndLabelAtIndex %ld", i);
+                    DDLogError(@"Friend error ABMultiValueRemoveValueAndLabelAtIndex %ld", i);
                 }
             }
             CFRelease(label);
@@ -269,13 +272,13 @@ ABRecordRef recordWithTopic(CFStringRef topic)
     if (i == relationsCount) {
         if (topic) {
             if (!ABMultiValueAddValueAndLabel(relationsRW, (__bridge CFStringRef)(self.topic), RELATION_NAME, NULL)) {
-                NSLog(@"Friend error ABMultiValueAddValueAndLabel %@ %@", topic, RELATION_NAME);
+                DDLogError(@"Friend error ABMultiValueAddValueAndLabel %@ %@", topic, RELATION_NAME);
             }
         }
     }
         
     if (!ABRecordSetValue(record, kABPersonRelatedNamesProperty, relationsRW, &errorRef)) {
-        NSLog(@"Friend error ABRecordSetValue %@", errorRef);
+        DDLogError(@"Friend error ABRecordSetValue %@", errorRef);
     }
     CFRelease(relationsRW);
     
@@ -283,7 +286,7 @@ ABRecordRef recordWithTopic(CFStringRef topic)
     if (ab) {
         if (ABAddressBookHasUnsavedChanges(ab)) {
             if (!ABAddressBookSave(ab, &errorRef)) {
-                NSLog(@"Friend error ABAddressBookSave %@", errorRef);
+                DDLogError(@"Friend error ABAddressBookSave %@", errorRef);
             }
         }
     }

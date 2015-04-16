@@ -11,11 +11,7 @@
 #import "OwnTracksAppDelegate.h"
 #import "CoreData.h"
 
-#ifdef DEBUG
-#define DEBUGCONN FALSE
-#else
-#define DEBUGCONN FALSE
-#endif
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 #define BACKGROUND_DISCONNECT_AFTER 8.0
 
@@ -52,41 +48,42 @@
 #define RECONNECT_TIMER_MAX 64.0
 
 @implementation Connection
+static const DDLogLevel ddLogLevel = DDLogLevelError;
 
-- (id)init
-{
-   if (DEBUGCONN) NSLog(@"Connection init");
+- (id)init {
     self = [super init];
+    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
+    DDLogVerbose(@"Connection init");
     self.state = state_starting;
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          if (DEBUGCONN) NSLog(@"UIApplicationWillEnterForegroundNotification");
+                                                          DDLogVerbose(@"UIApplicationWillEnterForegroundNotification");
                                                       }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          if (DEBUGCONN) NSLog(@"UIApplicationDidBecomeActiveNotification");
+                                                          DDLogVerbose(@"UIApplicationDidBecomeActiveNotification");
                                                           [self connectToLast];
                                                       }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          if (DEBUGCONN) NSLog(@"UIApplicationDidEnterBackgroundNotification");
+                                                          DDLogVerbose(@"UIApplicationDidEnterBackgroundNotification");
                                                       }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          if (DEBUGCONN) NSLog(@"UIApplicationWillResignActiveNotification");
+                                                          DDLogVerbose(@"UIApplicationWillResignActiveNotification");
                                                           [self disconnect];
                                                       }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          if (DEBUGCONN) NSLog(@"UIApplicationWillTerminateNotification");
+                                                          DDLogVerbose(@"UIApplicationWillTerminateNotification");
                                                           self.terminate = true;
                                                       }];
     return self;
 }
 
 - (void)main {
-    if (DEBUGCONN) NSLog(@"Connection main");
+    DDLogVerbose(@"Connection main");
     while (!self.terminate) {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
     }
@@ -107,21 +104,21 @@
    willRetainFlag:(BOOL)willRetainFlag
      withClientId:(NSString *)clientId
 {
-    if (DEBUGCONN) NSLog(@"%@ connectTo: %@:%@@%@:%ld %@ (%ld) c%d / %@ %@ q%ld r%d as %@",
-                         self.clientId,
-                         auth ? user : @"",
-                         auth ? pass : @"",
-                         host,
-                         (long)port,
-                         tls ? @"TLS" : @"PLAIN",
-                         (long)keepalive,
-                         clean,
-                         willTopic,
-                         [[NSString alloc] initWithData:will encoding:NSUTF8StringEncoding],
-                         (long)willQos,
-                         willRetainFlag,
-                         clientId
-                         );
+    DDLogVerbose(@"%@ connectTo: %@:%@@%@:%ld %@ (%ld) c%d / %@ %@ q%ld r%d as %@",
+                 self.clientId,
+                 auth ? user : @"",
+                 auth ? pass : @"",
+                 host,
+                 (long)port,
+                 tls ? @"TLS" : @"PLAIN",
+                 (long)keepalive,
+                 clean,
+                 willTopic,
+                 [[NSString alloc] initWithData:will encoding:NSUTF8StringEncoding],
+                 (long)willQos,
+                 willRetainFlag,
+                 clientId
+                 );
     
     if (!self.session ||
         ![host isEqualToString:self.host] ||
@@ -151,7 +148,7 @@
         self.willRetainFlag = willRetainFlag;
         self.clientId = clientId;
         
-        if (DEBUGCONN) NSLog(@"%@ new session", self.clientId);
+        DDLogVerbose(@"%@ new session", self.clientId);
         self.session = [[MQTTSession alloc] initWithClientId:clientId
                                                     userName:auth ? user : nil
                                                     password:auth ? pass : nil
@@ -174,13 +171,13 @@
 }
 
 - (void)startBackgroundTimer {
-    if (DEBUGCONN) NSLog(@"%@ startBackgroundTimer", self.clientId);
+    DDLogVerbose(@"%@ startBackgroundTimer", self.clientId);
     
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
         if (self.disconnectTimer && self.disconnectTimer.isValid) {
-            if (DEBUGCONN) NSLog(@"%@ disconnectTimer.isValid %@",
-                                 self.clientId,
-                                 self.disconnectTimer.fireDate);
+            DDLogVerbose(@"%@ disconnectTimer.isValid %@",
+                         self.clientId,
+                         self.disconnectTimer.fireDate);
         } else {
             self.disconnectTimer = [NSTimer timerWithTimeInterval:BACKGROUND_DISCONNECT_AFTER
                                                            target:self
@@ -188,15 +185,15 @@
                                                          userInfo:Nil repeats:FALSE];
             NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
             [runLoop addTimer:self.disconnectTimer forMode:NSDefaultRunLoopMode];
-            if (DEBUGCONN) NSLog(@"%@ disconnectTimer %@",
-                                 self.clientId,
-                                 self.disconnectTimer.fireDate);
+            DDLogVerbose(@"%@ disconnectTimer %@",
+                         self.clientId,
+                         self.disconnectTimer.fireDate);
         }
     }
 }
 
 - (void)disconnectInBackground {
-    if (DEBUGCONN) NSLog(@"%@ disconnectInBackground", self.clientId);
+    DDLogVerbose(@"%@ disconnectInBackground", self.clientId);
     self.disconnectTimer = nil;
     [self disconnect];
 }
@@ -204,12 +201,12 @@
 
 - (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(NSInteger)qos retain:(BOOL)retainFlag
 {
-    if (DEBUGCONN) NSLog(@"%@ sendData:%@ %@ q%ld r%d",
-                         self.clientId,
-                         topic,
-                         [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding],
-                         (long)qos,
-                         retainFlag);
+    DDLogVerbose(@"%@ sendData:%@ %@ q%ld r%d",
+                 self.clientId,
+                 topic,
+                 [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding],
+                 (long)qos,
+                 retainFlag);
     
     if (self.state != state_connected) {
         [self connectToLast];
@@ -218,16 +215,16 @@
                                      onTopic:topic
                                       retain:retainFlag
                                          qos:qos];
-    if (DEBUGCONN) NSLog(@"%@ sendData m%u", self.clientId, msgId);
+    DDLogVerbose(@"%@ sendData m%u", self.clientId, msgId);
     return msgId;
 }
 
 - (void)disconnect
 {
-    if (DEBUGCONN) NSLog(@"%@ disconnect:", self.clientId);
+    DDLogVerbose(@"%@ disconnect:", self.clientId);
     self.state = state_closing;
     [self.session close];
-
+    
     if (self.reconnectTimer) {
         [self.reconnectTimer invalidate];
         self.reconnectTimer = nil;
@@ -256,19 +253,18 @@
 
 - (void)handleEvent:(MQTTSession *)session event:(MQTTSessionEvent)eventCode error:(NSError *)error
 {
-    if (DEBUGCONN) {
-        const NSDictionary *events = @{
-                                       @(MQTTSessionEventConnected): @"connected",
-                                       @(MQTTSessionEventConnectionRefused): @"connection refused",
-                                       @(MQTTSessionEventConnectionClosed): @"connection closed",
-                                       @(MQTTSessionEventConnectionError): @"connection error",
-                                       @(MQTTSessionEventProtocolError): @"protocoll error"
-                                       };
-        NSLog(@"%@ MQTT eventCode: %@ (%ld) %@",
-              self.clientId,
-              events[@(eventCode)],
-              (long)eventCode, error);
-    }
+    const NSDictionary *events = @{
+                                   @(MQTTSessionEventConnected): @"connected",
+                                   @(MQTTSessionEventConnectionRefused): @"connection refused",
+                                   @(MQTTSessionEventConnectionClosed): @"connection closed",
+                                   @(MQTTSessionEventConnectionError): @"connection error",
+                                   @(MQTTSessionEventProtocolError): @"protocoll error"
+                                   };
+    DDLogVerbose(@"%@ MQTT eventCode: %@ (%ld) %@",
+                 self.clientId,
+                 events[@(eventCode)],
+                 (long)eventCode, error);
+    
     [self.reconnectTimer invalidate];
     switch (eventCode) {
         case MQTTSessionEventConnected:
@@ -285,7 +281,7 @@
         case MQTTSessionEventConnectionRefused:
         case MQTTSessionEventConnectionError:
         {
-            if (DEBUGCONN) NSLog(@"%@ setTimer %f", self.clientId, self.reconnectTime);
+            DDLogVerbose(@"%@ setTimer %f", self.clientId, self.reconnectTime);
             self.reconnectTimer = [NSTimer timerWithTimeInterval:self.reconnectTime
                                                           target:self
                                                         selector:@selector(reconnect)
@@ -305,25 +301,25 @@
 
 - (void)messageDelivered:(MQTTSession *)session msgID:(UInt16)msgID
 {
-    if (DEBUGCONN) NSLog(@"%@ messageDelivered m%u",
-                         self.clientId,
-                         msgID);
+    DDLogVerbose(@"%@ messageDelivered m%u",
+                 self.clientId,
+                 msgID);
     [self.delegate messageDelivered:self msgID:msgID];
 }
 
 - (void)newMessage:(MQTTSession *)session data:(NSData *)data onTopic:(NSString *)topic qos:(MQTTQosLevel)qos retained:(BOOL)retained mid:(unsigned int)mid {
-    if (DEBUGCONN) NSLog(@"%@ received %@ %@",
-                         self.clientId,
-                         topic,
-                         [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    DDLogVerbose(@"%@ received %@ %@",
+                 self.clientId,
+                 topic,
+                 [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     [self.delegate handleMessage:self data:data onTopic:topic retained:retained];
 }
 
 - (void)buffered:(MQTTSession *)session flowingIn:(NSUInteger)flowingIn flowingOut:(NSUInteger)flowingOut {
-    if (DEBUGCONN) NSLog(@"%@ buffered i%lu o%lu",
-                         self.clientId,
-                         (unsigned long)flowingIn,
-                         (unsigned long)flowingOut);
+    DDLogVerbose(@"%@ buffered i%lu o%lu",
+                 self.clientId,
+                 (unsigned long)flowingIn,
+                 (unsigned long)flowingOut);
     if ((flowingIn + flowingOut) && self.state == state_connected) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
     } else {
@@ -341,7 +337,7 @@
                                port:self.port
                            usingSSL:self.tls];
     } else {
-       if (DEBUGCONN) NSLog(@"%@ not starting, can't connect", self.clientId);
+        DDLogVerbose(@"%@ not starting, can't connect", self.clientId);
     }
     [self startBackgroundTimer];
 }
@@ -360,27 +356,25 @@
 
 - (void)setState:(NSInteger)state {
     _state = state;
-    if (DEBUGCONN) {
-        const NSDictionary *states = @{
-                                       @(state_starting): @"starting",
-                                       @(state_connecting): @"connecting",
-                                       @(state_error): @"error",
-                                       @(state_connected): @"connected",
-                                       @(state_closing): @"closing",
-                                       @(state_closed): @"closed"
-                                       };
-        
-        NSLog(@"%@ state %@ (%ld)", self.clientId, states[@(self.state)], (long)self.state);
-    }
+    const NSDictionary *states = @{
+                                   @(state_starting): @"starting",
+                                   @(state_connecting): @"connecting",
+                                   @(state_error): @"error",
+                                   @(state_connected): @"connected",
+                                   @(state_closing): @"closing",
+                                   @(state_closed): @"closed"
+                                   };
+    
+    DDLogVerbose(@"%@ state %@ (%ld)", self.clientId, states[@(self.state)], (long)self.state);
     [self.delegate showState:self state:self.state];
 }
 
 - (void)reconnect {
-    if (DEBUGCONN) NSLog(@"%@ reconnect", self.clientId);
+    DDLogVerbose(@"%@ reconnect", self.clientId);
     
     self.reconnectTimer = nil;
     self.state = state_starting;
-
+    
     if (self.reconnectTime < RECONNECT_TIMER_MAX) {
         self.reconnectTime *= 2;
     }
@@ -388,7 +382,8 @@
 }
 
 - (void)connectToLast {
-    if (DEBUGCONN) NSLog(@"%@ connectToLast", self.clientId);
+    DDLogVerbose
+    (@"%@ connectToLast", self.clientId);
     
     self.reconnectTime = RECONNECT_TIMER;
     

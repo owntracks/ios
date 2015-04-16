@@ -7,8 +7,10 @@
 //
 
 #import "FriendAnnotationV.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 @implementation FriendAnnotationV
+static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 #define CIRCLE_SIZE 40.0
 #define CIRCLE_COLOR [UIColor yellowColor]
@@ -32,6 +34,8 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
+    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
+
     if (self) {
         self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.0];
         self.frame = CGRectMake(0, 0, CIRCLE_SIZE, CIRCLE_SIZE);
@@ -110,7 +114,7 @@
                 [self.tid drawInRect:textRect withAttributes:attributes];
             } else {
                 CGSize textSize = [self.tid sizeWithFont:font];
-                NSLog(@"TextSize %f,%f", textSize.width, textSize.height);
+                DDLogVerbose(@"TextSize %f,%f", textSize.width, textSize.height);
                 CGRect textRect = CGRectMake(rect.origin.x + (rect.size.width - textSize.width) / 2,
                                              rect.origin.y + (rect.size.height - textSize.height) / 2,
                                              textSize.width, textSize.height);

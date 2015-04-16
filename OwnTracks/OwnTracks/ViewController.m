@@ -17,11 +17,7 @@
 #import "Location+Create.h"
 #import "LocationManager.h"
 
-#ifdef DEBUG
-#define DEBUGVIEW FALSE
-#else
-#define DEBUGVIEW FALSE
-#endif
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
@@ -43,18 +39,20 @@
 @end
 
 @implementation ViewController
+static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 #define KEEPALIVE 600.0
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
+    
     self.mapView.delegate = self;
     
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     delegate.delegate = self;
- 
+    
     UISplitViewController *splitViewController;
     
     if (self.splitViewController) {
@@ -86,9 +84,9 @@
 }
 
 - (void)splitViewController:(UISplitViewController *)svc
-    willHideViewController:(UIViewController *)aViewController
-         withBarButtonItem:(UIBarButtonItem *)barButtonItem
-      forPopoverController:(UIPopoverController *)pc
+     willHideViewController:(UIViewController *)aViewController
+          withBarButtonItem:(UIBarButtonItem *)barButtonItem
+       forPopoverController:(UIPopoverController *)pc
 {
     [self showRootPopoverButtonItem:barButtonItem];
 }
@@ -104,7 +102,7 @@
 - (void)showRootPopoverButtonItem:(UIBarButtonItem *)barButtonItem {
     barButtonItem.image = [UIImage imageNamed:@"Friends"];
     self.rootPopoverButtonItem = barButtonItem;
-
+    
     NSMutableArray *toolBarItems = [self.toolbar.items mutableCopy];
     [toolBarItems insertObject:barButtonItem atIndex:0];
     [self.toolbar setItems:toolBarItems animated:YES];
@@ -115,7 +113,7 @@
     NSMutableArray *toolBarItems = [self.toolbar.items mutableCopy];
     [toolBarItems removeObject:barButtonItem];
     [self.toolbar setItems:toolBarItems animated:YES];
-
+    
     self.rootPopoverButtonItem = nil;
 }
 
@@ -267,7 +265,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
-
+    
     if ([actionSheet.title isEqualToString:ACTION_MONITORING]) {
         switch (buttonIndex - actionSheet.firstOtherButtonIndex) {
             case 0:
@@ -580,12 +578,12 @@
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
-    if (DEBUGVIEW) NSLog(@"didSelectAnnotationView");
+    DDLogVerbose(@"didSelectAnnotationView");
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
-    if (DEBUGVIEW) NSLog(@"calloutAccessoryControlTapped");
+    DDLogVerbose(@"calloutAccessoryControlTapped");
     if (control == view.rightCalloutAccessoryView) {
         [self performSegueWithIdentifier:@"showDetail:" sender:view];
     } else if (control == view.leftCalloutAccessoryView) {
@@ -601,30 +599,30 @@
 {
     if (self.frc) {
         if (self.frc.fetchRequest.predicate) {
-           if (DEBUGVIEW)  NSLog(@"[%@ %@] fetching %@ with predicate: %@",
-                                 NSStringFromClass([self class]),
-                                 NSStringFromSelector(_cmd),
-                                 self.frc.fetchRequest.entityName,
-                                 self.frc.fetchRequest.predicate);
+            DDLogVerbose(@"[%@ %@] fetching %@ with predicate: %@",
+                         NSStringFromClass([self class]),
+                         NSStringFromSelector(_cmd),
+                         self.frc.fetchRequest.entityName,
+                         self.frc.fetchRequest.predicate);
         } else {
-            if (DEBUGVIEW) NSLog(@"[%@ %@] fetching all %@ (i.e., no predicate)",
-                                 NSStringFromClass([self class]),
-                                 NSStringFromSelector(_cmd),
-                                 self.frc.fetchRequest.entityName);
+            DDLogVerbose(@"[%@ %@] fetching all %@ (i.e., no predicate)",
+                         NSStringFromClass([self class]),
+                         NSStringFromSelector(_cmd),
+                         self.frc.fetchRequest.entityName);
         }
         NSError *error;
         [self.frc performFetch:&error];
-        if (error) NSLog(@"[%@ %@] %@ (%@)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [error localizedDescription], [error localizedFailureReason]);
+        if (error) DDLogError(@"[%@ %@] %@ (%@)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [error localizedDescription], [error localizedFailureReason]);
     } else {
-        if (DEBUGVIEW) NSLog(@"[%@ %@] no NSFetchedResultsController (yet?)", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+        DDLogVerbose(@"[%@ %@] no NSFetchedResultsController (yet?)", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     }
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-
+    
     [self.mapView addAnnotations:[Location allValidLocationsInManagedObjectContext:[CoreData theManagedObjectContext]]];
     
     NSArray *overlays = [Location allWaypointsOfTopic:[delegate.settings theGeneralTopic]
-                              inManagedObjectContext:[CoreData theManagedObjectContext]];
-
+                               inManagedObjectContext:[CoreData theManagedObjectContext]];
+    
     [self.mapView addOverlays:overlays];
     for (Location *location in overlays) {
         if (location.region) {
@@ -643,10 +641,10 @@
             self.title = newfrc.fetchRequest.entity.name;
         }
         if (newfrc) {
-            if (DEBUGVIEW) NSLog(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), oldfrc ? @"updated" : @"set");
+            DDLogVerbose(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), oldfrc ? @"updated" : @"set");
             [self performFetch];
         } else {
-            if (DEBUGVIEW) NSLog(@"[%@ %@] reset to nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+            DDLogVerbose(@"[%@ %@] reset to nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         }
     }
 }
@@ -658,8 +656,8 @@
 
 - (void)controller:(NSFetchedResultsController *)controller
   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
-		   atIndex:(NSUInteger)sectionIndex
-	 forChangeType:(NSFetchedResultsChangeType)type
+           atIndex:(NSUInteger)sectionIndex
+     forChangeType:(NSFetchedResultsChangeType)type
 {
     if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext)
     {
@@ -676,9 +674,9 @@
 
 - (void)controller:(NSFetchedResultsController *)controller
    didChangeObject:(id)anObject
-	   atIndexPath:(NSIndexPath *)indexPath
-	 forChangeType:(NSFetchedResultsChangeType)type
-	  newIndexPath:(NSIndexPath *)newIndexPath
+       atIndexPath:(NSIndexPath *)indexPath
+     forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath
 {
     if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext)
     {

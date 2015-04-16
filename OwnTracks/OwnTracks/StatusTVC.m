@@ -325,9 +325,6 @@
     }
 }
 - (IBAction)touchedOutsideText:(UITapGestureRecognizer *)sender {
-#ifdef DEBUG
-    NSLog(@"touchedOutsideText");
-#endif
     [self.UIHost resignFirstResponder];
     [self.UIPort resignFirstResponder];
     [self.UIUserID resignFirstResponder];

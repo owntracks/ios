@@ -9,8 +9,14 @@
 #import "Location+Create.h"
 #import <AddressBookUI/AddressBookUI.h>
 #import "Friend+Create.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 @implementation Location (Create)
+static const DDLogLevel ddLogLevel = DDLogLevelError;
+
++ (void)dummy {
+    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
+}
 
 + (Location *)locationWithTopic:(NSString *)topic
                             tid:(NSString *)tid
@@ -205,25 +211,23 @@
              if (!self.isDeleted) {
                  if ([placemarks count] > 0) {
                      CLPlacemark *placemark = placemarks[0];
-#ifdef DEBUG
-                     NSLog(@"Placemark *%@*%@*%@*%@*%@*%@*%@*%@*%@*%@*%@*%@*%@*%@*%@*",
-                           placemark.name,
-                           placemark.addressDictionary,
-                           placemark.areasOfInterest,
-                           placemark.ISOcountryCode,
-                           placemark.country,
-                           placemark.postalCode,
-                           placemark.administrativeArea,
-                           placemark.subAdministrativeArea,
-                           placemark.locality,
-                           placemark.subLocality,
-                           placemark.thoroughfare,
-                           placemark.subThoroughfare,
-                           placemark.region,
-                           placemark.inlandWater,
-                           placemark.ocean
-                           );
-#endif
+                     DDLogVerbose(@"Placemark *%@*%@*%@*%@*%@*%@*%@*%@*%@*%@*%@*%@*%@*%@*%@*",
+                                  placemark.name,
+                                  placemark.addressDictionary,
+                                  placemark.areasOfInterest,
+                                  placemark.ISOcountryCode,
+                                  placemark.country,
+                                  placemark.postalCode,
+                                  placemark.administrativeArea,
+                                  placemark.subAdministrativeArea,
+                                  placemark.locality,
+                                  placemark.subLocality,
+                                  placemark.thoroughfare,
+                                  placemark.subThoroughfare,
+                                  placemark.region,
+                                  placemark.inlandWater,
+                                  placemark.ocean
+                                  );
                      NSArray *address = placemark.addressDictionary[@"FormattedAddressLines"];
                      if (address && [address count] >= 1) {
                          self.placemark = address[0];

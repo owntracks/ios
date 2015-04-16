@@ -13,12 +13,7 @@
 #import "Location+Create.h"
 #import "CoreData.h"
 #import "FriendAnnotationV.h"
-
-#ifdef DEBUG
-#define DEBUGFRIEND FALSE
-#else
-#define DEBUGFRIEND FALSE
-#endif
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface FriendTVC ()
 @property (strong, nonatomic) UIAlertView *alertView;
@@ -29,9 +24,11 @@
 @end
 
 @implementation FriendTVC
+static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
+    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
     
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate addObserver:self
@@ -47,28 +44,9 @@
 
     ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
     
-    if (DEBUGFRIEND) {
-        switch (status) {
-            case kABAuthorizationStatusRestricted:
-                NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusRestricted");
-                break;
-                
-            case kABAuthorizationStatusDenied:
-                NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusDenied");
-                break;
-                
-            case kABAuthorizationStatusAuthorized:
-                NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusAuthorized");
-                break;
-                
-            case kABAuthorizationStatusNotDetermined:
-            default:
-                NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusNotDetermined");
-                break;
-        }
-    }
     switch (status) {
         case kABAuthorizationStatusRestricted:
+            DDLogVerbose(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusRestricted");
             self.alertView = [[UIAlertView alloc] initWithTitle:@"Addressbook Access"
                                                         message:@"has been restricted, possibly due to restrictions such as parental controls."
                                                        delegate:nil
@@ -78,6 +56,7 @@
             break;
             
         case kABAuthorizationStatusDenied:
+            DDLogVerbose(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusDenied");
             self.alertView = [[UIAlertView alloc] initWithTitle:@"Addressbook Access"
                                                         message:@"has been denied by user. Go to Settings/Privacy/Contacts to change"
                                                        delegate:nil
@@ -87,20 +66,20 @@
             break;
             
         case kABAuthorizationStatusAuthorized:
+            DDLogVerbose(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusAuthorized");
             break;
             
         case kABAuthorizationStatusNotDetermined:
         default:
-            if (DEBUGFRIEND) NSLog(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusNotDetermined");
+            DDLogVerbose(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusNotDetermined");
             ABAddressBookRef ab = ABAddressBookCreateWithOptions(NULL, NULL);
             ABAddressBookRequestAccessWithCompletion(ab, ^(bool granted, CFErrorRef error) {
-                if (DEBUGFRIEND) {
-                    if (granted) {
-                        NSLog(@"ABAddressBookRequestAccessCompletionHandler granted");
-                    } else {
-                        NSLog(@"ABAddressBookRequestAccessCompletionHandler denied");
-                    }
-                }            });
+                if (granted) {
+                    DDLogVerbose(@"ABAddressBookRequestAccessCompletionHandler granted");
+                } else {
+                    DDLogVerbose(@"ABAddressBookRequestAccessCompletionHandler denied");
+                }
+            });
             break;
     }
 }
@@ -115,7 +94,7 @@
 
 - (void)setBadge:(NSNumber *)number {
     unsigned long inQueue = [number unsignedLongValue];
-    if (DEBUGFRIEND) NSLog(@"inQueue %lu", inQueue);
+    DDLogVerbose(@"inQueue %lu", inQueue);
     if (inQueue > 0) {
         [self.navigationController.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%lu", inQueue]];
     } else {
@@ -209,7 +188,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         
         NSError *error = nil;
         if (![context save:&error]) {
-            if (DEBUGFRIEND) NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
     }
@@ -244,7 +223,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSError *error = nil;
     if (![self.fetchedResultsController performFetch:&error]) {
-        if (DEBUGFRIEND) NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
     
@@ -315,7 +294,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    if (DEBUGFRIEND) NSLog(@"configureCell %ld/%ld", (long)indexPath.section, (long)indexPath.row);
+    DDLogVerbose(@"configureCell %ld/%ld", (long)indexPath.section, (long)indexPath.row);
     Friend *friend = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = friend.name ? friend.name : friend.topic;
     

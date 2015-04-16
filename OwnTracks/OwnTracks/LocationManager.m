@@ -8,12 +8,7 @@
 
 #import "LocationManager.h"
 #import "AlertView.h"
-
-#ifdef DEBUG
-#define DEBUGLM FALSE
-#else
-#define DEBUGLM FALSE
-#endif
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface LocationManager()
 @property (strong, nonatomic) CLLocationManager *manager;
@@ -46,6 +41,7 @@
 @end
 
 @implementation LocationManager
+static const DDLogLevel ddLogLevel = DDLogLevelError;
 static LocationManager *theInstance = nil;
 
 + (LocationManager *)sharedInstance {
@@ -57,6 +53,8 @@ static LocationManager *theInstance = nil;
 
 - (id)init {
     self = [super init];
+    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
+
     self.manager = [[CLLocationManager alloc] init];
     self.manager.delegate = self;
     self.lastUsedLocation = [[CLLocation alloc] initWithLatitude:0 longitude:0];
@@ -65,22 +63,22 @@ static LocationManager *theInstance = nil;
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          if (DEBUGLM) NSLog(@"UIApplicationWillEnterForegroundNotification");
+                                                          DDLogVerbose(@"UIApplicationWillEnterForegroundNotification");
                                                           //
                                                       }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          if (DEBUGLM) NSLog(@"UIApplicationDidBecomeActiveNotification");
+                                                          DDLogVerbose(@"UIApplicationDidBecomeActiveNotification");
                                                           [self wakeup];
                                                       }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          if (DEBUGLM) NSLog(@"UIApplicationWillResignActiveNotification");
+                                                          DDLogVerbose(@"UIApplicationWillResignActiveNotification");
                                                           [self sleep];
                                                       }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          if (DEBUGLM) NSLog(@"UIApplicationWillTerminateNotification");
+                                                          DDLogVerbose(@"UIApplicationWillTerminateNotification");
                                                           [self stop];
                                                       }];
 
@@ -88,24 +86,24 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)start {
-    if (DEBUGLM) NSLog(@"start");
+    DDLogVerbose(@"start");
     [self authorize];
 }
 
 - (void)wakeup {
-    if (DEBUGLM) NSLog(@"wakeup");
+    DDLogVerbose(@"wakeup");
     [self authorize];
     for (CLRegion *region in self.manager.monitoredRegions) {
-        if (DEBUGLM) NSLog(@"requestStateForRegion %@", region.identifier);
+        DDLogVerbose(@"requestStateForRegion %@", region.identifier);
         [self.manager requestStateForRegion:region];
     }
 }
 
 - (void)authorize {
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
-    if (DEBUGLM) NSLog(@"authorizationStatus=%d", status);
+    DDLogVerbose(@"authorizationStatus=%d", status);
     if (status == kCLAuthorizationStatusNotDetermined) {
-        if (DEBUGLM) NSLog(@"systemVersion=%@", [[UIDevice currentDevice] systemVersion]);
+        DDLogVerbose(@"systemVersion=%@", [[UIDevice currentDevice] systemVersion]);
         if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
             [self.manager requestAlwaysAuthorization];
         }
@@ -113,7 +111,7 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)sleep {
-    if (DEBUGLM) NSLog(@"sleep");
+    DDLogVerbose(@"sleep");
     if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
         for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
             [self.manager stopRangingBeaconsInRegion:beaconRegion];
@@ -123,7 +121,7 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)stop {
-    if (DEBUGLM) NSLog(@"stop");
+    DDLogVerbose(@"stop");
 }
 
 - (void)startRegion:(CLRegion *)region {
@@ -157,7 +155,7 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)setMonitoring:(int)monitoring {
-    if (DEBUGLM) NSLog(@"monitoring=%ld", (long)monitoring);
+    DDLogVerbose(@"monitoring=%ld", (long)monitoring);
     _monitoring = monitoring;
     
     switch (monitoring) {
@@ -188,25 +186,25 @@ static LocationManager *theInstance = nil;
 
 - (void)setRanging:(BOOL)ranging
 {
-    if (DEBUGLM) NSLog(@"ranging=%d", ranging);
+    DDLogVerbose(@"ranging=%d", ranging);
     _ranging = ranging;
     
     if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
         if (!ranging) {
             for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
-                if (DEBUGLM) NSLog(@"stopRangingBeaconsInRegion %@", beaconRegion.identifier);
+                DDLogVerbose(@"stopRangingBeaconsInRegion %@", beaconRegion.identifier);
                 [self.manager stopRangingBeaconsInRegion:beaconRegion];
             }
         }
     }
     for (CLRegion *region in self.manager.monitoredRegions) {
-        if (DEBUGLM) NSLog(@"requestStateForRegion %@", region.identifier);
+        DDLogVerbose(@"requestStateForRegion %@", region.identifier);
         [self.manager requestStateForRegion:region];
     }
 }
 
 - (void)activityTimer:(NSTimer *)timer {
-    if (DEBUGLM) NSLog(@"activityTimer");
+    DDLogVerbose(@"activityTimer");
     [self.delegate timerLocation:self.manager.location];
 }
 
@@ -218,7 +216,7 @@ static LocationManager *theInstance = nil;
  */
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    if (DEBUGLM) NSLog(@"didChangeAuthorizationStatus to %d", status);
+    DDLogVerbose(@"didChangeAuthorizationStatus to %d", status);
     if (status != kCLAuthorizationStatusAuthorizedAlways) {
         [self showError];
     }
@@ -276,10 +274,10 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    if (DEBUGLM) NSLog(@"didUpdateLocations");
+    DDLogVerbose(@"didUpdateLocations");
     
     for (CLLocation *location in locations) {
-        if (DEBUGLM) NSLog(@"Location: %@", location);
+        DDLogVerbose(@"Location: %@", location);
         if ([location.timestamp compare:self.lastUsedLocation.timestamp] != NSOrderedAscending ) {
             [self.delegate newLocation:location];
         }
@@ -287,7 +285,7 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    if (DEBUGLM) NSLog(@"didFailWithError %@", error.localizedDescription);
+    DDLogError(@"didFailWithError %@", error.localizedDescription);
     // error
 }
 
@@ -298,7 +296,7 @@ static LocationManager *theInstance = nil;
  *
  */
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
-    if (DEBUGLM) NSLog(@"didDetermineState %ld %@", (long)state, region);
+    DDLogVerbose(@"didDetermineState %ld %@", (long)state, region);
     if (state == CLRegionStateInside) {
         if (self.ranging) {
             if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
@@ -320,7 +318,7 @@ static LocationManager *theInstance = nil;
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
-    if (DEBUGLM) NSLog(@"didEnterRegion %@", region);
+    DDLogVerbose(@"didEnterRegion %@", region);
     if (![self removeHoldDown:region]) {
         [self.delegate regionEvent:region enter:YES];
     }
@@ -328,7 +326,7 @@ static LocationManager *theInstance = nil;
 
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
-    if (DEBUGLM) NSLog(@"didExitRegion %@", region);
+    DDLogVerbose(@"didExitRegion %@", region);
     if ([region.identifier hasPrefix:@"-"]) {
                 [self removeHoldDown:region];
         [self.pendingRegionEvents addObject:[PendingRegionEvent holdDown:region for:3.0 to:self]];
@@ -338,11 +336,11 @@ static LocationManager *theInstance = nil;
 }
 
 - (BOOL)removeHoldDown:(CLRegion *)region {
-    if (DEBUGLM) NSLog(@"removeHoldDown %@ [%lu]", region.identifier, (unsigned long)self.pendingRegionEvents.count);
+    DDLogVerbose(@"removeHoldDown %@ [%lu]", region.identifier, (unsigned long)self.pendingRegionEvents.count);
 
     for (PendingRegionEvent *p in self.pendingRegionEvents) {
         if (p.region == region) {
-            if (DEBUGLM) NSLog(@"holdDownInvalidated %@", region.identifier);
+            DDLogVerbose(@"holdDownInvalidated %@", region.identifier);
             [p.holdDownTimer invalidate];
             p.region = nil;
             [self.pendingRegionEvents removeObject:p];
@@ -353,26 +351,24 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)holdDownExpired:(NSTimer *)timer {
-    if (DEBUGLM) NSLog(@"holdDownExpired %@", timer.userInfo);
+    DDLogVerbose(@"holdDownExpired %@", timer.userInfo);
     if ([timer.userInfo isKindOfClass:[PendingRegionEvent class]]) {
         PendingRegionEvent *p = (PendingRegionEvent *)timer.userInfo;
-        if (DEBUGLM) NSLog(@"holdDownExpired %@", p.region.identifier);
+        DDLogVerbose(@"holdDownExpired %@", p.region.identifier);
         [self.delegate regionEvent:p.region enter:NO];
         [self removeHoldDown:p.region];
     }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
-    if (DEBUGLM) NSLog(@"didStartMonitoringForRegion %@", region);
+    DDLogVerbose(@"didStartMonitoringForRegion %@", region);
     [self.manager requestStateForRegion:region];
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
-    if (DEBUGLM) {
-        NSLog(@"monitoringDidFailForRegion %@ %@", region, error.localizedDescription);
-        for (CLRegion *monitoredRegion in manager.monitoredRegions) {
-            NSLog(@"monitoredRegion: %@", monitoredRegion);
-        }
+    DDLogVerbose(@"monitoringDidFailForRegion %@ %@", region, error.localizedDescription);
+    for (CLRegion *monitoredRegion in manager.monitoredRegions) {
+        DDLogVerbose(@"monitoredRegion: %@", monitoredRegion);
     }
     
     if ((error.domain != kCLErrorDomain || error.code != 5) && [manager.monitoredRegions containsObject:region]) {
@@ -387,12 +383,12 @@ static LocationManager *theInstance = nil;
  *
  */
 - (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error {
-    if (DEBUGLM) NSLog(@"rangingBeaconsDidFailForRegion %@ %@", region, error.localizedDescription);
+    DDLogVerbose(@"rangingBeaconsDidFailForRegion %@ %@", region, error.localizedDescription);
     // error
 }
 
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
-    if (DEBUGLM) NSLog(@"didRangeBeacons %@ %@", beacons, region);
+    DDLogVerbose(@"didRangeBeacons %@ %@", beacons, region);
     for (CLBeacon *beacon in beacons) {
         [self.delegate beaconInRange:beacon];
     }

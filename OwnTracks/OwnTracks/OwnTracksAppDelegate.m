@@ -15,14 +15,7 @@
 #import <NotificationCenter/NotificationCenter.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-
-//#define OLD 1
-
-#ifdef DEBUG
-#define DEBUGAPP FALSE
-#else
-#define DEBUGAPP FALSE
-#endif
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface OwnTracksAppDelegate()
 @property (strong, nonatomic) NSTimer *activityTimer;
@@ -42,24 +35,24 @@
 #define MAX_OTHER_LOCATIONS 1
 
 @implementation OwnTracksAppDelegate
+    static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 #pragma ApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    if (DEBUGAPP)  {
-        NSLog(@"willFinishLaunchingWithOptions");
-        NSEnumerator *enumerator = [launchOptions keyEnumerator];
-        NSString *key;
-        while ((key = [enumerator nextObject])) {
-            NSLog(@"%@:%@", key, [[launchOptions objectForKey:key] description]);
-        }
+    
+    //NSLog(@"willFinishLaunchingWithOptions");
+    NSEnumerator *enumerator = [launchOptions keyEnumerator];
+    NSString *key;
+    while ((key = [enumerator nextObject])) {
+        //NSLog(@"%@:%@", key, [[launchOptions objectForKey:key] description]);
     }
     
     self.backgroundTask = UIBackgroundTaskInvalid;
     self.completionHandler = nil;
     
     if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
-        if (DEBUGAPP) NSLog(@"setMinimumBackgroundFetchInterval %f", UIApplicationBackgroundFetchIntervalMinimum);
+        //NSLog(@"setMinimumBackgroundFetchInterval %f", UIApplicationBackgroundFetchIntervalMinimum);
         [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     }
     
@@ -68,7 +61,7 @@
                                                 UIUserNotificationTypeBadge |
                                                 UIUserNotificationTypeSound
                                                                                  categories:[NSSet setWithObjects:nil]];
-        if (DEBUGAPP) NSLog(@"registerUserNotificationSettings %@", settings);
+       // NSLog(@"registerUserNotificationSettings %@", settings);
         [application registerUserNotificationSettings:settings];
     }
     
@@ -76,15 +69,18 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    if (DEBUGAPP) {
-        NSLog(@"didFinishLaunchingWithOptions");
-        NSEnumerator *enumerator = [launchOptions keyEnumerator];
-        NSString *key;
-        while ((key = [enumerator nextObject])) {
-            NSLog(@"%@:%@", key, [[launchOptions objectForKey:key] description]);
-        }
-    }
     [Fabric with:@[CrashlyticsKit]];
+    
+    [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:ddLogLevel];
+    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
+    DDLogVerbose(@"didFinishLaunchingWithOptions");
+    
+    NSEnumerator *enumerator = [launchOptions keyEnumerator];
+    NSString *key;
+    while ((key = [enumerator nextObject])) {
+        DDLogVerbose(@"%@:%@", key, [[launchOptions objectForKey:key] description]);
+    }
+    
     
     self.coreData = [[CoreData alloc] init];
     self.inQueue = @(0);
@@ -94,9 +90,9 @@
     do {
         state = self.coreData.documentState;
         if (state & UIDocumentStateClosed || ![CoreData theManagedObjectContext]) {
-            if (DEBUGAPP) NSLog(@"documentState 0x%02lx theManagedObjectContext %@",
-                                (long)self.coreData.documentState,
-                                [CoreData theManagedObjectContext]);
+            DDLogVerbose(@"documentState 0x%02lx theManagedObjectContext %@",
+                         (long)self.coreData.documentState,
+                         [CoreData theManagedObjectContext]);
             [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         }
     } while (state & UIDocumentStateClosed || ![CoreData theManagedObjectContext]);
@@ -149,31 +145,29 @@
 }
 
 - (void)batteryLevelChanged:(NSNotification *)notification {
-    if (DEBUGAPP) NSLog(@"batteryLevelChanged %.0f", [UIDevice currentDevice].batteryLevel);
+    DDLogVerbose(@"batteryLevelChanged %.0f", [UIDevice currentDevice].batteryLevel);
     // No, we do not want to switch off location monitoring when battery gets low
 }
 
 - (void)batteryStateChanged:(NSNotification *)notification {
-    if (DEBUGAPP) {
-        const NSDictionary *states = @{
-                                       @(UIDeviceBatteryStateUnknown): @"unknown",
-                                       @(UIDeviceBatteryStateUnplugged): @"unplugged",
-                                       @(UIDeviceBatteryStateCharging): @"charging",
-                                       @(UIDeviceBatteryStateFull): @"full"
-                                       };
-        
-        NSLog(@"batteryStateChanged %@ (%ld)",
-              states[@([UIDevice currentDevice].batteryState)],
-              (long)[UIDevice currentDevice].batteryState);
-    }
+    const NSDictionary *states = @{
+                                   @(UIDeviceBatteryStateUnknown): @"unknown",
+                                   @(UIDeviceBatteryStateUnplugged): @"unplugged",
+                                   @(UIDeviceBatteryStateCharging): @"charging",
+                                   @(UIDeviceBatteryStateFull): @"full"
+                                   };
+    
+    DDLogVerbose(@"batteryStateChanged %@ (%ld)",
+                 states[@([UIDevice currentDevice].batteryState)],
+                 (long)[UIDevice currentDevice].batteryState);
 }
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
-    if (DEBUGAPP) NSLog(@"openURL %@ from %@ annotation %@", url, sourceApplication, annotation);
-    if (DEBUGAPP) NSLog(@"URL scheme %@ extension %@", url.scheme, url.pathExtension);
+    DDLogVerbose(@"openURL %@ from %@ annotation %@", url, sourceApplication, annotation);
+    DDLogVerbose(@"URL scheme %@ extension %@", url.scheme, url.pathExtension);
     
     if (url) {
         if (![url.scheme isEqualToString:@"owntracks"]) {
@@ -213,9 +207,9 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    if (DEBUGAPP) NSLog(@"applicationDidEnterBackground");
+    DDLogVerbose(@"applicationDidEnterBackground");
     self.backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        if (DEBUGAPP) NSLog(@"BackgroundTaskExpirationHandler");
+        DDLogVerbose(@"BackgroundTaskExpirationHandler");
         /*
          * we might end up here if the connection could not be closed within the given
          * background time
@@ -229,7 +223,7 @@
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    if (DEBUGAPP) NSLog(@"applicationDidBecomeActive");
+    DDLogVerbose(@"applicationDidBecomeActive");
     
     if (self.publicWarning) {
         [AlertView alert:@"Public Mode" message:@"In public mode, your location is published anonymously to owntracks.org's shared broker. Find more information or change in Settings"];
@@ -251,7 +245,7 @@
 }
 
 - (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notification {
-    if (DEBUGAPP) NSLog(@"didReceiveLocalNotification %@", notification.alertBody);
+    DDLogVerbose(@"didReceiveLocalNotification %@", notification.alertBody);
     if (notification.userInfo) {
         if ([notification.userInfo[@"notify"] isEqualToString:@"friend"]) {
             [AlertView alert:@"Friend Notification" message:notification.alertBody dismissAfter:2.0];
@@ -260,7 +254,7 @@
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    if (DEBUGAPP) NSLog(@"performFetchWithCompletionHandler");
+    DDLogVerbose(@"performFetchWithCompletionHandler");
     self.completionHandler = completionHandler;
     [[LocationManager sharedInstance] wakeup];
     [self.connectionOut connectToLast];
@@ -272,7 +266,7 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
-    if (DEBUGAPP) NSLog(@"didRegisterUserNotificationSettings %@", notificationSettings);
+    DDLogVerbose(@"didRegisterUserNotificationSettings %@", notificationSettings);
 }
 
 /*
@@ -358,12 +352,12 @@
     
     if ([self.connectionStateOut intValue] == state_closed) {
         if (self.backgroundTask) {
-            if (DEBUGAPP) NSLog(@"endBackGroundTask");
+            DDLogVerbose(@"endBackGroundTask");
             [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
             self.backgroundTask = UIBackgroundTaskInvalid;
         }
         if (self.completionHandler) {
-            if (DEBUGAPP) NSLog(@"completionHandler");
+            DDLogVerbose(@"completionHandler");
             self.completionHandler(UIBackgroundFetchResultNewData);
             self.completionHandler = nil;
         }
@@ -380,7 +374,7 @@
 }
 
 - (void)handleMessage:(Connection *)connection data:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
-    if (DEBUGAPP) NSLog(@"handleMessage");
+    DDLogVerbose(@"handleMessage");
     NSArray *topicComponents = [topic componentsSeparatedByCharactersInSet:
                                 [NSCharacterSet characterSetWithCharactersInString:@"/"]];
     NSArray *baseComponents = [[self.settings theGeneralTopic] componentsSeparatedByCharactersInSet:
@@ -405,7 +399,7 @@
         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
         if (dictionary) {
             if ([dictionary[@"_type"] isEqualToString:@"cmd"]) {
-                if (DEBUGAPP) NSLog(@"App msg received cmd:%@", dictionary[@"action"]);
+                DDLogVerbose(@"App msg received cmd:%@", dictionary[@"action"]);
                 if ([self.settings boolForKey:@"cmd_preference"]) {
                     if ([dictionary[@"action"] isEqualToString:@"dump"]) {
                         [self dumpTo:topic];
@@ -416,7 +410,7 @@
                     } else if ([dictionary[@"action"] isEqualToString:@"reportSteps"]) {
                         [self stepsFrom:dictionary[@"from"] to:dictionary[@"to"]];
                     } else {
-                        if (DEBUGAPP) NSLog(@"unknown action %@", dictionary[@"action"]);
+                        DDLogVerbose(@"unknown action %@", dictionary[@"action"]);
                     }
                 }
             } else if ([dictionary[@"_type"] isEqualToString:@"card"]) {
@@ -426,10 +420,10 @@
                 [self processFace:friend dictionary:dictionary];
                 
             } else {
-                if (DEBUGAPP) NSLog(@"unhandled record type %@", dictionary[@"_type"]);
+                DDLogVerbose(@"unhandled record type %@", dictionary[@"_type"]);
             }
         } else {
-            if (DEBUGAPP) NSLog(@"illegal json %@ %@", error.localizedDescription, data.description);
+            DDLogVerbose(@"illegal json %@ %@", error.localizedDescription, data.description);
         }
         
     } else /* not ownDevice */ {
@@ -437,7 +431,7 @@
             self.inQueue = @([self.inQueue unsignedLongValue] + 1);
         }
         [self.queueManagedObjectContext performBlock:^{
-            if (DEBUGAPP) NSLog(@"performBlock start");
+            DDLogVerbose(@"performBlock start");
             if (data.length) {
                 
                 NSError *error;
@@ -488,10 +482,10 @@
                         [self processFace:friend dictionary:dictionary];
                         
                     } else {
-                        if (DEBUGAPP) NSLog(@"unknown record type %@)", dictionary[@"_type"]);
+                        DDLogVerbose(@"unknown record type %@)", dictionary[@"_type"]);
                     }
                 } else {
-                    if (DEBUGAPP) NSLog(@"illegal json %@, %@)", error.localizedDescription, data.description);
+                    DDLogVerbose(@"illegal json %@, %@)", error.localizedDescription, data.description);
                 }
             } else /* data.length == 0 -> delete friend */ {
                 Friend *friend = [Friend existsFriendWithTopic:device inManagedObjectContext:self.queueManagedObjectContext];
@@ -501,7 +495,7 @@
             }
             [self.queueManagedObjectContext save:nil];
             //[self performSelectorOnMainThread:@selector(share) withObject:nil waitUntilDone:NO];
-            if (DEBUGAPP) NSLog(@"performBlock finish");
+            DDLogVerbose(@"performBlock finish");
             @synchronized (self.inQueue) {
                 self.inQueue = @([self.inQueue unsignedLongValue] - 1);
             }
@@ -523,14 +517,11 @@
 }
 
 - (void)messageDelivered:(Connection *)connection msgID:(UInt16)msgID {
-    if (DEBUGAPP) {
-        NSString *message = [NSString stringWithFormat:@"Message delivered id=%u", msgID];
-        [self notification:message userInfo:nil];
-    }
+    DDLogVerbose(@"Message delivered id=%u", msgID);
 }
 
 - (void)totalBuffered:(Connection *)connection count:(NSUInteger)count {
-    if (DEBUGAPP) NSLog(@"totalBuffered %lu", (unsigned long)count);
+    DDLogVerbose(@"totalBuffered %lu", (unsigned long)count);
     if (connection == self.connectionOut) {
         self.connectionBufferedOut = @(count);
         [UIApplication sharedApplication].applicationIconBadgeNumber = count;
@@ -576,23 +567,21 @@
     }
     
     if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
-        if (DEBUGAPP)  {
-            NSLog(@"isStepCountingAvailable %d", [CMPedometer isStepCountingAvailable]);
-            NSLog(@"isFloorCountingAvailable %d", [CMPedometer isFloorCountingAvailable]);
-            NSLog(@"isDistanceAvailable %d", [CMPedometer isDistanceAvailable]);
-        }
+        DDLogVerbose(@"isStepCountingAvailable %d", [CMPedometer isStepCountingAvailable]);
+        DDLogVerbose(@"isFloorCountingAvailable %d", [CMPedometer isFloorCountingAvailable]);
+        DDLogVerbose(@"isDistanceAvailable %d", [CMPedometer isDistanceAvailable]);
         if (!self.pedometer) {
             self.pedometer = [[CMPedometer alloc] init];
         }
         [self.pedometer queryPedometerDataFromDate:fromDate
                                             toDate:toDate
                                        withHandler:^(CMPedometerData *pedometerData, NSError *error) {
-                                           if (DEBUGAPP) NSLog(@"StepCounter queryPedometerDataFromDate handler %ld %ld %ld %ld %@",
-                                                               [pedometerData.numberOfSteps longValue],
-                                                               [pedometerData.floorsAscended longValue],
-                                                               [pedometerData.floorsDescended longValue],
-                                                               [pedometerData.distance longValue],
-                                                               error.localizedDescription);
+                                           DDLogVerbose(@"StepCounter queryPedometerDataFromDate handler %ld %ld %ld %ld %@",
+                                                        [pedometerData.numberOfSteps longValue],
+                                                        [pedometerData.floorsAscended longValue],
+                                                        [pedometerData.floorsDescended longValue],
+                                                        [pedometerData.distance longValue],
+                                                        error.localizedDescription);
                                            dispatch_async(dispatch_get_main_queue(), ^{
                                                
                                                NSMutableDictionary *jsonObject = [[NSMutableDictionary alloc] init];
@@ -625,7 +614,7 @@
                                        }];
         
     } else if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
-        if (DEBUGAPP) NSLog(@"isStepCountingAvailable %d", [CMStepCounter isStepCountingAvailable]);
+        DDLogVerbose(@"isStepCountingAvailable %d", [CMStepCounter isStepCountingAvailable]);
         if (!self.stepCounter) {
             self.stepCounter = [[CMStepCounter alloc] init];
         }
@@ -634,7 +623,7 @@
                                              toQueue:[[NSOperationQueue alloc] init]
                                          withHandler:^(NSInteger steps, NSError *error)
          {
-             if (DEBUGAPP) NSLog(@"StepCounter queryStepCountStartingFrom handler %ld %@", (long)steps, error.localizedDescription);
+             DDLogVerbose(@"StepCounter queryStepCountStartingFrom handler %ld %@", (long)steps, error.localizedDescription);
              dispatch_async(dispatch_get_main_queue(), ^{
                  
                  NSDictionary *jsonObject = @{
@@ -670,26 +659,26 @@
 #pragma actions
 
 - (void)sendNow {
-    if (DEBUGAPP) NSLog(@"App sendNow");
+    DDLogVerbose(@"App sendNow");
     [self publishLocation:[LocationManager sharedInstance].location automatic:FALSE addon:@{@"t":@"u"}];
     
 }
 
 - (void)connectionOff {
-    if (DEBUGAPP) NSLog(@"App connectionOff");
+    DDLogVerbose(@"App connectionOff");
     [self.connectionOut disconnect];
     [self.connectionIn disconnect];
 }
 
 - (void)syncProcessing {
     while ([self.inQueue unsignedLongValue] > 0) {
-        if (DEBUGAPP) NSLog(@"syncProcessing %lu", [self.inQueue unsignedLongValue]);
+        DDLogVerbose(@"syncProcessing %lu", [self.inQueue unsignedLongValue]);
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     };
 }
 
 - (void)reconnect {
-    if (DEBUGAPP) NSLog(@"App reconnect");
+    DDLogVerbose(@"App reconnect");
     [self.connectionOut disconnect];
     [self.connectionIn disconnect];
     [self connect];
@@ -726,7 +715,7 @@
         [CoreData saveContext];
         [self share];
     } else {
-        if (DEBUGAPP) NSLog(@"publishLocation (null) ignored");
+        DDLogVerbose(@"publishLocation (null) ignored");
     }
 }
 
@@ -780,7 +769,7 @@
 #pragma internal helpers
 
 - (void)notification:(NSString *)message userInfo:(NSDictionary *)userInfo {
-    if (DEBUGAPP)  NSLog(@"App notification %@ userinfo %@", message, userInfo);
+    DDLogVerbose(@"App notification %@ userinfo %@", message, userInfo);
     
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.alertBody = message;
@@ -791,7 +780,7 @@
 }
 
 - (void)notification:(NSString *)message after:(NSTimeInterval)after userInfo:(NSDictionary *)userInfo {
-    if (DEBUGAPP) NSLog(@"App notification %@ userinfo %@ after %f", message, userInfo, after);
+    DDLogVerbose(@"App notification %@ userinfo %@ after %f", message, userInfo, after);
     
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.alertBody = message;
@@ -862,23 +851,13 @@
     NSMutableDictionary *jsonObject = [[NSMutableDictionary alloc] init];
     [jsonObject setValue:[NSString stringWithFormat:@"%@", type] forKey:@"_type"];
     
-#ifdef OLD
-    [jsonObject setValue:[NSString stringWithFormat:@"%g", location.coordinate.latitude] forKey:@"lat"];
-    [jsonObject setValue:[NSString stringWithFormat:@"%g", location.coordinate.longitude] forKey:@"lon"];
-    [jsonObject setValue:[NSString stringWithFormat:@"%.0f", [location.timestamp timeIntervalSince1970]] forKey:@"tst"];
-#else
     [jsonObject setValue:@(location.coordinate.latitude) forKey:@"lat"];
     [jsonObject setValue:@(location.coordinate.longitude) forKey:@"lon"];
     [jsonObject setValue:@((int)[location.timestamp timeIntervalSince1970]) forKey:@"tst"];
-#endif
     
     double acc = [location.accuracy doubleValue];
     if (acc > 0) {
-#ifdef OLD
-        [jsonObject setValue:[NSString stringWithFormat:@"%.0f", acc] forKey:@"acc"];
-#else
         [jsonObject setValue:@(acc) forKey:@"acc"];
-#endif
     }
     
     if ([self.settings boolForKey:@"extendeddata_preference"]) {
@@ -899,11 +878,7 @@
     
     double rad = [location.regionradius doubleValue];
     if (rad > 0) {
-#ifdef OLD
-        [jsonObject setValue:[NSString stringWithFormat:@"%.0f", rad] forKey:@"rad"];
-#else
         [jsonObject setValue:@((int)rad) forKey:@"rad"];
-#endif
     }
     
     if (addon) {
@@ -912,11 +887,7 @@
     
     if ([type isEqualToString:@"location"]) {
         int batteryLevel = [UIDevice currentDevice].batteryLevel != -1 ? [UIDevice currentDevice].batteryLevel * 100 : -1;
-#ifdef OLD
-        [jsonObject setValue:[NSString stringWithFormat:@"%d", batteryLevel] forKey:@"batt"];
-#else
         [jsonObject setValue:@(batteryLevel) forKey:@"batt"];
-#endif
     }
     
     return [self jsonToData:jsonObject];
@@ -935,7 +906,7 @@
             if (!image) {
                 image = UIImageJPEGRepresentation([UIImage imageNamed:@"icon40"], 0.5);
             }
-
+            
             Location *friendsLocation = [friend newestLocation];
             if (friendsLocation) {
                 CLLocation *friendsCLLocation = [[CLLocation alloc] initWithLatitude:[friendsLocation.latitude doubleValue]
@@ -953,7 +924,7 @@
                 }
             }
         }
-        if (DEBUGAPP) NSLog(@"sharedFriends %@", [sharedFriends allKeys]);
+        DDLogVerbose(@"sharedFriends %@", [sharedFriends allKeys]);
         [shared setValue:sharedFriends forKey:@"sharedFriends"];
     }
 }

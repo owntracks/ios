@@ -17,7 +17,7 @@
 	<key>topic_preference</key>
 	<string></string>
 	<key>retain_preference</key>
-	<false/>
+	<true/>
 	<key>qos_preference</key>
 	<integer>2</integer>
 	<key>host_preference</key>

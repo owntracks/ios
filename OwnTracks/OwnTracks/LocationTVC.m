@@ -12,12 +12,7 @@
 #import "PersonTVC.h"
 #import "FriendAnnotationV.h"
 #import "OwnTracksAppDelegate.h"
-
-#ifdef DEBUG
-#define DEBUGLOC FALSE
-#else
-#define DEBUGLOC FALSE
-#endif
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface LocationTVC ()
 
@@ -28,8 +23,10 @@
 @end
 
 @implementation LocationTVC
+static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)viewDidLoad {
+    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self
                             action:@selector(commandReportLocation)
@@ -139,7 +136,7 @@
         
         NSError *error = nil;
         if (![context save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
     }
@@ -183,11 +180,11 @@
     
     NSError *error = nil;
     if (![self.fetchedResultsController performFetch:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
     
-    if (DEBUGLOC) NSLog(@"fetchedResultsControllser %@", _fetchedResultsController);
+    DDLogVerbose(@"fetchedResultsControllser %@", _fetchedResultsController);
     return _fetchedResultsController;
 }
 
@@ -201,7 +198,7 @@
            atIndex:(NSUInteger)sectionIndex
      forChangeType:(NSFetchedResultsChangeType)type
 {
-    if (DEBUGLOC) NSLog(@"didChangeSection atIndex:%lu forChangeType:%lu ", (unsigned long)sectionIndex, (unsigned long)type);
+    DDLogVerbose(@"didChangeSection atIndex:%lu forChangeType:%lu ", (unsigned long)sectionIndex, (unsigned long)type);
     switch(type) {
         case NSFetchedResultsChangeInsert:
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
@@ -225,7 +222,7 @@
 {
     UITableView *tableView = self.tableView;
     
-    if (DEBUGLOC) NSLog(@"didChangeObject:%@ atIndexPath:%ld/%ld forChangeType:%lu newIndexPath:%ld/%ld",
+    DDLogVerbose(@"didChangeObject:%@ atIndexPath:%ld/%ld forChangeType:%lu newIndexPath:%ld/%ld",
           anObject,
           (long)indexPath.section, (long)indexPath.row,
           (unsigned long)type,
@@ -263,7 +260,7 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
-    if (DEBUGLOC) NSLog(@"configureCell %ld/%ld", (long)indexPath.section, (long)indexPath.row);
+    DDLogVerbose(@"configureCell %ld/%ld", (long)indexPath.section, (long)indexPath.row);
     Location *location = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     UIFont *fontBold = [UIFont boldSystemFontOfSize:[UIFont systemFontSize] + 2];

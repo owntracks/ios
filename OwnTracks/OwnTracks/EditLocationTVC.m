@@ -10,6 +10,7 @@
 #import "Friend+Create.h"
 #import "OwnTracksAppDelegate.h"
 #import "CoreData.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface EditLocationTVC ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *UInew;
@@ -30,6 +31,7 @@
 @end
 
 @implementation EditLocationTVC
+static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)setLocation:(Location *)location
 {
@@ -39,6 +41,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
+
     self.UIlatitude.delegate = self;
     self.UIlongitude.delegate = self;
     self.UIremark.delegate = self;
@@ -66,15 +70,11 @@
             [delegate sendWayPoint:self.location];
         }
         if (self.oldRegion) {
-#ifdef DEBUG
-            NSLog(@"stopMonitoringForRegion %@", self.oldRegion.identifier);
-#endif
+            DDLogVerbose(@"stopMonitoringForRegion %@", self.oldRegion.identifier);
             [[LocationManager sharedInstance] stopRegion:self.oldRegion];
         }
         if ([self.location region]) {
-#ifdef DEBUG
-            NSLog(@"startMonitoringForRegion %@", self.location.region.identifier);
-#endif
+            DDLogVerbose(@"startMonitoringForRegion %@", self.location.region.identifier);
             [[LocationManager sharedInstance] startRegion:[self.location region]];
         }
     }

@@ -8,9 +8,16 @@
 
 #import "AlertView.h"
 
+#import <CocoaLumberjack/CocoaLumberjack.h>
+
 #define DISMISS_AFTER 0.5
 
 @implementation AlertView
+static const DDLogLevel ddLogLevel = DDLogLevelError;
+
++ (void)dummy {
+    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
+}
 
 + (void)alert:(NSString *)title message:(NSString *)message
 {
@@ -19,9 +26,7 @@
 
 + (void)alert:(NSString *)title message:(NSString *)message dismissAfter:(NSTimeInterval)interval
 {
-#ifdef DEBUG
-    NSLog(@"App alert %@/%@ (%f)", title, message, interval);
-#endif
+    DDLogVerbose(@"App alert %@/%@ (%f)", title, message, interval);
     
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title

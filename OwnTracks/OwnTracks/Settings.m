@@ -9,12 +9,7 @@
 #import "Settings.h"
 #import "CoreData.h"
 #import "Location+Create.h"
-
-#ifdef DEBUG
-#define DEBUGSETTINGS FALSE
-#else
-#define DEBUGSETTINGS FALSE
-#endif
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface Settings ()
 @property (strong, nonatomic) NSDictionary *appDefaults;
@@ -23,12 +18,14 @@
 @end
 
 @implementation Settings
+static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (id)init
 {
     self = [super init];
-    if (self) {
-        
+    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
+
+    if (self) {        
         NSURL *bundleURL = [[NSBundle mainBundle] bundleURL];
         NSURL *settingsPlistURL = [bundleURL URLByAppendingPathComponent:@"Settings.plist"];
         NSURL *publicPlistURL = [bundleURL URLByAppendingPathComponent:@"Public.plist"];
@@ -47,10 +44,8 @@
     
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithStream:input options:0 error:&error];
     if (dictionary) {
-        if (DEBUGSETTINGS) {
-            for (NSString *key in [dictionary allKeys]) {
-                NSLog(@"Configuration %@:%@", key, dictionary[key]);
-            }
+        for (NSString *key in [dictionary allKeys]) {
+            DDLogVerbose(@"Configuration %@:%@", key, dictionary[key]);
         }
         
         if ([dictionary[@"_type"] isEqualToString:@"configuration"]) {
@@ -94,7 +89,7 @@
             
             object = dictionary[@"pubQos"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                       forKey:@"qos_preference"];
+                                 forKey:@"qos_preference"];
             
             object = dictionary[@"port"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
@@ -123,7 +118,7 @@
             object = dictionary[@"ranging"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
                                  forKey:@"ranging_preference"];
-
+            
             object = dictionary[@"cmd"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
                                  forKey:@"cmd_preference"];
@@ -185,11 +180,9 @@
     
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithStream:input options:0 error:&error];
     if (dictionary) {
-#ifdef DEBUG
         for (NSString *key in [dictionary allKeys]) {
-            NSLog(@"Waypoints %@:%@", key, dictionary[key]);
+            DDLogVerbose(@"Waypoints %@:%@", key, dictionary[key]);
         }
-#endif
         
         if ([dictionary[@"_type"] isEqualToString:@"waypoints"]) {
             NSArray *waypoints = dictionary[@"waypoints"];
@@ -208,13 +201,11 @@
     if (waypoints) {
         for (NSDictionary *waypoint in waypoints) {
             if ([waypoint[@"_type"] isEqualToString:@"waypoint"]) {
-                if (DEBUGSETTINGS) {
-                NSLog(@"Waypoint tst:%g lon:%g lat:%g",
-                      [waypoint[@"tst"] doubleValue],
-                      [waypoint[@"lon"] doubleValue],
-                      [waypoint[@"lat"] doubleValue]
-                      );
-                }
+                DDLogVerbose(@"Waypoint tst:%g lon:%g lat:%g",
+                             [waypoint[@"tst"] doubleValue],
+                             [waypoint[@"lon"] doubleValue],
+                             [waypoint[@"lat"] doubleValue]
+                             );
                 CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
                                                                                [waypoint[@"lat"] doubleValue],
                                                                                [waypoint[@"lon"] doubleValue]
@@ -251,7 +242,7 @@
     NSMutableArray *waypoints = [[NSMutableArray alloc] init];
     
     for (Location *location in [Location allWaypointsOfTopic:[self theGeneralTopic]
-                                    inManagedObjectContext:[CoreData theManagedObjectContext]]) {
+                                      inManagedObjectContext:[CoreData theManagedObjectContext]]) {
         NSDictionary *waypoint = @{@"_type": @"waypoint",
                                    @"lat": @(location.coordinate.latitude),
                                    @"lon": @(location.coordinate.longitude),
@@ -272,7 +263,7 @@
                            @"password": [self stringForKey:@"pass_preference"],
                            @"willTopic": [self stringForKey:@"willtopic_preference"],
                            @"tid": [self stringForKey:@"trackerid_preference"],
-
+                           
                            @"subQos": @([self intForKey:@"subscriptionqos_preference"]),
                            @"pubQos": @([self intForKey:@"qos_preference"]),
                            @"port": @([self intForKey:@"port_preference"]),
@@ -364,7 +355,7 @@
 - (NSString *)stringForKey:(NSString *)key
 {
     NSString *value = nil;
-
+    
     if ([[self stringForKeyRaw:@"mode"] intValue] == 2 && ![self validInPublicMode:key]) {
         id object = [self.publicDefaults objectForKey:key];
         if (object) {
@@ -434,7 +425,7 @@
     } else if ([topic isEqualToString:@"%"]) {
         topic = [NSString stringWithFormat:@"public/user/%@", [self theDeviceId]];
     }
-
+    
     return topic;
 }
 
