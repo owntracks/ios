@@ -76,9 +76,18 @@
     self.UIPositionsToKeep.delegate = self;
     
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate addObserver:self forKeyPath:@"connectionStateOut" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
-    [delegate addObserver:self forKeyPath:@"connectionBufferedOut" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
-    [delegate addObserver:self forKeyPath:@"configLoad" options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    [delegate addObserver:self
+               forKeyPath:@"connectionStateOut"
+                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                  context:nil];
+    [delegate addObserver:self
+               forKeyPath:@"connectionBufferedOut"
+                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                  context:nil];
+    [delegate addObserver:self
+               forKeyPath:@"configLoad"
+                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                  context:nil];
     
     [self updated];
 }
@@ -93,17 +102,23 @@
     [super viewWillDisappear:animated];
     
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate removeObserver:self forKeyPath:@"connectionStateOut" context:nil];
-    [delegate removeObserver:self forKeyPath:@"connectionBufferedOut" context:nil];
-    [delegate removeObserver:self forKeyPath:@"configLoad" context:nil];
-
+    [delegate removeObserver:self
+                  forKeyPath:@"connectionStateOut"
+                     context:nil];
+    [delegate removeObserver:self
+                  forKeyPath:@"connectionBufferedOut"
+                     context:nil];
+    [delegate removeObserver:self
+                  forKeyPath:@"configLoad"
+                     context:nil];
+    
     [self updateValues];
 }
 
 - (void)updateValues
 {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-
+    
     if (self.UIDeviceID) [delegate.settings setString:self.UIDeviceID.text forKey:@"deviceid_preference"];
     if (self.UItrackerid) [delegate.settings setString:self.UItrackerid.text forKey:@"trackerid_preference"];
     if (self.UILocatorDisplacement) [delegate.settings setString:self.UILocatorDisplacement.text forKey:@"mindist_preference"];
@@ -164,7 +179,7 @@
     [self updatedStatus];
     
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        
+    
     self.UIVersion.text =                           [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
     self.UIeffectiveDeviceId.text =                 [delegate.settings theDeviceId];
     self.UIeffectiveClientId.text =                 [delegate.settings theClientId];
@@ -203,45 +218,146 @@
     self.UIWillRetain.on =                          [delegate.settings boolForKey:@"willretain_preference"];
     
     NSMutableArray *hiddenFieldsMode12 = [[NSMutableArray alloc] init];
-    if (self.UIparameters) [hiddenFieldsMode12 addObject:self.UIparameters];
-    if (self.UIHost) [hiddenFieldsMode12 addObject:self.UIHost];
-    if (self.UISubscription) [hiddenFieldsMode12 addObject:self.UISubscription];
-    if (self.UIUpdateAddressBook) [hiddenFieldsMode12 addObject:self.UIUpdateAddressBook];
-    if (self.UIallowRemoteLocation) [hiddenFieldsMode12 addObject:self.UIallowRemoteLocation];
-    if (self.UIextendedData) [hiddenFieldsMode12 addObject:self.UIextendedData];
-    if (self.UIsubscriptionqos) [hiddenFieldsMode12 addObject:self.UIsubscriptionqos];
-    if (self.UITopic) [hiddenFieldsMode12 addObject:self.UITopic];
-    if (self.UIqos) [hiddenFieldsMode12 addObject:self.UIqos];
-    if (self.UIRetain) [hiddenFieldsMode12 addObject:self.UIRetain];
-    if (self.UICMD) [hiddenFieldsMode12 addObject:self.UICMD];
-    if (self.UIPort) [hiddenFieldsMode12 addObject:self.UIPort];
-    if (self.UITLS) [hiddenFieldsMode12 addObject:self.UITLS];
-    if (self.UIAuth) [hiddenFieldsMode12 addObject:self.UIAuth];
-    if (self.UICleanSession) [hiddenFieldsMode12 addObject:self.UICleanSession];
-    if (self.UIKeepAlive) [hiddenFieldsMode12 addObject:self.UIKeepAlive];
-    if (self.UIWillTopic) [hiddenFieldsMode12 addObject:self.UIWillTopic];
-    if (self.UIwillqos) [hiddenFieldsMode12 addObject:self.UIwillqos];
-    if (self.UIWillRetain) [hiddenFieldsMode12 addObject:self.UIWillRetain];
-    if (self.UIeffectiveDeviceId) [hiddenFieldsMode12 addObject:self.UIeffectiveDeviceId];
-    if (self.UIeffectiveClientId) [hiddenFieldsMode12 addObject:self.UIeffectiveClientId];
-    if (self.UIeffectiveTopic) [hiddenFieldsMode12 addObject:self.UIeffectiveTopic];
-    if (self.UIeffectiveWillTopic) [hiddenFieldsMode12 addObject:self.UIeffectiveWillTopic];
-    if (self.UIeffectivesubscriptions) [hiddenFieldsMode12 addObject:self.UIeffectivesubscriptions];
+    NSMutableArray *hiddenIndexPathsMode12 = [[NSMutableArray alloc] init];
+    
+    if (self.UIparameters) {
+        [hiddenFieldsMode12 addObject:self.UIparameters];
+    }
+    
+    if (self.UIHost) {
+        [hiddenFieldsMode12 addObject:self.UIHost];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:2 inSection:0]];
+    }
+    if (self.UIPort) {
+        [hiddenFieldsMode12 addObject:self.UIPort];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:3 inSection:0]];
+    }
+    if (self.UITLS) {
+        [hiddenFieldsMode12 addObject:self.UITLS];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:4 inSection:0]];
+    }
+    if (self.UIAuth) {
+        [hiddenFieldsMode12 addObject:self.UIAuth];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:5 inSection:0]];
+    }
+    if (self.UIClientID) {
+        [hiddenFieldsMode12 addObject:self.UIClientID];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:8 inSection:0]];
+    }
+    if (self.UICleanSession) {
+        [hiddenFieldsMode12 addObject:self.UICleanSession];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:9 inSection:0]];
+    }
+    if (self.UIKeepAlive) {
+        [hiddenFieldsMode12 addObject:self.UIKeepAlive];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:10 inSection:0]];
+    }
+
+    if (self.UISubscription) {
+        [hiddenFieldsMode12 addObject:self.UISubscription];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:0 inSection:2]];
+    }
+    if (self.UIsubscriptionqos) {
+        [hiddenFieldsMode12 addObject:self.UIsubscriptionqos];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:1 inSection:2]];
+    }
+    if (self.UICMD) {
+        [hiddenFieldsMode12 addObject:self.UICMD];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:5 inSection:2]];
+    }
+    if (self.UIallowRemoteLocation) {
+        [hiddenFieldsMode12 addObject:self.UIallowRemoteLocation];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:6 inSection:2]];
+    }
+    if (self.UIUpdateAddressBook) {
+        [hiddenFieldsMode12 addObject:self.UIUpdateAddressBook];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:7 inSection:2]];
+    }
+    if (self.UIextendedData) {
+        [hiddenFieldsMode12 addObject:self.UIextendedData];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:8 inSection:2]];
+    }
+
+    if (self.UITopic) {
+        [hiddenFieldsMode12 addObject:self.UITopic];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:2 inSection:1]];
+    }
+    if (self.UIqos) {
+        [hiddenFieldsMode12 addObject:self.UIqos];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:3 inSection:1]];
+    }
+    if (self.UIRetain) {
+        [hiddenFieldsMode12 addObject:self.UIRetain];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:4 inSection:1]];
+    }
+    if (self.UIWillTopic) {
+        [hiddenFieldsMode12 addObject:self.UIWillTopic];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:5 inSection:1]];
+    }
+    if (self.UIwillqos) {
+        [hiddenFieldsMode12 addObject:self.UIwillqos];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:6 inSection:1]];
+    }
+    if (self.UIWillRetain) {
+        [hiddenFieldsMode12 addObject:self.UIWillRetain];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:7 inSection:1]];
+    }
+    if (self.UIeffectiveDeviceId) {
+        [hiddenFieldsMode12 addObject:self.UIeffectiveDeviceId];
+    }
+    if (self.UIeffectiveClientId) {
+        [hiddenFieldsMode12 addObject:self.UIeffectiveClientId];
+    }
+    if (self.UIeffectiveTopic) {
+        [hiddenFieldsMode12 addObject:self.UIeffectiveTopic];
+    }
+    if (self.UIeffectiveWillTopic) {
+        [hiddenFieldsMode12 addObject:self.UIeffectiveWillTopic];
+    }
+    if (self.UIeffectivesubscriptions) {
+        [hiddenFieldsMode12 addObject:self.UIeffectivesubscriptions];
+    }
     
     NSMutableArray *hiddenFieldsMode2 = [[NSMutableArray alloc] init];
-    if (self.UIDeviceID) [hiddenFieldsMode2 addObject:self.UIDeviceID];
-    if (self.UIUserID) [hiddenFieldsMode2 addObject:self.UIUserID];
-    if (self.UIPassword) [hiddenFieldsMode2 addObject:self.UIPassword];
-    if (self.UIClientID) [hiddenFieldsMode2 addObject:self.UIClientID];
+    NSMutableArray *hiddenIndexPathsMode2 = [[NSMutableArray alloc] init];
+    if (self.UIDeviceID) {
+        [hiddenFieldsMode2 addObject:self.UIDeviceID];
+        [hiddenIndexPathsMode2 addObject:[NSIndexPath indexPathForRow:1 inSection:1]];
+    }
+    if (self.UIUserID) {
+        [hiddenFieldsMode2 addObject:self.UIUserID];
+        [hiddenIndexPathsMode2 addObject:[NSIndexPath indexPathForRow:6 inSection:0]];
+    }
+    if (self.UIPassword) {
+        [hiddenFieldsMode2 addObject:self.UIPassword];
+        [hiddenIndexPathsMode2 addObject:[NSIndexPath indexPathForRow:7 inSection:0]];
+    }
     
     int mode = [delegate.settings intForKey:@"mode"];
     for (UIView *view in hiddenFieldsMode12) {
-        view.hidden = (mode == 1 || mode == 2);
+        [view setHidden:(mode == 1 || mode == 2)];
     }
+    
+    for (NSIndexPath *indexPath in hiddenIndexPathsMode12) {
+        if ([self isRowVisible:indexPath] && (mode == 1 || mode == 2)) {
+            [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else if (![self isRowVisible:indexPath] && !(mode == 1 || mode == 2)) {
+            [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    }
+    
     for (UIView *view in hiddenFieldsMode2) {
-        view.hidden = (mode == 2);
+        [view setHidden:(mode == 2)];
     }
-    self.UIexport.enabled = (mode != 2);
+    for (NSIndexPath *indexPath in hiddenIndexPathsMode2) {
+        if ([self isRowVisible:indexPath] && mode == 2) {
+            [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else if (![self isRowVisible:indexPath] && mode != 2) {
+            [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    }
+    
+    self.UIexport.enabled = (mode == 0);
 }
 
 - (IBAction)exportPressed:(UIButton *)sender {
@@ -275,7 +391,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-
+    
     if ([segue.destinationViewController respondsToSelector:@selector(setEditQos:)] &&
         [segue.destinationViewController respondsToSelector:@selector(setEditIdentifier:)]) {
         if ([segue.identifier isEqualToString:@"setQos:"]) {
@@ -301,7 +417,7 @@
 
 - (IBAction)setQoS:(UIStoryboardSegue *)segue {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-
+    
     if ([segue.sourceViewController respondsToSelector:@selector(editQos)] &&
         [segue.sourceViewController respondsToSelector:@selector(editIdentifier)]) {
         NSNumber *qos = [segue.sourceViewController performSelector:@selector(editQos)];
@@ -351,7 +467,7 @@
 }
 
 - (IBAction)tidChanged:(UITextField *)sender {
-
+    
     if (sender.text.length > 2) {
         UIAlertView *alertView = [[UIAlertView alloc]
                                   initWithTitle:@"TrackerID invalid"
@@ -386,14 +502,14 @@
 - (IBAction)modeChanged:(UISegmentedControl *)sender {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     if (self.UImode) [delegate.settings setInt:(int)sender.selectedSegmentIndex forKey:@"mode"];
-
+    
     [self updated];
     [delegate connectionOff];
     [delegate syncProcessing];
     [[LocationManager sharedInstance] resetRegions];
     NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
     for (Friend *friend in friends) {
-        [[CoreData theManagedObjectContext] deleteObject:friend];        
+        [[CoreData theManagedObjectContext] deleteObject:friend];
     }
     [CoreData saveContext];
     

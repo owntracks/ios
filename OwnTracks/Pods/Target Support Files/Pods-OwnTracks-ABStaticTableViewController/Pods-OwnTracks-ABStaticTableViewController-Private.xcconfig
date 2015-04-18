@@ -1,0 +1,5 @@
+#include "Pods-OwnTracks-ABStaticTableViewController.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Build" "${PODS_ROOT}/Headers/Build/ABStaticTableViewController" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ABStaticTableViewController" "${PODS_ROOT}/Headers/Public/CocoaLumberjack" "${PODS_ROOT}/Headers/Public/MQTTClient"
+OTHER_LDFLAGS = -ObjC
+PODS_ROOT = ${SRCROOT}

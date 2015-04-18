@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "Connection.h"
+#import "ABStaticTableViewController.h"
 
-@interface StatusTVC : UITableViewController <UIDocumentInteractionControllerDelegate, UIAlertViewDelegate, UITextFieldDelegate>
+@interface StatusTVC : ABStaticTableViewController <UIDocumentInteractionControllerDelegate, UIAlertViewDelegate, UITextFieldDelegate>
 
 @end

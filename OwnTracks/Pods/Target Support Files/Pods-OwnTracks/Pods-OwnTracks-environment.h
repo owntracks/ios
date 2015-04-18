@@ -6,6 +6,12 @@
 // project.
 
 
+// ABStaticTableViewController
+#define COCOAPODS_POD_AVAILABLE_ABStaticTableViewController
+#define COCOAPODS_VERSION_MAJOR_ABStaticTableViewController 1
+#define COCOAPODS_VERSION_MINOR_ABStaticTableViewController 1
+#define COCOAPODS_VERSION_PATCH_ABStaticTableViewController 0
+
 // CocoaLumberjack
 #define COCOAPODS_POD_AVAILABLE_CocoaLumberjack
 #define COCOAPODS_VERSION_MAJOR_CocoaLumberjack 2
@@ -34,5 +40,5 @@
 #define COCOAPODS_POD_AVAILABLE_MQTTClient
 #define COCOAPODS_VERSION_MAJOR_MQTTClient 0
 #define COCOAPODS_VERSION_MINOR_MQTTClient 1
-#define COCOAPODS_VERSION_PATCH_MQTTClient 1
+#define COCOAPODS_VERSION_PATCH_MQTTClient 3
 
