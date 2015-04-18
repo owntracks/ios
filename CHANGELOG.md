@@ -1,6 +1,13 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.0.12
+>Release date: 2015-04-18 for alpha testers only
+
+UI feedback said the settings tab is confusing when switching between modes
+
+* [NEW] Dynamic field selection in settings tab depending on Mode
+
 ## OwnTracks 8.0.11
 >Release date: 2015-04-16 for alpha testers only
 
