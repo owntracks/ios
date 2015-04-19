@@ -35,7 +35,7 @@
 #define MAX_OTHER_LOCATIONS 1
 
 @implementation OwnTracksAppDelegate
-    static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 #pragma ApplicationDelegate
 
@@ -71,7 +71,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [Fabric with:@[CrashlyticsKit]];
     
-    [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:ddLogLevel];
+    [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelAll];
+    [DDLog addLogger:[DDASLLogger sharedInstance] withLevel:DDLogLevelError];
+    
     DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
     DDLogVerbose(@"didFinishLaunchingWithOptions");
     
@@ -384,7 +386,7 @@
     BOOL ownDevice = true;
     
     for (int i = 0; i < [baseComponents count]; i++) {
-        if (device.length) {
+        if (i > 0) {
             device = [device stringByAppendingString:@"/"];
         }
         device = [device stringByAppendingString:topicComponents[i]];
@@ -393,6 +395,8 @@
         }
     }
     
+    DDLogVerbose(@"device %@", device);
+
     if (ownDevice) {
         
         NSError *error;

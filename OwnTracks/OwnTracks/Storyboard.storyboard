@@ -152,7 +152,7 @@
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2MJ-7K-q1Z">
                                                     <rect key="frame" x="120" y="7" width="180" height="29"/>
                                                     <segments>
-                                                        <segment title="Own"/>
+                                                        <segment title="Private"/>
                                                         <segment title="Hosted"/>
                                                         <segment title="Public"/>
                                                     </segments>

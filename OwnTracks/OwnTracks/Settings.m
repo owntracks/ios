@@ -14,7 +14,7 @@
 @interface Settings ()
 @property (strong, nonatomic) NSDictionary *appDefaults;
 @property (strong, nonatomic) NSDictionary *publicDefaults;
-@property (strong, nonatomic) NSDictionary *registeredDefaults;
+@property (strong, nonatomic) NSDictionary *hostedDefaults;
 @end
 
 @implementation Settings
@@ -29,11 +29,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         NSURL *bundleURL = [[NSBundle mainBundle] bundleURL];
         NSURL *settingsPlistURL = [bundleURL URLByAppendingPathComponent:@"Settings.plist"];
         NSURL *publicPlistURL = [bundleURL URLByAppendingPathComponent:@"Public.plist"];
-        NSURL *registeredPlistURL = [bundleURL URLByAppendingPathComponent:@"Registered.plist"];
+        NSURL *hostedPlistURL = [bundleURL URLByAppendingPathComponent:@"Hosted.plist"];
         
         self.appDefaults = [NSDictionary dictionaryWithContentsOfURL:settingsPlistURL];
         self.publicDefaults = [NSDictionary dictionaryWithContentsOfURL:publicPlistURL];
-        self.registeredDefaults = [NSDictionary dictionaryWithContentsOfURL:registeredPlistURL];
+        self.hostedDefaults = [NSDictionary dictionaryWithContentsOfURL:hostedPlistURL];
     }
     return self;
 }
@@ -313,7 +313,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
 }
 
-- (BOOL)validInRegisteredMode:(NSString *)key {
+- (BOOL)validInHostedMode:(NSString *)key {
     return ([key isEqualToString:@"mode"] ||
             [key isEqualToString:@"monitoring_preference"] ||
             [key isEqualToString:@"mindist_preference"] ||
@@ -330,7 +330,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)setString:(NSString *)string forKey:(NSString *)key
 {
     if ([self intForKey:@"mode"] == 0 ||
-        ([self intForKey:@"mode"] == 1 && [self validInRegisteredMode:key]) ||
+        ([self intForKey:@"mode"] == 1 && [self validInHostedMode:key]) ||
         ([self intForKey:@"mode"] == 2 && [self validInPublicMode:key])) {
         Setting *setting = [Setting settingWithKey:key inManagedObjectContext:[CoreData theManagedObjectContext]];
         setting.value = string;
@@ -365,8 +365,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 value = [(NSNumber *)object stringValue];
             }
         }
-    } else if ([[self stringForKeyRaw:@"mode"] intValue] == 1 && ![self validInRegisteredMode:key]) {
-        id object = [self.registeredDefaults objectForKey:key];
+    } else if ([[self stringForKeyRaw:@"mode"] intValue] == 1 && ![self validInHostedMode:key]) {
+        id object = [self.hostedDefaults objectForKey:key];
         if (object) {
             if ([object isKindOfClass:[NSString class]]) {
                 value = (NSString *)object;

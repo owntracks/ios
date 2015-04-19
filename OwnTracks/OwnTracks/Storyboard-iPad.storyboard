@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="2LL-Qe-Ldb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="2LL-Qe-Ldb">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
@@ -730,19 +730,8 @@
                                                         <action selector="checkConnection:" destination="wIr-Ka-wY2" eventType="touchUpInside" id="saa-rC-vZj"/>
                                                     </connections>
                                                 </button>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Zd5-UM-LTU">
-                                                    <rect key="frame" x="120" y="7" width="168" height="29"/>
-                                                    <segments>
-                                                        <segment title="Own"/>
-                                                        <segment title="Hosted"/>
-                                                        <segment title="Public"/>
-                                                    </segments>
-                                                    <connections>
-                                                        <action selector="modeChanged:" destination="wIr-Ka-wY2" eventType="valueChanged" id="mXm-uo-xu7"/>
-                                                    </connections>
-                                                </segmentedControl>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vca-Hv-5NZ">
-                                                    <rect key="frame" x="72" y="6" width="40" height="30"/>
+                                                    <rect key="frame" x="72" y="7" width="40" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="eg5-gS-ltf"/>
                                                         <constraint firstAttribute="height" constant="30" id="gXt-9l-yWy"/>
@@ -754,6 +743,17 @@
                                                         <segue destination="Vdq-8x-dhi" kind="push" id="1T8-oz-FY1"/>
                                                     </connections>
                                                 </button>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Zd5-UM-LTU">
+                                                    <rect key="frame" x="120" y="7" width="168" height="29"/>
+                                                    <segments>
+                                                        <segment title="Private"/>
+                                                        <segment title="Hosted"/>
+                                                        <segment title="Public"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="modeChanged:" destination="wIr-Ka-wY2" eventType="valueChanged" id="mXm-uo-xu7"/>
+                                                    </connections>
+                                                </segmentedControl>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="Zd5-UM-LTU" secondAttribute="trailing" constant="20" symbolic="YES" id="H1h-ml-jqV"/>

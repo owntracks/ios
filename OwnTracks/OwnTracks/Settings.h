@@ -33,6 +33,6 @@
 - (NSString *)theSubscriptions;
 
 - (BOOL)validInPublicMode:(NSString *)key;
-- (BOOL)validInRegisteredMode:(NSString *)key;
+- (BOOL)validInHostedMode:(NSString *)key;
 
 @end
