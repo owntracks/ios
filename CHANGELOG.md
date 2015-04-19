@@ -1,6 +1,14 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.0.13
+>Release date: 2015-04-19 for alpha testers only
+
+Testing in different private environments
+
+* [FIX] process incoming topics with leading slash correctly #143
+* [NEW] Rename Mode Own to Private #144
+
 ## OwnTracks 8.0.12
 >Release date: 2015-04-18 for alpha testers only
 
