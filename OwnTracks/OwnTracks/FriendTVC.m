@@ -38,6 +38,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     return self;
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

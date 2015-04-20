@@ -492,8 +492,39 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSString *subscriptions;
     subscriptions = [self stringForKey:@"subscription_preference"];
     
-    if (!subscriptions || [subscriptions isEqualToString:@""]) {
-        subscriptions = [NSString stringWithFormat:@"owntracks/+/+ owntracks/+/+/event owntracks/+/+/info owntracks/%@/cmd", [self theId]];
+    if (!subscriptions || subscriptions.length == 0) {
+        NSArray *baseComponents = [[self theGeneralTopic] componentsSeparatedByCharactersInSet:
+                                   [NSCharacterSet characterSetWithCharactersInString:@"/"]];
+        
+        NSString *anyDevice = @"";
+        int any = 1;
+        NSString *firstString = nil;
+        if (baseComponents.count > 0) {
+            firstString = baseComponents[0];
+        }
+        if (firstString && firstString.length == 0) {
+            any++;
+        }
+        
+        for (int i = 0; i < any; i++) {
+            if (i > 0) {
+                anyDevice = [anyDevice stringByAppendingString:@"/"];
+            }
+            anyDevice = [anyDevice stringByAppendingString:baseComponents[i]];
+        }
+        
+        for (int i = any; i < [baseComponents count]; i++) {
+            if (i > 0) {
+                anyDevice = [anyDevice stringByAppendingString:@"/"];
+            }
+            anyDevice = [anyDevice stringByAppendingString:@"+"];
+        }
+
+        subscriptions = [NSString stringWithFormat:@"%@ %@/event %@/info %@/cmd",
+                         anyDevice,
+                         anyDevice,
+                         anyDevice,
+                         [self theGeneralTopic]];
     } else if ([subscriptions isEqualToString:@"%"]) {
         subscriptions = [NSString stringWithFormat:@"public/user/+ public/user/+/event public/user/+/info public/user/%@/cmd", [self theDeviceId]];
     }

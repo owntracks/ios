@@ -1,6 +1,17 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.0.15
+>Release date: 2015-04-20 for alpha testers only (8.0.14 skipped)
+
+Found a number of bugs while testing in different environments
+
+[NEW] Clearer UI in settings tab for Check and Mode #145
+[FIX] Hitting Annotation Info in map before hiding Navigation Bar opened Status view without possibility to return #147
+[NEW] On reconnect (or when switching Modes) a location update is published #148
+[FIX] correct default subscriptions for non-standard topic settings #149
+[FIX] notifications in-app and in iOS Notification Center when entering/leaving regions #150
+
 ## OwnTracks 8.0.13
 >Release date: 2015-04-19 for alpha testers only
 

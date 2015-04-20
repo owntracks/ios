@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--OwnTracks-->
@@ -52,21 +53,34 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WSL-Gt-f4i">
+                                <rect key="frame" x="20" y="959" width="728" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="jWk-tk-byT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="WSL-Gt-f4i" firstAttribute="leading" secondItem="gYg-2I-7Rt" secondAttribute="leadingMargin" id="0Tl-Ip-oYE"/>
                             <constraint firstAttribute="trailing" secondItem="olS-NO-O3q" secondAttribute="trailing" id="4AG-Au-k60"/>
                             <constraint firstAttribute="trailing" secondItem="Yax-Vv-2o3" secondAttribute="trailing" id="5AS-Ld-AiH"/>
                             <constraint firstItem="UAe-EQ-tHJ" firstAttribute="top" secondItem="Yax-Vv-2o3" secondAttribute="bottom" id="6QJ-zp-rcA"/>
                             <constraint firstItem="olS-NO-O3q" firstAttribute="top" secondItem="gYg-2I-7Rt" secondAttribute="top" id="7hP-yG-TXu"/>
+                            <constraint firstItem="WSL-Gt-f4i" firstAttribute="trailing" secondItem="gYg-2I-7Rt" secondAttribute="trailingMargin" id="Uce-Eu-NsP"/>
                             <constraint firstItem="Yax-Vv-2o3" firstAttribute="leading" secondItem="gYg-2I-7Rt" secondAttribute="leading" id="ayH-gQ-9mV"/>
                             <constraint firstItem="UAe-EQ-tHJ" firstAttribute="top" secondItem="olS-NO-O3q" secondAttribute="bottom" id="kSI-M7-bb0"/>
                             <constraint firstItem="olS-NO-O3q" firstAttribute="leading" secondItem="gYg-2I-7Rt" secondAttribute="leading" id="mlZ-bd-81d"/>
+                            <constraint firstItem="Yax-Vv-2o3" firstAttribute="top" secondItem="WSL-Gt-f4i" secondAttribute="bottom" id="zOw-ES-jgk"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="OwnTracks" id="4bq-gf-CEv"/>
                     <connections>
+                        <outlet property="UIBadge" destination="WSL-Gt-f4i" id="K9D-GH-LvZ"/>
                         <outlet property="beaconButton" destination="WRq-zL-uFa" id="CRy-6U-MSG"/>
                         <outlet property="connectionButton" destination="i7l-hT-jMJ" id="Igu-D7-s4U"/>
                         <outlet property="locationButton" destination="L0c-qr-weR" id="2zr-Dr-vkm"/>
@@ -694,29 +708,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="status" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z27-9u-VcL">
-                                                    <rect key="frame" x="20" y="13" width="201" height="17"/>
+                                                    <rect key="frame" x="72" y="13" width="149" height="17"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL"/>
                                                 </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="z27-9u-VcL" firstAttribute="leading" secondItem="LGg-PI-gqq" secondAttribute="leading" constant="20" symbolic="YES" id="8sc-Ew-VaG"/>
-                                                <constraint firstAttribute="centerY" secondItem="z27-9u-VcL" secondAttribute="centerY" id="CUc-xS-0UL"/>
-                                                <constraint firstAttribute="trailing" secondItem="z27-9u-VcL" secondAttribute="trailing" constant="20" symbolic="YES" id="G1n-eY-joy"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="o8h-dT-Blo" kind="push" trigger="accessoryAction" id="N5x-o8-fO4"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="mO8-15-XyX">
-                                        <rect key="frame" x="0.0" y="163" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mO8-15-XyX" id="rMF-U1-eH7">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LEM-YI-w2c">
                                                     <rect key="frame" x="20" y="7" width="44" height="30"/>
                                                     <constraints>
@@ -730,21 +726,36 @@
                                                         <action selector="checkConnection:" destination="wIr-Ka-wY2" eventType="touchUpInside" id="saa-rC-vZj"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vca-Hv-5NZ">
-                                                    <rect key="frame" x="72" y="7" width="40" height="30"/>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="z27-9u-VcL" secondAttribute="centerY" id="CUc-xS-0UL"/>
+                                                <constraint firstAttribute="trailing" secondItem="z27-9u-VcL" secondAttribute="trailing" constant="20" symbolic="YES" id="G1n-eY-joy"/>
+                                                <constraint firstAttribute="centerY" secondItem="LEM-YI-w2c" secondAttribute="centerY" id="T56-zt-o1f"/>
+                                                <constraint firstItem="LEM-YI-w2c" firstAttribute="leading" secondItem="LGg-PI-gqq" secondAttribute="leading" constant="20" symbolic="YES" id="XoP-My-deg"/>
+                                                <constraint firstItem="z27-9u-VcL" firstAttribute="leading" secondItem="LEM-YI-w2c" secondAttribute="trailing" constant="8" symbolic="YES" id="sS4-XV-Ub9"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="o8h-dT-Blo" kind="push" trigger="accessoryAction" id="N5x-o8-fO4"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="mO8-15-XyX">
+                                        <rect key="frame" x="0.0" y="163" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mO8-15-XyX" id="rMF-U1-eH7">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDy-xl-K32">
+                                                    <rect key="frame" x="20" y="11" width="45" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="eg5-gS-ltf"/>
-                                                        <constraint firstAttribute="height" constant="30" id="gXt-9l-yWy"/>
+                                                        <constraint firstAttribute="width" constant="45" id="4Pl-5F-wna"/>
                                                     </constraints>
-                                                    <state key="normal" title="Mode">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <segue destination="Vdq-8x-dhi" kind="push" id="1T8-oz-FY1"/>
-                                                    </connections>
-                                                </button>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Zd5-UM-LTU">
-                                                    <rect key="frame" x="120" y="7" width="168" height="29"/>
+                                                    <rect key="frame" x="73" y="7" width="148" height="29"/>
                                                     <segments>
                                                         <segment title="Private"/>
                                                         <segment title="Hosted"/>
@@ -757,14 +768,15 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="Zd5-UM-LTU" secondAttribute="trailing" constant="20" symbolic="YES" id="H1h-ml-jqV"/>
-                                                <constraint firstAttribute="centerY" secondItem="vca-Hv-5NZ" secondAttribute="centerY" id="Mcd-Ec-pdT"/>
-                                                <constraint firstItem="LEM-YI-w2c" firstAttribute="leading" secondItem="rMF-U1-eH7" secondAttribute="leading" constant="20" symbolic="YES" id="U8F-Vz-OUh"/>
+                                                <constraint firstItem="PDy-xl-K32" firstAttribute="leading" secondItem="rMF-U1-eH7" secondAttribute="leading" constant="20" symbolic="YES" id="HX0-GL-lcI"/>
                                                 <constraint firstAttribute="centerY" secondItem="Zd5-UM-LTU" secondAttribute="centerY" id="WXz-au-2Bq"/>
-                                                <constraint firstItem="vca-Hv-5NZ" firstAttribute="leading" secondItem="LEM-YI-w2c" secondAttribute="trailing" constant="8" symbolic="YES" id="Y3c-Yh-1aV"/>
-                                                <constraint firstAttribute="centerY" secondItem="LEM-YI-w2c" secondAttribute="centerY" id="ppC-UR-w8w"/>
-                                                <constraint firstItem="Zd5-UM-LTU" firstAttribute="leading" secondItem="vca-Hv-5NZ" secondAttribute="trailing" constant="8" symbolic="YES" id="z4f-iK-bJq"/>
+                                                <constraint firstItem="Zd5-UM-LTU" firstAttribute="leading" secondItem="PDy-xl-K32" secondAttribute="trailing" constant="8" symbolic="YES" id="c1I-FO-l5N"/>
+                                                <constraint firstAttribute="centerY" secondItem="PDy-xl-K32" secondAttribute="centerY" id="fyv-0B-hnJ"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="Vdq-8x-dhi" kind="push" trigger="accessoryAction" id="HaI-x6-gTO"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="l7f-kH-FLM">
                                         <rect key="frame" x="0.0" y="207" width="320" height="44"/>

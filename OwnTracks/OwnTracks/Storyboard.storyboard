@@ -99,30 +99,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="253" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="status" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dkt-W1-c4K">
-                                                    <rect key="frame" x="20" y="13" width="213" height="17"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL"/>
-                                                </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Dkt-W1-c4K" firstAttribute="leading" secondItem="uXf-Xb-bw8" secondAttribute="leading" constant="20" symbolic="YES" id="26h-9x-Taa"/>
-                                                <constraint firstAttribute="trailing" secondItem="Dkt-W1-c4K" secondAttribute="trailing" constant="20" symbolic="YES" id="HME-ZE-te9"/>
-                                                <constraint firstAttribute="centerY" secondItem="Dkt-W1-c4K" secondAttribute="centerY" id="cZD-cB-QYq"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="G87-RS-wz7" kind="push" trigger="accessoryAction" id="hQp-fE-dzp"/>
-                                        </connections>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="KaH-TS-onI">
-                                        <rect key="frame" x="0.0" y="163" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KaH-TS-onI" id="GUj-99-7gn">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P4K-Co-8TG">
                                                     <rect key="frame" x="20" y="7" width="44" height="30"/>
                                                     <constraints>
@@ -136,21 +112,45 @@
                                                         <action selector="checkConnection:" destination="nAk-La-kdM" eventType="touchUpInside" id="fgg-De-8cf"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TTM-eN-kqS">
-                                                    <rect key="frame" x="72" y="7" width="40" height="30"/>
+                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="status" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dkt-W1-c4K">
+                                                    <rect key="frame" x="72" y="13" width="161" height="17"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="P4K-Co-8TG" firstAttribute="leading" secondItem="uXf-Xb-bw8" secondAttribute="leading" constant="20" symbolic="YES" id="3Xq-sW-5A5"/>
+                                                <constraint firstAttribute="trailing" secondItem="Dkt-W1-c4K" secondAttribute="trailing" constant="20" symbolic="YES" id="HME-ZE-te9"/>
+                                                <constraint firstAttribute="centerY" secondItem="P4K-Co-8TG" secondAttribute="centerY" id="Nyo-RD-x9f"/>
+                                                <constraint firstAttribute="centerY" secondItem="Dkt-W1-c4K" secondAttribute="centerY" id="cZD-cB-QYq"/>
+                                                <constraint firstItem="Dkt-W1-c4K" firstAttribute="leading" secondItem="P4K-Co-8TG" secondAttribute="trailing" constant="8" symbolic="YES" id="qvF-3L-txt"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="G87-RS-wz7" kind="push" trigger="accessoryAction" id="hQp-fE-dzp"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="KaH-TS-onI">
+                                        <rect key="frame" x="0.0" y="163" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KaH-TS-onI" id="GUj-99-7gn">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3ad-LO-zcn">
+                                                    <rect key="frame" x="20" y="11" width="45" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="40" id="CSt-y5-sdq"/>
-                                                        <constraint firstAttribute="height" constant="30" id="DAg-31-Tau"/>
+                                                        <constraint firstAttribute="width" constant="45" id="GmD-ep-LYv"/>
                                                     </constraints>
-                                                    <state key="normal" title="Mode">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <segue destination="IUE-60-afE" kind="push" id="g3f-fk-0e9"/>
-                                                    </connections>
-                                                </button>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2MJ-7K-q1Z">
-                                                    <rect key="frame" x="120" y="7" width="180" height="29"/>
+                                                    <rect key="frame" x="73" y="7" width="160" height="29"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="160" id="idW-gF-tRS"/>
+                                                    </constraints>
                                                     <segments>
                                                         <segment title="Private"/>
                                                         <segment title="Hosted"/>
@@ -163,14 +163,15 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="2MJ-7K-q1Z" secondAttribute="trailing" constant="20" symbolic="YES" id="46g-rZ-O2e"/>
-                                                <constraint firstItem="P4K-Co-8TG" firstAttribute="leading" secondItem="GUj-99-7gn" secondAttribute="leading" constant="20" symbolic="YES" id="5Er-bd-Agc"/>
-                                                <constraint firstItem="TTM-eN-kqS" firstAttribute="leading" secondItem="P4K-Co-8TG" secondAttribute="trailing" constant="8" symbolic="YES" id="ElS-S4-0HF"/>
-                                                <constraint firstAttribute="centerY" secondItem="P4K-Co-8TG" secondAttribute="centerY" id="YSG-Ea-Bm7"/>
-                                                <constraint firstItem="2MJ-7K-q1Z" firstAttribute="leading" secondItem="TTM-eN-kqS" secondAttribute="trailing" constant="8" symbolic="YES" id="d4J-6B-yQZ"/>
+                                                <constraint firstItem="3ad-LO-zcn" firstAttribute="leading" secondItem="GUj-99-7gn" secondAttribute="leading" constant="20" symbolic="YES" id="7tW-9T-heX"/>
+                                                <constraint firstAttribute="centerY" secondItem="3ad-LO-zcn" secondAttribute="centerY" id="BSo-YE-JyK"/>
                                                 <constraint firstAttribute="centerY" secondItem="2MJ-7K-q1Z" secondAttribute="centerY" id="rVA-BL-yVR"/>
-                                                <constraint firstAttribute="centerY" secondItem="TTM-eN-kqS" secondAttribute="centerY" id="uK2-qU-KjY"/>
+                                                <constraint firstItem="2MJ-7K-q1Z" firstAttribute="leading" secondItem="3ad-LO-zcn" secondAttribute="trailing" constant="8" symbolic="YES" id="wak-r1-a3t"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="IUE-60-afE" kind="push" trigger="accessoryAction" id="jfs-vQ-YFO"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="rza-zb-cY7">
                                         <rect key="frame" x="0.0" y="207" width="320" height="44"/>

@@ -57,9 +57,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     
     if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes: UIUserNotificationTypeAlert |
-                                                UIUserNotificationTypeBadge |
-                                                UIUserNotificationTypeSound
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:
+                                                UIUserNotificationTypeAlert |
+                                                UIUserNotificationTypeBadge
                                                                                  categories:[NSSet setWithObjects:nil]];
        // NSLog(@"registerUserNotificationSettings %@", settings);
         [application registerUserNotificationSettings:settings];
@@ -71,7 +71,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [Fabric with:@[CrashlyticsKit]];
     
+#ifdef DEBUG
     [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelAll];
+#else
+    [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelError];
+#endif
+    
     [DDLog addLogger:[DDASLLogger sharedInstance] withLevel:DDLogLevelError];
     
     DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
@@ -123,12 +128,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     [self connect];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(batteryLevelChanged:)
-                                                 name:UIDeviceBatteryLevelDidChangeNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(batteryStateChanged:)
-                                                 name:UIDeviceBatteryStateDidChangeNotification object:nil];
     [[UIDevice currentDevice] setBatteryMonitoringEnabled:TRUE];
     
     LocationManager *locationManager = [LocationManager sharedInstance];
@@ -144,24 +143,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     [self share];
-}
-
-- (void)batteryLevelChanged:(NSNotification *)notification {
-    DDLogVerbose(@"batteryLevelChanged %.0f", [UIDevice currentDevice].batteryLevel);
-    // No, we do not want to switch off location monitoring when battery gets low
-}
-
-- (void)batteryStateChanged:(NSNotification *)notification {
-    const NSDictionary *states = @{
-                                   @(UIDeviceBatteryStateUnknown): @"unknown",
-                                   @(UIDeviceBatteryStateUnplugged): @"unplugged",
-                                   @(UIDeviceBatteryStateCharging): @"charging",
-                                   @(UIDeviceBatteryStateFull): @"full"
-                                   };
-    
-    DDLogVerbose(@"batteryStateChanged %@ (%ld)",
-                 states[@([UIDevice currentDevice].batteryState)],
-                 (long)[UIDevice currentDevice].batteryState);
 }
 
 - (BOOL)application:(UIApplication *)application
@@ -246,6 +227,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
+/*
 - (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notification {
     DDLogVerbose(@"didReceiveLocalNotification %@", notification.alertBody);
     if (notification.userInfo) {
@@ -254,6 +236,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         }
     }
 }
+ */
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     DDLogVerbose(@"performFetchWithCompletionHandler");
@@ -686,6 +669,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.connectionOut disconnect];
     [self.connectionIn disconnect];
     [self connect];
+    [self sendNow];
 }
 
 - (void)publishLocation:(CLLocation *)location automatic:(BOOL)automatic addon:(NSDictionary *)addon {
@@ -779,19 +763,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     notification.alertBody = message;
     notification.alertLaunchImage = @"itunesArtwork.png";
     notification.userInfo = userInfo;
-    [[UIApplication sharedApplication] presentLocalNotificationNow:notification];
-    
-}
-
-- (void)notification:(NSString *)message after:(NSTimeInterval)after userInfo:(NSDictionary *)userInfo {
-    DDLogVerbose(@"App notification %@ userinfo %@ after %f", message, userInfo, after);
-    
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.alertBody = message;
-    notification.alertLaunchImage = @"itunesArtwork.png";
-    notification.userInfo = userInfo;
-    notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:after];
+    notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    
+    if (notification.userInfo) {
+        if ([notification.userInfo[@"notify"] isEqualToString:@"friend"]) {
+            [AlertView alert:@"Friend Notification" message:notification.alertBody dismissAfter:2.0];
+        }
+    }
 }
 
 - (void)connect {

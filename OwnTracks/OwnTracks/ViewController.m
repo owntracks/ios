@@ -20,6 +20,7 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *UIBadge;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *locationButton;
@@ -42,6 +43,18 @@
 static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 #define KEEPALIVE 600.0
+
+- (void)setBadge:(NSNumber *)number {
+    unsigned long inQueue = [number unsignedLongValue];
+    DDLogVerbose(@"inQueue %lu", inQueue);
+    if (self.UIBadge) {
+        if (inQueue > 0) {
+            self.UIBadge.text = [NSString stringWithFormat:@"%lu", inQueue];
+        } else {
+            self.UIBadge.text = @"";
+        }
+    }
+}
 
 - (void)viewDidLoad
 {
@@ -142,6 +155,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                   options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     [delegate addObserver:self forKeyPath:@"connectionBufferedOut"
                   options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+    [delegate addObserver:self forKeyPath:@"inQueue"
+                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     
     [self monitoringButtonImage];
     [self beaconButtonImage];
@@ -177,6 +192,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate removeObserver:self forKeyPath:@"connectionStateOut" context:nil];
     [delegate removeObserver:self forKeyPath:@"connectionBufferedOut" context:nil];
+    [delegate removeObserver:self forKeyPath:@"inQueue" context:nil];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
@@ -189,13 +205,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)object;
-    if ([keyPath isEqualToString:@"connectionStateOut"]) {
-        self.connectionStateOut = [delegate.connectionStateOut intValue];
+    if ([keyPath isEqualToString:@"connectionStateOut"] || [keyPath isEqualToString:@"connectionBufferedOut"]) {
+        if ([keyPath isEqualToString:@"connectionStateOut"]) {
+            self.connectionStateOut = [delegate.connectionStateOut intValue];
+        }
+        if ([keyPath isEqualToString:@"connectionBufferedOut"]) {
+            self.connectionBufferedOut = [delegate.connectionBufferedOut intValue];
+        }
+        [self connectionButtonImage];
     }
-    if ([keyPath isEqualToString:@"connectionBufferedOut"]) {
-        self.connectionBufferedOut = [delegate.connectionBufferedOut intValue];
+    if ([keyPath isEqualToString:@"inQueue"]) {
+        [self performSelectorOnMainThread:@selector(setBadge:) withObject:delegate.inQueue waitUntilDone:NO];
     }
-    [self connectionButtonImage];
 }
 
 
@@ -430,6 +451,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     if ([segue.identifier isEqualToString:@"showDetail:"]) {
         if ([segue.destinationViewController respondsToSelector:@selector(setLocation:)]) {
+            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideNavBar) object:nil];
             MKAnnotationView *view = (MKAnnotationView *)sender;
             Location *location  = (Location *)view.annotation;
             [segue.destinationViewController performSelector:@selector(setLocation:) withObject:location];
@@ -581,9 +603,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     DDLogVerbose(@"didSelectAnnotationView");
 }
 
-- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
-{
-    DDLogVerbose(@"calloutAccessoryControlTapped");
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    DDLogVerbose(@"calloutAccessoryControlTapped %@ %@", view, control);
     if (control == view.rightCalloutAccessoryView) {
         [self performSegueWithIdentifier:@"showDetail:" sender:view];
     } else if (control == view.leftCalloutAccessoryView) {

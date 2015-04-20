@@ -10,40 +10,49 @@
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
-#define DISMISS_AFTER 0.5
+@interface AlertView()
+@property (strong, nonatomic) UIAlertView *alertView;
+
+@end
 
 @implementation AlertView
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
-+ (void)dummy {
-    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
-}
-
-+ (void)alert:(NSString *)title message:(NSString *)message
-{
++ (void)alert:(NSString *)title message:(NSString *)message {
     [AlertView alert:title message:message dismissAfter:0];
 }
 
-+ (void)alert:(NSString *)title message:(NSString *)message dismissAfter:(NSTimeInterval)interval
-{
-    DDLogVerbose(@"App alert %@/%@ (%f)", title, message, interval);
++ (void)alert:(NSString *)title message:(NSString *)message dismissAfter:(NSTimeInterval)interval {
+    (void)[[AlertView alloc] initWithAlert:title message:message dismissAfter:interval];
+}
+
+- (AlertView *)initWithAlert:(NSString *)title message:(NSString *)message dismissAfter:(NSTimeInterval)interval {
+    self = [super init];
     
+    DDLogVerbose(@"AlertView ddLogLevel %lu", (unsigned long)ddLogLevel);
+    DDLogVerbose(@"AlertView %@/%@ (%f)", title, message, interval);
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
-                                                            message:message
-                                                           delegate:nil
-                                                  cancelButtonTitle:interval ? nil : @"OK"
-                                                  otherButtonTitles:nil];
-        [alertView show];
-        
-        if (interval) {
-            [AlertView performSelector:@selector(dismissAfterDelay:) withObject:alertView afterDelay:interval];
-        }
+        self.alertView = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                   delegate:nil
+                                          cancelButtonTitle:interval ? nil : @"OK"
+                                          otherButtonTitles:nil];
+        [self performSelectorOnMainThread:@selector(setup:) withObject:[NSNumber numberWithFloat:interval] waitUntilDone:NO];
+    }
+    return self;
+}
+
+- (void)setup:(NSNumber *)interval {
+    NSTimeInterval timeInterval = [interval doubleValue];
+    [self.alertView show];
+    if (timeInterval) {
+        [self performSelector:@selector(dismissAfterDelay:) withObject:self.alertView afterDelay:timeInterval];
     }
 }
 
-+ (void)dismissAfterDelay:(UIAlertView *)alertView
+- (void)dismissAfterDelay:(UIAlertView *)alertView
 {
+    DDLogVerbose(@"AlertView dismissAfterDelay");
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
 }
 
