@@ -1018,6 +1018,87 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Yx8-LY-75i">
+                                        <rect key="frame" x="0.0" y="427" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yx8-LY-75i" id="zrJ-Jb-hdh">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ufg-G8-jjK">
+                                                    <rect key="frame" x="20" y="11" width="36" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="user" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pfT-s6-LBw">
+                                                    <rect key="frame" x="64" y="13" width="224" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="pfT-s6-LBw" secondAttribute="trailing" constant="20" symbolic="YES" id="2K5-ey-LmQ"/>
+                                                <constraint firstAttribute="centerY" secondItem="Ufg-G8-jjK" secondAttribute="centerY" id="iBF-DN-tyc"/>
+                                                <constraint firstAttribute="centerY" secondItem="pfT-s6-LBw" secondAttribute="centerY" id="oeJ-r0-Brg"/>
+                                                <constraint firstItem="pfT-s6-LBw" firstAttribute="leading" secondItem="Ufg-G8-jjK" secondAttribute="trailing" constant="8" symbolic="YES" id="sJH-eU-PPT"/>
+                                                <constraint firstItem="Ufg-G8-jjK" firstAttribute="leading" secondItem="zrJ-Jb-hdh" secondAttribute="leading" constant="20" symbolic="YES" id="uq8-kG-M4E"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="VNW-9X-Kd4">
+                                        <rect key="frame" x="0.0" y="427" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VNW-9X-Kd4" id="7hN-fT-NG6">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XHS-8d-4Hb">
+                                                    <rect key="frame" x="20" y="11" width="53" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="device" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qI4-cv-uRj">
+                                                    <rect key="frame" x="81" y="13" width="207" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="qI4-cv-uRj" secondAttribute="centerY" id="JJE-6S-ewR"/>
+                                                <constraint firstAttribute="trailing" secondItem="qI4-cv-uRj" secondAttribute="trailing" constant="20" symbolic="YES" id="N80-Ju-NFo"/>
+                                                <constraint firstItem="qI4-cv-uRj" firstAttribute="leading" secondItem="XHS-8d-4Hb" secondAttribute="trailing" constant="8" symbolic="YES" id="bu4-ND-jcT"/>
+                                                <constraint firstAttribute="centerY" secondItem="XHS-8d-4Hb" secondAttribute="centerY" id="k2W-o8-iTv"/>
+                                                <constraint firstItem="XHS-8d-4Hb" firstAttribute="leading" secondItem="7hN-fT-NG6" secondAttribute="leading" constant="20" symbolic="YES" id="sIr-Is-0If"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="NcJ-WT-bGd">
+                                        <rect key="frame" x="0.0" y="427" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NcJ-WT-bGd" id="w3j-kx-fgE">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Token" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eyT-g4-YqU">
+                                                    <rect key="frame" x="20" y="11" width="46" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="token" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fRO-jw-vnq">
+                                                    <rect key="frame" x="74" y="13" width="214" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="eyT-g4-YqU" secondAttribute="centerY" id="4wz-Jj-gcK"/>
+                                                <constraint firstItem="eyT-g4-YqU" firstAttribute="leading" secondItem="w3j-kx-fgE" secondAttribute="leading" constant="20" symbolic="YES" id="Hig-h6-H52"/>
+                                                <constraint firstItem="fRO-jw-vnq" firstAttribute="leading" secondItem="eyT-g4-YqU" secondAttribute="trailing" constant="8" symbolic="YES" id="VkS-pD-oCh"/>
+                                                <constraint firstAttribute="trailing" secondItem="fRO-jw-vnq" secondAttribute="trailing" constant="20" symbolic="YES" id="ndv-Tf-3iC"/>
+                                                <constraint firstAttribute="centerY" secondItem="fRO-jw-vnq" secondAttribute="centerY" id="qHE-Rl-2Df"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Reporting" id="Id5-n4-kUr">
@@ -1081,6 +1162,9 @@
                                                 <constraint firstAttribute="centerY" secondItem="zqa-Qt-D7c" secondAttribute="centerY" id="liW-VX-Q9D"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="y7v-Tf-mlu" kind="push" trigger="accessoryAction" id="jzE-iC-NfD"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="44" id="UJP-gR-6br">
                                         <rect key="frame" x="0.0" y="739" width="320" height="44"/>
@@ -1627,13 +1711,16 @@
                         <outlet property="UIWillRetain" destination="jrI-1b-UVy" id="q8f-Ze-ciJ"/>
                         <outlet property="UIWillTopic" destination="aam-Xg-vFW" id="gfc-Cd-ZRG"/>
                         <outlet property="UIallowRemoteLocation" destination="qo3-Z9-VKu" id="zJE-l4-K0Z"/>
+                        <outlet property="UIdevice" destination="qI4-cv-uRj" id="521-oX-XBH"/>
                         <outlet property="UIexport" destination="Dfl-i4-2hW" id="Fn4-LQ-OwL"/>
                         <outlet property="UIextendedData" destination="yf4-6B-QAB" id="ipj-pO-83Z"/>
                         <outlet property="UImode" destination="Zd5-UM-LTU" id="o7b-if-j99"/>
                         <outlet property="UIqos" destination="sUY-ch-Z4O" id="yB8-3r-34S"/>
                         <outlet property="UIstatus" destination="z27-9u-VcL" id="wpC-Iz-24z"/>
                         <outlet property="UIsubscriptionqos" destination="JW9-1E-Qlr" id="1R2-IC-FDM"/>
+                        <outlet property="UItoken" destination="fRO-jw-vnq" id="JgD-MG-ijk"/>
                         <outlet property="UItrackerid" destination="ADX-xL-Yme" id="Etu-cU-SLw"/>
+                        <outlet property="UIuser" destination="pfT-s6-LBw" id="lnk-Gb-fxR"/>
                         <outlet property="UIwillqos" destination="Tai-cK-uzb" id="cg4-vn-sAa"/>
                     </connections>
                 </tableViewController>
@@ -1661,15 +1748,15 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="29T-mH-87F">
                                 <rect key="frame" x="0.0" y="64" width="308" height="911"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Public Mode
+                                <mutableString key="text">Public Mode
 
 In public mode, you can get an impression of OwnTracks functionality.
 
 Your location will be anonymously published to owntrack.org's public broker and will be shared with all other users in public mode. Your data will not be stored and will only be forwarded to users connected at the same time.
 
-Please visit http://public.owntracks.org to obtain an OwnTracks user id and setup your private group of OwnTracks users.
+Please visit http://traction.owntracks.org to obtain an OwnTracks user id and setup your private group of OwnTracks users.
 
-Or you may setup your own OwnTracks server for full privacy protection. More Info on http://owntracks.org</string>
+Or you may setup your own OwnTracks server for full privacy protection. More Info on http://owntracks.org</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
@@ -1971,6 +2058,31 @@ Or you may setup your own OwnTracks server for full privacy protection. More Inf
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Subscriptions (whitespace separated)" id="YaM-yo-OXN">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="aGh-H8-eD4">
+                                        <rect key="frame" x="0.0" y="395" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aGh-H8-eD4" id="Ira-kD-YkY">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="effectivesubscriptions" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4aS-O7-IsJ">
+                                                    <rect key="frame" x="20" y="13" width="268" height="17"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="4aS-O7-IsJ" secondAttribute="centerY" id="0vM-pv-XoN"/>
+                                                <constraint firstItem="4aS-O7-IsJ" firstAttribute="leading" secondItem="Ira-kD-YkY" secondAttribute="leading" constant="20" symbolic="YES" id="8xv-Us-edf"/>
+                                                <constraint firstAttribute="trailing" secondItem="4aS-O7-IsJ" secondAttribute="trailing" constant="20" symbolic="YES" id="xfK-Tw-aEo"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="y7v-Tf-mlu" id="Yc5-vD-8ix"/>
@@ -1983,6 +2095,7 @@ Or you may setup your own OwnTracks server for full privacy protection. More Inf
                         <outlet property="UIeffectiveDeviceId" destination="Swg-kE-FZq" id="Rwe-Ho-fj5"/>
                         <outlet property="UIeffectiveTopic" destination="R01-Yj-9DB" id="3mY-3s-4Xj"/>
                         <outlet property="UIeffectiveWillTopic" destination="yci-ob-qKI" id="VQf-wa-4hc"/>
+                        <outlet property="UIeffectivesubscriptions" destination="4aS-O7-IsJ" id="Ffh-LM-rtx"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vMu-6H-YuH" userLabel="First Responder" sceneMemberID="firstResponder"/>

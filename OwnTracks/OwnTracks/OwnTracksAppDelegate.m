@@ -19,7 +19,6 @@
 
 @interface OwnTracksAppDelegate()
 @property (strong, nonatomic) NSTimer *activityTimer;
-@property (strong, nonatomic) UIAlertView *alertView;
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
 @property (strong, nonatomic) void (^completionHandler)(UIBackgroundFetchResult);
 @property (strong, nonatomic) CoreData *coreData;
@@ -226,17 +225,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         [AlertView alert:@"CoreData" message:message];
     }
 }
-
-/*
-- (void)application:(UIApplication *)app didReceiveLocalNotification:(UILocalNotification *)notification {
-    DDLogVerbose(@"didReceiveLocalNotification %@", notification.alertBody);
-    if (notification.userInfo) {
-        if ([notification.userInfo[@"notify"] isEqualToString:@"friend"]) {
-            [AlertView alert:@"Friend Notification" message:notification.alertBody dismissAfter:2.0];
-        }
-    }
-}
- */
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     DDLogVerbose(@"performFetchWithCompletionHandler");
@@ -779,9 +767,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                               tls:[self.settings boolForKey:@"tls_preference"]
                         keepalive:[self.settings intForKey:@"keepalive_preference"]
                             clean:[self.settings intForKey:@"clean_preference"]
-                             auth:[self.settings boolForKey:@"auth_preference"]
-                             user:[self.settings theUserId]
-                             pass:[self.settings stringForKey:@"pass_preference"]
+                             auth:[self.settings theMqttAuth]
+                             user:[self.settings theMqttUser]
+                             pass:[self.settings theMqttPass]
                         willTopic:[self.settings theWillTopic]
                              will:[self jsonToData:@{
                                                      @"tst": [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]],
@@ -802,9 +790,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                              tls:[self.settings boolForKey:@"tls_preference"]
                        keepalive:[self.settings intForKey:@"keepalive_preference"]
                            clean:[self.settings intForKey:@"clean_preference"]
-                            auth:[self.settings boolForKey:@"auth_preference"]
-                            user:[self.settings theUserId]
-                            pass:[self.settings stringForKey:@"pass_preference"]
+                            auth:[self.settings theMqttAuth]
+                            user:[self.settings theMqttUser]
+                            pass:[self.settings theMqttPass]
                        willTopic:nil
                             will:nil
                          willQos:MQTTQosLevelAtMostOnce

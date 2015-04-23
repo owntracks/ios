@@ -11,6 +11,7 @@
 #import "OwnTracksAppDelegate.h"
 #import "Friend+Create.h"
 #import "CoreData.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface StatusTVC ()
 @property (weak, nonatomic) IBOutlet UISegmentedControl *UImode;
@@ -50,16 +51,22 @@
 @property (weak, nonatomic) IBOutlet UISwitch *UIextendedData;
 @property (weak, nonatomic) IBOutlet UISwitch *UIallowRemoteLocation;
 @property (weak, nonatomic) IBOutlet UIButton *UIexport;
+@property (weak, nonatomic) IBOutlet UITextField *UIuser;
+@property (weak, nonatomic) IBOutlet UITextField *UIdevice;
+@property (weak, nonatomic) IBOutlet UITextField *UItoken;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
 
 @end
 
 @implementation StatusTVC
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
+    
     self.UIHost.delegate = self;
     self.UIPort.delegate = self;
     self.UIUserID.delegate = self;
@@ -74,6 +81,9 @@
     self.UILocatorDisplacement.delegate = self;
     self.UILocatorInterval.delegate = self;
     self.UIPositionsToKeep.delegate = self;
+    self.UIuser.delegate = self;
+    self.UIdevice.delegate = self;
+    self.UItoken.delegate = self;
     
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate addObserver:self
@@ -143,6 +153,9 @@
     if (self.UIKeepAlive) [delegate.settings setString:self.UIKeepAlive.text forKey:@"keepalive_preference"];
     if (self.UIWillTopic) [delegate.settings setString:self.UIWillTopic.text forKey:@"willtopic_preference"];
     if (self.UIWillRetain) [delegate.settings setBool:self.UIWillRetain.on forKey:@"willretain_preference"];
+    if (self.UIuser) [delegate.settings setString:self.UIuser.text forKey:@"user"];
+    if (self.UIdevice) [delegate.settings setString:self.UIdevice.text forKey:@"device"];
+    if (self.UItoken) [delegate.settings setString:self.UItoken.text forKey:@"token"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -217,6 +230,11 @@
     self.UIwillqos.text =                           [self qosString:[delegate.settings intForKey:@"willqos_preference"]];
     self.UIWillRetain.on =                          [delegate.settings boolForKey:@"willretain_preference"];
     
+    self.UIuser.text =                              [delegate.settings stringForKey:@"user"];
+    self.UIdevice.text =                            [delegate.settings stringForKey:@"device"];
+    self.UItoken.text =                             [delegate.settings stringForKey:@"token"];
+
+
     NSMutableArray *hiddenFieldsMode12 = [[NSMutableArray alloc] init];
     NSMutableArray *hiddenIndexPathsMode12 = [[NSMutableArray alloc] init];
     
@@ -317,20 +335,32 @@
     if (self.UIeffectivesubscriptions) {
         [hiddenFieldsMode12 addObject:self.UIeffectivesubscriptions];
     }
-    
-    NSMutableArray *hiddenFieldsMode2 = [[NSMutableArray alloc] init];
-    NSMutableArray *hiddenIndexPathsMode2 = [[NSMutableArray alloc] init];
     if (self.UIDeviceID) {
-        [hiddenFieldsMode2 addObject:self.UIDeviceID];
-        [hiddenIndexPathsMode2 addObject:[NSIndexPath indexPathForRow:1 inSection:1]];
+        [hiddenFieldsMode12 addObject:self.UIDeviceID];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:1 inSection:1]];
     }
     if (self.UIUserID) {
-        [hiddenFieldsMode2 addObject:self.UIUserID];
-        [hiddenIndexPathsMode2 addObject:[NSIndexPath indexPathForRow:6 inSection:0]];
+        [hiddenFieldsMode12 addObject:self.UIUserID];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:6 inSection:0]];
     }
     if (self.UIPassword) {
-        [hiddenFieldsMode2 addObject:self.UIPassword];
-        [hiddenIndexPathsMode2 addObject:[NSIndexPath indexPathForRow:7 inSection:0]];
+        [hiddenFieldsMode12 addObject:self.UIPassword];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:7 inSection:0]];
+    }
+    
+    NSMutableArray *hiddenFieldsMode02 = [[NSMutableArray alloc] init];
+    NSMutableArray *hiddenIndexPathsMode02 = [[NSMutableArray alloc] init];
+    if (self.UIuser) {
+        [hiddenFieldsMode02 addObject:self.UIuser];
+        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:11 inSection:0]];
+    }
+    if (self.UIdevice) {
+        [hiddenFieldsMode02 addObject:self.UIdevice];
+        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:12 inSection:0]];
+    }
+    if (self.UItoken) {
+        [hiddenFieldsMode02 addObject:self.UItoken];
+        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:13 inSection:0]];
     }
     
     int mode = [delegate.settings intForKey:@"mode"];
@@ -346,18 +376,18 @@
         }
     }
     
-    for (UIView *view in hiddenFieldsMode2) {
-        [view setHidden:(mode == 2)];
+    for (UIView *view in hiddenFieldsMode02) {
+        [view setHidden:(mode == 0 || mode == 2)];
     }
-    for (NSIndexPath *indexPath in hiddenIndexPathsMode2) {
-        if ([self isRowVisible:indexPath] && mode == 2) {
+    for (NSIndexPath *indexPath in hiddenIndexPathsMode02) {
+        if ([self isRowVisible:indexPath] && (mode == 0 || mode == 2)) {
             [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        } else if (![self isRowVisible:indexPath] && mode != 2) {
+        } else if (![self isRowVisible:indexPath] && !(mode == 0 || mode == 2)) {
             [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
     }
     
-    self.UIexport.enabled = (mode == 0);
+    self.UIexport.enabled = (mode == 0 || mode == 1);
 }
 
 - (IBAction)exportPressed:(UIButton *)sender {
@@ -457,15 +487,6 @@
     [self.UIPositionsToKeep resignFirstResponder];
 }
 
-- (IBAction)checkConnection:(UIButton *)sender {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    
-    [delegate connectionOff];
-    [delegate syncProcessing];
-    [self updateValues];
-    [delegate reconnect];
-}
-
 - (IBAction)tidChanged:(UITextField *)sender {
     
     if (sender.text.length > 2) {
@@ -516,5 +537,15 @@
     [self updateValues];
     [delegate reconnect];
 }
+
+- (IBAction)checkConnection:(UIButton *)sender {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    [delegate connectionOff];
+    [delegate syncProcessing];
+    [self updateValues];
+    [delegate reconnect];
+}
+
 
 @end

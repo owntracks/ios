@@ -1,6 +1,15 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.0.16
+>Release date: 2015-04-23 for alpha testers only
+
+Elaborated on iPad and Hosted Mode
+
+[NEW] Separate settings for user, device and token in Hosted mode #154
+[FIX] Fix missing link on iPad from settings to effective settings display #153
+[FIX] Fix missing display on iPad for effective subscriptions #152
+
 ## OwnTracks 8.0.15
 >Release date: 2015-04-20 for alpha testers only (8.0.14 skipped)
 

@@ -82,6 +82,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             string = dictionary[@"willTopic"];
             if (string) [self setString:string forKey:@"willtopic_preference"];
             
+            string = dictionary[@"user"];
+            if (string) [self setString:string forKey:@"user"];
+            
+            string = dictionary[@"device"];
+            if (string) [self setString:string forKey:@"device"];
+            
+            string = dictionary[@"token"];
+            if (string) [self setString:string forKey:@"token"];
+            
+
             
             object = dictionary[@"subQos"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
@@ -263,6 +273,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                            @"password": [self stringForKey:@"pass_preference"],
                            @"willTopic": [self stringForKey:@"willtopic_preference"],
                            @"tid": [self stringForKey:@"trackerid_preference"],
+                           @"user": [self stringForKey:@"user"],
+                           @"device": [self stringForKey:@"device"],
+                           @"token": [self stringForKey:@"token"],
                            
                            @"subQos": @([self intForKey:@"subscriptionqos_preference"]),
                            @"pubQos": @([self intForKey:@"qos_preference"]),
@@ -320,9 +333,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             [key isEqualToString:@"mintime_preference"] ||
             [key isEqualToString:@"positions_preference"] ||
             [key isEqualToString:@"trackerid_preference"] ||
-            [key isEqualToString:@"user_preference"] ||
-            [key isEqualToString:@"pass_preference"] ||
-            [key isEqualToString:@"deviceid_preference"] ||
+            [key isEqualToString:@"user"] ||
+            [key isEqualToString:@"device"] ||
+            [key isEqualToString:@"token"] ||
             [key isEqualToString:@"ranging_preference"]);
     
 }
@@ -415,24 +428,34 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return [[self stringForKey:key] boolValue];
 }
 
+
 - (NSString *)theGeneralTopic
 {
+    int mode = [self intForKey:@"mode"];
     NSString *topic;
-    topic = [self stringForKey:@"topic_preference"];
     
-    if (!topic || [topic isEqualToString:@""]) {
-        topic = [NSString stringWithFormat:@"owntracks/%@", [self theId]];
-    } else if ([topic isEqualToString:@"%"]) {
-        topic = [NSString stringWithFormat:@"public/user/%@", [self theDeviceId]];
+    switch (mode) {
+        case 2:
+            topic = [NSString stringWithFormat:@"public/user/%@", [self theDeviceId]];
+            break;
+        case 1:
+            topic = [NSString stringWithFormat:@"owntracks/%@", [self theId]];
+            break;
+        case 0:
+        default:
+            topic = [self stringForKey:@"topic_preference"];
+            
+            if (!topic || [topic isEqualToString:@""]) {
+                topic = [NSString stringWithFormat:@"owntracks/%@", [self theId]];
+            }
+            break;
     }
-    
     return topic;
 }
 
 - (NSString *)theWillTopic
 {
-    NSString *topic;
-    topic = [self stringForKey:@"willtopic_preference"];
+    NSString *topic = [self stringForKey:@"willtopic_preference"];
     
     if (!topic || [topic isEqualToString:@""]) {
         topic = [self theGeneralTopic];
@@ -454,80 +477,112 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (NSString *)theId
 {
+    int mode = [self intForKey:@"mode"];
     NSString *theId;
-    NSString *user;
-    user = [self stringForKey:@"user_preference"];
-    NSString *deviceId;
-    deviceId = [self theDeviceId];
     
-    if (!user || [user isEqualToString:@""]) {
-        if (!deviceId || [deviceId isEqualToString:@""]) {
-            theId = [[UIDevice currentDevice] name];
-        } else {
-            theId = deviceId;
+    switch (mode) {
+        case 2:
+        case 1:
+            theId = [NSString stringWithFormat:@"%@/%@", [self theUserId], [self theDeviceId]];
+            break;
+        case 0:
+        default: {
+            NSString *userId = [self theUserId];
+            NSString *deviceId = [self theDeviceId];
+            
+            if (!userId || [userId isEqualToString:@""]) {
+                if (!deviceId || [deviceId isEqualToString:@""]) {
+                    theId = [[UIDevice currentDevice] name];
+                } else {
+                    theId = deviceId;
+                }
+            } else {
+                if (!deviceId || [deviceId isEqualToString:@""]) {
+                    theId = userId;
+                } else {
+                    theId = [NSString stringWithFormat:@"%@/%@", userId, deviceId];
+                }
+            }
         }
-    } else {
-        if (!deviceId || [deviceId isEqualToString:@""]) {
-            theId = user;
-        } else {
-            theId = [NSString stringWithFormat:@"%@/%@", user, deviceId];
-        }
+            break;
     }
+
     
     return theId;
 }
 
 - (NSString *)theDeviceId
 {
+    int mode = [self intForKey:@"mode"];
     NSString *deviceId;
-    deviceId = [self stringForKey:@"deviceid_preference"];
-    if ([deviceId isEqualToString:@"%"]) {
-        deviceId = [[UIDevice currentDevice].identifierForVendor UUIDString];
+    
+    switch (mode) {
+        case 2:
+            deviceId = [[UIDevice currentDevice].identifierForVendor UUIDString];
+            break;
+        case 1:
+            deviceId = [self stringForKey:@"device"];
+            break;
+        case 0:
+        default:
+            deviceId = [self stringForKey:@"deviceid_preference"];
+            break;
     }
     return deviceId;
 }
 
 - (NSString *)theSubscriptions
 {
+    int mode = [self intForKey:@"mode"];
     NSString *subscriptions;
-    subscriptions = [self stringForKey:@"subscription_preference"];
     
-    if (!subscriptions || subscriptions.length == 0) {
-        NSArray *baseComponents = [[self theGeneralTopic] componentsSeparatedByCharactersInSet:
-                                   [NSCharacterSet characterSetWithCharactersInString:@"/"]];
-        
-        NSString *anyDevice = @"";
-        int any = 1;
-        NSString *firstString = nil;
-        if (baseComponents.count > 0) {
-            firstString = baseComponents[0];
-        }
-        if (firstString && firstString.length == 0) {
-            any++;
-        }
-        
-        for (int i = 0; i < any; i++) {
-            if (i > 0) {
-                anyDevice = [anyDevice stringByAppendingString:@"/"];
+    switch (mode) {
+        case 2:
+            subscriptions = [NSString stringWithFormat:@"public/user/+ public/user/+/event public/user/+/info public/user/%@/cmd",
+                             [self theDeviceId]];
+            break;
+        case 1:
+        case 0:
+        default:
+            subscriptions = [self stringForKey:@"subscription_preference"];
+            
+            if (!subscriptions || subscriptions.length == 0) {
+                NSArray *baseComponents = [[self theGeneralTopic] componentsSeparatedByCharactersInSet:
+                                           [NSCharacterSet characterSetWithCharactersInString:@"/"]];
+                
+                NSString *anyDevice = @"";
+                int any = 1;
+                NSString *firstString = nil;
+                if (baseComponents.count > 0) {
+                    firstString = baseComponents[0];
+                }
+                if (firstString && firstString.length == 0) {
+                    any++;
+                }
+                
+                for (int i = 0; i < any; i++) {
+                    if (i > 0) {
+                        anyDevice = [anyDevice stringByAppendingString:@"/"];
+                    }
+                    anyDevice = [anyDevice stringByAppendingString:baseComponents[i]];
+                }
+                
+                for (int i = any; i < [baseComponents count]; i++) {
+                    if (i > 0) {
+                        anyDevice = [anyDevice stringByAppendingString:@"/"];
+                    }
+                    anyDevice = [anyDevice stringByAppendingString:@"+"];
+                }
+                
+                subscriptions = [NSString stringWithFormat:@"%@ %@/event %@/info %@/cmd",
+                                 anyDevice,
+                                 anyDevice,
+                                 anyDevice,
+                                 [self theGeneralTopic]];
             }
-            anyDevice = [anyDevice stringByAppendingString:baseComponents[i]];
-        }
-        
-        for (int i = any; i < [baseComponents count]; i++) {
-            if (i > 0) {
-                anyDevice = [anyDevice stringByAppendingString:@"/"];
-            }
-            anyDevice = [anyDevice stringByAppendingString:@"+"];
-        }
-
-        subscriptions = [NSString stringWithFormat:@"%@ %@/event %@/info %@/cmd",
-                         anyDevice,
-                         anyDevice,
-                         anyDevice,
-                         [self theGeneralTopic]];
-    } else if ([subscriptions isEqualToString:@"%"]) {
-        subscriptions = [NSString stringWithFormat:@"public/user/+ public/user/+/event public/user/+/info public/user/%@/cmd", [self theDeviceId]];
+            break;
     }
+
     return subscriptions;
 }
 
@@ -538,13 +593,61 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             return @"user";
             break;
         case 1:
+            return [self stringForKey:@"user"];
+            break;
+        case 0:
+        default:
+            return [self stringForKey:@"user_preference"];
+            break;
+    }
+}
+
+- (NSString *)theMqttUser {
+    int mode = [self intForKey:@"mode"];
+    switch (mode) {
+        case 2:
+            return nil;
+            break;
+        case 1:
             return [NSString stringWithFormat:@"%@|%@",
-                    [self stringForKey:@"user_preference"],
+                    [self stringForKey:@"user"],
                     [self theDeviceId]];
             break;
         case 0:
         default:
             return [self stringForKey:@"user_preference"];
+            break;
+    }
+}
+
+- (NSString *)theMqttPass {
+    int mode = [self intForKey:@"mode"];
+    switch (mode) {
+        case 2:
+            return nil;
+            break;
+        case 1:
+            return [self stringForKey:@"token"];
+            break;
+        case 0:
+        default:
+            return [self stringForKey:@"pass_preference"];
+            break;
+    }
+}
+
+- (BOOL)theMqttAuth {
+    int mode = [self intForKey:@"mode"];
+    switch (mode) {
+        case 2:
+            return FALSE;
+            break;
+        case 1:
+            return TRUE;
+            break;
+        case 0:
+        default:
+            return [self boolForKey:@"auth_preference"];
             break;
     }
 }

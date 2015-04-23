@@ -32,6 +32,10 @@
 - (NSString *)theUserId;
 - (NSString *)theSubscriptions;
 
+- (NSString *)theMqttUser;
+- (NSString *)theMqttPass;
+- (BOOL)theMqttAuth;
+
 - (BOOL)validInPublicMode:(NSString *)key;
 - (BOOL)validInHostedMode:(NSString *)key;
 

@@ -30,6 +30,12 @@
 	<true/>
 	<key>user_preference</key>
 	<string>user</string>
+	<key>user</key>
+	<string></string>
+	<key>device</key>
+	<string></string>
+	<key>token</key>
+	<string></string>
 	<key>pass_preference</key>
 	<string>pass</string>
 	<key>keepalive_preference</key>
