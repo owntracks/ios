@@ -1,6 +1,20 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.0.18
+>Release date: 2015-04-27 for alpha testers only (8.0.17 skipped)
+
+And here it comes: Apple Watch --- Wrist ready
+as well as fixes and enhancements to a number of UI issues
+
+[NEW] Apple Watch shows your closes friends (all friends linked to address book) same as Today widget #113
+[NEW] New more intuitive action sheets for Follow icon, Mode icon, and Ranging icon #119 #164 #165 #166
+[NEW] Entering or leaving a region triggers location publish again (was lost when we moved events to subtopic) #159
+[NEW] Authorisation settings in Hosted mode are picked up immediately after hitting return #157
+[NEW] Editing/Adding waypoint is now possible by long-pressing on map and by dragging waypoints #156 #155
+[FIX] Coloring of regions on map corresponds now to enter/leave events #123
+[FIX] Connection idle (blue indicator) after startup is eliminated #109
+
 ## OwnTracks 8.0.16
 >Release date: 2015-04-23 for alpha testers only
 

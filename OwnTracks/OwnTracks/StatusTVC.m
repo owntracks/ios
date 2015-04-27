@@ -60,7 +60,7 @@
 @end
 
 @implementation StatusTVC
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -104,6 +104,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
+    if (textField == self.UIuser ||
+        textField == self.UIdevice ||
+        textField == self.UItoken) {
+     [self reconnect];
+    }
     return TRUE;
 }
 
@@ -470,6 +475,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
             return @"at most once";
     }
 }
+
 - (IBAction)touchedOutsideText:(UITapGestureRecognizer *)sender {
     [self.UIHost resignFirstResponder];
     [self.UIPort resignFirstResponder];
@@ -539,6 +545,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (IBAction)checkConnection:(UIButton *)sender {
+    [self reconnect];
+}
+
+- (void)reconnect {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     
     [delegate connectionOff];
@@ -546,6 +556,5 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [self updateValues];
     [delegate reconnect];
 }
-
 
 @end

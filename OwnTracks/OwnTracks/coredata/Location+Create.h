@@ -31,7 +31,7 @@
 + (NSArray *)allWaypointsOfTopic:(NSString *)topic inManagedObjectContext:(NSManagedObjectContext *)context;
 + (NSArray *)allAutomaticLocationsWithFriend:(Friend *)friend inManagedObjectContext:(NSManagedObjectContext *)context;
 
-@property (nonatomic, readonly) CLLocationCoordinate2D coordinate;
+@property (nonatomic) CLLocationCoordinate2D coordinate;
 - (void) getReverseGeoCode;
 - (NSString *)nameText;
 - (NSString *)timestampText;

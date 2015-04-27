@@ -16,7 +16,7 @@
 @end
 
 @implementation AlertView
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 + (void)alert:(NSString *)title message:(NSString *)message {
     [AlertView alert:title message:message dismissAfter:0];

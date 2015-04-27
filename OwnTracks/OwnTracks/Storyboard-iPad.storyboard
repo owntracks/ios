@@ -20,6 +20,11 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="olS-NO-O3q">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="qo8-Bm-gCQ" appends="YES" id="6LL-vM-BJy"/>
+                                    <outletCollection property="gestureRecognizers" destination="v3P-fK-dH2" appends="YES" id="sKb-fs-ffI"/>
+                                </connections>
                             </mapView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yax-Vv-2o3">
                                 <rect key="frame" x="0.0" y="980" width="768" height="44"/>
@@ -92,6 +97,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2hm-Vp-1C9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="qo8-Bm-gCQ">
+                    <connections>
+                        <action selector="longPress:" destination="7Ee-GI-LdK" id="xwb-HZ-dMA"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" numberOfTouchesRequired="3" id="v3P-fK-dH2">
+                    <connections>
+                        <action selector="longDoublePress:" destination="7Ee-GI-LdK" id="mb8-tg-AX6"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1525" y="507"/>
         </scene>
@@ -501,13 +516,7 @@
                             <outlet property="delegate" destination="dhB-ni-g7B" id="5XO-nb-O6s"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Details" id="m7K-V2-01s">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Hsf-bG-opL">
-                            <connections>
-                                <action selector="new:" destination="dhB-ni-g7B" id="nV3-SZ-Mjv"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Details" id="m7K-V2-01s"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="480"/>
                     <connections>
@@ -515,7 +524,6 @@
                         <outlet property="UIcourse" destination="vvN-Oc-gzB" id="OSM-Lo-nhe"/>
                         <outlet property="UIlatitude" destination="dAc-sn-yiu" id="Kl1-G3-4jI"/>
                         <outlet property="UIlongitude" destination="O3C-sk-Ame" id="81x-m4-8i9"/>
-                        <outlet property="UInew" destination="Hsf-bG-opL" id="jxr-Ju-Bhf"/>
                         <outlet property="UIplace" destination="wWN-SR-oY2" id="aga-lF-eY7"/>
                         <outlet property="UIradius" destination="hP6-u2-FsG" id="4ur-rV-xfB"/>
                         <outlet property="UIremark" destination="1PX-Ao-l2f" id="dvJ-go-A2c"/>
@@ -1748,7 +1756,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="29T-mH-87F">
                                 <rect key="frame" x="0.0" y="64" width="308" height="911"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">Public Mode
+                                <string key="text">Public Mode
 
 In public mode, you can get an impression of OwnTracks functionality.
 
@@ -1756,7 +1764,7 @@ Your location will be anonymously published to owntrack.org's public broker and 
 
 Please visit http://traction.owntracks.org to obtain an OwnTracks user id and setup your private group of OwnTracks users.
 
-Or you may setup your own OwnTracks server for full privacy protection. More Info on http://owntracks.org</mutableString>
+Or you may setup your own OwnTracks server for full privacy protection. More Info on http://owntracks.org</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>

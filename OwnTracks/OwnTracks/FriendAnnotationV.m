@@ -31,15 +31,21 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 #define TACHO_SCALE 30.0
 #define TACHO_MAX 540.0
 
-- (id)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
+    DDLogVerbose(@"FriendAnnotationView initWithFrame ddLogLevel %lu", (unsigned long)ddLogLevel);
 
     if (self) {
         self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.0];
         self.frame = CGRectMake(0, 0, CIRCLE_SIZE, CIRCLE_SIZE);
     }
+    return self;
+}
+
+- (instancetype)initWithAnnotation:(id<MKAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier {
+    DDLogVerbose(@"FriendAnnotationView initWithAnnotation reuseIdentifer %@", reuseIdentifier);
+    self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
     return self;
 }
 
@@ -155,5 +161,29 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
+- (void)setDragState:(MKAnnotationViewDragState)newDragState animated:(BOOL)animated {
+    DDLogVerbose(@"newDragState %lu", (unsigned long)newDragState);
+    switch (newDragState) {
+        case MKAnnotationViewDragStateStarting:
+        case MKAnnotationViewDragStateDragging:
+            self.dragState = MKAnnotationViewDragStateDragging;
+            break;
+        case MKAnnotationViewDragStateCanceling:
+        case MKAnnotationViewDragStateEnding:
+        case MKAnnotationViewDragStateNone:
+        default:
+            self.dragState = MKAnnotationViewDragStateNone;
+            break;
+    }
+}
 
+- (void)setSelected:(BOOL)selected {
+    DDLogVerbose(@"selected %lu", (unsigned long)selected);
+    [super setSelected:selected];
+}
+
+- (void)prepareForReuse {
+    DDLogVerbose(@"prepareForReuse");
+    [super prepareForReuse];
+}
 @end

@@ -80,6 +80,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.mapView.mapType = MKMapTypeStandard;
     self.mapView.showsUserLocation = TRUE;
     
+    
 }
 
 - (BOOL)splitViewController:(UISplitViewController *)svc
@@ -234,9 +235,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                     cancelButtonTitle:([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ? @"Cancel" : nil
                                                destructiveButtonTitle:nil
                                                     otherButtonTitles:
-                                  @"Manual",
-                                  @"Significant Changes",
-                                  @"Move Mode",
+                                  [NSString stringWithFormat:@"◼︎ Manual %@",
+                                   [LocationManager sharedInstance].monitoring == 0 ? @"✔︎" : @""],
+                                  [NSString stringWithFormat:@"▶︎ Significant Changes %@",
+                                   [LocationManager sharedInstance].monitoring == 1 ? @"✔︎" : @""],
+                                  [NSString stringWithFormat:@"▶︎▶︎ Move Mode %@",
+                                   [LocationManager sharedInstance].monitoring == 2 ? @"✔︎" : @""],
+                                  @"",
                                   @"Publish Now",
                                   nil];
     [actionSheet showFromBarButtonItem:sender animated:YES];
@@ -248,13 +253,21 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                     cancelButtonTitle:([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ? @"Cancel" : nil
                                                destructiveButtonTitle:nil
                                                     otherButtonTitles:
-                                  @"No Tracking",
-                                  @"Follow",
-                                  @"Follow with Heading",
+                                  [NSString stringWithFormat:@"No Tracking %@",
+                                   self.mapView.userTrackingMode == MKUserTrackingModeNone ? @"✔︎" : @""],
+                                  [NSString stringWithFormat:@"Follow %@",
+                                   self.mapView.userTrackingMode == MKUserTrackingModeFollow ? @"✔︎" : @""],
+                                  [NSString stringWithFormat:@"Follow with Heading %@",
+                                   self.mapView.userTrackingMode == MKUserTrackingModeFollowWithHeading ? @"✔︎" : @""],
+                                  @"",
                                   @"Show all Friends",
-                                  @"Standard Map",
-                                  @"Satellite Map",
-                                  @"Hybrid Map",
+                                  @"",
+                                  [NSString stringWithFormat:@"Standard Map %@",
+                                   self.mapView.mapType == MKMapTypeStandard ? @"✔︎" : @""],
+                                  [NSString stringWithFormat:@"Satellite Map %@",
+                                   self.mapView.mapType == MKMapTypeSatellite ? @"✔︎" : @""],
+                                  [NSString stringWithFormat:@"Hybrid Map %@",
+                                   self.mapView.mapType == MKMapTypeHybrid ? @"✔︎" : @""],
                                   nil];
     [actionSheet showFromBarButtonItem:sender animated:YES];
 }
@@ -265,8 +278,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                     cancelButtonTitle:([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ? @"Cancel" : nil
                                                destructiveButtonTitle:nil
                                                     otherButtonTitles:
-                                  @"Start Ranging",
-                                  @"Stop Ranging",
+                                  [NSString stringWithFormat:@"Ranging On %@",
+                                   [LocationManager sharedInstance].ranging ? @"✔︎" : @""],
+                                  [NSString stringWithFormat:@"Ranging Off %@",
+                                   ![LocationManager sharedInstance].ranging ? @"✔︎" : @""],
                                   nil];
     [actionSheet showFromBarButtonItem:sender animated:YES];
 }
@@ -298,7 +313,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             case 2:
                 [LocationManager sharedInstance].monitoring = 2;
                 break;
-            case 3:
+            case 4:
                 [delegate sendNow];
                 break;
         }
@@ -316,7 +331,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             case 2:
                 [self.mapView setUserTrackingMode:MKUserTrackingModeFollowWithHeading animated:YES];
                 break;
-            case 3:
+            case 4:
             {
                 CLLocationCoordinate2D center = [LocationManager sharedInstance].location.coordinate;
                 MKMapRect rect = [self centeredRect:center];
@@ -352,13 +367,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 [self.mapView setVisibleMapRect:rect animated:YES];
                 break;
             }
-            case 4:
+            case 6:
                 self.mapView.mapType = MKMapTypeStandard;
                 break;
-            case 5:
+            case 7:
                 self.mapView.mapType = MKMapTypeSatellite;
                 break;
-            case 6:
+            case 8:
                 self.mapView.mapType = MKMapTypeHybrid;
                 break;
         }
@@ -506,6 +521,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 #define REUSE_ID_PICTURE @"Annotation_picture"
 #define OLD_TIME -12*60*60
 
+// This is a hack because the FriendAnnotationView did not erase it's callout after being dragged
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
+    if (newState == MKAnnotationViewDragStateNone) {
+        DDLogVerbose(@"MKAnnotationViewDragStateNone");
+        NSArray *annotations = mapView.annotations;
+        [mapView removeAnnotations:annotations];
+        [mapView addAnnotations:annotations];
+    }
+}
+
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
@@ -525,6 +550,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             } else {
                 annotationView = [self pictureAnnotationView:mapView location:location];
             }
+            
+            DDLogVerbose(@"location.automatic: %@", location.automatic ? [location.automatic boolValue] ? @"true" : @"false" : @"nil");
+
+            annotationView.draggable = ![location.automatic boolValue];
             annotationView.canShowCallout = YES;
             annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
             UIButton *refreshButton = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -583,24 +612,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         MKCircleRenderer *renderer = [[MKCircleRenderer alloc] initWithCircle:overlay];
         
         Location *location = (Location *)overlay;
-        if ([location.region isKindOfClass:[CLCircularRegion class]]) {
-            CLCircularRegion *circularRegion = (CLCircularRegion *)location.region;
-            if ([circularRegion containsCoordinate:[LocationManager sharedInstance].location.coordinate]) {
-                renderer.fillColor = [UIColor colorWithRed:1.0 green:0.5 blue:0.5 alpha:0.333];
-            } else {
-                renderer.fillColor = [UIColor colorWithRed:0.5 green:0.5 blue:1.0 alpha:0.333];
-            }
+        if ([location.verticalaccuracy boolValue]) {
+            renderer.fillColor = [UIColor colorWithRed:1.0 green:0.5 blue:0.5 alpha:0.333];
+        } else {
+            renderer.fillColor = [UIColor colorWithRed:0.5 green:0.5 blue:1.0 alpha:0.333];
         }
         return renderer;
         
     } else {
         return nil;
     }
-}
-
-- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
-{
-    DDLogVerbose(@"didSelectAnnotationView");
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
@@ -708,7 +729,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         switch(type)
         {
             case NSFetchedResultsChangeInsert:
-                if (coordinate.latitude != 0 || coordinate.longitude !=0) {
+                if (coordinate.latitude != 0 || coordinate.longitude != 0) {
                     [self.mapView addAnnotation:location];
                 }
                 if ([location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]]) {
@@ -758,6 +779,34 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         _suspendAutomaticTrackingOfChangesInManagedObjectContext = YES;
     } else {
         [self endSuspensionOfUpdatesDueToContextChanges];
+    }
+}
+- (IBAction)longDoublePress:(UILongPressGestureRecognizer *)sender {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate sendNow];
+}
+
+- (IBAction)longPress:(UILongPressGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        CLLocationCoordinate2D center = self.mapView.centerCoordinate;
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:center.latitude longitude:center.longitude];
+        
+        [Location locationWithTopic:[delegate.settings theGeneralTopic]
+                                tid:[delegate.settings stringForKey:@"trackerid_preference"]
+                          timestamp:[NSDate date]
+                         coordinate:location.coordinate
+                           accuracy:location.horizontalAccuracy
+                           altitude:location.altitude
+                   verticalaccuracy:location.verticalAccuracy
+                              speed:location.speed
+                             course:location.course
+                          automatic:NO
+                             remark:@"Center"
+                             radius:0
+                              share:NO
+             inManagedObjectContext:[CoreData theManagedObjectContext]
+         ];
     }
 }
 

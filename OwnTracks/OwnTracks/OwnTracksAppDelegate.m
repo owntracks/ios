@@ -18,7 +18,6 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface OwnTracksAppDelegate()
-@property (strong, nonatomic) NSTimer *activityTimer;
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
 @property (strong, nonatomic) void (^completionHandler)(UIBackgroundFetchResult);
 @property (strong, nonatomic) CoreData *coreData;
@@ -286,9 +285,21 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                            topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/event"]
                              qos:[self.settings intForKey:@"qos_preference"]
                           retain:NO];
+
+    if ([region isKindOfClass:[CLBeaconRegion class]]) {
+        [self publishLocation:[LocationManager sharedInstance].location automatic:YES addon:@{@"t": @"b"}];
+    } else {
+        [self publishLocation:[LocationManager sharedInstance].location automatic:YES addon:@{@"t": @"c"}];
+    }
 }
 
 - (void)regionState:(CLRegion *)region inside:(BOOL)inside {
+    for (Location *location in [Location allWaypointsOfTopic:[self.settings theGeneralTopic]
+                                      inManagedObjectContext:[CoreData theManagedObjectContext]]) {
+        if ([region.identifier isEqualToString:location.region.identifier]) {
+            location.verticalaccuracy = [NSNumber numberWithBool:inside];
+            }
+    }
     [self.delegate regionState:region inside:inside];
 }
 

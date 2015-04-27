@@ -185,6 +185,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         self.needsUpdate = TRUE;
     }
 }
+
 - (IBAction)radiuschanged:(UITextField *)sender {
     if ([sender.text doubleValue] != [self.location.regionradius doubleValue]) {
         self.location.regionradius = @([sender.text doubleValue]);
@@ -195,29 +196,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     self.UIplace.text = self.location.placemark;
-}
-
-- (IBAction)new:(UIBarButtonItem *)sender {
-    [self.location removeObserver:self forKeyPath:@"placemark"];
-
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    CLLocation *location = [LocationManager sharedInstance].location;
-    self.location = [Location locationWithTopic:[delegate.settings theGeneralTopic]
-                                            tid:[delegate.settings stringForKey:@"trackerid_preference"]
-                                      timestamp:[NSDate date]
-                                     coordinate:location.coordinate
-                                       accuracy:location.horizontalAccuracy
-                                       altitude:location.altitude
-                               verticalaccuracy:location.verticalAccuracy
-                                          speed:location.speed
-                                         course:location.course
-                                      automatic:NO
-                                         remark:@"new location"
-                                         radius:0
-                                          share:NO
-                         inManagedObjectContext:[CoreData theManagedObjectContext]
-                     ];
-    [self setup];
 }
 
 - (IBAction)navigatePressed:(UIButton *)sender {

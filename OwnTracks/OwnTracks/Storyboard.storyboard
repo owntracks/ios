@@ -19,6 +19,11 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eED-yn-0ps">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="EiO-on-q7c" appends="YES" id="k6b-KH-2BJ"/>
+                                    <outletCollection property="gestureRecognizers" destination="9x1-XR-OWh" appends="YES" id="sNz-kM-UmQ"/>
+                                </connections>
                             </mapView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XET-fL-22T">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -77,6 +82,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rnL-Hh-C5D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="EiO-on-q7c">
+                    <connections>
+                        <action selector="longPress:" destination="HII-kF-avN" id="sSf-Wr-Vr2"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" numberOfTouchesRequired="3" id="9x1-XR-OWh">
+                    <connections>
+                        <action selector="longDoublePress:" destination="HII-kF-avN" id="R8p-ht-sXs"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1115" y="-1201"/>
         </scene>
@@ -1648,19 +1663,12 @@
                             <outlet property="delegate" destination="m9c-8c-Xj9" id="73L-UM-048"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Details" id="8DB-l4-Dop">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="55O-jM-3VI">
-                            <connections>
-                                <action selector="new:" destination="m9c-8c-Xj9" id="06s-0a-0Z0"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Details" id="8DB-l4-Dop"/>
                     <connections>
                         <outlet property="UIaltitude" destination="Ikm-SR-MCD" id="K3l-O3-o3v"/>
                         <outlet property="UIcourse" destination="egU-1b-0yN" id="0y8-PI-3Ic"/>
                         <outlet property="UIlatitude" destination="T9r-iG-M3H" id="fue-Gp-yhW"/>
                         <outlet property="UIlongitude" destination="MUK-1n-HEX" id="50q-z7-LsL"/>
-                        <outlet property="UInew" destination="55O-jM-3VI" id="4YC-GR-ZGz"/>
                         <outlet property="UIplace" destination="VjN-rg-5pV" id="H7Z-M1-yyx"/>
                         <outlet property="UIradius" destination="wfQ-et-rkm" id="Xlf-ip-PRU"/>
                         <outlet property="UIremark" destination="4Ik-gA-Pd2" id="XJg-nd-Tef"/>
@@ -2039,7 +2047,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uho-CX-fYe">
                                 <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">Public Mode
+                                <string key="text">Public Mode
 
 In public mode, you can get an impression of OwnTracks functionality.
 
@@ -2049,7 +2057,7 @@ Please visit http://traction.owntracks.org to obtain an OwnTracks user id and se
 
 Or you may setup your own OwnTracks server for full privacy protection. More Info on http://owntracks.org
 
-When switching to and from public mode, all data on your iOS device will be deleted.</mutableString>
+When switching to and from public mode, all data on your iOS device will be deleted.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>

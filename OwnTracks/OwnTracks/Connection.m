@@ -63,6 +63,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
                                                           DDLogVerbose(@"UIApplicationDidBecomeActiveNotification");
+                                                          if (self.disconnectTimer && self.disconnectTimer.isValid) {
+                                                              DDLogVerbose(@"%@ disconnectTimer invalidate %@",
+                                                                           self.clientId,
+                                                                           self.disconnectTimer.fireDate);
+                                                              [self.disconnectTimer invalidate];
+                                                          }
                                                           [self connectToLast];
                                                       }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification
