@@ -12,6 +12,8 @@
 #import "CoreData.h"
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 #define BACKGROUND_DISCONNECT_AFTER 8.0
 
@@ -42,6 +44,8 @@
 
 @property (nonatomic, readwrite) NSError *lastErrorCode;
 
+@property (nonatomic) NSUInteger outCount;
+@property (nonatomic) NSUInteger inCount;
 @end
 
 #define RECONNECT_TIMER 1.0
@@ -69,6 +73,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                                            self.disconnectTimer.fireDate);
                                                               [self.disconnectTimer invalidate];
                                                           }
+                                                          CLSLog(@"Connection UIApplicationDidBecomeActiveNotification");
                                                           [self connectToLast];
                                                       }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification
@@ -78,6 +83,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
                                                           DDLogVerbose(@"UIApplicationWillResignActiveNotification");
+                                                          CLSLog(@"Connection UIApplicationWillResignActiveNotification");
                                                           [self disconnect];
                                                       }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification
@@ -200,6 +206,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)disconnectInBackground {
     DDLogVerbose(@"%@ disconnectInBackground", self.clientId);
+    CLSLog(@"%@ disconnectInBackground %lu %lu", self.clientId, (unsigned long)self.outCount, (unsigned long)self.inCount);
     self.disconnectTimer = nil;
     [self disconnect];
 }
@@ -326,6 +333,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                  self.clientId,
                  (unsigned long)flowingIn,
                  (unsigned long)flowingOut);
+    self.inCount = flowingIn;
+    self.outCount = flowingOut;
     if ((flowingIn + flowingOut) && self.state == state_connected) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
     } else {

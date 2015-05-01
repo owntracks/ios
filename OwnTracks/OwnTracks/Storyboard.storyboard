@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--OwnTracks-->
@@ -1005,16 +1006,31 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="version" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nrg-nO-JGH">
-                                                    <rect key="frame" x="85" y="13" width="215" height="17"/>
+                                                    <rect key="frame" x="85" y="13" width="178" height="17"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PWe-IP-XDf">
+                                                    <rect key="frame" x="271" y="7" width="41" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="F4v-jJ-1w7"/>
+                                                        <constraint firstAttribute="width" constant="41" id="s92-ft-YNs"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Crash">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="crash:" destination="nAk-La-kdM" eventType="touchUpInside" id="hif-Aa-Djx"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="PWe-IP-XDf" firstAttribute="leading" secondItem="Nrg-nO-JGH" secondAttribute="trailing" constant="8" id="4A7-mQ-PVk"/>
+                                                <constraint firstAttribute="centerY" secondItem="PWe-IP-XDf" secondAttribute="centerY" id="JYJ-0m-EhP"/>
                                                 <constraint firstAttribute="centerY" secondItem="Nrg-nO-JGH" secondAttribute="centerY" id="Sn5-lN-bhF"/>
+                                                <constraint firstItem="PWe-IP-XDf" firstAttribute="trailing" secondItem="fxk-nd-8JP" secondAttribute="trailingMargin" id="dcO-v2-d1M"/>
                                                 <constraint firstAttribute="centerY" secondItem="X2I-bd-nxy" secondAttribute="centerY" id="fGe-Fm-aEG"/>
-                                                <constraint firstAttribute="trailing" secondItem="Nrg-nO-JGH" secondAttribute="trailing" constant="20" symbolic="YES" id="mQi-Y9-Nss"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <constraints>

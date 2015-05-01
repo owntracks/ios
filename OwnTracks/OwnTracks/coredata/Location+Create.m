@@ -36,6 +36,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     Location *location = nil;
     
     Friend *friend = [Friend friendWithTopic:topic tid:tid inManagedObjectContext:context];
+    Location *newestLocation = [friend newestLocation];
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Location"];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO]];
@@ -69,8 +70,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         location.share = @(share);
         
         location.justcreated = @(![location.justcreated boolValue]);
-        for (Location *otherLocation in friend.hasLocations) {
-            otherLocation.justcreated = @(![otherLocation.justcreated boolValue]);
+        if (newestLocation) {
+            newestLocation.justcreated = @(![newestLocation.justcreated boolValue]);
         }
     }
     

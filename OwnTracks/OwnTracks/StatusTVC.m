@@ -12,6 +12,8 @@
 #import "Friend+Create.h"
 #import "CoreData.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @interface StatusTVC ()
 @property (weak, nonatomic) IBOutlet UISegmentedControl *UImode;
@@ -555,6 +557,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [delegate syncProcessing];
     [self updateValues];
     [delegate reconnect];
+}
+- (IBAction)crash:(UIButton *)sender {
+    [Crashlytics setObjectValue:@"Manual" forKey:@"CrashType"];
+    [[Crashlytics sharedInstance] crash];
 }
 
 @end

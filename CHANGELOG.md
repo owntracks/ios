@@ -1,6 +1,17 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.0.19
+>Release date: 2015-05-01 for alpha testers only
+
+Tracing down some bugs
+
+[NEW] A few connection details are logged to fabrics.io which are transferred when a crash happens or is forced #173
+[NEW] You may force a crash using a button next to the version display on the Settings tab
+[FIX] duplicate publish of current location when tapping long with 3 fingers on iPad #168
+[FIX] User feedback is now more direct when long tapping with 3 fingers #173
+[FIX] Freeze of screen is eliminated by avoiding unnecessary UI re-draws #174
+
 ## OwnTracks 8.0.18
 >Release date: 2015-04-27 for alpha testers only (8.0.17 skipped)
 

@@ -522,7 +522,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 #define OLD_TIME -12*60*60
 
 // This is a hack because the FriendAnnotationView did not erase it's callout after being dragged
-- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
+- (void)mapView:(MKMapView *)mapView
+ annotationView:(MKAnnotationView *)view
+didChangeDragState:(MKAnnotationViewDragState)newState
+   fromOldState:(MKAnnotationViewDragState)oldState {
     if (newState == MKAnnotationViewDragStateNone) {
         DDLogVerbose(@"MKAnnotationViewDragStateNone");
         NSArray *annotations = mapView.annotations;
@@ -782,8 +785,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 - (IBAction)longDoublePress:(UILongPressGestureRecognizer *)sender {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate sendNow];
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegate sendNow];
+    }
 }
 
 - (IBAction)longPress:(UILongPressGestureRecognizer *)sender {
