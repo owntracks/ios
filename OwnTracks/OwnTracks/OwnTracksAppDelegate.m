@@ -479,11 +479,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                     [self.queueManagedObjectContext deleteObject:friend];
                 }
             }
-            [self.queueManagedObjectContext save:nil];
-            //[self performSelectorOnMainThread:@selector(share) withObject:nil waitUntilDone:NO];
             DDLogVerbose(@"performBlock finish");
             @synchronized (self.inQueue) {
                 self.inQueue = @([self.inQueue unsignedLongValue] - 1);
+            }
+            if (self.inQueue == 0) {
+                [self.queueManagedObjectContext save:nil];
             }
         }];
     }

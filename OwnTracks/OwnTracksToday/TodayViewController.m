@@ -68,7 +68,9 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return MIN(PAGE, self.sharedFriends.count);
+    NSInteger min = MIN(PAGE, self.sharedFriends.count - self.offset);
+    NSLog(@"numberOfRowsInSection %ld", (long)min);
+    return min;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -150,12 +152,15 @@
 
 - (IBAction)forwardPressed:(UIButton *)sender {
     self.offset += PAGE;
+    NSLog(@"forwardPressed %lu", (long)self.offset);
+
     [self show];
     [self.tableView reloadData];
 }
 
 - (IBAction)backwardPressed:(UIButton *)sender {
     self.offset -= PAGE;
+    NSLog(@"backwardPressed %lu", (long)self.offset);
     [self show];
     [self.tableView reloadData];
 }
