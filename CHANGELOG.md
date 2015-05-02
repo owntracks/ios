@@ -1,14 +1,21 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.0.21
+>Release date: 2015-05-02 for alpha testers only
+
+Bugfix for short lived connections
+
+[FIX] Messages queued and not delivered although in Wifi environment #173
+                    	
 ## OwnTracks 8.0.20
->Release date: 2015-05-?? for alpha testers only
+>Release date: 2015-05-01 for alpha testers only
 
 Hunting bugs still
 
 [FIX] Today widget paging on last page causes crash #169
-[FIX] Freeze screen after reconnect and a bunch of queued messages #173
-
+[FIX] Freeze screen after reconnect and a bunch of queued messages #175
+                    	
 ## OwnTracks 8.0.19
 >Release date: 2015-05-01 for alpha testers only
 
