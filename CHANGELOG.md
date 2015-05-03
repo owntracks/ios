@@ -1,6 +1,13 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.0.22
+>Release date: 2015-05-03 for alpha testers only
+
+Bugfix message processing
+
+[FIX] db updates are saved to "disk" after processing incoming messages  #176
+                    	
 ## OwnTracks 8.0.21
 >Release date: 2015-05-02 for alpha testers only
 

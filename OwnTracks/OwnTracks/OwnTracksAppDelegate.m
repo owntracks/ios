@@ -483,7 +483,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             @synchronized (self.inQueue) {
                 self.inQueue = @([self.inQueue unsignedLongValue] - 1);
             }
-            if (self.inQueue == 0) {
+            if ([self.inQueue intValue] == 0) {
                 [self.queueManagedObjectContext save:nil];
             }
         }];
