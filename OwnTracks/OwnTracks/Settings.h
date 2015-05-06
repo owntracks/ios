@@ -39,4 +39,6 @@
 - (BOOL)validInPublicMode:(NSString *)key;
 - (BOOL)validInHostedMode:(NSString *)key;
 
+- (BOOL)validIds;
+
 @end

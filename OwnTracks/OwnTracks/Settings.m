@@ -652,5 +652,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
+- (BOOL)validIds {
+    NSString *user = [self theUserId];
+    NSString *device = [self theDeviceId];
+    
+    return (user && user.length != 0 && device && device.length != 0);
+}
 
 @end

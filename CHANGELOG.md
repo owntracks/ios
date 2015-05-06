@@ -1,6 +1,14 @@
-OwnTracks iOS App 8.0 Release Notes
+OnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.0.23
+>Release date: 2015-05-06 for alpha testers only
+
+Bugfix for Hosted Mode
+
+[FIX] Anonymous location publishes before entering user credentials are suppressed #180
+[FIX] Enabled response to 'reportLocation' command in hosted mode #179
+                    	
 ## OwnTracks 8.0.22
 >Release date: 2015-05-03 for alpha testers only
 

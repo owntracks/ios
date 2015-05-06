@@ -673,7 +673,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (void)publishLocation:(CLLocation *)location automatic:(BOOL)automatic addon:(NSDictionary *)addon {
-    if (location) {
+    if (location && [self.settings validIds]) {
         Location *newLocation = [Location locationWithTopic:[self.settings theGeneralTopic]
                                                         tid:[self.settings stringForKey:@"trackerid_preference"]
                                                   timestamp:location.timestamp
