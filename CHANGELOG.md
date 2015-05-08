@@ -4,6 +4,13 @@ OnTracks iOS App 8.0 Release Notes
 ## OwnTracks 8.0.25
 >Release date: 2015-05-08 for alpha testers only
 
+Preparing for launch 2
+
+[FIX] correct link to registration site
+
+## OwnTracks 8.0.25
+>Release date: 2015-05-08 for alpha testers only
+
 Preparing for launch
 
 [NEW] Update Public and Hosted Mode settings

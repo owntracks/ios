@@ -2107,7 +2107,7 @@ Your location will be anonymously published to owntrack.org's public broker and 
                                     </fragment>
                                     <fragment>
                                         <string key="content">
-Please visit http://traction.owntracks.org to obtain an OwnTracks user id and setup your own group of OwnTracks users.
+Please visit http://hosted.owntracks.org to obtain an OwnTracks user id and setup your own group of OwnTracks users.
 
 </string>
                                         <attributes>
