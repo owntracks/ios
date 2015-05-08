@@ -1,8 +1,15 @@
 OnTracks iOS App 8.0 Release Notes
 ===================================
 
-## OwnTracks 8.0.25
+## OwnTracks 8.0.27
 >Release date: 2015-05-08 for alpha testers only
+
+Preparing for launch 3
+
+[NEW] user warning when no location is available
+
+## OwnTracks 8.0.26
+>Release date: 2015-05-08 (skipped)
 
 Preparing for launch 2
 

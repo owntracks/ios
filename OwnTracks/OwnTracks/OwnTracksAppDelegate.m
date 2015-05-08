@@ -704,6 +704,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         [self share];
     } else {
         DDLogVerbose(@"publishLocation (null) ignored");
+        [AlertView alert:@"publishLocation" message:@"found no location"];
     }
 }
 
