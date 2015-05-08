@@ -264,18 +264,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     
     NSDictionary *dict = @{@"_type": @"configuration",
-                           @"deviceid": [self stringForKey:@"deviceid_preference"],
-                           @"clientid": [self stringForKey:@"clientid_preference"],
-                           @"subTopic": [self stringForKey:@"subscription_preference"],
-                           @"pubTopicBase": [self stringForKey:@"topic_preference"],
-                           @"host": [self stringForKey:@"host_preference"],
-                           @"username": [self stringForKey:@"user_preference"],
-                           @"password": [self stringForKey:@"pass_preference"],
-                           @"willTopic": [self stringForKey:@"willtopic_preference"],
-                           @"tid": [self stringForKey:@"trackerid_preference"],
-                           @"user": [self stringForKey:@"user"],
-                           @"device": [self stringForKey:@"device"],
-                           @"token": [self stringForKey:@"token"],
+                           @"deviceid": [self stringOrZeroForKey:@"deviceid_preference"],
+                           @"clientid": [self stringOrZeroForKey:@"clientid_preference"],
+                           @"subTopic": [self stringOrZeroForKey:@"subscription_preference"],
+                           @"pubTopicBase": [self stringOrZeroForKey:@"topic_preference"],
+                           @"host": [self stringOrZeroForKey:@"host_preference"],
+                           @"username": [self stringOrZeroForKey:@"user_preference"],
+                           @"password": [self stringOrZeroForKey:@"pass_preference"],
+                           @"willTopic": [self stringOrZeroForKey:@"willtopic_preference"],
+                           @"tid": [self stringOrZeroForKey:@"trackerid_preference"],
+                           @"user": [self stringOrZeroForKey:@"user"],
+                           @"device": [self stringOrZeroForKey:@"device"],
+                           @"token": [self stringOrZeroForKey:@"token"],
                            
                            @"subQos": @([self intForKey:@"subscriptionqos_preference"]),
                            @"pubQos": @([self intForKey:@"qos_preference"]),
@@ -363,6 +363,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)setBool:(BOOL)b forKey:(NSString *)key
 {
     [self setString:[NSString stringWithFormat:@"%d", b] forKey:key];
+}
+
+- (NSString *)stringOrZeroForKey:(NSString *)key
+{
+    NSString *value = [self stringForKey:key];
+    if (!value) {
+        DDLogVerbose(@"stringOrZeroForKey %@", key);
+        value = @"";
+    }
+    return value;
 }
 
 - (NSString *)stringForKey:(NSString *)key

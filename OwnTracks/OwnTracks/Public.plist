@@ -11,7 +11,7 @@
 	<key>host_preference</key>
 	<string>public.owntracks.org</string>
 	<key>port_preference</key>
-	<integer>8883</integer>
+	<real>8889</real>
 	<key>tls_preference</key>
 	<true/>
 	<key>keepalive_preference</key>

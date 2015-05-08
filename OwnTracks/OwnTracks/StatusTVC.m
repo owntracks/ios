@@ -58,6 +58,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *UItoken;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
+@property (strong, nonatomic) UIAlertView *tidAlertView;
+@property (strong, nonatomic) UIAlertView *modeAlertView;
 
 @end
 
@@ -415,9 +417,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     self.dic = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
     self.dic.delegate = self;
-    [self.dic presentOptionsMenuFromRect:sender.window.frame
-                                  inView:self.tableView
-                                animated:YES];
+    
+    [self.dic presentOptionsMenuFromRect:self.UIexport.frame inView:self.UIexport animated:TRUE];
 }
 
 - (IBAction)documentationPressed:(UIButton *)sender {
@@ -508,13 +509,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     } else {
         for (int i = 0; i < sender.text.length; i++) {
             if (![[NSCharacterSet alphanumericCharacterSet] characterIsMember:[sender.text characterAtIndex:i]]) {
-                UIAlertView *alertView = [[UIAlertView alloc]
-                                          initWithTitle:@"TrackerID invalid"
-                                          message:@"TrackerID may contain alphanumeric characters only"
-                                          delegate:self
-                                          cancelButtonTitle:nil
-                                          otherButtonTitles:@"OK", nil];
-                [alertView show];
+                self.tidAlertView = [[UIAlertView alloc]
+                                     initWithTitle:@"TrackerID invalid"
+                                     message:@"TrackerID may contain alphanumeric characters only"
+                                     delegate:self
+                                     cancelButtonTitle:nil
+                                     otherButtonTitles:@"OK", nil];
+                [self.tidAlertView show];
                 break;
             }
         }
@@ -523,27 +524,40 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    self.UItrackerid.text = [delegate.settings stringForKey:@"trackerid_preference"];
+- (IBAction)modeChanged:(UISegmentedControl *)sender {
+    self.modeAlertView = [[UIAlertView alloc] initWithTitle:@"Mode change"
+                                                    message:@"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before."
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Continue", nil];
+    [self.modeAlertView show];
 }
 
-- (IBAction)modeChanged:(UISegmentedControl *)sender {
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    if (self.UImode) [delegate.settings setInt:(int)sender.selectedSegmentIndex forKey:@"mode"];
-    
-    [self updated];
-    [delegate connectionOff];
-    [delegate syncProcessing];
-    [[LocationManager sharedInstance] resetRegions];
-    NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
-    for (Friend *friend in friends) {
-        [[CoreData theManagedObjectContext] deleteObject:friend];
+
+    if (alertView == self.tidAlertView) {
+        self.UItrackerid.text = [delegate.settings stringForKey:@"trackerid_preference"];
+    } else if (alertView == self.modeAlertView) {
+        if (buttonIndex > 0) {
+            if (self.UImode) [delegate.settings setInt:(int)self.UImode.selectedSegmentIndex forKey:@"mode"];
+            
+            [self updated];
+            [delegate connectionOff];
+            [delegate syncProcessing];
+            [[LocationManager sharedInstance] resetRegions];
+            NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
+            for (Friend *friend in friends) {
+                [[CoreData theManagedObjectContext] deleteObject:friend];
+            }
+            [CoreData saveContext];
+            
+            [self updateValues];
+            [delegate reconnect];
+        } else {
+            if (self.UImode) self.UImode.selectedSegmentIndex = [delegate.settings intForKey:@"mode"];
+        }
     }
-    [CoreData saveContext];
-    
-    [self updateValues];
-    [delegate reconnect];
 }
 
 - (IBAction)checkConnection:(UIButton *)sender {
@@ -558,8 +572,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self updateValues];
     [delegate reconnect];
 }
+
 - (IBAction)crash:(UIButton *)sender {
-    [Crashlytics setObjectValue:@"Manual" forKey:@"CrashType"];
+    [[Crashlytics sharedInstance] setObjectValue:@"Manual" forKey:@"CrashType"];
     [[Crashlytics sharedInstance] crash];
 }
 

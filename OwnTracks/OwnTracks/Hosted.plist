@@ -13,9 +13,9 @@
 	<key>qos_preference</key>
 	<integer>1</integer>
 	<key>host_preference</key>
-	<string>public.owntracks.org</string>
+	<string>hosted.owntracks.org</string>
 	<key>port_preference</key>
-	<real>8889</real>
+	<real>8883</real>
 	<key>tls_preference</key>
 	<true/>
 	<key>auth_preference</key>

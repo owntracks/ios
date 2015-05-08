@@ -1600,17 +1600,35 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="version" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6TY-jz-sHz">
-                                                    <rect key="frame" x="85" y="13" width="203" height="17"/>
+                                                    <rect key="frame" x="85" y="13" width="154" height="17"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="17" id="tFI-qQ-WtV"/>
+                                                    </constraints>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Lq-Kc-eSr">
+                                                    <rect key="frame" x="247" y="7" width="41" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="3Aq-fg-Cxg"/>
+                                                        <constraint firstAttribute="width" constant="41" id="jZe-4V-KmD"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Crash">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="crash:" destination="wIr-Ka-wY2" eventType="touchUpInside" id="19Q-hF-Ce3"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="6TY-jz-sHz" secondAttribute="trailing" constant="20" symbolic="YES" id="Ds4-oP-s5D"/>
+                                                <constraint firstItem="9Lq-Kc-eSr" firstAttribute="leading" secondItem="6TY-jz-sHz" secondAttribute="trailing" constant="8" symbolic="YES" id="RbE-hg-Zti"/>
                                                 <constraint firstAttribute="centerY" secondItem="4Db-Pe-x8P" secondAttribute="centerY" id="Uyk-hk-04x"/>
                                                 <constraint firstItem="4Db-Pe-x8P" firstAttribute="leading" secondItem="9Db-wv-lQd" secondAttribute="leading" constant="20" symbolic="YES" id="bzE-UU-AeM"/>
+                                                <constraint firstAttribute="trailing" secondItem="9Lq-Kc-eSr" secondAttribute="trailing" constant="20" symbolic="YES" id="hIK-3Z-XAa"/>
                                                 <constraint firstAttribute="centerY" secondItem="6TY-jz-sHz" secondAttribute="centerY" id="nNa-1G-Amf"/>
+                                                <constraint firstAttribute="centerY" secondItem="9Lq-Kc-eSr" secondAttribute="centerY" id="qYr-XB-7NZ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <constraints>
@@ -1753,19 +1771,65 @@
                         <rect key="frame" x="0.0" y="0.0" width="308" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="29T-mH-87F">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="29T-mH-87F">
                                 <rect key="frame" x="0.0" y="64" width="308" height="911"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Public Mode
+                                <attributedString key="attributedText">
+                                    <fragment content="Public Mode">
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue-Medium"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">
 
 In public mode, you can get an impression of OwnTracks functionality.
 
 Your location will be anonymously published to owntrack.org's public broker and will be shared with all other users in public mode. Your data will not be stored and will only be forwarded to users connected at the same time.
 
-Please visit http://traction.owntracks.org to obtain an OwnTracks user id and setup your private group of OwnTracks users.
+</string>
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">Hosted Mode
+</string>
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue-Medium"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">
+Please visit http://traction.owntracks.org to obtain an OwnTracks user id and setup your own group of OwnTracks users.
 
-Or you may setup your own OwnTracks server for full privacy protection. More Info on http://owntracks.org</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+</string>
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="Private Mode">
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue-Medium"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">
+
+Or you may setup your own OwnTracks server for full privacy protection. More Info on http://owntracks.org
+
+When switching between  mode, all data on your iOS device will be deleted for privacy reasons.</string>
+                                        <attributes>
+                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
                             </textView>

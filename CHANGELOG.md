@@ -1,6 +1,24 @@
 OnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.0.25
+>Release date: 2015-05-08 for alpha testers only
+
+Preparing for launch
+
+[NEW] Update Public and Hosted Mode settings
+[NEW] Upgrade to CocoaPods 0.37
+[NEW] Upgrade to fabric.io 1.2.5
+
+## OwnTracks 8.0.24
+>Release date: 2015-05-07 for alpha testers only
+
+Bugfix continued
+
+[FIX] Fixed crash when exporting settings in Hosted Mode #184
+[NEW] Implement forced crash button for iPad too #185
+[NEW] Warning when switching between Modes #182
+                    	
 ## OwnTracks 8.0.23
 >Release date: 2015-05-06 for alpha testers only
 
