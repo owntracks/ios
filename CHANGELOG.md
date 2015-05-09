@@ -1,6 +1,14 @@
 OnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.0.28
+>Release date: 2015-05-09 for alpha testers only
+
+Bug fixing and avoiding
+
+[FIX] avoid iPad CLLocationManager reports <nil> location #192
+[FIX] fixed iPad export settings popup location #187
+
 ## OwnTracks 8.0.27
 >Release date: 2015-05-08 for alpha testers only
 

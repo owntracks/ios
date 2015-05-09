@@ -9,6 +9,8 @@
 #import "LocationManager.h"
 #import "AlertView.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @interface LocationManager()
 @property (strong, nonatomic) CLLocationManager *manager;
@@ -140,8 +142,13 @@ static LocationManager *theInstance = nil;
 }
 
 - (CLLocation *)location {
-    self.lastUsedLocation = self.manager.location;
-    return self.manager.location;
+    if (self.manager.location) {
+        self.lastUsedLocation = self.manager.location;
+    } else {
+        DDLogVerbose(@"location == nil");
+        CLSLog(@"location == nil");
+    }
+    return self.lastUsedLocation;
 }
 
 - (void)setMinDist:(double)minDist {

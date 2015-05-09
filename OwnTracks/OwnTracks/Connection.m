@@ -73,7 +73,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                                            self.disconnectTimer.fireDate);
                                                               [self.disconnectTimer invalidate];
                                                           }
-                                                          CLSLog(@"Connection UIApplicationDidBecomeActiveNotification");
                                                           [self connectToLast];
                                                       }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification
@@ -83,7 +82,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
                                                           DDLogVerbose(@"UIApplicationWillResignActiveNotification");
-                                                          CLSLog(@"Connection UIApplicationWillResignActiveNotification");
                                                           [self disconnect];
                                                       }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification
@@ -206,7 +204,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)disconnectInBackground {
     DDLogVerbose(@"%@ disconnectInBackground", self.clientId);
-    CLSLog(@"%@ disconnectInBackground %lu %lu", self.clientId, (unsigned long)self.outCount, (unsigned long)self.inCount);
     self.disconnectTimer = nil;
     [self disconnect];
 }

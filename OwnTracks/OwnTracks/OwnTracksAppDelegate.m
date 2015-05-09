@@ -260,12 +260,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSString *message = [NSString stringWithFormat:@"%@ %@", (enter ? @"Entering" : @"Leaving"), region.identifier];
     [self notification:message userInfo:nil];
     
+    CLLocation *location = [LocationManager sharedInstance].location;
     NSMutableDictionary *jsonObject = [@{
                                          @"_type": @"transition",
-                                         @"lat": @([LocationManager sharedInstance].location.coordinate.latitude),
-                                         @"lon": @([LocationManager sharedInstance].location.coordinate.longitude),
-                                         @"tst": @(floor([[LocationManager sharedInstance].location.timestamp timeIntervalSince1970])),
-                                         @"acc": @([LocationManager sharedInstance].location.horizontalAccuracy),
+                                         @"lat": @(location.coordinate.latitude),
+                                         @"lon": @(location.coordinate.longitude),
+                                         @"tst": @(floor([location.timestamp timeIntervalSince1970])),
+                                         @"acc": @(location.horizontalAccuracy),
                                          @"tid": [self.settings stringForKey:@"trackerid_preference"],
                                          @"event": enter ? @"enter" : @"leave"
                                          } mutableCopy];
@@ -704,7 +705,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         [self share];
     } else {
         DDLogVerbose(@"publishLocation (null) ignored");
-        [AlertView alert:@"publishLocation" message:@"found no location"];
     }
 }
 
