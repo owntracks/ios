@@ -1,4 +1,4 @@
-OnTracks iOS App 8.0 Release Notes
+OwnTracks iOS App 8.0 Release Notes
 ===================================
 
 ## OwnTracks 8.0.28
