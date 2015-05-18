@@ -233,7 +233,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.connectionIn connectToLast];
     
     if ([LocationManager sharedInstance].monitoring) {
-        [self publishLocation:[LocationManager sharedInstance].location automatic:TRUE addon:@{@"t":@"p"}];
+        [self publishLocation:[LocationManager sharedInstance].location
+                    automatic:TRUE
+                        addon:@{@"t":@"p"}];
     }
 }
 
@@ -887,8 +889,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         for (Friend *friend in friends) {
             NSString *name = [friend name];
             NSData *image = [friend image];
+            
             if (!image) {
-                image = UIImageJPEGRepresentation([UIImage imageNamed:@"icon40"], 0.5);
+                image = UIImageJPEGRepresentation([UIImage imageNamed:@"Friend"], 0.5);
             }
             
             Location *friendsLocation = [friend newestLocation];

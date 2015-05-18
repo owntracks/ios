@@ -1,5 +1,12 @@
-OnTracks iOS App 8.0 Release Notes
+OwnTracks iOS App 8.0 Release Notes
 ===================================
+
+## OwnTracks 8.0.29
+>Release date: 2015-05-17 for alpha testers only
+
+App crashing Down Under
+
+[FIX] crash when linking to address book entry w/o contact image #196
 
 ## OwnTracks 8.0.28
 >Release date: 2015-05-09 for alpha testers only
