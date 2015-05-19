@@ -1324,7 +1324,7 @@
             <objects>
                 <tableViewController id="m9c-8c-Xj9" customClass="EditLocationTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="QKs-CU-YVj">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
@@ -1547,6 +1547,41 @@
                                             <constraint firstItem="HVH-Pt-DXp" firstAttribute="leading" secondItem="x2d-ex-SAA" secondAttribute="trailing" constant="8" symbolic="YES" id="6jN-K2-BKl"/>
                                         </constraints>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="yU4-Ak-opf">
+                                        <rect key="frame" x="0.0" y="328" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yU4-Ak-opf" id="WX5-gQ-cA3">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Topic" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dgw-5m-uvy">
+                                                    <rect key="frame" x="20" y="11" width="41" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="41" id="EUb-I8-bdM"/>
+                                                        <constraint firstAttribute="height" constant="21" id="XKL-IE-69d"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="topic" textAlignment="right" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="wKK-9Q-BMU">
+                                                    <rect key="frame" x="69" y="13" width="231" height="17"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Dgw-5m-uvy" firstAttribute="leading" secondItem="WX5-gQ-cA3" secondAttribute="leading" constant="20" symbolic="YES" id="Qng-uI-RtO"/>
+                                                <constraint firstAttribute="trailing" secondItem="wKK-9Q-BMU" secondAttribute="trailing" constant="20" symbolic="YES" id="TwV-j1-0de"/>
+                                                <constraint firstAttribute="centerY" secondItem="wKK-9Q-BMU" secondAttribute="centerY" id="gAg-KW-cer"/>
+                                                <constraint firstAttribute="centerY" secondItem="Dgw-5m-uvy" secondAttribute="centerY" id="md8-cu-Pnk"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <constraints>
+                                            <constraint firstItem="wKK-9Q-BMU" firstAttribute="leading" secondItem="Dgw-5m-uvy" secondAttribute="trailing" constant="8" symbolic="YES" id="1aJ-Qh-Ih5"/>
+                                        </constraints>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="143" id="gMn-pE-DSq">
                                         <rect key="frame" x="0.0" y="372" width="320" height="143"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -1691,6 +1726,7 @@
                         <outlet property="UIshare" destination="Dbw-NX-01f" id="uRN-oO-Tpe"/>
                         <outlet property="UIspeed" destination="Uf9-kM-MOF" id="HIV-sQ-YY7"/>
                         <outlet property="UItimestamp" destination="HVH-Pt-DXp" id="CTa-w1-7qb"/>
+                        <outlet property="UItopic" destination="wKK-9Q-BMU" id="XP9-gS-sUT"/>
                         <outlet property="remarkCell" destination="Ttb-bC-YFP" id="Tid-PB-J8A"/>
                     </connections>
                 </tableViewController>
@@ -2282,8 +2318,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Hb0-uO-VBI"/>
-        <segue reference="Cyr-xx-Iz2"/>
+        <segue reference="DMp-iB-KHF"/>
         <segue reference="fYg-iY-91D"/>
+        <segue reference="Cyr-xx-Iz2"/>
     </inferredMetricsTieBreakers>
 </document>

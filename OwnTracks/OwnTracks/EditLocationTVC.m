@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIaltitude;
 @property (weak, nonatomic) IBOutlet UITextField *UIspeed;
 @property (weak, nonatomic) IBOutlet UITextField *UIcourse;
+@property (weak, nonatomic) IBOutlet UITextField *UItopic;
 
 @property (nonatomic) BOOL needsUpdate;
 @property (strong, nonatomic) CLRegion *oldRegion;
@@ -89,6 +90,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.UIaltitude.text = [NSString stringWithFormat:@"%d", [self.location.altitude intValue]];
     self.UIspeed.text = [NSString stringWithFormat:@"%d", [self.location.speed intValue]];
     self.UIcourse.text = [NSString stringWithFormat:@"%d", [self.location.course intValue]];
+    self.UItopic.text = self.location.belongsTo.topic;
     
     [self.location addObserver:self forKeyPath:@"placemark" options:NSKeyValueObservingOptionNew context:nil];
     self.UIplace.text = self.location.placemark;

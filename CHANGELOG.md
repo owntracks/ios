@@ -1,6 +1,13 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.0.30
+>Release date: 2015-05-?? for alpha testers only
+
+Public Mode UI Clarity
+
+[NEW] show base topic in location details screen #198
+
 ## OwnTracks 8.0.29
 >Release date: 2015-05-17 for alpha testers only
 
