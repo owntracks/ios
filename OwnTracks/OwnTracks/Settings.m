@@ -51,17 +51,34 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         if ([dictionary[@"_type"] isEqualToString:@"configuration"]) {
             NSString *string;
             NSObject *object;
+            int importMode = 0;
             
             object = dictionary[@"mode"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"mode"];
+            if (object) {
+                NSString *string = [NSString stringWithFormat:@"%@", object];
+                [self setString:string forKey:@"mode"];
+                importMode = [string intValue];
+            }
             
-            string = dictionary[@"deviceid"];
-            if (string) [self setString:string forKey:@"deviceid_preference"];
+            string = dictionary[@"deviceId"];
+            if (string) {
+                switch (importMode) {
+                    case 0:
+                        [self setString:string forKey:@"deviceid_preference"];
+                        break;
+                    case 1:
+                        [self setString:string forKey:@"device"];
+                        break;
+                    case 2:
+                    default:
+                        break;
+                }
+            }
             
-            string = dictionary[@"trackerid"];
-            if (string) [self setString:string forKey:@"trackerid_preference"];
+            string = dictionary[@"tid"];
+            [self setString:string forKey:@"trackerid_preference"];
             
-            string = dictionary[@"clientid"];
+            string = dictionary[@"clientId"];
             if (string) [self setString:string forKey:@"clientid_preference"];
             
             string = dictionary[@"subTopic"];
@@ -74,25 +91,39 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             if (string) [self setString:string forKey:@"host_preference"];
             
             string = dictionary[@"username"];
-            if (string) [self setString:string forKey:@"user_preference"];
+            if (string) {
+                switch (importMode) {
+                    case 0:
+                        [self setString:string forKey:@"user_preference"];
+                        break;
+                    case 1:
+                        [self setString:string forKey:@"user"];
+                        break;
+                    case 2:
+                    default:
+                        break;
+                }
+            }
             
             string = dictionary[@"password"];
-            if (string) [self setString:string forKey:@"pass_preference"];
+            if (string) {
+                switch (importMode) {
+                    case 0:
+                        [self setString:string forKey:@"pass_preference"];
+                        break;
+                    case 1:
+                        [self setString:string forKey:@"token"];
+                        break;
+                    case 2:
+                    default:
+                        break;
+                }
+            }
+                [self setString:string forKey:@"pass_preference"];
             
             string = dictionary[@"willTopic"];
             if (string) [self setString:string forKey:@"willtopic_preference"];
-            
-            string = dictionary[@"user"];
-            if (string) [self setString:string forKey:@"user"];
-            
-            string = dictionary[@"device"];
-            if (string) [self setString:string forKey:@"device"];
-            
-            string = dictionary[@"token"];
-            if (string) [self setString:string forKey:@"token"];
-            
-
-            
+        
             object = dictionary[@"subQos"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
                                  forKey:@"subscriptionqos_preference"];
@@ -263,44 +294,53 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         [waypoints addObject:waypoint];
     }
     
-    NSDictionary *dict = @{@"_type": @"configuration",
-                           @"deviceid": [self stringOrZeroForKey:@"deviceid_preference"],
-                           @"clientid": [self stringOrZeroForKey:@"clientid_preference"],
-                           @"subTopic": [self stringOrZeroForKey:@"subscription_preference"],
-                           @"pubTopicBase": [self stringOrZeroForKey:@"topic_preference"],
-                           @"host": [self stringOrZeroForKey:@"host_preference"],
-                           @"username": [self stringOrZeroForKey:@"user_preference"],
-                           @"password": [self stringOrZeroForKey:@"pass_preference"],
-                           @"willTopic": [self stringOrZeroForKey:@"willtopic_preference"],
-                           @"tid": [self stringOrZeroForKey:@"trackerid_preference"],
-                           @"user": [self stringOrZeroForKey:@"user"],
-                           @"device": [self stringOrZeroForKey:@"device"],
-                           @"token": [self stringOrZeroForKey:@"token"],
-                           
-                           @"subQos": @([self intForKey:@"subscriptionqos_preference"]),
-                           @"pubQos": @([self intForKey:@"qos_preference"]),
-                           @"port": @([self intForKey:@"port_preference"]),
-                           @"keepalive": @([self intForKey:@"keepalive_preference"]),
-                           @"willQos": @([self intForKey:@"willqos_preference"]),
-                           @"locatorDisplacement": @([self intForKey:@"mindist_preference"]),
-                           @"locatorInterval": @([self intForKey:@"mintime_preference"]),
-                           @"monitoring": @([self intForKey:@"monitoring_preference"]),
-                           @"positions": @([self intForKey:@"positions_preference"]),
-                           
-                           @"ranging": @([self boolForKey:@"ranging_preference"]),
-                           @"cmd": @([self boolForKey:@"cmd_preference"]),
-                           @"pubRetain": @([self boolForKey:@"retain_preference"]),
-                           @"tls": @([self boolForKey:@"tls_preference"]),
-                           @"auth": @([self boolForKey:@"auth_preference"]),
-                           @"cleanSession": @([self boolForKey:@"clean_preference"]),
-                           @"willRetain": @([self boolForKey:@"willretain_preference"]),
-                           @"updateAddressBook": @([self boolForKey:@"ab_preference"]),
-                           @"allowRemoteLocation": @([self boolForKey:@"allowremotelocation_preference"]),
-                           @"publicMode": @([self intForKey:@"mode"]),
-                           @"extendedData": @([self boolForKey:@"extendeddata_preference"]),
-                           
-                           @"waypoints": waypoints
-                           };
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:@{@"_type": @"configuration"}];
+    dict[@"mode"] =                 @([self intForKey:@"mode"]);
+    dict[@"ranging"] =              @([self boolForKey:@"ranging_preference"]);
+    dict[@"tid"] =                  [self stringOrZeroForKey:@"trackerid_preference"];
+    dict[@"positions"] =            @([self intForKey:@"positions_preference"]);
+    dict[@"monitoring"] =           @([self intForKey:@"monitoring_preference"]);
+    dict[@"locatorDisplacement"] =  @([self intForKey:@"mindist_preference"]);
+    dict[@"locatorInterval"] =      @([self intForKey:@"mintime_preference"]);
+    dict[@"waypoints"] =            waypoints;
+
+    switch ([self intForKey:@"mode"]) {
+        case 0:
+            dict[@"deviceId"] =     [self stringOrZeroForKey:@"deviceid_preference"];
+            dict[@"clientId"] =     [self stringOrZeroForKey:@"clientid_preference"];
+            dict[@"subTopic"] =     [self stringOrZeroForKey:@"subscription_preference"];
+            dict[@"pubTopicBase"] = [self stringOrZeroForKey:@"topic_preference"];
+            dict[@"host"] =         [self stringOrZeroForKey:@"host_preference"];
+            dict[@"username"] =     [self stringOrZeroForKey:@"user_preference"];
+            dict[@"password"] =     [self stringOrZeroForKey:@"pass_preference"];
+            dict[@"willTopic"] =    [self stringOrZeroForKey:@"willtopic_preference"];
+            
+            dict[@"subQos"] =       @([self intForKey:@"subscriptionqos_preference"]);
+            dict[@"pubQos"] =       @([self intForKey:@"qos_preference"]);
+            dict[@"port"] =         @([self intForKey:@"port_preference"]);
+            dict[@"keepalive"] =    @([self intForKey:@"keepalive_preference"]);
+            dict[@"willQos"] =      @([self intForKey:@"willqos_preference"]);
+            
+            dict[@"cmd"] =                  @([self boolForKey:@"cmd_preference"]);
+            dict[@"pubRetain"] =            @([self boolForKey:@"retain_preference"]);
+            dict[@"tls"] =                  @([self boolForKey:@"tls_preference"]);
+            dict[@"auth"] =                 @([self boolForKey:@"auth_preference"]);
+            dict[@"cleanSession"] =         @([self boolForKey:@"clean_preference"]);
+            dict[@"willRetain"] =           @([self boolForKey:@"willretain_preference"]);
+            dict[@"updateAddressBook"] =    @([self boolForKey:@"ab_preference"]);
+            dict[@"allowRemoteLocation"] =  @([self boolForKey:@"allowremotelocation_preference"]);
+            dict[@"extendedData"] =         @([self boolForKey:@"extendeddata_preference"]);
+
+            break;
+        case 1:
+            dict[@"username"] = [self stringOrZeroForKey:@"user"];
+            dict[@"deviceId"] = [self stringOrZeroForKey:@"device"];
+            dict[@"password"] = [self stringOrZeroForKey:@"token"];
+            break;
+        case 2:
+        default:
+            break;
+    }
     return dict;
 }
 

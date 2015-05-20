@@ -11,8 +11,6 @@
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
 			<array>
-				<string>icon_ipad320</string>
-				<string>icon_iphone@2x</string>
 				<string>icon_iphone</string>
 				<string>icon_ipad320</string>
 				<string>icon_ipad64</string>
@@ -20,7 +18,7 @@
 			<key>CFBundleTypeName</key>
 			<string>OwnTracks Configuration File</string>
 			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<string>Editor</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
@@ -40,7 +38,7 @@
 			<key>CFBundleTypeName</key>
 			<string>OwnTracks Waypoints File</string>
 			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<string>Editor</string>
 			<key>LSHandlerRank</key>
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
@@ -127,6 +125,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.json</string>
+				<string>public.data</string>
+				<string>public.content</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>OwnTracks Configuration File</string>
@@ -155,6 +155,8 @@
 			<key>UTTypeConformsTo</key>
 			<array>
 				<string>public.json</string>
+				<string>public.data</string>
+				<string>public.content</string>
 			</array>
 			<key>UTTypeDescription</key>
 			<string>OwnTracks Waypoints File</string>

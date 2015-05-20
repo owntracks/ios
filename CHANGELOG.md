@@ -7,6 +7,8 @@ OwnTracks iOS App 8.0 Release Notes
 Public Mode UI Clarity
 
 [NEW] show base topic in location details screen #198
+[NEW] disable forced crash button
+[NEW] implement new .otrc format // unfortunately Safari on iOS does not support direct download and open in app
 
 ## OwnTracks 8.0.29
 >Release date: 2015-05-17 for alpha testers only
