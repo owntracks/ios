@@ -36,6 +36,7 @@
 - (void)startRegion:(CLRegion *)region;
 - (void)stopRegion:(CLRegion *)region;
 - (void)resetRegions;
+- (BOOL)insideBeaconRegion;
 
 @end
 

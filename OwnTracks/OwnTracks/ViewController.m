@@ -497,12 +497,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 #pragma RangingDelegate
 - (void)regionState:(CLRegion *)region inside:(BOOL)inside {
-    if ([region isKindOfClass:[CLBeaconRegion class]]) {
-        if (inside) {
-            self.beaconButton.tintColor = [UIColor colorWithRed:190.0/255.0 green:0.0 blue:0.0 alpha:1.0];
-        } else {
-            self.beaconButton.tintColor = [UIColor colorWithRed:0.0 green:0.0 blue:190.0/255.0 alpha:1.0];
-        }
+    if ([[LocationManager sharedInstance] insideBeaconRegion]) {
+        self.beaconButton.tintColor = [UIColor colorWithRed:190.0/255.0 green:0.0 blue:0.0 alpha:1.0];
+    } else {
+        self.beaconButton.tintColor = [UIColor colorWithRed:0.0 green:0.0 blue:190.0/255.0 alpha:1.0];
     }
 }
 

@@ -18,6 +18,7 @@
 @property (strong, nonatomic) NSTimer *activityTimer;
 @property (strong, nonatomic) NSMutableSet *pendingRegionEvents;
 - (void)holdDownExpired:(NSTimer *)timer;
+@property (strong, nonatomic) NSMutableDictionary *insideBeaconRegions;
 @end
 
 @interface PendingRegionEvent : NSObject
@@ -59,6 +60,7 @@ static LocationManager *theInstance = nil;
 
     self.manager = [[CLLocationManager alloc] init];
     self.manager.delegate = self;
+    self.insideBeaconRegions = [[NSMutableDictionary alloc] init];
     self.lastUsedLocation = [[CLLocation alloc] initWithLatitude:0 longitude:0];
     self.pendingRegionEvents = [[NSMutableSet alloc] init];
     [self authorize];
@@ -133,12 +135,18 @@ static LocationManager *theInstance = nil;
 - (void)stopRegion:(CLRegion *)region {
     [self removeHoldDown:region];
     [self.manager stopMonitoringForRegion:region];
+    [self.insideBeaconRegions removeObjectForKey:region.identifier];
 }
 
 - (void)resetRegions {
     for (CLRegion *region in self.manager.monitoredRegions) {
         [self.manager stopMonitoringForRegion:region];
+        [self.insideBeaconRegions removeObjectForKey:region.identifier];
     }
+}
+
+- (BOOL)insideBeaconRegion {
+    return (self.insideBeaconRegions.count != 0);
 }
 
 - (CLLocation *)location {
@@ -304,22 +312,21 @@ static LocationManager *theInstance = nil;
  */
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
     DDLogVerbose(@"didDetermineState %ld %@", (long)state, region);
-    if (state == CLRegionStateInside) {
-        if (self.ranging) {
-            if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
-                if ([region isKindOfClass:[CLBeaconRegion class]]) {
+    if ([region isKindOfClass:[CLBeaconRegion class]]) {
+        if (state == CLRegionStateInside) {
+            [self.insideBeaconRegions setObject:[NSNumber numberWithBool:TRUE] forKey:region.identifier];
+            if (self.ranging) {
+                if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
                     CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
                     [self.manager startRangingBeaconsInRegion:beaconRegion];
                 }
             }
-        }
-    } else if (state == CLRegionStateOutside) {
-        if ([region isKindOfClass:[CLBeaconRegion class]]) {
+        } else {
+            [self.insideBeaconRegions removeObjectForKey:region.identifier];
             CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
             [self.manager stopRangingBeaconsInRegion:beaconRegion];
         }
     }
-    
     [self.delegate regionState:region inside:(state == CLRegionStateInside)];
 }
 

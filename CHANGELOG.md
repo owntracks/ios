@@ -1,6 +1,14 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.0.31
+>Release date: 2015-05-21 for alpha testers only
+
+Beacon related bug fixes
+
+[FIX] waypoints were deleted after being imported
+[FIX] correct beacon region indicator when using multiple beacons
+
 ## OwnTracks 8.0.30
 >Release date: 2015-05-?? for alpha testers only
 
