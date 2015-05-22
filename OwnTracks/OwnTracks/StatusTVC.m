@@ -362,14 +362,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIuser) {
         [hiddenFieldsMode02 addObject:self.UIuser];
         [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:11 inSection:0]];
+        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:12 inSection:0]];
     }
     if (self.UIdevice) {
         [hiddenFieldsMode02 addObject:self.UIdevice];
-        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:12 inSection:0]];
+        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:13 inSection:0]];
     }
     if (self.UItoken) {
         [hiddenFieldsMode02 addObject:self.UItoken];
-        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:13 inSection:0]];
+        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:14 inSection:0]];
     }
     
     int mode = [delegate.settings intForKey:@"mode"];
@@ -421,9 +422,36 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.dic presentOptionsMenuFromRect:self.UIexport.frame inView:self.UIexport animated:TRUE];
 }
 
+- (IBAction)exportWaypointsPressed:(UIButton *)sender {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    NSError *error;
+    
+    NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
+                                                                 inDomain:NSUserDomainMask
+                                                        appropriateForURL:nil
+                                                                   create:YES
+                                                                    error:&error];
+    NSString *fileName = [NSString stringWithFormat:@"config.otrw"];
+    NSURL *fileURL = [directoryURL URLByAppendingPathComponent:fileName];
+    
+    [[NSFileManager defaultManager] createFileAtPath:[fileURL path]
+                                            contents:[delegate.settings waypointsToData]
+                                          attributes:nil];
+    
+    self.dic = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
+    self.dic.delegate = self;
+    
+    [self.dic presentOptionsMenuFromRect:self.UIexport.frame inView:self.UIexport animated:TRUE];
+}
+
 - (IBAction)documentationPressed:(UIButton *)sender {
     [[UIApplication sharedApplication] openURL:
      [NSURL URLWithString:@"https://github.com/owntracks/owntracks/wiki"]];
+}
+
+- (IBAction)hostedPressed:(UIButton *)sender {
+    [[UIApplication sharedApplication] openURL:
+     [NSURL URLWithString:@"https://hosted.owntracks.org"]];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

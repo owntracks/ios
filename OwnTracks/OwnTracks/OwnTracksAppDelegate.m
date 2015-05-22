@@ -163,17 +163,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 return FALSE;
             }
             
-            [[LocationManager sharedInstance] resetRegions];
-            NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
-            for (Friend *friend in friends) {
-                [[CoreData theManagedObjectContext] deleteObject:friend];
-            }
-            [CoreData saveContext];
-            
             NSError *error;
             NSString *extension = [url pathExtension];
             if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
+                [[LocationManager sharedInstance] resetRegions];
+                NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
+                for (Friend *friend in friends) {
+                    [[CoreData theManagedObjectContext] deleteObject:friend];
+                }
                 error = [self.settings fromStream:input];
+                [CoreData saveContext];
             } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
                 error = [self.settings waypointsFromStream:input];
             } else {

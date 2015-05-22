@@ -136,12 +136,15 @@ static LocationManager *theInstance = nil;
     [self removeHoldDown:region];
     [self.manager stopMonitoringForRegion:region];
     [self.insideBeaconRegions removeObjectForKey:region.identifier];
+    [self.delegate regionState:region inside:NO];
+
 }
 
 - (void)resetRegions {
     for (CLRegion *region in self.manager.monitoredRegions) {
         [self.manager stopMonitoringForRegion:region];
         [self.insideBeaconRegions removeObjectForKey:region.identifier];
+        [self.delegate regionState:region inside:NO];
     }
 }
 

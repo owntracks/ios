@@ -1,6 +1,16 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.0.32
+>Release date: 2015-05-22 for alpha testers only
+
+Bug fixes and small enhancements
+
+[NEW] add export of waypoints only
+[NEW] direct link to hosted from settings (called Manage Tracking)
+[FIX] clean database only if .otrc file received (not for .otrw)
+[FIX] correct beacon region indicator when all beacons reset
+
 ## OwnTracks 8.0.31
 >Release date: 2015-05-21 for alpha testers only
 

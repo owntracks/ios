@@ -278,7 +278,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (NSDictionary *)toDictionary
+- (NSArray *)waypointsToArray
 {
     NSMutableArray *waypoints = [[NSMutableArray alloc] init];
     
@@ -294,6 +294,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         [waypoints addObject:waypoint];
     }
     
+    return waypoints;
+}
+
+
+
+- (NSDictionary *)waypointsToDictionary
+{
+    return @{@"_type": @"waypoints", @"waypoints": [self waypointsToArray]};
+}
+
+- (NSDictionary *)toDictionary
+{
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:@{@"_type": @"configuration"}];
     dict[@"mode"] =                 @([self intForKey:@"mode"]);
     dict[@"ranging"] =              @([self boolForKey:@"ranging_preference"]);
@@ -302,7 +314,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     dict[@"monitoring"] =           @([self intForKey:@"monitoring_preference"]);
     dict[@"locatorDisplacement"] =  @([self intForKey:@"mindist_preference"]);
     dict[@"locatorInterval"] =      @([self intForKey:@"mintime_preference"]);
-    dict[@"waypoints"] =            waypoints;
+    dict[@"waypoints"] =            [self waypointsToArray];
 
     switch ([self intForKey:@"mode"]) {
         case 0:
@@ -342,6 +354,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             break;
     }
     return dict;
+}
+
+- (NSData *)waypointsToData
+{
+    NSDictionary *dict = [self waypointsToDictionary];
+    
+    NSError *error;
+    NSData *myData = [NSJSONSerialization dataWithJSONObject:dict
+                                                     options:NSJSONWritingPrettyPrinted
+                                                       error:&error];
+    return myData;
 }
 
 - (NSData *)toData
