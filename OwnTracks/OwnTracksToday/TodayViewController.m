@@ -40,7 +40,7 @@
 
 - (void)widgetPerformUpdateWithCompletionHandler:(void (^)(NCUpdateResult))completionHandler {
     NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
-    self.sharedFriends = [shared valueForKey:@"sharedFriends"];
+    self.sharedFriends = [shared dictionaryForKey:@"sharedFriends"];
     NSLog(@"sharedFriends: %@", self.sharedFriends);
     self.offset = 0;
     [self show];

@@ -30,26 +30,26 @@
                 NSString *name = CFBridgingRelease(ABRecordCopyCompositeName(person));
                 NSString *key = [[name substringToIndex:1] uppercaseString];
                 if (key) {
-                    NSMutableArray *array = [self.sections valueForKey:key];
+                    NSMutableArray *array = [self.sections objectForKey:key];
                     if (!array) {
                         array = [[NSMutableArray alloc] init];
                     }
                     [array addObject:@(ABRecordGetRecordID(person))];
-                    [self.sections setValue:array forKey:key];
+                    [self.sections setObject:array forKey:key];
                 }
             }
             CFRelease(records);
         }
     
         for (NSString *key in self.sections.allKeys) {
-            NSArray *persons = [[self.sections valueForKey:key] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            NSArray *persons = [[self.sections objectForKey:key] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
                 ABRecordRef ABRecordRef1 = ABAddressBookGetPersonWithRecordID(ab, [obj1 intValue]);
                 ABRecordRef ABRecordRef2 = ABAddressBookGetPersonWithRecordID(ab, [obj2 intValue]);
                 CFComparisonResult r = ABPersonComparePeopleByName(ABRecordRef1, ABRecordRef2, ABPersonGetSortOrdering());
                 return (NSComparisonResult)r;
             }];
             
-            [self.sections setValue:persons forKey:key];
+            [self.sections setObject:persons forKey:key];
         }
     }
     
@@ -88,7 +88,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSArray *keys = [[self.sections allKeys] sortedArrayUsingSelector:@selector(compare:)];
-    NSArray *persons = [self.sections valueForKey:keys[section]];
+    NSArray *persons = [self.sections objectForKey:keys[section]];
     return [persons count];
 }
 
@@ -136,7 +136,7 @@
 - (NSArray *)sortedPersonsInSection:(NSInteger)index
 {
     NSArray *keys = [[self.sections allKeys] sortedArrayUsingSelector:@selector(compare:)];
-    NSArray *persons = [self.sections valueForKey:keys[index]];
+    NSArray *persons = [self.sections objectForKey:keys[index]];
     return persons;
 }
 

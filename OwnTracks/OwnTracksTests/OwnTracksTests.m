@@ -26,9 +26,71 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testNil
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    NSMutableDictionary *sections = [[NSMutableDictionary alloc] init];
+
+    NSString *name = nil;
+    NSLog(@"name:<%@>", name.description);
+    NSString *key = [[name substringToIndex:1] uppercaseString];
+    NSLog(@"key:<%@>", key.description);
+    NSMutableArray *array = [sections objectForKey:key];
+    NSLog(@"array:<%@>", array.description);
+}
+- (void)testZero
+{
+    NSMutableDictionary *sections = [[NSMutableDictionary alloc] init];
+
+    NSString *name = @"\0";
+    NSLog(@"name:<%@>", name.description);
+    NSString *key = [[name substringToIndex:1] uppercaseString];
+    NSLog(@"key:<%@>", key.description);
+    NSMutableArray *array = [sections objectForKey:key];
+    NSLog(@"array:<%@>", array.description);
+}
+- (void)testAmpValue
+{
+    NSMutableDictionary *sections = [[NSMutableDictionary alloc] init];
+
+    NSString *name = @"@";
+    NSLog(@"name:<%@>", name.description);
+    NSString *key = [[name substringToIndex:1] uppercaseString];
+    NSLog(@"key:<%@>", key.description);
+    NSMutableArray *array = [sections valueForKey:key];
+    NSLog(@"array:<%@>", array.description);
+}
+- (void)testAmp
+{
+    NSMutableDictionary *sections = [[NSMutableDictionary alloc] init];
+
+    NSString *name = @"@";
+    NSLog(@"name:<%@>", name.description);
+    NSString *key = [[name substringToIndex:1] uppercaseString];
+    NSLog(@"key:<%@>", key.description);
+    NSMutableArray *array = [sections objectForKey:key];
+    NSLog(@"array:<%@>", array.description);
+}
+- (void)testAmpOne
+{
+    NSMutableDictionary *sections = [[NSMutableDictionary alloc] init];
+
+    NSString *name = @"@a";
+    NSLog(@"name:<%@>", name.description);
+    NSString *key = [[name substringToIndex:2] uppercaseString];
+    NSLog(@"key:<%@>", key.description);
+    NSMutableArray *array = [sections objectForKey:key];
+    NSLog(@"array:<%@>", array.description);
+}
+- (void)testLenghtOne
+{
+    NSMutableDictionary *sections = [[NSMutableDictionary alloc] init];
+
+    NSString *name = @"a";
+    NSLog(@"name:<%@>", name.description);
+    NSString *key = [[name substringToIndex:1] uppercaseString];
+    NSLog(@"key:<%@>", key.description);
+    NSMutableArray *array = [sections objectForKey:key];
+    NSLog(@"array:<%@>", array.description);
 }
 
 @end

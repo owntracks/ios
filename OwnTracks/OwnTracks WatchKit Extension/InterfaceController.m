@@ -29,7 +29,7 @@
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
     NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
-    self.sharedFriends = [shared valueForKey:@"sharedFriends"];
+    self.sharedFriends = [shared dictionaryForKey:@"sharedFriends"];
     self.places = [[NSMutableDictionary alloc] init];
     NSLog(@"sharedFriends: %@", self.sharedFriends);
     [self show];

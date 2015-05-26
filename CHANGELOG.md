@@ -1,8 +1,15 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.0.33
+>Release date: 2015-05-?? for beta testing
+
+Bug fix results from beta test
+
+[FIX] crash when accessing addressbook with leading `@` in names #115, #202
+
 ## OwnTracks 8.0.32
->Release date: 2015-05-22 for alpha testers only
+>Release date: 2015-05-22 for beta testing
 
 Bug fixes and small enhancements
 
