@@ -185,7 +185,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                           error.localizedDescription];
                 return FALSE;
             }
-            self.processingMessage = [NSString stringWithFormat:@"File %@ successfully processed)",
+            self.processingMessage = [NSString stringWithFormat:@"File %@ successfully processed",
                                       [url lastPathComponent]];
             self.configLoad = [NSDate date];
         }
@@ -276,7 +276,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                          @"tst": @(floor([location.timestamp timeIntervalSince1970])),
                                          @"acc": @(location.horizontalAccuracy),
                                          @"tid": [self.settings stringForKey:@"trackerid_preference"],
-                                         @"event": enter ? @"enter" : @"leave"
+                                         @"event": enter ? @"enter" : @"leave",
+                                         @"t": [region isKindOfClass:[CLBeaconRegion class]] ? @"b" : @"c"
                                          } mutableCopy];
     
     for (Location *location in [Location allWaypointsOfTopic:[self.settings theGeneralTopic]
@@ -464,11 +465,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                           inManagedObjectContext:self.queueManagedObjectContext];
                         
                     } else if ([dictionary[@"_type"] isEqualToString:@"transition"]) {
-                        [self notification:[NSString stringWithFormat:@"%@ %@s %@",
-                                            dictionary[@"tid"],
-                                            dictionary[@"event"],
-                                            dictionary[@"desc"]]
-                                  userInfo:@{@"notify": @"friend"}];
+                        NSString *type = dictionary[@"t"];
+                        if (!type || ![type isEqualToString:@"b"]) {
+                            [self notification:[NSString stringWithFormat:@"%@ %@s %@",
+                                                dictionary[@"tid"],
+                                                dictionary[@"event"],
+                                                dictionary[@"desc"]]
+                                      userInfo:@{@"notify": @"friend"}];
+                        }
                         
                     } else if ([dictionary[@"_type"] isEqualToString:@"card"]) {
                         Friend *friend = [Friend friendWithTopic:device

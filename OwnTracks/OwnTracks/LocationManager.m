@@ -19,6 +19,7 @@
 @property (strong, nonatomic) NSMutableSet *pendingRegionEvents;
 - (void)holdDownExpired:(NSTimer *)timer;
 @property (strong, nonatomic) NSMutableDictionary *insideBeaconRegions;
+@property (strong, nonatomic) NSMutableArray *rangedBeacons;
 @end
 
 @interface PendingRegionEvent : NSObject
@@ -61,6 +62,7 @@ static LocationManager *theInstance = nil;
     self.manager = [[CLLocationManager alloc] init];
     self.manager.delegate = self;
     self.insideBeaconRegions = [[NSMutableDictionary alloc] init];
+    self.rangedBeacons = [[NSMutableArray alloc] init];
     self.lastUsedLocation = [[CLLocation alloc] initWithLatitude:0 longitude:0];
     self.pendingRegionEvents = [[NSMutableSet alloc] init];
     [self authorize];
@@ -407,7 +409,32 @@ static LocationManager *theInstance = nil;
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
     DDLogVerbose(@"didRangeBeacons %@ %@", beacons, region);
     for (CLBeacon *beacon in beacons) {
-        [self.delegate beaconInRange:beacon];
+        CLBeacon *foundBeacon = nil;
+        for (CLBeacon *rangedBeacon in self.rangedBeacons) {
+            uuid_t rangedBeaconUUID;
+            uuid_t beaconUUID;
+            [rangedBeacon.proximityUUID getUUIDBytes:rangedBeaconUUID];
+            [beacon.proximityUUID getUUIDBytes:beaconUUID];
+
+            if (uuid_compare(rangedBeaconUUID, beaconUUID) == 0 &&
+                [rangedBeacon.major intValue] == [beacon.major intValue] &&
+                [rangedBeacon.minor intValue] == [beacon.minor intValue]) {
+                foundBeacon = beacon;
+                break;
+            }
+        }
+        if (foundBeacon == nil) {
+            [self.delegate beaconInRange:beacon];
+            [self.rangedBeacons addObject:beacon];
+        } else {
+            if (foundBeacon.rssi != beacon.rssi ||
+                foundBeacon.proximity != beacon.proximity ||
+                foundBeacon.accuracy != beacon.accuracy) {
+                [self.delegate beaconInRange:beacon];
+                [self.rangedBeacons removeObject:foundBeacon];
+                [self.rangedBeacons addObject:beacon];
+            }
+        }
     }
 }
 
