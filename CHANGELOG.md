@@ -8,6 +8,7 @@ Bug fix results from beta test
 
 [FIX] crash when accessing addressbook with leading `@` in names #115, #202
 [FIX] typo in .otrc/.otrw processing message #203
+[FIX] empty tid in transition event #205
 [NEW] add type to transition messages and suppress beacon notifications #199
 [NEW] optimize beacon ranging result messages #204
 

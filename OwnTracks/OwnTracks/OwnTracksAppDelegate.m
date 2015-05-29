@@ -267,7 +267,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)regionEvent:(CLRegion *)region enter:(BOOL)enter {
     NSString *message = [NSString stringWithFormat:@"%@ %@", (enter ? @"Entering" : @"Leaving"), region.identifier];
     [self notification:message userInfo:nil];
-    
+
+    Friend *myself = [Friend existsFriendWithTopic:[self.settings theGeneralTopic] inManagedObjectContext:[CoreData theManagedObjectContext]];
     CLLocation *location = [LocationManager sharedInstance].location;
     NSMutableDictionary *jsonObject = [@{
                                          @"_type": @"transition",
@@ -275,7 +276,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                          @"lon": @(location.coordinate.longitude),
                                          @"tst": @(floor([location.timestamp timeIntervalSince1970])),
                                          @"acc": @(location.horizontalAccuracy),
-                                         @"tid": [self.settings stringForKey:@"trackerid_preference"],
+                                         @"tid": [myself getEffectiveTid],
                                          @"event": enter ? @"enter" : @"leave",
                                          @"t": [region isKindOfClass:[CLBeaconRegion class]] ? @"b" : @"c"
                                          } mutableCopy];
