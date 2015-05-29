@@ -188,12 +188,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                    @(state_closed): @"closed"
                                    };
     
-    self.UIstatus.text = [NSString stringWithFormat:@"%@ %@",
+    self.UIstatus.text = [NSString stringWithFormat:@"%@ %@ %@",
                           states[delegate.connectionStateOut],
-                          delegate.connectionOut.lastErrorCode ? delegate.connectionOut.lastErrorCode.localizedDescription : @""];
-    self.UIstatusField.text = [NSString stringWithFormat:@"%@ %@",
+                          delegate.connectionOut.lastErrorCode ?
+                          delegate.connectionOut.lastErrorCode.localizedDescription : @"",
+                          delegate.connectionOut.lastErrorCode ?
+                          delegate.connectionOut.lastErrorCode.userInfo : @""
+                          ];
+    self.UIstatusField.text = [NSString stringWithFormat:@"%@ %@ %@",
                                states[delegate.connectionStateOut],
-                               delegate.connectionOut.lastErrorCode ? delegate.connectionOut.lastErrorCode.localizedDescription : @""];
+                               delegate.connectionOut.lastErrorCode ?
+                               delegate.connectionOut.lastErrorCode.localizedDescription : @"",
+                               delegate.connectionOut.lastErrorCode ?
+                               delegate.connectionOut.lastErrorCode.userInfo : @""
+                               ];
 }
 
 - (void)updated

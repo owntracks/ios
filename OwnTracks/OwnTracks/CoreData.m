@@ -87,7 +87,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             NSError *error = nil;
             DDLogVerbose(@"managedObjectContext save");
             if (![theManagedObjectContext save:&error]) {
-                NSString *message = [NSString stringWithFormat:@"%@", error.localizedDescription];
+                NSString *message = [NSString stringWithFormat:@"%@ %@", error.localizedDescription, error.userInfo];
                 DDLogVerbose(@"managedObjectContext save error: %@", message);
             }
         }

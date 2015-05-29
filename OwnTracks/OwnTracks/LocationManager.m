@@ -305,7 +305,7 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    DDLogError(@"didFailWithError %@", error.localizedDescription);
+    DDLogError(@"didFailWithError %@ %@", error.localizedDescription, error.userInfo);
     // error
 }
 
@@ -385,7 +385,7 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
-    DDLogVerbose(@"monitoringDidFailForRegion %@ %@", region, error.localizedDescription);
+    DDLogVerbose(@"monitoringDidFailForRegion %@ %@ %@", region, error.localizedDescription, error.userInfo);
     for (CLRegion *monitoredRegion in manager.monitoredRegions) {
         DDLogVerbose(@"monitoredRegion: %@", monitoredRegion);
     }
@@ -402,7 +402,7 @@ static LocationManager *theInstance = nil;
  *
  */
 - (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error {
-    DDLogVerbose(@"rangingBeaconsDidFailForRegion %@ %@", region, error.localizedDescription);
+    DDLogVerbose(@"rangingBeaconsDidFailForRegion %@ %@ %@", region, error.localizedDescription, error.userInfo);
     // error
 }
 
