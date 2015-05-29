@@ -11,7 +11,7 @@ Bug fix results from beta test
 [FIX] empty tid in transition event #205
 [FIX] added userinfo to processing error messages #206
 [NEW] add type to transition messages and suppress beacon notifications #199
-[NEW] optimize beacon ranging result messages #204
+[NEW] optimize beacon ranging result messages based on proximity #204
 
 ## OwnTracks 8.0.32
 >Release date: 2015-05-22 for beta testing
