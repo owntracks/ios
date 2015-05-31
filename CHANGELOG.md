@@ -9,6 +9,7 @@ Bug fix results from beta test
 [FIX] crash when accessing addressbook with leading `@` in names #115, #202
 [FIX] typo in .otrc/.otrw processing message #203
 [FIX] empty tid in transition event #205
+[FIX] enable host name verification (MQTT-Client-Framework 0.1.6)
 [NEW] add type to transition messages and suppress beacon notifications #199
 [NEW] optimize beacon ranging result messages #204
 

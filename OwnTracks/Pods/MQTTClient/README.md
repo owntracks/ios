@@ -3,12 +3,54 @@ MQTT-Client-Framework
 
 an Objective-C native MQTT Framework http://mqtt.org
 
+### Tested with
+
+* mosquitto
+* paho
+* rabbitmq
+* hivemq
+* rsmb
+* mosca
+* vernemq
+* emqtt
+
 ### Howto
 
 Add MQTTClient.framework from the dist directory to your IOS project
 or use the CocoaPod MQTTClient
 
 [Documentation](MQTTClient/dist/documentation/html/index.html)
+
+### Usage
+
+Create a new client and connect to a broker:
+
+```objective-c
+MQTTSession *session = [[MQTTSession alloc]initWithClientId:@"<client_id>"]
+
+// Set delegate appropriately to receive various events
+// See MQTTSession.h for information on various handlers
+// you can subscribe to.
+[session setDelegate:self];
+
+[session connectAndWaitToHost:@"<host>" port:1883 usingSSL:NO];
+
+```
+
+Subscribe to a topic:
+
+```objective-c
+[session subscribeToTopic:topic atLevel:MQTTQosLevelAtLeastOnce];
+```
+
+Publish a message to a topic:
+
+```objective-c
+[session publishAndWaitData:<your data here>
+	                onTopic:@"<topic here>"
+	                 retain:NO
+				        qos:MQTTQosLevelAtLeastOnce]
+```
 
 ### License
 

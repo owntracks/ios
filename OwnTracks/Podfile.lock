@@ -8,7 +8,7 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.0.0):
     - CocoaLumberjack/Default
-  - MQTTClient (0.1.5)
+  - MQTTClient (0.1.6)
 
 DEPENDENCIES:
   - ABStaticTableViewController
@@ -18,6 +18,6 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   ABStaticTableViewController: ef94678753f8873d364ca6cc74ea0237b41fb848
   CocoaLumberjack: a6f77d987d65dc7ba86b0f84db7d0b9084f77bcb
-  MQTTClient: a5a626552d068a315fdefb07befa9794175a622e
+  MQTTClient: e6dfb508a09d370f7937689bb1a930020d3cf108
 
-COCOAPODS: 0.37.1
+COCOAPODS: 0.37.2
