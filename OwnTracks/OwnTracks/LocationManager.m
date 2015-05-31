@@ -305,7 +305,7 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    DDLogError(@"didFailWithError %@", error.localizedDescription);
+    DDLogError(@"didFailWithError %@ %@", error.localizedDescription, error.userInfo);
     // error
 }
 
@@ -385,7 +385,7 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
-    DDLogVerbose(@"monitoringDidFailForRegion %@ %@", region, error.localizedDescription);
+    DDLogVerbose(@"monitoringDidFailForRegion %@ %@ %@", region, error.localizedDescription, error.userInfo);
     for (CLRegion *monitoredRegion in manager.monitoredRegions) {
         DDLogVerbose(@"monitoredRegion: %@", monitoredRegion);
     }
@@ -402,37 +402,37 @@ static LocationManager *theInstance = nil;
  *
  */
 - (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error {
-    DDLogVerbose(@"rangingBeaconsDidFailForRegion %@ %@", region, error.localizedDescription);
+    DDLogVerbose(@"rangingBeaconsDidFailForRegion %@ %@ %@", region, error.localizedDescription, error.userInfo);
     // error
 }
 
 - (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
     DDLogVerbose(@"didRangeBeacons %@ %@", beacons, region);
     for (CLBeacon *beacon in beacons) {
-        CLBeacon *foundBeacon = nil;
-        for (CLBeacon *rangedBeacon in self.rangedBeacons) {
-            uuid_t rangedBeaconUUID;
-            uuid_t beaconUUID;
-            [rangedBeacon.proximityUUID getUUIDBytes:rangedBeaconUUID];
-            [beacon.proximityUUID getUUIDBytes:beaconUUID];
-
-            if (uuid_compare(rangedBeaconUUID, beaconUUID) == 0 &&
-                [rangedBeacon.major intValue] == [beacon.major intValue] &&
-                [rangedBeacon.minor intValue] == [beacon.minor intValue]) {
-                foundBeacon = beacon;
-                break;
+        if (beacon.proximity != CLProximityUnknown) {
+            CLBeacon *foundBeacon = nil;
+            for (CLBeacon *rangedBeacon in self.rangedBeacons) {
+                uuid_t rangedBeaconUUID;
+                uuid_t beaconUUID;
+                [rangedBeacon.proximityUUID getUUIDBytes:rangedBeaconUUID];
+                [beacon.proximityUUID getUUIDBytes:beaconUUID];
+                
+                if (uuid_compare(rangedBeaconUUID, beaconUUID) == 0 &&
+                    [rangedBeacon.major intValue] == [beacon.major intValue] &&
+                    [rangedBeacon.minor intValue] == [beacon.minor intValue]) {
+                    foundBeacon = rangedBeacon;
+                    break;
+                }
             }
-        }
-        if (foundBeacon == nil) {
-            [self.delegate beaconInRange:beacon];
-            [self.rangedBeacons addObject:beacon];
-        } else {
-            if (foundBeacon.rssi != beacon.rssi ||
-                foundBeacon.proximity != beacon.proximity ||
-                foundBeacon.accuracy != beacon.accuracy) {
+            if (foundBeacon == nil) {
                 [self.delegate beaconInRange:beacon];
-                [self.rangedBeacons removeObject:foundBeacon];
                 [self.rangedBeacons addObject:beacon];
+            } else {
+                if (foundBeacon.proximity != beacon.proximity) {
+                    [self.delegate beaconInRange:beacon];
+                    [self.rangedBeacons removeObject:foundBeacon];
+                    [self.rangedBeacons addObject:beacon];
+                }
             }
         }
     }

@@ -180,9 +180,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             }
             
             if (error) {
-                self.processingMessage = [NSString stringWithFormat:@"Error processing file %@: %@",
+                self.processingMessage = [NSString stringWithFormat:@"Error processing file %@: %@ %@",
                                           [url lastPathComponent],
-                                          error.localizedDescription];
+                                          error.localizedDescription,
+                                          error.userInfo];
                 return FALSE;
             }
             self.processingMessage = [NSString stringWithFormat:@"File %@ successfully processed",
@@ -420,7 +421,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 DDLogVerbose(@"unhandled record type %@", dictionary[@"_type"]);
             }
         } else {
-            DDLogVerbose(@"illegal json %@ %@", error.localizedDescription, data.description);
+            DDLogVerbose(@"illegal json %@ %@ %@", error.localizedDescription, error.userInfo, data.description);
         }
         
     } else /* not ownDevice */ {
@@ -485,7 +486,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                         DDLogVerbose(@"unknown record type %@)", dictionary[@"_type"]);
                     }
                 } else {
-                    DDLogVerbose(@"illegal json %@, %@)", error.localizedDescription, data.description);
+                    DDLogVerbose(@"illegal json %@, %@ %@)", error.localizedDescription, error.userInfo, data.description);
                 }
             } else /* data.length == 0 -> delete friend */ {
                 Friend *friend = [Friend existsFriendWithTopic:device inManagedObjectContext:self.queueManagedObjectContext];
@@ -624,7 +625,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                              toQueue:[[NSOperationQueue alloc] init]
                                          withHandler:^(NSInteger steps, NSError *error)
          {
-             DDLogVerbose(@"StepCounter queryStepCountStartingFrom handler %ld %@", (long)steps, error.localizedDescription);
+             DDLogVerbose(@"StepCounter queryStepCountStartingFrom handler %ld %@ %@", (long)steps,
+                          error.localizedDescription,
+                          error.userInfo);
              dispatch_async(dispatch_get_main_queue(), ^{
                  
                  NSDictionary *jsonObject = @{
@@ -833,7 +836,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         NSError *error;
         data = [NSJSONSerialization dataWithJSONObject:jsonObject options:0 /* not pretty printed */ error:&error];
         if (!data) {
-            NSString *message = [NSString stringWithFormat:@"%@ %@", error.localizedDescription, [jsonObject description]];
+            NSString *message = [NSString stringWithFormat:@"%@ %@ %@",
+                                 error.localizedDescription,
+                                 error.userInfo,
+                                 [jsonObject description]];
             [AlertView alert:@"dataWithJSONObject" message:message];
         }
     } else {
