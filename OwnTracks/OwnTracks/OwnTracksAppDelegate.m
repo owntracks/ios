@@ -293,15 +293,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         }
     }
     
-    [self.connectionOut sendData:[self jsonToData:jsonObject]
-                           topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/event"]
-                             qos:[self.settings intForKey:@"qos_preference"]
-                          retain:NO];
-
-    if ([region isKindOfClass:[CLBeaconRegion class]]) {
-        [self publishLocation:[LocationManager sharedInstance].location automatic:YES addon:@{@"t": @"b"}];
-    } else {
-        [self publishLocation:[LocationManager sharedInstance].location automatic:YES addon:@{@"t": @"c"}];
+    if ([LocationManager sharedInstance].monitoring) {
+        [self.connectionOut sendData:[self jsonToData:jsonObject]
+                               topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/event"]
+                                 qos:[self.settings intForKey:@"qos_preference"]
+                              retain:NO];
+        
+        if ([region isKindOfClass:[CLBeaconRegion class]]) {
+            [self publishLocation:[LocationManager sharedInstance].location automatic:YES addon:@{@"t": @"b"}];
+        } else {
+            [self publishLocation:[LocationManager sharedInstance].location automatic:YES addon:@{@"t": @"c"}];
+        }
     }
 }
 

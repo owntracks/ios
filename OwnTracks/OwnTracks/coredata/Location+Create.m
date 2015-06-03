@@ -158,9 +158,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 - (NSString *)locationText
 {
-    return [NSString stringWithFormat:@"%@ (±%.0fm) ✈︎%0.fm %0.fkm/h %0.f°",
+    return [NSString stringWithFormat:@"%@ %@",
             (self.placemark) ? self.placemark :
             [NSString stringWithFormat:@"%g,%g", self.coordinate.latitude, self.coordinate.longitude],
+            [self infoText]
+            ];
+}
+
+- (NSString *)infoText
+{
+    return [NSString stringWithFormat:@"(±%.0fm) ✈︎%0.fm %0.fkm/h %0.f°",
             [self.accuracy doubleValue],
             [self.altitude doubleValue],
             [self.speed doubleValue],

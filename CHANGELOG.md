@@ -2,7 +2,7 @@ OwnTracks iOS App 8.0 Release Notes
 ===================================
 
 ## OwnTracks 8.0.33
->Release date: 2015-05-?? for beta testing
+>Release date: 2015-06-?? for beta testing
 
 Bug fix results from beta test
 
@@ -13,6 +13,8 @@ Bug fix results from beta test
 [FIX] added userinfo to processing error messages #206
 [NEW] add type to transition messages and suppress beacon notifications #199
 [NEW] optimize beacon ranging result messages based on proximity #204
+[NEW] show location accuracy in details screen #208
+[FIX] suppress publish on beacon enter/leave when monitoring == manual #209
 
 ## OwnTracks 8.0.32
 >Release date: 2015-05-22 for beta testing

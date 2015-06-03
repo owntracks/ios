@@ -36,6 +36,7 @@
 - (NSString *)nameText;
 - (NSString *)timestampText;
 - (NSString *)locationText;
+- (NSString *)infoText;
 - (NSString *)coordinateText;
 - (NSString *)radiusText;
 - (CLRegion *)region;

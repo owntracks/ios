@@ -13,7 +13,6 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface EditLocationTVC ()
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *UInew;
 @property (weak, nonatomic) IBOutlet UITableViewCell *remarkCell;
 @property (weak, nonatomic) IBOutlet UITextField *UItimestamp;
 @property (weak, nonatomic) IBOutlet UITextField *UIlatitude;
@@ -22,10 +21,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIremark;
 @property (weak, nonatomic) IBOutlet UITextField *UIradius;
 @property (weak, nonatomic) IBOutlet UISwitch *UIshare;
-@property (weak, nonatomic) IBOutlet UITextField *UIaltitude;
-@property (weak, nonatomic) IBOutlet UITextField *UIspeed;
-@property (weak, nonatomic) IBOutlet UITextField *UIcourse;
 @property (weak, nonatomic) IBOutlet UITextField *UItopic;
+@property (weak, nonatomic) IBOutlet UITextField *UIinfo;
 
 @property (nonatomic) BOOL needsUpdate;
 @property (strong, nonatomic) CLRegion *oldRegion;
@@ -87,9 +84,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.UIlongitude.text = [NSString stringWithFormat:@"%g", [self.location.longitude doubleValue]];
     
     self.UItimestamp.text = [self.location timestampText];
-    self.UIaltitude.text = [NSString stringWithFormat:@"%d", [self.location.altitude intValue]];
-    self.UIspeed.text = [NSString stringWithFormat:@"%d", [self.location.speed intValue]];
-    self.UIcourse.text = [NSString stringWithFormat:@"%d", [self.location.course intValue]];
+    self.UIinfo.text = [self.location infoText];
     self.UItopic.text = self.location.belongsTo.topic;
     
     [self.location addObserver:self forKeyPath:@"placemark" options:NSKeyValueObservingOptionNew context:nil];
@@ -140,12 +135,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         
         self.UIshare.enabled = FALSE;
         self.UIshare.userInteractionEnabled = FALSE;
-    }
-    if ([self.location.belongsTo.topic
-         isEqualToString:[delegate.settings theGeneralTopic]]) {
-        self.UInew.enabled = TRUE;
-    } else {
-        self.UInew.enabled = FALSE;
     }
 }
 
