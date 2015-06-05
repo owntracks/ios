@@ -209,21 +209,25 @@ ABRecordRef recordWithTopic(CFStringRef topic)
                     
                     for (CFIndex k = 0 ; k < relationsCount ; k++) {
                         CFStringRef label = ABMultiValueCopyLabelAtIndex(relations, k);
-                        CFStringRef value = ABMultiValueCopyValueAtIndex(relations, k);
-                        if(CFStringCompare(label, RELATION_NAME, kCFCompareCaseInsensitive) == kCFCompareEqualTo) {
-                            if(CFStringCompare(value, topic, kCFCompareCaseInsensitive) == kCFCompareEqualTo) {
-                                theRecord = record;
-                                CFRelease(label);
-                                CFRelease(value);
-                                break;
+                        if (label != NULL) {
+                            if (CFStringCompare(label, RELATION_NAME, kCFCompareCaseInsensitive) == kCFCompareEqualTo) {
+                                CFStringRef value = ABMultiValueCopyValueAtIndex(relations, k);
+                                if (value != NULL) {
+                                    if (CFStringCompare(value, topic, kCFCompareCaseInsensitive) == kCFCompareEqualTo) {
+                                        theRecord = record;
+                                        CFRelease(label);
+                                        CFRelease(value);
+                                        break;
+                                    }
+                                    CFRelease(value);
+                                }
                             }
+                            CFRelease(label);
                         }
-                        CFRelease(label);
-                        CFRelease(value);
                     }
                     CFRelease(relations);
                 }
-                if (theRecord) {
+                if (theRecord != NULL) {
                     CFRetain(theRecord);
                     break;
                 }

@@ -4,8 +4,6 @@ OwnTracks iOS App 8.0 Release Notes
 ## OwnTracks 8.0.33
 >Release date: 2015-06-?? for beta testing
 
-Bug fix results from beta test
-
 [FIX] crash when accessing addressbook with leading `@` in names #115, #202
 [FIX] typo in .otrc/.otrw processing message #203
 [FIX] empty tid in transition event #205
@@ -15,6 +13,11 @@ Bug fix results from beta test
 [NEW] optimize beacon ranging result messages based on proximity #204
 [NEW] show location accuracy in details screen #208
 [FIX] suppress publish on beacon enter/leave when monitoring == manual #209
+[FIX] crash if address book relationships corrupt #207
+[FIX] crash if unexpected short topic received #210
+[NEW] MQTT-Client-Framework 0.2.0
+[NEW] fabric.io/crashlytics 3.0.9
+
 
 ## OwnTracks 8.0.32
 >Release date: 2015-05-22 for beta testing

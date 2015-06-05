@@ -385,8 +385,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         if (i > 0) {
             device = [device stringByAppendingString:@"/"];
         }
-        device = [device stringByAppendingString:topicComponents[i]];
-        if (![baseComponents[i] isEqualToString:topicComponents [i]]) {
+        if (i < topicComponents.count) {
+            device = [device stringByAppendingString:topicComponents[i]];
+            if (![baseComponents[i] isEqualToString:topicComponents [i]]) {
+                ownDevice = false;
+            }
+        } else {
             ownDevice = false;
         }
     }
