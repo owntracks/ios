@@ -17,7 +17,7 @@ OwnTracks iOS App 8.0 Release Notes
 [FIX] crash if unexpected short topic received #210
 [NEW] MQTT-Client-Framework 0.2.0
 [NEW] fabric.io/crashlytics 3.0.9
-
+[FIX] if no deviceid is specified, it doesn't publish #211
 
 ## OwnTracks 8.0.32
 >Release date: 2015-05-22 for beta testing

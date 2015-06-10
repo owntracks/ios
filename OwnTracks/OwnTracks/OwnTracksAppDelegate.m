@@ -230,6 +230,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                              self.coreData.fileURL];
         [AlertView alert:@"CoreData" message:message];
     }
+    
+    if (![self.settings validIds]) {
+        NSString *message = [NSString stringWithFormat:@"To publish your location userID and deviceID must be set"];
+        [AlertView alert:@"Settings" message:message];
+    }
 }
 
 - (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
@@ -293,7 +298,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         }
     }
     
-    if ([LocationManager sharedInstance].monitoring) {
+    if ([LocationManager sharedInstance].monitoring && [self.settings validIds]) {
         [self.connectionOut sendData:[self jsonToData:jsonObject]
                                topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/event"]
                                  qos:[self.settings intForKey:@"qos_preference"]
@@ -318,21 +323,22 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (void)beaconInRange:(CLBeacon *)beacon {
-    NSDictionary *jsonObject = @{
-                                 @"_type": @"beacon",
-                                 @"tst": @(floor([[LocationManager sharedInstance].location.timestamp timeIntervalSince1970])),
-                                 @"uuid": [beacon.proximityUUID UUIDString],
-                                 @"major": beacon.major,
-                                 @"minor": beacon.minor,
-                                 @"prox": @(beacon.proximity),
-                                 @"acc": @(round(beacon.accuracy)),
-                                 @"rssi": @(beacon.rssi)
-                                 };
-    [self.connectionOut sendData:[self jsonToData:jsonObject]
-                           topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/beacon"]
-                             qos:[self.settings intForKey:@"qos_preference"]
-                          retain:NO];
-    
+    if ([self.settings validIds]) {
+        NSDictionary *jsonObject = @{
+                                     @"_type": @"beacon",
+                                     @"tst": @(floor([[LocationManager sharedInstance].location.timestamp timeIntervalSince1970])),
+                                     @"uuid": [beacon.proximityUUID UUIDString],
+                                     @"major": beacon.major,
+                                     @"minor": beacon.minor,
+                                     @"prox": @(beacon.proximity),
+                                     @"acc": @(round(beacon.accuracy)),
+                                     @"rssi": @(beacon.rssi)
+                                     };
+        [self.connectionOut sendData:[self jsonToData:jsonObject]
+                               topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/beacon"]
+                                 qos:[self.settings intForKey:@"qos_preference"]
+                              retain:NO];
+    }
     [self.delegate beaconInRange:beacon];
 }
 
@@ -750,21 +756,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (void)sendWayPoint:(Location *)location {
-    NSMutableDictionary *addon = [[NSMutableDictionary alloc]init];
-    
-    if (location.remark) {
-        [addon setValue:location.remark forKey:@"desc"];
+    if ([self.settings validIds]) {
+        NSMutableDictionary *addon = [[NSMutableDictionary alloc]init];
+        
+        if (location.remark) {
+            [addon setValue:location.remark forKey:@"desc"];
+        }
+        
+        NSData *data = [self encodeLocationData:location
+                                           type:@"waypoint" addon:addon];
+        
+        [self.connectionOut sendData:data
+                               topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/waypoint"]
+                                 qos:[self.settings intForKey:@"qos_preference"]
+                              retain:NO];
+        
+        [CoreData saveContext];
     }
-    
-    NSData *data = [self encodeLocationData:location
-                                       type:@"waypoint" addon:addon];
-    
-    [self.connectionOut sendData:data
-                           topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/waypoint"]
-                             qos:[self.settings intForKey:@"qos_preference"]
-                          retain:NO];
-    
-    [CoreData saveContext];
 }
 
 - (void)limitLocationsWith:(Friend *)friend toMaximum:(NSInteger)max inManagedObjectContext:(NSManagedObjectContext *)context {
