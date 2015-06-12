@@ -19,6 +19,7 @@ OwnTracks iOS App 8.0 Release Notes
 [NEW] fabric.io/crashlytics 3.0.9
 [FIX] if no deviceid is specified, it doesn't publish #211
 [NEW] setWaypoints command
+[FIX] crash when location.timestamp is nil #217
 
 ## OwnTracks 8.0.32
 >Release date: 2015-05-22 for beta testing

@@ -930,18 +930,27 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             
             Location *friendsLocation = [friend newestLocation];
             if (friendsLocation) {
-                CLLocation *friendsCLLocation = [[CLLocation alloc] initWithLatitude:[friendsLocation.latitude doubleValue]
-                                                                           longitude:[friendsLocation.longitude doubleValue]];
+                CLLocation *friendsCLLocation = [[CLLocation alloc]
+                                                 initWithLatitude:[friendsLocation.latitude doubleValue]
+                                                 longitude:[friendsLocation.longitude doubleValue]];
                 NSNumber *distance = @([myCLLocation distanceFromLocation:friendsCLLocation]);
                 if (name) {
-                    NSMutableDictionary *aFriend = [[NSMutableDictionary alloc] init];
-                    [aFriend setObject:image forKey:@"image"];
-                    [aFriend setObject:distance forKey:@"distance"];
-                    [aFriend setObject:friendsLocation.longitude forKey:@"longitude"];
-                    [aFriend setObject:friendsLocation.latitude forKey:@"latitude"];
-                    [aFriend setObject:friendsLocation.timestamp forKey:@"timestamp"];
-                    [aFriend setObject:friend.topic forKey:@"topic"];
-                    [sharedFriends setObject:aFriend forKey:name];
+                    if (friendsLocation.timestamp &&
+                        friendsLocation.latitude &&
+                        friendsLocation.longitude &&
+                        friend.topic &&
+                        image) {
+                        NSMutableDictionary *aFriend = [[NSMutableDictionary alloc] init];
+                        [aFriend setObject:image forKey:@"image"];
+                        [aFriend setObject:distance forKey:@"distance"];
+                        [aFriend setObject:friendsLocation.longitude forKey:@"longitude"];
+                        [aFriend setObject:friendsLocation.latitude forKey:@"latitude"];
+                        [aFriend setObject:friendsLocation.timestamp forKey:@"timestamp"];
+                        [aFriend setObject:friend.topic forKey:@"topic"];
+                        [sharedFriends setObject:aFriend forKey:name];
+                    } else {
+                        DDLogVerbose(@"friend or location incomplete");
+                    }
                 }
             }
         }
