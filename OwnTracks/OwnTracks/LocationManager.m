@@ -131,15 +131,18 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)startRegion:(CLRegion *)region {
-    [self.manager startMonitoringForRegion:region];
+    if (region) {
+        [self.manager startMonitoringForRegion:region];
+    }
 }
 
 - (void)stopRegion:(CLRegion *)region {
-    [self removeHoldDown:region];
-    [self.manager stopMonitoringForRegion:region];
-    [self.insideBeaconRegions removeObjectForKey:region.identifier];
-    [self.delegate regionState:region inside:NO];
-
+    if (region) {
+        [self removeHoldDown:region];
+        [self.manager stopMonitoringForRegion:region];
+        [self.insideBeaconRegions removeObjectForKey:region.identifier];
+        [self.delegate regionState:region inside:NO];
+    }
 }
 
 - (void)resetRegions {

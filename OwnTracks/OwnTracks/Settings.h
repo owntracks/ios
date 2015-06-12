@@ -12,6 +12,7 @@
 @interface Settings : NSObject
 - (NSError *)fromStream:(NSInputStream *)input;
 - (NSError *)waypointsFromStream:(NSInputStream *)input;
+- (NSError *)waypointsFromDictionary:(NSDictionary *)dictionary;
 - (NSData *)toData;
 - (NSData *)waypointsToData;
 - (NSDictionary *)toDictionary;

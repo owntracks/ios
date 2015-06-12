@@ -726,6 +726,11 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         Location *location = (Location *)anObject;
         CLLocationCoordinate2D coordinate = location.coordinate;
+        DDLogVerbose(@"didChangeObject %lu %@ %@ %@",
+                     (unsigned long)type,
+                     location,
+                     [delegate.settings theGeneralTopic],
+                     location.belongsTo.topic);
         
         switch(type)
         {
@@ -743,10 +748,8 @@ didChangeDragState:(MKAnnotationViewDragState)newState
                 
             case NSFetchedResultsChangeDelete:
                 [self.mapView removeAnnotation:location];
-                if ([location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]]) {
-                    [self.mapView removeOverlay:location];
-                    [[LocationManager sharedInstance] stopRegion:location.region];
-                }
+                [self.mapView removeOverlay:location];
+                [[LocationManager sharedInstance] stopRegion:location.region];
                 break;
                 
             case NSFetchedResultsChangeUpdate:

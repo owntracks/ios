@@ -18,6 +18,7 @@ OwnTracks iOS App 8.0 Release Notes
 [NEW] MQTT-Client-Framework 0.2.0
 [NEW] fabric.io/crashlytics 3.0.9
 [FIX] if no deviceid is specified, it doesn't publish #211
+[NEW] setWaypoints command
 
 ## OwnTracks 8.0.32
 >Release date: 2015-05-22 for beta testing

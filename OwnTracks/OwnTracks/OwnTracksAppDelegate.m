@@ -419,6 +419,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                         }
                     } else if ([dictionary[@"action"] isEqualToString:@"reportSteps"]) {
                         [self stepsFrom:dictionary[@"from"] to:dictionary[@"to"]];
+                    } else if ([dictionary[@"action"] isEqualToString:@"setWaypoints"]) {
+                        NSDictionary *payload = dictionary[@"payload"];
+                        [self.settings waypointsFromDictionary:payload];
                     } else {
                         DDLogVerbose(@"unknown action %@", dictionary[@"action"]);
                     }

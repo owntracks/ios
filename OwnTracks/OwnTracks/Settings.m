@@ -219,7 +219,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 {
     NSError *error;
     
-    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithStream:input options:0 error:&error];
+    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithStream:input
+                                                                 options:0
+                                                                   error:&error];
+    if (dictionary) {
+        return [self waypointsFromDictionary:dictionary];
+    } else {
+        return error;
+    }
+}
+
+- (NSError *)waypointsFromDictionary:(NSDictionary *)dictionary
+{
     if (dictionary) {
         for (NSString *key in [dictionary allKeys]) {
             DDLogVerbose(@"Waypoints %@:%@", key, dictionary[key]);
@@ -229,10 +240,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             NSArray *waypoints = dictionary[@"waypoints"];
             [self setWaypoints:waypoints];
         } else {
-            return [NSError errorWithDomain:@"OwnTracks Waypoints" code:1 userInfo:@{@"_type": dictionary[@"_type"]}];
+            return [NSError errorWithDomain:@"OwnTracks Waypoints"
+                                       code:1
+                                   userInfo:@{@"_type": dictionary[@"_type"]}];
         }
-    } else {
-        return error;
     }
     return nil;
 }
@@ -247,32 +258,43 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                              [waypoint[@"lon"] doubleValue],
                              [waypoint[@"lat"] doubleValue]
                              );
+                NSDate *tst = [NSDate dateWithTimeIntervalSince1970:[waypoint[@"tst"] doubleValue]];
                 CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
                                                                                [waypoint[@"lat"] doubleValue],
                                                                                [waypoint[@"lon"] doubleValue]
                                                                                );
-                CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate
-                                                                     altitude:0
-                                                           horizontalAccuracy:0
-                                                             verticalAccuracy:0
-                                                                       course:0
-                                                                        speed:0
-                                                                    timestamp:[NSDate dateWithTimeIntervalSince1970:[waypoint[@"tst"] doubleValue]]];
-                
-                [Location locationWithTopic:[self theGeneralTopic]
-                                        tid:[self stringForKey:@"trackerid_preference"]
-                                  timestamp:location.timestamp
-                                 coordinate:location.coordinate
-                                   accuracy:location.horizontalAccuracy
-                                   altitude:location.altitude
-                           verticalaccuracy:location.verticalAccuracy
-                                      speed:location.speed
-                                     course:location.course
-                                  automatic:NO
-                                     remark:waypoint[@"desc"]
-                                     radius:[waypoint[@"rad"] doubleValue]
-                                      share:YES
-                     inManagedObjectContext:[CoreData theManagedObjectContext]];
+                if (CLLocationCoordinate2DIsValid(coordinate)) {
+                    CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate
+                                                                         altitude:0
+                                                               horizontalAccuracy:0
+                                                                 verticalAccuracy:0
+                                                                           course:0
+                                                                            speed:0
+                                                                        timestamp:tst];
+                    
+                    [Location locationWithTopic:[self theGeneralTopic]
+                                            tid:[self stringForKey:@"trackerid_preference"]
+                                      timestamp:location.timestamp
+                                     coordinate:location.coordinate
+                                       accuracy:location.horizontalAccuracy
+                                       altitude:location.altitude
+                               verticalaccuracy:location.verticalAccuracy
+                                          speed:location.speed
+                                         course:location.course
+                                      automatic:NO
+                                         remark:waypoint[@"desc"]
+                                         radius:[waypoint[@"rad"] doubleValue]
+                                          share:YES
+                         inManagedObjectContext:[CoreData theManagedObjectContext]];
+                } else {
+                    for (Location *location in [Location allWaypointsOfTopic:[self theGeneralTopic]
+                                                      inManagedObjectContext:[CoreData theManagedObjectContext]]) {
+                        if ([location.timestamp isEqualToDate:tst]) {
+                            [[CoreData theManagedObjectContext] deleteObject:location];
+                            break;
+                        }
+                    }
+                }
             }
         }
     }
