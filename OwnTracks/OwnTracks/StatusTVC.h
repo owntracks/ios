@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "Connection.h"
 #import "ABStaticTableViewController.h"
+#import <QRCodeReaderViewController.h>
 
-@interface StatusTVC : ABStaticTableViewController <UIDocumentInteractionControllerDelegate, UIAlertViewDelegate, UITextFieldDelegate>
+@interface StatusTVC : ABStaticTableViewController <UIDocumentInteractionControllerDelegate, UIAlertViewDelegate, UITextFieldDelegate, QRCodeReaderDelegate>
 
 @end

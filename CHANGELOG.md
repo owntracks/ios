@@ -1,8 +1,17 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.0.34
+>Release date: 2015-06-13 for alpha-testers only
+
+[NEW] Minimum iOS Version 7.0 (b/c QR reader)
+[NEW] QR reader for iBeacon labels 
+[NEW] QR reader for Hosted mode labels
+[NEW] Auto-updating iBeacon locations and indicators (when entering iBeacon region, waypoint is updated)
+[NEW] iBeacon images on map
+
 ## OwnTracks 8.0.33
->Release date: 2015-06-?? for beta testing
+>Release date: 2015-06-13 for alpha-testers only
 
 [FIX] crash when accessing addressbook with leading `@` in names #115, #202
 [FIX] typo in .otrc/.otrw processing message #203

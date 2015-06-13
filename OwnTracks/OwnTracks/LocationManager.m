@@ -409,7 +409,9 @@ static LocationManager *theInstance = nil;
     // error
 }
 
-- (void)locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region {
+- (void)locationManager:(CLLocationManager *)manager
+        didRangeBeacons:(NSArray *)beacons
+               inRegion:(CLBeaconRegion *)region {
     DDLogVerbose(@"didRangeBeacons %@ %@", beacons, region);
     for (CLBeacon *beacon in beacons) {
         if (beacon.proximity != CLProximityUnknown) {
@@ -428,11 +430,11 @@ static LocationManager *theInstance = nil;
                 }
             }
             if (foundBeacon == nil) {
-                [self.delegate beaconInRange:beacon];
+                [self.delegate beaconInRange:beacon region:region];
                 [self.rangedBeacons addObject:beacon];
             } else {
                 if (foundBeacon.proximity != beacon.proximity) {
-                    [self.delegate beaconInRange:beacon];
+                    [self.delegate beaconInRange:beacon region:region];
                     [self.rangedBeacons removeObject:foundBeacon];
                     [self.rangedBeacons addObject:beacon];
                 }

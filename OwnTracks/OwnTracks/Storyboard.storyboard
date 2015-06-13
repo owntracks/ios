@@ -444,9 +444,20 @@
                                                         <action selector="hostedPressed:" destination="nAk-La-kdM" eventType="touchUpInside" id="0IQ-t2-vmJ"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ei-sk-lZK">
+                                                    <rect key="frame" x="238" y="7" width="62" height="30"/>
+                                                    <state key="normal" title="Scan QR">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="scan:" destination="nAk-La-kdM" eventType="touchUpInside" id="l4W-JN-pNG"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="cyM-Dq-D5r" firstAttribute="leading" secondItem="eVf-fD-mXH" secondAttribute="leading" constant="20" symbolic="YES" id="AcR-Pb-vFC"/>
+                                                <constraint firstAttribute="trailing" secondItem="1ei-sk-lZK" secondAttribute="trailing" constant="20" symbolic="YES" id="ZWW-hY-dgH"/>
+                                                <constraint firstAttribute="centerY" secondItem="1ei-sk-lZK" secondAttribute="centerY" id="a9F-LP-31L"/>
                                                 <constraint firstAttribute="centerY" secondItem="cyM-Dq-D5r" secondAttribute="centerY" id="wwu-6d-uZB"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1372,6 +1383,9 @@
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latitude" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yx0-Kk-yOQ">
                                                     <rect key="frame" x="20" y="11" width="63" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="63" id="6wH-L1-7AH"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1405,6 +1419,9 @@
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Longitude" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qko-TW-kg1">
                                                     <rect key="frame" x="20" y="11" width="77" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="77" id="oVq-Xk-HvB"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1438,6 +1455,9 @@
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H9E-1q-UIm">
                                                     <rect key="frame" x="20" y="11" width="88" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="88" id="NDl-YS-63r"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1471,6 +1491,9 @@
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Radius for Region (m)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUn-Ko-dif">
                                                     <rect key="frame" x="20" y="11" width="166" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="166" id="ayp-bA-YEm"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -1546,6 +1569,29 @@
                                             <constraints>
                                                 <constraint firstItem="hcc-3n-8aC" firstAttribute="leading" secondItem="FO5-Bs-fjE" secondAttribute="leading" constant="20" symbolic="YES" id="Z9n-YF-84Z"/>
                                                 <constraint firstAttribute="centerY" secondItem="hcc-3n-8aC" secondAttribute="centerY" id="Ziv-SM-k1K"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="44" id="MWv-cH-O4d">
+                                        <rect key="frame" x="0.0" y="284" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MWv-cH-O4d" id="PUG-nE-Yvy">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BgI-p5-9mN">
+                                                    <rect key="frame" x="20" y="7" width="240" height="30"/>
+                                                    <state key="normal" title="Scan OwnTracks Beacon QR Code">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="scan:" destination="m9c-8c-Xj9" eventType="touchUpInside" id="8LM-BG-HlC"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="BgI-p5-9mN" firstAttribute="leading" secondItem="PUG-nE-Yvy" secondAttribute="leading" constant="20" symbolic="YES" id="4pV-vj-l75"/>
+                                                <constraint firstAttribute="centerY" secondItem="BgI-p5-9mN" secondAttribute="centerY" id="If9-Cw-UTH"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1693,6 +1739,7 @@
                         <outlet property="UIplace" destination="VjN-rg-5pV" id="H7Z-M1-yyx"/>
                         <outlet property="UIradius" destination="wfQ-et-rkm" id="Xlf-ip-PRU"/>
                         <outlet property="UIremark" destination="4Ik-gA-Pd2" id="XJg-nd-Tef"/>
+                        <outlet property="UIscan" destination="BgI-p5-9mN" id="6Pg-n8-6eb"/>
                         <outlet property="UIshare" destination="Dbw-NX-01f" id="uRN-oO-Tpe"/>
                         <outlet property="UItimestamp" destination="HVH-Pt-DXp" id="CTa-w1-7qb"/>
                         <outlet property="UItopic" destination="wKK-9Q-BMU" id="XP9-gS-sUT"/>
@@ -2112,7 +2159,7 @@ Your location will be anonymously published to owntrack.org's public broker and 
                                     </fragment>
                                     <fragment>
                                         <string key="content">
-Please visit http://hosted.owntracks.org to obtain an OwnTracks user id and setup your own group of OwnTracks users.
+Please visit https://hosted.owntracks.org to obtain an OwnTracks user id and setup your own group of OwnTracks users.
 
 </string>
                                         <attributes>

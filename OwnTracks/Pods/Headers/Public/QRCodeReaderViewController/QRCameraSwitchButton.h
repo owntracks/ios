@@ -1,0 +1,1 @@
+../../../QRCodeReaderViewController/QRCodeReaderViewController/QRCameraSwitchButton.h

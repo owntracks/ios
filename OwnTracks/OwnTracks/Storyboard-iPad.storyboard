@@ -160,6 +160,9 @@
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latitude" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z0Z-xA-HyX">
                                                     <rect key="frame" x="20" y="11" width="63" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="63" id="vYX-sA-yk6"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -191,6 +194,9 @@
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Longitude" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y4I-CX-7C6">
                                                     <rect key="frame" x="20" y="11" width="77" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="77" id="4Ql-qa-rqW"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -222,6 +228,9 @@
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v2N-8p-24c">
                                                     <rect key="frame" x="20" y="11" width="88" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="88" id="d9E-pk-O6T"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -255,6 +264,9 @@
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Radius for Region (m)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DSd-Si-ZyT">
                                                     <rect key="frame" x="20" y="11" width="166" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="166" id="iHP-VV-oZY"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -310,29 +322,6 @@
                             </tableViewSection>
                             <tableViewSection id="mIn-Ap-aFh">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="44" id="kZH-Ss-ccl">
-                                        <rect key="frame" x="0.0" y="284" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kZH-Ss-ccl" id="0Py-LR-bHU">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tJX-rP-wT7">
-                                                    <rect key="frame" x="20" y="7" width="61" height="30"/>
-                                                    <state key="normal" title="Navigate">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="navigatePressed:" destination="dhB-ni-g7B" eventType="touchUpInside" id="sON-d0-rMb"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="tJX-rP-wT7" secondAttribute="centerY" id="Nro-ff-bi2"/>
-                                                <constraint firstItem="tJX-rP-wT7" firstAttribute="leading" secondItem="0Py-LR-bHU" secondAttribute="leading" constant="20" symbolic="YES" id="V4B-HJ-q5C"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="143" id="U16-gu-VQl">
                                         <rect key="frame" x="0.0" y="328" width="320" height="143"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -363,6 +352,52 @@
                                         <constraints>
                                             <constraint firstItem="wWN-SR-oY2" firstAttribute="leading" secondItem="cRd-r3-Wmf" secondAttribute="trailing" constant="8" symbolic="YES" id="spQ-qn-G31"/>
                                         </constraints>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="44" id="kZH-Ss-ccl">
+                                        <rect key="frame" x="0.0" y="284" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kZH-Ss-ccl" id="0Py-LR-bHU">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tJX-rP-wT7">
+                                                    <rect key="frame" x="20" y="7" width="61" height="30"/>
+                                                    <state key="normal" title="Navigate">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="navigatePressed:" destination="dhB-ni-g7B" eventType="touchUpInside" id="sON-d0-rMb"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="tJX-rP-wT7" secondAttribute="centerY" id="Nro-ff-bi2"/>
+                                                <constraint firstItem="tJX-rP-wT7" firstAttribute="leading" secondItem="0Py-LR-bHU" secondAttribute="leading" constant="20" symbolic="YES" id="V4B-HJ-q5C"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="44" id="2eV-KM-Kk3">
+                                        <rect key="frame" x="0.0" y="284" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2eV-KM-Kk3" id="Abm-JS-OTp">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kJy-ly-Fcm">
+                                                    <rect key="frame" x="20" y="7" width="240" height="30"/>
+                                                    <state key="normal" title="Scan OwnTracks Beacon QR Code">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="scan:" destination="dhB-ni-g7B" eventType="touchUpInside" id="pCK-nh-cq4"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="kJy-ly-Fcm" secondAttribute="centerY" id="RXA-Pr-GPa"/>
+                                                <constraint firstItem="kJy-ly-Fcm" firstAttribute="leading" secondItem="Abm-JS-OTp" secondAttribute="leading" constant="20" symbolic="YES" id="nnj-Cg-0Ub"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="H6x-RE-r33">
                                         <rect key="frame" x="0.0" y="471" width="320" height="44"/>
@@ -487,6 +522,7 @@
                         <outlet property="UIplace" destination="wWN-SR-oY2" id="aga-lF-eY7"/>
                         <outlet property="UIradius" destination="hP6-u2-FsG" id="4ur-rV-xfB"/>
                         <outlet property="UIremark" destination="1PX-Ao-l2f" id="dvJ-go-A2c"/>
+                        <outlet property="UIscan" destination="kJy-ly-Fcm" id="sMd-Az-zGf"/>
                         <outlet property="UIshare" destination="9dV-2r-cQK" id="Pe1-uG-j7P"/>
                         <outlet property="UItimestamp" destination="Rbu-kM-YFO" id="jVC-2N-HB0"/>
                         <outlet property="UItopic" destination="efy-cE-8BM" id="1TI-G0-a7V"/>
@@ -1002,10 +1038,21 @@
                                                         <action selector="hostedPressed:" destination="wIr-Ka-wY2" eventType="touchUpInside" id="gU5-zD-5co"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1dS-du-mz9">
+                                                    <rect key="frame" x="226" y="7" width="62" height="30"/>
+                                                    <state key="normal" title="Scan QR">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="scan:" destination="wIr-Ka-wY2" eventType="touchUpInside" id="Z9V-g9-LdH"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="tye-i5-JnN" firstAttribute="leading" secondItem="AMx-Kn-Y9A" secondAttribute="leading" constant="20" symbolic="YES" id="6Ck-TW-iF4"/>
+                                                <constraint firstAttribute="trailing" secondItem="1dS-du-mz9" secondAttribute="trailing" constant="20" symbolic="YES" id="Dtj-bB-Ire"/>
                                                 <constraint firstAttribute="centerY" secondItem="tye-i5-JnN" secondAttribute="centerY" id="Wui-eF-Ca5"/>
+                                                <constraint firstAttribute="centerY" secondItem="1dS-du-mz9" secondAttribute="centerY" id="hhH-Xf-RAH"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1798,7 +1845,7 @@ Your location will be anonymously published to owntrack.org's public broker and 
                                     </fragment>
                                     <fragment>
                                         <string key="content">
-Please visit http://hosted.owntracks.org to obtain an OwnTracks user id and setup your own group of OwnTracks users.
+Please visit https://hosted.owntracks.org to obtain an OwnTracks user id and setup your own group of OwnTracks users.
 
 </string>
                                         <attributes>

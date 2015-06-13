@@ -16,7 +16,7 @@
 - (void)timerLocation:(CLLocation *)location;
 - (void)regionEvent:(CLRegion *)region enter:(BOOL)enter;
 - (void)regionState:(CLRegion *)region inside:(BOOL)inside;
-- (void)beaconInRange:(CLBeacon *)beacon;
+- (void)beaconInRange:(CLBeacon *)beacon region:(CLBeaconRegion *)region;
 
 @end
 

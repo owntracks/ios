@@ -1,6 +1,6 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ABStaticTableViewController" "${PODS_ROOT}/Headers/Public/CocoaLumberjack" "${PODS_ROOT}/Headers/Public/MQTTClient"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/ABStaticTableViewController" -isystem "${PODS_ROOT}/Headers/Public/CocoaLumberjack" -isystem "${PODS_ROOT}/Headers/Public/MQTTClient"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"Pods-ABStaticTableViewController" -l"Pods-CocoaLumberjack" -l"Pods-MQTTClient"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ABStaticTableViewController" "${PODS_ROOT}/Headers/Public/CocoaLumberjack" "${PODS_ROOT}/Headers/Public/MQTTClient" "${PODS_ROOT}/Headers/Public/QRCodeReaderViewController"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/ABStaticTableViewController" -isystem "${PODS_ROOT}/Headers/Public/CocoaLumberjack" -isystem "${PODS_ROOT}/Headers/Public/MQTTClient" -isystem "${PODS_ROOT}/Headers/Public/QRCodeReaderViewController"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"Pods-ABStaticTableViewController" -l"Pods-CocoaLumberjack" -l"Pods-MQTTClient" -l"Pods-QRCodeReaderViewController" -framework "AVFoundation"
 OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
 PODS_ROOT = ${SRCROOT}/Pods

@@ -18,7 +18,7 @@
 @protocol RangingDelegate <NSObject>
 
 - (void)regionState:(CLRegion *)region inside:(BOOL)inside;
-- (void)beaconInRange:(CLBeacon *)beacon;
+- (void)beaconInRange:(CLBeacon *)beacon region:(CLBeaconRegion *)region;
 
 @end
 

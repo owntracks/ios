@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "Location+Create.h"
+#import <QRCodeReaderViewController.h>
 
-@interface EditLocationTVC : UITableViewController <UITextFieldDelegate>
+@interface EditLocationTVC : UITableViewController <UITextFieldDelegate, QRCodeReaderDelegate>
 @property (strong, nonatomic) Location *location;
 @property (strong, nonatomic) MKMapView *mapView;
 

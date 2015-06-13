@@ -11,6 +11,7 @@
 #import "OwnTracksAppDelegate.h"
 #import "Friend+Create.h"
 #import "CoreData.h"
+#import "AlertView.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
@@ -60,6 +61,7 @@
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
 @property (strong, nonatomic) UIAlertView *tidAlertView;
 @property (strong, nonatomic) UIAlertView *modeAlertView;
+@property (strong, nonatomic) QRCodeReaderViewController *reader;
 
 @end
 
@@ -611,6 +613,54 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (IBAction)crash:(UIButton *)sender {
     [[Crashlytics sharedInstance] setObjectValue:@"Manual" forKey:@"CrashType"];
     [[Crashlytics sharedInstance] crash];
+}
+
+- (IBAction)scan:(UIButton *)sender {
+    if ([QRCodeReader isAvailable]) {
+        NSArray *types = @[AVMetadataObjectTypeQRCode];
+        self.reader = [QRCodeReaderViewController readerWithMetadataObjectTypes:types];
+        
+        self.reader.modalPresentationStyle = UIModalPresentationFormSheet;
+        
+        self.reader.delegate = self;
+        
+        [self presentViewController:_reader animated:YES completion:NULL];
+    } else {
+        [AlertView alert:@"QRScanner" message:@"Does not have access to camera!"];
+    }
+}
+
+
+#pragma mark - QRCodeReader Delegate Methods
+
+- (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        DDLogVerbose(@"result %@", result);
+        NSArray *components = [result componentsSeparatedByString:@":"];
+        if (components.count == 4) {
+            NSString *magic = components[0];
+            if ([magic isEqualToString:@"HOSTED"]) {
+                OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+
+                [delegate.settings setString:components[1] forKey:@"user"];
+                [delegate.settings setString:components[2] forKey:@"device"];
+                [delegate.settings setString:components[3] forKey:@"token"];
+                [self updated];
+                [self reconnect];
+            } else {
+                [AlertView alert:@"QRScanner" message:@"Unknown type"];
+            }
+            
+        } else {
+            [AlertView alert:@"QRScanner" message:@"Unknown format"];
+        }
+    }];
+}
+
+- (void)readerDidCancel:(QRCodeReaderViewController *)reader
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

@@ -504,7 +504,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (void)beaconInRange:(CLBeacon *)beacon {
+- (void)beaconInRange:(CLBeacon *)beacon region:(CLBeaconRegion *)region {
     self.beaconOn = !self.beaconOn;
     if (self.beaconOn) {
         self.beaconButton.image = [UIImage imageNamed:@"iBeaconOn"];
@@ -516,6 +516,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 #pragma MKMapViewDelegate
 
 #define REUSE_ID_PIN @"Annotation_pin"
+#define REUSE_ID_BEACON @"Annotation_beacon"
 #define REUSE_ID_PICTURE @"Annotation_picture"
 #define OLD_TIME -12*60*60
 
@@ -543,10 +544,15 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             
             OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
             if ([location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]]) {
-                if (location == [location.belongsTo newestLocation]) {
-                    annotationView = [self pictureAnnotationView:mapView location:location];
+                CLRegion *region = [location region];
+                if (region && [region isKindOfClass:[CLBeaconRegion class]]) {
+                    annotationView = [self beaconAnnotationView:mapView location:location];
                 } else {
-                    annotationView = [self pinAnnotationView:mapView location:location];
+                    if (location == [location.belongsTo newestLocation]) {
+                        annotationView = [self pictureAnnotationView:mapView location:location];
+                    } else {
+                        annotationView = [self pinAnnotationView:mapView location:location];
+                    }
                 }
             } else {
                 annotationView = [self pictureAnnotationView:mapView location:location];
@@ -557,10 +563,14 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             annotationView.draggable = ![location.automatic boolValue];
             annotationView.canShowCallout = YES;
             annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-            UIButton *refreshButton = [UIButton buttonWithType:UIButtonTypeSystem];
-            [refreshButton setImage:[UIImage imageNamed:@"Refresh"] forState:UIControlStateNormal];
-            [refreshButton sizeToFit];
-            annotationView.leftCalloutAccessoryView = refreshButton;
+            
+            if (location == [location.belongsTo newestLocation]) {
+                UIButton *refreshButton = [UIButton buttonWithType:UIButtonTypeSystem];
+                [refreshButton setImage:[UIImage imageNamed:@"Refresh"] forState:UIControlStateNormal];
+                [refreshButton sizeToFit];
+                annotationView.leftCalloutAccessoryView = refreshButton;
+            }
+            
             [annotationView setNeedsDisplay];
             return annotationView;
         }
@@ -588,6 +598,15 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     friendAnnotationV.me = [location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]];
     return friendAnnotationV;
+}
+
+- (MKAnnotationView *)beaconAnnotationView:(MKMapView *)mapView location:(Location *)location {
+    MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_BEACON];
+    if (!annotationView) {
+        annotationView = [[MKAnnotationView alloc] initWithAnnotation:location reuseIdentifier:REUSE_ID_BEACON];
+        annotationView.image = [UIImage imageNamed:@"iBeacon"];
+    }
+    return annotationView;
 }
 
 - (MKAnnotationView *)pinAnnotationView:(MKMapView *)mapView location:(Location *)location {

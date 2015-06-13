@@ -316,13 +316,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     for (Location *location in [Location allWaypointsOfTopic:[self.settings theGeneralTopic]
                                       inManagedObjectContext:[CoreData theManagedObjectContext]]) {
         if ([region.identifier isEqualToString:location.region.identifier]) {
-            location.verticalaccuracy = [NSNumber numberWithBool:inside];
+            location.verticalaccuracy = [NSNumber numberWithBool:inside]; // this is a hack to update the UI
+            if ([region isKindOfClass:[CLBeaconRegion class]] && inside) {
+                location.coordinate = [LocationManager sharedInstance].location.coordinate;
+                [self sendWayPoint:location];
             }
+        }
     }
     [self.delegate regionState:region inside:inside];
 }
 
-- (void)beaconInRange:(CLBeacon *)beacon {
+- (void)beaconInRange:(CLBeacon *)beacon region:(CLBeaconRegion *)region{
     if ([self.settings validIds]) {
         NSDictionary *jsonObject = @{
                                      @"_type": @"beacon",
@@ -339,7 +343,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                  qos:[self.settings intForKey:@"qos_preference"]
                               retain:NO];
     }
-    [self.delegate beaconInRange:beacon];
+    [self.delegate beaconInRange:beacon region:region];
 }
 
 #pragma ConnectionDelegate

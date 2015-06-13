@@ -9,15 +9,18 @@ PODS:
   - CocoaLumberjack/Extensions (2.0.0):
     - CocoaLumberjack/Default
   - MQTTClient (0.2.0)
+  - QRCodeReaderViewController (3.4.0)
 
 DEPENDENCIES:
   - ABStaticTableViewController
   - CocoaLumberjack
   - MQTTClient
+  - QRCodeReaderViewController
 
 SPEC CHECKSUMS:
   ABStaticTableViewController: ef94678753f8873d364ca6cc74ea0237b41fb848
   CocoaLumberjack: a6f77d987d65dc7ba86b0f84db7d0b9084f77bcb
   MQTTClient: f88b4b7b3f55d089e0c3a0d1ad9877324581a322
+  QRCodeReaderViewController: bbe09ba1805a74e4da29863a5220a7ad0411f5bc
 
 COCOAPODS: 0.37.1
