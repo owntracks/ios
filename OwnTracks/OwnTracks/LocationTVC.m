@@ -13,6 +13,8 @@
 #import "FriendAnnotationV.h"
 #import "OwnTracksAppDelegate.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @interface LocationTVC ()
 
@@ -128,17 +130,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return YES;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView
+commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
+forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
-        
-        NSError *error = nil;
-        if (![context save:&error]) {
-            DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
+        NSManagedObject *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        if (object) {
+            [context deleteObject:object];
+            NSError *error = nil;
+            if (![context save:&error]) {
+                DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+                [[Crashlytics sharedInstance] setObjectValue:@"deleteLocation" forKey:@"CrashType"];
+                [[Crashlytics sharedInstance] crash];
+            }
         }
+        
     }
 }
 
@@ -181,7 +189,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSError *error = nil;
     if (![self.fetchedResultsController performFetch:&error]) {
         DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
+        [[Crashlytics sharedInstance] setObjectValue:@"fetchLocations" forKey:@"CrashType"];
+        [[Crashlytics sharedInstance] crash];
     }
     
     DDLogVerbose(@"fetchedResultsControllser %@", _fetchedResultsController);

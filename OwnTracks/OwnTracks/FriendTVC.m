@@ -14,6 +14,8 @@
 #import "CoreData.h"
 #import "FriendAnnotationV.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
 
 @interface FriendTVC ()
 @property (strong, nonatomic) UIAlertView *alertView;
@@ -190,7 +192,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         NSError *error = nil;
         if (![context save:&error]) {
             DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
+            [[Crashlytics sharedInstance] setObjectValue:@"deleteFriend" forKey:@"CrashType"];
+            [[Crashlytics sharedInstance] crash];
         }
     }
 }
@@ -225,7 +228,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     NSError *error = nil;
     if (![self.fetchedResultsController performFetch:&error]) {
         DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
+        [[Crashlytics sharedInstance] setObjectValue:@"fetchFriends" forKey:@"CrashType"];
+        [[Crashlytics sharedInstance] crash];
     }
     
     return _fetchedResultsController;
