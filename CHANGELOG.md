@@ -22,6 +22,7 @@ OwnTracks iOS App 8.0 Release Notes
 [FIX] crash when location.timestamp is nil #217
 [FIX] crash remove observer in status.tvc #215
 [FIX] crash manually delete location #200
+[FIX] crash upgrading db on iPhone4S #214
 
 ## OwnTracks 8.0.32
 >Release date: 2015-05-22 for beta testing

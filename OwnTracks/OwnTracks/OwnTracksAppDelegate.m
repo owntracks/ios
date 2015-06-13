@@ -98,7 +98,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             DDLogVerbose(@"documentState 0x%02lx theManagedObjectContext %@",
                          (long)self.coreData.documentState,
                          [CoreData theManagedObjectContext]);
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
         }
     } while (state & UIDocumentStateClosed || ![CoreData theManagedObjectContext]);
     
