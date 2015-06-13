@@ -117,9 +117,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
+{    
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate removeObserver:self
                   forKeyPath:@"connectionStateOut"
@@ -132,6 +130,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                      context:nil];
     
     [self updateValues];
+    [super viewWillDisappear:animated];
 }
 
 - (void)updateValues
