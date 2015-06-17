@@ -1,6 +1,12 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.0.36
+>Release date: 2015-06-17 for alpha-testers only - resubmitted b/c apparent app store problems
+
+[NEW] use real timestamp in "t":"p" location messages #197
+[NEW] enable Hosted mode and Beacon parameters via URL, external QR reader or app internal QR scan 
+
 ## OwnTracks 8.0.35
 >Release date: 2015-06-17 for alpha-testers only
 

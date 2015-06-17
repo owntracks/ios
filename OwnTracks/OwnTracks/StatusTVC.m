@@ -645,8 +645,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             [AlertView alert:@"QRScanner" message:@"Successfully processed!"];
         } else {
             [AlertView alert:@"QRScanner" message:delegate.processingMessage];
-            delegate.processingMessage = nil;
         }
+        delegate.processingMessage = nil;
     }];
 }
 
