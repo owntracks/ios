@@ -21,7 +21,6 @@
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
 @property (strong, nonatomic) void (^completionHandler)(UIBackgroundFetchResult);
 @property (strong, nonatomic) CoreData *coreData;
-@property (strong, nonatomic) NSString *processingMessage;
 @property (nonatomic) BOOL publicWarning;
 @property (strong, nonatomic) CMStepCounter *stepCounter;
 @property (strong, nonatomic) CMPedometer *pedometer;
@@ -148,21 +147,93 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
     DDLogVerbose(@"openURL %@ from %@ annotation %@", url, sourceApplication, annotation);
-    DDLogVerbose(@"URL scheme %@ extension %@", url.scheme, url.pathExtension);
     
     if (url) {
-        if (![url.scheme isEqualToString:@"owntracks"]) {
+        DDLogVerbose(@"URL scheme %@", url.scheme);
+
+        if ([url.scheme isEqualToString:@"owntracks"]) {
+            DDLogVerbose(@"URL path %@ query %@", url.path, url.query);
+            
+            NSMutableDictionary *queryStrings = [[NSMutableDictionary alloc] init];
+            for (NSString *parameter in [url.query componentsSeparatedByString:@"&"]) {
+                NSArray *pair = [parameter componentsSeparatedByString:@"="];
+                if (pair.count == 2) {
+                    NSString *key = pair[0];
+                    NSString *value = pair[1];
+                    value = [value stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+                    value = [value stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                    queryStrings[key] = value;
+                }
+            }
+            if ([url.path isEqualToString:@"/beacon"]) {
+                NSString *name = queryStrings[@"name"];
+                NSString *uuid = queryStrings[@"uuid"];
+                int major = [queryStrings[@"major"] intValue];
+                int minor = [queryStrings[@"minor"] intValue];
+                
+                NSString *desc = [NSString stringWithFormat:@"%@:%@%@%@",
+                                  name,
+                                  uuid,
+                                  major ? [NSString stringWithFormat:@":%d", major] : @"",
+                                  minor ? [NSString stringWithFormat:@":%d", minor] : @""
+                                  ];
+
+                [self.settings waypointsFromDictionary:@{@"_type":@"waypoints",
+                                                         @"waypoints":@[@{@"_type":@"waypoint",
+                                                                        @"desc":desc,
+                                                                        @"tst":@((int)([[NSDate date] timeIntervalSince1970])),
+                                                                        @"lat":@([LocationManager sharedInstance].location.coordinate.latitude),
+                                                                        @"lon":@([LocationManager sharedInstance].location.coordinate.longitude),
+                                                                        @"rad":@(-1)
+                                                                          }]
+                                                         }];
+                self.processingMessage = @"Beacon QR successfully processed";
+                return TRUE;
+            } else if ([url.path isEqualToString:@"/hosted"]) {
+                NSString *user = queryStrings[@"user"];
+                NSString *device = queryStrings[@"device"];
+                NSString *token = queryStrings[@"token"];
+                
+                [[LocationManager sharedInstance] resetRegions];
+                NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
+                for (Friend *friend in friends) {
+                    [[CoreData theManagedObjectContext] deleteObject:friend];
+                }
+
+                
+                [self.settings fromDictionary:@{@"_type":@"configuration",
+                                                @"mode":@(1),
+                                                @"username":user,
+                                                @"deviceId":device,
+                                                @"password":token
+                                                }];
+                self.configLoad = [NSDate date];
+                [CoreData saveContext];
+                self.processingMessage = @"Hosted QR successfully processed";
+                return TRUE;
+            } else {
+                self.processingMessage = [NSString stringWithFormat:@"unkown url path %@",
+                                          url.path];
+                return FALSE;
+            }
+        } else if ([url.scheme isEqualToString:@"file"]) {
             NSInputStream *input = [NSInputStream inputStreamWithURL:url];
             if ([input streamError]) {
-                self.processingMessage = [NSString stringWithFormat:@"inputStreamWithURL %@ %@", [input streamError], url];
+                self.processingMessage = [NSString stringWithFormat:@"inputStreamWithURL %@ %@",
+                                          [input streamError],
+                                          url];
                 return FALSE;
             }
             [input open];
             if ([input streamError]) {
-                self.processingMessage = [NSString stringWithFormat:@"open %@ %@", [input streamError], url];
+                self.processingMessage = [NSString stringWithFormat:@"open %@ %@",
+                                          [input streamError],
+                                          url];
                 return FALSE;
             }
             
+            DDLogVerbose(@"URL pathExtension %@", url.pathExtension);
+
             NSError *error;
             NSString *extension = [url pathExtension];
             if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
@@ -176,7 +247,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
                 error = [self.settings waypointsFromStream:input];
             } else {
-                error = [NSError errorWithDomain:@"OwnTracks" code:2 userInfo:@{@"extension":extension}];
+                error = [NSError errorWithDomain:@"OwnTracks"
+                                            code:2
+                                        userInfo:@{@"extension":extension ? extension : @"(null)"}];
             }
             
             if (error) {
@@ -189,9 +262,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             self.processingMessage = [NSString stringWithFormat:@"File %@ successfully processed",
                                       [url lastPathComponent]];
             self.configLoad = [NSDate date];
+            return TRUE;
+        } else {
+            self.processingMessage = [NSString stringWithFormat:@"unkown url scheme %@",
+                                      url.scheme];
+            return FALSE;
         }
     }
-    return TRUE;
+    self.processingMessage = [NSString stringWithFormat:@"no url specified"];
+    return FALSE;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -245,7 +324,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.connectionIn connectToLast];
     
     if ([LocationManager sharedInstance].monitoring) {
-        [self publishLocation:[LocationManager sharedInstance].location
+        CLLocation *lastLocation = [LocationManager sharedInstance].location;
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:lastLocation.coordinate.latitude
+                                                          longitude:lastLocation.coordinate.longitude];
+        [self publishLocation:location
                     automatic:TRUE
                         addon:@{@"t":@"p"}];
     }
@@ -318,8 +400,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         if ([region.identifier isEqualToString:location.region.identifier]) {
             location.verticalaccuracy = [NSNumber numberWithBool:inside]; // this is a hack to update the UI
             if ([region isKindOfClass:[CLBeaconRegion class]] && inside) {
-                location.coordinate = [LocationManager sharedInstance].location.coordinate;
-                [self sendWayPoint:location];
+                if (location.radius < 0) {
+                    location.coordinate = [LocationManager sharedInstance].location.coordinate;
+                    [self sendWayPoint:location];
+                }
             }
         }
     }
@@ -419,7 +503,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                         [self dumpTo:topic];
                     } else if ([dictionary[@"action"] isEqualToString:@"reportLocation"]) {
                         if ([LocationManager sharedInstance].monitoring || [self.settings boolForKey:@"allowremotelocation_preference"]) {
-                            [self publishLocation:[LocationManager sharedInstance].location automatic:YES addon:@{@"t": @"r"}];
+                            [self publishLocation:[LocationManager sharedInstance].location
+                                        automatic:YES
+                                            addon:@{@"t": @"r"}];
                         }
                     } else if ([dictionary[@"action"] isEqualToString:@"reportSteps"]) {
                         [self stepsFrom:dictionary[@"from"] to:dictionary[@"to"]];

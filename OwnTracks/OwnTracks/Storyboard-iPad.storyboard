@@ -376,29 +376,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="44" id="2eV-KM-Kk3">
-                                        <rect key="frame" x="0.0" y="284" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2eV-KM-Kk3" id="Abm-JS-OTp">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kJy-ly-Fcm">
-                                                    <rect key="frame" x="20" y="7" width="240" height="30"/>
-                                                    <state key="normal" title="Scan OwnTracks Beacon QR Code">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="scan:" destination="dhB-ni-g7B" eventType="touchUpInside" id="pCK-nh-cq4"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="kJy-ly-Fcm" secondAttribute="centerY" id="RXA-Pr-GPa"/>
-                                                <constraint firstItem="kJy-ly-Fcm" firstAttribute="leading" secondItem="Abm-JS-OTp" secondAttribute="leading" constant="20" symbolic="YES" id="nnj-Cg-0Ub"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="H6x-RE-r33">
                                         <rect key="frame" x="0.0" y="471" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -522,7 +499,6 @@
                         <outlet property="UIplace" destination="wWN-SR-oY2" id="aga-lF-eY7"/>
                         <outlet property="UIradius" destination="hP6-u2-FsG" id="4ur-rV-xfB"/>
                         <outlet property="UIremark" destination="1PX-Ao-l2f" id="dvJ-go-A2c"/>
-                        <outlet property="UIscan" destination="kJy-ly-Fcm" id="sMd-Az-zGf"/>
                         <outlet property="UIshare" destination="9dV-2r-cQK" id="Pe1-uG-j7P"/>
                         <outlet property="UItimestamp" destination="Rbu-kM-YFO" id="jVC-2N-HB0"/>
                         <outlet property="UItopic" destination="efy-cE-8BM" id="1TI-G0-a7V"/>
@@ -1038,21 +1014,10 @@
                                                         <action selector="hostedPressed:" destination="wIr-Ka-wY2" eventType="touchUpInside" id="gU5-zD-5co"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1dS-du-mz9">
-                                                    <rect key="frame" x="226" y="7" width="62" height="30"/>
-                                                    <state key="normal" title="Scan QR">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="scan:" destination="wIr-Ka-wY2" eventType="touchUpInside" id="Z9V-g9-LdH"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="tye-i5-JnN" firstAttribute="leading" secondItem="AMx-Kn-Y9A" secondAttribute="leading" constant="20" symbolic="YES" id="6Ck-TW-iF4"/>
-                                                <constraint firstAttribute="trailing" secondItem="1dS-du-mz9" secondAttribute="trailing" constant="20" symbolic="YES" id="Dtj-bB-Ire"/>
                                                 <constraint firstAttribute="centerY" secondItem="tye-i5-JnN" secondAttribute="centerY" id="Wui-eF-Ca5"/>
-                                                <constraint firstAttribute="centerY" secondItem="1dS-du-mz9" secondAttribute="centerY" id="hhH-Xf-RAH"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1754,7 +1719,13 @@
                             <outletCollection property="gestureRecognizers" destination="TMZ-a0-B8S" appends="YES" id="PF9-og-muo"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Settings" id="vqO-49-yzt"/>
+                    <navigationItem key="navigationItem" title="Settings" id="vqO-49-yzt">
+                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="rdB-5s-BiQ">
+                            <connections>
+                                <action selector="scan:" destination="wIr-Ka-wY2" id="OtM-YY-jsp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="UIAuth" destination="R8x-qI-FQB" id="mHS-lt-oPN"/>
                         <outlet property="UICMD" destination="dvq-3p-437" id="ERp-gA-4vV"/>
@@ -2233,7 +2204,7 @@ When switching between  mode, all data on your iOS device will be deleted for pr
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="56"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Copyright © 2013-2014 by Christoph Krey, owntracks.org" translatesAutoresizingMaskIntoConstraints="NO" id="BgR-Gr-T17">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Copyright © 2013-2015 by Christoph Krey, owntracks.org" translatesAutoresizingMaskIntoConstraints="NO" id="BgR-Gr-T17">
                                                     <rect key="frame" x="20" y="0.0" width="268" height="56"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

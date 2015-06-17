@@ -14,7 +14,6 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface EditLocationTVC ()
-@property (weak, nonatomic) IBOutlet UIButton *UIscan;
 @property (weak, nonatomic) IBOutlet UITableViewCell *remarkCell;
 @property (weak, nonatomic) IBOutlet UITextField *UItimestamp;
 @property (weak, nonatomic) IBOutlet UITextField *UIlatitude;
@@ -28,7 +27,6 @@
 
 @property (nonatomic) BOOL needsUpdate;
 @property (strong, nonatomic) CLRegion *oldRegion;
-@property (strong, nonatomic) QRCodeReaderViewController *reader;
 @end
 
 @implementation EditLocationTVC
@@ -118,10 +116,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
         self.UIshare.enabled = TRUE;
         self.UIshare.userInteractionEnabled = TRUE;
-        
-        self.UIscan.enabled = TRUE;
-        self.UIscan.userInteractionEnabled = TRUE;
-
     } else {
         self.UIlatitude.enabled = FALSE;
         self.UIlatitude.userInteractionEnabled = FALSE;
@@ -141,8 +135,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         
         self.UIshare.enabled = FALSE;
         self.UIshare.userInteractionEnabled = FALSE;
-        
-        self.UIscan.enabled = FALSE;
     }
 }
 
@@ -206,58 +198,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                              MKLaunchOptionsDirectionsModeDriving,
                              MKLaunchOptionsDirectionsModeKey, nil];
     [MKMapItem openMapsWithItems: items launchOptions: options];
-}
-
-- (IBAction)scan:(UIButton *)sender {
-    if ([QRCodeReader isAvailable]) {
-        NSArray *types = @[AVMetadataObjectTypeQRCode];
-        self.reader = [QRCodeReaderViewController readerWithMetadataObjectTypes:types];
-    
-        self.reader.modalPresentationStyle = UIModalPresentationFormSheet;
-    
-        self.reader.delegate = self;
-    
-        [self presentViewController:_reader animated:YES completion:NULL];
-    } else {
-        [AlertView alert:@"QRScanner" message:@"Does not have access to camera!"];
-    }
-}
-
-#pragma mark - QRCodeReader Delegate Methods
-
-- (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
-{
-    [self dismissViewControllerAnimated:YES completion:^{
-        DDLogVerbose(@"result %@", result);
-        NSArray *components = [result componentsSeparatedByString:@":"];
-        if (components.count == 5) {
-            NSString *magic = components[0];
-            if ([magic isEqualToString:@"BEACON"]) {
-                NSString *name = components[1];
-                NSString *uuid = components[2];
-                int major = [components[3] intValue];
-                int minor = [components[4] intValue];
-
-                self.location.remark = [NSString stringWithFormat:@"%@:%@%@%@",
-                                        name,
-                                        uuid,
-                                        major ? [NSString stringWithFormat:@":%d", major] : @"",
-                                        minor ? [NSString stringWithFormat:@":%d", minor] : @""
-                                        ];
-                [self setup];
-            } else {
-                [AlertView alert:@"QRScanner" message:@"Unknown type"];
-            }
-            
-        } else {
-            [AlertView alert:@"QRScanner" message:@"Unknown format"];
-        }
-    }];
-}
-
-- (void)readerDidCancel:(QRCodeReaderViewController *)reader
-{
-    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

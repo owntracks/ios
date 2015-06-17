@@ -20,8 +20,7 @@
 @implementation Settings
 static const DDLogLevel ddLogLevel = DDLogLevelError;
 
-- (id)init
-{
+- (id)init {
     self = [super init];
     DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
 
@@ -38,11 +37,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return self;
 }
 
-- (NSError *)fromStream:(NSInputStream *)input
-{
+- (NSError *)fromStream:(NSInputStream *)input {
     NSError *error;
     
-    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithStream:input options:0 error:&error];
+    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithStream:input
+                                                                 options:0
+                                                                   error:&error];
+    if (dictionary) {
+        return [self fromDictionary:dictionary];
+    } else {
+        return error;
+    }
+}
+
+- (NSError *)fromDictionary:(NSDictionary *)dictionary {
     if (dictionary) {
         for (NSString *key in [dictionary allKeys]) {
             DDLogVerbose(@"Configuration %@:%@", key, dictionary[key]);
@@ -76,7 +84,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             }
             
             string = dictionary[@"tid"];
-            [self setString:string forKey:@"trackerid_preference"];
+            if (string) [self setString:string forKey:@"trackerid_preference"];
             
             string = dictionary[@"clientId"];
             if (string) [self setString:string forKey:@"clientid_preference"];
@@ -208,15 +216,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         } else {
             return [NSError errorWithDomain:@"OwnTracks Settings" code:1 userInfo:@{@"_type": dictionary[@"_type"]}];
         }
-    } else {
-        return error;
     }
     
     return nil;
 }
 
-- (NSError *)waypointsFromStream:(NSInputStream *)input
-{
+- (NSError *)waypointsFromStream:(NSInputStream *)input {
     NSError *error;
     
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithStream:input
@@ -229,8 +234,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (NSError *)waypointsFromDictionary:(NSDictionary *)dictionary
-{
+- (NSError *)waypointsFromDictionary:(NSDictionary *)dictionary {
     if (dictionary) {
         for (NSString *key in [dictionary allKeys]) {
             DDLogVerbose(@"Waypoints %@:%@", key, dictionary[key]);
@@ -248,8 +252,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return nil;
 }
 
-- (void)setWaypoints:(NSArray *)waypoints
-{
+- (void)setWaypoints:(NSArray *)waypoints {
     if (waypoints) {
         for (NSDictionary *waypoint in waypoints) {
             if ([waypoint[@"_type"] isEqualToString:@"waypoint"]) {
@@ -300,8 +303,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (NSArray *)waypointsToArray
-{
+- (NSArray *)waypointsToArray {
     NSMutableArray *waypoints = [[NSMutableArray alloc] init];
     
     for (Location *location in [Location allWaypointsOfTopic:[self theGeneralTopic]
@@ -321,13 +323,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 
 
-- (NSDictionary *)waypointsToDictionary
-{
+- (NSDictionary *)waypointsToDictionary {
     return @{@"_type": @"waypoints", @"waypoints": [self waypointsToArray]};
 }
 
-- (NSDictionary *)toDictionary
-{
+- (NSDictionary *)toDictionary {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:@{@"_type": @"configuration"}];
     dict[@"mode"] =                 @([self intForKey:@"mode"]);
     dict[@"ranging"] =              @([self boolForKey:@"ranging_preference"]);
@@ -378,8 +378,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return dict;
 }
 
-- (NSData *)waypointsToData
-{
+- (NSData *)waypointsToData {
     NSDictionary *dict = [self waypointsToDictionary];
     
     NSError *error;
@@ -389,8 +388,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return myData;
 }
 
-- (NSData *)toData
-{
+- (NSData *)toData {
     NSDictionary *dict = [self toDictionary];
     
     NSError *error;
@@ -425,8 +423,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
 }
 
-- (void)setString:(NSString *)string forKey:(NSString *)key
-{
+- (void)setString:(NSString *)string forKey:(NSString *)key {
     if ([self intForKey:@"mode"] == 0 ||
         ([self intForKey:@"mode"] == 1 && [self validInHostedMode:key]) ||
         ([self intForKey:@"mode"] == 2 && [self validInPublicMode:key])) {
@@ -435,23 +432,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (void)setInt:(int)i forKey:(NSString *)key
-{
+- (void)setInt:(int)i forKey:(NSString *)key {
     [self setString:[NSString stringWithFormat:@"%d", i] forKey:key];
 }
 
-- (void)setDouble:(double)d forKey:(NSString *)key
-{
+- (void)setDouble:(double)d forKey:(NSString *)key {
     [self setString:[NSString stringWithFormat:@"%f", d] forKey:key];
 }
 
-- (void)setBool:(BOOL)b forKey:(NSString *)key
-{
+- (void)setBool:(BOOL)b forKey:(NSString *)key {
     [self setString:[NSString stringWithFormat:@"%d", b] forKey:key];
 }
 
-- (NSString *)stringOrZeroForKey:(NSString *)key
-{
+- (NSString *)stringOrZeroForKey:(NSString *)key {
     NSString *value = [self stringForKey:key];
     if (!value) {
         DDLogVerbose(@"stringOrZeroForKey %@", key);
@@ -460,8 +453,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return value;
 }
 
-- (NSString *)stringForKey:(NSString *)key
-{
+- (NSString *)stringForKey:(NSString *)key {
     NSString *value = nil;
     
     if ([[self stringForKeyRaw:@"mode"] intValue] == 2 && ![self validInPublicMode:key]) {
@@ -508,24 +500,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return value;
 }
 
-- (int)intForKey:(NSString *)key
-{
+- (int)intForKey:(NSString *)key {
     return [[self stringForKey:key] intValue];
 }
 
-- (double)doubleForKey:(NSString *)key
-{
+- (double)doubleForKey:(NSString *)key {
     return [[self stringForKey:key] doubleValue];
 }
 
-- (BOOL)boolForKey:(NSString *)key
-{
+- (BOOL)boolForKey:(NSString *)key {
     return [[self stringForKey:key] boolValue];
 }
 
 
-- (NSString *)theGeneralTopic
-{
+- (NSString *)theGeneralTopic {
     int mode = [self intForKey:@"mode"];
     NSString *topic;
     
@@ -559,8 +547,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return topic;
 }
 
-- (NSString *)theClientId
-{
+- (NSString *)theClientId {
     NSString *clientId;
     clientId = [self stringForKey:@"clientid_preference"];
     
@@ -570,8 +557,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return clientId;
 }
 
-- (NSString *)theId
-{
+- (NSString *)theId {
     int mode = [self intForKey:@"mode"];
     NSString *theId;
     
@@ -606,8 +592,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return theId;
 }
 
-- (NSString *)theDeviceId
-{
+- (NSString *)theDeviceId {
     int mode = [self intForKey:@"mode"];
     NSString *deviceId;
     
@@ -626,8 +611,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return deviceId;
 }
 
-- (NSString *)theSubscriptions
-{
+- (NSString *)theSubscriptions {
     int mode = [self intForKey:@"mode"];
     NSString *subscriptions;
     

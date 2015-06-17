@@ -28,6 +28,7 @@
 
 @property (weak, nonatomic) id<RangingDelegate> delegate;
 @property (strong, nonatomic) Settings *settings;
+@property (strong, nonatomic) NSString *processingMessage;
 
 @property (strong, nonatomic) Connection *connectionOut;
 @property (strong, nonatomic) Connection *connectionIn;

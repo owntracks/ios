@@ -615,7 +615,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [[Crashlytics sharedInstance] crash];
 }
 
-- (IBAction)scan:(UIButton *)sender {
+- (IBAction)scan:(UIBarButtonItem *)sender {
     if ([QRCodeReader isAvailable]) {
         NSArray *types = @[AVMetadataObjectTypeQRCode];
         self.reader = [QRCodeReaderViewController readerWithMetadataObjectTypes:types];
@@ -637,23 +637,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 {
     [self dismissViewControllerAnimated:YES completion:^{
         DDLogVerbose(@"result %@", result);
-        NSArray *components = [result componentsSeparatedByString:@":"];
-        if (components.count == 4) {
-            NSString *magic = components[0];
-            if ([magic isEqualToString:@"HOSTED"]) {
-                OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-
-                [delegate.settings setString:components[1] forKey:@"user"];
-                [delegate.settings setString:components[2] forKey:@"device"];
-                [delegate.settings setString:components[3] forKey:@"token"];
-                [self updated];
-                [self reconnect];
-            } else {
-                [AlertView alert:@"QRScanner" message:@"Unknown type"];
-            }
-            
+        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        if ([delegate application:[UIApplication sharedApplication]
+                      openURL:[NSURL URLWithString:result]
+            sourceApplication:@"OwnTracks"
+                        annotation:nil]) {
+            [AlertView alert:@"QRScanner" message:@"Successfully processed!"];
         } else {
-            [AlertView alert:@"QRScanner" message:@"Unknown format"];
+            [AlertView alert:@"QRScanner" message:delegate.processingMessage];
+            delegate.processingMessage = nil;
         }
     }];
 }
