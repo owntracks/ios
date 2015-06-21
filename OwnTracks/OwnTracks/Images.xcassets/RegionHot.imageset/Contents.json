@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "RegionHot-40.png"
+      "filename" : "RegionHot-40-noalpha.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "RegionHot-40@2x.png"
+      "filename" : "RegionHot-40-noalpha@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "RegionHot-40@3x.png"
+      "filename" : "RegionHot-40-noalpha@3x.png"
     }
   ],
   "info" : {

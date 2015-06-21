@@ -355,6 +355,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)timerLocation:(CLLocation *)location {
     [self publishLocation:location automatic:YES addon:@{@"t": @"t"}];
+    [self.lbs newLocation:location.coordinate.latitude
+                longitude:location.coordinate.longitude
+                  context:[CoreData theManagedObjectContext]];
 }
 
 - (void)regionEvent:(CLRegion *)region enter:(BOOL)enter {
@@ -363,6 +366,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
     Friend *myself = [Friend existsFriendWithTopic:[self.settings theGeneralTopic] inManagedObjectContext:[CoreData theManagedObjectContext]];
     CLLocation *location = [LocationManager sharedInstance].location;
+    [self.lbs newLocation:location.coordinate.latitude
+                longitude:location.coordinate.longitude
+                  context:[CoreData theManagedObjectContext]];
+
     NSMutableDictionary *jsonObject = [@{
                                          @"_type": @"transition",
                                          @"lat": @(location.coordinate.latitude),
@@ -400,19 +407,25 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (void)regionState:(CLRegion *)region inside:(BOOL)inside {
+    CLLocation *location = [LocationManager sharedInstance].location;
+
     for (Location *location in [Location allWaypointsOfTopic:[self.settings theGeneralTopic]
                                       inManagedObjectContext:[CoreData theManagedObjectContext]]) {
         if ([region.identifier isEqualToString:location.region.identifier]) {
-            location.verticalaccuracy = [NSNumber numberWithBool:inside]; // this is a hack to update the UI
+            location.justcreated = @(![location.justcreated boolValue]); // this is a hack to update the UI
             if ([region isKindOfClass:[CLBeaconRegion class]]) {
                 if (location.radius < 0) {
-                    location.coordinate = [LocationManager sharedInstance].location.coordinate;
+                    location.coordinate = location.coordinate;
                     [self sendWayPoint:location];
                 }
             }
         }
     }
     [self.delegate regionState:region inside:inside];
+    [self.lbs newLocation:location.coordinate.latitude
+                longitude:location.coordinate.longitude
+                  context:[CoreData theManagedObjectContext]];
+    
 }
 
 - (void)beaconInRange:(CLBeacon *)beacon region:(CLBeaconRegion *)region{
@@ -782,7 +795,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)sendNow {
     DDLogVerbose(@"App sendNow");
-    [self publishLocation:[LocationManager sharedInstance].location automatic:FALSE addon:@{@"t":@"u"}];
+    CLLocation *location = [LocationManager sharedInstance].location;
+    [self publishLocation:location automatic:FALSE addon:@{@"t":@"u"}];
+    [self.lbs newLocation:location.coordinate.latitude
+                longitude:location.coordinate.longitude
+                  context:[CoreData theManagedObjectContext]];
+
     
 }
 

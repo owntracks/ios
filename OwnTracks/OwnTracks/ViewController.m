@@ -498,9 +498,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 #pragma RangingDelegate
 - (void)regionState:(CLRegion *)region inside:(BOOL)inside {
     if ([[LocationManager sharedInstance] insideBeaconRegion]) {
-        self.beaconButton.tintColor = [UIColor colorWithRed:190.0/255.0 green:0.0 blue:0.0 alpha:1.0];
+        self.beaconButton.tintColor = [UIColor colorWithRed:255.0/255.0 green:75.0/255.0 blue:0.0 alpha:1.0];
     } else {
-        self.beaconButton.tintColor = [UIColor colorWithRed:0.0 green:0.0 blue:190.0/255.0 alpha:1.0];
+        self.beaconButton.tintColor = [UIColor colorWithRed:0.0 green:159.0/255.0 blue:255.0/255.0 alpha:1.0];
     }
 }
 
@@ -509,7 +509,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.beaconOn) {
         self.beaconButton.image = [UIImage imageNamed:@"iBeaconOn"];
     } else {
-        self.beaconButton.image = [UIImage imageNamed:@"iBeaconOff"];
+        self.beaconButton.image = [UIImage imageNamed:@"iBeaconOn2"];
     }
 }
 
@@ -604,12 +604,12 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_BEACON];
     if (!annotationView) {
         annotationView = [[MKAnnotationView alloc] initWithAnnotation:location reuseIdentifier:REUSE_ID_BEACON];
-        CLRegion *region = [location region];
-        if ([[LocationManager sharedInstance] insideBeaconRegion:region.identifier]) {
-            annotationView.image = [UIImage imageNamed:@"iBeaconHot"];
-        } else {
-            annotationView.image = [UIImage imageNamed:@"iBeaconCold"];
-        }
+    }
+    CLRegion *region = [location region];
+    if ([[LocationManager sharedInstance] insideBeaconRegion:region.identifier]) {
+        annotationView.image = [UIImage imageNamed:@"iBeaconHot"];
+    } else {
+        annotationView.image = [UIImage imageNamed:@"iBeaconCold"];
     }
     return annotationView;
 }

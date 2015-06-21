@@ -3,16 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "iBeaconOn.png"
+      "filename" : "iBeaconOn-33.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "iBeaconOn@2x.png"
+      "filename" : "iBeaconOn-33@2x.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "iBeaconOn-33@3x.png"
     }
   ],
   "info" : {

@@ -1,6 +1,12 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.1.0
+>Release date: 2015-06-21 for alpha-testers only
+
+[FIX] dynamic coloring of iBeacon indicators on map
+[NEW] iBeacon images v2
+
 ## OwnTracks 8.0.39
 >Release date: 2015-06-21 for alpha-testers only
 
