@@ -9,6 +9,7 @@
 #import "EditLocationTVC.h"
 #import "Friend+Create.h"
 #import "OwnTracksAppDelegate.h"
+#import "Settings.h"
 #import "CoreData.h"
 #import "AlertView.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
@@ -95,9 +96,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.UIradius.text = [self.location radiusText];
     self.UIshare.on = [self.location.share boolValue];
     
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     if (![self.location.automatic boolValue] && [self.location.belongsTo.topic
-                                                 isEqualToString:[delegate.settings theGeneralTopic]]) {
+                                                 isEqualToString:[Settings theGeneralTopic]]) {
         self.UIlatitude.enabled = TRUE;
         self.UIlatitude.userInteractionEnabled = TRUE;
         self.UIlatitude.textColor = [UIColor blackColor];

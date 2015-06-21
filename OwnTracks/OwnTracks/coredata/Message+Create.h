@@ -12,10 +12,14 @@
 @interface Message (Create)
 
 + (Message *)messageWithTopic:(NSString *)topic
+                     latitude:(double)latitude
+                    longitude:(double)longitude
                     timestamp:(NSDate *)timestamp
                        expiry:(NSDate *)expiry
+                        title:(NSString *)title
                          desc:(NSString *)desc
                           url:(NSString *)url
+                      iconurl:(NSString *)iconurl
        inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (void)expireMessages:(NSManagedObjectContext *)context;

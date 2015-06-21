@@ -7,6 +7,7 @@
 //
 
 #import "OwnTracksAppDelegate.h"
+#import "Settings.h"
 #import "FriendTVC.h"
 #import "LocationTVC.h"
 #import "Friend+Create.h"
@@ -309,8 +310,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     FriendAnnotationV *friendAnnotationView = [[FriendAnnotationV alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     friendAnnotationView.personImage = friend.image ? [UIImage imageWithData:friend.image] : nil;
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    friendAnnotationView.me = [friend.topic isEqualToString:[delegate.settings theGeneralTopic]];
+    friendAnnotationView.me = [friend.topic isEqualToString:[Settings theGeneralTopic]];
     friendAnnotationView.automatic = [location.automatic boolValue];
     friendAnnotationView.speed = [location.speed doubleValue];
     friendAnnotationView.course = [location.course doubleValue];

@@ -14,6 +14,7 @@
 
 @interface LocationManager()
 @property (strong, nonatomic) CLLocationManager *manager;
+@property (strong, nonatomic) CMAltimeter *altimeter;
 @property (strong, nonatomic) CLLocation *lastUsedLocation;
 @property (strong, nonatomic) NSTimer *activityTimer;
 @property (strong, nonatomic) NSMutableSet *pendingRegionEvents;
@@ -87,6 +88,9 @@ static LocationManager *theInstance = nil;
                                                           DDLogVerbose(@"UIApplicationWillTerminateNotification");
                                                           [self stop];
                                                       }];
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
+        self.altimeter = [[CMAltimeter alloc] init];
+    }
 
     return self;
 }
@@ -102,6 +106,14 @@ static LocationManager *theInstance = nil;
     for (CLRegion *region in self.manager.monitoredRegions) {
         DDLogVerbose(@"requestStateForRegion %@", region.identifier);
         [self.manager requestStateForRegion:region];
+    }
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
+        if ([CMAltimeter isRelativeAltitudeAvailable]) {
+            [self.altimeter startRelativeAltitudeUpdatesToQueue:[NSOperationQueue mainQueue]
+                                                    withHandler:^(CMAltitudeData *altitudeData, NSError *error) {
+                                                        self.altitude = altitudeData;
+                                                    }];
+        }
     }
 }
 
@@ -124,6 +136,12 @@ static LocationManager *theInstance = nil;
         }
     }
     [self.activityTimer invalidate];
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
+        if ([CMAltimeter isRelativeAltitudeAvailable]) {
+            [self.altimeter stopRelativeAltitudeUpdates];
+        }
+    }
+
 }
 
 - (void)stop {

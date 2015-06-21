@@ -1,6 +1,12 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.1.1
+>Release date: 2015-06-22 for alpha-testers only
+
+[NEW] optional Location Based Service subscriptions
+[NEW] barometric pressure in extended location data if available
+
 ## OwnTracks 8.1.0
 >Release date: 2015-06-21 for alpha-testers only
 

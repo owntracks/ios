@@ -20,7 +20,6 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
-
 @end
 
 @implementation MessageTVC
@@ -39,6 +38,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                    forKeyPath:@"lastGeoHash"
                       options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                       context:nil];
+    [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -51,8 +51,25 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
+    
+    /*
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     self.title = delegate.lbs.lastGeoHash;
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    [geocoder reverseGeocodeLocation:[LocationManager sharedInstance].location completionHandler:
+     ^(NSArray *placemarks, NSError *error) {
+         if ([placemarks count] > 0) {
+             CLPlacemark *placemark = placemarks[0];
+             NSArray *address = placemark.addressDictionary[@"FormattedAddressLines"];
+             if (address && [address count] >= 1) {
+                 self.title = address[0];
+                 for (int i = 1; i < [address count]; i++) {
+                     self.title = [NSString stringWithFormat:@"%@, %@", self.title, address[i]];
+                 }
+             }
+         }
+     }];
+     */
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -71,12 +88,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSArray *components = [[self.fetchedResultsController.sections[section] name] componentsSeparatedByString:@"/"];
-    if (components.count == 3) {
-        return components[2];
-    } else {
-        return nil;
-    }
+    return [self.fetchedResultsController.sections[section] name];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -131,16 +143,15 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     [fetchRequest setEntity:entity];
     [fetchRequest setFetchBatchSize:20];
     
-    NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"topic" ascending:NO];
+    NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"channel" ascending:YES];
     NSSortDescriptor *sortDescriptor2 = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO];
-    
     NSArray *sortDescriptors = @[sortDescriptor1, sortDescriptor2];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc]
                                                              initWithFetchRequest:fetchRequest
                                                              managedObjectContext:[CoreData theManagedObjectContext]
-                                                             sectionNameKeyPath:@"topic"
+                                                             sectionNameKeyPath:@"channel"
                                                              cacheName:nil];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
@@ -221,8 +232,32 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     DDLogVerbose(@"configureCell %ld/%ld", (long)indexPath.section, (long)indexPath.row);
     Message *message = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = message.desc;
-    cell.detailTextLabel.text = message.url;
+    
+    double distanceDouble = [message.distance doubleValue];
+    NSString *distanceString;
+    if (distanceDouble > 1000.0) {
+        distanceString = [NSString stringWithFormat:@"%.0fkm", distanceDouble / 1000.0];
+    } else {
+        distanceString = [NSString stringWithFormat:@"%.0fm", distanceDouble];
+    }
+    
+    NSTimeInterval interval = -[message.timestamp timeIntervalSinceNow];
+    NSString *intervalString;
+    if (interval < 60) {
+        intervalString = [NSString stringWithFormat:@"%0.fsec", interval];
+    } else if (interval < 3600) {
+        intervalString = [NSString stringWithFormat:@"%0.fmin", interval / 60];
+    } else if (interval < 24 * 3600) {
+        intervalString = [NSString stringWithFormat:@"%0.fh", interval / 3600];
+    } else {
+        intervalString = [NSString stringWithFormat:@"%0.fd", interval / (24 * 3600)];
+    }
+
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@/%@)", message.title, distanceString, intervalString];
+    cell.detailTextLabel.text = message.desc;
+    NSURL *iconurl = [NSURL URLWithString:message.iconurl];
+    NSData *iconData = [NSData dataWithContentsOfURL:iconurl];
+    cell.imageView.image = [UIImage imageWithData:iconData];
 }
 
 - (IBAction)trash:(UIBarButtonItem *)sender {

@@ -10,12 +10,15 @@
 #import "Message+Create.h"
 #import "CoreData.h"
 #import "OwnTracksAppDelegate.h"
+#import "Settings.h"
 #import <objc-geohash/GeoHash.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
-#define GEOHASH_LEN 7
+#define GEOHASH_LEN_MIN 3
+#define GEOHASH_LEN_MAX 6
+
 #define GEOHASH_PRE @"lbs/"
 #define GEOHASH_KEY @"lastGeoHash"
 
@@ -30,9 +33,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (instancetype)init {
     self = [super init];
     DDLogVerbose(@"LBS ddLogLevel %lu", (unsigned long)ddLogLevel);
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    self.lastGeoHash = [delegate.settings stringForKey:GEOHASH_KEY];
+    self.lastGeoHash = [Settings stringForKey:GEOHASH_KEY];
     self.oldGeoHash = @"";
     return self;
 }
@@ -42,14 +43,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.oldGeoHash = self.lastGeoHash;
     self.lastGeoHash = @"";
     [self manageSubscriptions:context];
-    [Message removeMessages:context];
-    self.oldGeoHash = @"";
-    self.lastGeoHash = geoHash;
-    [self manageSubscriptions:context];
+    if ([Settings boolForKey:@"lbs"]) {
+        [Message removeMessages:context];
+        self.oldGeoHash = @"";
+        self.lastGeoHash = geoHash;
+        [self manageSubscriptions:context];
+    }
 }
 
 - (void)manageSubscriptions:(NSManagedObjectContext *)context {
-    for (int i = 0; i < self.oldGeoHash.length; i++) {
+    for (int i = GEOHASH_LEN_MIN - 1; i < self.oldGeoHash.length; i++) {
         NSString *old = [self.oldGeoHash substringWithRange:NSMakeRange(i, 1)];
         NSString *last;
         if (i < self.lastGeoHash.length) {
@@ -66,7 +69,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             [Message removeMessages:[self.oldGeoHash substringToIndex:i + 1] context:context];
         }
     }
-    for (int i = 0; i < self.lastGeoHash.length; i++) {
+    for (int i = GEOHASH_LEN_MIN - 1; i < self.lastGeoHash.length; i++) {
         NSString *last = [self.lastGeoHash substringWithRange:NSMakeRange(i, 1)];
         NSString *old;
         if (i < self.oldGeoHash.length) {
@@ -93,17 +96,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)newLocation:(double)latitude longitude:(double)longitude context:(NSManagedObjectContext *)context {
     NSString *geoHash = [GeoHash hashForLatitude:latitude
                                        longitude:longitude
-                                          length:GEOHASH_LEN];
+                                          length:GEOHASH_LEN_MAX];
     DDLogVerbose(@"geoHash %@", geoHash);
     
     if (![self.lastGeoHash isEqualToString:geoHash]) {
         self.oldGeoHash = self.lastGeoHash;
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [delegate.settings setString: geoHash forKey:GEOHASH_KEY];
+        [Settings setString: geoHash forKey:GEOHASH_KEY];
         self.lastGeoHash = geoHash;
         DDLogVerbose(@"geoHash %@", geoHash);
         
         [self manageSubscriptions:context];
+        [Message expireMessages:context];
     }
 }
 
@@ -119,28 +122,43 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 NSError *error;
                 NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                 if (dictionary) {
-                    NSString *desc = dictionary[@"desc"];
-                    NSString *url = dictionary[@"url"];
-                    
-                    [context performBlock:^{
-                        Message *message = [Message messageWithTopic:topic
-                                                           timestamp:[NSDate date]
-                                                              expiry:[NSDate dateWithTimeIntervalSinceNow:24*2600]
-                                                                desc:desc
-                                                                 url:url
-                                              inManagedObjectContext:context];
-                        DDLogVerbose(@"Message %@", message);
-                        NSError *error = nil;
-                        if (![context save:&error]) {
-                            DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-                            [[Crashlytics sharedInstance] setObjectValue:@"messageWithTopic" forKey:@"CrashType"];
-                            [[Crashlytics sharedInstance] crash];
-                        }
+                    NSString *type = dictionary[@"_type"];
+                    if ([type isEqualToString:@"lbs"]) {
+                        NSString *desc = dictionary[@"desc"];
+                        NSString *title = dictionary[@"title"];
+                        NSString *url = dictionary[@"url"];
+                        NSString *iconurl = dictionary[@"iconurl"];
+                        double latitude = [dictionary[@"lat"] doubleValue];
+                        double longitude = [dictionary[@"lon"] doubleValue];
+                        int ttl = [dictionary[@"ttl"] intValue];
                         
-                    }];
-                    
+                        [context performBlock:^{
+                            Message *message = [Message messageWithTopic:topic
+                                                                latitude:latitude
+                                                               longitude:longitude
+                                                               timestamp:[NSDate date]
+                                                                  expiry:[NSDate dateWithTimeIntervalSinceNow:ttl ? ttl : 3600]
+                                                                   title:title
+                                                                    desc:desc
+                                                                     url:url
+                                                                 iconurl:iconurl
+                                                  inManagedObjectContext:context];
+                            DDLogVerbose(@"Message %@", message);
+                            NSError *error = nil;
+                            if (![context save:&error]) {
+                                DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
+                                [[Crashlytics sharedInstance] setObjectValue:@"messageWithTopic" forKey:@"CrashType"];
+                                [[Crashlytics sharedInstance] crash];
+                            }
+                            
+                        }];
+                    } else {
+                        DDLogVerbose(@"unknown type %@", type);
+                        return FALSE;
+                    }
                 } else {
                     DDLogVerbose(@"illegal json %@ %@ %@", error.localizedDescription, error.userInfo, data.description);
+                    return FALSE;
                 }
                 return TRUE;
             } else {

@@ -11,20 +11,29 @@
 #import "Location+Create.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
-@interface Settings ()
+
+@interface SettingsDefaults: NSObject
 @property (strong, nonatomic) NSDictionary *appDefaults;
 @property (strong, nonatomic) NSDictionary *publicDefaults;
 @property (strong, nonatomic) NSDictionary *hostedDefaults;
 @end
 
-@implementation Settings
+static SettingsDefaults *defaults;
 static const DDLogLevel ddLogLevel = DDLogLevelError;
+
+@implementation SettingsDefaults
++ (SettingsDefaults *)theDefaults {
+    if (!defaults) {
+        defaults = [[SettingsDefaults alloc] init];
+    }
+    return defaults;
+}
 
 - (id)init {
     self = [super init];
     DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
 
-    if (self) {        
+    if (self) {
         NSURL *bundleURL = [[NSBundle mainBundle] bundleURL];
         NSURL *settingsPlistURL = [bundleURL URLByAppendingPathComponent:@"Settings.plist"];
         NSURL *publicPlistURL = [bundleURL URLByAppendingPathComponent:@"Public.plist"];
@@ -37,7 +46,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return self;
 }
 
-- (NSError *)fromStream:(NSInputStream *)input {
+@end
+
+@implementation Settings
+
++ (NSError *)fromStream:(NSInputStream *)input {
     NSError *error;
     
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithStream:input
@@ -50,7 +63,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (NSError *)fromDictionary:(NSDictionary *)dictionary {
++ (NSError *)fromDictionary:(NSDictionary *)dictionary {
     if (dictionary) {
         for (NSString *key in [dictionary allKeys]) {
             DDLogVerbose(@"Configuration %@:%@", key, dictionary[key]);
@@ -207,6 +220,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             object = dictionary[@"extendedData"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"extendeddata_preference"];
             
+            object = dictionary[@"lbs"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"lbs"];
+            
             string = dictionary[@"tid"];
             if (string) [self setString:string forKey:@"trackerid_preference"];
             
@@ -221,7 +237,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return nil;
 }
 
-- (NSError *)waypointsFromStream:(NSInputStream *)input {
++ (NSError *)waypointsFromStream:(NSInputStream *)input {
     NSError *error;
     
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithStream:input
@@ -234,7 +250,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (NSError *)waypointsFromDictionary:(NSDictionary *)dictionary {
++ (NSError *)waypointsFromDictionary:(NSDictionary *)dictionary {
     if (dictionary) {
         for (NSString *key in [dictionary allKeys]) {
             DDLogVerbose(@"Waypoints %@:%@", key, dictionary[key]);
@@ -252,7 +268,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return nil;
 }
 
-- (void)setWaypoints:(NSArray *)waypoints {
++ (void)setWaypoints:(NSArray *)waypoints {
     if (waypoints) {
         for (NSDictionary *waypoint in waypoints) {
             if ([waypoint[@"_type"] isEqualToString:@"waypoint"]) {
@@ -303,7 +319,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (NSArray *)waypointsToArray {
++ (NSArray *)waypointsToArray {
     NSMutableArray *waypoints = [[NSMutableArray alloc] init];
     
     for (Location *location in [Location allWaypointsOfTopic:[self theGeneralTopic]
@@ -323,53 +339,54 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 
 
-- (NSDictionary *)waypointsToDictionary {
++ (NSDictionary *)waypointsToDictionary {
     return @{@"_type": @"waypoints", @"waypoints": [self waypointsToArray]};
 }
 
-- (NSDictionary *)toDictionary {
++ (NSDictionary *)toDictionary {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:@{@"_type": @"configuration"}];
-    dict[@"mode"] =                 @([self intForKey:@"mode"]);
-    dict[@"ranging"] =              @([self boolForKey:@"ranging_preference"]);
-    dict[@"tid"] =                  [self stringOrZeroForKey:@"trackerid_preference"];
-    dict[@"positions"] =            @([self intForKey:@"positions_preference"]);
-    dict[@"monitoring"] =           @([self intForKey:@"monitoring_preference"]);
-    dict[@"locatorDisplacement"] =  @([self intForKey:@"mindist_preference"]);
-    dict[@"locatorInterval"] =      @([self intForKey:@"mintime_preference"]);
-    dict[@"waypoints"] =            [self waypointsToArray];
+    dict[@"mode"] =                 @([Settings intForKey:@"mode"]);
+    dict[@"ranging"] =              @([Settings boolForKey:@"ranging_preference"]);
+    dict[@"tid"] =                  [Settings stringOrZeroForKey:@"trackerid_preference"];
+    dict[@"positions"] =            @([Settings intForKey:@"positions_preference"]);
+    dict[@"monitoring"] =           @([Settings intForKey:@"monitoring_preference"]);
+    dict[@"locatorDisplacement"] =  @([Settings intForKey:@"mindist_preference"]);
+    dict[@"locatorInterval"] =      @([Settings intForKey:@"mintime_preference"]);
+    dict[@"waypoints"] =            [Settings waypointsToArray];
 
-    switch ([self intForKey:@"mode"]) {
+    switch ([Settings intForKey:@"mode"]) {
         case 0:
-            dict[@"deviceId"] =     [self stringOrZeroForKey:@"deviceid_preference"];
-            dict[@"clientId"] =     [self stringOrZeroForKey:@"clientid_preference"];
-            dict[@"subTopic"] =     [self stringOrZeroForKey:@"subscription_preference"];
-            dict[@"pubTopicBase"] = [self stringOrZeroForKey:@"topic_preference"];
-            dict[@"host"] =         [self stringOrZeroForKey:@"host_preference"];
-            dict[@"username"] =     [self stringOrZeroForKey:@"user_preference"];
-            dict[@"password"] =     [self stringOrZeroForKey:@"pass_preference"];
-            dict[@"willTopic"] =    [self stringOrZeroForKey:@"willtopic_preference"];
+            dict[@"deviceId"] =     [Settings stringOrZeroForKey:@"deviceid_preference"];
+            dict[@"clientId"] =     [Settings stringOrZeroForKey:@"clientid_preference"];
+            dict[@"subTopic"] =     [Settings stringOrZeroForKey:@"subscription_preference"];
+            dict[@"pubTopicBase"] = [Settings stringOrZeroForKey:@"topic_preference"];
+            dict[@"host"] =         [Settings stringOrZeroForKey:@"host_preference"];
+            dict[@"username"] =     [Settings stringOrZeroForKey:@"user_preference"];
+            dict[@"password"] =     [Settings stringOrZeroForKey:@"pass_preference"];
+            dict[@"willTopic"] =    [Settings stringOrZeroForKey:@"willtopic_preference"];
             
-            dict[@"subQos"] =       @([self intForKey:@"subscriptionqos_preference"]);
-            dict[@"pubQos"] =       @([self intForKey:@"qos_preference"]);
-            dict[@"port"] =         @([self intForKey:@"port_preference"]);
-            dict[@"keepalive"] =    @([self intForKey:@"keepalive_preference"]);
-            dict[@"willQos"] =      @([self intForKey:@"willqos_preference"]);
+            dict[@"subQos"] =       @([Settings intForKey:@"subscriptionqos_preference"]);
+            dict[@"pubQos"] =       @([Settings intForKey:@"qos_preference"]);
+            dict[@"port"] =         @([Settings intForKey:@"port_preference"]);
+            dict[@"keepalive"] =    @([Settings intForKey:@"keepalive_preference"]);
+            dict[@"willQos"] =      @([Settings intForKey:@"willqos_preference"]);
             
-            dict[@"cmd"] =                  @([self boolForKey:@"cmd_preference"]);
-            dict[@"pubRetain"] =            @([self boolForKey:@"retain_preference"]);
-            dict[@"tls"] =                  @([self boolForKey:@"tls_preference"]);
-            dict[@"auth"] =                 @([self boolForKey:@"auth_preference"]);
-            dict[@"cleanSession"] =         @([self boolForKey:@"clean_preference"]);
-            dict[@"willRetain"] =           @([self boolForKey:@"willretain_preference"]);
-            dict[@"updateAddressBook"] =    @([self boolForKey:@"ab_preference"]);
-            dict[@"allowRemoteLocation"] =  @([self boolForKey:@"allowremotelocation_preference"]);
-            dict[@"extendedData"] =         @([self boolForKey:@"extendeddata_preference"]);
+            dict[@"cmd"] =                  @([Settings boolForKey:@"cmd_preference"]);
+            dict[@"pubRetain"] =            @([Settings boolForKey:@"retain_preference"]);
+            dict[@"tls"] =                  @([Settings boolForKey:@"tls_preference"]);
+            dict[@"auth"] =                 @([Settings boolForKey:@"auth_preference"]);
+            dict[@"cleanSession"] =         @([Settings boolForKey:@"clean_preference"]);
+            dict[@"willRetain"] =           @([Settings boolForKey:@"willretain_preference"]);
+            dict[@"updateAddressBook"] =    @([Settings boolForKey:@"ab_preference"]);
+            dict[@"allowRemoteLocation"] =  @([Settings boolForKey:@"allowremotelocation_preference"]);
+            dict[@"extendedData"] =         @([Settings boolForKey:@"extendeddata_preference"]);
+            dict[@"lbs"] =                  @([Settings boolForKey:@"lbs"]);
 
             break;
         case 1:
-            dict[@"username"] = [self stringOrZeroForKey:@"user"];
-            dict[@"deviceId"] = [self stringOrZeroForKey:@"device"];
-            dict[@"password"] = [self stringOrZeroForKey:@"token"];
+            dict[@"username"] = [Settings stringOrZeroForKey:@"user"];
+            dict[@"deviceId"] = [Settings stringOrZeroForKey:@"device"];
+            dict[@"password"] = [Settings stringOrZeroForKey:@"token"];
             break;
         case 2:
         default:
@@ -378,8 +395,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return dict;
 }
 
-- (NSData *)waypointsToData {
-    NSDictionary *dict = [self waypointsToDictionary];
++ (NSData *)waypointsToData {
+    NSDictionary *dict = [Settings waypointsToDictionary];
     
     NSError *error;
     NSData *myData = [NSJSONSerialization dataWithJSONObject:dict
@@ -388,7 +405,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return myData;
 }
 
-- (NSData *)toData {
++ (NSData *)toData {
     NSDictionary *dict = [self toDictionary];
     
     NSError *error;
@@ -398,8 +415,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return myData;
 }
 
-- (BOOL)validInPublicMode:(NSString *)key {
++ (BOOL)validInPublicMode:(NSString *)key {
     return ([key isEqualToString:@"mode"] ||
+            [key isEqualToString:@"lbs"] ||
             [key isEqualToString:@"monitoring_preference"] ||
             [key isEqualToString:@"mindist_preference"] ||
             [key isEqualToString:@"mintime_preference"] ||
@@ -409,8 +427,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
 }
 
-- (BOOL)validInHostedMode:(NSString *)key {
++ (BOOL)validInHostedMode:(NSString *)key {
     return ([key isEqualToString:@"mode"] ||
+            [key isEqualToString:@"lbs"] ||
             [key isEqualToString:@"monitoring_preference"] ||
             [key isEqualToString:@"mindist_preference"] ||
             [key isEqualToString:@"mintime_preference"] ||
@@ -423,7 +442,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
 }
 
-- (void)setString:(NSString *)string forKey:(NSString *)key {
++ (void)setString:(NSString *)string forKey:(NSString *)key {
     if ([self intForKey:@"mode"] == 0 ||
         ([self intForKey:@"mode"] == 1 && [self validInHostedMode:key]) ||
         ([self intForKey:@"mode"] == 2 && [self validInPublicMode:key])) {
@@ -432,19 +451,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (void)setInt:(int)i forKey:(NSString *)key {
++ (void)setInt:(int)i forKey:(NSString *)key {
     [self setString:[NSString stringWithFormat:@"%d", i] forKey:key];
 }
 
-- (void)setDouble:(double)d forKey:(NSString *)key {
++ (void)setDouble:(double)d forKey:(NSString *)key {
     [self setString:[NSString stringWithFormat:@"%f", d] forKey:key];
 }
 
-- (void)setBool:(BOOL)b forKey:(NSString *)key {
++ (void)setBool:(BOOL)b forKey:(NSString *)key {
     [self setString:[NSString stringWithFormat:@"%d", b] forKey:key];
 }
 
-- (NSString *)stringOrZeroForKey:(NSString *)key {
++ (NSString *)stringOrZeroForKey:(NSString *)key {
     NSString *value = [self stringForKey:key];
     if (!value) {
         DDLogVerbose(@"stringOrZeroForKey %@", key);
@@ -453,11 +472,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return value;
 }
 
-- (NSString *)stringForKey:(NSString *)key {
++ (NSString *)stringForKey:(NSString *)key {
     NSString *value = nil;
     
     if ([[self stringForKeyRaw:@"mode"] intValue] == 2 && ![self validInPublicMode:key]) {
-        id object = [self.publicDefaults objectForKey:key];
+        id object = [[SettingsDefaults theDefaults].publicDefaults objectForKey:key];
         if (object) {
             if ([object isKindOfClass:[NSString class]]) {
                 value = (NSString *)object;
@@ -466,7 +485,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             }
         }
     } else if ([[self stringForKeyRaw:@"mode"] intValue] == 1 && ![self validInHostedMode:key]) {
-        id object = [self.hostedDefaults objectForKey:key];
+        id object = [[SettingsDefaults theDefaults].hostedDefaults objectForKey:key];
         if (object) {
             if ([object isKindOfClass:[NSString class]]) {
                 value = (NSString *)object;
@@ -480,7 +499,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return value;
 }
 
-- (NSString *)stringForKeyRaw:(NSString *)key {
++ (NSString *)stringForKeyRaw:(NSString *)key {
     NSString *value = nil;
     
     Setting *setting = [Setting existsSettingWithKey:key inManagedObjectContext:[CoreData theManagedObjectContext]];
@@ -488,7 +507,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         value = setting.value;
     } else {
         // if not found in Core Data or NSUserdefaults, use defaults from .plist
-        id object = [self.appDefaults objectForKey:key];
+        id object = [[SettingsDefaults theDefaults].appDefaults objectForKey:key];
         if (object) {
             if ([object isKindOfClass:[NSString class]]) {
                 value = (NSString *)object;
@@ -500,20 +519,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return value;
 }
 
-- (int)intForKey:(NSString *)key {
++ (int)intForKey:(NSString *)key {
     return [[self stringForKey:key] intValue];
 }
 
-- (double)doubleForKey:(NSString *)key {
++ (double)doubleForKey:(NSString *)key {
     return [[self stringForKey:key] doubleValue];
 }
 
-- (BOOL)boolForKey:(NSString *)key {
++ (BOOL)boolForKey:(NSString *)key {
     return [[self stringForKey:key] boolValue];
 }
 
 
-- (NSString *)theGeneralTopic {
++ (NSString *)theGeneralTopic {
     int mode = [self intForKey:@"mode"];
     NSString *topic;
     
@@ -536,7 +555,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return topic;
 }
 
-- (NSString *)theWillTopic
++ (NSString *)theWillTopic
 {
     NSString *topic = [self stringForKey:@"willtopic_preference"];
     
@@ -547,7 +566,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return topic;
 }
 
-- (NSString *)theClientId {
++ (NSString *)theClientId {
     NSString *clientId;
     clientId = [self stringForKey:@"clientid_preference"];
     
@@ -557,7 +576,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return clientId;
 }
 
-- (NSString *)theId {
++ (NSString *)theId {
     int mode = [self intForKey:@"mode"];
     NSString *theId;
     
@@ -592,7 +611,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return theId;
 }
 
-- (NSString *)theDeviceId {
++ (NSString *)theDeviceId {
     int mode = [self intForKey:@"mode"];
     NSString *deviceId;
     
@@ -611,7 +630,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return deviceId;
 }
 
-- (NSString *)theSubscriptions {
++ (NSString *)theSubscriptions {
     int mode = [self intForKey:@"mode"];
     NSString *subscriptions;
     
@@ -665,7 +684,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return subscriptions;
 }
 
-- (NSString *)theUserId {
++ (NSString *)theUserId {
     int mode = [self intForKey:@"mode"];
     switch (mode) {
         case 2:
@@ -681,7 +700,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (NSString *)theMqttUser {
++ (NSString *)theMqttUser {
     int mode = [self intForKey:@"mode"];
     switch (mode) {
         case 2:
@@ -699,7 +718,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (NSString *)theMqttPass {
++ (NSString *)theMqttPass {
     int mode = [self intForKey:@"mode"];
     switch (mode) {
         case 2:
@@ -715,7 +734,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (BOOL)theMqttAuth {
++ (BOOL)theMqttAuth {
     int mode = [self intForKey:@"mode"];
     switch (mode) {
         case 2:
@@ -731,7 +750,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (BOOL)validIds {
++ (BOOL)validIds {
     NSString *user = [self theUserId];
     NSString *device = [self theDeviceId];
     

@@ -60,6 +60,8 @@
 	<true/>
 	<key>extendeddata_preference</key>
 	<true/>
+	<key>lbs</key>
+	<false/>
 	<key>trackerid_preference</key>
 	<string></string>
 	<key>positions_preference</key>

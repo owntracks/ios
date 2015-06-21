@@ -1060,6 +1060,33 @@
                                             <constraint firstItem="X2I-bd-nxy" firstAttribute="leading" secondItem="Au8-NY-uXO" secondAttribute="leading" constant="20" id="Oyz-DZ-mc1"/>
                                         </constraints>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="yKp-Gn-TXa">
+                                        <rect key="frame" x="0.0" y="1403" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yKp-Gn-TXa" id="InH-Pb-82s">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Based Services" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TEn-dm-lNd">
+                                                    <rect key="frame" x="20" y="11" width="191" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="skU-Pu-Iq4">
+                                                    <rect key="frame" x="251" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="lbsChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="LwF-xe-NAl"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="TEn-dm-lNd" firstAttribute="leading" secondItem="InH-Pb-82s" secondAttribute="leading" constant="20" symbolic="YES" id="A4h-cH-PjR"/>
+                                                <constraint firstAttribute="centerY" secondItem="TEn-dm-lNd" secondAttribute="centerY" id="Cwf-FR-yS2"/>
+                                                <constraint firstAttribute="trailing" secondItem="skU-Pu-Iq4" secondAttribute="trailing" constant="20" symbolic="YES" id="LLj-bs-vap"/>
+                                                <constraint firstAttribute="centerY" secondItem="skU-Pu-Iq4" secondAttribute="centerY" id="sqw-hK-ddJ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Ojf-fG-R7h">
                                         <rect key="frame" x="0.0" y="1583" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -1178,6 +1205,7 @@
                         <outlet property="UIdevice" destination="nKL-wx-Lqk" id="rRh-C4-C9y"/>
                         <outlet property="UIexport" destination="ysB-cv-35Y" id="QKh-Bs-pnD"/>
                         <outlet property="UIextendedData" destination="gHo-wc-Cgg" id="vQU-MV-xye"/>
+                        <outlet property="UIlbs" destination="skU-Pu-Iq4" id="agG-P4-hAc"/>
                         <outlet property="UImode" destination="2MJ-7K-q1Z" id="BMF-12-Hp9"/>
                         <outlet property="UIqos" destination="EQS-gJ-XoJ" id="IGr-Nq-OAB"/>
                         <outlet property="UIstatus" destination="Dkt-W1-c4K" id="uXG-MW-TUE"/>
@@ -1197,10 +1225,10 @@
             </objects>
             <point key="canvasLocation" x="2208" y="-1935"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--TBC-->
         <scene sceneID="khr-I5-27q">
             <objects>
-                <tabBarController definesPresentationContext="YES" id="e04-OU-xZ4" sceneMemberID="viewController">
+                <tabBarController definesPresentationContext="YES" id="e04-OU-xZ4" customClass="TBC" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="nR6-eE-Ljy">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
@@ -1218,14 +1246,14 @@
             </objects>
             <point key="canvasLocation" x="-192" y="-1193"/>
         </scene>
-        <!--MessageTVC-->
+        <!--Services-->
         <scene sceneID="30q-bf-kmI">
             <objects>
                 <tableViewController id="bLD-0I-fQm" customClass="MessageTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="NUy-8I-ytv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="message" textLabel="Q8U-fl-KdJ" detailTextLabel="URu-MH-8YJ" style="IBUITableViewCellStyleSubtitle" id="VcW-xg-ah0">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -1235,13 +1263,13 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Q8U-fl-KdJ">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="URu-MH-8YJ">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -1253,10 +1281,10 @@
                             <outlet property="delegate" destination="bLD-0I-fQm" id="yge-Vx-DXS"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="wct-zu-C8Y">
-                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="R1l-To-fHt">
+                    <navigationItem key="navigationItem" title="Services" id="4ym-Q3-j3A">
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="aEU-tT-Z5l">
                             <connections>
-                                <action selector="trash:" destination="bLD-0I-fQm" id="kzh-yP-slu"/>
+                                <action selector="trash:" destination="bLD-0I-fQm" id="5nd-jU-V9W"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -2340,8 +2368,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <!--Services-->
         <scene sceneID="MPJ-uW-sBf">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="aXh-Fr-lWJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Services" image="LBS" id="Lzk-LX-UQX"/>
+                <navigationController title="Services" automaticallyAdjustsScrollViewInsets="NO" id="aXh-Fr-lWJ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" tag="99" title="Services" image="LBS" id="Lzk-LX-UQX"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="EDI-Uy-99l">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2365,7 +2393,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <image name="OnwTracks" width="32" height="32"/>
         <image name="Settings" width="32" height="32"/>
         <image name="Tracking" width="32" height="32"/>
-        <image name="iBeaconOff" width="32" height="32"/>
+        <image name="iBeaconOff" width="33" height="33"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

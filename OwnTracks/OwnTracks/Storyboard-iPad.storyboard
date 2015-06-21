@@ -1630,6 +1630,33 @@
                                             <constraint firstItem="6TY-jz-sHz" firstAttribute="leading" secondItem="4Db-Pe-x8P" secondAttribute="trailing" constant="8" symbolic="YES" id="R6z-vq-QMy"/>
                                         </constraints>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="TVy-Rz-wU5">
+                                        <rect key="frame" x="0.0" y="1403" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TVy-Rz-wU5" id="VFg-4L-nAE">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Based Services" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hJo-Gs-5FO">
+                                                    <rect key="frame" x="20" y="11" width="191" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pws-EJ-YJE">
+                                                    <rect key="frame" x="239" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="lbsChanged:" destination="wIr-Ka-wY2" eventType="valueChanged" id="eTB-s6-Clb"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="hJo-Gs-5FO" firstAttribute="leading" secondItem="VFg-4L-nAE" secondAttribute="leading" constant="20" symbolic="YES" id="Gee-AY-ozJ"/>
+                                                <constraint firstAttribute="centerY" secondItem="hJo-Gs-5FO" secondAttribute="centerY" id="Y7z-dZ-oYQ"/>
+                                                <constraint firstAttribute="trailing" secondItem="pws-EJ-YJE" secondAttribute="trailing" constant="20" symbolic="YES" id="aAH-Be-LNS"/>
+                                                <constraint firstAttribute="centerY" secondItem="pws-EJ-YJE" secondAttribute="centerY" id="ioH-yS-4pD"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="iEa-Gk-8di">
                                         <rect key="frame" x="0.0" y="1583" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -1752,6 +1779,7 @@
                         <outlet property="UIdevice" destination="qI4-cv-uRj" id="521-oX-XBH"/>
                         <outlet property="UIexport" destination="Dfl-i4-2hW" id="Fn4-LQ-OwL"/>
                         <outlet property="UIextendedData" destination="yf4-6B-QAB" id="ipj-pO-83Z"/>
+                        <outlet property="UIlbs" destination="pws-EJ-YJE" id="MN0-R9-wNs"/>
                         <outlet property="UImode" destination="Zd5-UM-LTU" id="o7b-if-j99"/>
                         <outlet property="UIqos" destination="sUY-ch-Z4O" id="yB8-3r-34S"/>
                         <outlet property="UIstatus" destination="z27-9u-VcL" id="wpC-Iz-24z"/>
@@ -2267,11 +2295,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
             </objects>
             <point key="canvasLocation" x="3276" y="-253"/>
         </scene>
-        <!--MessageTVC-->
+        <!--Services-->
         <scene sceneID="rGu-PD-ekv">
             <objects>
                 <tableViewController id="VFg-bc-ThD" customClass="MessageTVC" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="TmZ-OO-3xq">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" sectionIndexMinimumDisplayRowCount="2" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="TmZ-OO-3xq">
                         <rect key="frame" x="0.0" y="0.0" width="308" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -2302,7 +2330,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                             <outlet property="delegate" destination="VFg-bc-ThD" id="txe-YM-roP"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="27s-Mv-kx3">
+                    <navigationItem key="navigationItem" title="Services" id="27s-Mv-kx3">
                         <barButtonItem key="rightBarButtonItem" systemItem="trash" id="k7O-YC-7Rw">
                             <connections>
                                 <action selector="trash:" destination="VFg-bc-ThD" id="wrr-Jz-zk2"/>
@@ -2333,10 +2361,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
             </objects>
             <point key="canvasLocation" x="2026" y="-1614"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--TBC-->
         <scene sceneID="gCa-n7-VQc">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="U02-F8-0FB" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="U02-F8-0FB" customClass="TBC" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="TPa-e1-PiD">
@@ -2357,7 +2385,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <scene sceneID="RFH-6G-eSZ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0Kb-04-ss9" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Services" image="LBS" id="MhO-GD-9Ym"/>
+                    <tabBarItem key="tabBarItem" tag="99" title="Services" image="LBS" id="MhO-GD-9Ym"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="WTA-Hq-CfQ">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
@@ -2380,7 +2408,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <image name="LBS" width="33" height="33"/>
         <image name="Settings" width="32" height="32"/>
         <image name="Tracking" width="32" height="32"/>
-        <image name="iBeaconOff" width="32" height="32"/>
+        <image name="iBeaconOff" width="33" height="33"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

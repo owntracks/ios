@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <CoreMotion/CoreMotion.h>
 
 @protocol LocationManagerDelegate <NSObject>
 
@@ -28,6 +29,7 @@
 @property (nonatomic) double minDist;
 @property (nonatomic) double minTime;
 @property (readonly, nonatomic) CLLocation *location;
+@property (strong, nonatomic) CMAltitudeData *altitude;
 
 - (void)start;
 - (void)wakeup;

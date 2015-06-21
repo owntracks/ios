@@ -12,6 +12,7 @@
 #import "Location+Create.h"
 #import "Setting+Create.h"
 #import "AlertView.h"
+#import "Settings.h"
 #import <NotificationCenter/NotificationCenter.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
@@ -27,7 +28,6 @@
 
 @property (strong, nonatomic) NSManagedObjectContext *queueManagedObjectContext;
 @end
-
 
 #define MAX_OTHER_LOCATIONS 1
 
@@ -58,7 +58,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                 UIUserNotificationTypeAlert |
                                                 UIUserNotificationTypeBadge
                                                                                  categories:[NSSet setWithObjects:nil]];
-       // NSLog(@"registerUserNotificationSettings %@", settings);
+        // NSLog(@"registerUserNotificationSettings %@", settings);
         [application registerUserNotificationSettings:settings];
     }
     
@@ -101,15 +101,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         }
     } while (state & UIDocumentStateClosed || ![CoreData theManagedObjectContext]);
     
-    self.settings = [[Settings alloc] init];
     if (![Setting existsSettingWithKey:@"mode"
                 inManagedObjectContext:[CoreData theManagedObjectContext]]) {
         if (![Setting existsSettingWithKey:@"host_preference"
                     inManagedObjectContext:[CoreData theManagedObjectContext]]) {
-            [self.settings setInt:2 forKey:@"mode"];
+            [Settings setInt:2 forKey:@"mode"];
             self.publicWarning = TRUE;
         } else {
-            [self.settings setInt:0 forKey:@"mode"];
+            [Settings setInt:0 forKey:@"mode"];
         }
     }
     
@@ -129,13 +128,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     LocationManager *locationManager = [LocationManager sharedInstance];
     locationManager.delegate = self;
-    locationManager.monitoring = [self.settings intForKey:@"monitoring_preference"];
-    locationManager.ranging = [self.settings boolForKey:@"ranging_preference"];
-    locationManager.minDist = [self.settings doubleForKey:@"mindist_preference"];
-    locationManager.minTime = [self.settings doubleForKey:@"mintime_preference"];
+    locationManager.monitoring = [Settings intForKey:@"monitoring_preference"];
+    locationManager.ranging = [Settings boolForKey:@"ranging_preference"];
+    locationManager.minDist = [Settings doubleForKey:@"mindist_preference"];
+    locationManager.minTime = [Settings doubleForKey:@"mintime_preference"];
     self.lbs = [[LBS alloc] init];
     [locationManager start];
-
     
     return YES;
 }
@@ -152,7 +150,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     if (url) {
         DDLogVerbose(@"URL scheme %@", url.scheme);
-
+        
         if ([url.scheme isEqualToString:@"owntracks"]) {
             DDLogVerbose(@"URL path %@ query %@", url.path, url.query);
             
@@ -179,16 +177,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                   major ? [NSString stringWithFormat:@":%d", major] : @"",
                                   minor ? [NSString stringWithFormat:@":%d", minor] : @""
                                   ];
-
-                [self.settings waypointsFromDictionary:@{@"_type":@"waypoints",
-                                                         @"waypoints":@[@{@"_type":@"waypoint",
-                                                                        @"desc":desc,
-                                                                        @"tst":@((int)([[NSDate date] timeIntervalSince1970])),
-                                                                        @"lat":@([LocationManager sharedInstance].location.coordinate.latitude),
-                                                                        @"lon":@([LocationManager sharedInstance].location.coordinate.longitude),
-                                                                        @"rad":@(-1)
-                                                                          }]
-                                                         }];
+                
+                [Settings waypointsFromDictionary:@{@"_type":@"waypoints",
+                                                    @"waypoints":@[@{@"_type":@"waypoint",
+                                                                     @"desc":desc,
+                                                                     @"tst":@((int)([[NSDate date] timeIntervalSince1970])),
+                                                                     @"lat":@([LocationManager sharedInstance].location.coordinate.latitude),
+                                                                     @"lon":@([LocationManager sharedInstance].location.coordinate.longitude),
+                                                                     @"rad":@(-1)
+                                                                     }]
+                                                    }];
                 self.processingMessage = @"Beacon QR successfully processed";
                 return TRUE;
             } else if ([url.path isEqualToString:@"/hosted"]) {
@@ -201,14 +199,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 for (Friend *friend in friends) {
                     [[CoreData theManagedObjectContext] deleteObject:friend];
                 }
-
                 
-                [self.settings fromDictionary:@{@"_type":@"configuration",
-                                                @"mode":@(1),
-                                                @"username":user,
-                                                @"deviceId":device,
-                                                @"password":token
-                                                }];
+                
+                [Settings fromDictionary:@{@"_type":@"configuration",
+                                           @"mode":@(1),
+                                           @"username":user,
+                                           @"deviceId":device,
+                                           @"password":token
+                                           }];
                 self.configLoad = [NSDate date];
                 [CoreData saveContext];
                 self.processingMessage = @"Hosted QR successfully processed";
@@ -235,7 +233,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             }
             
             DDLogVerbose(@"URL pathExtension %@", url.pathExtension);
-
+            
             NSError *error;
             NSString *extension = [url pathExtension];
             if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
@@ -244,10 +242,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 for (Friend *friend in friends) {
                     [[CoreData theManagedObjectContext] deleteObject:friend];
                 }
-                error = [self.settings fromStream:input];
+                error = [Settings fromStream:input];
                 [CoreData saveContext];
             } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
-                error = [self.settings waypointsFromStream:input];
+                error = [Settings waypointsFromStream:input];
             } else {
                 error = [NSError errorWithDomain:@"OwnTracks"
                                             code:2
@@ -312,7 +310,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         [AlertView alert:@"CoreData" message:message];
     }
     
-    if (![self.settings validIds]) {
+    if (![Settings validIds]) {
         NSString *message = [NSString stringWithFormat:@"To publish your location userID and deviceID must be set"];
         [AlertView alert:@"Settings" message:message];
     }
@@ -363,13 +361,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)regionEvent:(CLRegion *)region enter:(BOOL)enter {
     NSString *message = [NSString stringWithFormat:@"%@ %@", (enter ? @"Entering" : @"Leaving"), region.identifier];
     [self notification:message userInfo:nil];
-
-    Friend *myself = [Friend existsFriendWithTopic:[self.settings theGeneralTopic] inManagedObjectContext:[CoreData theManagedObjectContext]];
+    
+    Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic] inManagedObjectContext:[CoreData theManagedObjectContext]];
     CLLocation *location = [LocationManager sharedInstance].location;
     [self.lbs newLocation:location.coordinate.latitude
                 longitude:location.coordinate.longitude
                   context:[CoreData theManagedObjectContext]];
-
+    
     NSMutableDictionary *jsonObject = [@{
                                          @"_type": @"transition",
                                          @"lat": @(location.coordinate.latitude),
@@ -381,7 +379,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                          @"t": [region isKindOfClass:[CLBeaconRegion class]] ? @"b" : @"c"
                                          } mutableCopy];
     
-    for (Location *location in [Location allWaypointsOfTopic:[self.settings theGeneralTopic]
+    for (Location *location in [Location allWaypointsOfTopic:[Settings theGeneralTopic]
                                       inManagedObjectContext:[CoreData theManagedObjectContext]]) {
         if ([region.identifier isEqualToString:location.region.identifier]) {
             location.remark = location.remark; // this touches the location and updates the overlay
@@ -392,10 +390,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         }
     }
     
-    if ([LocationManager sharedInstance].monitoring && [self.settings validIds]) {
+    if ([LocationManager sharedInstance].monitoring && [Settings validIds]) {
         [self.connectionOut sendData:[self jsonToData:jsonObject]
-                               topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/event"]
-                                 qos:[self.settings intForKey:@"qos_preference"]
+                               topic:[[Settings theGeneralTopic] stringByAppendingString:@"/event"]
+                                 qos:[Settings intForKey:@"qos_preference"]
                               retain:NO];
         
         if ([region isKindOfClass:[CLBeaconRegion class]]) {
@@ -408,8 +406,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)regionState:(CLRegion *)region inside:(BOOL)inside {
     CLLocation *location = [LocationManager sharedInstance].location;
-
-    for (Location *location in [Location allWaypointsOfTopic:[self.settings theGeneralTopic]
+    
+    for (Location *location in [Location allWaypointsOfTopic:[Settings theGeneralTopic]
                                       inManagedObjectContext:[CoreData theManagedObjectContext]]) {
         if ([region.identifier isEqualToString:location.region.identifier]) {
             location.justcreated = @(![location.justcreated boolValue]); // this is a hack to update the UI
@@ -429,7 +427,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (void)beaconInRange:(CLBeacon *)beacon region:(CLBeaconRegion *)region{
-    if ([self.settings validIds]) {
+    if ([Settings validIds]) {
         NSDictionary *jsonObject = @{
                                      @"_type": @"beacon",
                                      @"tst": @(floor([[LocationManager sharedInstance].location.timestamp timeIntervalSince1970])),
@@ -441,8 +439,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                      @"rssi": @(beacon.rssi)
                                      };
         [self.connectionOut sendData:[self jsonToData:jsonObject]
-                               topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/beacon"]
-                                 qos:[self.settings intForKey:@"qos_preference"]
+                               topic:[[Settings theGeneralTopic] stringByAppendingString:@"/beacon"]
+                                 qos:[Settings intForKey:@"qos_preference"]
                               retain:NO];
     }
     [self.delegate beaconInRange:beacon region:region];
@@ -489,13 +487,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if ([self.lbs processMessage:topic data:data retained:retained context:self.queueManagedObjectContext]) {
         [self notification:@"New info available"
                   userInfo:@{@"notify": @"lbs"}];
-
+        
         return;
     }
     
     NSArray *topicComponents = [topic componentsSeparatedByCharactersInSet:
                                 [NSCharacterSet characterSetWithCharactersInString:@"/"]];
-    NSArray *baseComponents = [[self.settings theGeneralTopic] componentsSeparatedByCharactersInSet:
+    NSArray *baseComponents = [[Settings theGeneralTopic] componentsSeparatedByCharactersInSet:
                                [NSCharacterSet characterSetWithCharactersInString:@"/"]];
     
     NSString *device = @"";
@@ -516,7 +514,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     
     DDLogVerbose(@"device %@", device);
-
+    
     if (ownDevice) {
         
         NSError *error;
@@ -524,11 +522,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         if (dictionary) {
             if ([dictionary[@"_type"] isEqualToString:@"cmd"]) {
                 DDLogVerbose(@"App msg received cmd:%@", dictionary[@"action"]);
-                if ([self.settings boolForKey:@"cmd_preference"]) {
+                if ([Settings boolForKey:@"cmd_preference"]) {
                     if ([dictionary[@"action"] isEqualToString:@"dump"]) {
                         [self dumpTo:topic];
                     } else if ([dictionary[@"action"] isEqualToString:@"reportLocation"]) {
-                        if ([LocationManager sharedInstance].monitoring || [self.settings boolForKey:@"allowremotelocation_preference"]) {
+                        if ([LocationManager sharedInstance].monitoring || [Settings boolForKey:@"allowremotelocation_preference"]) {
                             [self publishLocation:[LocationManager sharedInstance].location
                                         automatic:YES
                                             addon:@{@"t": @"r"}];
@@ -537,7 +535,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                         [self stepsFrom:dictionary[@"from"] to:dictionary[@"to"]];
                     } else if ([dictionary[@"action"] isEqualToString:@"setWaypoints"]) {
                         NSDictionary *payload = dictionary[@"payload"];
-                        [self.settings waypointsFromDictionary:payload];
+                        [Settings waypointsFromDictionary:payload];
                     } else {
                         DDLogVerbose(@"unknown action %@", dictionary[@"action"]);
                     }
@@ -664,12 +662,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)dumpTo:(NSString *)topic {
     NSDictionary *dumpDict = @{
                                @"_type":@"dump",
-                               @"configuration":[self.settings toDictionary],
+                               @"configuration":[Settings toDictionary],
                                };
     
     [self.connectionOut sendData:[self jsonToData:dumpDict]
-                           topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/dump"]
-                             qos:[self.settings intForKey:@"qos_preference"]
+                           topic:[[Settings theGeneralTopic] stringByAppendingString:@"/dump"]
+                             qos:[Settings intForKey:@"qos_preference"]
                           retain:NO];
 }
 
@@ -740,8 +738,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                }
                                                
                                                [self.connectionOut sendData:[self jsonToData:jsonObject]
-                                                                      topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/step"]
-                                                                        qos:[self.settings intForKey:@"qos_preference"]
+                                                                      topic:[[Settings theGeneralTopic] stringByAppendingString:@"/step"]
+                                                                        qos:[Settings intForKey:@"qos_preference"]
                                                                      retain:NO];
                                            });
                                        }];
@@ -770,8 +768,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                               };
                  
                  [self.connectionOut sendData:[self jsonToData:jsonObject]
-                                        topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/step"]
-                                          qos:[self.settings intForKey:@"qos_preference"]
+                                        topic:[[Settings theGeneralTopic] stringByAppendingString:@"/step"]
+                                          qos:[Settings intForKey:@"qos_preference"]
                                        retain:NO];
              });
          }];
@@ -785,8 +783,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                      };
         
         [self.connectionOut sendData:[self jsonToData:jsonObject]
-                               topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/step"]
-                                 qos:[self.settings intForKey:@"qos_preference"]
+                               topic:[[Settings theGeneralTopic] stringByAppendingString:@"/step"]
+                                 qos:[Settings intForKey:@"qos_preference"]
                               retain:NO];
     }
 }
@@ -800,7 +798,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.lbs newLocation:location.coordinate.latitude
                 longitude:location.coordinate.longitude
                   context:[CoreData theManagedObjectContext]];
-
+    
     
 }
 
@@ -826,9 +824,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (void)publishLocation:(CLLocation *)location automatic:(BOOL)automatic addon:(NSDictionary *)addon {
-    if (location && [self.settings validIds]) {
-        Location *newLocation = [Location locationWithTopic:[self.settings theGeneralTopic]
-                                                        tid:[self.settings stringForKey:@"trackerid_preference"]
+    if (location && [Settings validIds]) {
+        Location *newLocation = [Location locationWithTopic:[Settings theGeneralTopic]
+                                                        tid:[Settings stringForKey:@"trackerid_preference"]
                                                   timestamp:location.timestamp
                                                  coordinate:location.coordinate
                                                    accuracy:location.horizontalAccuracy
@@ -845,12 +843,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         NSData *data = [self encodeLocationData:newLocation type:@"location" addon:addon];
         
         [self.connectionOut sendData:data
-                               topic:[self.settings theGeneralTopic]
-                                 qos:[self.settings intForKey:@"qos_preference"]
-                              retain:[self.settings boolForKey:@"retain_preference"]];
+                               topic:[Settings theGeneralTopic]
+                                 qos:[Settings intForKey:@"qos_preference"]
+                              retain:[Settings boolForKey:@"retain_preference"]];
         
         [self limitLocationsWith:newLocation.belongsTo
-                       toMaximum:[self.settings intForKey:@"positions_preference"]
+                       toMaximum:[Settings intForKey:@"positions_preference"]
           inManagedObjectContext:[CoreData theManagedObjectContext]];
         
         [CoreData saveContext];
@@ -864,7 +862,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)sendEmpty:(NSString *)topic {
     [self.connectionOut sendData:nil
                            topic:topic
-                             qos:[self.settings intForKey:@"qos_preference"]
+                             qos:[Settings intForKey:@"qos_preference"]
                           retain:YES];
 }
 
@@ -876,12 +874,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     [self.connectionOut sendData:[self jsonToData:jsonObject]
                            topic:[friend.topic stringByAppendingString:@"/cmd"]
-                             qos:[self.settings intForKey:@"qos_preference"]
+                             qos:[Settings intForKey:@"qos_preference"]
                           retain:NO];
 }
 
 - (void)sendWayPoint:(Location *)location {
-    if ([self.settings validIds]) {
+    if ([Settings validIds]) {
         NSMutableDictionary *addon = [[NSMutableDictionary alloc]init];
         
         if (location.remark) {
@@ -892,8 +890,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                            type:@"waypoint" addon:addon];
         
         [self.connectionOut sendData:data
-                               topic:[[self.settings theGeneralTopic] stringByAppendingString:@"/waypoint"]
-                                 qos:[self.settings intForKey:@"qos_preference"]
+                               topic:[[Settings theGeneralTopic] stringByAppendingString:@"/waypoint"]
+                                 qos:[Settings intForKey:@"qos_preference"]
                               retain:NO];
         
         [CoreData saveContext];
@@ -933,42 +931,42 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (void)connect {
-    [self.connectionOut connectTo:[self.settings stringForKey:@"host_preference"]
-                             port:[self.settings intForKey:@"port_preference"]
-                              tls:[self.settings boolForKey:@"tls_preference"]
-                        keepalive:[self.settings intForKey:@"keepalive_preference"]
-                            clean:[self.settings intForKey:@"clean_preference"]
-                             auth:[self.settings theMqttAuth]
-                             user:[self.settings theMqttUser]
-                             pass:[self.settings theMqttPass]
-                        willTopic:[self.settings theWillTopic]
+    [self.connectionOut connectTo:[Settings stringForKey:@"host_preference"]
+                             port:[Settings intForKey:@"port_preference"]
+                              tls:[Settings boolForKey:@"tls_preference"]
+                        keepalive:[Settings intForKey:@"keepalive_preference"]
+                            clean:[Settings intForKey:@"clean_preference"]
+                             auth:[Settings theMqttAuth]
+                             user:[Settings theMqttUser]
+                             pass:[Settings theMqttPass]
+                        willTopic:[Settings theWillTopic]
                              will:[self jsonToData:@{
                                                      @"tst": [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]],
                                                      @"_type": @"lwt"}]
-                          willQos:[self.settings intForKey:@"willqos_preference"]
-                   willRetainFlag:[self.settings boolForKey:@"willretain_preference"]
-                     withClientId:[NSString stringWithFormat:@"%@-o", [self.settings theClientId]]];
+                          willQos:[Settings intForKey:@"willqos_preference"]
+                   willRetainFlag:[Settings boolForKey:@"willretain_preference"]
+                     withClientId:[NSString stringWithFormat:@"%@-o", [Settings theClientId]]];
     
-    MQTTQosLevel subscriptionQos =[self.settings intForKey:@"subscriptionqos_preference"];
-    NSArray *subscriptions = [[self.settings theSubscriptions] componentsSeparatedByCharactersInSet:
+    MQTTQosLevel subscriptionQos =[Settings intForKey:@"subscriptionqos_preference"];
+    NSArray *subscriptions = [[Settings theSubscriptions] componentsSeparatedByCharactersInSet:
                               [NSCharacterSet whitespaceCharacterSet]];
     
     self.connectionIn.subscriptions = subscriptions;
     self.connectionIn.subscriptionQos = subscriptionQos;
     
-    [self.connectionIn connectTo:[self.settings stringForKey:@"host_preference"]
-                            port:[self.settings intForKey:@"port_preference"]
-                             tls:[self.settings boolForKey:@"tls_preference"]
-                       keepalive:[self.settings intForKey:@"keepalive_preference"]
-                           clean:[self.settings intForKey:@"clean_preference"]
-                            auth:[self.settings theMqttAuth]
-                            user:[self.settings theMqttUser]
-                            pass:[self.settings theMqttPass]
+    [self.connectionIn connectTo:[Settings stringForKey:@"host_preference"]
+                            port:[Settings intForKey:@"port_preference"]
+                             tls:[Settings boolForKey:@"tls_preference"]
+                       keepalive:[Settings intForKey:@"keepalive_preference"]
+                           clean:[Settings intForKey:@"clean_preference"]
+                            auth:[Settings theMqttAuth]
+                            user:[Settings theMqttUser]
+                            pass:[Settings theMqttPass]
                        willTopic:nil
                             will:nil
                          willQos:MQTTQosLevelAtMostOnce
                   willRetainFlag:NO
-                    withClientId:[NSString stringWithFormat:@"%@-i", [self.settings theClientId]]];
+                    withClientId:[NSString stringWithFormat:@"%@-i", [Settings theClientId]]];
 }
 
 - (NSData *)jsonToData:(NSDictionary *)jsonObject {
@@ -1005,7 +1003,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         [jsonObject setValue:@(acc) forKey:@"acc"];
     }
     
-    if ([self.settings boolForKey:@"extendeddata_preference"]) {
+    if ([Settings boolForKey:@"extendeddata_preference"]) {
         int alt = [location.altitude intValue];
         [jsonObject setValue:@(alt) forKey:@"alt"];
         
@@ -1017,6 +1015,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         
         int cog = [location.course intValue];
         [jsonObject setValue:@(cog) forKey:@"cog"];
+        
+        CMAltitudeData *altitude = [LocationManager sharedInstance].altitude;
+        if (altitude) {
+            [jsonObject setValue:altitude.pressure forKey:@"p"];
+        }
     }
     
     [jsonObject setValue:[location.belongsTo getEffectiveTid] forKeyPath:@"tid"];

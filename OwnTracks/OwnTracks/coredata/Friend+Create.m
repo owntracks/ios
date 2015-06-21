@@ -8,7 +8,7 @@
 
 #import "Friend+Create.h"
 #import "Location+Create.h"
-#import "OwnTracksAppDelegate.h"
+#import "Settings.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @implementation Friend (Create)
@@ -144,9 +144,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 {
     ABRecordRef record = NULL;
     
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-
-    if ([delegate.settings boolForKey:@"ab_preference"]) {
+    if ([Settings boolForKey:@"ab_preference"]) {
         record = recordWithTopic((__bridge CFStringRef)(self.topic));
     } else {
         if ([self.abRecordId intValue] != kABRecordInvalidID) {
@@ -165,9 +163,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)linkToAB:(ABRecordRef)record
 {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-
-    if ([delegate.settings boolForKey:@"ab_preference"]) {
+    if ([Settings boolForKey:@"ab_preference"]) {
         ABRecordRef oldrecord = recordWithTopic((__bridge CFStringRef)(self.topic));
         
         if (oldrecord) {

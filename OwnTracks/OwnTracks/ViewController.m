@@ -78,9 +78,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     
     self.mapView.mapType = MKMapTypeStandard;
-    self.mapView.showsUserLocation = TRUE;
-    
-    
+    self.mapView.showsUserLocation = TRUE;    
 }
 
 - (BOOL)splitViewController:(UISplitViewController *)svc
@@ -317,7 +315,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 [delegate sendNow];
                 break;
         }
-        [delegate.settings setInt:[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"];
+        [Settings setInt:[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"];
         [self monitoringButtonImage];
         
     } else if ([actionSheet.title isEqualToString:ACTION_MAP]) {
@@ -386,7 +384,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 [LocationManager sharedInstance].ranging = NO;
                 break;
         }
-        [delegate.settings setBool:[LocationManager sharedInstance].ranging forKey:@"ranging_preference"];
+        [Settings setBool:[LocationManager sharedInstance].ranging forKey:@"ranging_preference"];
         [self beaconButtonImage];
         
     } else if ([actionSheet.title isEqualToString:ACTION_CONNECTION]) {
@@ -542,8 +540,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             Location *location = (Location *)annotation;
             MKAnnotationView *annotationView;
             
-            OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-            if ([location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]]) {
+            if ([location.belongsTo.topic isEqualToString:[Settings theGeneralTopic]]) {
                 CLRegion *region = [location region];
                 if (region && [region isKindOfClass:[CLBeaconRegion class]]) {
                     annotationView = [self beaconAnnotationView:mapView location:location];
@@ -594,9 +591,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     friendAnnotationV.speed = [location.speed doubleValue];
     friendAnnotationV.course = [location.course doubleValue];
     friendAnnotationV.automatic = [location.automatic boolValue];
-    
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    friendAnnotationV.me = [location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]];
+    friendAnnotationV.me = [location.belongsTo.topic isEqualToString:[Settings theGeneralTopic]];
     return friendAnnotationV;
 }
 
@@ -683,11 +678,9 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     } else {
         DDLogVerbose(@"[%@ %@] no NSFetchedResultsController (yet?)", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
     }
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    
     [self.mapView addAnnotations:[Location allValidLocationsInManagedObjectContext:[CoreData theManagedObjectContext]]];
     
-    NSArray *overlays = [Location allWaypointsOfTopic:[delegate.settings theGeneralTopic]
+    NSArray *overlays = [Location allWaypointsOfTopic:[Settings theGeneralTopic]
                                inManagedObjectContext:[CoreData theManagedObjectContext]];
     
     [self.mapView addOverlays:overlays];
@@ -747,13 +740,12 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 {
     if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext)
     {
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         Location *location = (Location *)anObject;
         CLLocationCoordinate2D coordinate = location.coordinate;
         DDLogVerbose(@"didChangeObject %lu %@ %@ %@",
                      (unsigned long)type,
                      location,
-                     [delegate.settings theGeneralTopic],
+                     [Settings theGeneralTopic],
                      location.belongsTo.topic);
         
         switch(type)
@@ -762,7 +754,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
                 if (coordinate.latitude != 0 || coordinate.longitude != 0) {
                     [self.mapView addAnnotation:location];
                 }
-                if ([location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]]) {
+                if ([location.belongsTo.topic isEqualToString:[Settings theGeneralTopic]]) {
                     [self.mapView addOverlay:location];
                     if (location.region) {
                         [[LocationManager sharedInstance] startRegion:location.region];
@@ -779,7 +771,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             case NSFetchedResultsChangeUpdate:
             case NSFetchedResultsChangeMove:
                 [self.mapView removeAnnotation:location];
-                if ([location.belongsTo.topic isEqualToString:[delegate.settings theGeneralTopic]]) {
+                if ([location.belongsTo.topic isEqualToString:[Settings theGeneralTopic]]) {
                     [self.mapView removeOverlay:location];
                     [self.mapView addOverlay:location];
                 }
@@ -818,12 +810,11 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 
 - (IBAction)longPress:(UILongPressGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         CLLocationCoordinate2D center = self.mapView.centerCoordinate;
         CLLocation *location = [[CLLocation alloc] initWithLatitude:center.latitude longitude:center.longitude];
         
-        [Location locationWithTopic:[delegate.settings theGeneralTopic]
-                                tid:[delegate.settings stringForKey:@"trackerid_preference"]
+        [Location locationWithTopic:[Settings theGeneralTopic]
+                                tid:[Settings stringForKey:@"trackerid_preference"]
                           timestamp:[NSDate date]
                          coordinate:location.coordinate
                            accuracy:location.horizontalAccuracy

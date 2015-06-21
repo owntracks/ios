@@ -28,7 +28,6 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (weak, nonatomic) id<RangingDelegate> delegate;
-@property (strong, nonatomic) Settings *settings;
 @property (strong, nonatomic) LBS *lbs;
 @property (strong, nonatomic) NSString *processingMessage;
 

@@ -8,7 +8,9 @@
 
 #import "StatusTVC.h"
 #import "QosTVC.h"
+#import "TBC.h"
 #import "OwnTracksAppDelegate.h"
+#import "Settings.h"
 #import "Friend+Create.h"
 #import "CoreData.h"
 #import "AlertView.h"
@@ -17,6 +19,7 @@
 #import <Crashlytics/Crashlytics.h>
 
 @interface StatusTVC ()
+@property (weak, nonatomic) IBOutlet UISwitch *UIlbs;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *UImode;
 @property (weak, nonatomic) IBOutlet UITextField *UIeffectivesubscriptions;
 @property (weak, nonatomic) IBOutlet UITextView *UIparameters;
@@ -137,35 +140,34 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)updateValues
 {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    
-    if (self.UIDeviceID) [delegate.settings setString:self.UIDeviceID.text forKey:@"deviceid_preference"];
-    if (self.UItrackerid) [delegate.settings setString:self.UItrackerid.text forKey:@"trackerid_preference"];
-    if (self.UILocatorDisplacement) [delegate.settings setString:self.UILocatorDisplacement.text forKey:@"mindist_preference"];
-    if (self.UILocatorInterval) [delegate.settings setString:self.UILocatorInterval.text forKey:@"mintime_preference"];
-    if (self.UIHost) [delegate.settings setString:self.UIHost.text forKey:@"host_preference"];
-    if (self.UIUserID) [delegate.settings setString:self.UIUserID.text forKey:@"user_preference"];
-    if (self.UIPassword) [delegate.settings setString:self.UIPassword.text forKey:@"pass_preference"];
-    if (self.UISubscription) [delegate.settings setString:self.UISubscription.text forKey:@"subscription_preference"];
-    if (self.UIUpdateAddressBook) [delegate.settings setBool:self.UIUpdateAddressBook.on forKey:@"ab_preference"];
-    if (self.UIallowRemoteLocation) [delegate.settings setBool:self.UIallowRemoteLocation.on forKey:@"allowremotelocation_preference"];
-    if (self.UImode) [delegate.settings setInt:(int)self.UImode.selectedSegmentIndex forKey:@"mode"];
-    if (self.UIextendedData) [delegate.settings setBool:self.UIextendedData.on forKey:@"extendeddata_preference"];
-    if (self.UIPositionsToKeep) [delegate.settings setString:self.UIPositionsToKeep.text forKey:@"positions_preference"];
-    if (self.UITopic) [delegate.settings setString:self.UITopic.text forKey:@"topic_preference"];
-    if (self.UIRetain) [delegate.settings setBool:self.UIRetain.on forKey:@"retain_preference"];
-    if (self.UICMD) [delegate.settings setBool:self.UICMD.on forKey:@"cmd_preference"];
-    if (self.UIClientID) [delegate.settings setString:self.UIClientID.text forKey:@"clientid_preference"];
-    if (self.UIPort) [delegate.settings setString:self.UIPort.text forKey:@"port_preference"];
-    if (self.UITLS) [delegate.settings setBool:self.UITLS.on forKey:@"tls_preference"];
-    if (self.UIAuth) [delegate.settings setBool:self.UIAuth.on forKey:@"auth_preference"];
-    if (self.UICleanSession) [delegate.settings setBool:self.UICleanSession.on forKey:@"clean_preference"];
-    if (self.UIKeepAlive) [delegate.settings setString:self.UIKeepAlive.text forKey:@"keepalive_preference"];
-    if (self.UIWillTopic) [delegate.settings setString:self.UIWillTopic.text forKey:@"willtopic_preference"];
-    if (self.UIWillRetain) [delegate.settings setBool:self.UIWillRetain.on forKey:@"willretain_preference"];
-    if (self.UIuser) [delegate.settings setString:self.UIuser.text forKey:@"user"];
-    if (self.UIdevice) [delegate.settings setString:self.UIdevice.text forKey:@"device"];
-    if (self.UItoken) [delegate.settings setString:self.UItoken.text forKey:@"token"];
+    if (self.UIDeviceID) [Settings setString:self.UIDeviceID.text forKey:@"deviceid_preference"];
+    if (self.UItrackerid) [Settings setString:self.UItrackerid.text forKey:@"trackerid_preference"];
+    if (self.UILocatorDisplacement) [Settings setString:self.UILocatorDisplacement.text forKey:@"mindist_preference"];
+    if (self.UILocatorInterval) [Settings setString:self.UILocatorInterval.text forKey:@"mintime_preference"];
+    if (self.UIHost) [Settings setString:self.UIHost.text forKey:@"host_preference"];
+    if (self.UIUserID) [Settings setString:self.UIUserID.text forKey:@"user_preference"];
+    if (self.UIPassword) [Settings setString:self.UIPassword.text forKey:@"pass_preference"];
+    if (self.UISubscription) [Settings setString:self.UISubscription.text forKey:@"subscription_preference"];
+    if (self.UIUpdateAddressBook) [Settings setBool:self.UIUpdateAddressBook.on forKey:@"ab_preference"];
+    if (self.UIallowRemoteLocation) [Settings setBool:self.UIallowRemoteLocation.on forKey:@"allowremotelocation_preference"];
+    if (self.UImode) [Settings setInt:(int)self.UImode.selectedSegmentIndex forKey:@"mode"];
+    if (self.UIextendedData) [Settings setBool:self.UIextendedData.on forKey:@"extendeddata_preference"];
+    if (self.UIlbs) [Settings setBool:self.UIlbs.on forKey:@"lbs"];
+    if (self.UIPositionsToKeep) [Settings setString:self.UIPositionsToKeep.text forKey:@"positions_preference"];
+    if (self.UITopic) [Settings setString:self.UITopic.text forKey:@"topic_preference"];
+    if (self.UIRetain) [Settings setBool:self.UIRetain.on forKey:@"retain_preference"];
+    if (self.UICMD) [Settings setBool:self.UICMD.on forKey:@"cmd_preference"];
+    if (self.UIClientID) [Settings setString:self.UIClientID.text forKey:@"clientid_preference"];
+    if (self.UIPort) [Settings setString:self.UIPort.text forKey:@"port_preference"];
+    if (self.UITLS) [Settings setBool:self.UITLS.on forKey:@"tls_preference"];
+    if (self.UIAuth) [Settings setBool:self.UIAuth.on forKey:@"auth_preference"];
+    if (self.UICleanSession) [Settings setBool:self.UICleanSession.on forKey:@"clean_preference"];
+    if (self.UIKeepAlive) [Settings setString:self.UIKeepAlive.text forKey:@"keepalive_preference"];
+    if (self.UIWillTopic) [Settings setString:self.UIWillTopic.text forKey:@"willtopic_preference"];
+    if (self.UIWillRetain) [Settings setBool:self.UIWillRetain.on forKey:@"willretain_preference"];
+    if (self.UIuser) [Settings setString:self.UIuser.text forKey:@"user"];
+    if (self.UIdevice) [Settings setString:self.UIdevice.text forKey:@"device"];
+    if (self.UItoken) [Settings setString:self.UItoken.text forKey:@"token"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -212,46 +214,45 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     
     self.UIVersion.text =                           [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
-    self.UIeffectiveDeviceId.text =                 [delegate.settings theDeviceId];
-    self.UIeffectiveClientId.text =                 [delegate.settings theClientId];
-    self.UIeffectiveTopic.text =                    [delegate.settings theGeneralTopic];
-    self.UIeffectiveWillTopic.text =                [delegate.settings theWillTopic];
-    self.UIeffectivesubscriptions.text =            [delegate.settings theSubscriptions];
+    self.UIeffectiveDeviceId.text =                 [Settings theDeviceId];
+    self.UIeffectiveClientId.text =                 [Settings theClientId];
+    self.UIeffectiveTopic.text =                    [Settings theGeneralTopic];
+    self.UIeffectiveWillTopic.text =                [Settings theWillTopic];
+    self.UIeffectivesubscriptions.text =            [Settings theSubscriptions];
     
     self.UIparameters.text =                        [delegate.connectionOut parameters];
     
-    self.UIDeviceID.text =                          [delegate.settings stringForKey:@"deviceid_preference"];
-    self.UItrackerid.text =                         [delegate.settings stringForKey:@"trackerid_preference"];
-    self.UILocatorDisplacement.text =               [delegate.settings stringForKey:@"mindist_preference"];
-    self.UILocatorInterval.text =                   [delegate.settings stringForKey:@"mintime_preference"];
-    self.UIHost.text =                              [delegate.settings stringForKey:@"host_preference"];
-    self.UIUserID.text =                            [delegate.settings stringForKey:@"user_preference"];
-    self.UIPassword.text =                          [delegate.settings stringForKey:@"pass_preference"];
-    self.UISubscription.text =                      [delegate.settings stringForKey:@"subscription_preference"];
-    self.UImode.selectedSegmentIndex =              [delegate.settings intForKey:@"mode"];
-    self.UIUpdateAddressBook.on =                   [delegate.settings boolForKey:@"ab_preference"];
-    self.UIallowRemoteLocation.on =                 [delegate.settings boolForKey:@"allowremotelocation_preference"];
-    self.UIextendedData.on =                        [delegate.settings boolForKey:@"extendeddata_preference"];
-    self.UIPositionsToKeep.text =                   [delegate.settings stringForKey:@"positions_preference"];
-    self.UIsubscriptionqos.text =                   [self qosString:[delegate.settings intForKey:@"subscriptionqos_preference"]];
-    self.UITopic.text =                             [delegate.settings stringForKey:@"topic_preference"];
-    self.UIqos.text =                               [self qosString:[delegate.settings intForKey:@"qos_preference"]];
-    self.UIRetain.on =                              [delegate.settings boolForKey:@"retain_preference"];
-    self.UICMD.on =                                 [delegate.settings boolForKey:@"cmd_preference"];
-    self.UIClientID.text =                          [delegate.settings stringForKey:@"clientid_preference"];
-    self.UIPort.text =                              [delegate.settings stringForKey:@"port_preference"];
-    self.UITLS.on =                                 [delegate.settings boolForKey:@"tls_preference"];
-    self.UIAuth.on =                                [delegate.settings boolForKey:@"auth_preference"];
-    self.UICleanSession.on =                        [delegate.settings boolForKey:@"clean_preference"];
-    self.UIKeepAlive.text =                         [delegate.settings stringForKey:@"keepalive_preference"];
-    self.UIWillTopic.text =                         [delegate.settings stringForKey:@"willtopic_preference"];
-    self.UIwillqos.text =                           [self qosString:[delegate.settings intForKey:@"willqos_preference"]];
-    self.UIWillRetain.on =                          [delegate.settings boolForKey:@"willretain_preference"];
+    self.UIDeviceID.text =                          [Settings stringForKey:@"deviceid_preference"];
+    self.UItrackerid.text =                         [Settings stringForKey:@"trackerid_preference"];
+    self.UILocatorDisplacement.text =               [Settings stringForKey:@"mindist_preference"];
+    self.UILocatorInterval.text =                   [Settings stringForKey:@"mintime_preference"];
+    self.UIHost.text =                              [Settings stringForKey:@"host_preference"];
+    self.UIUserID.text =                            [Settings stringForKey:@"user_preference"];
+    self.UIPassword.text =                          [Settings stringForKey:@"pass_preference"];
+    self.UISubscription.text =                      [Settings stringForKey:@"subscription_preference"];
+    self.UImode.selectedSegmentIndex =              [Settings intForKey:@"mode"];
+    self.UIUpdateAddressBook.on =                   [Settings boolForKey:@"ab_preference"];
+    self.UIallowRemoteLocation.on =                 [Settings boolForKey:@"allowremotelocation_preference"];
+    self.UIlbs.on =                                 [Settings boolForKey:@"lbs"];
+    self.UIPositionsToKeep.text =                   [Settings stringForKey:@"positions_preference"];
+    self.UIsubscriptionqos.text =                   [self qosString:[Settings intForKey:@"subscriptionqos_preference"]];
+    self.UITopic.text =                             [Settings stringForKey:@"topic_preference"];
+    self.UIqos.text =                               [self qosString:[Settings intForKey:@"qos_preference"]];
+    self.UIRetain.on =                              [Settings boolForKey:@"retain_preference"];
+    self.UICMD.on =                                 [Settings boolForKey:@"cmd_preference"];
+    self.UIClientID.text =                          [Settings stringForKey:@"clientid_preference"];
+    self.UIPort.text =                              [Settings stringForKey:@"port_preference"];
+    self.UITLS.on =                                 [Settings boolForKey:@"tls_preference"];
+    self.UIAuth.on =                                [Settings boolForKey:@"auth_preference"];
+    self.UICleanSession.on =                        [Settings boolForKey:@"clean_preference"];
+    self.UIKeepAlive.text =                         [Settings stringForKey:@"keepalive_preference"];
+    self.UIWillTopic.text =                         [Settings stringForKey:@"willtopic_preference"];
+    self.UIwillqos.text =                           [self qosString:[Settings intForKey:@"willqos_preference"]];
+    self.UIWillRetain.on =                          [Settings boolForKey:@"willretain_preference"];
     
-    self.UIuser.text =                              [delegate.settings stringForKey:@"user"];
-    self.UIdevice.text =                            [delegate.settings stringForKey:@"device"];
-    self.UItoken.text =                             [delegate.settings stringForKey:@"token"];
-
+    self.UIuser.text =                              [Settings stringForKey:@"user"];
+    self.UIdevice.text =                            [Settings stringForKey:@"device"];
+    self.UItoken.text =                             [Settings stringForKey:@"token"];
 
     NSMutableArray *hiddenFieldsMode12 = [[NSMutableArray alloc] init];
     NSMutableArray *hiddenIndexPathsMode12 = [[NSMutableArray alloc] init];
@@ -382,7 +383,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:14 inSection:0]];
     }
     
-    int mode = [delegate.settings intForKey:@"mode"];
+    int mode = [Settings intForKey:@"mode"];
     for (UIView *view in hiddenFieldsMode12) {
         [view setHidden:(mode == 1 || mode == 2)];
     }
@@ -407,10 +408,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     
     self.UIexport.enabled = (mode == 0 || mode == 1);
+    
+    if ([self.tabBarController isKindOfClass:[TBC class]]) {
+        TBC *tbc = (TBC *)self.tabBarController;
+        [tbc adjust];
+    }
 }
 
 - (IBAction)exportPressed:(UIButton *)sender {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     NSError *error;
     
     NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
@@ -422,7 +427,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSURL *fileURL = [directoryURL URLByAppendingPathComponent:fileName];
     
     [[NSFileManager defaultManager] createFileAtPath:[fileURL path]
-                                            contents:[delegate.settings toData]
+                                            contents:[Settings toData]
                                           attributes:nil];
     
     self.dic = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
@@ -432,7 +437,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (IBAction)exportWaypointsPressed:(UIButton *)sender {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     NSError *error;
     
     NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
@@ -444,7 +448,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSURL *fileURL = [directoryURL URLByAppendingPathComponent:fileName];
     
     [[NSFileManager defaultManager] createFileAtPath:[fileURL path]
-                                            contents:[delegate.settings waypointsToData]
+                                            contents:[Settings waypointsToData]
                                           attributes:nil];
     
     self.dic = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
@@ -465,25 +469,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    
     if ([segue.destinationViewController respondsToSelector:@selector(setEditQos:)] &&
         [segue.destinationViewController respondsToSelector:@selector(setEditIdentifier:)]) {
         if ([segue.identifier isEqualToString:@"setQos:"]) {
             [segue.destinationViewController performSelector:@selector(setEditQos:)
-                                                  withObject:@([delegate.settings intForKey:@"qos_preference"])];
+                                                  withObject:@([Settings intForKey:@"qos_preference"])];
             [segue.destinationViewController performSelector:@selector(setEditIdentifier:)
                                                   withObject:@"qos_preference"];
         }
         if ([segue.identifier isEqualToString:@"setWillQos:"]) {
             [segue.destinationViewController performSelector:@selector(setEditQos:)
-                                                  withObject:@([delegate.settings intForKey:@"willqos_preference"])];
+                                                  withObject:@([Settings intForKey:@"willqos_preference"])];
             [segue.destinationViewController performSelector:@selector(setEditIdentifier:)
                                                   withObject:@"willqos_preference"];
         }
         if ([segue.identifier isEqualToString:@"setSubscriptionQos:"]) {
             [segue.destinationViewController performSelector:@selector(setEditQos:)
-                                                  withObject:@([delegate.settings intForKey:@"subscriptionqos_preference"])];
+                                                  withObject:@([Settings intForKey:@"subscriptionqos_preference"])];
             [segue.destinationViewController performSelector:@selector(setEditIdentifier:)
                                                   withObject:@"subscriptionqos_preference"];
         }
@@ -491,14 +493,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (IBAction)setQoS:(UIStoryboardSegue *)segue {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    
     if ([segue.sourceViewController respondsToSelector:@selector(editQos)] &&
         [segue.sourceViewController respondsToSelector:@selector(editIdentifier)]) {
         NSNumber *qos = [segue.sourceViewController performSelector:@selector(editQos)];
         NSString *identifier = [segue.sourceViewController performSelector:@selector(editIdentifier)];
         
-        [delegate.settings setInt:[qos intValue] forKey:identifier];
+        [Settings setInt:[qos intValue] forKey:identifier];
         [self updated];
     }
 }
@@ -556,8 +556,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 break;
             }
         }
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [delegate.settings setString:sender.text forKey:@"trackerid_preference"];
+        [Settings setString:sender.text forKey:@"trackerid_preference"];
     }
 }
 
@@ -574,10 +573,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
 
     if (alertView == self.tidAlertView) {
-        self.UItrackerid.text = [delegate.settings stringForKey:@"trackerid_preference"];
+        self.UItrackerid.text = [Settings stringForKey:@"trackerid_preference"];
     } else if (alertView == self.modeAlertView) {
         if (buttonIndex > 0) {
-            if (self.UImode) [delegate.settings setInt:(int)self.UImode.selectedSegmentIndex forKey:@"mode"];
+            if (self.UImode) [Settings setInt:(int)self.UImode.selectedSegmentIndex forKey:@"mode"];
             
             [self updated];
             [delegate connectionOff];
@@ -592,7 +591,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             [self updateValues];
             [delegate reconnect];
         } else {
-            if (self.UImode) self.UImode.selectedSegmentIndex = [delegate.settings intForKey:@"mode"];
+            if (self.UImode) self.UImode.selectedSegmentIndex = [Settings intForKey:@"mode"];
         }
     }
 }
@@ -613,6 +612,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (IBAction)crash:(UIButton *)sender {
     [[Crashlytics sharedInstance] setObjectValue:@"Manual" forKey:@"CrashType"];
     [[Crashlytics sharedInstance] crash];
+}
+
+- (IBAction)lbsChanged:(UISwitch *)sender {
+    [self updateValues];
+    [self updated];
 }
 
 - (IBAction)scan:(UIBarButtonItem *)sender {

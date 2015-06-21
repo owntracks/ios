@@ -8,7 +8,6 @@
 
 #import "Connection.h"
 #import "CoreData.h"
-#import "OwnTracksAppDelegate.h"
 #import "CoreData.h"
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
