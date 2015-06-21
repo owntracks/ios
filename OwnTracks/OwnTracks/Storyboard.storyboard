@@ -93,7 +93,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1115" y="-1201"/>
+            <point key="canvasLocation" x="1647" y="-1201"/>
         </scene>
         <!--Settings-->
         <scene sceneID="GAB-wH-uzK">
@@ -1210,12 +1210,60 @@
                     <connections>
                         <segue destination="HEo-wr-wj3" kind="relationship" relationship="viewControllers" id="Nni-Ga-qRj"/>
                         <segue destination="v5R-yR-9TY" kind="relationship" relationship="viewControllers" id="Jhc-sN-0Bg"/>
+                        <segue destination="aXh-Fr-lWJ" kind="relationship" relationship="viewControllers" id="dWu-J7-5BT"/>
                         <segue destination="1fv-da-wyA" kind="relationship" relationship="viewControllers" id="5cw-Gp-x3Y"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xcy-TD-F58" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-192" y="-1193"/>
+        </scene>
+        <!--MessageTVC-->
+        <scene sceneID="30q-bf-kmI">
+            <objects>
+                <tableViewController id="bLD-0I-fQm" customClass="MessageTVC" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="NUy-8I-ytv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="message" textLabel="Q8U-fl-KdJ" detailTextLabel="URu-MH-8YJ" style="IBUITableViewCellStyleSubtitle" id="VcW-xg-ah0">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VcW-xg-ah0" id="NOD-nT-AA1">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Q8U-fl-KdJ">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="URu-MH-8YJ">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="bLD-0I-fQm" id="AOt-yA-Xpj"/>
+                            <outlet property="delegate" destination="bLD-0I-fQm" id="yge-Vx-DXS"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="wct-zu-C8Y">
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="R1l-To-fHt">
+                            <connections>
+                                <action selector="trash:" destination="bLD-0I-fQm" id="kzh-yP-slu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vAY-em-EVD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="721" y="-783"/>
         </scene>
         <!--Friends-->
         <scene sceneID="URT-Sd-JCB">
@@ -1263,7 +1311,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uQ4-mZ-NmU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1115" y="-412"/>
+            <point key="canvasLocation" x="1647" y="-412"/>
         </scene>
         <!--Locations-->
         <scene sceneID="xP2-np-2wt">
@@ -1317,7 +1365,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xNK-rw-Y7y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1668" y="-412"/>
+            <point key="canvasLocation" x="2200" y="-412"/>
         </scene>
         <!--Persons-->
         <scene sceneID="5qX-fR-Kwf">
@@ -1356,7 +1404,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fxt-g4-fBh" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="bsg-U3-OBt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2208" y="-412"/>
+            <point key="canvasLocation" x="2740" y="-412"/>
         </scene>
         <!--Details-->
         <scene sceneID="lpX-ll-DMd">
@@ -1719,7 +1767,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Fr-2m-Gbc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2208" y="-1201"/>
+            <point key="canvasLocation" x="2740" y="-1201"/>
         </scene>
         <!--OwnTracks-->
         <scene sceneID="Fwy-Au-VqF">
@@ -1743,7 +1791,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aHU-1S-ukL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="589" y="-1193"/>
+            <point key="canvasLocation" x="1121" y="-1193"/>
         </scene>
         <!--QoS-->
         <scene sceneID="MjN-y3-zSr">
@@ -1835,7 +1883,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wLi-ds-GkG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="tqJ-bc-o1X" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2992" y="-1193"/>
+            <point key="canvasLocation" x="3524" y="-1193"/>
         </scene>
         <!--MQTT Connection-->
         <scene sceneID="m3c-X9-OWO">
@@ -2248,7 +2296,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="obQ-ms-T5f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2992" y="-412"/>
+            <point key="canvasLocation" x="3524" y="-412"/>
         </scene>
         <!--Settings-->
         <scene sceneID="nD6-wc-qDz">
@@ -2287,13 +2335,33 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6QB-yS-o6r" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="589" y="-412"/>
+            <point key="canvasLocation" x="1121" y="-412"/>
+        </scene>
+        <!--Services-->
+        <scene sceneID="MPJ-uW-sBf">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="aXh-Fr-lWJ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Services" image="LBS" id="Lzk-LX-UQX"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="EDI-Uy-99l">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="bLD-0I-fQm" kind="relationship" relationship="rootViewController" id="kJe-fF-vyp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rkA-NF-whJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="189" y="-783"/>
         </scene>
     </scenes>
     <resources>
         <image name="ConnectionOn" width="32" height="32"/>
         <image name="FastMode" width="32" height="32"/>
         <image name="Friends" width="32" height="32"/>
+        <image name="LBS" width="33" height="33"/>
         <image name="OnwTracks" width="32" height="32"/>
         <image name="Settings" width="32" height="32"/>
         <image name="Tracking" width="32" height="32"/>

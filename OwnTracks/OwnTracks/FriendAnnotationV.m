@@ -109,24 +109,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.personImage == nil) {
         if ((self.tid != nil && ![self.tid isEqualToString:@""]) || !self.automatic) {
             UIFont *font = [UIFont boldSystemFontOfSize:ID_FONTSIZE];
-            if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
-                NSDictionary *attributes = @{NSFontAttributeName: font,
-                                             NSForegroundColorAttributeName: ID_COLOR};
-                CGRect boundingRect = [self.tid boundingRectWithSize:rect.size options:0 attributes:attributes context:nil];
-                CGRect textRect = CGRectMake(rect.origin.x + (rect.size.width - boundingRect.size.width) / 2,
-                                             rect.origin.y + (rect.size.height - boundingRect.size.height) / 2,
-                                             boundingRect.size.width, boundingRect.size.height);
-                
-                [self.tid drawInRect:textRect withAttributes:attributes];
-            } else {
-                CGSize textSize = [self.tid sizeWithFont:font];
-                DDLogVerbose(@"TextSize %f,%f", textSize.width, textSize.height);
-                CGRect textRect = CGRectMake(rect.origin.x + (rect.size.width - textSize.width) / 2,
-                                             rect.origin.y + (rect.size.height - textSize.height) / 2,
-                                             textSize.width, textSize.height);
-                [ID_COLOR set];
-                [self.tid drawInRect:textRect withFont:font];
-            }
+            NSDictionary *attributes = @{NSFontAttributeName: font,
+                                         NSForegroundColorAttributeName: ID_COLOR};
+            CGRect boundingRect = [self.tid boundingRectWithSize:rect.size options:0 attributes:attributes context:nil];
+            CGRect textRect = CGRectMake(rect.origin.x + (rect.size.width - boundingRect.size.width) / 2,
+                                         rect.origin.y + (rect.size.height - boundingRect.size.height) / 2,
+                                         boundingRect.size.width, boundingRect.size.height);
+            
+            [self.tid drawInRect:textRect withAttributes:attributes];
         }
     }
     

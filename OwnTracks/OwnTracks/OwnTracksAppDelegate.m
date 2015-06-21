@@ -133,7 +133,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     locationManager.ranging = [self.settings boolForKey:@"ranging_preference"];
     locationManager.minDist = [self.settings doubleForKey:@"mindist_preference"];
     locationManager.minTime = [self.settings doubleForKey:@"mintime_preference"];
+    self.lbs = [[LBS alloc] init];
     [locationManager start];
+
     
     return YES;
 }
@@ -345,6 +347,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)newLocation:(CLLocation *)location {
     [self publishLocation:location automatic:YES addon:nil];
+    [self.lbs newLocation:location.coordinate.latitude
+                longitude:location.coordinate.longitude
+                  context:[CoreData theManagedObjectContext]];
     [self share];
 }
 
@@ -399,7 +404,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                       inManagedObjectContext:[CoreData theManagedObjectContext]]) {
         if ([region.identifier isEqualToString:location.region.identifier]) {
             location.verticalaccuracy = [NSNumber numberWithBool:inside]; // this is a hack to update the UI
-            if ([region isKindOfClass:[CLBeaconRegion class]] && inside) {
+            if ([region isKindOfClass:[CLBeaconRegion class]]) {
                 if (location.radius < 0) {
                     location.coordinate = [LocationManager sharedInstance].location.coordinate;
                     [self sendWayPoint:location];
@@ -467,6 +472,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)handleMessage:(Connection *)connection data:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
     DDLogVerbose(@"handleMessage");
+    
+    if ([self.lbs processMessage:topic data:data retained:retained context:self.queueManagedObjectContext]) {
+        [self notification:@"New info available"
+                  userInfo:@{@"notify": @"lbs"}];
+
+        return;
+    }
+    
     NSArray *topicComponents = [topic componentsSeparatedByCharactersInSet:
                                 [NSCharacterSet characterSetWithCharactersInString:@"/"]];
     NSArray *baseComponents = [[self.settings theGeneralTopic] componentsSeparatedByCharactersInSet:
@@ -823,6 +836,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
           inManagedObjectContext:[CoreData theManagedObjectContext]];
         
         [CoreData saveContext];
+        [self.connectionIn connectToLast];
         [self share];
     } else {
         DDLogVerbose(@"publishLocation (null) ignored");
@@ -893,6 +907,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (notification.userInfo) {
         if ([notification.userInfo[@"notify"] isEqualToString:@"friend"]) {
             [AlertView alert:@"Friend Notification" message:notification.alertBody dismissAfter:2.0];
+        }
+        if ([notification.userInfo[@"notify"] isEqualToString:@"lbs"]) {
+            [AlertView alert:@"Location Based Service" message:notification.alertBody dismissAfter:2.0];
         }
     }
 }

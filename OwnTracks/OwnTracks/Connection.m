@@ -46,6 +46,8 @@
 
 @property (nonatomic) NSUInteger outCount;
 @property (nonatomic) NSUInteger inCount;
+
+@property (strong, nonatomic) NSDictionary *variableSubscriptions;
 @end
 
 #define RECONNECT_TIMER 1.0
@@ -308,6 +310,37 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             break;
     }
 }
+
+- (void)addSubscriptionTo:(NSString *)topic qos:(MQTTQosLevel)qos {
+    DDLogVerbose(@"%@ subscribe m%@ %d",
+                 self.clientId,
+                 topic,
+                 qos);
+
+    [self.session subscribeToTopic:topic atLevel:qos];
+}
+
+- (void)subAckReceived:(MQTTSession *)session msgID:(UInt16)msgID grantedQoss:(NSArray *)qoss {
+    DDLogVerbose(@"%@ subAckReceived m%u %@",
+                 self.clientId,
+                 msgID,
+                 qoss);
+
+}
+
+- (void)removeSubscriptionFrom:(NSString *)topic {
+    DDLogVerbose(@"%@ unsubscribe %@",
+                 self.clientId,
+                 topic);
+    [self.session unsubscribeTopic:topic];
+}
+
+- (void)unsubAckReceived:(MQTTSession *)session msgID:(UInt16)msgID {
+    DDLogVerbose(@"%@ unsubAckReceived m%u",
+                 self.clientId,
+                 msgID);
+}
+
 
 - (void)messageDelivered:(MQTTSession *)session msgID:(UInt16)msgID
 {

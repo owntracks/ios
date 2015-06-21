@@ -157,6 +157,11 @@ static LocationManager *theInstance = nil;
     return (self.insideBeaconRegions.count != 0);
 }
 
+- (BOOL)insideBeaconRegion:(NSString *)identifier {
+    NSNumber *number = [self.insideBeaconRegions objectForKey:identifier];
+    return (number ? [number boolValue] : false);
+}
+
 - (CLLocation *)location {
     if (self.manager.location) {
         self.lastUsedLocation = self.manager.location;

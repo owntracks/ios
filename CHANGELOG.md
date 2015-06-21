@@ -1,6 +1,13 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.0.39
+>Release date: 2015-06-21 for alpha-testers only
+
+[NEW] show cold and hot Circular and iBeacon regions in Friend Tab / Location list
+[NEW] show cold and hot iBeacon regions on map
+[NEW] process and show dynamic Location Based Service info
+
 ## OwnTracks 8.0.36
 >Release date: 2015-06-17 for alpha-testers only - resubmitted b/c apparent app store problems
 

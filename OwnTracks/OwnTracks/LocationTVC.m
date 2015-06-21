@@ -298,16 +298,35 @@ forRowAtIndexPath:(NSIndexPath *)indexPath
     
     cell.detailTextLabel.text = [location locationText];
     
-    FriendAnnotationV *friendAnnotationView = [[FriendAnnotationV alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    friendAnnotationView.personImage = self.friend.image ? [UIImage imageWithData:self.friend.image] : nil;
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    friendAnnotationView.me = [self.friend.topic isEqualToString:[delegate.settings theGeneralTopic]];
-    friendAnnotationView.automatic = [location.automatic boolValue];
-    friendAnnotationView.speed = [location.speed doubleValue];
-    friendAnnotationView.course = [location.course doubleValue];
-    friendAnnotationView.tid = [self.friend getEffectiveTid];
-    [friendAnnotationView getImage];
-    cell.imageView.image = [friendAnnotationView getImage];
+    CLRegion *region = [location region];
+    
+    if (!region) {
+        FriendAnnotationV *friendAnnotationView = [[FriendAnnotationV alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+        friendAnnotationView.personImage = self.friend.image ? [UIImage imageWithData:self.friend.image] : nil;
+        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        friendAnnotationView.me = [self.friend.topic isEqualToString:[delegate.settings theGeneralTopic]];
+        friendAnnotationView.automatic = [location.automatic boolValue];
+        friendAnnotationView.speed = [location.speed doubleValue];
+        friendAnnotationView.course = [location.course doubleValue];
+        friendAnnotationView.tid = [self.friend getEffectiveTid];
+        [friendAnnotationView getImage];
+        cell.imageView.image = [friendAnnotationView getImage];
+    } else {
+        if  ([region isKindOfClass:[CLCircularRegion class]]) {
+            CLCircularRegion *circularRegion = (CLCircularRegion *)region;
+            if ([circularRegion containsCoordinate:[LocationManager sharedInstance].location.coordinate]) {
+                cell.imageView.image = [UIImage imageNamed:@"RegionHot"];
+            } else {
+                cell.imageView.image = [UIImage imageNamed:@"RegionCold"];
+            }
+        } else {
+            if ([[LocationManager sharedInstance] insideBeaconRegion:region.identifier]) {
+                cell.imageView.image = [UIImage imageNamed:@"iBeaconHot"];
+            } else {
+                cell.imageView.image = [UIImage imageNamed:@"iBeaconCold"];
+            }
+        }
+    }
 }
 
 @end

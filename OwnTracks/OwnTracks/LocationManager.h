@@ -37,6 +37,6 @@
 - (void)stopRegion:(CLRegion *)region;
 - (void)resetRegions;
 - (BOOL)insideBeaconRegion;
-
+- (BOOL)insideBeaconRegion:(NSString *)identifier;
 @end
 

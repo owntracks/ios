@@ -72,6 +72,10 @@
 		84D307371ACD644500FACB9E /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D307361ACD644500FACB9E /* MainInterface.storyboard */; };
 		84D3073A1ACD644500FACB9E /* OwnTracksToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84D307681ACDA62100FACB9E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AF468F1AB9571800E954E3 /* CoreLocation.framework */; };
+		84D751721B35B32B00B06A0C /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D751711B35B32B00B06A0C /* Message.m */; };
+		84D751751B35B3C100B06A0C /* Message+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D751741B35B3C100B06A0C /* Message+Create.m */; };
+		84D751781B35B7A500B06A0C /* MessageTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D751771B35B7A500B06A0C /* MessageTVC.m */; };
+		84D7517B1B35C0AB00B06A0C /* LBS.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D7517A1B35C0AB00B06A0C /* LBS.m */; };
 		84F468E81AD4884200CF8C4F /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F468E71AD4884200CF8C4F /* Friend.m */; };
 /* End PBXBuildFile section */
 
@@ -218,6 +222,15 @@
 		84D307341ACD644500FACB9E /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
 		84D307361ACD644500FACB9E /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		84D307661ACD8F4300FACB9E /* OwnTracksToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OwnTracksToday.entitlements; sourceTree = "<group>"; };
+		84D7516F1B35B1C600B06A0C /* Model 8.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.xcdatamodel"; sourceTree = "<group>"; };
+		84D751701B35B32B00B06A0C /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		84D751711B35B32B00B06A0C /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		84D751731B35B3C100B06A0C /* Message+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Message+Create.h"; sourceTree = "<group>"; };
+		84D751741B35B3C100B06A0C /* Message+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Message+Create.m"; sourceTree = "<group>"; };
+		84D751761B35B7A500B06A0C /* MessageTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTVC.h; sourceTree = "<group>"; };
+		84D751771B35B7A500B06A0C /* MessageTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTVC.m; sourceTree = "<group>"; };
+		84D751791B35C0AB00B06A0C /* LBS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBS.h; sourceTree = "<group>"; };
+		84D7517A1B35C0AB00B06A0C /* LBS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBS.m; sourceTree = "<group>"; };
 		84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.0.xcdatamodel"; sourceTree = "<group>"; };
 		84F468E61AD4884200CF8C4F /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
 		84F468E71AD4884200CF8C4F /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
@@ -338,6 +351,8 @@
 				8411B867189FE1ED0019D2D6 /* coredata */,
 				8411B83C189FDB140019D2D6 /* OwnTracksAppDelegate.h */,
 				8411B83D189FDB140019D2D6 /* OwnTracksAppDelegate.m */,
+				84D751791B35C0AB00B06A0C /* LBS.h */,
+				84D7517A1B35C0AB00B06A0C /* LBS.m */,
 				84B739781A65629200B103F4 /* LocationManager.h */,
 				84B739791A65629200B103F4 /* LocationManager.m */,
 				8411B886189FE79B0019D2D6 /* AlertView.h */,
@@ -369,6 +384,8 @@
 				8411B90B189FEC070019D2D6 /* ViewController.m */,
 				8499BA96192D085600FA95C7 /* DetailNC.h */,
 				8499BA97192D085700FA95C7 /* DetailNC.m */,
+				84D751761B35B7A500B06A0C /* MessageTVC.h */,
+				84D751771B35B7A500B06A0C /* MessageTVC.m */,
 				8411B834189FDB140019D2D6 /* Supporting Files */,
 			);
 			path = OwnTracks;
@@ -412,6 +429,10 @@
 		8411B867189FE1ED0019D2D6 /* coredata */ = {
 			isa = PBXGroup;
 			children = (
+				84D751701B35B32B00B06A0C /* Message.h */,
+				84D751711B35B32B00B06A0C /* Message.m */,
+				84D751731B35B3C100B06A0C /* Message+Create.h */,
+				84D751741B35B3C100B06A0C /* Message+Create.m */,
 				8479EEB318E4289E00923B24 /* Setting+Create.h */,
 				8479EEB418E4289E00923B24 /* Setting+Create.m */,
 				8411B868189FE1ED0019D2D6 /* Friend+Create.h */,
@@ -779,12 +800,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				8411B83A189FDB140019D2D6 /* main.m in Sources */,
+				84D751721B35B32B00B06A0C /* Message.m in Sources */,
+				84D751751B35B3C100B06A0C /* Message+Create.m in Sources */,
 				8411B90C189FEC070019D2D6 /* EditLocationTVC.m in Sources */,
 				8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */,
 				8411B912189FEC070019D2D6 /* ViewController.m in Sources */,
 				8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */,
 				8411B87F189FE35C0019D2D6 /* Model.xcdatamodeld in Sources */,
 				8411B90D189FEC070019D2D6 /* FriendAnnotationV.m in Sources */,
+				84D7517B1B35C0AB00B06A0C /* LBS.m in Sources */,
 				8411B88A189FE79B0019D2D6 /* AlertView.m in Sources */,
 				8411B90E189FEC070019D2D6 /* FriendTVC.m in Sources */,
 				84F468E81AD4884200CF8C4F /* Friend.m in Sources */,
@@ -793,6 +817,7 @@
 				8411B88B189FE79B0019D2D6 /* CoreData.m in Sources */,
 				848794B419A6240100DF56EB /* Location.m in Sources */,
 				8411B87A189FE1ED0019D2D6 /* Location+Create.m in Sources */,
+				84D751781B35B7A500B06A0C /* MessageTVC.m in Sources */,
 				8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */,
 				8411B878189FE1ED0019D2D6 /* Friend+Create.m in Sources */,
 				845F003D192A5CDE00919FB8 /* QosTVC.m in Sources */,
@@ -910,7 +935,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -942,7 +967,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -963,7 +988,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
 				INFOPLIST_FILE = "OwnTracks/OwnTracks-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -987,7 +1012,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
 				INFOPLIST_FILE = "OwnTracks/OwnTracks-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1238,6 +1263,7 @@
 		8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				84D7516F1B35B1C600B06A0C /* Model 8.1.xcdatamodel */,
 				840BBDD318E4274200DC113C /* Model 6.2.xcdatamodel */,
 				84C38C14193F88C200F56D04 /* Model 7.2.2.xcdatamodel */,
 				848794B119A6234B00DF56EB /* Model 7.3.xcdatamodel */,
@@ -1247,7 +1273,7 @@
 				84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */,
 				8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */;
+			currentVersion = 84D7516F1B35B1C600B06A0C /* Model 8.1.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -604,7 +604,12 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_BEACON];
     if (!annotationView) {
         annotationView = [[MKAnnotationView alloc] initWithAnnotation:location reuseIdentifier:REUSE_ID_BEACON];
-        annotationView.image = [UIImage imageNamed:@"iBeacon"];
+        CLRegion *region = [location region];
+        if ([[LocationManager sharedInstance] insideBeaconRegion:region.identifier]) {
+            annotationView.image = [UIImage imageNamed:@"iBeaconHot"];
+        } else {
+            annotationView.image = [UIImage imageNamed:@"iBeaconCold"];
+        }
     }
     return annotationView;
 }

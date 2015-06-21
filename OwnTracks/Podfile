@@ -5,6 +5,7 @@ pod 'CocoaLumberjack'
 pod 'ABStaticTableViewController'
 pod 'MQTTClient'
 pod 'QRCodeReaderViewController'
+pod 'objc-geohash'
 
 target 'OwnTracks' do
 end
