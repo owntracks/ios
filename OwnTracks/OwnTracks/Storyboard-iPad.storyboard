@@ -1637,15 +1637,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Based Services" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hJo-Gs-5FO">
-                                                    <rect key="frame" x="20" y="11" width="191" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Messaging" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hJo-Gs-5FO">
+                                                    <rect key="frame" x="20" y="11" width="84" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pws-EJ-YJE">
                                                     <rect key="frame" x="239" y="6" width="51" height="31"/>
                                                     <connections>
-                                                        <action selector="lbsChanged:" destination="wIr-Ka-wY2" eventType="valueChanged" id="eTB-s6-Clb"/>
+                                                        <action selector="messagingChanged:" destination="wIr-Ka-wY2" eventType="valueChanged" id="eTB-s6-Clb"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -1779,7 +1779,7 @@
                         <outlet property="UIdevice" destination="qI4-cv-uRj" id="521-oX-XBH"/>
                         <outlet property="UIexport" destination="Dfl-i4-2hW" id="Fn4-LQ-OwL"/>
                         <outlet property="UIextendedData" destination="yf4-6B-QAB" id="ipj-pO-83Z"/>
-                        <outlet property="UIlbs" destination="pws-EJ-YJE" id="MN0-R9-wNs"/>
+                        <outlet property="UImessaging" destination="pws-EJ-YJE" id="MN0-R9-wNs"/>
                         <outlet property="UImode" destination="Zd5-UM-LTU" id="o7b-if-j99"/>
                         <outlet property="UIqos" destination="sUY-ch-Z4O" id="yB8-3r-34S"/>
                         <outlet property="UIstatus" destination="z27-9u-VcL" id="wpC-Iz-24z"/>
@@ -2295,7 +2295,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
             </objects>
             <point key="canvasLocation" x="3276" y="-253"/>
         </scene>
-        <!--Services-->
+        <!--Messaging-->
         <scene sceneID="rGu-PD-ekv">
             <objects>
                 <tableViewController id="VFg-bc-ThD" customClass="MessageTVC" sceneMemberID="viewController">
@@ -2330,7 +2330,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
                             <outlet property="delegate" destination="VFg-bc-ThD" id="txe-YM-roP"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Services" id="27s-Mv-kx3">
+                    <navigationItem key="navigationItem" title="Messaging" id="27s-Mv-kx3">
                         <barButtonItem key="rightBarButtonItem" systemItem="trash" id="k7O-YC-7Rw">
                             <connections>
                                 <action selector="trash:" destination="VFg-bc-ThD" id="wrr-Jz-zk2"/>
@@ -2361,10 +2361,10 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
             </objects>
             <point key="canvasLocation" x="2026" y="-1614"/>
         </scene>
-        <!--TBC-->
+        <!--Tab Bar Controller-->
         <scene sceneID="gCa-n7-VQc">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="U02-F8-0FB" customClass="TBC" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="U02-F8-0FB" customClass="TabBarController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="TPa-e1-PiD">
@@ -2381,11 +2381,11 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
             </objects>
             <point key="canvasLocation" x="498" y="-1598"/>
         </scene>
-        <!--Services-->
+        <!--Messaging-->
         <scene sceneID="RFH-6G-eSZ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="0Kb-04-ss9" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="99" title="Services" image="LBS" id="MhO-GD-9Ym"/>
+                    <tabBarItem key="tabBarItem" tag="99" title="Messaging" image="Messaging" id="MhO-GD-9Ym"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="WTA-Hq-CfQ">
                         <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
@@ -2405,7 +2405,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <image name="ConnectionOn" width="32" height="32"/>
         <image name="FastMode" width="32" height="32"/>
         <image name="Friends" width="32" height="32"/>
-        <image name="LBS" width="33" height="33"/>
+        <image name="Messaging" width="33" height="33"/>
         <image name="Settings" width="32" height="32"/>
         <image name="Tracking" width="32" height="32"/>
         <image name="iBeaconOff" width="33" height="33"/>

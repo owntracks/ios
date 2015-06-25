@@ -6,14 +6,14 @@
 //  Copyright (c) 2015 OwnTracks. All rights reserved.
 //
 
-#import "TBC.h"
+#import "TabBarController.h"
 #import "Settings.h"
 
-@interface TBC ()
+@interface TabBarController ()
 @property (strong, nonatomic) UIViewController *messageVC;
 @end
 
-@implementation TBC
+@implementation TabBarController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,7 +29,7 @@
     if (self.messageVC) {
         NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.viewControllers];
         
-        if ([Settings boolForKey:@"lbs"]) {
+        if ([Settings boolForKey:SETTINGS_MESSAGING]) {
             if (![viewControllers containsObject:self.messageVC]) {
                 [viewControllers insertObject:self.messageVC atIndex:viewControllers.count - 1];
             }

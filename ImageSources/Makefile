@@ -1,4 +1,4 @@
-all: LBS-33.png iBeaconOn-33.png iBeaconOn2-33.png iBeaconOff-33.png iBeaconHot-40.png iBeaconCold-40.png RegionHot-40.png RegionCold-40.png
+all: Messaging-33.png iBeaconOn-33.png iBeaconOn2-33.png iBeaconOff-33.png iBeaconHot-40.png iBeaconCold-40.png RegionHot-40.png RegionCold-40.png
 
 iBeaconHot-40.png:iBeaconHot.svg
 	./size40.sh iBeaconHot.svg
@@ -12,8 +12,8 @@ RegionHot-40.png:RegionHot.svg
 RegionCold-40.png:RegionCold.svg
 	./size40.sh RegionCold.svg
 
-LBS-33.png:LBS.svg
-	./size33.sh LBS.svg
+Messaging-33.png:Messaging.svg
+	./size33.sh Messaging.svg
 
 iBeaconOn-33.png:iBeaconOn.svg
 	./size33.sh iBeaconOn.svg

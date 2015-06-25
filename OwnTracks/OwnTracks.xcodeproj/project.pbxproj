@@ -59,7 +59,7 @@
 		8479EEB718E4529900923B24 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
 		847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847F8B5719295C65003876D4 /* CoreMotion.framework */; };
 		848794B419A6240100DF56EB /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 848794B319A6240100DF56EB /* Location.m */; };
-		84930A2C1B3755AF00810C3A /* TBC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A2B1B3755AF00810C3A /* TBC.m */; };
+		84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A2B1B3755AF00810C3A /* TabBarController.m */; };
 		84930A341B3772CF00810C3A /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A331B3772CF00810C3A /* Message.m */; };
 		8499BA95192CF86200FA95C7 /* Storyboard-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8499BA94192CF86200FA95C7 /* Storyboard-iPad.storyboard */; };
 		8499BA98192D085700FA95C7 /* DetailNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8499BA97192D085700FA95C7 /* DetailNC.m */; };
@@ -76,7 +76,7 @@
 		84D307681ACDA62100FACB9E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AF468F1AB9571800E954E3 /* CoreLocation.framework */; };
 		84D751751B35B3C100B06A0C /* Message+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D751741B35B3C100B06A0C /* Message+Create.m */; };
 		84D751781B35B7A500B06A0C /* MessageTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D751771B35B7A500B06A0C /* MessageTVC.m */; };
-		84D7517B1B35C0AB00B06A0C /* LBS.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D7517A1B35C0AB00B06A0C /* LBS.m */; };
+		84D7517B1B35C0AB00B06A0C /* Messaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D7517A1B35C0AB00B06A0C /* Messaging.m */; };
 		84F468E81AD4884200CF8C4F /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F468E71AD4884200CF8C4F /* Friend.m */; };
 /* End PBXBuildFile section */
 
@@ -205,8 +205,8 @@
 		848794B319A6240100DF56EB /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		84930A221B36B8FB00810C3A /* Model 8.1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.1.xcdatamodel"; sourceTree = "<group>"; };
 		84930A261B36C21B00810C3A /* Model 8.1.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.2.xcdatamodel"; sourceTree = "<group>"; };
-		84930A2A1B3755AF00810C3A /* TBC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBC.h; sourceTree = "<group>"; };
-		84930A2B1B3755AF00810C3A /* TBC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBC.m; sourceTree = "<group>"; };
+		84930A2A1B3755AF00810C3A /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
+		84930A2B1B3755AF00810C3A /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		84930A2D1B376DDF00810C3A /* Model 8.1.3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.3.xcdatamodel"; sourceTree = "<group>"; };
 		84930A311B37729000810C3A /* Model 8.1.4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.4.xcdatamodel"; sourceTree = "<group>"; };
 		84930A321B3772CF00810C3A /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
@@ -236,8 +236,8 @@
 		84D751741B35B3C100B06A0C /* Message+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Message+Create.m"; sourceTree = "<group>"; };
 		84D751761B35B7A500B06A0C /* MessageTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTVC.h; sourceTree = "<group>"; };
 		84D751771B35B7A500B06A0C /* MessageTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTVC.m; sourceTree = "<group>"; };
-		84D751791B35C0AB00B06A0C /* LBS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LBS.h; sourceTree = "<group>"; };
-		84D7517A1B35C0AB00B06A0C /* LBS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LBS.m; sourceTree = "<group>"; };
+		84D751791B35C0AB00B06A0C /* Messaging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messaging.h; sourceTree = "<group>"; };
+		84D7517A1B35C0AB00B06A0C /* Messaging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Messaging.m; sourceTree = "<group>"; };
 		84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.0.xcdatamodel"; sourceTree = "<group>"; };
 		84F468E61AD4884200CF8C4F /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
 		84F468E71AD4884200CF8C4F /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
@@ -358,10 +358,10 @@
 				8411B867189FE1ED0019D2D6 /* coredata */,
 				8411B83C189FDB140019D2D6 /* OwnTracksAppDelegate.h */,
 				8411B83D189FDB140019D2D6 /* OwnTracksAppDelegate.m */,
-				84930A2A1B3755AF00810C3A /* TBC.h */,
-				84930A2B1B3755AF00810C3A /* TBC.m */,
-				84D751791B35C0AB00B06A0C /* LBS.h */,
-				84D7517A1B35C0AB00B06A0C /* LBS.m */,
+				84930A2A1B3755AF00810C3A /* TabBarController.h */,
+				84930A2B1B3755AF00810C3A /* TabBarController.m */,
+				84D751791B35C0AB00B06A0C /* Messaging.h */,
+				84D7517A1B35C0AB00B06A0C /* Messaging.m */,
 				84B739781A65629200B103F4 /* LocationManager.h */,
 				84B739791A65629200B103F4 /* LocationManager.m */,
 				8411B886189FE79B0019D2D6 /* AlertView.h */,
@@ -813,11 +813,11 @@
 				8411B90C189FEC070019D2D6 /* EditLocationTVC.m in Sources */,
 				8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */,
 				8411B912189FEC070019D2D6 /* ViewController.m in Sources */,
-				84930A2C1B3755AF00810C3A /* TBC.m in Sources */,
+				84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */,
 				8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */,
 				8411B87F189FE35C0019D2D6 /* Model.xcdatamodeld in Sources */,
 				8411B90D189FEC070019D2D6 /* FriendAnnotationV.m in Sources */,
-				84D7517B1B35C0AB00B06A0C /* LBS.m in Sources */,
+				84D7517B1B35C0AB00B06A0C /* Messaging.m in Sources */,
 				8411B88A189FE79B0019D2D6 /* AlertView.m in Sources */,
 				8411B90E189FEC070019D2D6 /* FriendTVC.m in Sources */,
 				84F468E81AD4884200CF8C4F /* Friend.m in Sources */,

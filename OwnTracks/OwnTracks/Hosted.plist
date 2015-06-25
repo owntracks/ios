@@ -48,7 +48,7 @@
 	<true/>
 	<key>extendeddata_preference</key>
 	<true/>
-	<key>lbs</key>
+	<key>messaging</key>
 	<false/>
 	<key>trackerid_preference</key>
 	<string></string>

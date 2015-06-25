@@ -8,7 +8,7 @@
 
 #import "StatusTVC.h"
 #import "QosTVC.h"
-#import "TBC.h"
+#import "TabBarController.h"
 #import "OwnTracksAppDelegate.h"
 #import "Settings.h"
 #import "Friend+Create.h"
@@ -19,7 +19,7 @@
 #import <Crashlytics/Crashlytics.h>
 
 @interface StatusTVC ()
-@property (weak, nonatomic) IBOutlet UISwitch *UIlbs;
+@property (weak, nonatomic) IBOutlet UISwitch *UImessaging;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *UImode;
 @property (weak, nonatomic) IBOutlet UITextField *UIeffectivesubscriptions;
 @property (weak, nonatomic) IBOutlet UITextView *UIparameters;
@@ -152,7 +152,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIallowRemoteLocation) [Settings setBool:self.UIallowRemoteLocation.on forKey:@"allowremotelocation_preference"];
     if (self.UImode) [Settings setInt:(int)self.UImode.selectedSegmentIndex forKey:@"mode"];
     if (self.UIextendedData) [Settings setBool:self.UIextendedData.on forKey:@"extendeddata_preference"];
-    if (self.UIlbs) [Settings setBool:self.UIlbs.on forKey:@"lbs"];
+    if (self.UImessaging) [Settings setBool:self.UImessaging.on forKey:SETTINGS_MESSAGING];
     if (self.UIPositionsToKeep) [Settings setString:self.UIPositionsToKeep.text forKey:@"positions_preference"];
     if (self.UITopic) [Settings setString:self.UITopic.text forKey:@"topic_preference"];
     if (self.UIRetain) [Settings setBool:self.UIRetain.on forKey:@"retain_preference"];
@@ -233,7 +233,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.UImode.selectedSegmentIndex =              [Settings intForKey:@"mode"];
     self.UIUpdateAddressBook.on =                   [Settings boolForKey:@"ab_preference"];
     self.UIallowRemoteLocation.on =                 [Settings boolForKey:@"allowremotelocation_preference"];
-    self.UIlbs.on =                                 [Settings boolForKey:@"lbs"];
+    self.UImessaging.on =                           [Settings boolForKey:SETTINGS_MESSAGING];
     self.UIPositionsToKeep.text =                   [Settings stringForKey:@"positions_preference"];
     self.UIsubscriptionqos.text =                   [self qosString:[Settings intForKey:@"subscriptionqos_preference"]];
     self.UITopic.text =                             [Settings stringForKey:@"topic_preference"];
@@ -409,8 +409,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     self.UIexport.enabled = (mode == 0 || mode == 1);
     
-    if ([self.tabBarController isKindOfClass:[TBC class]]) {
-        TBC *tbc = (TBC *)self.tabBarController;
+    if ([self.tabBarController isKindOfClass:[TabBarController class]]) {
+        TabBarController *tbc = (TabBarController *)self.tabBarController;
         [tbc adjust];
     }
 }
@@ -614,7 +614,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [[Crashlytics sharedInstance] crash];
 }
 
-- (IBAction)lbsChanged:(UISwitch *)sender {
+- (IBAction)messagingChanged:(UISwitch *)sender {
     [self updateValues];
     [self updated];
 }

@@ -1,5 +1,5 @@
 //
-//  LBS.h
+//  Messaging.h
 //  OwnTracks
 //
 //  Created by Christoph Krey on 20.06.15.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LBS : NSObject
+@interface Messaging : NSObject
 @property (strong, nonatomic) NSString *lastGeoHash;
 
 - (void)reset:(NSManagedObjectContext *)context;

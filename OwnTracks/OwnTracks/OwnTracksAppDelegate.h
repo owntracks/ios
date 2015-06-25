@@ -14,7 +14,7 @@
 #import "Connection.h"
 #import "Location+Create.h"
 #import "Settings.h"
-#import "LBS.h"
+#import "Messaging.h"
 
 @protocol RangingDelegate <NSObject>
 
@@ -28,7 +28,7 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (weak, nonatomic) id<RangingDelegate> delegate;
-@property (strong, nonatomic) LBS *lbs;
+@property (strong, nonatomic) Messaging *messages;
 @property (strong, nonatomic) NSString *processingMessage;
 
 @property (strong, nonatomic) Connection *connectionOut;

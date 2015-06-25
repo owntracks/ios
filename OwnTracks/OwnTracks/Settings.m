@@ -220,8 +220,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             object = dictionary[@"extendedData"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"extendeddata_preference"];
             
-            object = dictionary[@"lbs"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"lbs"];
+            object = dictionary[SETTINGS_MESSAGING];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:SETTINGS_MESSAGING];
             
             string = dictionary[@"tid"];
             if (string) [self setString:string forKey:@"trackerid_preference"];
@@ -380,7 +380,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             dict[@"updateAddressBook"] =    @([Settings boolForKey:@"ab_preference"]);
             dict[@"allowRemoteLocation"] =  @([Settings boolForKey:@"allowremotelocation_preference"]);
             dict[@"extendedData"] =         @([Settings boolForKey:@"extendeddata_preference"]);
-            dict[@"lbs"] =                  @([Settings boolForKey:@"lbs"]);
+            dict[SETTINGS_MESSAGING] =        @([Settings boolForKey:SETTINGS_MESSAGING]);
 
             break;
         case 1:
@@ -417,7 +417,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 + (BOOL)validInPublicMode:(NSString *)key {
     return ([key isEqualToString:@"mode"] ||
-            [key isEqualToString:@"lbs"] ||
+            [key isEqualToString:SETTINGS_MESSAGING] ||
             [key isEqualToString:@"monitoring_preference"] ||
             [key isEqualToString:@"mindist_preference"] ||
             [key isEqualToString:@"mintime_preference"] ||
@@ -429,7 +429,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 + (BOOL)validInHostedMode:(NSString *)key {
     return ([key isEqualToString:@"mode"] ||
-            [key isEqualToString:@"lbs"] ||
+            [key isEqualToString:SETTINGS_MESSAGING] ||
             [key isEqualToString:@"monitoring_preference"] ||
             [key isEqualToString:@"mindist_preference"] ||
             [key isEqualToString:@"mintime_preference"] ||

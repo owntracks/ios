@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "Setting+Create.h"
 
+#define SETTINGS_MESSAGING @"messaging"
+
 @interface Settings : NSObject
+
 + (NSError *)fromStream:(NSInputStream *)input;
 + (NSError *)fromDictionary:(NSDictionary *)dictionary;
 + (NSError *)waypointsFromStream:(NSInputStream *)input;

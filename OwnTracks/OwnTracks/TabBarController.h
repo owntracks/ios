@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TBC : UITabBarController
+@interface TabBarController : UITabBarController
 - (void)adjust;
 @end

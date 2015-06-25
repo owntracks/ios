@@ -34,7 +34,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate.lbs addObserver:self
+    [delegate.messages addObserver:self
                    forKeyPath:@"lastGeoHash"
                       options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                       context:nil];
@@ -43,7 +43,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)viewWillDisappear:(BOOL)animated {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate.lbs removeObserver:self forKeyPath:@"lastGeoHash"];
+    [delegate.messages removeObserver:self forKeyPath:@"lastGeoHash"];
     [super viewWillDisappear:animated];
 }
 
@@ -54,7 +54,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     /*
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    self.title = delegate.lbs.lastGeoHash;
+    self.title = delegate.messages.lastGeoHash;
     CLGeocoder *geocoder = [[CLGeocoder alloc] init];
     [geocoder reverseGeocodeLocation:[LocationManager sharedInstance].location completionHandler:
      ^(NSArray *placemarks, NSError *error) {
@@ -262,7 +262,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (IBAction)trash:(UIBarButtonItem *)sender {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate.lbs reset:[CoreData theManagedObjectContext]];
+    [delegate.messages reset:[CoreData theManagedObjectContext]];
 }
 
 @end

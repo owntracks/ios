@@ -1067,15 +1067,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location Based Services" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TEn-dm-lNd">
-                                                    <rect key="frame" x="20" y="11" width="191" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Messaging" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TEn-dm-lNd">
+                                                    <rect key="frame" x="20" y="11" width="84" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="skU-Pu-Iq4">
                                                     <rect key="frame" x="251" y="6" width="51" height="31"/>
                                                     <connections>
-                                                        <action selector="lbsChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="LwF-xe-NAl"/>
+                                                        <action selector="messagingChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="LwF-xe-NAl"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -1205,7 +1205,7 @@
                         <outlet property="UIdevice" destination="nKL-wx-Lqk" id="rRh-C4-C9y"/>
                         <outlet property="UIexport" destination="ysB-cv-35Y" id="QKh-Bs-pnD"/>
                         <outlet property="UIextendedData" destination="gHo-wc-Cgg" id="vQU-MV-xye"/>
-                        <outlet property="UIlbs" destination="skU-Pu-Iq4" id="agG-P4-hAc"/>
+                        <outlet property="UImessaging" destination="skU-Pu-Iq4" id="agG-P4-hAc"/>
                         <outlet property="UImode" destination="2MJ-7K-q1Z" id="BMF-12-Hp9"/>
                         <outlet property="UIqos" destination="EQS-gJ-XoJ" id="IGr-Nq-OAB"/>
                         <outlet property="UIstatus" destination="Dkt-W1-c4K" id="uXG-MW-TUE"/>
@@ -1225,10 +1225,10 @@
             </objects>
             <point key="canvasLocation" x="2208" y="-1935"/>
         </scene>
-        <!--TBC-->
+        <!--Tab Bar Controller-->
         <scene sceneID="khr-I5-27q">
             <objects>
-                <tabBarController definesPresentationContext="YES" id="e04-OU-xZ4" customClass="TBC" sceneMemberID="viewController">
+                <tabBarController definesPresentationContext="YES" id="e04-OU-xZ4" customClass="TabBarController" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="nR6-eE-Ljy">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
@@ -1246,7 +1246,7 @@
             </objects>
             <point key="canvasLocation" x="-192" y="-1193"/>
         </scene>
-        <!--Services-->
+        <!--Messaging-->
         <scene sceneID="30q-bf-kmI">
             <objects>
                 <tableViewController id="bLD-0I-fQm" customClass="MessageTVC" sceneMemberID="viewController">
@@ -1281,7 +1281,7 @@
                             <outlet property="delegate" destination="bLD-0I-fQm" id="yge-Vx-DXS"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Services" id="4ym-Q3-j3A">
+                    <navigationItem key="navigationItem" title="Messaging" id="4ym-Q3-j3A">
                         <barButtonItem key="rightBarButtonItem" systemItem="trash" id="aEU-tT-Z5l">
                             <connections>
                                 <action selector="trash:" destination="bLD-0I-fQm" id="5nd-jU-V9W"/>
@@ -2369,7 +2369,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <scene sceneID="MPJ-uW-sBf">
             <objects>
                 <navigationController title="Services" automaticallyAdjustsScrollViewInsets="NO" id="aXh-Fr-lWJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="99" title="Services" image="LBS" id="Lzk-LX-UQX"/>
+                    <tabBarItem key="tabBarItem" tag="99" title="Messaging" image="Messaging" id="Lzk-LX-UQX"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="EDI-Uy-99l">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2389,7 +2389,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <image name="ConnectionOn" width="32" height="32"/>
         <image name="FastMode" width="32" height="32"/>
         <image name="Friends" width="32" height="32"/>
-        <image name="LBS" width="33" height="33"/>
+        <image name="Messaging" width="33" height="33"/>
         <image name="OnwTracks" width="32" height="32"/>
         <image name="Settings" width="32" height="32"/>
         <image name="Tracking" width="32" height="32"/>

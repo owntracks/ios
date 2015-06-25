@@ -132,7 +132,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     locationManager.ranging = [Settings boolForKey:@"ranging_preference"];
     locationManager.minDist = [Settings doubleForKey:@"mindist_preference"];
     locationManager.minTime = [Settings doubleForKey:@"mintime_preference"];
-    self.lbs = [[LBS alloc] init];
+    self.messages = [[Messaging alloc] init];
     [locationManager start];
     
     return YES;
@@ -345,7 +345,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)newLocation:(CLLocation *)location {
     [self publishLocation:location automatic:YES addon:nil];
-    [self.lbs newLocation:location.coordinate.latitude
+    [self.messages newLocation:location.coordinate.latitude
                 longitude:location.coordinate.longitude
                   context:[CoreData theManagedObjectContext]];
     [self share];
@@ -353,7 +353,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)timerLocation:(CLLocation *)location {
     [self publishLocation:location automatic:YES addon:@{@"t": @"t"}];
-    [self.lbs newLocation:location.coordinate.latitude
+    [self.messages newLocation:location.coordinate.latitude
                 longitude:location.coordinate.longitude
                   context:[CoreData theManagedObjectContext]];
 }
@@ -364,7 +364,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic] inManagedObjectContext:[CoreData theManagedObjectContext]];
     CLLocation *location = [LocationManager sharedInstance].location;
-    [self.lbs newLocation:location.coordinate.latitude
+    [self.messages newLocation:location.coordinate.latitude
                 longitude:location.coordinate.longitude
                   context:[CoreData theManagedObjectContext]];
     
@@ -420,7 +420,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         }
     }
     [self.delegate regionState:region inside:inside];
-    [self.lbs newLocation:location.coordinate.latitude
+    [self.messages newLocation:location.coordinate.latitude
                 longitude:location.coordinate.longitude
                   context:[CoreData theManagedObjectContext]];
     
@@ -484,9 +484,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)handleMessage:(Connection *)connection data:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
     DDLogVerbose(@"handleMessage");
     
-    if ([self.lbs processMessage:topic data:data retained:retained context:self.queueManagedObjectContext]) {
+    if ([self.messages processMessage:topic data:data retained:retained context:self.queueManagedObjectContext]) {
         [self notification:@"New info available"
-                  userInfo:@{@"notify": @"lbs"}];
+                  userInfo:@{@"notify": @"msg"}];
         
         return;
     }
@@ -795,7 +795,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     DDLogVerbose(@"App sendNow");
     CLLocation *location = [LocationManager sharedInstance].location;
     [self publishLocation:location automatic:FALSE addon:@{@"t":@"u"}];
-    [self.lbs newLocation:location.coordinate.latitude
+    [self.messages newLocation:location.coordinate.latitude
                 longitude:location.coordinate.longitude
                   context:[CoreData theManagedObjectContext]];
     
@@ -924,8 +924,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         if ([notification.userInfo[@"notify"] isEqualToString:@"friend"]) {
             [AlertView alert:@"Friend Notification" message:notification.alertBody dismissAfter:2.0];
         }
-        if ([notification.userInfo[@"notify"] isEqualToString:@"lbs"]) {
-            [AlertView alert:@"Location Based Service" message:notification.alertBody dismissAfter:2.0];
+        if ([notification.userInfo[@"notify"] isEqualToString:@"msg"]) {
+            [AlertView alert:@"Message" message:notification.alertBody dismissAfter:2.0];
         }
     }
 }

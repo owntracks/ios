@@ -1,12 +1,12 @@
 //
-//  LBS.m
+//  Messaging.m
 //  OwnTracks
 //
 //  Created by Christoph Krey on 20.06.15.
 //  Copyright (c) 2015 OwnTracks. All rights reserved.
 //
 
-#import "LBS.h"
+#import "Messaging.h"
 #import "Message+Create.h"
 #import "CoreData.h"
 #import "OwnTracksAppDelegate.h"
@@ -19,20 +19,21 @@
 #define GEOHASH_LEN_MIN 3
 #define GEOHASH_LEN_MAX 6
 
-#define GEOHASH_PRE @"lbs/"
+#define GEOHASH_PRE @"msg/"
+#define GEOHASH_TYPE @"msg"
 #define GEOHASH_KEY @"lastGeoHash"
 
-@interface LBS()
+@interface Messaging()
 @property (strong, nonatomic) NSString *oldGeoHash;
 @end
 
-@implementation LBS
+@implementation Messaging
 
 static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (instancetype)init {
     self = [super init];
-    DDLogVerbose(@"LBS ddLogLevel %lu", (unsigned long)ddLogLevel);
+    DDLogVerbose(@"Messages ddLogLevel %lu", (unsigned long)ddLogLevel);
     self.lastGeoHash = [Settings stringForKey:GEOHASH_KEY];
     self.oldGeoHash = @"";
     return self;
@@ -43,7 +44,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.oldGeoHash = self.lastGeoHash;
     self.lastGeoHash = @"";
     [self manageSubscriptions:context];
-    if ([Settings boolForKey:@"lbs"]) {
+    if ([Settings boolForKey:SETTINGS_MESSAGING]) {
         [Message removeMessages:context];
         self.oldGeoHash = @"";
         self.lastGeoHash = geoHash;
@@ -123,7 +124,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
                 if (dictionary) {
                     NSString *type = dictionary[@"_type"];
-                    if ([type isEqualToString:@"lbs"]) {
+                    if ([type isEqualToString:GEOHASH_TYPE]) {
                         NSString *desc = dictionary[@"desc"];
                         NSString *title = dictionary[@"title"];
                         NSString *url = dictionary[@"url"];
@@ -169,7 +170,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 return TRUE;
             }
         } else {
-            DDLogVerbose(@"illegal lbs topic %@", topic);
+            DDLogVerbose(@"illegal msg topic %@", topic);
             return FALSE;
         }
     } else {
