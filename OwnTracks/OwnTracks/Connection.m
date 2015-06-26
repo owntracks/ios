@@ -46,7 +46,6 @@
 @property (nonatomic) NSUInteger outCount;
 @property (nonatomic) NSUInteger inCount;
 
-@property (strong, nonatomic) NSDictionary *variableSubscriptions;
 @end
 
 #define RECONNECT_TIMER 1.0
@@ -60,6 +59,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
     DDLogVerbose(@"Connection init");
     self.state = state_starting;
+    self.subscriptions = [[NSArray alloc] init];
+    self.variableSubscriptions = [[NSDictionary alloc] init];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
@@ -242,6 +243,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
+- (void)setVariableSubscriptions:(NSDictionary *)variableSubscriptions {
+    for (NSString *topicFilter in self.variableSubscriptions) {
+        if (![variableSubscriptions objectForKey:topicFilter]) {
+            [self.session unsubscribeTopic:topicFilter];
+        }
+    }
+    
+    for (NSString *topicFilter in variableSubscriptions) {
+        if (![self.variableSubscriptions objectForKey:topicFilter]) {
+            MQTTQosLevel qos = [self.variableSubscriptions[topicFilter] intValue];
+            [self.session subscribeToTopic:topicFilter atLevel:qos];
+        }
+    }
+    
+    _variableSubscriptions = variableSubscriptions;
+}
+
 #pragma mark - MQTT Callback methods
 
 - (void)connected:(MQTTSession *)session sessionPresent:(BOOL)sessionPresent
@@ -257,6 +275,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             if (topicFilter.length) {
                 [self.session subscribeToTopic:topicFilter atLevel:self.subscriptionQos];
             }
+        }
+        for (NSString *topicFilter in self.variableSubscriptions.allKeys) {
+            MQTTQosLevel qos = [self.variableSubscriptions[topicFilter] intValue];
+            [self.session subscribeToTopic:topicFilter atLevel:qos];
         }
         self.reconnectFlag = TRUE;
     }
@@ -310,28 +332,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (void)addSubscriptionTo:(NSString *)topic qos:(MQTTQosLevel)qos {
-    DDLogVerbose(@"%@ subscribe m%@ %d",
-                 self.clientId,
-                 topic,
-                 qos);
-
-    [self.session subscribeToTopic:topic atLevel:qos];
-}
-
 - (void)subAckReceived:(MQTTSession *)session msgID:(UInt16)msgID grantedQoss:(NSArray *)qoss {
     DDLogVerbose(@"%@ subAckReceived m%u %@",
                  self.clientId,
                  msgID,
                  qoss);
 
-}
-
-- (void)removeSubscriptionFrom:(NSString *)topic {
-    DDLogVerbose(@"%@ unsubscribe %@",
-                 self.clientId,
-                 topic);
-    [self.session unsubscribeTopic:topic];
 }
 
 - (void)unsubAckReceived:(MQTTSession *)session msgID:(UInt16)msgID {

@@ -57,6 +57,14 @@ install_resource()
       ;;
   esac
 }
+if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "FontAwesome/Resources/FontAwesome.ttf"
+  install_resource "FontAwesomeTools/FontAwesomeTools/FontAwesome.otf"
+fi
+if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "FontAwesome/Resources/FontAwesome.ttf"
+  install_resource "FontAwesomeTools/FontAwesomeTools/FontAwesome.otf"
+fi
 
 rsync -avr --copy-links --no-relative --exclude '*/.svn/*' --files-from="$RESOURCES_TO_COPY" / "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
 if [[ "${ACTION}" == "install" ]]; then

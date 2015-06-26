@@ -10,15 +10,19 @@
 #import "OwnTracksAppDelegate.h"
 #import "MEssage+Create.h"
 #import "CoreData.h"
+#import "MessageTableViewCell.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+#import <FontAwesomeTools/FontAwesome.h>
+#import <FontAwesome/NSString+FontAwesome.h>
 
 @interface MessageTVC ()
 @property (strong, nonatomic) UIAlertView *alertView;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+@property (strong, nonatomic) UIFont *fontAwesome;
 
 @end
 
@@ -28,22 +32,28 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
+    self.fontAwesome = [FontAwesome fontWithSize:30.0f];
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate addObserver:self
+               forKeyPath:@"inQueue"
+                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                  context:nil];
     return self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate.messages addObserver:self
-                   forKeyPath:@"lastGeoHash"
-                      options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                      context:nil];
+    self.tableView.estimatedRowHeight = 150;
+    self.tableView.rowHeight = UITableViewAutomaticDimension;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self.tableView reloadData];
+    [self showCount];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate.messages removeObserver:self forKeyPath:@"lastGeoHash"];
     [super viewWillDisappear:animated];
 }
 
@@ -51,29 +61,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
-    
-    /*
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    self.title = delegate.messages.lastGeoHash;
-    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
-    [geocoder reverseGeocodeLocation:[LocationManager sharedInstance].location completionHandler:
-     ^(NSArray *placemarks, NSError *error) {
-         if ([placemarks count] > 0) {
-             CLPlacemark *placemark = placemarks[0];
-             NSArray *address = placemark.addressDictionary[@"FormattedAddressLines"];
-             if (address && [address count] >= 1) {
-                 self.title = address[0];
-                 for (int i = 1; i < [address count]; i++) {
-                     self.title = [NSString stringWithFormat:@"%@, %@", self.title, address[i]];
-                 }
-             }
-         }
-     }];
-     */
+    if ([CoreData theManagedObjectContext]) {
+        [self showCount];
+    }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Message *message = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    NSURL *url = [NSURL URLWithString:message.url];
+    DDLogError(@"openURL %@ %@", url, message.url);
+    [[UIApplication sharedApplication] openURL:url];
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     Message *message = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSURL *url = [NSURL URLWithString:message.url];
     DDLogError(@"openURL %@ %@", url, message.url);
@@ -82,8 +82,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 #pragma mark - Table View
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return [[self.fetchedResultsController sections] count];
 }
 
@@ -91,14 +90,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return [self.fetchedResultsController.sections[section] name];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
     return [sectionInfo numberOfObjects];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"message" forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
@@ -143,15 +140,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     [fetchRequest setEntity:entity];
     [fetchRequest setFetchBatchSize:20];
     
-    NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"channel" ascending:YES];
-    NSSortDescriptor *sortDescriptor2 = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO];
-    NSArray *sortDescriptors = @[sortDescriptor1, sortDescriptor2];
+    NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:NO];
+    NSArray *sortDescriptors = @[sortDescriptor1];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc]
                                                              initWithFetchRequest:fetchRequest
                                                              managedObjectContext:[CoreData theManagedObjectContext]
-                                                             sectionNameKeyPath:@"channel"
+                                                             sectionNameKeyPath:nil
                                                              cacheName:nil];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
@@ -229,16 +225,23 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView endUpdates];
 }
 
+- (void)showCount {
+    NSUInteger count = self.fetchedResultsController.fetchedObjects.count;
+    if (count) {
+        self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu",
+                                                           self.fetchedResultsController.fetchedObjects.count];
+    } else {
+        self.navigationController.tabBarItem.badgeValue = nil;
+        
+    }
+}
+
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     DDLogVerbose(@"configureCell %ld/%ld", (long)indexPath.section, (long)indexPath.row);
     Message *message = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
-    double distanceDouble = [message.distance doubleValue];
-    NSString *distanceString;
-    if (distanceDouble > 1000.0) {
-        distanceString = [NSString stringWithFormat:@"%.0fkm", distanceDouble / 1000.0];
-    } else {
-        distanceString = [NSString stringWithFormat:@"%.0fm", distanceDouble];
+    MessageTableViewCell *messageTableViewCell = nil;
+    if ([cell isKindOfClass:[MessageTableViewCell class]]) {
+        messageTableViewCell = (MessageTableViewCell *)cell;
     }
     
     NSTimeInterval interval = -[message.timestamp timeIntervalSinceNow];
@@ -252,17 +255,42 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     } else {
         intervalString = [NSString stringWithFormat:@"%0.fd", interval / (24 * 3600)];
     }
-
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ (%@/%@)", message.title, distanceString, intervalString];
-    cell.detailTextLabel.text = message.desc;
-    NSURL *iconurl = [NSURL URLWithString:message.iconurl];
-    NSData *iconData = [NSData dataWithContentsOfURL:iconurl];
-    cell.imageView.image = [UIImage imageWithData:iconData];
+    
+    if (messageTableViewCell) {
+        messageTableViewCell.title.text = message.title;
+        messageTableViewCell.info.text = [NSString stringWithFormat:@"%@ ago in #%@",
+                                          intervalString,
+                                          message.channel];
+        messageTableViewCell.desc.text = message.desc;
+        if (message.icon) {
+            UIColor *color = [UIColor colorWithRed:71.0/255.0 green:141.0/255.0 blue:178.0/255.0 alpha:1.0];
+            if ([message.prio intValue] == 1) {
+                color = [UIColor yellowColor];
+            } else if ([message.prio intValue] == 2) {
+                color = [UIColor redColor];
+            }
+            UIImage *icon = [FontAwesome imageWithIcon:[NSString fontAwesomeIconStringForIconIdentifier:message.icon]
+                                             iconColor:color
+                                              iconSize:40.0f
+                                             imageSize:CGSizeMake(44.0f, 44.0f)];
+            messageTableViewCell.icon.image = icon;
+        } else if (message.iconurl) {
+            NSURL *iconurl = [NSURL URLWithString:message.iconurl];
+            NSData *iconData = [NSData dataWithContentsOfURL:iconurl];
+            messageTableViewCell.icon.image = [UIImage imageWithData:iconData];
+        }
+    }
+    
+    if (message.url) {
+        cell.accessoryType = UITableViewCellAccessoryDetailButton;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
 }
 
 - (IBAction)trash:(UIBarButtonItem *)sender {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate.messages reset:[CoreData theManagedObjectContext]];
+    [delegate.messaging reset:[CoreData theManagedObjectContext]];
 }
 
 @end

@@ -1,13 +1,15 @@
 PODS:
   - ABStaticTableViewController (1.1.0)
-  - CocoaLumberjack (2.0.0):
-    - CocoaLumberjack/Default (= 2.0.0)
-    - CocoaLumberjack/Extensions (= 2.0.0)
-  - CocoaLumberjack/Core (2.0.0)
-  - CocoaLumberjack/Default (2.0.0):
+  - CocoaLumberjack (2.0.1):
+    - CocoaLumberjack/Default (= 2.0.1)
+    - CocoaLumberjack/Extensions (= 2.0.1)
+  - CocoaLumberjack/Core (2.0.1)
+  - CocoaLumberjack/Default (2.0.1):
     - CocoaLumberjack/Core
-  - CocoaLumberjack/Extensions (2.0.0):
+  - CocoaLumberjack/Extensions (2.0.1):
     - CocoaLumberjack/Default
+  - FontAwesome (4.3.0)
+  - FontAwesomeTools (1.2)
   - MQTTClient (0.2.1)
   - objc-geohash (0.0.1)
   - QRCodeReaderViewController (3.4.0)
@@ -15,13 +17,17 @@ PODS:
 DEPENDENCIES:
   - ABStaticTableViewController
   - CocoaLumberjack
+  - FontAwesome
+  - FontAwesomeTools
   - MQTTClient
   - objc-geohash
   - QRCodeReaderViewController
 
 SPEC CHECKSUMS:
   ABStaticTableViewController: ef94678753f8873d364ca6cc74ea0237b41fb848
-  CocoaLumberjack: a6f77d987d65dc7ba86b0f84db7d0b9084f77bcb
+  CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
+  FontAwesome: 341b52261cad8254017da3ddfc01d67c87c0ca88
+  FontAwesomeTools: bd6e4882eed916ed07f8d0ff0fc2972c77640d27
   MQTTClient: 13319c82304c038c8b83a7e053668574ed003495
   objc-geohash: 5a92a1deb6c4729ecefdf847159991a1068fb4cc
   QRCodeReaderViewController: bbe09ba1805a74e4da29863a5220a7ad0411f5bc

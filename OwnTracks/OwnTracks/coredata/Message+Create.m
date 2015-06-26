@@ -7,7 +7,6 @@
 //
 
 #import "Message+Create.h"
-#import "LocationManager.h"
 
 @implementation Message (Create)
 
@@ -22,29 +21,18 @@
 
 - (NSString *)channel {
     NSArray *components = [self.topic componentsSeparatedByString:@"/"];
-    if (components.count == 3) {
+    if (components.count >= 2) {
         return components[1];
     } else {
         return nil;
     }
 }
 
-- (NSNumber *)distance {
-    CLLocation *here = [LocationManager sharedInstance].location;
-    CLLocation *location = [[CLLocation alloc]
-                            initWithLatitude:[self.latitude doubleValue]
-                            longitude:[self.longitude doubleValue]];
-    NSLog(@"%@ %@", here, location);
-
-    CLLocationDistance distance = [here distanceFromLocation:location];
-    return [NSNumber numberWithDouble:distance];
-}
-
 + (Message *)messageWithTopic:(NSString *)topic
-                     latitude:(double)latitude
-                    longitude:(double)longitude
+                         icon:(NSString *)icon
+                         prio:(NSInteger)prio
                     timestamp:(NSDate *)timestamp
-                       expiry:(NSDate *)expiry
+                          ttl:(NSUInteger)ttl
                         title:(NSString *)title
                          desc:(NSString *)desc
                           url:(NSString *)url
@@ -70,10 +58,10 @@
             message = [matches lastObject];
         }
         message.topic = topic;
-        message.latitude = [NSNumber numberWithDouble:latitude];
-        message.longitude = [NSNumber numberWithDouble:longitude];
+        message.icon = icon;
+        message.prio = [NSNumber numberWithInteger:prio];
         message.timestamp = timestamp;
-        message.expiry = expiry;
+        message.ttl = [NSNumber numberWithUnsignedInteger:ttl];
         message.title = title;
         message.desc = desc;
         message.url = url;
@@ -85,12 +73,15 @@
 
 + (void)expireMessages:(NSManagedObjectContext *)context {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Message"];
-    request.predicate = [NSPredicate predicateWithFormat:@"expiry < %@", [NSDate date]];
+    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     
     NSError *error = nil;
     NSArray *matches = [context executeFetchRequest:request error:&error];
     for (Message *message in matches) {
-        [context deleteObject:message];
+        NSDate *expires = [message.timestamp dateByAddingTimeInterval:[message.ttl unsignedIntegerValue]];
+        if ([expires timeIntervalSince1970] < now) {
+            [context deleteObject:message];
+        }
     }
 }
 

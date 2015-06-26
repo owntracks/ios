@@ -12,10 +12,10 @@
 @interface Message (Create)
 
 + (Message *)messageWithTopic:(NSString *)topic
-                     latitude:(double)latitude
-                    longitude:(double)longitude
+                         icon:(NSString *)icon
+                         prio:(NSInteger)prio
                     timestamp:(NSDate *)timestamp
-                       expiry:(NSDate *)expiry
+                          ttl:(NSUInteger)ttl
                         title:(NSString *)title
                          desc:(NSString *)desc
                           url:(NSString *)url

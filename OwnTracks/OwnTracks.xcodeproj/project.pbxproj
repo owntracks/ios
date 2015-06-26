@@ -10,6 +10,7 @@
 		26D9D10A393B276099275BAE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D44FAE29CF5DF0D498028B7C /* libPods.a */; };
 		840B2F741AC0579E00E653F5 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840B2F721AC0579E00E653F5 /* Crashlytics.framework */; };
 		840B2F751AC0579E00E653F5 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840B2F731AC0579E00E653F5 /* Fabric.framework */; };
+		840F6D2D1B3C89FD00848652 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 840F6D2C1B3C89FD00848652 /* MessageTableViewCell.m */; };
 		8411B82C189FDB140019D2D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82B189FDB140019D2D6 /* Foundation.framework */; };
 		8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82D189FDB140019D2D6 /* CoreGraphics.framework */; };
 		8411B830189FDB140019D2D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82F189FDB140019D2D6 /* UIKit.framework */; };
@@ -45,6 +46,7 @@
 		8414FC971B0CB7A200F0C221 /* icon_iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 8414FC961B0CB7A200F0C221 /* icon_iphone.png */; };
 		8422AF681AF825C7008932A2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8422AF671AF825C7008932A2 /* SystemConfiguration.framework */; };
 		8426103A1ACFE67B00FE1A03 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842610391ACFE67B00FE1A03 /* Launch Screen.xib */; };
+		842CA4D41B3C7B5900B7FF1C /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 842CA4D31B3C7B5900B7FF1C /* Message.m */; };
 		842DFBC71AEE6F36000F4BA6 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842DFBC61AEE6F36000F4BA6 /* NotificationController.m */; };
 		842DFBC91AEE6F46000F4BA6 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = 842DFBC81AEE6F46000F4BA6 /* PushNotificationPayload.apns */; };
 		843635791AE95D6000157D66 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843635781AE95D6000157D66 /* InterfaceController.m */; };
@@ -60,7 +62,6 @@
 		847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847F8B5719295C65003876D4 /* CoreMotion.framework */; };
 		848794B419A6240100DF56EB /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 848794B319A6240100DF56EB /* Location.m */; };
 		84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A2B1B3755AF00810C3A /* TabBarController.m */; };
-		84930A341B3772CF00810C3A /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A331B3772CF00810C3A /* Message.m */; };
 		8499BA95192CF86200FA95C7 /* Storyboard-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8499BA94192CF86200FA95C7 /* Storyboard-iPad.storyboard */; };
 		8499BA98192D085700FA95C7 /* DetailNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8499BA97192D085700FA95C7 /* DetailNC.m */; };
 		84B7397A1A65629200B103F4 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B739791A65629200B103F4 /* LocationManager.m */; };
@@ -124,6 +125,8 @@
 		840B2F721AC0579E00E653F5 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		840B2F731AC0579E00E653F5 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		840BBDD318E4274200DC113C /* Model 6.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 6.2.xcdatamodel"; sourceTree = "<group>"; };
+		840F6D2B1B3C89FD00848652 /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
+		840F6D2C1B3C89FD00848652 /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
 		8411B828189FDB140019D2D6 /* OwnTracks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OwnTracks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8411B82B189FDB140019D2D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8411B82D189FDB140019D2D6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -179,6 +182,9 @@
 		84195B201ABCBC9400A9FA97 /* Model 7.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.5.xcdatamodel"; sourceTree = "<group>"; };
 		8422AF671AF825C7008932A2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		842610391ACFE67B00FE1A03 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
+		842CA4CE1B3C76D000B7FF1C /* Model 8.1.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.5.xcdatamodel"; sourceTree = "<group>"; };
+		842CA4D21B3C7B5900B7FF1C /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		842CA4D31B3C7B5900B7FF1C /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		842DFBC51AEE6F36000F4BA6 /* NotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
 		842DFBC61AEE6F36000F4BA6 /* NotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
 		842DFBC81AEE6F46000F4BA6 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
@@ -209,8 +215,6 @@
 		84930A2B1B3755AF00810C3A /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		84930A2D1B376DDF00810C3A /* Model 8.1.3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.3.xcdatamodel"; sourceTree = "<group>"; };
 		84930A311B37729000810C3A /* Model 8.1.4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.4.xcdatamodel"; sourceTree = "<group>"; };
-		84930A321B3772CF00810C3A /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
-		84930A331B3772CF00810C3A /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		8499BA94192CF86200FA95C7 /* Storyboard-iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Storyboard-iPad.storyboard"; sourceTree = "<group>"; };
 		8499BA96192D085600FA95C7 /* DetailNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailNC.h; sourceTree = "<group>"; };
 		8499BA97192D085700FA95C7 /* DetailNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailNC.m; sourceTree = "<group>"; };
@@ -395,6 +399,8 @@
 				8499BA97192D085700FA95C7 /* DetailNC.m */,
 				84D751761B35B7A500B06A0C /* MessageTVC.h */,
 				84D751771B35B7A500B06A0C /* MessageTVC.m */,
+				840F6D2B1B3C89FD00848652 /* MessageTableViewCell.h */,
+				840F6D2C1B3C89FD00848652 /* MessageTableViewCell.m */,
 				8411B834189FDB140019D2D6 /* Supporting Files */,
 			);
 			path = OwnTracks;
@@ -438,8 +444,8 @@
 		8411B867189FE1ED0019D2D6 /* coredata */ = {
 			isa = PBXGroup;
 			children = (
-				84930A321B3772CF00810C3A /* Message.h */,
-				84930A331B3772CF00810C3A /* Message.m */,
+				842CA4D21B3C7B5900B7FF1C /* Message.h */,
+				842CA4D31B3C7B5900B7FF1C /* Message.m */,
 				84D751731B35B3C100B06A0C /* Message+Create.h */,
 				84D751741B35B3C100B06A0C /* Message+Create.m */,
 				8479EEB318E4289E00923B24 /* Setting+Create.h */,
@@ -812,6 +818,7 @@
 				84D751751B35B3C100B06A0C /* Message+Create.m in Sources */,
 				8411B90C189FEC070019D2D6 /* EditLocationTVC.m in Sources */,
 				8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */,
+				840F6D2D1B3C89FD00848652 /* MessageTableViewCell.m in Sources */,
 				8411B912189FEC070019D2D6 /* ViewController.m in Sources */,
 				84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */,
 				8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */,
@@ -825,7 +832,7 @@
 				8499BA98192D085700FA95C7 /* DetailNC.m in Sources */,
 				8411B88B189FE79B0019D2D6 /* CoreData.m in Sources */,
 				848794B419A6240100DF56EB /* Location.m in Sources */,
-				84930A341B3772CF00810C3A /* Message.m in Sources */,
+				842CA4D41B3C7B5900B7FF1C /* Message.m in Sources */,
 				8411B87A189FE1ED0019D2D6 /* Location+Create.m in Sources */,
 				84D751781B35B7A500B06A0C /* MessageTVC.m in Sources */,
 				8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */,
@@ -1273,6 +1280,7 @@
 		8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				842CA4CE1B3C76D000B7FF1C /* Model 8.1.5.xcdatamodel */,
 				84930A311B37729000810C3A /* Model 8.1.4.xcdatamodel */,
 				84930A2D1B376DDF00810C3A /* Model 8.1.3.xcdatamodel */,
 				84930A261B36C21B00810C3A /* Model 8.1.2.xcdatamodel */,
@@ -1287,7 +1295,7 @@
 				84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */,
 				8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 84930A311B37729000810C3A /* Model 8.1.4.xcdatamodel */;
+			currentVersion = 842CA4CE1B3C76D000B7FF1C /* Model 8.1.5.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -6,6 +6,8 @@ pod 'ABStaticTableViewController'
 pod 'MQTTClient'
 pod 'QRCodeReaderViewController'
 pod 'objc-geohash'
+pod 'FontAwesome'
+pod 'FontAwesomeTools'
 
 target 'OwnTracks' do
 end

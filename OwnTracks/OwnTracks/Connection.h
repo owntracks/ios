@@ -36,6 +36,8 @@ enum state {
 @property (nonatomic, readonly) NSInteger state;
 @property (nonatomic, readonly) NSError *lastErrorCode;
 @property (strong, nonatomic) NSArray *subscriptions;
+@property (strong, nonatomic) NSDictionary *variableSubscriptions;
+
 @property (nonatomic) MQTTQosLevel subscriptionQos;
 
 - (void)connectTo:(NSString *)host

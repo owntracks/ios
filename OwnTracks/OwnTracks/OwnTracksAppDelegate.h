@@ -28,7 +28,7 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (weak, nonatomic) id<RangingDelegate> delegate;
-@property (strong, nonatomic) Messaging *messages;
+@property (strong, nonatomic) Messaging *messaging;
 @property (strong, nonatomic) NSString *processingMessage;
 
 @property (strong, nonatomic) Connection *connectionOut;

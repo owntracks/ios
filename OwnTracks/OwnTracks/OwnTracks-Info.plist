@@ -182,5 +182,9 @@
 			</dict>
 		</dict>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>FontAwesome.otf</string>
+	</array>
 </dict>
 </plist>
