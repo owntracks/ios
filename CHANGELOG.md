@@ -1,6 +1,13 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.1.2
+>Release date: 2015-06-26 for alpha-testers only
+
+[NEW] rename lbs to msg
+[NEW] msg/system topic and <basetopic>/msg
+[NEW] FontAwesome for message icons
+
 ## OwnTracks 8.1.1
 >Release date: 2015-06-22 for alpha-testers only
 
