@@ -1,6 +1,16 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.1.3
+>Release date: 2015-06-27 for alpha-testers only
+
+[FIX] use "tst" from message instead of now for message timestamp
+[NEW] expire message according to "tst" and "ttl"
+[FIX] reduce CPU/battery usage for background connections
+[FIX] message tableview: open url on tap (i) only, no message selection
+[FIX] message tableview: use absolute timestamps in display
+[FIX] message tableview: use darker "yellow" for prio 1 icons
+
 ## OwnTracks 8.1.2
 >Release date: 2015-06-26 for alpha-testers only
 

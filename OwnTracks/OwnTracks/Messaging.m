@@ -51,6 +51,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         self.lastGeoHash = geoHash;
         [self manageSubscriptions:context];
     }
+    [Message expireMessages:context];
 }
 
 - (void)manageSubscriptions:(NSManagedObjectContext *)context {
@@ -119,10 +120,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         DDLogVerbose(@"geoHash %@", geoHash);
         
         [self manageSubscriptions:context];
-        [Message expireMessages:context];
     } else {
         self.lastGeoHash = self.lastGeoHash;
     }
+    [Message expireMessages:context];
 }
 
 - (BOOL)processMessage:(NSString *)topic
@@ -143,6 +144,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 NSString *icon = dictionary[@"icon"];
                 NSInteger prio = [dictionary[@"prio"] intValue];
                 NSUInteger ttl = [dictionary[@"ttl"] unsignedIntegerValue];
+                NSDate *timestamp = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]];
                 
                 if (components.count == 3) {
                     NSString *geoHash = components[2];
@@ -151,7 +153,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                             Message *message = [Message messageWithTopic:topic
                                                                     icon:icon
                                                                     prio:prio
-                                                               timestamp:[NSDate date]
+                                                               timestamp:timestamp
                                                                      ttl:ttl
                                                                    title:title
                                                                     desc:desc
@@ -169,10 +171,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                         }];
                     } else {
                         DDLogVerbose(@"remove topic %@", topic);
-                        OwnTracksAppDelegate *delegate =
-                        (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
-                        [delegate.connectionIn removeSubscriptionFrom:topic];
                         [Message removeMessages:topic context:context];
+                        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
+                        [delegate.connectionIn unsubscribeFromTopic:topic];
+
                         return TRUE;
                     }
                 } else if (components.count == 2) {
@@ -182,7 +184,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                             Message *message = [Message messageWithTopic:topic
                                                                     icon:icon
                                                                     prio:prio
-                                                               timestamp:[NSDate date]
+                                                               timestamp:timestamp
                                                                      ttl:ttl
                                                                    title:title
                                                                     desc:desc
@@ -211,7 +213,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             DDLogVerbose(@"illegal json %@ %@ %@", error.localizedDescription, error.userInfo, data.description);
             return FALSE;
         }
-        return TRUE;
     } else if ([topic isEqualToString:[NSString stringWithFormat:@"%@%@",
                                        [Settings theGeneralTopic],
                                        GEOHASH_SUF]]) {
@@ -227,12 +228,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 NSString *icon = dictionary[@"icon"];
                 NSInteger prio = [dictionary[@"prio"] intValue];
                 NSUInteger ttl = [dictionary[@"ttl"] unsignedIntegerValue];
+                NSDate *timestamp = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]];
                 
                 [context performBlock:^{
                     Message *message = [Message messageWithTopic:topic
                                                             icon:icon
                                                             prio:prio
-                                                       timestamp:[NSDate date]
+                                                       timestamp:timestamp
                                                              ttl:ttl
                                                            title:title
                                                             desc:desc
@@ -256,10 +258,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             DDLogVerbose(@"illegal json %@ %@ %@", error.localizedDescription, error.userInfo, data.description);
             return FALSE;
         }
-        return TRUE;
     } else {
         return FALSE;
     }
+    [Message expireMessages:context];
+    return TRUE;
 }
 
 @end

@@ -61,7 +61,5 @@ enum state {
 
 - (NSString *)parameters;
 
-- (void)addSubscriptionTo:(NSString *)topic qos:(MQTTQosLevel)qos;
-- (void)removeSubscriptionFrom:(NSString *)topic;
-
+- (void)unsubscribeFromTopic:(NSString *)topic;
 @end

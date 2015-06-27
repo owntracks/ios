@@ -45,6 +45,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [super viewWillAppear:animated];
     self.tableView.estimatedRowHeight = 150;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate.messaging addObserver:self
+                         forKeyPath:@"lastGeoHash"
+                            options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                            context:nil];
+
+    [Message expireMessages:[CoreData theManagedObjectContext]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -54,6 +61,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate.messaging removeObserver:self forKeyPath:@"lastGeoHash"];
+
     [super viewWillDisappear:animated];
 }
 
@@ -61,16 +71,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    if (delegate.messaging.lastGeoHash) {
+        self.title = [NSString stringWithFormat:@"Messaging - %@", delegate.messaging.lastGeoHash];
+    }
     if ([CoreData theManagedObjectContext]) {
         [self showCount];
     }
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Message *message = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    NSURL *url = [NSURL URLWithString:message.url];
-    DDLogError(@"openURL %@ %@", url, message.url);
-    [[UIApplication sharedApplication] openURL:url];
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
@@ -223,13 +230,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     [self.tableView endUpdates];
+    [self showCount];
 }
 
 - (void)showCount {
     NSUInteger count = self.fetchedResultsController.fetchedObjects.count;
     if (count) {
         self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu",
-                                                           self.fetchedResultsController.fetchedObjects.count];
+                                                           (unsigned long)self.fetchedResultsController.fetchedObjects.count];
     } else {
         self.navigationController.tabBarItem.badgeValue = nil;
         
@@ -258,14 +266,17 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (messageTableViewCell) {
         messageTableViewCell.title.text = message.title;
-        messageTableViewCell.info.text = [NSString stringWithFormat:@"%@ ago in #%@",
-                                          intervalString,
-                                          message.channel];
+        messageTableViewCell.info.text = [NSString stringWithFormat:@"@%@ in #%@ ttl=%lu",
+                                          [NSDateFormatter localizedStringFromDate:message.timestamp
+                                                                         dateStyle:NSDateFormatterShortStyle
+                                                                         timeStyle:NSDateFormatterMediumStyle],
+                                          message.channel,
+                                          (unsigned long)[message.ttl unsignedIntegerValue]];
         messageTableViewCell.desc.text = message.desc;
         if (message.icon) {
             UIColor *color = [UIColor colorWithRed:71.0/255.0 green:141.0/255.0 blue:178.0/255.0 alpha:1.0];
             if ([message.prio intValue] == 1) {
-                color = [UIColor yellowColor];
+                color = [UIColor orangeColor];
             } else if ([message.prio intValue] == 2) {
                 color = [UIColor redColor];
             }
@@ -291,6 +302,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 - (IBAction)trash:(UIBarButtonItem *)sender {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate.messaging reset:[CoreData theManagedObjectContext]];
+    
 }
 
 @end

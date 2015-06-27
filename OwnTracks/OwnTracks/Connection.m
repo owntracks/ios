@@ -22,6 +22,7 @@
 
 @property (strong, nonatomic) NSTimer *disconnectTimer;
 @property (strong, nonatomic) NSTimer *reconnectTimer;
+@property (strong, nonatomic) NSTimer *idleTimer;
 @property (nonatomic) double reconnectTime;
 @property (nonatomic) BOOL reconnectFlag;
 
@@ -96,10 +97,22 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)main {
     DDLogVerbose(@"Connection main");
+    self.idleTimer = [NSTimer timerWithTimeInterval:60
+                                             target:self
+                                           selector:@selector(idle)
+                                           userInfo:nil
+                                            repeats:TRUE];
+    NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
+    [runLoop addTimer:self.idleTimer forMode:NSDefaultRunLoopMode];
     while (!self.terminate) {
+        DDLogVerbose(@"Connection main %@", [NSDate date]);
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
     }
     [self disconnect];
+}
+
+- (void)idle {
+    DDLogVerbose(@"%@ idle", self.clientId);
 }
 
 - (void)connectTo:(NSString *)host
@@ -258,6 +271,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     
     _variableSubscriptions = variableSubscriptions;
+}
+
+- (void)unsubscribeFromTopic:(NSString *)topic {
+    [self.session unsubscribeTopic:topic];
 }
 
 #pragma mark - MQTT Callback methods
