@@ -11,6 +11,7 @@
 #import "MEssage+Create.h"
 #import "CoreData.h"
 #import "MessageTableViewCell.h"
+#import "UIColor+WithName.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
@@ -21,9 +22,7 @@
 @property (strong, nonatomic) UIAlertView *alertView;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @property (strong, nonatomic) UIFont *fontAwesome;
-
 @end
 
 @implementation MessageTVC
@@ -32,7 +31,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
+    
     self.fontAwesome = [FontAwesome fontWithSize:30.0f];
+    
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate addObserver:self
                forKeyPath:@"inQueue"
@@ -72,9 +73,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                         change:(NSDictionary *)change
                        context:(void *)context {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    
     if (delegate.messaging.lastGeoHash) {
-        self.title = [NSString stringWithFormat:@"Messaging - %@", delegate.messaging.lastGeoHash];
+        self.title = [NSString stringWithFormat:@"Messaging (%@)", delegate.messaging.lastGeoHash];
     }
+    
     if ([CoreData theManagedObjectContext]) {
         [self showCount];
     }
@@ -83,7 +86,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
     Message *message = [self.fetchedResultsController objectAtIndexPath:indexPath];
     NSURL *url = [NSURL URLWithString:message.url];
-    DDLogError(@"openURL %@ %@", url, message.url);
     [[UIApplication sharedApplication] openURL:url];
 }
 
@@ -116,9 +118,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return NO;
 }
 
-- (void)tableView:(UITableView *)tableView
-commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
-forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
         Message *message = [self.fetchedResultsController objectAtIndexPath:indexPath];
@@ -245,23 +245,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    DDLogVerbose(@"configureCell %ld/%ld", (long)indexPath.section, (long)indexPath.row);
     Message *message = [self.fetchedResultsController objectAtIndexPath:indexPath];
     MessageTableViewCell *messageTableViewCell = nil;
     if ([cell isKindOfClass:[MessageTableViewCell class]]) {
         messageTableViewCell = (MessageTableViewCell *)cell;
-    }
-    
-    NSTimeInterval interval = -[message.timestamp timeIntervalSinceNow];
-    NSString *intervalString;
-    if (interval < 60) {
-        intervalString = [NSString stringWithFormat:@"%0.fsec", interval];
-    } else if (interval < 3600) {
-        intervalString = [NSString stringWithFormat:@"%0.fmin", interval / 60];
-    } else if (interval < 24 * 3600) {
-        intervalString = [NSString stringWithFormat:@"%0.fh", interval / 3600];
-    } else {
-        intervalString = [NSString stringWithFormat:@"%0.fd", interval / (24 * 3600)];
     }
     
     if (messageTableViewCell) {
@@ -271,15 +258,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
                                                                          dateStyle:NSDateFormatterShortStyle
                                                                          timeStyle:NSDateFormatterMediumStyle],
                                           message.channel,
-                                          (unsigned long)[message.ttl unsignedIntegerValue]];
+                                          [message.ttl unsignedLongValue]];
         messageTableViewCell.desc.text = message.desc;
         if (message.icon) {
-            UIColor *color = [UIColor colorWithRed:71.0/255.0 green:141.0/255.0 blue:178.0/255.0 alpha:1.0];
-            if ([message.prio intValue] == 1) {
-                color = [UIColor orangeColor];
-            } else if ([message.prio intValue] == 2) {
-                color = [UIColor redColor];
-            }
+            UIColor *color = [UIColor colorWithName:[NSString stringWithFormat:@"priority%d", [message.prio intValue]]
+                                       defaultColor:[UIColor blackColor]];
             UIImage *icon = [FontAwesome imageWithIcon:[NSString fontAwesomeIconStringForIconIdentifier:message.icon]
                                              iconColor:color
                                               iconSize:40.0f

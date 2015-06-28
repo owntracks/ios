@@ -1,6 +1,11 @@
 OwnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.2.0
+>Release date: 2015-06-30 for alpha-testers only
+
+[NEW] new colors 
+
 ## OwnTracks 8.1.3
 >Release date: 2015-06-27 for alpha-testers only
 

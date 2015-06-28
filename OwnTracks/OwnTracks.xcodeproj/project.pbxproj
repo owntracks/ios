@@ -56,6 +56,8 @@
 		843635891AE95D6100157D66 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843635881AE95D6100157D66 /* Images.xcassets */; };
 		8455DFBE1ADF2BD8003C7BC8 /* Hosted.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8455DFBD1ADF2BD8003C7BC8 /* Hosted.plist */; };
 		845F003D192A5CDE00919FB8 /* QosTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845F003C192A5CDE00919FB8 /* QosTVC.m */; };
+		846FFA161B4013BB001482A6 /* Colors.plist in Resources */ = {isa = PBXBuildFile; fileRef = 846FFA151B4013BB001482A6 /* Colors.plist */; };
+		846FFA191B401A4E001482A6 /* UIColor+WithName.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA181B401A4E001482A6 /* UIColor+WithName.m */; };
 		8479EEB218E4288800923B24 /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB118E4288800923B24 /* Setting.m */; };
 		8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB418E4289E00923B24 /* Setting+Create.m */; };
 		8479EEB718E4529900923B24 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
@@ -200,6 +202,9 @@
 		8455DFBD1ADF2BD8003C7BC8 /* Hosted.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Hosted.plist; sourceTree = "<group>"; };
 		845F003B192A5CDE00919FB8 /* QosTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QosTVC.h; path = ../QosTVC.h; sourceTree = "<group>"; };
 		845F003C192A5CDE00919FB8 /* QosTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QosTVC.m; path = ../QosTVC.m; sourceTree = "<group>"; };
+		846FFA151B4013BB001482A6 /* Colors.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Colors.plist; sourceTree = "<group>"; };
+		846FFA171B401A4E001482A6 /* UIColor+WithName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+WithName.h"; sourceTree = "<group>"; };
+		846FFA181B401A4E001482A6 /* UIColor+WithName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+WithName.m"; sourceTree = "<group>"; };
 		8474B15319A8CB7D00427427 /* Model 7.3.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.1.xcdatamodel"; sourceTree = "<group>"; };
 		8479EEB018E4288800923B24 /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
 		8479EEB118E4288800923B24 /* Setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
@@ -401,6 +406,7 @@
 				84D751771B35B7A500B06A0C /* MessageTVC.m */,
 				840F6D2B1B3C89FD00848652 /* MessageTableViewCell.h */,
 				840F6D2C1B3C89FD00848652 /* MessageTableViewCell.m */,
+				846FFA1A1B401DB4001482A6 /* Colors */,
 				8411B834189FDB140019D2D6 /* Supporting Files */,
 			);
 			path = OwnTracks;
@@ -516,6 +522,16 @@
 				843635841AE95D6100157D66 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		846FFA1A1B401DB4001482A6 /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				846FFA151B4013BB001482A6 /* Colors.plist */,
+				846FFA171B401A4E001482A6 /* UIColor+WithName.h */,
+				846FFA181B401A4E001482A6 /* UIColor+WithName.m */,
+			);
+			name = Colors;
 			sourceTree = "<group>";
 		};
 		84D307301ACD644500FACB9E /* OwnTracksToday */ = {
@@ -712,6 +728,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				846FFA161B4013BB001482A6 /* Colors.plist in Resources */,
 				8479EEB718E4529900923B24 /* Settings.plist in Resources */,
 				8414FC971B0CB7A200F0C221 /* icon_iphone.png in Resources */,
 				8411B8DA189FEB790019D2D6 /* icon_ipad64.png in Resources */,
@@ -818,6 +835,7 @@
 				84D751751B35B3C100B06A0C /* Message+Create.m in Sources */,
 				8411B90C189FEC070019D2D6 /* EditLocationTVC.m in Sources */,
 				8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */,
+				846FFA191B401A4E001482A6 /* UIColor+WithName.m in Sources */,
 				840F6D2D1B3C89FD00848652 /* MessageTableViewCell.m in Sources */,
 				8411B912189FEC070019D2D6 /* ViewController.m in Sources */,
 				84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */,
