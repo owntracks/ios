@@ -40,5 +40,7 @@
 - (void)resetRegions;
 - (BOOL)insideBeaconRegion;
 - (BOOL)insideBeaconRegion:(NSString *)identifier;
+- (BOOL)insideCircularRegion;
+- (BOOL)insideCircularRegion:(NSString *)identifier;
 @end
 

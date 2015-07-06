@@ -3,14 +3,28 @@
 <plist version="1.0">
 <dict>
 	<key>primary</key>
-	<string>3f72b5</string>
+	<string>ff3f72b5</string>
 	<key>secondary</key>
-	<string>305e9f</string>
+	<string>ff305e9f</string>
 	<key>priority0</key>
-	<string>B0BEC5</string>
+	<string>ffB0BEC5</string>
 	<key>priority1</key>
-	<string>FFB74D</string>
+	<string>ffFFB74D</string>
 	<key>priority2</key>
-	<string>ef5350</string>
+	<string>ffef5350</string>
+	<key>inside</key>
+	<string>3fff7f7f</string>
+	<key>outside</key>
+	<string>3f7f7fff</string>
+	<key>track</key>
+	<string>ffff0000</string>
+	<key>connecting</key>
+	<string>ffffb74d</string>
+	<key>connectionerror</key>
+	<string>ffef5350</string>
+	<key>connected</key>
+	<string>ffffffff</string>
+	<key>idle</key>
+	<string>ff305e9f</string>
 </dict>
 </plist>

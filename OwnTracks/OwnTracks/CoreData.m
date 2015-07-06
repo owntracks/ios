@@ -82,13 +82,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 + (void)saveContext {
-    if (theManagedObjectContext != nil) {
-        if ([theManagedObjectContext hasChanges]) {
+    [CoreData saveContext:theManagedObjectContext];
+}
+
++ (void)saveContext:(NSManagedObjectContext *)context {
+    if (context != nil) {
+        if ([context hasChanges]) {
             NSError *error = nil;
             DDLogVerbose(@"managedObjectContext save");
-            if (![theManagedObjectContext save:&error]) {
+            if (![context save:&error]) {
                 NSString *message = [NSString stringWithFormat:@"%@ %@", error.localizedDescription, error.userInfo];
-                DDLogVerbose(@"managedObjectContext save error: %@", message);
+                DDLogError(@"managedObjectContext save error: %@", message);
             }
         }
     }

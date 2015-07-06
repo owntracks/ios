@@ -1,4 +1,4 @@
-all: Messaging-33.png iBeaconOn-33.png iBeaconOn2-33.png iBeaconOff-33.png iBeaconHot-40.png iBeaconCold-40.png RegionHot-40.png RegionCold-40.png
+all: Stop-33.png Play-33.png Fast-33.png Friends-33.png Settings-33.png Messaging-33.png iBeaconOn-33.png iBeaconOn2-33.png iBeaconOff-33.png iBeaconHot-40.png iBeaconCold-40.png RegionHot-40.png RegionCold-40.png
 
 iBeaconHot-40.png:iBeaconHot.svg
 	./size40.sh iBeaconHot.svg
@@ -23,3 +23,18 @@ iBeaconOn2-33.png:iBeaconOn2.svg
 
 iBeaconOff-33.png:iBeaconOff.svg
 	./size33.sh iBeaconOff.svg
+
+Stop-33.png:Stop.svg
+	./size33.sh Stop.svg
+
+Play-33.png:Play.svg
+	./size33.sh Play.svg
+
+Fast-33.png:Fast.svg
+	./size33.sh Fast.svg
+
+Settings-33.png:Settings.svg
+	./size33.sh Settings.svg
+
+Friends-33.png:Friends.svg
+	./size33.sh Friends.svg

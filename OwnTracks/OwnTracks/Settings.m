@@ -8,7 +8,7 @@
 
 #import "Settings.h"
 #import "CoreData.h"
-#import "Location+Create.h"
+#import "OwnTracking.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 
@@ -19,7 +19,7 @@
 @end
 
 static SettingsDefaults *defaults;
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 @implementation SettingsDefaults
 + (SettingsDefaults *)theDefaults {
@@ -223,6 +223,30 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             object = dictionary[SETTINGS_MESSAGING];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:SETTINGS_MESSAGING];
             
+            object = dictionary[@"clientpkcs"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"clientpkcs"];
+
+            object = dictionary[@"passphrase"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"passphrase"];
+            
+            object = dictionary[@"servercer"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"servercer"];
+            
+            object = dictionary[@"policymode"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"policymode"];
+
+            object = dictionary[@"usepolicy"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"usepolicy"];
+            
+            object = dictionary[@"allowinvalidcerts"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"allowinvalidcerts"];
+            
+            object = dictionary[@"validatecertificatechain"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"validatecertificatechain"];
+            
+            object = dictionary[@"validatedomainname"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"validatedomainname"];
+            
             string = dictionary[@"tid"];
             if (string) [self setString:string forKey:@"trackerid_preference"];
             
@@ -272,44 +296,47 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (waypoints) {
         for (NSDictionary *waypoint in waypoints) {
             if ([waypoint[@"_type"] isEqualToString:@"waypoint"]) {
-                DDLogVerbose(@"Waypoint tst:%g lon:%g lat:%g",
-                             [waypoint[@"tst"] doubleValue],
+                DDLogVerbose(@"Waypoint desc:%@ lon:%g lat:%g",
+                             waypoint[@"desc"],
                              [waypoint[@"lon"] doubleValue],
                              [waypoint[@"lat"] doubleValue]
                              );
-                NSDate *tst = [NSDate dateWithTimeIntervalSince1970:[waypoint[@"tst"] doubleValue]];
+                
+                NSArray *components = [waypoint[@"desc"] componentsSeparatedByString:@":"];
+                NSString *name = components.count >= 1 ? components[0] : nil;
+                NSString *uuid = components.count >= 2 ? components[1] : nil;
+                unsigned int major = components.count >= 3 ? [components[2] unsignedIntValue]: 0;
+                unsigned int minor = components.count >= 4 ? [components[3] unsignedIntValue]: 0;
+                
+                Friend *friend = [Friend friendWithTopic:[self theGeneralTopic]
+                                        inManagedObjectContext:[CoreData theManagedObjectContext]];
+
+                for (Region *region in friend.hasRegions) {
+                    if ([region.name isEqualToString:name]) {
+                        [[OwnTracking sharedInstance] removeRegion:region context:[CoreData theManagedObjectContext]];
+                        break;
+                    }
+                }
+
                 CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
                                                                                [waypoint[@"lat"] doubleValue],
                                                                                [waypoint[@"lon"] doubleValue]
                                                                                );
                 if (CLLocationCoordinate2DIsValid(coordinate)) {
-                    CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate
-                                                                         altitude:0
-                                                               horizontalAccuracy:0
-                                                                 verticalAccuracy:0
-                                                                           course:0
-                                                                            speed:0
-                                                                        timestamp:tst];
-                    
-                    [Location locationWithTopic:[self theGeneralTopic]
-                                            tid:[self stringForKey:@"trackerid_preference"]
-                                      timestamp:location.timestamp
-                                     coordinate:location.coordinate
-                                       accuracy:location.horizontalAccuracy
-                                       altitude:location.altitude
-                               verticalaccuracy:location.verticalAccuracy
-                                          speed:location.speed
-                                         course:location.course
-                                      automatic:NO
-                                         remark:waypoint[@"desc"]
-                                         radius:[waypoint[@"rad"] doubleValue]
-                                          share:YES
-                         inManagedObjectContext:[CoreData theManagedObjectContext]];
+                    [[OwnTracking sharedInstance] addRegionFor:friend
+                                                          name:name
+                                                          uuid:uuid
+                                                         major:major
+                                                         minor:minor
+                                                         share:YES
+                                                        radius:[waypoint[@"rad"] doubleValue]
+                                                           lat:[waypoint[@"lat"] doubleValue]
+                                                           lon:[waypoint[@"lon"] doubleValue]
+                                                       context:[CoreData theManagedObjectContext]];
                 } else {
-                    for (Location *location in [Location allWaypointsOfTopic:[self theGeneralTopic]
-                                                      inManagedObjectContext:[CoreData theManagedObjectContext]]) {
-                        if ([location.timestamp isEqualToDate:tst]) {
-                            [[CoreData theManagedObjectContext] deleteObject:location];
+                    for (Region *region in friend.hasRegions) {
+                        if ([region.name isEqualToString:name]) {
+                            [[CoreData theManagedObjectContext] deleteObject:region];
                             break;
                         }
                     }
@@ -321,17 +348,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 + (NSArray *)waypointsToArray {
     NSMutableArray *waypoints = [[NSMutableArray alloc] init];
-    
-    for (Location *location in [Location allWaypointsOfTopic:[self theGeneralTopic]
-                                      inManagedObjectContext:[CoreData theManagedObjectContext]]) {
-        NSDictionary *waypoint = @{@"_type": @"waypoint",
-                                   @"lat": @(location.coordinate.latitude),
-                                   @"lon": @(location.coordinate.longitude),
-                                   @"tst": @((int)[location.timestamp timeIntervalSince1970]),
-                                   @"rad": location.regionradius,
-                                   @"desc": location.remark
-                                   };
-        [waypoints addObject:waypoint];
+    Friend *friend = [Friend existsFriendWithTopic:[self theGeneralTopic]
+                            inManagedObjectContext:[CoreData theManagedObjectContext]];
+    for (Region *region in friend.hasRegions) {
+        [waypoints addObject:[[OwnTracking sharedInstance] regionAsJSON:region]];
     }
     
     return waypoints;
@@ -348,10 +368,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     dict[@"mode"] =                 @([Settings intForKey:@"mode"]);
     dict[@"ranging"] =              @([Settings boolForKey:@"ranging_preference"]);
     dict[@"tid"] =                  [Settings stringOrZeroForKey:@"trackerid_preference"];
-    dict[@"positions"] =            @([Settings intForKey:@"positions_preference"]);
     dict[@"monitoring"] =           @([Settings intForKey:@"monitoring_preference"]);
-    dict[@"locatorDisplacement"] =  @([Settings intForKey:@"mindist_preference"]);
-    dict[@"locatorInterval"] =      @([Settings intForKey:@"mintime_preference"]);
     dict[@"waypoints"] =            [Settings waypointsToArray];
 
     switch ([Settings intForKey:@"mode"]) {
@@ -364,12 +381,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             dict[@"username"] =     [Settings stringOrZeroForKey:@"user_preference"];
             dict[@"password"] =     [Settings stringOrZeroForKey:@"pass_preference"];
             dict[@"willTopic"] =    [Settings stringOrZeroForKey:@"willtopic_preference"];
+            dict[@"clientpkcs"] =    [Settings stringOrZeroForKey:@"clientpkcs"];
+            dict[@"passphrase"] =    [Settings stringOrZeroForKey:@"passphrase"];
+            dict[@"servercer"] =    [Settings stringOrZeroForKey:@"servercer"];
             
             dict[@"subQos"] =       @([Settings intForKey:@"subscriptionqos_preference"]);
             dict[@"pubQos"] =       @([Settings intForKey:@"qos_preference"]);
             dict[@"port"] =         @([Settings intForKey:@"port_preference"]);
             dict[@"keepalive"] =    @([Settings intForKey:@"keepalive_preference"]);
             dict[@"willQos"] =      @([Settings intForKey:@"willqos_preference"]);
+            dict[@"policymode"] =      @([Settings intForKey:@"policymode"]);
+            dict[@"positions"] =            @([Settings intForKey:@"positions_preference"]);
+            dict[@"locatorDisplacement"] =  @([Settings intForKey:@"mindist_preference"]);
+            dict[@"locatorInterval"] =      @([Settings intForKey:@"mintime_preference"]);
             
             dict[@"cmd"] =                  @([Settings boolForKey:@"cmd_preference"]);
             dict[@"pubRetain"] =            @([Settings boolForKey:@"retain_preference"]);
@@ -381,6 +405,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             dict[@"allowRemoteLocation"] =  @([Settings boolForKey:@"allowremotelocation_preference"]);
             dict[@"extendedData"] =         @([Settings boolForKey:@"extendeddata_preference"]);
             dict[SETTINGS_MESSAGING] =        @([Settings boolForKey:SETTINGS_MESSAGING]);
+            dict[@"usepolicy"] =         @([Settings boolForKey:@"usepolicy"]);
+            dict[@"allowinvalidcerts"] =         @([Settings boolForKey:@"allowinvalidcerts"]);
+            dict[@"validatecertificatechain"] =         @([Settings boolForKey:@"validatecertificatechain"]);
+            dict[@"validatedomainname"] =         @([Settings boolForKey:@"validatedomainname"]);
 
             break;
         case 1:
@@ -419,9 +447,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return ([key isEqualToString:@"mode"] ||
             [key isEqualToString:SETTINGS_MESSAGING] ||
             [key isEqualToString:@"monitoring_preference"] ||
-            [key isEqualToString:@"mindist_preference"] ||
-            [key isEqualToString:@"mintime_preference"] ||
-            [key isEqualToString:@"positions_preference"] ||
             [key isEqualToString:@"trackerid_preference"] ||
             [key isEqualToString:@"ranging_preference"]);
     
@@ -431,9 +456,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return ([key isEqualToString:@"mode"] ||
             [key isEqualToString:SETTINGS_MESSAGING] ||
             [key isEqualToString:@"monitoring_preference"] ||
-            [key isEqualToString:@"mindist_preference"] ||
-            [key isEqualToString:@"mintime_preference"] ||
-            [key isEqualToString:@"positions_preference"] ||
             [key isEqualToString:@"trackerid_preference"] ||
             [key isEqualToString:@"user"] ||
             [key isEqualToString:@"device"] ||
@@ -460,6 +482,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 + (void)setBool:(BOOL)b forKey:(NSString *)key {
+    DDLogVerbose(@"setBoolForKey:%@ = %d", key, b);
     [self setString:[NSString stringWithFormat:@"%d", b] forKey:key];
 }
 
@@ -528,7 +551,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 + (BOOL)boolForKey:(NSString *)key {
-    return [[self stringForKey:key] boolValue];
+    NSString *value = [self stringForKey:key];
+    DDLogVerbose(@"boolForKey:%@ = %@", key, value);
+    return [value boolValue];
 }
 
 

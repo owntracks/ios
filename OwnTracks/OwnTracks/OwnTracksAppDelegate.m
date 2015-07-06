@@ -9,10 +9,10 @@
 #import "OwnTracksAppDelegate.h"
 #import "CoreData.h"
 #import "Friend+Create.h"
-#import "Location+Create.h"
 #import "Setting+Create.h"
 #import "AlertView.h"
 #import "Settings.h"
+#import "OwnTracking.h"
 #import <NotificationCenter/NotificationCenter.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
@@ -22,14 +22,11 @@
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
 @property (strong, nonatomic) void (^completionHandler)(UIBackgroundFetchResult);
 @property (strong, nonatomic) CoreData *coreData;
-@property (nonatomic) BOOL publicWarning;
 @property (strong, nonatomic) CMStepCounter *stepCounter;
 @property (strong, nonatomic) CMPedometer *pedometer;
 
 @property (strong, nonatomic) NSManagedObjectContext *queueManagedObjectContext;
 @end
-
-#define MAX_OTHER_LOCATIONS 1
 
 @implementation OwnTracksAppDelegate
 static const DDLogLevel ddLogLevel = DDLogLevelError;
@@ -106,13 +103,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         if (![Setting existsSettingWithKey:@"host_preference"
                     inManagedObjectContext:[CoreData theManagedObjectContext]]) {
             [Settings setInt:2 forKey:@"mode"];
-            self.publicWarning = TRUE;
         } else {
             [Settings setInt:0 forKey:@"mode"];
         }
     }
-    
-    [self share];
     
     self.connectionOut = [[Connection alloc] init];
     self.connectionOut.delegate = self;
@@ -132,14 +126,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     locationManager.ranging = [Settings boolForKey:@"ranging_preference"];
     locationManager.minDist = [Settings doubleForKey:@"mindist_preference"];
     locationManager.minTime = [Settings doubleForKey:@"mintime_preference"];
-    self.messaging = [[Messaging alloc] init];
     [locationManager start];
     
     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    [self share];
+    //
 }
 
 - (BOOL)application:(UIApplication *)application
@@ -246,12 +239,24 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 [CoreData saveContext];
             } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
                 error = [Settings waypointsFromStream:input];
+            } else if ([extension isEqualToString:@"otrp"] || [extension isEqualToString:@"otre"]) {
+                NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
+                                                                             inDomain:NSUserDomainMask
+                                                                    appropriateForURL:nil
+                                                                               create:YES
+                                                                                error:&error];
+                NSString *fileName = [url lastPathComponent];
+                NSURL *fileURL = [directoryURL URLByAppendingPathComponent:fileName];
+                [[NSFileManager defaultManager] removeItemAtURL:fileURL error:nil];
+                [[NSFileManager defaultManager] copyItemAtURL:url toURL:fileURL error:nil];
             } else {
                 error = [NSError errorWithDomain:@"OwnTracks"
                                             code:2
                                         userInfo:@{@"extension":extension ? extension : @"(null)"}];
             }
             
+            [input close];
+            [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
             if (error) {
                 self.processingMessage = [NSString stringWithFormat:@"Error processing file %@: %@ %@",
                                           [url lastPathComponent],
@@ -292,11 +297,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     DDLogVerbose(@"applicationDidBecomeActive");
     
-    if (self.publicWarning) {
-        [AlertView alert:@"Public Mode" message:@"In public mode, your location is published anonymously to owntracks.org's shared broker. Find more information or change in Settings"];
-        self.publicWarning = FALSE;
-    }
-    
     if (self.processingMessage) {
         [AlertView alert:@"openURL" message:self.processingMessage];
         self.processingMessage = nil;
@@ -327,9 +327,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         CLLocation *lastLocation = [LocationManager sharedInstance].location;
         CLLocation *location = [[CLLocation alloc] initWithLatitude:lastLocation.coordinate.latitude
                                                           longitude:lastLocation.coordinate.longitude];
-        [self publishLocation:location
-                    automatic:TRUE
-                        addon:@{@"t":@"p"}];
+        [self publishLocation:location trigger:@"p"];
     }
 }
 
@@ -344,62 +342,62 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
  */
 
 - (void)newLocation:(CLLocation *)location {
-    [self publishLocation:location automatic:YES addon:nil];
-    [self.messaging newLocation:location.coordinate.latitude
+    [self publishLocation:location trigger:nil];
+    [[Messaging sharedInstance] newLocation:location.coordinate.latitude
                 longitude:location.coordinate.longitude
                   context:[CoreData theManagedObjectContext]];
-    [self share];
 }
 
 - (void)timerLocation:(CLLocation *)location {
-    [self publishLocation:location automatic:YES addon:@{@"t": @"t"}];
-    [self.messaging newLocation:location.coordinate.latitude
+    [self publishLocation:location trigger:@"t"];
+    [[Messaging sharedInstance] newLocation:location.coordinate.latitude
                 longitude:location.coordinate.longitude
                   context:[CoreData theManagedObjectContext]];
 }
 
 - (void)regionEvent:(CLRegion *)region enter:(BOOL)enter {
     NSString *message = [NSString stringWithFormat:@"%@ %@", (enter ? @"Entering" : @"Leaving"), region.identifier];
-    [self notification:message userInfo:nil];
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = message;
+    notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
     
-    Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic] inManagedObjectContext:[CoreData theManagedObjectContext]];
+    Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
+                            inManagedObjectContext:[CoreData theManagedObjectContext]];
     CLLocation *location = [LocationManager sharedInstance].location;
-    [self.messaging newLocation:location.coordinate.latitude
+    [[Messaging sharedInstance] newLocation:location.coordinate.latitude
                 longitude:location.coordinate.longitude
                   context:[CoreData theManagedObjectContext]];
     
-    NSMutableDictionary *jsonObject = [@{
-                                         @"_type": @"transition",
-                                         @"lat": @(location.coordinate.latitude),
-                                         @"lon": @(location.coordinate.longitude),
-                                         @"tst": @(floor([location.timestamp timeIntervalSince1970])),
-                                         @"acc": @(location.horizontalAccuracy),
-                                         @"tid": [myself getEffectiveTid],
-                                         @"event": enter ? @"enter" : @"leave",
-                                         @"t": [region isKindOfClass:[CLBeaconRegion class]] ? @"b" : @"c"
-                                         } mutableCopy];
-    
-    for (Location *location in [Location allWaypointsOfTopic:[Settings theGeneralTopic]
-                                      inManagedObjectContext:[CoreData theManagedObjectContext]]) {
-        if ([region.identifier isEqualToString:location.region.identifier]) {
-            location.remark = location.remark; // this touches the location and updates the overlay
-            [jsonObject setValue:@(floor([location.timestamp timeIntervalSince1970])) forKey:@"wtst"];
-            if ([location.share boolValue]) {
-                [jsonObject setValue:region.identifier forKey:@"desc"];
+    if ([LocationManager sharedInstance].monitoring && [Settings validIds]) {
+        NSMutableDictionary *jsonObject = [@{
+                                             @"_type": @"transition",
+                                             @"lat": @(location.coordinate.latitude),
+                                             @"lon": @(location.coordinate.longitude),
+                                             @"tst": @(floor([location.timestamp timeIntervalSince1970])),
+                                             @"acc": @(location.horizontalAccuracy),
+                                             @"tid": [myself getEffectiveTid],
+                                             @"event": enter ? @"enter" : @"leave",
+                                             @"t": [region isKindOfClass:[CLBeaconRegion class]] ? @"b" : @"c"
+                                             } mutableCopy];
+        
+        for (Region *anyRegion in myself.hasRegions) {
+            if ([region.identifier isEqualToString:anyRegion.CLregion.identifier]) {
+                anyRegion.name = anyRegion.name;
+                if ([anyRegion.share boolValue]) {
+                    [jsonObject setValue:region.identifier forKey:@"desc"];
+                    [self.connectionOut sendData:[self jsonToData:jsonObject]
+                                           topic:[[Settings theGeneralTopic] stringByAppendingString:@"/event"]
+                                             qos:[Settings intForKey:@"qos_preference"]
+                                          retain:NO];
+                }
             }
         }
-    }
-    
-    if ([LocationManager sharedInstance].monitoring && [Settings validIds]) {
-        [self.connectionOut sendData:[self jsonToData:jsonObject]
-                               topic:[[Settings theGeneralTopic] stringByAppendingString:@"/event"]
-                                 qos:[Settings intForKey:@"qos_preference"]
-                              retain:NO];
         
         if ([region isKindOfClass:[CLBeaconRegion class]]) {
-            [self publishLocation:[LocationManager sharedInstance].location automatic:YES addon:@{@"t": @"b"}];
+            [self publishLocation:[LocationManager sharedInstance].location trigger:@"b"];
         } else {
-            [self publishLocation:[LocationManager sharedInstance].location automatic:YES addon:@{@"t": @"c"}];
+            [self publishLocation:[LocationManager sharedInstance].location trigger:@"c"];
         }
     }
 }
@@ -407,20 +405,22 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)regionState:(CLRegion *)region inside:(BOOL)inside {
     CLLocation *location = [LocationManager sharedInstance].location;
     
-    for (Location *location in [Location allWaypointsOfTopic:[Settings theGeneralTopic]
-                                      inManagedObjectContext:[CoreData theManagedObjectContext]]) {
-        if ([region.identifier isEqualToString:location.region.identifier]) {
-            location.justcreated = @(![location.justcreated boolValue]); // this is a hack to update the UI
+    Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
+                            inManagedObjectContext:[CoreData theManagedObjectContext]];
+
+    for (Region *anyRegion in myself.hasRegions) {
+        if ([region.identifier isEqualToString:anyRegion.CLregion.identifier]) {
+            anyRegion.name = anyRegion.name;
             if ([region isKindOfClass:[CLBeaconRegion class]]) {
-                if (location.radius < 0) {
-                    location.coordinate = location.coordinate;
-                    [self sendWayPoint:location];
+                if ([anyRegion.radius doubleValue] < 0) {
+                    anyRegion.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
+                    anyRegion.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
+                    [self sendRegion:anyRegion];
                 }
             }
         }
     }
-    [self.delegate regionState:region inside:inside];
-    [self.messaging newLocation:location.coordinate.latitude
+    [[Messaging sharedInstance] newLocation:location.coordinate.latitude
                 longitude:location.coordinate.longitude
                   context:[CoreData theManagedObjectContext]];
     
@@ -443,7 +443,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                  qos:[Settings intForKey:@"qos_preference"]
                               retain:NO];
     }
-    [self.delegate beaconInRange:beacon region:region];
 }
 
 #pragma ConnectionDelegate
@@ -484,11 +483,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)handleMessage:(Connection *)connection data:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
     DDLogVerbose(@"handleMessage");
     
-    if ([self.messaging processMessage:topic data:data retained:retained context:self.queueManagedObjectContext]) {
-        [self notification:@"New info available"
-                  userInfo:@{@"notify": @"msg"}];
-        
+    if ([[Messaging sharedInstance] processMessage:topic data:data retained:retained context:self.queueManagedObjectContext]) {
         return;
+    }
+    
+    if ([[OwnTracking sharedInstance] processMessage:topic data:data retained:retained context:self.queueManagedObjectContext]) {
+        // return;
     }
     
     NSArray *topicComponents = [topic componentsSeparatedByCharactersInSet:
@@ -527,9 +527,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                         [self dumpTo:topic];
                     } else if ([dictionary[@"action"] isEqualToString:@"reportLocation"]) {
                         if ([LocationManager sharedInstance].monitoring || [Settings boolForKey:@"allowremotelocation_preference"]) {
-                            [self publishLocation:[LocationManager sharedInstance].location
-                                        automatic:YES
-                                            addon:@{@"t": @"r"}];
+                            [self publishLocation:[LocationManager sharedInstance].location trigger:@"r"];
                         }
                     } else if ([dictionary[@"action"] isEqualToString:@"reportSteps"]) {
                         [self stepsFrom:dictionary[@"from"] to:dictionary[@"to"]];
@@ -540,109 +538,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                         DDLogVerbose(@"unknown action %@", dictionary[@"action"]);
                     }
                 }
-            } else if ([dictionary[@"_type"] isEqualToString:@"card"]) {
-                Friend *friend = [Friend friendWithTopic:device
-                                                     tid:nil
-                                  inManagedObjectContext:[CoreData theManagedObjectContext]];
-                [self processFace:friend dictionary:dictionary];
-                
             } else {
                 DDLogVerbose(@"unhandled record type %@", dictionary[@"_type"]);
             }
         } else {
             DDLogVerbose(@"illegal json %@ %@ %@", error.localizedDescription, error.userInfo, data.description);
-        }
-        
-    } else /* not ownDevice */ {
-        @synchronized (self.inQueue) {
-            self.inQueue = @([self.inQueue unsignedLongValue] + 1);
-        }
-        [self.queueManagedObjectContext performBlock:^{
-            DDLogVerbose(@"performBlock start");
-            if (data.length) {
-                
-                NSError *error;
-                NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                if (dictionary) {
-                    if ([dictionary[@"_type"] isEqualToString:@"location"]) {
-                        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
-                                                                                       [dictionary[@"lat"] doubleValue],
-                                                                                       [dictionary[@"lon"] doubleValue]
-                                                                                       );
-                        
-                        CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate
-                                                                             altitude:[dictionary[@"alt"] intValue]
-                                                                   horizontalAccuracy:[dictionary[@"acc"] doubleValue]
-                                                                     verticalAccuracy:[dictionary[@"vac"] intValue]
-                                                                               course:[dictionary[@"cog"] intValue]
-                                                                                speed:[dictionary[@"vel"] intValue]
-                                                                            timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]];
-                        
-                        Location *newLocation = [Location locationWithTopic:device
-                                                                        tid:dictionary[@"tid"]
-                                                                  timestamp:location.timestamp
-                                                                 coordinate:location.coordinate
-                                                                   accuracy:location.horizontalAccuracy
-                                                                   altitude:location.altitude
-                                                           verticalaccuracy:location.verticalAccuracy
-                                                                      speed:location.speed
-                                                                     course:location.course                                                               automatic:TRUE
-                                                                     remark:dictionary[@"desc"]
-                                                                     radius:[dictionary[@"rad"] doubleValue]
-                                                                      share:NO
-                                                     inManagedObjectContext:self.queueManagedObjectContext];
-                        [self limitLocationsWith:newLocation.belongsTo
-                                       toMaximum:MAX_OTHER_LOCATIONS
-                          inManagedObjectContext:self.queueManagedObjectContext];
-                        
-                    } else if ([dictionary[@"_type"] isEqualToString:@"transition"]) {
-                        NSString *type = dictionary[@"t"];
-                        if (!type || ![type isEqualToString:@"b"]) {
-                            [self notification:[NSString stringWithFormat:@"%@ %@s %@",
-                                                dictionary[@"tid"],
-                                                dictionary[@"event"],
-                                                dictionary[@"desc"]]
-                                      userInfo:@{@"notify": @"friend"}];
-                        }
-                        
-                    } else if ([dictionary[@"_type"] isEqualToString:@"card"]) {
-                        Friend *friend = [Friend friendWithTopic:device
-                                                             tid:nil
-                                          inManagedObjectContext:self.queueManagedObjectContext];
-                        [self processFace:friend dictionary:dictionary];
-                        
-                    } else {
-                        DDLogVerbose(@"unknown record type %@)", dictionary[@"_type"]);
-                    }
-                } else {
-                    DDLogVerbose(@"illegal json %@, %@ %@)", error.localizedDescription, error.userInfo, data.description);
-                }
-            } else /* data.length == 0 -> delete friend */ {
-                Friend *friend = [Friend existsFriendWithTopic:device inManagedObjectContext:self.queueManagedObjectContext];
-                if (friend) {
-                    [self.queueManagedObjectContext deleteObject:friend];
-                }
-            }
-            DDLogVerbose(@"performBlock finish");
-            @synchronized (self.inQueue) {
-                self.inQueue = @([self.inQueue unsignedLongValue] - 1);
-            }
-            if ([self.inQueue intValue] == 0) {
-                [self.queueManagedObjectContext save:nil];
-            }
-        }];
-    }
-}
-
-- (void)processFace:(Friend *)friend dictionary:(NSDictionary *)dictionary {
-    if (friend) {
-        friend.cardName = dictionary[@"name"];
-        NSString *string = dictionary[@"face"];
-        NSData *imageData = [[NSData alloc] initWithBase64EncodedString:string options:0];
-        friend.cardImage = imageData;
-        Location *location = [friend newestLocation];
-        if (location) {
-            location.justcreated = @(![location.justcreated boolValue]); // touch to trigger update
         }
     }
 }
@@ -794,8 +694,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)sendNow {
     DDLogVerbose(@"App sendNow");
     CLLocation *location = [LocationManager sharedInstance].location;
-    [self publishLocation:location automatic:FALSE addon:@{@"t":@"u"}];
-    [self.messaging newLocation:location.coordinate.latitude
+    [self publishLocation:location trigger:@"u"];
+    [[Messaging sharedInstance] newLocation:location.coordinate.latitude
                 longitude:location.coordinate.longitude
                   context:[CoreData theManagedObjectContext]];
     
@@ -815,6 +715,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     };
 }
 
+- (void)terminateSession {
+    [self connectionOff];
+    [self syncProcessing];
+    [[LocationManager sharedInstance] resetRegions];
+    NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
+    for (Friend *friend in friends) {
+        [[CoreData theManagedObjectContext] deleteObject:friend];
+    }
+    [CoreData saveContext];
+}
+
 - (void)reconnect {
     DDLogVerbose(@"App reconnect");
     [self.connectionOut disconnect];
@@ -823,39 +734,28 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self sendNow];
 }
 
-- (void)publishLocation:(CLLocation *)location automatic:(BOOL)automatic addon:(NSDictionary *)addon {
-    if (location && [Settings validIds]) {
-        Location *newLocation = [Location locationWithTopic:[Settings theGeneralTopic]
-                                                        tid:[Settings stringForKey:@"trackerid_preference"]
-                                                  timestamp:location.timestamp
-                                                 coordinate:location.coordinate
-                                                   accuracy:location.horizontalAccuracy
-                                                   altitude:location.altitude
-                                           verticalaccuracy:location.verticalAccuracy
-                                                      speed:(location.speed == -1) ? -1 : location.speed * 3600.0 / 1000.0
-                                                     course:location.course
-                                                  automatic:automatic
-                                                     remark:nil
-                                                     radius:0
-                                                      share:NO
-                                     inManagedObjectContext:[CoreData theManagedObjectContext]];
+- (void)publishLocation:(CLLocation *)location trigger:(NSString *)trigger {
+    if (location &&
+        CLLocationCoordinate2DIsValid(location.coordinate) &&
+        location.coordinate.latitude != 0.0 &&
+        location.coordinate.longitude != 0.0 &&
+        [Settings validIds]) {
+        Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic]
+                          inManagedObjectContext:[CoreData theManagedObjectContext]];
+        Waypoint *waypoint = [[OwnTracking sharedInstance] addWaypointFor:friend
+                                            location:location
+                                             trigger:trigger
+                                             context:[CoreData theManagedObjectContext]];
+        [CoreData saveContext];
         
-        NSData *data = [self encodeLocationData:newLocation type:@"location" addon:addon];
-        
+        NSDictionary *json = [[OwnTracking sharedInstance] waypointAsJSON:waypoint];
+        NSData *data = [self jsonToData:json];
         [self.connectionOut sendData:data
                                topic:[Settings theGeneralTopic]
                                  qos:[Settings intForKey:@"qos_preference"]
                               retain:[Settings boolForKey:@"retain_preference"]];
         
-        [self limitLocationsWith:newLocation.belongsTo
-                       toMaximum:[Settings intForKey:@"positions_preference"]
-          inManagedObjectContext:[CoreData theManagedObjectContext]];
-        
-        [CoreData saveContext];
         [self.connectionIn connectToLast];
-        [self share];
-    } else {
-        DDLogVerbose(@"publishLocation (null) ignored");
     }
 }
 
@@ -878,59 +778,58 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                           retain:NO];
 }
 
-- (void)sendWayPoint:(Location *)location {
+- (void)sendRegion:(Region *)region {
     if ([Settings validIds]) {
-        NSMutableDictionary *addon = [[NSMutableDictionary alloc]init];
-        
-        if (location.remark) {
-            [addon setValue:location.remark forKey:@"desc"];
-        }
-        
-        NSData *data = [self encodeLocationData:location
-                                           type:@"waypoint" addon:addon];
-        
+        NSDictionary *json = [[OwnTracking sharedInstance] regionAsJSON:region];
+        NSData *data = [self jsonToData:json];
         [self.connectionOut sendData:data
                                topic:[[Settings theGeneralTopic] stringByAppendingString:@"/waypoint"]
                                  qos:[Settings intForKey:@"qos_preference"]
                               retain:NO];
-        
-        [CoreData saveContext];
-    }
-}
-
-- (void)limitLocationsWith:(Friend *)friend toMaximum:(NSInteger)max inManagedObjectContext:(NSManagedObjectContext *)context {
-    NSArray *allLocations = [Location allAutomaticLocationsWithFriend:friend
-                                               inManagedObjectContext:context];
-    
-    for (NSInteger i = [allLocations count]; i > max; i--) {
-        Location *location = allLocations[i - 1];
-        [context deleteObject:location];
     }
 }
 
 #pragma internal helpers
 
-- (void)notification:(NSString *)message userInfo:(NSDictionary *)userInfo {
-    DDLogVerbose(@"App notification %@ userinfo %@", message, userInfo);
-    
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.alertBody = message;
-    notification.alertLaunchImage = @"itunesArtwork.png";
-    notification.userInfo = userInfo;
-    notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    
-    if (notification.userInfo) {
-        if ([notification.userInfo[@"notify"] isEqualToString:@"friend"]) {
-            [AlertView alert:@"Friend Notification" message:notification.alertBody dismissAfter:2.0];
-        }
-        if ([notification.userInfo[@"notify"] isEqualToString:@"msg"]) {
-            [AlertView alert:@"Message" message:notification.alertBody dismissAfter:2.0];
+- (void)connect {
+    NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
+                                                                 inDomain:NSUserDomainMask
+                                                        appropriateForURL:nil
+                                                                   create:YES
+                                                                    error:nil];
+    NSArray *certificates = nil;
+    NSString *fileName = [Settings stringForKey:@"clientpkcs"];
+    if (fileName && fileName.length) {
+        NSString *clientPKCSPath = [directoryURL.path stringByAppendingPathComponent:fileName];
+        certificates = [MQTTSession clientCertsFromP12:clientPKCSPath
+                                                 passphrase:[Settings stringForKey:@"passphrase"]];
+        if (!certificates) {
+            [AlertView alert:@"TLS Client Certificate" message:@"incorrect file or passphrase"];
         }
     }
-}
+    
+    MQTTSSLSecurityPolicy *securityPolicy = nil;
+    if ([Settings boolForKey:@"usepolicy"]) {
+       securityPolicy = [MQTTSSLSecurityPolicy policyWithPinningMode:[Settings intForKey:@"policymode"]];
+        if (!securityPolicy) {
+            [AlertView alert:@"TLS Security Policy" message:@"invalide mode"];
+        }
 
-- (void)connect {
+        NSString *fileName = [Settings stringForKey:@"servercer"];
+        if (fileName && fileName.length) {
+            NSString *serverCERpath = [directoryURL.path stringByAppendingPathComponent:fileName];;
+            NSData *certificateData = [NSData dataWithContentsOfFile:serverCERpath];
+            if (certificateData) {
+                securityPolicy.pinnedCertificates = [[NSArray alloc] initWithObjects:certificateData, nil];
+            } else {
+                [AlertView alert:@"TLS Security Policy" message:@"invalid certificates file"];
+            }
+        }
+        securityPolicy.allowInvalidCertificates = [Settings boolForKey:@"allowinvalidcerts"];
+        securityPolicy.validatesCertificateChain = [Settings boolForKey:@"validatecertificatechain"];
+        securityPolicy.validatesDomainName = [Settings boolForKey:@"validatedomainname"];
+    }
+    
     [self.connectionOut connectTo:[Settings stringForKey:@"host_preference"]
                              port:[Settings intForKey:@"port_preference"]
                               tls:[Settings boolForKey:@"tls_preference"]
@@ -945,7 +844,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                      @"_type": @"lwt"}]
                           willQos:[Settings intForKey:@"willqos_preference"]
                    willRetainFlag:[Settings boolForKey:@"willretain_preference"]
-                     withClientId:[NSString stringWithFormat:@"%@-o", [Settings theClientId]]];
+                     withClientId:[NSString stringWithFormat:@"%@-o", [Settings theClientId]]
+                   securityPolicy:securityPolicy
+                     certificates:certificates];
     
     MQTTQosLevel subscriptionQos =[Settings intForKey:@"subscriptionqos_preference"];
     NSArray *subscriptions = [[Settings theSubscriptions] componentsSeparatedByCharactersInSet:
@@ -966,7 +867,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                             will:nil
                          willQos:MQTTQosLevelAtMostOnce
                   willRetainFlag:NO
-                    withClientId:[NSString stringWithFormat:@"%@-i", [Settings theClientId]]];
+                    withClientId:[NSString stringWithFormat:@"%@-i", [Settings theClientId]]
+                  securityPolicy:securityPolicy
+                    certificates:certificates];
 }
 
 - (NSData *)jsonToData:(NSDictionary *)jsonObject {
@@ -988,104 +891,5 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     return data;
 }
-
-
-- (NSData *)encodeLocationData:(Location *)location type:(NSString *)type addon:(NSDictionary *)addon {
-    NSMutableDictionary *jsonObject = [[NSMutableDictionary alloc] init];
-    [jsonObject setValue:[NSString stringWithFormat:@"%@", type] forKey:@"_type"];
-    
-    [jsonObject setValue:@(location.coordinate.latitude) forKey:@"lat"];
-    [jsonObject setValue:@(location.coordinate.longitude) forKey:@"lon"];
-    [jsonObject setValue:@((int)[location.timestamp timeIntervalSince1970]) forKey:@"tst"];
-    
-    double acc = [location.accuracy doubleValue];
-    if (acc > 0) {
-        [jsonObject setValue:@(acc) forKey:@"acc"];
-    }
-    
-    if ([Settings boolForKey:@"extendeddata_preference"]) {
-        int alt = [location.altitude intValue];
-        [jsonObject setValue:@(alt) forKey:@"alt"];
-        
-        int vac = [location.verticalaccuracy intValue];
-        [jsonObject setValue:@(vac) forKey:@"vac"];
-        
-        int vel = [location.speed intValue];
-        [jsonObject setValue:@(vel) forKey:@"vel"];
-        
-        int cog = [location.course intValue];
-        [jsonObject setValue:@(cog) forKey:@"cog"];
-        
-        CMAltitudeData *altitude = [LocationManager sharedInstance].altitude;
-        if (altitude) {
-            [jsonObject setValue:altitude.pressure forKey:@"p"];
-        }
-    }
-    
-    [jsonObject setValue:[location.belongsTo getEffectiveTid] forKeyPath:@"tid"];
-    
-    double rad = [location.regionradius doubleValue];
-    if (rad > 0) {
-        [jsonObject setValue:@((int)rad) forKey:@"rad"];
-    }
-    
-    if (addon) {
-        [jsonObject addEntriesFromDictionary:addon];
-    }
-    
-    if ([type isEqualToString:@"location"]) {
-        int batteryLevel = [UIDevice currentDevice].batteryLevel != -1 ? [UIDevice currentDevice].batteryLevel * 100 : -1;
-        [jsonObject setValue:@(batteryLevel) forKey:@"batt"];
-    }
-    
-    return [self jsonToData:jsonObject];
-}
-
-- (void)share {
-    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
-        NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
-        NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
-        NSMutableDictionary *sharedFriends = [[NSMutableDictionary alloc] init];
-        CLLocation *myCLLocation = [LocationManager sharedInstance].location;
-        
-        for (Friend *friend in friends) {
-            NSString *name = [friend name];
-            NSData *image = [friend image];
-            
-            if (!image) {
-                image = UIImageJPEGRepresentation([UIImage imageNamed:@"Friend"], 0.5);
-            }
-            
-            Location *friendsLocation = [friend newestLocation];
-            if (friendsLocation) {
-                CLLocation *friendsCLLocation = [[CLLocation alloc]
-                                                 initWithLatitude:[friendsLocation.latitude doubleValue]
-                                                 longitude:[friendsLocation.longitude doubleValue]];
-                NSNumber *distance = @([myCLLocation distanceFromLocation:friendsCLLocation]);
-                if (name) {
-                    if (friendsLocation.timestamp &&
-                        friendsLocation.latitude &&
-                        friendsLocation.longitude &&
-                        friend.topic &&
-                        image) {
-                        NSMutableDictionary *aFriend = [[NSMutableDictionary alloc] init];
-                        [aFriend setObject:image forKey:@"image"];
-                        [aFriend setObject:distance forKey:@"distance"];
-                        [aFriend setObject:friendsLocation.longitude forKey:@"longitude"];
-                        [aFriend setObject:friendsLocation.latitude forKey:@"latitude"];
-                        [aFriend setObject:friendsLocation.timestamp forKey:@"timestamp"];
-                        [aFriend setObject:friend.topic forKey:@"topic"];
-                        [sharedFriends setObject:aFriend forKey:name];
-                    } else {
-                        DDLogVerbose(@"friend or location incomplete");
-                    }
-                }
-            }
-        }
-        DDLogVerbose(@"sharedFriends %@", [sharedFriends allKeys]);
-        [shared setValue:sharedFriends forKey:@"sharedFriends"];
-    }
-}
-
 
 @end

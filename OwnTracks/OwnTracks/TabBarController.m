@@ -8,15 +8,19 @@
 
 #import "TabBarController.h"
 #import "Settings.h"
+#import "UIColor+WithName.h"
+#import "OwnTracksAppDelegate.h"
 
 @interface TabBarController ()
 @property (strong, nonatomic) UIViewController *messageVC;
+@property (nonatomic) BOOL warning;
 @end
 
 @implementation TabBarController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     for (UIViewController *vc in self.viewControllers) {
         if (vc.tabBarItem.tag == 99) {
             self.messageVC = vc;
@@ -39,6 +43,21 @@
             }
         }
         [self setViewControllers:viewControllers animated:TRUE];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.tabBar.translucent = false;
+    self.tabBar.barTintColor = [UIColor colorWithName:@"primary" defaultColor:[UIColor blackColor]];
+    self.tabBar.tintColor = [UIColor whiteColor];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (!self.warning && [Settings intForKey:@"mode"] == 2) {
+        self.warning = TRUE;
+        [self performSegueWithIdentifier:@"login" sender:nil];
     }
 }
 

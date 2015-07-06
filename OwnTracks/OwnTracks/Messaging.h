@@ -10,7 +10,7 @@
 
 @interface Messaging : NSObject
 @property (strong, nonatomic) NSString *lastGeoHash;
-
++ (Messaging *)sharedInstance;
 - (void)reset:(NSManagedObjectContext *)context;
 - (void)newLocation:(double)latitude longitude:(double)longitude context:(NSManagedObjectContext *)context;
 - (BOOL)processMessage:(NSString *)topic data:(NSData *)data retained:(BOOL)retained context:(NSManagedObjectContext *)context;

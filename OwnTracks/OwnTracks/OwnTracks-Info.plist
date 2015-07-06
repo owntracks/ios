@@ -11,9 +11,9 @@
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
 			<array>
-				<string>icon_iphone</string>
-				<string>icon_ipad320</string>
-				<string>icon_ipad64</string>
+				<string>OwnTracks-29</string>
+				<string>OwnTracks-320</string>
+				<string>OwnTracks-64</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>OwnTracks Configuration File</string>
@@ -29,11 +29,9 @@
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
 			<array>
-				<string>icon_ipad320</string>
-				<string>icon_iphone@2x</string>
-				<string>icon_iphone</string>
-				<string>icon_ipad320</string>
-				<string>icon_ipad64</string>
+				<string>OwnTracks-320</string>
+				<string>OwnTracks-29</string>
+				<string>OwnTracks-64</string>
 			</array>
 			<key>CFBundleTypeName</key>
 			<string>OwnTracks Waypoints File</string>
@@ -44,6 +42,42 @@
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>org.owntracks.otrw</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>OwnTracks-320</string>
+				<string>OwnTracks-29</string>
+				<string>OwnTracks-64</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>OwnTracks PKCS12 File</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.owntracks.otrp</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array>
+				<string>OwnTracks-320</string>
+				<string>OwnTracks-29</string>
+				<string>OwnTracks-64</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>OwnTracks CER file</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>org.owntracks.otre</string>
 			</array>
 		</dict>
 	</array>
@@ -67,7 +101,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLIconFile</key>
-			<string>icon_ipad64</string>
+			<string>OwnTracks-64</string>
 			<key>CFBundleURLName</key>
 			<string>org.owntracks.owntracks</string>
 			<key>CFBundleURLSchemes</key>
@@ -98,6 +132,10 @@
 	<string>OwnTracks monitors your location and publishes it to your MQTT server</string>
 	<key>NSLocationUsageDescription</key>
 	<string>OwnTracks monitors your location and publishes it to your MQTT server</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>FontAwesome.otf</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -108,7 +146,7 @@
 	<key>UIMainStoryboardFile</key>
 	<string>Storyboard</string>
 	<key>UIMainStoryboardFile~ipad</key>
-	<string>Storyboard-iPad</string>
+	<string>Storyboard</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -137,9 +175,9 @@
 			<key>UTTypeReferenceURL</key>
 			<string>http://www.owntracks.org</string>
 			<key>UTTypeSize320IconFile</key>
-			<string>icon_ipad320</string>
+			<string>OwnTracks-320</string>
 			<key>UTTypeSize64IconFile</key>
-			<string>icon_ipad64</string>
+			<string>OwnTracks-64</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -161,15 +199,15 @@
 			<key>UTTypeDescription</key>
 			<string>OwnTracks Waypoints File</string>
 			<key>UTTypeIconFile</key>
-			<string>icon_iphone</string>
+			<string>OwnTracks-29</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.owntracks.otrw</string>
 			<key>UTTypeReferenceURL</key>
 			<string>http://www.owntracks.org</string>
 			<key>UTTypeSize320IconFile</key>
-			<string>icon_ipad320</string>
+			<string>OwnTracks-320</string>
 			<key>UTTypeSize64IconFile</key>
-			<string>icon_ipad64</string>
+			<string>OwnTracks-64</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>
@@ -181,10 +219,62 @@
 				<string>application/json</string>
 			</dict>
 		</dict>
-	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>FontAwesome.otf</string>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>OwnTracks PKCS12 File</string>
+			<key>UTTypeIconFile</key>
+			<string>OwnTracks-29</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.owntracks.otrp</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.owntracks.org</string>
+			<key>UTTypeSize320IconFile</key>
+			<string>OwnTracks-320</string>
+			<key>UTTypeSize64IconFile</key>
+			<string>OwnTracks-64</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>otrp</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>application/binary</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.text</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>OwnTracks CER File</string>
+			<key>UTTypeIconFile</key>
+			<string>OwnTracks-29</string>
+			<key>UTTypeIdentifier</key>
+			<string>org.owntracks.otre</string>
+			<key>UTTypeReferenceURL</key>
+			<string>http://www.owntracks.org</string>
+			<key>UTTypeSize320IconFile</key>
+			<string>OwnTracks-320</string>
+			<key>UTTypeSize64IconFile</key>
+			<string>OwnTracks-64</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>otre</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>text/plain</string>
+			</dict>
+		</dict>
 	</array>
 </dict>
 </plist>

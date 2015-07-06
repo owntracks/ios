@@ -11,7 +11,7 @@
    viewBox="0 0 700 700"
    stroke-miterlimit="10"
    id="svg2"
-   inkscape:version="0.48.2 r9819"
+   inkscape:version="0.91 r13725"
    width="100%"
    height="100%"
    sodipodi:docname="Stop.svg"
@@ -24,7 +24,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -43,9 +43,9 @@
      inkscape:window-height="692"
      id="namedview15"
      showgrid="true"
-     inkscape:zoom="0.38879736"
-     inkscape:cx="311.5"
-     inkscape:cy="303.5"
+     inkscape:zoom="0.38425892"
+     inkscape:cx="120.37737"
+     inkscape:cy="376.8198"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0"
@@ -77,23 +77,21 @@
        id="path9"
        inkscape:connector-curvature="0"
        style="fill:#000000;fill-opacity:0;fill-rule:nonzero" />
-    <path
-       sodipodi:type="star"
-       style="fill:#b3b3b3;fill-opacity:1;stroke:none"
-       id="path3014"
-       sodipodi:sides="4"
-       sodipodi:cx="50"
-       sodipodi:cy="50"
-       sodipodi:r1="353.55338"
-       sodipodi:r2="235.86696"
-       sodipodi:arg1="0.78539819"
-       sodipodi:arg2="1.5707964"
-       inkscape:flatsided="true"
-       inkscape:rounded="0.1"
-       inkscape:randomized="0"
-       d="m 299.99998,300 c -35.35534,35.35533 -464.64464,35.35532 -499.99998,-2e-5 -35.35533,-35.35534 -35.35532,-464.64464 2e-5,-499.99998 35.35534,-35.35533 464.64464,-35.35532 499.99998,2e-5 35.35533,35.35534 35.35532,464.64464 -2e-5,499.99998 z"
-       transform="matrix(0.89,0,0,0.86715881,267.00002,260.14765)"
-       inkscape:transform-center-x="20.211018"
-       inkscape:transform-center-y="7.9089077" />
+    <rect
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:26.35515594;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4139"
+       width="133.5"
+       height="367.67429"
+       x="311.5"
+       y="-509.89923"
+       transform="scale(1,-1)" />
+    <rect
+       transform="scale(1,-1)"
+       y="-509.89923"
+       x="133.5"
+       height="367.6741"
+       width="133.5"
+       id="rect4141"
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:26.35515785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
   </g>
 </svg>

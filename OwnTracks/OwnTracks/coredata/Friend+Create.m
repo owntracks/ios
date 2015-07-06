@@ -1,13 +1,13 @@
 //
 //  Friend+Create.m
-//  OwnTracks   
+//  OwnTracks
 //
 //  Created by Christoph Krey on 29.09.13.
 //  Copyright (c) 2013-2015 Christoph Krey. All rights reserved.
 //
 
 #import "Friend+Create.h"
-#import "Location+Create.h"
+#import "Waypoint.h"
 #import "Settings.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
@@ -31,13 +31,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 + (Friend *)existsFriendWithTopic:(NSString *)topic
-     inManagedObjectContext:(NSManagedObjectContext *)context
+           inManagedObjectContext:(NSManagedObjectContext *)context
 
 {
     Friend *friend = nil;
     
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Friend"];
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"topic" ascending:YES]];
     request.predicate = [NSPredicate predicateWithFormat:@"topic = %@", topic];
     
     NSError *error = nil;
@@ -55,7 +54,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return friend;
 }
 
-+ (NSArray *)allFriendsInManagedObjectContext:(NSManagedObjectContext *)context {    
++ (NSArray *)allFriendsInManagedObjectContext:(NSManagedObjectContext *)context {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Friend"];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"topic" ascending:YES]];
     
@@ -67,7 +66,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 + (Friend *)friendWithTopic:(NSString *)topic
-                        tid:(NSString *)tid
      inManagedObjectContext:(NSManagedObjectContext *)context
 
 {
@@ -77,13 +75,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         friend = [NSEntityDescription insertNewObjectForEntityForName:@"Friend" inManagedObjectContext:context];
         
         friend.topic = topic;
-        
         friend.abRecordId = @(kABRecordInvalidID);
-        friend.hasLocations = [[NSSet alloc] init];
     }
     
-    friend.tid = tid;
-
     return friend;
 }
 
@@ -96,6 +90,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     } else {
         return self.cardName;
     }
+}
+
+- (NSString *)nameOrTopic {
+    return self.name ? self.name : self.topic;
 }
 
 + (NSString *)nameOfPerson:(ABRecordRef)record
@@ -179,11 +177,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         ABRecordID abRecordID = ABRecordGetRecordID(record);
         self.abRecordId = @(abRecordID);
     }
-    
-    // make sure all locations are updated so all views get updated
-    for (Location *location in self.hasLocations) {
-        location.belongsTo = self;
-    }
 }
 
 #define RELATION_NAME CFSTR("OwnTracks")
@@ -237,7 +230,7 @@ ABRecordRef recordWithTopic(CFStringRef topic)
 - (void)ABsetTopic:(NSString *)topic record:(ABRecordRef)record
 {
     CFErrorRef errorRef;
-
+    
     ABMutableMultiValueRef relationsRW;
     
     ABMultiValueRef relationsRO = ABRecordCopyValue(record, kABPersonRelatedNamesProperty);
@@ -276,7 +269,7 @@ ABRecordRef recordWithTopic(CFStringRef topic)
             }
         }
     }
-        
+    
     if (!ABRecordSetValue(record, kABPersonRelatedNamesProperty, relationsRW, &errorRef)) {
         DDLogError(@"Friend error ABRecordSetValue %@", errorRef);
     }
@@ -307,21 +300,105 @@ ABRecordRef recordWithTopic(CFStringRef topic)
     return tid;
 }
 
-- (Location *)newestLocation
-{
-    Location *newestLocation;
+- (Waypoint *)newestWaypoint {
+    Waypoint *newestWaypoint;
     
-    for (Location *location in self.hasLocations) {
-        if (!newestLocation) {
-            newestLocation = location;
+    for (Waypoint *waypoint in self.hasWaypoints) {
+        if (!newestWaypoint) {
+            newestWaypoint = waypoint;
         } else {
-            if ([newestLocation.timestamp compare:location.timestamp] == NSOrderedAscending) {
-                newestLocation = location;
-            } 
+            if ([newestWaypoint.tst compare:waypoint.tst] == NSOrderedAscending) {
+                newestWaypoint = waypoint;
+            }
         }
     }
-    return newestLocation;
+    return newestWaypoint;
 }
+
+
+- (CLLocationCoordinate2D)coordinate
+{
+    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(0.0, 0.0);
+    Waypoint *waypoint = [self newestWaypoint];
+    if (waypoint) {
+        coord = CLLocationCoordinate2DMake([waypoint.lat doubleValue], [waypoint.lon doubleValue]);
+    }
+    return coord;
+}
+
+- (MKMapRect)boundingMapRect {
+    MKMapPoint point = MKMapPointForCoordinate([self coordinate]);
+    MKMapRect mapRect = MKMapRectMake(
+                                      point.x,
+                                      point.y,
+                                      1.0,
+                                      1.0
+                                      );
+    if (self.hasWaypoints) {
+        for (Waypoint *waypoint in self.hasWaypoints) {
+            CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
+                                                                           [waypoint.lat doubleValue],
+                                                                           [waypoint.lon doubleValue]
+                                                                           );
+            MKMapPoint mapPoint = MKMapPointForCoordinate(coordinate);
+            if (mapPoint.x < mapRect.origin.x) {
+                mapRect.size.width += mapRect.origin.x - mapPoint.x;
+                mapRect.origin.x = mapPoint.x;
+            } else if (mapPoint.x + 3 > mapRect.origin.x + mapRect.size.width) {
+                mapRect.size.width = mapPoint.x - mapRect.origin.x;
+            }
+            if (mapPoint.y < mapRect.origin.y) {
+                mapRect.size.height += mapRect.origin.y - mapPoint.y;
+                mapRect.origin.y = mapPoint.y;
+            } else if (mapPoint.y > mapRect.origin.y + mapRect.size.height) {
+                mapRect.size.height = mapPoint.y - mapRect.origin.y;
+            }
+        }
+    }
+    return mapRect;
+}
+
+- (MKPolyline *)polyLine {
+    CLLocationCoordinate2D *coordinates = (CLLocationCoordinate2D *)malloc(sizeof(CLLocationCoordinate2D));
+    coordinates[0] = [self coordinate];
+    int count = 1;
+    
+    NSSet *waypoints = self.hasWaypoints;
+    if (waypoints && waypoints.count > 0) {
+        coordinates = (CLLocationCoordinate2D *)realloc(coordinates,
+                                                        waypoints.count * sizeof(CLLocationCoordinate2D));
+        count = 0;
+        if (coordinates) {
+            NSArray *sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tst" ascending:TRUE]];
+            for (Waypoint *waypoint in [waypoints sortedArrayUsingDescriptors:sortDescriptors]) {
+                coordinates[count++] = CLLocationCoordinate2DMake(
+                                                                  [waypoint.lat doubleValue],
+                                                                  [waypoint.lon doubleValue]
+                                                                  );
+            }
+        }
+    }
+    
+    MKPolyline *polyLine = [MKPolyline polylineWithCoordinates:coordinates count:count];
+    free(coordinates);
+    return polyLine;
+}
+
+- (NSString *)title {
+    return self.name ? self.name : self.topic;
+}
+
+- (NSString *)subtitle {
+    Waypoint *waypoint = [self newestWaypoint];
+    if (waypoint) {
+        return [NSDateFormatter localizedStringFromDate:waypoint.tst
+                                              dateStyle:NSDateFormatterShortStyle
+                                              timeStyle:NSDateFormatterShortStyle];
+    } else {
+        return @"";
+    }
+}
+
 
 
 

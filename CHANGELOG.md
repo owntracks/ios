@@ -2,9 +2,17 @@ OwnTracks iOS App 8.0 Release Notes
 ===================================
 
 ## OwnTracks 8.2.0
->Release date: 2015-06-30 for alpha-testers only
+>Release date: 2015-07-06 for alpha-testers only
 
 [NEW] new colors 
+[NEW] new images
+[NEW] show tracks of selected friend on map
+[NEW] show variable sized table rows with revgeo locations on friends table
+[NEW] common iPad and iPhone UI (to be further improved)
+[NEW] client certificate support (load .p12 as .otrp to iOS)
+[NEW] pinned server certificate support (load .cer as .otre to iOS)
+[FIX] waypoints with (null) description #236
+[FIX] crash when requesting refresh from friend #232
 
 ## OwnTracks 8.1.3
 >Release date: 2015-06-27 for alpha-testers only

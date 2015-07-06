@@ -26,27 +26,22 @@
 		8411B857189FDB140019D2D6 /* OwnTracksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B856189FDB140019D2D6 /* OwnTracksTests.m */; };
 		8411B861189FDD200019D2D6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B860189FDD200019D2D6 /* MapKit.framework */; };
 		8411B878189FE1ED0019D2D6 /* Friend+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B869189FE1ED0019D2D6 /* Friend+Create.m */; };
-		8411B87A189FE1ED0019D2D6 /* Location+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B86D189FE1ED0019D2D6 /* Location+Create.m */; };
 		8411B87F189FE35C0019D2D6 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */; };
 		8411B88A189FE79B0019D2D6 /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B887189FE79B0019D2D6 /* AlertView.m */; };
 		8411B88B189FE79B0019D2D6 /* CoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B889189FE79B0019D2D6 /* CoreData.m */; };
 		8411B88E189FE9940019D2D6 /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B88D189FE9940019D2D6 /* Connection.m */; };
 		8411B891189FE9CE0019D2D6 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B890189FE9CE0019D2D6 /* Settings.m */; };
 		8411B896189FEAE60019D2D6 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8411B895189FEAE60019D2D6 /* Storyboard.storyboard */; };
-		8411B8D9189FEB790019D2D6 /* icon_ipad320.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8A6189FEB790019D2D6 /* icon_ipad320.png */; };
-		8411B8DA189FEB790019D2D6 /* icon_ipad64.png in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8A7189FEB790019D2D6 /* icon_ipad64.png */; };
 		8411B8E1189FEB790019D2D6 /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8AE189FEB790019D2D6 /* Location.gpx */; };
-		8411B90C189FEC070019D2D6 /* EditLocationTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B8FF189FEC070019D2D6 /* EditLocationTVC.m */; };
+		8411B90C189FEC070019D2D6 /* WaypointTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B8FF189FEC070019D2D6 /* WaypointTVC.m */; };
 		8411B90D189FEC070019D2D6 /* FriendAnnotationV.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B901189FEC070019D2D6 /* FriendAnnotationV.m */; };
-		8411B90E189FEC070019D2D6 /* FriendTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B903189FEC070019D2D6 /* FriendTVC.m */; };
-		8411B90F189FEC070019D2D6 /* LocationTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B905189FEC070019D2D6 /* LocationTVC.m */; };
+		8411B90E189FEC070019D2D6 /* FriendsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B903189FEC070019D2D6 /* FriendsTVC.m */; };
+		8411B90F189FEC070019D2D6 /* RegionsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B905189FEC070019D2D6 /* RegionsTVC.m */; };
 		8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B907189FEC070019D2D6 /* PersonTVC.m */; };
 		8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B909189FEC070019D2D6 /* StatusTVC.m */; };
 		8411B912189FEC070019D2D6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B90B189FEC070019D2D6 /* ViewController.m */; };
-		8414FC971B0CB7A200F0C221 /* icon_iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 8414FC961B0CB7A200F0C221 /* icon_iphone.png */; };
 		8422AF681AF825C7008932A2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8422AF671AF825C7008932A2 /* SystemConfiguration.framework */; };
 		8426103A1ACFE67B00FE1A03 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842610391ACFE67B00FE1A03 /* Launch Screen.xib */; };
-		842CA4D41B3C7B5900B7FF1C /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 842CA4D31B3C7B5900B7FF1C /* Message.m */; };
 		842DFBC71AEE6F36000F4BA6 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842DFBC61AEE6F36000F4BA6 /* NotificationController.m */; };
 		842DFBC91AEE6F46000F4BA6 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = 842DFBC81AEE6F46000F4BA6 /* PushNotificationPayload.apns */; };
 		843635791AE95D6000157D66 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843635781AE95D6000157D66 /* InterfaceController.m */; };
@@ -55,17 +50,31 @@
 		843635871AE95D6100157D66 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843635851AE95D6100157D66 /* Interface.storyboard */; };
 		843635891AE95D6100157D66 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843635881AE95D6100157D66 /* Images.xcassets */; };
 		8455DFBE1ADF2BD8003C7BC8 /* Hosted.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8455DFBD1ADF2BD8003C7BC8 /* Hosted.plist */; };
+		845AA1B11B440EEF00945856 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845AA1B01B440EEF00945856 /* LoginVC.m */; };
+		845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845AA1B31B44245100945856 /* CertificatesTVC.m */; };
+		845AA1BB1B4846AF00945856 /* OwnTracks-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1B81B4846AF00945856 /* OwnTracks-29.png */; };
+		845AA1BC1B4846AF00945856 /* OwnTracks-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1B91B4846AF00945856 /* OwnTracks-64.png */; };
+		845AA1BD1B4846AF00945856 /* OwnTracks-320.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1BA1B4846AF00945856 /* OwnTracks-320.png */; };
 		845F003D192A5CDE00919FB8 /* QosTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845F003C192A5CDE00919FB8 /* QosTVC.m */; };
 		846FFA161B4013BB001482A6 /* Colors.plist in Resources */ = {isa = PBXBuildFile; fileRef = 846FFA151B4013BB001482A6 /* Colors.plist */; };
 		846FFA191B401A4E001482A6 /* UIColor+WithName.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA181B401A4E001482A6 /* UIColor+WithName.m */; };
-		8479EEB218E4288800923B24 /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB118E4288800923B24 /* Setting.m */; };
+		846FFA451B402A1F001482A6 /* OwnTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA441B402A1F001482A6 /* OwnTracking.m */; };
+		846FFA4F1B40C13C001482A6 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA4E1B40C13C001482A6 /* NavigationController.m */; };
+		846FFA521B416CD6001482A6 /* Region+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA511B416CD6001482A6 /* Region+Create.m */; };
+		846FFA581B419687001482A6 /* RegionTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA571B419687001482A6 /* RegionTVC.m */; };
+		846FFA5B1B4196D0001482A6 /* Waypoint+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA5A1B4196D0001482A6 /* Waypoint+Create.m */; };
+		846FFA5E1B420938001482A6 /* FriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA5D1B420938001482A6 /* FriendTableViewCell.m */; };
 		8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB418E4289E00923B24 /* Setting+Create.m */; };
 		8479EEB718E4529900923B24 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
 		847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847F8B5719295C65003876D4 /* CoreMotion.framework */; };
-		848794B419A6240100DF56EB /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 848794B319A6240100DF56EB /* Location.m */; };
 		84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A2B1B3755AF00810C3A /* TabBarController.m */; };
-		8499BA95192CF86200FA95C7 /* Storyboard-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8499BA94192CF86200FA95C7 /* Storyboard-iPad.storyboard */; };
 		8499BA98192D085700FA95C7 /* DetailNC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8499BA97192D085700FA95C7 /* DetailNC.m */; };
+		84A173681B427BDD00CCB7D0 /* ModeBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A173671B427BDD00CCB7D0 /* ModeBarButtonItem.m */; };
+		84A1736C1B428E8D00CCB7D0 /* Waypoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A1736B1B428E8D00CCB7D0 /* Waypoint.m */; };
+		84A1736F1B428E8D00CCB7D0 /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A1736E1B428E8D00CCB7D0 /* Friend.m */; };
+		84A173721B428E8E00CCB7D0 /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A173711B428E8E00CCB7D0 /* Region.m */; };
+		84A173751B428E8E00CCB7D0 /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A173741B428E8E00CCB7D0 /* Setting.m */; };
+		84A173781B428E8E00CCB7D0 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A173771B428E8E00CCB7D0 /* Message.m */; };
 		84B7397A1A65629200B103F4 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B739791A65629200B103F4 /* LocationManager.m */; };
 		84CA3D0D1AEE708200AABDC1 /* OwnTracks WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 843635731AE95D6000157D66 /* OwnTracks WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84CDB2501AD197AD005E272B /* Public.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84CDB24F1AD197AD005E272B /* Public.plist */; };
@@ -80,7 +89,6 @@
 		84D751751B35B3C100B06A0C /* Message+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D751741B35B3C100B06A0C /* Message+Create.m */; };
 		84D751781B35B7A500B06A0C /* MessageTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D751771B35B7A500B06A0C /* MessageTVC.m */; };
 		84D7517B1B35C0AB00B06A0C /* Messaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D7517A1B35C0AB00B06A0C /* Messaging.m */; };
-		84F468E81AD4884200CF8C4F /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F468E71AD4884200CF8C4F /* Friend.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -151,42 +159,35 @@
 		8411B863189FDE0D0019D2D6 /* MQTTClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MQTTClient.framework; path = "../../MQTT-Client-Framework/MQTTClient/dist/MQTTClient.framework"; sourceTree = "<group>"; };
 		8411B868189FE1ED0019D2D6 /* Friend+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Friend+Create.h"; sourceTree = "<group>"; };
 		8411B869189FE1ED0019D2D6 /* Friend+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Friend+Create.m"; sourceTree = "<group>"; };
-		8411B86C189FE1ED0019D2D6 /* Location+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Location+Create.h"; sourceTree = "<group>"; };
-		8411B86D189FE1ED0019D2D6 /* Location+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Location+Create.m"; sourceTree = "<group>"; };
 		8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		8411B886189FE79B0019D2D6 /* AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertView.h; sourceTree = "<group>"; };
 		8411B887189FE79B0019D2D6 /* AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertView.m; sourceTree = "<group>"; };
-		8411B888189FE79B0019D2D6 /* CoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreData.h; sourceTree = "<group>"; };
-		8411B889189FE79B0019D2D6 /* CoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreData.m; sourceTree = "<group>"; };
+		8411B888189FE79B0019D2D6 /* CoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreData.h; path = ../CoreData.h; sourceTree = "<group>"; };
+		8411B889189FE79B0019D2D6 /* CoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreData.m; path = ../CoreData.m; sourceTree = "<group>"; };
 		8411B88C189FE9940019D2D6 /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connection.h; sourceTree = "<group>"; };
 		8411B88D189FE9940019D2D6 /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connection.m; sourceTree = "<group>"; };
 		8411B88F189FE9CE0019D2D6 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		8411B890189FE9CE0019D2D6 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		8411B895189FEAE60019D2D6 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
-		8411B8A6189FEB790019D2D6 /* icon_ipad320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_ipad320.png; sourceTree = "<group>"; };
-		8411B8A7189FEB790019D2D6 /* icon_ipad64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_ipad64.png; sourceTree = "<group>"; };
 		8411B8AE189FEB790019D2D6 /* Location.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Location.gpx; path = assets/Location.gpx; sourceTree = "<group>"; };
-		8411B8FE189FEC070019D2D6 /* EditLocationTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditLocationTVC.h; sourceTree = "<group>"; };
-		8411B8FF189FEC070019D2D6 /* EditLocationTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditLocationTVC.m; sourceTree = "<group>"; };
+		8411B8FE189FEC070019D2D6 /* WaypointTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaypointTVC.h; sourceTree = "<group>"; };
+		8411B8FF189FEC070019D2D6 /* WaypointTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaypointTVC.m; sourceTree = "<group>"; };
 		8411B900189FEC070019D2D6 /* FriendAnnotationV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendAnnotationV.h; sourceTree = "<group>"; };
 		8411B901189FEC070019D2D6 /* FriendAnnotationV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendAnnotationV.m; sourceTree = "<group>"; };
-		8411B902189FEC070019D2D6 /* FriendTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendTVC.h; sourceTree = "<group>"; };
-		8411B903189FEC070019D2D6 /* FriendTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendTVC.m; sourceTree = "<group>"; };
-		8411B904189FEC070019D2D6 /* LocationTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTVC.h; sourceTree = "<group>"; };
-		8411B905189FEC070019D2D6 /* LocationTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTVC.m; sourceTree = "<group>"; };
+		8411B902189FEC070019D2D6 /* FriendsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsTVC.h; sourceTree = "<group>"; };
+		8411B903189FEC070019D2D6 /* FriendsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsTVC.m; sourceTree = "<group>"; };
+		8411B904189FEC070019D2D6 /* RegionsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionsTVC.h; sourceTree = "<group>"; };
+		8411B905189FEC070019D2D6 /* RegionsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionsTVC.m; sourceTree = "<group>"; };
 		8411B906189FEC070019D2D6 /* PersonTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonTVC.h; sourceTree = "<group>"; };
 		8411B907189FEC070019D2D6 /* PersonTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonTVC.m; sourceTree = "<group>"; };
 		8411B908189FEC070019D2D6 /* StatusTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusTVC.h; sourceTree = "<group>"; };
 		8411B909189FEC070019D2D6 /* StatusTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusTVC.m; sourceTree = "<group>"; };
 		8411B90A189FEC070019D2D6 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		8411B90B189FEC070019D2D6 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		8414FC961B0CB7A200F0C221 /* icon_iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_iphone.png; sourceTree = "<group>"; };
 		84195B201ABCBC9400A9FA97 /* Model 7.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.5.xcdatamodel"; sourceTree = "<group>"; };
 		8422AF671AF825C7008932A2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		842610391ACFE67B00FE1A03 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		842CA4CE1B3C76D000B7FF1C /* Model 8.1.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.5.xcdatamodel"; sourceTree = "<group>"; };
-		842CA4D21B3C7B5900B7FF1C /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
-		842CA4D31B3C7B5900B7FF1C /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		842DFBC51AEE6F36000F4BA6 /* NotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
 		842DFBC61AEE6F36000F4BA6 /* NotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
 		842DFBC81AEE6F46000F4BA6 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
@@ -200,30 +201,58 @@
 		843635861AE95D6100157D66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		843635881AE95D6100157D66 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8455DFBD1ADF2BD8003C7BC8 /* Hosted.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Hosted.plist; sourceTree = "<group>"; };
+		845AA1AF1B440EEF00945856 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
+		845AA1B01B440EEF00945856 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
+		845AA1B21B44245100945856 /* CertificatesTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificatesTVC.h; sourceTree = "<group>"; };
+		845AA1B31B44245100945856 /* CertificatesTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificatesTVC.m; sourceTree = "<group>"; };
+		845AA1B81B4846AF00945856 /* OwnTracks-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-29.png"; sourceTree = "<group>"; };
+		845AA1B91B4846AF00945856 /* OwnTracks-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-64.png"; sourceTree = "<group>"; };
+		845AA1BA1B4846AF00945856 /* OwnTracks-320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-320.png"; sourceTree = "<group>"; };
 		845F003B192A5CDE00919FB8 /* QosTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QosTVC.h; path = ../QosTVC.h; sourceTree = "<group>"; };
 		845F003C192A5CDE00919FB8 /* QosTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QosTVC.m; path = ../QosTVC.m; sourceTree = "<group>"; };
 		846FFA151B4013BB001482A6 /* Colors.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Colors.plist; sourceTree = "<group>"; };
 		846FFA171B401A4E001482A6 /* UIColor+WithName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+WithName.h"; sourceTree = "<group>"; };
 		846FFA181B401A4E001482A6 /* UIColor+WithName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+WithName.m"; sourceTree = "<group>"; };
+		846FFA1B1B4023BE001482A6 /* Model 8.2.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.0.xcdatamodel"; sourceTree = "<group>"; };
+		846FFA431B402A1F001482A6 /* OwnTracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OwnTracking.h; sourceTree = "<group>"; };
+		846FFA441B402A1F001482A6 /* OwnTracking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OwnTracking.m; sourceTree = "<group>"; };
+		846FFA4D1B40C13C001482A6 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
+		846FFA4E1B40C13C001482A6 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
+		846FFA501B416CD6001482A6 /* Region+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Region+Create.h"; sourceTree = "<group>"; };
+		846FFA511B416CD6001482A6 /* Region+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Region+Create.m"; sourceTree = "<group>"; };
+		846FFA561B419687001482A6 /* RegionTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionTVC.h; sourceTree = "<group>"; };
+		846FFA571B419687001482A6 /* RegionTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionTVC.m; sourceTree = "<group>"; };
+		846FFA591B4196D0001482A6 /* Waypoint+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Waypoint+Create.h"; sourceTree = "<group>"; };
+		846FFA5A1B4196D0001482A6 /* Waypoint+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Waypoint+Create.m"; sourceTree = "<group>"; };
+		846FFA5C1B420938001482A6 /* FriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendTableViewCell.h; sourceTree = "<group>"; };
+		846FFA5D1B420938001482A6 /* FriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendTableViewCell.m; sourceTree = "<group>"; };
 		8474B15319A8CB7D00427427 /* Model 7.3.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.1.xcdatamodel"; sourceTree = "<group>"; };
-		8479EEB018E4288800923B24 /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
-		8479EEB118E4288800923B24 /* Setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
 		8479EEB318E4289E00923B24 /* Setting+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Setting+Create.h"; path = "../../Setting+Create.h"; sourceTree = "<group>"; };
 		8479EEB418E4289E00923B24 /* Setting+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Setting+Create.m"; path = "../../Setting+Create.m"; sourceTree = "<group>"; };
 		847F8B5719295C65003876D4 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		848794B119A6234B00DF56EB /* Model 7.3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.xcdatamodel"; sourceTree = "<group>"; };
-		848794B219A6240100DF56EB /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
-		848794B319A6240100DF56EB /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		84930A221B36B8FB00810C3A /* Model 8.1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.1.xcdatamodel"; sourceTree = "<group>"; };
 		84930A261B36C21B00810C3A /* Model 8.1.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.2.xcdatamodel"; sourceTree = "<group>"; };
 		84930A2A1B3755AF00810C3A /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		84930A2B1B3755AF00810C3A /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		84930A2D1B376DDF00810C3A /* Model 8.1.3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.3.xcdatamodel"; sourceTree = "<group>"; };
 		84930A311B37729000810C3A /* Model 8.1.4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.4.xcdatamodel"; sourceTree = "<group>"; };
-		8499BA94192CF86200FA95C7 /* Storyboard-iPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Storyboard-iPad.storyboard"; sourceTree = "<group>"; };
 		8499BA96192D085600FA95C7 /* DetailNC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailNC.h; sourceTree = "<group>"; };
 		8499BA97192D085700FA95C7 /* DetailNC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailNC.m; sourceTree = "<group>"; };
 		849D457B18CDACDF00201BF3 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
+		84A173661B427BDD00CCB7D0 /* ModeBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModeBarButtonItem.h; sourceTree = "<group>"; };
+		84A173671B427BDD00CCB7D0 /* ModeBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModeBarButtonItem.m; sourceTree = "<group>"; };
+		84A173691B428E5C00CCB7D0 /* Model 8.2.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.1.xcdatamodel"; sourceTree = "<group>"; };
+		84A1736A1B428E8D00CCB7D0 /* Waypoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Waypoint.h; sourceTree = "<group>"; };
+		84A1736B1B428E8D00CCB7D0 /* Waypoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Waypoint.m; sourceTree = "<group>"; };
+		84A1736D1B428E8D00CCB7D0 /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
+		84A1736E1B428E8D00CCB7D0 /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
+		84A173701B428E8E00CCB7D0 /* Region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Region.h; sourceTree = "<group>"; };
+		84A173711B428E8E00CCB7D0 /* Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Region.m; sourceTree = "<group>"; };
+		84A173731B428E8E00CCB7D0 /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
+		84A173741B428E8E00CCB7D0 /* Setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
+		84A173761B428E8E00CCB7D0 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		84A173771B428E8E00CCB7D0 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		84AF468F1AB9571800E954E3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		84B739781A65629200B103F4 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		84B739791A65629200B103F4 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
@@ -248,8 +277,6 @@
 		84D751791B35C0AB00B06A0C /* Messaging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messaging.h; sourceTree = "<group>"; };
 		84D7517A1B35C0AB00B06A0C /* Messaging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Messaging.m; sourceTree = "<group>"; };
 		84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.0.xcdatamodel"; sourceTree = "<group>"; };
-		84F468E61AD4884200CF8C4F /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
-		84F468E71AD4884200CF8C4F /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
 		D44FAE29CF5DF0D498028B7C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0F95E30D637DDE6FB77559C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -367,16 +394,12 @@
 				8411B867189FE1ED0019D2D6 /* coredata */,
 				8411B83C189FDB140019D2D6 /* OwnTracksAppDelegate.h */,
 				8411B83D189FDB140019D2D6 /* OwnTracksAppDelegate.m */,
-				84930A2A1B3755AF00810C3A /* TabBarController.h */,
-				84930A2B1B3755AF00810C3A /* TabBarController.m */,
 				84D751791B35C0AB00B06A0C /* Messaging.h */,
 				84D7517A1B35C0AB00B06A0C /* Messaging.m */,
+				846FFA431B402A1F001482A6 /* OwnTracking.h */,
+				846FFA441B402A1F001482A6 /* OwnTracking.m */,
 				84B739781A65629200B103F4 /* LocationManager.h */,
 				84B739791A65629200B103F4 /* LocationManager.m */,
-				8411B886189FE79B0019D2D6 /* AlertView.h */,
-				8411B887189FE79B0019D2D6 /* AlertView.m */,
-				8411B888189FE79B0019D2D6 /* CoreData.h */,
-				8411B889189FE79B0019D2D6 /* CoreData.m */,
 				8411B88C189FE9940019D2D6 /* Connection.h */,
 				8411B88D189FE9940019D2D6 /* Connection.m */,
 				849D457B18CDACDF00201BF3 /* Settings.plist */,
@@ -384,29 +407,7 @@
 				8455DFBD1ADF2BD8003C7BC8 /* Hosted.plist */,
 				8411B88F189FE9CE0019D2D6 /* Settings.h */,
 				8411B890189FE9CE0019D2D6 /* Settings.m */,
-				8411B8FE189FEC070019D2D6 /* EditLocationTVC.h */,
-				8411B8FF189FEC070019D2D6 /* EditLocationTVC.m */,
-				8411B902189FEC070019D2D6 /* FriendTVC.h */,
-				8411B903189FEC070019D2D6 /* FriendTVC.m */,
-				8411B904189FEC070019D2D6 /* LocationTVC.h */,
-				8411B905189FEC070019D2D6 /* LocationTVC.m */,
-				8411B906189FEC070019D2D6 /* PersonTVC.h */,
-				8411B907189FEC070019D2D6 /* PersonTVC.m */,
-				8411B908189FEC070019D2D6 /* StatusTVC.h */,
-				8411B909189FEC070019D2D6 /* StatusTVC.m */,
-				845F003B192A5CDE00919FB8 /* QosTVC.h */,
-				845F003C192A5CDE00919FB8 /* QosTVC.m */,
-				8411B900189FEC070019D2D6 /* FriendAnnotationV.h */,
-				8411B901189FEC070019D2D6 /* FriendAnnotationV.m */,
-				8411B90A189FEC070019D2D6 /* ViewController.h */,
-				8411B90B189FEC070019D2D6 /* ViewController.m */,
-				8499BA96192D085600FA95C7 /* DetailNC.h */,
-				8499BA97192D085700FA95C7 /* DetailNC.m */,
-				84D751761B35B7A500B06A0C /* MessageTVC.h */,
-				84D751771B35B7A500B06A0C /* MessageTVC.m */,
-				840F6D2B1B3C89FD00848652 /* MessageTableViewCell.h */,
-				840F6D2C1B3C89FD00848652 /* MessageTableViewCell.m */,
-				846FFA1A1B401DB4001482A6 /* Colors */,
+				846FFA491B40A301001482A6 /* UI */,
 				8411B834189FDB140019D2D6 /* Supporting Files */,
 			);
 			path = OwnTracks;
@@ -416,15 +417,11 @@
 			isa = PBXGroup;
 			children = (
 				8411B8AE189FEB790019D2D6 /* Location.gpx */,
-				8411B842189FDB140019D2D6 /* Images.xcassets */,
-				8411B895189FEAE60019D2D6 /* Storyboard.storyboard */,
-				8499BA94192CF86200FA95C7 /* Storyboard-iPad.storyboard */,
 				8411B862189FDD300019D2D6 /* OwnTracks.entitlements */,
 				8411B835189FDB140019D2D6 /* OwnTracks-Info.plist */,
 				8411B836189FDB140019D2D6 /* InfoPlist.strings */,
 				8411B839189FDB140019D2D6 /* main.m */,
 				8411B83B189FDB140019D2D6 /* OwnTracks-Prefix.pch */,
-				842610391ACFE67B00FE1A03 /* Launch Screen.xib */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -450,23 +447,29 @@
 		8411B867189FE1ED0019D2D6 /* coredata */ = {
 			isa = PBXGroup;
 			children = (
-				842CA4D21B3C7B5900B7FF1C /* Message.h */,
-				842CA4D31B3C7B5900B7FF1C /* Message.m */,
+				84A173761B428E8E00CCB7D0 /* Message.h */,
+				84A173771B428E8E00CCB7D0 /* Message.m */,
+				84A173731B428E8E00CCB7D0 /* Setting.h */,
+				84A173741B428E8E00CCB7D0 /* Setting.m */,
+				84A173701B428E8E00CCB7D0 /* Region.h */,
+				84A173711B428E8E00CCB7D0 /* Region.m */,
+				84A1736D1B428E8D00CCB7D0 /* Friend.h */,
+				84A1736E1B428E8D00CCB7D0 /* Friend.m */,
+				84A1736A1B428E8D00CCB7D0 /* Waypoint.h */,
+				84A1736B1B428E8D00CCB7D0 /* Waypoint.m */,
+				846FFA591B4196D0001482A6 /* Waypoint+Create.h */,
+				846FFA5A1B4196D0001482A6 /* Waypoint+Create.m */,
+				846FFA501B416CD6001482A6 /* Region+Create.h */,
+				846FFA511B416CD6001482A6 /* Region+Create.m */,
 				84D751731B35B3C100B06A0C /* Message+Create.h */,
 				84D751741B35B3C100B06A0C /* Message+Create.m */,
 				8479EEB318E4289E00923B24 /* Setting+Create.h */,
 				8479EEB418E4289E00923B24 /* Setting+Create.m */,
 				8411B868189FE1ED0019D2D6 /* Friend+Create.h */,
 				8411B869189FE1ED0019D2D6 /* Friend+Create.m */,
-				8411B86C189FE1ED0019D2D6 /* Location+Create.h */,
-				8411B86D189FE1ED0019D2D6 /* Location+Create.m */,
 				8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */,
-				84F468E61AD4884200CF8C4F /* Friend.h */,
-				84F468E71AD4884200CF8C4F /* Friend.m */,
-				848794B219A6240100DF56EB /* Location.h */,
-				848794B319A6240100DF56EB /* Location.m */,
-				8479EEB018E4288800923B24 /* Setting.h */,
-				8479EEB118E4288800923B24 /* Setting.m */,
+				8411B888189FE79B0019D2D6 /* CoreData.h */,
+				8411B889189FE79B0019D2D6 /* CoreData.m */,
 			);
 			path = coredata;
 			sourceTree = "<group>";
@@ -474,9 +477,9 @@
 		8411B897189FEB790019D2D6 /* assets */ = {
 			isa = PBXGroup;
 			children = (
-				8414FC961B0CB7A200F0C221 /* icon_iphone.png */,
-				8411B8A6189FEB790019D2D6 /* icon_ipad320.png */,
-				8411B8A7189FEB790019D2D6 /* icon_ipad64.png */,
+				845AA1B81B4846AF00945856 /* OwnTracks-29.png */,
+				845AA1B91B4846AF00945856 /* OwnTracks-64.png */,
+				845AA1BA1B4846AF00945856 /* OwnTracks-320.png */,
 			);
 			path = assets;
 			sourceTree = "<group>";
@@ -532,6 +535,87 @@
 				846FFA181B401A4E001482A6 /* UIColor+WithName.m */,
 			);
 			name = Colors;
+			sourceTree = "<group>";
+		};
+		846FFA491B40A301001482A6 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				84930A2A1B3755AF00810C3A /* TabBarController.h */,
+				84930A2B1B3755AF00810C3A /* TabBarController.m */,
+				846FFA4D1B40C13C001482A6 /* NavigationController.h */,
+				846FFA4E1B40C13C001482A6 /* NavigationController.m */,
+				845AA1AF1B440EEF00945856 /* LoginVC.h */,
+				845AA1B01B440EEF00945856 /* LoginVC.m */,
+				8411B886189FE79B0019D2D6 /* AlertView.h */,
+				8411B887189FE79B0019D2D6 /* AlertView.m */,
+				8499BA96192D085600FA95C7 /* DetailNC.h */,
+				8499BA97192D085700FA95C7 /* DetailNC.m */,
+				8411B90A189FEC070019D2D6 /* ViewController.h */,
+				8411B90B189FEC070019D2D6 /* ViewController.m */,
+				84A173661B427BDD00CCB7D0 /* ModeBarButtonItem.h */,
+				84A173671B427BDD00CCB7D0 /* ModeBarButtonItem.m */,
+				84A1737A1B428F0600CCB7D0 /* Friends */,
+				84A1737B1B428F3600CCB7D0 /* Regions */,
+				84A1737C1B428F3E00CCB7D0 /* Settings */,
+				84A173791B428ED000CCB7D0 /* Messaging */,
+				8411B895189FEAE60019D2D6 /* Storyboard.storyboard */,
+				842610391ACFE67B00FE1A03 /* Launch Screen.xib */,
+				8411B842189FDB140019D2D6 /* Images.xcassets */,
+				846FFA1A1B401DB4001482A6 /* Colors */,
+			);
+			name = UI;
+			sourceTree = "<group>";
+		};
+		84A173791B428ED000CCB7D0 /* Messaging */ = {
+			isa = PBXGroup;
+			children = (
+				84D751761B35B7A500B06A0C /* MessageTVC.h */,
+				84D751771B35B7A500B06A0C /* MessageTVC.m */,
+				840F6D2B1B3C89FD00848652 /* MessageTableViewCell.h */,
+				840F6D2C1B3C89FD00848652 /* MessageTableViewCell.m */,
+			);
+			name = Messaging;
+			sourceTree = "<group>";
+		};
+		84A1737A1B428F0600CCB7D0 /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				8411B8FE189FEC070019D2D6 /* WaypointTVC.h */,
+				8411B8FF189FEC070019D2D6 /* WaypointTVC.m */,
+				8411B902189FEC070019D2D6 /* FriendsTVC.h */,
+				8411B903189FEC070019D2D6 /* FriendsTVC.m */,
+				846FFA5C1B420938001482A6 /* FriendTableViewCell.h */,
+				846FFA5D1B420938001482A6 /* FriendTableViewCell.m */,
+				8411B906189FEC070019D2D6 /* PersonTVC.h */,
+				8411B907189FEC070019D2D6 /* PersonTVC.m */,
+				8411B900189FEC070019D2D6 /* FriendAnnotationV.h */,
+				8411B901189FEC070019D2D6 /* FriendAnnotationV.m */,
+			);
+			name = Friends;
+			sourceTree = "<group>";
+		};
+		84A1737B1B428F3600CCB7D0 /* Regions */ = {
+			isa = PBXGroup;
+			children = (
+				846FFA561B419687001482A6 /* RegionTVC.h */,
+				846FFA571B419687001482A6 /* RegionTVC.m */,
+				8411B904189FEC070019D2D6 /* RegionsTVC.h */,
+				8411B905189FEC070019D2D6 /* RegionsTVC.m */,
+			);
+			name = Regions;
+			sourceTree = "<group>";
+		};
+		84A1737C1B428F3E00CCB7D0 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				8411B908189FEC070019D2D6 /* StatusTVC.h */,
+				8411B909189FEC070019D2D6 /* StatusTVC.m */,
+				845F003B192A5CDE00919FB8 /* QosTVC.h */,
+				845F003C192A5CDE00919FB8 /* QosTVC.m */,
+				845AA1B21B44245100945856 /* CertificatesTVC.h */,
+				845AA1B31B44245100945856 /* CertificatesTVC.m */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		84D307301ACD644500FACB9E /* OwnTracksToday */ = {
@@ -730,15 +814,14 @@
 			files = (
 				846FFA161B4013BB001482A6 /* Colors.plist in Resources */,
 				8479EEB718E4529900923B24 /* Settings.plist in Resources */,
-				8414FC971B0CB7A200F0C221 /* icon_iphone.png in Resources */,
-				8411B8DA189FEB790019D2D6 /* icon_ipad64.png in Resources */,
-				8499BA95192CF86200FA95C7 /* Storyboard-iPad.storyboard in Resources */,
 				8411B896189FEAE60019D2D6 /* Storyboard.storyboard in Resources */,
-				8411B8D9189FEB790019D2D6 /* icon_ipad320.png in Resources */,
+				845AA1BD1B4846AF00945856 /* OwnTracks-320.png in Resources */,
 				8411B843189FDB140019D2D6 /* Images.xcassets in Resources */,
 				8455DFBE1ADF2BD8003C7BC8 /* Hosted.plist in Resources */,
 				84CDB2501AD197AD005E272B /* Public.plist in Resources */,
+				845AA1BC1B4846AF00945856 /* OwnTracks-64.png in Resources */,
 				8411B8E1189FEB790019D2D6 /* Location.gpx in Resources */,
+				845AA1BB1B4846AF00945856 /* OwnTracks-29.png in Resources */,
 				8426103A1ACFE67B00FE1A03 /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -831,36 +914,45 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				846FFA5B1B4196D0001482A6 /* Waypoint+Create.m in Sources */,
 				8411B83A189FDB140019D2D6 /* main.m in Sources */,
 				84D751751B35B3C100B06A0C /* Message+Create.m in Sources */,
-				8411B90C189FEC070019D2D6 /* EditLocationTVC.m in Sources */,
+				8411B90C189FEC070019D2D6 /* WaypointTVC.m in Sources */,
 				8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */,
 				846FFA191B401A4E001482A6 /* UIColor+WithName.m in Sources */,
 				840F6D2D1B3C89FD00848652 /* MessageTableViewCell.m in Sources */,
+				846FFA581B419687001482A6 /* RegionTVC.m in Sources */,
+				846FFA451B402A1F001482A6 /* OwnTracking.m in Sources */,
 				8411B912189FEC070019D2D6 /* ViewController.m in Sources */,
 				84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */,
 				8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */,
+				846FFA5E1B420938001482A6 /* FriendTableViewCell.m in Sources */,
 				8411B87F189FE35C0019D2D6 /* Model.xcdatamodeld in Sources */,
+				845AA1B11B440EEF00945856 /* LoginVC.m in Sources */,
 				8411B90D189FEC070019D2D6 /* FriendAnnotationV.m in Sources */,
 				84D7517B1B35C0AB00B06A0C /* Messaging.m in Sources */,
 				8411B88A189FE79B0019D2D6 /* AlertView.m in Sources */,
-				8411B90E189FEC070019D2D6 /* FriendTVC.m in Sources */,
-				84F468E81AD4884200CF8C4F /* Friend.m in Sources */,
-				8411B90F189FEC070019D2D6 /* LocationTVC.m in Sources */,
+				8411B90E189FEC070019D2D6 /* FriendsTVC.m in Sources */,
+				8411B90F189FEC070019D2D6 /* RegionsTVC.m in Sources */,
 				8499BA98192D085700FA95C7 /* DetailNC.m in Sources */,
+				846FFA521B416CD6001482A6 /* Region+Create.m in Sources */,
 				8411B88B189FE79B0019D2D6 /* CoreData.m in Sources */,
-				848794B419A6240100DF56EB /* Location.m in Sources */,
-				842CA4D41B3C7B5900B7FF1C /* Message.m in Sources */,
-				8411B87A189FE1ED0019D2D6 /* Location+Create.m in Sources */,
 				84D751781B35B7A500B06A0C /* MessageTVC.m in Sources */,
+				84A1736F1B428E8D00CCB7D0 /* Friend.m in Sources */,
+				84A173751B428E8E00CCB7D0 /* Setting.m in Sources */,
 				8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */,
 				8411B878189FE1ED0019D2D6 /* Friend+Create.m in Sources */,
 				845F003D192A5CDE00919FB8 /* QosTVC.m in Sources */,
+				846FFA4F1B40C13C001482A6 /* NavigationController.m in Sources */,
 				8411B83E189FDB140019D2D6 /* OwnTracksAppDelegate.m in Sources */,
+				84A173681B427BDD00CCB7D0 /* ModeBarButtonItem.m in Sources */,
+				84A1736C1B428E8D00CCB7D0 /* Waypoint.m in Sources */,
+				845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */,
 				84B7397A1A65629200B103F4 /* LocationManager.m in Sources */,
 				8411B891189FE9CE0019D2D6 /* Settings.m in Sources */,
-				8479EEB218E4288800923B24 /* Setting.m in Sources */,
+				84A173721B428E8E00CCB7D0 /* Region.m in Sources */,
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,
+				84A173781B428E8E00CCB7D0 /* Message.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1298,6 +1390,8 @@
 		8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				84A173691B428E5C00CCB7D0 /* Model 8.2.1.xcdatamodel */,
+				846FFA1B1B4023BE001482A6 /* Model 8.2.0.xcdatamodel */,
 				842CA4CE1B3C76D000B7FF1C /* Model 8.1.5.xcdatamodel */,
 				84930A311B37729000810C3A /* Model 8.1.4.xcdatamodel */,
 				84930A2D1B376DDF00810C3A /* Model 8.1.3.xcdatamodel */,
@@ -1313,7 +1407,7 @@
 				84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */,
 				8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 842CA4CE1B3C76D000B7FF1C /* Model 8.1.5.xcdatamodel */;
+			currentVersion = 84A173691B428E5C00CCB7D0 /* Model 8.2.1.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -8,7 +8,6 @@
 
 #import "Connection.h"
 #import "CoreData.h"
-#import "CoreData.h"
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <Fabric/Fabric.h>
@@ -41,6 +40,8 @@
 @property (nonatomic) NSInteger willQos;
 @property (nonatomic) BOOL willRetainFlag;
 @property (strong, nonatomic) NSString *clientId;
+@property (strong, nonatomic) MQTTSSLSecurityPolicy *securityPolicy;
+@property (strong, nonatomic) NSArray *certificates;
 
 @property (nonatomic, readwrite) NSError *lastErrorCode;
 
@@ -128,8 +129,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
           willQos:(NSInteger)willQos
    willRetainFlag:(BOOL)willRetainFlag
      withClientId:(NSString *)clientId
-{
-    DDLogVerbose(@"%@ connectTo: %@:%@@%@:%ld %@ (%ld) c%d / %@ %@ q%ld r%d as %@",
+   securityPolicy:(MQTTSSLSecurityPolicy *)securityPolicy
+     certificates:(NSArray *)certificates {
+    DDLogVerbose(@"%@ connectTo: %@:%@@%@:%ld %@ (%ld) c%d / %@ %@ q%ld r%d as %@ %@ %@",
                  self.clientId,
                  auth ? user : @"",
                  auth ? pass : @"",
@@ -142,7 +144,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                  [[NSString alloc] initWithData:will encoding:NSUTF8StringEncoding],
                  (long)willQos,
                  willRetainFlag,
-                 clientId
+                 clientId,
+                 securityPolicy,
+                 certificates
                  );
     
     if (!self.session ||
@@ -158,7 +162,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         //![will isEqualToData:self.will] ||
         willQos != self.willQos ||
         willRetainFlag != self.willRetainFlag ||
-        ![clientId isEqualToString:self.clientId]) {
+        ![clientId isEqualToString:self.clientId] ||
+        securityPolicy != self.securityPolicy ||
+        certificates != self.certificates) {
         self.host = host;
         self.port = (int)port;
         self.tls = tls;
@@ -172,6 +178,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         self.willQos = willQos;
         self.willRetainFlag = willRetainFlag;
         self.clientId = clientId;
+        self.securityPolicy = securityPolicy;
+        self.certificates = certificates;
         
         DDLogVerbose(@"%@ new session", self.clientId);
         self.session = [[MQTTSession alloc] initWithClientId:clientId
@@ -186,7 +194,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                               willRetainFlag:willRetainFlag
                                                protocolLevel:3
                                                      runLoop:[NSRunLoop currentRunLoop]
-                                                     forMode:NSDefaultRunLoopMode];
+                                                     forMode:NSDefaultRunLoopMode
+                                              securityPolicy:securityPolicy
+                                                certificates:certificates];
         [self.session setDelegate:self];
         self.session.persistence.persistent = TRUE;
         self.reconnectTime = RECONNECT_TIMER;

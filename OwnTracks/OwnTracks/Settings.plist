@@ -66,5 +66,21 @@
 	<string></string>
 	<key>positions_preference</key>
 	<integer>50</integer>
+	<key>clientpkcs</key>
+	<string></string>
+	<key>passphrase</key>
+	<string></string>
+	<key>usepolicy</key>
+	<false/>
+	<key>policymode</key>
+	<integer>0</integer>
+	<key>allowinvalidcerts</key>
+	<false/>
+	<key>validatedomainname</key>
+	<false/>
+	<key>validatecertificatechain</key>
+	<false/>
+	<key>servercer</key>
+	<string></string>
 </dict>
 </plist>

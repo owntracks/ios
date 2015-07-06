@@ -11,6 +11,7 @@
 #import "CoreData.h"
 #import "OwnTracksAppDelegate.h"
 #import "Settings.h"
+#import "AlertView.h"
 #import <objc-geohash/GeoHash.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
@@ -29,6 +30,14 @@
 @end
 
 @implementation Messaging
+static Messaging *theInstance = nil;
+
++ (Messaging *)sharedInstance {
+    if (theInstance == nil) {
+        theInstance = [[Messaging alloc] init];
+    }
+    return theInstance;
+}
 
 static const DDLogLevel ddLogLevel = DDLogLevelError;
 
@@ -230,6 +239,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 NSUInteger ttl = [dictionary[@"ttl"] unsignedIntegerValue];
                 NSDate *timestamp = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]];
                 
+                
                 [context performBlock:^{
                     Message *message = [Message messageWithTopic:topic
                                                             icon:icon
@@ -262,6 +272,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         return FALSE;
     }
     [Message expireMessages:context];
+
+    UILocalNotification *notification = [[UILocalNotification alloc] init];
+    notification.alertBody = @"New message arrived";
+    notification.userInfo = @{@"notify": @"msg"};
+    notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
+    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    
     return TRUE;
 }
 

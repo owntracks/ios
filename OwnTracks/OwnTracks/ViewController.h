@@ -14,7 +14,7 @@
 #import "Connection.h"
 #import "OwnTracksAppDelegate.h"
 
-@interface ViewController : UIViewController <MKMapViewDelegate, NSFetchedResultsControllerDelegate, UIActionSheetDelegate, RangingDelegate, UISplitViewControllerDelegate>
+@interface ViewController : UIViewController <MKMapViewDelegate, NSFetchedResultsControllerDelegate, UIActionSheetDelegate,  UISplitViewControllerDelegate>
 
 - (void)showRootPopoverButtonItem:(UIBarButtonItem *)barButtonItem;
 - (void)invalidateRootPopoverButtonItem:(UIBarButtonItem *)barButtonItem;

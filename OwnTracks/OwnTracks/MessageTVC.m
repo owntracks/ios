@@ -8,7 +8,7 @@
 
 #import "MessageTVC.h"
 #import "OwnTracksAppDelegate.h"
-#import "MEssage+Create.h"
+#import "Message+Create.h"
 #import "CoreData.h"
 #import "MessageTableViewCell.h"
 #import "UIColor+WithName.h"
@@ -31,14 +31,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
-    
     self.fontAwesome = [FontAwesome fontWithSize:30.0f];
-    
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate addObserver:self
-               forKeyPath:@"inQueue"
-                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                  context:nil];
     return self;
 }
 
@@ -46,12 +39,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [super viewWillAppear:animated];
     self.tableView.estimatedRowHeight = 150;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate.messaging addObserver:self
-                         forKeyPath:@"lastGeoHash"
-                            options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                            context:nil];
-
     [Message expireMessages:[CoreData theManagedObjectContext]];
 }
 
@@ -59,28 +46,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [super viewDidAppear:animated];
     [self.tableView reloadData];
     [self showCount];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate.messaging removeObserver:self forKeyPath:@"lastGeoHash"];
-
-    [super viewWillDisappear:animated];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    
-    if (delegate.messaging.lastGeoHash) {
-        self.title = [NSString stringWithFormat:@"Messaging (%@)", delegate.messaging.lastGeoHash];
-    }
-    
-    if ([CoreData theManagedObjectContext]) {
-        [self showCount];
-    }
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
@@ -283,9 +248,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (IBAction)trash:(UIBarButtonItem *)sender {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate.messaging reset:[CoreData theManagedObjectContext]];
-    
+    [[Messaging sharedInstance] reset:[CoreData theManagedObjectContext]];
 }
 
 @end

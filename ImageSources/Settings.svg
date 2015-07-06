@@ -13,7 +13,7 @@
    height="601"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.2 r9819"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="Settings.svg">
   <defs
      id="defs4" />
@@ -24,8 +24,8 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.0606602"
-     inkscape:cx="164.64303"
+     inkscape:zoom="0.69191505"
+     inkscape:cx="77.565867"
      inkscape:cy="309.68173"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -57,7 +57,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -67,7 +67,7 @@
      inkscape:label="Ebene">
     <path
        sodipodi:type="star"
-       style="fill:#0000ff;fill-opacity:1;stroke:none"
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-opacity:1;stroke-width:58.65877589;stroke-miterlimit:4;stroke-dasharray:none"
        id="path3010"
        sodipodi:sides="9"
        sodipodi:cx="26"

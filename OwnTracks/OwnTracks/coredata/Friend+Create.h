@@ -7,16 +7,18 @@
 //
 
 #import "Friend.h"
+#import <MapKit/MapKit.h>
 #import <AddressBook/AddressBook.h>
 
-@interface Friend (Create)
+@interface Friend (Create) <MKAnnotation, MKOverlay>
+@property (nonatomic) CLLocationCoordinate2D coordinate;
+
 + (ABAddressBookRef)theABRef;
 
 + (Friend *)existsFriendWithTopic:(NSString *)topic
      inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (Friend *)friendWithTopic:(NSString *)topic
-                        tid:(NSString *)tid
      inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (NSString *)nameOfPerson:(ABRecordRef)record;
@@ -26,8 +28,11 @@
 
 - (void)linkToAB:(ABRecordRef)record;
 - (NSString *)name;
+- (NSString *)nameOrTopic;
 - (NSData *)image;
+
 - (NSString *)getEffectiveTid;
-- (Location *)newestLocation;
+- (Waypoint *)newestWaypoint;
+- (MKPolyline *)polyLine;
 
 @end

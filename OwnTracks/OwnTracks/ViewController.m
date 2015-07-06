@@ -9,52 +9,34 @@
 #import "ViewController.h"
 #import "StatusTVC.h"
 #import "FriendAnnotationV.h"
-#import "FriendTVC.h"
-#import "LocationTVC.h"
-#import "EditLocationTVC.h"
+#import "FriendsTVC.h"
+#import "RegionsTVC.h"
+#import "WaypointTVC.h"
 #import "CoreData.h"
 #import "Friend+Create.h"
-#import "Location+Create.h"
+#import "Region+Create.h"
+#import "Waypoint.h"
+#import "UIColor+WithName.h"
 #import "LocationManager.h"
+#import "OwnTracking.h"
+#import "ModeBarButtonItem.h"
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface ViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *UIBadge;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *locationButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *beaconButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *connectionButton;
-
-@property (nonatomic) int connectionStateOut;
-@property (nonatomic) int connectionBufferedOut;
-
-@property (nonatomic) BOOL beaconOn;
 
 @property (strong, nonatomic) UIBarButtonItem *rootPopoverButtonItem;
 
-@property (strong, nonatomic) NSFetchedResultsController *frc;
+@property (strong, nonatomic) NSFetchedResultsController *frcFriends;
+@property (strong, nonatomic) NSFetchedResultsController *frcRegions;
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
 
 @end
 
 @implementation ViewController
-static const DDLogLevel ddLogLevel = DDLogLevelError;
-
-#define KEEPALIVE 600.0
-
-- (void)setBadge:(NSNumber *)number {
-    unsigned long inQueue = [number unsignedLongValue];
-    DDLogVerbose(@"inQueue %lu", inQueue);
-    if (self.UIBadge) {
-        if (inQueue > 0) {
-            self.UIBadge.text = [NSString stringWithFormat:@"%lu", inQueue];
-        } else {
-            self.UIBadge.text = @"";
-        }
-    }
-}
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)viewDidLoad
 {
@@ -62,9 +44,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
     
     self.mapView.delegate = self;
-    
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    delegate.delegate = self;
     
     UISplitViewController *splitViewController;
     
@@ -78,7 +57,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     
     self.mapView.mapType = MKMapTypeStandard;
-    self.mapView.showsUserLocation = TRUE;    
+    self.mapView.showsUserLocation = TRUE;
+    
+    self.navigationItem.leftBarButtonItem = [[MKUserTrackingBarButtonItem alloc] initWithMapView:self.mapView];
+    NSMutableArray *rightButtonItems = [self.navigationItem.rightBarButtonItems mutableCopy];
+    [rightButtonItems insertObject:[[ModeBarButtonItem alloc] init] atIndex:0];
+    self.navigationItem.rightBarButtonItems = rightButtonItems;
 }
 
 - (BOOL)splitViewController:(UISplitViewController *)svc
@@ -146,328 +130,50 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             [self.toolbar setItems:toolBarItems animated:YES];
         }
     }
-    
-    [self performSelector:@selector(hideNavBar) withObject:nil afterDelay:2.0];
-    
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate addObserver:self forKeyPath:@"connectionStateOut"
-                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
-    [delegate addObserver:self forKeyPath:@"connectionBufferedOut"
-                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
-    [delegate addObserver:self forKeyPath:@"inQueue"
-                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
-    
-    [self monitoringButtonImage];
-    [self beaconButtonImage];
-    [self connectionButtonImage];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     if ([CoreData theManagedObjectContext]) {
-        if (!self.frc) {
+        if (!self.frcFriends) {
+            NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Friend"];
+            request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"topic" ascending:TRUE]];
+            self.frcFriends = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                  managedObjectContext:[CoreData theManagedObjectContext]
+                                                                    sectionNameKeyPath:nil
+                                                                             cacheName:nil];
+            self.frcFriends.delegate = self;
+        }
+        if (!self.frcRegions) {
             [[LocationManager sharedInstance] resetRegions];
-            
-            NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Location"];
-            request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]];
-            
-            self.frc = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                           managedObjectContext:[CoreData theManagedObjectContext]
-                                                             sectionNameKeyPath:nil
-                                                                      cacheName:nil];
-            self.frc.delegate = self;
+            NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
+            request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:TRUE]];
+            self.frcRegions = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                                  managedObjectContext:[CoreData theManagedObjectContext]
+                                                                    sectionNameKeyPath:nil
+                                                                             cacheName:nil];
+            self.frcRegions.delegate = self;
         }
     }
 }
 
-- (void)hideNavBar
-{
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate removeObserver:self forKeyPath:@"connectionStateOut" context:nil];
-    [delegate removeObserver:self forKeyPath:@"connectionBufferedOut" context:nil];
-    [delegate removeObserver:self forKeyPath:@"inQueue" context:nil];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
-}
-
-- (void)setCenter:(Location *)location {
-    CLLocationCoordinate2D coordinate = location.coordinate;
+- (void)setCenter:(id<MKAnnotation>)annotation {
+    CLLocationCoordinate2D coordinate = annotation.coordinate;
     [self.mapView setVisibleMapRect:[self centeredRect:coordinate] animated:YES];
     self.mapView.userTrackingMode = MKUserTrackingModeNone;
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)object;
-    if ([keyPath isEqualToString:@"connectionStateOut"] || [keyPath isEqualToString:@"connectionBufferedOut"]) {
-        if ([keyPath isEqualToString:@"connectionStateOut"]) {
-            self.connectionStateOut = [delegate.connectionStateOut intValue];
-        }
-        if ([keyPath isEqualToString:@"connectionBufferedOut"]) {
-            self.connectionBufferedOut = [delegate.connectionBufferedOut intValue];
-        }
-        [self connectionButtonImage];
-    }
-    if ([keyPath isEqualToString:@"inQueue"]) {
-        [self performSelectorOnMainThread:@selector(setBadge:) withObject:delegate.inQueue waitUntilDone:NO];
-    }
-}
-
-
-#pragma UI actions
-
-#define ACTION_MONITORING @"Location Monitoring Mode"
-#define ACTION_MAP @"Map Modes"
-#define ACTION_BEACON @"iBeacon"
-#define ACTION_CONNECTION @"MQTT Connection"
-
-- (IBAction)location:(UIBarButtonItem *)sender
-{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:ACTION_MONITORING
-                                                             delegate:self
-                                                    cancelButtonTitle:([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ? @"Cancel" : nil
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:
-                                  [NSString stringWithFormat:@"◼︎ Manual %@",
-                                   [LocationManager sharedInstance].monitoring == 0 ? @"✔︎" : @""],
-                                  [NSString stringWithFormat:@"▶︎ Significant Changes %@",
-                                   [LocationManager sharedInstance].monitoring == 1 ? @"✔︎" : @""],
-                                  [NSString stringWithFormat:@"▶︎▶︎ Move Mode %@",
-                                   [LocationManager sharedInstance].monitoring == 2 ? @"✔︎" : @""],
-                                  @"",
-                                  @"Publish Now",
-                                  nil];
-    [actionSheet showFromBarButtonItem:sender animated:YES];
-}
-
-- (IBAction)friends:(UIBarButtonItem *)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:ACTION_MAP
-                                                             delegate:self
-                                                    cancelButtonTitle:([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ? @"Cancel" : nil
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:
-                                  [NSString stringWithFormat:@"No Tracking %@",
-                                   self.mapView.userTrackingMode == MKUserTrackingModeNone ? @"✔︎" : @""],
-                                  [NSString stringWithFormat:@"Follow %@",
-                                   self.mapView.userTrackingMode == MKUserTrackingModeFollow ? @"✔︎" : @""],
-                                  [NSString stringWithFormat:@"Follow with Heading %@",
-                                   self.mapView.userTrackingMode == MKUserTrackingModeFollowWithHeading ? @"✔︎" : @""],
-                                  @"",
-                                  @"Show all Friends",
-                                  @"",
-                                  [NSString stringWithFormat:@"Standard Map %@",
-                                   self.mapView.mapType == MKMapTypeStandard ? @"✔︎" : @""],
-                                  [NSString stringWithFormat:@"Satellite Map %@",
-                                   self.mapView.mapType == MKMapTypeSatellite ? @"✔︎" : @""],
-                                  [NSString stringWithFormat:@"Hybrid Map %@",
-                                   self.mapView.mapType == MKMapTypeHybrid ? @"✔︎" : @""],
-                                  nil];
-    [actionSheet showFromBarButtonItem:sender animated:YES];
-}
-
-- (IBAction)beaconPressed:(UIBarButtonItem *)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:ACTION_BEACON
-                                                             delegate:self
-                                                    cancelButtonTitle:([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ? @"Cancel" : nil
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:
-                                  [NSString stringWithFormat:@"Ranging On %@",
-                                   [LocationManager sharedInstance].ranging ? @"✔︎" : @""],
-                                  [NSString stringWithFormat:@"Ranging Off %@",
-                                   ![LocationManager sharedInstance].ranging ? @"✔︎" : @""],
-                                  nil];
-    [actionSheet showFromBarButtonItem:sender animated:YES];
-}
-
-- (IBAction)connectionPressed:(UIBarButtonItem *)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:ACTION_CONNECTION
-                                                             delegate:self
-                                                    cancelButtonTitle:([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone) ? @"Cancel" : nil
-                                               destructiveButtonTitle:nil
-                                                    otherButtonTitles:
-                                  @"(Re-)Connect",
-                                  @"Disconnect",
-                                  nil];
-    [actionSheet showFromBarButtonItem:sender animated:YES];
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
-    
-    if ([actionSheet.title isEqualToString:ACTION_MONITORING]) {
-        switch (buttonIndex - actionSheet.firstOtherButtonIndex) {
-            case 0:
-                [LocationManager sharedInstance].monitoring = 0;
-                break;
-            case 1:
-                [LocationManager sharedInstance].monitoring = 1;
-                break;
-            case 2:
-                [LocationManager sharedInstance].monitoring = 2;
-                break;
-            case 4:
-                [delegate sendNow];
-                break;
-        }
-        [Settings setInt:[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"];
-        [self monitoringButtonImage];
-        
-    } else if ([actionSheet.title isEqualToString:ACTION_MAP]) {
-        switch (buttonIndex - actionSheet.firstOtherButtonIndex) {
-            case 0:
-                [self.mapView setUserTrackingMode:MKUserTrackingModeNone animated:YES];
-                break;
-            case 1:
-                [self.mapView setUserTrackingMode:MKUserTrackingModeFollow animated:YES];
-                break;
-            case 2:
-                [self.mapView setUserTrackingMode:MKUserTrackingModeFollowWithHeading animated:YES];
-                break;
-            case 4:
-            {
-                CLLocationCoordinate2D center = [LocationManager sharedInstance].location.coordinate;
-                MKMapRect rect = [self centeredRect:center];
-                
-                for (Location *location in [Location allLocationsInManagedObjectContext:[CoreData theManagedObjectContext]])
-                {
-                    CLLocationCoordinate2D coordinate = location.coordinate;
-                    if (coordinate.latitude != 0 || coordinate.longitude != 0) {
-                        MKMapPoint point = MKMapPointForCoordinate(coordinate);
-                        if (point.x < rect.origin.x) {
-                            rect.size.width += rect.origin.x - point.x;
-                            rect.origin.x = point.x;
-                        }
-                        if (point.x > rect.origin.x + rect.size.width) {
-                            rect.size.width += point.x - rect.origin.x;
-                        }
-                        if (point.y < rect.origin.y) {
-                            rect.size.height += rect.origin.y - point.y;
-                            rect.origin.y = point.y;
-                        }
-                        if (point.y > rect.origin.y + rect.size.height) {
-                            rect.size.height += point.y - rect.origin.y;
-                        }
-                    }
-                }
-                
-                rect.origin.x -= rect.size.width/10.0;
-                rect.origin.y -= rect.size.height/10.0;
-                rect.size.width *= 1.2;
-                rect.size.height *= 1.2;
-                
-                [self.mapView setUserTrackingMode:MKUserTrackingModeNone animated:YES];
-                [self.mapView setVisibleMapRect:rect animated:YES];
-                break;
-            }
-            case 6:
-                self.mapView.mapType = MKMapTypeStandard;
-                break;
-            case 7:
-                self.mapView.mapType = MKMapTypeSatellite;
-                break;
-            case 8:
-                self.mapView.mapType = MKMapTypeHybrid;
-                break;
-        }
-    } else if ([actionSheet.title isEqualToString:ACTION_BEACON]) {
-        switch (buttonIndex - actionSheet.firstOtherButtonIndex) {
-            case 0:
-                [LocationManager sharedInstance].ranging = YES;
-                break;
-            case 1:
-                [LocationManager sharedInstance].ranging = NO;
-                break;
-        }
-        [Settings setBool:[LocationManager sharedInstance].ranging forKey:@"ranging_preference"];
-        [self beaconButtonImage];
-        
-    } else if ([actionSheet.title isEqualToString:ACTION_CONNECTION]) {
-        switch (buttonIndex - actionSheet.firstOtherButtonIndex) {
-            case 0:
-                [delegate connectionOff];
-                [delegate reconnect];
-                break;
-            case 1:
-                [delegate connectionOff];
-                break;
-        }
-        [self connectionButtonImage];
-    }
-}
-
-- (void)monitoringButtonImage
-{
-    switch ([LocationManager sharedInstance].monitoring) {
-        case 2:
-            self.locationButton.image = [UIImage imageNamed:@"FastMode"];
-            break;
-        case 1:
-            self.locationButton.image = [UIImage imageNamed:@"PlayMode"];
-            break;
-        case 0:
-        default:
-            self.locationButton.image = [UIImage imageNamed:@"StopMode"];
-            break;
-    }
-}
-
-- (void)beaconButtonImage
-{
-    if ([LocationManager sharedInstance].ranging) {
-        self.beaconButton.image = [UIImage imageNamed:@"iBeaconOn"];
-    } else {
-        self.beaconButton.image = [UIImage imageNamed:@"iBeaconOff"];
-    }
-}
-
-- (void)connectionButtonImage
-{
-    if (self.connectionBufferedOut) {
-        if (self.connectionBufferedOut % 2) {
-            self.connectionButton.image = [UIImage imageNamed:@"ConnectionMid"];
-        } else {
-            self.connectionButton.image = [UIImage imageNamed:@"ConnectionOff"];
-        }
-    } else {
-        self.connectionButton.image = [UIImage imageNamed:@"ConnectionOn"];
-    }
-    
-    switch (self.connectionStateOut) {
-        case state_connected:
-            self.connectionButton.tintColor = [UIColor colorWithRed:0.0 green:190.0/255.0 blue:0.0 alpha:1.0];
-            break;
-        case state_starting:
-            self.connectionButton.tintColor = [UIColor colorWithRed:0.0 green:0.0 blue:190.0/255.0 alpha:1.0];
-            break;
-        case state_closed:
-        case state_closing:
-        case state_connecting:
-            self.connectionButton.tintColor = [UIColor colorWithRed:190.0/255.0 green:190.0/255.0 blue:0.0 alpha:1.0];
-            break;
-        case state_error:
-            self.connectionButton.tintColor = [UIColor colorWithRed:190.0/255.0 green:0.0 blue:0.0 alpha:1.0];
-            break;
-    }
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    /*
-     * segue for location detail view
-     */
-    
-    if ([segue.identifier isEqualToString:@"showDetail:"]) {
-        if ([segue.destinationViewController respondsToSelector:@selector(setLocation:)]) {
-            [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hideNavBar) object:nil];
+    if ([segue.identifier isEqualToString:@"showWaypointFromMap"]) {
+        if ([segue.destinationViewController respondsToSelector:@selector(setWaypoint:)]) {
             MKAnnotationView *view = (MKAnnotationView *)sender;
-            Location *location  = (Location *)view.annotation;
-            [segue.destinationViewController performSelector:@selector(setLocation:) withObject:location];
+            Friend *friend  = (Friend *)view.annotation;
+            Waypoint *waypoint = [friend newestWaypoint];
+            if (waypoint) {
+                [segue.destinationViewController performSelector:@selector(setWaypoint:) withObject:waypoint];
+            }
         }
     }
 }
@@ -491,40 +197,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return rect;
 }
 
-
-
-#pragma RangingDelegate
-- (void)regionState:(CLRegion *)region inside:(BOOL)inside {
-    if ([[LocationManager sharedInstance] insideBeaconRegion]) {
-        self.beaconButton.tintColor = [UIColor colorWithRed:255.0/255.0 green:75.0/255.0 blue:0.0 alpha:1.0];
-    } else {
-        self.beaconButton.tintColor = [UIColor colorWithRed:0.0 green:159.0/255.0 blue:255.0/255.0 alpha:1.0];
-    }
-}
-
-- (void)beaconInRange:(CLBeacon *)beacon region:(CLBeaconRegion *)region {
-    self.beaconOn = !self.beaconOn;
-    if (self.beaconOn) {
-        self.beaconButton.image = [UIImage imageNamed:@"iBeaconOn"];
-    } else {
-        self.beaconButton.image = [UIImage imageNamed:@"iBeaconOn2"];
-    }
-}
-
 #pragma MKMapViewDelegate
 
-#define REUSE_ID_PIN @"Annotation_pin"
 #define REUSE_ID_BEACON @"Annotation_beacon"
 #define REUSE_ID_PICTURE @"Annotation_picture"
-#define OLD_TIME -12*60*60
+#define REUSE_ID_OTHER @"Annotation_other"
 
 // This is a hack because the FriendAnnotationView did not erase it's callout after being dragged
 - (void)mapView:(MKMapView *)mapView
  annotationView:(MKAnnotationView *)view
 didChangeDragState:(MKAnnotationViewDragState)newState
    fromOldState:(MKAnnotationViewDragState)oldState {
+    DDLogVerbose(@"didChangeDragState %lu", (unsigned long)newState);
     if (newState == MKAnnotationViewDragStateNone) {
-        DDLogVerbose(@"MKAnnotationViewDragStateNone");
         NSArray *annotations = mapView.annotations;
         [mapView removeAnnotations:annotations];
         [mapView addAnnotations:annotations];
@@ -535,107 +220,86 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 {
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
         return nil;
-    } else {
-        if ([annotation isKindOfClass:[Location class]]) {
-            Location *location = (Location *)annotation;
-            MKAnnotationView *annotationView;
-            
-            if ([location.belongsTo.topic isEqualToString:[Settings theGeneralTopic]]) {
-                CLRegion *region = [location region];
-                if (region && [region isKindOfClass:[CLBeaconRegion class]]) {
-                    annotationView = [self beaconAnnotationView:mapView location:location];
-                } else {
-                    if (location == [location.belongsTo newestLocation]) {
-                        annotationView = [self pictureAnnotationView:mapView location:location];
-                    } else {
-                        annotationView = [self pinAnnotationView:mapView location:location];
-                    }
-                }
-            } else {
-                annotationView = [self pictureAnnotationView:mapView location:location];
+    } else if ([annotation isKindOfClass:[Friend class]]) {
+        Friend *friend = (Friend *)annotation;
+        Waypoint *waypoint = [friend newestWaypoint];
+        
+        MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_PICTURE];
+        FriendAnnotationV *friendAnnotationV;
+        if (annotationView) {
+            friendAnnotationV = (FriendAnnotationV *)annotationView;
+        } else {
+            friendAnnotationV = [[FriendAnnotationV alloc] initWithAnnotation:friend reuseIdentifier:REUSE_ID_PICTURE];
+        }
+        UIButton *refreshButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [refreshButton setImage:[UIImage imageNamed:@"Refresh"] forState:UIControlStateNormal];
+        [refreshButton sizeToFit];
+        annotationView.leftCalloutAccessoryView = refreshButton;
+        friendAnnotationV.canShowCallout = YES;
+        friendAnnotationV.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        
+        NSData *data = [friend image];
+        UIImage *image = [UIImage imageWithData:data];
+        friendAnnotationV.personImage = image;
+        friendAnnotationV.tid = [friend getEffectiveTid];
+        friendAnnotationV.speed = [waypoint.vel doubleValue];
+        friendAnnotationV.course = [waypoint.cog doubleValue];
+        friendAnnotationV.me = [friend.topic isEqualToString:[Settings theGeneralTopic]];
+        [friendAnnotationV setNeedsDisplay];
+        
+        return friendAnnotationV;
+        
+    } else if ([annotation isKindOfClass:[Region class]]) {
+        Region *region = (Region *)annotation;
+        if ([region.CLregion isKindOfClass:[CLBeaconRegion class]]) {
+            MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_BEACON];
+            if (!annotationView) {
+                annotationView = [[MKAnnotationView alloc] initWithAnnotation:region reuseIdentifier:REUSE_ID_BEACON];
             }
-            
-            DDLogVerbose(@"location.automatic: %@", location.automatic ? [location.automatic boolValue] ? @"true" : @"false" : @"nil");
-
-            annotationView.draggable = ![location.automatic boolValue];
+            annotationView.draggable = true;
             annotationView.canShowCallout = YES;
-            annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-            
-            if (location == [location.belongsTo newestLocation]) {
-                UIButton *refreshButton = [UIButton buttonWithType:UIButtonTypeSystem];
-                [refreshButton setImage:[UIImage imageNamed:@"Refresh"] forState:UIControlStateNormal];
-                [refreshButton sizeToFit];
-                annotationView.leftCalloutAccessoryView = refreshButton;
+
+            if ([[LocationManager sharedInstance] insideBeaconRegion:region.name]) {
+                annotationView.image = [UIImage imageNamed:@"iBeaconHot"];
+            } else {
+                annotationView.image = [UIImage imageNamed:@"iBeaconCold"];
             }
-            
             [annotationView setNeedsDisplay];
             return annotationView;
+        } else {
+            MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_OTHER];
+            if (!annotationView) {
+                MKPinAnnotationView *pAV;
+                pAV = [[MKPinAnnotationView alloc] initWithAnnotation:region reuseIdentifier:REUSE_ID_OTHER];
+                pAV.pinColor = MKPinAnnotationColorGreen;
+                annotationView = pAV;
+            }
+            annotationView.draggable = true;
+            annotationView.canShowCallout = YES;
+            [annotationView setNeedsDisplay];
+            return annotationView;
+
         }
-        return nil;
     }
-}
-
-- (MKAnnotationView *)pictureAnnotationView:(MKMapView *)mapView location:(Location *)location {
-    MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_PICTURE];
-    FriendAnnotationV *friendAnnotationV;
-    if (annotationView) {
-        friendAnnotationV = (FriendAnnotationV *)annotationView;
-    } else {
-        friendAnnotationV = [[FriendAnnotationV alloc] initWithAnnotation:location reuseIdentifier:REUSE_ID_PICTURE];
-    }
-    
-    NSData *data = [location.belongsTo image];
-    UIImage *image = [UIImage imageWithData:data];
-    friendAnnotationV.personImage = image;
-    friendAnnotationV.tid = [location.belongsTo getEffectiveTid];
-    friendAnnotationV.speed = [location.speed doubleValue];
-    friendAnnotationV.course = [location.course doubleValue];
-    friendAnnotationV.automatic = [location.automatic boolValue];
-    friendAnnotationV.me = [location.belongsTo.topic isEqualToString:[Settings theGeneralTopic]];
-    return friendAnnotationV;
-}
-
-- (MKAnnotationView *)beaconAnnotationView:(MKMapView *)mapView location:(Location *)location {
-    MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_BEACON];
-    if (!annotationView) {
-        annotationView = [[MKAnnotationView alloc] initWithAnnotation:location reuseIdentifier:REUSE_ID_BEACON];
-    }
-    CLRegion *region = [location region];
-    if ([[LocationManager sharedInstance] insideBeaconRegion:region.identifier]) {
-        annotationView.image = [UIImage imageNamed:@"iBeaconHot"];
-    } else {
-        annotationView.image = [UIImage imageNamed:@"iBeaconCold"];
-    }
-    return annotationView;
-}
-
-- (MKAnnotationView *)pinAnnotationView:(MKMapView *)mapView location:(Location *)location {
-    MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_PIN];
-    MKPinAnnotationView *pinAnnotationView;
-    if (annotationView) {
-        pinAnnotationView = (MKPinAnnotationView *)annotationView;
-    } else {
-        pinAnnotationView  = [[MKPinAnnotationView alloc] initWithAnnotation:location reuseIdentifier:REUSE_ID_PIN];
-    }
-    
-    if ([location.automatic boolValue]) {
-        pinAnnotationView.pinColor = MKPinAnnotationColorRed;
-    } else {
-        pinAnnotationView.pinColor = MKPinAnnotationColorPurple;
-    }
-    return pinAnnotationView;
+    return nil;
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
 {
-    if ([overlay isKindOfClass:[Location class]]) {
-        MKCircleRenderer *renderer = [[MKCircleRenderer alloc] initWithCircle:overlay];
+    if ([overlay isKindOfClass:[Friend class]]) {
+        Friend *friend = (Friend *)overlay;
+        MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithPolyline:friend.polyLine];
+        [renderer setLineWidth:3];
+        [renderer setStrokeColor:[UIColor colorWithName:@"track" defaultColor:[UIColor redColor]]];
+        return renderer;
         
-        Location *location = (Location *)overlay;
-        if ([location.verticalaccuracy boolValue]) {
-            renderer.fillColor = [UIColor colorWithRed:1.0 green:0.5 blue:0.5 alpha:0.333];
+    } else if ([overlay isKindOfClass:[Region class]]) {
+        Region *region = (Region *)overlay;
+        MKCircleRenderer *renderer = [[MKCircleRenderer alloc] initWithCircle:region.circle];
+        if ([[LocationManager sharedInstance] insideCircularRegion:region.name]) {
+            renderer.fillColor = [UIColor colorWithName:@"inside" defaultColor:[UIColor redColor]];
         } else {
-            renderer.fillColor = [UIColor colorWithRed:0.5 green:0.5 blue:1.0 alpha:0.333];
+            renderer.fillColor = [UIColor colorWithName:@"outside" defaultColor:[UIColor blueColor]];
         }
         return renderer;
         
@@ -645,68 +309,77 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 }
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-    DDLogVerbose(@"calloutAccessoryControlTapped %@ %@", view, control);
     if (control == view.rightCalloutAccessoryView) {
-        [self performSegueWithIdentifier:@"showDetail:" sender:view];
+        [self performSegueWithIdentifier:@"showWaypointFromMap" sender:view];
     } else if (control == view.leftCalloutAccessoryView) {
-        Location *location = (Location *)view.annotation;
+        Friend *friend = (Friend *)view.annotation;
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
-        [delegate requestLocationFromFriend:location.belongsTo];
+        [delegate requestLocationFromFriend:friend];
+    }
+}
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
+    if  ([view.annotation isKindOfClass:[Friend class]]) {
+        Friend *friend = (Friend *)view.annotation;
+        [mapView addOverlay:friend];
+    }
+}
+
+- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
+    if  ([view.annotation isKindOfClass:[Friend class]]) {
+        Friend *friend = (Friend *)view.annotation;
+        [mapView removeOverlay:friend];
     }
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
 
-- (void)performFetch
+- (void)performFetch:(NSFetchedResultsController *)frc
 {
-    if (self.frc) {
-        if (self.frc.fetchRequest.predicate) {
-            DDLogVerbose(@"[%@ %@] fetching %@ with predicate: %@",
-                         NSStringFromClass([self class]),
-                         NSStringFromSelector(_cmd),
-                         self.frc.fetchRequest.entityName,
-                         self.frc.fetchRequest.predicate);
-        } else {
-            DDLogVerbose(@"[%@ %@] fetching all %@ (i.e., no predicate)",
-                         NSStringFromClass([self class]),
-                         NSStringFromSelector(_cmd),
-                         self.frc.fetchRequest.entityName);
-        }
+    if (frc) {
         NSError *error;
-        [self.frc performFetch:&error];
+        [frc performFetch:&error];
         if (error) DDLogError(@"[%@ %@] %@ (%@)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [error localizedDescription], [error localizedFailureReason]);
-    } else {
-        DDLogVerbose(@"[%@ %@] no NSFetchedResultsController (yet?)", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
-    }
-    [self.mapView addAnnotations:[Location allValidLocationsInManagedObjectContext:[CoreData theManagedObjectContext]]];
-    
-    NSArray *overlays = [Location allWaypointsOfTopic:[Settings theGeneralTopic]
-                               inManagedObjectContext:[CoreData theManagedObjectContext]];
-    
-    [self.mapView addOverlays:overlays];
-    for (Location *location in overlays) {
-        if (location.region) {
-            [[LocationManager sharedInstance] startRegion:location.region];
-        }
     }
 }
 
-- (void)setFrc:(NSFetchedResultsController *)newfrc
+- (void)setFrcFriends:(NSFetchedResultsController *)newfrc
 {
-    NSFetchedResultsController *oldfrc = _frc;
+    NSFetchedResultsController *oldfrc = _frcFriends;
     if (newfrc != oldfrc) {
-        _frc = newfrc;
+        _frcFriends = newfrc;
         newfrc.delegate = self;
-        if ((!self.title || [self.title isEqualToString:oldfrc.fetchRequest.entity.name]) && (!self.navigationController || !self.navigationItem.title)) {
-            self.title = newfrc.fetchRequest.entity.name;
-        }
         if (newfrc) {
-            DDLogVerbose(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), oldfrc ? @"updated" : @"set");
-            [self performFetch];
-        } else {
-            DDLogVerbose(@"[%@ %@] reset to nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+            [self performFetch:newfrc];
         }
     }
+    [self.mapView addAnnotations:[Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]]];
+}
+
+- (void)setFrcRegions:(NSFetchedResultsController *)newfrc
+{
+    NSFetchedResultsController *oldfrc = _frcRegions;
+    if (newfrc != oldfrc) {
+        _frcRegions = newfrc;
+        newfrc.delegate = self;
+        if (newfrc) {
+            [self performFetch:newfrc];
+        }
+    }
+    
+    Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic]
+                            inManagedObjectContext:[CoreData theManagedObjectContext]];
+    [self.mapView addOverlays:[friend.hasRegions
+                               sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                                                           ascending:YES]]]];
+    for (Region *region in friend.hasRegions) {
+        if (region.CLregion) {
+            [[LocationManager sharedInstance] startRegion:region.CLregion];
+        }
+    }
+    [self.mapView addAnnotations:[friend.hasRegions
+                                  sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                                                              ascending:YES]]]];
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
@@ -740,45 +413,56 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 {
     if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext)
     {
-        Location *location = (Location *)anObject;
-        CLLocationCoordinate2D coordinate = location.coordinate;
-        DDLogVerbose(@"didChangeObject %lu %@ %@ %@",
-                     (unsigned long)type,
-                     location,
-                     [Settings theGeneralTopic],
-                     location.belongsTo.topic);
-        
-        switch(type)
-        {
-            case NSFetchedResultsChangeInsert:
-                if (coordinate.latitude != 0 || coordinate.longitude != 0) {
-                    [self.mapView addAnnotation:location];
-                }
-                if ([location.belongsTo.topic isEqualToString:[Settings theGeneralTopic]]) {
-                    [self.mapView addOverlay:location];
-                    if (location.region) {
-                        [[LocationManager sharedInstance] startRegion:location.region];
+        if ([anObject isKindOfClass:[Friend class]]) {
+            Friend *friend = (Friend *)anObject;
+            Waypoint *waypoint = [friend newestWaypoint];
+            switch(type)
+            {
+                case NSFetchedResultsChangeInsert:
+                    if (waypoint && [waypoint.lat doubleValue] != 0.0 && [waypoint.lon doubleValue] != 0.0) {
+                        [self.mapView addAnnotation:friend];
                     }
-                }
-                break;
-                
-            case NSFetchedResultsChangeDelete:
-                [self.mapView removeAnnotation:location];
-                [self.mapView removeOverlay:location];
-                [[LocationManager sharedInstance] stopRegion:location.region];
-                break;
-                
-            case NSFetchedResultsChangeUpdate:
-            case NSFetchedResultsChangeMove:
-                [self.mapView removeAnnotation:location];
-                if ([location.belongsTo.topic isEqualToString:[Settings theGeneralTopic]]) {
-                    [self.mapView removeOverlay:location];
-                    [self.mapView addOverlay:location];
-                }
-                if (coordinate.latitude != 0 || coordinate.longitude != 0) {
-                    [self.mapView addAnnotation:location];
-                }
-                break;
+                    break;
+                    
+                case NSFetchedResultsChangeDelete:
+                    [self.mapView removeOverlay:friend];
+                    [self.mapView removeAnnotation:friend];
+                    break;
+                    
+                case NSFetchedResultsChangeUpdate:
+                case NSFetchedResultsChangeMove:
+                    [self.mapView removeOverlay:friend];
+                    [self.mapView removeAnnotation:friend];
+                    if (waypoint && [waypoint.lat doubleValue] != 0.0 && [waypoint.lon doubleValue] != 0.0) {
+                        [self.mapView addAnnotation:friend];
+                    }
+                    break;
+            }
+            
+        } else if ([anObject isKindOfClass:[Region class]]) {
+            Region *region = (Region *)anObject;
+            switch(type)
+            {
+                case NSFetchedResultsChangeInsert:
+                    [self.mapView addAnnotation:region];
+                    [self.mapView addOverlay:region];
+                    break;
+                    
+                case NSFetchedResultsChangeDelete:
+                    [self.mapView removeOverlay:region];
+                    [self.mapView removeAnnotation:region];
+                    break;
+                    
+                case NSFetchedResultsChangeUpdate:
+                case NSFetchedResultsChangeMove:
+                    [self.mapView removeOverlay:region];
+                    [self.mapView removeAnnotation:region];
+                    [self.mapView addAnnotation:region];
+                    [self.mapView addOverlay:region];
+                    
+                    break;
+            }
+            
         }
     }
 }
@@ -801,6 +485,12 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         [self endSuspensionOfUpdatesDueToContextChanges];
     }
 }
+
+- (IBAction)actionPressed:(UIBarButtonItem *)sender {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate sendNow];
+}
+
 - (IBAction)longDoublePress:(UILongPressGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
@@ -810,24 +500,19 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 
 - (IBAction)longPress:(UILongPressGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
-        CLLocationCoordinate2D center = self.mapView.centerCoordinate;
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:center.latitude longitude:center.longitude];
         
-        [Location locationWithTopic:[Settings theGeneralTopic]
-                                tid:[Settings stringForKey:@"trackerid_preference"]
-                          timestamp:[NSDate date]
-                         coordinate:location.coordinate
-                           accuracy:location.horizontalAccuracy
-                           altitude:location.altitude
-                   verticalaccuracy:location.verticalAccuracy
-                              speed:location.speed
-                             course:location.course
-                          automatic:NO
-                             remark:@"Center"
-                             radius:0
-                              share:NO
-             inManagedObjectContext:[CoreData theManagedObjectContext]
-         ];
+        Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic] inManagedObjectContext:[CoreData theManagedObjectContext]];
+        [[OwnTracking sharedInstance] addRegionFor:friend
+                                              name:[NSString stringWithFormat:@"Center-%d",
+                                                    (int)[[NSDate date] timeIntervalSince1970]]
+                                              uuid:nil
+                                             major:0
+                                             minor:0
+                                             share:NO
+                                            radius:0
+                                               lat:self.mapView.centerCoordinate.latitude
+                                               lon:self.mapView.centerCoordinate.longitude
+                                           context:[CoreData theManagedObjectContext]];
     }
 }
 

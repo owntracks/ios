@@ -12,4 +12,5 @@
 @interface CoreData : UIManagedDocument
 + (NSManagedObjectContext *)theManagedObjectContext;
 + (void)saveContext;
++ (void)saveContext:(NSManagedObjectContext*)context;
 @end

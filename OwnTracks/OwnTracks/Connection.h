@@ -52,7 +52,9 @@ enum state {
              will:(NSData *)will
           willQos:(NSInteger)willQos
    willRetainFlag:(BOOL)willRetainFlag
-     withClientId:(NSString *)clientId;
+     withClientId:(NSString *)clientId
+   securityPolicy:(MQTTSSLSecurityPolicy *)securityPolicy
+     certificates:(NSArray *)certificates;
 
 - (void)connectToLast;
 

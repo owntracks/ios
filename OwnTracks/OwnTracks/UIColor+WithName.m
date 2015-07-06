@@ -25,10 +25,11 @@ static NSDictionary *colors;
         if (scanner) {
             unsigned long long llrgb;
             if ([scanner scanHexLongLong:&llrgb]) {
+                double a = ((llrgb & 0xff000000) >> 24) / 255.0;
                 double r = ((llrgb & 0xff0000) >> 16) / 255.0;
                 double g = ((llrgb & 0xff00) >> 8) / 255.0;
                 double b = (llrgb & 0xff) / 255.0;
-                color = [UIColor colorWithRed:r green:g blue:b alpha:1.0];
+                color = [UIColor colorWithRed:r green:g blue:b alpha:a];
             }
         }
     }

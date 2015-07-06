@@ -20,6 +20,7 @@
 @property (strong, nonatomic) NSMutableSet *pendingRegionEvents;
 - (void)holdDownExpired:(NSTimer *)timer;
 @property (strong, nonatomic) NSMutableDictionary *insideBeaconRegions;
+@property (strong, nonatomic) NSMutableDictionary *insideCircularRegions;
 @property (strong, nonatomic) NSMutableArray *rangedBeacons;
 @end
 
@@ -63,6 +64,7 @@ static LocationManager *theInstance = nil;
     self.manager = [[CLLocationManager alloc] init];
     self.manager.delegate = self;
     self.insideBeaconRegions = [[NSMutableDictionary alloc] init];
+    self.insideCircularRegions = [[NSMutableDictionary alloc] init];
     self.rangedBeacons = [[NSMutableArray alloc] init];
     self.lastUsedLocation = [[CLLocation alloc] initWithLatitude:0 longitude:0];
     self.pendingRegionEvents = [[NSMutableSet alloc] init];
@@ -159,15 +161,13 @@ static LocationManager *theInstance = nil;
         [self removeHoldDown:region];
         [self.manager stopMonitoringForRegion:region];
         [self.insideBeaconRegions removeObjectForKey:region.identifier];
-        [self.delegate regionState:region inside:NO];
+        [self.insideCircularRegions removeObjectForKey:region.identifier];
     }
 }
 
 - (void)resetRegions {
     for (CLRegion *region in self.manager.monitoredRegions) {
-        [self.manager stopMonitoringForRegion:region];
-        [self.insideBeaconRegions removeObjectForKey:region.identifier];
-        [self.delegate regionState:region inside:NO];
+        [self stopRegion:region];
     }
 }
 
@@ -177,6 +177,15 @@ static LocationManager *theInstance = nil;
 
 - (BOOL)insideBeaconRegion:(NSString *)identifier {
     NSNumber *number = [self.insideBeaconRegions objectForKey:identifier];
+    return (number ? [number boolValue] : false);
+}
+
+- (BOOL)insideCircularRegion {
+    return (self.insideCircularRegions.count != 0);
+}
+
+- (BOOL)insideCircularRegion:(NSString *)identifier {
+    NSNumber *number = [self.insideCircularRegions objectForKey:identifier];
     return (number ? [number boolValue] : false);
 }
 
@@ -203,7 +212,7 @@ static LocationManager *theInstance = nil;
 - (void)setMonitoring:(int)monitoring {
     DDLogVerbose(@"monitoring=%ld", (long)monitoring);
     _monitoring = monitoring;
-    
+
     switch (monitoring) {
         case 2:
             self.manager.distanceFilter = self.minDist;
@@ -358,9 +367,16 @@ static LocationManager *theInstance = nil;
             [self.manager stopRangingBeaconsInRegion:beaconRegion];
         }
     }
+    if ([region isKindOfClass:[CLCircularRegion class]]) {
+        if (state == CLRegionStateInside) {
+            [self.insideCircularRegions setObject:[NSNumber numberWithBool:TRUE] forKey:region.identifier];
+        } else {
+            [self.insideCircularRegions removeObjectForKey:region.identifier];
+        }
+    }
     [self.delegate regionState:region inside:(state == CLRegionStateInside)];
 }
-
+     
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
     DDLogVerbose(@"didEnterRegion %@", region);

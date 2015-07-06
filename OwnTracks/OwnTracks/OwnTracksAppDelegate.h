@@ -12,27 +12,21 @@
 
 #import "LocationManager.h"
 #import "Connection.h"
-#import "Location+Create.h"
 #import "Settings.h"
 #import "Messaging.h"
 
-@protocol RangingDelegate <NSObject>
-
-- (void)regionState:(CLRegion *)region inside:(BOOL)inside;
-- (void)beaconInRange:(CLBeacon *)beacon region:(CLBeaconRegion *)region;
-
-@end
+#import "Friend+Create.h"
+#import "Region+Create.h"
 
 @interface OwnTracksAppDelegate : UIResponder <UIApplicationDelegate, ConnectionDelegate, LocationManagerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (weak, nonatomic) id<RangingDelegate> delegate;
-@property (strong, nonatomic) Messaging *messaging;
 @property (strong, nonatomic) NSString *processingMessage;
 
 @property (strong, nonatomic) Connection *connectionOut;
 @property (strong, nonatomic) Connection *connectionIn;
+@property (strong, nonatomic) Connection *connection;
 
 @property (strong, nonatomic) NSNumber *connectionStateOut;
 @property (strong, nonatomic) NSNumber *connectionBufferedOut;
@@ -42,10 +36,11 @@
 
 - (void)sendNow;
 - (void)requestLocationFromFriend:(Friend *)friend;
-- (void)sendWayPoint:(Location *)location;
+- (void)sendRegion:(Region *)region;
 - (void)sendEmpty:(NSString *)topic;
 - (void)reconnect;
 - (void)connectionOff;
 - (void)syncProcessing;
+- (void)terminateSession;
 
 @end

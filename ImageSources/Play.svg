@@ -11,7 +11,7 @@
    viewBox="0 0 700 700"
    stroke-miterlimit="10"
    id="svg2"
-   inkscape:version="0.48.2 r9819"
+   inkscape:version="0.91 r13725"
    width="100%"
    height="100%"
    sodipodi:docname="Play.svg"
@@ -24,7 +24,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -39,15 +39,15 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="998"
-     inkscape:window-height="692"
+     inkscape:window-width="1351"
+     inkscape:window-height="817"
      id="namedview15"
      showgrid="true"
-     inkscape:zoom="0.38879736"
-     inkscape:cx="311.5"
-     inkscape:cy="303.5"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:zoom="1.2040714"
+     inkscape:cx="292.91089"
+     inkscape:cy="246.88354"
+     inkscape:window-x="46"
+     inkscape:window-y="24"
      inkscape:window-maximized="0"
      inkscape:current-layer="g7">
     <inkscape:grid
@@ -73,27 +73,26 @@
      id="g7"
      transform="scale(1.1235955,1.1531913)">
     <path
-       d="m 0,0 623.6903,0 0,607.084 -623.6903,0 z"
+       d="m 0,346.93636 267,0 0,260.14764 -267,0 z"
        id="path9"
        inkscape:connector-curvature="0"
        style="fill:#000000;fill-opacity:0;fill-rule:nonzero" />
     <path
        sodipodi:type="star"
-       style="fill:#b3b3b3;fill-opacity:1;stroke:none"
-       id="path3014"
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:20;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+       id="path4138"
        sodipodi:sides="3"
-       sodipodi:cx="50"
-       sodipodi:cy="50"
-       sodipodi:r1="249.99998"
-       sodipodi:r2="235.86696"
-       sodipodi:arg1="-2.5863853e-08"
-       sodipodi:arg2="1.0471975"
+       sodipodi:cx="200"
+       sodipodi:cy="600"
+       sodipodi:r1="170"
+       sodipodi:r2="85"
+       sodipodi:arg1="0"
+       sodipodi:arg2="1.0471976"
        inkscape:flatsided="true"
-       inkscape:rounded="0.1"
+       inkscape:rounded="1.04083e-17"
        inkscape:randomized="0"
-       d="M 299.99998,49.999994 C 299.99999,93.301261 -37.499988,288.15697 -74.999987,266.50634 -112.49999,244.85571 -112.5,-144.8557 -74.999998,-166.50633 -37.500001,-188.15697 299.99998,6.698726 299.99998,49.999994 z"
-       transform="matrix(1.3053334,0,0,1.2015706,186.9,243.42706)"
-       inkscape:transform-center-x="29.64284"
-       inkscape:transform-center-y="10.958905" />
+       d="M 370,600 115,747.22432 115,452.77568 Z"
+       transform="matrix(0.89,0,0,0.86715881,91.225002,-142.61025)"
+       inkscape:transform-center-x="-42.499999" />
   </g>
 </svg>

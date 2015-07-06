@@ -15,6 +15,6 @@ MYPWD=`pwd`
 
 # need to use absolute paths in OSX
 
-$INK -z -D -e "$MYPWD/$BASE-33.png" -f 		$MYPWD/$SVG -w 33 -h 33
-$INK -z -D -e "$MYPWD/$BASE-33@2x.png" -f 	$MYPWD/$SVG -w 66 -h 66
-$INK -z -D -e "$MYPWD/$BASE-33@3x.png" -f 	$MYPWD/$SVG -w 99 -h 99
+$INK -z -C -e "$MYPWD/$BASE-33.png" -f 		$MYPWD/$SVG -w 33 -h 33
+$INK -z -C -e "$MYPWD/$BASE-33@2x.png" -f 	$MYPWD/$SVG -w 66 -h 66
+$INK -z -C -e "$MYPWD/$BASE-33@3x.png" -f 	$MYPWD/$SVG -w 99 -h 99

@@ -3,16 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "Fast.png"
+      "filename" : "Fast-33.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "Fast@2x.png"
+      "filename" : "Fast-33@2x.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "Fast-33@3x.png"
     }
   ],
   "info" : {
