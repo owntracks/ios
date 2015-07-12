@@ -15,6 +15,7 @@
 #import "Friend+Create.h"
 #import "CoreData.h"
 #import "AlertView.h"
+#import "OwnTracking.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
@@ -669,9 +670,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)reconnect {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    
     [delegate connectionOff];
-    [delegate syncProcessing];
+    [[OwnTracking sharedInstance] syncProcessing];
     [self updateValues];
     [delegate reconnect];
 }

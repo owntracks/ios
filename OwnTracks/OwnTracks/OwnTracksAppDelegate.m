@@ -84,7 +84,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     
     self.coreData = [[CoreData alloc] init];
-    self.inQueue = @(0);
     
     UIDocumentState state;
     
@@ -127,6 +126,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     locationManager.minDist = [Settings doubleForKey:@"mindist_preference"];
     locationManager.minTime = [Settings doubleForKey:@"mintime_preference"];
     [locationManager start];
+    
+    [[Messaging sharedInstance] updateCounter:self.coreData.managedObjectContext];
     
     return YES;
 }
@@ -391,6 +392,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                              qos:[Settings intForKey:@"qos_preference"]
                                           retain:NO];
                 }
+                if ([anyRegion isKindOfClass:[CLBeaconRegion class]]) {
+                    if ([anyRegion.radius doubleValue] < 0) {
+                        anyRegion.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
+                        anyRegion.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
+                        [self sendRegion:anyRegion];
+                    }
+                }
+
             }
         }
         
@@ -411,13 +420,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     for (Region *anyRegion in myself.hasRegions) {
         if ([region.identifier isEqualToString:anyRegion.CLregion.identifier]) {
             anyRegion.name = anyRegion.name;
-            if ([region isKindOfClass:[CLBeaconRegion class]]) {
-                if ([anyRegion.radius doubleValue] < 0) {
-                    anyRegion.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
-                    anyRegion.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
-                    [self sendRegion:anyRegion];
-                }
-            }
         }
     }
     [[Messaging sharedInstance] newLocation:location.coordinate.latitude
@@ -708,16 +710,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.connectionIn disconnect];
 }
 
-- (void)syncProcessing {
-    while ([self.inQueue unsignedLongValue] > 0) {
-        DDLogVerbose(@"syncProcessing %lu", [self.inQueue unsignedLongValue]);
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-    };
-}
-
 - (void)terminateSession {
     [self connectionOff];
-    [self syncProcessing];
+    [[OwnTracking sharedInstance] syncProcessing];
     [[LocationManager sharedInstance] resetRegions];
     NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
     for (Friend *friend in friends) {

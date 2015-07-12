@@ -1,5 +1,15 @@
-OwnTracks iOS App 8.0 Release Notes
+OnTracks iOS App 8.0 Release Notes
 ===================================
+
+## OwnTracks 8.2.1
+>Release date: 2015-07-12 for alpha-testers only
+
+A few bug fixes
+
+[FIX] correct display of message count #244
+[FIX] correct updating of beacon regions #241
+[FIX] crash if incorrect face data received #240
+
 
 ## OwnTracks 8.2.0
 >Release date: 2015-07-06 for alpha-testers only

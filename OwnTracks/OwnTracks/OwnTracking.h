@@ -13,7 +13,11 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface OwnTracking : NSObject
+@property (strong, nonatomic) NSNumber *inQueue;
+
 + (OwnTracking *)sharedInstance;
+- (void)syncProcessing;
+
 - (BOOL)processMessage:(NSString *)topic data:(NSData *)data retained:(BOOL)retained context:(NSManagedObjectContext *)context;
 - (void)shareFromContext:(NSManagedObjectContext *)context;
 

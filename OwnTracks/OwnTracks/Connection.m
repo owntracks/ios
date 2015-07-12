@@ -313,16 +313,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)handleEvent:(MQTTSession *)session event:(MQTTSessionEvent)eventCode error:(NSError *)error
 {
-    const NSDictionary *events = @{
-                                   @(MQTTSessionEventConnected): @"connected",
-                                   @(MQTTSessionEventConnectionRefused): @"connection refused",
-                                   @(MQTTSessionEventConnectionClosed): @"connection closed",
-                                   @(MQTTSessionEventConnectionError): @"connection error",
-                                   @(MQTTSessionEventProtocolError): @"protocoll error"
-                                   };
     DDLogVerbose(@"%@ MQTT eventCode: %@ (%ld) %@",
                  self.clientId,
-                 events[@(eventCode)],
+                 @{@(MQTTSessionEventConnected): @"connected",
+                   @(MQTTSessionEventConnectionRefused): @"connection refused",
+                   @(MQTTSessionEventConnectionClosed): @"connection closed",
+                   @(MQTTSessionEventConnectionError): @"connection error",
+                   @(MQTTSessionEventProtocolError): @"protocoll error"
+                   }[@(eventCode)],
                  (long)eventCode, error);
     
     [self.reconnectTimer invalidate];
@@ -433,16 +431,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)setState:(NSInteger)state {
     _state = state;
-    const NSDictionary *states = @{
-                                   @(state_starting): @"starting",
-                                   @(state_connecting): @"connecting",
-                                   @(state_error): @"error",
-                                   @(state_connected): @"connected",
-                                   @(state_closing): @"closing",
-                                   @(state_closed): @"closed"
-                                   };
-    
-    DDLogVerbose(@"%@ state %@ (%ld)", self.clientId, states[@(self.state)], (long)self.state);
+    DDLogVerbose(@"%@ state %@ (%ld)",
+                 self.clientId,
+                 @{@(state_starting): @"starting",
+                   @(state_connecting): @"connecting",
+                   @(state_error): @"error",
+                   @(state_connected): @"connected",
+                   @(state_closing): @"closing",
+                   @(state_closed): @"closed"
+                   }[@(self.state)],
+                 (long)self.state);
     [self.delegate showState:self state:self.state];
 }
 

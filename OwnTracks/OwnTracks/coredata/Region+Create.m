@@ -11,8 +11,8 @@
 @implementation Region (Create)
 - (CLLocationCoordinate2D)coordinate
 {
-    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(0.0, 0.0);
-    coord = CLLocationCoordinate2DMake([self.lat doubleValue], [self.lon doubleValue]);
+    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake([self.lat doubleValue],
+                                                              [self.lon doubleValue]);
     return coord;
 }
 

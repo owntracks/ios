@@ -8,6 +8,7 @@
 
 #import "NavigationController.h"
 #import "OwnTracksAppDelegate.h"
+#import "OwnTracking.h"
 #import "UIColor+WithName.h"
 
 @interface NavigationController ()
@@ -27,7 +28,7 @@
                   options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     [delegate addObserver:self forKeyPath:@"connectionBufferedOut"
                   options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
-    [delegate addObserver:self forKeyPath:@"inQueue"
+    [[OwnTracking sharedInstance] addObserver:self forKeyPath:@"inQueue"
                   options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
 
 }
@@ -36,7 +37,7 @@
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate removeObserver:self forKeyPath:@"connectionStateOut"];
     [delegate removeObserver:self forKeyPath:@"connectionBufferedOut"];
-    [delegate removeObserver:self forKeyPath:@"inQueue"];
+    [[OwnTracking sharedInstance] removeObserver:self forKeyPath:@"inQueue"];
 
     [super viewWillDisappear:animated];
 }

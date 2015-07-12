@@ -21,17 +21,23 @@
 @interface MessageTVC ()
 @property (strong, nonatomic) UIAlertView *alertView;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-
 @property (strong, nonatomic) UIFont *fontAwesome;
 @end
 
 @implementation MessageTVC
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
     self.fontAwesome = [FontAwesome fontWithSize:30.0f];
+    
+    
+    [[Messaging sharedInstance] addObserver:self
+                                 forKeyPath:@"messages"
+                                    options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                    context:nil];
+    
     return self;
 }
 
@@ -39,13 +45,29 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [super viewWillAppear:animated];
     self.tableView.estimatedRowHeight = 150;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
-    [Message expireMessages:[CoreData theManagedObjectContext]];
+    [[Messaging sharedInstance] updateCounter:[CoreData theManagedObjectContext]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self.tableView reloadData];
-    [self showCount];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    [self performSelectorOnMainThread:@selector(setBadge) withObject:nil waitUntilDone:NO];
+}
+
+- (void)setBadge {
+    NSUInteger count = [[Messaging sharedInstance].messages unsignedIntValue];
+    DDLogVerbose(@"count %lu", (unsigned long)count);
+    if (count > 0) {
+        [self.navigationController.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%lu", (unsigned long)count]];
+    } else {
+        [self.navigationController.tabBarItem setBadgeValue:nil];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
@@ -195,18 +217,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     [self.tableView endUpdates];
-    [self showCount];
-}
-
-- (void)showCount {
-    NSUInteger count = self.fetchedResultsController.fetchedObjects.count;
-    if (count) {
-        self.navigationController.tabBarItem.badgeValue = [NSString stringWithFormat:@"%lu",
-                                                           (unsigned long)self.fetchedResultsController.fetchedObjects.count];
-    } else {
-        self.navigationController.tabBarItem.badgeValue = nil;
-        
-    }
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {

@@ -30,6 +30,7 @@ static OwnTracking *theInstance = nil;
 - (instancetype)init {
     self = [super init];
     DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
+    self.inQueue = @(0);
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
@@ -42,12 +43,17 @@ static OwnTracking *theInstance = nil;
     return self;
 }
 
+- (void)syncProcessing {
+    while ([self.inQueue unsignedLongValue] > 0) {
+        DDLogVerbose(@"syncProcessing %lu", [self.inQueue unsignedLongValue]);
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    };
+}
+
 - (BOOL)processMessage:(NSString *)topic
                   data:(NSData *)data
               retained:(BOOL)retained
-               context:(NSManagedObjectContext *)context {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    
+               context:(NSManagedObjectContext *)context {    
     NSArray *topicComponents = [topic componentsSeparatedByCharactersInSet:
                                 [NSCharacterSet characterSetWithCharactersInString:@"/"]];
     NSArray *baseComponents = [[Settings theGeneralTopic] componentsSeparatedByCharactersInSet:
@@ -88,8 +94,8 @@ static OwnTracking *theInstance = nil;
         }
         
     } else /* not ownDevice */ {
-        @synchronized (delegate.inQueue) {
-            delegate.inQueue = @([delegate.inQueue unsignedLongValue] + 1);
+        @synchronized (self.inQueue) {
+            self.inQueue = @([self.inQueue unsignedLongValue] + 1);
         }
         [context performBlock:^{
             if (data.length) {
@@ -148,10 +154,10 @@ static OwnTracking *theInstance = nil;
                     [context deleteObject:friend];
                 }
             }
-            @synchronized (delegate.inQueue) {
-                delegate.inQueue = @([delegate.inQueue unsignedLongValue] - 1);
+            @synchronized (self.inQueue) {
+                self.inQueue = @([self.inQueue unsignedLongValue] - 1);
             }
-            if ([delegate.inQueue intValue] == 0) {
+            if ([self.inQueue intValue] == 0) {
                 [context save:nil];
             }
         }];
@@ -162,10 +168,19 @@ static OwnTracking *theInstance = nil;
 
 - (void)processFace:(Friend *)friend dictionary:(NSDictionary *)dictionary {
     if (friend) {
-        friend.cardName = dictionary[@"name"];
-        NSString *string = dictionary[@"face"];
-        NSData *imageData = [[NSData alloc] initWithBase64EncodedString:string options:0];
-        friend.cardImage = imageData;
+        id string = dictionary[@"name"];
+        if (string && [string isKindOfClass:[NSString class]]) {
+            friend.cardName = (NSString *)string;
+        } else {
+            friend.cardName = nil;
+        }
+        id imageString = dictionary[@"face"];
+        if (imageString && [imageString isKindOfClass:[NSString class]]) {
+            NSData *imageData = [[NSData alloc] initWithBase64EncodedString:imageString options:0];
+            friend.cardImage = imageData;
+        } else {
+            friend.cardImage = nil;
+        }
     }
 }
 

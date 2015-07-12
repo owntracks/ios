@@ -3121,10 +3121,10 @@ Press register to obtain an OwnTracks account or enter your credentials if you a
     </scenes>
     <resources>
         <image name="Artwork" width="512" height="512"/>
-        <image name="Friends" width="32" height="32"/>
+        <image name="Friends" width="33" height="33"/>
         <image name="Messaging" width="33" height="33"/>
         <image name="OnwTracks" width="32" height="32"/>
-        <image name="Settings" width="32" height="32"/>
+        <image name="Settings" width="33" height="33"/>
         <image name="iBeaconOff" width="33" height="33"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

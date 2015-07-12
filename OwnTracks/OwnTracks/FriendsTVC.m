@@ -16,6 +16,7 @@
 #import "Waypoint+Create.h"
 #import "CoreData.h"
 #import "FriendAnnotationV.h"
+#import "OwnTracking.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
@@ -35,11 +36,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self = [super initWithCoder:aDecoder];
     DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
     
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate addObserver:self
-               forKeyPath:@"inQueue"
-                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                  context:nil];
+    [[OwnTracking sharedInstance] addObserver:self
+                                   forKeyPath:@"inQueue"
+                                      options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                      context:nil];
     
     return self;
 }
@@ -97,8 +97,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [self performSelectorOnMainThread:@selector(setBadge:) withObject:delegate.inQueue waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(setBadge:)
+                           withObject:[OwnTracking sharedInstance].inQueue
+                        waitUntilDone:NO];
 }
 
 - (void)setBadge:(NSNumber *)number {

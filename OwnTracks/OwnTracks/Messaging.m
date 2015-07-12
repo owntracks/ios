@@ -46,7 +46,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     DDLogVerbose(@"Messages ddLogLevel %lu", (unsigned long)ddLogLevel);
     self.lastGeoHash = [Settings stringForKey:GEOHASH_KEY];
     self.oldGeoHash = @"";
+    self.messages = [NSNumber numberWithUnsignedInteger:0];
     return self;
+}
+
+- (void)updateCounter:(NSManagedObjectContext *)context {
+    self.messages = [NSNumber numberWithUnsignedInteger:[Message expireMessages:context]];
 }
 
 - (void)reset:(NSManagedObjectContext *)context {
@@ -60,7 +65,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         self.lastGeoHash = geoHash;
         [self manageSubscriptions:context];
     }
-    [Message expireMessages:context];
+    self.messages = [NSNumber numberWithUnsignedInteger:[Message expireMessages:context]];
 }
 
 - (void)manageSubscriptions:(NSManagedObjectContext *)context {
@@ -132,7 +137,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     } else {
         self.lastGeoHash = self.lastGeoHash;
     }
-    [Message expireMessages:context];
+    [CoreData saveContext:context];
+    self.messages = [NSNumber numberWithUnsignedInteger:[Message expireMessages:context]];
+    [CoreData saveContext:context];
 }
 
 - (BOOL)processMessage:(NSString *)topic
@@ -159,54 +166,46 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                     NSString *geoHash = components[2];
                     if ([self.lastGeoHash hasPrefix:geoHash]) {
                         [context performBlock:^{
-                            Message *message = [Message messageWithTopic:topic
-                                                                    icon:icon
-                                                                    prio:prio
-                                                               timestamp:timestamp
-                                                                     ttl:ttl
-                                                                   title:title
-                                                                    desc:desc
-                                                                     url:url
-                                                                 iconurl:iconurl
-                                                  inManagedObjectContext:context];
-                            DDLogVerbose(@"Message %@", message);
-                            NSError *error = nil;
-                            if (![context save:&error]) {
-                                DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-                                [[Crashlytics sharedInstance] setObjectValue:@"messageWithTopic" forKey:@"CrashType"];
-                                [[Crashlytics sharedInstance] crash];
-                            }
-                            
+                            [Message messageWithTopic:topic
+                                                 icon:icon
+                                                 prio:prio
+                                            timestamp:timestamp
+                                                  ttl:ttl
+                                                title:title
+                                                 desc:desc
+                                                  url:url
+                                              iconurl:iconurl
+                               inManagedObjectContext:context];
+                            self.messages = [NSNumber numberWithUnsignedInteger:[Message expireMessages:context]];
+                            [CoreData saveContext:context];
                         }];
                     } else {
-                        DDLogVerbose(@"remove topic %@", topic);
-                        [Message removeMessages:topic context:context];
-                        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
-                        [delegate.connectionIn unsubscribeFromTopic:topic];
-
+                        [context performBlock:^{
+                            DDLogVerbose(@"remove topic %@", topic);
+                            [Message removeMessages:topic context:context];
+                            self.messages = [NSNumber numberWithUnsignedInteger:[Message expireMessages:context]];
+                            [CoreData saveContext:context];
+                            OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
+                            [delegate.connectionIn unsubscribeFromTopic:topic];
+                        }];
                         return TRUE;
                     }
                 } else if (components.count == 2) {
                     NSString *secondComponent = components[1];
                     if ([secondComponent isEqualToString:@"system"]) {
                         [context performBlock:^{
-                            Message *message = [Message messageWithTopic:topic
-                                                                    icon:icon
-                                                                    prio:prio
-                                                               timestamp:timestamp
-                                                                     ttl:ttl
-                                                                   title:title
-                                                                    desc:desc
-                                                                     url:url
-                                                                 iconurl:iconurl
-                                                  inManagedObjectContext:context];
-                            DDLogVerbose(@"Message %@", message);
-                            NSError *error = nil;
-                            if (![context save:&error]) {
-                                DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-                                [[Crashlytics sharedInstance] setObjectValue:@"messageWithTopic" forKey:@"CrashType"];
-                                [[Crashlytics sharedInstance] crash];
-                            }
+                            [Message messageWithTopic:topic
+                                                 icon:icon
+                                                 prio:prio
+                                            timestamp:timestamp
+                                                  ttl:ttl
+                                                title:title
+                                                 desc:desc
+                                                  url:url
+                                              iconurl:iconurl
+                               inManagedObjectContext:context];
+                            self.messages = [NSNumber numberWithUnsignedInteger:[Message expireMessages:context]];
+                            [CoreData saveContext:context];
                         }];
                         
                     }
@@ -241,24 +240,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 
                 
                 [context performBlock:^{
-                    Message *message = [Message messageWithTopic:topic
-                                                            icon:icon
-                                                            prio:prio
-                                                       timestamp:timestamp
-                                                             ttl:ttl
-                                                           title:title
-                                                            desc:desc
-                                                             url:url
-                                                         iconurl:iconurl
-                                          inManagedObjectContext:context];
-                    DDLogVerbose(@"Message %@", message);
-                    NSError *error = nil;
-                    if (![context save:&error]) {
-                        DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-                        [[Crashlytics sharedInstance] setObjectValue:@"messageWithTopic" forKey:@"CrashType"];
-                        [[Crashlytics sharedInstance] crash];
-                    }
-                    
+                    [Message messageWithTopic:topic
+                                         icon:icon
+                                         prio:prio
+                                    timestamp:timestamp
+                                          ttl:ttl
+                                        title:title
+                                         desc:desc
+                                          url:url
+                                      iconurl:iconurl
+                       inManagedObjectContext:context];
+                    self.messages = [NSNumber numberWithUnsignedInteger:[Message expireMessages:context]];
+                    [CoreData saveContext:context];
                 }];
             } else {
                 DDLogVerbose(@"unknown type %@", type);
@@ -271,7 +264,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     } else {
         return FALSE;
     }
-    [Message expireMessages:context];
 
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.alertBody = @"New message arrived";

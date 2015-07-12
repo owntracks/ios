@@ -30,7 +30,6 @@
 
 @property (strong, nonatomic) NSNumber *connectionStateOut;
 @property (strong, nonatomic) NSNumber *connectionBufferedOut;
-@property (strong, nonatomic) NSNumber *inQueue;
 
 @property (strong, nonatomic) NSDate *configLoad;
 
@@ -40,7 +39,6 @@
 - (void)sendEmpty:(NSString *)topic;
 - (void)reconnect;
 - (void)connectionOff;
-- (void)syncProcessing;
 - (void)terminateSession;
 
 @end

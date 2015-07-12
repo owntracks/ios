@@ -22,8 +22,8 @@
                       iconurl:(NSString *)iconurl
        inManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (void)expireMessages:(NSManagedObjectContext *)context;
-+ (void)removeMessages:(NSManagedObjectContext *)context;
-+ (void)removeMessages:(NSString *)topic context:(NSManagedObjectContext *)context;
++ (NSUInteger)expireMessages:(NSManagedObjectContext *)context;
++ (NSUInteger)removeMessages:(NSManagedObjectContext *)context;
++ (NSUInteger)removeMessages:(NSString *)topic context:(NSManagedObjectContext *)context;
 
 @end

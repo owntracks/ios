@@ -71,41 +71,49 @@
     return message;
 }
 
-+ (void)expireMessages:(NSManagedObjectContext *)context {
++ (NSUInteger)expireMessages:(NSManagedObjectContext *)context {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Message"];
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     
     NSError *error = nil;
     NSArray *matches = [context executeFetchRequest:request error:&error];
+    NSUInteger count = matches.count;
     for (Message *message in matches) {
         NSDate *expires = [message.timestamp dateByAddingTimeInterval:[message.ttl unsignedIntegerValue]];
         if ([expires timeIntervalSince1970] < now) {
             [context deleteObject:message];
+            count--;
         }
     }
+    return count;
 }
 
-+ (void)removeMessages:(NSManagedObjectContext *)context {
++ (NSUInteger)removeMessages:(NSManagedObjectContext *)context {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Message"];
     
     NSError *error = nil;
     NSArray *matches = [context executeFetchRequest:request error:&error];
+    NSUInteger count = matches.count;
     for (Message *message in matches) {
         [context deleteObject:message];
+        count--;
     }
+    return count;
 }
 
-+ (void)removeMessages:(NSString *)geoHash context:(NSManagedObjectContext *)context {
++ (NSUInteger)removeMessages:(NSString *)geoHash context:(NSManagedObjectContext *)context {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Message"];
     
     NSError *error = nil;
     NSArray *matches = [context executeFetchRequest:request error:&error];
+    NSUInteger count = matches.count;
     for (Message *message in matches) {
         if ([message.topic hasSuffix:geoHash]) {
             [context deleteObject:message];
+            count--;
         }
     }
+    return count;
 }
-
 
 @end

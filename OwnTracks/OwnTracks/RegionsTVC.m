@@ -28,6 +28,7 @@
 static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
     DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
 }
 
