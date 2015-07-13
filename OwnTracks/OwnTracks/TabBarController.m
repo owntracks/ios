@@ -46,13 +46,6 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.tabBar.translucent = false;
-    self.tabBar.barTintColor = [UIColor colorWithName:@"primary" defaultColor:[UIColor blackColor]];
-    self.tabBar.tintColor = [UIColor whiteColor];
-}
-
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     if (!self.warning && [Settings intForKey:@"mode"] == 2) {

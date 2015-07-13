@@ -83,13 +83,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (NSString *)name
 {
+    NSString *name = self.cardName;
+    
     ABRecordRef record = [self recordOfFriend];
-    NSString *abName = [Friend nameOfPerson:record];
-    if (abName) {
-        return abName;
-    } else {
-        return self.cardName;
+    if (record) {
+        NSString *nameOfPerson = [Friend nameOfPerson:record];
+        if (!nameOfPerson) {
+            name = nameOfPerson;
+        }
     }
+    return name;
 }
 
 - (NSString *)nameOrTopic {
@@ -101,14 +104,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSString *name = nil;
     
     if (record) {
-        name =  CFBridgingRelease(ABRecordCopyValue(record, kABPersonNicknameProperty));
-        if (!name) {
-            name = CFBridgingRelease(ABRecordCopyCompositeName(record));
+        CFStringRef nameRef = ABRecordCopyValue(record, kABPersonNicknameProperty);
+        if (nameRef != NULL) {
+            name = (NSString *)CFBridgingRelease(nameRef);
+        } else {
+            nameRef = ABRecordCopyCompositeName(record);
+            if (nameRef != NULL) {
+                name = (NSString *)CFBridgingRelease(nameRef);
+            }
         }
     }
     return name;
 }
-
 
 - (NSData *)image
 {
@@ -116,7 +123,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     ABRecordRef record = [self recordOfFriend];
     if (record) {
         data = [Friend imageDataOfPerson:record];
-        CFRelease(record);
     }
     if (data) {
         return data;
@@ -149,13 +155,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             ABAddressBookRef ab = [Friend theABRef];
             if (ab) {
                 record = ABAddressBookGetPersonWithRecordID(ab, [self.abRecordId intValue]);
-                if (record) {
-                    CFRetain(record);
-                }
             }
         }
     }
-    
     return record;
 }
 
@@ -166,7 +168,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         
         if (oldrecord) {
             [self ABsetTopic:nil record:oldrecord];
-            CFRelease(oldrecord);
         }
         
         if (record) {
@@ -217,7 +218,6 @@ ABRecordRef recordWithTopic(CFStringRef topic)
                     CFRelease(relations);
                 }
                 if (theRecord != NULL) {
-                    CFRetain(theRecord);
                     break;
                 }
             }
@@ -286,7 +286,7 @@ ABRecordRef recordWithTopic(CFStringRef topic)
 }
 
 - (NSString *)getEffectiveTid {
-    NSString *tid;
+    NSString *tid = @"";
     if (self.tid != nil && ![self.tid isEqualToString:@""]) {
         tid = self.tid;
     } else {
@@ -359,16 +359,14 @@ ABRecordRef recordWithTopic(CFStringRef topic)
 }
 
 - (MKPolyline *)polyLine {
-    CLLocationCoordinate2D *coordinates = (CLLocationCoordinate2D *)malloc(sizeof(CLLocationCoordinate2D));
-    coordinates[0] = [self coordinate];
-    int count = 1;
+    CLLocationCoordinate2D coordinate = self.coordinate;
+    MKPolyline *polyLine = [MKPolyline polylineWithCoordinates:&coordinate count:1];
     
     NSSet *waypoints = self.hasWaypoints;
     if (waypoints && waypoints.count > 0) {
-        coordinates = (CLLocationCoordinate2D *)realloc(coordinates,
-                                                        waypoints.count * sizeof(CLLocationCoordinate2D));
-        count = 0;
+        CLLocationCoordinate2D *coordinates = malloc(waypoints.count * sizeof(CLLocationCoordinate2D));
         if (coordinates) {
+            int count = 0;
             NSArray *sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tst" ascending:TRUE]];
             for (Waypoint *waypoint in [waypoints sortedArrayUsingDescriptors:sortDescriptors]) {
                 coordinates[count++] = CLLocationCoordinate2DMake(
@@ -377,10 +375,9 @@ ABRecordRef recordWithTopic(CFStringRef topic)
                                                                   );
             }
         }
+        polyLine = [MKPolyline polylineWithCoordinates:coordinates count:waypoints.count];
+        free(coordinates);
     }
-    
-    MKPolyline *polyLine = [MKPolyline polylineWithCoordinates:coordinates count:count];
-    free(coordinates);
     return polyLine;
 }
 

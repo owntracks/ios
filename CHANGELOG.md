@@ -1,6 +1,19 @@
 OnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.2.2
+>Release date: 2015-07-13 for alpha-testers only
+
+A few bug fixes and UI enhancements
+
+[FIX] crash deleting a waypoint closes #219
+[FIX] crash when entering region before first location publish closes #220
+[FIX] crash if incorrect face data received closes #246
+[NEW] Use more general tab bar icon for regions (regions are both geofences and beacons) closes 249
+[NEW] Add numbers to QoS Levels closes 250
+[NEW] Quickly show a message explaining what has been enabled when clicking on top bar buttons closes 251
+
+
 ## OwnTracks 8.2.1
 >Release date: 2015-07-12 for alpha-testers only
 

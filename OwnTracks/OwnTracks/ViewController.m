@@ -19,15 +19,13 @@
 #import "UIColor+WithName.h"
 #import "LocationManager.h"
 #import "OwnTracking.h"
+#import "AlertView.h"
 #import "ModeBarButtonItem.h"
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface ViewController ()
-@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
-
-@property (strong, nonatomic) UIBarButtonItem *rootPopoverButtonItem;
 
 @property (strong, nonatomic) NSFetchedResultsController *frcFriends;
 @property (strong, nonatomic) NSFetchedResultsController *frcRegions;
@@ -45,17 +43,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     
     self.mapView.delegate = self;
     
-    UISplitViewController *splitViewController;
-    
-    if (self.splitViewController) {
-        splitViewController = self.splitViewController;
-    }
-    
-    if (splitViewController) {
-        splitViewController.delegate = self;
-        splitViewController.presentsWithGesture = false;
-    }
-    
     self.mapView.mapType = MKMapTypeStandard;
     self.mapView.showsUserLocation = TRUE;
     
@@ -63,73 +50,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     NSMutableArray *rightButtonItems = [self.navigationItem.rightBarButtonItems mutableCopy];
     [rightButtonItems insertObject:[[ModeBarButtonItem alloc] init] atIndex:0];
     self.navigationItem.rightBarButtonItems = rightButtonItems;
-}
-
-- (BOOL)splitViewController:(UISplitViewController *)svc
-   shouldHideViewController:(UIViewController *)vc
-              inOrientation:(UIInterfaceOrientation)orientation
-{
-    return YES;
-}
-
-- (void)splitViewController:(UISplitViewController *)svc
-          popoverController:(UIPopoverController *)pc
-  willPresentViewController:(UIViewController *)aViewController
-{
-    //
-}
-
-- (void)splitViewController:(UISplitViewController *)svc
-     willHideViewController:(UIViewController *)aViewController
-          withBarButtonItem:(UIBarButtonItem *)barButtonItem
-       forPopoverController:(UIPopoverController *)pc
-{
-    [self showRootPopoverButtonItem:barButtonItem];
-}
-
-- (void)splitViewController:(UISplitViewController *)svc
-     willShowViewController:(UIViewController *)aViewController
-  invalidatingBarButtonItem:(UIBarButtonItem *)barButtonItem
-{
-    [self invalidateRootPopoverButtonItem:barButtonItem];
-}
-
-
-- (void)showRootPopoverButtonItem:(UIBarButtonItem *)barButtonItem {
-    barButtonItem.image = [UIImage imageNamed:@"Friends"];
-    self.rootPopoverButtonItem = barButtonItem;
-    
-    NSMutableArray *toolBarItems = [self.toolbar.items mutableCopy];
-    [toolBarItems insertObject:barButtonItem atIndex:0];
-    [self.toolbar setItems:toolBarItems animated:YES];
-}
-
-
-- (void)invalidateRootPopoverButtonItem:(UIBarButtonItem *)barButtonItem {
-    NSMutableArray *toolBarItems = [self.toolbar.items mutableCopy];
-    [toolBarItems removeObject:barButtonItem];
-    [self.toolbar setItems:toolBarItems animated:YES];
-    
-    self.rootPopoverButtonItem = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    if (self.rootPopoverButtonItem) {
-        if (![self.toolbar.items containsObject:self.rootPopoverButtonItem]) {
-            NSMutableArray *toolBarItems = [self.toolbar.items mutableCopy];
-            [toolBarItems insertObject:self.rootPopoverButtonItem atIndex:0];
-            [self.toolbar setItems:toolBarItems animated:YES];
-        }
-    } else {
-        if ([self.toolbar.items containsObject:self.rootPopoverButtonItem]) {
-            NSMutableArray *toolBarItems = [self.toolbar.items mutableCopy];
-            [toolBarItems removeObject:self.rootPopoverButtonItem];
-            [self.toolbar setItems:toolBarItems animated:YES];
-        }
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -315,6 +235,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         Friend *friend = (Friend *)view.annotation;
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
         [delegate requestLocationFromFriend:friend];
+        [AlertView alert:@"Location" message:@"requested from friend" dismissAfter:1];
     }
 }
 
@@ -489,12 +410,14 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 - (IBAction)actionPressed:(UIBarButtonItem *)sender {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate sendNow];
+    [AlertView alert:@"Location" message:@"published on user request" dismissAfter:1];
 }
 
 - (IBAction)longDoublePress:(UILongPressGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         [delegate sendNow];
+        [AlertView alert:@"Location" message:@"published on user request" dismissAfter:1];
     }
 }
 
@@ -513,6 +436,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
                                                lat:self.mapView.centerCoordinate.latitude
                                                lon:self.mapView.centerCoordinate.longitude
                                            context:[CoreData theManagedObjectContext]];
+        [AlertView alert:@"Region" message:@"created at center of map" dismissAfter:1];
     }
 }
 

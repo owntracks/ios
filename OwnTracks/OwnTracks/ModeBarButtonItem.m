@@ -8,6 +8,7 @@
 
 #import "ModeBarButtonItem.h"
 #import "LocationManager.h"
+#import "AlertView.h"
 #import "Settings.h"
 
 @implementation ModeBarButtonItem
@@ -47,13 +48,16 @@
     switch ([LocationManager sharedInstance].monitoring) {
         case 0:
             [LocationManager sharedInstance].monitoring = 1;
+            [AlertView alert:@"Mode" message:@"significant changes mode enabled" dismissAfter:1];
             break;
         case 1:
             [LocationManager sharedInstance].monitoring = 2;
+            [AlertView alert:@"Mode" message:@"move mode enabled" dismissAfter:1];
             break;
         case 2:
         default:
             [LocationManager sharedInstance].monitoring = 0;
+            [AlertView alert:@"Mode" message:@"manual mode enabled" dismissAfter:1];
             break;
     }
     [Settings setInt:[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"];

@@ -365,6 +365,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
                             inManagedObjectContext:[CoreData theManagedObjectContext]];
+
     CLLocation *location = [LocationManager sharedInstance].location;
     [[Messaging sharedInstance] newLocation:location.coordinate.latitude
                 longitude:location.coordinate.longitude

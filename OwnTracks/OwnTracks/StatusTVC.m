@@ -583,12 +583,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 {
     switch (qos) {
         case 2:
-            return @"exactly once";
+            return @"exactly once (2)";
         case 1:
-            return @"at least once";
+            return @"at least once (1)";
         case 0:
         default:
-            return @"at most once";
+            return @"at most once (0)";
     }
 }
 
