@@ -181,6 +181,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                                      @"rad":@(-1)
                                                                      }]
                                                     }];
+                [CoreData saveContext];
                 self.processingMessage = @"Beacon QR successfully processed";
                 return TRUE;
             } else if ([url.path isEqualToString:@"/hosted"]) {
@@ -236,10 +237,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 for (Friend *friend in friends) {
                     [[CoreData theManagedObjectContext] deleteObject:friend];
                 }
+                [CoreData saveContext];
                 error = [Settings fromStream:input];
                 [CoreData saveContext];
+                self.configLoad = [NSDate date];
             } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
                 error = [Settings waypointsFromStream:input];
+                [CoreData saveContext];
             } else if ([extension isEqualToString:@"otrp"] || [extension isEqualToString:@"otre"]) {
                 NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
                                                                              inDomain:NSUserDomainMask
@@ -267,7 +271,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             }
             self.processingMessage = [NSString stringWithFormat:@"File %@ successfully processed",
                                       [url lastPathComponent]];
-            self.configLoad = [NSDate date];
             return TRUE;
         } else {
             self.processingMessage = [NSString stringWithFormat:@"unkown url scheme %@",

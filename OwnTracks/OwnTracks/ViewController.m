@@ -46,7 +46,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     self.mapView.mapType = MKMapTypeStandard;
     self.mapView.showsUserLocation = TRUE;
     
-    self.navigationItem.leftBarButtonItem = [[MKUserTrackingBarButtonItem alloc] initWithMapView:self.mapView];
+    NSMutableArray *leftButtonItems = [self.navigationItem.leftBarButtonItems mutableCopy];
+    [leftButtonItems addObject:[[MKUserTrackingBarButtonItem alloc] initWithMapView:self.mapView]];
+    self.navigationItem.leftBarButtonItems = leftButtonItems;
+
     NSMutableArray *rightButtonItems = [self.navigationItem.rightBarButtonItems mutableCopy];
     [rightButtonItems insertObject:[[ModeBarButtonItem alloc] init] atIndex:0];
     self.navigationItem.rightBarButtonItems = rightButtonItems;

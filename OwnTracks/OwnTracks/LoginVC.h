@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QRCodeReaderViewController.h>
 
-@interface LoginVC : UIViewController <UITextFieldDelegate>
+@interface LoginVC : UIViewController <UITextFieldDelegate, QRCodeReaderDelegate>
 
 @end

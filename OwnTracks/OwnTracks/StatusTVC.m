@@ -86,7 +86,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 {
     [super viewWillAppear:animated];
     DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
-    
+        
     self.UIHost.delegate = self;
     self.UIPort.delegate = self;
     self.UIUserID.delegate = self;
@@ -288,10 +288,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSMutableArray *hiddenFieldsMode12 = [[NSMutableArray alloc] init];
     NSMutableArray *hiddenIndexPathsMode12 = [[NSMutableArray alloc] init];
     
-    if (self.UIparameters) {
-        [hiddenFieldsMode12 addObject:self.UIparameters];
-    }
-    
     if (self.UIHost) {
         [hiddenFieldsMode12 addObject:self.UIHost];
         [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:2 inSection:0]];
@@ -458,6 +454,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     
     if (self.UIexport) self.UIexport.enabled = (mode == 0 || mode == 1);
+    
+    if (self.UIparameters && mode != 0) {
+        self.UIparameters.text = @"parameters shown in Private Mode only";
+    }
     
     if ([self.tabBarController isKindOfClass:[TabBarController class]]) {
         TabBarController *tbc = (TabBarController *)self.tabBarController;

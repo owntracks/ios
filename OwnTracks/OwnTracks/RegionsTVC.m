@@ -30,6 +30,26 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)viewDidLoad {
     [super viewDidLoad];
     DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      [self reset];
+                                                  }];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self reset];
+}
+
+- (void)reset {
+    self.fetchedResultsController = nil;
+    if (self.tableView) {
+        [self.tableView reloadData];
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
