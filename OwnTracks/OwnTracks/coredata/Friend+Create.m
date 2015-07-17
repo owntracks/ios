@@ -88,7 +88,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     ABRecordRef record = [self recordOfFriend];
     if (record) {
         NSString *nameOfPerson = [Friend nameOfPerson:record];
-        if (!nameOfPerson) {
+        if (nameOfPerson) {
             name = nameOfPerson;
         }
     }
@@ -301,7 +301,7 @@ ABRecordRef recordWithTopic(CFStringRef topic)
 }
 
 - (Waypoint *)newestWaypoint {
-    Waypoint *newestWaypoint;
+    Waypoint *newestWaypoint = nil;
     
     for (Waypoint *waypoint in self.hasWaypoints) {
         if (!newestWaypoint) {

@@ -7,6 +7,7 @@ OnTracks iOS App 8.0 Release Notes
 A few bug fixes and UI enhancements
 
 [FIX] regions not visible after import closes #253
+[FIX] display contact name with priority to face name or topic
 [NEW] shortcut to connection info in all navigation bars closes #252
 [NEW] login screen with QR reader 
 [NEW] all navigation bars can be hidden via swipe up/down
