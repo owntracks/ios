@@ -119,16 +119,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (NSData *)image
 {
-    NSData *data = nil;
+    NSData *data = self.cardImage;
+    
     ABRecordRef record = [self recordOfFriend];
     if (record) {
-        data = [Friend imageDataOfPerson:record];
+        NSData *imageData = [Friend imageDataOfPerson:record];
+        if (imageData) {
+            data = imageData;
+        }
     }
-    if (data) {
-        return data;
-    } else {
-        return self.cardImage;
-    }
+    return data;
 }
 
 + (NSData *)imageDataOfPerson:(ABRecordRef)record

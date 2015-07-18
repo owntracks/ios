@@ -64,16 +64,17 @@
 		846FFA581B419687001482A6 /* RegionTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA571B419687001482A6 /* RegionTVC.m */; };
 		846FFA5B1B4196D0001482A6 /* Waypoint+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA5A1B4196D0001482A6 /* Waypoint+Create.m */; };
 		846FFA5E1B420938001482A6 /* FriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA5D1B420938001482A6 /* FriendTableViewCell.m */; };
+		847797D81B5A937D00A32E5C /* Waypoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 847797D71B5A937D00A32E5C /* Waypoint.m */; };
+		847797DB1B5A937E00A32E5C /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 847797DA1B5A937E00A32E5C /* Location.m */; };
+		847797DE1B5A937E00A32E5C /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 847797DD1B5A937E00A32E5C /* Friend.m */; };
+		847797E11B5A937E00A32E5C /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 847797E01B5A937E00A32E5C /* Setting.m */; };
+		847797E41B5A937E00A32E5C /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 847797E31B5A937E00A32E5C /* Message.m */; };
+		847797E71B5A937E00A32E5C /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 847797E61B5A937E00A32E5C /* Region.m */; };
 		8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB418E4289E00923B24 /* Setting+Create.m */; };
 		8479EEB718E4529900923B24 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
 		847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847F8B5719295C65003876D4 /* CoreMotion.framework */; };
 		84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A2B1B3755AF00810C3A /* TabBarController.m */; };
 		84A173681B427BDD00CCB7D0 /* ModeBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A173671B427BDD00CCB7D0 /* ModeBarButtonItem.m */; };
-		84A1736C1B428E8D00CCB7D0 /* Waypoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A1736B1B428E8D00CCB7D0 /* Waypoint.m */; };
-		84A1736F1B428E8D00CCB7D0 /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A1736E1B428E8D00CCB7D0 /* Friend.m */; };
-		84A173721B428E8E00CCB7D0 /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A173711B428E8E00CCB7D0 /* Region.m */; };
-		84A173751B428E8E00CCB7D0 /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A173741B428E8E00CCB7D0 /* Setting.m */; };
-		84A173781B428E8E00CCB7D0 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A173771B428E8E00CCB7D0 /* Message.m */; };
 		84B7397A1A65629200B103F4 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B739791A65629200B103F4 /* LocationManager.m */; };
 		84CA3D0D1AEE708200AABDC1 /* OwnTracks WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 843635731AE95D6000157D66 /* OwnTracks WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84CDB2501AD197AD005E272B /* Public.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84CDB24F1AD197AD005E272B /* Public.plist */; };
@@ -226,6 +227,18 @@
 		846FFA5C1B420938001482A6 /* FriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendTableViewCell.h; sourceTree = "<group>"; };
 		846FFA5D1B420938001482A6 /* FriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendTableViewCell.m; sourceTree = "<group>"; };
 		8474B15319A8CB7D00427427 /* Model 7.3.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.1.xcdatamodel"; sourceTree = "<group>"; };
+		847797D61B5A937D00A32E5C /* Waypoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Waypoint.h; sourceTree = "<group>"; };
+		847797D71B5A937D00A32E5C /* Waypoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Waypoint.m; sourceTree = "<group>"; };
+		847797D91B5A937E00A32E5C /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		847797DA1B5A937E00A32E5C /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
+		847797DC1B5A937E00A32E5C /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
+		847797DD1B5A937E00A32E5C /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
+		847797DF1B5A937E00A32E5C /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
+		847797E01B5A937E00A32E5C /* Setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
+		847797E21B5A937E00A32E5C /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		847797E31B5A937E00A32E5C /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		847797E51B5A937E00A32E5C /* Region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Region.h; sourceTree = "<group>"; };
+		847797E61B5A937E00A32E5C /* Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Region.m; sourceTree = "<group>"; };
 		8479EEB318E4289E00923B24 /* Setting+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Setting+Create.h"; path = "../../Setting+Create.h"; sourceTree = "<group>"; };
 		8479EEB418E4289E00923B24 /* Setting+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Setting+Create.m"; path = "../../Setting+Create.m"; sourceTree = "<group>"; };
 		847F8B5719295C65003876D4 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -240,16 +253,6 @@
 		84A173661B427BDD00CCB7D0 /* ModeBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModeBarButtonItem.h; sourceTree = "<group>"; };
 		84A173671B427BDD00CCB7D0 /* ModeBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModeBarButtonItem.m; sourceTree = "<group>"; };
 		84A173691B428E5C00CCB7D0 /* Model 8.2.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.1.xcdatamodel"; sourceTree = "<group>"; };
-		84A1736A1B428E8D00CCB7D0 /* Waypoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Waypoint.h; sourceTree = "<group>"; };
-		84A1736B1B428E8D00CCB7D0 /* Waypoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Waypoint.m; sourceTree = "<group>"; };
-		84A1736D1B428E8D00CCB7D0 /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
-		84A1736E1B428E8D00CCB7D0 /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
-		84A173701B428E8E00CCB7D0 /* Region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Region.h; sourceTree = "<group>"; };
-		84A173711B428E8E00CCB7D0 /* Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Region.m; sourceTree = "<group>"; };
-		84A173731B428E8E00CCB7D0 /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
-		84A173741B428E8E00CCB7D0 /* Setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
-		84A173761B428E8E00CCB7D0 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
-		84A173771B428E8E00CCB7D0 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		84AF468F1AB9571800E954E3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		84B739781A65629200B103F4 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		84B739791A65629200B103F4 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
@@ -444,16 +447,18 @@
 		8411B867189FE1ED0019D2D6 /* coredata */ = {
 			isa = PBXGroup;
 			children = (
-				84A173761B428E8E00CCB7D0 /* Message.h */,
-				84A173771B428E8E00CCB7D0 /* Message.m */,
-				84A173731B428E8E00CCB7D0 /* Setting.h */,
-				84A173741B428E8E00CCB7D0 /* Setting.m */,
-				84A173701B428E8E00CCB7D0 /* Region.h */,
-				84A173711B428E8E00CCB7D0 /* Region.m */,
-				84A1736D1B428E8D00CCB7D0 /* Friend.h */,
-				84A1736E1B428E8D00CCB7D0 /* Friend.m */,
-				84A1736A1B428E8D00CCB7D0 /* Waypoint.h */,
-				84A1736B1B428E8D00CCB7D0 /* Waypoint.m */,
+				847797E51B5A937E00A32E5C /* Region.h */,
+				847797E61B5A937E00A32E5C /* Region.m */,
+				847797E21B5A937E00A32E5C /* Message.h */,
+				847797E31B5A937E00A32E5C /* Message.m */,
+				847797DF1B5A937E00A32E5C /* Setting.h */,
+				847797E01B5A937E00A32E5C /* Setting.m */,
+				847797DC1B5A937E00A32E5C /* Friend.h */,
+				847797DD1B5A937E00A32E5C /* Friend.m */,
+				847797D91B5A937E00A32E5C /* Location.h */,
+				847797DA1B5A937E00A32E5C /* Location.m */,
+				847797D61B5A937D00A32E5C /* Waypoint.h */,
+				847797D71B5A937D00A32E5C /* Waypoint.m */,
 				846FFA591B4196D0001482A6 /* Waypoint+Create.h */,
 				846FFA5A1B4196D0001482A6 /* Waypoint+Create.m */,
 				846FFA501B416CD6001482A6 /* Region+Create.h */,
@@ -910,6 +915,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				846FFA5B1B4196D0001482A6 /* Waypoint+Create.m in Sources */,
+				847797DB1B5A937E00A32E5C /* Location.m in Sources */,
 				8411B83A189FDB140019D2D6 /* main.m in Sources */,
 				84D751751B35B3C100B06A0C /* Message+Create.m in Sources */,
 				8411B90C189FEC070019D2D6 /* WaypointTVC.m in Sources */,
@@ -932,21 +938,21 @@
 				846FFA521B416CD6001482A6 /* Region+Create.m in Sources */,
 				8411B88B189FE79B0019D2D6 /* CoreData.m in Sources */,
 				84D751781B35B7A500B06A0C /* MessageTVC.m in Sources */,
-				84A1736F1B428E8D00CCB7D0 /* Friend.m in Sources */,
-				84A173751B428E8E00CCB7D0 /* Setting.m in Sources */,
 				8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */,
 				8411B878189FE1ED0019D2D6 /* Friend+Create.m in Sources */,
+				847797E11B5A937E00A32E5C /* Setting.m in Sources */,
+				847797DE1B5A937E00A32E5C /* Friend.m in Sources */,
 				845F003D192A5CDE00919FB8 /* QosTVC.m in Sources */,
 				846FFA4F1B40C13C001482A6 /* NavigationController.m in Sources */,
 				8411B83E189FDB140019D2D6 /* OwnTracksAppDelegate.m in Sources */,
 				84A173681B427BDD00CCB7D0 /* ModeBarButtonItem.m in Sources */,
-				84A1736C1B428E8D00CCB7D0 /* Waypoint.m in Sources */,
 				845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */,
 				84B7397A1A65629200B103F4 /* LocationManager.m in Sources */,
 				8411B891189FE9CE0019D2D6 /* Settings.m in Sources */,
-				84A173721B428E8E00CCB7D0 /* Region.m in Sources */,
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,
-				84A173781B428E8E00CCB7D0 /* Message.m in Sources */,
+				847797E71B5A937E00A32E5C /* Region.m in Sources */,
+				847797E41B5A937E00A32E5C /* Message.m in Sources */,
+				847797D81B5A937D00A32E5C /* Waypoint.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1401,7 +1407,7 @@
 				84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */,
 				8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 84A173691B428E5C00CCB7D0 /* Model 8.2.1.xcdatamodel */;
+			currentVersion = 846FFA1B1B4023BE001482A6 /* Model 8.2.0.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

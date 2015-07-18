@@ -12,6 +12,7 @@
 #import "Setting+Create.h"
 #import "AlertView.h"
 #import "Settings.h"
+#import "Location.h"
 #import "OwnTracking.h"
 #import <NotificationCenter/NotificationCenter.h>
 #import <Fabric/Fabric.h>
@@ -96,6 +97,39 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
         }
     } while (state & UIDocumentStateClosed || ![CoreData theManagedObjectContext]);
+    
+    //
+    // Migrate Waypoints from 8.0.32 to 8.2.0
+    //
+    Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
+                            inManagedObjectContext:[CoreData theManagedObjectContext]];
+    if (myself) {
+        for (Location *location in myself.hasLocations) {
+            if (![location.automatic boolValue]) {
+                if (location.remark && location.remark.length) {
+                    NSArray *components = [location.remark componentsSeparatedByString:@":"];
+                    NSString *name = components.count >= 1 ? components[0] : nil;
+                    NSString *uuid = components.count >= 2 ? components[1] : nil;
+                    unsigned int major = components.count >= 3 ? [components[2] unsignedIntValue]: 0;
+                    unsigned int minor = components.count >= 4 ? [components[3] unsignedIntValue]: 0;
+                    
+                    [[OwnTracking sharedInstance] addRegionFor:myself
+                                                          name:name
+                                                          uuid:uuid
+                                                         major:major
+                                                         minor:minor
+                                                         share:[location.share boolValue]
+                                                        radius:[location.regionradius doubleValue]
+                                                           lat:[location.latitude doubleValue]
+                                                           lon:[location.longitude doubleValue]
+                                                       context:[CoreData theManagedObjectContext]];
+                }
+            }
+            [[CoreData theManagedObjectContext] deleteObject:location];
+        }
+        [CoreData saveContext];
+    }
+
     
     if (![Setting existsSettingWithKey:@"mode"
                 inManagedObjectContext:[CoreData theManagedObjectContext]]) {

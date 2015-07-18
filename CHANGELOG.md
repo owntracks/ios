@@ -1,6 +1,19 @@
 OnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.2.5
+>Release date: 2015-07-18 for alpha-testers only
+
+A bigger thing, threading issues accessing the Address Book
+And the missing database migration from 8.0.32 for waypoints
+
+[FIX] crashes fixed closes #259
+[FIX] crashes fixed closes #258
+[FIX] crashes fixed closes #257
+[FIX] crashes fixed closes #256
+[FIX] crashes fixed closes #254
+[NEW] migration from 8.0.32 database closes #248
+
 ## OwnTracks 8.2.4
 >Release date: 2015-07-18 for alpha-testers only
 
