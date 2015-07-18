@@ -1,6 +1,14 @@
 OnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.2.4
+>Release date: 2015-07-18 for alpha-testers only
+
+Just a small fix, but I will help to test messaging
+
+[FIX] navigations bars don't work on main screen
+[FIX] messages should not expire it ttl = 0
+
 ## OwnTracks 8.2.3
 >Release date: 2015-07-14 for alpha-testers only
 

@@ -19,7 +19,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.hidesBarsOnSwipe = true;
     self.navigationBar.translucent = false;
     self.navigationBar.barTintColor = [UIColor colorWithName:@"primary" defaultColor:[UIColor blackColor]];
     self.navigationBar.tintColor = [UIColor whiteColor];

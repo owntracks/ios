@@ -79,10 +79,13 @@
     NSArray *matches = [context executeFetchRequest:request error:&error];
     NSUInteger count = matches.count;
     for (Message *message in matches) {
-        NSDate *expires = [message.timestamp dateByAddingTimeInterval:[message.ttl unsignedIntegerValue]];
-        if ([expires timeIntervalSince1970] < now) {
-            [context deleteObject:message];
-            count--;
+        NSUInteger ttl = [message.ttl unsignedIntegerValue];
+        if (ttl > 0) {
+        NSDate *expires = [message.timestamp dateByAddingTimeInterval:ttl];
+            if ([expires timeIntervalSince1970] < now) {
+                [context deleteObject:message];
+                count--;
+            }
         }
     }
     return count;
