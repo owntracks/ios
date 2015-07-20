@@ -1,6 +1,15 @@
 OnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.2.7
+>Release date: 2015-07-20 for alpha-testers only
+
+A few fixes
+
+[FIX] message badge value not updated when deleting single message closes #268
+[FIX] use 'Authentication' rather than 'Authorize' closes #267
+[FIX] show correct TID for self and friends closes #265
+
 ## OwnTracks 8.2.6
 >Release date: 2015-07-20 for alpha-testers only
 

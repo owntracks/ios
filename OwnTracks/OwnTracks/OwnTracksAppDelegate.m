@@ -775,6 +775,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         [Settings validIds]) {
         Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic]
                           inManagedObjectContext:[CoreData theManagedObjectContext]];
+        friend.tid = [Settings stringForKey:@"trackerid_preference"];
+        
         Waypoint *waypoint = [[OwnTracking sharedInstance] addWaypointFor:friend
                                             location:location
                                              trigger:trigger

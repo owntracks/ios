@@ -110,13 +110,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
         Message *message = [self.fetchedResultsController objectAtIndexPath:indexPath];
         [context deleteObject:message];
-        
-        NSError *error = nil;
-        if (![context save:&error]) {
-            DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-            [[Crashlytics sharedInstance] setObjectValue:@"deleteMessage" forKey:@"CrashType"];
-            [[Crashlytics sharedInstance] crash];
-        }
+        [CoreData saveContext:context];
+        [[Messaging sharedInstance] updateCounter:context];
     }
 }
 
