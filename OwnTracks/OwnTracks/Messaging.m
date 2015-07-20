@@ -111,14 +111,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             [subscriptions setValue:[NSNumber numberWithInt:MQTTQosLevelExactlyOnce] forKey:topic];
         }
     }
-    delegate.connectionIn.variableSubscriptions = subscriptions;
-    
-    NSError *error = nil;
-    if (![context save:&error]) {
-        DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-        [[Crashlytics sharedInstance] setObjectValue:@"manageSubscriptions" forKey:@"CrashType"];
-        [[Crashlytics sharedInstance] crash];
-    }
+    delegate.connectionIn.variableSubscriptions = subscriptions;    
+    [CoreData saveContext:context];
 }
 
 - (void)newLocation:(double)latitude longitude:(double)longitude context:(NSManagedObjectContext *)context {

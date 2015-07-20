@@ -111,6 +111,7 @@ static OwnTracking *theInstance = nil;
                                                                                     speed:[dictionary[@"vel"] intValue]
                                                                                 timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]];
                             Friend *friend = [Friend friendWithTopic:device inManagedObjectContext:context];
+                            friend.tid = dictionary[@"tid"];
                             [self addWaypointFor:friend location:location trigger:dictionary[@"t"] context:context];
                             [self limitWaypointsFor:friend
                                           toMaximum:[Settings intForKey:@"positions_preference"]
@@ -328,7 +329,12 @@ static OwnTracking *theInstance = nil;
         }
     }
     
-    [json setValue:[waypoint.belongsTo getEffectiveTid] forKeyPath:@"tid"];
+    NSString *tid = [Settings stringForKey:@"trackerid_preference"];
+    if (tid && tid.length > 0) {
+        [json setValue:tid forKeyPath:@"tid"];
+    } else {
+        [json setValue:[waypoint.belongsTo getEffectiveTid] forKeyPath:@"tid"];
+    }
     
     int batteryLevel = [UIDevice currentDevice].batteryLevel != -1 ? [UIDevice currentDevice].batteryLevel * 100 : -1;
     [json setValue:@(batteryLevel) forKey:@"batt"];

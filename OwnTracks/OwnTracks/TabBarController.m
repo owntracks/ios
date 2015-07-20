@@ -21,6 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    
     for (UIViewController *vc in self.viewControllers) {
         if (vc.tabBarItem.tag == 99) {
             self.messageVC = vc;

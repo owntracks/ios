@@ -49,7 +49,7 @@
 	<key>extendeddata_preference</key>
 	<true/>
 	<key>messaging</key>
-	<false/>
+	<true/>
 	<key>trackerid_preference</key>
 	<string></string>
 	<key>positions_preference</key>

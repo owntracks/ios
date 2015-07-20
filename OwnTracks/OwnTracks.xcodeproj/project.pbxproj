@@ -55,7 +55,6 @@
 		845AA1BB1B4846AF00945856 /* OwnTracks-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1B81B4846AF00945856 /* OwnTracks-29.png */; };
 		845AA1BC1B4846AF00945856 /* OwnTracks-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1B91B4846AF00945856 /* OwnTracks-64.png */; };
 		845AA1BD1B4846AF00945856 /* OwnTracks-320.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1BA1B4846AF00945856 /* OwnTracks-320.png */; };
-		845F003D192A5CDE00919FB8 /* QosTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845F003C192A5CDE00919FB8 /* QosTVC.m */; };
 		846FFA161B4013BB001482A6 /* Colors.plist in Resources */ = {isa = PBXBuildFile; fileRef = 846FFA151B4013BB001482A6 /* Colors.plist */; };
 		846FFA191B401A4E001482A6 /* UIColor+WithName.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA181B401A4E001482A6 /* UIColor+WithName.m */; };
 		846FFA451B402A1F001482A6 /* OwnTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA441B402A1F001482A6 /* OwnTracking.m */; };
@@ -208,8 +207,6 @@
 		845AA1B81B4846AF00945856 /* OwnTracks-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-29.png"; sourceTree = "<group>"; };
 		845AA1B91B4846AF00945856 /* OwnTracks-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-64.png"; sourceTree = "<group>"; };
 		845AA1BA1B4846AF00945856 /* OwnTracks-320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-320.png"; sourceTree = "<group>"; };
-		845F003B192A5CDE00919FB8 /* QosTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QosTVC.h; path = ../QosTVC.h; sourceTree = "<group>"; };
-		845F003C192A5CDE00919FB8 /* QosTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QosTVC.m; path = ../QosTVC.m; sourceTree = "<group>"; };
 		846FFA151B4013BB001482A6 /* Colors.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Colors.plist; sourceTree = "<group>"; };
 		846FFA171B401A4E001482A6 /* UIColor+WithName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+WithName.h"; sourceTree = "<group>"; };
 		846FFA181B401A4E001482A6 /* UIColor+WithName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+WithName.m"; sourceTree = "<group>"; };
@@ -610,8 +607,6 @@
 			children = (
 				8411B908189FEC070019D2D6 /* StatusTVC.h */,
 				8411B909189FEC070019D2D6 /* StatusTVC.m */,
-				845F003B192A5CDE00919FB8 /* QosTVC.h */,
-				845F003C192A5CDE00919FB8 /* QosTVC.m */,
 				845AA1B21B44245100945856 /* CertificatesTVC.h */,
 				845AA1B31B44245100945856 /* CertificatesTVC.m */,
 			);
@@ -942,7 +937,6 @@
 				8411B878189FE1ED0019D2D6 /* Friend+Create.m in Sources */,
 				847797E11B5A937E00A32E5C /* Setting.m in Sources */,
 				847797DE1B5A937E00A32E5C /* Friend.m in Sources */,
-				845F003D192A5CDE00919FB8 /* QosTVC.m in Sources */,
 				846FFA4F1B40C13C001482A6 /* NavigationController.m in Sources */,
 				8411B83E189FDB140019D2D6 /* OwnTracksAppDelegate.m in Sources */,
 				84A173681B427BDD00CCB7D0 /* ModeBarButtonItem.m in Sources */,

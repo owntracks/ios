@@ -12,7 +12,7 @@ PODS:
   - FontAwesomeTools (1.2)
   - MQTTClient (0.2.2)
   - objc-geohash (0.0.1)
-  - QRCodeReaderViewController (3.4.0)
+  - QRCodeReaderViewController (3.5.2)
 
 DEPENDENCIES:
   - ABStaticTableViewController
@@ -30,6 +30,6 @@ SPEC CHECKSUMS:
   FontAwesomeTools: bd6e4882eed916ed07f8d0ff0fc2972c77640d27
   MQTTClient: 9406028ea7773676bd65bfcac4d0e595169d83f6
   objc-geohash: 5a92a1deb6c4729ecefdf847159991a1068fb4cc
-  QRCodeReaderViewController: bbe09ba1805a74e4da29863a5220a7ad0411f5bc
+  QRCodeReaderViewController: f20275985c41ae551099641493ab364691d9113e
 
 COCOAPODS: 0.37.1

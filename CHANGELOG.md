@@ -1,6 +1,17 @@
 OnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.2.6
+>Release date: 2015-07-20 for alpha-testers only
+
+A few fixes and a new reduced UI for settings
+
+[NEW] reduced settings UI closes #263
+[FIX] trackerID settings were not used closes #264
+[NEW] show coordinates and geohash in info screen closes #261
+[FIX] incorrect link to Documentation closes #260
+[NEW] updated first login screen
+
 ## OwnTracks 8.2.5
 >Release date: 2015-07-18 for alpha-testers only
 

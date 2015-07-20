@@ -26,7 +26,7 @@ $ touch Podfile
 $ edit Podfile
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '7.0'
-pod 'QRCodeReaderViewController', '~> 3.4.0'
+pod 'QRCodeReaderViewController', '~> 3.5.2'
 ```
 
 Install into your project:
@@ -62,7 +62,7 @@ $ open MyProject.xcworkspace
   // Or by using blocks
   [_reader setCompletionWithBlock:^(NSString *resultAsString) {
     [self dismissViewControllerAnimated:YES completion:^{
-      NSLog(@"%@", result);
+      NSLog(@"%@", resultAsString);
     }];
   }];
   

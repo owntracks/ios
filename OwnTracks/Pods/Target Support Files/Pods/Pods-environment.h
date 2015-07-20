@@ -57,8 +57,8 @@
 // QRCodeReaderViewController
 #define COCOAPODS_POD_AVAILABLE_QRCodeReaderViewController
 #define COCOAPODS_VERSION_MAJOR_QRCodeReaderViewController 3
-#define COCOAPODS_VERSION_MINOR_QRCodeReaderViewController 4
-#define COCOAPODS_VERSION_PATCH_QRCodeReaderViewController 0
+#define COCOAPODS_VERSION_MINOR_QRCodeReaderViewController 5
+#define COCOAPODS_VERSION_PATCH_QRCodeReaderViewController 2
 
 // objc-geohash
 #define COCOAPODS_POD_AVAILABLE_objc_geohash

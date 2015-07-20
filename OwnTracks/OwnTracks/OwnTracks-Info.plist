@@ -92,7 +92,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>8.2.5</string>
+	<string>8.2.6</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -111,7 +111,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>8.2.5</string>
+	<string>8.2.6</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -276,5 +276,7 @@
 			</dict>
 		</dict>
 	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>

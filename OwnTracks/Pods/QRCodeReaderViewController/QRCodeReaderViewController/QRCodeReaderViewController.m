@@ -35,7 +35,7 @@
 @property (strong, nonatomic) QRCodeReader         *codeReader;
 @property (assign, nonatomic) BOOL                 startScanningAtLoad;
 
-@property (copy, nonatomic) void (^completionBlock) (NSString *);
+@property (copy, nonatomic) void (^completionBlock) (NSString * __nullable);
 
 @end
 
@@ -128,7 +128,7 @@
   return [[self alloc] initWithCancelButtonTitle:cancelTitle codeReader:codeReader];
 }
 
-+ (instancetype)readerWithCancelButtonTitle:(NSString *)cancelTitle codeReader:(QRCodeReader *)codeReader  startScanningAtLoad:(BOOL)startScanningAtLoad
++ (instancetype)readerWithCancelButtonTitle:(NSString *)cancelTitle codeReader:(QRCodeReader *)codeReader startScanningAtLoad:(BOOL)startScanningAtLoad
 {
   return [[self alloc] initWithCancelButtonTitle:cancelTitle codeReader:codeReader startScanningAtLoad:startScanningAtLoad];
 }

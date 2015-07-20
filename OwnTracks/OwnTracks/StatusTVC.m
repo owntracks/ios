@@ -7,7 +7,6 @@
 //
 
 #import "StatusTVC.h"
-#import "QosTVC.h"
 #import "CertificatesTVC.h"
 #import "TabBarController.h"
 #import "OwnTracksAppDelegate.h"
@@ -16,12 +15,15 @@
 #import "CoreData.h"
 #import "AlertView.h"
 #import "OwnTracking.h"
+#import "Messaging.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
 @interface StatusTVC ()
-@property (weak, nonatomic) IBOutlet UISwitch *UImessaging;
+@property (weak, nonatomic) IBOutlet UITableViewCell *UITLSCell;
+@property (weak, nonatomic) IBOutlet UITextView *UILocation;
+@property (weak, nonatomic) IBOutlet UITextView *UIGeoHash;
 @property (weak, nonatomic) IBOutlet UITextField *UIclientPKCS;
 @property (weak, nonatomic) IBOutlet UISwitch *UIallowinvalidcerts;
 @property (weak, nonatomic) IBOutlet UITextField *UIpassphrase;
@@ -31,42 +33,17 @@
 @property (weak, nonatomic) IBOutlet UISwitch *UIusepolicy;
 @property (weak, nonatomic) IBOutlet UITextField *UIserverCER;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *UImode;
-@property (weak, nonatomic) IBOutlet UITextField *UIeffectivesubscriptions;
 @property (weak, nonatomic) IBOutlet UITextView *UIparameters;
-@property (weak, nonatomic) IBOutlet UITextField *UIstatus;
 @property (weak, nonatomic) IBOutlet UITextView *UIstatusField;
 @property (weak, nonatomic) IBOutlet UITextField *UIVersion;
-@property (weak, nonatomic) IBOutlet UITextField *UIeffectiveTopic;
-@property (weak, nonatomic) IBOutlet UITextField *UIeffectiveClientId;
-@property (weak, nonatomic) IBOutlet UITextField *UIeffectiveWillTopic;
-@property (weak, nonatomic) IBOutlet UITextField *UIeffectiveDeviceId;
 @property (weak, nonatomic) IBOutlet UITextField *UIDeviceID;
-@property (weak, nonatomic) IBOutlet UITextField *UILocatorDisplacement;
-@property (weak, nonatomic) IBOutlet UITextField *UILocatorInterval;
 @property (weak, nonatomic) IBOutlet UITextField *UIHost;
 @property (weak, nonatomic) IBOutlet UITextField *UIUserID;
 @property (weak, nonatomic) IBOutlet UITextField *UIPassword;
-@property (weak, nonatomic) IBOutlet UITextField *UISubscription;
-@property (weak, nonatomic) IBOutlet UISwitch *UIUpdateAddressBook;
-@property (weak, nonatomic) IBOutlet UITextField *UIPositionsToKeep;
-@property (weak, nonatomic) IBOutlet UITextField *UITopic;
-@property (weak, nonatomic) IBOutlet UISwitch *UIRetain;
-@property (weak, nonatomic) IBOutlet UISwitch *UICMD;
-@property (weak, nonatomic) IBOutlet UITextField *UIClientID;
 @property (weak, nonatomic) IBOutlet UITextField *UIPort;
 @property (weak, nonatomic) IBOutlet UISwitch *UITLS;
-@property (weak, nonatomic) IBOutlet UISwitch *UICleanSession;
 @property (weak, nonatomic) IBOutlet UISwitch *UIAuth;
-@property (weak, nonatomic) IBOutlet UITextField *UIKeepAlive;
-@property (weak, nonatomic) IBOutlet UITextField *UIWillTopic;
-@property (weak, nonatomic) IBOutlet UISwitch *UIWillRetain;
-@property (weak, nonatomic) IBOutlet UITextField *UIqos;
-@property (weak, nonatomic) IBOutlet UITextField *UIwillqos;
-@property (weak, nonatomic) IBOutlet UITextField *UIsubscriptionqos;
 @property (weak, nonatomic) IBOutlet UITextField *UItrackerid;
-@property (weak, nonatomic) IBOutlet UISwitch *UIextendedData;
-@property (weak, nonatomic) IBOutlet UISwitch *UIallowRemoteLocation;
-@property (weak, nonatomic) IBOutlet UISwitch *UIrangeBeacons;
 @property (weak, nonatomic) IBOutlet UIButton *UIexport;
 @property (weak, nonatomic) IBOutlet UITextField *UIuser;
 @property (weak, nonatomic) IBOutlet UITextField *UIdevice;
@@ -91,16 +68,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.UIPort.delegate = self;
     self.UIUserID.delegate = self;
     self.UIPassword.delegate = self;
-    self.UIClientID.delegate = self;
-    self.UIKeepAlive.delegate = self;
     self.UItrackerid.delegate = self;
     self.UIDeviceID.delegate = self;
-    self.UITopic.delegate = self;
-    self.UIWillTopic.delegate = self;
-    self.UISubscription.delegate = self;
-    self.UILocatorDisplacement.delegate = self;
-    self.UILocatorInterval.delegate = self;
-    self.UIPositionsToKeep.delegate = self;
     self.UIuser.delegate = self;
     self.UIdevice.delegate = self;
     self.UItoken.delegate = self;
@@ -119,6 +88,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                forKeyPath:@"configLoad"
                   options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                   context:nil];
+    [[LocationManager sharedInstance] addObserver:self
+                                       forKeyPath:@"location"
+                                          options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                          context:nil];
+    [[Messaging sharedInstance] addObserver:self
+                                 forKeyPath:@"lastGeoHash"
+                                    options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                    context:nil];
     
     [self updated];
 }
@@ -145,6 +122,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [delegate removeObserver:self
                   forKeyPath:@"configLoad"
                      context:nil];
+    [[LocationManager sharedInstance] removeObserver:self
+                                          forKeyPath:@"location"
+                                             context:nil];
+    [[Messaging sharedInstance] removeObserver:self
+                                    forKeyPath:@"lastGeoHash"
+                                       context:nil];
     
     [self updateValues];
     [super viewWillDisappear:animated];
@@ -162,30 +145,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIvalidatedomainname) [Settings setBool:self.UIvalidatedomainname.on forKey:@"validatedomainname"];
     if (self.UIvalidatecertificatechain) [Settings setBool:self.UIvalidatecertificatechain.on forKey:@"validatecertificatechain"];
     if (self.UItrackerid) [Settings setString:self.UItrackerid.text forKey:@"trackerid_preference"];
-    if (self.UILocatorDisplacement) [Settings setString:self.UILocatorDisplacement.text forKey:@"mindist_preference"];
-    if (self.UILocatorInterval) [Settings setString:self.UILocatorInterval.text forKey:@"mintime_preference"];
     if (self.UIHost) [Settings setString:self.UIHost.text forKey:@"host_preference"];
     if (self.UIUserID) [Settings setString:self.UIUserID.text forKey:@"user_preference"];
     if (self.UIPassword) [Settings setString:self.UIPassword.text forKey:@"pass_preference"];
-    if (self.UISubscription) [Settings setString:self.UISubscription.text forKey:@"subscription_preference"];
-    if (self.UIUpdateAddressBook) [Settings setBool:self.UIUpdateAddressBook.on forKey:@"ab_preference"];
-    if (self.UIallowRemoteLocation) [Settings setBool:self.UIallowRemoteLocation.on forKey:@"allowremotelocation_preference"];
     if (self.UImode) [Settings setInt:(int)self.UImode.selectedSegmentIndex forKey:@"mode"];
-    if (self.UIextendedData) [Settings setBool:self.UIextendedData.on forKey:@"extendeddata_preference"];
-    if (self.UIrangeBeacons) [Settings setBool:self.UIrangeBeacons.on forKey:@"ranging_preference"];
-    if (self.UImessaging) [Settings setBool:self.UImessaging.on forKey:SETTINGS_MESSAGING];
-    if (self.UIPositionsToKeep) [Settings setString:self.UIPositionsToKeep.text forKey:@"positions_preference"];
-    if (self.UITopic) [Settings setString:self.UITopic.text forKey:@"topic_preference"];
-    if (self.UIRetain) [Settings setBool:self.UIRetain.on forKey:@"retain_preference"];
-    if (self.UICMD) [Settings setBool:self.UICMD.on forKey:@"cmd_preference"];
-    if (self.UIClientID) [Settings setString:self.UIClientID.text forKey:@"clientid_preference"];
     if (self.UIPort) [Settings setString:self.UIPort.text forKey:@"port_preference"];
     if (self.UITLS) [Settings setBool:self.UITLS.on forKey:@"tls_preference"];
     if (self.UIAuth) [Settings setBool:self.UIAuth.on forKey:@"auth_preference"];
-    if (self.UICleanSession) [Settings setBool:self.UICleanSession.on forKey:@"clean_preference"];
-    if (self.UIKeepAlive) [Settings setString:self.UIKeepAlive.text forKey:@"keepalive_preference"];
-    if (self.UIWillTopic) [Settings setString:self.UIWillTopic.text forKey:@"willtopic_preference"];
-    if (self.UIWillRetain) [Settings setBool:self.UIWillRetain.on forKey:@"willretain_preference"];
     if (self.UIuser) [Settings setString:self.UIuser.text forKey:@"user"];
     if (self.UIdevice) [Settings setString:self.UIdevice.text forKey:@"device"];
     if (self.UItoken) [Settings setString:self.UItoken.text forKey:@"token"];
@@ -213,13 +179,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                    @(state_closed): @"closed"
                                    };
     
-    self.UIstatus.text = [NSString stringWithFormat:@"%@ %@ %@",
-                          states[delegate.connectionStateOut],
-                          delegate.connectionOut.lastErrorCode ?
-                          delegate.connectionOut.lastErrorCode.localizedDescription : @"",
-                          delegate.connectionOut.lastErrorCode ?
-                          delegate.connectionOut.lastErrorCode.userInfo : @""
-                          ];
     self.UIstatusField.text = [NSString stringWithFormat:@"%@ %@ %@",
                                states[delegate.connectionStateOut],
                                delegate.connectionOut.lastErrorCode ?
@@ -227,6 +186,21 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                delegate.connectionOut.lastErrorCode ?
                                delegate.connectionOut.lastErrorCode.userInfo : @""
                                ];
+    
+    if ([LocationManager sharedInstance].location) {
+        self.UILocation.text = [NSString stringWithFormat:@"%g,%g (±%.0fm)",
+                                [LocationManager sharedInstance].location.coordinate.latitude,
+                                [LocationManager sharedInstance].location.coordinate.longitude,
+                                [LocationManager sharedInstance].location.horizontalAccuracy
+                                ];
+    } else {
+        self.UILocation.text = @"No location available";
+    }
+    if ([Messaging sharedInstance].lastGeoHash) {
+        self.UIGeoHash.text = [Messaging sharedInstance].lastGeoHash;
+    } else {
+        self.UIGeoHash.text = @"No geo hash available";
+    }
 }
 
 - (void)updated
@@ -235,14 +209,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     
     if (self.UIVersion) self.UIVersion.text = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
-    if (self.UIeffectiveDeviceId) self.UIeffectiveDeviceId.text = [Settings theDeviceId];
-    if (self.UIeffectiveClientId) self.UIeffectiveClientId.text = [Settings theClientId];
-    if (self.UIeffectiveTopic) self.UIeffectiveTopic.text = [Settings theGeneralTopic];
-    if (self.UIeffectiveWillTopic) self.UIeffectiveWillTopic.text =  [Settings theWillTopic];
-    if (self.UIeffectivesubscriptions) self.UIeffectivesubscriptions.text = [Settings theSubscriptions];
-    
-    if (self.UIparameters) self.UIparameters.text = [delegate.connectionOut parameters];
-    
     if (self.UIDeviceID) self.UIDeviceID.text =  [Settings stringForKey:@"deviceid_preference"];
     if (self.UIclientPKCS) self.UIclientPKCS.text = [Settings stringForKey:@"clientpkcs"];
     if (self.UIserverCER) self.UIserverCER.text = [Settings stringForKey:@"servercer"];
@@ -253,183 +219,77 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIvalidatedomainname) self.UIvalidatedomainname.on =  [Settings boolForKey:@"validatedomainname"];
     if (self.UIvalidatecertificatechain) self.UIvalidatecertificatechain.on = [Settings boolForKey:@"validatecertificatechain"];
     if (self.UItrackerid) self.UItrackerid.text =  [Settings stringForKey:@"trackerid_preference"];
-    if (self.UILocatorDisplacement) self.UILocatorDisplacement.text = [Settings stringForKey:@"mindist_preference"];
-    if (self.UILocatorInterval) self.UILocatorInterval.text = [Settings stringForKey:@"mintime_preference"];
     if (self.UIHost) self.UIHost.text = [Settings stringForKey:@"host_preference"];
     if (self.UIUserID) self.UIUserID.text = [Settings stringForKey:@"user_preference"];
     if (self.UIPassword) self.UIPassword.text = [Settings stringForKey:@"pass_preference"];
-    if (self.UISubscription) self.UISubscription.text = [Settings stringForKey:@"subscription_preference"];
     if (self.UImode) self.UImode.selectedSegmentIndex = [Settings intForKey:@"mode"];
-    if (self.UIUpdateAddressBook) self.UIUpdateAddressBook.on = [Settings boolForKey:@"ab_preference"];
-    if (self.UIallowRemoteLocation) self.UIallowRemoteLocation.on = [Settings boolForKey:@"allowremotelocation_preference"];
-    if (self.UImessaging) self.UImessaging.on = [Settings boolForKey:SETTINGS_MESSAGING];
-    if (self.UIPositionsToKeep) self.UIPositionsToKeep.text = [Settings stringForKey:@"positions_preference"];
-    if (self.UIsubscriptionqos) self.UIsubscriptionqos.text = [self qosString:[Settings intForKey:@"subscriptionqos_preference"]];
-    if (self.UITopic) self.UITopic.text = [Settings stringForKey:@"topic_preference"];
-    if (self.UIqos) self.UIqos.text = [self qosString:[Settings intForKey:@"qos_preference"]];
-    if (self.UIRetain) self.UIRetain.on = [Settings boolForKey:@"retain_preference"];
-    if (self.UICMD) self.UICMD.on = [Settings boolForKey:@"cmd_preference"];
-    if (self.UIClientID) self.UIClientID.text = [Settings stringForKey:@"clientid_preference"];
     if (self.UIPort) self.UIPort.text = [Settings stringForKey:@"port_preference"];
     if (self.UITLS) self.UITLS.on = [Settings boolForKey:@"tls_preference"];
     if (self.UIAuth)self.UIAuth.on = [Settings boolForKey:@"auth_preference"];
-    if (self.UICleanSession) self.UICleanSession.on = [Settings boolForKey:@"clean_preference"];
-    if (self.UIKeepAlive) self.UIKeepAlive.text = [Settings stringForKey:@"keepalive_preference"];
-    if (self.UIWillTopic) self.UIWillTopic.text = [Settings stringForKey:@"willtopic_preference"];
-    if (self.UIwillqos) self.UIwillqos.text =[self qosString:[Settings intForKey:@"willqos_preference"]];
-    if (self.UIWillRetain) self.UIWillRetain.on = [Settings boolForKey:@"willretain_preference"];
-    if (self.UIextendedData) self.UIextendedData.on = [Settings boolForKey:@"extendeddata_preference"];
-    if (self.UIrangeBeacons) self.UIrangeBeacons.on = [Settings boolForKey:@"ranging_preference"];
     
     if (self.UIuser) self.UIuser.text = [Settings stringForKey:@"user"];
     if (self.UIdevice) self.UIdevice.text = [Settings stringForKey:@"device"];
     if (self.UItoken) self.UItoken.text = [Settings stringForKey:@"token"];
 
+    int mode = [Settings intForKey:@"mode"];
+
     NSMutableArray *hiddenFieldsMode12 = [[NSMutableArray alloc] init];
     NSMutableArray *hiddenIndexPathsMode12 = [[NSMutableArray alloc] init];
     
+    if (self.UIDeviceID) {
+        [hiddenFieldsMode12 addObject:self.UIDeviceID];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:3 inSection:0]];
+    }
     if (self.UIHost) {
         [hiddenFieldsMode12 addObject:self.UIHost];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:2 inSection:0]];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:4 inSection:0]];
     }
     if (self.UIPort) {
         [hiddenFieldsMode12 addObject:self.UIPort];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:3 inSection:0]];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:5 inSection:0]];
     }
     if (self.UITLS) {
         [hiddenFieldsMode12 addObject:self.UITLS];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:4 inSection:0]];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:6 inSection:0]];
     }
     if (self.UIAuth) {
         [hiddenFieldsMode12 addObject:self.UIAuth];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:5 inSection:0]];
-    }
-    if (self.UIClientID) {
-        [hiddenFieldsMode12 addObject:self.UIClientID];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:8 inSection:0]];
-    }
-    if (self.UICleanSession) {
-        [hiddenFieldsMode12 addObject:self.UICleanSession];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:9 inSection:0]];
-    }
-    if (self.UIKeepAlive) {
-        [hiddenFieldsMode12 addObject:self.UIKeepAlive];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:10 inSection:0]];
-    }
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:7 inSection:0]];
 
-    if (self.UISubscription) {
-        [hiddenFieldsMode12 addObject:self.UISubscription];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:0 inSection:2]];
-    }
-    if (self.UIsubscriptionqos) {
-        [hiddenFieldsMode12 addObject:self.UIsubscriptionqos];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:1 inSection:2]];
-    }
-    if (self.UICMD) {
-        [hiddenFieldsMode12 addObject:self.UICMD];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:5 inSection:2]];
-    }
-    if (self.UIallowRemoteLocation) {
-        [hiddenFieldsMode12 addObject:self.UIallowRemoteLocation];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:6 inSection:2]];
-    }
-    if (self.UIUpdateAddressBook) {
-        [hiddenFieldsMode12 addObject:self.UIUpdateAddressBook];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:7 inSection:2]];
-    }
-    if (self.UIextendedData) {
-        [hiddenFieldsMode12 addObject:self.UIextendedData];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:8 inSection:2]];
-    }
-    if (self.UIrangeBeacons) {
-        [hiddenFieldsMode12 addObject:self.UIrangeBeacons];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:9 inSection:2]];
-    }
-    
-    if (self.UILocatorInterval) {
-        [hiddenFieldsMode12 addObject:self.UILocatorInterval];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:2 inSection:2]];
-    }
-    
-    if (self.UILocatorDisplacement) {
-        [hiddenFieldsMode12 addObject:self.UILocatorDisplacement];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:3 inSection:2]];
-    }
-    
-    if (self.UIPositionsToKeep) {
-        [hiddenFieldsMode12 addObject:self.UIPositionsToKeep];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:4 inSection:2]];
-    }
-    
-    if (self.UITopic) {
-        [hiddenFieldsMode12 addObject:self.UITopic];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:2 inSection:1]];
-    }
-    if (self.UIqos) {
-        [hiddenFieldsMode12 addObject:self.UIqos];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:3 inSection:1]];
-    }
-    if (self.UIRetain) {
-        [hiddenFieldsMode12 addObject:self.UIRetain];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:4 inSection:1]];
-    }
-    if (self.UIWillTopic) {
-        [hiddenFieldsMode12 addObject:self.UIWillTopic];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:5 inSection:1]];
-    }
-    if (self.UIwillqos) {
-        [hiddenFieldsMode12 addObject:self.UIwillqos];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:6 inSection:1]];
-    }
-    if (self.UIWillRetain) {
-        [hiddenFieldsMode12 addObject:self.UIWillRetain];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:7 inSection:1]];
-    }
-    if (self.UIeffectiveDeviceId) {
-        [hiddenFieldsMode12 addObject:self.UIeffectiveDeviceId];
-    }
-    if (self.UIeffectiveClientId) {
-        [hiddenFieldsMode12 addObject:self.UIeffectiveClientId];
-    }
-    if (self.UIeffectiveTopic) {
-        [hiddenFieldsMode12 addObject:self.UIeffectiveTopic];
-    }
-    if (self.UIeffectiveWillTopic) {
-        [hiddenFieldsMode12 addObject:self.UIeffectiveWillTopic];
-    }
-    if (self.UIeffectivesubscriptions) {
-        [hiddenFieldsMode12 addObject:self.UIeffectivesubscriptions];
-    }
-    if (self.UIDeviceID) {
-        [hiddenFieldsMode12 addObject:self.UIDeviceID];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:1 inSection:1]];
     }
     if (self.UIUserID) {
+        if (self.UIAuth) {
+            self.UIUserID.enabled = self.UIAuth.on;
+            self.UIUserID.textColor = self.UIAuth.on ? [UIColor blackColor] : [UIColor lightGrayColor];
+        }
         [hiddenFieldsMode12 addObject:self.UIUserID];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:6 inSection:0]];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:8 inSection:0]];
     }
     if (self.UIPassword) {
+        if (self.UIAuth) {
+            self.UIPassword.enabled = self.UIAuth.on;
+            self.UIPassword.textColor = self.UIAuth.on ? [UIColor blackColor] : [UIColor lightGrayColor];
+        }
         [hiddenFieldsMode12 addObject:self.UIPassword];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:7 inSection:0]];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:9 inSection:0]];
     }
     
     NSMutableArray *hiddenFieldsMode02 = [[NSMutableArray alloc] init];
     NSMutableArray *hiddenIndexPathsMode02 = [[NSMutableArray alloc] init];
     if (self.UIuser) {
         [hiddenFieldsMode02 addObject:self.UIuser];
+        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:10 inSection:0]];
         [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:11 inSection:0]];
-        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:12 inSection:0]];
     }
     if (self.UIdevice) {
         [hiddenFieldsMode02 addObject:self.UIdevice];
-        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:13 inSection:0]];
+        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:12 inSection:0]];
     }
     if (self.UItoken) {
         [hiddenFieldsMode02 addObject:self.UItoken];
-        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:14 inSection:0]];
+        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:13 inSection:0]];
     }
     
-    int mode = [Settings intForKey:@"mode"];
     for (UIView *view in hiddenFieldsMode12) {
         [view setHidden:(mode == 1 || mode == 2)];
     }
@@ -453,12 +313,24 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         }
     }
     
-    if (self.UIexport) self.UIexport.enabled = (mode == 0 || mode == 1);
+    if (self.UIexport) self.UIexport.hidden = (mode == 2);
     
-    if (self.UIparameters && mode != 0) {
-        self.UIparameters.text = @"parameters shown in Private Mode only";
+    if (self.UITLS) {
+        if (self.UITLSCell) {
+            self.UITLSCell.accessoryType = self.UITLS.on ? UITableViewCellAccessoryDetailDisclosureButton : UITableViewCellAccessoryNone;
+        }
     }
-    
+
+    if (self.UIparameters) {
+        if (mode == 1) {
+            self.UIparameters.text = @"Hosted";
+        } else if (mode == 2) {
+            self.UIparameters.text = @"Public";
+        } else {
+            self.UIparameters.text = [delegate.connectionOut parameters];
+        }
+    }
+
     if ([self.tabBarController isKindOfClass:[TabBarController class]]) {
         TabBarController *tbc = (TabBarController *)self.tabBarController;
         [tbc adjust];
@@ -509,7 +381,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (IBAction)documentationPressed:(UIButton *)sender {
     [[UIApplication sharedApplication] openURL:
-     [NSURL URLWithString:@"https://github.com/owntracks/owntracks/wiki"]];
+     [NSURL URLWithString:@"http://owntracks.org/booklet"]];
 }
 
 - (IBAction)hostedPressed:(UIButton *)sender {
@@ -519,27 +391,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.destinationViewController respondsToSelector:@selector(setEditQos:)] &&
-        [segue.destinationViewController respondsToSelector:@selector(setEditIdentifier:)]) {
-        if ([segue.identifier isEqualToString:@"setQos:"]) {
-            [segue.destinationViewController performSelector:@selector(setEditQos:)
-                                                  withObject:@([Settings intForKey:@"qos_preference"])];
-            [segue.destinationViewController performSelector:@selector(setEditIdentifier:)
-                                                  withObject:@"qos_preference"];
-        }
-        if ([segue.identifier isEqualToString:@"setWillQos:"]) {
-            [segue.destinationViewController performSelector:@selector(setEditQos:)
-                                                  withObject:@([Settings intForKey:@"willqos_preference"])];
-            [segue.destinationViewController performSelector:@selector(setEditIdentifier:)
-                                                  withObject:@"willqos_preference"];
-        }
-        if ([segue.identifier isEqualToString:@"setSubscriptionQos:"]) {
-            [segue.destinationViewController performSelector:@selector(setEditQos:)
-                                                  withObject:@([Settings intForKey:@"subscriptionqos_preference"])];
-            [segue.destinationViewController performSelector:@selector(setEditIdentifier:)
-                                                  withObject:@"subscriptionqos_preference"];
-        }
-    }
     if ([segue.destinationViewController respondsToSelector:@selector(setSelectedFileName:)] &&
         [segue.destinationViewController respondsToSelector:@selector(setFileNameIdentifier:)]) {
         if ([segue.identifier isEqualToString:@"setClientPKCS"]) {
@@ -554,17 +405,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             [segue.destinationViewController performSelector:@selector(setFileNameIdentifier:)
                                                   withObject:@"servercer"];
         }
-    }
-}
-
-- (IBAction)setQoS:(UIStoryboardSegue *)segue {
-    if ([segue.sourceViewController respondsToSelector:@selector(editQos)] &&
-        [segue.sourceViewController respondsToSelector:@selector(editIdentifier)]) {
-        NSNumber *qos = [segue.sourceViewController performSelector:@selector(editQos)];
-        NSString *identifier = [segue.sourceViewController performSelector:@selector(editIdentifier)];
-        
-        [Settings setInt:[qos intValue] forKey:identifier];
-        [self updated];
     }
 }
 
@@ -597,16 +437,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.UIPort resignFirstResponder];
     [self.UIUserID resignFirstResponder];
     [self.UIPassword resignFirstResponder];
-    [self.UIClientID resignFirstResponder];
     [self.UItrackerid resignFirstResponder];
-    [self.UIKeepAlive resignFirstResponder];
     [self.UIDeviceID resignFirstResponder];
-    [self.UITopic resignFirstResponder];
-    [self.UIWillTopic resignFirstResponder];
-    [self.UISubscription resignFirstResponder];
-    [self.UILocatorDisplacement resignFirstResponder];
-    [self.UILocatorInterval resignFirstResponder];
-    [self.UIPositionsToKeep resignFirstResponder];
 }
 
 - (IBAction)tidChanged:(UITextField *)sender {
@@ -645,6 +477,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.modeAlertView show];
 }
 
+- (IBAction)authChanged:(UISwitch *)sender {
+    [self updateValues];
+    [self updated];
+}
+
+- (IBAction)tlsChanged:(UISwitch *)sender {
+    [self updateValues];
+    [self updated];
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
 
@@ -674,16 +516,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [[OwnTracking sharedInstance] syncProcessing];
     [self updateValues];
     [delegate reconnect];
-}
-
-- (IBAction)crash:(UIButton *)sender {
-    [[Crashlytics sharedInstance] setObjectValue:@"Manual" forKey:@"CrashType"];
-    [[Crashlytics sharedInstance] crash];
-}
-
-- (IBAction)messagingChanged:(UISwitch *)sender {
-    [self updateValues];
-    [self updated];
 }
 
 - (IBAction)scan:(UIBarButtonItem *)sender {
