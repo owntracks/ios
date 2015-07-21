@@ -1,6 +1,15 @@
 OnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.2.8
+>Release date: 2015-07-20 for alpha-testers only
+
+A few fixes
+
+[NEW] use 'untrusted' rather than 'invalid' for self signed certs in settings UI closes #269
+[FIX] change .otre (.der) public mime type to application/binary to avoid clutter in mail display
+[FIX] subscribes to message topics with QOS0 only closes #272
+
 ## OwnTracks 8.2.7
 >Release date: 2015-07-20 for alpha-testers only
 

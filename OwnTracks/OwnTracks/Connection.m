@@ -275,7 +275,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     for (NSString *topicFilter in variableSubscriptions) {
         if (![self.variableSubscriptions objectForKey:topicFilter]) {
-            MQTTQosLevel qos = [self.variableSubscriptions[topicFilter] intValue];
+            NSNumber *number = variableSubscriptions[topicFilter];
+            MQTTQosLevel qos = [number unsignedIntValue];
             [self.session subscribeToTopic:topicFilter atLevel:qos];
         }
     }
