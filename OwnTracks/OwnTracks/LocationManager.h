@@ -22,10 +22,22 @@
 @end
 
 @interface LocationManager : NSObject <CLLocationManagerDelegate>
+
+/**
+ Enumeration of LocationMonitoring modes
+ */
+typedef NS_ENUM(NSInteger, LocationMonitoring) {
+    LocationMonitoringQuiet = -1,
+    LocationMonitoringManual,
+    LocationMonitoringSignificant,
+    LocationMonitoringMove
+};
+
+
 + (LocationManager *)sharedInstance;
 @property (weak, nonatomic) id<LocationManagerDelegate> delegate;
+@property (nonatomic) LocationMonitoring monitoring;
 @property (nonatomic) BOOL ranging;
-@property (nonatomic) int monitoring;
 @property (nonatomic) double minDist;
 @property (nonatomic) double minTime;
 @property (readonly, nonatomic) CLLocation *location;

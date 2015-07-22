@@ -31,32 +31,39 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     switch ([LocationManager sharedInstance].monitoring) {
-        case 2:
-            self.image = [UIImage imageNamed:@"FastMode"];
+        case LocationMonitoringMove:
+            self.image = [UIImage imageNamed:@"MoveMode"];
             break;
-        case 1:
-            self.image = [UIImage imageNamed:@"PlayMode"];
+        case LocationMonitoringSignificant:
+            self.image = [UIImage imageNamed:@"SignificantMode"];
             break;
-        case 0:
+        case LocationMonitoringManual:
+            self.image = [UIImage imageNamed:@"ManualMode"];
+            break;
+        case LocationMonitoringQuiet:
         default:
-            self.image = [UIImage imageNamed:@"StopMode"];
+            self.image = [UIImage imageNamed:@"QuietMode"];
             break;
     }
 }
 
 - (void)pressed {
     switch ([LocationManager sharedInstance].monitoring) {
-        case 0:
-            [LocationManager sharedInstance].monitoring = 1;
+        case LocationMonitoringMove:
+            [LocationManager sharedInstance].monitoring = LocationMonitoringSignificant;
             [AlertView alert:@"Mode" message:@"significant changes mode enabled" dismissAfter:1];
             break;
-        case 1:
-            [LocationManager sharedInstance].monitoring = 2;
+        case LocationMonitoringQuiet:
+            [LocationManager sharedInstance].monitoring = LocationMonitoringMove;
             [AlertView alert:@"Mode" message:@"move mode enabled" dismissAfter:1];
             break;
-        case 2:
+        case LocationMonitoringManual:
+            [LocationManager sharedInstance].monitoring = LocationMonitoringQuiet;
+            [AlertView alert:@"Mode" message:@"quite mode enabled" dismissAfter:1];
+            break;
+        case LocationMonitoringSignificant:
         default:
-            [LocationManager sharedInstance].monitoring = 0;
+            [LocationManager sharedInstance].monitoring = LocationMonitoringManual;
             [AlertView alert:@"Mode" message:@"manual mode enabled" dismissAfter:1];
             break;
     }

@@ -1369,7 +1369,7 @@ Cg
                         <sections>
                             <tableViewSection headerTitle="Client Certificate" id="6aR-4g-W4D">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="6UU-2x-vMj">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="6UU-2x-vMj">
                                         <rect key="frame" x="0.0" y="251" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6UU-2x-vMj" id="POv-Ay-6EB">
@@ -1382,7 +1382,7 @@ Cg
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="client certificate file" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JSF-BR-9Nb">
-                                                    <rect key="frame" x="20" y="21" width="213" height="17"/>
+                                                    <rect key="frame" x="20" y="21" width="247" height="17"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
@@ -1397,7 +1397,7 @@ Cg
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="3fz-AH-2I9" kind="push" identifier="setClientPKCS" trigger="accessoryAction" id="A9h-sY-ofn"/>
+                                            <segue destination="3fz-AH-2I9" kind="push" identifier="setClientPKCS" id="uuz-St-6Cs"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="aRf-T6-Pnr">
@@ -1445,6 +1445,9 @@ Cg
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b91-20-ejX">
                                                     <rect key="frame" x="251" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="usePolicyChanged:" destination="N8y-lP-Jsi" eventType="valueChanged" id="RWt-D7-r8O"/>
+                                                    </connections>
                                                 </switch>
                                             </subviews>
                                             <constraints>
@@ -1479,6 +1482,7 @@ Cg
                                                     </segments>
                                                     <connections>
                                                         <action selector="modeChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="fhy-Cv-DQu"/>
+                                                        <action selector="policyModeChanged:" destination="N8y-lP-Jsi" eventType="valueChanged" id="a9i-wP-ggi"/>
                                                     </connections>
                                                 </segmentedControl>
                                             </subviews>
@@ -1491,7 +1495,7 @@ Cg
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="3sd-x9-HGh">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="3sd-x9-HGh">
                                         <rect key="frame" x="0.0" y="251" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3sd-x9-HGh" id="Tel-Ur-Be6">
@@ -1504,7 +1508,7 @@ Cg
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="server certificate file" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uLh-Jg-oIJ">
-                                                    <rect key="frame" x="20" y="21" width="213" height="17"/>
+                                                    <rect key="frame" x="20" y="21" width="247" height="17"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
@@ -1519,7 +1523,7 @@ Cg
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="3fz-AH-2I9" kind="push" identifier="setServerCER" trigger="accessoryAction" id="pSL-aW-Axt"/>
+                                            <segue destination="3fz-AH-2I9" kind="push" identifier="setServerCER" id="8m4-nr-b6B"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="5gd-Vf-r5n">
@@ -1609,6 +1613,7 @@ Cg
                         <outlet property="UIpassphrase" destination="KhB-Z4-umi" id="bez-IQ-dMd"/>
                         <outlet property="UIpolicymode" destination="ekh-AH-RrD" id="6re-c4-EQG"/>
                         <outlet property="UIserverCER" destination="uLh-Jg-oIJ" id="Swo-T3-d9g"/>
+                        <outlet property="UIserverCERCell" destination="3sd-x9-HGh" id="3mQ-82-Lhh"/>
                         <outlet property="UIusepolicy" destination="b91-20-ejX" id="9SX-Uu-IgQ"/>
                         <outlet property="UIvalidatecertificatechain" destination="p2I-AD-7oX" id="8ak-gw-WcP"/>
                         <outlet property="UIvalidatedomainname" destination="GUE-Y2-Yn5" id="S9q-rE-4Bu"/>
@@ -1632,9 +1637,6 @@ Cg
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1jb-nz-hVH" id="KJA-WF-I7w">
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="Swp-Q9-hex" kind="unwind" unwindAction="setPath:" id="7Nh-qh-Y1C"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1642,7 +1644,13 @@ Cg
                             <outlet property="delegate" destination="3fz-AH-2I9" id="wcZ-Ad-zjj"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Certificates" id="GWL-01-fh1"/>
+                    <navigationItem key="navigationItem" title="Certificates" id="GWL-01-fh1">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="IM9-vZ-R3Y">
+                            <connections>
+                                <segue destination="Swp-Q9-hex" kind="unwind" unwindAction="setNames:" id="Ihf-0K-C6C"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yT2-cL-TBv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Swp-Q9-hex" userLabel="Exit" sceneMemberID="exit"/>
@@ -2435,8 +2443,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Hb0-uO-VBI"/>
         <segue reference="6JA-UP-0mf"/>
-        <segue reference="A9h-sY-ofn"/>
+        <segue reference="Hb0-uO-VBI"/>
+        <segue reference="8m4-nr-b6B"/>
     </inferredMetricsTieBreakers>
 </document>

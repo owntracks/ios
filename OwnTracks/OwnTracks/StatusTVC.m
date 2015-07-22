@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *UIvalidatedomainname;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *UIpolicymode;
 @property (weak, nonatomic) IBOutlet UISwitch *UIusepolicy;
+@property (weak, nonatomic) IBOutlet UITableViewCell *UIserverCERCell;
 @property (weak, nonatomic) IBOutlet UITextField *UIserverCER;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *UImode;
 @property (weak, nonatomic) IBOutlet UITextView *UIparameters;
@@ -210,14 +211,50 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     if (self.UIVersion) self.UIVersion.text = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
     if (self.UIDeviceID) self.UIDeviceID.text =  [Settings stringForKey:@"deviceid_preference"];
+    
     if (self.UIclientPKCS) self.UIclientPKCS.text = [Settings stringForKey:@"clientpkcs"];
-    if (self.UIserverCER) self.UIserverCER.text = [Settings stringForKey:@"servercer"];
-    if (self.UIpassphrase) self.UIpassphrase.text = [Settings stringForKey:@"passphrase"];
-    if (self.UIpolicymode) self.UIpolicymode.selectedSegmentIndex = [Settings intForKey:@"policymode"];
+    if (self.UIpassphrase) {
+        if (self.UIclientPKCS) {
+            self.UIpassphrase.enabled = (self.UIclientPKCS.text.length > 0);
+            self.UIpassphrase.textColor = (self.UIclientPKCS.text.length > 0) ? [UIColor blackColor] : [UIColor lightGrayColor];
+        }
+        self.UIpassphrase.text = [Settings stringForKey:@"passphrase"];
+    }
+
     if (self.UIusepolicy) self.UIusepolicy.on =  [Settings boolForKey:@"usepolicy"];
-    if (self.UIallowinvalidcerts) self.UIallowinvalidcerts.on = [Settings boolForKey:@"allowinvalidcerts"];
-    if (self.UIvalidatedomainname) self.UIvalidatedomainname.on =  [Settings boolForKey:@"validatedomainname"];
-    if (self.UIvalidatecertificatechain) self.UIvalidatecertificatechain.on = [Settings boolForKey:@"validatecertificatechain"];
+    if (self.UIpolicymode) {
+        if (self.UIusepolicy) {
+            self.UIpolicymode.enabled = self.UIusepolicy.on;
+        }
+        self.UIpolicymode.selectedSegmentIndex = [Settings intForKey:@"policymode"];
+    }
+    if (self.UIserverCER) {
+        if (self.UIusepolicy && self.UIpolicymode) {
+            self.UIserverCERCell.userInteractionEnabled = self.UIusepolicy.on && self.UIpolicymode.selectedSegmentIndex != 0;
+            self.UIserverCERCell.accessoryType = (self.UIusepolicy.on && self.UIpolicymode.selectedSegmentIndex != 0) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+;
+        }
+        self.UIserverCER.text = [Settings stringForKey:@"servercer"];
+    }
+    if (self.UIallowinvalidcerts) {
+        if (self.UIusepolicy) {
+            self.UIallowinvalidcerts.enabled = self.UIusepolicy.on;
+        }
+        self.UIallowinvalidcerts.on = [Settings boolForKey:@"allowinvalidcerts"];
+    }
+    if (self.UIvalidatedomainname) {
+        if (self.UIusepolicy) {
+            self.UIvalidatedomainname.enabled = self.UIusepolicy.on;
+        }
+        self.UIvalidatedomainname.on =  [Settings boolForKey:@"validatedomainname"];
+    }
+    if (self.UIvalidatecertificatechain) {
+        if (self.UIusepolicy) {
+            self.UIvalidatecertificatechain.enabled = self.UIusepolicy.on;
+        }
+        self.UIvalidatecertificatechain.on = [Settings boolForKey:@"validatecertificatechain"];
+    }
+    
     if (self.UItrackerid) self.UItrackerid.text =  [Settings stringForKey:@"trackerid_preference"];
     if (self.UIHost) self.UIHost.text = [Settings stringForKey:@"host_preference"];
     if (self.UIUserID) self.UIUserID.text = [Settings stringForKey:@"user_preference"];
@@ -391,30 +428,36 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.destinationViewController respondsToSelector:@selector(setSelectedFileName:)] &&
+    if ([segue.destinationViewController respondsToSelector:@selector(setSelectedFileNames:)] &&
+        [segue.destinationViewController respondsToSelector:@selector(setMultiple:)] &&
         [segue.destinationViewController respondsToSelector:@selector(setFileNameIdentifier:)]) {
         if ([segue.identifier isEqualToString:@"setClientPKCS"]) {
-            [segue.destinationViewController performSelector:@selector(setSelectedFileName:)
+            [segue.destinationViewController performSelector:@selector(setSelectedFileNames:)
                                                   withObject:[Settings stringForKey:@"clientpkcs"]];
             [segue.destinationViewController performSelector:@selector(setFileNameIdentifier:)
                                                   withObject:@"clientpkcs"];
+            [segue.destinationViewController performSelector:@selector(setMultiple:)
+                                                  withObject:[NSNumber numberWithBool:FALSE]];
+            
         }
         if ([segue.identifier isEqualToString:@"setServerCER"]) {
-            [segue.destinationViewController performSelector:@selector(setSelectedFileName:)
+            [segue.destinationViewController performSelector:@selector(setSelectedFileNames:)
                                                   withObject:[Settings stringForKey:@"servercer"]];
             [segue.destinationViewController performSelector:@selector(setFileNameIdentifier:)
                                                   withObject:@"servercer"];
+            [segue.destinationViewController performSelector:@selector(setMultiple:)
+                                                  withObject:[NSNumber numberWithBool:TRUE]];
         }
     }
 }
 
-- (IBAction)setPath:(UIStoryboardSegue *)segue {
-    if ([segue.sourceViewController respondsToSelector:@selector(selectedFileName)] &&
+- (IBAction)setNames:(UIStoryboardSegue *)segue {
+    if ([segue.sourceViewController respondsToSelector:@selector(selectedFileNames)] &&
         [segue.sourceViewController respondsToSelector:@selector(fileNameIdentifier)]) {
-        NSString *path = [segue.sourceViewController performSelector:@selector(selectedFileName)];
+        NSString *names = [segue.sourceViewController performSelector:@selector(selectedFileNames)];
         NSString *identifier = [segue.sourceViewController performSelector:@selector(fileNameIdentifier)];
         
-        [Settings setString:path forKey:identifier];
+        [Settings setString:names forKey:identifier];
         [self updated];
     }
 }
@@ -483,6 +526,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (IBAction)tlsChanged:(UISwitch *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)usePolicyChanged:(UISwitch *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)policyModeChanged:(UISegmentedControl *)sender {
     [self updateValues];
     [self updated];
 }

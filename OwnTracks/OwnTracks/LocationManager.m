@@ -209,12 +209,12 @@ static LocationManager *theInstance = nil;
     self.monitoring = self.monitoring;
 }
 
-- (void)setMonitoring:(int)monitoring {
+- (void)setMonitoring:(LocationMonitoring)monitoring {
     DDLogVerbose(@"monitoring=%ld", (long)monitoring);
     _monitoring = monitoring;
 
     switch (monitoring) {
-        case 2:
+        case LocationMonitoringMove:
             self.manager.distanceFilter = self.minDist;
             self.manager.desiredAccuracy = kCLLocationAccuracyBest;
             self.manager.pausesLocationUpdatesAutomatically = YES;
@@ -225,12 +225,13 @@ static LocationManager *theInstance = nil;
             self.activityTimer = [NSTimer timerWithTimeInterval:self.minTime target:self selector:@selector(activityTimer:) userInfo:Nil repeats:YES];
             [[NSRunLoop currentRunLoop] addTimer:self.activityTimer forMode:NSRunLoopCommonModes];
             break;
-        case 1:
+        case LocationMonitoringSignificant:
             [self.activityTimer invalidate];
             [self.manager stopUpdatingLocation];
             [self.manager startMonitoringSignificantLocationChanges];
             break;
-        case 0:
+        case LocationMonitoringManual:
+        case LocationMonitoringQuiet:
         default:
             [self.activityTimer invalidate];
             [self.manager stopUpdatingLocation];

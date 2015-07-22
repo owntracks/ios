@@ -2,10 +2,14 @@ OnTracks iOS App 8.0 Release Notes
 ===================================
 
 ## OwnTracks 8.2.8
->Release date: 2015-07-20 for alpha-testers only
+>Release date: 2015-07-22 for alpha-testers only
 
-A few fixes
+A few fixes and enhancements
 
+[NEW] Allow multiple selection for pinned certificates in UI and settings closes #277
+[NEW] UI: use Disclosure Indicator chevron (>) an Detail Disclosure (i) consistently closes #276
+[NEW] Add new Quiet monitoring mode to Manual, Significant Changes and Move mode closes #274
+[NEW] Disable irrelevant fields in TLS settings UI closes #273
 [NEW] use 'untrusted' rather than 'invalid' for self signed certs in settings UI closes #269
 [FIX] change .otre (.der) public mime type to application/binary to avoid clutter in mail display
 [FIX] subscribes to message topics with QOS0 only closes #272

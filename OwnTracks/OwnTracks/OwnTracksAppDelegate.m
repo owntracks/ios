@@ -361,7 +361,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.connectionOut connectToLast];
     [self.connectionIn connectToLast];
     
-    if ([LocationManager sharedInstance].monitoring) {
+    if ([LocationManager sharedInstance].monitoring == LocationMonitoringSignificant ||
+        [LocationManager sharedInstance].monitoring == LocationMonitoringMove) {
         CLLocation *lastLocation = [LocationManager sharedInstance].location;
         CLLocation *location = [[CLLocation alloc] initWithLatitude:lastLocation.coordinate.latitude
                                                           longitude:lastLocation.coordinate.longitude];
@@ -408,7 +409,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 longitude:location.coordinate.longitude
                   context:[CoreData theManagedObjectContext]];
     
-    if ([LocationManager sharedInstance].monitoring && [Settings validIds]) {
+    if ([LocationManager sharedInstance].monitoring != LocationMonitoringQuiet && [Settings validIds]) {
         NSMutableDictionary *jsonObject = [@{
                                              @"_type": @"transition",
                                              @"lat": @(location.coordinate.latitude),
@@ -566,7 +567,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                     if ([dictionary[@"action"] isEqualToString:@"dump"]) {
                         [self dumpTo:topic];
                     } else if ([dictionary[@"action"] isEqualToString:@"reportLocation"]) {
-                        if ([LocationManager sharedInstance].monitoring || [Settings boolForKey:@"allowremotelocation_preference"]) {
+                        if ([LocationManager sharedInstance].monitoring == LocationMonitoringSignificant ||
+                            [LocationManager sharedInstance].monitoring == LocationMonitoringMove ||
+                            [Settings boolForKey:@"allowremotelocation_preference"]) {
                             [self publishLocation:[LocationManager sharedInstance].location trigger:@"r"];
                         }
                     } else if ([dictionary[@"action"] isEqualToString:@"reportSteps"]) {
@@ -850,16 +853,24 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             [AlertView alert:@"TLS Security Policy" message:@"invalide mode"];
         }
 
-        NSString *fileName = [Settings stringForKey:@"servercer"];
-        if (fileName && fileName.length) {
-            NSString *serverCERpath = [directoryURL.path stringByAppendingPathComponent:fileName];;
-            NSData *certificateData = [NSData dataWithContentsOfFile:serverCERpath];
-            if (certificateData) {
-                securityPolicy.pinnedCertificates = [[NSArray alloc] initWithObjects:certificateData, nil];
-            } else {
-                [AlertView alert:@"TLS Security Policy" message:@"invalid certificates file"];
+        NSString *fileNames = [Settings stringForKey:@"servercer"];
+        NSMutableArray *certs = nil;
+        NSArray *components = [fileNames componentsSeparatedByString:@" "];
+        for (NSString *fileName in components) {
+            if (fileName && fileName.length) {
+                NSString *serverCERpath = [directoryURL.path stringByAppendingPathComponent:fileName];;
+                NSData *certificateData = [NSData dataWithContentsOfFile:serverCERpath];
+                if (certificateData) {
+                    if (!certs) {
+                        certs = [[NSMutableArray alloc] init];
+                    }
+                    [certs addObject:certificateData];
+                } else {
+                    [AlertView alert:@"TLS Security Policy" message:@"invalid certificate file"];
+                }
             }
         }
+        securityPolicy.pinnedCertificates = certs;
         securityPolicy.allowInvalidCertificates = [Settings boolForKey:@"allowinvalidcerts"];
         securityPolicy.validatesCertificateChain = [Settings boolForKey:@"validatecertificatechain"];
         securityPolicy.validatesDomainName = [Settings boolForKey:@"validatedomainname"];
