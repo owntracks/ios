@@ -12,6 +12,7 @@
 #import "RegionTVC.h"
 #import "CoreData.h"
 #import "Settings.h"
+#import "AlertView.h"
 #import "OwnTracksAppDelegate.h"
 #import "OwnTracking.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
@@ -68,9 +69,29 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             }
         }
     }
+    
+    if ([segue.identifier isEqualToString:@"newRegion:"]) {
+        Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic] inManagedObjectContext:[CoreData theManagedObjectContext]];
+        CLLocation *location = [LocationManager sharedInstance].location;
+        Region *newRegion = [[OwnTracking sharedInstance] addRegionFor:friend
+                                                                  name:[NSString stringWithFormat:@"Here-%d",
+                                                                        (int)[[NSDate date] timeIntervalSince1970]]
+                                                                  uuid:nil
+                                                                 major:0
+                                                                 minor:0
+                                                                 share:NO
+                                                                radius:0
+                                                                   lat:location.coordinate.latitude
+                                                                   lon:location.coordinate.longitude
+                                                               context:[CoreData theManagedObjectContext]];
+        if ([segue.destinationViewController respondsToSelector:@selector(setEditRegion:)]) {
+            [segue.destinationViewController performSelector:@selector(setEditRegion:) withObject:newRegion];
+        }
+    }
 }
 
-
+- (IBAction)addPressed:(UIBarButtonItem *)sender {
+}
 
 #pragma mark - Table View
 

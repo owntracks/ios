@@ -12,6 +12,7 @@
 @property (strong, nonatomic) NSString *lastGeoHash;
 @property (strong, nonatomic) NSNumber *messages;
 + (Messaging *)sharedInstance;
+- (void)shutdown:(NSManagedObjectContext *)context;
 - (void)reset:(NSManagedObjectContext *)context;
 - (void)updateCounter:(NSManagedObjectContext *)context;
 - (void)newLocation:(double)latitude longitude:(double)longitude context:(NSManagedObjectContext *)context;

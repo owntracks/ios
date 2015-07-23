@@ -10,7 +10,7 @@ PODS:
     - CocoaLumberjack/Default
   - FontAwesome (4.3.0)
   - FontAwesomeTools (1.2)
-  - MQTTClient (0.2.2)
+  - MQTTClient (0.2.3)
   - objc-geohash (0.0.1)
   - QRCodeReaderViewController (3.5.2)
 
@@ -28,7 +28,7 @@ SPEC CHECKSUMS:
   CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
   FontAwesome: 341b52261cad8254017da3ddfc01d67c87c0ca88
   FontAwesomeTools: bd6e4882eed916ed07f8d0ff0fc2972c77640d27
-  MQTTClient: 9406028ea7773676bd65bfcac4d0e595169d83f6
+  MQTTClient: 28e6dae533618cc665deba2df7f0c778e06fcdaf
   objc-geohash: 5a92a1deb6c4729ecefdf847159991a1068fb4cc
   QRCodeReaderViewController: f20275985c41ae551099641493ab364691d9113e
 

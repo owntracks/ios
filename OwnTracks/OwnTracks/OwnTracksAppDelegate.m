@@ -266,12 +266,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             NSError *error;
             NSString *extension = [url pathExtension];
             if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
-                [[LocationManager sharedInstance] resetRegions];
-                NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
-                for (Friend *friend in friends) {
-                    [[CoreData theManagedObjectContext] deleteObject:friend];
-                }
-                [CoreData saveContext];
+                [self terminateSession];
                 error = [Settings fromStream:input];
                 [CoreData saveContext];
                 self.configLoad = [NSDate date];
@@ -562,7 +557,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
         if (dictionary) {
             if ([dictionary[@"_type"] isEqualToString:@"cmd"]) {
-                DDLogVerbose(@"App msg received cmd:%@", dictionary[@"action"]);
+                DDLogVerbose(@"msg received cmd:%@", dictionary[@"action"]);
                 if ([Settings boolForKey:@"cmd_preference"]) {
                     if ([dictionary[@"action"] isEqualToString:@"dump"]) {
                         [self dumpTo:topic];
@@ -735,7 +730,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 #pragma actions
 
 - (void)sendNow {
-    DDLogVerbose(@"App sendNow");
+    DDLogVerbose(@"sendNow");
     CLLocation *location = [LocationManager sharedInstance].location;
     [self publishLocation:location trigger:@"u"];
     [[Messaging sharedInstance] newLocation:location.coordinate.latitude
@@ -746,12 +741,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (void)connectionOff {
-    DDLogVerbose(@"App connectionOff");
+    DDLogVerbose(@"connectionOff");
     [self.connectionOut disconnect];
     [self.connectionIn disconnect];
 }
 
 - (void)terminateSession {
+    DDLogVerbose(@"terminateSession");
+
     [self connectionOff];
     [[OwnTracking sharedInstance] syncProcessing];
     [[LocationManager sharedInstance] resetRegions];
@@ -759,15 +756,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     for (Friend *friend in friends) {
         [[CoreData theManagedObjectContext] deleteObject:friend];
     }
+    [[Messaging sharedInstance] shutdown:[CoreData theManagedObjectContext]];
     [CoreData saveContext];
 }
 
 - (void)reconnect {
-    DDLogVerbose(@"App reconnect");
+    DDLogVerbose(@"reconnect");
     [self.connectionOut disconnect];
     [self.connectionIn disconnect];
     [self connect];
     [self sendNow];
+    [[Messaging sharedInstance] reset:[CoreData theManagedObjectContext]];
 }
 
 - (void)publishLocation:(CLLocation *)location trigger:(NSString *)trigger {

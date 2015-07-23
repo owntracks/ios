@@ -828,6 +828,11 @@ Cg
                                 <segue destination="G87-RS-wz7" kind="push" id="bll-jZ-B1N"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="GEj-Lw-poE">
+                            <connections>
+                                <segue destination="qjh-5o-Yio" kind="push" identifier="newRegion:" id="auv-et-UoY"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xNK-rw-Y7y" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1666,11 +1671,11 @@ Cg
                         <viewControllerLayoutGuide type="bottom" id="Tya-Ug-g0n"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Tdw-yz-1kI">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uho-CX-fYe">
-                                <rect key="frame" x="20" y="64" width="280" height="455"/>
+                                <rect key="frame" x="20" y="64" width="374" height="623"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <attributedString key="attributedText">
                                     <fragment content="Public Mode">
@@ -1736,7 +1741,7 @@ Please visit https://hosted.owntracks.org to obtain an OwnTracks user id and set
 
 Or you may setup your own OwnTracks server for full privacy protection. More Info on http://owntracks.org/booklet
 
-When switching between  mode, all data on your iOS device will be deleted for privacy reasons.</string>
+When switching between  modes, all OwnTracks data will be deleted for privacy reasons.</string>
                                         <attributes>
                                             <font key="NSFont" size="14" name="HelveticaNeue"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
@@ -1756,6 +1761,7 @@ When switching between  mode, all data on your iOS device will be deleted for pr
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Modes" id="qGV-KT-VDq"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3HS-pd-Bel" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2443,8 +2449,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="6JA-UP-0mf"/>
-        <segue reference="Hb0-uO-VBI"/>
         <segue reference="8m4-nr-b6B"/>
+        <segue reference="bll-jZ-B1N"/>
+        <segue reference="auv-et-UoY"/>
+        <segue reference="Hb0-uO-VBI"/>
     </inferredMetricsTieBreakers>
 </document>

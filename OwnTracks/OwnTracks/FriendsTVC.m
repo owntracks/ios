@@ -339,7 +339,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         
          [as appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
         [as appendAttributedString:[[NSAttributedString alloc]
-                                    initWithString:waypoint.placemark ? waypoint.placemark : @"running..."
+                                    initWithString:waypoint.placemark ? waypoint.placemark : @"resolving..."
                                     attributes:attributesLight]];
           
         friendAnnotationView.speed = [waypoint.vel doubleValue];

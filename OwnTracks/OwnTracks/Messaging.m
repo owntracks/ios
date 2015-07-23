@@ -54,31 +54,41 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.messages = [NSNumber numberWithUnsignedInteger:[Message expireMessages:context]];
 }
 
-- (void)reset:(NSManagedObjectContext *)context {
-    NSString *geoHash = self.lastGeoHash;
+- (void)shutdown:(NSManagedObjectContext *)context {
     self.oldGeoHash = self.lastGeoHash;
     self.lastGeoHash = @"";
-    [self manageSubscriptions:context];
+    [self manageSubscriptions:context off:TRUE];
+    self.messages = [NSNumber numberWithUnsignedInteger:[Message expireMessages:context]];
+}
+
+- (void)reset:(NSManagedObjectContext *)context {
+    NSString *geoHash = self.lastGeoHash;
+    [self shutdown:context];
     if ([Settings boolForKey:SETTINGS_MESSAGING]) {
         [Message removeMessages:context];
         self.oldGeoHash = @"";
         self.lastGeoHash = geoHash;
-        [self manageSubscriptions:context];
+        [self manageSubscriptions:context off:FALSE];
     }
     self.messages = [NSNumber numberWithUnsignedInteger:[Message expireMessages:context]];
 }
 
-- (void)manageSubscriptions:(NSManagedObjectContext *)context {
+- (void)manageSubscriptions:(NSManagedObjectContext *)context off:(BOOL)off{
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
     NSMutableDictionary *subscriptions = [NSMutableDictionary dictionaryWithDictionary:
                                           delegate.connectionIn.variableSubscriptions];
     
     NSString *systemTopic = [NSString stringWithFormat:@"%@system", GEOHASH_PRE];
-    [subscriptions setObject:[NSNumber numberWithInt:MQTTQosLevelExactlyOnce] forKey:systemTopic];
-    
     NSString *ownTopic = [NSString stringWithFormat:@"%@%@",
                           [Settings theGeneralTopic], GEOHASH_SUF];
-    [subscriptions setObject:[NSNumber numberWithInt:MQTTQosLevelExactlyOnce] forKey:ownTopic];
+    
+    if (off) {
+        [Message removeMessages:systemTopic context:context];
+        [Message removeMessages:ownTopic context:context];
+
+        [subscriptions removeObjectForKey:systemTopic];
+        [subscriptions removeObjectForKey:ownTopic];
+    }
     
     for (int i = GEOHASH_LEN_MIN - 1; i < self.oldGeoHash.length; i++) {
         NSString *old = [self.oldGeoHash substringWithRange:NSMakeRange(i, 1)];
@@ -96,22 +106,28 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             [Message removeMessages:[self.oldGeoHash substringToIndex:i + 1] context:context];
         }
     }
-    for (int i = GEOHASH_LEN_MIN - 1; i < self.lastGeoHash.length; i++) {
-        NSString *last = [self.lastGeoHash substringWithRange:NSMakeRange(i, 1)];
-        NSString *old;
-        if (i < self.oldGeoHash.length) {
-            old = [self.oldGeoHash substringWithRange:NSMakeRange(i, 1)];
-        } else {
-            old = @"";
-        }
-        if (![last isEqualToString:old]) {
-            NSString *topic = [NSString stringWithFormat:@"%@+/%@",
-                               GEOHASH_PRE,
-                               [self.lastGeoHash substringToIndex:i + 1]];
-            [subscriptions setValue:[NSNumber numberWithInt:MQTTQosLevelExactlyOnce] forKey:topic];
+    
+    if (!off) {
+        [subscriptions setObject:[NSNumber numberWithInt:MQTTQosLevelExactlyOnce] forKey:systemTopic];
+        [subscriptions setObject:[NSNumber numberWithInt:MQTTQosLevelExactlyOnce] forKey:ownTopic];
+
+        for (int i = GEOHASH_LEN_MIN - 1; i < self.lastGeoHash.length; i++) {
+            NSString *last = [self.lastGeoHash substringWithRange:NSMakeRange(i, 1)];
+            NSString *old;
+            if (i < self.oldGeoHash.length) {
+                old = [self.oldGeoHash substringWithRange:NSMakeRange(i, 1)];
+            } else {
+                old = @"";
+            }
+            if (![last isEqualToString:old]) {
+                NSString *topic = [NSString stringWithFormat:@"%@+/%@",
+                                   GEOHASH_PRE,
+                                   [self.lastGeoHash substringToIndex:i + 1]];
+                [subscriptions setValue:[NSNumber numberWithInt:MQTTQosLevelExactlyOnce] forKey:topic];
+            }
         }
     }
-    delegate.connectionIn.variableSubscriptions = subscriptions;    
+    delegate.connectionIn.variableSubscriptions = subscriptions;
     [CoreData saveContext:context];
 }
 
@@ -127,7 +143,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         self.lastGeoHash = geoHash;
         DDLogVerbose(@"geoHash %@", geoHash);
         
-        [self manageSubscriptions:context];
+        [self manageSubscriptions:context off:FALSE];
     } else {
         self.lastGeoHash = self.lastGeoHash;
     }

@@ -1,6 +1,17 @@
 OnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.2.9
+>Release date: 2015-07-23 for alpha-testers only
+
+A few fixes and enhancements
+
+[FIX] Change message while resolving reverse geo
+[FIX] Bug in MQTTClient blocking File Persistence might relate to #141
+[FIX] phrasing update closes #279
+[NEW] Delete Message data when switching modes for privacy closes #281
+[NEW] Adding waypoints from regions tab closes #280
+
 ## OwnTracks 8.2.8
 >Release date: 2015-07-22 for alpha-testers only
 
