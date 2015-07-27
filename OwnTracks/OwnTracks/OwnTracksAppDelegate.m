@@ -396,6 +396,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
     
+    [[Messaging sharedInstance] createMessageWithTopic:[Settings theGeneralTopic]
+                                                  icon:@"fa-meh-o"
+                                                  prio:0
+                                             timestamp:[NSDate date]
+                                                   ttl:3600
+                                                 title:@"Me"
+                                                  desc:message
+                                                   url:nil
+                                               iconurl:nil
+                                inManagedObjectContext:[CoreData theManagedObjectContext]];
+    
     Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
                             inManagedObjectContext:[CoreData theManagedObjectContext]];
 

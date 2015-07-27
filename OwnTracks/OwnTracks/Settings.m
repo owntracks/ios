@@ -19,7 +19,7 @@
 @end
 
 static SettingsDefaults *defaults;
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 @implementation SettingsDefaults
 + (SettingsDefaults *)theDefaults {
@@ -336,7 +336,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                 } else {
                     for (Region *region in friend.hasRegions) {
                         if ([region.name isEqualToString:name]) {
-                            [[CoreData theManagedObjectContext] deleteObject:region];
+                            [[OwnTracking sharedInstance] removeRegion:region context:[CoreData theManagedObjectContext]];
                             break;
                         }
                     }
@@ -468,8 +468,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     if ([self intForKey:@"mode"] == 0 ||
         ([self intForKey:@"mode"] == 1 && [self validInHostedMode:key]) ||
         ([self intForKey:@"mode"] == 2 && [self validInPublicMode:key])) {
-        Setting *setting = [Setting settingWithKey:key inManagedObjectContext:[CoreData theManagedObjectContext]];
-        setting.value = string;
+        [[CoreData theManagedObjectContext] performBlockAndWait:^{
+            Setting *setting = [Setting settingWithKey:key inManagedObjectContext:[CoreData theManagedObjectContext]];
+            setting.value = string;
+        }];
     }
 }
 
@@ -523,22 +525,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 + (NSString *)stringForKeyRaw:(NSString *)key {
-    NSString *value = nil;
-    
-    Setting *setting = [Setting existsSettingWithKey:key inManagedObjectContext:[CoreData theManagedObjectContext]];
-    if (setting) {
-        value = setting.value;
-    } else {
-        // if not found in Core Data or NSUserdefaults, use defaults from .plist
-        id object = [[SettingsDefaults theDefaults].appDefaults objectForKey:key];
-        if (object) {
-            if ([object isKindOfClass:[NSString class]]) {
-                value = (NSString *)object;
-            } else if ([object isKindOfClass:[NSNumber class]]) {
-                value = [(NSNumber *)object stringValue];
+    __block NSString *value = nil;
+    [[CoreData theManagedObjectContext] performBlockAndWait:^{
+        Setting *setting = [Setting existsSettingWithKey:key inManagedObjectContext:[CoreData theManagedObjectContext]];
+        if (setting) {
+            value = setting.value;
+        } else {
+            // if not found in Core Data or NSUserdefaults, use defaults from .plist
+            id object = [[SettingsDefaults theDefaults].appDefaults objectForKey:key];
+            if (object) {
+                if ([object isKindOfClass:[NSString class]]) {
+                    value = (NSString *)object;
+                } else if ([object isKindOfClass:[NSNumber class]]) {
+                    value = [(NSNumber *)object stringValue];
+                }
             }
         }
-    }
+    }];
     return value;
 }
 

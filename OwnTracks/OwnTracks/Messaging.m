@@ -131,6 +131,32 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [CoreData saveContext:context];
 }
 
+- (void)createMessageWithTopic:(NSString *)topic
+                          icon:(NSString *)icon
+                          prio:(NSInteger)prio
+                     timestamp:(NSDate *)timestamp
+                           ttl:(NSUInteger)ttl
+                         title:(NSString *)title
+                          desc:(NSString *)desc
+                           url:(NSString *)url
+                       iconurl:(NSString *)iconurl
+        inManagedObjectContext:(NSManagedObjectContext *)context {
+    [context performBlock:^{
+        [Message messageWithTopic:topic
+                             icon:icon
+                             prio:prio
+                        timestamp:timestamp
+                              ttl:ttl
+                            title:title
+                             desc:desc
+                              url:url
+                          iconurl:iconurl
+           inManagedObjectContext:context];
+        self.messages = [NSNumber numberWithUnsignedInteger:[Message expireMessages:context]];
+        [CoreData saveContext:context];
+    }];
+}
+
 - (void)newLocation:(double)latitude longitude:(double)longitude context:(NSManagedObjectContext *)context {
     NSString *geoHash = [GeoHash hashForLatitude:latitude
                                        longitude:longitude
@@ -156,6 +182,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                   data:(NSData *)data
               retained:(BOOL)retained
                context:(NSManagedObjectContext *)context {
+    NSString *channel = nil;
+    NSString *desc = nil;
+    NSString *title = nil;
+    NSString *url = nil;
+    NSString *iconurl = nil;
+    NSString *icon = nil;
+    NSInteger prio = 0;
+    NSUInteger ttl = 0;
+    NSDate *timestamp = nil;
+
     if ([topic hasPrefix:GEOHASH_PRE]) {
         NSArray *components = [topic componentsSeparatedByString:@"/"];
         NSError *error;
@@ -163,32 +199,29 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         if (dictionary) {
             NSString *type = dictionary[@"_type"];
             if ([type isEqualToString:GEOHASH_TYPE]) {
-                NSString *desc = dictionary[@"desc"];
-                NSString *title = dictionary[@"title"];
-                NSString *url = dictionary[@"url"];
-                NSString *iconurl = dictionary[@"iconurl"];
-                NSString *icon = dictionary[@"icon"];
-                NSInteger prio = [dictionary[@"prio"] intValue];
-                NSUInteger ttl = [dictionary[@"ttl"] unsignedIntegerValue];
-                NSDate *timestamp = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]];
+                desc = dictionary[@"desc"];
+                title = dictionary[@"title"];
+                url = dictionary[@"url"];
+                iconurl = dictionary[@"iconurl"];
+                icon = dictionary[@"icon"];
+                prio = [dictionary[@"prio"] intValue];
+                ttl = [dictionary[@"ttl"] unsignedIntegerValue];
+                timestamp = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]];
                 
                 if (components.count == 3) {
                     NSString *geoHash = components[2];
+                    channel = components[1];
                     if ([self.lastGeoHash hasPrefix:geoHash]) {
-                        [context performBlock:^{
-                            [Message messageWithTopic:topic
-                                                 icon:icon
-                                                 prio:prio
-                                            timestamp:timestamp
-                                                  ttl:ttl
-                                                title:title
-                                                 desc:desc
-                                                  url:url
-                                              iconurl:iconurl
-                               inManagedObjectContext:context];
-                            self.messages = [NSNumber numberWithUnsignedInteger:[Message expireMessages:context]];
-                            [CoreData saveContext:context];
-                        }];
+                        [self createMessageWithTopic:topic
+                                                icon:icon
+                                                prio:prio
+                                           timestamp:timestamp
+                                                 ttl:ttl
+                                               title:title
+                                                desc:desc
+                                                 url:url
+                                             iconurl:iconurl
+                              inManagedObjectContext:context];
                     } else {
                         [context performBlock:^{
                             DDLogVerbose(@"remove topic %@", topic);
@@ -203,21 +236,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 } else if (components.count == 2) {
                     NSString *secondComponent = components[1];
                     if ([secondComponent isEqualToString:@"system"]) {
-                        [context performBlock:^{
-                            [Message messageWithTopic:topic
-                                                 icon:icon
-                                                 prio:prio
-                                            timestamp:timestamp
-                                                  ttl:ttl
-                                                title:title
-                                                 desc:desc
-                                                  url:url
-                                              iconurl:iconurl
-                               inManagedObjectContext:context];
-                            self.messages = [NSNumber numberWithUnsignedInteger:[Message expireMessages:context]];
-                            [CoreData saveContext:context];
-                        }];
-                        
+                        channel = secondComponent;
+                        [self createMessageWithTopic:topic
+                                                icon:icon
+                                                prio:prio
+                                           timestamp:timestamp
+                                                 ttl:ttl
+                                               title:title
+                                                desc:desc
+                                                 url:url
+                                             iconurl:iconurl
+                              inManagedObjectContext:context];
                     }
                 } else {
                     DDLogVerbose(@"illegal msg topic %@", topic);
@@ -239,30 +268,26 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         if (dictionary) {
             NSString *type = dictionary[@"_type"];
             if ([type isEqualToString:GEOHASH_TYPE]) {
-                NSString *desc = dictionary[@"desc"];
-                NSString *title = dictionary[@"title"];
-                NSString *url = dictionary[@"url"];
-                NSString *iconurl = dictionary[@"iconurl"];
-                NSString *icon = dictionary[@"icon"];
-                NSInteger prio = [dictionary[@"prio"] intValue];
-                NSUInteger ttl = [dictionary[@"ttl"] unsignedIntegerValue];
-                NSDate *timestamp = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]];
+                channel = GEOHASH_TYPE;
+                desc = dictionary[@"desc"];
+                title = dictionary[@"title"];
+                url = dictionary[@"url"];
+                iconurl = dictionary[@"iconurl"];
+                icon = dictionary[@"icon"];
+                prio = [dictionary[@"prio"] intValue];
+                ttl = [dictionary[@"ttl"] unsignedIntegerValue];
+                timestamp = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]];
                 
-                
-                [context performBlock:^{
-                    [Message messageWithTopic:topic
-                                         icon:icon
-                                         prio:prio
-                                    timestamp:timestamp
-                                          ttl:ttl
-                                        title:title
-                                         desc:desc
-                                          url:url
-                                      iconurl:iconurl
-                       inManagedObjectContext:context];
-                    self.messages = [NSNumber numberWithUnsignedInteger:[Message expireMessages:context]];
-                    [CoreData saveContext:context];
-                }];
+                [self createMessageWithTopic:topic
+                                        icon:icon
+                                        prio:prio
+                                   timestamp:timestamp
+                                         ttl:ttl
+                                       title:title
+                                        desc:desc
+                                         url:url
+                                     iconurl:iconurl
+                      inManagedObjectContext:context];
             } else {
                 DDLogVerbose(@"unknown type %@", type);
                 return FALSE;
@@ -276,7 +301,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 
     UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.alertBody = @"New message arrived";
+    notification.alertBody = [NSString stringWithFormat:@"#%@: %@", channel, title];
     notification.userInfo = @{@"notify": @"msg"};
     notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];

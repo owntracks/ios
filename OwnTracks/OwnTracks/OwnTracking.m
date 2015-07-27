@@ -12,6 +12,7 @@
 #import "AlertView.h"
 #import "Waypoint.h"
 #import "CoreData.h"
+#import "Message+Create.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
@@ -119,15 +120,27 @@ static OwnTracking *theInstance = nil;
                         } else if ([dictionary[@"_type"] isEqualToString:@"transition"]) {
                             NSString *type = dictionary[@"t"];
                             if (!type || ![type isEqualToString:@"b"]) {
+                                NSString *message = [NSString stringWithFormat:@"%@ %@s %@",
+                                                     dictionary[@"tid"],
+                                                     dictionary[@"event"],
+                                                     dictionary[@"desc"]];
+
                                 UILocalNotification *notification = [[UILocalNotification alloc] init];
-                                notification.alertBody = [NSString stringWithFormat:@"%@ %@s %@",
-                                                          dictionary[@"tid"],
-                                                          dictionary[@"event"],
-                                                          dictionary[@"desc"]];
+                                notification.alertBody = message;
                                 notification.userInfo = @{@"notify": @"friend"};
                                 notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
                                 [[UIApplication sharedApplication] scheduleLocalNotification:notification];
                                 [AlertView alert:@"Friend" message:notification.alertBody dismissAfter:2.0];
+                                [[Messaging sharedInstance] createMessageWithTopic:topic
+                                                                              icon:@"fa_user"
+                                                                              prio:0
+                                                                         timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]
+                                                                               ttl:3600
+                                                                             title:@"Event"
+                                                                              desc:message
+                                                                               url:nil
+                                                                           iconurl:nil
+                                                            inManagedObjectContext:context];
                             }
                             
                         } else if ([dictionary[@"_type"] isEqualToString:@"card"]) {
@@ -290,7 +303,7 @@ static OwnTracking *theInstance = nil;
 }
 
 - (void)removeRegion:(Region *)region context:(NSManagedObjectContext *)context {
-    [[LocationManager sharedInstance] startRegion:region.CLregion];
+    [[LocationManager sharedInstance] stopRegion:region.CLregion];
     [context deleteObject:region];
 }
 

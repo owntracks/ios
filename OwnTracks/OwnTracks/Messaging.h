@@ -17,5 +17,15 @@
 - (void)updateCounter:(NSManagedObjectContext *)context;
 - (void)newLocation:(double)latitude longitude:(double)longitude context:(NSManagedObjectContext *)context;
 - (BOOL)processMessage:(NSString *)topic data:(NSData *)data retained:(BOOL)retained context:(NSManagedObjectContext *)context;
+- (void)createMessageWithTopic:(NSString *)topic
+                          icon:(NSString *)icon
+                          prio:(NSInteger)prio
+                     timestamp:(NSDate *)timestamp
+                           ttl:(NSUInteger)ttl
+                         title:(NSString *)title
+                          desc:(NSString *)desc
+                           url:(NSString *)url
+                       iconurl:(NSString *)iconurl
+        inManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end

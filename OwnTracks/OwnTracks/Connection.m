@@ -54,7 +54,7 @@
 #define RECONNECT_TIMER_MAX 64.0
 
 @implementation Connection
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (id)init {
     self = [super init];
@@ -98,6 +98,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)main {
     DDLogVerbose(@"Connection main");
+    // if there is no timer running, runUntilDate: does return immediately!?
     self.idleTimer = [NSTimer timerWithTimeInterval:60
                                              target:self
                                            selector:@selector(idle)
@@ -110,6 +111,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
     }
     [self disconnect];
+    [self.idleTimer invalidate];
 }
 
 - (void)idle {
