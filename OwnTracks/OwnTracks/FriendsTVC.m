@@ -88,9 +88,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             });
             break;
     }
-    
-    self.tableView.estimatedRowHeight = 150;
-    self.tableView.rowHeight = UITableViewAutomaticDimension;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath

@@ -13,7 +13,7 @@
 	<key>qos_preference</key>
 	<integer>1</integer>
 	<key>host_preference</key>
-	<string>hosted.owntracks.org</string>
+	<string>hosted-mqtt.owntracks.org</string>
 	<key>port_preference</key>
 	<real>8883</real>
 	<key>tls_preference</key>

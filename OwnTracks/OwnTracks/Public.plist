@@ -9,7 +9,7 @@
 	<key>qos_preference</key>
 	<integer>0</integer>
 	<key>host_preference</key>
-	<string>public.owntracks.org</string>
+	<string>public-mqtt.owntracks.org</string>
 	<key>port_preference</key>
 	<real>8889</real>
 	<key>tls_preference</key>

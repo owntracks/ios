@@ -43,7 +43,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.tableView.estimatedRowHeight = 150;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [[Messaging sharedInstance] updateCounter:[CoreData theManagedObjectContext]];
 }
@@ -214,6 +213,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [self.tableView endUpdates];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    Message *message = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    if (message.title.length + message.desc.length < 100) {
+        return 128;
+    } else {
+        return 256;
+    }
+}
+
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     Message *message = [self.fetchedResultsController objectAtIndexPath:indexPath];
     MessageTableViewCell *messageTableViewCell = nil;
@@ -222,14 +230,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     }
     
     if (messageTableViewCell) {
-        messageTableViewCell.title.text = message.title;
         messageTableViewCell.info.text = [NSString stringWithFormat:@"@%@ in #%@ ttl=%lu",
                                           [NSDateFormatter localizedStringFromDate:message.timestamp
                                                                          dateStyle:NSDateFormatterShortStyle
                                                                          timeStyle:NSDateFormatterMediumStyle],
                                           message.channel,
                                           [message.ttl unsignedLongValue]];
-        messageTableViewCell.desc.text = message.desc;
+        
+        messageTableViewCell.webView.delegate = self;
+        [messageTableViewCell.webView loadHTMLString:[NSString stringWithFormat:@"<p><strong>%@</strong></p>\n%@",
+                                                      message.title,
+                                                      message.desc]
+                                             baseURL:[NSURL URLWithString:@""]];
+        
         if (message.icon) {
             UIColor *color = [UIColor colorWithName:[NSString stringWithFormat:@"priority%d", [message.prio intValue]]
                                        defaultColor:[UIColor blackColor]];
@@ -250,6 +263,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     } else {
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    NSLog(@"webViewDidFinishLoad %@", webView);
 }
 
 - (IBAction)trash:(UIBarButtonItem *)sender {

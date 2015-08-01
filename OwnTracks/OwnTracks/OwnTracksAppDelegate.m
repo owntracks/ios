@@ -437,7 +437,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                              qos:[Settings intForKey:@"qos_preference"]
                                           retain:NO];
                 }
-                if ([anyRegion isKindOfClass:[CLBeaconRegion class]]) {
+                if ([region isKindOfClass:[CLBeaconRegion class]]) {
                     if ([anyRegion.radius doubleValue] < 0) {
                         anyRegion.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
                         anyRegion.lon = [NSNumber numberWithDouble:location.coordinate.longitude];

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MessageTVC : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface MessageTVC : UITableViewController <NSFetchedResultsControllerDelegate, UIWebViewDelegate>
 
 @end

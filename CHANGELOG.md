@@ -2,9 +2,12 @@ OnTracks iOS App 8.0 Release Notes
 ===================================
 
 ## OwnTracks 8.2.11
->Release date: 2015-08-11 public release
+>Release date: 2015-08-01 release candidate
 
 A new UI and fine new features
+[NEW] render HTML in Messages and use fixed table row sizes closes #290
+[NEW] use new Public and Hosted mode broker addresses
+[FIX] missing update of iBeacon position
 
 ## OwnTracks 8.2.10
 >Release date: 2015-07-27 for alpha-testers only
@@ -12,7 +15,7 @@ A new UI and fine new features
 A few fixes and enhancements
 
 [FIX] crash when receiving message closes #282
-[NEW] include enter/leave events in messages and messages in notivications closes #283
+[NEW] include enter/leave events in messages and messages in notifications closes #283
 
 ## OwnTracks 8.2.9
 >Release date: 2015-07-23 for alpha-testers only
