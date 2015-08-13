@@ -72,6 +72,8 @@
 		8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB418E4289E00923B24 /* Setting+Create.m */; };
 		8479EEB718E4529900923B24 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
 		847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847F8B5719295C65003876D4 /* CoreMotion.framework */; };
+		8487B8641B7BBF9000E59D39 /* FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 8487B8631B7BBF9000E59D39 /* FontAwesome.m */; };
+		8487B8681B7CA59100E59D39 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8487B8671B7CA59100E59D39 /* fontawesome-webfont.ttf */; };
 		84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A2B1B3755AF00810C3A /* TabBarController.m */; };
 		84A173681B427BDD00CCB7D0 /* ModeBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A173671B427BDD00CCB7D0 /* ModeBarButtonItem.m */; };
 		84B7397A1A65629200B103F4 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B739791A65629200B103F4 /* LocationManager.m */; };
@@ -240,6 +242,9 @@
 		8479EEB418E4289E00923B24 /* Setting+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Setting+Create.m"; path = "../../Setting+Create.m"; sourceTree = "<group>"; };
 		847F8B5719295C65003876D4 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		848794B119A6234B00DF56EB /* Model 7.3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.xcdatamodel"; sourceTree = "<group>"; };
+		8487B8621B7BBF9000E59D39 /* FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontAwesome.h; sourceTree = "<group>"; };
+		8487B8631B7BBF9000E59D39 /* FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontAwesome.m; sourceTree = "<group>"; };
+		8487B8671B7CA59100E59D39 /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		84930A221B36B8FB00810C3A /* Model 8.1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.1.xcdatamodel"; sourceTree = "<group>"; };
 		84930A261B36C21B00810C3A /* Model 8.1.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.2.xcdatamodel"; sourceTree = "<group>"; };
 		84930A2A1B3755AF00810C3A /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
@@ -558,6 +563,9 @@
 				8411B895189FEAE60019D2D6 /* Storyboard.storyboard */,
 				842610391ACFE67B00FE1A03 /* Launch Screen.xib */,
 				8411B842189FDB140019D2D6 /* Images.xcassets */,
+				8487B8671B7CA59100E59D39 /* fontawesome-webfont.ttf */,
+				8487B8621B7BBF9000E59D39 /* FontAwesome.h */,
+				8487B8631B7BBF9000E59D39 /* FontAwesome.m */,
 				846FFA1A1B401DB4001482A6 /* Colors */,
 			);
 			name = UI;
@@ -809,6 +817,7 @@
 			files = (
 				846FFA161B4013BB001482A6 /* Colors.plist in Resources */,
 				8479EEB718E4529900923B24 /* Settings.plist in Resources */,
+				8487B8681B7CA59100E59D39 /* fontawesome-webfont.ttf in Resources */,
 				8411B896189FEAE60019D2D6 /* Storyboard.storyboard in Resources */,
 				845AA1BD1B4846AF00945856 /* OwnTracks-320.png in Resources */,
 				8411B843189FDB140019D2D6 /* Images.xcassets in Resources */,
@@ -942,6 +951,7 @@
 				84A173681B427BDD00CCB7D0 /* ModeBarButtonItem.m in Sources */,
 				845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */,
 				84B7397A1A65629200B103F4 /* LocationManager.m in Sources */,
+				8487B8641B7BBF9000E59D39 /* FontAwesome.m in Sources */,
 				8411B891189FE9CE0019D2D6 /* Settings.m in Sources */,
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,
 				847797E71B5A937E00A32E5C /* Region.m in Sources */,
@@ -1201,6 +1211,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
@@ -1223,6 +1234,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 4;
 				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
@@ -1245,7 +1257,7 @@
 				);
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "OwnTracks WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -1266,7 +1278,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "OwnTracks WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "${TARGET_NAME}";

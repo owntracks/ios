@@ -132,7 +132,7 @@ static OwnTracking *theInstance = nil;
                                 [[UIApplication sharedApplication] scheduleLocalNotification:notification];
                                 [AlertView alert:@"Friend" message:notification.alertBody dismissAfter:2.0];
                                 [[Messaging sharedInstance] createMessageWithTopic:topic
-                                                                              icon:@"fa_user"
+                                                                              icon:@"fa-exchange"
                                                                               prio:0
                                                                          timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]
                                                                                ttl:3600

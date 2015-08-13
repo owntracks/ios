@@ -24,12 +24,9 @@
 
 @property (strong, nonatomic) NSString *processingMessage;
 
-@property (strong, nonatomic) Connection *connectionOut;
-@property (strong, nonatomic) Connection *connectionIn;
 @property (strong, nonatomic) Connection *connection;
-
-@property (strong, nonatomic) NSNumber *connectionStateOut;
-@property (strong, nonatomic) NSNumber *connectionBufferedOut;
+@property (strong, nonatomic) NSNumber *connectionState;
+@property (strong, nonatomic) NSNumber *connectionBuffered;
 
 @property (strong, nonatomic) NSDate *configLoad;
 

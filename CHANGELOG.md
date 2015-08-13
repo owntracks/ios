@@ -1,6 +1,15 @@
 OnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.2.12
+>Release date: 2015-08-15 alpha testers
+
+A few fixes
+[NEW] consolidate MQTT Sessions to one coses #293
+[FIX] clean subscribtions when changing modes closes #296
+[FIX] avoid opening links within message window closes #298
+[FIX] incomplete FontAwesome closes #297
+
 ## OwnTracks 8.2.11
 >Release date: 2015-08-01 release candidate
 

@@ -41,9 +41,9 @@
     self.navigationBar.titleTextAttributes = titleTextAttributes;
     
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate addObserver:self forKeyPath:@"connectionStateOut"
+    [delegate addObserver:self forKeyPath:@"connectionState"
                   options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
-    [delegate addObserver:self forKeyPath:@"connectionBufferedOut"
+    [delegate addObserver:self forKeyPath:@"connectionBuffered"
                   options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     [[OwnTracking sharedInstance] addObserver:self forKeyPath:@"inQueue"
                   options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
@@ -52,8 +52,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate removeObserver:self forKeyPath:@"connectionStateOut"];
-    [delegate removeObserver:self forKeyPath:@"connectionBufferedOut"];
+    [delegate removeObserver:self forKeyPath:@"connectionState"];
+    [delegate removeObserver:self forKeyPath:@"connectionBuffered"];
     [[OwnTracking sharedInstance] removeObserver:self forKeyPath:@"inQueue"];
 
     [super viewWillDisappear:animated];
@@ -64,7 +64,7 @@
 {
     
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    switch ([delegate.connectionStateOut intValue]) {
+    switch ([delegate.connectionState intValue]) {
         case state_connected:
             self.progressView.progressTintColor = [UIColor colorWithName:@"connected" defaultColor:[UIColor whiteColor]];
                 self.progressView.progress = 0.0;

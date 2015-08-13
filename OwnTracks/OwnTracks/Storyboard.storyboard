@@ -5,6 +5,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="fontawesome-webfont.ttf">
+            <string>FontAwesome</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--OwnTracks-->
         <scene sceneID="Xbk-6k-4pc">
@@ -589,15 +594,10 @@
                                                 <constraint firstAttribute="width" constant="44" id="FIe-C0-T6V"/>
                                             </constraints>
                                         </imageView>
-                                        <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hGB-01-e7y">
+                                        <webView contentMode="scaleToFill" allowsInlineMediaPlayback="NO" mediaPlaybackRequiresUserAction="NO" mediaPlaybackAllowsAirPlay="NO" keyboardDisplayRequiresUserAction="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hGB-01-e7y">
                                             <rect key="frame" x="52" y="0.0" width="268" height="170"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="rect" keyPath="scrollView.textContainerInset">
-                                                    <rect key="value" x="0.0" y="0.0" width="0.0" height="0.0"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
+                                            <dataDetectorType key="dataDetectorTypes"/>
                                         </webView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Info" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a4w-RM-8xT">
                                             <rect key="frame" x="60" y="170" width="260" height="21"/>
@@ -608,15 +608,25 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="ODD-qj-Kxg">
+                                            <rect key="frame" x="8" y="0.0" width="44" height="44"/>
+                                            <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="36"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Get-Qv-Fuy" firstAttribute="top" secondItem="KLg-21-lrY" secondAttribute="top" id="3z7-VK-xAM"/>
+                                        <constraint firstItem="Get-Qv-Fuy" firstAttribute="trailing" secondItem="ODD-qj-Kxg" secondAttribute="trailing" id="8PO-we-uWK"/>
                                         <constraint firstItem="hGB-01-e7y" firstAttribute="leading" secondItem="Get-Qv-Fuy" secondAttribute="trailing" id="ATv-w3-PmV"/>
                                         <constraint firstAttribute="trailing" secondItem="a4w-RM-8xT" secondAttribute="trailing" id="HZT-YW-ssB"/>
                                         <constraint firstItem="hGB-01-e7y" firstAttribute="leading" secondItem="a4w-RM-8xT" secondAttribute="leading" constant="-8" id="JHW-h4-co3"/>
                                         <constraint firstAttribute="bottom" secondItem="a4w-RM-8xT" secondAttribute="bottom" constant="8" id="OFX-Ew-RgC"/>
+                                        <constraint firstItem="Get-Qv-Fuy" firstAttribute="bottom" secondItem="ODD-qj-Kxg" secondAttribute="bottom" id="Tsx-tP-Kcx"/>
                                         <constraint firstItem="hGB-01-e7y" firstAttribute="top" secondItem="KLg-21-lrY" secondAttribute="top" id="Unl-0I-9Ld"/>
                                         <constraint firstItem="Get-Qv-Fuy" firstAttribute="leading" secondItem="KLg-21-lrY" secondAttribute="leading" constant="8" id="ZTf-0O-TQY"/>
+                                        <constraint firstItem="Get-Qv-Fuy" firstAttribute="top" secondItem="ODD-qj-Kxg" secondAttribute="top" id="hsh-Ro-K7o"/>
+                                        <constraint firstItem="Get-Qv-Fuy" firstAttribute="leading" secondItem="ODD-qj-Kxg" secondAttribute="leading" id="jO2-X2-BCF"/>
                                         <constraint firstItem="a4w-RM-8xT" firstAttribute="top" secondItem="hGB-01-e7y" secondAttribute="bottom" id="kiB-AI-oXl"/>
                                         <constraint firstAttribute="trailing" secondItem="hGB-01-e7y" secondAttribute="trailing" id="nNo-5k-fBh"/>
                                     </constraints>
@@ -624,6 +634,7 @@
                                 <connections>
                                     <outlet property="icon" destination="Get-Qv-Fuy" id="JHg-G9-ZaT"/>
                                     <outlet property="info" destination="a4w-RM-8xT" id="QFC-ts-cgH"/>
+                                    <outlet property="label" destination="ODD-qj-Kxg" id="Wgt-hy-I80"/>
                                     <outlet property="webView" destination="hGB-01-e7y" id="JHN-VN-Pn6"/>
                                 </connections>
                             </tableViewCell>

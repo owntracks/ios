@@ -141,14 +141,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         }
     }
     
-    self.connectionOut = [[Connection alloc] init];
-    self.connectionOut.delegate = self;
-    [self.connectionOut start];
-    
-    self.connectionIn = [[Connection alloc] init];
-    self.connectionIn.delegate = self;
-    [self.connectionIn start];
-    
+    self.connection = [[Connection alloc] init];
+    self.connection.delegate = self;
+    [self.connection start];
+
     [self connect];
     
     [[UIDevice currentDevice] setBatteryMonitoringEnabled:TRUE];
@@ -246,61 +242,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 return FALSE;
             }
         } else if ([url.scheme isEqualToString:@"file"]) {
-            NSInputStream *input = [NSInputStream inputStreamWithURL:url];
-            if ([input streamError]) {
-                self.processingMessage = [NSString stringWithFormat:@"inputStreamWithURL %@ %@",
-                                          [input streamError],
-                                          url];
-                return FALSE;
-            }
-            [input open];
-            if ([input streamError]) {
-                self.processingMessage = [NSString stringWithFormat:@"open %@ %@",
-                                          [input streamError],
-                                          url];
-                return FALSE;
-            }
-            
-            DDLogVerbose(@"URL pathExtension %@", url.pathExtension);
-            
-            NSError *error;
-            NSString *extension = [url pathExtension];
-            if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
-                [self terminateSession];
-                error = [Settings fromStream:input];
-                [CoreData saveContext];
-                self.configLoad = [NSDate date];
-            } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
-                error = [Settings waypointsFromStream:input];
-                [CoreData saveContext];
-            } else if ([extension isEqualToString:@"otrp"] || [extension isEqualToString:@"otre"]) {
-                NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
-                                                                             inDomain:NSUserDomainMask
-                                                                    appropriateForURL:nil
-                                                                               create:YES
-                                                                                error:&error];
-                NSString *fileName = [url lastPathComponent];
-                NSURL *fileURL = [directoryURL URLByAppendingPathComponent:fileName];
-                [[NSFileManager defaultManager] removeItemAtURL:fileURL error:nil];
-                [[NSFileManager defaultManager] copyItemAtURL:url toURL:fileURL error:nil];
-            } else {
-                error = [NSError errorWithDomain:@"OwnTracks"
-                                            code:2
-                                        userInfo:@{@"extension":extension ? extension : @"(null)"}];
-            }
-            
-            [input close];
-            [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
-            if (error) {
-                self.processingMessage = [NSString stringWithFormat:@"Error processing file %@: %@ %@",
-                                          [url lastPathComponent],
-                                          error.localizedDescription,
-                                          error.userInfo];
-                return FALSE;
-            }
-            self.processingMessage = [NSString stringWithFormat:@"File %@ successfully processed",
-                                      [url lastPathComponent]];
-            return TRUE;
+            return [self processFile:url];
         } else {
             self.processingMessage = [NSString stringWithFormat:@"unkown url scheme %@",
                                       url.scheme];
@@ -309,6 +251,64 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     self.processingMessage = [NSString stringWithFormat:@"no url specified"];
     return FALSE;
+}
+
+- (BOOL)processFile:(NSURL *)url {
+    
+    NSInputStream *input = [NSInputStream inputStreamWithURL:url];
+    if ([input streamError]) {
+        self.processingMessage = [NSString stringWithFormat:@"inputStreamWithURL %@ %@",
+                                  [input streamError],
+                                  url];
+        return FALSE;
+    }
+    [input open];
+    if ([input streamError]) {
+        self.processingMessage = [NSString stringWithFormat:@"open %@ %@",
+                                  [input streamError],
+                                  url];
+        return FALSE;
+    }
+    
+    DDLogVerbose(@"URL pathExtension %@", url.pathExtension);
+    
+    NSError *error;
+    NSString *extension = [url pathExtension];
+    if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
+        [self terminateSession];
+        error = [Settings fromStream:input];
+        [CoreData saveContext];
+        self.configLoad = [NSDate date];
+    } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
+        error = [Settings waypointsFromStream:input];
+        [CoreData saveContext];
+    } else if ([extension isEqualToString:@"otrp"] || [extension isEqualToString:@"otre"]) {
+        NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
+                                                                     inDomain:NSUserDomainMask
+                                                            appropriateForURL:nil
+                                                                       create:YES
+                                                                        error:&error];
+        NSString *fileName = [url lastPathComponent];
+        NSURL *fileURL = [directoryURL URLByAppendingPathComponent:fileName];
+        [[NSFileManager defaultManager] removeItemAtURL:fileURL error:nil];
+        [[NSFileManager defaultManager] copyItemAtURL:url toURL:fileURL error:nil];
+    } else {
+        error = [NSError errorWithDomain:@"OwnTracks"
+                                    code:2
+                                userInfo:@{@"extension":extension ? extension : @"(null)"}];
+    }
+    
+    [input close];
+    [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
+    if (error) {
+        self.processingMessage = [NSString stringWithFormat:@"Error processing file %@: %@ %@",
+                                  [url lastPathComponent],
+                                  error.localizedDescription,
+                                  error.userInfo];
+        return FALSE;
+    }
+    self.processingMessage = [NSString stringWithFormat:@"File %@ successfully processed", [url lastPathComponent]];
+    return TRUE;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -353,8 +353,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     DDLogVerbose(@"performFetchWithCompletionHandler");
     self.completionHandler = completionHandler;
     [[LocationManager sharedInstance] wakeup];
-    [self.connectionOut connectToLast];
-    [self.connectionIn connectToLast];
+    [self.connection connectToLast];
     
     if ([LocationManager sharedInstance].monitoring == LocationMonitoringSignificant ||
         [LocationManager sharedInstance].monitoring == LocationMonitoringMove) {
@@ -397,7 +396,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [[UIApplication sharedApplication] scheduleLocalNotification:notification];
     
     [[Messaging sharedInstance] createMessageWithTopic:[Settings theGeneralTopic]
-                                                  icon:@"fa-meh-o"
+                                                  icon:@"fa-car"
                                                   prio:0
                                              timestamp:[NSDate date]
                                                    ttl:3600
@@ -432,10 +431,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 anyRegion.name = anyRegion.name;
                 if ([anyRegion.share boolValue]) {
                     [jsonObject setValue:region.identifier forKey:@"desc"];
-                    [self.connectionOut sendData:[self jsonToData:jsonObject]
-                                           topic:[[Settings theGeneralTopic] stringByAppendingString:@"/event"]
-                                             qos:[Settings intForKey:@"qos_preference"]
-                                          retain:NO];
+                    [self.connection sendData:[self jsonToData:jsonObject]
+                                        topic:[[Settings theGeneralTopic] stringByAppendingString:@"/event"]
+                                          qos:[Settings intForKey:@"qos_preference"]
+                                       retain:NO];
                 }
                 if ([region isKindOfClass:[CLBeaconRegion class]]) {
                     if ([anyRegion.radius doubleValue] < 0) {
@@ -485,26 +484,24 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                      @"acc": @(round(beacon.accuracy)),
                                      @"rssi": @(beacon.rssi)
                                      };
-        [self.connectionOut sendData:[self jsonToData:jsonObject]
-                               topic:[[Settings theGeneralTopic] stringByAppendingString:@"/beacon"]
-                                 qos:[Settings intForKey:@"qos_preference"]
-                              retain:NO];
+        [self.connection sendData:[self jsonToData:jsonObject]
+                            topic:[[Settings theGeneralTopic] stringByAppendingString:@"/beacon"]
+                              qos:[Settings intForKey:@"qos_preference"]
+                           retain:NO];
     }
 }
 
 #pragma ConnectionDelegate
 
 - (void)showState:(Connection *)connection state:(NSInteger)state {
-    if (connection == self.connectionOut) {
-        self.connectionStateOut = @(state);
-    }
+    self.connectionState = @(state);
     /**
      ** This is a hack to ensure the connection gets gracefully closed at the server
      **
      ** If the background task is ended, occasionally the disconnect message is not received well before the server senses the tcp disconnect
      **/
     
-    if ([self.connectionStateOut intValue] == state_closed) {
+    if ([self.connectionState intValue] == state_closed) {
         if (self.backgroundTask) {
             DDLogVerbose(@"endBackGroundTask");
             [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
@@ -602,10 +599,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)totalBuffered:(Connection *)connection count:(NSUInteger)count {
     DDLogVerbose(@"totalBuffered %lu", (unsigned long)count);
-    if (connection == self.connectionOut) {
-        self.connectionBufferedOut = @(count);
-        [UIApplication sharedApplication].applicationIconBadgeNumber = count;
-    }
+    self.connectionBuffered = @(count);
+    [UIApplication sharedApplication].applicationIconBadgeNumber = count;
 }
 
 - (void)dumpTo:(NSString *)topic {
@@ -614,10 +609,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                @"configuration":[Settings toDictionary],
                                };
     
-    [self.connectionOut sendData:[self jsonToData:dumpDict]
-                           topic:[[Settings theGeneralTopic] stringByAppendingString:@"/dump"]
-                             qos:[Settings intForKey:@"qos_preference"]
-                          retain:NO];
+    [self.connection sendData:[self jsonToData:dumpDict]
+                        topic:[[Settings theGeneralTopic] stringByAppendingString:@"/dump"]
+                          qos:[Settings intForKey:@"qos_preference"]
+                       retain:NO];
 }
 
 - (void)stepsFrom:(NSNumber *)from to:(NSNumber *)to {
@@ -686,10 +681,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                    [jsonObject setObject:@(-1) forKey:@"steps"];
                                                }
                                                
-                                               [self.connectionOut sendData:[self jsonToData:jsonObject]
-                                                                      topic:[[Settings theGeneralTopic] stringByAppendingString:@"/step"]
-                                                                        qos:[Settings intForKey:@"qos_preference"]
-                                                                     retain:NO];
+                                               [self.connection sendData:[self jsonToData:jsonObject]
+                                                                   topic:[[Settings theGeneralTopic] stringByAppendingString:@"/step"]
+                                                                     qos:[Settings intForKey:@"qos_preference"]
+                                                                  retain:NO];
                                            });
                                        }];
         
@@ -716,10 +711,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                               @"steps": error ? @(-1) : @(steps)
                                               };
                  
-                 [self.connectionOut sendData:[self jsonToData:jsonObject]
-                                        topic:[[Settings theGeneralTopic] stringByAppendingString:@"/step"]
-                                          qos:[Settings intForKey:@"qos_preference"]
-                                       retain:NO];
+                 [self.connection sendData:[self jsonToData:jsonObject]
+                                     topic:[[Settings theGeneralTopic] stringByAppendingString:@"/step"]
+                                       qos:[Settings intForKey:@"qos_preference"]
+                                    retain:NO];
              });
          }];
     } else {
@@ -731,10 +726,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                      @"steps": @(-1)
                                      };
         
-        [self.connectionOut sendData:[self jsonToData:jsonObject]
-                               topic:[[Settings theGeneralTopic] stringByAppendingString:@"/step"]
-                                 qos:[Settings intForKey:@"qos_preference"]
-                              retain:NO];
+        [self.connection sendData:[self jsonToData:jsonObject]
+                            topic:[[Settings theGeneralTopic] stringByAppendingString:@"/step"]
+                              qos:[Settings intForKey:@"qos_preference"]
+                           retain:NO];
     }
 }
 
@@ -753,8 +748,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)connectionOff {
     DDLogVerbose(@"connectionOff");
-    [self.connectionOut disconnect];
-    [self.connectionIn disconnect];
+    [self.connection disconnect];
 }
 
 - (void)terminateSession {
@@ -773,8 +767,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)reconnect {
     DDLogVerbose(@"reconnect");
-    [self.connectionOut disconnect];
-    [self.connectionIn disconnect];
+    [self.connection disconnect];
     [self connect];
     [self sendNow];
     [[Messaging sharedInstance] reset:[CoreData theManagedObjectContext]];
@@ -798,20 +791,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         
         NSDictionary *json = [[OwnTracking sharedInstance] waypointAsJSON:waypoint];
         NSData *data = [self jsonToData:json];
-        [self.connectionOut sendData:data
-                               topic:[Settings theGeneralTopic]
-                                 qos:[Settings intForKey:@"qos_preference"]
-                              retain:[Settings boolForKey:@"retain_preference"]];
-        
-        [self.connectionIn connectToLast];
+        [self.connection sendData:data
+                            topic:[Settings theGeneralTopic]
+                              qos:[Settings intForKey:@"qos_preference"]
+                           retain:[Settings boolForKey:@"retain_preference"]];
     }
 }
 
 - (void)sendEmpty:(NSString *)topic {
-    [self.connectionOut sendData:nil
-                           topic:topic
-                             qos:[Settings intForKey:@"qos_preference"]
-                          retain:YES];
+    [self.connection sendData:nil
+                        topic:topic
+                          qos:[Settings intForKey:@"qos_preference"]
+                       retain:YES];
 }
 
 - (void)requestLocationFromFriend:(Friend *)friend {
@@ -820,20 +811,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                  @"action": @"reportLocation"
                                  };
     
-    [self.connectionOut sendData:[self jsonToData:jsonObject]
-                           topic:[friend.topic stringByAppendingString:@"/cmd"]
-                             qos:[Settings intForKey:@"qos_preference"]
-                          retain:NO];
+    [self.connection sendData:[self jsonToData:jsonObject]
+                        topic:[friend.topic stringByAppendingString:@"/cmd"]
+                          qos:[Settings intForKey:@"qos_preference"]
+                       retain:NO];
 }
 
 - (void)sendRegion:(Region *)region {
     if ([Settings validIds]) {
         NSDictionary *json = [[OwnTracking sharedInstance] regionAsJSON:region];
         NSData *data = [self jsonToData:json];
-        [self.connectionOut sendData:data
-                               topic:[[Settings theGeneralTopic] stringByAppendingString:@"/waypoint"]
-                                 qos:[Settings intForKey:@"qos_preference"]
-                              retain:NO];
+        [self.connection sendData:data
+                            topic:[[Settings theGeneralTopic] stringByAppendingString:@"/waypoint"]
+                              qos:[Settings intForKey:@"qos_preference"]
+                           retain:NO];
     }
 }
 
@@ -885,48 +876,32 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         securityPolicy.validatesCertificateChain = [Settings boolForKey:@"validatecertificatechain"];
         securityPolicy.validatesDomainName = [Settings boolForKey:@"validatedomainname"];
     }
-    
-    [self.connectionOut connectTo:[Settings stringForKey:@"host_preference"]
-                             port:[Settings intForKey:@"port_preference"]
-                              tls:[Settings boolForKey:@"tls_preference"]
-                        keepalive:[Settings intForKey:@"keepalive_preference"]
-                            clean:[Settings intForKey:@"clean_preference"]
-                             auth:[Settings theMqttAuth]
-                             user:[Settings theMqttUser]
-                             pass:[Settings theMqttPass]
-                        willTopic:[Settings theWillTopic]
-                             will:[self jsonToData:@{
-                                                     @"tst": [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]],
-                                                     @"_type": @"lwt"}]
-                          willQos:[Settings intForKey:@"willqos_preference"]
-                   willRetainFlag:[Settings boolForKey:@"willretain_preference"]
-                     withClientId:[NSString stringWithFormat:@"%@-o", [Settings theClientId]]
-                   securityPolicy:securityPolicy
-                     certificates:certificates];
-    
+
     MQTTQosLevel subscriptionQos =[Settings intForKey:@"subscriptionqos_preference"];
     NSArray *subscriptions = [[Settings theSubscriptions] componentsSeparatedByCharactersInSet:
                               [NSCharacterSet whitespaceCharacterSet]];
     
-    self.connectionIn.subscriptions = subscriptions;
-    self.connectionIn.subscriptionQos = subscriptionQos;
-    
-    [self.connectionIn connectTo:[Settings stringForKey:@"host_preference"]
-                            port:[Settings intForKey:@"port_preference"]
-                             tls:[Settings boolForKey:@"tls_preference"]
-                       keepalive:[Settings intForKey:@"keepalive_preference"]
-                           clean:[Settings intForKey:@"clean_preference"]
-                            auth:[Settings theMqttAuth]
-                            user:[Settings theMqttUser]
-                            pass:[Settings theMqttPass]
-                       willTopic:nil
-                            will:nil
-                         willQos:MQTTQosLevelAtMostOnce
-                  willRetainFlag:NO
-                    withClientId:[NSString stringWithFormat:@"%@-i", [Settings theClientId]]
-                  securityPolicy:securityPolicy
-                    certificates:certificates];
-}
+    self.connection.subscriptions = subscriptions;
+    self.connection.subscriptionQos = subscriptionQos;
+
+    [self.connection connectTo:[Settings stringForKey:@"host_preference"]
+                          port:[Settings intForKey:@"port_preference"]
+                           tls:[Settings boolForKey:@"tls_preference"]
+                     keepalive:[Settings intForKey:@"keepalive_preference"]
+                         clean:[Settings intForKey:@"clean_preference"]
+                          auth:[Settings theMqttAuth]
+                          user:[Settings theMqttUser]
+                          pass:[Settings theMqttPass]
+                     willTopic:[Settings theWillTopic]
+                          will:[self jsonToData:@{
+                                                  @"tst": [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]],
+                                                  @"_type": @"lwt"}]
+                       willQos:[Settings intForKey:@"willqos_preference"]
+                willRetainFlag:[Settings boolForKey:@"willretain_preference"]
+                  withClientId:[Settings theClientId]
+                securityPolicy:securityPolicy
+                  certificates:certificates];
+ }
 
 - (NSData *)jsonToData:(NSDictionary *)jsonObject {
     NSData *data;

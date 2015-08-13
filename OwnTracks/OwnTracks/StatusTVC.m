@@ -78,11 +78,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate addObserver:self
-               forKeyPath:@"connectionStateOut"
+               forKeyPath:@"connectionState"
                   options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                   context:nil];
     [delegate addObserver:self
-               forKeyPath:@"connectionBufferedOut"
+               forKeyPath:@"connectionBuffered"
                   options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                   context:nil];
     [delegate addObserver:self
@@ -115,10 +115,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 {    
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate removeObserver:self
-                  forKeyPath:@"connectionStateOut"
+                  forKeyPath:@"connectionState"
                      context:nil];
     [delegate removeObserver:self
-                  forKeyPath:@"connectionBufferedOut"
+                  forKeyPath:@"connectionBuffered"
                      context:nil];
     [delegate removeObserver:self
                   forKeyPath:@"configLoad"
@@ -181,11 +181,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                    };
     
     self.UIstatusField.text = [NSString stringWithFormat:@"%@ %@ %@",
-                               states[delegate.connectionStateOut],
-                               delegate.connectionOut.lastErrorCode ?
-                               delegate.connectionOut.lastErrorCode.localizedDescription : @"",
-                               delegate.connectionOut.lastErrorCode ?
-                               delegate.connectionOut.lastErrorCode.userInfo : @""
+                               states[delegate.connectionState],
+                               delegate.connection.lastErrorCode ?
+                               delegate.connection.lastErrorCode.localizedDescription : @"",
+                               delegate.connection.lastErrorCode ?
+                               delegate.connection.lastErrorCode.userInfo : @""
                                ];
     
     if ([LocationManager sharedInstance].location) {
@@ -364,7 +364,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         } else if (mode == 2) {
             self.UIparameters.text = @"Public";
         } else {
-            self.UIparameters.text = [delegate.connectionOut parameters];
+            self.UIparameters.text = [delegate.connection parameters];
         }
     }
 

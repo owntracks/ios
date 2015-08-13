@@ -15,23 +15,19 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-#import <FontAwesomeTools/FontAwesome.h>
-#import <FontAwesome/NSString+FontAwesome.h>
+#import "FontAwesome.h"
 
 @interface MessageTVC ()
 @property (strong, nonatomic) UIAlertView *alertView;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-@property (strong, nonatomic) UIFont *fontAwesome;
 @end
 
 @implementation MessageTVC
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
-    self.fontAwesome = [FontAwesome fontWithSize:30.0f];
-    
     
     [[Messaging sharedInstance] addObserver:self
                                  forKeyPath:@"messages"
@@ -243,14 +239,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                                       message.desc]
                                              baseURL:[NSURL URLWithString:@""]];
         
+        messageTableViewCell.icon.image = nil;
+        messageTableViewCell.label.text = nil;
+        messageTableViewCell.label.backgroundColor = [UIColor clearColor];
+        
         if (message.icon) {
             UIColor *color = [UIColor colorWithName:[NSString stringWithFormat:@"priority%d", [message.prio intValue]]
-                                       defaultColor:[UIColor blackColor]];
-            UIImage *icon = [FontAwesome imageWithIcon:[NSString fontAwesomeIconStringForIconIdentifier:message.icon]
-                                             iconColor:color
-                                              iconSize:40.0f
-                                             imageSize:CGSizeMake(44.0f, 44.0f)];
-            messageTableViewCell.icon.image = icon;
+                                       defaultColor:[UIColor blackColor]];            
+            NSString *iconCode = [FontAwesome codeFromName:message.icon];
+            messageTableViewCell.label.backgroundColor = color;
+            messageTableViewCell.label.textColor = [UIColor whiteColor];
+            messageTableViewCell.label.text = iconCode;
+        
         } else if (message.iconurl) {
             NSURL *iconurl = [NSURL URLWithString:message.iconurl];
             NSData *iconData = [NSData dataWithContentsOfURL:iconurl];
@@ -266,7 +266,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    NSLog(@"webViewDidFinishLoad %@", webView);
+    DDLogVerbose(@"webViewDidFinishLoad %@", webView);
 }
 
 - (IBAction)trash:(UIBarButtonItem *)sender {

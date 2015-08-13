@@ -12,6 +12,7 @@
 #import "OwnTracksAppDelegate.h"
 #import "Settings.h"
 #import "AlertView.h"
+#import "FontAwesome.h"
 #import <objc-geohash/GeoHash.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
@@ -68,7 +69,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         [Message removeMessages:context];
         self.oldGeoHash = @"";
         self.lastGeoHash = geoHash;
-        [self manageSubscriptions:context off:FALSE];
+        [self manageSubscriptions:context off:TRUE];
     }
     self.messages = [NSNumber numberWithUnsignedInteger:[Message expireMessages:context]];
 }
@@ -76,7 +77,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)manageSubscriptions:(NSManagedObjectContext *)context off:(BOOL)off{
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
     NSMutableDictionary *subscriptions = [NSMutableDictionary dictionaryWithDictionary:
-                                          delegate.connectionIn.variableSubscriptions];
+                                          delegate.connection.variableSubscriptions];
     
     NSString *systemTopic = [NSString stringWithFormat:@"%@system", GEOHASH_PRE];
     NSString *ownTopic = [NSString stringWithFormat:@"%@%@",
@@ -127,7 +128,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             }
         }
     }
-    delegate.connectionIn.variableSubscriptions = subscriptions;
+    delegate.connection.variableSubscriptions = subscriptions;
     [CoreData saveContext:context];
 }
 
@@ -229,7 +230,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                             self.messages = [NSNumber numberWithUnsignedInteger:[Message expireMessages:context]];
                             [CoreData saveContext:context];
                             OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
-                            [delegate.connectionIn unsubscribeFromTopic:topic];
+                            [delegate.connection unsubscribeFromTopic:topic];
                         }];
                         return TRUE;
                     }

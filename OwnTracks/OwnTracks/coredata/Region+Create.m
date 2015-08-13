@@ -68,7 +68,8 @@
     // a uuid: then it is treated a beacon region
     //
     
-    NSLog(@"CLregion %@ %g %g %@ %@ %@ %@", self.name, self.coordinate.latitude, self.coordinate.longitude, self.radius, self.uuid, self.major, self.minor);
+    //NSLog(@"CLregion %@ %g %g %@ %@ %@ %@", self.name, self.coordinate.latitude, self.coordinate.longitude, self.radius, self.uuid, self.major, self.minor);
+    
     if (self.name && self.name.length) {
         
         if ([self.radius doubleValue] > 0) {
