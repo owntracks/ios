@@ -389,6 +389,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (void)regionEvent:(CLRegion *)region enter:(BOOL)enter {
+    CLLocation *location = [LocationManager sharedInstance].location;
     NSString *message = [NSString stringWithFormat:@"%@ %@", (enter ? @"Entering" : @"Leaving"), region.identifier];
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.alertBody = message;
@@ -409,7 +410,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
                             inManagedObjectContext:[CoreData theManagedObjectContext]];
 
-    CLLocation *location = [LocationManager sharedInstance].location;
     [[Messaging sharedInstance] newLocation:location.coordinate.latitude
                 longitude:location.coordinate.longitude
                   context:[CoreData theManagedObjectContext]];
@@ -457,7 +457,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)regionState:(CLRegion *)region inside:(BOOL)inside {
     CLLocation *location = [LocationManager sharedInstance].location;
-    
+    DDLogVerbose(@"regionState %@ i:%d", region.identifier, inside);
     Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
                             inManagedObjectContext:[CoreData theManagedObjectContext]];
 
@@ -598,7 +598,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (void)totalBuffered:(Connection *)connection count:(NSUInteger)count {
-    DDLogVerbose(@"totalBuffered %lu", (unsigned long)count);
     self.connectionBuffered = @(count);
     [UIApplication sharedApplication].applicationIconBadgeNumber = count;
 }

@@ -1,11 +1,21 @@
 OnTracks iOS App 8.0 Release Notes
 ===================================
 
-## OwnTracks 8.2.12
->Release date: 2015-08-15 alpha testers
+## OwnTracks 8.2.13
+>Release date: 2015-08-22 for alpha testers
 
 A few fixes
-[NEW] consolidate MQTT Sessions to one coses #293
+[NEW] new locked settings mode closes #309
+[FIX] crash when opening messages tab closes #311
+[FIX] precise feedback message closes #308
+[FIX] deferred reverse geo lookups closes #302
+[FIX] false positives for Geofence closes #76
+
+## OwnTracks 8.2.12
+>Release date: 2015-08-16 alpha testers
+
+A few fixes
+[NEW] consolidate MQTT Sessions to one closes #293
 [FIX] clean subscribtions when changing modes closes #296
 [FIX] avoid opening links within message window closes #298
 [FIX] incomplete FontAwesome closes #297

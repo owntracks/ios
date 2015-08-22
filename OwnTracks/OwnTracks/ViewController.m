@@ -413,14 +413,14 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 - (IBAction)actionPressed:(UIBarButtonItem *)sender {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate sendNow];
-    [AlertView alert:@"Location" message:@"published on user request" dismissAfter:1];
+    [AlertView alert:@"Location" message:@"publish queued on user request" dismissAfter:1];
 }
 
 - (IBAction)longDoublePress:(UILongPressGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         [delegate sendNow];
-        [AlertView alert:@"Location" message:@"published on user request" dismissAfter:1];
+        [AlertView alert:@"Location" message:@"publish queued on user request" dismissAfter:1];
     }
 }
 

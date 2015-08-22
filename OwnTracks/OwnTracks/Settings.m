@@ -220,6 +220,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             object = dictionary[@"extendedData"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"extendeddata_preference"];
             
+            object = dictionary[@"locked"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"locked"];
+            
             object = dictionary[SETTINGS_MESSAGING];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:SETTINGS_MESSAGING];
             
@@ -367,6 +370,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:@{@"_type": @"configuration"}];
     dict[@"mode"] =                 @([Settings intForKey:@"mode"]);
     dict[@"ranging"] =              @([Settings boolForKey:@"ranging_preference"]);
+    dict[@"locked"] =              @([Settings boolForKey:@"locked"]);
     dict[@"tid"] =                  [Settings stringOrZeroForKey:@"trackerid_preference"];
     dict[@"monitoring"] =           @([Settings intForKey:@"monitoring_preference"]);
     dict[@"waypoints"] =            [Settings waypointsToArray];
@@ -446,6 +450,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 + (BOOL)validInPublicMode:(NSString *)key {
     return ([key isEqualToString:@"mode"] ||
             [key isEqualToString:SETTINGS_MESSAGING] ||
+            [key isEqualToString:@"locked"] ||
             [key isEqualToString:@"monitoring_preference"] ||
             [key isEqualToString:@"trackerid_preference"] ||
             [key isEqualToString:@"ranging_preference"]);
@@ -455,6 +460,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 + (BOOL)validInHostedMode:(NSString *)key {
     return ([key isEqualToString:@"mode"] ||
             [key isEqualToString:SETTINGS_MESSAGING] ||
+            [key isEqualToString:@"locked"] ||
             [key isEqualToString:@"monitoring_preference"] ||
             [key isEqualToString:@"trackerid_preference"] ||
             [key isEqualToString:@"user"] ||

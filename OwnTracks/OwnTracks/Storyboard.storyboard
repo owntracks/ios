@@ -611,7 +611,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="ODD-qj-Kxg">
                                             <rect key="frame" x="8" y="0.0" width="44" height="44"/>
                                             <fontDescription key="fontDescription" name="FontAwesome" family="FontAwesome" pointSize="36"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -1615,6 +1615,7 @@ Cg
                     <connections>
                         <outlet property="UIallowinvalidcerts" destination="Rk2-Ek-ioh" id="xaw-Ba-SXm"/>
                         <outlet property="UIclientPKCS" destination="JSF-BR-9Nb" id="MrO-Jc-40p"/>
+                        <outlet property="UIclientPKCSCell" destination="6UU-2x-vMj" id="0ri-oB-PUE"/>
                         <outlet property="UIpassphrase" destination="KhB-Z4-umi" id="bez-IQ-dMd"/>
                         <outlet property="UIpolicymode" destination="ekh-AH-RrD" id="6re-c4-EQG"/>
                         <outlet property="UIserverCER" destination="uLh-Jg-oIJ" id="Swo-T3-d9g"/>
@@ -2449,9 +2450,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="KLh-ve-vhU"/>
-        <segue reference="IYh-g6-Wcg"/>
-        <segue reference="auv-et-UoY"/>
         <segue reference="8m4-nr-b6B"/>
+        <segue reference="IYh-g6-Wcg"/>
+        <segue reference="KLh-ve-vhU"/>
+        <segue reference="auv-et-UoY"/>
     </inferredMetricsTieBreakers>
 </document>

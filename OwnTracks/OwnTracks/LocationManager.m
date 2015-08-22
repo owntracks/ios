@@ -47,7 +47,7 @@
 @end
 
 @implementation LocationManager
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 static LocationManager *theInstance = nil;
 
 + (LocationManager *)sharedInstance {
@@ -353,6 +353,7 @@ static LocationManager *theInstance = nil;
  */
 - (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
     DDLogVerbose(@"didDetermineState %ld %@", (long)state, region);
+    
     if ([region isKindOfClass:[CLBeaconRegion class]]) {
         if (state == CLRegionStateInside) {
             [self.insideBeaconRegions setObject:[NSNumber numberWithBool:TRUE] forKey:region.identifier];
@@ -368,7 +369,37 @@ static LocationManager *theInstance = nil;
             [self.manager stopRangingBeaconsInRegion:beaconRegion];
         }
     }
+    
     if ([region isKindOfClass:[CLCircularRegion class]]) {
+        CLCircularRegion *circular = (CLCircularRegion *)region;
+        DDLogVerbose(@"region lat,lon,rad %f,%f,%f",
+                     circular.center.latitude,
+                     circular.center.longitude,
+                     circular.radius);
+        DDLogVerbose(@"loc lat,lon,acc %f,%f,%f @ %@",
+                     manager.location.coordinate.latitude,
+                     manager.location.coordinate.longitude,
+                     manager.location.horizontalAccuracy,
+                     manager.location.timestamp
+                     );
+        switch (state) {
+            case CLRegionStateInside:
+                if (![circular containsCoordinate:manager.location.coordinate]) {
+                    DDLogVerbose(@"didDeterminState false positive!");
+                    state = CLRegionStateOutside;
+                }
+                break;
+            case CLRegionStateOutside:
+                if ([circular containsCoordinate:manager.location.coordinate]) {
+                    DDLogVerbose(@"didDeterminState false negative!");
+                    state = CLRegionStateInside;
+                }
+                break;
+            case CLRegionStateUnknown:
+            default:
+                break;
+        }
+        
         if (state == CLRegionStateInside) {
             [self.insideCircularRegions setObject:[NSNumber numberWithBool:TRUE] forKey:region.identifier];
         } else {
@@ -381,6 +412,25 @@ static LocationManager *theInstance = nil;
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
     DDLogVerbose(@"didEnterRegion %@", region);
+    
+    if ([region isKindOfClass:[CLCircularRegion class]]) {
+        CLCircularRegion *circular = (CLCircularRegion *)region;
+        DDLogVerbose(@"region lat,lon,rad %f,%f,%f",
+                     circular.center.latitude,
+                     circular.center.longitude,
+                     circular.radius);
+        DDLogVerbose(@"loc lat,lon,acc %f,%f,%f @ %@",
+                     manager.location.coordinate.latitude,
+                     manager.location.coordinate.longitude,
+                     manager.location.horizontalAccuracy,
+                     manager.location.timestamp
+                     );
+        if (![circular containsCoordinate:manager.location.coordinate]) {
+            DDLogVerbose(@"didEnterRegion incorrect!");
+            return;
+        }
+    }
+
     if (![self removeHoldDown:region]) {
         [self.delegate regionEvent:region enter:YES];
     }
@@ -389,6 +439,25 @@ static LocationManager *theInstance = nil;
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
     DDLogVerbose(@"didExitRegion %@", region);
+    
+    if ([region isKindOfClass:[CLCircularRegion class]]) {
+        CLCircularRegion *circular = (CLCircularRegion *)region;
+        DDLogVerbose(@"region lat,lon,rad %f,%f,%f",
+                     circular.center.latitude,
+                     circular.center.longitude,
+                     circular.radius);
+        DDLogVerbose(@"loc lat,lon,acc %f,%f,%f @ %@",
+                     manager.location.coordinate.latitude,
+                     manager.location.coordinate.longitude,
+                     manager.location.horizontalAccuracy,
+                     manager.location.timestamp
+                     );
+        if ([circular containsCoordinate:manager.location.coordinate]) {
+            DDLogVerbose(@"didExitRegion incorrect!");
+            return;
+        }
+    }
+
     if ([region.identifier hasPrefix:@"-"]) {
                 [self removeHoldDown:region];
         [self.pendingRegionEvents addObject:[PendingRegionEvent holdDown:region for:3.0 to:self]];

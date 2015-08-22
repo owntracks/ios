@@ -20,4 +20,17 @@
     // Configure the view for the selected state
 }
 
+- (void)deferredReverseGeoCode:(Waypoint *)waypoint {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self performSelector:@selector(reverseGeoCode:) withObject:waypoint afterDelay:1];
+}
+
+- (void)reverseGeoCode:(Waypoint *)waypoint {
+    if (waypoint) {
+        if (!waypoint.isDeleted) {
+            [waypoint getReverseGeoCode];
+        }
+    }
+}
+
 @end

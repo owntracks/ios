@@ -322,10 +322,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     friendAnnotationView.me = [friend.topic isEqualToString:[Settings theGeneralTopic]];
     friendAnnotationView.tid = [friend getEffectiveTid];
 
-    
     Waypoint *waypoint = [friend newestWaypoint];
     if (waypoint) {
-        [waypoint getReverseGeoCode];
+        [friendTableViewCell deferredReverseGeoCode:waypoint];
         [as appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
         
         [as appendAttributedString:[[NSAttributedString alloc]

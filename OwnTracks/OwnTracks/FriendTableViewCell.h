@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Waypoint+Create.h"
 
 @interface FriendTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *image;
 @property (weak, nonatomic) IBOutlet UITextView *text;
+- (void)deferredReverseGeoCode:(Waypoint *)waypoint;
+- (void)reverseGeoCode:(Waypoint *)waypoint;
 
 @end

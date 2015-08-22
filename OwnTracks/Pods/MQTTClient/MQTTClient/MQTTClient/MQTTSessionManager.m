@@ -24,10 +24,11 @@
 @property (nonatomic) NSInteger keepalive;
 @property (nonatomic) BOOL clean;
 @property (nonatomic) BOOL auth;
+@property (nonatomic) BOOL will;
 @property (strong, nonatomic) NSString *user;
 @property (strong, nonatomic) NSString *pass;
 @property (strong, nonatomic) NSString *willTopic;
-@property (strong, nonatomic) NSData *will;
+@property (strong, nonatomic) NSData *willMsg;
 @property (nonatomic) NSInteger willQos;
 @property (nonatomic) BOOL willRetainFlag;
 @property (strong, nonatomic) NSString *clientId;
@@ -37,37 +38,34 @@
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
 @property (strong, nonatomic) void (^completionHandler)(UIBackgroundFetchResult);
 
-
-
 @end
 
 #define RECONNECT_TIMER 1.0
 #define RECONNECT_TIMER_MAX 64.0
 #define BACKGROUND_DISCONNECT_AFTER 8.0
 
-
-@implementation MQTTSessionManager 
+@implementation MQTTSessionManager
 - (id)init
 {
     self = [super init];
-    
+
 
     self.state = MQTTSessionManagerStateStarting;
     self.backgroundTask = UIBackgroundTaskInvalid;
     self.completionHandler = nil;
 
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-    
+
     [defaultCenter addObserver:self
                       selector:@selector(appWillResignActive)
                           name:UIApplicationWillResignActiveNotification
                         object:nil];
-    
+
     [defaultCenter addObserver:self
                       selector:@selector(appDidEnterBackground)
                           name:UIApplicationDidEnterBackgroundNotification
                         object:nil];
-    
+
     [defaultCenter addObserver:self
                       selector:@selector(appDidBecomeActive)
                           name:UIApplicationDidBecomeActiveNotification
@@ -109,6 +107,37 @@
    willRetainFlag:(BOOL)willRetainFlag
      withClientId:(NSString *)clientId
 {
+  [self connectTo:host
+               port:port
+                tls:tls
+          keepalive:keepalive
+              clean:clean
+               auth:auth
+               user:user
+               pass:pass
+               will:YES
+          willTopic:willTopic
+            willMsg:will
+            willQos:willQos
+     willRetainFlag:willRetainFlag
+       withClientId:clientId];
+}
+
+- (void)connectTo:(NSString *)host
+             port:(NSInteger)port
+              tls:(BOOL)tls
+        keepalive:(NSInteger)keepalive
+            clean:(BOOL)clean
+             auth:(BOOL)auth
+             user:(NSString *)user
+             pass:(NSString *)pass
+             will:(BOOL)will
+        willTopic:(NSString *)willTopic
+          willMsg:(NSData *)willMsg
+          willQos:(MQTTQosLevel)willQos
+   willRetainFlag:(BOOL)willRetainFlag
+     withClientId:(NSString *)clientId
+{
     if (!self.session ||
         ![host isEqualToString:self.host] ||
         port != self.port ||
@@ -119,7 +148,7 @@
         ![user isEqualToString:self.user] ||
         ![pass isEqualToString:self.pass] ||
         ![willTopic isEqualToString:self.willTopic] ||
-        //![will isEqualToData:self.will] ||
+        ![willMsg isEqualToData:self.willMsg] ||
         willQos != self.willQos ||
         willRetainFlag != self.willRetainFlag ||
         ![clientId isEqualToString:self.clientId]) {
@@ -131,20 +160,21 @@
         self.auth = auth;
         self.user = user;
         self.pass = pass;
-        self.willTopic = willTopic;
         self.will = will;
+        self.willTopic = willTopic;
+        self.willMsg = willMsg;
         self.willQos = willQos;
         self.willRetainFlag = willRetainFlag;
         self.clientId = clientId;
-        
+
         self.session = [[MQTTSession alloc] initWithClientId:clientId
                                                     userName:auth ? user : nil
                                                     password:auth ? pass : nil
                                                    keepAlive:keepalive
                                                 cleanSession:clean
-                                                        will:YES
+                                                        will:will
                                                    willTopic:willTopic
-                                                     willMsg:will
+                                                     willMsg:willMsg
                                                      willQoS:willQos
                                               willRetainFlag:willRetainFlag
                                                protocolLevel:4
@@ -173,7 +203,7 @@
 {
     self.state = MQTTSessionManagerStateClosing;
     [self.session close];
-    
+
     if (self.reconnectTimer) {
         [self.reconnectTimer invalidate];
         self.reconnectTimer = nil;
@@ -190,9 +220,10 @@
                                    @(MQTTSessionEventConnectionRefused): @"connection refused",
                                    @(MQTTSessionEventConnectionClosed): @"connection closed",
                                    @(MQTTSessionEventConnectionError): @"connection error",
-                                   @(MQTTSessionEventProtocolError): @"protocoll error"
+                                   @(MQTTSessionEventProtocolError): @"protocoll error",
+                                   @(MQTTSessionEventConnectionClosedByBroker): @"connection closed by broker"
                                    };
-    NSLog(@"Connection MQTT eventCode: %@ (%ld) %@", events[@(eventCode)], (long)eventCode, error);
+    NSLog(@"MQTTSession eventCode: %@ (%ld) %@", events[@(eventCode)], (long)eventCode, error);
 #endif
     [self.reconnectTimer invalidate];
     switch (eventCode) {
@@ -200,17 +231,10 @@
         {
             self.lastErrorCode = nil;
             self.state = MQTTSessionManagerStateConnected;
-            
-            if (self.clean || !self.reconnectFlag) {
-                if (self.subscriptions && [self.subscriptions count]) {
-                    [self.session subscribeToTopics:self.subscriptions];
-                }
-                self.reconnectFlag = TRUE;
-            }
-            
             break;
         }
         case MQTTSessionEventConnectionClosed:
+        case MQTTSessionEventConnectionClosedByBroker:
             self.state = MQTTSessionManagerStateClosed;
             if (self.backgroundTask) {
                 [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
@@ -234,7 +258,7 @@
             NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
             [runLoop addTimer:self.reconnectTimer
                       forMode:NSDefaultRunLoopMode];
-            
+
             self.state = MQTTSessionManagerStateError;
             self.lastErrorCode = error;
             break;
@@ -248,6 +272,16 @@
 {
     [self.delegate handleMessage:data onTopic:topic retained:retained];
 }
+
+- (void)connected:(MQTTSession *)session sessionPresent:(BOOL)sessionPresent {
+    if (self.clean || !self.reconnectFlag || !sessionPresent) {
+        if (self.subscriptions && [self.subscriptions count]) {
+            [self.session subscribeToTopics:self.subscriptions];
+        }
+        self.reconnectFlag = TRUE;
+    }
+}
+
 
 - (void)connectToInternal
 {
@@ -263,7 +297,7 @@
 {
     self.reconnectTimer = nil;
     self.state = MQTTSessionManagerStateStarting;
-    
+
     if (self.reconnectTime < RECONNECT_TIMER_MAX) {
         self.reconnectTime *= 2;
     }
@@ -273,9 +307,28 @@
 - (void)connectToLast
 {
     self.reconnectTime = RECONNECT_TIMER;
-    
+
     [self connectToInternal];
 }
 
-@end
+- (void)setSubscriptions:(NSMutableDictionary *)newSubscriptions
+{
+    if (self.state==MQTTSessionManagerStateConnected) {
+        for (NSString *topicFilter in self.subscriptions) {
+            if (![newSubscriptions objectForKey:topicFilter]) {
+                [self.session unsubscribeAndWaitTopic:topicFilter];
+            }
+        }
+        
+        for (NSString *topicFilter in newSubscriptions) {
+            if (![self.subscriptions objectForKey:topicFilter]) {
+                NSNumber *number = newSubscriptions[topicFilter];
+                MQTTQosLevel qos = [number unsignedIntValue];
+                [self.session subscribeToTopic:topicFilter atLevel:qos];
+            }
+        }
+    }
+    _subscriptions=newSubscriptions;
+}
 
+@end

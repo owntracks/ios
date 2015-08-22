@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *UITLSCell;
 @property (weak, nonatomic) IBOutlet UITextView *UILocation;
 @property (weak, nonatomic) IBOutlet UITextView *UIGeoHash;
+@property (weak, nonatomic) IBOutlet UITableViewCell *UIclientPKCSCell;
 @property (weak, nonatomic) IBOutlet UITextField *UIclientPKCS;
 @property (weak, nonatomic) IBOutlet UISwitch *UIallowinvalidcerts;
 @property (weak, nonatomic) IBOutlet UITextField *UIpassphrase;
@@ -64,7 +65,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 {
     [super viewWillAppear:animated];
     DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
-        
+
     self.UIHost.delegate = self;
     self.UIPort.delegate = self;
     self.UIUserID.delegate = self;
@@ -206,68 +207,116 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)updated
 {
-    [self updatedStatus];    
+    [self updatedStatus];
+    BOOL locked = [Settings boolForKey:@"locked"];
+    self.title = [NSString stringWithFormat:@"Settings%@", locked ? @" (locked)" : @""];
+    
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     
-    if (self.UIVersion) self.UIVersion.text = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
-    if (self.UIDeviceID) self.UIDeviceID.text =  [Settings stringForKey:@"deviceid_preference"];
+    if (self.UIVersion) {
+        self.UIVersion.text = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
+    }
     
-    if (self.UIclientPKCS) self.UIclientPKCS.text = [Settings stringForKey:@"clientpkcs"];
+    if (self.UIDeviceID) {
+        self.UIDeviceID.text =  [Settings stringForKey:@"deviceid_preference"];
+        self.UIDeviceID.enabled = !locked;
+    }
+    
+    if (self.UIclientPKCS) {
+        self.UIclientPKCS.text = [Settings stringForKey:@"clientpkcs"];
+        self.UIclientPKCS.enabled = !locked;
+        self.UIclientPKCSCell.userInteractionEnabled = !locked;
+        self.UIclientPKCSCell.accessoryType = !locked ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+    }
+
     if (self.UIpassphrase) {
         if (self.UIclientPKCS) {
-            self.UIpassphrase.enabled = (self.UIclientPKCS.text.length > 0);
+            self.UIpassphrase.enabled = !locked && (self.UIclientPKCS.text.length > 0);
             self.UIpassphrase.textColor = (self.UIclientPKCS.text.length > 0) ? [UIColor blackColor] : [UIColor lightGrayColor];
         }
         self.UIpassphrase.text = [Settings stringForKey:@"passphrase"];
     }
 
-    if (self.UIusepolicy) self.UIusepolicy.on =  [Settings boolForKey:@"usepolicy"];
+    if (self.UIusepolicy) {
+        self.UIusepolicy.on =  [Settings boolForKey:@"usepolicy"];
+        self.UIusepolicy.enabled = !locked;
+    }
+    
     if (self.UIpolicymode) {
         if (self.UIusepolicy) {
-            self.UIpolicymode.enabled = self.UIusepolicy.on;
+            self.UIpolicymode.enabled = !locked && self.UIusepolicy.on;
         }
         self.UIpolicymode.selectedSegmentIndex = [Settings intForKey:@"policymode"];
     }
     if (self.UIserverCER) {
         if (self.UIusepolicy && self.UIpolicymode) {
-            self.UIserverCERCell.userInteractionEnabled = self.UIusepolicy.on && self.UIpolicymode.selectedSegmentIndex != 0;
-            self.UIserverCERCell.accessoryType = (self.UIusepolicy.on && self.UIpolicymode.selectedSegmentIndex != 0) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+            self.UIserverCERCell.userInteractionEnabled = !locked && self.UIusepolicy.on && self.UIpolicymode.selectedSegmentIndex != 0;
+            self.UIserverCERCell.accessoryType = (!locked && self.UIusepolicy.on && self.UIpolicymode.selectedSegmentIndex != 0) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 ;
         }
         self.UIserverCER.text = [Settings stringForKey:@"servercer"];
     }
     if (self.UIallowinvalidcerts) {
         if (self.UIusepolicy) {
-            self.UIallowinvalidcerts.enabled = self.UIusepolicy.on;
+            self.UIallowinvalidcerts.enabled = !locked && self.UIusepolicy.on;
         }
         self.UIallowinvalidcerts.on = [Settings boolForKey:@"allowinvalidcerts"];
     }
     if (self.UIvalidatedomainname) {
         if (self.UIusepolicy) {
-            self.UIvalidatedomainname.enabled = self.UIusepolicy.on;
+            self.UIvalidatedomainname.enabled = !locked && self.UIusepolicy.on;
         }
         self.UIvalidatedomainname.on =  [Settings boolForKey:@"validatedomainname"];
     }
     if (self.UIvalidatecertificatechain) {
         if (self.UIusepolicy) {
-            self.UIvalidatecertificatechain.enabled = self.UIusepolicy.on;
+            self.UIvalidatecertificatechain.enabled = !locked && self.UIusepolicy.on;
         }
         self.UIvalidatecertificatechain.on = [Settings boolForKey:@"validatecertificatechain"];
     }
     
-    if (self.UItrackerid) self.UItrackerid.text =  [Settings stringForKey:@"trackerid_preference"];
-    if (self.UIHost) self.UIHost.text = [Settings stringForKey:@"host_preference"];
-    if (self.UIUserID) self.UIUserID.text = [Settings stringForKey:@"user_preference"];
-    if (self.UIPassword) self.UIPassword.text = [Settings stringForKey:@"pass_preference"];
-    if (self.UImode) self.UImode.selectedSegmentIndex = [Settings intForKey:@"mode"];
-    if (self.UIPort) self.UIPort.text = [Settings stringForKey:@"port_preference"];
-    if (self.UITLS) self.UITLS.on = [Settings boolForKey:@"tls_preference"];
-    if (self.UIAuth)self.UIAuth.on = [Settings boolForKey:@"auth_preference"];
-    
-    if (self.UIuser) self.UIuser.text = [Settings stringForKey:@"user"];
-    if (self.UIdevice) self.UIdevice.text = [Settings stringForKey:@"device"];
-    if (self.UItoken) self.UItoken.text = [Settings stringForKey:@"token"];
-
+    if (self.UItrackerid) {
+        self.UItrackerid.text = [Settings stringForKey:@"trackerid_preference"];
+        self.UItrackerid.enabled = !locked;
+    }
+    if (self.UIHost) {
+        self.UIHost.text = [Settings stringForKey:@"host_preference"];
+        self.UIHost.enabled = !locked;
+    }
+    if (self.UIUserID) {
+        self.UIUserID.text = [Settings stringForKey:@"user_preference"];
+    }
+    if (self.UIPassword) {
+        self.UIPassword.text = [Settings stringForKey:@"pass_preference"];
+    }
+    if (self.UImode) {
+        self.UImode.selectedSegmentIndex = [Settings intForKey:@"mode"];
+        self.UImode.enabled = !locked;
+    }
+    if (self.UIPort) {
+        self.UIPort.text = [Settings stringForKey:@"port_preference"];
+        self.UIPort.enabled = !locked;
+    }
+    if (self.UITLS) {
+        self.UITLS.on = [Settings boolForKey:@"tls_preference"];
+        self.UITLS.enabled = !locked;
+    }
+    if (self.UIAuth) {
+        self.UIAuth.on = [Settings boolForKey:@"auth_preference"];
+        self.UIAuth.enabled = !locked;
+    }
+    if (self.UIuser) {
+        self.UIuser.text = [Settings stringForKey:@"user"];
+        self.UIuser.enabled = !locked;
+    }
+    if (self.UIdevice) {
+        self.UIdevice.text = [Settings stringForKey:@"device"];
+        self.UIdevice.enabled = !locked;
+    }
+    if (self.UItoken) {
+        self.UItoken.text = [Settings stringForKey:@"token"];
+        self.UItoken.enabled = !locked;
+    }
     int mode = [Settings intForKey:@"mode"];
 
     NSMutableArray *hiddenFieldsMode12 = [[NSMutableArray alloc] init];
@@ -296,7 +345,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     if (self.UIUserID) {
         if (self.UIAuth) {
-            self.UIUserID.enabled = self.UIAuth.on;
+            self.UIUserID.enabled = !locked && self.UIAuth.on;
             self.UIUserID.textColor = self.UIAuth.on ? [UIColor blackColor] : [UIColor lightGrayColor];
         }
         [hiddenFieldsMode12 addObject:self.UIUserID];
@@ -304,7 +353,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     if (self.UIPassword) {
         if (self.UIAuth) {
-            self.UIPassword.enabled = self.UIAuth.on;
+            self.UIPassword.enabled = !locked && self.UIAuth.on;
             self.UIPassword.textColor = self.UIAuth.on ? [UIColor blackColor] : [UIColor lightGrayColor];
         }
         [hiddenFieldsMode12 addObject:self.UIPassword];
@@ -327,6 +376,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:13 inSection:0]];
     }
     
+    // hide mode row if locked
+    if (self.UImode) {
+        NSIndexPath *modeIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+        if ([self isRowVisible:modeIndexPath] && locked) {
+            [self deleteRowsAtIndexPaths:@[modeIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else if (![self isRowVisible:modeIndexPath] && !locked) {
+            [self insertRowsAtIndexPaths:@[modeIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    }
+    
+    // hide fields and rows depending on modes
     for (UIView *view in hiddenFieldsMode12) {
         [view setHidden:(mode == 1 || mode == 2)];
     }
@@ -367,7 +427,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             self.UIparameters.text = [delegate.connection parameters];
         }
     }
-
+    
     if ([self.tabBarController isKindOfClass:[TabBarController class]]) {
         TabBarController *tbc = (TabBarController *)self.tabBarController;
         [tbc adjust];
