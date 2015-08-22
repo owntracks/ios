@@ -322,7 +322,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                    @(MQTTSessionEventConnectionRefused): @"connection refused",
                    @(MQTTSessionEventConnectionClosed): @"connection closed",
                    @(MQTTSessionEventConnectionError): @"connection error",
-                   @(MQTTSessionEventProtocolError): @"protocol error"
+                   @(MQTTSessionEventProtocolError): @"protocol error",
                    @(MQTTSessionEventConnectionClosedByBroker): @"connection closed by broker"
                    }[@(eventCode)],
                  (long)eventCode, error);
