@@ -2450,9 +2450,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="8m4-nr-b6B"/>
-        <segue reference="IYh-g6-Wcg"/>
         <segue reference="KLh-ve-vhU"/>
+        <segue reference="ft5-77-rU8"/>
         <segue reference="auv-et-UoY"/>
+        <segue reference="8m4-nr-b6B"/>
     </inferredMetricsTieBreakers>
 </document>

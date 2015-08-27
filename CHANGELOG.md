@@ -1,6 +1,14 @@
 OnTracks iOS App 8.0 Release Notes
 ===================================
 
+## OwnTracks 8.2.14
+>Release date: 2015-08-27 for alpha testers
+
+Again false positives on leaving region
+
+* [FIX] false positives for Geofence closes #76
+
+
 ## OwnTracks 8.2.13
 >Release date: 2015-08-22 for alpha testers
 

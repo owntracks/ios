@@ -425,7 +425,7 @@ static LocationManager *theInstance = nil;
                      manager.location.horizontalAccuracy,
                      manager.location.timestamp
                      );
-        if (![circular containsCoordinate:manager.location.coordinate]) {
+        if ([self insideCircularRegion:circular.identifier] || ![circular containsCoordinate:manager.location.coordinate]) {
             DDLogVerbose(@"didEnterRegion incorrect!");
             return;
         }
@@ -452,7 +452,7 @@ static LocationManager *theInstance = nil;
                      manager.location.horizontalAccuracy,
                      manager.location.timestamp
                      );
-        if ([circular containsCoordinate:manager.location.coordinate]) {
+        if (![self insideCircularRegion:circular.identifier] || [circular containsCoordinate:manager.location.coordinate]) {
             DDLogVerbose(@"didExitRegion incorrect!");
             return;
         }
