@@ -117,10 +117,7 @@
 {
     [self dismissViewControllerAnimated:YES completion:^{
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        if ([delegate application:[UIApplication sharedApplication]
-                          openURL:[NSURL URLWithString:result]
-                sourceApplication:@"OwnTracks"
-                       annotation:nil]) {
+        if ([delegate application:[UIApplication sharedApplication] openURL:[NSURL URLWithString:result] options:@{}]) {
             [AlertView alert:@"QRScanner" message:@"Successfully processed!"];
         } else {
             [AlertView alert:@"QRScanner" message:delegate.processingMessage];

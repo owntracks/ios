@@ -39,7 +39,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
     
     self.mapView.delegate = self;
     

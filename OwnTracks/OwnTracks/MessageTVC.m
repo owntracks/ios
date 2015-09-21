@@ -27,7 +27,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
-    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
     
     [[Messaging sharedInstance] addObserver:self
                                  forKeyPath:@"messages"

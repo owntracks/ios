@@ -42,7 +42,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
     self.tableView.estimatedRowHeight = 150;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
@@ -73,6 +72,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
+    DDLogVerbose(@"revgeo updated");
     self.UIplace.text = self.waypoint.placemark;
 }
 

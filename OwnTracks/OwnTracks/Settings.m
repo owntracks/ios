@@ -31,7 +31,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (id)init {
     self = [super init];
-    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
 
     if (self) {
         NSURL *bundleURL = [[NSBundle mainBundle] bundleURL];

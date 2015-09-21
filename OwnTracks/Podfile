@@ -6,10 +6,9 @@ pod 'ABStaticTableViewController'
 pod 'MQTTClient'
 pod 'QRCodeReaderViewController'
 pod 'objc-geohash'
+pod 'Fabric'
+pod 'Crashlytics'
 
 target 'OwnTracks' do
-end
-
-target 'OwnTracksTests' do
 end
 

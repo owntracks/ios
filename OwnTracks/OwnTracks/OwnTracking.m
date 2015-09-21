@@ -30,7 +30,6 @@ static OwnTracking *theInstance = nil;
 
 - (instancetype)init {
     self = [super init];
-    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
     self.inQueue = @(0);
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification

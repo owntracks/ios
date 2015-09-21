@@ -52,11 +52,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     
     if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:
-                                                UIUserNotificationTypeAlert |
-                                                UIUserNotificationTypeBadge
-                                                                                 categories:[NSSet setWithObjects:nil]];
-        // NSLog(@"registerUserNotificationSettings %@", settings);
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes: UIUserNotificationTypeAlert | UIUserNotificationTypeBadge categories:nil];
         [application registerUserNotificationSettings:settings];
     }
     
@@ -74,7 +70,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     [DDLog addLogger:[DDASLLogger sharedInstance] withLevel:DDLogLevelError];
     
-    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
     DDLogVerbose(@"didFinishLaunchingWithOptions");
     
     NSEnumerator *enumerator = [launchOptions keyEnumerator];

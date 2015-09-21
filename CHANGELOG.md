@@ -1,5 +1,14 @@
-OnTracks iOS App 8.0 Release Notes
+OnTracks iOS App Release Notes
 ===================================
+
+## OwnTracks 8.2.15
+>Release date: 2015-09-21 for alpha testers
+
+Again false positives on leaving region
+
+* [FIX] iBeacon setup UI closes #326
+* [FIX] Limit TID entry to 2 alphanumeric characters closes #320
+* [NEW] iOS9 and Xcode7 compatibility
 
 ## OwnTracks 8.2.14
 >Release date: 2015-08-27 for alpha testers

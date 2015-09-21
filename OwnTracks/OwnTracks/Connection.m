@@ -7,8 +7,8 @@
 //
 
 #import "Connection.h"
-#import "CoreData.h"
 
+#import <UIKit/UIKit.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
@@ -58,7 +58,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (id)init {
     self = [super init];
-    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
     DDLogVerbose(@"Connection init");
     self.state = state_starting;
     self.subscriptions = [[NSArray alloc] init];

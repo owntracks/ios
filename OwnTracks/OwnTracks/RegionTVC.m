@@ -30,12 +30,11 @@
 @end
 
 @implementation RegionTVC
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
 
     self.UIlatitude.delegate = self;
     self.UIlongitude.delegate = self;
@@ -68,8 +67,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         self.editRegion.radius = [NSNumber numberWithDouble:[self.UIradius.text doubleValue]];
         
         self.editRegion.uuid = self.UIuuid.text;
-        self.editRegion.major = [NSNumber numberWithUnsignedInteger:[self.UImajor.text intValue]];
-        self.editRegion.minor = [NSNumber numberWithUnsignedInteger:[self.UIminor.text intValue]];
+        DDLogVerbose(@"UImajor %@", self.UImajor.text);
+        DDLogVerbose(@"UImajor intValue %d", [self.UImajor.text intValue]);
+        DDLogVerbose(@"UImajor NSNumber %@", [NSNumber numberWithUnsignedInteger:[self.UImajor.text intValue]]);
+        self.editRegion.major = [NSNumber numberWithUnsignedShort:[self.UImajor.text intValue]];
+        self.editRegion.minor = [NSNumber numberWithUnsignedShort:[self.UIminor.text intValue]];
         
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         if ([self.editRegion.share boolValue]) {
@@ -96,8 +98,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.UIradius.text = [NSString stringWithFormat:@"%g", [self.editRegion.radius doubleValue]];
     
     self.UIuuid.text = self.editRegion.uuid;
-    self.UImajor.text = [NSString stringWithFormat:@"%u", [self.editRegion.major unsignedIntValue]];
-    self.UIminor.text = [NSString stringWithFormat:@"%u", [self.editRegion.minor unsignedIntValue]];
+    DDLogVerbose(@"UImajor NSNumber %@", self.editRegion.major);
+    DDLogVerbose(@"UImajor unsignedIntValue %u", [self.editRegion.major unsignedIntValue]);
+    DDLogVerbose(@"UImajor NSString %@", [NSString stringWithFormat:@"%u", [self.editRegion.major unsignedIntValue]]);
+    self.UImajor.text = [NSString stringWithFormat:@"%u", [self.editRegion.major unsignedShortValue]];
+    self.UIminor.text = [NSString stringWithFormat:@"%u", [self.editRegion.minor unsignedShortValue]];
 }
 
 - (IBAction)latitudechanged:(UITextField *)sender {

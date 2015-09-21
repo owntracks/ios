@@ -64,7 +64,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
 
     self.UIHost.delegate = self;
     self.UIPort.delegate = self;
@@ -554,21 +553,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                   cancelButtonTitle:nil
                                   otherButtonTitles:@"OK", nil];
         [alertView show];
-    } else {
-        for (int i = 0; i < sender.text.length; i++) {
-            if (![[NSCharacterSet alphanumericCharacterSet] characterIsMember:[sender.text characterAtIndex:i]]) {
-                self.tidAlertView = [[UIAlertView alloc]
-                                     initWithTitle:@"TrackerID invalid"
-                                     message:@"TrackerID may contain alphanumeric characters only"
-                                     delegate:self
-                                     cancelButtonTitle:nil
-                                     otherButtonTitles:@"OK", nil];
-                [self.tidAlertView show];
-                break;
-            }
-        }
-        [Settings setString:sender.text forKey:@"trackerid_preference"];
+        sender.text = [Settings stringForKey:@"trackerid_preference"];
+        return;
     }
+    for (int i = 0; i < sender.text.length; i++) {
+        if (![[NSCharacterSet alphanumericCharacterSet] characterIsMember:[sender.text characterAtIndex:i]]) {
+            self.tidAlertView = [[UIAlertView alloc]
+                                 initWithTitle:@"TrackerID invalid"
+                                 message:@"TrackerID may contain alphanumeric characters only"
+                                 delegate:self
+                                 cancelButtonTitle:nil
+                                 otherButtonTitles:@"OK", nil];
+            [self.tidAlertView show];
+            sender.text = [Settings stringForKey:@"trackerid_preference"];
+            return;
+        }
+    }
+    [Settings setString:sender.text forKey:@"trackerid_preference"];
 }
 
 - (IBAction)modeChanged:(UISegmentedControl *)sender {
@@ -652,10 +653,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self dismissViewControllerAnimated:YES completion:^{
         DDLogVerbose(@"result %@", result);
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        if ([delegate application:[UIApplication sharedApplication]
-                      openURL:[NSURL URLWithString:result]
-            sourceApplication:@"OwnTracks"
-                        annotation:nil]) {
+        if ([delegate application:[UIApplication sharedApplication] openURL:[NSURL URLWithString:result] options:@{}]) {
             [AlertView alert:@"QRScanner" message:@"Successfully processed!"];
         } else {
             [AlertView alert:@"QRScanner" message:delegate.processingMessage];

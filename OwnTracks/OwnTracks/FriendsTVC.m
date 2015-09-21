@@ -34,7 +34,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
-    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
     
     [[OwnTracking sharedInstance] addObserver:self
                                    forKeyPath:@"inQueue"

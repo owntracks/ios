@@ -19,7 +19,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     static ABAddressBookRef ab = nil;
     
     if (!ab) {
-        DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
         ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
         if (status == kABAuthorizationStatusAuthorized || status == kABAuthorizationStatusNotDetermined) {
             CFErrorRef error;

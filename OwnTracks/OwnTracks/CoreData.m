@@ -20,7 +20,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     url = [url URLByAppendingPathComponent:@"OwnTracks"];
 
     self = [super initWithFileURL:url];
-    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
         
     NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
                              [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,

@@ -59,7 +59,6 @@ static LocationManager *theInstance = nil;
 
 - (id)init {
     self = [super init];
-    DDLogVerbose(@"ddLogLevel %lu", (unsigned long)ddLogLevel);
 
     self.manager = [[CLLocationManager alloc] init];
     self.manager.delegate = self;
