@@ -1,10 +1,17 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 8.2.16
+>Release date: 2015-09-24 for alpha testers
+
+iOS9 and Altimeter
+
+* [FIX] temptative fix for missing Barometric pressure values in iOS9 #328
+
 ## OwnTracks 8.2.15
 >Release date: 2015-09-21 for alpha testers
 
-Again false positives on leaving region
+A few fixes
 
 * [FIX] iBeacon setup UI closes #326
 * [FIX] Limit TID entry to 2 alphanumeric characters closes #320

@@ -99,6 +99,16 @@ static LocationManager *theInstance = nil;
 - (void)start {
     DDLogVerbose(@"start");
     [self authorize];
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
+        if ([CMAltimeter isRelativeAltitudeAvailable]) {
+            DDLogVerbose(@"startRelativeAltitudeUpdatesToQueue");
+            [self.altimeter startRelativeAltitudeUpdatesToQueue:[NSOperationQueue mainQueue]
+                                                    withHandler:^(CMAltitudeData *altitudeData, NSError *error) {
+                                                        DDLogVerbose(@"altitudeData %@", altitudeData);
+                                                        self.altitude = altitudeData;
+                                                    }];
+        }
+    }
 }
 
 - (void)wakeup {
@@ -107,14 +117,6 @@ static LocationManager *theInstance = nil;
     for (CLRegion *region in self.manager.monitoredRegions) {
         DDLogVerbose(@"requestStateForRegion %@", region.identifier);
         [self.manager requestStateForRegion:region];
-    }
-    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
-        if ([CMAltimeter isRelativeAltitudeAvailable]) {
-            [self.altimeter startRelativeAltitudeUpdatesToQueue:[NSOperationQueue mainQueue]
-                                                    withHandler:^(CMAltitudeData *altitudeData, NSError *error) {
-                                                        self.altitude = altitudeData;
-                                                    }];
-        }
     }
 }
 
@@ -137,16 +139,16 @@ static LocationManager *theInstance = nil;
         }
     }
     [self.activityTimer invalidate];
-    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
-        if ([CMAltimeter isRelativeAltitudeAvailable]) {
-            [self.altimeter stopRelativeAltitudeUpdates];
-        }
-    }
-
 }
 
 - (void)stop {
     DDLogVerbose(@"stop");
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
+        if ([CMAltimeter isRelativeAltitudeAvailable]) {
+            DDLogVerbose(@"stopRelativeAltitudeUpdates");
+            [self.altimeter stopRelativeAltitudeUpdates];
+        }
+    }
 }
 
 - (void)startRegion:(CLRegion *)region {
