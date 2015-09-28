@@ -289,6 +289,7 @@ static OwnTracking *theInstance = nil;
     Region *region = [NSEntityDescription insertNewObjectForEntityForName:@"Region"
                                                    inManagedObjectContext:context];
     region.belongsTo = friend;
+    region.tst = [NSDate date];
     region.name = name;
     region.uuid = uuid;
     region.major = [NSNumber numberWithUnsignedInt:major];
@@ -358,11 +359,12 @@ static OwnTracking *theInstance = nil;
     NSDictionary *json = @{@"_type": @"waypoint",
                            @"lat": region.lat,
                            @"lon": region.lon,
-                           @"tst": [NSNumber numberWithLong:(long)([[NSDate date] timeIntervalSince1970])],
                            @"rad": region.radius,
+                           @"tst": @(floor([[region getAndFillTst] timeIntervalSince1970])),
                            @"desc": [NSString stringWithFormat:@"%@%@%@%@",
                                      region.name,
-                                     region.uuid ? [NSString stringWithFormat: @":%@", region.uuid] : @"",
+                                     (region.uuid && region.uuid.length > 0) ?
+                                      [NSString stringWithFormat: @":%@", region.uuid] : @"",
                                      [region.major unsignedIntValue] ? [NSString stringWithFormat: @":%@", region.major] : @"",
                                      [region.minor unsignedIntValue]? [NSString stringWithFormat: @":%@", region.minor] : @""]
                            };

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Waypoint.h"
+#import "Waypoint+CoreDataProperties.h"
 
 @interface Waypoint (Create)
 - (void) getReverseGeoCode;

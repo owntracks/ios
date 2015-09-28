@@ -6,7 +6,7 @@
 //  Copyright (c) 2013-2015 Christoph Krey. All rights reserved.
 //
 
-#import "Friend.h"
+#import "Friend+CoreDataProperties.h"
 #import <MapKit/MapKit.h>
 #import <AddressBook/AddressBook.h>
 

@@ -8,7 +8,6 @@
 
 #import "OwnTracksAppDelegate.h"
 #import "CoreData.h"
-#import "Friend+Create.h"
 #import "Setting+Create.h"
 #import "AlertView.h"
 #import "Settings.h"
@@ -426,6 +425,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 anyRegion.name = anyRegion.name;
                 if ([anyRegion.share boolValue]) {
                     [jsonObject setValue:region.identifier forKey:@"desc"];
+                    [jsonObject setValue:@(floor([[anyRegion getAndFillTst] timeIntervalSince1970])) forKey:@"wtst"];
                     [self.connection sendData:[self jsonToData:jsonObject]
                                         topic:[[Settings theGeneralTopic] stringByAppendingString:@"/event"]
                                           qos:[Settings intForKey:@"qos_preference"]

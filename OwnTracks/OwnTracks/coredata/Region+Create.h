@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 #import <CoreLocation/CoreLocation.h>
-#import "Region.h"
+#import "Region+CoreDataProperties.h"
 
 @interface Region (Create) <MKAnnotation, MKOverlay>
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 - (CLRegion *)CLregion;
 - (MKCircle *)circle;
+- (NSDate *)getAndFillTst;
 @end

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 OwnTracks. All rights reserved.
 //
 
-#import "Message.h"
+#import "Message+CoreDataProperties.h"
 #import <Foundation/Foundation.h>
 
 @interface Message (Create)

@@ -9,6 +9,14 @@
 #import "Region+Create.h"
 
 @implementation Region (Create)
+
+- (NSDate *)getAndFillTst {
+    if (!self.tst) {
+        self.tst = [NSDate date];
+    }
+    return self.tst;
+}
+
 - (CLLocationCoordinate2D)coordinate
 {
     CLLocationCoordinate2D coord = CLLocationCoordinate2DMake([self.lat doubleValue],

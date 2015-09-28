@@ -2,8 +2,8 @@
 //  Region.h
 //  OwnTracks
 //
-//  Created by Christoph Krey on 18.07.15.
-//  Copyright (c) 2015 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 28.09.15.
+//  Copyright © 2015 OwnTracks. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -11,16 +11,14 @@
 
 @class Friend;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface Region : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * lat;
-@property (nonatomic, retain) NSNumber * lon;
-@property (nonatomic, retain) NSNumber * major;
-@property (nonatomic, retain) NSNumber * minor;
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSNumber * radius;
-@property (nonatomic, retain) NSNumber * share;
-@property (nonatomic, retain) NSString * uuid;
-@property (nonatomic, retain) Friend *belongsTo;
+// Insert code here to declare functionality of your managed object subclass
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#import "Region+CoreDataProperties.h"

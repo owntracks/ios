@@ -1,6 +1,20 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 8.2.18
+>Release date: 2015-09-27 for alpha testers
+
+Missing "wtst"
+
+* [FIX] missing wtst element in JSON of waypoints closes #332
+
+## OwnTracks 8.2.17
+>Release date: 2015-09-27 for alpha testers
+
+Problem in "waypoint" payload
+
+* [FIX] remove trailing ":" in waypoint description in playload closes #329
+
 ## OwnTracks 8.2.16
 >Release date: 2015-09-24 for alpha testers
 

@@ -34,7 +34,7 @@
 @end
 
 @implementation ViewController
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)viewDidLoad
 {

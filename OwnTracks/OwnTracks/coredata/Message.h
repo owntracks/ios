@@ -2,26 +2,21 @@
 //  Message.h
 //  OwnTracks
 //
-//  Created by Christoph Krey on 18.07.15.
-//  Copyright (c) 2015 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 28.09.15.
+//  Copyright © 2015 OwnTracks. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 @interface Message : NSManagedObject
 
-@property (nonatomic, retain) NSString * channel;
-@property (nonatomic, retain) NSString * desc;
-@property (nonatomic, retain) NSString * geohash;
-@property (nonatomic, retain) NSString * icon;
-@property (nonatomic, retain) NSString * iconurl;
-@property (nonatomic, retain) NSNumber * prio;
-@property (nonatomic, retain) NSDate * timestamp;
-@property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSString * topic;
-@property (nonatomic, retain) NSNumber * ttl;
-@property (nonatomic, retain) NSString * url;
+// Insert code here to declare functionality of your managed object subclass
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#import "Message+CoreDataProperties.h"

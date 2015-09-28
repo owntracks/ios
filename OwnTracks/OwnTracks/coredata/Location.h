@@ -2,8 +2,8 @@
 //  Location.h
 //  OwnTracks
 //
-//  Created by Christoph Krey on 18.07.15.
-//  Copyright (c) 2015 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 28.09.15.
+//  Copyright © 2015 OwnTracks. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -11,22 +11,14 @@
 
 @class Friend;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface Location : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * accuracy;
-@property (nonatomic, retain) NSNumber * altitude;
-@property (nonatomic, retain) NSNumber * automatic;
-@property (nonatomic, retain) NSNumber * course;
-@property (nonatomic, retain) NSNumber * justcreated;
-@property (nonatomic, retain) NSNumber * latitude;
-@property (nonatomic, retain) NSNumber * longitude;
-@property (nonatomic, retain) NSString * placemark;
-@property (nonatomic, retain) NSNumber * regionradius;
-@property (nonatomic, retain) NSString * remark;
-@property (nonatomic, retain) NSNumber * share;
-@property (nonatomic, retain) NSNumber * speed;
-@property (nonatomic, retain) NSDate * timestamp;
-@property (nonatomic, retain) NSNumber * verticalaccuracy;
-@property (nonatomic, retain) Friend *belongsTo;
+// Insert code here to declare functionality of your managed object subclass
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#import "Location+CoreDataProperties.h"

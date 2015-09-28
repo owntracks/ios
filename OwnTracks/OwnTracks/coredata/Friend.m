@@ -2,8 +2,8 @@
 //  Friend.m
 //  OwnTracks
 //
-//  Created by Christoph Krey on 18.07.15.
-//  Copyright (c) 2015 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 28.09.15.
+//  Copyright © 2015 OwnTracks. All rights reserved.
 //
 
 #import "Friend.h"
@@ -11,16 +11,8 @@
 #import "Region.h"
 #import "Waypoint.h"
 
-
 @implementation Friend
 
-@dynamic abRecordId;
-@dynamic cardImage;
-@dynamic cardName;
-@dynamic tid;
-@dynamic topic;
-@dynamic hasLocations;
-@dynamic hasRegions;
-@dynamic hasWaypoints;
+// Insert code here to add functionality to your managed object subclass
 
 @end
