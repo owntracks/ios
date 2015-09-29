@@ -1,6 +1,14 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 8.2.19
+>Release date: 2015-09-29 for alpha testers
+
+iOS issues in entry screen
+
+* [FIX] OT crashes when scanning QR-code iOS9 closes #335
+* [FIX] login credentials hidden by keyboard on iPhone4 #334
+
 ## OwnTracks 8.2.18
 >Release date: 2015-09-27 for alpha testers
 

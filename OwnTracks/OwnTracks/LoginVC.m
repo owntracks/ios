@@ -10,17 +10,20 @@
 #import "OwnTracksAppDelegate.h"
 #import "Settings.h"
 #import "AlertView.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface LoginVC ()
 @property (weak, nonatomic) IBOutlet UITextField *UIuser;
 @property (weak, nonatomic) IBOutlet UITextField *UIdevice;
 @property (weak, nonatomic) IBOutlet UITextField *UItoken;
+@property (weak, nonatomic) IBOutlet UIScrollView *UIscrollView;
 
 @property (strong, nonatomic) QRCodeReaderViewController *reader;
 
 @end
 
 @implementation LoginVC
+static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -28,14 +31,42 @@
                                              selector:@selector(appEnteredBackground)
                                                  name:UIApplicationDidEnterBackgroundNotification
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidHide:)
+                                                 name:UIKeyboardDidHideNotification
+                                               object:nil];
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)keyboardDidShow:(NSNotification *)note {
+    NSDictionary *userInfo = [note userInfo];
+    CGSize kbSize = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    DDLogVerbose(@"Keyboard Height: %f Width: %f", kbSize.height, kbSize.width);
+    
+    CGFloat offset = self.UIscrollView.frame.origin.y + self.UItoken.frame.origin.y + self.UItoken.frame.size.height - (self.view.frame.size.height - kbSize.height);
+    if  (offset > 0) {
+        CGPoint scrollPoint = CGPointMake(0, offset);
+        [self.UIscrollView setContentOffset:scrollPoint animated:YES];
+    }
 }
 
+- (void)keyboardDidHide:(NSNotification *)note {
+    [self.UIscrollView setContentOffset:CGPointZero animated:YES];
+}
+
+
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        return UIInterfaceOrientationMaskPortrait;
+    } else {
+        return UIInterfaceOrientationMaskAll;
+    }
+}
 /*
  #pragma mark - Navigation
  
@@ -115,44 +146,26 @@
 
 - (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
 {
-    [self dismissViewControllerAnimated:YES completion:^{
+    DDLogVerbose(@"didScanResult %@", result);
+    
+    [reader dismissViewControllerAnimated:YES completion:^{
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        if ([delegate application:[UIApplication sharedApplication] openURL:[NSURL URLWithString:result] options:@{}]) {
-            [AlertView alert:@"QRScanner" message:@"Successfully processed!"];
-        } else {
-            [AlertView alert:@"QRScanner" message:delegate.processingMessage];
-        }
+        NSURL *url = [NSURL URLWithString:result];
+        DDLogVerbose(@"url %@", url);
+        NSDictionary *options = [[NSDictionary alloc] init];
+
+        [delegate application:[UIApplication sharedApplication] openURL:url options:options];
+        [AlertView alert:@"QRScanner" message:delegate.processingMessage];
         delegate.processingMessage = nil;
+        if ([Settings intForKey:@"mode"] != 2) {
+            [self dismissViewControllerAnimated:TRUE completion:^(void){
+            }];
+        }
     }];
 }
 
-- (void)readerDidCancel:(QRCodeReaderViewController *)reader
-{
+- (void)readerDidCancel:(QRCodeReaderViewController *)reader {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
-- (void) animateTextField: (UITextField*) textField up: (BOOL) up
-{
-    const int movementDistance = self.UItoken.frame.origin.y + self.UItoken.frame.size.height - self.view.frame.size.height / 2;
-    const float movementDuration = 0.3f;
-    
-    int movement = (up ? -movementDistance : movementDistance);
-    
-    [UIView beginAnimations: @"anim" context: nil];
-    [UIView setAnimationBeginsFromCurrentState: YES];
-    [UIView setAnimationDuration: movementDuration];
-    self.view.frame = CGRectOffset(self.view.frame, 0, movement);
-    [UIView commitAnimations];
-}
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    [self animateTextField: textField up: YES];
-}
-
-
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    [self animateTextField: textField up: NO];
-}
 @end

@@ -160,6 +160,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     //
 }
 
+-(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
+    return [self application:app openURL:url sourceApplication:nil annotation:options];
+}
+
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
