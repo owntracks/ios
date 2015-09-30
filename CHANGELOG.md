@@ -1,6 +1,14 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 8.2.20
+>Release date: 2015-09-30 for alpha testers
+
+A few fixes for Move Mode 
+
+* [FIX] Missing lat,lon whilst in Move Mode closes #338
+* [FIX] activity timer is not re-activated at wakeup in Move mode closes #336
+
 ## OwnTracks 8.2.19
 >Release date: 2015-09-29 for alpha testers
 

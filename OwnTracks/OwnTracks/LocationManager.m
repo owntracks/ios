@@ -47,7 +47,7 @@
 @end
 
 @implementation LocationManager
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 static LocationManager *theInstance = nil;
 
 + (LocationManager *)sharedInstance {
@@ -114,6 +114,11 @@ static LocationManager *theInstance = nil;
 - (void)wakeup {
     DDLogVerbose(@"wakeup");
     [self authorize];
+    if (self.monitoring == LocationMonitoringMove) {
+        [self.activityTimer invalidate];
+        self.activityTimer = [NSTimer timerWithTimeInterval:self.minTime target:self selector:@selector(activityTimer:) userInfo:Nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:self.activityTimer forMode:NSRunLoopCommonModes];
+    }
     for (CLRegion *region in self.manager.monitoredRegions) {
         DDLogVerbose(@"requestStateForRegion %@", region.identifier);
         [self.manager requestStateForRegion:region];
@@ -262,7 +267,11 @@ static LocationManager *theInstance = nil;
 
 - (void)activityTimer:(NSTimer *)timer {
     DDLogVerbose(@"activityTimer");
-    [self.delegate timerLocation:self.manager.location];
+    if (self.manager.location) {
+        [self.delegate timerLocation:self.manager.location];
+    } else {
+        DDLogWarn(@"activityTimer found no location");
+    }
 }
 
 

@@ -837,6 +837,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSArray *certificates = nil;
     NSString *fileName = [Settings stringForKey:@"clientpkcs"];
     if (fileName && fileName.length) {
+        DDLogVerbose(@"getting p12 filename:%@ passphrase:%@", fileName, [Settings stringForKey:@"passphrase"]);
         NSString *clientPKCSPath = [directoryURL.path stringByAppendingPathComponent:fileName];
         certificates = [MQTTSession clientCertsFromP12:clientPKCSPath
                                                  passphrase:[Settings stringForKey:@"passphrase"]];
