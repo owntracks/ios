@@ -779,20 +779,34 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         [Settings validIds]) {
         Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic]
                           inManagedObjectContext:[CoreData theManagedObjectContext]];
-        friend.tid = [Settings stringForKey:@"trackerid_preference"];
-        
-        Waypoint *waypoint = [[OwnTracking sharedInstance] addWaypointFor:friend
-                                            location:location
-                                             trigger:trigger
-                                             context:[CoreData theManagedObjectContext]];
-        [CoreData saveContext];
-        
-        NSDictionary *json = [[OwnTracking sharedInstance] waypointAsJSON:waypoint];
-        NSData *data = [self jsonToData:json];
-        [self.connection sendData:data
-                            topic:[Settings theGeneralTopic]
-                              qos:[Settings intForKey:@"qos_preference"]
-                           retain:[Settings boolForKey:@"retain_preference"]];
+        if (friend) {
+            friend.tid = [Settings stringForKey:@"trackerid_preference"];
+            
+            Waypoint *waypoint = [[OwnTracking sharedInstance] addWaypointFor:friend
+                                                                     location:location
+                                                                      trigger:trigger
+                                                                      context:[CoreData theManagedObjectContext]];
+            if (waypoint) {
+                [CoreData saveContext];
+                
+                NSDictionary *json = [[OwnTracking sharedInstance] waypointAsJSON:waypoint];
+                if (json) {
+                    NSData *data = [self jsonToData:json];
+                    [self.connection sendData:data
+                                        topic:[Settings theGeneralTopic]
+                                          qos:[Settings intForKey:@"qos_preference"]
+                                       retain:[Settings boolForKey:@"retain_preference"]];
+                } else {
+                    DDLogError(@"no JSON created from waypoint %@", waypoint);
+                }
+            } else {
+                DDLogError(@"waypoint creation failed from friend %@, location %@", friend, location);
+            }
+        } else {
+            DDLogError(@"no friend found");
+        }
+    } else {
+        DDLogError(@"invalid location");
     }
 }
 
@@ -909,15 +923,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         NSError *error;
         data = [NSJSONSerialization dataWithJSONObject:jsonObject options:0 /* not pretty printed */ error:&error];
         if (!data) {
-            NSString *message = [NSString stringWithFormat:@"%@ %@ %@",
+            DDLogError(@"dataWithJSONObject failed: %@ %@ %@",
                                  error.localizedDescription,
                                  error.userInfo,
-                                 [jsonObject description]];
-            [AlertView alert:@"dataWithJSONObject" message:message];
+                                 [jsonObject description]);
         }
     } else {
-        NSString *message = [NSString stringWithFormat:@"%@", [jsonObject description]];
-        [AlertView alert:@"isValidJSONObject" message:message];
+        DDLogError(@"isValidJSONObject failed %@", [jsonObject description]);
     }
     return data;
 }
