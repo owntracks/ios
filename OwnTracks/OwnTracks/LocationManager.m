@@ -218,12 +218,15 @@ static LocationManager *theInstance = nil;
 - (void)setMonitoring:(LocationMonitoring)monitoring {
     DDLogVerbose(@"monitoring=%ld", (long)monitoring);
     _monitoring = monitoring;
+    self.manager.pausesLocationUpdatesAutomatically = NO;
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"9.0"] != NSOrderedAscending) {
+        self.manager.allowsBackgroundLocationUpdates = TRUE;
+    }
 
     switch (monitoring) {
         case LocationMonitoringMove:
             self.manager.distanceFilter = self.minDist;
             self.manager.desiredAccuracy = kCLLocationAccuracyBest;
-            self.manager.pausesLocationUpdatesAutomatically = YES;
             [self.manager stopMonitoringSignificantLocationChanges];
             [self.activityTimer invalidate];
             

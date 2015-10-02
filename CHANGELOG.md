@@ -1,7 +1,16 @@
 OnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 8.2.20
+## OwnTracks 8.2.22
+>Release date: 2015-10-01 for alpha testers
+
+A few fixes for Move Mode and iOS9
+
+* [FIX] Null locations send in Move mode sporadically closes #339
+* [FIX] Missing waypoint reports closes #331
+* [FIX] crash - OwnTracksAppDelegate.m line 233 closes #330
+
+## OwnTracks 8.2.20/21
 >Release date: 2015-09-30 for alpha testers
 
 A few fixes for Move Mode 
