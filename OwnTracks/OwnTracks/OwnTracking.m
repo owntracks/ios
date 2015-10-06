@@ -272,7 +272,6 @@ static OwnTracking *theInstance = nil;
     waypoint.cog = [NSNumber numberWithDouble:location.course];
     waypoint.placemark = nil;
     
-    [self limitWaypointsFor:friend toMaximum:[Settings intForKey:@"positions_preference"] inManagedObjectContext:context];
     return waypoint;
 }
 

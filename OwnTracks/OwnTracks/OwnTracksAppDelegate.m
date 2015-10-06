@@ -799,6 +799,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 } else {
                     DDLogError(@"no JSON created from waypoint %@", waypoint);
                 }
+                [[OwnTracking sharedInstance] limitWaypointsFor:friend
+                                                      toMaximum:[Settings intForKey:@"positions_preference"]
+                                         inManagedObjectContext:[CoreData theManagedObjectContext]];
             } else {
                 DDLogError(@"waypoint creation failed from friend %@, location %@", friend, location);
             }
