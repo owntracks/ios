@@ -1,18 +1,18 @@
 PODS:
   - ABStaticTableViewController (1.1.0)
-  - CocoaLumberjack (2.0.1):
-    - CocoaLumberjack/Default (= 2.0.1)
-    - CocoaLumberjack/Extensions (= 2.0.1)
-  - CocoaLumberjack/Core (2.0.1)
-  - CocoaLumberjack/Default (2.0.1):
+  - CocoaLumberjack (2.0.3):
+    - CocoaLumberjack/Default (= 2.0.3)
+    - CocoaLumberjack/Extensions (= 2.0.3)
+  - CocoaLumberjack/Core (2.0.3)
+  - CocoaLumberjack/Default (2.0.3):
     - CocoaLumberjack/Core
-  - CocoaLumberjack/Extensions (2.0.1):
+  - CocoaLumberjack/Extensions (2.0.3):
     - CocoaLumberjack/Default
-  - Crashlytics (3.3.3)
-  - Fabric (1.5.4):
-    - Fabric/Base (= 1.5.4)
-  - Fabric/Base (1.5.4)
-  - MQTTClient (0.2.6)
+  - Crashlytics (3.3.4)
+  - Fabric (1.5.5):
+    - Fabric/Base (= 1.5.5)
+  - Fabric/Base (1.5.5)
+  - MQTTClient (0.3.3)
   - objc-geohash (0.0.1)
   - QRCodeReaderViewController (3.5.2)
 
@@ -27,11 +27,11 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   ABStaticTableViewController: ef94678753f8873d364ca6cc74ea0237b41fb848
-  CocoaLumberjack: 019d1361244274a6138c788c6cb80baabc13fb8f
-  Crashlytics: 9120a5c1515655e57a65e565e2eae8dd326be2e9
-  Fabric: 93e3053474839d8df33a61a29c328a48c83792c8
-  MQTTClient: f3af97fd4e26e0644364cb24e809b9646afce202
+  CocoaLumberjack: f58d8a19629f4d8379ae14bb3534def24161430e
+  Crashlytics: 41c082440d2e14da444186fff65e79c0b4b35d4c
+  Fabric: 190bf1a6eb65f7500de1347d027d2e59a7e53db1
+  MQTTClient: 8b40f3bd20c8ea35f66d82bce5039487873b9a5c
   objc-geohash: 5a92a1deb6c4729ecefdf847159991a1068fb4cc
   QRCodeReaderViewController: f20275985c41ae551099641493ab364691d9113e
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0

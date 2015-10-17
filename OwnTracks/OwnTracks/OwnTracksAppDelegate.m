@@ -35,23 +35,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    //NSLog(@"willFinishLaunchingWithOptions");
-    NSEnumerator *enumerator = [launchOptions keyEnumerator];
-    NSString *key;
-    while ((key = [enumerator nextObject])) {
-        //NSLog(@"%@:%@", key, [[launchOptions objectForKey:key] description]);
-    }
-    
     self.backgroundTask = UIBackgroundTaskInvalid;
     self.completionHandler = nil;
     
     if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
-        //NSLog(@"setMinimumBackgroundFetchInterval %f", UIApplicationBackgroundFetchIntervalMinimum);
         [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
     }
     
     if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes: UIUserNotificationTypeAlert | UIUserNotificationTypeBadge categories:nil];
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:
+                                                UIUserNotificationTypeAlert |UIUserNotificationTypeBadge
+                                                                                 categories:nil];
         [application registerUserNotificationSettings:settings];
     }
     
@@ -60,6 +54,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [Fabric with:@[CrashlyticsKit]];
+    [CrashlyticsKit setUserIdentifier:[[UIDevice currentDevice] identifierForVendor].UUIDString];
     
 #ifdef DEBUG
     [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelAll];
@@ -76,7 +71,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     while ((key = [enumerator nextObject])) {
         DDLogVerbose(@"%@:%@", key, [[launchOptions objectForKey:key] description]);
     }
-    
     
     self.coreData = [[CoreData alloc] init];
     
@@ -523,15 +517,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return _queueManagedObjectContext;
 }
 
-- (void)handleMessage:(Connection *)connection data:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
+- (BOOL)handleMessage:(Connection *)connection data:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
     DDLogVerbose(@"handleMessage");
     
     if ([[Messaging sharedInstance] processMessage:topic data:data retained:retained context:self.queueManagedObjectContext]) {
-        return;
+        return TRUE;
     }
     
-    if ([[OwnTracking sharedInstance] processMessage:topic data:data retained:retained context:self.queueManagedObjectContext]) {
-        // return;
+    if (![[OwnTracking sharedInstance] processMessage:topic data:data retained:retained context:self.queueManagedObjectContext]) {
+        return false;
     }
     
     NSArray *topicComponents = [topic componentsSeparatedByCharactersInSet:
@@ -590,6 +584,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             DDLogVerbose(@"illegal json %@ %@ %@", error.localizedDescription, error.userInfo, data.description);
         }
     }
+    return true;
 }
 
 - (void)messageDelivered:(Connection *)connection msgID:(UInt16)msgID {

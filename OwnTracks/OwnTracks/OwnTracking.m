@@ -17,6 +17,8 @@
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
+#define MAXQUEUE 999
+
 @implementation OwnTracking
 static const DDLogLevel ddLogLevel = DDLogLevelError;
 static OwnTracking *theInstance = nil;
@@ -54,11 +56,12 @@ static OwnTracking *theInstance = nil;
                   data:(NSData *)data
               retained:(BOOL)retained
                context:(NSManagedObjectContext *)context {
-    
-    @synchronized (self.inQueue) {
-        self.inQueue = @([self.inQueue unsignedLongValue] + 1);
-    }
-    [context performBlock:^{
+
+    if ([self.inQueue unsignedLongValue] < MAXQUEUE) {
+        @synchronized (self.inQueue) {
+            self.inQueue = @([self.inQueue unsignedLongValue] + 1);
+        }
+        [context performBlock:^{
             NSError *error;
             NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
             if (dictionary) {
@@ -108,7 +111,7 @@ static OwnTracking *theInstance = nil;
                                                                        horizontalAccuracy:[dictionary[@"acc"] doubleValue]
                                                                          verticalAccuracy:[dictionary[@"vac"] intValue]
                                                                                    course:[dictionary[@"cog"] intValue]
-                                                                                    speed:[dictionary[@"vel"] intValue]
+                                                                                    speed:[dictionary[@"vel"] intValue] * 1000 / 3600
                                                                                 timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]];
                             Friend *friend = [Friend friendWithTopic:device inManagedObjectContext:context];
                             friend.tid = dictionary[@"tid"];
@@ -123,7 +126,7 @@ static OwnTracking *theInstance = nil;
                                                      dictionary[@"tid"],
                                                      dictionary[@"event"],
                                                      dictionary[@"desc"]];
-
+                                
                                 UILocalNotification *notification = [[UILocalNotification alloc] init];
                                 notification.alertBody = message;
                                 notification.userInfo = @{@"notify": @"friend"};
@@ -160,17 +163,20 @@ static OwnTracking *theInstance = nil;
             } else {
                 DDLogError(@"illegal json %@, %@ %@)", error.localizedDescription, error.userInfo, data.description);
             }
+            
+            @synchronized (self.inQueue) {
+                self.inQueue = @([self.inQueue unsignedLongValue] - 1);
+            }
+            if ([self.inQueue intValue] == 0) {
+                [context save:nil];
+                [self performSelectorOnMainThread:@selector(share) withObject:nil waitUntilDone:NO];
+            }
+        }];
         
-        @synchronized (self.inQueue) {
-            self.inQueue = @([self.inQueue unsignedLongValue] - 1);
-        }
-        if ([self.inQueue intValue] == 0) {
-            [context save:nil];
-            [self performSelectorOnMainThread:@selector(share) withObject:nil waitUntilDone:NO];
-        }
-    }];
-    
-    return TRUE;
+        return TRUE;
+    } else {
+        return FALSE;
+    }
 }
 
 - (void)processFace:(Friend *)friend dictionary:(NSDictionary *)dictionary {
@@ -268,7 +274,7 @@ static OwnTracking *theInstance = nil;
     waypoint.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
     waypoint.vac = [NSNumber numberWithDouble:location.verticalAccuracy];
     waypoint.tst = location.timestamp;
-    waypoint.vel = [NSNumber numberWithDouble:location.speed];
+    waypoint.vel = [NSNumber numberWithDouble:location.speed * 3600 / 1000];
     waypoint.cog = [NSNumber numberWithDouble:location.course];
     waypoint.placemark = nil;
     
@@ -363,7 +369,7 @@ static OwnTracking *theInstance = nil;
                            @"desc": [NSString stringWithFormat:@"%@%@%@%@",
                                      region.name,
                                      (region.uuid && region.uuid.length > 0) ?
-                                      [NSString stringWithFormat: @":%@", region.uuid] : @"",
+                                     [NSString stringWithFormat: @":%@", region.uuid] : @"",
                                      [region.major unsignedIntValue] ? [NSString stringWithFormat: @":%@", region.major] : @"",
                                      [region.minor unsignedIntValue]? [NSString stringWithFormat: @":%@", region.minor] : @""]
                            };

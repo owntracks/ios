@@ -383,12 +383,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.delegate messageDelivered:self msgID:msgID];
 }
 
-- (void)newMessage:(MQTTSession *)session data:(NSData *)data onTopic:(NSString *)topic qos:(MQTTQosLevel)qos retained:(BOOL)retained mid:(unsigned int)mid {
+- (BOOL)newMessageWithFeedback:(MQTTSession *)session data:(NSData *)data onTopic:(NSString *)topic qos:(MQTTQosLevel)qos retained:(BOOL)retained mid:(unsigned int)mid {
     DDLogVerbose(@"%@ received %@ %@",
                  self.clientId,
                  topic,
                  [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-    [self.delegate handleMessage:self data:data onTopic:topic retained:retained];
+    return [self.delegate handleMessage:self data:data onTopic:topic retained:retained];
 }
 
 - (void)buffered:(MQTTSession *)session flowingIn:(NSUInteger)flowingIn flowingOut:(NSUInteger)flowingOut {

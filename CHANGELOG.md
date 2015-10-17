@@ -1,6 +1,14 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 8.3.1
+>Release date: 2015-10-17 for alpha testers and app store
+
+Oops
+
+* [FIX] velocity in km/h instead of m/s closes #345
+* [NEW] updated frameworks
+
 ## OwnTracks 8.3.0
 >Release date: 2015-10-06 for alpha testers and app store
 

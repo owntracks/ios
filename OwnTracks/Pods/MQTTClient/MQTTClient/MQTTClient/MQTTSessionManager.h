@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#ifndef TARGET_OS_MAC
 #import <UIKit/UIKit.h>
-
+#endif
 #import "MQTTSession.h"
+#import "MQTTSSLSecurityPolicy.h"
 
 /** delegate gives your application access to received messages
  */
@@ -33,6 +35,14 @@ typedef NS_ENUM(int, MQTTSessionManagerState) {
  @param retained indicates if the data retransmitted from server storage
  */
 - (void)handleMessage:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained;
+
+@optional
+
+/** gets called when a published message was actually delivered
+ @param msgID the Message Identifier of the delivered message
+ @note this method is called after a publish with qos 1 or 2 only
+ */
+- (void)messageDelivered:(UInt16)msgID;
 @end
 
 /** SessionManager handles the MQTT session for your application
@@ -47,8 +57,10 @@ typedef NS_ENUM(int, MQTTSessionManagerState) {
  *  The keys are topic filters.
  *  The SessionManager subscribes to the given subscriptions after successfull (re-)connect
  *  according to the cleansession parameter and the state of the session as indicated by the broker.
+ *  Setting a new subscriptions dictionary initiates SUBSCRIBE or UNSUBSCRIBE messages by SessionManager
+ *  by comparing the old and new subscriptions.
  */
-@property (strong, nonatomic) NSMutableDictionary *subscriptions;
+@property (strong, nonatomic) NSDictionary *subscriptions;
 
 /** SessionManager status
  */

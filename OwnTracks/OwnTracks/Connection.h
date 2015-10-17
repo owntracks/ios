@@ -23,7 +23,7 @@ enum state {
 };
 
 - (void)showState:(Connection *)connection state:(NSInteger)state;
-- (void)handleMessage:(Connection *)connection data:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained;
+- (BOOL)handleMessage:(Connection *)connection data:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained;
 - (void)messageDelivered:(Connection *)connection msgID:(UInt16)msgID;
 - (void)totalBuffered:(Connection *)connection count:(NSUInteger)count;
 

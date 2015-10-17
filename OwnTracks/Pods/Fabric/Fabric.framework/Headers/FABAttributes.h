@@ -2,7 +2,6 @@
 //  FABAttributes.h
 //  Fabric
 //
-//  Created by Priyanka Joshi on 3/3/15.
 //  Copyright (c) 2015 Twitter. All rights reserved.
 //
 
