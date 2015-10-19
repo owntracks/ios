@@ -106,12 +106,16 @@ static OwnTracking *theInstance = nil;
                                                                                            [dictionary[@"lon"] doubleValue]
                                                                                            );
                             
+                            int speed = [dictionary[@"vel"] intValue];
+                            if (speed != -1) {
+                                speed = speed * 1000 / 3600;
+                            }
                             CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate
                                                                                  altitude:[dictionary[@"alt"] intValue]
                                                                        horizontalAccuracy:[dictionary[@"acc"] doubleValue]
                                                                          verticalAccuracy:[dictionary[@"vac"] intValue]
                                                                                    course:[dictionary[@"cog"] intValue]
-                                                                                    speed:[dictionary[@"vel"] intValue] * 1000 / 3600
+                                                                                    speed:speed
                                                                                 timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]];
                             Friend *friend = [Friend friendWithTopic:device inManagedObjectContext:context];
                             friend.tid = dictionary[@"tid"];
@@ -274,7 +278,11 @@ static OwnTracking *theInstance = nil;
     waypoint.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
     waypoint.vac = [NSNumber numberWithDouble:location.verticalAccuracy];
     waypoint.tst = location.timestamp;
-    waypoint.vel = [NSNumber numberWithDouble:location.speed * 3600 / 1000];
+    double speed = location.speed;
+    if (speed != -1) {
+        speed = speed * 3600 / 1000;
+    }
+    waypoint.vel = [NSNumber numberWithDouble:speed];
     waypoint.cog = [NSNumber numberWithDouble:location.course];
     waypoint.placemark = nil;
     
@@ -324,8 +332,9 @@ static OwnTracking *theInstance = nil;
     [json setValue:waypoint.lon forKey:@"lon"];
     [json setValue:@((int)[waypoint.tst timeIntervalSince1970]) forKey:@"tst"];
     
-    if ([waypoint.acc doubleValue] > 0) {
-        [json setValue:waypoint.acc forKey:@"acc"];
+    int acc = [waypoint.acc intValue];
+    if (acc >= 0) {
+        [json setValue:@(acc) forKey:@"acc"];
     }
     
     if ([Settings boolForKey:@"extendeddata_preference"]) {
@@ -333,13 +342,19 @@ static OwnTracking *theInstance = nil;
         [json setValue:@(alt) forKey:@"alt"];
         
         int vac = [waypoint.vac intValue];
-        [json setValue:@(vac) forKey:@"vac"];
+        if (vac >= 0) {
+            [json setValue:@(vac) forKey:@"vac"];
+        }
         
         int vel = [waypoint.vel intValue];
-        [json setValue:@(vel) forKey:@"vel"];
+        if (vel >= 0) {
+            [json setValue:@(vel) forKey:@"vel"];
+        }
         
         int cog = [waypoint.cog intValue];
-        [json setValue:@(cog) forKey:@"cog"];
+        if (cog >= 0) {
+            [json setValue:@(cog) forKey:@"cog"];
+        }
         
         CMAltitudeData *altitude = [LocationManager sharedInstance].altitude;
         if (altitude) {

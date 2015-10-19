@@ -1,6 +1,14 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 8.3.2
+>Release date: 2015-10-19 for alpha testers and app store
+
+Oops
+
+* [FIX] velocity -1 is suppressed closes #347
+* [NEW] republish waypoints closes #346
+
 ## OwnTracks 8.3.1
 >Release date: 2015-10-17 for alpha testers and app store
 

@@ -31,6 +31,8 @@
 @property (strong, nonatomic) NSDate *configLoad;
 
 - (void)sendNow;
+- (void)dump;
+- (void)waypoints;
 - (void)requestLocationFromFriend:(Friend *)friend;
 - (void)sendRegion:(Region *)region;
 - (void)sendEmpty:(NSString *)topic;

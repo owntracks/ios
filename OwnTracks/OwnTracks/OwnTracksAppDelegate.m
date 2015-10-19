@@ -561,7 +561,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 DDLogVerbose(@"msg received cmd:%@", dictionary[@"action"]);
                 if ([Settings boolForKey:@"cmd_preference"]) {
                     if ([dictionary[@"action"] isEqualToString:@"dump"]) {
-                        [self dumpTo:topic];
+                        [self dump];
                     } else if ([dictionary[@"action"] isEqualToString:@"reportLocation"]) {
                         if ([LocationManager sharedInstance].monitoring == LocationMonitoringSignificant ||
                             [LocationManager sharedInstance].monitoring == LocationMonitoringMove ||
@@ -570,6 +570,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                         }
                     } else if ([dictionary[@"action"] isEqualToString:@"reportSteps"]) {
                         [self stepsFrom:dictionary[@"from"] to:dictionary[@"to"]];
+                    } else if ([dictionary[@"action"] isEqualToString:@"waypoints"]) {
+                        [self waypoints];
                     } else if ([dictionary[@"action"] isEqualToString:@"setWaypoints"]) {
                         NSDictionary *payload = dictionary[@"payload"];
                         [Settings waypointsFromDictionary:payload];
@@ -596,7 +598,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [UIApplication sharedApplication].applicationIconBadgeNumber = count;
 }
 
-- (void)dumpTo:(NSString *)topic {
+- (void)dump {
     NSDictionary *dumpDict = @{
                                @"_type":@"dump",
                                @"configuration":[Settings toDictionary],
@@ -604,6 +606,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     [self.connection sendData:[self jsonToData:dumpDict]
                         topic:[[Settings theGeneralTopic] stringByAppendingString:@"/dump"]
+                          qos:[Settings intForKey:@"qos_preference"]
+                       retain:NO];
+}
+
+- (void)waypoints {
+    [self.connection sendData:[Settings waypointsToData]
+                        topic:[[Settings theGeneralTopic] stringByAppendingString:@"/waypoints"]
                           qos:[Settings intForKey:@"qos_preference"]
                        retain:NO];
 }

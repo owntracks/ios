@@ -47,6 +47,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *UIAuth;
 @property (weak, nonatomic) IBOutlet UITextField *UItrackerid;
 @property (weak, nonatomic) IBOutlet UIButton *UIexport;
+@property (weak, nonatomic) IBOutlet UIButton *UIpublish;
 @property (weak, nonatomic) IBOutlet UITextField *UIuser;
 @property (weak, nonatomic) IBOutlet UITextField *UIdevice;
 @property (weak, nonatomic) IBOutlet UITextField *UItoken;
@@ -323,23 +324,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     if (self.UIDeviceID) {
         [hiddenFieldsMode12 addObject:self.UIDeviceID];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:3 inSection:0]];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:4 inSection:0]];
     }
     if (self.UIHost) {
         [hiddenFieldsMode12 addObject:self.UIHost];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:4 inSection:0]];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:5 inSection:0]];
     }
     if (self.UIPort) {
         [hiddenFieldsMode12 addObject:self.UIPort];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:5 inSection:0]];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:6 inSection:0]];
     }
     if (self.UITLS) {
         [hiddenFieldsMode12 addObject:self.UITLS];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:6 inSection:0]];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:7 inSection:0]];
     }
     if (self.UIAuth) {
         [hiddenFieldsMode12 addObject:self.UIAuth];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:7 inSection:0]];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:8 inSection:0]];
 
     }
     if (self.UIUserID) {
@@ -348,7 +349,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             self.UIUserID.textColor = self.UIAuth.on ? [UIColor blackColor] : [UIColor lightGrayColor];
         }
         [hiddenFieldsMode12 addObject:self.UIUserID];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:8 inSection:0]];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:9 inSection:0]];
     }
     if (self.UIPassword) {
         if (self.UIAuth) {
@@ -356,23 +357,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             self.UIPassword.textColor = self.UIAuth.on ? [UIColor blackColor] : [UIColor lightGrayColor];
         }
         [hiddenFieldsMode12 addObject:self.UIPassword];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:9 inSection:0]];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:10 inSection:0]];
     }
     
     NSMutableArray *hiddenFieldsMode02 = [[NSMutableArray alloc] init];
     NSMutableArray *hiddenIndexPathsMode02 = [[NSMutableArray alloc] init];
     if (self.UIuser) {
         [hiddenFieldsMode02 addObject:self.UIuser];
-        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:10 inSection:0]];
         [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:11 inSection:0]];
+        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:12 inSection:0]];
     }
     if (self.UIdevice) {
         [hiddenFieldsMode02 addObject:self.UIdevice];
-        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:12 inSection:0]];
+        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:13 inSection:0]];
     }
     if (self.UItoken) {
         [hiddenFieldsMode02 addObject:self.UItoken];
-        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:13 inSection:0]];
+        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:14 inSection:0]];
     }
     
     // hide mode row if locked
@@ -410,6 +411,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     
     if (self.UIexport) self.UIexport.hidden = (mode == 2);
+    if (self.UIpublish) self.UIpublish.hidden = (mode == 2);
     
     if (self.UITLS) {
         if (self.UITLSCell) {
@@ -431,6 +433,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         TabBarController *tbc = (TabBarController *)self.tabBarController;
         [tbc adjust];
     }
+}
+
+- (IBAction)publishSettingsPressed:(UIButton *)sender {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate dump];
+}
+
+- (IBAction)publishWaypointsPressed:(UIButton *)sender {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate waypoints];
 }
 
 - (IBAction)exportPressed:(UIButton *)sender {
