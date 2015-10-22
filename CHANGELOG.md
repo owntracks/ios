@@ -1,6 +1,16 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 8.4.5
+>Release date: 2015-10-22 for alpha testers
+
+in-app purchase cleaning
+
+* [FIX] in-app login only requested in hosted mode
+* [NEW] Subscription status in (i) info
+* [HINT] https://developer.apple.com/library/ios/documentation/LanguagesUtilities/Conceptual/iTunesConnectInAppPurchase_Guide/Chapters/TestingInAppPurchases.html
+	`s/Connect your device to your Mac/Install from Testflight/`
+
 ## OwnTracks 8.4.4
 >Release date: 2015-10-22 for alpha testers
 

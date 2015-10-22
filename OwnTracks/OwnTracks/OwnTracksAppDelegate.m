@@ -65,9 +65,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [DDLog addLogger:[DDASLLogger sharedInstance] withLevel:DDLogLevelError];
     
     DDLogVerbose(@"didFinishLaunchingWithOptions");
-    
-    if ([[Subscriptions sharedInstance].recording boolValue]){
-        //
+    if ([[Subscriptions sharedInstance].recording boolValue]) {
+        // Start Subscriptions in mode 1 only
     }
     
     self.coreData = [[CoreData alloc] init];
@@ -951,7 +950,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (void)addRecording:(NSMutableDictionary *)json {
-    if ([Settings intForKey:@"mode"] == 1 && [[Subscriptions sharedInstance].recording boolValue]) {
+    if ([[Subscriptions sharedInstance].recording boolValue]) {
         [json setValue:[NSNumber numberWithBool:TRUE] forKey:@"r"];
     }
 }

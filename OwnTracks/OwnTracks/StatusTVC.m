@@ -53,6 +53,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIuser;
 @property (weak, nonatomic) IBOutlet UITextField *UIdevice;
 @property (weak, nonatomic) IBOutlet UITextField *UItoken;
+@property (weak, nonatomic) IBOutlet UITextView *UIsubscriptionStatus;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
 @property (strong, nonatomic) UIAlertView *tidAlertView;
@@ -174,9 +175,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 {
     DDLogVerbose(@"observeValueForKeyPath %@", keyPath);
 
-    [self updatedStatus];
+    [self performSelectorOnMainThread:@selector(updatedStatus) withObject:nil waitUntilDone:NO];
     if ([keyPath isEqualToString:@"configLoad"]) {
-        [self updated];
+        [self performSelectorOnMainThread:@selector(updated) withObject:nil waitUntilDone:NO];
     }
 }
 
@@ -222,6 +223,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         } else {
             self.UISubscription.enabled = true;
         }
+    }
+    
+    if (self.UIsubscriptionStatus) {
+        self.UIsubscriptionStatus.text = [Subscriptions sharedInstance].subscriptionStatus;
     }
     [self.tableView setNeedsDisplay];
 }

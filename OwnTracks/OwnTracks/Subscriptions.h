@@ -13,5 +13,6 @@
 + (Subscriptions *)sharedInstance;
 @property (readonly, strong, nonatomic) NSNumber *recording;
 - (void)payRecording;
+@property (readonly, strong, nonatomic) NSString *subscriptionStatus;
 
 @end
