@@ -1,6 +1,13 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 8.4.4
+>Release date: 2015-10-22 for alpha testers
+
+Crashing on first time use on new device
+
+* [FIX] Initialization problem first use of in-app purchases on device
+
 ## OwnTracks 8.4.3
 >Release date: 2015-10-22 for alpha testers
 

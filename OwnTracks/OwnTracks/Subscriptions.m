@@ -22,7 +22,7 @@
 
 @implementation Subscriptions
 static Subscriptions *theInstance = nil;
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 + (Subscriptions *)sharedInstance {
     if (theInstance == nil) {
@@ -66,44 +66,47 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
         NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];
         
-        NSError *error;
-        NSDictionary *requestContents = @{
-                                          @"receipt-data": [receiptData base64EncodedStringWithOptions:0],
-                                          @"password": @"b48e97e6187e44f0b2910586d54b20af"
-                                          };
-        NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestContents
-                                                              options:0
-                                                                error:&error];
+        if (receiptData) {
+            NSError *error;
+            NSDictionary *requestContents = @{
+                                              @"receipt-data": [receiptData base64EncodedStringWithOptions:0],
+                                              @"password": @"b48e97e6187e44f0b2910586d54b20af"
+                                              };
+            NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestContents
+                                                                  options:0
+                                                                    error:&error];
 #ifdef DEBUG
-        NSURL *storeURL = [NSURL URLWithString:@"https://sandbox.itunes.apple.com/verifyReceipt"];
+            NSURL *storeURL = [NSURL URLWithString:@"https://sandbox.itunes.apple.com/verifyReceipt"];
 #else
-        NSURL *storeURL = [NSURL URLWithString:@"https://buy.itunes.apple.com/verifyReceipt"];
+            NSURL *storeURL = [NSURL URLWithString:@"https://buy.itunes.apple.com/verifyReceipt"];
 #endif
-        NSMutableURLRequest *storeRequest = [NSMutableURLRequest requestWithURL:storeURL];
-        [storeRequest setHTTPMethod:@"POST"];
-        [storeRequest setHTTPBody:requestData];
-        
-        NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-        [NSURLConnection sendAsynchronousRequest:storeRequest queue:queue
-                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                                   if (connectionError) {
-                                       DDLogError(@"connectionError %@", connectionError.localizedDescription);
-                                   } else {
-                                       NSError *error;
-                                       NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-                                       if (!jsonResponse) {
-                                           DDLogError(@"NSJSONSerialization error %@", error.localizedDescription);
+            DDLogError(@"storeURL %@", storeURL);
+
+            NSMutableURLRequest *storeRequest = [NSMutableURLRequest requestWithURL:storeURL];
+            [storeRequest setHTTPMethod:@"POST"];
+            [storeRequest setHTTPBody:requestData];
+            
+            NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+            [NSURLConnection sendAsynchronousRequest:storeRequest queue:queue
+                                   completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                                       if (connectionError) {
+                                           DDLogError(@"connectionError %@", connectionError.localizedDescription);
                                        } else {
-                                           DDLogVerbose(@"jsonResponse %@", jsonResponse);
-                                           int status = [[jsonResponse valueForKey:@"status"] intValue];
-                                           if (status == 0) {
-                                               self.receipt = [jsonResponse valueForKey:@"receipt"];
+                                           NSError *error;
+                                           NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                                           if (!jsonResponse) {
+                                               DDLogError(@"NSJSONSerialization error %@", error.localizedDescription);
+                                           } else {
+                                               DDLogVerbose(@"jsonResponse %@", jsonResponse);
+                                               int status = [[jsonResponse valueForKey:@"status"] intValue];
+                                               if (status == 0) {
+                                                   self.receipt = [jsonResponse valueForKey:@"receipt"];
+                                               }
                                            }
                                        }
-                                   }
-                               }];
+                                   }];
+        }
     }
-    
     return _recording;
 }
 
