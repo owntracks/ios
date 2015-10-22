@@ -1,6 +1,15 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 8.4.3
+>Release date: 2015-10-22 for alpha testers
+
+Missing Enter/Leave events and Hosted recording
+
+* [FIX] OwnTracks stops when crossing borders? closes #114
+* [NEW] Hosted recording (OwnTracks Premium)
+* [OLD] Removed premature fix for False Positives #76
+
 ## OwnTracks 8.3.2
 >Release date: 2015-10-19 for alpha testers and app store
 

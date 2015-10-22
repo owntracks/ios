@@ -58,6 +58,8 @@
 		8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB418E4289E00923B24 /* Setting+Create.m */; };
 		8479EEB718E4529900923B24 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
 		847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847F8B5719295C65003876D4 /* CoreMotion.framework */; };
+		84856A8C1BD6201800621533 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84856A8B1BD6201800621533 /* StoreKit.framework */; };
+		84856A8F1BD6237B00621533 /* Subscriptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84856A8E1BD6237B00621533 /* Subscriptions.m */; settings = {ASSET_TAGS = (); }; };
 		8487B8641B7BBF9000E59D39 /* FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 8487B8631B7BBF9000E59D39 /* FontAwesome.m */; };
 		8487B8681B7CA59100E59D39 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8487B8671B7CA59100E59D39 /* fontawesome-webfont.ttf */; };
 		84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A2B1B3755AF00810C3A /* TabBarController.m */; };
@@ -217,6 +219,9 @@
 		8479EEB318E4289E00923B24 /* Setting+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Setting+Create.h"; path = "../../Setting+Create.h"; sourceTree = "<group>"; };
 		8479EEB418E4289E00923B24 /* Setting+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Setting+Create.m"; path = "../../Setting+Create.m"; sourceTree = "<group>"; };
 		847F8B5719295C65003876D4 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		84856A8B1BD6201800621533 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		84856A8D1BD6237B00621533 /* Subscriptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subscriptions.h; sourceTree = "<group>"; };
+		84856A8E1BD6237B00621533 /* Subscriptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subscriptions.m; sourceTree = "<group>"; };
 		848794B119A6234B00DF56EB /* Model 7.3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.xcdatamodel"; sourceTree = "<group>"; };
 		8487B8621B7BBF9000E59D39 /* FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontAwesome.h; sourceTree = "<group>"; };
 		8487B8631B7BBF9000E59D39 /* FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontAwesome.m; sourceTree = "<group>"; };
@@ -289,6 +294,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84856A8C1BD6201800621533 /* StoreKit.framework in Frameworks */,
 				8422AF681AF825C7008932A2 /* SystemConfiguration.framework in Frameworks */,
 				847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */,
 				8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */,
@@ -358,6 +364,7 @@
 		8411B82A189FDB140019D2D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84856A8B1BD6201800621533 /* StoreKit.framework */,
 				8422AF671AF825C7008932A2 /* SystemConfiguration.framework */,
 				84AF468F1AB9571800E954E3 /* CoreLocation.framework */,
 				847F8B5719295C65003876D4 /* CoreMotion.framework */,
@@ -385,6 +392,8 @@
 				84D7517A1B35C0AB00B06A0C /* Messaging.m */,
 				846FFA431B402A1F001482A6 /* OwnTracking.h */,
 				846FFA441B402A1F001482A6 /* OwnTracking.m */,
+				84856A8D1BD6237B00621533 /* Subscriptions.h */,
+				84856A8E1BD6237B00621533 /* Subscriptions.m */,
 				84B739781A65629200B103F4 /* LocationManager.h */,
 				84B739791A65629200B103F4 /* LocationManager.m */,
 				8411B88C189FE9940019D2D6 /* Connection.h */,
@@ -733,6 +742,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
 							com.apple.Keychain = {
 								enabled = 1;
 							};
@@ -909,6 +921,7 @@
 				846FFA191B401A4E001482A6 /* UIColor+WithName.m in Sources */,
 				840F6D2D1B3C89FD00848652 /* MessageTableViewCell.m in Sources */,
 				84E8A19A1BB94B1D002518AA /* Region.m in Sources */,
+				84856A8F1BD6237B00621533 /* Subscriptions.m in Sources */,
 				846FFA581B419687001482A6 /* RegionTVC.m in Sources */,
 				846FFA451B402A1F001482A6 /* OwnTracking.m in Sources */,
 				8411B912189FEC070019D2D6 /* ViewController.m in Sources */,

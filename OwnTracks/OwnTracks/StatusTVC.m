@@ -15,6 +15,7 @@
 #import "CoreData.h"
 #import "AlertView.h"
 #import "OwnTracking.h"
+#import "Subscriptions.h"
 #import "Messaging.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <Fabric/Fabric.h>
@@ -22,6 +23,7 @@
 
 @interface StatusTVC ()
 @property (weak, nonatomic) IBOutlet UITableViewCell *UITLSCell;
+@property (weak, nonatomic) IBOutlet UIButton *UISubscription;
 @property (weak, nonatomic) IBOutlet UITextView *UILocation;
 @property (weak, nonatomic) IBOutlet UITextView *UIGeoHash;
 @property (weak, nonatomic) IBOutlet UITableViewCell *UIclientPKCSCell;
@@ -60,7 +62,7 @@
 @end
 
 @implementation StatusTVC
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -98,6 +100,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                  forKeyPath:@"lastGeoHash"
                                     options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                                     context:nil];
+    [[Subscriptions sharedInstance] addObserver:self
+                                     forKeyPath:@"recording"
+                                        options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                        context:nil];
     
     [self updated];
 }
@@ -130,6 +136,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [[Messaging sharedInstance] removeObserver:self
                                     forKeyPath:@"lastGeoHash"
                                        context:nil];
+    [[Subscriptions sharedInstance] removeObserver:self
+                                        forKeyPath:@"recording"
+                                           context:nil];
+    
     
     [self updateValues];
     [super viewWillDisappear:animated];
@@ -162,6 +172,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
+    DDLogVerbose(@"observeValueForKeyPath %@", keyPath);
+
     [self updatedStatus];
     if ([keyPath isEqualToString:@"configLoad"]) {
         [self updated];
@@ -203,6 +215,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     } else {
         self.UIGeoHash.text = @"No geo hash available";
     }
+    
+    if (self.UISubscription) {
+        if ([[Subscriptions sharedInstance].recording boolValue]) {
+            self.UISubscription.enabled = false;
+        } else {
+            self.UISubscription.enabled = true;
+        }
+    }
+    [self.tableView setNeedsDisplay];
 }
 
 - (void)updated
@@ -677,6 +698,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)readerDidCancel:(QRCodeReaderViewController *)reader
 {
     [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (IBAction)subscriptionPressed:(UIButton *)sender {
+    [[Subscriptions sharedInstance] payRecording];
 }
 
 @end

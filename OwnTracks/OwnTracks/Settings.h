@@ -19,6 +19,7 @@
 + (NSError *)waypointsFromDictionary:(NSDictionary *)dictionary;
 + (NSData *)toData;
 + (NSData *)waypointsToData;
++ (NSDictionary *)waypointsToDictionary;
 + (NSDictionary *)toDictionary;
 
 + (NSString *)stringForKey:(NSString *)key;

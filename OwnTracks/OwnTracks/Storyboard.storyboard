@@ -498,10 +498,22 @@
                                                         <action selector="hostedPressed:" destination="nAk-La-kdM" eventType="touchUpInside" id="0IQ-t2-vmJ"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fce-Tp-E0g">
+                                                    <rect key="frame" x="159" y="7" width="141" height="30"/>
+                                                    <animations/>
+                                                    <state key="normal" title="OwnTracks Premium">
+                                                        <color key="titleShadowColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="subscriptionPressed:" destination="nAk-La-kdM" eventType="touchUpInside" id="UOw-dP-Qr5"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstItem="cyM-Dq-D5r" firstAttribute="leading" secondItem="eVf-fD-mXH" secondAttribute="leading" constant="20" symbolic="YES" id="AcR-Pb-vFC"/>
+                                                <constraint firstItem="fce-Tp-E0g" firstAttribute="centerY" secondItem="eVf-fD-mXH" secondAttribute="centerY" id="do5-Zr-IcL"/>
+                                                <constraint firstAttribute="trailing" secondItem="fce-Tp-E0g" secondAttribute="trailing" constant="20" symbolic="YES" id="mqh-YH-toO"/>
                                                 <constraint firstAttribute="centerY" secondItem="cyM-Dq-D5r" secondAttribute="centerY" id="wwu-6d-uZB"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -627,6 +639,7 @@
                         <outlet property="UIHost" destination="tQs-PK-sbV" id="HF8-Qb-dKp"/>
                         <outlet property="UIPassword" destination="4OY-Dm-bnz" id="4Ut-LK-mZC"/>
                         <outlet property="UIPort" destination="ZW3-WS-Wb7" id="XQA-lt-bVV"/>
+                        <outlet property="UISubscription" destination="fce-Tp-E0g" id="G9d-hu-eid"/>
                         <outlet property="UITLS" destination="8Fv-Fd-pIm" id="W7a-06-Xa1"/>
                         <outlet property="UITLSCell" destination="kIn-F1-ZWh" id="w3X-OR-aRG"/>
                         <outlet property="UIUserID" destination="Oiq-Kb-qLx" id="YBA-Mv-Ra6"/>

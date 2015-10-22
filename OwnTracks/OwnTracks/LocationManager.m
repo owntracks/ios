@@ -59,7 +59,7 @@ static LocationManager *theInstance = nil;
 
 - (id)init {
     self = [super init];
-
+    
     self.manager = [[CLLocationManager alloc] init];
     self.manager.delegate = self;
     self.insideBeaconRegions = [[NSMutableDictionary alloc] init];
@@ -92,7 +92,7 @@ static LocationManager *theInstance = nil;
     if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
         self.altimeter = [[CMAltimeter alloc] init];
     }
-
+    
     return self;
 }
 
@@ -222,7 +222,7 @@ static LocationManager *theInstance = nil;
     if ([[[UIDevice currentDevice] systemVersion] compare:@"9.0"] != NSOrderedAscending) {
         self.manager.allowsBackgroundLocationUpdates = TRUE;
     }
-
+    
     switch (monitoring) {
         case LocationMonitoringMove:
             self.manager.distanceFilter = self.minDist;
@@ -290,7 +290,7 @@ static LocationManager *theInstance = nil;
         [self showError];
     }
 }
-    
+
 - (void)showError {
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     switch (status) {
@@ -336,7 +336,7 @@ static LocationManager *theInstance = nil;
     if (![CLLocationManager deferredLocationUpdatesAvailable]) {
         // [AlertView alert:where message:@"Deferred location updates not available"];
     }
-
+    
     if (![CLLocationManager headingAvailable]) {
         // [AlertView alert:where message:@"Heading not available"];
     }
@@ -421,29 +421,31 @@ static LocationManager *theInstance = nil;
     }
     [self.delegate regionState:region inside:(state == CLRegionStateInside)];
 }
-     
+
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
     DDLogVerbose(@"didEnterRegion %@", region);
     
-    if ([region isKindOfClass:[CLCircularRegion class]]) {
-        CLCircularRegion *circular = (CLCircularRegion *)region;
-        DDLogVerbose(@"region lat,lon,rad %f,%f,%f",
-                     circular.center.latitude,
-                     circular.center.longitude,
-                     circular.radius);
-        DDLogVerbose(@"loc lat,lon,acc %f,%f,%f @ %@",
-                     manager.location.coordinate.latitude,
-                     manager.location.coordinate.longitude,
-                     manager.location.horizontalAccuracy,
-                     manager.location.timestamp
-                     );
-        if ([self insideCircularRegion:circular.identifier] || ![circular containsCoordinate:manager.location.coordinate]) {
-            DDLogVerbose(@"didEnterRegion incorrect!");
-            return;
-        }
-    }
-
+//    This fix for FALSE POSITIVES does not work right and suppresses too many enter leave events
+//    if ([region isKindOfClass:[CLCircularRegion class]]) {
+//        CLCircularRegion *circular = (CLCircularRegion *)region;
+//        DDLogVerbose(@"region lat,lon,rad %f,%f,%f",
+//                     circular.center.latitude,
+//                     circular.center.longitude,
+//                     circular.radius);
+//        DDLogVerbose(@"loc lat,lon,acc %f,%f,%f @ %@",
+//                     manager.location.coordinate.latitude,
+//                     manager.location.coordinate.longitude,
+//                     manager.location.horizontalAccuracy,
+//                     manager.location.timestamp
+//                     );
+//        if ([self insideCircularRegion:circular.identifier] || ![circular containsCoordinate:manager.location.coordinate]) {
+//            DDLogVerbose(@"didEnterRegion incorrect!");
+//            return;
+//        }
+//    }
+//
+    
     if (![self removeHoldDown:region]) {
         [self.delegate regionEvent:region enter:YES];
     }
@@ -453,26 +455,28 @@ static LocationManager *theInstance = nil;
 {
     DDLogVerbose(@"didExitRegion %@", region);
     
-    if ([region isKindOfClass:[CLCircularRegion class]]) {
-        CLCircularRegion *circular = (CLCircularRegion *)region;
-        DDLogVerbose(@"region lat,lon,rad %f,%f,%f",
-                     circular.center.latitude,
-                     circular.center.longitude,
-                     circular.radius);
-        DDLogVerbose(@"loc lat,lon,acc %f,%f,%f @ %@",
-                     manager.location.coordinate.latitude,
-                     manager.location.coordinate.longitude,
-                     manager.location.horizontalAccuracy,
-                     manager.location.timestamp
-                     );
-        if (![self insideCircularRegion:circular.identifier] || [circular containsCoordinate:manager.location.coordinate]) {
-            DDLogVerbose(@"didExitRegion incorrect!");
-            return;
-        }
-    }
-
+//    This fix for FALSE POSITIVES does not work right and suppresses too many enter leave events
+//    if ([region isKindOfClass:[CLCircularRegion class]]) {
+//        CLCircularRegion *circular = (CLCircularRegion *)region;
+//        DDLogVerbose(@"region lat,lon,rad %f,%f,%f",
+//                     circular.center.latitude,
+//                     circular.center.longitude,
+//                     circular.radius);
+//        DDLogVerbose(@"loc lat,lon,acc %f,%f,%f @ %@",
+//                     manager.location.coordinate.latitude,
+//                     manager.location.coordinate.longitude,
+//                     manager.location.horizontalAccuracy,
+//                     manager.location.timestamp
+//                     );
+//        if (![self insideCircularRegion:circular.identifier] || [circular containsCoordinate:manager.location.coordinate]) {
+//            DDLogVerbose(@"didExitRegion incorrect!");
+//            return;
+//        }
+//    }
+//
+    
     if ([region.identifier hasPrefix:@"-"]) {
-                [self removeHoldDown:region];
+        [self removeHoldDown:region];
         [self.pendingRegionEvents addObject:[PendingRegionEvent holdDown:region for:3.0 to:self]];
     } else {
         [self.delegate regionEvent:region enter:NO];
@@ -481,7 +485,7 @@ static LocationManager *theInstance = nil;
 
 - (BOOL)removeHoldDown:(CLRegion *)region {
     DDLogVerbose(@"removeHoldDown %@ [%lu]", region.identifier, (unsigned long)self.pendingRegionEvents.count);
-
+    
     for (PendingRegionEvent *p in self.pendingRegionEvents) {
         if (p.region == region) {
             DDLogVerbose(@"holdDownInvalidated %@", region.identifier);
@@ -518,7 +522,7 @@ static LocationManager *theInstance = nil;
     if ((error.domain != kCLErrorDomain || error.code != 5) && [manager.monitoredRegions containsObject:region]) {
         // error
     }
-
+    
 }
 
 /*

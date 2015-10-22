@@ -370,7 +370,9 @@ static OwnTracking *theInstance = nil;
     }
     
     int batteryLevel = [UIDevice currentDevice].batteryLevel != -1 ? [UIDevice currentDevice].batteryLevel * 100 : -1;
-    [json setValue:@(batteryLevel) forKey:@"batt"];
+    if (batteryLevel >= 0) {
+        [json setValue:@(batteryLevel) forKey:@"batt"];
+    }
     
     return json;
 }
