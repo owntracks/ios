@@ -9,10 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
 
-@interface Subscriptions : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver, SKRequestDelegate>
+#define SUBSCRIPTION @"recording1m"
+
+@interface Subscriptions : NSObject <SKRequestDelegate>
 + (Subscriptions *)sharedInstance;
 @property (readonly, strong, nonatomic) NSNumber *recording;
-- (void)payRecording;
-@property (readonly, strong, nonatomic) NSString *subscriptionStatus;
+@property (readonly, strong, nonatomic) NSDate *subscriptionExpires;
+- (void)reset;
 
 @end

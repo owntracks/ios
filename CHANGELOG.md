@@ -1,6 +1,13 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 8.4.6
+>Release date: 2015-10-23 for alpha testers
+
+in-app purchase continued
+
+* [NEW] Subscription status subscreen
+
 ## OwnTracks 8.4.5
 >Release date: 2015-10-22 for alpha testers
 

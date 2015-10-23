@@ -59,7 +59,7 @@
 		8479EEB718E4529900923B24 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
 		847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847F8B5719295C65003876D4 /* CoreMotion.framework */; };
 		84856A8C1BD6201800621533 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84856A8B1BD6201800621533 /* StoreKit.framework */; };
-		84856A8F1BD6237B00621533 /* Subscriptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84856A8E1BD6237B00621533 /* Subscriptions.m */; settings = {ASSET_TAGS = (); }; };
+		84856A8F1BD6237B00621533 /* Subscriptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84856A8E1BD6237B00621533 /* Subscriptions.m */; };
 		8487B8641B7BBF9000E59D39 /* FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 8487B8631B7BBF9000E59D39 /* FontAwesome.m */; };
 		8487B8681B7CA59100E59D39 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8487B8671B7CA59100E59D39 /* fontawesome-webfont.ttf */; };
 		84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A2B1B3755AF00810C3A /* TabBarController.m */; };
@@ -78,18 +78,20 @@
 		84D751751B35B3C100B06A0C /* Message+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D751741B35B3C100B06A0C /* Message+Create.m */; };
 		84D751781B35B7A500B06A0C /* MessageTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D751771B35B7A500B06A0C /* MessageTVC.m */; };
 		84D7517B1B35C0AB00B06A0C /* Messaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D7517A1B35C0AB00B06A0C /* Messaging.m */; };
-		84E8A1881BB94782002518AA /* Location+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A17D1BB94782002518AA /* Location+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		84E8A1891BB94782002518AA /* Setting+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		84E8A18A1BB94782002518AA /* Friend+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1811BB94782002518AA /* Friend+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		84E8A18B1BB94782002518AA /* Message+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1831BB94782002518AA /* Message+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		84E8A18C1BB94782002518AA /* Waypoint+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1851BB94782002518AA /* Waypoint+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		84E8A18D1BB94782002518AA /* Region+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1871BB94782002518AA /* Region+CoreDataProperties.m */; settings = {ASSET_TAGS = (); }; };
-		84E8A19A1BB94B1D002518AA /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A18F1BB94B1D002518AA /* Region.m */; settings = {ASSET_TAGS = (); }; };
-		84E8A19B1BB94B1D002518AA /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1911BB94B1D002518AA /* Location.m */; settings = {ASSET_TAGS = (); }; };
-		84E8A19C1BB94B1D002518AA /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1931BB94B1D002518AA /* Message.m */; settings = {ASSET_TAGS = (); }; };
-		84E8A19D1BB94B1D002518AA /* Waypoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1951BB94B1D002518AA /* Waypoint.m */; settings = {ASSET_TAGS = (); }; };
-		84E8A19E1BB94B1D002518AA /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1971BB94B1D002518AA /* Setting.m */; settings = {ASSET_TAGS = (); }; };
-		84E8A19F1BB94B1D002518AA /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1991BB94B1D002518AA /* Friend.m */; settings = {ASSET_TAGS = (); }; };
+		84DDEAC41BD9EE3500B01879 /* BuyTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DDEAC31BD9EE3500B01879 /* BuyTVC.m */; };
+		84DDEAC71BD9F37900B01879 /* SettingsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DDEAC61BD9F37900B01879 /* SettingsTVC.m */; };
+		84E8A1881BB94782002518AA /* Location+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A17D1BB94782002518AA /* Location+CoreDataProperties.m */; };
+		84E8A1891BB94782002518AA /* Setting+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */; };
+		84E8A18A1BB94782002518AA /* Friend+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1811BB94782002518AA /* Friend+CoreDataProperties.m */; };
+		84E8A18B1BB94782002518AA /* Message+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1831BB94782002518AA /* Message+CoreDataProperties.m */; };
+		84E8A18C1BB94782002518AA /* Waypoint+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1851BB94782002518AA /* Waypoint+CoreDataProperties.m */; };
+		84E8A18D1BB94782002518AA /* Region+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1871BB94782002518AA /* Region+CoreDataProperties.m */; };
+		84E8A19A1BB94B1D002518AA /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A18F1BB94B1D002518AA /* Region.m */; };
+		84E8A19B1BB94B1D002518AA /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1911BB94B1D002518AA /* Location.m */; };
+		84E8A19C1BB94B1D002518AA /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1931BB94B1D002518AA /* Message.m */; };
+		84E8A19D1BB94B1D002518AA /* Waypoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1951BB94B1D002518AA /* Waypoint.m */; };
+		84E8A19E1BB94B1D002518AA /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1971BB94B1D002518AA /* Setting.m */; };
+		84E8A19F1BB94B1D002518AA /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1991BB94B1D002518AA /* Friend.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -259,6 +261,10 @@
 		84D751771B35B7A500B06A0C /* MessageTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTVC.m; sourceTree = "<group>"; };
 		84D751791B35C0AB00B06A0C /* Messaging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messaging.h; sourceTree = "<group>"; };
 		84D7517A1B35C0AB00B06A0C /* Messaging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Messaging.m; sourceTree = "<group>"; };
+		84DDEAC21BD9EE3500B01879 /* BuyTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyTVC.h; sourceTree = "<group>"; };
+		84DDEAC31BD9EE3500B01879 /* BuyTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyTVC.m; sourceTree = "<group>"; };
+		84DDEAC51BD9F37900B01879 /* SettingsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTVC.h; sourceTree = "<group>"; };
+		84DDEAC61BD9F37900B01879 /* SettingsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTVC.m; sourceTree = "<group>"; };
 		84E8A17B1BB946F0002518AA /* Model 8.2.18.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.18.xcdatamodel"; sourceTree = "<group>"; };
 		84E8A17C1BB94782002518AA /* Location+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Location+CoreDataProperties.h"; sourceTree = "<group>"; };
 		84E8A17D1BB94782002518AA /* Location+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Location+CoreDataProperties.m"; sourceTree = "<group>"; };
@@ -619,10 +625,14 @@
 		84A1737C1B428F3E00CCB7D0 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				84DDEAC51BD9F37900B01879 /* SettingsTVC.h */,
+				84DDEAC61BD9F37900B01879 /* SettingsTVC.m */,
 				8411B908189FEC070019D2D6 /* StatusTVC.h */,
 				8411B909189FEC070019D2D6 /* StatusTVC.m */,
 				845AA1B21B44245100945856 /* CertificatesTVC.h */,
 				845AA1B31B44245100945856 /* CertificatesTVC.m */,
+				84DDEAC21BD9EE3500B01879 /* BuyTVC.h */,
+				84DDEAC31BD9EE3500B01879 /* BuyTVC.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -951,10 +961,12 @@
 				84E8A19B1BB94B1D002518AA /* Location.m in Sources */,
 				8411B83E189FDB140019D2D6 /* OwnTracksAppDelegate.m in Sources */,
 				84E8A18B1BB94782002518AA /* Message+CoreDataProperties.m in Sources */,
+				84DDEAC71BD9F37900B01879 /* SettingsTVC.m in Sources */,
 				84A173681B427BDD00CCB7D0 /* ModeBarButtonItem.m in Sources */,
 				845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */,
 				84B7397A1A65629200B103F4 /* LocationManager.m in Sources */,
 				8487B8641B7BBF9000E59D39 /* FontAwesome.m in Sources */,
+				84DDEAC41BD9EE3500B01879 /* BuyTVC.m in Sources */,
 				8411B891189FE9CE0019D2D6 /* Settings.m in Sources */,
 				84E8A19D1BB94B1D002518AA /* Waypoint.m in Sources */,
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,

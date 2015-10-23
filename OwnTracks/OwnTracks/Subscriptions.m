@@ -11,16 +11,21 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface Subscriptions()
-@property (strong, nonatomic) SKProductsResponse *response;
 @property (strong, nonatomic) SKReceiptRefreshRequest *request;
-@property (strong, nonatomic) NSArray *transactions;
 @property (strong, nonatomic) NSDictionary *receipt;
-@property (nonatomic) BOOL initialized;
+
 @property (readwrite, strong, nonatomic) NSNumber *recording;
+@property (readwrite, strong, nonatomic) NSDate *subscriptionExpires;
+@property (nonatomic) BOOL initialized;
 
 @end
 
-#define SUBSCRIPTION @"recording1m"
+#define IN_APP_SANDBOX 1
+#ifdef IN_APP_SANDBOX
+#define storeURL [NSURL URLWithString:@"https://sandbox.itunes.apple.com/verifyReceipt"]
+#else
+#define storeURL [NSURL URLWithString:@"https://buy.itunes.apple.com/verifyReceipt"]
+#endif
 
 @implementation Subscriptions
 static Subscriptions *theInstance = nil;
@@ -33,68 +38,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     return theInstance;
 }
 
-- (instancetype)init {
-    self = [super init];
+- (void)reset {
     self.initialized = false;
-    return self;
+    [self initialize];
 }
 
 - (BOOL)initialize {
-    if ([Settings intForKey:@"mode"] == 1 && !self.initialized) {
-        self.initialized = true;
-        [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-        [self validateProductIdentifiers];
-        self.request = [[SKReceiptRefreshRequest alloc] init];
-        self.request.delegate = self;
-        [self.request start];
-    }
-    return self.initialized;
-}
-
-- (void)setReceipt:(NSDictionary *)receipt {
-    _receipt = receipt;
-    BOOL recording = false;
-    NSSet *inAppReceipts = [receipt valueForKey:@"in_app"];
-    for (NSDictionary *inAppReceipt in inAppReceipts) {
-        NSString *productId = [inAppReceipt valueForKey:@"product_id"];
-        NSTimeInterval expiresDate = [[inAppReceipt valueForKey:@"expires_date_ms"] doubleValue] / 1000;
-        if ([productId isEqualToString:SUBSCRIPTION]) {
-            if ([[NSDate date] timeIntervalSince1970] < expiresDate) {
-                recording = true;
-            }
-        }
-    }
-    self.recording = [NSNumber numberWithBool:recording];
-}
-
-- (NSString *)subscriptionStatus {
-    NSString *subscriptionStatus = [[self recording] boolValue] ? @"Recording" : @"Not Recording";
-    NSString *expiry = @"\nSubscription expired";
-    if ([self initialize]) {
-        NSSet *inAppReceipts = [self.receipt valueForKey:@"in_app"];
-        for (NSDictionary *inAppReceipt in inAppReceipts) {
-            NSString *productId = [inAppReceipt valueForKey:@"product_id"];
-            NSTimeInterval expiresDate = [[inAppReceipt valueForKey:@"expires_date_ms"] doubleValue] / 1000;
-            if ([productId isEqualToString:SUBSCRIPTION]) {
-                if ([[NSDate date] timeIntervalSince1970] < expiresDate) {
-                    expiry = [NSString stringWithFormat:@"\n%@ expires %@\n",
-                                          productId,
-                                          [NSDateFormatter localizedStringFromDate:[NSDate dateWithTimeIntervalSince1970:expiresDate]
-                                                                         dateStyle:NSDateFormatterShortStyle
-                                                                         timeStyle:NSDateFormatterShortStyle]];
-                    
-                }
-            }
-        }
-    }
-    subscriptionStatus = [subscriptionStatus stringByAppendingString:expiry];
-    return subscriptionStatus;
-}
-
-- (NSNumber *)recording {
-    if ([self initialize]) {
-        if (!self.receipt) {
-            self.receipt = [[NSDictionary alloc] init];
+    if ([Settings intForKey:@"mode"] == 1) {
+        if (!self.initialized) {
+            self.initialized = true;
+            
             NSURL *receiptURL = [[NSBundle mainBundle] appStoreReceiptURL];
             NSData *receiptData = [NSData dataWithContentsOfURL:receiptURL];
             
@@ -107,14 +60,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                 NSData *requestData = [NSJSONSerialization dataWithJSONObject:requestContents
                                                                       options:0
                                                                         error:&error];
-#define IN_APP_SANDBOX 1
-#ifdef IN_APP_SANDBOX
-                NSURL *storeURL = [NSURL URLWithString:@"https://sandbox.itunes.apple.com/verifyReceipt"];
-#else
-                NSURL *storeURL = [NSURL URLWithString:@"https://buy.itunes.apple.com/verifyReceipt"];
-#endif
-                DDLogError(@"storeURL %@", storeURL);
-                
                 NSMutableURLRequest *storeRequest = [NSMutableURLRequest requestWithURL:storeURL];
                 [storeRequest setHTTPMethod:@"POST"];
                 [storeRequest setHTTPBody:requestData];
@@ -124,69 +69,46 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                        completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
                                            if (connectionError) {
                                                DDLogError(@"connectionError %@", connectionError.localizedDescription);
-                                               self.receipt = nil;
+                                               self.initialized = FALSE;
+                                               
                                            } else {
                                                NSError *error;
-                                               NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+                                               NSDictionary *jsonResponse = [NSJSONSerialization JSONObjectWithData:data
+                                                                                                            options:0
+                                                                                                              error:&error];
                                                if (!jsonResponse) {
                                                    DDLogError(@"NSJSONSerialization error %@", error.localizedDescription);
-                                                   self.receipt = nil;
+                                                   self.initialized = FALSE;
+                                                   
                                                } else {
                                                    DDLogVerbose(@"jsonResponse %@", jsonResponse);
                                                    int status = [[jsonResponse valueForKey:@"status"] intValue];
-                                                   if (status == 0) {
-                                                       self.receipt = [jsonResponse valueForKey:@"receipt"];
+                                                   if (status != 0) {
+                                                       DDLogError(@"jsonResponse status %d", status);
+                                                       self.initialized = FALSE;
+                                                       
                                                    } else {
-                                                       self.receipt = nil;
+                                                       self.receipt = [jsonResponse valueForKey:@"receipt"];
+                                                       [self processReceipt];
                                                    }
                                                }
                                            }
                                        }];
+            } else {
+                // no receiptData available
+                self.request = [[SKReceiptRefreshRequest alloc] init];
+                self.request.delegate = self;
+                [self.request start];
+                self.initialized = FALSE;
             }
+        } else {
+            // receipt is already validated
         }
+        return TRUE;
+    } else {
+        // mode not == Hosted(1)
+        return FALSE;
     }
-    return _recording;
-}
-
-- (void)payRecording {
-    if ([self initialize]) {
-        for (SKProduct *product in self.response.products) {
-            if ([product.productIdentifier isEqualToString:SUBSCRIPTION]) {
-                SKMutablePayment *payment = [SKMutablePayment paymentWithProduct:product];
-                payment.quantity = 1;
-                [[SKPaymentQueue defaultQueue] addPayment:payment];
-            }
-        }
-    }
-}
-
-- (void)validateProductIdentifiers {
-    SKProductsRequest *productsRequest = [[SKProductsRequest alloc]
-                                          initWithProductIdentifiers:[NSSet setWithArray:@[SUBSCRIPTION]]];
-    
-    productsRequest.delegate = self;
-    [productsRequest start];
-}
-
-- (void)productsRequest:(SKProductsRequest *)request
-     didReceiveResponse:(SKProductsResponse *)response {
-    DDLogVerbose(@"productsRequest didReceiveResponse invalidProductIdentifiers %@", response.invalidProductIdentifiers);
-    
-    self.response = response;
-    
-    for (SKProduct *product in self.response.products) {
-        NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-        [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-        [numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-        [numberFormatter setLocale:product.priceLocale];
-        NSString *formattedPrice = [numberFormatter stringFromNumber:product.price];
-        DDLogVerbose(@"products %@\n\tlocalizedTitle %@\n\tlocalizedDescription %@\n\tprice %@",
-                     product.productIdentifier,
-                     product.localizedTitle,
-                     product.localizedDescription,
-                     formattedPrice);
-    }
-    
 }
 
 - (void)requestDidFinish:(SKRequest *)request {
@@ -195,43 +117,50 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
     DDLogError(@"request didFailWithError %@", error.localizedDescription);
-    
 }
 
-- (void)paymentQueue:(SKPaymentQueue *)queue
- updatedTransactions:(NSArray *)transactions
-{
-    DDLogVerbose(@"paymentQueue updatedTransactions %lu", (unsigned long)transactions.count);
-    self.transactions = transactions;
-    
-    for (SKPaymentTransaction *transaction in transactions) {
-        DDLogVerbose(@"SKPaymentTransaction %@", transaction.transactionIdentifier);
-        
-        switch (transaction.transactionState) {
-            case SKPaymentTransactionStatePurchasing:
-                DDLogVerbose(@"SKPaymentTransactionStatePurchasing");
+- (NSDate *)subscriptionExpires {
+    if ([self initialize]) {
+        [self processReceipt];
+        return _subscriptionExpires;
+    }
+    return nil;
+}
+
+- (NSNumber *)recording {
+    if ([self initialize]) {
+        [self processReceipt];
+        return _recording;
+    }
+    return nil;
+}
+
+- (void)processReceipt {
+    BOOL recording = false;
+    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+    NSSet *inAppReceipts = [self.receipt valueForKey:@"in_app"];
+    for (NSDictionary *inAppReceipt in inAppReceipts) {
+        NSString *productId = [inAppReceipt valueForKey:@"product_id"];
+        if ([productId isEqualToString:SUBSCRIPTION]) {
+            NSTimeInterval expirationDate = [[inAppReceipt valueForKey:@"expires_date_ms"] doubleValue] / 1000;
+            NSTimeInterval purchaseDate = [[inAppReceipt valueForKey:@"purchase_date_ms"] doubleValue] / 1000;
+            if (now < expirationDate && now > purchaseDate) {
+                recording = true;
+                if ([_subscriptionExpires timeIntervalSince1970] != expirationDate) {
+                    _subscriptionExpires =  [NSDate dateWithTimeIntervalSince1970:expirationDate];
+                }
                 break;
-            case SKPaymentTransactionStateDeferred:
-                DDLogVerbose(@"SKPaymentTransactionStateDeferred");
-                break;
-            case SKPaymentTransactionStateFailed:
-                DDLogVerbose(@"SKPaymentTransactionStateFailed %@ %@",
-                             transaction.transactionIdentifier,
-                             transaction.error.localizedDescription);
-                self.receipt = nil;
-                break;
-            case SKPaymentTransactionStatePurchased:
-                DDLogVerbose(@"SKPaymentTransactionStatePurchased %@", transaction.transactionDate);
-                self.receipt = nil;
-                break;
-            case SKPaymentTransactionStateRestored:
-                DDLogVerbose(@"SKPaymentTransactionStateRestored %@", transaction.transactionDate);
-                self.receipt = nil;
-                break;
-            default:
-                DDLogError(@"Unexpected transaction state %@", @(transaction.transactionState));
-                break;
+            }
         }
+    }
+    if (recording != [_recording boolValue]) {
+        if (!recording) {
+            _subscriptionExpires = nil;
+            if ([_recording boolValue]) {
+                [self reset];
+            }
+        }
+        _recording = [NSNumber numberWithBool:recording];
     }
 }
 
