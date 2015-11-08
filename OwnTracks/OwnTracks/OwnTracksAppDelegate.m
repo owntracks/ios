@@ -57,11 +57,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [Fabric with:@[CrashlyticsKit]];
     [CrashlyticsKit setUserIdentifier:[[UIDevice currentDevice] identifierForVendor].UUIDString];
     
-#ifdef DEBUG
     [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelAll];
-#else
-    [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelError];
-#endif
     [DDLog addLogger:[DDASLLogger sharedInstance] withLevel:DDLogLevelError];
     
     DDLogVerbose(@"didFinishLaunchingWithOptions");

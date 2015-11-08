@@ -36,6 +36,8 @@
 		8426103A1ACFE67B00FE1A03 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842610391ACFE67B00FE1A03 /* Launch Screen.xib */; };
 		842DFBC71AEE6F36000F4BA6 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842DFBC61AEE6F36000F4BA6 /* NotificationController.m */; };
 		842DFBC91AEE6F46000F4BA6 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = 842DFBC81AEE6F46000F4BA6 /* PushNotificationPayload.apns */; };
+		8435A24E1BEF824900D2BF33 /* AppleIncRootCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8435A24D1BEF824900D2BF33 /* AppleIncRootCertificate.cer */; };
+		8435A2501BEFAC0800D2BF33 /* AppleComputerRootCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8435A24F1BEFAC0800D2BF33 /* AppleComputerRootCertificate.cer */; };
 		843635791AE95D6000157D66 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843635781AE95D6000157D66 /* InterfaceController.m */; };
 		8436357B1AE95D6000157D66 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8436357A1AE95D6000157D66 /* Images.xcassets */; };
 		8436357F1AE95D6100157D66 /* OwnTracks WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 8436357E1AE95D6000157D66 /* OwnTracks WatchKit App.app */; };
@@ -184,6 +186,8 @@
 		842DFBC51AEE6F36000F4BA6 /* NotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
 		842DFBC61AEE6F36000F4BA6 /* NotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
 		842DFBC81AEE6F46000F4BA6 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		8435A24D1BEF824900D2BF33 /* AppleIncRootCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleIncRootCertificate.cer; sourceTree = "<group>"; };
+		8435A24F1BEFAC0800D2BF33 /* AppleComputerRootCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleComputerRootCertificate.cer; sourceTree = "<group>"; };
 		843635731AE95D6000157D66 /* OwnTracks WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "OwnTracks WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		843635761AE95D6000157D66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		843635771AE95D6000157D66 /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
@@ -400,6 +404,8 @@
 				846FFA441B402A1F001482A6 /* OwnTracking.m */,
 				84856A8D1BD6237B00621533 /* Subscriptions.h */,
 				84856A8E1BD6237B00621533 /* Subscriptions.m */,
+				8435A24D1BEF824900D2BF33 /* AppleIncRootCertificate.cer */,
+				8435A24F1BEFAC0800D2BF33 /* AppleComputerRootCertificate.cer */,
 				84B739781A65629200B103F4 /* LocationManager.h */,
 				84B739791A65629200B103F4 /* LocationManager.m */,
 				8411B88C189FE9940019D2D6 /* Connection.h */,
@@ -817,6 +823,7 @@
 				8479EEB718E4529900923B24 /* Settings.plist in Resources */,
 				8487B8681B7CA59100E59D39 /* fontawesome-webfont.ttf in Resources */,
 				8411B896189FEAE60019D2D6 /* Storyboard.storyboard in Resources */,
+				8435A2501BEFAC0800D2BF33 /* AppleComputerRootCertificate.cer in Resources */,
 				845AA1BD1B4846AF00945856 /* OwnTracks-320.png in Resources */,
 				8411B843189FDB140019D2D6 /* Images.xcassets in Resources */,
 				8455DFBE1ADF2BD8003C7BC8 /* Hosted.plist in Resources */,
@@ -824,6 +831,7 @@
 				845AA1BC1B4846AF00945856 /* OwnTracks-64.png in Resources */,
 				8411B8E1189FEB790019D2D6 /* Location.gpx in Resources */,
 				845AA1BB1B4846AF00945856 /* OwnTracks-29.png in Resources */,
+				8435A24E1BEF824900D2BF33 /* AppleIncRootCertificate.cer in Resources */,
 				8426103A1ACFE67B00FE1A03 /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1114,7 +1122,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = OwnTracks/OwnTracks.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1140,7 +1148,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = OwnTracks/OwnTracks.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

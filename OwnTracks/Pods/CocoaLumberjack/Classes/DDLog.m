@@ -26,7 +26,7 @@
 #import <mach/host_info.h>
 #import <libkern/OSAtomic.h>
 #import <Availability.h>
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IOS
     #import <UIKit/UIDevice.h>
 #endif
 
@@ -139,12 +139,13 @@ static NSUInteger _numProcessors;
 
         // Figure out how many processors are available.
         // This may be used later for an optimization on uniprocessor machines.
+        
         _numProcessors = MAX([NSProcessInfo processInfo].processorCount, 1);
 
         NSLogDebug(@"DDLog: numProcessors = %@", @(_numProcessors));
 
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IOS
         NSString *notificationName = @"UIApplicationWillTerminateNotification";
 #else
         NSString *notificationName = nil;
@@ -166,7 +167,7 @@ static NSUInteger _numProcessors;
             });
         }
 
-#endif /* if TARGET_OS_IPHONE */
+#endif /* if TARGET_OS_IOS */
 
         if (notificationName) {
             [[NSNotificationCenter defaultCenter] addObserver:self
@@ -394,7 +395,7 @@ static NSUInteger _numProcessors;
     SEL getterSel = @selector(ddLogLevel);
     SEL setterSel = @selector(ddSetLogLevel:);
 
-#if TARGET_OS_IPHONE && !TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE && !TARGET_OS_SIMULATOR
 
     // Issue #6 (GoogleCode) - Crashes on iOS 4.2.1 and iPhone 4
     //
@@ -433,7 +434,7 @@ static NSUInteger _numProcessors;
 
     return result;
 
-#else /* if TARGET_OS_IPHONE && !TARGET_IPHONE_SIMULATOR */
+#else /* if TARGET_OS_IPHONE && !TARGET_OS_SIMULATOR */
 
     // Issue #24 (GitHub) - Crashing in in ARC+Simulator
     //
@@ -449,7 +450,7 @@ static NSUInteger _numProcessors;
 
     return NO;
 
-#endif /* if TARGET_OS_IPHONE && !TARGET_IPHONE_SIMULATOR */
+#endif /* if TARGET_OS_IPHONE && !TARGET_OS_SIMULATOR */
 }
 
 + (NSArray *)registeredClasses {
@@ -846,12 +847,19 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy) {
 //    dispatch_get_current_queue(void);
 //      __OSX_AVAILABLE_BUT_DEPRECATED(__MAC_10_6,__MAC_10_9,__IPHONE_4_0,__IPHONE_6_0)
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IOS
 
 // Compiling for iOS
 
     #define USE_DISPATCH_CURRENT_QUEUE_LABEL ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
     #define USE_DISPATCH_GET_CURRENT_QUEUE   ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.1)
+
+#elif TARGET_OS_WATCH || TARGET_OS_TV
+
+// Compiling for watchOS, tvOS
+
+#define USE_DISPATCH_CURRENT_QUEUE_LABEL YES
+#define USE_DISPATCH_GET_CURRENT_QUEUE   YES
 
 #else
 
@@ -873,12 +881,12 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy) {
 
   #endif
 
-#endif /* if TARGET_OS_IPHONE */
+#endif /* if TARGET_OS_IOS */
 
 // Should we use pthread_threadid_np ?
 // With iOS 8+/OSX 10.10+ NSLog uses pthread_threadid_np instead of pthread_mach_thread_np
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IOS
 
 // Compiling for iOS
 
@@ -887,6 +895,12 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy) {
   #endif
 
     #define USE_PTHREAD_THREADID_NP                (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_8_0)
+
+#elif TARGET_OS_WATCH || TARGET_OS_TV
+
+// Compiling for watchOS, tvOS
+
+#define USE_PTHREAD_THREADID_NP                    YES
 
 #else
 
@@ -898,7 +912,7 @@ NSString * DDExtractFileNameWithoutExtension(const char *filePath, BOOL copy) {
 
     #define USE_PTHREAD_THREADID_NP                (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber10_10)
 
-#endif /* if TARGET_OS_IPHONE */
+#endif /* if TARGET_OS_IOS */
 
 - (instancetype)initWithMessage:(NSString *)message
                           level:(DDLogLevel)level

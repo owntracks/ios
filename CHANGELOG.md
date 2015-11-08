@@ -1,6 +1,13 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 8.4.8
+>Release date: 2015-11-08 for alpha testers
+
+in-app purchases with local validation
+
+* [NEW] local receipt validation via PKCS7, ASN1 (openssl)
+
 ## OwnTracks 8.4.6
 >Release date: 2015-10-23 for alpha testers
 

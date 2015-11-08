@@ -1943,20 +1943,8 @@ Cg
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mH4-mq-4SI">
-                                                    <rect key="frame" x="270" y="7" width="30" height="30"/>
-                                                    <animations/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="30" id="5hz-4u-rNG"/>
-                                                        <constraint firstAttribute="height" constant="30" id="jFR-Xa-kIe"/>
-                                                    </constraints>
-                                                    <state key="normal" title="Buy"/>
-                                                    <connections>
-                                                        <action selector="buyPressed:" destination="Gj4-Mu-vhc" eventType="touchUpInside" id="KTg-qA-9ja"/>
-                                                    </connections>
-                                                </button>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Iud-0T-QVA">
-                                                    <rect key="frame" x="242" y="12" width="20" height="20"/>
+                                                    <rect key="frame" x="20" y="11" width="20" height="20"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="0N2-gu-1yU"/>
@@ -1964,7 +1952,7 @@ Cg
                                                     </constraints>
                                                 </activityIndicatorView>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="progress" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qgv-rL-u3e">
-                                                    <rect key="frame" x="20" y="11" width="214" height="21"/>
+                                                    <rect key="frame" x="48" y="11" width="252" height="21"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="JhV-Cy-lvT"/>
@@ -1976,14 +1964,38 @@ Cg
                                             </subviews>
                                             <animations/>
                                             <constraints>
-                                                <constraint firstItem="qgv-rL-u3e" firstAttribute="leading" secondItem="5da-sn-JRg" secondAttribute="leading" constant="20" symbolic="YES" id="6qN-Ag-ksa"/>
+                                                <constraint firstItem="Iud-0T-QVA" firstAttribute="leading" secondItem="5da-sn-JRg" secondAttribute="leading" constant="20" symbolic="YES" id="9DS-to-3Da"/>
                                                 <constraint firstItem="qgv-rL-u3e" firstAttribute="centerY" secondItem="5da-sn-JRg" secondAttribute="centerY" id="AGK-xg-pFm"/>
-                                                <constraint firstItem="mH4-mq-4SI" firstAttribute="centerY" secondItem="5da-sn-JRg" secondAttribute="centerY" id="Cv6-gC-eT5"/>
-                                                <constraint firstItem="Iud-0T-QVA" firstAttribute="leading" secondItem="qgv-rL-u3e" secondAttribute="trailing" constant="8" symbolic="YES" id="OZn-Av-t5q"/>
                                                 <constraint firstItem="Iud-0T-QVA" firstAttribute="centerY" secondItem="5da-sn-JRg" secondAttribute="centerY" id="PS1-1x-hJR"/>
-                                                <constraint firstItem="mH4-mq-4SI" firstAttribute="leading" secondItem="Iud-0T-QVA" secondAttribute="trailing" constant="8" symbolic="YES" id="imM-hN-177"/>
-                                                <constraint firstItem="mH4-mq-4SI" firstAttribute="centerY" secondItem="5da-sn-JRg" secondAttribute="centerY" id="ney-qd-wdu"/>
-                                                <constraint firstAttribute="trailing" secondItem="mH4-mq-4SI" secondAttribute="trailing" constant="20" symbolic="YES" id="qY7-89-YPM"/>
+                                                <constraint firstAttribute="trailing" secondItem="qgv-rL-u3e" secondAttribute="trailing" constant="20" symbolic="YES" id="da0-ld-J7x"/>
+                                                <constraint firstItem="qgv-rL-u3e" firstAttribute="leading" secondItem="Iud-0T-QVA" secondAttribute="trailing" constant="8" symbolic="YES" id="yBZ-Mm-q78"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <animations/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="X7q-zL-q3V">
+                                        <rect key="frame" x="0.0" y="202" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X7q-zL-q3V" id="Jvs-Hg-RCd">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mH4-mq-4SI">
+                                                    <rect key="frame" x="66" y="7" width="189" height="30"/>
+                                                    <animations/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="jFR-Xa-kIe"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Start your subscription now"/>
+                                                    <connections>
+                                                        <action selector="buyPressed:" destination="Gj4-Mu-vhc" eventType="touchUpInside" id="KTg-qA-9ja"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstItem="mH4-mq-4SI" firstAttribute="centerY" secondItem="Jvs-Hg-RCd" secondAttribute="centerY" id="LGg-Tz-Xhk"/>
+                                                <constraint firstItem="mH4-mq-4SI" firstAttribute="centerX" secondItem="Jvs-Hg-RCd" secondAttribute="centerX" id="zIm-GN-f92"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
@@ -1993,16 +2005,17 @@ Cg
                             <tableViewSection headerTitle="Info" id="zQO-7K-p8y">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="144" id="52O-mz-0BS">
-                                        <rect key="frame" x="0.0" y="253" width="320" height="144"/>
+                                        <rect key="frame" x="0.0" y="297" width="320" height="144"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="52O-mz-0BS" id="YBz-KM-DPL">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="143"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="The OwnTracks Premium subscription enables the recording of your positions." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wGg-O1-0Uf">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="wGg-O1-0Uf">
                                                     <rect key="frame" x="20" y="8" width="280" height="128"/>
                                                     <animations/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <string key="text">The OwnTracks Premium subscription enables the recording and archiving of your positions in our datacenter. You are charged per month in an auto-renewing subsription starting with an initial 7-day trial period.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>

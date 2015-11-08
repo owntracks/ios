@@ -30,8 +30,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-
     [self.UIactivity stopAnimating];
     self.UIprogress.hidden = TRUE;
     
@@ -41,20 +39,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                      forKeyPath:@"recording"
                                         options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                                         context:nil];
-    [[Subscriptions sharedInstance] addObserver:self
-                                     forKeyPath:@"subscriptionExpires"
-                                        options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                                        context:nil];
-    
-    [self validateProductIdentifiers];
-
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     if (self.request) {
         [self.request cancel];
     }
-    [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
     [super viewWillDisappear:animated];
 }
 
@@ -64,17 +54,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)updateUI {
     NSNumber *recording = [Subscriptions sharedInstance].recording;
-    NSDate *subscriptionExpires = [Subscriptions sharedInstance].subscriptionExpires;
     
-    self.UIstatus.text = [NSString stringWithFormat:@"%@ expires %@\n",
-                          recording ? [recording boolValue] ? @"Recording" : @"Not Recording" : @"<No Recording Status>",
-                          subscriptionExpires ? [NSDateFormatter localizedStringFromDate:subscriptionExpires
-                                                                               dateStyle:NSDateFormatterShortStyle
-                                                                               timeStyle:NSDateFormatterShortStyle]
-                                                   : @"<No Expiration Date>"];
+    self.UIstatus.text = recording ? @"Recording" : @"Not Recording";
+    self.UIbuy.enabled = !recording;
 }
 
 - (IBAction)buyPressed:(UIButton *)sender {
+    if (!self.response) {
+        [self validateProductIdentifiers];
+    } else {
+        [self buy];
+    }
+}
+
+- (void)buy {
     for (SKProduct *product in self.response.products) {
         if ([product.productIdentifier isEqualToString:SUBSCRIPTION]) {
             if ([SKPaymentQueue canMakePayments]) {
@@ -105,15 +98,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     DDLogVerbose(@"productsRequest start");
     [self.request start];
 
-    self.UIprogress.text = @"Requesting products";
+    self.UIprogress.text = @"Loading products ...";
     self.UIprogress.hidden = false;
     [self.UIactivity startAnimating];
 }
 
 - (void)productsRequest:(SKProductsRequest *)request
      didReceiveResponse:(SKProductsResponse *)response {
-    self.response = response;
     
+    self.UIprogress.text = @"";
+    self.UIprogress.hidden = true;
+    [self.UIactivity stopAnimating];
+    
+    self.response = response;
+
     for (SKProduct *product in self.response.products) {
         NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
         [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
@@ -127,115 +125,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                      formattedPrice);
     }
     DDLogVerbose(@"productsRequest didReceiveResponse invalidProductIdentifiers %@", response.invalidProductIdentifiers);
+    [self buy];
 }
-
-
-- (void)paymentQueue:(SKPaymentQueue *)queue
- updatedTransactions:(NSArray *)transactions
-{
-    DDLogVerbose(@"paymentQueue updatedTransactions %lu", (unsigned long)transactions.count);
-    self.transactions = transactions;
-    
-    for (SKPaymentTransaction *transaction in transactions) {
-        DDLogVerbose(@"SKPaymentTransaction %@", transaction.transactionIdentifier);
-        
-        switch (transaction.transactionState) {
-            case SKPaymentTransactionStatePurchasing:
-                DDLogVerbose(@"SKPaymentTransactionStatePurchasing");
-                
-                self.UIprogress.text = @"Processing payment";
-                self.UIprogress.hidden = false;
-                [self.UIactivity startAnimating];
-
-                break;
-            case SKPaymentTransactionStateDeferred:
-                DDLogVerbose(@"SKPaymentTransactionStateDeferred");
-                
-                self.UIprogress.text = @"Processing deferred";
-                self.UIprogress.hidden = false;
-                [self.UIactivity startAnimating];
-
-                break;
-            case SKPaymentTransactionStateFailed:
-                DDLogVerbose(@"SKPaymentTransactionStateFailed %@ %@",
-                             transaction.transactionIdentifier,
-                             transaction.error.localizedDescription);
-                [queue finishTransaction:transaction];
-
-                self.UIprogress.text = @"";
-                self.UIprogress.hidden = true;
-                [self.UIactivity stopAnimating];
-
-                [AlertView alert:@"OwnTracks Premium" message:[NSString stringWithFormat:@"Payment failed %@",
-                                                               transaction.error.localizedDescription ]];
-
-                break;
-            case SKPaymentTransactionStatePurchased:
-                DDLogVerbose(@"SKPaymentTransactionStatePurchased %@", transaction.transactionDate);
-                [queue finishTransaction:transaction];
-                [[Subscriptions sharedInstance] reset];
-
-                self.UIprogress.text = @"";
-                self.UIprogress.hidden = true;
-                [self.UIactivity stopAnimating];
-
-                [AlertView alert:@"OwnTracks Premium" message:@"Payment successfull"];
-                
-                
-                break;
-            case SKPaymentTransactionStateRestored:
-                DDLogVerbose(@"SKPaymentTransactionStateRestored %@", transaction.transactionDate);
-                [queue finishTransaction:transaction];
-                [[Subscriptions sharedInstance] reset];
-
-                self.UIprogress.text = @"";
-                self.UIprogress.hidden = true;
-                [self.UIactivity stopAnimating];
-                
-                [AlertView alert:@"OwnTracks Premium" message:@"Transaction successfully restored"];
-                
-                break;
-            default:
-                DDLogError(@"Unexpected transaction state %@", @(transaction.transactionState));
-                [queue finishTransaction:transaction];
-                
-                self.UIprogress.text = @"";
-                self.UIprogress.hidden = true;
-                [self.UIactivity stopAnimating];
-
-                [AlertView alert:@"OwnTracks Premium" message:@"Unexpected transaction state"];
-
-                break;
-        }
-    }
-}
-
-- (void)requestDidFinish:(SKRequest *)request {
-    DDLogVerbose(@"requestDidFinish");
-
-    self.UIprogress.text = @"";
-    self.UIprogress.hidden = true;
-    [self.UIactivity stopAnimating];
-    
-    self.request = nil;
-    
-    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
-}
-
-- (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
-    DDLogError(@"request didFailWithError %@", error.localizedDescription);
-
-    self.UIprogress.text = @"";
-    self.UIprogress.hidden = true;
-    [self.UIactivity stopAnimating];
-
-    [AlertView alert:@"OwnTracks Premium" message:[NSString stringWithFormat:@"Product request failed %@",
-                                                   error.localizedDescription ]];
-
-    self.request = nil;
-    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
-}
-
-
 
 @end

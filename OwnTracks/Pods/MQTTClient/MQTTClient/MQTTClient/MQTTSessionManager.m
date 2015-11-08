@@ -37,7 +37,7 @@
 
 @property (strong, nonatomic) NSTimer *disconnectTimer;
 @property (strong, nonatomic) NSTimer *activityTimer;
-#ifndef TARGET_OS_MAC
+#if TARGET_OS_IPHONE == 1
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
 #endif
 
@@ -60,7 +60,7 @@
     self = [super init];
 
     self.state = MQTTSessionManagerStateStarting;
-#ifndef TARGET_OS_MAC
+#if TARGET_OS_IPHONE == 1
     self.backgroundTask = UIBackgroundTaskInvalid;
 
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
@@ -95,7 +95,7 @@
     return self;
 }
 
-#ifndef TARGET_OS_MAC
+#if TARGET_OS_IPHONE == 1
 - (void)appWillResignActive
 {
     [self disconnect];
@@ -197,6 +197,7 @@
    securityPolicy:(MQTTSSLSecurityPolicy *)securityPolicy
      certificates:(NSArray *)certificates
 {
+    BOOL shouldReconnect = self.session != nil;
     if (!self.session ||
         ![host isEqualToString:self.host] ||
         port != self.port ||
@@ -255,7 +256,14 @@
         self.reconnectTime = RECONNECT_TIMER;
         self.reconnectFlag = FALSE;
     }
-    [self connectToInternal];
+    if(shouldReconnect){
+        NSLog(@"MQTTSessionManager reconnecting");
+        [self disconnect];
+        [self reconnect];
+    }else{
+        NSLog(@"MQTTSessionManager connecting");
+        [self connectToInternal];
+    }
 }
 
 - (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(MQTTQosLevel)qos retain:(BOOL)retainFlag
@@ -307,7 +315,7 @@
         case MQTTSessionEventConnectionClosed:
         case MQTTSessionEventConnectionClosedByBroker:
             self.state = MQTTSessionManagerStateClosed;
-#ifndef TARGET_OS_MAC
+#if TARGET_OS_IPHONE == 1
             if (self.backgroundTask) {
                 [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
                 self.backgroundTask = UIBackgroundTaskInvalid;

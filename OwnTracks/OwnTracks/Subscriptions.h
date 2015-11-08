@@ -11,10 +11,8 @@
 
 #define SUBSCRIPTION @"recording1m"
 
-@interface Subscriptions : NSObject <SKRequestDelegate>
+@interface Subscriptions : NSObject <SKRequestDelegate, SKPaymentTransactionObserver>
 + (Subscriptions *)sharedInstance;
 @property (readonly, strong, nonatomic) NSNumber *recording;
-@property (readonly, strong, nonatomic) NSDate *subscriptionExpires;
-- (void)reset;
 
 @end

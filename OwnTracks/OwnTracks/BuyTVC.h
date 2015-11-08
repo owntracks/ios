@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <StoreKit/StoreKit.h>
 
-@interface BuyTVC : UITableViewController <SKProductsRequestDelegate, SKRequestDelegate, SKPaymentTransactionObserver>
+@interface BuyTVC : UITableViewController <SKProductsRequestDelegate>
 
 @end
