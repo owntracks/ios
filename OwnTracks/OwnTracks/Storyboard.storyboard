@@ -2212,7 +2212,11 @@ MQTTClient
 QRCodeReaderViewController
 objc-geohash
 Fabric
-Crashlytics</string>
+Crashlytics
+
+Uses https://www.openssl.org
+with https://github.com/x2on/OpenSSL-for-iPhone.git
+</string>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <dataDetectorType key="dataDetectorTypes" link="YES"/>

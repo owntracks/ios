@@ -1,6 +1,14 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 8.4.9
+>Release date: 2015-11-11 for alpha testers
+
+Fixing OpenSSL Bitcode distribution problem
+
+* [NEW] MQTTClient with threading fixes
+* [NEW] OpenSSL to do local receipt validation for in-app purchases closes #356
+
 ## OwnTracks 8.4.8
 >Release date: 2015-11-08 for alpha testers
 

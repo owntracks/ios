@@ -8,7 +8,6 @@ pod 'QRCodeReaderViewController'
 pod 'objc-geohash'
 pod 'Fabric'
 pod 'Crashlytics'
-pod 'OpenSSL'
 
 target 'OwnTracks' do
 end

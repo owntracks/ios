@@ -7,82 +7,82 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08DE12FCE2A90C35AA7C0DB22A648185 /* MQTTMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4313CA146B07A91041548B38776A3698 /* MQTTMessage.m */; };
-		0D9454E284C8449C3B18ACAB7790D5F2 /* MQTTSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 62820AC6BC86B116B51A795F69D195DC /* MQTTSessionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0DE5FB4DD76FEDCF19CBE14B6279908E /* objc-geohash-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1D9B0BEA99065262DAF22C3FFDF848 /* objc-geohash-dummy.m */; };
-		1A45D0CA474C6D8E3A6B054DF8F3A2B5 /* cgeohash.h in Headers */ = {isa = PBXBuildFile; fileRef = 0EEB91BB3C13242E43A63E338F72B45D /* cgeohash.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1CCF510CF60A9B2EEA04BE93E67FD274 /* GHArea.m in Sources */ = {isa = PBXBuildFile; fileRef = EF188657C6B6A95331213EB869E9BD01 /* GHArea.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		1E6A591B3DEE6317BB014BD71A50B689 /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = F64A57DD7435E06D88FE7642E6E804E8 /* DDASLLogCapture.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		203460C5097B0EBF5CEB19631A670C93 /* MQTTEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 729110E4D5A8CE3319386E49C309DFC9 /* MQTTEncoder.m */; };
-		2E1648A2CFDC457831F90D171BD905FA /* QRCameraSwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 397B5C17B5808E656791D2C4304745B7 /* QRCameraSwitchButton.m */; };
-		2F81A18E0A134D551B9E81D0A17238B5 /* GeoHash.h in Headers */ = {isa = PBXBuildFile; fileRef = 410B296FAD0756EC0A0CA7D4FE8B9827 /* GeoHash.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3141F38B1EE3A50AFC9C6FB25B2FDE63 /* GHNeighbors.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A36DA08ED75A508E0FB1C2432FC4947 /* GHNeighbors.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		33E6EAFA252D42DF15D42B75CB3E6099 /* QRCodeReaderDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = E745CBC7C22C093F8AE8529F519870D9 /* QRCodeReaderDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		36CABC4141A38C303ACF59E515ACCD01 /* MQTTClient-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 53BC8D812B03E14677EB83D9D7880A0F /* MQTTClient-dummy.m */; };
-		3DDD0FB94D61AB71C8F5C727EC7A0BD9 /* DDLogMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 29580F2934F0B775110B16BD03AA1359 /* DDLogMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3F9F4ABE56737D2DF158446ADFE94F7D /* QRCodeReader.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B41AD08630711FDB8FA420AA9F99D7F /* QRCodeReader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		08DE12FCE2A90C35AA7C0DB22A648185 /* MQTTMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CF16CC5BF1D6C546DAE52EFE01E56C3 /* MQTTMessage.m */; };
+		0D9454E284C8449C3B18ACAB7790D5F2 /* MQTTSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = BBA04B326DC1869A5642307BC6D80B61 /* MQTTSessionManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0DE5FB4DD76FEDCF19CBE14B6279908E /* objc-geohash-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B9462CE7F7B3C3A678FFEA7CF27C3E8 /* objc-geohash-dummy.m */; };
+		1A45D0CA474C6D8E3A6B054DF8F3A2B5 /* cgeohash.h in Headers */ = {isa = PBXBuildFile; fileRef = A3ECFF340B31442F0C90D039DCDBF02A /* cgeohash.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1CCF510CF60A9B2EEA04BE93E67FD274 /* GHArea.m in Sources */ = {isa = PBXBuildFile; fileRef = E509BD692B679493DA32B662F6F78DD2 /* GHArea.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		1E6A591B3DEE6317BB014BD71A50B689 /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 4416FE4558CEB9172918AD14D2368C1E /* DDASLLogCapture.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		203460C5097B0EBF5CEB19631A670C93 /* MQTTEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = F53634704C8928D59715F6DB7B3C4502 /* MQTTEncoder.m */; };
+		2E1648A2CFDC457831F90D171BD905FA /* QRCameraSwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BEBA95F0E02B83CD1636F12089CD291 /* QRCameraSwitchButton.m */; };
+		2F81A18E0A134D551B9E81D0A17238B5 /* GeoHash.h in Headers */ = {isa = PBXBuildFile; fileRef = 205075D948B73A2BCD544249752EF892 /* GeoHash.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3141F38B1EE3A50AFC9C6FB25B2FDE63 /* GHNeighbors.m in Sources */ = {isa = PBXBuildFile; fileRef = 19384830FAF44354801127008E4C6943 /* GHNeighbors.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		33E6EAFA252D42DF15D42B75CB3E6099 /* QRCodeReaderDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A2653BC6595CB2E5F7CA18D066E9A00 /* QRCodeReaderDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		36CABC4141A38C303ACF59E515ACCD01 /* MQTTClient-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 35E3300202991B3D85F129F754AA99B0 /* MQTTClient-dummy.m */; };
+		3DDD0FB94D61AB71C8F5C727EC7A0BD9 /* DDLogMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E0A28162B8D574BC12ABC66101CAEE1 /* DDLogMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3F9F4ABE56737D2DF158446ADFE94F7D /* QRCodeReader.h in Headers */ = {isa = PBXBuildFile; fileRef = D0C8F35E9337DDF3E9701C7D277D814A /* QRCodeReader.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		40977558736A3429C1E4162D86610BB7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 764C93382B59CEE3ED12979B5766DD1E /* Foundation.framework */; };
-		415B04C4BACF5D873FE9B3E5BAD71F4D /* QRCodeReaderViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C423392B9CA3CF842F749A02FEC3C0EA /* QRCodeReaderViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		41F221F9E8FDE456D3E9EB34B4C5EBF1 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = C5FED9394A5F02D3DC2E6A5077C02FA2 /* DDFileLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		456BEEAD8F6C8D0B35D5A12E72068119 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 41DCE3BC465E2FBA1E44032FF9ED3AD1 /* DDLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		415B04C4BACF5D873FE9B3E5BAD71F4D /* QRCodeReaderViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 22CAFA0108DF6FDD4536CCFBB3B83391 /* QRCodeReaderViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		41F221F9E8FDE456D3E9EB34B4C5EBF1 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FCCB1A7A0BB545305E7E9B972F5BC7F /* DDFileLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		456BEEAD8F6C8D0B35D5A12E72068119 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = CBE271560B3BEEA66963C8DFF326C0B6 /* DDLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4AAFD8D0F82E6611E0AD9C6A77CF1231 /* Pods-OwnTracks-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 623041BDA0D0252763C7D5A68433F4E4 /* Pods-OwnTracks-dummy.m */; };
-		4BC3C622DE468AC0A131F104A140C597 /* ABStaticTableViewController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3615A48A1F3F9D92984EEF540607C795 /* ABStaticTableViewController-dummy.m */; };
-		4CA5826527466D61868C31F636D9FF24 /* MQTTSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 865EE048055AE96E6D31CD2FBC9E44BA /* MQTTSessionManager.m */; };
-		4CAAFD85FC04FBFFB61A22F14C8D4684 /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 678636C4988702553EDFCDB64E734127 /* DDContextFilterLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4DAE8E19AABBC6147A2647A62B251644 /* QRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 192A96748CE843D5F068F8D3BA45B7F8 /* QRCodeReaderView.m */; };
-		4EF02A182112280039B830CF76D032D6 /* MQTTEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = AE73EE10E51B65EA0A77308B6A9E7E98 /* MQTTEncoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		50FF3C56F3D76551294E652BA32C6A16 /* GHRange.h in Headers */ = {isa = PBXBuildFile; fileRef = BE09E75419724857673443214A710D2B /* GHRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5539A292EFC958D90F290DBA5FF86220 /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = C1D3251C30FCFCE9C7F7E750F3B7D0FC /* DDDispatchQueueLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4BC3C622DE468AC0A131F104A140C597 /* ABStaticTableViewController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F7C60D720B2E6CE5504FFA6133CCF3F9 /* ABStaticTableViewController-dummy.m */; };
+		4CA5826527466D61868C31F636D9FF24 /* MQTTSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B6A600629A30C01B05EED603191CEE6 /* MQTTSessionManager.m */; };
+		4CAAFD85FC04FBFFB61A22F14C8D4684 /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 9ADCAE3F0754D987D6B165A8B135C886 /* DDContextFilterLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4DAE8E19AABBC6147A2647A62B251644 /* QRCodeReaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = F0F6AAF44CF3DDCD365959193D5A3634 /* QRCodeReaderView.m */; };
+		4EF02A182112280039B830CF76D032D6 /* MQTTEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F1D2B4BF542C408CF120B98AD3A8827 /* MQTTEncoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50FF3C56F3D76551294E652BA32C6A16 /* GHRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C405C1CDA34DB6C12F351BD5F9A5EA8 /* GHRange.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5539A292EFC958D90F290DBA5FF86220 /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 25C61389FE66DA78C2037230918D3A35 /* DDDispatchQueueLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5B065D45A363E06AD58B26E12D78522B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 764C93382B59CEE3ED12979B5766DD1E /* Foundation.framework */; };
-		5DCBA219BC81D9190F11EE56F93BB908 /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = E1234B50D513588F2FD16A21B7B180B3 /* DDTTYLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5DCBA219BC81D9190F11EE56F93BB908 /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BCA5BF02AF3A6FBB68A19BB315372F3 /* DDTTYLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5EB9ACA2A247D2ECA623F211CBF35BB3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 764C93382B59CEE3ED12979B5766DD1E /* Foundation.framework */; };
-		6077EFC05DC2551A7F5A1CFAC0B90187 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 576A181E92589121AF1F4F6F3574EA5B /* DDAbstractDatabaseLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		6475050C8BA464772209BD6AF03F1EB1 /* DDMultiFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2980DBF1FFC7DADC35C8558DB5AECE42 /* DDMultiFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		656479029A5A15463E080FD25F8903B2 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D51D72D17F9831BCE59CBED529BC8411 /* DDASLLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		67C299A24BF8DEB1885FEDE5515AC39F /* MQTTPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D2B699C569ED92579CD482088A47A76 /* MQTTPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		67E741D303696F9A1E863BC42E6A9C79 /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B17E0F5515E9EB3B5F30895E46F6E48 /* DDASLLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6077EFC05DC2551A7F5A1CFAC0B90187 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = AD7EE6A9CAD9A875C7294A59AA2A755F /* DDAbstractDatabaseLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		6475050C8BA464772209BD6AF03F1EB1 /* DDMultiFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = AAA654381407FFD9BE6343690232D2FD /* DDMultiFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		656479029A5A15463E080FD25F8903B2 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = D05ABC383A08DC1DDE205723B66B6C63 /* DDASLLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		67C299A24BF8DEB1885FEDE5515AC39F /* MQTTPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 5FE387A7BD4A44DBC1C182C18AE6E1B3 /* MQTTPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		67E741D303696F9A1E863BC42E6A9C79 /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 7654500F4328902038AB88B219CF6E76 /* DDASLLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		69A2B14A024DE7916CBBC29B48DB53FB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 764C93382B59CEE3ED12979B5766DD1E /* Foundation.framework */; };
-		6DAEF151B35D00265D60C4AD34431DD9 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 14DE3F597B4EE51035888EBDB38810CA /* DDContextFilterLogFormatter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		6F11A6422DE22AEE2650D4020AC619F6 /* GHRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1C148AC7D70EA7091B48FBC88CE34A /* GHRange.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		6FA82617CB5FFCD1FA0A50B31B28BCE6 /* MQTTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C32013C77EE3B9DAD76FB30C93BF567 /* MQTTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7514B30D9533C695A4DC87FA3D11C6D2 /* QRCodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = A4642AA5EE7FFDB72CEF76E1FA83A15C /* QRCodeReader.m */; };
+		6DAEF151B35D00265D60C4AD34431DD9 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E404EE6C2953FAD3E1072067BB0EA2 /* DDContextFilterLogFormatter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		6F11A6422DE22AEE2650D4020AC619F6 /* GHRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C19EDD7871709AA4A8F937FE331E266 /* GHRange.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		6FA82617CB5FFCD1FA0A50B31B28BCE6 /* MQTTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 3472D5EFC9C30CCB72B509D5B4ACC195 /* MQTTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7514B30D9533C695A4DC87FA3D11C6D2 /* QRCodeReader.m in Sources */ = {isa = PBXBuildFile; fileRef = EC7EDC2C60FFA173F99F2AF8DDFEE8F1 /* QRCodeReader.m */; };
 		776AA566C56AEC26DA9620B305044D8D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC93988D7F091F0DEE5CF44506467A32 /* AVFoundation.framework */; };
-		7B465308F77F602DD833A747D333E172 /* MQTTMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 558C163AFE034BB1E0DEDA691B2F5377 /* MQTTMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7EACD677D6E2A5272F285699189523C6 /* QRToggleTorchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 06CD71328AB4BB4A69B4447AC5008C55 /* QRToggleTorchButton.m */; };
+		7B465308F77F602DD833A747D333E172 /* MQTTMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 8895757D7A2BA46310A6DE39F4C71B82 /* MQTTMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7EACD677D6E2A5272F285699189523C6 /* QRToggleTorchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7A225DE0942ECFF053571EEC617B76 /* QRToggleTorchButton.m */; };
 		823253D5F501CE215FC7DCE15509A1AD /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A7BC9CEE16A8032A0DFD85E02C95BA71 /* Pods-dummy.m */; };
-		8E20382A032B7D26E1BA1936841A960F /* GHArea.h in Headers */ = {isa = PBXBuildFile; fileRef = 8AE3DEB24BB0C04185D2A5A382974081 /* GHArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		906BA39B4449184A264475B0AAA9CD7B /* DDAssertMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 89501515AD260953D523A8A61A040017 /* DDAssertMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9258A7B71D4C13DBFC66C4B8BE43B79A /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 110E11BC607D089817EF07BA541EF7EF /* DDAbstractDatabaseLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9307B6F7F017A108D42434A63DCF711F /* ABStaticTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = E011F2CB376C670FB8F7F69102A7B461 /* ABStaticTableViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		93A2DDDA01F610DE27CE51EEA1C853A2 /* GHNeighbors.h in Headers */ = {isa = PBXBuildFile; fileRef = 5ABCCB879439257395710DABC48AB82E /* GHNeighbors.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		97C44F72629E13CDC589D9BD8A413306 /* MQTTDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 38B02A5264C2AA498D2A156EFC000F44 /* MQTTDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9DFB1378A337698012F7CE5D593DC04F /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B54AEF4711C09B4FE83146EAC251D3 /* DDASLLogCapture.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		A1373780236E21452E11F5E472C1EC8E /* QRCodeReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C667B5532758FB20AC29F7F6A05F2DB /* QRCodeReaderViewController.m */; };
-		A1C3DCD0E66AD9BF8CC9242F78A5BA56 /* cgeohash.m in Sources */ = {isa = PBXBuildFile; fileRef = 2557095B9842E28404EAF44A07E2F6FF /* cgeohash.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		A2D0EE5602557677B5D9AB8D46F2F1AF /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = 58A2B61C71FFB006F01537CA8D22D580 /* DDLog+LOGV.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A34EF7C35E4E0657AFC8B4BA0B343867 /* CocoaLumberjack-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DD396AD35D274C04DAE5BEAD92689104 /* CocoaLumberjack-dummy.m */; };
-		A7B7AD0C9E59C9885ACE8622FC1535F5 /* QRCameraSwitchButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 0CA7238B93A48DDDB29786BD25753C49 /* QRCameraSwitchButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8E20382A032B7D26E1BA1936841A960F /* GHArea.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C9C714B658690E4D5DA27B6A164B42 /* GHArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		906BA39B4449184A264475B0AAA9CD7B /* DDAssertMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 174DBC071C63A537BC0E6CE4BF577399 /* DDAssertMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9258A7B71D4C13DBFC66C4B8BE43B79A /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 988C7F002E7F786DB5413745E2904A2A /* DDAbstractDatabaseLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9307B6F7F017A108D42434A63DCF711F /* ABStaticTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 382D3856E2BC8A3CC1902E5002F65A65 /* ABStaticTableViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		93A2DDDA01F610DE27CE51EEA1C853A2 /* GHNeighbors.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DD2D05AFA83E754C54A82A343A0494D /* GHNeighbors.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		97C44F72629E13CDC589D9BD8A413306 /* MQTTDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = CC66142142973D9E9B998B221B5A9DCF /* MQTTDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9DFB1378A337698012F7CE5D593DC04F /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 67A4091C19A79D441FE4972DF311E578 /* DDASLLogCapture.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		A1373780236E21452E11F5E472C1EC8E /* QRCodeReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4206127B0ADF5B591EB834EC320C3323 /* QRCodeReaderViewController.m */; };
+		A1C3DCD0E66AD9BF8CC9242F78A5BA56 /* cgeohash.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A6E18FD2F8310FBCB26870B26EF9A6D /* cgeohash.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		A2D0EE5602557677B5D9AB8D46F2F1AF /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = CF71F2F676FEE2E2EE49EA10C5C32D95 /* DDLog+LOGV.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A34EF7C35E4E0657AFC8B4BA0B343867 /* CocoaLumberjack-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 148C51AF64F5DF377CE774DD9D5BF903 /* CocoaLumberjack-dummy.m */; };
+		A7B7AD0C9E59C9885ACE8622FC1535F5 /* QRCameraSwitchButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 47190962DF534F5673614489B310971F /* QRCameraSwitchButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B020AD7BA1846C22C70CDFD38E45FE0E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 764C93382B59CEE3ED12979B5766DD1E /* Foundation.framework */; };
-		B4A2168AC094011AA2D6CD1F9D804575 /* ABStaticTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7A7E76C67611C833C1CF6EA83404C76 /* ABStaticTableViewController.m */; };
-		B86C50799E01175F51248C6CEB3C70E0 /* MQTTSSLSecurityPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 796ED03539DFBBF2863F4E0B0607AF88 /* MQTTSSLSecurityPolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BBCA69A708A7B3DD861FB839B3A251B3 /* DDLegacyMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A32485ADA9CA5F27B5C947A222B010A /* DDLegacyMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BC884409380EC94C4549384032847B52 /* QRCodeReaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = A55F8712503E98E903514475FEB1938A /* QRCodeReaderView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BE5BA2FDBDC10EE63D3B198593A3CFF1 /* QRCodeReaderViewController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D2C88BA1CE5C0B71405C7450C5EBC462 /* QRCodeReaderViewController-dummy.m */; };
-		BF525D162B9ABC5DFA69FB7A8779F76E /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BB0F840928F459E3A1DB539B3CD7770 /* DDTTYLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		C488C42E8C489C0EA14AB027F4A30458 /* MQTTSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E4A4E29B6B4C5E6C1A5BA695FDCE2A3F /* MQTTSession.m */; };
-		C515A390D549AF8A16A76DD72388BD2C /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B2BD8721A9755FE2266E857D933BFD1 /* DDFileLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CBB6BB497EC1A4C36506AD74ECDCD99F /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = B0528AB301FB1E86D23E4FD42CE0A508 /* CocoaLumberjack.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D70BDFA09F4803DCFEAD7AF5DFE21C6A /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 703E3C00259EF2CEF00FB62748719CB8 /* DDLog.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		B4A2168AC094011AA2D6CD1F9D804575 /* ABStaticTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C84A20231F255695E34F10470D526136 /* ABStaticTableViewController.m */; };
+		B86C50799E01175F51248C6CEB3C70E0 /* MQTTSSLSecurityPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = A7E32ECFC6A6DF8128B8A76382F3EC4C /* MQTTSSLSecurityPolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BBCA69A708A7B3DD861FB839B3A251B3 /* DDLegacyMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 6584A64EAF5E99B1B81B943B8A866CDA /* DDLegacyMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BC884409380EC94C4549384032847B52 /* QRCodeReaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = C275813BAB36492A13A64B4E16657A1A /* QRCodeReaderView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BE5BA2FDBDC10EE63D3B198593A3CFF1 /* QRCodeReaderViewController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 99A0D95FB36619091838E210CAFEBC02 /* QRCodeReaderViewController-dummy.m */; };
+		BF525D162B9ABC5DFA69FB7A8779F76E /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 246BB9B8FC7488693C0F96545523111B /* DDTTYLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		C488C42E8C489C0EA14AB027F4A30458 /* MQTTSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C84C23F0CA311499AEA7EDDCB280254 /* MQTTSession.m */; };
+		C515A390D549AF8A16A76DD72388BD2C /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = ED80C679BFCC089DDE74182EA50F9313 /* DDFileLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CBB6BB497EC1A4C36506AD74ECDCD99F /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = 7886CCD3216F8B977A67E8D645536253 /* CocoaLumberjack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D70BDFA09F4803DCFEAD7AF5DFE21C6A /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 62F99D02786892A99EE774F28FC7F66F /* DDLog.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		D86F62CA5DFEB5481E009AF3C783B179 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 764C93382B59CEE3ED12979B5766DD1E /* Foundation.framework */; };
-		D9C461AF416D1B84E0A2C7739B67F31F /* MQTTDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 8BA878F76D68DF5F1A083245C2E290C0 /* MQTTDecoder.m */; };
-		E1D3CF0C25A0C0A5DD1B4F4BC218C8DC /* MQTTSSLSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 701BB7F26A37BDEB9E4B4097707CDA8C /* MQTTSSLSecurityPolicy.m */; };
-		E1ED34DB49C6A05D740B8425F88CEC20 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9823372EBBC58279D57C137B94BF0B34 /* DDMultiFormatter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		E34D2E1E461FAF2CE6C368A17728E769 /* QRToggleTorchButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DB9E276898C47A29CEF3CDD4A9F7A01 /* QRToggleTorchButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E3FBE4CF85FC8E09928A779144A119C2 /* MQTTSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 5F0975A2658E1BBA1884BDCFD0E3A668 /* MQTTSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E57748B1060EAAF1D2EC6634AEBBB771 /* MQTTPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 53FFAAD0F6F344D76967B125DB89C5FF /* MQTTPersistence.m */; };
-		EC803047D332E2297290F5DB71DEF0C5 /* GeoHash.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A2AA99A2B0EA90F34817749FBEEF8D2 /* GeoHash.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		D9C461AF416D1B84E0A2C7739B67F31F /* MQTTDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = E219DB42DFD2AAA76CFD8CE15C5E00B1 /* MQTTDecoder.m */; };
+		E1D3CF0C25A0C0A5DD1B4F4BC218C8DC /* MQTTSSLSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A6DC79DFFF36551F3ACA3CD022802D3 /* MQTTSSLSecurityPolicy.m */; };
+		E1ED34DB49C6A05D740B8425F88CEC20 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = E9017D7B58B560D1224A11D4BB4CD69F /* DDMultiFormatter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		E34D2E1E461FAF2CE6C368A17728E769 /* QRToggleTorchButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E21D6D7C15BCB9C53CF401761E22199 /* QRToggleTorchButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E3FBE4CF85FC8E09928A779144A119C2 /* MQTTSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A3C1F983AB5CDE09C1724F498E6988F3 /* MQTTSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E57748B1060EAAF1D2EC6634AEBBB771 /* MQTTPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 7802B9F656A9F91077229F39F5D2CCED /* MQTTPersistence.m */; };
+		EC803047D332E2297290F5DB71DEF0C5 /* GeoHash.m in Sources */ = {isa = PBXBuildFile; fileRef = D0BA59E63E3054EB38B3E17402D4081C /* GeoHash.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		F941AD4F48A2B89229E0E7D28C53803A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 764C93382B59CEE3ED12979B5766DD1E /* Foundation.framework */; };
-		FE6239BDE2049B920243DC0F907F57B9 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E9CAA0CE8D3A795388ACF16CB97942A /* DDDispatchQueueLogFormatter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		FE6239BDE2049B920243DC0F907F57B9 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A70352C492AA20FC328F1314132285E /* DDDispatchQueueLogFormatter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,185 +159,108 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		05C2CB77B6E5658325BE6B27C5C11F7D /* tls1.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = tls1.h; path = opensslIncludes/openssl/tls1.h; sourceTree = "<group>"; };
-		06CD71328AB4BB4A69B4447AC5008C55 /* QRToggleTorchButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRToggleTorchButton.m; path = QRCodeReaderViewController/QRToggleTorchButton.m; sourceTree = "<group>"; };
-		0791983638589F234291FA4F755C0F37 /* cms.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = cms.h; path = opensslIncludes/openssl/cms.h; sourceTree = "<group>"; };
+		05FD69CF6FD91AEFA2AE959A826CAC25 /* QRCodeReaderViewController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = QRCodeReaderViewController.xcconfig; sourceTree = "<group>"; };
 		0A824068E18118F2CE3B12E3FA05B536 /* Pods-OwnTracks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OwnTracks.release.xcconfig"; sourceTree = "<group>"; };
-		0A900B2EF7117C184F9C747960853B3E /* ssl23.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ssl23.h; path = opensslIncludes/openssl/ssl23.h; sourceTree = "<group>"; };
-		0CA7238B93A48DDDB29786BD25753C49 /* QRCameraSwitchButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCameraSwitchButton.h; path = QRCodeReaderViewController/QRCameraSwitchButton.h; sourceTree = "<group>"; };
-		0EEB91BB3C13242E43A63E338F72B45D /* cgeohash.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = cgeohash.h; path = Classes/ARC/cgeohash.h; sourceTree = "<group>"; };
-		110E11BC607D089817EF07BA541EF7EF /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDAbstractDatabaseLogger.h; path = Classes/DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
+		0B9462CE7F7B3C3A678FFEA7CF27C3E8 /* objc-geohash-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "objc-geohash-dummy.m"; sourceTree = "<group>"; };
+		0FA2ED7154965EECF6755EB10A6A9442 /* CocoaLumberjack.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CocoaLumberjack.xcconfig; sourceTree = "<group>"; };
 		131A8CF5925D36A0DA008A3EF18CE596 /* libMQTTClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMQTTClient.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		14DE3F597B4EE51035888EBDB38810CA /* DDContextFilterLogFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDContextFilterLogFormatter.m; path = Classes/Extensions/DDContextFilterLogFormatter.m; sourceTree = "<group>"; };
-		17417EF6CE3D75900F0335C44BF3E838 /* hmac.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = hmac.h; path = opensslIncludes/openssl/hmac.h; sourceTree = "<group>"; };
-		192A96748CE843D5F068F8D3BA45B7F8 /* QRCodeReaderView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCodeReaderView.m; path = QRCodeReaderViewController/QRCodeReaderView.m; sourceTree = "<group>"; };
-		1B17E0F5515E9EB3B5F30895E46F6E48 /* DDASLLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDASLLogger.h; path = Classes/DDASLLogger.h; sourceTree = "<group>"; };
-		1C7F3B56CFF883D08FFF19B59889341A /* rc4.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = rc4.h; path = opensslIncludes/openssl/rc4.h; sourceTree = "<group>"; };
-		1CA4EDDBAB55EB8B7C2A7F9B4328EE18 /* ripemd.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ripemd.h; path = opensslIncludes/openssl/ripemd.h; sourceTree = "<group>"; };
-		21DB13079F89D8B1F69DCB6555E69703 /* ebcdic.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ebcdic.h; path = opensslIncludes/openssl/ebcdic.h; sourceTree = "<group>"; };
-		22459D15C8A13800C79AFD8C832BDA0F /* sha.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = sha.h; path = opensslIncludes/openssl/sha.h; sourceTree = "<group>"; };
-		2557095B9842E28404EAF44A07E2F6FF /* cgeohash.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = cgeohash.m; path = Classes/ARC/cgeohash.m; sourceTree = "<group>"; };
+		148C51AF64F5DF377CE774DD9D5BF903 /* CocoaLumberjack-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CocoaLumberjack-dummy.m"; sourceTree = "<group>"; };
+		174DBC071C63A537BC0E6CE4BF577399 /* DDAssertMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDAssertMacros.h; path = Classes/DDAssertMacros.h; sourceTree = "<group>"; };
+		185C4B365F8B3EFAD196EFF9690A1BF1 /* MQTTClient.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MQTTClient.xcconfig; sourceTree = "<group>"; };
+		19384830FAF44354801127008E4C6943 /* GHNeighbors.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GHNeighbors.m; path = Classes/ARC/GHNeighbors.m; sourceTree = "<group>"; };
+		1C405C1CDA34DB6C12F351BD5F9A5EA8 /* GHRange.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GHRange.h; path = Classes/ARC/GHRange.h; sourceTree = "<group>"; };
+		1C84C23F0CA311499AEA7EDDCB280254 /* MQTTSession.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSession.m; path = MQTTClient/MQTTClient/MQTTSession.m; sourceTree = "<group>"; };
+		205075D948B73A2BCD544249752EF892 /* GeoHash.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GeoHash.h; path = Classes/ARC/GeoHash.h; sourceTree = "<group>"; };
+		22CAFA0108DF6FDD4536CCFBB3B83391 /* QRCodeReaderViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReaderViewController.h; path = QRCodeReaderViewController/QRCodeReaderViewController.h; sourceTree = "<group>"; };
+		236AF7E2E788CEB20F511473029CB75F /* objc-geohash-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "objc-geohash-prefix.pch"; sourceTree = "<group>"; };
+		246BB9B8FC7488693C0F96545523111B /* DDTTYLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDTTYLogger.m; path = Classes/DDTTYLogger.m; sourceTree = "<group>"; };
+		25C61389FE66DA78C2037230918D3A35 /* DDDispatchQueueLogFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDDispatchQueueLogFormatter.h; path = Classes/Extensions/DDDispatchQueueLogFormatter.h; sourceTree = "<group>"; };
 		28C2458CB86911B8B2C3900AF802B98E /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
-		29580F2934F0B775110B16BD03AA1359 /* DDLogMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLogMacros.h; path = Classes/DDLogMacros.h; sourceTree = "<group>"; };
-		2980DBF1FFC7DADC35C8558DB5AECE42 /* DDMultiFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDMultiFormatter.h; path = Classes/Extensions/DDMultiFormatter.h; sourceTree = "<group>"; };
-		2A1C148AC7D70EA7091B48FBC88CE34A /* GHRange.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GHRange.m; path = Classes/ARC/GHRange.m; sourceTree = "<group>"; };
-		2AE2125469755EC91080CDF3E652D068 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		2B149390ED6C7C9AD35C3886B63D351B /* ecdh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecdh.h; path = opensslIncludes/openssl/ecdh.h; sourceTree = "<group>"; };
-		2B41AD08630711FDB8FA420AA9F99D7F /* QRCodeReader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReader.h; path = QRCodeReaderViewController/QRCodeReader.h; sourceTree = "<group>"; };
-		2D14D731C511C5A107FF1C2B63BBEEA9 /* lhash.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = lhash.h; path = opensslIncludes/openssl/lhash.h; sourceTree = "<group>"; };
-		2D212749E00361B804F7E72728F6CF9F /* ec.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ec.h; path = opensslIncludes/openssl/ec.h; sourceTree = "<group>"; };
-		2FAE857861F72CF736289535AF209B66 /* objc-geohash-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "objc-geohash-prefix.pch"; sourceTree = "<group>"; };
-		30CB67E2A5F592F5D859B5409715866E /* CocoaLumberjack.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CocoaLumberjack.xcconfig; sourceTree = "<group>"; };
-		314508BD518EEE0E25C8CD765064ACA1 /* ABStaticTableViewController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ABStaticTableViewController.xcconfig; sourceTree = "<group>"; };
-		33FE9E5548D61198C58C12D3F842D6F0 /* CocoaLumberjack-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CocoaLumberjack-prefix.pch"; sourceTree = "<group>"; };
-		3615A48A1F3F9D92984EEF540607C795 /* ABStaticTableViewController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ABStaticTableViewController-dummy.m"; sourceTree = "<group>"; };
-		38B02A5264C2AA498D2A156EFC000F44 /* MQTTDecoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTDecoder.h; path = MQTTClient/MQTTClient/MQTTDecoder.h; sourceTree = "<group>"; };
-		38FC8E5692534B63D2F29DCCFAEBDA7E /* ecdsa.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ecdsa.h; path = opensslIncludes/openssl/ecdsa.h; sourceTree = "<group>"; };
-		397B5C17B5808E656791D2C4304745B7 /* QRCameraSwitchButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCameraSwitchButton.m; path = QRCodeReaderViewController/QRCameraSwitchButton.m; sourceTree = "<group>"; };
-		3A3C38F1297860FA7552B018893576F1 /* pkcs12.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = pkcs12.h; path = opensslIncludes/openssl/pkcs12.h; sourceTree = "<group>"; };
-		3D3AEC0DCE3F16C84655ACB43502D7D4 /* ocsp.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ocsp.h; path = opensslIncludes/openssl/ocsp.h; sourceTree = "<group>"; };
-		3E73FEC189015A1D648392B44EAAE499 /* stack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = stack.h; path = opensslIncludes/openssl/stack.h; sourceTree = "<group>"; };
-		410B296FAD0756EC0A0CA7D4FE8B9827 /* GeoHash.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GeoHash.h; path = Classes/ARC/GeoHash.h; sourceTree = "<group>"; };
-		41DCE3BC465E2FBA1E44032FF9ED3AD1 /* DDLog.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLog.h; path = Classes/DDLog.h; sourceTree = "<group>"; };
+		2BEBA95F0E02B83CD1636F12089CD291 /* QRCameraSwitchButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCameraSwitchButton.m; path = QRCodeReaderViewController/QRCameraSwitchButton.m; sourceTree = "<group>"; };
+		31E404EE6C2953FAD3E1072067BB0EA2 /* DDContextFilterLogFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDContextFilterLogFormatter.m; path = Classes/Extensions/DDContextFilterLogFormatter.m; sourceTree = "<group>"; };
+		32845B4F0BC628E8742AAF4CBDA25907 /* ABStaticTableViewController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ABStaticTableViewController.xcconfig; sourceTree = "<group>"; };
+		3472D5EFC9C30CCB72B509D5B4ACC195 /* MQTTClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTClient.h; path = MQTTClient/MQTTClient/MQTTClient.h; sourceTree = "<group>"; };
+		35E3300202991B3D85F129F754AA99B0 /* MQTTClient-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MQTTClient-dummy.m"; sourceTree = "<group>"; };
+		382D3856E2BC8A3CC1902E5002F65A65 /* ABStaticTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABStaticTableViewController.h; sourceTree = "<group>"; };
+		3C9B625DF98CB1A649A3BBC6B0E4C1E0 /* ABStaticTableViewController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ABStaticTableViewController-prefix.pch"; sourceTree = "<group>"; };
+		3CF16CC5BF1D6C546DAE52EFE01E56C3 /* MQTTMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTMessage.m; path = MQTTClient/MQTTClient/MQTTMessage.m; sourceTree = "<group>"; };
+		3E0A28162B8D574BC12ABC66101CAEE1 /* DDLogMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLogMacros.h; path = Classes/DDLogMacros.h; sourceTree = "<group>"; };
+		3F1D2B4BF542C408CF120B98AD3A8827 /* MQTTEncoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTEncoder.h; path = MQTTClient/MQTTClient/MQTTEncoder.h; sourceTree = "<group>"; };
+		40E99BE130AB40484F5396EF144706E7 /* MQTTClient-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MQTTClient-prefix.pch"; sourceTree = "<group>"; };
+		41BC6A04389976314F17BE67929BC535 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		4206127B0ADF5B591EB834EC320C3323 /* QRCodeReaderViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCodeReaderViewController.m; path = QRCodeReaderViewController/QRCodeReaderViewController.m; sourceTree = "<group>"; };
 		4311EB0E0E29D9D4550BF5E8761F138C /* libQRCodeReaderViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libQRCodeReaderViewController.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		4313CA146B07A91041548B38776A3698 /* MQTTMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTMessage.m; path = MQTTClient/MQTTClient/MQTTMessage.m; sourceTree = "<group>"; };
-		44009D9949DDFCE04B23F51D5DC5D93B /* cast.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = cast.h; path = opensslIncludes/openssl/cast.h; sourceTree = "<group>"; };
-		442E8486A2B257995C6C1CA7D9565C38 /* srtp.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = srtp.h; path = opensslIncludes/openssl/srtp.h; sourceTree = "<group>"; };
-		473312EAF44EB080BB478F5B4DC3F9ED /* libcrypto.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libcrypto.a; path = lib/libcrypto.a; sourceTree = "<group>"; };
-		4947E26B5B2330DFB039915ED46BAD02 /* srp.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = srp.h; path = opensslIncludes/openssl/srp.h; sourceTree = "<group>"; };
-		4A2AA99A2B0EA90F34817749FBEEF8D2 /* GeoHash.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GeoHash.m; path = Classes/ARC/GeoHash.m; sourceTree = "<group>"; };
-		4D236B77CD55E7E0A3685021C2C322C2 /* ssl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ssl.h; path = opensslIncludes/openssl/ssl.h; sourceTree = "<group>"; };
-		4E1920B86AD079CB1DC053E403BFAF7D /* idea.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = idea.h; path = opensslIncludes/openssl/idea.h; sourceTree = "<group>"; };
-		4E53D163100140674B6850C898A84F44 /* bn.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = bn.h; path = opensslIncludes/openssl/bn.h; sourceTree = "<group>"; };
-		50C94C8C9F451FCC7DF176283543CB03 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		50CBC02801C9C3779366FA5C87916463 /* err.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = err.h; path = opensslIncludes/openssl/err.h; sourceTree = "<group>"; };
-		535A23AFE09ADB355376350B6E5D6A34 /* libssl.a */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = archive.ar; name = libssl.a; path = lib/libssl.a; sourceTree = "<group>"; };
-		53BC8D812B03E14677EB83D9D7880A0F /* MQTTClient-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "MQTTClient-dummy.m"; sourceTree = "<group>"; };
-		53FFAAD0F6F344D76967B125DB89C5FF /* MQTTPersistence.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTPersistence.m; path = MQTTClient/MQTTClient/MQTTPersistence.m; sourceTree = "<group>"; };
-		542173712DB0C9FC66B4F7C62FB85059 /* modes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = modes.h; path = opensslIncludes/openssl/modes.h; sourceTree = "<group>"; };
-		546808B431001B64B26066703FEDF8D8 /* asn1_mac.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = asn1_mac.h; path = opensslIncludes/openssl/asn1_mac.h; sourceTree = "<group>"; };
-		550DEFD1B7D925B975C3BFC793682AA1 /* conf_api.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = conf_api.h; path = opensslIncludes/openssl/conf_api.h; sourceTree = "<group>"; };
-		558C163AFE034BB1E0DEDA691B2F5377 /* MQTTMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTMessage.h; path = MQTTClient/MQTTClient/MQTTMessage.h; sourceTree = "<group>"; };
-		576A181E92589121AF1F4F6F3574EA5B /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDAbstractDatabaseLogger.m; path = Classes/DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
-		58A2B61C71FFB006F01537CA8D22D580 /* DDLog+LOGV.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "DDLog+LOGV.h"; path = "Classes/DDLog+LOGV.h"; sourceTree = "<group>"; };
-		5ABCCB879439257395710DABC48AB82E /* GHNeighbors.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GHNeighbors.h; path = Classes/ARC/GHNeighbors.h; sourceTree = "<group>"; };
-		5C08EBD1FFE73403B6B08E0A81798A5C /* bio.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = bio.h; path = opensslIncludes/openssl/bio.h; sourceTree = "<group>"; };
-		5E9CAA0CE8D3A795388ACF16CB97942A /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDDispatchQueueLogFormatter.m; path = Classes/Extensions/DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
-		5F0975A2658E1BBA1884BDCFD0E3A668 /* MQTTSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSession.h; path = MQTTClient/MQTTClient/MQTTSession.h; sourceTree = "<group>"; };
-		5F701ECA600146F1BF368579C06CCCBB /* opensslconf.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = opensslconf.h; path = opensslIncludes/openssl/opensslconf.h; sourceTree = "<group>"; };
+		4416FE4558CEB9172918AD14D2368C1E /* DDASLLogCapture.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDASLLogCapture.h; path = Classes/DDASLLogCapture.h; sourceTree = "<group>"; };
+		45C9C714B658690E4D5DA27B6A164B42 /* GHArea.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GHArea.h; path = Classes/ARC/GHArea.h; sourceTree = "<group>"; };
+		47190962DF534F5673614489B310971F /* QRCameraSwitchButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCameraSwitchButton.h; path = QRCodeReaderViewController/QRCameraSwitchButton.h; sourceTree = "<group>"; };
+		4A2653BC6595CB2E5F7CA18D066E9A00 /* QRCodeReaderDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReaderDelegate.h; path = QRCodeReaderViewController/QRCodeReaderDelegate.h; sourceTree = "<group>"; };
+		4C19EDD7871709AA4A8F937FE331E266 /* GHRange.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GHRange.m; path = Classes/ARC/GHRange.m; sourceTree = "<group>"; };
+		4E21D6D7C15BCB9C53CF401761E22199 /* QRToggleTorchButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRToggleTorchButton.h; path = QRCodeReaderViewController/QRToggleTorchButton.h; sourceTree = "<group>"; };
+		55F19CB2EC0FED74FF872E2F7D62AE6F /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		5FE387A7BD4A44DBC1C182C18AE6E1B3 /* MQTTPersistence.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTPersistence.h; path = MQTTClient/MQTTClient/MQTTPersistence.h; sourceTree = "<group>"; };
 		602D825DB02052B69B5FDE08FF4A6279 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.release.xcconfig; sourceTree = "<group>"; };
 		623041BDA0D0252763C7D5A68433F4E4 /* Pods-OwnTracks-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-OwnTracks-dummy.m"; sourceTree = "<group>"; };
-		62820AC6BC86B116B51A795F69D195DC /* MQTTSessionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSessionManager.h; path = MQTTClient/MQTTClient/MQTTSessionManager.h; sourceTree = "<group>"; };
-		678636C4988702553EDFCDB64E734127 /* DDContextFilterLogFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDContextFilterLogFormatter.h; path = Classes/Extensions/DDContextFilterLogFormatter.h; sourceTree = "<group>"; };
-		6809783DB16383CEAADCFC655421CF44 /* obj_mac.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = obj_mac.h; path = opensslIncludes/openssl/obj_mac.h; sourceTree = "<group>"; };
+		62F99D02786892A99EE774F28FC7F66F /* DDLog.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDLog.m; path = Classes/DDLog.m; sourceTree = "<group>"; };
+		6584A64EAF5E99B1B81B943B8A866CDA /* DDLegacyMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLegacyMacros.h; path = Classes/DDLegacyMacros.h; sourceTree = "<group>"; };
+		67A4091C19A79D441FE4972DF311E578 /* DDASLLogCapture.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDASLLogCapture.m; path = Classes/DDASLLogCapture.m; sourceTree = "<group>"; };
+		67DE41AACA3FBA0E330AE264ECD10D90 /* CocoaLumberjack-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CocoaLumberjack-prefix.pch"; sourceTree = "<group>"; };
 		688CF0A7F087D6831DD33D5772E8F227 /* Pods-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-frameworks.sh"; sourceTree = "<group>"; };
 		68A4B3EE8DA1D9C6DE83CA1EE66B057B /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
-		6A36DA08ED75A508E0FB1C2432FC4947 /* GHNeighbors.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GHNeighbors.m; path = Classes/ARC/GHNeighbors.m; sourceTree = "<group>"; };
-		6A773C7408C383BA45C34A8BAACB6F3B /* des_old.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = des_old.h; path = opensslIncludes/openssl/des_old.h; sourceTree = "<group>"; };
-		6BAC8BECB5E53AC9D9AFFB708F1C991C /* des.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = des.h; path = opensslIncludes/openssl/des.h; sourceTree = "<group>"; };
-		6C667B5532758FB20AC29F7F6A05F2DB /* QRCodeReaderViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCodeReaderViewController.m; path = QRCodeReaderViewController/QRCodeReaderViewController.m; sourceTree = "<group>"; };
-		6FD1EEC5041A974CD74455DB12AB9DC4 /* blowfish.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = blowfish.h; path = opensslIncludes/openssl/blowfish.h; sourceTree = "<group>"; };
-		701BB7F26A37BDEB9E4B4097707CDA8C /* MQTTSSLSecurityPolicy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSSLSecurityPolicy.m; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicy.m; sourceTree = "<group>"; };
-		70213035A789A45BDD80F024AE1BEAFE /* whrlpool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = whrlpool.h; path = opensslIncludes/openssl/whrlpool.h; sourceTree = "<group>"; };
-		703E3C00259EF2CEF00FB62748719CB8 /* DDLog.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDLog.m; path = Classes/DDLog.m; sourceTree = "<group>"; };
-		70E5E6E03DAE13A9C4A84C068D691FCC /* QRCodeReaderViewController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = QRCodeReaderViewController.xcconfig; sourceTree = "<group>"; };
-		729110E4D5A8CE3319386E49C309DFC9 /* MQTTEncoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTEncoder.m; path = MQTTClient/MQTTClient/MQTTEncoder.m; sourceTree = "<group>"; };
-		737FE43745D693678F057F34CA9F4175 /* pem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = pem.h; path = opensslIncludes/openssl/pem.h; sourceTree = "<group>"; };
+		6A6DC79DFFF36551F3ACA3CD022802D3 /* MQTTSSLSecurityPolicy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSSLSecurityPolicy.m; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicy.m; sourceTree = "<group>"; };
+		6A70352C492AA20FC328F1314132285E /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDDispatchQueueLogFormatter.m; path = Classes/Extensions/DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
 		75A49FA69C20E997BC45A65930D99D7A /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
 		764C93382B59CEE3ED12979B5766DD1E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		796ED03539DFBBF2863F4E0B0607AF88 /* MQTTSSLSecurityPolicy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSSLSecurityPolicy.h; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicy.h; sourceTree = "<group>"; };
-		7A32485ADA9CA5F27B5C947A222B010A /* DDLegacyMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLegacyMacros.h; path = Classes/DDLegacyMacros.h; sourceTree = "<group>"; };
-		7B2BD8721A9755FE2266E857D933BFD1 /* DDFileLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDFileLogger.h; path = Classes/DDFileLogger.h; sourceTree = "<group>"; };
-		7C32013C77EE3B9DAD76FB30C93BF567 /* MQTTClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTClient.h; path = MQTTClient/MQTTClient/MQTTClient.h; sourceTree = "<group>"; };
-		7DB9E276898C47A29CEF3CDD4A9F7A01 /* QRToggleTorchButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRToggleTorchButton.h; path = QRCodeReaderViewController/QRToggleTorchButton.h; sourceTree = "<group>"; };
-		7FA73C17BC1FA9FB3E00817EC6C632A5 /* MQTTClient-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "MQTTClient-prefix.pch"; sourceTree = "<group>"; };
-		8146A03FB3D566ED6962308566CF14D2 /* cmac.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = cmac.h; path = opensslIncludes/openssl/cmac.h; sourceTree = "<group>"; };
+		7654500F4328902038AB88B219CF6E76 /* DDASLLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDASLLogger.h; path = Classes/DDASLLogger.h; sourceTree = "<group>"; };
+		7802B9F656A9F91077229F39F5D2CCED /* MQTTPersistence.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTPersistence.m; path = MQTTClient/MQTTClient/MQTTPersistence.m; sourceTree = "<group>"; };
+		7886CCD3216F8B977A67E8D645536253 /* CocoaLumberjack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CocoaLumberjack.h; path = Classes/CocoaLumberjack.h; sourceTree = "<group>"; };
+		7FCCB1A7A0BB545305E7E9B972F5BC7F /* DDFileLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDFileLogger.m; path = Classes/DDFileLogger.m; sourceTree = "<group>"; };
 		851EC14208EAA356D3381EDFF754E43B /* Pods-OwnTracks-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OwnTracks-acknowledgements.plist"; sourceTree = "<group>"; };
-		865EE048055AE96E6D31CD2FBC9E44BA /* MQTTSessionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSessionManager.m; path = MQTTClient/MQTTClient/MQTTSessionManager.m; sourceTree = "<group>"; };
-		8723129D94F15E2416855909C1A7A2F7 /* safestack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = safestack.h; path = opensslIncludes/openssl/safestack.h; sourceTree = "<group>"; };
-		8794FF282C993ACF4073CAD30B754145 /* rsa.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = rsa.h; path = opensslIncludes/openssl/rsa.h; sourceTree = "<group>"; };
-		88B54AEF4711C09B4FE83146EAC251D3 /* DDASLLogCapture.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDASLLogCapture.m; path = Classes/DDASLLogCapture.m; sourceTree = "<group>"; };
-		89501515AD260953D523A8A61A040017 /* DDAssertMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDAssertMacros.h; path = Classes/DDAssertMacros.h; sourceTree = "<group>"; };
-		8AE3DEB24BB0C04185D2A5A382974081 /* GHArea.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GHArea.h; path = Classes/ARC/GHArea.h; sourceTree = "<group>"; };
-		8BA878F76D68DF5F1A083245C2E290C0 /* MQTTDecoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTDecoder.m; path = MQTTClient/MQTTClient/MQTTDecoder.m; sourceTree = "<group>"; };
-		8BB0F840928F459E3A1DB539B3CD7770 /* DDTTYLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDTTYLogger.m; path = Classes/DDTTYLogger.m; sourceTree = "<group>"; };
-		8CCBB528AD394C1B6F3C42FAE3D1C1A4 /* dh.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = dh.h; path = opensslIncludes/openssl/dh.h; sourceTree = "<group>"; };
-		8D2B699C569ED92579CD482088A47A76 /* MQTTPersistence.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTPersistence.h; path = MQTTClient/MQTTClient/MQTTPersistence.h; sourceTree = "<group>"; };
-		8E4D03DF49D8AEDCFAB95C221A3A1938 /* objc-geohash.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "objc-geohash.xcconfig"; sourceTree = "<group>"; };
-		91D01C0AA76391CD138E56B0D7805CCC /* txt_db.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = txt_db.h; path = opensslIncludes/openssl/txt_db.h; sourceTree = "<group>"; };
-		9475F1D37B5F6B959A3E40DBCEEB273C /* rand.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = rand.h; path = opensslIncludes/openssl/rand.h; sourceTree = "<group>"; };
-		95D352CFE69F6B05A25DD73F703E7EE3 /* e_os2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = e_os2.h; path = opensslIncludes/openssl/e_os2.h; sourceTree = "<group>"; };
+		8895757D7A2BA46310A6DE39F4C71B82 /* MQTTMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTMessage.h; path = MQTTClient/MQTTClient/MQTTMessage.h; sourceTree = "<group>"; };
 		9641CD7B4ABB0B89D94F01C0147449BC /* Pods-OwnTracks-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-OwnTracks-frameworks.sh"; sourceTree = "<group>"; };
-		9823372EBBC58279D57C137B94BF0B34 /* DDMultiFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDMultiFormatter.m; path = Classes/Extensions/DDMultiFormatter.m; sourceTree = "<group>"; };
-		9A7D83EB7DFB952B269DA4E627B7AD4D /* crypto.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto.h; path = opensslIncludes/openssl/crypto.h; sourceTree = "<group>"; };
-		9EECEFA85A9FDFC43192870A9EA9F390 /* symhacks.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = symhacks.h; path = opensslIncludes/openssl/symhacks.h; sourceTree = "<group>"; };
+		988C7F002E7F786DB5413745E2904A2A /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDAbstractDatabaseLogger.h; path = Classes/DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
+		99A0D95FB36619091838E210CAFEBC02 /* QRCodeReaderViewController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "QRCodeReaderViewController-dummy.m"; sourceTree = "<group>"; };
+		9A6E18FD2F8310FBCB26870B26EF9A6D /* cgeohash.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = cgeohash.m; path = Classes/ARC/cgeohash.m; sourceTree = "<group>"; };
+		9ADCAE3F0754D987D6B165A8B135C886 /* DDContextFilterLogFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDContextFilterLogFormatter.h; path = Classes/Extensions/DDContextFilterLogFormatter.h; sourceTree = "<group>"; };
+		9B6A600629A30C01B05EED603191CEE6 /* MQTTSessionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSessionManager.m; path = MQTTClient/MQTTClient/MQTTSessionManager.m; sourceTree = "<group>"; };
+		9BCA5BF02AF3A6FBB68A19BB315372F3 /* DDTTYLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDTTYLogger.h; path = Classes/DDTTYLogger.h; sourceTree = "<group>"; };
+		9DD2D05AFA83E754C54A82A343A0494D /* GHNeighbors.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GHNeighbors.h; path = Classes/ARC/GHNeighbors.h; sourceTree = "<group>"; };
+		9E7A225DE0942ECFF053571EEC617B76 /* QRToggleTorchButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRToggleTorchButton.m; path = QRCodeReaderViewController/QRToggleTorchButton.m; sourceTree = "<group>"; };
 		A112EFABBA34280710DC9DDF32EDCD20 /* Pods-OwnTracks-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-OwnTracks-acknowledgements.markdown"; sourceTree = "<group>"; };
 		A1F4930ADFCC93D887E09E719DD8D72A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		A2D93D42DEDBB3373438E749EA550019 /* x509.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = x509.h; path = opensslIncludes/openssl/x509.h; sourceTree = "<group>"; };
-		A3E84E68C3704FDC0A6C57BA40A7CE40 /* MQTTClient.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = MQTTClient.xcconfig; sourceTree = "<group>"; };
-		A4642AA5EE7FFDB72CEF76E1FA83A15C /* QRCodeReader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCodeReader.m; path = QRCodeReaderViewController/QRCodeReader.m; sourceTree = "<group>"; };
-		A55F8712503E98E903514475FEB1938A /* QRCodeReaderView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReaderView.h; path = QRCodeReaderViewController/QRCodeReaderView.h; sourceTree = "<group>"; };
-		A5B11F78BDDD81C5937E57353D412D0A /* aes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = aes.h; path = opensslIncludes/openssl/aes.h; sourceTree = "<group>"; };
-		A6EE6B3FD7D1D93A6C39BA7EA4607228 /* QRCodeReaderViewController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "QRCodeReaderViewController-prefix.pch"; sourceTree = "<group>"; };
+		A3C1F983AB5CDE09C1724F498E6988F3 /* MQTTSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSession.h; path = MQTTClient/MQTTClient/MQTTSession.h; sourceTree = "<group>"; };
+		A3ECFF340B31442F0C90D039DCDBF02A /* cgeohash.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = cgeohash.h; path = Classes/ARC/cgeohash.h; sourceTree = "<group>"; };
 		A7BC9CEE16A8032A0DFD85E02C95BA71 /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = "<group>"; };
-		AE1D9B0BEA99065262DAF22C3FFDF848 /* objc-geohash-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "objc-geohash-dummy.m"; sourceTree = "<group>"; };
-		AE73EE10E51B65EA0A77308B6A9E7E98 /* MQTTEncoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTEncoder.h; path = MQTTClient/MQTTClient/MQTTEncoder.h; sourceTree = "<group>"; };
+		A7E32ECFC6A6DF8128B8A76382F3EC4C /* MQTTSSLSecurityPolicy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSSLSecurityPolicy.h; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicy.h; sourceTree = "<group>"; };
+		AAA654381407FFD9BE6343690232D2FD /* DDMultiFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDMultiFormatter.h; path = Classes/Extensions/DDMultiFormatter.h; sourceTree = "<group>"; };
+		AD7EE6A9CAD9A875C7294A59AA2A755F /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDAbstractDatabaseLogger.m; path = Classes/DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
+		AEB2D86D6FC39496BB0D5693B2F7273E /* objc-geohash.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "objc-geohash.xcconfig"; sourceTree = "<group>"; };
 		AFFC922E960AD0FE4DE30FA56BCF4294 /* Pods-OwnTracks-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-OwnTracks-resources.sh"; sourceTree = "<group>"; };
-		B0528AB301FB1E86D23E4FD42CE0A508 /* CocoaLumberjack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CocoaLumberjack.h; path = Classes/CocoaLumberjack.h; sourceTree = "<group>"; };
 		B4DC9B174F11F275D94BBA154B7E9599 /* Pods-OwnTracks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OwnTracks.debug.xcconfig"; sourceTree = "<group>"; };
-		B4FD1A6BED9FE093B62FE1A7D224C5BB /* rc2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = rc2.h; path = opensslIncludes/openssl/rc2.h; sourceTree = "<group>"; };
-		B666783130DEB00BCB99A5A4E9CDB0AB /* ts.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ts.h; path = opensslIncludes/openssl/ts.h; sourceTree = "<group>"; };
-		B783AB9CDAE231C4B3DE80FCC0378489 /* kssl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = kssl.h; path = opensslIncludes/openssl/kssl.h; sourceTree = "<group>"; };
-		B7A7E76C67611C833C1CF6EA83404C76 /* ABStaticTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABStaticTableViewController.m; sourceTree = "<group>"; };
-		BA3E1EC91F0069502A31FCD0528376DC /* ssl2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ssl2.h; path = opensslIncludes/openssl/ssl2.h; sourceTree = "<group>"; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		BBBEDDB853F62A75404DC6DDC7395B87 /* conf.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = conf.h; path = opensslIncludes/openssl/conf.h; sourceTree = "<group>"; };
-		BC04BE53538D61C2AEE2E2994E7DB92E /* pem2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = pem2.h; path = opensslIncludes/openssl/pem2.h; sourceTree = "<group>"; };
+		BBA04B326DC1869A5642307BC6D80B61 /* MQTTSessionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSessionManager.h; path = MQTTClient/MQTTClient/MQTTSessionManager.h; sourceTree = "<group>"; };
 		BC4374D6D41AE66CE74A8D825A79E44A /* libPods-OwnTracks.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OwnTracks.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BE09E75419724857673443214A710D2B /* GHRange.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GHRange.h; path = Classes/ARC/GHRange.h; sourceTree = "<group>"; };
-		C060B56294FADFA7DB0FAEFD8AEFA986 /* dso.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = dso.h; path = opensslIncludes/openssl/dso.h; sourceTree = "<group>"; };
-		C1D3251C30FCFCE9C7F7E750F3B7D0FC /* DDDispatchQueueLogFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDDispatchQueueLogFormatter.h; path = Classes/Extensions/DDDispatchQueueLogFormatter.h; sourceTree = "<group>"; };
-		C423392B9CA3CF842F749A02FEC3C0EA /* QRCodeReaderViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReaderViewController.h; path = QRCodeReaderViewController/QRCodeReaderViewController.h; sourceTree = "<group>"; };
-		C5FED9394A5F02D3DC2E6A5077C02FA2 /* DDFileLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDFileLogger.m; path = Classes/DDFileLogger.m; sourceTree = "<group>"; };
-		C680C8ABA6A7E4E62F7597EB97F157BA /* pqueue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = pqueue.h; path = opensslIncludes/openssl/pqueue.h; sourceTree = "<group>"; };
-		C7206A766CACEFF1206EFC505AFF675C /* asn1t.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = asn1t.h; path = opensslIncludes/openssl/asn1t.h; sourceTree = "<group>"; };
-		C74C44B4EC9E3A997A3CB113DB79D2BA /* dsa.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = dsa.h; path = opensslIncludes/openssl/dsa.h; sourceTree = "<group>"; };
+		C275813BAB36492A13A64B4E16657A1A /* QRCodeReaderView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReaderView.h; path = QRCodeReaderViewController/QRCodeReaderView.h; sourceTree = "<group>"; };
+		C84A20231F255695E34F10470D526136 /* ABStaticTableViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ABStaticTableViewController.m; sourceTree = "<group>"; };
 		C95FF88F5E253205324B324DBB42B055 /* libCocoaLumberjack.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCocoaLumberjack.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBE271560B3BEEA66963C8DFF326C0B6 /* DDLog.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLog.h; path = Classes/DDLog.h; sourceTree = "<group>"; };
+		CC66142142973D9E9B998B221B5A9DCF /* MQTTDecoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTDecoder.h; path = MQTTClient/MQTTClient/MQTTDecoder.h; sourceTree = "<group>"; };
 		CC93988D7F091F0DEE5CF44506467A32 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
-		CE162030DBA4670698864A9CEA134A07 /* mdc2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = mdc2.h; path = opensslIncludes/openssl/mdc2.h; sourceTree = "<group>"; };
+		CF71F2F676FEE2E2EE49EA10C5C32D95 /* DDLog+LOGV.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "DDLog+LOGV.h"; path = "Classes/DDLog+LOGV.h"; sourceTree = "<group>"; };
 		D04E4B9052A54640538C36E965DAB540 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
-		D178887F7A69CB9A581C623BD8CDE0FA /* x509v3.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = x509v3.h; path = opensslIncludes/openssl/x509v3.h; sourceTree = "<group>"; };
+		D05ABC383A08DC1DDE205723B66B6C63 /* DDASLLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDASLLogger.m; path = Classes/DDASLLogger.m; sourceTree = "<group>"; };
+		D0BA59E63E3054EB38B3E17402D4081C /* GeoHash.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GeoHash.m; path = Classes/ARC/GeoHash.m; sourceTree = "<group>"; };
+		D0C8F35E9337DDF3E9701C7D277D814A /* QRCodeReader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReader.h; path = QRCodeReaderViewController/QRCodeReader.h; sourceTree = "<group>"; };
 		D257BE83B63707D155B7CCD446D1D19F /* libobjc-geohash.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libobjc-geohash.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D293D4164C3D107805138268E79A9D4E /* dtls1.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = dtls1.h; path = opensslIncludes/openssl/dtls1.h; sourceTree = "<group>"; };
-		D2C88BA1CE5C0B71405C7450C5EBC462 /* QRCodeReaderViewController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "QRCodeReaderViewController-dummy.m"; sourceTree = "<group>"; };
-		D32DE7CD5B1C2FE6C58152A55E692F10 /* asn1.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = asn1.h; path = opensslIncludes/openssl/asn1.h; sourceTree = "<group>"; };
-		D4FE3749E5EC5724596BBC6292176C1A /* ssl3.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ssl3.h; path = opensslIncludes/openssl/ssl3.h; sourceTree = "<group>"; };
-		D51D72D17F9831BCE59CBED529BC8411 /* DDASLLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDASLLogger.m; path = Classes/DDASLLogger.m; sourceTree = "<group>"; };
-		D6C9247D726A3335FC00DEF4B68F9730 /* pkcs7.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = pkcs7.h; path = opensslIncludes/openssl/pkcs7.h; sourceTree = "<group>"; };
-		D772CCCCEBD1156068B868C72C74EB5A /* ABStaticTableViewController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ABStaticTableViewController-prefix.pch"; sourceTree = "<group>"; };
-		D7CB29A615A8A5CC706B18BBBDC8026A /* x509_vfy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = x509_vfy.h; path = opensslIncludes/openssl/x509_vfy.h; sourceTree = "<group>"; };
-		D9A2687DC04211FB0250E32CC33ACC9B /* ossl_typ.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ossl_typ.h; path = opensslIncludes/openssl/ossl_typ.h; sourceTree = "<group>"; };
-		DC17D3E82E3BB0AF0CE2D91178D9920A /* ui_compat.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ui_compat.h; path = opensslIncludes/openssl/ui_compat.h; sourceTree = "<group>"; };
-		DD396AD35D274C04DAE5BEAD92689104 /* CocoaLumberjack-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "CocoaLumberjack-dummy.m"; sourceTree = "<group>"; };
-		DD3AAFA25747D6D34183AA978ED9BE1A /* krb5_asn.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = krb5_asn.h; path = opensslIncludes/openssl/krb5_asn.h; sourceTree = "<group>"; };
-		DECA5F07F2A0D97FCD4FCEF59B6D43A1 /* evp.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = evp.h; path = opensslIncludes/openssl/evp.h; sourceTree = "<group>"; };
-		E011F2CB376C670FB8F7F69102A7B461 /* ABStaticTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABStaticTableViewController.h; sourceTree = "<group>"; };
-		E1234B50D513588F2FD16A21B7B180B3 /* DDTTYLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDTTYLogger.h; path = Classes/DDTTYLogger.h; sourceTree = "<group>"; };
-		E26884C798495F3CEA92EFE4EBDF8845 /* objects.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = objects.h; path = opensslIncludes/openssl/objects.h; sourceTree = "<group>"; };
-		E2CC5198DE021AF41F2969F2CDA71F14 /* comp.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = comp.h; path = opensslIncludes/openssl/comp.h; sourceTree = "<group>"; };
-		E4A4E29B6B4C5E6C1A5BA695FDCE2A3F /* MQTTSession.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSession.m; path = MQTTClient/MQTTClient/MQTTSession.m; sourceTree = "<group>"; };
-		E4D6AD9E9FEB88A6645FD17AB4BD3A03 /* md4.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = md4.h; path = opensslIncludes/openssl/md4.h; sourceTree = "<group>"; };
-		E745CBC7C22C093F8AE8529F519870D9 /* QRCodeReaderDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReaderDelegate.h; path = QRCodeReaderViewController/QRCodeReaderDelegate.h; sourceTree = "<group>"; };
-		ED977602522A3B5C0079FB9DA0D57D46 /* engine.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = engine.h; path = opensslIncludes/openssl/engine.h; sourceTree = "<group>"; };
-		EF188657C6B6A95331213EB869E9BD01 /* GHArea.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GHArea.m; path = Classes/ARC/GHArea.m; sourceTree = "<group>"; };
-		F0FAA21FF675BD4FB8F5EA7392261D60 /* camellia.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = camellia.h; path = opensslIncludes/openssl/camellia.h; sourceTree = "<group>"; };
-		F3CF43818BA7FF04E75BB49EB0F544ED /* buffer.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = buffer.h; path = opensslIncludes/openssl/buffer.h; sourceTree = "<group>"; };
-		F438581BAD382EBC6CE465A4A6671BBB /* md5.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = md5.h; path = opensslIncludes/openssl/md5.h; sourceTree = "<group>"; };
-		F5BDD1AB4A97C7D81CB12F102B4CB0EA /* ui.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ui.h; path = opensslIncludes/openssl/ui.h; sourceTree = "<group>"; };
-		F64A57DD7435E06D88FE7642E6E804E8 /* DDASLLogCapture.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDASLLogCapture.h; path = Classes/DDASLLogCapture.h; sourceTree = "<group>"; };
-		F7C88AB6A1ECEC668C468FF3BF3BBACC /* opensslv.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = opensslv.h; path = opensslIncludes/openssl/opensslv.h; sourceTree = "<group>"; };
+		E219DB42DFD2AAA76CFD8CE15C5E00B1 /* MQTTDecoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTDecoder.m; path = MQTTClient/MQTTClient/MQTTDecoder.m; sourceTree = "<group>"; };
+		E509BD692B679493DA32B662F6F78DD2 /* GHArea.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GHArea.m; path = Classes/ARC/GHArea.m; sourceTree = "<group>"; };
+		E9017D7B58B560D1224A11D4BB4CD69F /* DDMultiFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDMultiFormatter.m; path = Classes/Extensions/DDMultiFormatter.m; sourceTree = "<group>"; };
+		EC7EDC2C60FFA173F99F2AF8DDFEE8F1 /* QRCodeReader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCodeReader.m; path = QRCodeReaderViewController/QRCodeReader.m; sourceTree = "<group>"; };
+		ED80C679BFCC089DDE74182EA50F9313 /* DDFileLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDFileLogger.h; path = Classes/DDFileLogger.h; sourceTree = "<group>"; };
+		F0F6AAF44CF3DDCD365959193D5A3634 /* QRCodeReaderView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCodeReaderView.m; path = QRCodeReaderViewController/QRCodeReaderView.m; sourceTree = "<group>"; };
+		F53634704C8928D59715F6DB7B3C4502 /* MQTTEncoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTEncoder.m; path = MQTTClient/MQTTClient/MQTTEncoder.m; sourceTree = "<group>"; };
+		F7C60D720B2E6CE5504FFA6133CCF3F9 /* ABStaticTableViewController-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ABStaticTableViewController-dummy.m"; sourceTree = "<group>"; };
+		FC415773CEBCF096464A0B5F6ACB4AFD /* QRCodeReaderViewController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "QRCodeReaderViewController-prefix.pch"; sourceTree = "<group>"; };
 		FF6D1743E3B7299720149BEDB5B6B6AD /* libABStaticTableViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libABStaticTableViewController.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		FFD972B2BF683DD540026241EF8662E0 /* seed.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = seed.h; path = opensslIncludes/openssl/seed.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -401,6 +324,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00DD5E4A2AA24D50611BF141EFDD36C8 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				988C7F002E7F786DB5413745E2904A2A /* DDAbstractDatabaseLogger.h */,
+				AD7EE6A9CAD9A875C7294A59AA2A755F /* DDAbstractDatabaseLogger.m */,
+				4416FE4558CEB9172918AD14D2368C1E /* DDASLLogCapture.h */,
+				67A4091C19A79D441FE4972DF311E578 /* DDASLLogCapture.m */,
+				7654500F4328902038AB88B219CF6E76 /* DDASLLogger.h */,
+				D05ABC383A08DC1DDE205723B66B6C63 /* DDASLLogger.m */,
+				174DBC071C63A537BC0E6CE4BF577399 /* DDAssertMacros.h */,
+				ED80C679BFCC089DDE74182EA50F9313 /* DDFileLogger.h */,
+				7FCCB1A7A0BB545305E7E9B972F5BC7F /* DDFileLogger.m */,
+				6584A64EAF5E99B1B81B943B8A866CDA /* DDLegacyMacros.h */,
+				CBE271560B3BEEA66963C8DFF326C0B6 /* DDLog.h */,
+				62F99D02786892A99EE774F28FC7F66F /* DDLog.m */,
+				CF71F2F676FEE2E2EE49EA10C5C32D95 /* DDLog+LOGV.h */,
+				3E0A28162B8D574BC12ABC66101CAEE1 /* DDLogMacros.h */,
+				9BCA5BF02AF3A6FBB68A19BB315372F3 /* DDTTYLogger.h */,
+				246BB9B8FC7488693C0F96545523111B /* DDTTYLogger.m */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
 		078BE7A59CFE5FC09F8A1A75FB0EC1C4 /* Pods-OwnTracks */ = {
 			isa = PBXGroup;
 			children = (
@@ -416,50 +362,33 @@
 			path = "Target Support Files/Pods-OwnTracks";
 			sourceTree = "<group>";
 		};
-		0A4EF8CD7AB1CA842D9DBB848F85C469 /* Crashlytics */ = {
+		089CCBC6FE6AE44116B0D64EF6AB93C4 /* objc-geohash */ = {
 			isa = PBXGroup;
 			children = (
-				6128C0A6523174CD9774B0CAFEDE538D /* Frameworks */,
+				A3ECFF340B31442F0C90D039DCDBF02A /* cgeohash.h */,
+				9A6E18FD2F8310FBCB26870B26EF9A6D /* cgeohash.m */,
+				205075D948B73A2BCD544249752EF892 /* GeoHash.h */,
+				D0BA59E63E3054EB38B3E17402D4081C /* GeoHash.m */,
+				45C9C714B658690E4D5DA27B6A164B42 /* GHArea.h */,
+				E509BD692B679493DA32B662F6F78DD2 /* GHArea.m */,
+				9DD2D05AFA83E754C54A82A343A0494D /* GHNeighbors.h */,
+				19384830FAF44354801127008E4C6943 /* GHNeighbors.m */,
+				1C405C1CDA34DB6C12F351BD5F9A5EA8 /* GHRange.h */,
+				4C19EDD7871709AA4A8F937FE331E266 /* GHRange.m */,
+				ABC90396B97C1B48EC93B15CF39ECAEF /* Support Files */,
 			);
-			path = Crashlytics;
+			path = "objc-geohash";
 			sourceTree = "<group>";
 		};
-		0CA43C21F11037125E70FEC77BC1472F /* Base */ = {
+		176041301547EA8459C0B46B5A6140A8 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				F5E40EBEA51BF0CC136FDC01E66A767E /* Frameworks */,
-			);
-			name = Base;
-			sourceTree = "<group>";
-		};
-		1C39EFEB84E06E78DFE2DF70D52B25E0 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				8E4D03DF49D8AEDCFAB95C221A3A1938 /* objc-geohash.xcconfig */,
-				AE1D9B0BEA99065262DAF22C3FFDF848 /* objc-geohash-dummy.m */,
-				2FAE857861F72CF736289535AF209B66 /* objc-geohash-prefix.pch */,
+				05FD69CF6FD91AEFA2AE959A826CAC25 /* QRCodeReaderViewController.xcconfig */,
+				99A0D95FB36619091838E210CAFEBC02 /* QRCodeReaderViewController-dummy.m */,
+				FC415773CEBCF096464A0B5F6ACB4AFD /* QRCodeReaderViewController-prefix.pch */,
 			);
 			name = "Support Files";
-			path = "../Target Support Files/objc-geohash";
-			sourceTree = "<group>";
-		};
-		1E563945664EB33B316E26CF2EAAA903 /* QRCodeReaderViewController */ = {
-			isa = PBXGroup;
-			children = (
-				0CA7238B93A48DDDB29786BD25753C49 /* QRCameraSwitchButton.h */,
-				397B5C17B5808E656791D2C4304745B7 /* QRCameraSwitchButton.m */,
-				2B41AD08630711FDB8FA420AA9F99D7F /* QRCodeReader.h */,
-				A4642AA5EE7FFDB72CEF76E1FA83A15C /* QRCodeReader.m */,
-				E745CBC7C22C093F8AE8529F519870D9 /* QRCodeReaderDelegate.h */,
-				A55F8712503E98E903514475FEB1938A /* QRCodeReaderView.h */,
-				192A96748CE843D5F068F8D3BA45B7F8 /* QRCodeReaderView.m */,
-				C423392B9CA3CF842F749A02FEC3C0EA /* QRCodeReaderViewController.h */,
-				6C667B5532758FB20AC29F7F6A05F2DB /* QRCodeReaderViewController.m */,
-				7DB9E276898C47A29CEF3CDD4A9F7A01 /* QRToggleTorchButton.h */,
-				06CD71328AB4BB4A69B4447AC5008C55 /* QRToggleTorchButton.m */,
-				2CBF0C75BA8EF23056773D784D16ACFE /* Support Files */,
-			);
-			path = QRCodeReaderViewController;
+			path = "../Target Support Files/QRCodeReaderViewController";
 			sourceTree = "<group>";
 		};
 		23D271A5936BBA4C2403F1547FCE108F /* Products */ = {
@@ -476,26 +405,23 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2CBF0C75BA8EF23056773D784D16ACFE /* Support Files */ = {
+		2D019EB9ADEBCFE9132AE0FE56CC821F /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				70E5E6E03DAE13A9C4A84C068D691FCC /* QRCodeReaderViewController.xcconfig */,
-				D2C88BA1CE5C0B71405C7450C5EBC462 /* QRCodeReaderViewController-dummy.m */,
-				A6EE6B3FD7D1D93A6C39BA7EA4607228 /* QRCodeReaderViewController-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/QRCodeReaderViewController";
-			sourceTree = "<group>";
-		};
-		30C81405C52A047555A8F3A88E4BFCF2 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				A3E84E68C3704FDC0A6C57BA40A7CE40 /* MQTTClient.xcconfig */,
-				53BC8D812B03E14677EB83D9D7880A0F /* MQTTClient-dummy.m */,
-				7FA73C17BC1FA9FB3E00817EC6C632A5 /* MQTTClient-prefix.pch */,
+				185C4B365F8B3EFAD196EFF9690A1BF1 /* MQTTClient.xcconfig */,
+				35E3300202991B3D85F129F754AA99B0 /* MQTTClient-dummy.m */,
+				40E99BE130AB40484F5396EF144706E7 /* MQTTClient-prefix.pch */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/MQTTClient";
+			sourceTree = "<group>";
+		};
+		3CE38FB449E6F02D9B0BDDFFB37F3135 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				55F19CB2EC0FED74FF872E2F7D62AE6F /* Fabric.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		433CD3331B6C3787F473C941B61FC68F /* Frameworks */ = {
@@ -506,22 +432,31 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		473990614F8DFC4414F6A1FE93D52C2D /* objc-geohash */ = {
+		46FA7BEBDECB9090C6DADC0CCB7E1ED1 /* Default */ = {
 			isa = PBXGroup;
 			children = (
-				0EEB91BB3C13242E43A63E338F72B45D /* cgeohash.h */,
-				2557095B9842E28404EAF44A07E2F6FF /* cgeohash.m */,
-				410B296FAD0756EC0A0CA7D4FE8B9827 /* GeoHash.h */,
-				4A2AA99A2B0EA90F34817749FBEEF8D2 /* GeoHash.m */,
-				8AE3DEB24BB0C04185D2A5A382974081 /* GHArea.h */,
-				EF188657C6B6A95331213EB869E9BD01 /* GHArea.m */,
-				5ABCCB879439257395710DABC48AB82E /* GHNeighbors.h */,
-				6A36DA08ED75A508E0FB1C2432FC4947 /* GHNeighbors.m */,
-				BE09E75419724857673443214A710D2B /* GHRange.h */,
-				2A1C148AC7D70EA7091B48FBC88CE34A /* GHRange.m */,
-				1C39EFEB84E06E78DFE2DF70D52B25E0 /* Support Files */,
+				7886CCD3216F8B977A67E8D645536253 /* CocoaLumberjack.h */,
 			);
-			path = "objc-geohash";
+			name = Default;
+			sourceTree = "<group>";
+		};
+		477709B2FA12A4C165633A652C7EE256 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				3CE38FB449E6F02D9B0BDDFFB37F3135 /* Frameworks */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
+		4E7F3A22F0D133761661B18D1DBC031F /* CocoaLumberjack */ = {
+			isa = PBXGroup;
+			children = (
+				00DD5E4A2AA24D50611BF141EFDD36C8 /* Core */,
+				46FA7BEBDECB9090C6DADC0CCB7E1ED1 /* Default */,
+				5BC019FBE33FBC65EA59D27C19A662E1 /* Extensions */,
+				F6AC0D6A3EC05619AFE0D69ECDA6E037 /* Support Files */,
+			);
+			path = CocoaLumberjack;
 			sourceTree = "<group>";
 		};
 		502F60075FC4331F755C37AE61C739B8 /* iOS */ = {
@@ -533,65 +468,33 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		59BEB185C59EE15FBE410751F4769BF0 /* CocoaLumberjack */ = {
+		5BC019FBE33FBC65EA59D27C19A662E1 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				ED25A3E748407A19804D72D27F54E4E6 /* Core */,
-				69C00BA3831C6003C7F94B61366B99C6 /* Default */,
-				82054BBBB107DD794F717C6EA2681854 /* Extensions */,
-				F818553F69D8FACB20C8B0BED39EE5CD /* Support Files */,
+				9ADCAE3F0754D987D6B165A8B135C886 /* DDContextFilterLogFormatter.h */,
+				31E404EE6C2953FAD3E1072067BB0EA2 /* DDContextFilterLogFormatter.m */,
+				25C61389FE66DA78C2037230918D3A35 /* DDDispatchQueueLogFormatter.h */,
+				6A70352C492AA20FC328F1314132285E /* DDDispatchQueueLogFormatter.m */,
+				AAA654381407FFD9BE6343690232D2FD /* DDMultiFormatter.h */,
+				E9017D7B58B560D1224A11D4BB4CD69F /* DDMultiFormatter.m */,
 			);
-			path = CocoaLumberjack;
+			name = Extensions;
 			sourceTree = "<group>";
 		};
-		6128C0A6523174CD9774B0CAFEDE538D /* Frameworks */ = {
+		5DCE3B3DD776E6851FFEA0209A239EAB /* Crashlytics */ = {
 			isa = PBXGroup;
 			children = (
-				2AE2125469755EC91080CDF3E652D068 /* Crashlytics.framework */,
+				C38E46AB62E95C0283434A460596E321 /* Frameworks */,
 			);
-			name = Frameworks;
+			path = Crashlytics;
 			sourceTree = "<group>";
 		};
-		66434C409791CF263AF5515CE2F70E14 /* Support Files */ = {
+		7DA348F094716A13797C03B93CB6D2B0 /* Fabric */ = {
 			isa = PBXGroup;
 			children = (
-				314508BD518EEE0E25C8CD765064ACA1 /* ABStaticTableViewController.xcconfig */,
-				3615A48A1F3F9D92984EEF540607C795 /* ABStaticTableViewController-dummy.m */,
-				D772CCCCEBD1156068B868C72C74EB5A /* ABStaticTableViewController-prefix.pch */,
+				477709B2FA12A4C165633A652C7EE256 /* Base */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/ABStaticTableViewController";
-			sourceTree = "<group>";
-		};
-		69C00BA3831C6003C7F94B61366B99C6 /* Default */ = {
-			isa = PBXGroup;
-			children = (
-				B0528AB301FB1E86D23E4FD42CE0A508 /* CocoaLumberjack.h */,
-			);
-			name = Default;
-			sourceTree = "<group>";
-		};
-		7064F92CEB20EADEE38BB29789957A23 /* MQTTClient */ = {
-			isa = PBXGroup;
-			children = (
-				7C32013C77EE3B9DAD76FB30C93BF567 /* MQTTClient.h */,
-				38B02A5264C2AA498D2A156EFC000F44 /* MQTTDecoder.h */,
-				8BA878F76D68DF5F1A083245C2E290C0 /* MQTTDecoder.m */,
-				AE73EE10E51B65EA0A77308B6A9E7E98 /* MQTTEncoder.h */,
-				729110E4D5A8CE3319386E49C309DFC9 /* MQTTEncoder.m */,
-				558C163AFE034BB1E0DEDA691B2F5377 /* MQTTMessage.h */,
-				4313CA146B07A91041548B38776A3698 /* MQTTMessage.m */,
-				8D2B699C569ED92579CD482088A47A76 /* MQTTPersistence.h */,
-				53FFAAD0F6F344D76967B125DB89C5FF /* MQTTPersistence.m */,
-				5F0975A2658E1BBA1884BDCFD0E3A668 /* MQTTSession.h */,
-				E4A4E29B6B4C5E6C1A5BA695FDCE2A3F /* MQTTSession.m */,
-				62820AC6BC86B116B51A795F69D195DC /* MQTTSessionManager.h */,
-				865EE048055AE96E6D31CD2FBC9E44BA /* MQTTSessionManager.m */,
-				796ED03539DFBBF2863F4E0B0607AF88 /* MQTTSSLSecurityPolicy.h */,
-				701BB7F26A37BDEB9E4B4097707CDA8C /* MQTTSSLSecurityPolicy.m */,
-				30C81405C52A047555A8F3A88E4BFCF2 /* Support Files */,
-			);
-			path = MQTTClient;
+			path = Fabric;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -599,31 +502,87 @@
 			children = (
 				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
 				433CD3331B6C3787F473C941B61FC68F /* Frameworks */,
-				C5362BC5F223D39ECA60A185984ED464 /* Pods */,
+				87A8169B93E58D422BFC237FDF898320 /* Pods */,
 				23D271A5936BBA4C2403F1547FCE108F /* Products */,
 				AFCBEF77FD82C8F0FE0EFAD6B9EB6621 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		82054BBBB107DD794F717C6EA2681854 /* Extensions */ = {
+		87A8169B93E58D422BFC237FDF898320 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				678636C4988702553EDFCDB64E734127 /* DDContextFilterLogFormatter.h */,
-				14DE3F597B4EE51035888EBDB38810CA /* DDContextFilterLogFormatter.m */,
-				C1D3251C30FCFCE9C7F7E750F3B7D0FC /* DDDispatchQueueLogFormatter.h */,
-				5E9CAA0CE8D3A795388ACF16CB97942A /* DDDispatchQueueLogFormatter.m */,
-				2980DBF1FFC7DADC35C8558DB5AECE42 /* DDMultiFormatter.h */,
-				9823372EBBC58279D57C137B94BF0B34 /* DDMultiFormatter.m */,
+				900AF1B3BC615F9BED76E027C4A727B1 /* ABStaticTableViewController */,
+				4E7F3A22F0D133761661B18D1DBC031F /* CocoaLumberjack */,
+				5DCE3B3DD776E6851FFEA0209A239EAB /* Crashlytics */,
+				7DA348F094716A13797C03B93CB6D2B0 /* Fabric */,
+				8C31BEE9D2F7BE0818733A9C1844105A /* MQTTClient */,
+				089CCBC6FE6AE44116B0D64EF6AB93C4 /* objc-geohash */,
+				93C6A8451008F93909ED03413120769F /* QRCodeReaderViewController */,
 			);
-			name = Extensions;
+			name = Pods;
 			sourceTree = "<group>";
 		};
-		A8457846E4266BDCACE31626B7DE15B5 /* Fabric */ = {
+		8C31BEE9D2F7BE0818733A9C1844105A /* MQTTClient */ = {
 			isa = PBXGroup;
 			children = (
-				0CA43C21F11037125E70FEC77BC1472F /* Base */,
+				3472D5EFC9C30CCB72B509D5B4ACC195 /* MQTTClient.h */,
+				CC66142142973D9E9B998B221B5A9DCF /* MQTTDecoder.h */,
+				E219DB42DFD2AAA76CFD8CE15C5E00B1 /* MQTTDecoder.m */,
+				3F1D2B4BF542C408CF120B98AD3A8827 /* MQTTEncoder.h */,
+				F53634704C8928D59715F6DB7B3C4502 /* MQTTEncoder.m */,
+				8895757D7A2BA46310A6DE39F4C71B82 /* MQTTMessage.h */,
+				3CF16CC5BF1D6C546DAE52EFE01E56C3 /* MQTTMessage.m */,
+				5FE387A7BD4A44DBC1C182C18AE6E1B3 /* MQTTPersistence.h */,
+				7802B9F656A9F91077229F39F5D2CCED /* MQTTPersistence.m */,
+				A3C1F983AB5CDE09C1724F498E6988F3 /* MQTTSession.h */,
+				1C84C23F0CA311499AEA7EDDCB280254 /* MQTTSession.m */,
+				BBA04B326DC1869A5642307BC6D80B61 /* MQTTSessionManager.h */,
+				9B6A600629A30C01B05EED603191CEE6 /* MQTTSessionManager.m */,
+				A7E32ECFC6A6DF8128B8A76382F3EC4C /* MQTTSSLSecurityPolicy.h */,
+				6A6DC79DFFF36551F3ACA3CD022802D3 /* MQTTSSLSecurityPolicy.m */,
+				2D019EB9ADEBCFE9132AE0FE56CC821F /* Support Files */,
 			);
-			path = Fabric;
+			path = MQTTClient;
+			sourceTree = "<group>";
+		};
+		900AF1B3BC615F9BED76E027C4A727B1 /* ABStaticTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				382D3856E2BC8A3CC1902E5002F65A65 /* ABStaticTableViewController.h */,
+				C84A20231F255695E34F10470D526136 /* ABStaticTableViewController.m */,
+				FA62D95CBB554737C7E5A9DF5BA434E1 /* Support Files */,
+			);
+			path = ABStaticTableViewController;
+			sourceTree = "<group>";
+		};
+		93C6A8451008F93909ED03413120769F /* QRCodeReaderViewController */ = {
+			isa = PBXGroup;
+			children = (
+				47190962DF534F5673614489B310971F /* QRCameraSwitchButton.h */,
+				2BEBA95F0E02B83CD1636F12089CD291 /* QRCameraSwitchButton.m */,
+				D0C8F35E9337DDF3E9701C7D277D814A /* QRCodeReader.h */,
+				EC7EDC2C60FFA173F99F2AF8DDFEE8F1 /* QRCodeReader.m */,
+				4A2653BC6595CB2E5F7CA18D066E9A00 /* QRCodeReaderDelegate.h */,
+				C275813BAB36492A13A64B4E16657A1A /* QRCodeReaderView.h */,
+				F0F6AAF44CF3DDCD365959193D5A3634 /* QRCodeReaderView.m */,
+				22CAFA0108DF6FDD4536CCFBB3B83391 /* QRCodeReaderViewController.h */,
+				4206127B0ADF5B591EB834EC320C3323 /* QRCodeReaderViewController.m */,
+				4E21D6D7C15BCB9C53CF401761E22199 /* QRToggleTorchButton.h */,
+				9E7A225DE0942ECFF053571EEC617B76 /* QRToggleTorchButton.m */,
+				176041301547EA8459C0B46B5A6140A8 /* Support Files */,
+			);
+			path = QRCodeReaderViewController;
+			sourceTree = "<group>";
+		};
+		ABC90396B97C1B48EC93B15CF39ECAEF /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				AEB2D86D6FC39496BB0D5693B2F7273E /* objc-geohash.xcconfig */,
+				0B9462CE7F7B3C3A678FFEA7CF27C3E8 /* objc-geohash-dummy.m */,
+				236AF7E2E788CEB20F511473029CB75F /* objc-geohash-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/objc-geohash";
 			sourceTree = "<group>";
 		};
 		AFCBEF77FD82C8F0FE0EFAD6B9EB6621 /* Targets Support Files */ = {
@@ -635,112 +594,12 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		C5362BC5F223D39ECA60A185984ED464 /* Pods */ = {
+		C38E46AB62E95C0283434A460596E321 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DF756129D7023B8057212E6A779F5102 /* ABStaticTableViewController */,
-				59BEB185C59EE15FBE410751F4769BF0 /* CocoaLumberjack */,
-				0A4EF8CD7AB1CA842D9DBB848F85C469 /* Crashlytics */,
-				A8457846E4266BDCACE31626B7DE15B5 /* Fabric */,
-				7064F92CEB20EADEE38BB29789957A23 /* MQTTClient */,
-				473990614F8DFC4414F6A1FE93D52C2D /* objc-geohash */,
-				C8851030D2D3023D6310BE200BF71DBF /* OpenSSL */,
-				1E563945664EB33B316E26CF2EAAA903 /* QRCodeReaderViewController */,
+				41BC6A04389976314F17BE67929BC535 /* Crashlytics.framework */,
 			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		C8851030D2D3023D6310BE200BF71DBF /* OpenSSL */ = {
-			isa = PBXGroup;
-			children = (
-				A5B11F78BDDD81C5937E57353D412D0A /* aes.h */,
-				D32DE7CD5B1C2FE6C58152A55E692F10 /* asn1.h */,
-				546808B431001B64B26066703FEDF8D8 /* asn1_mac.h */,
-				C7206A766CACEFF1206EFC505AFF675C /* asn1t.h */,
-				5C08EBD1FFE73403B6B08E0A81798A5C /* bio.h */,
-				6FD1EEC5041A974CD74455DB12AB9DC4 /* blowfish.h */,
-				4E53D163100140674B6850C898A84F44 /* bn.h */,
-				F3CF43818BA7FF04E75BB49EB0F544ED /* buffer.h */,
-				F0FAA21FF675BD4FB8F5EA7392261D60 /* camellia.h */,
-				44009D9949DDFCE04B23F51D5DC5D93B /* cast.h */,
-				8146A03FB3D566ED6962308566CF14D2 /* cmac.h */,
-				0791983638589F234291FA4F755C0F37 /* cms.h */,
-				E2CC5198DE021AF41F2969F2CDA71F14 /* comp.h */,
-				BBBEDDB853F62A75404DC6DDC7395B87 /* conf.h */,
-				550DEFD1B7D925B975C3BFC793682AA1 /* conf_api.h */,
-				9A7D83EB7DFB952B269DA4E627B7AD4D /* crypto.h */,
-				6BAC8BECB5E53AC9D9AFFB708F1C991C /* des.h */,
-				6A773C7408C383BA45C34A8BAACB6F3B /* des_old.h */,
-				8CCBB528AD394C1B6F3C42FAE3D1C1A4 /* dh.h */,
-				C74C44B4EC9E3A997A3CB113DB79D2BA /* dsa.h */,
-				C060B56294FADFA7DB0FAEFD8AEFA986 /* dso.h */,
-				D293D4164C3D107805138268E79A9D4E /* dtls1.h */,
-				95D352CFE69F6B05A25DD73F703E7EE3 /* e_os2.h */,
-				21DB13079F89D8B1F69DCB6555E69703 /* ebcdic.h */,
-				2D212749E00361B804F7E72728F6CF9F /* ec.h */,
-				2B149390ED6C7C9AD35C3886B63D351B /* ecdh.h */,
-				38FC8E5692534B63D2F29DCCFAEBDA7E /* ecdsa.h */,
-				ED977602522A3B5C0079FB9DA0D57D46 /* engine.h */,
-				50CBC02801C9C3779366FA5C87916463 /* err.h */,
-				DECA5F07F2A0D97FCD4FCEF59B6D43A1 /* evp.h */,
-				17417EF6CE3D75900F0335C44BF3E838 /* hmac.h */,
-				4E1920B86AD079CB1DC053E403BFAF7D /* idea.h */,
-				DD3AAFA25747D6D34183AA978ED9BE1A /* krb5_asn.h */,
-				B783AB9CDAE231C4B3DE80FCC0378489 /* kssl.h */,
-				2D14D731C511C5A107FF1C2B63BBEEA9 /* lhash.h */,
-				E4D6AD9E9FEB88A6645FD17AB4BD3A03 /* md4.h */,
-				F438581BAD382EBC6CE465A4A6671BBB /* md5.h */,
-				CE162030DBA4670698864A9CEA134A07 /* mdc2.h */,
-				542173712DB0C9FC66B4F7C62FB85059 /* modes.h */,
-				6809783DB16383CEAADCFC655421CF44 /* obj_mac.h */,
-				E26884C798495F3CEA92EFE4EBDF8845 /* objects.h */,
-				3D3AEC0DCE3F16C84655ACB43502D7D4 /* ocsp.h */,
-				5F701ECA600146F1BF368579C06CCCBB /* opensslconf.h */,
-				F7C88AB6A1ECEC668C468FF3BF3BBACC /* opensslv.h */,
-				D9A2687DC04211FB0250E32CC33ACC9B /* ossl_typ.h */,
-				737FE43745D693678F057F34CA9F4175 /* pem.h */,
-				BC04BE53538D61C2AEE2E2994E7DB92E /* pem2.h */,
-				3A3C38F1297860FA7552B018893576F1 /* pkcs12.h */,
-				D6C9247D726A3335FC00DEF4B68F9730 /* pkcs7.h */,
-				C680C8ABA6A7E4E62F7597EB97F157BA /* pqueue.h */,
-				9475F1D37B5F6B959A3E40DBCEEB273C /* rand.h */,
-				B4FD1A6BED9FE093B62FE1A7D224C5BB /* rc2.h */,
-				1C7F3B56CFF883D08FFF19B59889341A /* rc4.h */,
-				1CA4EDDBAB55EB8B7C2A7F9B4328EE18 /* ripemd.h */,
-				8794FF282C993ACF4073CAD30B754145 /* rsa.h */,
-				8723129D94F15E2416855909C1A7A2F7 /* safestack.h */,
-				FFD972B2BF683DD540026241EF8662E0 /* seed.h */,
-				22459D15C8A13800C79AFD8C832BDA0F /* sha.h */,
-				4947E26B5B2330DFB039915ED46BAD02 /* srp.h */,
-				442E8486A2B257995C6C1CA7D9565C38 /* srtp.h */,
-				4D236B77CD55E7E0A3685021C2C322C2 /* ssl.h */,
-				BA3E1EC91F0069502A31FCD0528376DC /* ssl2.h */,
-				0A900B2EF7117C184F9C747960853B3E /* ssl23.h */,
-				D4FE3749E5EC5724596BBC6292176C1A /* ssl3.h */,
-				3E73FEC189015A1D648392B44EAAE499 /* stack.h */,
-				9EECEFA85A9FDFC43192870A9EA9F390 /* symhacks.h */,
-				05C2CB77B6E5658325BE6B27C5C11F7D /* tls1.h */,
-				B666783130DEB00BCB99A5A4E9CDB0AB /* ts.h */,
-				91D01C0AA76391CD138E56B0D7805CCC /* txt_db.h */,
-				F5BDD1AB4A97C7D81CB12F102B4CB0EA /* ui.h */,
-				DC17D3E82E3BB0AF0CE2D91178D9920A /* ui_compat.h */,
-				70213035A789A45BDD80F024AE1BEAFE /* whrlpool.h */,
-				A2D93D42DEDBB3373438E749EA550019 /* x509.h */,
-				D7CB29A615A8A5CC706B18BBBDC8026A /* x509_vfy.h */,
-				D178887F7A69CB9A581C623BD8CDE0FA /* x509v3.h */,
-				F644A9AE6D3AAA95C22CC9ABD56F5F29 /* Frameworks */,
-			);
-			path = OpenSSL;
-			sourceTree = "<group>";
-		};
-		DF756129D7023B8057212E6A779F5102 /* ABStaticTableViewController */ = {
-			isa = PBXGroup;
-			children = (
-				E011F2CB376C670FB8F7F69102A7B461 /* ABStaticTableViewController.h */,
-				B7A7E76C67611C833C1CF6EA83404C76 /* ABStaticTableViewController.m */,
-				66434C409791CF263AF5515CE2F70E14 /* Support Files */,
-			);
-			path = ABStaticTableViewController;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		E89002E3512BB554E2C19D49F3B7D16B /* Pods */ = {
@@ -758,55 +617,26 @@
 			path = "Target Support Files/Pods";
 			sourceTree = "<group>";
 		};
-		ED25A3E748407A19804D72D27F54E4E6 /* Core */ = {
+		F6AC0D6A3EC05619AFE0D69ECDA6E037 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				110E11BC607D089817EF07BA541EF7EF /* DDAbstractDatabaseLogger.h */,
-				576A181E92589121AF1F4F6F3574EA5B /* DDAbstractDatabaseLogger.m */,
-				F64A57DD7435E06D88FE7642E6E804E8 /* DDASLLogCapture.h */,
-				88B54AEF4711C09B4FE83146EAC251D3 /* DDASLLogCapture.m */,
-				1B17E0F5515E9EB3B5F30895E46F6E48 /* DDASLLogger.h */,
-				D51D72D17F9831BCE59CBED529BC8411 /* DDASLLogger.m */,
-				89501515AD260953D523A8A61A040017 /* DDAssertMacros.h */,
-				7B2BD8721A9755FE2266E857D933BFD1 /* DDFileLogger.h */,
-				C5FED9394A5F02D3DC2E6A5077C02FA2 /* DDFileLogger.m */,
-				7A32485ADA9CA5F27B5C947A222B010A /* DDLegacyMacros.h */,
-				41DCE3BC465E2FBA1E44032FF9ED3AD1 /* DDLog.h */,
-				703E3C00259EF2CEF00FB62748719CB8 /* DDLog.m */,
-				58A2B61C71FFB006F01537CA8D22D580 /* DDLog+LOGV.h */,
-				29580F2934F0B775110B16BD03AA1359 /* DDLogMacros.h */,
-				E1234B50D513588F2FD16A21B7B180B3 /* DDTTYLogger.h */,
-				8BB0F840928F459E3A1DB539B3CD7770 /* DDTTYLogger.m */,
-			);
-			name = Core;
-			sourceTree = "<group>";
-		};
-		F5E40EBEA51BF0CC136FDC01E66A767E /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				50C94C8C9F451FCC7DF176283543CB03 /* Fabric.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		F644A9AE6D3AAA95C22CC9ABD56F5F29 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				473312EAF44EB080BB478F5B4DC3F9ED /* libcrypto.a */,
-				535A23AFE09ADB355376350B6E5D6A34 /* libssl.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		F818553F69D8FACB20C8B0BED39EE5CD /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				30CB67E2A5F592F5D859B5409715866E /* CocoaLumberjack.xcconfig */,
-				DD396AD35D274C04DAE5BEAD92689104 /* CocoaLumberjack-dummy.m */,
-				33FE9E5548D61198C58C12D3F842D6F0 /* CocoaLumberjack-prefix.pch */,
+				0FA2ED7154965EECF6755EB10A6A9442 /* CocoaLumberjack.xcconfig */,
+				148C51AF64F5DF377CE774DD9D5BF903 /* CocoaLumberjack-dummy.m */,
+				67DE41AACA3FBA0E330AE264ECD10D90 /* CocoaLumberjack-prefix.pch */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/CocoaLumberjack";
+			sourceTree = "<group>";
+		};
+		FA62D95CBB554737C7E5A9DF5BA434E1 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				32845B4F0BC628E8742AAF4CBDA25907 /* ABStaticTableViewController.xcconfig */,
+				F7C60D720B2E6CE5504FFA6133CCF3F9 /* ABStaticTableViewController-dummy.m */,
+				3C9B625DF98CB1A649A3BBC6B0E4C1E0 /* ABStaticTableViewController-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/ABStaticTableViewController";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1229,7 +1059,7 @@
 		};
 		0C4C32DE90E762613EC9EBE7CADDA13D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 70E5E6E03DAE13A9C4A84C068D691FCC /* QRCodeReaderViewController.xcconfig */;
+			baseConfigurationReference = 05FD69CF6FD91AEFA2AE959A826CAC25 /* QRCodeReaderViewController.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/QRCodeReaderViewController/QRCodeReaderViewController-prefix.pch";
@@ -1247,7 +1077,7 @@
 		};
 		1D170BD7E8EB420FBD5318D3D5550857 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 30CB67E2A5F592F5D859B5409715866E /* CocoaLumberjack.xcconfig */;
+			baseConfigurationReference = 0FA2ED7154965EECF6755EB10A6A9442 /* CocoaLumberjack.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/CocoaLumberjack/CocoaLumberjack-prefix.pch";
@@ -1265,7 +1095,7 @@
 		};
 		2507F4DA57A647F5B7977BA5874F3015 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3E84E68C3704FDC0A6C57BA40A7CE40 /* MQTTClient.xcconfig */;
+			baseConfigurationReference = 185C4B365F8B3EFAD196EFF9690A1BF1 /* MQTTClient.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/MQTTClient/MQTTClient-prefix.pch";
@@ -1283,7 +1113,7 @@
 		};
 		273FC0FDA2E2F2A5C4394BAD91A7DA03 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 314508BD518EEE0E25C8CD765064ACA1 /* ABStaticTableViewController.xcconfig */;
+			baseConfigurationReference = 32845B4F0BC628E8742AAF4CBDA25907 /* ABStaticTableViewController.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/ABStaticTableViewController/ABStaticTableViewController-prefix.pch";
@@ -1335,7 +1165,7 @@
 		};
 		777D6263136F70048C0618AA11B778A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3E84E68C3704FDC0A6C57BA40A7CE40 /* MQTTClient.xcconfig */;
+			baseConfigurationReference = 185C4B365F8B3EFAD196EFF9690A1BF1 /* MQTTClient.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/MQTTClient/MQTTClient-prefix.pch";
@@ -1353,7 +1183,7 @@
 		};
 		87DDE0E8B91AD34E999CE8E5B7758483 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8E4D03DF49D8AEDCFAB95C221A3A1938 /* objc-geohash.xcconfig */;
+			baseConfigurationReference = AEB2D86D6FC39496BB0D5693B2F7273E /* objc-geohash.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/objc-geohash/objc-geohash-prefix.pch";
@@ -1405,7 +1235,7 @@
 		};
 		A6C9F62F7C92008E8617ABAC38635FAA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 30CB67E2A5F592F5D859B5409715866E /* CocoaLumberjack.xcconfig */;
+			baseConfigurationReference = 0FA2ED7154965EECF6755EB10A6A9442 /* CocoaLumberjack.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/CocoaLumberjack/CocoaLumberjack-prefix.pch";
@@ -1462,7 +1292,7 @@
 		};
 		DC52D697326FE851783DF408B94DB748 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8E4D03DF49D8AEDCFAB95C221A3A1938 /* objc-geohash.xcconfig */;
+			baseConfigurationReference = AEB2D86D6FC39496BB0D5693B2F7273E /* objc-geohash.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/objc-geohash/objc-geohash-prefix.pch";
@@ -1480,7 +1310,7 @@
 		};
 		DED409D7C9FB9DD312A257584F5DDB40 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 314508BD518EEE0E25C8CD765064ACA1 /* ABStaticTableViewController.xcconfig */;
+			baseConfigurationReference = 32845B4F0BC628E8742AAF4CBDA25907 /* ABStaticTableViewController.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/ABStaticTableViewController/ABStaticTableViewController-prefix.pch";
@@ -1498,7 +1328,7 @@
 		};
 		FFA5227FAE878CDDA703AB6F71C31B85 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 70E5E6E03DAE13A9C4A84C068D691FCC /* QRCodeReaderViewController.xcconfig */;
+			baseConfigurationReference = 05FD69CF6FD91AEFA2AE959A826CAC25 /* QRCodeReaderViewController.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/QRCodeReaderViewController/QRCodeReaderViewController-prefix.pch";

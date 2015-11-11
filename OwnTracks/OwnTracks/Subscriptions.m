@@ -9,9 +9,9 @@
 #import "Subscriptions.h"
 #import "Settings.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
-#import <OpenSSL/x509.h>
-#import <OpenSSL/pkcs7.h>
-#import <OpenSSL/err.h>
+#import "openssl/x509.h"
+#import "openssl/pkcs7.h"
+#import "openssl/err.h"
 
 typedef NS_ENUM(NSInteger, ReceiptStatus) {
     ReceiptStatusUnknown,

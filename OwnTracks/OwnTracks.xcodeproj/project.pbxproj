@@ -38,6 +38,9 @@
 		842DFBC91AEE6F46000F4BA6 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = 842DFBC81AEE6F46000F4BA6 /* PushNotificationPayload.apns */; };
 		8435A24E1BEF824900D2BF33 /* AppleIncRootCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8435A24D1BEF824900D2BF33 /* AppleIncRootCertificate.cer */; };
 		8435A2501BEFAC0800D2BF33 /* AppleComputerRootCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8435A24F1BEFAC0800D2BF33 /* AppleComputerRootCertificate.cer */; };
+		8435A2581BF2BB0100D2BF33 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8435A2561BF2BB0100D2BF33 /* libcrypto.a */; };
+		8435A2591BF2BB0100D2BF33 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8435A2571BF2BB0100D2BF33 /* libssl.a */; };
+		8435A25B1BF2BB2200D2BF33 /* include in Resources */ = {isa = PBXBuildFile; fileRef = 8435A25A1BF2BB2200D2BF33 /* include */; };
 		843635791AE95D6000157D66 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843635781AE95D6000157D66 /* InterfaceController.m */; };
 		8436357B1AE95D6000157D66 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8436357A1AE95D6000157D66 /* Images.xcassets */; };
 		8436357F1AE95D6100157D66 /* OwnTracks WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 8436357E1AE95D6000157D66 /* OwnTracks WatchKit App.app */; };
@@ -188,6 +191,9 @@
 		842DFBC81AEE6F46000F4BA6 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		8435A24D1BEF824900D2BF33 /* AppleIncRootCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleIncRootCertificate.cer; sourceTree = "<group>"; };
 		8435A24F1BEFAC0800D2BF33 /* AppleComputerRootCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleComputerRootCertificate.cer; sourceTree = "<group>"; };
+		8435A2561BF2BB0100D2BF33 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
+		8435A2571BF2BB0100D2BF33 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
+		8435A25A1BF2BB2200D2BF33 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
 		843635731AE95D6000157D66 /* OwnTracks WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "OwnTracks WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		843635761AE95D6000157D66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		843635771AE95D6000157D66 /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
@@ -306,10 +312,12 @@
 			files = (
 				84856A8C1BD6201800621533 /* StoreKit.framework in Frameworks */,
 				8422AF681AF825C7008932A2 /* SystemConfiguration.framework in Frameworks */,
+				8435A2591BF2BB0100D2BF33 /* libssl.a in Frameworks */,
 				847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */,
 				8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */,
 				8411B832189FDB140019D2D6 /* CoreData.framework in Frameworks */,
 				8411B861189FDD200019D2D6 /* MapKit.framework in Frameworks */,
+				8435A2581BF2BB0100D2BF33 /* libcrypto.a in Frameworks */,
 				8411B830189FDB140019D2D6 /* UIKit.framework in Frameworks */,
 				8411B82C189FDB140019D2D6 /* Foundation.framework in Frameworks */,
 				26D9D10A393B276099275BAE /* libPods.a in Frameworks */,
@@ -394,6 +402,7 @@
 		8411B833189FDB140019D2D6 /* OwnTracks */ = {
 			isa = PBXGroup;
 			children = (
+				8435A2551BF2BAD300D2BF33 /* OpenSSL */,
 				8411B897189FEB790019D2D6 /* assets */,
 				8411B867189FE1ED0019D2D6 /* coredata */,
 				8411B83C189FDB140019D2D6 /* OwnTracksAppDelegate.h */,
@@ -504,6 +513,16 @@
 				845AA1BA1B4846AF00945856 /* OwnTracks-320.png */,
 			);
 			path = assets;
+			sourceTree = "<group>";
+		};
+		8435A2551BF2BAD300D2BF33 /* OpenSSL */ = {
+			isa = PBXGroup;
+			children = (
+				8435A25A1BF2BB2200D2BF33 /* include */,
+				8435A2561BF2BB0100D2BF33 /* libcrypto.a */,
+				8435A2571BF2BB0100D2BF33 /* libssl.a */,
+			);
+			name = OpenSSL;
 			sourceTree = "<group>";
 		};
 		843635741AE95D6000157D66 /* OwnTracks WatchKit Extension */ = {
@@ -822,6 +841,7 @@
 				846FFA161B4013BB001482A6 /* Colors.plist in Resources */,
 				8479EEB718E4529900923B24 /* Settings.plist in Resources */,
 				8487B8681B7CA59100E59D39 /* fontawesome-webfont.ttf in Resources */,
+				8435A25B1BF2BB2200D2BF33 /* include in Resources */,
 				8411B896189FEAE60019D2D6 /* Storyboard.storyboard in Resources */,
 				8435A2501BEFAC0800D2BF33 /* AppleComputerRootCertificate.cer in Resources */,
 				845AA1BD1B4846AF00945856 /* OwnTracks-320.png in Resources */,
@@ -1118,11 +1138,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F0F95E30D637DDE6FB77559C /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = OwnTracks/OwnTracks.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1131,11 +1152,16 @@
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
 				INFOPLIST_FILE = "OwnTracks/OwnTracks-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/OwnTracks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/OwnTracks/include";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1144,11 +1170,12 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 360F842C00CA8867E789B841 /* Pods.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = OwnTracks/OwnTracks.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				ENABLE_BITCODE = NO;
+				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1157,11 +1184,16 @@
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
 				INFOPLIST_FILE = "OwnTracks/OwnTracks-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/OwnTracks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/OwnTracks/include";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
