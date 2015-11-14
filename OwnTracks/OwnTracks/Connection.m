@@ -54,7 +54,7 @@
 #define RECONNECT_TIMER_MAX 64.0
 
 @implementation Connection
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (id)init {
     self = [super init];

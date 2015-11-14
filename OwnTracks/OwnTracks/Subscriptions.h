@@ -14,5 +14,8 @@
 @interface Subscriptions : NSObject <SKRequestDelegate, SKPaymentTransactionObserver>
 + (Subscriptions *)sharedInstance;
 @property (readonly, strong, nonatomic) NSNumber *recording;
+@property (readonly, strong, nonatomic) NSDate *purchased;
+@property (readonly, strong, nonatomic) NSDate *expires;
+@property (readonly, strong, nonatomic) NSDate *checked;
 
 @end

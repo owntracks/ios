@@ -22,9 +22,13 @@ DEPENDENCIES:
   - CocoaLumberjack
   - Crashlytics
   - Fabric
-  - MQTTClient
+  - MQTTClient (from `~/MQTT-Client-Framework`)
   - objc-geohash
   - QRCodeReaderViewController
+
+EXTERNAL SOURCES:
+  MQTTClient:
+    :path: ~/MQTT-Client-Framework
 
 SPEC CHECKSUMS:
   ABStaticTableViewController: ef94678753f8873d364ca6cc74ea0237b41fb848

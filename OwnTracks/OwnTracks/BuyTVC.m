@@ -39,12 +39,37 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                      forKeyPath:@"recording"
                                         options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                                         context:nil];
+    [[Subscriptions sharedInstance] addObserver:self
+                                     forKeyPath:@"purchased"
+                                        options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                        context:nil];
+    [[Subscriptions sharedInstance] addObserver:self
+                                     forKeyPath:@"expires"
+                                        options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                        context:nil];
+    [[Subscriptions sharedInstance] addObserver:self
+                                     forKeyPath:@"checked"
+                                        options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                        context:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     if (self.request) {
         [self.request cancel];
     }
+    [[Subscriptions sharedInstance] removeObserver:self
+                                     forKeyPath:@"recording"
+                                        context:nil];
+    [[Subscriptions sharedInstance] removeObserver:self
+                                     forKeyPath:@"purchased"
+                                        context:nil];
+    [[Subscriptions sharedInstance] removeObserver:self
+                                     forKeyPath:@"expires"
+                                        context:nil];
+    [[Subscriptions sharedInstance] removeObserver:self
+                                     forKeyPath:@"checked"
+                                        context:nil];
+
     [super viewWillDisappear:animated];
 }
 
@@ -54,8 +79,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)updateUI {
     NSNumber *recording = [Subscriptions sharedInstance].recording;
-    
-    self.UIstatus.text = recording ? @"Recording" : @"Not Recording";
+    NSDate *purchased = [Subscriptions sharedInstance].purchased;
+    NSDate *expires = [Subscriptions sharedInstance].expires;
+    NSDate *checked = [Subscriptions sharedInstance].checked;
+
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyMMdd'T'HHmm";
+    NSString *string = [NSString stringWithFormat:@"%@ %@-%@ (%@)",
+                        recording ? @"⏺" : @"⏹",
+                        purchased ? [dateFormatter stringFromDate:purchased] : @"-",
+                        expires ? [dateFormatter stringFromDate:expires] : @"-",
+                        checked ? [dateFormatter stringFromDate:checked] : @"-"
+                        ];
+    self.UIstatus.text = string;
     self.UIbuy.enabled = !recording;
 }
 

@@ -1,6 +1,15 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 8.4.91
+>Release date: 2015-11-14 for alpha testers
+
+Fix delayed publish problem
+
+* [FIX] Delayed publish of enter/leave events closes #357
+* [FIX] UI Label length issue To... (Topic) closes #358
+* [NEW] In-app purchases renewal detection / display of purchased/expiry/checked timestamps
+
 ## OwnTracks 8.4.9
 >Release date: 2015-11-11 for alpha testers
 

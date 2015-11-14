@@ -49,6 +49,10 @@ typedef NS_ENUM(NSInteger, ReceiptStatus) {
 @property (strong, nonatomic) NSMutableDictionary *purchases;
 
 @property (readwrite, strong, nonatomic) NSNumber *recording;
+@property (readwrite, strong, nonatomic) NSDate *purchased;
+@property (readwrite, strong, nonatomic) NSDate *expires;
+@property (readwrite, strong, nonatomic) NSDate *checked;
+
 @property (nonatomic) ReceiptStatus status;
 @property (nonatomic) BOOL validationFailed;
 
@@ -56,7 +60,7 @@ typedef NS_ENUM(NSInteger, ReceiptStatus) {
 
 @implementation Subscriptions
 static Subscriptions *theInstance = nil;
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 + (Subscriptions *)sharedInstance {
     if (theInstance == nil) {
@@ -311,18 +315,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
             }
         }
     }
-    if (self.status == ReceiptStatusReceipt) {
-    }
 }
 
 - (void)requestDidFinish:(SKRequest *)request {
     DDLogVerbose(@"requestDidFinish");
     self.status = ReceiptStatusReceipt;
+    [self initialize];
 }
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error {
     DDLogError(@"request didFailWithError %@", error.localizedDescription);
     self.status = ReceiptStatusError;
+    [self initialize];
 }
 
 - (NSNumber *)recording {
@@ -335,6 +339,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)processReceipt {
     BOOL recording = false;
+    self.checked = [NSDate date];
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     for (NSDictionary *purchase in self.purchases.allValues) {
         NSString *productId = [purchase valueForKey:kPurchaseProductIdentifier];
@@ -347,6 +352,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                              [NSDate dateWithTimeIntervalSince1970:now],
                              [NSDate dateWithTimeIntervalSince1970:expirationDate]
                              );
+                self.expires = [purchase valueForKey:kPurchaseExpirationDate];
+                self.purchased = [purchase valueForKey:kPurchaseDate];
                 recording = true;
                 break;
             }
@@ -393,6 +400,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                 break;
         }
     }
+    self.status = ReceiptStatusUnknown;
+    self.receipt = nil;
+    [self initialize];
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue removedTransactions:(NSArray<SKPaymentTransaction *> *)transactions {
