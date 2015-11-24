@@ -1,1 +1,1 @@
-../../../../Crashlytics/Crashlytics.framework/Headers/Crashlytics.h
+../../../../Crashlytics/iOS/Crashlytics.framework/Headers/Crashlytics.h

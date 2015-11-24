@@ -1,1 +1,1 @@
-../../../../Crashlytics/Crashlytics.framework/Headers/CLSAttributes.h
+../../../../Crashlytics/iOS/Crashlytics.framework/Headers/CLSAttributes.h

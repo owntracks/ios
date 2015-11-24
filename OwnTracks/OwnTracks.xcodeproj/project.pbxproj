@@ -907,12 +907,14 @@
 			files = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/fabric.apikey",
+				"$(SRCROOT)/fabric.buildsecret",
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/Fabric.framework/run\" d0b0c708e43f69036ebedad1766ad086074d30f6 afbb978d421ea300ef93b42e9cbb24582aa85ce48f6294656153d911727dafce";
+			shellScript = "FABRIC_APIKEY=$(cat ${SRCROOT}/fabric.apikey)\nFABRIC_BUILDSECRET=$(cat ${SRCROOT}/fabric.buildsecret)\n./Pods/Fabric.framework/run ${FABRIC_APIKEY} ${FABRIC_BUILDSECRET}";
 		};
 		91A94BEF7F5441F8C95B188E /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

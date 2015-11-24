@@ -1,1 +1,1 @@
-../../../../Crashlytics/Crashlytics.framework/Headers/CLSLogging.h
+../../../../Crashlytics/iOS/Crashlytics.framework/Headers/CLSLogging.h

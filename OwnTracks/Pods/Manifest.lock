@@ -8,12 +8,10 @@ PODS:
     - CocoaLumberjack/Core
   - CocoaLumberjack/Extensions (2.2.0):
     - CocoaLumberjack/Default
-  - Crashlytics (3.4.0):
+  - Crashlytics (3.4.1):
     - Fabric (~> 1.6.0)
-  - Fabric (1.6.0):
-    - Fabric/Base (= 1.6.0)
-  - Fabric/Base (1.6.0)
-  - MQTTClient (0.4.0)
+  - Fabric (1.6.1)
+  - MQTTClient (0.5.0)
   - objc-geohash (0.0.1)
   - QRCodeReaderViewController (4.0.1)
 
@@ -22,20 +20,16 @@ DEPENDENCIES:
   - CocoaLumberjack
   - Crashlytics
   - Fabric
-  - MQTTClient (from `~/MQTT-Client-Framework`)
+  - MQTTClient
   - objc-geohash
   - QRCodeReaderViewController
-
-EXTERNAL SOURCES:
-  MQTTClient:
-    :path: ~/MQTT-Client-Framework
 
 SPEC CHECKSUMS:
   ABStaticTableViewController: ef94678753f8873d364ca6cc74ea0237b41fb848
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
-  Crashlytics: 1ee87895c37472eb3f01f409ea1654a464d2f8d4
-  Fabric: d737eda3a26ac940a5430230eedb35f16b226131
-  MQTTClient: f9945abcd5e974a563005721a9652dc32d4a3b34
+  Crashlytics: 41574a245bc6ae10c55d57f385ebd2004e5bee05
+  Fabric: bf0ceb04e7c924090efc5f8c55e4fbcca189e0a0
+  MQTTClient: 9e765972d0cc584a2c35e3281b9ede94911e784f
   objc-geohash: 5a92a1deb6c4729ecefdf847159991a1068fb4cc
   QRCodeReaderViewController: 6538745c8f4ffa9407a26bd7f9489ea01739e7b0
 

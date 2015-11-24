@@ -1,1 +1,1 @@
-../../../../Crashlytics/Crashlytics.framework/Headers/ANSCompatibility.h
+../../../../Crashlytics/iOS/Crashlytics.framework/Headers/ANSCompatibility.h

@@ -1,1 +1,1 @@
-../../../../Fabric/Fabric.framework/Headers/FABAttributes.h
+../../../../Fabric/iOS/Fabric.framework/Headers/FABAttributes.h
