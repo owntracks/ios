@@ -1,10 +1,11 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '7.0'
+platform :ios, '7.1'
 
 pod 'CocoaLumberjack'
 pod 'ABStaticTableViewController'
-pod 'MQTTClient'
-#pod 'MQTTClient', :path => '~/MQTT-Client-Framework'
+#pod 'MQTTClient'
+pod 'MQTTClient', :path => '~/MQTT-Client-Framework'
+pod 'MQTTClient/Websocket', :path => '~/MQTT-Client-Framework'
 pod 'QRCodeReaderViewController'
 pod 'objc-geohash'
 pod 'Fabric'
@@ -13,3 +14,7 @@ pod 'Crashlytics'
 target 'OwnTracks' do
 end
 
+target 'OwnTracksTests' do
+	platform :ios, '9.2'
+	pod 'CocoaLumberjack'
+end
