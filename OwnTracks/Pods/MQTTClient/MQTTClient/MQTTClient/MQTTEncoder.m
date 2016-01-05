@@ -20,7 +20,7 @@
 #import "MQTTEncoder.h"
 
 #ifdef DEBUG
-#define DEBUGENC FALSE
+#define DEBUGENC TRUE
 #else
 #define DEBUGENC FALSE
 #endif

@@ -20,7 +20,7 @@
 #import "MQTTDecoder.h"
 
 #ifdef DEBUG
-#define DEBUGDEC FALSE
+#define DEBUGDEC TRUE
 #else
 #define DEBUGDEC FALSE
 #endif

@@ -20,7 +20,7 @@
 #import "MQTTMessage.h"
 
 #ifdef DEBUG
-#define DEBUGMSG FALSE
+#define DEBUGMSG TRUE
 #else
 #define DEBUGMSG FALSE
 #endif
