@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 25.08.13.
-//  Copyright (c) 2013-2015 Christoph Krey. All rights reserved.
+//  Copyright © 2013-2016 Christoph Krey. All rights reserved.
 //
 
 #import "Connection.h"

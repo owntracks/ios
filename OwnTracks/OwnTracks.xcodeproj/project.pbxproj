@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		26D9D10A393B276099275BAE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D44FAE29CF5DF0D498028B7C /* libPods.a */; };
+		52C27EC62B888CFFFADA132C /* libPods-OwnTracks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAFF8E4C945D06B1A6DC88B /* libPods-OwnTracks.a */; };
+		66DEC6662040441D82919024 /* libPods-OwnTracksTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B15FB079036AF5B867E85A45 /* libPods-OwnTracksTests.a */; };
 		840F6D2D1B3C89FD00848652 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 840F6D2C1B3C89FD00848652 /* MessageTableViewCell.m */; };
 		8411B82C189FDB140019D2D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82B189FDB140019D2D6 /* Foundation.framework */; };
 		8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82D189FDB140019D2D6 /* CoreGraphics.framework */; };
@@ -46,6 +48,11 @@
 		8436357F1AE95D6100157D66 /* OwnTracks WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 8436357E1AE95D6000157D66 /* OwnTracks WatchKit App.app */; };
 		843635871AE95D6100157D66 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843635851AE95D6100157D66 /* Interface.storyboard */; };
 		843635891AE95D6100157D66 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843635881AE95D6100157D66 /* Images.xcassets */; };
+		843817EB1C385DF600CE14EE /* Hosted.m in Sources */ = {isa = PBXBuildFile; fileRef = 843817EA1C385DF600CE14EE /* Hosted.m */; };
+		843817F31C38654A00CE14EE /* OwnTracksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 843817F21C38654A00CE14EE /* OwnTracksTests.m */; };
+		843817FA1C38657400CE14EE /* Hosted.m in Sources */ = {isa = PBXBuildFile; fileRef = 843817EA1C385DF600CE14EE /* Hosted.m */; };
+		843817FC1C386A8700CE14EE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843817FB1C386A8700CE14EE /* CFNetwork.framework */; };
+		843817FD1C386B7E00CE14EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82B189FDB140019D2D6 /* Foundation.framework */; };
 		8455DFBE1ADF2BD8003C7BC8 /* Hosted.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8455DFBD1ADF2BD8003C7BC8 /* Hosted.plist */; };
 		845AA1B11B440EEF00945856 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845AA1B01B440EEF00945856 /* LoginVC.m */; };
 		845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845AA1B31B44245100945856 /* CertificatesTVC.m */; };
@@ -132,6 +139,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0BAFF8E4C945D06B1A6DC88B /* libPods-OwnTracks.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OwnTracks.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		360F842C00CA8867E789B841 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		840BBDD318E4274200DC113C /* Model 6.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 6.2.xcdatamodel"; sourceTree = "<group>"; };
 		840F6D2B1B3C89FD00848652 /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
@@ -149,9 +157,6 @@
 		8411B83D189FDB140019D2D6 /* OwnTracksAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwnTracksAppDelegate.m; sourceTree = "<group>"; };
 		8411B842189FDB140019D2D6 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8411B849189FDB140019D2D6 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		8411B852189FDB140019D2D6 /* OwnTracksTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OwnTracksTests-Info.plist"; sourceTree = "<group>"; };
-		8411B854189FDB140019D2D6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		8411B856189FDB140019D2D6 /* OwnTracksTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwnTracksTests.m; sourceTree = "<group>"; };
 		8411B860189FDD200019D2D6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8411B862189FDD300019D2D6 /* OwnTracks.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OwnTracks.entitlements; sourceTree = "<group>"; };
 		8411B863189FDE0D0019D2D6 /* MQTTClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MQTTClient.framework; path = "../../MQTT-Client-Framework/MQTTClient/dist/MQTTClient.framework"; sourceTree = "<group>"; };
@@ -203,6 +208,12 @@
 		843635841AE95D6100157D66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		843635861AE95D6100157D66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		843635881AE95D6100157D66 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		843817E91C385DF600CE14EE /* Hosted.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hosted.h; sourceTree = "<group>"; };
+		843817EA1C385DF600CE14EE /* Hosted.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hosted.m; sourceTree = "<group>"; };
+		843817F01C38654A00CE14EE /* OwnTracksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OwnTracksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		843817F21C38654A00CE14EE /* OwnTracksTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwnTracksTests.m; sourceTree = "<group>"; };
+		843817F41C38654A00CE14EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		843817FB1C386A8700CE14EE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		8455DFBD1ADF2BD8003C7BC8 /* Hosted.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Hosted.plist; sourceTree = "<group>"; };
 		845AA1AF1B440EEF00945856 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
 		845AA1B01B440EEF00945856 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
@@ -301,6 +312,9 @@
 		84E8A1981BB94B1D002518AA /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
 		84E8A1991BB94B1D002518AA /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
 		84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.0.xcdatamodel"; sourceTree = "<group>"; };
+		AEE8A243C1DAB66463E99306 /* Pods-OwnTracksTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracksTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OwnTracksTests/Pods-OwnTracksTests.release.xcconfig"; sourceTree = "<group>"; };
+		B15FB079036AF5B867E85A45 /* libPods-OwnTracksTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OwnTracksTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CF39B1CE7CCB31CFAA68FDA0 /* Pods-OwnTracksTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracksTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OwnTracksTests/Pods-OwnTracksTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D44FAE29CF5DF0D498028B7C /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0F95E30D637DDE6FB77559C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -321,6 +335,7 @@
 				8411B830189FDB140019D2D6 /* UIKit.framework in Frameworks */,
 				8411B82C189FDB140019D2D6 /* Foundation.framework in Frameworks */,
 				26D9D10A393B276099275BAE /* libPods.a in Frameworks */,
+				52C27EC62B888CFFFADA132C /* libPods-OwnTracks.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +345,16 @@
 			files = (
 				84D113B71AEE0C79005F8F4B /* NotificationCenter.framework in Frameworks */,
 				84D113B61AEE0C6B005F8F4B /* CoreLocation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		843817ED1C38654A00CE14EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				843817FD1C386B7E00CE14EE /* Foundation.framework in Frameworks */,
+				843817FC1C386A8700CE14EE /* CFNetwork.framework in Frameworks */,
+				66DEC6662040441D82919024 /* libPods-OwnTracksTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +375,8 @@
 			children = (
 				F0F95E30D637DDE6FB77559C /* Pods.debug.xcconfig */,
 				360F842C00CA8867E789B841 /* Pods.release.xcconfig */,
+				CF39B1CE7CCB31CFAA68FDA0 /* Pods-OwnTracksTests.debug.xcconfig */,
+				AEE8A243C1DAB66463E99306 /* Pods-OwnTracksTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -358,10 +385,10 @@
 			isa = PBXGroup;
 			children = (
 				8411B833189FDB140019D2D6 /* OwnTracks */,
-				8411B850189FDB140019D2D6 /* OwnTracksTests */,
 				84D307301ACD644500FACB9E /* OwnTracksToday */,
 				843635741AE95D6000157D66 /* OwnTracks WatchKit Extension */,
 				843635821AE95D6100157D66 /* OwnTracks WatchKit App */,
+				843817F11C38654A00CE14EE /* OwnTracksTests */,
 				8411B82A189FDB140019D2D6 /* Frameworks */,
 				8411B829189FDB140019D2D6 /* Products */,
 				189E1018F339C35357B32B12 /* Pods */,
@@ -375,6 +402,7 @@
 				84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */,
 				843635731AE95D6000157D66 /* OwnTracks WatchKit Extension.appex */,
 				8436357E1AE95D6000157D66 /* OwnTracks WatchKit App.app */,
+				843817F01C38654A00CE14EE /* OwnTracksTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -382,6 +410,7 @@
 		8411B82A189FDB140019D2D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				843817FB1C386A8700CE14EE /* CFNetwork.framework */,
 				84856A8B1BD6201800621533 /* StoreKit.framework */,
 				8422AF671AF825C7008932A2 /* SystemConfiguration.framework */,
 				84AF468F1AB9571800E954E3 /* CoreLocation.framework */,
@@ -395,6 +424,8 @@
 				8411B849189FDB140019D2D6 /* XCTest.framework */,
 				84D3072E1ACD644500FACB9E /* NotificationCenter.framework */,
 				D44FAE29CF5DF0D498028B7C /* libPods.a */,
+				0BAFF8E4C945D06B1A6DC88B /* libPods-OwnTracks.a */,
+				B15FB079036AF5B867E85A45 /* libPods-OwnTracksTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -424,6 +455,8 @@
 				8455DFBD1ADF2BD8003C7BC8 /* Hosted.plist */,
 				8411B88F189FE9CE0019D2D6 /* Settings.h */,
 				8411B890189FE9CE0019D2D6 /* Settings.m */,
+				843817E91C385DF600CE14EE /* Hosted.h */,
+				843817EA1C385DF600CE14EE /* Hosted.m */,
 				846FFA491B40A301001482A6 /* UI */,
 				8411B834189FDB140019D2D6 /* Supporting Files */,
 			);
@@ -439,24 +472,6 @@
 				8411B836189FDB140019D2D6 /* InfoPlist.strings */,
 				8411B839189FDB140019D2D6 /* main.m */,
 				8411B83B189FDB140019D2D6 /* OwnTracks-Prefix.pch */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		8411B850189FDB140019D2D6 /* OwnTracksTests */ = {
-			isa = PBXGroup;
-			children = (
-				8411B856189FDB140019D2D6 /* OwnTracksTests.m */,
-				8411B851189FDB140019D2D6 /* Supporting Files */,
-			);
-			path = OwnTracksTests;
-			sourceTree = "<group>";
-		};
-		8411B851189FDB140019D2D6 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				8411B852189FDB140019D2D6 /* OwnTracksTests-Info.plist */,
-				8411B853189FDB140019D2D6 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -566,6 +581,15 @@
 				843635841AE95D6100157D66 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		843817F11C38654A00CE14EE /* OwnTracksTests */ = {
+			isa = PBXGroup;
+			children = (
+				843817F21C38654A00CE14EE /* OwnTracksTests.m */,
+				843817F41C38654A00CE14EE /* Info.plist */,
+			);
+			path = OwnTracksTests;
 			sourceTree = "<group>";
 		};
 		846FFA1A1B401DB4001482A6 /* Colors */ = {
@@ -741,6 +765,26 @@
 			productReference = 8436357E1AE95D6000157D66 /* OwnTracks WatchKit App.app */;
 			productType = "com.apple.product-type.application.watchapp";
 		};
+		843817EF1C38654A00CE14EE /* OwnTracksTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 843817F71C38654A00CE14EE /* Build configuration list for PBXNativeTarget "OwnTracksTests" */;
+			buildPhases = (
+				A5376D3B49CC4D4EBF0C1486 /* Check Pods Manifest.lock */,
+				843817EC1C38654A00CE14EE /* Sources */,
+				843817ED1C38654A00CE14EE /* Frameworks */,
+				843817EE1C38654A00CE14EE /* Resources */,
+				912F81D9BB4349FEDC00D9D8 /* Embed Pods Frameworks */,
+				BB90B5D8F9D05066CC82F5E4 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OwnTracksTests;
+			productName = OwnTracksTests;
+			productReference = 843817F01C38654A00CE14EE /* OwnTracksTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		84D3072C1ACD644500FACB9E /* OwnTracksToday */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84D3073D1ACD644600FACB9E /* Build configuration list for PBXNativeTarget "OwnTracksToday" */;
@@ -801,6 +845,9 @@
 						CreatedOnToolsVersion = 6.3;
 						DevelopmentTeam = C652JFWU23;
 					};
+					843817EF1C38654A00CE14EE = {
+						CreatedOnToolsVersion = 7.2;
+					};
 					84D3072C1ACD644500FACB9E = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = C652JFWU23;
@@ -829,6 +876,7 @@
 				84D3072C1ACD644500FACB9E /* OwnTracksToday */,
 				843635721AE95D6000157D66 /* OwnTracks WatchKit Extension */,
 				8436357D1AE95D6000157D66 /* OwnTracks WatchKit App */,
+				843817EF1C38654A00CE14EE /* OwnTracksTests */,
 			);
 		};
 /* End PBXProject section */
@@ -875,6 +923,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		843817EE1C38654A00CE14EE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		84D3072B1ACD644500FACB9E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -898,7 +953,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OwnTracks/Pods-OwnTracks-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		84B406F81AC0556D000A419B /* ShellScript */ = {
@@ -916,6 +971,21 @@
 			shellPath = /bin/sh;
 			shellScript = "FABRIC_APIKEY=$(cat ${SRCROOT}/fabric.apikey)\nFABRIC_BUILDSECRET=$(cat ${SRCROOT}/fabric.buildsecret)\n./Pods/Fabric.framework/run ${FABRIC_APIKEY} ${FABRIC_BUILDSECRET}";
 		};
+		912F81D9BB4349FEDC00D9D8 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OwnTracksTests/Pods-OwnTracksTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		91A94BEF7F5441F8C95B188E /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -929,6 +999,36 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A5376D3B49CC4D4EBF0C1486 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		BB90B5D8F9D05066CC82F5E4 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OwnTracksTests/Pods-OwnTracksTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CA1576B396DD314B90121039 /* Check Pods Manifest.lock */ = {
@@ -1000,6 +1100,7 @@
 				8411B891189FE9CE0019D2D6 /* Settings.m in Sources */,
 				84E8A19D1BB94B1D002518AA /* Waypoint.m in Sources */,
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,
+				843817EB1C385DF600CE14EE /* Hosted.m in Sources */,
 				84E8A18D1BB94782002518AA /* Region+CoreDataProperties.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1011,6 +1112,15 @@
 				843635791AE95D6000157D66 /* InterfaceController.m in Sources */,
 				84D113B51AEE0BF8005F8F4B /* SharedFriendsRC.m in Sources */,
 				842DFBC71AEE6F36000F4BA6 /* NotificationController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		843817EC1C38654A00CE14EE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				843817FA1C38657400CE14EE /* Hosted.m in Sources */,
+				843817F31C38654A00CE14EE /* OwnTracksTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1042,14 +1152,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				8411B837189FDB140019D2D6 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		8411B853189FDB140019D2D6 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8411B854189FDB140019D2D6 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1299,6 +1401,43 @@
 			};
 			name = Release;
 		};
+		843817F81C38654A00CE14EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CF39B1CE7CCB31CFAA68FDA0 /* Pods-OwnTracksTests.debug.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = OwnTracksTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.owntracks.OwnTracksTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		843817F91C38654A00CE14EE /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AEE8A243C1DAB66463E99306 /* Pods-OwnTracksTests.release.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = OwnTracksTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = org.owntracks.OwnTracksTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		84D3073B1ACD644600FACB9E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1382,6 +1521,15 @@
 			buildConfigurations = (
 				843635911AE95D6100157D66 /* Debug */,
 				843635921AE95D6100157D66 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		843817F71C38654A00CE14EE /* Build configuration list for PBXNativeTarget "OwnTracksTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				843817F81C38654A00CE14EE /* Debug */,
+				843817F91C38654A00CE14EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

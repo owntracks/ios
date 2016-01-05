@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 31.01.14.
-//  Copyright (c) 2014-2015 Christoph Krey. All rights reserved.
+//  Copyright © 2014-2016 Christoph Krey. All rights reserved.
 //
 
 #import "Settings.h"

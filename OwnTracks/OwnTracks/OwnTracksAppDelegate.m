@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 03.02.14.
-//  Copyright (c) 2014-2015 OwnTracks. All rights reserved.
+//  Copyright © 2014-2016 OwnTracks. All rights reserved.
 //
 
 #import "OwnTracksAppDelegate.h"
@@ -17,7 +17,45 @@
 #import <NotificationCenter/NotificationCenter.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
+
 #import <CocoaLumberjack/CocoaLumberjack.h>
+static const DDLogLevel ddLogLevel = DDLogLevelError;
+
+@interface CrashlyticsLogger : DDAbstractLogger
++ (CrashlyticsLogger *)sharedInstance;
+
+@end
+
+@implementation CrashlyticsLogger
+
+- (void) logMessage:(DDLogMessage *)logMessage
+{
+    NSString *logMsg = logMessage->_message;
+    
+    if (_logFormatter)
+    {
+        logMsg = [_logFormatter formatLogMessage:logMessage];
+    }
+    
+    if (logMsg)
+    {
+        CLSLog(@"%@",logMsg);
+    }
+}
+
++ (CrashlyticsLogger *)sharedInstance
+{
+    static dispatch_once_t pred = 0;
+    static CrashlyticsLogger *_sharedInstance = nil;
+    
+    dispatch_once(&pred, ^{
+        _sharedInstance = [[self alloc] init];
+    });
+    
+    return _sharedInstance;
+}
+
+@end
 
 @interface OwnTracksAppDelegate()
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
@@ -30,7 +68,6 @@
 @end
 
 @implementation OwnTracksAppDelegate
-static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 #pragma ApplicationDelegate
 
@@ -58,7 +95,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [CrashlyticsKit setUserIdentifier:[[UIDevice currentDevice] identifierForVendor].UUIDString];
     
     [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelAll];
-    [DDLog addLogger:[DDASLLogger sharedInstance] withLevel:DDLogLevelError];
+    [DDLog addLogger:[DDASLLogger sharedInstance] withLevel:DDLogLevelWarning];
+    [DDLog addLogger:[CrashlyticsLogger sharedInstance] withLevel:DDLogLevelWarning];
     
     DDLogVerbose(@"didFinishLaunchingWithOptions");
     if ([[Subscriptions sharedInstance].recording boolValue]) {
@@ -861,7 +899,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (fileName && fileName.length) {
         DDLogVerbose(@"getting p12 filename:%@ passphrase:%@", fileName, [Settings stringForKey:@"passphrase"]);
         NSString *clientPKCSPath = [directoryURL.path stringByAppendingPathComponent:fileName];
-        certificates = [MQTTSession clientCertsFromP12:clientPKCSPath
+        certificates = [MQTTCFSocketTransport clientCertsFromP12:clientPKCSPath
                                                  passphrase:[Settings stringForKey:@"passphrase"]];
         if (!certificates) {
             [AlertView alert:@"TLS Client Certificate" message:@"incorrect file or passphrase"];
@@ -952,3 +990,4 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 @end
+
