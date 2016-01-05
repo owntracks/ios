@@ -3,22 +3,29 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 01.07.15.
-//  Copyright (c) 2015 OwnTracks. All rights reserved.
+//  Copyright © 2015-2016 OwnTracks. All rights reserved.
 //
 
 #import "LoginVC.h"
 #import "OwnTracksAppDelegate.h"
 #import "Settings.h"
 #import "AlertView.h"
+#import "Hosted.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface LoginVC ()
+@property (weak, nonatomic) IBOutlet UITextField *UIfullname;
+@property (weak, nonatomic) IBOutlet UITextField *UIemail;
+@property (weak, nonatomic) IBOutlet UITextField *UIpassword;
 @property (weak, nonatomic) IBOutlet UITextField *UIuser;
 @property (weak, nonatomic) IBOutlet UITextField *UIdevice;
 @property (weak, nonatomic) IBOutlet UITextField *UItoken;
+
+@property (strong, nonatomic) UITextField *currentTextField;
 @property (weak, nonatomic) IBOutlet UIScrollView *UIscrollView;
 
 @property (strong, nonatomic) QRCodeReaderViewController *reader;
+
 
 @end
 
@@ -45,10 +52,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)keyboardDidShow:(NSNotification *)note {
     NSDictionary *userInfo = [note userInfo];
     CGSize kbSize = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    
     DDLogVerbose(@"Keyboard Height: %f Width: %f", kbSize.height, kbSize.width);
     
-    CGFloat offset = self.UIscrollView.frame.origin.y + self.UItoken.frame.origin.y + self.UItoken.frame.size.height - (self.view.frame.size.height - kbSize.height);
+    CGFloat offset =
+        self.UIscrollView.frame.origin.y
+        + self.currentTextField.frame.origin.y
+        + self.currentTextField.frame.size.height
+        - (self.view.frame.size.height - kbSize.height);
     if  (offset > 0) {
         CGPoint scrollPoint = CGPointMake(0, offset);
         [self.UIscrollView setContentOffset:scrollPoint animated:YES];
@@ -82,6 +92,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.UIuser.delegate = self;
     self.UIdevice.delegate = self;
     self.UItoken.delegate = self;
+    self.UIemail.delegate = self;
+    self.UIpassword.delegate = self;
+    self.UIfullname.delegate = self;
     
     if ([Settings intForKey:@"mode"] != 2) {
         [self dismissViewControllerAnimated:TRUE completion:^(void){
@@ -93,6 +106,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.UIuser resignFirstResponder];
     [self.UIdevice resignFirstResponder];
     [self.UItoken resignFirstResponder];
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    self.currentTextField = textField;
+    return TRUE;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -120,11 +138,87 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (IBAction)registerPressed:(id)sender {
+    Hosted *hosted = [[Hosted alloc] init];
+    [hosted createUser:self.UIuser.text
+              password:self.UIpassword.text
+              fullname:self.UIfullname.text
+                 email:self.UIemail.text
+       completionBlock:^(NSInteger status, NSDictionary *user) {
+           DDLogVerbose(@"createUser (%ld) %@", (long)status, user);
+           if (status == 201 || status == 409) {
+               [hosted authenticate:self.UIuser.text
+                           password:self.UIpassword.text
+                    completionBlock:^(NSInteger status, NSString *refreshToken) {
+                        DDLogVerbose(@"refreshToken (%ld) %@", (long)status, refreshToken);
+                        
+                        if (refreshToken) {
+                            [hosted accessToken:refreshToken
+                                completionBlock:^(NSInteger status, NSString *accessToken) {
+                                    DDLogVerbose(@"accessToken (%ld) %@", (long)status, accessToken);
+                                    
+                                    NSDictionary *me = [Hosted decode:accessToken];
+                                    DDLogVerbose(@"de-LWTed %@", me);
+                                    
+                                    NSNumber *userId = [me valueForKey:@"userId"];
+                                    if (userId) {
+                                        [hosted createDevice:accessToken
+                                                  devicename:self.UIdevice.text
+                                                      userId:[userId integerValue]
+                                             completionBlock:^(NSInteger status, NSDictionary *device) {
+                                                 DDLogVerbose(@"createDevice(%ld) %@", (long)status, device);
+                                                 if (device) {
+                                                     NSString *loginAccessToken = [device valueForKey:@"accessToken"];
+                                                     if (loginAccessToken) {
+                                                         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+                                                         [delegate terminateSession];
+
+                                                         [Settings setInt:1 forKey:@"mode"];
+                                                         [Settings setString:self.UIuser.text forKey:@"user"];
+                                                         [Settings setString:self.UIdevice.text forKey:@"device"];
+                                                         [Settings setString:loginAccessToken forKey:@"token"];
+                                                         
+                                                         [delegate reconnect];
+                                                         
+                                                         [self dismissViewControllerAnimated:TRUE completion:^(void){
+                                                         }];
+                                                     } else {
+                                                         [AlertView alert:@"Registration"
+                                                                  message:@"createDevice: no accessToken issued"];
+                                                     }
+                                                 } else {
+                                                     [AlertView alert:@"Registration"
+                                                              message:[NSString stringWithFormat:@"createDevice status %ld", (long)status]];
+                                                 }
+                                             }];
+                                    } else {
+                                        [AlertView alert:@"Registration"
+                                                 message:[NSString stringWithFormat:@"accessToken status %ld", (long)status]];
+                                    }
+                                }];
+                        } else {
+                            [AlertView alert:@"Registration"
+                                     message:[NSString stringWithFormat:@"refreshToken status %ld", (long)status]];
+                        }
+                    }];
+           } else {
+               [AlertView alert:@"Registration"
+                        message:[NSString stringWithFormat:@"createUser status %ld", (long)status]];
+           }
+       }];
+}
+
+- (IBAction)websitePressed:(UIButton *)sender {
     [[UIApplication sharedApplication] openURL:
      [NSURL URLWithString:@"https://hosted.owntracks.org"]];
     [self dismissViewControllerAnimated:TRUE completion:^(void){
     }];
 }
+
+- (IBAction)cancelPressed:(UIButton *)sender {
+    [self dismissViewControllerAnimated:TRUE completion:^(void){
+    }];
+}
+
 
 - (IBAction)qrPressed:(id)sender {
     if ([QRCodeReader isAvailable]) {
@@ -153,7 +247,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         NSURL *url = [NSURL URLWithString:result];
         DDLogVerbose(@"url %@", url);
         NSDictionary *options = [[NSDictionary alloc] init];
-
+        
         [delegate application:[UIApplication sharedApplication] openURL:url options:options];
         [AlertView alert:@"QRScanner" message:delegate.processingMessage];
         delegate.processingMessage = nil;
@@ -167,5 +261,4 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)readerDidCancel:(QRCodeReaderViewController *)reader {
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
-
 @end
