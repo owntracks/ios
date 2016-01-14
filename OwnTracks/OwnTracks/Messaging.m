@@ -71,7 +71,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         [Message removeMessages:context];
         self.oldGeoHash = @"";
         self.lastGeoHash = geoHash;
-        [self manageSubscriptions:context off:TRUE];
+        [self manageSubscriptions:context off:FALSE];
     }
     self.messages = [NSNumber numberWithUnsignedInteger:[Message expireMessages:context]];
 }
