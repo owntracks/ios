@@ -499,8 +499,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)beaconInRange:(CLBeacon *)beacon region:(CLBeaconRegion *)region{
     if ([Settings validIds]) {
+        Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
+                                inManagedObjectContext:[CoreData theManagedObjectContext]];
+
         NSMutableDictionary *json = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                                     @"_type": @"beacon",
+                                                                                    @"tid": [myself getEffectiveTid],
                                                                                     @"tst": @(floor([[LocationManager sharedInstance].location.timestamp timeIntervalSince1970])),
                                                                                     @"uuid": [beacon.proximityUUID UUIDString],
                                                                                     @"major": beacon.major,
