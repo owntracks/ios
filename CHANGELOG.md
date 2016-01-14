@@ -1,6 +1,13 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 8.5.0
+>Release date: 2016-01-14 for alpha testers
+
+new test version and:
+
+* [FIX] tid in beacon message closes #366
+
 ## OwnTracks 8.4.91
 >Release date: 2015-11-14 for alpha testers
 
