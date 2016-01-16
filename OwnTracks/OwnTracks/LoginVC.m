@@ -13,6 +13,8 @@
 #import "Hosted.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
+#define WITH_REGISTRATION 0 // change to 1 if ad hoc registration allowed
+
 @interface LoginVC ()
 @property (weak, nonatomic) IBOutlet UITextField *UIfullname;
 @property (weak, nonatomic) IBOutlet UITextField *UIemail;
@@ -23,6 +25,7 @@
 
 @property (strong, nonatomic) UITextField *currentTextField;
 @property (weak, nonatomic) IBOutlet UIScrollView *UIscrollView;
+@property (weak, nonatomic) IBOutlet UIButton *UIregister;
 
 @property (strong, nonatomic) QRCodeReaderViewController *reader;
 
@@ -96,6 +99,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.UIpassword.delegate = self;
     self.UIfullname.delegate = self;
     
+    if (self.UIregister) {
+        if (WITH_REGISTRATION == 1) {
+            self.UIregister.enabled = true;
+        } else {
+            self.UIregister.enabled = false;
+        }
+    }
+    
     if ([Settings intForKey:@"mode"] != 2) {
         [self dismissViewControllerAnimated:TRUE completion:^(void){
         }];
@@ -106,6 +117,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.UIuser resignFirstResponder];
     [self.UIdevice resignFirstResponder];
     [self.UItoken resignFirstResponder];
+    [self.UIemail resignFirstResponder];
+    [self.UIpassword resignFirstResponder];
+    [self.UIfullname resignFirstResponder];
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
@@ -138,6 +152,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (IBAction)registerPressed:(id)sender {
+    if (WITH_REGISTRATION != 1) {
+        [self websitePressed:sender];
+        return;
+    }
+
     Hosted *hosted = [[Hosted alloc] init];
     [hosted createUser:self.UIuser.text
               password:self.UIpassword.text

@@ -19,6 +19,8 @@
 #import "Messaging.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
+#define BUY_OPTION 0 // modify to 1 if you want to enable auto renewing subscription buying
+
 @interface SettingsTVC ()
 @property (weak, nonatomic) IBOutlet UITableViewCell *UITLSCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *UIclientPKCSCell;
@@ -45,6 +47,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIuser;
 @property (weak, nonatomic) IBOutlet UITextField *UIdevice;
 @property (weak, nonatomic) IBOutlet UITextField *UItoken;
+@property (weak, nonatomic) IBOutlet UIButton *UIpremium;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
 @property (strong, nonatomic) UIAlertView *tidAlertView;
@@ -121,6 +124,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIuser) [Settings setString:self.UIuser.text forKey:@"user"];
     if (self.UIdevice) [Settings setString:self.UIdevice.text forKey:@"device"];
     if (self.UItoken) [Settings setString:self.UItoken.text forKey:@"token"];
+    
+    if (self.UIpremium) {
+        if (BUY_OPTION == 1) {
+            self.UIpremium.enabled = true;
+        } else {
+            self.UIpremium.enabled = false;
+        }
+    }
     [CoreData saveContext];
 }
 

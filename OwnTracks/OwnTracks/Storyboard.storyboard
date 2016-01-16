@@ -581,6 +581,7 @@
                         <outlet property="UIdevice" destination="nKL-wx-Lqk" id="rRh-C4-C9y"/>
                         <outlet property="UIexport" destination="ysB-cv-35Y" id="QKh-Bs-pnD"/>
                         <outlet property="UImode" destination="2MJ-7K-q1Z" id="BMF-12-Hp9"/>
+                        <outlet property="UIpremium" destination="fce-Tp-E0g" id="HAj-xV-j8s"/>
                         <outlet property="UIpublish" destination="YQ6-jA-Rsh" id="GfG-Bk-hbE"/>
                         <outlet property="UItoken" destination="HVw-RC-SBD" id="fb2-21-d74"/>
                         <outlet property="UItrackerid" destination="dUg-TH-IQ0" id="17R-jS-PUg"/>
@@ -2889,6 +2890,7 @@ with https://github.com/x2on/OpenSSL-for-iPhone.git
                         <outlet property="UIemail" destination="zOl-G4-NpF" id="f8v-Cu-FbW"/>
                         <outlet property="UIfullname" destination="BSv-NU-oEm" id="5Bq-bN-Lhw"/>
                         <outlet property="UIpassword" destination="0nO-CP-F9R" id="YC3-g4-f6l"/>
+                        <outlet property="UIregister" destination="xXN-Xf-J5u" id="9Xv-pq-hia"/>
                         <outlet property="UIscrollView" destination="deA-TH-Qib" id="70Q-Vi-fX8"/>
                         <outlet property="UIuser" destination="4mf-Hr-VPJ" id="sR8-y4-SQi"/>
                     </connections>
