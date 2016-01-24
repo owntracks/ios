@@ -10,6 +10,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import <libsodium/sodium.h>
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 
@@ -59,6 +60,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 - (id)init {
     self = [super init];
     DDLogVerbose(@"Connection init");
+    
+    if (sodium_init() == -1) {
+        DDLogError(@"sodium_init failed");
+    } else {
+        DDLogError(@"sodium_init succeeded");
+    }
+    
     self.state = state_starting;
     self.subscriptions = [[NSArray alloc] init];
     self.variableSubscriptions = [[NSDictionary alloc] init];
@@ -235,8 +243,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 
-- (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(NSInteger)qos retain:(BOOL)retainFlag
-{
+- (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(NSInteger)qos retain:(BOOL)retainFlag {
     DDLogVerbose(@"%@ sendData:%@ %@ q%ld r%d",
                  self.clientId,
                  topic,
@@ -247,7 +254,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     if (self.state != state_connected) {
         [self connectToLast];
     }
-    UInt16 msgId = [self.session publishData:data
+    
+    UInt16 msgId = [self.session publishData:(self.key && self.key.length) ? [self encrypt:data] : data
                                      onTopic:topic
                                       retain:retainFlag
                                          qos:qos];
@@ -383,12 +391,27 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [self.delegate messageDelivered:self msgID:msgID];
 }
 
-- (BOOL)newMessageWithFeedback:(MQTTSession *)session data:(NSData *)data onTopic:(NSString *)topic qos:(MQTTQosLevel)qos retained:(BOOL)retained mid:(unsigned int)mid {
+- (BOOL)newMessageWithFeedback:(MQTTSession *)session
+                          data:(NSData *)data
+                       onTopic:(NSString *)topic
+                           qos:(MQTTQosLevel)qos
+                      retained:(BOOL)retained
+                           mid:(unsigned int)mid {
+    
+    if (self.key && self.key.length) {
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        if (json && [json[@"_type"] isEqualToString:@"encrypted"]) {
+            data = [self decrypt:data];
+        }
+    }
     DDLogVerbose(@"%@ received %@ %@",
                  self.clientId,
                  topic,
                  [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-    return [self.delegate handleMessage:self data:data onTopic:topic retained:retained];
+    return [self.delegate handleMessage:self
+                                   data:data
+                                onTopic:topic
+                               retained:retained];
 }
 
 - (void)buffered:(MQTTSession *)session flowingIn:(NSUInteger)flowingIn flowingOut:(NSUInteger)flowingOut {
@@ -460,12 +483,71 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (void)connectToLast {
-    DDLogVerbose
-    (@"%@ connectToLast", self.clientId);
+    DDLogVerbose(@"%@ connectToLast", self.clientId);
     
     self.reconnectTime = RECONNECT_TIMER;
     
     [self connectToInternal];
 }
 
+- (NSData *)encrypt:(NSData *)message {
+    
+    unsigned char nonce[crypto_secretbox_NONCEBYTES];
+    randombytes_buf(nonce, sizeof nonce);
+
+    unsigned char key[crypto_secretbox_KEYBYTES];
+    memset(key, 0, sizeof(key));
+    [self.key getBytes:key
+             maxLength:sizeof(key)
+            usedLength:nil
+              encoding:NSUTF8StringEncoding
+               options:0
+                 range:NSMakeRange(0, self.key.length)
+        remainingRange:nil];
+    
+    NSMutableData *ciphertext = [NSMutableData dataWithLength:message.length + crypto_secretbox_MACBYTES];
+    crypto_secretbox_easy(ciphertext.mutableBytes, message.bytes, message.length, nonce, key);
+    
+    NSMutableData *onTheWire = [NSMutableData dataWithBytes:nonce length:crypto_secretbox_NONCEBYTES];
+    [onTheWire appendData:ciphertext];
+    
+    NSDictionary *json = @{
+                           @"_type": @"encrypted",
+                           @"data": [onTheWire base64EncodedStringWithOptions:0]
+                           };
+    
+    return [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
+}
+
+- (NSData *)decrypt:(NSData *)data {
+    
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    NSString *b64String = json[@"data"];
+    NSData *onTheWire = [[NSData alloc] initWithBase64EncodedString:b64String options:0];
+    NSData *nonce = [onTheWire subdataWithRange:NSMakeRange(0, crypto_secretbox_NONCEBYTES)];
+    NSData *ciphertext = [onTheWire subdataWithRange:NSMakeRange(crypto_secretbox_NONCEBYTES,
+                                                                 onTheWire.length - crypto_secretbox_NONCEBYTES)];
+    
+    unsigned char key[crypto_secretbox_KEYBYTES];
+    memset(key, 0, sizeof(key));
+    [self.key getBytes:key
+             maxLength:sizeof(key)
+            usedLength:nil
+              encoding:NSUTF8StringEncoding
+               options:0
+                 range:NSMakeRange(0, self.key.length)
+        remainingRange:nil];
+    
+    NSMutableData *decrypted = [NSMutableData dataWithLength:ciphertext.length - crypto_secretbox_MACBYTES];
+    if (crypto_secretbox_open_easy(decrypted.mutableBytes,
+                                   ciphertext.bytes ,
+                                   ciphertext.length,
+                                   nonce
+                                   .bytes,
+                                   key) != 0) {
+        decrypted = [NSMutableData data];
+    }
+    
+    return decrypted;
+}
 @end

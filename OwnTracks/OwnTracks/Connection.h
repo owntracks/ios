@@ -37,6 +37,7 @@ enum state {
 @property (nonatomic, readonly) NSError *lastErrorCode;
 @property (strong, nonatomic) NSArray *subscriptions;
 @property (strong, nonatomic) NSDictionary *variableSubscriptions;
+@property (strong, nonatomic) NSString *key;
 
 @property (nonatomic) MQTTQosLevel subscriptionQos;
 

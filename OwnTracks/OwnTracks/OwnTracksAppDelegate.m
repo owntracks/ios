@@ -21,41 +21,41 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static const DDLogLevel ddLogLevel = DDLogLevelError;
 
-@interface CrashlyticsLogger : DDAbstractLogger
-+ (CrashlyticsLogger *)sharedInstance;
-
-@end
-
-@implementation CrashlyticsLogger
-
-- (void) logMessage:(DDLogMessage *)logMessage
-{
-    NSString *logMsg = logMessage->_message;
-    
-    if (_logFormatter)
-    {
-        logMsg = [_logFormatter formatLogMessage:logMessage];
-    }
-    
-    if (logMsg)
-    {
-        CLSLog(@"%@",logMsg);
-    }
-}
-
-+ (CrashlyticsLogger *)sharedInstance
-{
-    static dispatch_once_t pred = 0;
-    static CrashlyticsLogger *_sharedInstance = nil;
-    
-    dispatch_once(&pred, ^{
-        _sharedInstance = [[self alloc] init];
-    });
-    
-    return _sharedInstance;
-}
-
-@end
+//@interface CrashlyticsLogger : DDAbstractLogger
+//+ (CrashlyticsLogger *)sharedInstance;
+//
+//@end
+//
+//@implementation CrashlyticsLogger
+//
+//- (void) logMessage:(DDLogMessage *)logMessage
+//{
+//    NSString *logMsg = logMessage->_message;
+//    
+//    if (_logFormatter)
+//    {
+//        logMsg = [_logFormatter formatLogMessage:logMessage];
+//    }
+//    
+//    if (logMsg)
+//    {
+//        CLSLog(@"%@",logMsg);
+//    }
+//}
+//
+//+ (CrashlyticsLogger *)sharedInstance
+//{
+//    static dispatch_once_t pred = 0;
+//    static CrashlyticsLogger *_sharedInstance = nil;
+//    
+//    dispatch_once(&pred, ^{
+//        _sharedInstance = [[self alloc] init];
+//    });
+//    
+//    return _sharedInstance;
+//}
+//
+//@end
 
 @interface OwnTracksAppDelegate()
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
@@ -94,9 +94,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [Fabric with:@[CrashlyticsKit]];
     [CrashlyticsKit setUserIdentifier:[[UIDevice currentDevice] identifierForVendor].UUIDString];
     
-    [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelAll];
+    [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelInfo];
     [DDLog addLogger:[DDASLLogger sharedInstance] withLevel:DDLogLevelWarning];
-    [DDLog addLogger:[CrashlyticsLogger sharedInstance] withLevel:DDLogLevelWarning];
+//    [DDLog addLogger:[CrashlyticsLogger sharedInstance] withLevel:DDLogLevelWarning];
     
     DDLogVerbose(@"didFinishLaunchingWithOptions");
     if ([[Subscriptions sharedInstance].recording boolValue]) {
@@ -609,6 +609,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                         [self stepsFrom:dictionary[@"from"] to:dictionary[@"to"]];
                     } else if ([dictionary[@"action"] isEqualToString:@"waypoints"]) {
                         [self waypoints];
+                    } else if ([dictionary[@"action"] isEqualToString:@"action"]) {
+                        NSString *content = [dictionary objectForKey:@"content"];
+                        if (content) {
+                            [Settings setString:content forKey:SETTINGS_ACTION];
+                        } else {
+                            [Settings setString:nil forKey:SETTINGS_ACTION];
+                        }
+                        self.action = content;
                     } else if ([dictionary[@"action"] isEqualToString:@"setWaypoints"]) {
                         NSDictionary *payload = dictionary[@"payload"];
                         [Settings waypointsFromDictionary:payload];
@@ -952,6 +960,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                                                 @"_type": @"lwt"}];
     [self addRecording:json];
 
+    self.connection.key = [Settings stringForKey:@"secret_preference"];
+    
     [self.connection connectTo:[Settings stringForKey:@"host_preference"]
                           port:[Settings intForKey:@"port_preference"]
                            tls:[Settings boolForKey:@"tls_preference"]

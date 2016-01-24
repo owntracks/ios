@@ -10,6 +10,7 @@
 #import "Setting+Create.h"
 
 #define SETTINGS_MESSAGING @"messaging"
+#define SETTINGS_ACTION @"action"
 
 @interface Settings : NSObject
 

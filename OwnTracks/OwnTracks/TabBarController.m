@@ -13,6 +13,7 @@
 
 @interface TabBarController ()
 @property (strong, nonatomic) UIViewController *messageVC;
+@property (strong, nonatomic) UIViewController *featuredVC;
 @property (nonatomic) BOOL warning;
 @end
 
@@ -27,8 +28,25 @@
         if (vc.tabBarItem.tag == 99) {
             self.messageVC = vc;
         }
+        if (vc.tabBarItem.tag == 98) {
+            self.featuredVC = vc;
+        }
     }
-    [self adjust];
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate addObserver:self
+               forKeyPath:@"action"
+                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                  context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    
+    if ([keyPath isEqualToString:@"action"]) {
+        [self performSelectorOnMainThread:@selector(adjust) withObject:nil waitUntilDone:NO];
+    }
 }
 
 - (void)adjust {
@@ -37,11 +55,25 @@
         
         if ([Settings boolForKey:SETTINGS_MESSAGING]) {
             if (![viewControllers containsObject:self.messageVC]) {
-                [viewControllers insertObject:self.messageVC atIndex:viewControllers.count - 1];
+                [viewControllers insertObject:self.messageVC atIndex:viewControllers.count];
             }
         } else {
             if ([viewControllers containsObject:self.messageVC]) {
                 [viewControllers removeObject:self.messageVC];
+            }
+        }
+        [self setViewControllers:viewControllers animated:TRUE];
+    }
+    if (self.featuredVC) {
+        NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.viewControllers];
+        
+        if ([Settings stringForKey:SETTINGS_ACTION]) {
+            if (![viewControllers containsObject:self.featuredVC]) {
+                [viewControllers insertObject:self.featuredVC atIndex:viewControllers.count];
+            }
+        } else {
+            if ([viewControllers containsObject:self.featuredVC]) {
+                [viewControllers removeObject:self.featuredVC];
             }
         }
         [self setViewControllers:viewControllers animated:TRUE];

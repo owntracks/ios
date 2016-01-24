@@ -10,12 +10,13 @@ PODS:
     - CocoaLumberjack/Default
   - Crashlytics (3.6.0):
     - Fabric (~> 1.6.3)
-  - Fabric (1.6.3)
-  - MQTTClient (0.6.2):
-    - MQTTClient/Core (= 0.6.2)
-  - MQTTClient/Core (0.6.2):
+  - Fabric (1.6.4)
+  - libsodium (1.0.3)
+  - MQTTClient (0.6.5):
+    - MQTTClient/Core (= 0.6.5)
+  - MQTTClient/Core (0.6.5):
     - CocoaLumberjack
-  - MQTTClient/Websocket (0.6.2):
+  - MQTTClient/Websocket (0.6.5):
     - MQTTClient/Core
     - SocketRocket
   - objc-geohash (0.0.1)
@@ -27,6 +28,7 @@ DEPENDENCIES:
   - CocoaLumberjack
   - Crashlytics
   - Fabric
+  - libsodium (~> 1.0)
   - MQTTClient (from `~/MQTT-Client-Framework`)
   - MQTTClient/Websocket (from `~/MQTT-Client-Framework`)
   - objc-geohash
@@ -40,8 +42,9 @@ SPEC CHECKSUMS:
   ABStaticTableViewController: ef94678753f8873d364ca6cc74ea0237b41fb848
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
   Crashlytics: e4e8d02914f2608fbc7bf42b1a7af838b0db67a2
-  Fabric: cbe0ca6c9531bba17910052f6f105fcbc5fa7f67
-  MQTTClient: 915429555473ab7fef7157bc3027cd6b730853cb
+  Fabric: ed41fd62173c6bdea24ab02c9d7707161eabb750
+  libsodium: be547e31dc75725629acc5717dc0a40fc05ef243
+  MQTTClient: 212fb884940ce168c41223cd54a8de20ea3ca113
   objc-geohash: 5a92a1deb6c4729ecefdf847159991a1068fb4cc
   QRCodeReaderViewController: 6538745c8f4ffa9407a26bd7f9489ea01739e7b0
   SocketRocket: ffe08119b00ef982f6c37052a4705a057c8494ad

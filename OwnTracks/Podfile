@@ -8,6 +8,7 @@ pod 'MQTTClient', :path => '~/MQTT-Client-Framework'
 pod 'MQTTClient/Websocket', :path => '~/MQTT-Client-Framework'
 pod 'QRCodeReaderViewController'
 pod 'objc-geohash'
+pod 'libsodium', '~> 1.0'
 pod 'Fabric'
 pod 'Crashlytics'
 

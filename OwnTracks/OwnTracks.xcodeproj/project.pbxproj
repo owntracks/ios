@@ -10,6 +10,7 @@
 		26D9D10A393B276099275BAE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D44FAE29CF5DF0D498028B7C /* libPods.a */; };
 		52C27EC62B888CFFFADA132C /* libPods-OwnTracks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAFF8E4C945D06B1A6DC88B /* libPods-OwnTracks.a */; };
 		66DEC6662040441D82919024 /* libPods-OwnTracksTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B15FB079036AF5B867E85A45 /* libPods-OwnTracksTests.a */; };
+		8404876B1C5386DD00569C79 /* FeaturedContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8404876A1C5386DD00569C79 /* FeaturedContentVC.m */; };
 		840F6D2D1B3C89FD00848652 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 840F6D2C1B3C89FD00848652 /* MessageTableViewCell.m */; };
 		8411B82C189FDB140019D2D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82B189FDB140019D2D6 /* Foundation.framework */; };
 		8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82D189FDB140019D2D6 /* CoreGraphics.framework */; };
@@ -141,6 +142,8 @@
 /* Begin PBXFileReference section */
 		0BAFF8E4C945D06B1A6DC88B /* libPods-OwnTracks.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OwnTracks.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		360F842C00CA8867E789B841 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		840487691C5386DD00569C79 /* FeaturedContentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeaturedContentVC.h; sourceTree = "<group>"; };
+		8404876A1C5386DD00569C79 /* FeaturedContentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeaturedContentVC.m; sourceTree = "<group>"; };
 		840BBDD318E4274200DC113C /* Model 6.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 6.2.xcdatamodel"; sourceTree = "<group>"; };
 		840F6D2B1B3C89FD00848652 /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
 		840F6D2C1B3C89FD00848652 /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
@@ -379,6 +382,15 @@
 				AEE8A243C1DAB66463E99306 /* Pods-OwnTracksTests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		8404876C1C53872700569C79 /* FeaturedContent */ = {
+			isa = PBXGroup;
+			children = (
+				840487691C5386DD00569C79 /* FeaturedContentVC.h */,
+				8404876A1C5386DD00569C79 /* FeaturedContentVC.m */,
+			);
+			name = FeaturedContent;
 			sourceTree = "<group>";
 		};
 		8411B81F189FDB140019D2D6 = {
@@ -622,6 +634,7 @@
 				84A1737C1B428F3E00CCB7D0 /* Settings */,
 				84A173791B428ED000CCB7D0 /* Messaging */,
 				8411B895189FEAE60019D2D6 /* Storyboard.storyboard */,
+				8404876C1C53872700569C79 /* FeaturedContent */,
 				842610391ACFE67B00FE1A03 /* Launch Screen.xib */,
 				8411B842189FDB140019D2D6 /* Images.xcassets */,
 				8487B8671B7CA59100E59D39 /* fontawesome-webfont.ttf */,
@@ -1102,6 +1115,7 @@
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,
 				843817EB1C385DF600CE14EE /* Hosted.m in Sources */,
 				84E8A18D1BB94782002518AA /* Region+CoreDataProperties.m in Sources */,
+				8404876B1C5386DD00569C79 /* FeaturedContentVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

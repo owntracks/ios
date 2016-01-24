@@ -371,10 +371,10 @@ static LocationManager *theInstance = nil;
         if (state == CLRegionStateInside) {
             [self.insideBeaconRegions setObject:[NSNumber numberWithBool:TRUE] forKey:region.identifier];
             if (self.ranging) {
-                if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+                //if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
                     CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
                     [self.manager startRangingBeaconsInRegion:beaconRegion];
-                }
+                //}
             }
         } else {
             [self.insideBeaconRegions removeObjectForKey:region.identifier];
@@ -559,7 +559,9 @@ static LocationManager *theInstance = nil;
                 [self.delegate beaconInRange:beacon region:region];
                 [self.rangedBeacons addObject:beacon];
             } else {
-                if (foundBeacon.proximity != beacon.proximity) {
+                //if (foundBeacon.proximity != beacon.proximity) {
+                //if (foundBeacon.rssi != beacon.rssi) {
+                if (round(foundBeacon.accuracy) != round(beacon.accuracy)) {
                     [self.delegate beaconInRange:beacon region:region];
                     [self.rangedBeacons removeObject:foundBeacon];
                     [self.rangedBeacons addObject:beacon];

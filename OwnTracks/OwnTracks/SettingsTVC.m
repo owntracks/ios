@@ -48,6 +48,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIdevice;
 @property (weak, nonatomic) IBOutlet UITextField *UItoken;
 @property (weak, nonatomic) IBOutlet UIButton *UIpremium;
+@property (weak, nonatomic) IBOutlet UITextField *UIsecret;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
 @property (strong, nonatomic) UIAlertView *tidAlertView;
@@ -67,6 +68,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.UIPort.delegate = self;
     self.UIUserID.delegate = self;
     self.UIPassword.delegate = self;
+    self.UIsecret.delegate = self;
     self.UItrackerid.delegate = self;
     self.UIDeviceID.delegate = self;
     self.UIuser.delegate = self;
@@ -117,6 +119,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIHost) [Settings setString:self.UIHost.text forKey:@"host_preference"];
     if (self.UIUserID) [Settings setString:self.UIUserID.text forKey:@"user_preference"];
     if (self.UIPassword) [Settings setString:self.UIPassword.text forKey:@"pass_preference"];
+    if (self.UIsecret) [Settings setString:self.UIsecret.text forKey:@"secret_preference"];
     if (self.UImode) [Settings setInt:(int)self.UImode.selectedSegmentIndex forKey:@"mode"];
     if (self.UIPort) [Settings setString:self.UIPort.text forKey:@"port_preference"];
     if (self.UITLS) [Settings setBool:self.UITLS.on forKey:@"tls_preference"];
@@ -221,6 +224,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIPassword) {
         self.UIPassword.text = [Settings stringForKey:@"pass_preference"];
     }
+    if (self.UIsecret) {
+        self.UIsecret.text = [Settings stringForKey:@"secret_preference"];
+    }
     if (self.UImode) {
         self.UImode.selectedSegmentIndex = [Settings intForKey:@"mode"];
         self.UImode.enabled = !locked;
@@ -292,20 +298,25 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:10 inSection:0]];
     }
     
+    if (self.UIsecret) {
+        [hiddenFieldsMode12 addObject:self.UIsecret];
+        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:11 inSection:0]];
+    }
+    
     NSMutableArray *hiddenFieldsMode02 = [[NSMutableArray alloc] init];
     NSMutableArray *hiddenIndexPathsMode02 = [[NSMutableArray alloc] init];
     if (self.UIuser) {
         [hiddenFieldsMode02 addObject:self.UIuser];
-        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:11 inSection:0]];
         [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:12 inSection:0]];
+        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:13 inSection:0]];
     }
     if (self.UIdevice) {
         [hiddenFieldsMode02 addObject:self.UIdevice];
-        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:13 inSection:0]];
+        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:14 inSection:0]];
     }
     if (self.UItoken) {
         [hiddenFieldsMode02 addObject:self.UItoken];
-        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:14 inSection:0]];
+        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:15 inSection:0]];
     }
     
     // hide mode row if locked
@@ -468,6 +479,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.UIPort resignFirstResponder];
     [self.UIUserID resignFirstResponder];
     [self.UIPassword resignFirstResponder];
+    [self.UIsecret resignFirstResponder];
     [self.UItrackerid resignFirstResponder];
     [self.UIDeviceID resignFirstResponder];
 }

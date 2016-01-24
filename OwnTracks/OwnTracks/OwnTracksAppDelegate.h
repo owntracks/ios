@@ -29,6 +29,7 @@
 @property (strong, nonatomic) NSNumber *connectionBuffered;
 
 @property (strong, nonatomic) NSDate *configLoad;
+@property (strong, nonatomic) NSString *action;
 
 - (void)sendNow;
 - (void)dump;
