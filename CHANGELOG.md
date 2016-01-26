@@ -1,6 +1,14 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 8.5.1,2,3
+>Release date: 2016-01-26 for alpha testers
+
+* [FIX] limit time of beacon ranging in background closes #370
+* [FIX] in locked mode, disable editing of secret key closes #369
+* [NEW] optional payload encrpytion closes #368
+* [NEW] Featured content tab (moves settings tab under (i)) 
+
 ## OwnTracks 8.5.0
 >Release date: 2016-01-14 for alpha testers
 

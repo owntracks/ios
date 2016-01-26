@@ -21,42 +21,6 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static const DDLogLevel ddLogLevel = DDLogLevelError;
 
-//@interface CrashlyticsLogger : DDAbstractLogger
-//+ (CrashlyticsLogger *)sharedInstance;
-//
-//@end
-//
-//@implementation CrashlyticsLogger
-//
-//- (void) logMessage:(DDLogMessage *)logMessage
-//{
-//    NSString *logMsg = logMessage->_message;
-//    
-//    if (_logFormatter)
-//    {
-//        logMsg = [_logFormatter formatLogMessage:logMessage];
-//    }
-//    
-//    if (logMsg)
-//    {
-//        CLSLog(@"%@",logMsg);
-//    }
-//}
-//
-//+ (CrashlyticsLogger *)sharedInstance
-//{
-//    static dispatch_once_t pred = 0;
-//    static CrashlyticsLogger *_sharedInstance = nil;
-//    
-//    dispatch_once(&pred, ^{
-//        _sharedInstance = [[self alloc] init];
-//    });
-//    
-//    return _sharedInstance;
-//}
-//
-//@end
-
 @interface OwnTracksAppDelegate()
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
 @property (strong, nonatomic) void (^completionHandler)(UIBackgroundFetchResult);
@@ -66,6 +30,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 @property (strong, nonatomic) NSManagedObjectContext *queueManagedObjectContext;
 @end
+
+#define BUY_OPTION 0 // modify to 1 if you want to enable auto renewing subscription buying
 
 @implementation OwnTracksAppDelegate
 
@@ -94,14 +60,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [Fabric with:@[CrashlyticsKit]];
     [CrashlyticsKit setUserIdentifier:[[UIDevice currentDevice] identifierForVendor].UUIDString];
     
-    [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelInfo];
+#ifdef DEBUG
+    [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelVerbose];
+#endif
     [DDLog addLogger:[DDASLLogger sharedInstance] withLevel:DDLogLevelWarning];
-//    [DDLog addLogger:[CrashlyticsLogger sharedInstance] withLevel:DDLogLevelWarning];
     
     DDLogVerbose(@"didFinishLaunchingWithOptions");
+    
+#if BUY_OPTION == 1
     if ([[Subscriptions sharedInstance].recording boolValue]) {
         // Start Subscriptions in mode 1 only
     }
+#endif
     
     self.coreData = [[CoreData alloc] init];
     

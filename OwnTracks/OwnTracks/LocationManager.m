@@ -22,6 +22,7 @@
 @property (strong, nonatomic) NSMutableDictionary *insideBeaconRegions;
 @property (strong, nonatomic) NSMutableDictionary *insideCircularRegions;
 @property (strong, nonatomic) NSMutableArray *rangedBeacons;
+@property (strong, nonatomic) NSTimer *backgroundTimer;
 @end
 
 @interface PendingRegionEvent : NSObject
@@ -29,6 +30,8 @@
 @property (strong, nonatomic) NSTimer *holdDownTimer;
 
 @end
+
+#define BACKGROUND_STOP_AFTER 5.0
 
 @implementation PendingRegionEvent
 
@@ -70,25 +73,33 @@ static LocationManager *theInstance = nil;
     [self authorize];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification
-                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          DDLogVerbose(@"UIApplicationWillEnterForegroundNotification");
-                                                          //
-                                                      }];
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      DDLogVerbose(@"UIApplicationWillEnterForegroundNotification");
+                                                      //
+                                                  }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
-                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          DDLogVerbose(@"UIApplicationDidBecomeActiveNotification");
-                                                          [self wakeup];
-                                                      }];
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      DDLogVerbose(@"UIApplicationDidBecomeActiveNotification");
+                                                      [self wakeup];
+                                                  }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
-                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          DDLogVerbose(@"UIApplicationWillResignActiveNotification");
-                                                          [self sleep];
-                                                      }];
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      DDLogVerbose(@"UIApplicationWillResignActiveNotification");
+                                                      [self sleep];
+                                                  }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification
-                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          DDLogVerbose(@"UIApplicationWillTerminateNotification");
-                                                          [self stop];
-                                                      }];
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      DDLogVerbose(@"UIApplicationWillTerminateNotification");
+                                                      [self stop];
+                                                  }];
     if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
         self.altimeter = [[CMAltimeter alloc] init];
     }
@@ -123,6 +134,7 @@ static LocationManager *theInstance = nil;
         DDLogVerbose(@"requestStateForRegion %@", region.identifier);
         [self.manager requestStateForRegion:region];
     }
+    [self startBackgroundTimer];
 }
 
 - (void)authorize {
@@ -372,8 +384,8 @@ static LocationManager *theInstance = nil;
             [self.insideBeaconRegions setObject:[NSNumber numberWithBool:TRUE] forKey:region.identifier];
             if (self.ranging) {
                 //if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
-                    CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
-                    [self.manager startRangingBeaconsInRegion:beaconRegion];
+                CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
+                [self.manager startRangingBeaconsInRegion:beaconRegion];
                 //}
             }
         } else {
@@ -426,25 +438,25 @@ static LocationManager *theInstance = nil;
 {
     DDLogVerbose(@"didEnterRegion %@", region);
     
-//    This fix for FALSE POSITIVES does not work right and suppresses too many enter leave events
-//    if ([region isKindOfClass:[CLCircularRegion class]]) {
-//        CLCircularRegion *circular = (CLCircularRegion *)region;
-//        DDLogVerbose(@"region lat,lon,rad %f,%f,%f",
-//                     circular.center.latitude,
-//                     circular.center.longitude,
-//                     circular.radius);
-//        DDLogVerbose(@"loc lat,lon,acc %f,%f,%f @ %@",
-//                     manager.location.coordinate.latitude,
-//                     manager.location.coordinate.longitude,
-//                     manager.location.horizontalAccuracy,
-//                     manager.location.timestamp
-//                     );
-//        if ([self insideCircularRegion:circular.identifier] || ![circular containsCoordinate:manager.location.coordinate]) {
-//            DDLogVerbose(@"didEnterRegion incorrect!");
-//            return;
-//        }
-//    }
-//
+    //    This fix for FALSE POSITIVES does not work right and suppresses too many enter leave events
+    //    if ([region isKindOfClass:[CLCircularRegion class]]) {
+    //        CLCircularRegion *circular = (CLCircularRegion *)region;
+    //        DDLogVerbose(@"region lat,lon,rad %f,%f,%f",
+    //                     circular.center.latitude,
+    //                     circular.center.longitude,
+    //                     circular.radius);
+    //        DDLogVerbose(@"loc lat,lon,acc %f,%f,%f @ %@",
+    //                     manager.location.coordinate.latitude,
+    //                     manager.location.coordinate.longitude,
+    //                     manager.location.horizontalAccuracy,
+    //                     manager.location.timestamp
+    //                     );
+    //        if ([self insideCircularRegion:circular.identifier] || ![circular containsCoordinate:manager.location.coordinate]) {
+    //            DDLogVerbose(@"didEnterRegion incorrect!");
+    //            return;
+    //        }
+    //    }
+    //
     
     if (![self removeHoldDown:region]) {
         [self.delegate regionEvent:region enter:YES];
@@ -455,25 +467,25 @@ static LocationManager *theInstance = nil;
 {
     DDLogVerbose(@"didExitRegion %@", region);
     
-//    This fix for FALSE POSITIVES does not work right and suppresses too many enter leave events
-//    if ([region isKindOfClass:[CLCircularRegion class]]) {
-//        CLCircularRegion *circular = (CLCircularRegion *)region;
-//        DDLogVerbose(@"region lat,lon,rad %f,%f,%f",
-//                     circular.center.latitude,
-//                     circular.center.longitude,
-//                     circular.radius);
-//        DDLogVerbose(@"loc lat,lon,acc %f,%f,%f @ %@",
-//                     manager.location.coordinate.latitude,
-//                     manager.location.coordinate.longitude,
-//                     manager.location.horizontalAccuracy,
-//                     manager.location.timestamp
-//                     );
-//        if (![self insideCircularRegion:circular.identifier] || [circular containsCoordinate:manager.location.coordinate]) {
-//            DDLogVerbose(@"didExitRegion incorrect!");
-//            return;
-//        }
-//    }
-//
+    //    This fix for FALSE POSITIVES does not work right and suppresses too many enter leave events
+    //    if ([region isKindOfClass:[CLCircularRegion class]]) {
+    //        CLCircularRegion *circular = (CLCircularRegion *)region;
+    //        DDLogVerbose(@"region lat,lon,rad %f,%f,%f",
+    //                     circular.center.latitude,
+    //                     circular.center.longitude,
+    //                     circular.radius);
+    //        DDLogVerbose(@"loc lat,lon,acc %f,%f,%f @ %@",
+    //                     manager.location.coordinate.latitude,
+    //                     manager.location.coordinate.longitude,
+    //                     manager.location.horizontalAccuracy,
+    //                     manager.location.timestamp
+    //                     );
+    //        if (![self insideCircularRegion:circular.identifier] || [circular containsCoordinate:manager.location.coordinate]) {
+    //            DDLogVerbose(@"didExitRegion incorrect!");
+    //            return;
+    //        }
+    //    }
+    //
     
     if ([region.identifier hasPrefix:@"-"]) {
         [self removeHoldDown:region];
@@ -611,6 +623,28 @@ static LocationManager *theInstance = nil;
 - (void)locationManager:(CLLocationManager *)manager didVisit:(CLVisit *)visit {
     //
 }
+
+
+- (void)startBackgroundTimer {
+    DDLogVerbose(@"[LocationManager] startBackgroundTimer");
+    
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+        if (!self.backgroundTimer || !self.backgroundTimer.isValid) {
+            self.backgroundTimer = [NSTimer scheduledTimerWithTimeInterval:BACKGROUND_STOP_AFTER
+                                                                    target:self
+                                                                  selector:@selector(stopInBackground)
+                                                                  userInfo:nil repeats:FALSE];
+        }
+    }
+}
+
+- (void)stopInBackground {
+    DDLogVerbose(@"[LocationManager] stopInBackground");
+    self.backgroundTimer = nil;
+    [self sleep];
+}
+
+
 
 @end
 

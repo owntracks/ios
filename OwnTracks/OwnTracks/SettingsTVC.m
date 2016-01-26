@@ -220,12 +220,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     if (self.UIUserID) {
         self.UIUserID.text = [Settings stringForKey:@"user_preference"];
+        self.UIUserID.enabled = !locked;
     }
     if (self.UIPassword) {
         self.UIPassword.text = [Settings stringForKey:@"pass_preference"];
+        self.UIPassword.enabled = !locked;
     }
     if (self.UIsecret) {
         self.UIsecret.text = [Settings stringForKey:@"secret_preference"];
+        self.UIsecret.enabled = !locked;
     }
     if (self.UImode) {
         self.UImode.selectedSegmentIndex = [Settings intForKey:@"mode"];
