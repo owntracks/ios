@@ -11,8 +11,6 @@
 #import <UIKit/UIKit.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <libsodium/sodium.h>
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
 
 #define BACKGROUND_DISCONNECT_AFTER 8.0
 

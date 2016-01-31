@@ -13,8 +13,6 @@
 #import "MessageTableViewCell.h"
 #import "UIColor+WithName.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
 #import "FontAwesome.h"
 
 @interface MessageTVC ()
@@ -138,8 +136,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSError *error = nil;
     if (![self.fetchedResultsController performFetch:&error]) {
         DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-        [[Crashlytics sharedInstance] setObjectValue:@"fetchFriends" forKey:@"CrashType"];
-        [[Crashlytics sharedInstance] crash];
     }
     
     return _fetchedResultsController;

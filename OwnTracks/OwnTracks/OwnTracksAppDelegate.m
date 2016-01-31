@@ -15,8 +15,6 @@
 #import "OwnTracking.h"
 #import "Subscriptions.h"
 #import <NotificationCenter/NotificationCenter.h>
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static const DDLogLevel ddLogLevel = DDLogLevelError;
@@ -57,8 +55,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [Fabric with:@[CrashlyticsKit]];
-    [CrashlyticsKit setUserIdentifier:[[UIDevice currentDevice] identifierForVendor].UUIDString];
     
 #ifdef DEBUG
     [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelVerbose];
@@ -480,7 +476,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                                                     @"major": beacon.major,
                                                                                     @"minor": beacon.minor,
                                                                                     @"prox": @(beacon.proximity),
-                                                                                    @"acc": @(round(beacon.accuracy)),
+                                                                                    @"acc": @(beacon.accuracy),
                                                                                     @"rssi": @(beacon.rssi)
                                                                                     }];
         [self addRecording:json];

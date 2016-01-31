@@ -14,8 +14,6 @@
 #import "CoreData.h"
 #import "Message+Create.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
 
 #define MAXQUEUE 999
 

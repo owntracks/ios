@@ -9,8 +9,6 @@
 #import "LocationManager.h"
 #import "AlertView.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
 
 @interface LocationManager()
 @property (strong, nonatomic) CLLocationManager *manager;
@@ -212,7 +210,6 @@ static LocationManager *theInstance = nil;
         self.lastUsedLocation = self.manager.location;
     } else {
         DDLogVerbose(@"location == nil");
-        CLSLog(@"location == nil");
     }
     return self.lastUsedLocation;
 }
@@ -573,7 +570,7 @@ static LocationManager *theInstance = nil;
             } else {
                 //if (foundBeacon.proximity != beacon.proximity) {
                 //if (foundBeacon.rssi != beacon.rssi) {
-                if (round(foundBeacon.accuracy) != round(beacon.accuracy)) {
+                if (fabs(foundBeacon.accuracy - beacon.accuracy) > 0.1) {
                     [self.delegate beaconInRange:beacon region:region];
                     [self.rangedBeacons removeObject:foundBeacon];
                     [self.rangedBeacons addObject:beacon];

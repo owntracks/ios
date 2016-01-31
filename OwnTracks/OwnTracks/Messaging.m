@@ -14,8 +14,6 @@
 #import "AlertView.h"
 #import "FontAwesome.h"
 #import <objc-geohash/GeoHash.h>
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 #define GEOHASH_LEN_MIN 3

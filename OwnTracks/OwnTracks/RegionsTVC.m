@@ -16,8 +16,6 @@
 #import "OwnTracksAppDelegate.h"
 #import "OwnTracking.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
-#import <Fabric/Fabric.h>
-#import <Crashlytics/Crashlytics.h>
 
 @interface RegionsTVC ()
 
@@ -187,8 +185,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSError *error = nil;
     if (![self.fetchedResultsController performFetch:&error]) {
         DDLogError(@"Unresolved error %@, %@", error, [error userInfo]);
-        [[Crashlytics sharedInstance] setObjectValue:@"fetchRegions" forKey:@"CrashType"];
-        [[Crashlytics sharedInstance] crash];
     }
     
     DDLogVerbose(@"fetchedResultsControllser %@", _fetchedResultsController);

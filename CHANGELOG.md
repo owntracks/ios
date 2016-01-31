@@ -1,6 +1,12 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 8.5.4
+>Release date: open
+
+* [FIX] remove fabric/crashlytics
+* [FIX] increase precision of 'acc' in 'beacon' payload (int -> double)
+
 ## OwnTracks 8.5.1,2,3
 >Release date: 2016-01-26 for alpha testers
 
