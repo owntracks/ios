@@ -570,7 +570,7 @@ static LocationManager *theInstance = nil;
             } else {
                 //if (foundBeacon.proximity != beacon.proximity) {
                 //if (foundBeacon.rssi != beacon.rssi) {
-                if (fabs(foundBeacon.accuracy - beacon.accuracy) > 0.1) {
+                if (fabs(foundBeacon.accuracy / beacon.accuracy - 1) > 0.2) {
                     [self.delegate beaconInRange:beacon region:region];
                     [self.rangedBeacons removeObject:foundBeacon];
                     [self.rangedBeacons addObject:beacon];
