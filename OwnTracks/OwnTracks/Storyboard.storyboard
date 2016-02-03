@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="e04-OU-xZ4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="e04-OU-xZ4">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -2067,10 +2067,10 @@ When switching between  modes, all OwnTracks data will be deleted for privacy re
 CocoaLumberjack
 ABStaticTableViewController
 MQTTClient
+SocketRocket
 QRCodeReaderViewController
 objc-geohash
-Fabric
-Crashlytics
+libsodium (libsodium.org)
 
 Uses https://www.openssl.org
 with https://github.com/x2on/OpenSSL-for-iPhone.git

@@ -1,6 +1,11 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 8.5.5
+>Release date: open
+
+* [FIX] Credits need cutting closes #374
+
 ## OwnTracks 8.5.4
 >Release date: 2016-02-02 to alpha and beta testers
 
