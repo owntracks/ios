@@ -206,6 +206,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                                 certificates:certificates];
         [self.session setDelegate:self];
         self.session.persistence.persistent = TRUE;
+        self.session.persistence.maxMessages = 100 * 1024;
+        self.session.persistence.maxSize = 100 * 1024 * 1024;
         self.reconnectTime = RECONNECT_TIMER;
         self.reconnectFlag = FALSE;
     }

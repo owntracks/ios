@@ -1,6 +1,12 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 8.6.0
+>Release date: 2015-02-11 to alpha and beta testers
+
+* [NEW] raise space to 100k offline locations closes #378
+* [FIX] Certificate error connecting to broker - peer did not return a certificate closes #379
+
 ## OwnTracks 8.5.5
 >Release date: open
 
