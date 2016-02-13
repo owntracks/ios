@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="e04-OU-xZ4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="e04-OU-xZ4">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="fontawesome-webfont.ttf">
@@ -2930,7 +2931,7 @@ with https://github.com/x2on/OpenSSL-for-iPhone.git
             </objects>
             <point key="canvasLocation" x="-187" y="689"/>
         </scene>
-        <!--Featured Content-->
+        <!--Featured-->
         <scene sceneID="p66-0v-y5x">
             <objects>
                 <viewController id="nKt-ru-oV7" customClass="FeaturedContentVC" sceneMemberID="viewController">
@@ -2942,32 +2943,51 @@ with https://github.com/x2on/OpenSSL-for-iPhone.git
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Uhq-5z-32j">
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HlP-BW-smx">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
-                            </textView>
+                            </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Uhq-5z-32j" firstAttribute="leading" secondItem="HTz-uA-AVl" secondAttribute="leading" id="Lkf-mP-U0L"/>
-                            <constraint firstAttribute="trailing" secondItem="Uhq-5z-32j" secondAttribute="trailing" id="bAi-c3-v4I"/>
-                            <constraint firstItem="Uhq-5z-32j" firstAttribute="bottom" secondItem="HTz-uA-AVl" secondAttribute="bottomMargin" id="bJo-MN-FcY"/>
-                            <constraint firstItem="Uhq-5z-32j" firstAttribute="top" secondItem="HTz-uA-AVl" secondAttribute="topMargin" id="f9c-5e-30f"/>
+                            <constraint firstAttribute="bottom" secondItem="HlP-BW-smx" secondAttribute="bottom" id="07c-34-clc"/>
+                            <constraint firstItem="HlP-BW-smx" firstAttribute="top" secondItem="HTz-uA-AVl" secondAttribute="top" id="BqY-WQ-9EH"/>
+                            <constraint firstAttribute="trailing" secondItem="HlP-BW-smx" secondAttribute="trailing" id="WfR-Cf-8OO"/>
+                            <constraint firstItem="HlP-BW-smx" firstAttribute="leading" secondItem="HTz-uA-AVl" secondAttribute="leading" id="eRr-iH-Ca5"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Featured Content" id="AdM-qz-URl">
-                        <barButtonItem key="leftBarButtonItem" image="Info" id="NsL-Ir-7lz">
-                            <connections>
-                                <segue destination="G87-RS-wz7" kind="push" id="aMd-Tc-ju9"/>
-                            </connections>
-                        </barButtonItem>
+                    <navigationItem key="navigationItem" title="Featured" id="AdM-qz-URl">
+                        <leftBarButtonItems>
+                            <barButtonItem image="Info" id="NsL-Ir-7lz">
+                                <connections>
+                                    <segue destination="G87-RS-wz7" kind="push" id="aMd-Tc-ju9"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="rewind" id="UD1-xe-bEw">
+                                <connections>
+                                    <action selector="backwardPressed:" destination="nKt-ru-oV7" id="arV-X2-lpk"/>
+                                </connections>
+                            </barButtonItem>
+                        </leftBarButtonItems>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="refresh" id="d9X-er-53D">
+                                <connections>
+                                    <action selector="reloadPressed:" destination="nKt-ru-oV7" id="dWE-x3-vA1"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="fastForward" id="E0f-3B-0SY">
+                                <connections>
+                                    <action selector="forwardPressed:" destination="nKt-ru-oV7" id="V8k-Su-NoW"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="UIcontent" destination="Uhq-5z-32j" id="0oT-Tg-fSf"/>
+                        <outlet property="UIbackward" destination="UD1-xe-bEw" id="GEE-aj-tHv"/>
+                        <outlet property="UIforward" destination="E0f-3B-0SY" id="rgf-y4-ib1"/>
+                        <outlet property="UIhtml" destination="HlP-BW-smx" id="Azn-XM-Bt7"/>
+                        <outlet property="UIrefresh" destination="d9X-er-53D" id="l5c-ga-VyO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zxD-8b-trO" userLabel="First Responder" sceneMemberID="firstResponder"/>

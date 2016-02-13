@@ -11,6 +11,7 @@
 
 #define SETTINGS_MESSAGING @"messaging"
 #define SETTINGS_ACTION @"action"
+#define SETTINGS_ACTIONURL @"actionurl"
 
 @interface Settings : NSObject
 

@@ -67,7 +67,9 @@
     if (self.featuredVC) {
         NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.viewControllers];
         
-        if ([Settings stringForKey:SETTINGS_ACTION]) {
+        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+
+        if (delegate.action) {
             if (![viewControllers containsObject:self.featuredVC]) {
                 [viewControllers insertObject:self.featuredVC atIndex:viewControllers.count];
             }

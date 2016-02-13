@@ -1,7 +1,12 @@
 OnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 8.6.0
+## OwnTracks 8.6.5
+>Release date: 2015-02-13 to alpha 
+
+* [NEW] Featured content Tab closes #380
+
+## OwnTracks 8.6.0/2
 >Release date: 2015-02-11 to alpha and beta testers
 
 * [NEW] raise space to 100k offline locations closes #378

@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FeaturedContentVC : UIViewController
+@interface FeaturedContentVC : UIViewController <UIWebViewDelegate>
 
 @end

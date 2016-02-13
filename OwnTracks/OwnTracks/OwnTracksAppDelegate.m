@@ -562,7 +562,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         if (dictionary) {
             if ([dictionary[@"_type"] isEqualToString:@"cmd"]) {
                 DDLogVerbose(@"msg received cmd:%@", dictionary[@"action"]);
+#ifdef DEBUG
+                if (true /* dirty work around not being able to set simulator .otrc */) {
+#else
                 if ([Settings boolForKey:@"cmd_preference"]) {
+#endif
                     if ([dictionary[@"action"] isEqualToString:@"dump"]) {
                         [self dump];
                     } else if ([dictionary[@"action"] isEqualToString:@"reportLocation"]) {
@@ -577,12 +581,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                         [self waypoints];
                     } else if ([dictionary[@"action"] isEqualToString:@"action"]) {
                         NSString *content = [dictionary objectForKey:@"content"];
-                        if (content) {
-                            [Settings setString:content forKey:SETTINGS_ACTION];
-                        } else {
-                            [Settings setString:nil forKey:SETTINGS_ACTION];
-                        }
-                        self.action = content;
+                        [Settings setString:content forKey:SETTINGS_ACTION];
+                        NSString *url = [dictionary objectForKey:@"url"];
+                        [Settings setString:url forKey:SETTINGS_ACTIONURL];
+                        self.action = content ? content : url;
                     } else if ([dictionary[@"action"] isEqualToString:@"setWaypoints"]) {
                         NSDictionary *payload = dictionary[@"payload"];
                         [Settings waypointsFromDictionary:payload];
