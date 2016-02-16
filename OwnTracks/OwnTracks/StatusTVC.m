@@ -24,8 +24,7 @@
 @implementation StatusTVC
 static const DDLogLevel ddLogLevel = DDLogLevelError;
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
@@ -47,8 +46,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                     context:nil];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{    
+- (void)viewWillDisappear:(BOOL)animated {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate removeObserver:self
                   forKeyPath:@"connectionState"
@@ -66,17 +64,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [super viewWillDisappear:animated];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     DDLogVerbose(@"observeValueForKeyPath %@", keyPath);
     [self performSelectorOnMainThread:@selector(updatedStatus) withObject:nil waitUntilDone:NO];
 }
 
-- (void)updatedStatus
-{
+- (void)updatedStatus {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     
-    const NSDictionary *states = @{
+    const NSDictionary<NSNumber *, NSString *> *states = @{
                                    @(state_starting): @"idle",
                                    @(state_connecting): @"connecting",
                                    @(state_error): @"error",
@@ -85,8 +81,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                    @(state_closed): @"closed"
                                    };
     
+    NSString *stateName = @"unknown";
+    if (delegate.connectionState) {
+        stateName = [states objectForKey:delegate.connectionState];
+        if (!stateName) {
+            stateName = delegate.connectionState.description;
+        }
+    }
+    
     self.UIstatusField.text = [NSString stringWithFormat:@"%@ %@ %@",
-                               states[delegate.connectionState],
+                               stateName,
                                delegate.connection.lastErrorCode ?
                                delegate.connection.lastErrorCode.localizedDescription : @"",
                                delegate.connection.lastErrorCode ?

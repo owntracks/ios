@@ -1,6 +1,13 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 8.6.7
+>Release date: 2015-02-16 to alpha testers
+
+* [FIX] Featured content web view refresh closes #383
+* [FIX] Toggle "Featured" tab sometimes works only halfway closes #382
+* [FIX] Crash on (I) closes #381
+
 ## OwnTracks 8.6.5
 >Release date: 2015-02-13 to alpha 
 

@@ -45,11 +45,12 @@
                        context:(void *)context {
     
     if ([keyPath isEqualToString:@"action"]) {
-        [self performSelectorOnMainThread:@selector(adjust) withObject:nil waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(adjust) withObject:nil waitUntilDone:YES];
     }
 }
 
 - (void)adjust {
+    
     if (self.messageVC) {
         NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.viewControllers];
         
@@ -64,6 +65,7 @@
         }
         [self setViewControllers:viewControllers animated:TRUE];
     }
+    
     if (self.featuredVC) {
         NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.viewControllers];
         

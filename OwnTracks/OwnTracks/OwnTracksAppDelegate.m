@@ -581,10 +581,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                         [self waypoints];
                     } else if ([dictionary[@"action"] isEqualToString:@"action"]) {
                         NSString *content = [dictionary objectForKey:@"content"];
-                        [Settings setString:content forKey:SETTINGS_ACTION];
+                        if (!content || ![content isEqualToString:[Settings stringForKey:SETTINGS_ACTION]]) {
+                            [Settings setString:content forKey:SETTINGS_ACTION];
+                            self.action = content;
+                        }
                         NSString *url = [dictionary objectForKey:@"url"];
-                        [Settings setString:url forKey:SETTINGS_ACTIONURL];
-                        self.action = content ? content : url;
+                        if (!url || ![url isEqualToString:[Settings stringForKey:SETTINGS_ACTIONURL]]) {
+                            [Settings setString:url forKey:SETTINGS_ACTIONURL];
+                            self.action = url;
+                        }
                     } else if ([dictionary[@"action"] isEqualToString:@"setWaypoints"]) {
                         NSDictionary *payload = dictionary[@"payload"];
                         [Settings waypointsFromDictionary:payload];
