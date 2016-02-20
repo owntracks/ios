@@ -14,7 +14,6 @@
 
 @interface StatusTVC ()
 @property (weak, nonatomic) IBOutlet UITextField *UILocation;
-@property (weak, nonatomic) IBOutlet UITextField *UIGeoHash;
 @property (weak, nonatomic) IBOutlet UITextView *UIparameters;
 @property (weak, nonatomic) IBOutlet UITextView *UIstatusField;
 @property (weak, nonatomic) IBOutlet UITextField *UIVersion;
@@ -40,10 +39,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                        forKeyPath:@"location"
                                           options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                                           context:nil];
-    [[Messaging sharedInstance] addObserver:self
-                                 forKeyPath:@"lastGeoHash"
-                                    options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                                    context:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -57,10 +52,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [[LocationManager sharedInstance] removeObserver:self
                                           forKeyPath:@"location"
                                              context:nil];
-    [[Messaging sharedInstance] removeObserver:self
-                                    forKeyPath:@"lastGeoHash"
-                                       context:nil];
-    
     [super viewWillDisappear:animated];
 }
 
@@ -106,12 +97,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     } else {
         self.UILocation.text = @"No location available";
     }
-    if ([Messaging sharedInstance].lastGeoHash) {
-        self.UIGeoHash.text = [Messaging sharedInstance].lastGeoHash;
-    } else {
-        self.UIGeoHash.text = @"No geo hash available";
-    }
-    
+
     int mode = [Settings intForKey:@"mode"];
     if (self.UIparameters) {
         if (mode == 1) {

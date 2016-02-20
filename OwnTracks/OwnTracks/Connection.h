@@ -36,7 +36,6 @@ enum state {
 @property (nonatomic, readonly) NSInteger state;
 @property (nonatomic, readonly) NSError *lastErrorCode;
 @property (strong, nonatomic) NSArray *subscriptions;
-@property (strong, nonatomic) NSDictionary *variableSubscriptions;
 @property (strong, nonatomic) NSString *key;
 
 @property (nonatomic) MQTTQosLevel subscriptionQos;
@@ -45,7 +44,7 @@ enum state {
              port:(NSInteger)port
               tls:(BOOL)tls
         keepalive:(NSInteger)keepalive
-             clean:(BOOL)clean
+            clean:(BOOL)clean
              auth:(BOOL)auth
              user:(NSString *)user
              pass:(NSString *)pass
@@ -57,12 +56,12 @@ enum state {
    securityPolicy:(MQTTSSLSecurityPolicy *)securityPolicy
      certificates:(NSArray *)certificates;
 
+- (void)connectHTTP:(NSString *)url;
+
 - (void)connectToLast;
 
 - (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(NSInteger)qos retain:(BOOL)retainFlag;
 - (void)disconnect;
 
 - (NSString *)parameters;
-
-- (void)unsubscribeFromTopic:(NSString *)topic;
 @end

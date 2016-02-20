@@ -16,6 +16,7 @@
 @property (strong, nonatomic) NSDictionary *appDefaults;
 @property (strong, nonatomic) NSDictionary *publicDefaults;
 @property (strong, nonatomic) NSDictionary *hostedDefaults;
+@property (strong, nonatomic) NSDictionary *httpDefaults;
 @end
 
 static SettingsDefaults *defaults;
@@ -109,6 +110,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             
             string = dictionary[@"host"];
             if (string) [self setString:string forKey:@"host_preference"];
+            
+            string = dictionary[@"url"];
+            if (string) [self setString:string forKey:@"url_preference"];
             
             string = dictionary[@"username"];
             if (string) {
@@ -221,9 +225,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             
             object = dictionary[@"locked"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"locked"];
-            
-            object = dictionary[SETTINGS_MESSAGING];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:SETTINGS_MESSAGING];
             
             object = dictionary[@"clientpkcs"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"clientpkcs"];
@@ -381,6 +382,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             dict[@"subTopic"] =     [Settings stringOrZeroForKey:@"subscription_preference"];
             dict[@"pubTopicBase"] = [Settings stringOrZeroForKey:@"topic_preference"];
             dict[@"host"] =         [Settings stringOrZeroForKey:@"host_preference"];
+            dict[@"url"] =         [Settings stringOrZeroForKey:@"url_preference"];
             dict[@"username"] =     [Settings stringOrZeroForKey:@"user_preference"];
             dict[@"password"] =     [Settings stringOrZeroForKey:@"pass_preference"];
             dict[@"willTopic"] =    [Settings stringOrZeroForKey:@"willtopic_preference"];
@@ -407,11 +409,25 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             dict[@"updateAddressBook"] =    @([Settings boolForKey:@"ab_preference"]);
             dict[@"allowRemoteLocation"] =  @([Settings boolForKey:@"allowremotelocation_preference"]);
             dict[@"extendedData"] =         @([Settings boolForKey:@"extendeddata_preference"]);
-            dict[SETTINGS_MESSAGING] =        @([Settings boolForKey:SETTINGS_MESSAGING]);
             dict[@"usepolicy"] =         @([Settings boolForKey:@"usepolicy"]);
             dict[@"allowinvalidcerts"] =         @([Settings boolForKey:@"allowinvalidcerts"]);
             dict[@"validatecertificatechain"] =         @([Settings boolForKey:@"validatecertificatechain"]);
             dict[@"validatedomainname"] =         @([Settings boolForKey:@"validatedomainname"]);
+            
+            break;
+
+        case 3:
+            dict[@"deviceId"] =     [Settings stringOrZeroForKey:@"deviceid_preference"];
+            dict[@"url"] =         [Settings stringOrZeroForKey:@"url_preference"];
+            dict[@"positions"] =            @([Settings intForKey:@"positions_preference"]);
+            dict[@"locatorDisplacement"] =  @([Settings intForKey:@"mindist_preference"]);
+            dict[@"locatorInterval"] =      @([Settings intForKey:@"mintime_preference"]);
+            
+            dict[@"cmd"] =                  @([Settings boolForKey:@"cmd_preference"]);
+            dict[@"updateAddressBook"] =    @([Settings boolForKey:@"ab_preference"]);
+            dict[@"allowRemoteLocation"] =  @([Settings boolForKey:@"allowremotelocation_preference"]);
+            dict[@"extendedData"] =         @([Settings boolForKey:@"extendeddata_preference"]);
+            dict[@"allowinvalidcerts"] =         @([Settings boolForKey:@"allowinvalidcerts"]);
 
             break;
         case 1:
@@ -448,7 +464,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 + (BOOL)validInPublicMode:(NSString *)key {
     return ([key isEqualToString:@"mode"] ||
-            [key isEqualToString:SETTINGS_MESSAGING] ||
             [key isEqualToString:@"locked"] ||
             [key isEqualToString:@"monitoring_preference"] ||
             [key isEqualToString:@"trackerid_preference"] ||
@@ -458,7 +473,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 + (BOOL)validInHostedMode:(NSString *)key {
     return ([key isEqualToString:@"mode"] ||
-            [key isEqualToString:SETTINGS_MESSAGING] ||
             [key isEqualToString:@"locked"] ||
             [key isEqualToString:@"monitoring_preference"] ||
             [key isEqualToString:@"trackerid_preference"] ||
@@ -470,7 +484,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 + (void)setString:(NSString *)string forKey:(NSString *)key {
-    if ([self intForKey:@"mode"] == 0 ||
+    if ([self intForKey:@"mode"] == 0 || [self intForKey:@"mode"] == 3 ||
         ([self intForKey:@"mode"] == 1 && [self validInHostedMode:key]) ||
         ([self intForKey:@"mode"] == 2 && [self validInPublicMode:key])) {
         [[CoreData theManagedObjectContext] performBlockAndWait:^{
@@ -577,6 +591,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             topic = [NSString stringWithFormat:@"owntracks/%@", [self theId]];
             break;
         case 0:
+        case 3:
         default:
             topic = [self stringForKey:@"topic_preference"];
             
@@ -619,6 +634,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             theId = [NSString stringWithFormat:@"%@/%@", [self theUserId], [self theDeviceId]];
             break;
         case 0:
+        case 3:
         default: {
             NSString *userId = [self theUserId];
             NSString *deviceId = [self theDeviceId];
@@ -650,6 +666,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     switch (mode) {
         case 2:
+        case 3:
             deviceId = [[UIDevice currentDevice].identifierForVendor UUIDString];
             break;
         case 1:
@@ -674,6 +691,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             break;
         case 1:
         case 0:
+        case 3:
         default:
             subscriptions = [self stringForKey:@"subscription_preference"];
             
@@ -721,6 +739,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     int mode = [self intForKey:@"mode"];
     switch (mode) {
         case 2:
+        case 3:
             return @"user";
             break;
         case 1:
@@ -737,6 +756,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     int mode = [self intForKey:@"mode"];
     switch (mode) {
         case 2:
+        case 3:
             return nil;
             break;
         case 1:
@@ -755,6 +775,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     int mode = [self intForKey:@"mode"];
     switch (mode) {
         case 2:
+        case 3:
             return nil;
             break;
         case 1:
@@ -770,6 +791,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 + (BOOL)theMqttAuth {
     int mode = [self intForKey:@"mode"];
     switch (mode) {
+        case 3:
         case 2:
             return FALSE;
             break;

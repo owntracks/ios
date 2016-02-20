@@ -13,20 +13,13 @@ PODS:
     - MQTTClient/Core (= 0.6.9)
   - MQTTClient/Core (0.6.9):
     - CocoaLumberjack
-  - MQTTClient/Websocket (0.6.9):
-    - MQTTClient/Core
-    - SocketRocket
-  - objc-geohash (0.0.1)
   - QRCodeReaderViewController (4.0.1)
-  - SocketRocket (0.4.2)
 
 DEPENDENCIES:
   - ABStaticTableViewController
   - CocoaLumberjack
   - libsodium (~> 1.0)
   - MQTTClient (from `~/MQTT-Client-Framework`)
-  - MQTTClient/Websocket (from `~/MQTT-Client-Framework`)
-  - objc-geohash
   - QRCodeReaderViewController
 
 EXTERNAL SOURCES:
@@ -38,8 +31,6 @@ SPEC CHECKSUMS:
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
   libsodium: be547e31dc75725629acc5717dc0a40fc05ef243
   MQTTClient: db15b4359780774a3ad876672624d7bd6f8a04d0
-  objc-geohash: 5a92a1deb6c4729ecefdf847159991a1068fb4cc
   QRCodeReaderViewController: 6538745c8f4ffa9407a26bd7f9489ea01739e7b0
-  SocketRocket: ffe08119b00ef982f6c37052a4705a057c8494ad
 
 COCOAPODS: 0.39.0

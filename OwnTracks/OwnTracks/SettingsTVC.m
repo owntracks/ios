@@ -15,11 +15,7 @@
 #import "CoreData.h"
 #import "AlertView.h"
 #import "OwnTracking.h"
-#import "Subscriptions.h"
-#import "Messaging.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
-
-#define BUY_OPTION 0 // modify to 1 if you want to enable auto renewing subscription buying
 
 @interface SettingsTVC ()
 @property (weak, nonatomic) IBOutlet UITableViewCell *UITLSCell;
@@ -47,8 +43,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIuser;
 @property (weak, nonatomic) IBOutlet UITextField *UIdevice;
 @property (weak, nonatomic) IBOutlet UITextField *UItoken;
-@property (weak, nonatomic) IBOutlet UIButton *UIpremium;
 @property (weak, nonatomic) IBOutlet UITextField *UIsecret;
+@property (weak, nonatomic) IBOutlet UITextField *UIurl;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
 @property (strong, nonatomic) UIAlertView *tidAlertView;
@@ -75,6 +71,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.UIdevice.delegate = self;
     self.UItoken.delegate = self;
     self.UIpassphrase.delegate = self;
+    self.UIurl.delegate = self;
     
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate addObserver:self
@@ -88,7 +85,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [textField resignFirstResponder];
     if (textField == self.UIuser ||
         textField == self.UIdevice ||
-        textField == self.UItoken) {
+        textField == self.UItoken ||
+        textField == self.UIurl) {
      [self reconnect];
     }
     return TRUE;
@@ -127,14 +125,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIuser) [Settings setString:self.UIuser.text forKey:@"user"];
     if (self.UIdevice) [Settings setString:self.UIdevice.text forKey:@"device"];
     if (self.UItoken) [Settings setString:self.UItoken.text forKey:@"token"];
+    if (self.UIurl) [Settings setString:self.UIurl.text forKey:@"url_preference"];
     
-    if (self.UIpremium) {
-        if (BUY_OPTION == 1) {
-            self.UIpremium.enabled = true;
-        } else {
-            self.UIpremium.enabled = false;
-        }
-    }
     [CoreData saveContext];
 }
 
@@ -258,68 +250,83 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         self.UItoken.text = [Settings stringForKey:@"token"];
         self.UItoken.enabled = !locked;
     }
+    if (self.UIurl) {
+        self.UIurl.text = [Settings stringForKey:@"url_preference"];
+        self.UIurl.enabled = !locked;
+    }
     int mode = [Settings intForKey:@"mode"];
 
-    NSMutableArray *hiddenFieldsMode12 = [[NSMutableArray alloc] init];
-    NSMutableArray *hiddenIndexPathsMode12 = [[NSMutableArray alloc] init];
+    NSMutableArray *hiddenFieldsMode123 = [[NSMutableArray alloc] init];
+    NSMutableArray *hiddenIndexPathsMode123 = [[NSMutableArray alloc] init];
     
-    if (self.UIDeviceID) {
-        [hiddenFieldsMode12 addObject:self.UIDeviceID];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:4 inSection:0]];
-    }
     if (self.UIHost) {
-        [hiddenFieldsMode12 addObject:self.UIHost];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:5 inSection:0]];
+        [hiddenFieldsMode123 addObject:self.UIHost];
+        [hiddenIndexPathsMode123 addObject:[NSIndexPath indexPathForRow:5 inSection:0]];
     }
     if (self.UIPort) {
-        [hiddenFieldsMode12 addObject:self.UIPort];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:6 inSection:0]];
+        [hiddenFieldsMode123 addObject:self.UIPort];
+        [hiddenIndexPathsMode123 addObject:[NSIndexPath indexPathForRow:6 inSection:0]];
     }
     if (self.UITLS) {
-        [hiddenFieldsMode12 addObject:self.UITLS];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:7 inSection:0]];
+        [hiddenFieldsMode123 addObject:self.UITLS];
+        [hiddenIndexPathsMode123 addObject:[NSIndexPath indexPathForRow:7 inSection:0]];
     }
     if (self.UIAuth) {
-        [hiddenFieldsMode12 addObject:self.UIAuth];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:8 inSection:0]];
-
+        [hiddenFieldsMode123 addObject:self.UIAuth];
+        [hiddenIndexPathsMode123 addObject:[NSIndexPath indexPathForRow:8 inSection:0]];
+        
     }
     if (self.UIUserID) {
         if (self.UIAuth) {
             self.UIUserID.enabled = !locked && self.UIAuth.on;
             self.UIUserID.textColor = self.UIAuth.on ? [UIColor blackColor] : [UIColor lightGrayColor];
         }
-        [hiddenFieldsMode12 addObject:self.UIUserID];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:9 inSection:0]];
+        [hiddenFieldsMode123 addObject:self.UIUserID];
+        [hiddenIndexPathsMode123 addObject:[NSIndexPath indexPathForRow:9 inSection:0]];
     }
     if (self.UIPassword) {
         if (self.UIAuth) {
             self.UIPassword.enabled = !locked && self.UIAuth.on;
             self.UIPassword.textColor = self.UIAuth.on ? [UIColor blackColor] : [UIColor lightGrayColor];
         }
-        [hiddenFieldsMode12 addObject:self.UIPassword];
-        [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:10 inSection:0]];
+        [hiddenFieldsMode123 addObject:self.UIPassword];
+        [hiddenIndexPathsMode123 addObject:[NSIndexPath indexPathForRow:10 inSection:0]];
     }
+    
+    if (self.UIDeviceID) {
+        [hiddenFieldsMode123 addObject:self.UIDeviceID];
+        [hiddenIndexPathsMode123 addObject:[NSIndexPath indexPathForRow:4 inSection:0]];
+    }
+    
+    NSMutableArray *hiddenFieldsMode12 = [[NSMutableArray alloc] init];
+    NSMutableArray *hiddenIndexPathsMode12 = [[NSMutableArray alloc] init];
     
     if (self.UIsecret) {
         [hiddenFieldsMode12 addObject:self.UIsecret];
         [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:11 inSection:0]];
     }
     
-    NSMutableArray *hiddenFieldsMode02 = [[NSMutableArray alloc] init];
-    NSMutableArray *hiddenIndexPathsMode02 = [[NSMutableArray alloc] init];
+    NSMutableArray *hiddenFieldsMode023 = [[NSMutableArray alloc] init];
+    NSMutableArray *hiddenIndexPathsMode023 = [[NSMutableArray alloc] init];
     if (self.UIuser) {
-        [hiddenFieldsMode02 addObject:self.UIuser];
-        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:12 inSection:0]];
-        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:13 inSection:0]];
+        [hiddenFieldsMode023 addObject:self.UIuser];
+        [hiddenIndexPathsMode023 addObject:[NSIndexPath indexPathForRow:12 inSection:0]];
+        [hiddenIndexPathsMode023 addObject:[NSIndexPath indexPathForRow:13 inSection:0]];
     }
     if (self.UIdevice) {
-        [hiddenFieldsMode02 addObject:self.UIdevice];
-        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:14 inSection:0]];
+        [hiddenFieldsMode023 addObject:self.UIdevice];
+        [hiddenIndexPathsMode023 addObject:[NSIndexPath indexPathForRow:14 inSection:0]];
     }
     if (self.UItoken) {
-        [hiddenFieldsMode02 addObject:self.UItoken];
-        [hiddenIndexPathsMode02 addObject:[NSIndexPath indexPathForRow:15 inSection:0]];
+        [hiddenFieldsMode023 addObject:self.UItoken];
+        [hiddenIndexPathsMode023 addObject:[NSIndexPath indexPathForRow:15 inSection:0]];
+    }
+    
+    NSMutableArray *hiddenFieldsMode012 = [[NSMutableArray alloc] init];
+    NSMutableArray *hiddenIndexPathsMode012 = [[NSMutableArray alloc] init];
+    if (self.UIurl) {
+        [hiddenFieldsMode012 addObject:self.UIurl];
+        [hiddenIndexPathsMode012 addObject:[NSIndexPath indexPathForRow:16 inSection:0]];
     }
     
     // hide mode row if locked
@@ -333,6 +340,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     
     // hide fields and rows depending on modes
+    for (UIView *view in hiddenFieldsMode012) {
+        [view setHidden:(mode == 0 || mode == 1 || mode == 2)];
+    }
+    
+    for (NSIndexPath *indexPath in hiddenIndexPathsMode012) {
+        if ([self isRowVisible:indexPath] && (mode == 0 || mode == 1 || mode == 2)) {
+            [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else if (![self isRowVisible:indexPath] && !(mode == 0 || mode == 1 || mode == 2)) {
+            [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    }
+    
     for (UIView *view in hiddenFieldsMode12) {
         [view setHidden:(mode == 1 || mode == 2)];
     }
@@ -345,13 +364,25 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         }
     }
     
-    for (UIView *view in hiddenFieldsMode02) {
-        [view setHidden:(mode == 0 || mode == 2)];
+    for (UIView *view in hiddenFieldsMode123) {
+        [view setHidden:(mode == 1 || mode == 2 || mode == 3)];
     }
-    for (NSIndexPath *indexPath in hiddenIndexPathsMode02) {
-        if ([self isRowVisible:indexPath] && (mode == 0 || mode == 2)) {
+    
+    for (NSIndexPath *indexPath in hiddenIndexPathsMode123) {
+        if ([self isRowVisible:indexPath] && (mode == 1 || mode == 2 || mode == 3)) {
             [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        } else if (![self isRowVisible:indexPath] && !(mode == 0 || mode == 2)) {
+        } else if (![self isRowVisible:indexPath] && !(mode == 1 || mode == 2 || mode == 3)) {
+            [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    }
+    
+    for (UIView *view in hiddenFieldsMode023) {
+        [view setHidden:(mode == 0 || mode == 2 || mode == 3)];
+    }
+    for (NSIndexPath *indexPath in hiddenIndexPathsMode023) {
+        if ([self isRowVisible:indexPath] && (mode == 0 || mode == 2 || mode == 3)) {
+            [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else if (![self isRowVisible:indexPath] && !(mode == 0 || mode == 2 || mode == 3)) {
             [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
     }

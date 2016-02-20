@@ -49,8 +49,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.UIhtml stopLoading];
     NSString *content = [Settings stringForKey:SETTINGS_ACTION];
     NSString *url = [Settings stringForKey:SETTINGS_ACTIONURL];
+    BOOL external = [Settings boolForKey:SETTINGS_ACTIONEXTERN];
+    
     if (url) {
-        [self.UIhtml loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+        if (external) {
+            [self.UIhtml loadHTMLString:[NSString stringWithFormat:@"opening url %@", url] baseURL:nil];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+        } else {
+            [self.UIhtml loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+        }
     } else {
         if (content) {
             [self.UIhtml loadHTMLString:content baseURL:nil];
@@ -82,11 +89,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     DDLogVerbose(@"didFailLoadWithError %@", error);
-    [AlertView alert:@"UIWebView error" message:[NSString stringWithFormat:@"%@\n%@",
-                                                 error.localizedDescription,
-                                                 webView.request.URL.absoluteString
-                                                 ]
-     ];
+    [self.UIhtml loadHTMLString:[NSString stringWithFormat:@"webView didFailLoadWithError\n%@\n%@",
+                                 error.localizedDescription,
+                                 webView.request.URL.absoluteString]
+                        baseURL:nil];
     [self adjust];
 }
 

@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "Setting+Create.h"
 
-#define SETTINGS_MESSAGING @"messaging"
 #define SETTINGS_ACTION @"action"
 #define SETTINGS_ACTIONURL @"actionurl"
+#define SETTINGS_ACTIONEXTERN @"actionextern"
 
 @interface Settings : NSObject
 

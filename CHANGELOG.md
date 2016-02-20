@@ -1,6 +1,13 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 9.0.2
+>Release date: 2015-02-20 to alpha testers
+
+* [NEW] removed in-app purchase preparations
+* [NEW] added HTTP mode
+* [NEW] removed Messaging (msg)
+
 ## OwnTracks 8.6.7
 >Release date: 2015-02-16 to alpha testers
 

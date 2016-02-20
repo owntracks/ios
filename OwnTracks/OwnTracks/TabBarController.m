@@ -12,7 +12,6 @@
 #import "OwnTracksAppDelegate.h"
 
 @interface TabBarController ()
-@property (strong, nonatomic) UIViewController *messageVC;
 @property (strong, nonatomic) UIViewController *featuredVC;
 @property (nonatomic) BOOL warning;
 @end
@@ -25,9 +24,6 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     
     for (UIViewController *vc in self.viewControllers) {
-        if (vc.tabBarItem.tag == 99) {
-            self.messageVC = vc;
-        }
         if (vc.tabBarItem.tag == 98) {
             self.featuredVC = vc;
         }
@@ -45,27 +41,12 @@
                        context:(void *)context {
     
     if ([keyPath isEqualToString:@"action"]) {
-        [self performSelectorOnMainThread:@selector(adjust) withObject:nil waitUntilDone:YES];
+        [self performSelectorOnMainThread:@selector(adjust) withObject:nil waitUntilDone:NO];
     }
 }
 
 - (void)adjust {
-    
-    if (self.messageVC) {
-        NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.viewControllers];
         
-        if ([Settings boolForKey:SETTINGS_MESSAGING]) {
-            if (![viewControllers containsObject:self.messageVC]) {
-                [viewControllers insertObject:self.messageVC atIndex:viewControllers.count];
-            }
-        } else {
-            if ([viewControllers containsObject:self.messageVC]) {
-                [viewControllers removeObject:self.messageVC];
-            }
-        }
-        [self setViewControllers:viewControllers animated:TRUE];
-    }
-    
     if (self.featuredVC) {
         NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.viewControllers];
         

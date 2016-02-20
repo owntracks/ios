@@ -22,8 +22,10 @@
 	<integer>1</integer>
 	<key>host_preference</key>
 	<string>host</string>
+	<key>url_preference</key>
+	<string>https://user:password@host:port/path</string>
 	<key>port_preference</key>
-	<integer>8883</integer>
+	<real>8883</real>
 	<key>tls_preference</key>
 	<true/>
 	<key>auth_preference</key>
@@ -59,8 +61,6 @@
 	<key>allowremotelocation_preference</key>
 	<true/>
 	<key>extendeddata_preference</key>
-	<true/>
-	<key>messaging</key>
 	<true/>
 	<key>trackerid_preference</key>
 	<string></string>

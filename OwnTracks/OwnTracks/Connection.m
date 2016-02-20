@@ -8,6 +8,9 @@
 
 #import "Connection.h"
 
+#import "CoreData.h"
+#import "Queue.h"
+
 #import <UIKit/UIKit.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <libsodium/sodium.h>
@@ -25,6 +28,8 @@
 @property (nonatomic) BOOL reconnectFlag;
 
 @property (strong, nonatomic) MQTTSession *session;
+
+@property (strong, nonatomic) NSString *url;
 
 @property (strong, nonatomic) NSString *host;
 @property (nonatomic) UInt32 port;
@@ -47,6 +52,8 @@
 @property (nonatomic) NSUInteger outCount;
 @property (nonatomic) NSUInteger inCount;
 
+@property (strong, nonatomic) NSManagedObjectContext *queueContext;
+
 @end
 
 #define RECONNECT_TIMER 1.0
@@ -67,7 +74,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     
     self.state = state_starting;
     self.subscriptions = [[NSArray alloc] init];
-    self.variableSubscriptions = [[NSDictionary alloc] init];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
@@ -101,6 +107,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     return self;
 }
 
+- (NSManagedObjectContext *)queueContext
+{
+    if (!_queueContext) {
+        _queueContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        [_queueContext setParentContext:[CoreData theManagedObjectContext]];
+    }
+    return _queueContext;
+}
+
 - (void)main {
     DDLogVerbose(@"Connection main");
     // if there is no timer running, runUntilDate: does return immediately!?
@@ -111,10 +126,39 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                             repeats:TRUE];
     NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
     [runLoop addTimer:self.idleTimer forMode:NSDefaultRunLoopMode];
+    
     while (!self.terminate) {
         DDLogVerbose(@"Connection main %@", [NSDate date]);
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+        
+        [self.queueContext performBlockAndWait:^{
+            NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
+            request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]];
+            
+            NSError *error = nil;
+            NSArray *matches = [self.queueContext executeFetchRequest:request error:&error];
+            if (matches) {
+                [self.delegate totalBuffered: self count:matches.count];
+                if (matches.count) {
+                    Queue *queue = matches.firstObject;
+                    
+                    if (self.state == state_starting) {
+                        [self sendHTTP:queue.topic data:queue.data];
+                    } else {
+                        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+                    }
+                    if (matches.count > 100 * 1024) {
+                        queue = matches.lastObject;
+                        [self.queueContext deleteObject:queue];
+                        [CoreData saveContext:self.queueContext];
+                    }
+                } else {
+                    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+                }
+            }
+        }];
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
+    
     [self disconnect];
     [self.idleTimer invalidate];
 }
@@ -155,6 +199,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                  securityPolicy,
                  certificates
                  );
+    
+    self.url = nil;
     
     if (!self.session ||
         ![host isEqualToString:self.host] ||
@@ -214,6 +260,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [self connectToInternal];
 }
 
+- (void)connectHTTP:(NSString *)url {
+    self.url = url;
+    self.reconnectTime = RECONNECT_TIMER;
+    self.reconnectFlag = FALSE;
+    [self connectToInternal];
+}
+
 - (void)startBackgroundTimer {
     DDLogVerbose(@"%@ startBackgroundTimer", self.clientId);
     
@@ -242,7 +295,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [self disconnect];
 }
 
-
 - (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(NSInteger)qos retain:(BOOL)retainFlag {
     DDLogVerbose(@"%@ sendData:%@ %@ q%ld r%d",
                  self.clientId,
@@ -251,50 +303,124 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                  (long)qos,
                  retainFlag);
     
-    if (self.state != state_connected) {
-        [self connectToLast];
-    }
+    NSData *outgoingData = (self.key && self.key.length) ? [self encrypt:data] : data;
     
-    UInt16 msgId = [self.session publishData:(self.key && self.key.length) ? [self encrypt:data] : data
-                                     onTopic:topic
-                                      retain:retainFlag
-                                         qos:qos];
-    DDLogVerbose(@"%@ sendData m%u", self.clientId, msgId);
-    return msgId;
+    if (self.url) {
+        [self.queueContext performBlock:^{
+            Queue *queue = [NSEntityDescription insertNewObjectForEntityForName:@"Queue"
+                                                         inManagedObjectContext:self.queueContext];
+            
+            queue.timestamp = [NSDate date];
+            queue.topic = topic;
+            queue.data = outgoingData;
+            
+            [CoreData saveContext:self.queueContext];
+        }];
+        
+        return 0;
+    } else {
+        if (self.state != state_connected) {
+            [self connectToLast];
+        }
+        
+        UInt16 msgId = [self.session publishData:outgoingData
+                                         onTopic:topic
+                                          retain:retainFlag
+                                             qos:qos];
+        DDLogVerbose(@"%@ sendData m%u", self.clientId, msgId);
+        return msgId;
+    }
 }
 
-- (void)disconnect
-{
+- (void)sendHTTP:(NSString *)topic data:(NSData *)data {
+    NSString *postLength = [NSString stringWithFormat:@"%ld",(unsigned long)[data length]];
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    
+    [request setURL:[NSURL URLWithString:self.url]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:data];
+    
+    NSString *contentType = [NSString stringWithFormat:@"application/json"];
+    [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
+    
+    DDLogVerbose(@"NSMutableURLRequest %@", request);
+    
+    self.state = state_connecting;
+    __block NSRunLoop *myRunLoop = [NSRunLoop currentRunLoop];
+    
+    NSURLSessionDownloadTask *downloadTask =
+    [[NSURLSession sharedSession] downloadTaskWithRequest:request completionHandler:
+     ^(NSURL *location, NSURLResponse *response, NSError *error) {
+         
+         DDLogVerbose(@"downloadTaskWithRequest %@ %@ %@", location, response, error);
+         if (!error) {
+             
+             if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+                 NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                 DDLogVerbose(@"NSHTTPURLResponse %@", httpResponse);
+                 if (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299) {
+                     self.state = state_connected;
+                     
+                     [self.queueContext performBlock:^{
+                         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
+                         request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]];
+                         
+                         NSError *error = nil;
+                         NSArray *matches = [self.queueContext executeFetchRequest:request error:&error];
+                         if (matches) {
+                             [self.delegate totalBuffered: self count:matches.count];
+                             if (matches.count) {
+                                 Queue *queue = matches.firstObject;
+                                 [self.queueContext deleteObject:queue];
+                                 [CoreData saveContext:self.queueContext];
+                             }
+                         }
+                         
+                         NSData *incomingData = [NSData dataWithContentsOfURL:location];
+                         
+                         if (self.key && self.key.length) {
+                             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:incomingData options:0 error:nil];
+                             if (json && [json[@"_type"] isEqualToString:@"encrypted"]) {
+                                 incomingData = [self decrypt:incomingData];
+                             }
+                         }
+                         
+                         [self.delegate handleMessage:self
+                                                 data:incomingData
+                                              onTopic:nil
+                                             retained:FALSE];
+                         
+                         
+                         self.state = state_starting;
+                         return;
+                     }];
+                     
+                 } else {
+                     error = [NSError errorWithDomain:@"HTTP Response" code:httpResponse.statusCode userInfo:nil];
+                 }
+             }
+         }
+         
+         self.state = state_error;
+         self.lastErrorCode = error;
+         [self startReconnectTimer:myRunLoop];
+         
+     }];
+    [downloadTask resume];
+}
+
+- (void)disconnect {
     DDLogVerbose(@"%@ disconnect:", self.clientId);
-    self.state = state_closing;
-    [self.session close];
-    
-    if (self.reconnectTimer) {
-        [self.reconnectTimer invalidate];
-        self.reconnectTimer = nil;
-    }
-}
-
-- (void)setVariableSubscriptions:(NSDictionary *)variableSubscriptions {
-    for (NSString *topicFilter in self.variableSubscriptions) {
-        if (![variableSubscriptions objectForKey:topicFilter]) {
-            [self.session unsubscribeTopic:topicFilter];
+    if (!self.url) {
+        self.state = state_closing;
+        [self.session close];
+        
+        if (self.reconnectTimer) {
+            [self.reconnectTimer invalidate];
+            self.reconnectTimer = nil;
         }
     }
-    
-    for (NSString *topicFilter in variableSubscriptions) {
-        if (![self.variableSubscriptions objectForKey:topicFilter]) {
-            NSNumber *number = variableSubscriptions[topicFilter];
-            MQTTQosLevel qos = [number unsignedIntValue];
-            [self.session subscribeToTopic:topicFilter atLevel:qos];
-        }
-    }
-    
-    _variableSubscriptions = variableSubscriptions;
-}
-
-- (void)unsubscribeFromTopic:(NSString *)topic {
-    [self.session unsubscribeTopic:topic];
 }
 
 #pragma mark - MQTT Callback methods
@@ -312,10 +438,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
             if (topicFilter.length) {
                 [self.session subscribeToTopic:topicFilter atLevel:self.subscriptionQos];
             }
-        }
-        for (NSString *topicFilter in self.variableSubscriptions.allKeys) {
-            MQTTQosLevel qos = [self.variableSubscriptions[topicFilter] intValue];
-            [self.session subscribeToTopic:topicFilter atLevel:qos];
         }
         self.reconnectFlag = TRUE;
     }
@@ -348,17 +470,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
             break;
         case MQTTSessionEventProtocolError:
         case MQTTSessionEventConnectionRefused:
-        case MQTTSessionEventConnectionError:
-        {
-            DDLogVerbose(@"%@ setTimer %f", self.clientId, self.reconnectTime);
-            self.reconnectTimer = [NSTimer timerWithTimeInterval:self.reconnectTime
-                                                          target:self
-                                                        selector:@selector(reconnect)
-                                                        userInfo:Nil repeats:FALSE];
-            NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
-            [runLoop addTimer:self.reconnectTimer
-                      forMode:NSDefaultRunLoopMode];
-            
+        case MQTTSessionEventConnectionError: {
+            [self startReconnectTimer:[NSRunLoop currentRunLoop]];
             self.state = state_error;
             self.lastErrorCode = error;
             break;
@@ -373,7 +486,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                  self.clientId,
                  msgID,
                  qoss);
-
+    
 }
 
 - (void)unsubAckReceived:(MQTTSession *)session msgID:(UInt16)msgID {
@@ -432,27 +545,33 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 #pragma internal helpers
 
 - (void)connectToInternal {
-    if (self.state == state_starting) {
-        self.state = state_connecting;
-        [self.session connectToHost:self.host
-                               port:self.port
-                           usingSSL:self.tls];
-    } else {
-        DDLogVerbose(@"%@ not starting, can't connect", self.clientId);
+    if (!self.url) {
+        if (self.state == state_starting) {
+            self.state = state_connecting;
+            [self.session connectToHost:self.host
+                                   port:self.port
+                               usingSSL:self.tls];
+        } else {
+            DDLogVerbose(@"%@ not starting, can't connect", self.clientId);
+        }
     }
     [self startBackgroundTimer];
 }
 
 - (NSString *)parameters {
-    return [NSString stringWithFormat:@"%@://%@%@:%ld c%d k%ld as %@",
-            self.tls ? @"mqtts" : @"mqtt",
-            self.auth ? [NSString stringWithFormat:@"%@@", self.user] : @"",
-            self.host,
-            (long)self.port,
-            self.clean,
-            (long)self.keepalive,
-            self.clientId
-            ];
+    if (self.url) {
+        return self.url;
+    } else {
+        return [NSString stringWithFormat:@"%@://%@%@:%ld c%d k%ld as %@",
+                self.tls ? @"mqtts" : @"mqtt",
+                self.auth ? [NSString stringWithFormat:@"%@@", self.user] : @"",
+                self.host,
+                (long)self.port,
+                self.clean,
+                (long)self.keepalive,
+                self.clientId
+                ];
+    }
 }
 
 - (void)setState:(NSInteger)state {
@@ -475,6 +594,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     
     self.reconnectTimer = nil;
     self.state = state_starting;
+    self.lastErrorCode = nil;
     
     if (self.reconnectTime < RECONNECT_TIMER_MAX) {
         self.reconnectTime *= 2;
@@ -490,11 +610,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [self connectToInternal];
 }
 
+- (void)startReconnectTimer:(NSRunLoop *)runLoop {
+    DDLogVerbose(@"%@ setTimer %f", self.clientId, self.reconnectTime);
+    self.reconnectTimer = [NSTimer timerWithTimeInterval:self.reconnectTime
+                                                  target:self
+                                                selector:@selector(reconnect)
+                                                userInfo:Nil repeats:FALSE];
+    [runLoop addTimer:self.reconnectTimer forMode:NSDefaultRunLoopMode];
+}
+
 - (NSData *)encrypt:(NSData *)message {
     
     unsigned char nonce[crypto_secretbox_NONCEBYTES];
     randombytes_buf(nonce, sizeof nonce);
-
+    
     unsigned char key[crypto_secretbox_KEYBYTES];
     memset(key, 0, sizeof(key));
     [self.key getBytes:key
@@ -550,4 +679,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     
     return decrypted;
 }
+
+
 @end

@@ -10,8 +10,9 @@
 		26D9D10A393B276099275BAE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D44FAE29CF5DF0D498028B7C /* libPods.a */; };
 		52C27EC62B888CFFFADA132C /* libPods-OwnTracks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAFF8E4C945D06B1A6DC88B /* libPods-OwnTracks.a */; };
 		66DEC6662040441D82919024 /* libPods-OwnTracksTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B15FB079036AF5B867E85A45 /* libPods-OwnTracksTests.a */; };
+		84001C141C78982800413E5B /* Queue+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84001C111C78982800413E5B /* Queue+CoreDataProperties.m */; };
+		84001C151C78982800413E5B /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 84001C131C78982800413E5B /* Queue.m */; };
 		8404876B1C5386DD00569C79 /* FeaturedContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8404876A1C5386DD00569C79 /* FeaturedContentVC.m */; };
-		840F6D2D1B3C89FD00848652 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 840F6D2C1B3C89FD00848652 /* MessageTableViewCell.m */; };
 		8411B82C189FDB140019D2D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82B189FDB140019D2D6 /* Foundation.framework */; };
 		8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82D189FDB140019D2D6 /* CoreGraphics.framework */; };
 		8411B830189FDB140019D2D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82F189FDB140019D2D6 /* UIKit.framework */; };
@@ -41,9 +42,6 @@
 		842DFBC91AEE6F46000F4BA6 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = 842DFBC81AEE6F46000F4BA6 /* PushNotificationPayload.apns */; };
 		8435A24E1BEF824900D2BF33 /* AppleIncRootCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8435A24D1BEF824900D2BF33 /* AppleIncRootCertificate.cer */; };
 		8435A2501BEFAC0800D2BF33 /* AppleComputerRootCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8435A24F1BEFAC0800D2BF33 /* AppleComputerRootCertificate.cer */; };
-		8435A2581BF2BB0100D2BF33 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8435A2561BF2BB0100D2BF33 /* libcrypto.a */; };
-		8435A2591BF2BB0100D2BF33 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8435A2571BF2BB0100D2BF33 /* libssl.a */; };
-		8435A25B1BF2BB2200D2BF33 /* include in Resources */ = {isa = PBXBuildFile; fileRef = 8435A25A1BF2BB2200D2BF33 /* include */; };
 		843635791AE95D6000157D66 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843635781AE95D6000157D66 /* InterfaceController.m */; };
 		8436357B1AE95D6000157D66 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8436357A1AE95D6000157D66 /* Images.xcassets */; };
 		8436357F1AE95D6100157D66 /* OwnTracks WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 8436357E1AE95D6000157D66 /* OwnTracks WatchKit App.app */; };
@@ -71,10 +69,6 @@
 		8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB418E4289E00923B24 /* Setting+Create.m */; };
 		8479EEB718E4529900923B24 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
 		847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847F8B5719295C65003876D4 /* CoreMotion.framework */; };
-		84856A8C1BD6201800621533 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84856A8B1BD6201800621533 /* StoreKit.framework */; };
-		84856A8F1BD6237B00621533 /* Subscriptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 84856A8E1BD6237B00621533 /* Subscriptions.m */; };
-		8487B8641B7BBF9000E59D39 /* FontAwesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 8487B8631B7BBF9000E59D39 /* FontAwesome.m */; };
-		8487B8681B7CA59100E59D39 /* fontawesome-webfont.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8487B8671B7CA59100E59D39 /* fontawesome-webfont.ttf */; };
 		84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A2B1B3755AF00810C3A /* TabBarController.m */; };
 		84A173681B427BDD00CCB7D0 /* ModeBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A173671B427BDD00CCB7D0 /* ModeBarButtonItem.m */; };
 		84B7397A1A65629200B103F4 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B739791A65629200B103F4 /* LocationManager.m */; };
@@ -88,20 +82,14 @@
 		84D307371ACD644500FACB9E /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84D307361ACD644500FACB9E /* MainInterface.storyboard */; };
 		84D3073A1ACD644500FACB9E /* OwnTracksToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84D307681ACDA62100FACB9E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AF468F1AB9571800E954E3 /* CoreLocation.framework */; };
-		84D751751B35B3C100B06A0C /* Message+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D751741B35B3C100B06A0C /* Message+Create.m */; };
-		84D751781B35B7A500B06A0C /* MessageTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D751771B35B7A500B06A0C /* MessageTVC.m */; };
-		84D7517B1B35C0AB00B06A0C /* Messaging.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D7517A1B35C0AB00B06A0C /* Messaging.m */; };
-		84DDEAC41BD9EE3500B01879 /* BuyTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DDEAC31BD9EE3500B01879 /* BuyTVC.m */; };
 		84DDEAC71BD9F37900B01879 /* SettingsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DDEAC61BD9F37900B01879 /* SettingsTVC.m */; };
 		84E8A1881BB94782002518AA /* Location+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A17D1BB94782002518AA /* Location+CoreDataProperties.m */; };
 		84E8A1891BB94782002518AA /* Setting+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */; };
 		84E8A18A1BB94782002518AA /* Friend+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1811BB94782002518AA /* Friend+CoreDataProperties.m */; };
-		84E8A18B1BB94782002518AA /* Message+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1831BB94782002518AA /* Message+CoreDataProperties.m */; };
 		84E8A18C1BB94782002518AA /* Waypoint+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1851BB94782002518AA /* Waypoint+CoreDataProperties.m */; };
 		84E8A18D1BB94782002518AA /* Region+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1871BB94782002518AA /* Region+CoreDataProperties.m */; };
 		84E8A19A1BB94B1D002518AA /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A18F1BB94B1D002518AA /* Region.m */; };
 		84E8A19B1BB94B1D002518AA /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1911BB94B1D002518AA /* Location.m */; };
-		84E8A19C1BB94B1D002518AA /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1931BB94B1D002518AA /* Message.m */; };
 		84E8A19D1BB94B1D002518AA /* Waypoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1951BB94B1D002518AA /* Waypoint.m */; };
 		84E8A19E1BB94B1D002518AA /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1971BB94B1D002518AA /* Setting.m */; };
 		84E8A19F1BB94B1D002518AA /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1991BB94B1D002518AA /* Friend.m */; };
@@ -142,11 +130,15 @@
 /* Begin PBXFileReference section */
 		0BAFF8E4C945D06B1A6DC88B /* libPods-OwnTracks.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OwnTracks.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		360F842C00CA8867E789B841 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		84001C0D1C78729200413E5B /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		84001C0F1C78976100413E5B /* Model 9.0.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.0.2.xcdatamodel"; sourceTree = "<group>"; };
+		84001C101C78982800413E5B /* Queue+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Queue+CoreDataProperties.h"; sourceTree = "<group>"; };
+		84001C111C78982800413E5B /* Queue+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Queue+CoreDataProperties.m"; sourceTree = "<group>"; };
+		84001C121C78982800413E5B /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
+		84001C131C78982800413E5B /* Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Queue.m; sourceTree = "<group>"; };
 		840487691C5386DD00569C79 /* FeaturedContentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeaturedContentVC.h; sourceTree = "<group>"; };
 		8404876A1C5386DD00569C79 /* FeaturedContentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeaturedContentVC.m; sourceTree = "<group>"; };
 		840BBDD318E4274200DC113C /* Model 6.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 6.2.xcdatamodel"; sourceTree = "<group>"; };
-		840F6D2B1B3C89FD00848652 /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
-		840F6D2C1B3C89FD00848652 /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
 		8411B828189FDB140019D2D6 /* OwnTracks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OwnTracks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8411B82B189FDB140019D2D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8411B82D189FDB140019D2D6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -199,9 +191,6 @@
 		842DFBC81AEE6F46000F4BA6 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		8435A24D1BEF824900D2BF33 /* AppleIncRootCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleIncRootCertificate.cer; sourceTree = "<group>"; };
 		8435A24F1BEFAC0800D2BF33 /* AppleComputerRootCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleComputerRootCertificate.cer; sourceTree = "<group>"; };
-		8435A2561BF2BB0100D2BF33 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
-		8435A2571BF2BB0100D2BF33 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
-		8435A25A1BF2BB2200D2BF33 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
 		843635731AE95D6000157D66 /* OwnTracks WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "OwnTracks WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		843635761AE95D6000157D66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		843635771AE95D6000157D66 /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
@@ -246,12 +235,7 @@
 		8479EEB418E4289E00923B24 /* Setting+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Setting+Create.m"; path = "../../Setting+Create.m"; sourceTree = "<group>"; };
 		847F8B5719295C65003876D4 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		84856A8B1BD6201800621533 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		84856A8D1BD6237B00621533 /* Subscriptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Subscriptions.h; sourceTree = "<group>"; };
-		84856A8E1BD6237B00621533 /* Subscriptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Subscriptions.m; sourceTree = "<group>"; };
 		848794B119A6234B00DF56EB /* Model 7.3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.xcdatamodel"; sourceTree = "<group>"; };
-		8487B8621B7BBF9000E59D39 /* FontAwesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FontAwesome.h; sourceTree = "<group>"; };
-		8487B8631B7BBF9000E59D39 /* FontAwesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FontAwesome.m; sourceTree = "<group>"; };
-		8487B8671B7CA59100E59D39 /* fontawesome-webfont.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "fontawesome-webfont.ttf"; sourceTree = "<group>"; };
 		84930A221B36B8FB00810C3A /* Model 8.1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.1.xcdatamodel"; sourceTree = "<group>"; };
 		84930A261B36C21B00810C3A /* Model 8.1.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.2.xcdatamodel"; sourceTree = "<group>"; };
 		84930A2A1B3755AF00810C3A /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
@@ -279,14 +263,6 @@
 		84D307361ACD644500FACB9E /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		84D307661ACD8F4300FACB9E /* OwnTracksToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OwnTracksToday.entitlements; sourceTree = "<group>"; };
 		84D7516F1B35B1C600B06A0C /* Model 8.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.xcdatamodel"; sourceTree = "<group>"; };
-		84D751731B35B3C100B06A0C /* Message+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Message+Create.h"; sourceTree = "<group>"; };
-		84D751741B35B3C100B06A0C /* Message+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Message+Create.m"; sourceTree = "<group>"; };
-		84D751761B35B7A500B06A0C /* MessageTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTVC.h; sourceTree = "<group>"; };
-		84D751771B35B7A500B06A0C /* MessageTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTVC.m; sourceTree = "<group>"; };
-		84D751791B35C0AB00B06A0C /* Messaging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Messaging.h; sourceTree = "<group>"; };
-		84D7517A1B35C0AB00B06A0C /* Messaging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Messaging.m; sourceTree = "<group>"; };
-		84DDEAC21BD9EE3500B01879 /* BuyTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyTVC.h; sourceTree = "<group>"; };
-		84DDEAC31BD9EE3500B01879 /* BuyTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyTVC.m; sourceTree = "<group>"; };
 		84DDEAC51BD9F37900B01879 /* SettingsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTVC.h; sourceTree = "<group>"; };
 		84DDEAC61BD9F37900B01879 /* SettingsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTVC.m; sourceTree = "<group>"; };
 		84E8A17B1BB946F0002518AA /* Model 8.2.18.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.18.xcdatamodel"; sourceTree = "<group>"; };
@@ -296,8 +272,6 @@
 		84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Setting+CoreDataProperties.m"; sourceTree = "<group>"; };
 		84E8A1801BB94782002518AA /* Friend+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Friend+CoreDataProperties.h"; sourceTree = "<group>"; };
 		84E8A1811BB94782002518AA /* Friend+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Friend+CoreDataProperties.m"; sourceTree = "<group>"; };
-		84E8A1821BB94782002518AA /* Message+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Message+CoreDataProperties.h"; sourceTree = "<group>"; };
-		84E8A1831BB94782002518AA /* Message+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Message+CoreDataProperties.m"; sourceTree = "<group>"; };
 		84E8A1841BB94782002518AA /* Waypoint+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Waypoint+CoreDataProperties.h"; sourceTree = "<group>"; };
 		84E8A1851BB94782002518AA /* Waypoint+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Waypoint+CoreDataProperties.m"; sourceTree = "<group>"; };
 		84E8A1861BB94782002518AA /* Region+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Region+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -306,8 +280,6 @@
 		84E8A18F1BB94B1D002518AA /* Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Region.m; sourceTree = "<group>"; };
 		84E8A1901BB94B1D002518AA /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
 		84E8A1911BB94B1D002518AA /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
-		84E8A1921BB94B1D002518AA /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
-		84E8A1931BB94B1D002518AA /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
 		84E8A1941BB94B1D002518AA /* Waypoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Waypoint.h; sourceTree = "<group>"; };
 		84E8A1951BB94B1D002518AA /* Waypoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Waypoint.m; sourceTree = "<group>"; };
 		84E8A1961BB94B1D002518AA /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
@@ -327,14 +299,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84856A8C1BD6201800621533 /* StoreKit.framework in Frameworks */,
 				8422AF681AF825C7008932A2 /* SystemConfiguration.framework in Frameworks */,
-				8435A2591BF2BB0100D2BF33 /* libssl.a in Frameworks */,
 				847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */,
 				8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */,
 				8411B832189FDB140019D2D6 /* CoreData.framework in Frameworks */,
 				8411B861189FDD200019D2D6 /* MapKit.framework in Frameworks */,
-				8435A2581BF2BB0100D2BF33 /* libcrypto.a in Frameworks */,
 				8411B830189FDB140019D2D6 /* UIKit.framework in Frameworks */,
 				8411B82C189FDB140019D2D6 /* Foundation.framework in Frameworks */,
 				26D9D10A393B276099275BAE /* libPods.a in Frameworks */,
@@ -422,6 +391,7 @@
 		8411B82A189FDB140019D2D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84001C0D1C78729200413E5B /* iAd.framework */,
 				843817FB1C386A8700CE14EE /* CFNetwork.framework */,
 				84856A8B1BD6201800621533 /* StoreKit.framework */,
 				8422AF671AF825C7008932A2 /* SystemConfiguration.framework */,
@@ -445,17 +415,12 @@
 		8411B833189FDB140019D2D6 /* OwnTracks */ = {
 			isa = PBXGroup;
 			children = (
-				8435A2551BF2BAD300D2BF33 /* OpenSSL */,
 				8411B897189FEB790019D2D6 /* assets */,
 				8411B867189FE1ED0019D2D6 /* coredata */,
 				8411B83C189FDB140019D2D6 /* OwnTracksAppDelegate.h */,
 				8411B83D189FDB140019D2D6 /* OwnTracksAppDelegate.m */,
-				84D751791B35C0AB00B06A0C /* Messaging.h */,
-				84D7517A1B35C0AB00B06A0C /* Messaging.m */,
 				846FFA431B402A1F001482A6 /* OwnTracking.h */,
 				846FFA441B402A1F001482A6 /* OwnTracking.m */,
-				84856A8D1BD6237B00621533 /* Subscriptions.h */,
-				84856A8E1BD6237B00621533 /* Subscriptions.m */,
 				8435A24D1BEF824900D2BF33 /* AppleIncRootCertificate.cer */,
 				8435A24F1BEFAC0800D2BF33 /* AppleComputerRootCertificate.cer */,
 				84B739781A65629200B103F4 /* LocationManager.h */,
@@ -491,12 +456,14 @@
 		8411B867189FE1ED0019D2D6 /* coredata */ = {
 			isa = PBXGroup;
 			children = (
+				84001C101C78982800413E5B /* Queue+CoreDataProperties.h */,
+				84001C111C78982800413E5B /* Queue+CoreDataProperties.m */,
+				84001C121C78982800413E5B /* Queue.h */,
+				84001C131C78982800413E5B /* Queue.m */,
 				84E8A18E1BB94B1D002518AA /* Region.h */,
 				84E8A18F1BB94B1D002518AA /* Region.m */,
 				84E8A1901BB94B1D002518AA /* Location.h */,
 				84E8A1911BB94B1D002518AA /* Location.m */,
-				84E8A1921BB94B1D002518AA /* Message.h */,
-				84E8A1931BB94B1D002518AA /* Message.m */,
 				84E8A1941BB94B1D002518AA /* Waypoint.h */,
 				84E8A1951BB94B1D002518AA /* Waypoint.m */,
 				84E8A1961BB94B1D002518AA /* Setting.h */,
@@ -509,8 +476,6 @@
 				84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */,
 				84E8A1801BB94782002518AA /* Friend+CoreDataProperties.h */,
 				84E8A1811BB94782002518AA /* Friend+CoreDataProperties.m */,
-				84E8A1821BB94782002518AA /* Message+CoreDataProperties.h */,
-				84E8A1831BB94782002518AA /* Message+CoreDataProperties.m */,
 				84E8A1841BB94782002518AA /* Waypoint+CoreDataProperties.h */,
 				84E8A1851BB94782002518AA /* Waypoint+CoreDataProperties.m */,
 				84E8A1861BB94782002518AA /* Region+CoreDataProperties.h */,
@@ -519,8 +484,6 @@
 				846FFA5A1B4196D0001482A6 /* Waypoint+Create.m */,
 				846FFA501B416CD6001482A6 /* Region+Create.h */,
 				846FFA511B416CD6001482A6 /* Region+Create.m */,
-				84D751731B35B3C100B06A0C /* Message+Create.h */,
-				84D751741B35B3C100B06A0C /* Message+Create.m */,
 				8479EEB318E4289E00923B24 /* Setting+Create.h */,
 				8479EEB418E4289E00923B24 /* Setting+Create.m */,
 				8411B868189FE1ED0019D2D6 /* Friend+Create.h */,
@@ -540,16 +503,6 @@
 				845AA1BA1B4846AF00945856 /* OwnTracks-320.png */,
 			);
 			path = assets;
-			sourceTree = "<group>";
-		};
-		8435A2551BF2BAD300D2BF33 /* OpenSSL */ = {
-			isa = PBXGroup;
-			children = (
-				8435A25A1BF2BB2200D2BF33 /* include */,
-				8435A2561BF2BB0100D2BF33 /* libcrypto.a */,
-				8435A2571BF2BB0100D2BF33 /* libssl.a */,
-			);
-			name = OpenSSL;
 			sourceTree = "<group>";
 		};
 		843635741AE95D6000157D66 /* OwnTracks WatchKit Extension */ = {
@@ -632,28 +585,13 @@
 				84A1737A1B428F0600CCB7D0 /* Friends */,
 				84A1737B1B428F3600CCB7D0 /* Regions */,
 				84A1737C1B428F3E00CCB7D0 /* Settings */,
-				84A173791B428ED000CCB7D0 /* Messaging */,
 				8411B895189FEAE60019D2D6 /* Storyboard.storyboard */,
 				8404876C1C53872700569C79 /* FeaturedContent */,
 				842610391ACFE67B00FE1A03 /* Launch Screen.xib */,
 				8411B842189FDB140019D2D6 /* Images.xcassets */,
-				8487B8671B7CA59100E59D39 /* fontawesome-webfont.ttf */,
-				8487B8621B7BBF9000E59D39 /* FontAwesome.h */,
-				8487B8631B7BBF9000E59D39 /* FontAwesome.m */,
 				846FFA1A1B401DB4001482A6 /* Colors */,
 			);
 			name = UI;
-			sourceTree = "<group>";
-		};
-		84A173791B428ED000CCB7D0 /* Messaging */ = {
-			isa = PBXGroup;
-			children = (
-				84D751761B35B7A500B06A0C /* MessageTVC.h */,
-				84D751771B35B7A500B06A0C /* MessageTVC.m */,
-				840F6D2B1B3C89FD00848652 /* MessageTableViewCell.h */,
-				840F6D2C1B3C89FD00848652 /* MessageTableViewCell.m */,
-			);
-			name = Messaging;
 			sourceTree = "<group>";
 		};
 		84A1737A1B428F0600CCB7D0 /* Friends */ = {
@@ -693,8 +631,6 @@
 				8411B909189FEC070019D2D6 /* StatusTVC.m */,
 				845AA1B21B44245100945856 /* CertificatesTVC.h */,
 				845AA1B31B44245100945856 /* CertificatesTVC.m */,
-				84DDEAC21BD9EE3500B01879 /* BuyTVC.h */,
-				84DDEAC31BD9EE3500B01879 /* BuyTVC.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -732,7 +668,6 @@
 				8411B826189FDB140019D2D6 /* Resources */,
 				91A94BEF7F5441F8C95B188E /* Copy Pods Resources */,
 				844E826B1AB8061500516D1A /* Embed App Extensions */,
-				84B406F81AC0556D000A419B /* ShellScript */,
 				14C5EDA01D86BA9DEB6F2070 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -901,8 +836,6 @@
 			files = (
 				846FFA161B4013BB001482A6 /* Colors.plist in Resources */,
 				8479EEB718E4529900923B24 /* Settings.plist in Resources */,
-				8487B8681B7CA59100E59D39 /* fontawesome-webfont.ttf in Resources */,
-				8435A25B1BF2BB2200D2BF33 /* include in Resources */,
 				8411B896189FEAE60019D2D6 /* Storyboard.storyboard in Resources */,
 				8435A2501BEFAC0800D2BF33 /* AppleComputerRootCertificate.cer in Resources */,
 				845AA1BD1B4846AF00945856 /* OwnTracks-320.png in Resources */,
@@ -968,21 +901,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OwnTracks/Pods-OwnTracks-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		84B406F81AC0556D000A419B /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/fabric.apikey",
-				"$(SRCROOT)/fabric.buildsecret",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "FABRIC_APIKEY=$(cat ${SRCROOT}/fabric.apikey)\nFABRIC_BUILDSECRET=$(cat ${SRCROOT}/fabric.buildsecret)\n./Pods/Fabric.framework/run ${FABRIC_APIKEY} ${FABRIC_BUILDSECRET}";
 		};
 		912F81D9BB4349FEDC00D9D8 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1068,13 +986,10 @@
 			files = (
 				846FFA5B1B4196D0001482A6 /* Waypoint+Create.m in Sources */,
 				8411B83A189FDB140019D2D6 /* main.m in Sources */,
-				84D751751B35B3C100B06A0C /* Message+Create.m in Sources */,
 				8411B90C189FEC070019D2D6 /* WaypointTVC.m in Sources */,
 				8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */,
 				846FFA191B401A4E001482A6 /* UIColor+WithName.m in Sources */,
-				840F6D2D1B3C89FD00848652 /* MessageTableViewCell.m in Sources */,
 				84E8A19A1BB94B1D002518AA /* Region.m in Sources */,
-				84856A8F1BD6237B00621533 /* Subscriptions.m in Sources */,
 				846FFA581B419687001482A6 /* RegionTVC.m in Sources */,
 				846FFA451B402A1F001482A6 /* OwnTracking.m in Sources */,
 				8411B912189FEC070019D2D6 /* ViewController.m in Sources */,
@@ -1082,12 +997,12 @@
 				84E8A1881BB94782002518AA /* Location+CoreDataProperties.m in Sources */,
 				8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */,
 				846FFA5E1B420938001482A6 /* FriendTableViewCell.m in Sources */,
+				84001C141C78982800413E5B /* Queue+CoreDataProperties.m in Sources */,
 				8411B87F189FE35C0019D2D6 /* Model.xcdatamodeld in Sources */,
 				845AA1B11B440EEF00945856 /* LoginVC.m in Sources */,
 				84E8A1891BB94782002518AA /* Setting+CoreDataProperties.m in Sources */,
 				84E8A19E1BB94B1D002518AA /* Setting.m in Sources */,
 				8411B90D189FEC070019D2D6 /* FriendAnnotationV.m in Sources */,
-				84D7517B1B35C0AB00B06A0C /* Messaging.m in Sources */,
 				84E8A19F1BB94B1D002518AA /* Friend.m in Sources */,
 				8411B88A189FE79B0019D2D6 /* AlertView.m in Sources */,
 				8411B90E189FEC070019D2D6 /* FriendsTVC.m in Sources */,
@@ -1095,21 +1010,17 @@
 				8411B90F189FEC070019D2D6 /* RegionsTVC.m in Sources */,
 				846FFA521B416CD6001482A6 /* Region+Create.m in Sources */,
 				8411B88B189FE79B0019D2D6 /* CoreData.m in Sources */,
-				84D751781B35B7A500B06A0C /* MessageTVC.m in Sources */,
+				84001C151C78982800413E5B /* Queue.m in Sources */,
 				8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */,
 				8411B878189FE1ED0019D2D6 /* Friend+Create.m in Sources */,
 				84E8A18A1BB94782002518AA /* Friend+CoreDataProperties.m in Sources */,
 				846FFA4F1B40C13C001482A6 /* NavigationController.m in Sources */,
-				84E8A19C1BB94B1D002518AA /* Message.m in Sources */,
 				84E8A19B1BB94B1D002518AA /* Location.m in Sources */,
 				8411B83E189FDB140019D2D6 /* OwnTracksAppDelegate.m in Sources */,
-				84E8A18B1BB94782002518AA /* Message+CoreDataProperties.m in Sources */,
 				84DDEAC71BD9F37900B01879 /* SettingsTVC.m in Sources */,
 				84A173681B427BDD00CCB7D0 /* ModeBarButtonItem.m in Sources */,
 				845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */,
 				84B7397A1A65629200B103F4 /* LocationManager.m in Sources */,
-				8487B8641B7BBF9000E59D39 /* FontAwesome.m in Sources */,
-				84DDEAC41BD9EE3500B01879 /* BuyTVC.m in Sources */,
 				8411B891189FE9CE0019D2D6 /* Settings.m in Sources */,
 				84E8A19D1BB94B1D002518AA /* Waypoint.m in Sources */,
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,
@@ -1563,6 +1474,7 @@
 		8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				84001C0F1C78976100413E5B /* Model 9.0.2.xcdatamodel */,
 				84E8A17B1BB946F0002518AA /* Model 8.2.18.xcdatamodel */,
 				84A173691B428E5C00CCB7D0 /* Model 8.2.1.xcdatamodel */,
 				846FFA1B1B4023BE001482A6 /* Model 8.2.0.xcdatamodel */,
@@ -1581,7 +1493,7 @@
 				84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */,
 				8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 84E8A17B1BB946F0002518AA /* Model 8.2.18.xcdatamodel */;
+			currentVersion = 84001C0F1C78976100413E5B /* Model 9.0.2.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

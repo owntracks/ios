@@ -12,7 +12,6 @@
 #import "AlertView.h"
 #import "Waypoint.h"
 #import "CoreData.h"
-#import "Message+Create.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 #define MAXQUEUE 999
@@ -135,16 +134,6 @@ static OwnTracking *theInstance = nil;
                                 notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
                                 [[UIApplication sharedApplication] scheduleLocalNotification:notification];
                                 [AlertView alert:@"Friend" message:notification.alertBody dismissAfter:2.0];
-                                [[Messaging sharedInstance] createMessageWithTopic:topic
-                                                                              icon:@"fa-exchange"
-                                                                              prio:0
-                                                                         timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]
-                                                                               ttl:3600
-                                                                             title:@"Event"
-                                                                              desc:message
-                                                                               url:nil
-                                                                           iconurl:nil
-                                                            inManagedObjectContext:context];
                             }
                             
                         } else if ([dictionary[@"_type"] isEqualToString:@"card"]) {

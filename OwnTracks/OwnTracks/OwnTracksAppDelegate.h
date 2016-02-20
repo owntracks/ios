@@ -13,7 +13,6 @@
 #import "LocationManager.h"
 #import "Connection.h"
 #import "Settings.h"
-#import "Messaging.h"
 
 #import "Friend+Create.h"
 #import "Region+Create.h"
