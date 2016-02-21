@@ -334,6 +334,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)sendHTTP:(NSString *)topic data:(NSData *)data {
     NSString *postLength = [NSString stringWithFormat:@"%ld",(unsigned long)[data length]];
+    DDLogVerbose(@"sendtHTTP %@(%@):%@", topic, postLength, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
     [request setURL:[NSURL URLWithString:self.url]];

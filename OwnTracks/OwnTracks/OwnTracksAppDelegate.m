@@ -844,6 +844,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)connect {
     if ([Settings intForKey:@"mode"] == 3) {
+        self.connection.key = [Settings stringForKey:@"secret_preference"];
         [self.connection connectHTTP:[Settings stringForKey:@"url_preference"]];
     } else {
     NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory

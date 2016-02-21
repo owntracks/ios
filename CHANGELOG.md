@@ -1,6 +1,11 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 9.0.3
+>Release date: 2015-02-21 to alpha testers
+
+* [FIX] use secret key for encryption in HTTP mode
+
 ## OwnTracks 9.0.2
 >Release date: 2015-02-20 to alpha testers
 

@@ -86,6 +86,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (textField == self.UIuser ||
         textField == self.UIdevice ||
         textField == self.UItoken ||
+        textField == self.UIsecret ||
         textField == self.UIurl) {
      [self reconnect];
     }
