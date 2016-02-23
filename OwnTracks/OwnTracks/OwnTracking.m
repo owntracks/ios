@@ -60,8 +60,9 @@ static OwnTracking *theInstance = nil;
         }
         [context performBlock:^{
             NSError *error;
-            NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-            if (dictionary) {
+            id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            if (json && [json isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *dictionary = json;
                 NSArray *topicComponents = [topic componentsSeparatedByCharactersInSet:
                                             [NSCharacterSet characterSetWithCharactersInString:@"/"]];
                 NSArray *baseComponents = [[Settings theGeneralTopic] componentsSeparatedByCharactersInSet:

@@ -47,13 +47,10 @@
 		8436357F1AE95D6100157D66 /* OwnTracks WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 8436357E1AE95D6000157D66 /* OwnTracks WatchKit App.app */; };
 		843635871AE95D6100157D66 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843635851AE95D6100157D66 /* Interface.storyboard */; };
 		843635891AE95D6100157D66 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843635881AE95D6100157D66 /* Images.xcassets */; };
-		843817EB1C385DF600CE14EE /* Hosted.m in Sources */ = {isa = PBXBuildFile; fileRef = 843817EA1C385DF600CE14EE /* Hosted.m */; };
 		843817F31C38654A00CE14EE /* OwnTracksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 843817F21C38654A00CE14EE /* OwnTracksTests.m */; };
-		843817FA1C38657400CE14EE /* Hosted.m in Sources */ = {isa = PBXBuildFile; fileRef = 843817EA1C385DF600CE14EE /* Hosted.m */; };
 		843817FC1C386A8700CE14EE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843817FB1C386A8700CE14EE /* CFNetwork.framework */; };
 		843817FD1C386B7E00CE14EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82B189FDB140019D2D6 /* Foundation.framework */; };
 		8455DFBE1ADF2BD8003C7BC8 /* Hosted.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8455DFBD1ADF2BD8003C7BC8 /* Hosted.plist */; };
-		845AA1B11B440EEF00945856 /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845AA1B01B440EEF00945856 /* LoginVC.m */; };
 		845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845AA1B31B44245100945856 /* CertificatesTVC.m */; };
 		845AA1BB1B4846AF00945856 /* OwnTracks-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1B81B4846AF00945856 /* OwnTracks-29.png */; };
 		845AA1BC1B4846AF00945856 /* OwnTracks-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1B91B4846AF00945856 /* OwnTracks-64.png */; };
@@ -200,15 +197,11 @@
 		843635841AE95D6100157D66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		843635861AE95D6100157D66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		843635881AE95D6100157D66 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		843817E91C385DF600CE14EE /* Hosted.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Hosted.h; sourceTree = "<group>"; };
-		843817EA1C385DF600CE14EE /* Hosted.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Hosted.m; sourceTree = "<group>"; };
 		843817F01C38654A00CE14EE /* OwnTracksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OwnTracksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		843817F21C38654A00CE14EE /* OwnTracksTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwnTracksTests.m; sourceTree = "<group>"; };
 		843817F41C38654A00CE14EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		843817FB1C386A8700CE14EE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		8455DFBD1ADF2BD8003C7BC8 /* Hosted.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Hosted.plist; sourceTree = "<group>"; };
-		845AA1AF1B440EEF00945856 /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
-		845AA1B01B440EEF00945856 /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		845AA1B21B44245100945856 /* CertificatesTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificatesTVC.h; sourceTree = "<group>"; };
 		845AA1B31B44245100945856 /* CertificatesTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificatesTVC.m; sourceTree = "<group>"; };
 		845AA1B81B4846AF00945856 /* OwnTracks-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-29.png"; sourceTree = "<group>"; };
@@ -432,8 +425,6 @@
 				8455DFBD1ADF2BD8003C7BC8 /* Hosted.plist */,
 				8411B88F189FE9CE0019D2D6 /* Settings.h */,
 				8411B890189FE9CE0019D2D6 /* Settings.m */,
-				843817E91C385DF600CE14EE /* Hosted.h */,
-				843817EA1C385DF600CE14EE /* Hosted.m */,
 				846FFA491B40A301001482A6 /* UI */,
 				8411B834189FDB140019D2D6 /* Supporting Files */,
 			);
@@ -574,8 +565,6 @@
 				84930A2B1B3755AF00810C3A /* TabBarController.m */,
 				846FFA4D1B40C13C001482A6 /* NavigationController.h */,
 				846FFA4E1B40C13C001482A6 /* NavigationController.m */,
-				845AA1AF1B440EEF00945856 /* LoginVC.h */,
-				845AA1B01B440EEF00945856 /* LoginVC.m */,
 				8411B886189FE79B0019D2D6 /* AlertView.h */,
 				8411B887189FE79B0019D2D6 /* AlertView.m */,
 				8411B90A189FEC070019D2D6 /* ViewController.h */,
@@ -999,7 +988,6 @@
 				846FFA5E1B420938001482A6 /* FriendTableViewCell.m in Sources */,
 				84001C141C78982800413E5B /* Queue+CoreDataProperties.m in Sources */,
 				8411B87F189FE35C0019D2D6 /* Model.xcdatamodeld in Sources */,
-				845AA1B11B440EEF00945856 /* LoginVC.m in Sources */,
 				84E8A1891BB94782002518AA /* Setting+CoreDataProperties.m in Sources */,
 				84E8A19E1BB94B1D002518AA /* Setting.m in Sources */,
 				8411B90D189FEC070019D2D6 /* FriendAnnotationV.m in Sources */,
@@ -1024,7 +1012,6 @@
 				8411B891189FE9CE0019D2D6 /* Settings.m in Sources */,
 				84E8A19D1BB94B1D002518AA /* Waypoint.m in Sources */,
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,
-				843817EB1C385DF600CE14EE /* Hosted.m in Sources */,
 				84E8A18D1BB94782002518AA /* Region+CoreDataProperties.m in Sources */,
 				8404876B1C5386DD00569C79 /* FeaturedContentVC.m in Sources */,
 			);
@@ -1044,7 +1031,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				843817FA1C38657400CE14EE /* Hosted.m in Sources */,
 				843817F31C38654A00CE14EE /* OwnTracksTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

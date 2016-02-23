@@ -40,9 +40,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *UItrackerid;
 @property (weak, nonatomic) IBOutlet UIButton *UIexport;
 @property (weak, nonatomic) IBOutlet UIButton *UIpublish;
-@property (weak, nonatomic) IBOutlet UITextField *UIuser;
-@property (weak, nonatomic) IBOutlet UITextField *UIdevice;
-@property (weak, nonatomic) IBOutlet UITextField *UItoken;
 @property (weak, nonatomic) IBOutlet UITextField *UIsecret;
 @property (weak, nonatomic) IBOutlet UITextField *UIurl;
 
@@ -67,9 +64,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.UIsecret.delegate = self;
     self.UItrackerid.delegate = self;
     self.UIDeviceID.delegate = self;
-    self.UIuser.delegate = self;
-    self.UIdevice.delegate = self;
-    self.UItoken.delegate = self;
     self.UIpassphrase.delegate = self;
     self.UIurl.delegate = self;
     
@@ -83,28 +77,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
-    if (textField == self.UIuser ||
-        textField == self.UIdevice ||
-        textField == self.UItoken ||
-        textField == self.UIsecret ||
-        textField == self.UIurl) {
-     [self reconnect];
-    }
     return TRUE;
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{    
+- (void)viewWillDisappear:(BOOL)animated {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate removeObserver:self
                   forKeyPath:@"configLoad"
                      context:nil];
-    [self updateValues];
+    [self reconnect];
     [super viewWillDisappear:animated];
 }
 
-- (void)updateValues
-{
+- (void)updateValues {
     if (self.UIDeviceID) [Settings setString:self.UIDeviceID.text forKey:@"deviceid_preference"];
     if (self.UIclientPKCS) [Settings setString:self.UIclientPKCS.text forKey:@"clientpkcs"];
     if (self.UIserverCER) [Settings setString:self.UIserverCER.text forKey:@"servercer"];
@@ -119,13 +104,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIUserID) [Settings setString:self.UIUserID.text forKey:@"user_preference"];
     if (self.UIPassword) [Settings setString:self.UIPassword.text forKey:@"pass_preference"];
     if (self.UIsecret) [Settings setString:self.UIsecret.text forKey:@"secret_preference"];
-    if (self.UImode) [Settings setInt:(int)self.UImode.selectedSegmentIndex forKey:@"mode"];
+    if (self.UImode) {
+        switch (self.UImode.selectedSegmentIndex) {
+            case 2:
+                [Settings setInt:MODE_HTTP forKey:@"mode"];
+                break;
+            case 1:
+                [Settings setInt:MODE_PUBLIC forKey:@"mode"];
+                break;
+            case 0:
+            default:
+                [Settings setInt:MODE_PRIVATE forKey:@"mode"];
+                break;
+        }
+    }
     if (self.UIPort) [Settings setString:self.UIPort.text forKey:@"port_preference"];
     if (self.UITLS) [Settings setBool:self.UITLS.on forKey:@"tls_preference"];
     if (self.UIAuth) [Settings setBool:self.UIAuth.on forKey:@"auth_preference"];
-    if (self.UIuser) [Settings setString:self.UIuser.text forKey:@"user"];
-    if (self.UIdevice) [Settings setString:self.UIdevice.text forKey:@"device"];
-    if (self.UItoken) [Settings setString:self.UItoken.text forKey:@"token"];
     if (self.UIurl) [Settings setString:self.UIurl.text forKey:@"url_preference"];
     
     [CoreData saveContext];
@@ -224,7 +219,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         self.UIsecret.enabled = !locked;
     }
     if (self.UImode) {
-        self.UImode.selectedSegmentIndex = [Settings intForKey:@"mode"];
+        switch ([Settings intForKey:@"mode"]) {
+            case MODE_HTTP:
+                self.UImode.selectedSegmentIndex = 2;
+                break;
+            case MODE_PUBLIC:
+                self.UImode.selectedSegmentIndex = 1;
+                break;
+            case MODE_PRIVATE:
+            default:
+                self.UImode.selectedSegmentIndex = 0;
+                break;
+        }
         self.UImode.enabled = !locked;
     }
     if (self.UIPort) {
@@ -238,18 +244,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIAuth) {
         self.UIAuth.on = [Settings boolForKey:@"auth_preference"];
         self.UIAuth.enabled = !locked;
-    }
-    if (self.UIuser) {
-        self.UIuser.text = [Settings stringForKey:@"user"];
-        self.UIuser.enabled = !locked;
-    }
-    if (self.UIdevice) {
-        self.UIdevice.text = [Settings stringForKey:@"device"];
-        self.UIdevice.enabled = !locked;
-    }
-    if (self.UItoken) {
-        self.UItoken.text = [Settings stringForKey:@"token"];
-        self.UItoken.enabled = !locked;
     }
     if (self.UIurl) {
         self.UIurl.text = [Settings stringForKey:@"url_preference"];
@@ -307,27 +301,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         [hiddenIndexPathsMode12 addObject:[NSIndexPath indexPathForRow:11 inSection:0]];
     }
     
-    NSMutableArray *hiddenFieldsMode023 = [[NSMutableArray alloc] init];
-    NSMutableArray *hiddenIndexPathsMode023 = [[NSMutableArray alloc] init];
-    if (self.UIuser) {
-        [hiddenFieldsMode023 addObject:self.UIuser];
-        [hiddenIndexPathsMode023 addObject:[NSIndexPath indexPathForRow:12 inSection:0]];
-        [hiddenIndexPathsMode023 addObject:[NSIndexPath indexPathForRow:13 inSection:0]];
-    }
-    if (self.UIdevice) {
-        [hiddenFieldsMode023 addObject:self.UIdevice];
-        [hiddenIndexPathsMode023 addObject:[NSIndexPath indexPathForRow:14 inSection:0]];
-    }
-    if (self.UItoken) {
-        [hiddenFieldsMode023 addObject:self.UItoken];
-        [hiddenIndexPathsMode023 addObject:[NSIndexPath indexPathForRow:15 inSection:0]];
-    }
-    
     NSMutableArray *hiddenFieldsMode012 = [[NSMutableArray alloc] init];
     NSMutableArray *hiddenIndexPathsMode012 = [[NSMutableArray alloc] init];
     if (self.UIurl) {
         [hiddenFieldsMode012 addObject:self.UIurl];
-        [hiddenIndexPathsMode012 addObject:[NSIndexPath indexPathForRow:16 inSection:0]];
+        [hiddenIndexPathsMode012 addObject:[NSIndexPath indexPathForRow:12 inSection:0]];
     }
     
     // hide mode row if locked
@@ -342,54 +320,43 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     // hide fields and rows depending on modes
     for (UIView *view in hiddenFieldsMode012) {
-        [view setHidden:(mode == 0 || mode == 1 || mode == 2)];
+        [view setHidden:(mode == MODE_PRIVATE || mode == MODE_HOSTED || mode == MODE_PUBLIC)];
     }
     
     for (NSIndexPath *indexPath in hiddenIndexPathsMode012) {
-        if ([self isRowVisible:indexPath] && (mode == 0 || mode == 1 || mode == 2)) {
+        if ([self isRowVisible:indexPath] && (mode == MODE_PRIVATE || mode == 1 || mode == MODE_PUBLIC)) {
             [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        } else if (![self isRowVisible:indexPath] && !(mode == 0 || mode == 1 || mode == 2)) {
+        } else if (![self isRowVisible:indexPath] && !(mode == MODE_PRIVATE || mode == 1 || mode == MODE_PUBLIC)) {
             [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
     }
     
     for (UIView *view in hiddenFieldsMode12) {
-        [view setHidden:(mode == 1 || mode == 2)];
+        [view setHidden:(mode == MODE_HOSTED || mode == MODE_PUBLIC)];
     }
     
     for (NSIndexPath *indexPath in hiddenIndexPathsMode12) {
-        if ([self isRowVisible:indexPath] && (mode == 1 || mode == 2)) {
+        if ([self isRowVisible:indexPath] && (mode == MODE_HOSTED || mode == MODE_PUBLIC)) {
             [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        } else if (![self isRowVisible:indexPath] && !(mode == 1 || mode == 2)) {
+        } else if (![self isRowVisible:indexPath] && !(mode == MODE_HOSTED || mode == MODE_PUBLIC)) {
             [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
     }
     
     for (UIView *view in hiddenFieldsMode123) {
-        [view setHidden:(mode == 1 || mode == 2 || mode == 3)];
+        [view setHidden:(mode == MODE_HOSTED || mode == MODE_PUBLIC || mode == MODE_HTTP)];
     }
     
     for (NSIndexPath *indexPath in hiddenIndexPathsMode123) {
-        if ([self isRowVisible:indexPath] && (mode == 1 || mode == 2 || mode == 3)) {
+        if ([self isRowVisible:indexPath] && (mode == MODE_HOSTED || mode == MODE_PUBLIC || mode == MODE_HTTP)) {
             [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        } else if (![self isRowVisible:indexPath] && !(mode == 1 || mode == 2 || mode == 3)) {
+        } else if (![self isRowVisible:indexPath] && !(mode == MODE_HOSTED || mode == MODE_PUBLIC || mode == MODE_HTTP)) {
             [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
     }
     
-    for (UIView *view in hiddenFieldsMode023) {
-        [view setHidden:(mode == 0 || mode == 2 || mode == 3)];
-    }
-    for (NSIndexPath *indexPath in hiddenIndexPathsMode023) {
-        if ([self isRowVisible:indexPath] && (mode == 0 || mode == 2 || mode == 3)) {
-            [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        } else if (![self isRowVisible:indexPath] && !(mode == 0 || mode == 2 || mode == 3)) {
-            [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        }
-    }
-    
-    if (self.UIexport) self.UIexport.hidden = (mode == 2);
-    if (self.UIpublish) self.UIpublish.hidden = (mode == 2);
+    if (self.UIexport) self.UIexport.hidden = (mode == MODE_PUBLIC);
+    if (self.UIpublish) self.UIpublish.hidden = (mode == MODE_PUBLIC);
     
     if (self.UITLS) {
         if (self.UITLSCell) {
@@ -582,20 +549,41 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         self.UItrackerid.text = [Settings stringForKey:@"trackerid_preference"];
     } else if (alertView == self.modeAlertView) {
         if (buttonIndex > 0) {
-            if (self.UImode) [Settings setInt:(int)self.UImode.selectedSegmentIndex forKey:@"mode"];
-            
+            if (self.UImode) {
+                switch (self.UImode.selectedSegmentIndex) {
+                    case 2:
+                        [Settings setInt:MODE_HTTP forKey:@"mode"];
+                        break;
+                    case 1:
+                        [Settings setInt:MODE_PUBLIC forKey:@"mode"];
+                        break;
+                    case 0:
+                    default:
+                        [Settings setInt:MODE_PRIVATE forKey:@"mode"];
+                        break;
+                }
+            }
             [self updated];
             [delegate terminateSession];
             [self updateValues];
             [delegate reconnect];
         } else {
-            if (self.UImode) self.UImode.selectedSegmentIndex = [Settings intForKey:@"mode"];
+            if (self.UImode) {
+                switch ([Settings intForKey:@"mode"]) {
+                    case MODE_HTTP:
+                        self.UImode.selectedSegmentIndex = 2;
+                        break;
+                    case MODE_PUBLIC:
+                        self.UImode.selectedSegmentIndex = 1;
+                        break;
+                    case MODE_PRIVATE:
+                    default:
+                        self.UImode.selectedSegmentIndex = 0;
+                        break;
+                }
+            }
         }
     }
-}
-
-- (IBAction)checkConnection:(UIButton *)sender {
-    [self reconnect];
 }
 
 - (void)reconnect {

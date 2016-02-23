@@ -376,7 +376,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     dict[@"waypoints"] =            [Settings waypointsToArray];
 
     switch ([Settings intForKey:@"mode"]) {
-        case 0:
+        case MODE_PRIVATE:
             dict[@"deviceId"] =     [Settings stringOrZeroForKey:@"deviceid_preference"];
             dict[@"clientId"] =     [Settings stringOrZeroForKey:@"clientid_preference"];
             dict[@"subTopic"] =     [Settings stringOrZeroForKey:@"subscription_preference"];
@@ -416,7 +416,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             
             break;
 
-        case 3:
+        case MODE_HTTP:
             dict[@"deviceId"] =     [Settings stringOrZeroForKey:@"deviceid_preference"];
             dict[@"url"] =         [Settings stringOrZeroForKey:@"url_preference"];
             dict[@"positions"] =            @([Settings intForKey:@"positions_preference"]);
@@ -430,12 +430,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             dict[@"allowinvalidcerts"] =         @([Settings boolForKey:@"allowinvalidcerts"]);
 
             break;
-        case 1:
+        case MODE_HOSTED:
             dict[@"username"] = [Settings stringOrZeroForKey:@"user"];
             dict[@"deviceId"] = [Settings stringOrZeroForKey:@"device"];
             dict[@"password"] = [Settings stringOrZeroForKey:@"token"];
             break;
-        case 2:
+        case MODE_PUBLIC:
         default:
             break;
     }
@@ -519,7 +519,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 + (NSString *)stringForKey:(NSString *)key {
     NSString *value = nil;
     
-    if ([[self stringForKeyRaw:@"mode"] intValue] == 2 && ![self validInPublicMode:key]) {
+    if ([[self stringForKeyRaw:@"mode"] intValue] == MODE_PUBLIC && ![self validInPublicMode:key]) {
         id object = [[SettingsDefaults theDefaults].publicDefaults objectForKey:key];
         if (object) {
             if ([object isKindOfClass:[NSString class]]) {
@@ -528,7 +528,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 value = [(NSNumber *)object stringValue];
             }
         }
-    } else if ([[self stringForKeyRaw:@"mode"] intValue] == 1 && ![self validInHostedMode:key]) {
+    } else if ([[self stringForKeyRaw:@"mode"] intValue] == MODE_HOSTED && ![self validInHostedMode:key]) {
         id object = [[SettingsDefaults theDefaults].hostedDefaults objectForKey:key];
         if (object) {
             if ([object isKindOfClass:[NSString class]]) {
@@ -584,14 +584,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSString *topic;
     
     switch (mode) {
-        case 2:
+        case MODE_PUBLIC:
             topic = [NSString stringWithFormat:@"public/user/%@", [self theDeviceId]];
             break;
-        case 1:
+        case MODE_HOSTED:
             topic = [NSString stringWithFormat:@"owntracks/%@", [self theId]];
             break;
-        case 0:
-        case 3:
+        case MODE_PRIVATE:
+        case MODE_HTTP:
         default:
             topic = [self stringForKey:@"topic_preference"];
             
@@ -629,12 +629,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSString *theId;
     
     switch (mode) {
-        case 2:
-        case 1:
+        case MODE_PUBLIC:
+        case MODE_HOSTED:
             theId = [NSString stringWithFormat:@"%@/%@", [self theUserId], [self theDeviceId]];
             break;
-        case 0:
-        case 3:
+        case MODE_PRIVATE:
+        case MODE_HTTP:
         default: {
             NSString *userId = [self theUserId];
             NSString *deviceId = [self theDeviceId];
@@ -665,14 +665,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSString *deviceId;
     
     switch (mode) {
-        case 2:
-        case 3:
+        case MODE_HTTP:
+            deviceId = [self stringForKey:@"trackerid_preference"];
+            if (!deviceId || deviceId.length == 0) {
+                deviceId = [[UIDevice currentDevice].identifierForVendor UUIDString];
+            }
+            break;
+        case MODE_PUBLIC:
             deviceId = [[UIDevice currentDevice].identifierForVendor UUIDString];
             break;
-        case 1:
+        case MODE_HOSTED:
             deviceId = [self stringForKey:@"device"];
             break;
-        case 0:
+        case MODE_PRIVATE:
         default:
             deviceId = [self stringForKey:@"deviceid_preference"];
             break;
@@ -685,13 +690,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSString *subscriptions;
     
     switch (mode) {
-        case 2:
+        case MODE_PUBLIC:
             subscriptions = [NSString stringWithFormat:@"public/user/+ public/user/+/event public/user/+/info public/user/%@/cmd",
                              [self theDeviceId]];
             break;
-        case 1:
-        case 0:
-        case 3:
+        case MODE_HOSTED:
+        case MODE_PRIVATE:
+        case MODE_HTTP:
         default:
             subscriptions = [self stringForKey:@"subscription_preference"];
             
@@ -738,14 +743,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 + (NSString *)theUserId {
     int mode = [self intForKey:@"mode"];
     switch (mode) {
-        case 2:
-        case 3:
+        case MODE_HTTP:
+            return @"http";
+            break;
+        case MODE_PUBLIC:
             return @"user";
             break;
-        case 1:
+        case MODE_HOSTED:
             return [self stringForKey:@"user"];
             break;
-        case 0:
+        case MODE_PRIVATE:
         default:
             return [self stringForKey:@"user_preference"];
             break;
@@ -755,16 +762,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 + (NSString *)theMqttUser {
     int mode = [self intForKey:@"mode"];
     switch (mode) {
-        case 2:
-        case 3:
+        case MODE_PUBLIC:
+        case MODE_HTTP:
             return nil;
             break;
-        case 1:
+        case MODE_HOSTED:
             return [NSString stringWithFormat:@"%@|%@",
                     [self stringForKey:@"user"],
                     [self theDeviceId]];
             break;
-        case 0:
+        case MODE_PRIVATE:
         default:
             return [self stringForKey:@"user_preference"];
             break;
@@ -774,14 +781,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 + (NSString *)theMqttPass {
     int mode = [self intForKey:@"mode"];
     switch (mode) {
-        case 2:
-        case 3:
+        case MODE_PUBLIC:
+        case MODE_HTTP:
             return nil;
             break;
-        case 1:
+        case MODE_HOSTED:
             return [self stringForKey:@"token"];
             break;
-        case 0:
+        case MODE_PRIVATE:
         default:
             return [self stringForKey:@"pass_preference"];
             break;
@@ -791,14 +798,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 + (BOOL)theMqttAuth {
     int mode = [self intForKey:@"mode"];
     switch (mode) {
-        case 3:
-        case 2:
+        case MODE_HTTP:
+        case MODE_PUBLIC:
             return FALSE;
             break;
-        case 1:
+        case MODE_HOSTED:
             return TRUE;
             break;
-        case 0:
+        case MODE_PRIVATE:
         default:
             return [self boolForKey:@"auth_preference"];
             break;

@@ -1,6 +1,13 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 9.0.4
+>Release date: 2015-02-23 to alpha testers
+
+* [NEW] removed Hosted from UI
+* [NEW] simplified Settings UI (values are effective when leaving screen)
+* [NEW] HTTP mode processes returned messages or array of messages (messages are JSON dictionaries with `_type`:)
+
 ## OwnTracks 9.0.3
 >Release date: 2015-02-21 to alpha testers
 

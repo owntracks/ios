@@ -526,8 +526,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (ownDevice) {
         
         NSError *error;
-        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-        if (dictionary) {
+        id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+        if (json && [json isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dictionary = json;
             if ([dictionary[@"_type"] isEqualToString:@"cmd"]) {
                 DDLogVerbose(@"msg received cmd:%@", dictionary[@"action"]);
 #ifdef DEBUG

@@ -13,6 +13,11 @@
 #define SETTINGS_ACTIONURL @"actionurl"
 #define SETTINGS_ACTIONEXTERN @"actionextern"
 
+#define MODE_PRIVATE 0
+#define MODE_HOSTED 1
+#define MODE_PUBLIC 2
+#define MODE_HTTP 3
+
 @interface Settings : NSObject
 
 + (NSError *)fromStream:(NSInputStream *)input;

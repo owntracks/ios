@@ -349,6 +349,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     DDLogVerbose(@"NSMutableURLRequest %@", request);
     
     self.state = state_connecting;
+    self.lastErrorCode = nil;
+
     __block NSRunLoop *myRunLoop = [NSRunLoop currentRunLoop];
     
     NSURLSessionDownloadTask *downloadTask =
@@ -368,8 +370,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                          NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
                          request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]];
                          
-                         NSError *error = nil;
-                         NSArray *matches = [self.queueContext executeFetchRequest:request error:&error];
+                         NSArray *matches = [self.queueContext executeFetchRequest:request error:nil];
                          if (matches) {
                              [self.delegate totalBuffered: self count:matches.count];
                              if (matches.count) {
@@ -380,36 +381,64 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                          }
                          
                          NSData *incomingData = [NSData dataWithContentsOfURL:location];
-                         
                          if (self.key && self.key.length) {
-                             NSDictionary *json = [NSJSONSerialization JSONObjectWithData:incomingData options:0 error:nil];
-                             if (json && [json[@"_type"] isEqualToString:@"encrypted"]) {
-                                 incomingData = [self decrypt:incomingData];
+                             id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+                             if (json && [json isKindOfClass:[NSDictionary class]]) {
+                                 NSDictionary *dictionary = json;
+                                 if ([dictionary[@"_type"] isEqualToString:@"encrypted"]) {
+                                     incomingData = [self decrypt:dictionary[@"data"]];
+                                 }
                              }
                          }
                          
-                         [self.delegate handleMessage:self
-                                                 data:incomingData
-                                              onTopic:nil
-                                             retained:FALSE];
-                         
+                         id json = [NSJSONSerialization JSONObjectWithData:incomingData options:0 error:nil];
+                         if (json && [json isKindOfClass:[NSArray class]]) {
+                             for (id element in json) {
+                                 if ([element isKindOfClass:[NSDictionary class]]) {
+                                     [self oneMessage:element];
+                                 }
+                             }
+                         } else if ([json isKindOfClass:[NSDictionary class]]) {
+                             [self oneMessage:json];
+                         } else {
+                             //
+                         }
                          
                          self.state = state_starting;
                          return;
                      }];
                      
                  } else {
-                     error = [NSError errorWithDomain:@"HTTP Response" code:httpResponse.statusCode userInfo:nil];
+                     self.lastErrorCode = [NSError errorWithDomain:@"HTTP Response"
+                                                              code:httpResponse.statusCode userInfo:nil];
+                     self.state = state_error;
+                     [self startReconnectTimer:myRunLoop];
                  }
+             } else {
+                 self.lastErrorCode = [NSError errorWithDomain:@"HTTP Response"
+                                                          code:0 userInfo:nil];
+                 self.state = state_error;
+                 [self startReconnectTimer:myRunLoop];
              }
+         } else {
+             self.lastErrorCode = error;
+             self.state = state_error;
+             [self startReconnectTimer:myRunLoop];
          }
-         
-         self.state = state_error;
-         self.lastErrorCode = error;
-         [self startReconnectTimer:myRunLoop];
-         
      }];
     [downloadTask resume];
+}
+
+- (void)oneMessage:(NSDictionary *)message {
+    NSString *tid = @"??";
+    if (message && [message objectForKey:@"tid"]) {
+        tid = [message objectForKey:@"tid"];
+    }
+    DDLogVerbose(@"oneMessage %@", message.description);
+    [self.delegate handleMessage:self
+                            data:[NSJSONSerialization dataWithJSONObject:message options:0 error:nil]
+                         onTopic:[NSString stringWithFormat:@"owntracks/http/%@", tid]
+                        retained:FALSE];
 }
 
 - (void)disconnect {
@@ -514,9 +543,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                            mid:(unsigned int)mid {
     
     if (self.key && self.key.length) {
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        if (json && [json[@"_type"] isEqualToString:@"encrypted"]) {
-            data = [self decrypt:data];
+        id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        if (json && [json isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dictionary = json;
+            if ([dictionary[@"_type"] isEqualToString:@"encrypted"]) {
+                data = [self decrypt:dictionary[@"data"]];
+            }
         }
     }
     DDLogVerbose(@"%@ received %@ %@",
@@ -650,10 +682,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     return [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
 }
 
-- (NSData *)decrypt:(NSData *)data {
-    
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    NSString *b64String = json[@"data"];
+- (NSData *)decrypt:(NSString *)b64String {
     NSData *onTheWire = [[NSData alloc] initWithBase64EncodedString:b64String options:0];
     NSData *nonce = [onTheWire subdataWithRange:NSMakeRange(0, crypto_secretbox_NONCEBYTES)];
     NSData *ciphertext = [onTheWire subdataWithRange:NSMakeRange(crypto_secretbox_NONCEBYTES,
