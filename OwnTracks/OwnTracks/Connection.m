@@ -381,14 +381,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                          }
                          
                          NSData *incomingData = [NSData dataWithContentsOfURL:location];
+                         DDLogVerbose(@"incomingData %@", [[NSString alloc] initWithData:incomingData encoding:NSUTF8StringEncoding]);
                          if (self.key && self.key.length) {
-                             id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-                             if (json && [json isKindOfClass:[NSDictionary class]]) {
-                                 NSDictionary *dictionary = json;
-                                 if ([dictionary[@"_type"] isEqualToString:@"encrypted"]) {
-                                     incomingData = [self decrypt:dictionary[@"data"]];
-                                 }
-                             }
+                             incomingData = [self decrypt:incomingData];
                          }
                          
                          id json = [NSJSONSerialization JSONObjectWithData:incomingData options:0 error:nil];
@@ -543,14 +538,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                            mid:(unsigned int)mid {
     
     if (self.key && self.key.length) {
-        id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        if (json && [json isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *dictionary = json;
-            if ([dictionary[@"_type"] isEqualToString:@"encrypted"]) {
-                data = [self decrypt:dictionary[@"data"]];
-            }
-        }
+        data = [self decrypt:data];
     }
+
     DDLogVerbose(@"%@ received %@ %@",
                  self.clientId,
                  topic,
@@ -682,8 +672,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     return [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
 }
 
-- (NSData *)decrypt:(NSString *)b64String {
-    NSData *onTheWire = [[NSData alloc] initWithBase64EncodedString:b64String options:0];
+- (NSData *)decrypt:(NSData *)data {
+    NSString *b64String;
+    
+    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    if (json && [json isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dictionary = json;
+        if ([dictionary[@"_type"] isEqualToString:@"encrypted"]) {
+            b64String = dictionary[@"data"];
+        } else {
+            return data;
+        }
+    } else {
+        return data;
+    }
+
+    NSData *onTheWire = [[NSData alloc] initWithBase64EncodedString:b64String
+                                                            options:0];
     NSData *nonce = [onTheWire subdataWithRange:NSMakeRange(0, crypto_secretbox_NONCEBYTES)];
     NSData *ciphertext = [onTheWire subdataWithRange:NSMakeRange(crypto_secretbox_NONCEBYTES,
                                                                  onTheWire.length - crypto_secretbox_NONCEBYTES)];

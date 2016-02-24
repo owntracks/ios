@@ -701,8 +701,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             subscriptions = [self stringForKey:@"subscription_preference"];
             
             if (!subscriptions || subscriptions.length == 0) {
-                NSArray *baseComponents = [[self theGeneralTopic] componentsSeparatedByCharactersInSet:
-                                           [NSCharacterSet characterSetWithCharactersInString:@"/"]];
+                NSArray *baseComponents = [[self theGeneralTopic] componentsSeparatedByString:@"/"];
                 
                 NSString *anyDevice = @"";
                 int any = 1;

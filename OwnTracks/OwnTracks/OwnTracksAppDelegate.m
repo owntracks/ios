@@ -497,12 +497,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     
     NSArray *baseComponents = [[Settings theGeneralTopic] componentsSeparatedByString:@"/"];
-    NSArray *topicComponents;
-    if (topic) {
-        topicComponents = [topic componentsSeparatedByString:@"/"];
-    } else {
-        topicComponents = [[Settings theGeneralTopic] componentsSeparatedByString:@"/"];
-    }
+    NSArray *topicComponents = [[Settings theGeneralTopic] componentsSeparatedByString:@"/"];
     
     NSString *device = @"";
     BOOL ownDevice = true;

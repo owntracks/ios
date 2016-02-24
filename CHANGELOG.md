@@ -1,6 +1,11 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 9.0.5
+>Release date: 2015-02-24 to alpha testers
+
+* [FIX] fix decryption issues
+
 ## OwnTracks 9.0.4
 >Release date: 2015-02-23 to alpha testers
 
