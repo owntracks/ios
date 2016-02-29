@@ -54,6 +54,7 @@
         if (delegate.action) {
             if (![viewControllers containsObject:self.featuredVC]) {
                 [viewControllers insertObject:self.featuredVC atIndex:viewControllers.count];
+                self.featuredVC.tabBarItem.badgeValue = @"!";
             }
         } else {
             if ([viewControllers containsObject:self.featuredVC]) {

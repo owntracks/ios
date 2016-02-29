@@ -9,6 +9,7 @@
 #import "Waypoint+Create.h"
 #import "Friend+Create.h"
 #import <MapKit/MapKit.h>
+#import <AddressBookUI/AddressBookUI.h>
 
 @implementation Waypoint (Create)
 
@@ -23,6 +24,7 @@
              if (!self.isDeleted) {
                  if ([placemarks count] > 0) {
                      CLPlacemark *placemark = placemarks[0];
+#ifdef OLD
                      NSArray *address = placemark.addressDictionary[@"FormattedAddressLines"];
                      if (address && [address count] >= 1) {
                          self.placemark = address[0];
@@ -30,6 +32,9 @@
                              self.placemark = [NSString stringWithFormat:@"%@, %@", self.placemark, address[i]];
                          }
                      }
+#else
+                     self.placemark = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
+#endif
                      self.belongsTo.topic = self.belongsTo.topic;
                  } else {
                      self.placemark = nil;

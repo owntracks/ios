@@ -1,6 +1,17 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 9.0.6
+>Release date: 2015-02-29 to alpha testers
+
+* [FIX] Reset offline queue for HTTP mode when switching modes closes #386
+* [NEW] Addresses returned from reverse geocoding more compact closes #385
+* [NEW] Featured content tab needs marker on new / updated content/url closes #384
+* [FIX] Toggle "Featured" tab sometimes works only halfway closes #382
+* [FIX] Latitude and Longitude get rounded when regions are modified closes #376
+* [NEW] increase precision or transmitted accuracy in beacon messages closes #371
+* [NEW] Little cosmetic issue in Friends tab, finally closes #314
+
 ## OwnTracks 9.0.5
 >Release date: 2015-02-24 to alpha testers
 

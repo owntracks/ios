@@ -11,8 +11,10 @@
 
 @interface FriendTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *image;
-@property (weak, nonatomic) IBOutlet UITextView *text;
+@property (weak, nonatomic) IBOutlet UILabel *timestamp;
 - (void)deferredReverseGeoCode:(Waypoint *)waypoint;
 - (void)reverseGeoCode:(Waypoint *)waypoint;
+@property (weak, nonatomic) IBOutlet UILabel *name;
+@property (weak, nonatomic) IBOutlet UILabel *address;
 
 @end

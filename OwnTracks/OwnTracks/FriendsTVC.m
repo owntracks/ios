@@ -300,15 +300,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     FriendTableViewCell *friendTableViewCell = (FriendTableViewCell *)cell;
-    UIFont *fontBold = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
-    NSDictionary *attributesBold = @{NSFontAttributeName: fontBold};
-    UIFont *fontLight = [UIFont systemFontOfSize:[UIFont smallSystemFontSize]];
-    NSDictionary *attributesLight = @{NSFontAttributeName: fontLight};
     
     Friend *friend = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    NSMutableAttributedString *as = [[NSMutableAttributedString alloc]
-                                     initWithString:friend.name ? friend.name : friend.topic
-                                     attributes:attributesBold];
+
+    friendTableViewCell.name.text = friend.name ? friend.name : friend.tid;
     
     FriendAnnotationV *friendAnnotationView = [[FriendAnnotationV alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     friendAnnotationView.personImage = friend.image ? [UIImage imageWithData:friend.image] : nil;
@@ -318,26 +313,28 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     Waypoint *waypoint = [friend newestWaypoint];
     if (waypoint) {
         [friendTableViewCell deferredReverseGeoCode:waypoint];
-        [as appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
         
-        [as appendAttributedString:[[NSAttributedString alloc]
-                                    initWithString:[NSDateFormatter localizedStringFromDate:waypoint.tst
-                                                                                  dateStyle:NSDateFormatterShortStyle
-                                                                                  timeStyle:NSDateFormatterShortStyle]
-                                    attributes:attributesLight]];
-        
-         [as appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
-        [as appendAttributedString:[[NSAttributedString alloc]
-                                    initWithString:waypoint.placemark ? waypoint.placemark : @"resolving..."
-                                    attributes:attributesLight]];
-          
+        friendTableViewCell.address.text = waypoint.placemark ? waypoint.placemark : @"resolving...";
         friendAnnotationView.speed = [waypoint.vel doubleValue];
         friendAnnotationView.course = [waypoint.cog doubleValue];
     } else {
         friendAnnotationView.speed = -1;
         friendAnnotationView.course = -1;
     }
-    friendTableViewCell.text.attributedText = as;
+    
+    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit
+                                                                       fromDate:[NSDate date]];
+    NSDate *thisMorning = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
+    if ([waypoint.tst timeIntervalSinceDate:thisMorning] > 0) {
+        friendTableViewCell.timestamp.text = [NSDateFormatter localizedStringFromDate:waypoint.tst
+                                                                            dateStyle:NSDateFormatterNoStyle
+                                                                            timeStyle:NSDateFormatterShortStyle];
+    } else {
+        friendTableViewCell.timestamp.text = [NSDateFormatter localizedStringFromDate:waypoint.tst
+                                                                            dateStyle:NSDateFormatterShortStyle
+                                                                            timeStyle:NSDateFormatterNoStyle];
+    }
+
     friendTableViewCell.image.image = [friendAnnotationView getImage];
 }
 

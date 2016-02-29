@@ -90,6 +90,8 @@
 		84E8A19D1BB94B1D002518AA /* Waypoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1951BB94B1D002518AA /* Waypoint.m */; };
 		84E8A19E1BB94B1D002518AA /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1971BB94B1D002518AA /* Setting.m */; };
 		84E8A19F1BB94B1D002518AA /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1991BB94B1D002518AA /* Friend.m */; };
+		84F0AFE41C830C1D00C9F69F /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F0AFE31C830C1D00C9F69F /* AddressBookUI.framework */; };
+		84F0AFE61C830C2C00C9F69F /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F0AFE51C830C2C00C9F69F /* AddressBook.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -279,6 +281,8 @@
 		84E8A1971BB94B1D002518AA /* Setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
 		84E8A1981BB94B1D002518AA /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
 		84E8A1991BB94B1D002518AA /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
+		84F0AFE31C830C1D00C9F69F /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		84F0AFE51C830C2C00C9F69F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.0.xcdatamodel"; sourceTree = "<group>"; };
 		AEE8A243C1DAB66463E99306 /* Pods-OwnTracksTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracksTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-OwnTracksTests/Pods-OwnTracksTests.release.xcconfig"; sourceTree = "<group>"; };
 		B15FB079036AF5B867E85A45 /* libPods-OwnTracksTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OwnTracksTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -292,6 +296,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84F0AFE61C830C2C00C9F69F /* AddressBook.framework in Frameworks */,
+				84F0AFE41C830C1D00C9F69F /* AddressBookUI.framework in Frameworks */,
 				8422AF681AF825C7008932A2 /* SystemConfiguration.framework in Frameworks */,
 				847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */,
 				8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */,
@@ -384,6 +390,8 @@
 		8411B82A189FDB140019D2D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84F0AFE51C830C2C00C9F69F /* AddressBook.framework */,
+				84F0AFE31C830C1D00C9F69F /* AddressBookUI.framework */,
 				84001C0D1C78729200413E5B /* iAd.framework */,
 				843817FB1C386A8700CE14EE /* CFNetwork.framework */,
 				84856A8B1BD6201800621533 /* StoreKit.framework */,

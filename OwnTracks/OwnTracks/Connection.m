@@ -449,6 +449,26 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     }
 }
 
+- (void)reset {
+    DDLogVerbose(@"reset");
+    
+    [self.queueContext performBlockAndWait:^{
+        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
+        
+        NSError *error = nil;
+        NSArray *matches = [self.queueContext executeFetchRequest:request error:&error];
+        if (matches) {
+            if (matches.count) {
+                for (NSManagedObject *object in matches) {
+                    [self.queueContext deleteObject:object];
+                }
+                [CoreData saveContext:self.queueContext];
+            }
+        }
+        [self.delegate totalBuffered:self count:0];
+    }];
+}
+
 #pragma mark - MQTT Callback methods
 
 - (void)connected:(MQTTSession *)session sessionPresent:(BOOL)sessionPresent

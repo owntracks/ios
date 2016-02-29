@@ -751,6 +751,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self connectionOff];
     [[OwnTracking sharedInstance] syncProcessing];
     [[LocationManager sharedInstance] resetRegions];
+    [self.connection reset];
     NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
     for (Friend *friend in friends) {
         [[CoreData theManagedObjectContext] deleteObject:friend];

@@ -52,6 +52,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     BOOL external = [Settings boolForKey:SETTINGS_ACTIONEXTERN];
     
     if (url) {
+        if (self.tabBarController.selectedViewController != self.navigationController) {
+            self.navigationController.tabBarItem.badgeValue = @"!";
+        }
         if (external) {
             [self.UIhtml loadHTMLString:[NSString stringWithFormat:@"opening url %@", url] baseURL:nil];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
@@ -60,16 +63,22 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         }
     } else {
         if (content) {
+            if (self.tabBarController.selectedViewController != self.navigationController) {
+                self.navigationController.tabBarItem.badgeValue = @"!";
+            }
             [self.UIhtml loadHTMLString:content baseURL:nil];
         } else {
             [self.UIhtml loadHTMLString:@"no content available" baseURL:nil];
+            self.navigationController.tabBarItem.badgeValue = nil;
         }
     }
     [self adjust];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.navigationController.tabBarItem.badgeValue = nil;
 }
 
 - (IBAction)backwardPressed:(id)sender {
