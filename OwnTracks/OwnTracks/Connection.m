@@ -129,34 +129,37 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     
     while (!self.terminate) {
         DDLogVerbose(@"Connection main %@", [NSDate date]);
-        
-        [self.queueContext performBlockAndWait:^{
-            NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
-            request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]];
-            
-            NSError *error = nil;
-            NSArray *matches = [self.queueContext executeFetchRequest:request error:&error];
-            if (matches) {
-                [self.delegate totalBuffered: self count:matches.count];
-                if (matches.count) {
-                    Queue *queue = matches.firstObject;
-                    
-                    if (self.state == state_starting) {
-                        [self sendHTTP:queue.topic data:queue.data];
+        if (self.url) {
+            [self.queueContext performBlockAndWait:^{
+                NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
+                request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]];
+                
+                NSError *error = nil;
+                NSArray *matches = [self.queueContext executeFetchRequest:request error:&error];
+                if (matches) {
+                    [self.delegate totalBuffered: self count:matches.count];
+                    if (matches.count) {
+                        Queue *queue = matches.firstObject;
+                        
+                        if (self.state == state_starting) {
+                            [self sendHTTP:queue.topic data:queue.data];
+                        } else {
+                            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+                        }
+                        if (matches.count > 100 * 1024) {
+                            queue = matches.lastObject;
+                            [self.queueContext deleteObject:queue];
+                            [CoreData saveContext:self.queueContext];
+                        }
                     } else {
                         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
                     }
-                    if (matches.count > 100 * 1024) {
-                        queue = matches.lastObject;
-                        [self.queueContext deleteObject:queue];
-                        [CoreData saveContext:self.queueContext];
-                    }
-                } else {
-                    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
                 }
-            }
-        }];
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+            }];
+            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        } else {
+            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+        }
     }
     
     [self disconnect];

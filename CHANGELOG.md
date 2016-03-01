@@ -1,6 +1,12 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 9.0.7
+>Release date: 2015-03-01 to alpha testers
+
+* [FIX] ignore size of HTTP offline queue in non-HTTP modes
+* [FIX] centered time/date stamp
+
 ## OwnTracks 9.0.6
 >Release date: 2015-02-29 to alpha testers
 

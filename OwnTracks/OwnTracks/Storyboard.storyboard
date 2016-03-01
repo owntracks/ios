@@ -604,8 +604,8 @@ Country</string>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="topRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:30 PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="6AN-cF-srI">
-                                            <rect key="frame" x="8" y="64" width="52" height="15"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="topRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11:30 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="6AN-cF-srI">
+                                            <rect key="frame" x="8" y="64" width="44" height="15"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="15" id="PnW-n5-pwk"/>
                                             </constraints>
@@ -626,7 +626,7 @@ Country</string>
                                         <constraint firstItem="K3J-wU-omB" firstAttribute="top" secondItem="1Ab-Ik-bdn" secondAttribute="top" constant="8" id="dep-rY-xKU"/>
                                         <constraint firstItem="apt-Il-Ih4" firstAttribute="leading" secondItem="YUt-r0-356" secondAttribute="trailing" constant="8" id="iy0-W6-KBp"/>
                                         <constraint firstItem="YUt-r0-356" firstAttribute="top" secondItem="1Ab-Ik-bdn" secondAttribute="top" constant="8" id="k69-Bp-cpH"/>
-                                        <constraint firstItem="apt-Il-Ih4" firstAttribute="leading" secondItem="6AN-cF-srI" secondAttribute="trailing" id="rKG-Eh-V1Z"/>
+                                        <constraint firstItem="apt-Il-Ih4" firstAttribute="leading" secondItem="6AN-cF-srI" secondAttribute="trailing" constant="8" id="rKG-Eh-V1Z"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -2163,9 +2163,9 @@ libsodium (libsodium.org)
         <image name="Regions" width="33" height="33"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="bll-jZ-B1N"/>
+        <segue reference="ft5-77-rU8"/>
         <segue reference="Utn-3t-RCv"/>
-        <segue reference="8m4-nr-b6B"/>
         <segue reference="KLh-ve-vhU"/>
+        <segue reference="8m4-nr-b6B"/>
     </inferredMetricsTieBreakers>
 </document>
