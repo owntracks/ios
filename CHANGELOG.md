@@ -1,6 +1,11 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 9.0.8
+>Release date: 2015-03-02
+
+* [FIX] Loss of data when changing mode or reopening app after crash closes #387
+
 ## OwnTracks 9.0.7
 >Release date: 2015-03-01 to alpha testers
 
