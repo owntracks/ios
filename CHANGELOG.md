@@ -1,7 +1,13 @@
 OnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 9.0.8
+## OwnTracks 9.1.0
+>Release date: 2015-03-03
+
+* [NEW] call Private mode MQTT mode from now on
+* [REVERT] Loss of data when changing mode or reopening app after crash closes #387
+
+## OwnTracks 9.0.8/9
 >Release date: 2015-03-02
 
 * [FIX] Loss of data when changing mode or reopening app after crash closes #387
