@@ -1,0 +1,326 @@
+
+/* Class = "UINavigationItem"; title = "Friends"; ObjectID = "03k-Ca-PSS"; */
+"03k-Ca-PSS.title" = "Friends";
+
+/* Class = "UITextField"; placeholder = "radius"; ObjectID = "0WN-ST-XQq"; */
+"0WN-ST-XQq.placeholder" = "radius";
+
+/* Class = "UILabel"; text = "Parameters"; ObjectID = "1Lf-oi-0xo"; */
+"1Lf-oi-0xo.text" = "Parameters";
+
+/* Class = "UITextField"; placeholder = "secret"; ObjectID = "2FK-gv-e75"; */
+"2FK-gv-e75.placeholder" = "secret";
+
+/* Class = "UISegmentedControl"; 2MJ-7K-q1Z.segmentTitles[0] = "MQTT"; ObjectID = "2MJ-7K-q1Z"; */
+"2MJ-7K-q1Z.segmentTitles[0]" = "MQTT";
+
+/* Class = "UISegmentedControl"; 2MJ-7K-q1Z.segmentTitles[1] = "Public"; ObjectID = "2MJ-7K-q1Z"; */
+"2MJ-7K-q1Z.segmentTitles[1]" = "Public";
+
+/* Class = "UISegmentedControl"; 2MJ-7K-q1Z.segmentTitles[2] = "HTTP"; ObjectID = "2MJ-7K-q1Z"; */
+"2MJ-7K-q1Z.segmentTitles[2]" = "HTTP";
+
+/* Class = "UILabel"; text = "Mode"; ObjectID = "3ad-LO-zcn"; */
+"3ad-LO-zcn.text" = "Mode";
+
+/* Class = "UITextField"; placeholder = "password"; ObjectID = "4OY-Dm-bnz"; */
+"4OY-Dm-bnz.placeholder" = "password";
+
+/* Class = "UIButton"; normalTitle = "Export Waypoints"; ObjectID = "54d-E6-cWX"; */
+"54d-E6-cWX.normalTitle" = "Export Waypoints";
+
+/* Class = "UILabel"; text = "Share"; ObjectID = "64C-jE-zRd"; */
+"64C-jE-zRd.text" = "Share";
+
+/* Class = "UILabel"; text = "11:30 PM"; ObjectID = "6AN-cF-srI"; */
+"6AN-cF-srI.text" = "11:30 PM";
+
+/* Class = "UITableViewSection"; headerTitle = "Client Certificate"; ObjectID = "6aR-4g-W4D"; */
+"6aR-4g-W4D.headerTitle" = "Client Certificate";
+
+/* Class = "UILabel"; text = "Allow Untrusted Certificates"; ObjectID = "6db-NN-TqD"; */
+"6db-NN-TqD.text" = "Allow Untrusted Certificates";
+
+/* Class = "UILabel"; text = "Filename"; ObjectID = "7ie-NC-EFG"; */
+"7ie-NC-EFG.text" = "Filename";
+
+/* Class = "UITableViewSection"; headerTitle = "Circular Region"; ObjectID = "7xg-sB-qXa"; */
+"7xg-sB-qXa.headerTitle" = "Circular Region";
+
+/* Class = "UINavigationItem"; title = "Waypoint"; ObjectID = "8DB-l4-Dop"; */
+"8DB-l4-Dop.title" = "Waypoint";
+
+/* Class = "UITableViewSection"; headerTitle = "Info"; ObjectID = "9tZ-tQ-x72"; */
+"9tZ-tQ-x72.headerTitle" = "Info";
+
+/* Class = "UINavigationItem"; title = "Featured"; ObjectID = "AdM-qz-URl"; */
+"AdM-qz-URl.title" = "Featured";
+
+/* Class = "UINavigationItem"; title = "Credits and License"; ObjectID = "BPo-EV-Jgg"; */
+"BPo-EV-Jgg.title" = "Credits and License";
+
+/* Class = "UILabel"; text = "Passphrase"; ObjectID = "BTX-XN-kzE"; */
+"BTX-XN-kzE.text" = "Passphrase";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "C1o-h4-z6h"; */
+"C1o-h4-z6h.text" = "Password";
+
+/* Class = "UILabel"; text = "Latitude"; ObjectID = "Cuh-Tm-IcV"; */
+"Cuh-Tm-IcV.text" = "Latitude";
+
+/* Class = "UILabel"; text = "Topic"; ObjectID = "Dgw-5m-uvy"; */
+"Dgw-5m-uvy.text" = "Topic";
+
+/* Class = "UILabel"; text = "Port"; ObjectID = "EWI-7o-7Jo"; */
+"EWI-7o-7Jo.text" = "Port";
+
+/* Class = "UILabel"; text = "Credits and Licence"; ObjectID = "FYQ-ba-bf8"; */
+"FYQ-ba-bf8.text" = "Credits and Licence";
+
+/* Class = "UINavigationItem"; title = "Regions"; ObjectID = "GM9-KK-8vY"; */
+"GM9-KK-8vY.title" = "Regions";
+
+/* Class = "UINavigationItem"; title = "Certificates"; ObjectID = "GWL-01-fh1"; */
+"GWL-01-fh1.title" = "Certificates";
+
+/* Class = "UITableViewSection"; headerTitle = "OwnTracks -Your location companion"; ObjectID = "Gjb-Ud-8a8"; */
+"Gjb-Ud-8a8.headerTitle" = "OwnTracks -Your location companion";
+
+/* Class = "UITabBarItem"; title = "Regions"; ObjectID = "HB5-wo-JZx"; */
+"HB5-wo-JZx.title" = "Regionen";
+
+/* Class = "UITabBarItem"; title = "OwnTracks"; ObjectID = "HCO-pB-vNN"; */
+"HCO-pB-vNN.title" = "OwnTracks";
+
+/* Class = "UITextView"; text = "param"; ObjectID = "HQZ-wy-aC5"; */
+"HQZ-wy-aC5.text" = "param";
+
+/* Class = "UITextField"; placeholder = "timestamp"; ObjectID = "HVH-Pt-DXp"; */
+"HVH-Pt-DXp.placeholder" = "timestamp";
+
+/* Class = "UINavigationItem"; title = "Region"; ObjectID = "Hfg-cd-JM1"; */
+"Hfg-cd-JM1.title" = "Region";
+
+/* Class = "UITextField"; placeholder = "info"; ObjectID = "Ikm-SR-MCD"; */
+"Ikm-SR-MCD.placeholder" = "info";
+
+/* Class = "UITextField"; placeholder = "client certificate file"; ObjectID = "JSF-BR-9Nb"; */
+"JSF-BR-9Nb.placeholder" = "client certificate file";
+
+/* Class = "UITextField"; placeholder = "longitude"; ObjectID = "JZL-1C-khg"; */
+"JZL-1C-khg.placeholder" = "longitude";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "K3J-wU-omB"; */
+"K3J-wU-omB.text" = "Name";
+
+/* Class = "UINavigationItem"; title = "Persons"; ObjectID = "KOf-PY-JcB"; */
+"KOf-PY-JcB.title" = "Persons";
+
+/* Class = "UITextField"; placeholder = "passphrase"; ObjectID = "KhB-Z4-umi"; */
+"KhB-Z4-umi.placeholder" = "passphrase";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Kvr-J3-4fw"; */
+"Kvr-J3-4fw.text" = "Title";
+
+/* Class = "UITextField"; placeholder = "latitude"; ObjectID = "Lmo-Kp-uCi"; */
+"Lmo-Kp-uCi.placeholder" = "latitude";
+
+/* Class = "UITextView"; text = "Uses the following http://cocoapods.org\n\nCocoaLumberjack\nABStaticTableViewController\nMQTTClient\nQRCodeReaderViewController\nlibsodium (libsodium.org)\n\n"; ObjectID = "Moe-Di-frm"; */
+"Moe-Di-frm.text" = "Uses the following http://cocoapods.org\n\nCocoaLumberjack\nABStaticTableViewController\nMQTTClient\nQRCodeReaderViewController\nlibsodium (libsodium.org)\n\n";
+
+/* Class = "UINavigationItem"; title = "TLS"; ObjectID = "NS8-pg-IlP"; */
+"NS8-pg-IlP.title" = "TLS";
+
+/* Class = "UILabel"; text = "TLS"; ObjectID = "NZB-F6-F8c"; */
+"NZB-F6-F8c.text" = "TLS";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "OIH-xB-QZe"; */
+"OIH-xB-QZe.text" = "Subtitle";
+
+/* Class = "UINavigationItem"; title = "OwnTracks"; ObjectID = "OeB-EW-2jx"; */
+"OeB-EW-2jx.title" = "OwnTracks";
+
+/* Class = "UILabel"; text = "Longitude"; ObjectID = "OgN-Bg-AeZ"; */
+"OgN-Bg-AeZ.text" = "Longitude";
+
+/* Class = "UITextField"; placeholder = "userid"; ObjectID = "Oiq-Kb-qLx"; */
+"Oiq-Kb-qLx.placeholder" = "userid";
+
+/* Class = "UILabel"; text = "Radius for Region (m)"; ObjectID = "Q3S-EG-XKZ"; */
+"Q3S-EG-XKZ.text" = "Radius for Region (m)";
+
+/* Class = "UILabel"; text = "UUID"; ObjectID = "Qpu-nC-kBF"; */
+"Qpu-nC-kBF.text" = "UUID";
+
+/* Class = "UIButton"; normalTitle = "Settings"; ObjectID = "R0X-4j-vxu"; */
+"R0X-4j-vxu.normalTitle" = "Settings";
+
+/* Class = "UILabel"; text = "Pinned Server Certificate"; ObjectID = "RVM-i5-ejZ"; */
+"RVM-i5-ejZ.text" = "Pinned Server Certificate";
+
+/* Class = "UITextField"; placeholder = "coordinates"; ObjectID = "RfS-uy-gRR"; */
+"RfS-uy-gRR.placeholder" = "coordinates";
+
+/* Class = "UILabel"; text = "Status"; ObjectID = "Rxv-hL-MC1"; */
+"Rxv-hL-MC1.text" = "Status";
+
+/* Class = "UILabel"; text = "UserID"; ObjectID = "SAr-Vi-xHD"; */
+"SAr-Vi-xHD.text" = "UserID";
+
+/* Class = "UILabel"; text = "TrackerID"; ObjectID = "SaB-mS-8Nw"; */
+"SaB-mS-8Nw.text" = "TrackerID";
+
+/* Class = "UITableViewSection"; headerTitle = "Connection"; ObjectID = "TPY-zx-JfY"; */
+"TPY-zx-JfY.headerTitle" = "Connection";
+
+/* Class = "UITextField"; placeholder = "minor"; ObjectID = "Tc6-JR-qOB"; */
+"Tc6-JR-qOB.placeholder" = "minor";
+
+/* Class = "UILabel"; text = "Authentication"; ObjectID = "UjS-PQ-pwa"; */
+"UjS-PQ-pwa.text" = "Authentication";
+
+/* Class = "UITextField"; placeholder = "major"; ObjectID = "UqU-7l-HX1"; */
+"UqU-7l-HX1.placeholder" = "major";
+
+/* Class = "UITextView"; text = "place abc defasf 234, 1234 abcdde asdfa lk, asfda 33 aa"; ObjectID = "VjN-rg-5pV"; */
+"VjN-rg-5pV.text" = "place abc defasf 234, 1234 abcdde asdfa lk, asfda 33 aa";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "WPX-rf-Obi"; */
+"WPX-rf-Obi.text" = "Name";
+
+/* Class = "UIButton"; normalTitle = "Publish Settings"; ObjectID = "YQ6-jA-Rsh"; */
+"YQ6-jA-Rsh.normalTitle" = "Publish Settings";
+
+/* Class = "UILabel"; text = "Coordinates"; ObjectID = "Ym9-bx-HAr"; */
+"Ym9-bx-HAr.text" = "Coordinates";
+
+/* Class = "UILabel"; text = "Coordinates"; ObjectID = "Yx0-Kk-yOQ"; */
+"Yx0-Kk-yOQ.text" = "Coordinates";
+
+/* Class = "UITableViewSection"; headerTitle = "Custom Security Policy"; ObjectID = "ZRc-Vw-nIq"; */
+"ZRc-Vw-nIq.headerTitle" = "Custom Security Policy";
+
+/* Class = "UITextField"; placeholder = "port"; ObjectID = "ZW3-WS-Wb7"; */
+"ZW3-WS-Wb7.placeholder" = "port";
+
+/* Class = "UILabel"; text = "Host"; ObjectID = "a19-FN-Mwf"; */
+"a19-FN-Mwf.text" = "Host";
+
+/* Class = "UILabel"; text = "Street
+Town\nCountry"; ObjectID = "apt-Il-Ih4"; */
+"apt-Il-Ih4.text" = "Street
+Town\nCountry";
+
+/* Class = "UILabel"; text = "Mode"; ObjectID = "bAP-Sq-XeK"; */
+"bAP-Sq-XeK.text" = "Mode";
+
+/* Class = "UILabel"; text = "Validate Domain Name"; ObjectID = "cf0-VR-ds2"; */
+"cf0-VR-ds2.text" = "Validate Domain Name";
+
+/* Class = "UILabel"; text = "Minor"; ObjectID = "crJ-Yr-XNh"; */
+"crJ-Yr-XNh.text" = "Minor";
+
+/* Class = "UILabel"; text = "Use Custom Security Policy"; ObjectID = "dDa-yP-ckV"; */
+"dDa-yP-ckV.text" = "Use Custom Security Policy";
+
+/* Class = "UITableViewSection"; headerTitle = "Beacon Region"; ObjectID = "dPT-PC-ShQ"; */
+"dPT-PC-ShQ.headerTitle" = "Beacon Region";
+
+/* Class = "UITextField"; placeholder = "trackerid"; ObjectID = "dUg-TH-IQ0"; */
+"dUg-TH-IQ0.placeholder" = "trackerid";
+
+/* Class = "UITextView"; text = "Copyright © 2013-2016 by Christoph Krey, http://owntracks.org"; ObjectID = "dZg-CC-7yD"; */
+"dZg-CC-7yD.text" = "Copyright © 2013-2016 by Christoph Krey, http://owntracks.org";
+
+/* Class = "UITabBarController"; title = "Tab Bar"; ObjectID = "e04-OU-xZ4"; */
+"e04-OU-xZ4.title" = "Tab Bar";
+
+/* Class = "UITextField"; placeholder = "deviceid"; ObjectID = "e0q-hc-0z2"; */
+"e0q-hc-0z2.placeholder" = "deviceid";
+
+/* Class = "UIButton"; normalTitle = "Documentation"; ObjectID = "ePs-kX-VDJ"; */
+"ePs-kX-VDJ.normalTitle" = "Documentation";
+
+/* Class = "UISegmentedControl"; ekh-AH-RrD.segmentTitles[0] = "None"; ObjectID = "ekh-AH-RrD"; */
+"ekh-AH-RrD.segmentTitles[0]" = "None";
+
+/* Class = "UISegmentedControl"; ekh-AH-RrD.segmentTitles[1] = "Public Key"; ObjectID = "ekh-AH-RrD"; */
+"ekh-AH-RrD.segmentTitles[1]" = "Public Key";
+
+/* Class = "UISegmentedControl"; ekh-AH-RrD.segmentTitles[2] = "Certificate"; ObjectID = "ekh-AH-RrD"; */
+"ekh-AH-RrD.segmentTitles[2]" = "Certificate";
+
+/* Class = "UITextField"; placeholder = "uuid"; ObjectID = "fPO-vc-4UX"; */
+"fPO-vc-4UX.placeholder" = "uuid";
+
+/* Class = "UILabel"; text = "Validate Certificate Chain"; ObjectID = "fd4-Z7-XGn"; */
+"fd4-Z7-XGn.text" = "Validate Certificate Chain";
+
+/* Class = "UILabel"; text = "Version"; ObjectID = "g84-aA-XOI"; */
+"g84-aA-XOI.text" = "Version";
+
+/* Class = "UINavigationItem"; title = "Status Info"; ObjectID = "hFq-9F-EAc"; */
+"hFq-9F-EAc.title" = "Status Info";
+
+/* Class = "UILabel"; text = "Info"; ObjectID = "hLa-Yd-Jmn"; */
+"hLa-Yd-Jmn.text" = "Info";
+
+/* Class = "UIButton"; normalTitle = "Navigate"; ObjectID = "hcc-3n-8aC"; */
+"hcc-3n-8aC.normalTitle" = "Navigate";
+
+/* Class = "UITextField"; placeholder = "version"; ObjectID = "hdf-7C-N25"; */
+"hdf-7C-N25.placeholder" = "version";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "jaH-UC-XYI"; */
+"jaH-UC-XYI.title" = "Settings";
+
+/* Class = "UITextField"; placeholder = "coordinate"; ObjectID = "jwK-F1-3iE"; */
+"jwK-F1-3iE.placeholder" = "coordinate";
+
+/* Class = "UILabel"; text = "Secret encryption key"; ObjectID = "lQx-Zr-z69"; */
+"lQx-Zr-z69.text" = "Secret encryption key";
+
+/* Class = "UITabBarItem"; title = "Friends"; ObjectID = "msF-bI-hEJ"; */
+"msF-bI-hEJ.title" = "Freunde";
+
+/* Class = "UITextField"; placeholder = "url"; ObjectID = "pD2-Zj-Toq"; */
+"pD2-Zj-Toq.placeholder" = "url";
+
+/* Class = "UILabel"; text = "URL"; ObjectID = "pHe-yA-a8f"; */
+"pHe-yA-a8f.text" = "URL";
+
+/* Class = "UINavigationItem"; title = "Modes"; ObjectID = "qGV-KT-VDq"; */
+"qGV-KT-VDq.title" = "Modes";
+
+/* Class = "UIButton"; normalTitle = "Publish Waypoints"; ObjectID = "rMe-Is-0BE"; */
+"rMe-Is-0BE.normalTitle" = "Publish Waypoints";
+
+/* Class = "UITextField"; placeholder = "name"; ObjectID = "s1I-Ff-fYw"; */
+"s1I-Ff-fYw.placeholder" = "name";
+
+/* Class = "UILabel"; text = "Major"; ObjectID = "sZM-l3-N2o"; */
+"sZM-l3-N2o.text" = "Major";
+
+/* Class = "UITextView"; text = "state"; ObjectID = "src-OY-ZUR"; */
+"src-OY-ZUR.text" = "state";
+
+/* Class = "UITextField"; placeholder = "host"; ObjectID = "tQs-PK-sbV"; */
+"tQs-PK-sbV.placeholder" = "host";
+
+/* Class = "UILabel"; text = "DeviceID"; ObjectID = "uJc-pU-O6W"; */
+"uJc-pU-O6W.text" = "DeviceID";
+
+/* Class = "UITextField"; placeholder = "server certificate file"; ObjectID = "uLh-Jg-oIJ"; */
+"uLh-Jg-oIJ.placeholder" = "server certificate file";
+
+/* Class = "UITableViewSection"; headerTitle = "Location"; ObjectID = "uci-TJ-YaO"; */
+"uci-TJ-YaO.headerTitle" = "Location";
+
+/* Class = "UITextField"; placeholder = "topic"; ObjectID = "wKK-9Q-BMU"; */
+"wKK-9Q-BMU.placeholder" = "topic";
+
+/* Class = "UILabel"; text = "Timestamp"; ObjectID = "x2d-ex-SAA"; */
+"x2d-ex-SAA.text" = "Timestamp";
+
+/* Class = "UIButton"; normalTitle = "Export Settings"; ObjectID = "ysB-cv-35Y"; */
+"ysB-cv-35Y.normalTitle" = "Export Settings";
