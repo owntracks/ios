@@ -1,6 +1,11 @@
 OnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 9.1.1
+>Release date: 2015-03-05
+
+* [NEW] Localization support 
+
 ## OwnTracks 9.1.0
 >Release date: 2015-03-03
 

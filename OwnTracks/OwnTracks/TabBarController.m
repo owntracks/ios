@@ -54,7 +54,8 @@
         if (delegate.action) {
             if (![viewControllers containsObject:self.featuredVC]) {
                 [viewControllers insertObject:self.featuredVC atIndex:viewControllers.count];
-                self.featuredVC.tabBarItem.badgeValue = @"!";
+                self.featuredVC.tabBarItem.badgeValue = NSLocalizedString(@"!",
+                                                                          @"New featured content indicator");
             }
         } else {
             if ([viewControllers containsObject:self.featuredVC]) {

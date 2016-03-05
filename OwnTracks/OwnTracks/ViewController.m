@@ -237,7 +237,12 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         Friend *friend = (Friend *)view.annotation;
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
         [delegate requestLocationFromFriend:friend];
-        [AlertView alert:@"Location" message:@"requested from friend" dismissAfter:1];
+        [AlertView alert:NSLocalizedString(@"Location",
+                                           @"Header of an alert message regarding a location")
+                 message:NSLocalizedString(@"requested from friend",
+                                           @"content of an alert message regarding publish request")
+            dismissAfter:1
+         ];
     }
 }
 
@@ -410,17 +415,24 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 }
 
 - (IBAction)actionPressed:(UIBarButtonItem *)sender {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate sendNow];
-    [AlertView alert:@"Location" message:@"publish queued on user request" dismissAfter:1];
+    [self sendNow];
 }
 
 - (IBAction)longDoublePress:(UILongPressGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [delegate sendNow];
-        [AlertView alert:@"Location" message:@"publish queued on user request" dismissAfter:1];
+        [self sendNow];
     }
+}
+
+- (void)sendNow {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [delegate sendNow];
+    [AlertView alert:NSLocalizedString(@"Location",
+                                       @"Header of an alert message regarding a location")
+             message:NSLocalizedString(@"publish queued on user request",
+                                       @"content of an alert message regarding user publish")
+        dismissAfter:1
+     ];
 }
 
 - (IBAction)longPress:(UILongPressGestureRecognizer *)sender {
@@ -438,7 +450,12 @@ didChangeDragState:(MKAnnotationViewDragState)newState
                                                lat:self.mapView.centerCoordinate.latitude
                                                lon:self.mapView.centerCoordinate.longitude
                                            context:[CoreData theManagedObjectContext]];
-        [AlertView alert:@"Region" message:@"created at center of map" dismissAfter:1];
+        [AlertView alert:NSLocalizedString(@"Region",
+                                           @"Header of an alert message regarding circular region")
+                 message:NSLocalizedString(@"created at center of map",
+                                           @"content of an alert message regarding circular region")
+            dismissAfter:1
+         ];
     }
 }
 

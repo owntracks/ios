@@ -306,40 +306,70 @@ static LocationManager *theInstance = nil;
         case kCLAuthorizationStatusAuthorizedAlways:
             break;
         case kCLAuthorizationStatusAuthorizedWhenInUse:
-            [AlertView alert:@"LocationManager" message:@"App is not allowed to use location services in background"];
+            [AlertView alert:@"LocationManager"
+                     message:NSLocalizedString(@"App is not allowed to use location services in background",
+                                               @"Location Manager error message")
+             ];
             break;
         case kCLAuthorizationStatusNotDetermined:
-            [AlertView alert:@"LocationManager" message:@"App is not allowed to use location services yet"];
+            [AlertView alert:@"LocationManager"
+                     message:NSLocalizedString(@"App is not allowed to use location services yet",
+                                               @"Location Manager error message")
+             ];
             break;
         case kCLAuthorizationStatusDenied:
-            [AlertView alert:@"LocationManager" message:@"App is not allowed to use location services"];
+            [AlertView alert:@"LocationManager"
+                     message:NSLocalizedString(@"App is not allowed to use location services",
+                                               @"Location Manager error message")
+             ];
             break;
         case kCLAuthorizationStatusRestricted:
-            [AlertView alert:@"LocationManager" message:@"App use of location services is restricted"];
+            [AlertView alert:@"LocationManager"
+                     message:NSLocalizedString(@"App use of location services is restricted",
+                                               @"Location Manager error message")
+             ];
             break;
         default:
-            [AlertView alert:@"LocationManager" message:@"App use of location services is unclear"];
+            [AlertView alert:@"LocationManager"
+                     message:NSLocalizedString(@"App use of location services is unclear",
+                                               @"Location Manager error message")
+             ];
             break;
     }
     
     if (![CLLocationManager locationServicesEnabled]) {
-        [AlertView alert:@"LocationManager" message:@"Location services are not enabled"];
+        [AlertView alert:@"LocationManager"
+                 message:NSLocalizedString(@"Location services are not enabled",
+                                           @"Location Manager error message")
+         ];
     }
     
     if (![CLLocationManager significantLocationChangeMonitoringAvailable]) {
-        [AlertView alert:@"LocationManager" message:@"Significant location change monitoring not available"];
+        [AlertView alert:@"LocationManager"
+                 message:NSLocalizedString(@"Significant location change monitoring not available",
+                                           @"Location Manager error message")
+         ];
     }
     
     if (![CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
-        [AlertView alert:@"LocationManager" message:@"Circular region monitoring not available"];
+        [AlertView alert:@"LocationManager"
+                 message:NSLocalizedString(@"Circular region monitoring not available",
+                                           @"Location Manager error message")
+         ];
     }
     
     if (![CLLocationManager isMonitoringAvailableForClass:[CLBeaconRegion class]]) {
-        [AlertView alert:@"LocationManager" message:@"iBeacon region monitoring not available"];
+        [AlertView alert:@"LocationManager"
+                 message:NSLocalizedString(@"iBeacon region monitoring not available",
+                                           @"Location Manager error message")
+         ];
     }
     
     if (![CLLocationManager isRangingAvailable]) {
-        [AlertView alert:@"LocationManager" message:@"iBeacon ranging not available"];
+        [AlertView alert:@"LocationManager"
+                 message:NSLocalizedString(@"iBeacon ranging not available",
+                                           @"Location Manager error message")
+         ];
     }
     
     if (![CLLocationManager deferredLocationUpdatesAvailable]) {

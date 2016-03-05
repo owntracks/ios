@@ -35,7 +35,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         self.alertView = [[UIAlertView alloc] initWithTitle:title
                                                     message:message
                                                    delegate:nil
-                                          cancelButtonTitle:interval ? nil : @"OK"
+                                          cancelButtonTitle:interval ? nil :
+                                            NSLocalizedString(@"OK", @"Acknowledge the alert message")
                                           otherButtonTitles:nil];
         [self performSelectorOnMainThread:@selector(setup:) withObject:[NSNumber numberWithFloat:interval] waitUntilDone:NO];
     }
@@ -50,8 +51,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (void)dismissAfterDelay:(UIAlertView *)alertView
-{
+- (void)dismissAfterDelay:(UIAlertView *)alertView {
     DDLogVerbose(@"AlertView dismissAfterDelay");
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
 }

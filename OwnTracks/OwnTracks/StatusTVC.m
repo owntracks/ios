@@ -63,16 +63,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)updatedStatus {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     
-    const NSDictionary<NSNumber *, NSString *> *states = @{
-                                   @(state_starting): @"idle",
-                                   @(state_connecting): @"connecting",
-                                   @(state_error): @"error",
-                                   @(state_connected): @"connected",
-                                   @(state_closing): @"closing",
-                                   @(state_closed): @"closed"
-                                   };
+    const NSDictionary<NSNumber *, NSString *> *states;
+    states = @{
+               @(state_starting):   NSLocalizedString(@"idle",          @"description connection idle state"),
+               @(state_connecting): NSLocalizedString(@"connecting",    @"description connection connected state"),
+               @(state_error):      NSLocalizedString(@"error",         @"description connection error state"),
+               @(state_connected):  NSLocalizedString(@"connected",     @"description connection connected state"),
+               @(state_closing):    NSLocalizedString(@"closing",       @"description connection closing state"),
+               @(state_closed):     NSLocalizedString(@"closed",        @"description connection closed state")
+               };
     
-    NSString *stateName = @"unknown";
+    NSString *stateName = NSLocalizedString(@"unknown", @"description connection unknown state");
     if (delegate.connectionState) {
         stateName = [states objectForKey:delegate.connectionState];
         if (!stateName) {
@@ -89,13 +90,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                ];
     
     if ([LocationManager sharedInstance].location) {
-        self.UILocation.text = [NSString stringWithFormat:@"%g,%g (±%.0fm)",
+        self.UILocation.text = [NSString stringWithFormat:@"%g,%g (%@%.0f%@)",
                                 [LocationManager sharedInstance].location.coordinate.latitude,
                                 [LocationManager sharedInstance].location.coordinate.longitude,
-                                [LocationManager sharedInstance].location.horizontalAccuracy
+                                NSLocalizedString(@"±", @"Short for deviation as in (±3m)"),
+                                [LocationManager sharedInstance].location.horizontalAccuracy,
+                                NSLocalizedString(@"m", @"Short for meters as in (±3m)")
                                 ];
     } else {
-        self.UILocation.text = @"No location available";
+        self.UILocation.text =NSLocalizedString( @"No location available",  @"No location available indication");
     }
 
     int mode = [Settings intForKey:@"mode"];
@@ -109,7 +112,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         }
     }
     
-    self.UIVersion.text = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];    
+    self.UIVersion.text = [NSString stringWithFormat:@"%@/%@",
+                           [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"],
+                           [NSLocale currentLocale].localeIdentifier
+                           ];
 
     [self.tableView setNeedsDisplay];
 }

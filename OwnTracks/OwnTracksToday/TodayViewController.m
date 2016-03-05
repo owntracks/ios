@@ -84,26 +84,46 @@
         default:
         case 0: {
             double distance = [friend[@"distance"] doubleValue];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.f km", distance / 1000.0];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.f %@",
+                                         distance / 1000.0,
+                                         NSLocalizedString(@"skmec",
+                                                           @"short for kilometer on Today")
+                                         ];
             break;
         }
         case 1: {
             NSDate *timestamp = friend[@"timestamp"];
             NSTimeInterval interval = -[timestamp timeIntervalSinceNow];
             if (interval < 60) {
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.f sec", interval];
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.f %@",
+                                             interval,
+                                             NSLocalizedString(@"sec",
+                                                               @"short for second on Today")
+                                            ];
             } else if (interval < 3600) {
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.f min", interval / 60];
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.f %@",
+                                             interval / 60,
+                                             NSLocalizedString(@"min",
+                                                               @"short for minute on Today")
+                                             ];
             } else if (interval < 24 * 3600) {
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.f h", interval / 3600];
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.f %@",
+                                             interval / 3600,
+                                             NSLocalizedString(@"h",
+                                                               @"short for hour on Today")
+                                             ];
             } else {
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.f d", interval / (24 * 3600)];
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.f %@",
+                                             interval / (24 * 3600),
+                                             NSLocalizedString(@"d",
+                                                               @"short for day on Today")
+                                             ];
             }
             break;
         }
         case 2: {
             CLLocation *location = [[CLLocation alloc] initWithLatitude:[friend[@"latitude"] doubleValue]
-                                                               longitude:[friend[@"longitude"] doubleValue]];
+                                                              longitude:[friend[@"longitude"] doubleValue]];
             CLGeocoder *geocoder = [[CLGeocoder alloc] init];
             [geocoder reverseGeocodeLocation:location completionHandler:
              ^(NSArray *placemarks, NSError *error) {
@@ -124,10 +144,13 @@
                                         placemark.country ? placemark.country : @"-": @"???"];
                      cell.detailTextLabel.text = place;
                  } else {
-                     cell.detailTextLabel.text = @"cannot resolve address...";
+                     cell.detailTextLabel.text = NSLocalizedString(@"cannot resolve address",
+                                                                   @"error message on Today");
                  }
              }];
-            cell.detailTextLabel.text = @"resolving...";
+            cell.detailTextLabel.text = NSLocalizedString(@"resolving address...",
+                                                          @"temporary message on Today");
+
             break;
         }
     }

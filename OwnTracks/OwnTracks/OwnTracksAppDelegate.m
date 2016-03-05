@@ -198,44 +198,31 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                                      }]
                                                     }];
                 [CoreData saveContext];
-                self.processingMessage = @"Beacon QR successfully processed";
-                return TRUE;
-            } else if ([url.path isEqualToString:@"/hosted"]) {
-                NSString *user = queryStrings[@"user"];
-                NSString *device = queryStrings[@"device"];
-                NSString *token = queryStrings[@"token"];
-                
-                [[LocationManager sharedInstance] resetRegions];
-                NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
-                for (Friend *friend in friends) {
-                    [[CoreData theManagedObjectContext] deleteObject:friend];
-                }
-                
-                
-                [Settings fromDictionary:@{@"_type":@"configuration",
-                                           @"mode":@(1),
-                                           @"username":user,
-                                           @"deviceId":device,
-                                           @"password":token
-                                           }];
-                self.configLoad = [NSDate date];
-                [CoreData saveContext];
-                self.processingMessage = @"Hosted QR successfully processed";
+                self.processingMessage = NSLocalizedString(@"Beacon QR successfully processed",
+                                                           @"Display after processing beacon QR code");
                 return TRUE;
             } else {
-                self.processingMessage = [NSString stringWithFormat:@"unkown url path %@",
+                self.processingMessage = NSLocalizedString(@"Hosted QR successfully processed",
+                                                           @"Display after processing hosted QR code");
+
+                self.processingMessage = [NSString stringWithFormat:@"%@ %@",
+                                          NSLocalizedString(@"unknown path in url",
+                                                            @"Display after entering an unknown path in url"),
                                           url.path];
                 return FALSE;
             }
         } else if ([url.scheme isEqualToString:@"file"]) {
             return [self processFile:url];
         } else {
-            self.processingMessage = [NSString stringWithFormat:@"unkown url scheme %@",
+            self.processingMessage = [NSString stringWithFormat:@"%@ %@",
+                                      NSLocalizedString(@"unknown path in url",
+                                                        @"Display after entering an unknown scheme in url"),
                                       url.scheme];
             return FALSE;
         }
     }
-    self.processingMessage = [NSString stringWithFormat:@"no url specified"];
+    self.processingMessage = NSLocalizedString(@"no url specified",
+                                               @"Display after trying to process a file");
     return FALSE;
 }
 
@@ -250,7 +237,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     [input open];
     if ([input streamError]) {
-        self.processingMessage = [NSString stringWithFormat:@"open %@ %@",
+        self.processingMessage = [NSString stringWithFormat:@"%@ %@ %@",
+                                  NSLocalizedString(@"file open error",
+                                                    @"Display after trying to open a file"),
                                   [input streamError],
                                   url];
         return FALSE;
@@ -287,13 +276,21 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [input close];
     [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
     if (error) {
-        self.processingMessage = [NSString stringWithFormat:@"Error processing file %@: %@ %@",
+        self.processingMessage = [NSString stringWithFormat:@"%@ %@: %@ %@",
+                                  NSLocalizedString(@"Error processing file",
+                                                    @"Display when file processing fails"),
                                   [url lastPathComponent],
                                   error.localizedDescription,
                                   error.userInfo];
         return FALSE;
     }
-    self.processingMessage = [NSString stringWithFormat:@"File %@ successfully processed", [url lastPathComponent]];
+    self.processingMessage = [NSString stringWithFormat:@"%@ %@ %@",
+                              NSLocalizedString(@"File",
+                                                @"Display when file processing succeeds (filename follows)"),
+                              [url lastPathComponent],
+                              NSLocalizedString(@"successfully processed",
+                                                @"Display when file processing succeeds")
+];
     return TRUE;
 }
 
@@ -330,7 +327,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     
     if (![Settings validIds]) {
-        NSString *message = [NSString stringWithFormat:@"To publish your location userID and deviceID must be set"];
+        NSString *message = NSLocalizedString(@"To publish your location userID and deviceID must be set",
+                                              @"Warning displayed if necessary settings are missing");
+
         [AlertView alert:@"Settings" message:message];
     }
 }
@@ -370,7 +369,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)regionEvent:(CLRegion *)region enter:(BOOL)enter {
     CLLocation *location = [LocationManager sharedInstance].location;
-    NSString *message = [NSString stringWithFormat:@"%@ %@", (enter ? @"Entering" : @"Leaving"), region.identifier];
+    NSString *message = [NSString stringWithFormat:@"%@ %@",
+                         (enter ?
+                          NSLocalizedString(@"Entering",
+                                            @"Display when entering region (region name follows)"):
+                          NSLocalizedString(@"Leaving",
+                                            @"Display when leaving region (region name follows)")
+                          ),
+                         region.identifier];
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.alertBody = message;
     notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
@@ -857,7 +863,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         certificates = [MQTTCFSocketTransport clientCertsFromP12:clientPKCSPath
                                                  passphrase:[Settings stringForKey:@"passphrase"]];
         if (!certificates) {
-            [AlertView alert:@"TLS Client Certificate" message:@"incorrect file or passphrase"];
+            [AlertView alert:NSLocalizedString(@"TLS Client Certificate",
+                                               @"Heading for certificate error message")
+                     message:NSLocalizedString(@"incorrect file or passphrase",
+                                               @"certificate error message")
+             ];
         }
     }
     
@@ -881,7 +891,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                     }
                     [certs addObject:certificateData];
                 } else {
-                    [AlertView alert:@"TLS Security Policy" message:@"invalid certificate file"];
+                    [AlertView alert:NSLocalizedString(@"TLS Security Policy",
+                                                       @"Heading for security policy error message")
+                             message:NSLocalizedString(@"invalid certificate file",
+                                                       @"certificate file error message")
+                     ];
                 }
             }
         }

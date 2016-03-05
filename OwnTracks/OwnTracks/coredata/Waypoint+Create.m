@@ -24,17 +24,7 @@
              if (!self.isDeleted) {
                  if ([placemarks count] > 0) {
                      CLPlacemark *placemark = placemarks[0];
-#ifdef OLD
-                     NSArray *address = placemark.addressDictionary[@"FormattedAddressLines"];
-                     if (address && [address count] >= 1) {
-                         self.placemark = address[0];
-                         for (int i = 1; i < [address count]; i++) {
-                             self.placemark = [NSString stringWithFormat:@"%@, %@", self.placemark, address[i]];
-                         }
-                     }
-#else
                      self.placemark = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
-#endif
                      self.belongsTo.topic = self.belongsTo.topic;
                  } else {
                      self.placemark = nil;
@@ -45,10 +35,13 @@
 }
 
 - (NSString *)coordinateText {
-    return [NSString stringWithFormat:@"%g,%g (±%.0fm)",
+    return [NSString stringWithFormat:@"%g,%g (%@%.0f%@)",
             [self.lat doubleValue],
             [self.lon doubleValue],
-            [self.acc doubleValue]];
+            NSLocalizedString(@"±", @"Short for deviation as in (±3m)"),
+            [self.acc doubleValue],
+            NSLocalizedString(@"m", @"Short for meters as in (±3m)")
+            ];
 }
 
 - (NSString *)timestampText {
@@ -58,11 +51,17 @@
 }
 
 - (NSString *)infoText {
-    return [NSString stringWithFormat:@"✈︎%0.fm (±%.0fm) %0.fkm/h %0.f°",
+    return [NSString stringWithFormat:@"%@%0.f%@ (%@%.0f%@) %0.f%@ %0.f%@",
+            NSLocalizedString(@"✈︎", @"Short for altitude as in ✈︎1000m"),
             [self.alt doubleValue],
+            NSLocalizedString(@"m", @"Short for meters as in ✈︎1000m"),
+            NSLocalizedString(@"±", @"Short for deviation as in (±3m)"),
             [self.vac doubleValue],
+            NSLocalizedString(@"m", @"Short for meters as in (±3m)"),
             [self.vel doubleValue],
-            [self.cog doubleValue]
+            NSLocalizedString(@"km/h", @"Short for kilometers per hour as in 120km/h"),
+            [self.cog doubleValue],
+            NSLocalizedString(@"°", @"Short for degrees celsius as in 20°")
             ];
 }
 

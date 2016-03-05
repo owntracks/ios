@@ -17,6 +17,8 @@
 #import "OwnTracking.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
+#define QRSCANNER NSLocalizedString(@"QRScanner", @"Header of an alert message regarging QR code scanning")
+
 @interface SettingsTVC ()
 @property (weak, nonatomic) IBOutlet UITableViewCell *UITLSCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *UIclientPKCSCell;
@@ -138,7 +140,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)updated
 {
     BOOL locked = [Settings boolForKey:@"locked"];
-    self.title = [NSString stringWithFormat:@"Settings%@", locked ? @" (locked)" : @""];
+    self.title = [NSString stringWithFormat:@"%@%@",
+                  NSLocalizedString(@"Settings",
+                                    @"Settings screen title"),
+                  locked ?
+                  [NSString stringWithFormat:@" (%@)", NSLocalizedString(@"locked",
+                                                                         @"indicates a locked configuration")] :
+                  @""];
     
     if (self.UIDeviceID) {
         self.UIDeviceID.text =  [Settings stringForKey:@"deviceid_preference"];
@@ -467,12 +475,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 {
     switch (qos) {
         case 2:
-            return @"exactly once (2)";
+            return NSLocalizedString(@"exactly once (2)",
+                                     @"description of MQTT QoS level 2");
         case 1:
-            return @"at least once (1)";
+            return NSLocalizedString(@"at least once (1)",
+                                     @"description of MQTT QoS level 1");
         case 0:
         default:
-            return @"at most once (0)";
+            return NSLocalizedString(@"at most once (0)",
+                                     @"description of MQTT QoS level 0");
     }
 }
 
@@ -486,15 +497,21 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.UIDeviceID resignFirstResponder];
 }
 
+#define INVALIDTRACKERID NSLocalizedString(@"TrackerID invalid", @"Alert header regarding TrackerID input")
+
 - (IBAction)tidChanged:(UITextField *)sender {
     
     if (sender.text.length > 2) {
         UIAlertView *alertView = [[UIAlertView alloc]
-                                  initWithTitle:@"TrackerID invalid"
-                                  message:@"TrackerID may be empty or up to 2 characters long"
+                                  initWithTitle:INVALIDTRACKERID
+                                  message:NSLocalizedString(@"TrackerID may be empty or up to 2 characters long",
+                                                            @"Alert content regarding TrackerID input")
                                   delegate:self
                                   cancelButtonTitle:nil
-                                  otherButtonTitles:@"OK", nil];
+                                  otherButtonTitles:NSLocalizedString(@"OK",
+                                                                      @"OK button title"),
+                                  nil
+                                  ];
         [alertView show];
         sender.text = [Settings stringForKey:@"trackerid_preference"];
         return;
@@ -502,11 +519,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     for (int i = 0; i < sender.text.length; i++) {
         if (![[NSCharacterSet alphanumericCharacterSet] characterIsMember:[sender.text characterAtIndex:i]]) {
             self.tidAlertView = [[UIAlertView alloc]
-                                 initWithTitle:@"TrackerID invalid"
-                                 message:@"TrackerID may contain alphanumeric characters only"
+                                 initWithTitle:INVALIDTRACKERID
+                                 message:NSLocalizedString(@"TrackerID may contain alphanumeric characters only",
+                                                           @"Alert content regarding TrackerID input")
                                  delegate:self
                                  cancelButtonTitle:nil
-                                 otherButtonTitles:@"OK", nil];
+                                 otherButtonTitles:NSLocalizedString(@"OK",
+                                                                     @"OK button title"),
+                                 nil
+                                 ];
             [self.tidAlertView show];
             sender.text = [Settings stringForKey:@"trackerid_preference"];
             return;
@@ -516,11 +537,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (IBAction)modeChanged:(UISegmentedControl *)sender {
-    self.modeAlertView = [[UIAlertView alloc] initWithTitle:@"Mode change"
-                                                    message:@"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before."
+    self.modeAlertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Mode change",
+                                                                              @"Alert header for mode change warning")
+                                                    message:NSLocalizedString(@"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before.",
+                                                                              @"Alert content for mode change warning")
                                                    delegate:self
-                                          cancelButtonTitle:@"Cancel"
-                                          otherButtonTitles:@"Continue", nil];
+                                          cancelButtonTitle:NSLocalizedString(@"Cancel",
+                                                                              @"Cancel button title")
+                                          otherButtonTitles:NSLocalizedString(@"Continue",
+                                                                              @"Continue button title"),
+                          nil
+                          ];
     [self.modeAlertView show];
 }
 
@@ -605,7 +632,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         
         [self presentViewController:_reader animated:YES completion:NULL];
     } else {
-        [AlertView alert:@"QRScanner" message:@"Does not have access to camera!"];
+        [AlertView alert:QRSCANNER
+                 message:NSLocalizedString(@"App does not have access to camera",
+                                           @"content of an alert message regarging QR code scanning")
+         ];
     }
 }
 
@@ -618,9 +648,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         DDLogVerbose(@"result %@", result);
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         if ([delegate application:[UIApplication sharedApplication] openURL:[NSURL URLWithString:result] options:@{}]) {
-            [AlertView alert:@"QRScanner" message:@"Successfully processed!"];
+            [AlertView alert:QRSCANNER
+                     message:NSLocalizedString(@"QR code successfully processed!",
+                                               @"content of an alert message regarging QR code scanning")
+             ];
         } else {
-            [AlertView alert:@"QRScanner" message:delegate.processingMessage];
+            [AlertView alert:QRSCANNER
+                     message:delegate.processingMessage
+             ];
         }
         delegate.processingMessage = nil;
     }];

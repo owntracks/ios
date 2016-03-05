@@ -75,20 +75,42 @@
         default:
         case 0: {
             double distance = [friend[@"distance"] doubleValue];
-            itemText = [NSString stringWithFormat:@"\n%0.f km", distance / 1000.0];
+            itemText = [NSString stringWithFormat:@"\n%0.f %@",
+                        distance / 1000.0,
+                        NSLocalizedString(@"km",
+                                          @"short for kilometer on Watch")
+                        ];
             break;
         }
         case 1: {
             NSDate *timestamp = friend[@"timestamp"];
             NSTimeInterval interval = -[timestamp timeIntervalSinceNow];
             if (interval < 60) {
-                itemText = [NSString stringWithFormat:@"\n%0.f sec", interval];
+                itemText = [NSString stringWithFormat:@"\n%0.f %@",
+                            interval,
+                            NSLocalizedString(@"sec",
+                                              @"short for second on Watch")
+                            ];
+
             } else if (interval < 3600) {
-                itemText = [NSString stringWithFormat:@"\n%0.f min", interval / 60];
+                itemText = [NSString stringWithFormat:@"\n%0.f %@",
+                            interval / 60,
+                            NSLocalizedString(@"min",
+                                              @"short for minute on Watch")
+                            ];
+
             } else if (interval < 24 * 3600) {
-                itemText = [NSString stringWithFormat:@"\n%0.f h", interval / 3600];
+                itemText = [NSString stringWithFormat:@"\n%0.f %@",
+                            interval / 3600,
+                            NSLocalizedString(@"h",
+                                              @"short for hour on Watch")
+                            ];
             } else {
-                itemText = [NSString stringWithFormat:@"\n%0.f d", interval / (24 * 3600)];
+                itemText = [NSString stringWithFormat:@"\n%0.f %@",
+                            interval / (24 * 3600),
+                            NSLocalizedString(@"d",
+                                              @"short for day on Watch")
+                            ];
             }
             break;
         }

@@ -132,7 +132,12 @@ static OwnTracking *theInstance = nil;
                                 notification.userInfo = @{@"notify": @"friend"};
                                 notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
                                 [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-                                [AlertView alert:@"Friend" message:notification.alertBody dismissAfter:2.0];
+                                [AlertView alert:NSLocalizedString(@"Friend",
+                                                                   @"Alert message header for friend's messages")
+                                         message:notification.alertBody
+                                    dismissAfter:2.0
+                                 ];
+
                             }
                             
                         } else if ([dictionary[@"_type"] isEqualToString:@"card"]) {

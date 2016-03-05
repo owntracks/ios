@@ -50,20 +50,26 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     switch (status) {
         case kABAuthorizationStatusRestricted:
             DDLogVerbose(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusRestricted");
-            self.alertView = [[UIAlertView alloc] initWithTitle:@"Addressbook Access"
-                                                        message:@"has been restricted, possibly due to restrictions such as parental controls."
+            self.alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Addressbook Access",
+                                                                                  @"Headline in addressbook related error messages")
+                                                        message:NSLocalizedString(@"has been restricted, possibly due to restrictions such as parental controls.",
+                                                                                  @"kABAuthorizationStatusRestricted")
                                                        delegate:nil
-                                              cancelButtonTitle:@"OK"
+                                              cancelButtonTitle:NSLocalizedString(@"OK",
+                                                                                  @"Acknowledge the alert message")
                                               otherButtonTitles:nil];
             [self.alertView show];
             break;
             
         case kABAuthorizationStatusDenied:
             DDLogVerbose(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusDenied");
-            self.alertView = [[UIAlertView alloc] initWithTitle:@"Addressbook Access"
-                                                        message:@"has been denied by user. Go to Settings/Privacy/Contacts to change"
+            self.alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Addressbook Access",
+                                                                                  @"Headline in addressbook related error messages")
+                                                        message:NSLocalizedString(@"has been denied by user. Go to Settings/Privacy/Contacts to change",
+                                                                                  @"kABAuthorizationStatusDenied")
                                                        delegate:nil
-                                              cancelButtonTitle:@"OK"
+                                              cancelButtonTitle:NSLocalizedString(@"OK",
+                                                                                  @"Acknowledge the alert message")
                                               otherButtonTitles:nil];
             [self.alertView show];
             break;
@@ -314,7 +320,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (waypoint) {
         [friendTableViewCell deferredReverseGeoCode:waypoint];
         
-        friendTableViewCell.address.text = waypoint.placemark ? waypoint.placemark : @"resolving...";
+        friendTableViewCell.address.text = waypoint.placemark ? waypoint.placemark : NSLocalizedString(@"resolving...",
+                                                                                                      @"temporary display while resolving address");
         friendAnnotationView.speed = [waypoint.vel doubleValue];
         friendAnnotationView.course = [waypoint.cog doubleValue];
     } else {

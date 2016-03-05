@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		26D9D10A393B276099275BAE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D44FAE29CF5DF0D498028B7C /* libPods.a */; };
 		52C27EC62B888CFFFADA132C /* libPods-OwnTracks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BAFF8E4C945D06B1A6DC88B /* libPods-OwnTracks.a */; };
-		66DEC6662040441D82919024 /* libPods-OwnTracksTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B15FB079036AF5B867E85A45 /* libPods-OwnTracksTests.a */; };
 		84001C141C78982800413E5B /* Queue+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84001C111C78982800413E5B /* Queue+CoreDataProperties.m */; };
 		84001C151C78982800413E5B /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 84001C131C78982800413E5B /* Queue.m */; };
 		8404876B1C5386DD00569C79 /* FeaturedContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8404876A1C5386DD00569C79 /* FeaturedContentVC.m */; };
@@ -27,7 +26,6 @@
 		8411B88B189FE79B0019D2D6 /* CoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B889189FE79B0019D2D6 /* CoreData.m */; };
 		8411B88E189FE9940019D2D6 /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B88D189FE9940019D2D6 /* Connection.m */; };
 		8411B891189FE9CE0019D2D6 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B890189FE9CE0019D2D6 /* Settings.m */; };
-		8411B896189FEAE60019D2D6 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8411B895189FEAE60019D2D6 /* Storyboard.storyboard */; };
 		8411B8E1189FEB790019D2D6 /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8AE189FEB790019D2D6 /* Location.gpx */; };
 		8411B90C189FEC070019D2D6 /* WaypointTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B8FF189FEC070019D2D6 /* WaypointTVC.m */; };
 		8411B90D189FEC070019D2D6 /* FriendAnnotationV.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B901189FEC070019D2D6 /* FriendAnnotationV.m */; };
@@ -36,20 +34,20 @@
 		8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B907189FEC070019D2D6 /* PersonTVC.m */; };
 		8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B909189FEC070019D2D6 /* StatusTVC.m */; };
 		8411B912189FEC070019D2D6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B90B189FEC070019D2D6 /* ViewController.m */; };
+		841D1A241C8AF70900DC5765 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841D1A221C8AF70900DC5765 /* Localizable.strings */; };
+		841D1A301C8AFF8000DC5765 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841D1A2E1C8AFF8000DC5765 /* Localizable.strings */; };
+		841D1A351C8AFF9400DC5765 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841D1A331C8AFF9400DC5765 /* Localizable.strings */; };
 		8422AF681AF825C7008932A2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8422AF671AF825C7008932A2 /* SystemConfiguration.framework */; };
 		8426103A1ACFE67B00FE1A03 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842610391ACFE67B00FE1A03 /* Launch Screen.xib */; };
 		842DFBC71AEE6F36000F4BA6 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842DFBC61AEE6F36000F4BA6 /* NotificationController.m */; };
 		842DFBC91AEE6F46000F4BA6 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = 842DFBC81AEE6F46000F4BA6 /* PushNotificationPayload.apns */; };
-		8435A24E1BEF824900D2BF33 /* AppleIncRootCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8435A24D1BEF824900D2BF33 /* AppleIncRootCertificate.cer */; };
-		8435A2501BEFAC0800D2BF33 /* AppleComputerRootCertificate.cer in Resources */ = {isa = PBXBuildFile; fileRef = 8435A24F1BEFAC0800D2BF33 /* AppleComputerRootCertificate.cer */; };
 		843635791AE95D6000157D66 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843635781AE95D6000157D66 /* InterfaceController.m */; };
 		8436357B1AE95D6000157D66 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8436357A1AE95D6000157D66 /* Images.xcassets */; };
 		8436357F1AE95D6100157D66 /* OwnTracks WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 8436357E1AE95D6000157D66 /* OwnTracks WatchKit App.app */; };
 		843635871AE95D6100157D66 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843635851AE95D6100157D66 /* Interface.storyboard */; };
 		843635891AE95D6100157D66 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843635881AE95D6100157D66 /* Images.xcassets */; };
-		843817F31C38654A00CE14EE /* OwnTracksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 843817F21C38654A00CE14EE /* OwnTracksTests.m */; };
-		843817FC1C386A8700CE14EE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843817FB1C386A8700CE14EE /* CFNetwork.framework */; };
-		843817FD1C386B7E00CE14EE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82B189FDB140019D2D6 /* Foundation.framework */; };
+		843B91721C8A14BF00DBD306 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843B91741C8A14BF00DBD306 /* Storyboard.storyboard */; };
+		843B91791C8A1CCE00DBD306 /* Setting+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 843B91781C8A1CCE00DBD306 /* Setting+Create.m */; };
 		8455DFBE1ADF2BD8003C7BC8 /* Hosted.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8455DFBD1ADF2BD8003C7BC8 /* Hosted.plist */; };
 		845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845AA1B31B44245100945856 /* CertificatesTVC.m */; };
 		845AA1BB1B4846AF00945856 /* OwnTracks-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1B81B4846AF00945856 /* OwnTracks-29.png */; };
@@ -63,7 +61,6 @@
 		846FFA581B419687001482A6 /* RegionTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA571B419687001482A6 /* RegionTVC.m */; };
 		846FFA5B1B4196D0001482A6 /* Waypoint+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA5A1B4196D0001482A6 /* Waypoint+Create.m */; };
 		846FFA5E1B420938001482A6 /* FriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA5D1B420938001482A6 /* FriendTableViewCell.m */; };
-		8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8479EEB418E4289E00923B24 /* Setting+Create.m */; };
 		8479EEB718E4529900923B24 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
 		847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847F8B5719295C65003876D4 /* CoreMotion.framework */; };
 		84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A2B1B3755AF00810C3A /* TabBarController.m */; };
@@ -165,7 +162,6 @@
 		8411B88D189FE9940019D2D6 /* Connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Connection.m; sourceTree = "<group>"; };
 		8411B88F189FE9CE0019D2D6 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		8411B890189FE9CE0019D2D6 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
-		8411B895189FEAE60019D2D6 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		8411B8AE189FEB790019D2D6 /* Location.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Location.gpx; path = assets/Location.gpx; sourceTree = "<group>"; };
 		8411B8FE189FEC070019D2D6 /* WaypointTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaypointTVC.h; sourceTree = "<group>"; };
 		8411B8FF189FEC070019D2D6 /* WaypointTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaypointTVC.m; sourceTree = "<group>"; };
@@ -182,14 +178,26 @@
 		8411B90A189FEC070019D2D6 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		8411B90B189FEC070019D2D6 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		84195B201ABCBC9400A9FA97 /* Model 7.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.5.xcdatamodel"; sourceTree = "<group>"; };
+		841D1A231C8AF70900DC5765 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		841D1A251C8AF72000DC5765 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		841D1A261C8AF7C600DC5765 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		841D1A271C8AF7D800DC5765 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Storyboard.strings; sourceTree = "<group>"; };
+		841D1A281C8AF7E900DC5765 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		841D1A291C8AF7F000DC5765 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		841D1A2B1C8AFDB000DC5765 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Interface.strings; sourceTree = "<group>"; };
+		841D1A2D1C8AFDB100DC5765 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Interface.strings; sourceTree = "<group>"; };
+		841D1A2F1C8AFF8000DC5765 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		841D1A311C8AFF8400DC5765 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		841D1A321C8AFF8600DC5765 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		841D1A341C8AFF9400DC5765 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		841D1A361C8AFF9800DC5765 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		841D1A371C8AFF9900DC5765 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8422AF671AF825C7008932A2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		842610391ACFE67B00FE1A03 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		842CA4CE1B3C76D000B7FF1C /* Model 8.1.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.5.xcdatamodel"; sourceTree = "<group>"; };
 		842DFBC51AEE6F36000F4BA6 /* NotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
 		842DFBC61AEE6F36000F4BA6 /* NotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
 		842DFBC81AEE6F46000F4BA6 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
-		8435A24D1BEF824900D2BF33 /* AppleIncRootCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleIncRootCertificate.cer; sourceTree = "<group>"; };
-		8435A24F1BEFAC0800D2BF33 /* AppleComputerRootCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleComputerRootCertificate.cer; sourceTree = "<group>"; };
 		843635731AE95D6000157D66 /* OwnTracks WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "OwnTracks WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		843635761AE95D6000157D66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		843635771AE95D6000157D66 /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
@@ -199,10 +207,11 @@
 		843635841AE95D6100157D66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		843635861AE95D6100157D66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		843635881AE95D6100157D66 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		843817F01C38654A00CE14EE /* OwnTracksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OwnTracksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		843817F21C38654A00CE14EE /* OwnTracksTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwnTracksTests.m; sourceTree = "<group>"; };
-		843817F41C38654A00CE14EE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		843817FB1C386A8700CE14EE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		843B91731C8A14BF00DBD306 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Storyboard.storyboard; sourceTree = "<group>"; };
+		843B91761C8A14C900DBD306 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Storyboard.strings; sourceTree = "<group>"; };
+		843B91771C8A1CCE00DBD306 /* Setting+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Setting+Create.h"; sourceTree = "<group>"; };
+		843B91781C8A1CCE00DBD306 /* Setting+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Setting+Create.m"; sourceTree = "<group>"; };
 		8455DFBD1ADF2BD8003C7BC8 /* Hosted.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Hosted.plist; sourceTree = "<group>"; };
 		845AA1B21B44245100945856 /* CertificatesTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificatesTVC.h; sourceTree = "<group>"; };
 		845AA1B31B44245100945856 /* CertificatesTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificatesTVC.m; sourceTree = "<group>"; };
@@ -226,8 +235,6 @@
 		846FFA5C1B420938001482A6 /* FriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendTableViewCell.h; sourceTree = "<group>"; };
 		846FFA5D1B420938001482A6 /* FriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendTableViewCell.m; sourceTree = "<group>"; };
 		8474B15319A8CB7D00427427 /* Model 7.3.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.1.xcdatamodel"; sourceTree = "<group>"; };
-		8479EEB318E4289E00923B24 /* Setting+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Setting+Create.h"; path = "../../Setting+Create.h"; sourceTree = "<group>"; };
-		8479EEB418E4289E00923B24 /* Setting+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Setting+Create.m"; path = "../../Setting+Create.m"; sourceTree = "<group>"; };
 		847F8B5719295C65003876D4 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		84856A8B1BD6201800621533 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		848794B119A6234B00DF56EB /* Model 7.3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.xcdatamodel"; sourceTree = "<group>"; };
@@ -319,16 +326,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		843817ED1C38654A00CE14EE /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				843817FD1C386B7E00CE14EE /* Foundation.framework in Frameworks */,
-				843817FC1C386A8700CE14EE /* CFNetwork.framework in Frameworks */,
-				66DEC6662040441D82919024 /* libPods-OwnTracksTests.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		84D3072A1ACD644500FACB9E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -368,7 +365,6 @@
 				84D307301ACD644500FACB9E /* OwnTracksToday */,
 				843635741AE95D6000157D66 /* OwnTracks WatchKit Extension */,
 				843635821AE95D6100157D66 /* OwnTracks WatchKit App */,
-				843817F11C38654A00CE14EE /* OwnTracksTests */,
 				8411B82A189FDB140019D2D6 /* Frameworks */,
 				8411B829189FDB140019D2D6 /* Products */,
 				189E1018F339C35357B32B12 /* Pods */,
@@ -382,7 +378,6 @@
 				84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */,
 				843635731AE95D6000157D66 /* OwnTracks WatchKit Extension.appex */,
 				8436357E1AE95D6000157D66 /* OwnTracks WatchKit App.app */,
-				843817F01C38654A00CE14EE /* OwnTracksTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -422,8 +417,6 @@
 				8411B83D189FDB140019D2D6 /* OwnTracksAppDelegate.m */,
 				846FFA431B402A1F001482A6 /* OwnTracking.h */,
 				846FFA441B402A1F001482A6 /* OwnTracking.m */,
-				8435A24D1BEF824900D2BF33 /* AppleIncRootCertificate.cer */,
-				8435A24F1BEFAC0800D2BF33 /* AppleComputerRootCertificate.cer */,
 				84B739781A65629200B103F4 /* LocationManager.h */,
 				84B739791A65629200B103F4 /* LocationManager.m */,
 				8411B88C189FE9940019D2D6 /* Connection.h */,
@@ -442,6 +435,7 @@
 		8411B834189FDB140019D2D6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				841D1A221C8AF70900DC5765 /* Localizable.strings */,
 				8411B8AE189FEB790019D2D6 /* Location.gpx */,
 				8411B862189FDD300019D2D6 /* OwnTracks.entitlements */,
 				8411B835189FDB140019D2D6 /* OwnTracks-Info.plist */,
@@ -483,8 +477,8 @@
 				846FFA5A1B4196D0001482A6 /* Waypoint+Create.m */,
 				846FFA501B416CD6001482A6 /* Region+Create.h */,
 				846FFA511B416CD6001482A6 /* Region+Create.m */,
-				8479EEB318E4289E00923B24 /* Setting+Create.h */,
-				8479EEB418E4289E00923B24 /* Setting+Create.m */,
+				843B91771C8A1CCE00DBD306 /* Setting+Create.h */,
+				843B91781C8A1CCE00DBD306 /* Setting+Create.m */,
 				8411B868189FE1ED0019D2D6 /* Friend+Create.h */,
 				8411B869189FE1ED0019D2D6 /* Friend+Create.m */,
 				8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */,
@@ -524,6 +518,7 @@
 		843635751AE95D6000157D66 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				841D1A331C8AFF9400DC5765 /* Localizable.strings */,
 				843635761AE95D6000157D66 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -545,15 +540,6 @@
 				843635841AE95D6100157D66 /* Info.plist */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		843817F11C38654A00CE14EE /* OwnTracksTests */ = {
-			isa = PBXGroup;
-			children = (
-				843817F21C38654A00CE14EE /* OwnTracksTests.m */,
-				843817F41C38654A00CE14EE /* Info.plist */,
-			);
-			path = OwnTracksTests;
 			sourceTree = "<group>";
 		};
 		846FFA1A1B401DB4001482A6 /* Colors */ = {
@@ -582,7 +568,7 @@
 				84A1737A1B428F0600CCB7D0 /* Friends */,
 				84A1737B1B428F3600CCB7D0 /* Regions */,
 				84A1737C1B428F3E00CCB7D0 /* Settings */,
-				8411B895189FEAE60019D2D6 /* Storyboard.storyboard */,
+				843B91741C8A14BF00DBD306 /* Storyboard.storyboard */,
 				8404876C1C53872700569C79 /* FeaturedContent */,
 				842610391ACFE67B00FE1A03 /* Launch Screen.xib */,
 				8411B842189FDB140019D2D6 /* Images.xcassets */,
@@ -647,6 +633,7 @@
 		84D307311ACD644500FACB9E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				841D1A2E1C8AFF8000DC5765 /* Localizable.strings */,
 				84D307321ACD644500FACB9E /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -710,26 +697,6 @@
 			productReference = 8436357E1AE95D6000157D66 /* OwnTracks WatchKit App.app */;
 			productType = "com.apple.product-type.application.watchapp";
 		};
-		843817EF1C38654A00CE14EE /* OwnTracksTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 843817F71C38654A00CE14EE /* Build configuration list for PBXNativeTarget "OwnTracksTests" */;
-			buildPhases = (
-				A5376D3B49CC4D4EBF0C1486 /* Check Pods Manifest.lock */,
-				843817EC1C38654A00CE14EE /* Sources */,
-				843817ED1C38654A00CE14EE /* Frameworks */,
-				843817EE1C38654A00CE14EE /* Resources */,
-				912F81D9BB4349FEDC00D9D8 /* Embed Pods Frameworks */,
-				BB90B5D8F9D05066CC82F5E4 /* Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = OwnTracksTests;
-			productName = OwnTracksTests;
-			productReference = 843817F01C38654A00CE14EE /* OwnTracksTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		84D3072C1ACD644500FACB9E /* OwnTracksToday */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84D3073D1ACD644600FACB9E /* Build configuration list for PBXNativeTarget "OwnTracksToday" */;
@@ -790,9 +757,6 @@
 						CreatedOnToolsVersion = 6.3;
 						DevelopmentTeam = C652JFWU23;
 					};
-					843817EF1C38654A00CE14EE = {
-						CreatedOnToolsVersion = 7.2;
-					};
 					84D3072C1ACD644500FACB9E = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = C652JFWU23;
@@ -811,6 +775,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = 8411B81F189FDB140019D2D6;
 			productRefGroup = 8411B829189FDB140019D2D6 /* Products */;
@@ -821,7 +786,6 @@
 				84D3072C1ACD644500FACB9E /* OwnTracksToday */,
 				843635721AE95D6000157D66 /* OwnTracks WatchKit Extension */,
 				8436357D1AE95D6000157D66 /* OwnTracks WatchKit App */,
-				843817EF1C38654A00CE14EE /* OwnTracksTests */,
 			);
 		};
 /* End PBXProject section */
@@ -832,9 +796,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				846FFA161B4013BB001482A6 /* Colors.plist in Resources */,
+				841D1A241C8AF70900DC5765 /* Localizable.strings in Resources */,
 				8479EEB718E4529900923B24 /* Settings.plist in Resources */,
-				8411B896189FEAE60019D2D6 /* Storyboard.storyboard in Resources */,
-				8435A2501BEFAC0800D2BF33 /* AppleComputerRootCertificate.cer in Resources */,
+				843B91721C8A14BF00DBD306 /* Storyboard.storyboard in Resources */,
 				845AA1BD1B4846AF00945856 /* OwnTracks-320.png in Resources */,
 				8411B843189FDB140019D2D6 /* Images.xcassets in Resources */,
 				8455DFBE1ADF2BD8003C7BC8 /* Hosted.plist in Resources */,
@@ -842,7 +806,6 @@
 				845AA1BC1B4846AF00945856 /* OwnTracks-64.png in Resources */,
 				8411B8E1189FEB790019D2D6 /* Location.gpx in Resources */,
 				845AA1BB1B4846AF00945856 /* OwnTracks-29.png in Resources */,
-				8435A24E1BEF824900D2BF33 /* AppleIncRootCertificate.cer in Resources */,
 				8426103A1ACFE67B00FE1A03 /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -852,6 +815,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8436357B1AE95D6000157D66 /* Images.xcassets in Resources */,
+				841D1A351C8AFF9400DC5765 /* Localizable.strings in Resources */,
 				8436357F1AE95D6100157D66 /* OwnTracks WatchKit App.app in Resources */,
 				842DFBC91AEE6F46000F4BA6 /* PushNotificationPayload.apns in Resources */,
 			);
@@ -866,18 +830,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		843817EE1C38654A00CE14EE /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		84D3072B1ACD644500FACB9E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				84D307371ACD644500FACB9E /* MainInterface.storyboard in Resources */,
+				841D1A301C8AFF8000DC5765 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -899,21 +857,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OwnTracks/Pods-OwnTracks-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		912F81D9BB4349FEDC00D9D8 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OwnTracksTests/Pods-OwnTracksTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		91A94BEF7F5441F8C95B188E /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -927,36 +870,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A5376D3B49CC4D4EBF0C1486 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		BB90B5D8F9D05066CC82F5E4 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OwnTracksTests/Pods-OwnTracksTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CA1576B396DD314B90121039 /* Check Pods Manifest.lock */ = {
@@ -995,6 +908,7 @@
 				8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */,
 				846FFA5E1B420938001482A6 /* FriendTableViewCell.m in Sources */,
 				84001C141C78982800413E5B /* Queue+CoreDataProperties.m in Sources */,
+				843B91791C8A1CCE00DBD306 /* Setting+Create.m in Sources */,
 				8411B87F189FE35C0019D2D6 /* Model.xcdatamodeld in Sources */,
 				84E8A1891BB94782002518AA /* Setting+CoreDataProperties.m in Sources */,
 				84E8A19E1BB94B1D002518AA /* Setting.m in Sources */,
@@ -1007,7 +921,6 @@
 				846FFA521B416CD6001482A6 /* Region+Create.m in Sources */,
 				8411B88B189FE79B0019D2D6 /* CoreData.m in Sources */,
 				84001C151C78982800413E5B /* Queue.m in Sources */,
-				8479EEB518E4289E00923B24 /* Setting+Create.m in Sources */,
 				8411B878189FE1ED0019D2D6 /* Friend+Create.m in Sources */,
 				84E8A18A1BB94782002518AA /* Friend+CoreDataProperties.m in Sources */,
 				846FFA4F1B40C13C001482A6 /* NavigationController.m in Sources */,
@@ -1032,14 +945,6 @@
 				843635791AE95D6000157D66 /* InterfaceController.m in Sources */,
 				84D113B51AEE0BF8005F8F4B /* SharedFriendsRC.m in Sources */,
 				842DFBC71AEE6F36000F4BA6 /* NotificationController.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		843817EC1C38654A00CE14EE /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				843817F31C38654A00CE14EE /* OwnTracksTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1071,16 +976,60 @@
 			isa = PBXVariantGroup;
 			children = (
 				8411B837189FDB140019D2D6 /* en */,
+				841D1A281C8AF7E900DC5765 /* Base */,
+				841D1A291C8AF7F000DC5765 /* de */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		841D1A221C8AF70900DC5765 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				841D1A231C8AF70900DC5765 /* en */,
+				841D1A251C8AF72000DC5765 /* Base */,
+				841D1A261C8AF7C600DC5765 /* de */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		841D1A2E1C8AFF8000DC5765 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				841D1A2F1C8AFF8000DC5765 /* Base */,
+				841D1A311C8AFF8400DC5765 /* en */,
+				841D1A321C8AFF8600DC5765 /* de */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		841D1A331C8AFF9400DC5765 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				841D1A341C8AFF9400DC5765 /* Base */,
+				841D1A361C8AFF9800DC5765 /* en */,
+				841D1A371C8AFF9900DC5765 /* de */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		843635851AE95D6100157D66 /* Interface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				843635861AE95D6100157D66 /* Base */,
+				841D1A2B1C8AFDB000DC5765 /* en */,
+				841D1A2D1C8AFDB100DC5765 /* de */,
 			);
 			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+		843B91741C8A14BF00DBD306 /* Storyboard.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				843B91731C8A14BF00DBD306 /* Base */,
+				843B91761C8A14C900DBD306 /* en */,
+				841D1A271C8AF7D800DC5765 /* de */,
+			);
+			name = Storyboard.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1320,43 +1269,6 @@
 			};
 			name = Release;
 		};
-		843817F81C38654A00CE14EE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CF39B1CE7CCB31CFAA68FDA0 /* Pods-OwnTracksTests.debug.xcconfig */;
-			buildSettings = {
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = OwnTracksTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.owntracks.OwnTracksTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		843817F91C38654A00CE14EE /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = AEE8A243C1DAB66463E99306 /* Pods-OwnTracksTests.release.xcconfig */;
-			buildSettings = {
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = OwnTracksTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.owntracks.OwnTracksTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		84D3073B1ACD644600FACB9E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1440,15 +1352,6 @@
 			buildConfigurations = (
 				843635911AE95D6100157D66 /* Debug */,
 				843635921AE95D6100157D66 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		843817F71C38654A00CE14EE /* Build configuration list for PBXNativeTarget "OwnTracksTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				843817F81C38654A00CE14EE /* Debug */,
-				843817F91C38654A00CE14EE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -53,10 +53,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     if (url) {
         if (self.tabBarController.selectedViewController != self.navigationController) {
-            self.navigationController.tabBarItem.badgeValue = @"!";
+            self.navigationController.tabBarItem.badgeValue = NSLocalizedString(@"!",
+                                                                                @"New featured content indicator");
         }
         if (external) {
-            [self.UIhtml loadHTMLString:[NSString stringWithFormat:@"opening url %@", url] baseURL:nil];
+            [self.UIhtml loadHTMLString:[NSString stringWithFormat:@"%@ %@",
+                                         NSLocalizedString(@"opening URL",
+                                                           @"temporary display while opening URL"),
+                                         url
+                                         ]
+                                baseURL:nil
+             ];
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
         } else {
             [self.UIhtml loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
@@ -64,11 +71,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     } else {
         if (content) {
             if (self.tabBarController.selectedViewController != self.navigationController) {
-                self.navigationController.tabBarItem.badgeValue = @"!";
+                self.navigationController.tabBarItem.badgeValue = NSLocalizedString(@"!",
+                                                                                    @"New featured content indicator");
             }
             [self.UIhtml loadHTMLString:content baseURL:nil];
         } else {
-            [self.UIhtml loadHTMLString:@"no content available" baseURL:nil];
+            [self.UIhtml loadHTMLString:NSLocalizedString(@"no content available",
+                                                          @"dummy for missing content")
+                                baseURL:nil];
             self.navigationController.tabBarItem.badgeValue = nil;
         }
     }
@@ -98,7 +108,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     DDLogVerbose(@"didFailLoadWithError %@", error);
-    [self.UIhtml loadHTMLString:[NSString stringWithFormat:@"webView didFailLoadWithError\n%@\n%@",
+    [self.UIhtml loadHTMLString:[NSString stringWithFormat:@"%@\n%@\n%@",
+                                 NSLocalizedString(@"webView didFailLoadWithError",
+                                                   @"webView didFailLoadWithError display"),
                                  error.localizedDescription,
                                  webView.request.URL.absoluteString]
                         baseURL:nil];

@@ -51,20 +51,44 @@
     switch ([LocationManager sharedInstance].monitoring) {
         case LocationMonitoringMove:
             [LocationManager sharedInstance].monitoring = LocationMonitoringSignificant;
-            [AlertView alert:@"Mode" message:@"significant changes mode enabled" dismissAfter:1];
+            [AlertView alert:NSLocalizedString(@"Mode",
+                                               @"Header of an alert message regarding monitoring mode")
+                     message:NSLocalizedString(@"significant changes mode enabled",
+                                               @"content of an alert message regarding monitoring mode")
+                dismissAfter:1
+             ];
             break;
+            
         case LocationMonitoringQuiet:
             [LocationManager sharedInstance].monitoring = LocationMonitoringMove;
-            [AlertView alert:@"Mode" message:@"move mode enabled" dismissAfter:1];
+            [AlertView alert:NSLocalizedString(@"Mode",
+                                               @"Header of an alert message regarding monitoring mode")
+                     message:NSLocalizedString(@"move mode enabled",
+                                               @"content of an alert message regarding monitoring mode")
+                dismissAfter:1
+             ];
             break;
+            
         case LocationMonitoringManual:
             [LocationManager sharedInstance].monitoring = LocationMonitoringQuiet;
-            [AlertView alert:@"Mode" message:@"quite mode enabled" dismissAfter:1];
+            [AlertView alert:NSLocalizedString(@"Mode",
+                                               @"Header of an alert message regarding monitoring mode")
+                     message:NSLocalizedString(@"quite mode enabled",
+                                               @"content of an alert message regarding monitoring mode")
+                dismissAfter:1
+             ];
             break;
+            
         case LocationMonitoringSignificant:
         default:
             [LocationManager sharedInstance].monitoring = LocationMonitoringManual;
-            [AlertView alert:@"Mode" message:@"manual mode enabled" dismissAfter:1];
+            [AlertView alert:NSLocalizedString(@"Mode",
+                                               @"Header of an alert message regarding monitoring mode")
+                     message:NSLocalizedString(@"manual mode enabled",
+                                               @"content of an alert message regarding monitoring mode")
+                dismissAfter:1
+             ];
+
             break;
     }
     [Settings setInt:[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"];

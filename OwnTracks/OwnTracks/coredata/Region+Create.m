@@ -66,18 +66,6 @@
 {
     CLRegion *region = nil;
     
-    // a location qualifies being a region if
-    //
-    // it has a remark which is not zero length
-    //
-    // it either has
-    // a radius > 0 set: then it is a circular region
-    //
-    // a uuid: then it is treated a beacon region
-    //
-    
-    //NSLog(@"CLregion %@ %g %g %@ %@ %@ %@", self.name, self.coordinate.latitude, self.coordinate.longitude, self.radius, self.uuid, self.major, self.minor);
-    
     if (self.name && self.name.length) {
         
         if ([self.radius doubleValue] > 0) {

@@ -199,7 +199,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex
      forChangeType:(NSFetchedResultsChangeType)type {
-    DDLogVerbose(@"didChangeSection atIndex:%lu forChangeType:%lu ", (unsigned long)sectionIndex, (unsigned long)type);
+    DDLogVerbose(@"didChangeSection atIndex:%lu forChangeType:%lu ",
+                 (unsigned long)sectionIndex,
+                 (unsigned long)type
+                 );
     switch(type) {
         case NSFetchedResultsChangeInsert:
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
