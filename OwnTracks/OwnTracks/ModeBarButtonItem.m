@@ -73,7 +73,7 @@
             [LocationManager sharedInstance].monitoring = LocationMonitoringQuiet;
             [AlertView alert:NSLocalizedString(@"Mode",
                                                @"Header of an alert message regarding monitoring mode")
-                     message:NSLocalizedString(@"quite mode enabled",
+                     message:NSLocalizedString(@"quiet mode enabled",
                                                @"content of an alert message regarding monitoring mode")
                 dismissAfter:1
              ];
