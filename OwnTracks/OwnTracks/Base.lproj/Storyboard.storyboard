@@ -596,10 +596,12 @@
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="clip" numberOfLines="4" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="apt-Il-Ih4">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="clip" numberOfLines="5" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="apt-Il-Ih4">
                                             <rect key="frame" x="60" y="29" width="185" height="50"/>
                                             <string key="text">Street Town
-Country</string>
+Country
+def
+xyz</string>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="13"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -808,18 +810,25 @@ Country</string>
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="place abc defasf 234, 1234 abcdde asdfa lk, asfda 33 aa" translatesAutoresizingMaskIntoConstraints="NO" id="VjN-rg-5pV">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" minimumFontSize="4" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1PK-JM-nD2">
                                                     <rect key="frame" x="20" y="8" width="280" height="71"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textView>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="71" id="5DD-4b-V12"/>
+                                                    </constraints>
+                                                    <string key="text">Street
+1
+2
+3
+4</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="VjN-rg-5pV" firstAttribute="leading" secondItem="8dc-N3-61v" secondAttribute="leading" constant="20" symbolic="YES" id="J1r-qZ-MT3"/>
-                                                <constraint firstAttribute="trailing" secondItem="VjN-rg-5pV" secondAttribute="trailing" constant="20" symbolic="YES" id="Y9g-ga-cjL"/>
-                                                <constraint firstAttribute="bottom" secondItem="VjN-rg-5pV" secondAttribute="bottom" constant="8" id="gF7-uh-ucI"/>
-                                                <constraint firstItem="VjN-rg-5pV" firstAttribute="top" secondItem="8dc-N3-61v" secondAttribute="top" constant="8" id="vHr-Ip-bTj"/>
+                                                <constraint firstItem="1PK-JM-nD2" firstAttribute="leading" secondItem="8dc-N3-61v" secondAttribute="leading" constant="20" symbolic="YES" id="SOh-Xi-TuQ"/>
+                                                <constraint firstItem="1PK-JM-nD2" firstAttribute="centerY" secondItem="8dc-N3-61v" secondAttribute="centerY" id="gyV-jf-ane"/>
+                                                <constraint firstAttribute="trailing" secondItem="1PK-JM-nD2" secondAttribute="trailing" constant="20" symbolic="YES" id="reH-Z0-dc5"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -966,7 +975,7 @@ Country</string>
                     <connections>
                         <outlet property="UIcoordinate" destination="jwK-F1-3iE" id="Tnh-hA-xx9"/>
                         <outlet property="UIinfo" destination="Ikm-SR-MCD" id="RK4-H5-UBA"/>
-                        <outlet property="UIplace" destination="VjN-rg-5pV" id="H7Z-M1-yyx"/>
+                        <outlet property="UIplace" destination="1PK-JM-nD2" id="nt4-r6-yA8"/>
                         <outlet property="UItimestamp" destination="HVH-Pt-DXp" id="CTa-w1-7qb"/>
                         <outlet property="UItopic" destination="wKK-9Q-BMU" id="XP9-gS-sUT"/>
                     </connections>

@@ -1,10 +1,12 @@
-OnTracks iOS App Release Notes
+OwnTracks iOS App Release Notes
 ===================================
 
 ## OwnTracks 9.1.1
->Release date: 2015-03-05
+>Release date: 2015-03-17
 
 * [NEW] Localization support 
+* [FIX] Font issue on Friends geo-locator closes #391
+* [FIX] Transition event without desc displays (null) closes #390
 
 ## OwnTracks 9.1.0
 >Release date: 2015-03-03

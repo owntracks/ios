@@ -18,8 +18,8 @@
 
 @interface WaypointTVC ()
 @property (weak, nonatomic) IBOutlet UITextField *UIcoordinate;
+@property (weak, nonatomic) IBOutlet UILabel *UIplace;
 @property (weak, nonatomic) IBOutlet UITextField *UItimestamp;
-@property (weak, nonatomic) IBOutlet UITextView *UIplace;
 @property (weak, nonatomic) IBOutlet UITextField *UItopic;
 @property (weak, nonatomic) IBOutlet UITextField *UIinfo;
 

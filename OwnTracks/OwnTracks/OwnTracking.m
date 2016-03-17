@@ -122,10 +122,17 @@ static OwnTracking *theInstance = nil;
                         } else if ([dictionary[@"_type"] isEqualToString:@"transition"]) {
                             NSString *type = dictionary[@"t"];
                             if (!type || ![type isEqualToString:@"b"]) {
+                                NSString *tid = dictionary[@"tid"];
+                                NSString *event = dictionary[@"event"];
+                                NSString *desc = dictionary[@"desc"];
+                                if (!desc) {
+                                    desc = NSLocalizedString(@"a region",
+                                                             @"name of an unknown or hidden region");
+                                }
                                 NSString *message = [NSString stringWithFormat:@"%@ %@s %@",
-                                                     dictionary[@"tid"],
-                                                     dictionary[@"event"],
-                                                     dictionary[@"desc"]];
+                                                     tid,
+                                                     event,
+                                                     desc];
                                 
                                 UILocalNotification *notification = [[UILocalNotification alloc] init];
                                 notification.alertBody = message;
