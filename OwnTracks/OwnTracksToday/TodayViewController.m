@@ -86,7 +86,7 @@
             double distance = [friend[@"distance"] doubleValue];
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.f %@",
                                          distance / 1000.0,
-                                         NSLocalizedString(@"skmec",
+                                         NSLocalizedString(@"km",
                                                            @"short for kilometer on Today")
                                          ];
             break;
