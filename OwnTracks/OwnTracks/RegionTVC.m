@@ -95,7 +95,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     self.UIlatitude.text = [NSString stringWithFormat:@"%.14g", [self.editRegion.lat doubleValue]];
     self.UIlongitude.text = [NSString stringWithFormat:@"%.14g", [self.editRegion.lon doubleValue]];
-    self.UIradius.text = [NSString stringWithFormat:@"%.0g", [self.editRegion.radius doubleValue]];
+    self.UIradius.text = [NSString stringWithFormat:@"%.14g", [self.editRegion.radius doubleValue]];
     
     self.UIuuid.text = self.editRegion.uuid;
     DDLogVerbose(@"UImajor NSNumber %@", self.editRegion.major);
