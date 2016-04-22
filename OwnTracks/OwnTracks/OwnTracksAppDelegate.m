@@ -18,6 +18,65 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static const DDLogLevel ddLogLevel = DDLogLevelError;
 
+@interface NSString (safe)
+- (BOOL)saveEqual:(NSString *)aString;
++ (NSString *)saveCopy:(NSString *)aString;
+@end
+
+@implementation NSString (safe)
+
+- (BOOL)saveEqual:(NSString *)aString {
+    if (aString) {
+        if ([aString isKindOfClass:[NSString class]]) {
+            return [self isEqualToString:aString];
+        }
+    }
+    return false;
+}
+
++ (NSString *)saveCopy:(NSString *)aString {
+    if (aString) {
+        if ([aString isKindOfClass:[NSString class]]) {
+            return aString;
+        }
+    }
+    return nil;
+}
+
+@end
+
+@interface NSNumber (safe)
++ (NSNumber *)saveCopy:(NSNumber *)aNumber;
+@end
+
+@implementation NSNumber (safe)
+
++ (NSNumber *)saveCopy:(NSNumber *)aNumber {
+    if (aNumber) {
+        if ([aNumber isKindOfClass:[NSNumber class]]) {
+            return aNumber;
+        }
+    }
+    return nil;
+}
+
+@end@interface NSDictionary (safe)
++ (NSDictionary *)saveCopy:(NSDictionary *)aDictionary;
+@end
+
+@implementation NSDictionary (safe)
+
++ (NSDictionary *)saveCopy:(NSDictionary *)aDictionary {
+    if (aDictionary) {
+        if ([aDictionary isKindOfClass:[NSDictionary class]]) {
+            return aDictionary;
+        }
+    }
+    return nil;
+}
+
+@end
+
 @interface OwnTracksAppDelegate()
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
 @property (strong, nonatomic) void (^completionHandler)(UIBackgroundFetchResult);
@@ -28,14 +87,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 @property (strong, nonatomic) NSManagedObjectContext *queueManagedObjectContext;
 @end
 
-#define BUY_OPTION 0 // modify to 1 if you want to enable auto renewing subscription buying
-
 @implementation OwnTracksAppDelegate
 
 #pragma ApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+#ifdef DEBUG
+    [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelVerbose];
+#endif
+    [DDLog addLogger:[DDASLLogger sharedInstance] withLevel:DDLogLevelWarning];
+
+
     self.backgroundTask = UIBackgroundTaskInvalid;
     self.completionHandler = nil;
     
@@ -49,27 +111,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                                                  categories:nil];
         [application registerUserNotificationSettings:settings];
     }
-    
+
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      DDLogVerbose(@"UIApplicationUserDidTakeScreenshotNotification");
+                                                  }];
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-#ifdef DEBUG
-    [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelVerbose];
-#endif
-    [DDLog addLogger:[DDASLLogger sharedInstance] withLevel:DDLogLevelWarning];
-    
     DDLogVerbose(@"didFinishLaunchingWithOptions");
-    
-#if BUY_OPTION == 1
-    if ([[Subscriptions sharedInstance].recording boolValue]) {
-        // Start Subscriptions in mode 1 only
-    }
-#endif
-    
-    self.coreData = [[CoreData alloc] init];
-    
+
     UIDocumentState state;
     
     do {
@@ -530,30 +585,34 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
         if (json && [json isKindOfClass:[NSDictionary class]]) {
             NSDictionary *dictionary = json;
-            if ([dictionary[@"_type"] isEqualToString:@"cmd"]) {
-                DDLogVerbose(@"msg received cmd:%@", dictionary[@"action"]);
+            if ([@"cmd" saveEqual:dictionary[@"_type"]]) {
 #ifdef DEBUG
                 if (true /* dirty work around not being able to set simulator .otrc */) {
 #else
                 if ([Settings boolForKey:@"cmd_preference"]) {
 #endif
-                    if ([dictionary[@"action"] isEqualToString:@"dump"]) {
+                    if ([@"dump" saveEqual:dictionary[@"action"]]) {
                         [self dump];
-                    } else if ([dictionary[@"action"] isEqualToString:@"reportLocation"]) {
+
+                    } else if ([@"reportLocation" saveEqual:dictionary[@"action"]]) {
                         if ([LocationManager sharedInstance].monitoring == LocationMonitoringSignificant ||
                             [LocationManager sharedInstance].monitoring == LocationMonitoringMove ||
                             [Settings boolForKey:@"allowremotelocation_preference"]) {
                             [self publishLocation:[LocationManager sharedInstance].location trigger:@"r"];
                         }
-                    } else if ([dictionary[@"action"] isEqualToString:@"reportSteps"]) {
-                        [self stepsFrom:dictionary[@"from"] to:dictionary[@"to"]];
-                    } else if ([dictionary[@"action"] isEqualToString:@"waypoints"]) {
+
+                    } else if ([@"reportSteps" saveEqual:dictionary[@"action"]]) {
+                        [self stepsFrom:[NSNumber saveCopy:dictionary[@"from"]]
+                                     to:[NSNumber saveCopy:dictionary[@"to"]]];
+
+                    } else if ([@"waypoints" saveEqual:dictionary[@"action"]]) {
                         [self waypoints];
-                    } else if ([dictionary[@"action"] isEqualToString:@"action"]) {
-                        NSString *content = [dictionary objectForKey:@"content"];
-                        NSString *url = [dictionary objectForKey:@"url"];
-                        NSString *notificationMessage = [dictionary objectForKey:@"notification"];
-                        NSNumber *external = [dictionary objectForKey:@"extern"];
+
+                    } else if ([@"action" saveEqual:dictionary[@"action"]]) {
+                        NSString *content = [NSString saveCopy:[dictionary objectForKey:@"content"]];
+                        NSString *url = [NSString saveCopy:[dictionary objectForKey:@"url"] ];
+                        NSString *notificationMessage = [NSString saveCopy:[dictionary objectForKey:@"notification"]];
+                        NSNumber *external = [NSNumber saveCopy:[dictionary objectForKey:@"extern"]];
 
                         [Settings setString:content forKey:SETTINGS_ACTION];
                         [Settings setString:url forKey:SETTINGS_ACTIONURL];
@@ -577,8 +636,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                         } else {
                             self.action = nil;
                         }
-                    } else if ([dictionary[@"action"] isEqualToString:@"setWaypoints"]) {
-                        NSDictionary *payload = dictionary[@"payload"];
+
+                    } else if ([@"setWaypoints" saveEqual:dictionary[@"action"]]) {
+                        NSDictionary *payload = [NSDictionary saveCopy:dictionary[@"payload"]];
                         [Settings waypointsFromDictionary:payload];
                     } else {
                         DDLogVerbose(@"unknown action %@", dictionary[@"action"]);

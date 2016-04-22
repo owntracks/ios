@@ -11,5 +11,6 @@
 @interface Setting (Create)
 + (Setting *)existsSettingWithKey:(NSString *)key inManagedObjectContext:(NSManagedObjectContext *)context;
 + (Setting *)settingWithKey:(NSString *)key inManagedObjectContext:(NSManagedObjectContext *)context;
++ (NSArray *)allSettingsInManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end

@@ -60,7 +60,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                           DDLogVerbose(@"UIApplicationWillTerminateNotification");
                                                           [CoreData saveContext];
                                                       }];
-
+    while (!theManagedObjectContext) {
+        DDLogVerbose(@"Waiting for open");
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    }
     return self;
 }
 
@@ -77,6 +80,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 + (NSManagedObjectContext *)theManagedObjectContext
 {
+    if (!theManagedObjectContext) {
+        [[CoreData alloc] init];
+    }
     return theManagedObjectContext;
 }
 
@@ -92,6 +98,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             if (![context save:&error]) {
                 NSString *message = [NSString stringWithFormat:@"%@ %@", error.localizedDescription, error.userInfo];
                 DDLogError(@"managedObjectContext save error: %@", message);
+                if (context.parentContext) {
+                    [CoreData saveContext:context.parentContext];
+                }
             }
         }
     }

@@ -1,5 +1,5 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ABStaticTableViewController" "${PODS_ROOT}/Headers/Public/CocoaLumberjack" "${PODS_ROOT}/Headers/Public/MQTTClient" "${PODS_ROOT}/Headers/Public/QRCodeReaderViewController" "${PODS_ROOT}/Headers/Public/libsodium"
 OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/ABStaticTableViewController" -isystem "${PODS_ROOT}/Headers/Public/CocoaLumberjack" -isystem "${PODS_ROOT}/Headers/Public/MQTTClient" -isystem "${PODS_ROOT}/Headers/Public/QRCodeReaderViewController" -isystem "${PODS_ROOT}/Headers/Public/libsodium"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"ABStaticTableViewController" -l"Pods-CocoaLumberjack" -l"Pods-MQTTClient" -l"QRCodeReaderViewController" -l"libsodium" -framework "AVFoundation"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"ABStaticTableViewController" -l"CocoaLumberjack" -l"MQTTClient" -l"QRCodeReaderViewController" -l"libsodium" -framework "AVFoundation"
 PODS_ROOT = ${SRCROOT}/Pods

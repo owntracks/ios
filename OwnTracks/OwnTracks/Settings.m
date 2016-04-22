@@ -20,7 +20,7 @@
 @end
 
 static SettingsDefaults *defaults;
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 @implementation SettingsDefaults
 + (SettingsDefaults *)theDefaults {
@@ -43,6 +43,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         self.publicDefaults = [NSDictionary dictionaryWithContentsOfURL:publicPlistURL];
         self.hostedDefaults = [NSDictionary dictionaryWithContentsOfURL:hostedPlistURL];
     }
+
     return self;
 }
 
@@ -73,7 +74,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             NSString *string;
             NSObject *object;
             int importMode = 0;
-            
+
+            for (NSString *key in [dictionary allKeys]) {
+                if ([key rangeOfString:@"pl"].location == 0) {
+                    object = dictionary[key];
+                    if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                         forKey:key];
+                }
+            }
+
             object = dictionary[@"mode"];
             if (object) {
                 NSString *string = [NSString stringWithFormat:@"%@", object];
@@ -278,7 +287,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 + (NSError *)waypointsFromDictionary:(NSDictionary *)dictionary {
-    if (dictionary) {
+    if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
         for (NSString *key in [dictionary allKeys]) {
             DDLogVerbose(@"Waypoints %@:%@", key, dictionary[key]);
         }
@@ -374,6 +383,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     dict[@"tid"] =                  [Settings stringOrZeroForKey:@"trackerid_preference"];
     dict[@"monitoring"] =           @([Settings intForKey:@"monitoring_preference"]);
     dict[@"waypoints"] =            [Settings waypointsToArray];
+    for (Setting *setting in [Setting allSettingsInManagedObjectContext:[CoreData theManagedObjectContext]]) {
+        NSString *key = setting.key;
+        if ([key rangeOfString:@"pl"].location == 0) {
+            dict[key] = setting.value;
+        }
+    }
 
     switch ([Settings intForKey:@"mode"]) {
         case MODE_PRIVATE:
@@ -413,7 +428,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             dict[@"allowinvalidcerts"] =         @([Settings boolForKey:@"allowinvalidcerts"]);
             dict[@"validatecertificatechain"] =         @([Settings boolForKey:@"validatecertificatechain"]);
             dict[@"validatedomainname"] =         @([Settings boolForKey:@"validatedomainname"]);
-            
+
             break;
 
         case MODE_HTTP:
@@ -819,3 +834,4 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 @end
+

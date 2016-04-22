@@ -46,4 +46,16 @@
     return setting;
 }
 
++ (NSArray *)allSettingsInManagedObjectContext:(NSManagedObjectContext *)context {
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Setting"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"key" ascending:YES]];
+
+    NSError *error = nil;
+
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+
+    return matches;
+}
+
+
 @end

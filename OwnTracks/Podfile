@@ -11,7 +11,3 @@ pod 'libsodium', '~> 1.0'
 target 'OwnTracks' do
 end
 
-target 'OwnTracksTests' do
-	platform :ios, '9.2'
-	pod 'CocoaLumberjack'
-end

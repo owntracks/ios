@@ -38,7 +38,6 @@
 		841D1A301C8AFF8000DC5765 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841D1A2E1C8AFF8000DC5765 /* Localizable.strings */; };
 		841D1A351C8AFF9400DC5765 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841D1A331C8AFF9400DC5765 /* Localizable.strings */; };
 		8422AF681AF825C7008932A2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8422AF671AF825C7008932A2 /* SystemConfiguration.framework */; };
-		8426103A1ACFE67B00FE1A03 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842610391ACFE67B00FE1A03 /* Launch Screen.xib */; };
 		842DFBC71AEE6F36000F4BA6 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842DFBC61AEE6F36000F4BA6 /* NotificationController.m */; };
 		842DFBC91AEE6F46000F4BA6 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = 842DFBC81AEE6F46000F4BA6 /* PushNotificationPayload.apns */; };
 		843635791AE95D6000157D66 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843635781AE95D6000157D66 /* InterfaceController.m */; };
@@ -53,6 +52,8 @@
 		845AA1BB1B4846AF00945856 /* OwnTracks-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1B81B4846AF00945856 /* OwnTracks-29.png */; };
 		845AA1BC1B4846AF00945856 /* OwnTracks-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1B91B4846AF00945856 /* OwnTracks-64.png */; };
 		845AA1BD1B4846AF00945856 /* OwnTracks-320.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1BA1B4846AF00945856 /* OwnTracks-320.png */; };
+		84664E9D1CC83A38002123EC /* NSBundle+privateLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 84664E9C1CC83A38002123EC /* NSBundle+privateLocalization.m */; };
+		84664E9E1CC8B8E0002123EC /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84664EA01CC8B8E0002123EC /* Launch Screen.xib */; };
 		846FFA161B4013BB001482A6 /* Colors.plist in Resources */ = {isa = PBXBuildFile; fileRef = 846FFA151B4013BB001482A6 /* Colors.plist */; };
 		846FFA191B401A4E001482A6 /* UIColor+WithName.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA181B401A4E001482A6 /* UIColor+WithName.m */; };
 		846FFA451B402A1F001482A6 /* OwnTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA441B402A1F001482A6 /* OwnTracking.m */; };
@@ -193,7 +194,6 @@
 		841D1A361C8AFF9800DC5765 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		841D1A371C8AFF9900DC5765 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8422AF671AF825C7008932A2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		842610391ACFE67B00FE1A03 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		842CA4CE1B3C76D000B7FF1C /* Model 8.1.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.5.xcdatamodel"; sourceTree = "<group>"; };
 		842DFBC51AEE6F36000F4BA6 /* NotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
 		842DFBC61AEE6F36000F4BA6 /* NotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
@@ -218,6 +218,11 @@
 		845AA1B81B4846AF00945856 /* OwnTracks-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-29.png"; sourceTree = "<group>"; };
 		845AA1B91B4846AF00945856 /* OwnTracks-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-64.png"; sourceTree = "<group>"; };
 		845AA1BA1B4846AF00945856 /* OwnTracks-320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-320.png"; sourceTree = "<group>"; };
+		84664E9B1CC83A38002123EC /* NSBundle+privateLocalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+privateLocalization.h"; sourceTree = "<group>"; };
+		84664E9C1CC83A38002123EC /* NSBundle+privateLocalization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+privateLocalization.m"; sourceTree = "<group>"; };
+		84664E9F1CC8B8E0002123EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Base.lproj/Launch Screen.xib"; sourceTree = "<group>"; };
+		84664EA21CC8B8E5002123EC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/Launch Screen.strings"; sourceTree = "<group>"; };
+		84664EA41CC8B8E7002123EC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/Launch Screen.strings"; sourceTree = "<group>"; };
 		846FFA151B4013BB001482A6 /* Colors.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Colors.plist; sourceTree = "<group>"; };
 		846FFA171B401A4E001482A6 /* UIColor+WithName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+WithName.h"; sourceTree = "<group>"; };
 		846FFA181B401A4E001482A6 /* UIColor+WithName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+WithName.m"; sourceTree = "<group>"; };
@@ -426,6 +431,8 @@
 				8455DFBD1ADF2BD8003C7BC8 /* Hosted.plist */,
 				8411B88F189FE9CE0019D2D6 /* Settings.h */,
 				8411B890189FE9CE0019D2D6 /* Settings.m */,
+				84664E9B1CC83A38002123EC /* NSBundle+privateLocalization.h */,
+				84664E9C1CC83A38002123EC /* NSBundle+privateLocalization.m */,
 				846FFA491B40A301001482A6 /* UI */,
 				8411B834189FDB140019D2D6 /* Supporting Files */,
 			);
@@ -570,7 +577,7 @@
 				84A1737C1B428F3E00CCB7D0 /* Settings */,
 				843B91741C8A14BF00DBD306 /* Storyboard.storyboard */,
 				8404876C1C53872700569C79 /* FeaturedContent */,
-				842610391ACFE67B00FE1A03 /* Launch Screen.xib */,
+				84664EA01CC8B8E0002123EC /* Launch Screen.xib */,
 				8411B842189FDB140019D2D6 /* Images.xcassets */,
 				846FFA1A1B401DB4001482A6 /* Colors */,
 			);
@@ -734,7 +741,7 @@
 								enabled = 1;
 							};
 							com.apple.InAppPurchase = {
-								enabled = 1;
+								enabled = 0;
 							};
 							com.apple.Keychain = {
 								enabled = 1;
@@ -806,7 +813,7 @@
 				845AA1BC1B4846AF00945856 /* OwnTracks-64.png in Resources */,
 				8411B8E1189FEB790019D2D6 /* Location.gpx in Resources */,
 				845AA1BB1B4846AF00945856 /* OwnTracks-29.png in Resources */,
-				8426103A1ACFE67B00FE1A03 /* Launch Screen.xib in Resources */,
+				84664E9E1CC8B8E0002123EC /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -905,6 +912,7 @@
 				8411B912189FEC070019D2D6 /* ViewController.m in Sources */,
 				84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */,
 				84E8A1881BB94782002518AA /* Location+CoreDataProperties.m in Sources */,
+				84664E9D1CC83A38002123EC /* NSBundle+privateLocalization.m in Sources */,
 				8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */,
 				846FFA5E1B420938001482A6 /* FriendTableViewCell.m in Sources */,
 				84001C141C78982800413E5B /* Queue+CoreDataProperties.m in Sources */,
@@ -1030,6 +1038,16 @@
 				841D1A271C8AF7D800DC5765 /* de */,
 			);
 			name = Storyboard.storyboard;
+			sourceTree = "<group>";
+		};
+		84664EA01CC8B8E0002123EC /* Launch Screen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84664E9F1CC8B8E0002123EC /* Base */,
+				84664EA21CC8B8E5002123EC /* en */,
+				84664EA41CC8B8E7002123EC /* de */,
+			);
+			name = "Launch Screen.xib";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
