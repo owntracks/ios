@@ -56,7 +56,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                                                   @"kABAuthorizationStatusRestricted")
                                                        delegate:nil
                                               cancelButtonTitle:NSLocalizedString(@"OK",
-                                                                                  @"Acknowledge the alert message")
+                                                                                  @"OK button title")
                                               otherButtonTitles:nil];
             [self.alertView show];
             break;
@@ -69,7 +69,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                                                   @"kABAuthorizationStatusDenied")
                                                        delegate:nil
                                               cancelButtonTitle:NSLocalizedString(@"OK",
-                                                                                  @"Acknowledge the alert message")
+                                                                                  @"OK button title")
                                               otherButtonTitles:nil];
             [self.alertView show];
             break;

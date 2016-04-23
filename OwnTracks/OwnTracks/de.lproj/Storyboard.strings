@@ -8,6 +8,9 @@
 /* Class = "UILabel"; text = "Parameters"; ObjectID = "1Lf-oi-0xo"; */
 "1Lf-oi-0xo.text" = "Parameters";
 
+/* Class = "UILabel"; text = "Street\n1\n2\n3\n4"; ObjectID = "1PK-JM-nD2"; */
+"1PK-JM-nD2.text" = "Street\n1\n2\n3\n4";
+
 /* Class = "UITextField"; placeholder = "secret"; ObjectID = "2FK-gv-e75"; */
 "2FK-gv-e75.placeholder" = "secret";
 
@@ -87,7 +90,7 @@
 "Gjb-Ud-8a8.headerTitle" = "OwnTracks -Your location companion";
 
 /* Class = "UITabBarItem"; title = "Regions"; ObjectID = "HB5-wo-JZx"; */
-"HB5-wo-JZx.title" = "Regionen";
+"HB5-wo-JZx.title" = "Regions";
 
 /* Class = "UITabBarItem"; title = "OwnTracks"; ObjectID = "HCO-pB-vNN"; */
 "HCO-pB-vNN.title" = "OwnTracks";
@@ -182,9 +185,6 @@
 /* Class = "UITextField"; placeholder = "major"; ObjectID = "UqU-7l-HX1"; */
 "UqU-7l-HX1.placeholder" = "major";
 
-/* Class = "UITextView"; text = "place abc defasf 234, 1234 abcdde asdfa lk, asfda 33 aa"; ObjectID = "VjN-rg-5pV"; */
-"VjN-rg-5pV.text" = "place abc defasf 234, 1234 abcdde asdfa lk, asfda 33 aa";
-
 /* Class = "UILabel"; text = "Name"; ObjectID = "WPX-rf-Obi"; */
 "WPX-rf-Obi.text" = "Name";
 
@@ -206,10 +206,8 @@
 /* Class = "UILabel"; text = "Host"; ObjectID = "a19-FN-Mwf"; */
 "a19-FN-Mwf.text" = "Host";
 
-/* Class = "UILabel"; text = "Street
-Town\nCountry"; ObjectID = "apt-Il-Ih4"; */
-"apt-Il-Ih4.text" = "Street
-Town\nCountry";
+/* Class = "UILabel"; text = "Street Town\nCountry\ndef\nxyz"; ObjectID = "apt-Il-Ih4"; */
+"apt-Il-Ih4.text" = "Street Town\nCountry\ndef\nxyz";
 
 /* Class = "UILabel"; text = "Mode"; ObjectID = "bAP-Sq-XeK"; */
 "bAP-Sq-XeK.text" = "Mode";
@@ -281,7 +279,7 @@ Town\nCountry";
 "lQx-Zr-z69.text" = "Secret encryption key";
 
 /* Class = "UITabBarItem"; title = "Friends"; ObjectID = "msF-bI-hEJ"; */
-"msF-bI-hEJ.title" = "Freunde";
+"msF-bI-hEJ.title" = "Friends";
 
 /* Class = "UITextField"; placeholder = "url"; ObjectID = "pD2-Zj-Toq"; */
 "pD2-Zj-Toq.placeholder" = "url";

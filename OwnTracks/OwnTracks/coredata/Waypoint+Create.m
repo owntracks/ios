@@ -38,9 +38,9 @@
     return [NSString stringWithFormat:@"%g,%g (%@%.0f%@)",
             [self.lat doubleValue],
             [self.lon doubleValue],
-            NSLocalizedString(@"±", @"Short for deviation as in (±3m)"),
+            NSLocalizedString(@"±", @"Short for deviation plus/minus"),
             [self.acc doubleValue],
-            NSLocalizedString(@"m", @"Short for meters as in (±3m)")
+            NSLocalizedString(@"m", @"Short for meters")
             ];
 }
 
@@ -54,10 +54,10 @@
     return [NSString stringWithFormat:@"%@%0.f%@ (%@%.0f%@) %0.f%@ %0.f%@",
             NSLocalizedString(@"✈︎", @"Short for altitude as in ✈︎1000m"),
             [self.alt doubleValue],
-            NSLocalizedString(@"m", @"Short for meters as in ✈︎1000m"),
-            NSLocalizedString(@"±", @"Short for deviation as in (±3m)"),
+            NSLocalizedString(@"m", @"Short for meters"),
+            NSLocalizedString(@"±", @"Short for deviation plus/minus"),
             [self.vac doubleValue],
-            NSLocalizedString(@"m", @"Short for meters as in (±3m)"),
+            NSLocalizedString(@"m", @"Short for meters"),
             [self.vel doubleValue],
             NSLocalizedString(@"km/h", @"Short for kilometers per hour as in 120km/h"),
             [self.cog doubleValue],

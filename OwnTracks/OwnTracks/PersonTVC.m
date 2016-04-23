@@ -103,7 +103,7 @@
         person = ABAddressBookGetPersonWithRecordID([Friend theABRef], [persons[indexPath.row] intValue]);
     }
     
-    cell.textLabel.text = [Friend nameOfPerson:person] ? [Friend nameOfPerson:person] : NSLocalizedString(@"unknown",
+    cell.textLabel.text = [Friend nameOfPerson:person] ? [Friend nameOfPerson:person] : NSLocalizedString(@"name unknown",
                                                                                                           @"displayed if a name is not known");
     cell.imageView.image = [Friend imageDataOfPerson:person] ?
         [UIImage imageWithData:[Friend imageDataOfPerson:person]] : [UIImage imageNamed:@"icon40"];

@@ -270,7 +270,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             return [self processFile:url];
         } else {
             self.processingMessage = [NSString stringWithFormat:@"%@ %@",
-                                      NSLocalizedString(@"unknown path in url",
+                                      NSLocalizedString(@"unknown scheme in url",
                                                         @"Display after entering an unknown scheme in url"),
                                       url.scheme];
             return FALSE;

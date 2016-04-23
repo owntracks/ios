@@ -36,7 +36,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                     message:message
                                                    delegate:nil
                                           cancelButtonTitle:interval ? nil :
-                                            NSLocalizedString(@"OK", @"Acknowledge the alert message")
+                                            NSLocalizedString(@"OK", @"OK button title")
                                           otherButtonTitles:nil];
         [self performSelectorOnMainThread:@selector(setup:) withObject:[NSNumber numberWithFloat:interval] waitUntilDone:NO];
     }

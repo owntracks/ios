@@ -81,7 +81,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 + (NSManagedObjectContext *)theManagedObjectContext
 {
     if (!theManagedObjectContext) {
-        [[CoreData alloc] init];
+        (void)[[CoreData alloc] init];
     }
     return theManagedObjectContext;
 }

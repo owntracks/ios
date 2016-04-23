@@ -73,7 +73,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                @(state_closed):     NSLocalizedString(@"closed",        @"description connection closed state")
                };
     
-    NSString *stateName = NSLocalizedString(@"unknown", @"description connection unknown state");
+    NSString *stateName = NSLocalizedString(@"unknown state", @"description connection unknown state");
     if (delegate.connectionState) {
         stateName = [states objectForKey:delegate.connectionState];
         if (!stateName) {
@@ -93,9 +93,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         self.UILocation.text = [NSString stringWithFormat:@"%g,%g (%@%.0f%@)",
                                 [LocationManager sharedInstance].location.coordinate.latitude,
                                 [LocationManager sharedInstance].location.coordinate.longitude,
-                                NSLocalizedString(@"±", @"Short for deviation as in (±3m)"),
+                                NSLocalizedString(@"±", @"Short for deviation plus/minus"),
                                 [LocationManager sharedInstance].location.horizontalAccuracy,
-                                NSLocalizedString(@"m", @"Short for meters as in (±3m)")
+                                NSLocalizedString(@"m", @"Short for meters")
                                 ];
     } else {
         self.UILocation.text =NSLocalizedString( @"No location available",  @"No location available indication");

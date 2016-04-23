@@ -1,32 +1,42 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 9.1.1
->Release date: 2015-03-17
+## Owntracks 9.1.5
 
-* [NEW] Localization support 
+>Release date 2016-04-23
+* [NEW] Customizable Texts closes #401
+* [FIX] Loss of data when changing mode or reopening app after crash closes #387
+* [FIX] Crash if importing invalid JSON closes #398
+* [FIX] Crash on null url for Featured closes #402
+* [FIX] Multi language issue in Today widget (skmec instead of km) displayed closes #396
+* [FIX] Radius display in waypoint closes #395
+
+## OwnTracks 9.1.1
+>Release date: 2016-03-17
+
+* [NEW] Localization support
 * [FIX] Font issue on Friends geo-locator closes #391
 * [FIX] Transition event without desc displays (null) closes #390
 
 ## OwnTracks 9.1.0
->Release date: 2015-03-03
+>Release date: 2016-03-03
 
 * [NEW] call Private mode MQTT mode from now on
 * [REVERT] Loss of data when changing mode or reopening app after crash closes #387
 
 ## OwnTracks 9.0.8/9
->Release date: 2015-03-02
+>Release date: 2016-03-02
 
 * [FIX] Loss of data when changing mode or reopening app after crash closes #387
 
 ## OwnTracks 9.0.7
->Release date: 2015-03-01 to alpha testers
+>Release date: 2016-03-01 to alpha testers
 
 * [FIX] ignore size of HTTP offline queue in non-HTTP modes
 * [FIX] centered time/date stamp
 
 ## OwnTracks 9.0.6
->Release date: 2015-02-29 to alpha testers
+>Release date: 2016-02-29 to alpha testers
 
 * [FIX] Reset offline queue for HTTP mode when switching modes closes #386
 * [NEW] Addresses returned from reverse geocoding more compact closes #385
@@ -37,43 +47,43 @@ OwnTracks iOS App Release Notes
 * [NEW] Little cosmetic issue in Friends tab, finally closes #314
 
 ## OwnTracks 9.0.5
->Release date: 2015-02-24 to alpha testers
+>Release date: 2016-02-24 to alpha testers
 
 * [FIX] fix decryption issues
 
 ## OwnTracks 9.0.4
->Release date: 2015-02-23 to alpha testers
+>Release date: 2016-02-23 to alpha testers
 
 * [NEW] removed Hosted from UI
 * [NEW] simplified Settings UI (values are effective when leaving screen)
 * [NEW] HTTP mode processes returned messages or array of messages (messages are JSON dictionaries with `_type`:)
 
 ## OwnTracks 9.0.3
->Release date: 2015-02-21 to alpha testers
+>Release date: 2016-02-21 to alpha testers
 
 * [FIX] use secret key for encryption in HTTP mode
 
 ## OwnTracks 9.0.2
->Release date: 2015-02-20 to alpha testers
+>Release date: 2016-02-20 to alpha testers
 
 * [NEW] removed in-app purchase preparations
 * [NEW] added HTTP mode
 * [NEW] removed Messaging (msg)
 
 ## OwnTracks 8.6.7
->Release date: 2015-02-16 to alpha testers
+>Release date: 2016-02-16 to alpha testers
 
 * [FIX] Featured content web view refresh closes #383
 * [FIX] Toggle "Featured" tab sometimes works only halfway closes #382
 * [FIX] Crash on (I) closes #381
 
 ## OwnTracks 8.6.5
->Release date: 2015-02-13 to alpha 
+>Release date: 2016-02-13 to alpha 
 
 * [NEW] Featured content Tab closes #380
 
 ## OwnTracks 8.6.0/2
->Release date: 2015-02-11 to alpha and beta testers
+>Release date: 2016-02-11 to alpha and beta testers
 
 * [NEW] raise space to 100k offline locations closes #378
 * [FIX] Certificate error connecting to broker - peer did not return a certificate closes #379
