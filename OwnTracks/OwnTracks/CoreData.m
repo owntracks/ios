@@ -98,10 +98,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             if (![context save:&error]) {
                 NSString *message = [NSString stringWithFormat:@"%@ %@", error.localizedDescription, error.userInfo];
                 DDLogError(@"managedObjectContext save error: %@", message);
+            } else {
                 if (context.parentContext) {
                     [CoreData saveContext:context.parentContext];
                 }
             }
+
         }
     }
 }

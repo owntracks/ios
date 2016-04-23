@@ -1,7 +1,10 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## Owntracks 9.1.5
+## Owntracks 9.1.6
+
+>Release date 2016-04-23
+* [FIX] CoreData settings data not available after restart closes #403
 
 >Release date 2016-04-23
 * [NEW] Customizable Texts closes #401
