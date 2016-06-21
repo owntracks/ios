@@ -7,7 +7,7 @@
  Using MQTT in your Objective-C application
  
  @author Christoph Krey krey.christoph@gmail.com
- @copyright Copyright (c) 2013-2015, Christoph Krey 
+ @copyright Copyright © 2013-2016, Christoph Krey 
  
  based on Copyright (c) 2011, 2013, 2lemetry LLC
     All rights reserved. This program and the accompanying materials
@@ -23,15 +23,10 @@
 
 #import "MQTTMessage.h"
 #import "MQTTPersistence.h"
+#import "MQTTTransport.h"
 
 @class MQTTSession;
 @class MQTTSSLSecurityPolicy;
-
-/** Session delegate gives your application control over the MQTTSession
- @note handleEvent and newMessage are required interfaces, the rest is optional
- */
-
-@protocol MQTTSessionDelegate <NSObject>
 
 /**
  Enumeration of MQTTSession states
@@ -56,6 +51,36 @@ typedef NS_ENUM(NSInteger, MQTTSessionEvent) {
     MQTTSessionEventProtocolError,
     MQTTSessionEventConnectionClosedByBroker
 };
+
+/**
+ The error domain used for all errors created by MQTTSession
+ */
+extern NSString * const MQTTSessionErrorDomain;
+
+/**
+ The error codes used for all errors created by MQTTSession
+ */
+typedef NS_ENUM(NSInteger, MQTTSessionError) {
+    MQTTSessionErrorConnectionRefused = -8, // Sent if the server closes the connection without sending an appropriate error CONNACK
+    MQTTSessionErrorIllegalMessageReceived = -7,
+    MQTTSessionErrorDroppingOutgoingMessage = -6, // For some reason the value is the same as for MQTTSessionErrorNoResponse
+    MQTTSessionErrorNoResponse = -6, // For some reason the value is the same as for MQTTSessionErrorDroppingOutgoingMessage
+    MQTTSessionErrorEncoderNotReady = -5,
+    MQTTSessionErrorInvalidConnackReceived = -2, // Sent if the message received from server was an invalid connack message
+    MQTTSessionErrorNoConnackReceived = -1, // Sent if first message received from server was no connack message
+    MQTTSessionErrorConnackUnacceptableProtocolVersion = 1, // Value as defined by MQTT Protocol
+    MQTTSessionErrorConnackIdentifierRejected = 2, // Value as defined by MQTT Protocol
+    MQTTSessionErrorConnackServeUnavailable = 3, // Value as defined by MQTT Protocol
+    MQTTSessionErrorConnackBadUsernameOrPassword = 4, // Value as defined by MQTT Protocol
+    MQTTSessionErrorConnackNotAuthorized = 5, // Value as defined by MQTT Protocol
+    MQTTSessionErrorConnackReserved = 6, // Should be value 6-255, as defined by MQTT Protocol
+};
+
+/** Session delegate gives your application control over the MQTTSession
+ @note all callback methods are optional
+ */
+
+@protocol MQTTSessionDelegate <NSObject>
 
 @optional
 
@@ -160,7 +185,7 @@ typedef NS_ENUM(NSInteger, MQTTSessionEvent) {
  @param qoss an array containing the granted QoS(s) related to the SUBSCRIBE message
     (see subscribeTopic, subscribeTopics)
  */
-- (void)subAckReceived:(MQTTSession *)session msgID:(UInt16)msgID grantedQoss:(NSArray *)qoss;
+- (void)subAckReceived:(MQTTSession *)session msgID:(UInt16)msgID grantedQoss:(NSArray<NSNumber *> *)qoss;
 
 /** gets called when an unsubscribe is acknowledged by the MQTT broker
  @param session the MQTTSession reporting the acknowledge
@@ -178,7 +203,7 @@ typedef NS_ENUM(NSInteger, MQTTSessionEvent) {
  @param mid the Message Identifier of the command
  @param data the payload data of the command if any, might be zero length
  */
-- (void)sending:(MQTTSession *)session type:(int)type qos:(MQTTQosLevel)qos retained:(BOOL)retained duped:(BOOL)duped mid:(UInt16)mid data:(NSData *)data;
+- (void)sending:(MQTTSession *)session type:(MQTTCommandType)type qos:(MQTTQosLevel)qos retained:(BOOL)retained duped:(BOOL)duped mid:(UInt16)mid data:(NSData *)data;
 
 /** gets called when a command is received from the MQTT broker
  use this for low level monitoring of the MQTT connection
@@ -190,7 +215,7 @@ typedef NS_ENUM(NSInteger, MQTTSessionEvent) {
  @param mid the Message Identifier of the command
  @param data the payload data of the command if any, might be zero length
  */
-- (void)received:(MQTTSession *)session type:(int)type qos:(MQTTQosLevel)qos retained:(BOOL)retained duped:(BOOL)duped mid:(UInt16)mid data:(NSData *)data;
+- (void)received:(MQTTSession *)session type:(MQTTCommandType)type qos:(MQTTQosLevel)qos retained:(BOOL)retained duped:(BOOL)duped mid:(UInt16)mid data:(NSData *)data;
 
 /** gets called when a command is received from the MQTT broker
  use this for low level control of the MQTT connection
@@ -203,7 +228,7 @@ typedef NS_ENUM(NSInteger, MQTTSessionEvent) {
  @param data the payload data of the command if any, might be zero length
  @return true if the sessionmanager should ignore the received message
  */
-- (BOOL)ignoreReceived:(MQTTSession *)session type:(int)type qos:(MQTTQosLevel)qos retained:(BOOL)retained duped:(BOOL)duped mid:(UInt16)mid data:(NSData *)data;
+- (BOOL)ignoreReceived:(MQTTSession *)session type:(MQTTCommandType)type qos:(MQTTQosLevel)qos retained:(BOOL)retained duped:(BOOL)duped mid:(UInt16)mid data:(NSData *)data;
 
 /** gets called when the content of MQTTClients internal buffers change
  use for monitoring the completion of transmitted and received messages
@@ -231,11 +256,12 @@ typedef NS_ENUM(NSInteger, MQTTSessionEvent) {
 
 typedef void (^MQTTConnectHandler)(NSError *error);
 typedef void (^MQTTDisconnectHandler)(NSError *error);
-typedef void (^MQTTSubscribeHandler)(NSError *error, NSArray *gQoss);
+typedef void (^MQTTSubscribeHandler)(NSError *error, NSArray<NSNumber *> *gQoss);
 typedef void (^MQTTUnsubscribeHandler)(NSError *error);
 typedef void (^MQTTPublishHandler)(NSError *error);
 
 /** Session implements the MQTT protocol for your application
+ *
  */
 
 @interface MQTTSession : NSObject
@@ -268,7 +294,6 @@ typedef void (^MQTTPublishHandler)(NSError *error);
  @endcode
  
  */
-
 @property (weak, nonatomic) id<MQTTSessionDelegate> delegate;
 
 /** Control MQTT persistence by setting the properties of persistence before connecting to an MQTT broker.
@@ -286,11 +311,18 @@ typedef void (^MQTTPublishHandler)(NSError *error);
  
     Messages are deleted after they have been acknowledged.
 */
-@property (strong, nonatomic) MQTTPersistence *persistence;
+@property (strong, nonatomic) id<MQTTPersistence> persistence;
 
-/** for mqttio-OBJC backward compatibility */
+/** block called once when connection is established
+ */
+@property (copy, nonatomic) MQTTConnectHandler connectHandler;
+
+/** block called when connection is established
+ */
 @property (strong) void (^connectionHandler)(MQTTSessionEvent event);
-/** for mqttio-OBJC backward compatibility */
+
+/** block called when message is received
+ */
 @property (strong) void (^messageHandler)(NSData* message, NSString* topic);
 
 /** Session status
@@ -302,66 +334,127 @@ typedef void (^MQTTPublishHandler)(NSError *error);
 @property (nonatomic, readonly) BOOL sessionPresent;
 
 /** see initWithClientId for description
+ * @param clientId The Client Identifier identifies the Client to the Server. If nil, a random clientId is generated.
+
  */
 @property (strong, nonatomic) NSString *clientId;
-/** see initWithClientId for description
- */
+
+/** see userName an NSString object containing the user's name (or ID) for authentication. May be nil. */
 @property (strong, nonatomic) NSString *userName;
-/** see initWithClientId for description
- */
+
+/** see password an NSString object containing the user's password. If userName is nil, password must be nil as well.*/
 @property (strong, nonatomic) NSString *password;
-/** see initWithClientId for description
+
+/** see keepAliveInterval The Keep Alive is a time interval measured in seconds.
+ * The MQTTClient ensures that the interval between Control Packets being sent does not exceed
+ * the Keep Alive value. In the  absence of sending any other Control Packets, the Client sends a PINGREQ Packet.
  */
 @property (nonatomic) UInt16 keepAliveInterval;
-/** see initWithClientId for description
- */
+
+/** leanSessionFlag specifies if the server should discard previous session information. */
 @property (nonatomic) BOOL cleanSessionFlag;
-/** see initWithClientId for description
+
+/** willFlag If the Will Flag is set to YES this indicates that
+ * a Will Message MUST be published by the Server when the Server detects
+ * that the Client is disconnected for any reason other than the Client flowing a DISCONNECT Packet.
  */
 @property (nonatomic) BOOL willFlag;
-/** see initWithClientId for description
- */
+
+/** willTopic If the Will Flag is set to YES, the Will Topic is a string, nil otherwise. */
 @property (strong, nonatomic) NSString *willTopic;
-/** see initWithClientId for description
- */
+
+/** willMsg If the Will Flag is set to YES the Will Message must be specified, nil otherwise. */
 @property (strong, nonatomic) NSData *willMsg;
-/** see initWithClientId for description
+
+/** willQoS specifies the QoS level to be used when publishing the Will Message.
+ * If the Will Flag is set to NO, then the Will QoS MUST be set to 0.
+ * If the Will Flag is set to YES, the Will QoS MUST be a valid MQTTQosLevel.
  */
 @property (nonatomic) MQTTQosLevel willQoS;
-/** see initWithClientId for description
+
+/** willRetainFlag indicates if the server should publish the Will Messages with retainFlag.
+ * If the Will Flag is set to NO, then the Will Retain Flag MUST be set to NO .
+ * If the Will Flag is set to YES: If Will Retain is set to NO, the Serve
+ * MUST publish the Will Message as a non-retained publication [MQTT-3.1.2-14].
+ * If Will Retain is set to YES, the Server MUST publish the Will Message as a retained publication [MQTT-3.1.2-15].
  */
 @property (nonatomic) BOOL willRetainFlag;
-/** see initWithClientId for description
- */
-@property (nonatomic) UInt8 protocolLevel;
-/** see initWithClientId for description
- */
+
+/** protocolLevel specifies the protocol to be used */
+@property (nonatomic) MQTTProtocolVersion protocolLevel;
+
+/** runLoop The runLoop where the streams are scheduled. If nil, defaults to [NSRunLoop currentRunLoop]. */
 @property (strong, nonatomic) NSRunLoop *runLoop;
-/** see initWithClientId for description
- */
+
+/** runLoopMode The runLoopMode where the streams are scheduled. If nil, defaults to NSRunLoopCommonModes. */
 @property (strong, nonatomic) NSString *runLoopMode;
 
-// ssl security policy
-/**
-* The security policy used to evaluate server trust for secure connections.
-*
-* if your app using security model which require pinning SSL certificates to helps prevent man-in-the-middle attacks
-* and other vulnerabilities. you need to set securityPolicy to properly value(see MQTTSSLSecurityPolicy.h for more detail).
-*
-* NOTE: about self-signed server certificates:
-* if your server using Self-signed certificates to establish SSL/TLS connection, you need to set property:
-* MQTTSSLSecurityPolicy.allowInvalidCertificates=YES.
-*/
-@property (strong, nonatomic) MQTTSSLSecurityPolicy *securityPolicy;
 
-/** see initWithClientId for description
-*/
-@property (strong, nonatomic) NSArray *certificates;
+/** The security policy used to evaluate server trust for secure connections.
+ * (see MQTTSSLSecurityPolicy.h for more detail).
+ */
+@property (strong, nonatomic) MQTTSSLSecurityPolicy *securityPolicy;
 
 /** for mqttio-OBJC backward compatibility
  the connect message used is stored here
  */
 @property (strong, nonatomic) MQTTMessage *connectMessage;
+
+/** the transport provider for MQTTClient
+ *
+ * assign an in instance of a class implementing the MQTTTransport protocol e.g.
+ * MQTTCFSocketTransport before connecting.
+ */
+@property (strong, nonatomic) id <MQTTTransport> transport;
+
+/** certificates an NSArray holding client certificates or nil */
+@property (strong, nonatomic) NSArray *certificates;
+
+/** connect to the given host through the given transport with the given
+ *  MQTT session parameters asynchronously
+ *
+ *  @exception NSInternalInconsistencyException if the parameters are invalid
+ *
+ */
+
+
+- (void)connect;
+
+/** connects to the specified MQTT server
+ 
+ @param connectHandler identifies a block which is executed on successfull or unsuccessfull connect. Might be nil
+ error is nil in the case of a successful connect
+ sessionPresent indicates in MQTT 3.1.1 if persistent session data was present at the server
+ 
+ @return nothing and returns immediately. To check the connect results, register as an MQTTSessionDelegate and
+ - watch for events
+ - watch for connect or connectionRefused messages
+ - watch for error messages
+ or use the connectHandler block
+ 
+ @code
+ #import "MQTTClient.h"
+ 
+ MQTTSession *session = [[MQTTSession alloc] init];
+ ...
+ [session connectWithConnectHandler:^(NSError *error, BOOL sessionPresent) {
+ if (error) {
+ NSLog(@"Error Connect %@", error.localizedDescription);
+ } else {
+ NSLog(@"Connected sessionPresent:%d", sessionPresent);
+ }
+ }];
+ @endcode
+ 
+ */
+
+- (void)connectWithConnectHandler:(MQTTConnectHandler)connectHandler;
+
+
+/** disconnect gracefully
+ *
+ */
+- (void)disconnect;
 
 /** initialises the MQTT session with default values
  @return the initialised MQTTSession object
@@ -373,391 +466,7 @@ typedef void (^MQTTPublishHandler)(NSError *error);
  */
 - (MQTTSession *)init;
 
-/** alternative initializer
- @param clientId see initWithClientId for description.
- @param userName see initWithClientId for description.
- @param password see initWithClientId for description.
- @param keepAliveInterval see initWithClientId for description.
- @param cleanSessionFlag see initWithClientId for description.
- @param willFlag see initWithClientId for description.
- @param willTopic see initWithClientId for description.
- @param willMsg see initWithClientId for description.
- @param willQoS see initWithClientId for description.
- @param willRetainFlag see initWithClientId for description.
- @param protocolLevel see initWithClientId for description.
- @param runLoop see initWithClientId for description.
- @param runLoopMode see initWithClientId for description.
- @return the initialised MQTTSession object
- @exception NSInternalInconsistencyException if the parameters are invalid
- */
- - (MQTTSession *)initWithClientId:(NSString *)clientId
-                         userName:(NSString *)userName
-                         password:(NSString *)password
-                        keepAlive:(UInt16)keepAliveInterval
-                     cleanSession:(BOOL)cleanSessionFlag
-                             will:(BOOL)willFlag
-                        willTopic:(NSString *)willTopic
-                          willMsg:(NSData *)willMsg
-                          willQoS:(MQTTQosLevel)willQoS
-                   willRetainFlag:(BOOL)willRetainFlag
-                    protocolLevel:(UInt8)protocolLevel
-                          runLoop:(NSRunLoop *)runLoop
-                          forMode:(NSString *)runLoopMode;
 
-/** alternative initializer
- @param clientId see initWithClientId for description.
- @param userName see initWithClientId for description.
- @param password see initWithClientId for description.
- @param keepAliveInterval see initWithClientId for description.
- @param cleanSessionFlag see initWithClientId for description.
- @param willFlag see initWithClientId for description.
- @param willTopic see initWithClientId for description.
- @param willMsg see initWithClientId for description.
- @param willQoS see initWithClientId for description.
- @param willRetainFlag see initWithClientId for description.
- @param protocolLevel see initWithClientId for description.
- @param runLoop see initWithClientId for description.
- @param runLoopMode see initWithClientId for description.
- @param securityPolicy see initWithClientId for description.
- @return the initialised MQTTSession object
- @exception NSInternalInconsistencyException if the parameters are invalid
- */
-- (MQTTSession *)initWithClientId:(NSString *)clientId
-                         userName:(NSString *)userName
-                         password:(NSString *)password
-                        keepAlive:(UInt16)keepAliveInterval
-                     cleanSession:(BOOL)cleanSessionFlag
-                             will:(BOOL)willFlag
-                        willTopic:(NSString *)willTopic
-                          willMsg:(NSData *)willMsg
-                          willQoS:(MQTTQosLevel)willQoS
-                   willRetainFlag:(BOOL)willRetainFlag
-                    protocolLevel:(UInt8)protocolLevel
-                          runLoop:(NSRunLoop *)runLoop
-                          forMode:(NSString *)runLoopMode
-                   securityPolicy:(MQTTSSLSecurityPolicy *) securityPolicy;
-
-/** initialises the MQTT session
-*
-* this constructor can specifies SSL securityPolicy. the default value of securityPolicy is nil(which do nothing).
-*
-* if SSL is enabled, by default it only evaluate server's certificates using CA infrastructure, and for most case, this type of check is enough.
-* However, if your app using security model which require pinning SSL certificates to helps prevent man-in-the-middle attacks
-* and other vulnerabilities. you may need to set securityPolicy to properly value(see MQTTSSLSecurityPolicy.h for more detail).
-*
-* NOTE: about self-signed server certificates:
-* In CA infrastructure, you may establish a SSL/TLS connection with server which using self-signed certificates
-* by install the certificates into OS keychain(either programmatically or manually). however, this method has some disadvantages:
-*  1. every socket you app created will trust certificates you added.
-*  2. if user choice to remove certificates from keychain, you app need to handling certificates re-adding.
-*
-* If you only want to verify the cert for the socket you are creating and for no other sockets in your app, you need to use
-* MQTTSSLSecurityPolicy.
-* And if you use self-signed server certificates, your need to set property: MQTTSSLSecurityPolicy.allowInvalidCertificates=YES
-* (see MQTTSSLSecurityPolicy.h for more detail).
-*
-* @param clientId The Client Identifier identifies the Client to the Server. If nil, a random clientId is generated.
-* @param userName an NSString object containing the user's name (or ID) for authentication. May be nil.
-* @param password an NSString object containing the user's password. If userName is nil, password must be nil as well.
-* @param keepAliveInterval The Keep Alive is a time interval measured in seconds. The MQTTClient ensures that the interval between Control Packets being sent does not exceed the Keep Alive value. In the  absence of sending any other Control Packets, the Client sends a PINGREQ Packet.
-* @param cleanSessionFlag specifies if the server should discard previous session information.
-* @param willFlag If the Will Flag is set to YES this indicates that a Will Message MUST be published by the Server when the Server detects that the Client is disconnected for any reason other than the Client flowing a DISCONNECT Packet.
-* @param willTopic If the Will Flag is set to YES, the Will Topic is a string, nil otherwise.
-* @param willMsg If the Will Flag is set to YES the Will Message must be specified, nil otherwise.
-* @param willQoS specifies the QoS level to be used when publishing the Will Message. If the Will Flag is set to NO, then the Will QoS MUST be set to 0. If the Will Flag is set to YES, the value of Will QoS can be 0 (0x00), 1 (0x01), or 2 (0x02).
-* @param willRetainFlag indicates if the server should publish the Will Messages with retainFlag. If the Will Flag is set to NO, then the Will Retain Flag MUST be set to NO . If the Will Flag is set to YES: If Will Retain is set to NO, the Server MUST publish the Will Message as a non-retained publication [MQTT-3.1.2-14]. If Will Retain is set to YES, the Server MUST publish the Will Message as a retained publication [MQTT-3.1.2-15].
-* @param protocolLevel specifies the protocol to be used. The value of the Protocol Level field for the version 3.1.1 of the protocol is 4. The value for the version 3.1 is 3.
-* @param runLoop The runLoop where the streams are scheduled. If nil, defaults to [NSRunLoop currentRunLoop].
-* @param runLoopMode The runLoopMode where the streams are scheduled. If nil, defaults to NSRunLoopCommonModes.
-* @param securityPolicy The security policy used to evaluate server trust for secure connections.
-* @param certificates An identity certificate used to reply to a server requiring client certificates according to the description given for SSLSetCertificate(). You may build the certificates array yourself or use the sundry method clientCertFromP12
-* @return the initialised MQTTSession object
-* @exception NSInternalInconsistencyException if the parameters are invalid
-*
-* @code
-    #import "MQTTClient.h"
-
-    NSString* certificate = [[NSBundle bundleForClass:[MQTTSession class]] pathForResource:@"certificate" ofType:@"cer"]; 
-    MQTTSSLSecurityPolicy *securityPolicy = [MQTTSSLSecurityPolicy policyWithPinningMode:MQTTSSLPinningModeCertificate];
-    securityPolicy.pinnedCertificates = @[ [NSData dataWithContentsOfFile:certificate] ];
-    securityPolicy.allowInvalidCertificates = YES; // if your certificate is self-signed(which didn't coupled with CA infrastructure)
-
-    MQTTSession *session = [[MQTTSession alloc]
-                            initWithClientId:@"example-1234"
-                            userName:@"user"
-                            password:@"secret"
-                            keepAlive:60
-                            cleanSession:YES
-                            will:YES
-                            willTopic:@"example/status"
-                            willMsg:[[@"Client off-line"] dataUsingEncoding:NSUTF8StringEncoding]
-                            willQoS:2
-                            willRetainFlag:YES
-                            protocolLevel:4
-                            runLoop:[NSRunLoop currentRunLoop]
-                            forMode:NSRunLoopCommonModes
-                            securityPolicy:securityPolicy
-                            certificates:certificates];
-
-    [session connectToHost:@"example-1234" port:1883 usingSSL:YES];
-@endcode
-*/
-- (MQTTSession *)initWithClientId:(NSString *)clientId
-                         userName:(NSString *)userName
-                         password:(NSString *)password
-                        keepAlive:(UInt16)keepAliveInterval
-                     cleanSession:(BOOL)cleanSessionFlag
-                             will:(BOOL)willFlag
-                        willTopic:(NSString *)willTopic
-                          willMsg:(NSData *)willMsg
-                          willQoS:(MQTTQosLevel)willQoS
-                   willRetainFlag:(BOOL)willRetainFlag
-                    protocolLevel:(UInt8)protocolLevel
-                          runLoop:(NSRunLoop *)runLoop
-                          forMode:(NSString *)runLoopMode
-                   securityPolicy:(MQTTSSLSecurityPolicy *) securityPolicy
-                     certificates:(NSArray *)certificates;
-
-/**
-* for mqttio-OBJC backward compatibility
-* @param theClientId see initWithClientId for description.
-* @return the initialised MQTTSession object
-* All other parameters are set to defaults
-*/
-- (id)initWithClientId:(NSString *)theClientId;
-
-/** for mqttio-OBJC backward compatibility
- @param theClientId see initWithClientId for description.
- @param theRunLoop see initWithClientId for description.
- @param theRunLoopMode see initWithClientId for description.
- @return the initialised MQTTSession object
- All other parameters are set to defaults
- */
-- (id)initWithClientId:(NSString*)theClientId
-               runLoop:(NSRunLoop*)theRunLoop
-               forMode:(NSString*)theRunLoopMode;
-
-/** for mqttio-OBJC backward compatibility
- @param theClientId see initWithClientId for description.
- @param theUsername see initWithClientId for description.
- @param thePassword see initWithClientId for description.
- @return the initialised MQTTSession object
- All other parameters are set to defaults
- */
-- (id)initWithClientId:(NSString*)theClientId
-              userName:(NSString*)theUsername
-              password:(NSString*)thePassword;
-
-/** for mqttio-OBJC backward compatibility
- @param theClientId see initWithClientId for description.
- @param theUserName see initWithClientId for description.
- @param thePassword see initWithClientId for description.
- @param theRunLoop see initWithClientId for description.
- @param theRunLoopMode see initWithClientId for description.
- @return the initialised MQTTSession object
- All other parameters are set to defaults
- */
-- (id)initWithClientId:(NSString*)theClientId
-              userName:(NSString*)theUserName
-              password:(NSString*)thePassword
-               runLoop:(NSRunLoop*)theRunLoop
-               forMode:(NSString*)theRunLoopMode;
-
-/** for mqttio-OBJC backward compatibility
- @param theClientId see initWithClientId for description.
- @param theUsername see initWithClientId for description.
- @param thePassword see initWithClientId for description.
- @param theKeepAliveInterval see initWithClientId for description.
- @param cleanSessionFlag see initWithClientId for description.
- @return the initialised MQTTSession object
- All other parameters are set to defaults
- */
-- (id)initWithClientId:(NSString*)theClientId
-              userName:(NSString*)theUsername
-              password:(NSString*)thePassword
-             keepAlive:(UInt16)theKeepAliveInterval
-          cleanSession:(BOOL)cleanSessionFlag;
-
-/** for mqttio-OBJC backward compatibility
- @param theClientId see initWithClientId for description.
- @param theUsername see initWithClientId for description.
- @param thePassword see initWithClientId for description.
- @param theKeepAlive see initWithClientId for description.
- @param theCleanSessionFlag see initWithClientId for description.
- @param theRunLoop see initWithClientId for description.
- @param theMode see initWithClientId for description.
- @return the initialised MQTTSession object
- All other parameters are set to defaults
- */
-- (id)initWithClientId:(NSString*)theClientId
-              userName:(NSString*)theUsername
-              password:(NSString*)thePassword
-             keepAlive:(UInt16)theKeepAlive
-          cleanSession:(BOOL)theCleanSessionFlag
-               runLoop:(NSRunLoop*)theRunLoop
-               forMode:(NSString*)theMode;
-
-/** for mqttio-OBJC backward compatibility
- @param theClientId see initWithClientId for description.
- @param theUserName see initWithClientId for description.
- @param thePassword see initWithClientId for description.
- @param theKeepAliveInterval see initWithClientId for description.
- @param theCleanSessionFlag see initWithClientId for description.
- @param willTopic see initWithClientId for description.
- @param willMsg see initWithClientId for description.
- @param willQoS see initWithClientId for description.
- @param willRetainFlag see initWithClientId for description.
- @return the initialised MQTTSession object
- All other parameters are set to defaults
- */
-- (id)initWithClientId:(NSString*)theClientId
-              userName:(NSString*)theUserName
-              password:(NSString*)thePassword
-             keepAlive:(UInt16)theKeepAliveInterval
-          cleanSession:(BOOL)theCleanSessionFlag
-             willTopic:(NSString*)willTopic
-               willMsg:(NSData*)willMsg
-               willQoS:(UInt8)willQoS
-        willRetainFlag:(BOOL)willRetainFlag;
-
-/** for mqttio-OBJC backward compatibility
- @param theClientId see initWithClientId for description.
- @param theUserName see initWithClientId for description.
- @param thePassword see initWithClientId for description.
- @param theKeepAliveInterval see initWithClientId for description.
- @param theCleanSessionFlag see initWithClientId for description.
- @param willTopic see initWithClientId for description.
- @param willMsg see initWithClientId for description.
- @param willQoS see initWithClientId for description.
- @param willRetainFlag see initWithClientId for description.
- @param theRunLoop see initWithClientId for description.
- @param theRunLoopMode see initWithClientId for description.
- @return the initialised MQTTSession object
- All other parameters are set to defaults
- */
-- (id)initWithClientId:(NSString*)theClientId
-              userName:(NSString*)theUserName
-              password:(NSString*)thePassword
-             keepAlive:(UInt16)theKeepAliveInterval
-          cleanSession:(BOOL)theCleanSessionFlag
-             willTopic:(NSString*)willTopic
-               willMsg:(NSData*)willMsg
-               willQoS:(UInt8)willQoS
-        willRetainFlag:(BOOL)willRetainFlag
-               runLoop:(NSRunLoop*)theRunLoop
-               forMode:(NSString*)theRunLoopMode;
-
-/** for mqttio-OBJC backward compatibility
- @param theClientId see initWithClientId for description.
- @param theKeepAliveInterval see initWithClientId for description.
- @param theConnectMessage has to be constructed using MQTTMessage connectMessage...
- @param theRunLoop see initWithClientId for description.
- @param theRunLoopMode see initWithClientId for description.
- @return the initialised MQTTSession object
- All other parameters are set to defaults
- */
-- (id)initWithClientId:(NSString*)theClientId
-             keepAlive:(UInt16)theKeepAliveInterval
-        connectMessage:(MQTTMessage*)theConnectMessage
-               runLoop:(NSRunLoop*)theRunLoop
-               forMode:(NSString*)theRunLoopMode;
-
-/** connects to the specified MQTT server
- 
- @param host specifies the hostname or ip address to connect to. Defaults to @"localhost".
- @param port specifies the port to connect to
- @param usingSSL specifies whether to use SSL or not
- @param connectHandler identifies a block which is executed on successfull or unsuccessfull connect. Might be nil
-    error is nil in the case of a successful connect
-    sessionPresent indicates in MQTT 3.1.1 if persistent session data was present at the server
- 
- @return nothing and returns immediately. To check the connect results, register as an MQTTSessionDelegate and
-    - watch for events
-    - watch for connect or connectionRefused messages
-    - watch for error messages
-    or use the connectHandler block
- 
- @code
- #import "MQTTClient.h"
- 
- MQTTSession *session = [[MQTTSession alloc] init];
- 
- [session connectToHost:@"192.168.0.1" port:1883 usingSSL:NO connectHandler:^(NSError *error, BOOL sessionPresent) {
-    if (error) {
-        NSLog(@"Error Connect %@", error.localizedDescription);
-    } else {
-        NSLog(@"Connected sessionPresent:%d", sessionPresent);
-    }
- }];
- @endcode
- 
- */
-
-- (void)connectToHost:(NSString *)host
-                 port:(UInt32)port
-             usingSSL:(BOOL)usingSSL
-       connectHandler:(MQTTConnectHandler)connectHandler;
-
-/** connects to the specified MQTT server
- 
- @param host see connectToHost for description
- @param port see connectToHost for description
- @param usingSSL see connectToHost for description
- 
- @return see connectToHost for description
- 
- */
-- (void)connectToHost:(NSString *)host port:(UInt32)port usingSSL:(BOOL)usingSSL;
-
-/** for mqttio-OBJC backward compatibility
- @param ip see connectToHost for description
- @param port see connectoToHost for description
- */
-- (void)connectToHost:(NSString*)ip port:(UInt32)port;
-
-/** for mqttio-OBJC backward compatibility
- @param ip see connectToHost for description
- @param port see connectoToHost for description
- @param connHandler event handler block
- @param messHandler message handler block
- */
-- (void)connectToHost:(NSString*)ip
-                 port:(UInt32)port
-withConnectionHandler:(void (^)(MQTTSessionEvent event))connHandler
-       messageHandler:(void (^)(NSData* data, NSString* topic))messHandler;
-
-/** for mqttio-OBJC backward compatibility
- @param ip see connectToHost for description
- @param port see connectoToHost for description
- @param usingSSL indicator to use TLS
- @param connHandler event handler block
- @param messHandler message handler block
- */
-- (void)connectToHost:(NSString*)ip
-                 port:(UInt32)port
-             usingSSL:(BOOL)usingSSL
-withConnectionHandler:(void (^)(MQTTSessionEvent event))connHandler
-       messageHandler:(void (^)(NSData* data, NSString* topic))messHandler;
-
-
-/** connects to the specified MQTT server synchronously
- 
- @param host specifies the hostname or ip address to connect to. Defaults to @"localhost".
- @param port spefies the port to connect to
- @param usingSSL specifies whether to use SSL or not
- 
- @return true if the connection was established
- 
- @code
- #import "MQTTClient.h"
- 
- MQTTSession *session = [[MQTTSession alloc] init];
- 
- [session connectToHost:@"192.168.0.1" port:1883 usingSSL:NO];
- @endcode
- 
- */
-- (BOOL)connectAndWaitToHost:(NSString *)host port:(UInt32)port usingSSL:(BOOL)usingSSL;
 
 /** subscribes to a topic at a specific QoS level
  
@@ -771,8 +480,8 @@ withConnectionHandler:(void (^)(MQTTSessionEvent event))connHandler
  #import "MQTTClient.h"
  
  MQTTSession *session = [[MQTTSession alloc] init];
- 
- [session connectToHost:@"192.168.0.1" port:1883 usingSSL:NO];
+ ...
+ [session connect];
  ...
  [session subscribeToTopic:@"example/#" atLevel:2];
  
@@ -800,10 +509,10 @@ withConnectionHandler:(void (^)(MQTTSessionEvent event))connHandler
  #import "MQTTClient.h"
  
  MQTTSession *session = [[MQTTSession alloc] init];
- 
- [session connectToHost:@"192.168.0.1" port:1883 usingSSL:NO];
  ...
- [session subscribeToTopic:@"example/#" atLevel:2 subscribeHandler:^(NSError *error, NSArray *gQoss){
+ [session connect];
+ ...
+ [session subscribeToTopic:@"example/#" atLevel:2 subscribeHandler:^(NSError *error, NSArray<NSNumber *> *gQoss){
     if (error) {
         NSLog(@"Subscription failed %@", error.localizedDescription);
     } else {
@@ -817,39 +526,10 @@ withConnectionHandler:(void (^)(MQTTSessionEvent event))connHandler
 
 - (UInt16)subscribeToTopic:(NSString *)topic atLevel:(MQTTQosLevel)qosLevel subscribeHandler:(MQTTSubscribeHandler)subscribeHandler;
 
-/** for mqttio-OBJC backward compatibility
- @param theTopic see subscribeToTopic for description
- */
-- (void)subscribeTopic:(NSString*)theTopic;
-
-/** subscribes to a topic at a specific QoS level synchronously
- 
- @param topic the Topic Filter to subscribe to.
- 
- @param qosLevel specifies the QoS Level of the subscription.
- qosLevel can be 0, 1, or 2.
- 
- @return TRUE if successfully subscribed
- 
- @code
- #import "MQTTClient.h"
- 
- MQTTSession *session = [[MQTTSession alloc] init];
- 
- [session connectToHost:@"192.168.0.1" port:1883 usingSSL:NO];
- 
- [session subscribeToTopic:@"example/#" atLevel:2];
- 
- @endcode
- 
- */
-
-- (BOOL)subscribeAndWaitToTopic:(NSString *)topic atLevel:(MQTTQosLevel)qosLevel;
-
-
 /** subscribes a number of topics
  
- @param topics an NSDictionary containing the Topic Filters to subscribe to as keys and the corresponding QoS as NSNumber values
+ @param topics an NSDictionary<NSString *, NSNumber *> containing the Topic Filters to subscribe to as keys and
+    the corresponding QoS as NSNumber values
  
  @return the Message Identifier of the SUBSCRIBE message.
  
@@ -859,8 +539,8 @@ withConnectionHandler:(void (^)(MQTTSessionEvent event))connHandler
  #import "MQTTClient.h"
  
  MQTTSession *session = [[MQTTSession alloc] init];
- 
- [session connectToHost:@"192.168.0.1" port:1883 usingSSL:NO];
+ ...
+ [session connect];
  
  [session subscribeToTopics:@{
  @"example/#": @(0),
@@ -872,11 +552,12 @@ withConnectionHandler:(void (^)(MQTTSessionEvent event))connHandler
  */
 
 
-- (UInt16)subscribeToTopics:(NSDictionary *)topics;
+- (UInt16)subscribeToTopics:(NSDictionary<NSString *, NSNumber *> *)topics;
 
 /** subscribes a number of topics
  
- @param topics an NSDictionary containing the Topic Filters to subscribe to as keys and the corresponding QoS as NSNumber values
+ @param topics an NSDictionary<NSString *, NSNumber *> containing the Topic Filters to subscribe to as keys and
+    the corresponding QoS as NSNumber values
  @param subscribeHandler identifies a block which is executed on successfull or unsuccessfull subscription.
     Might be nil. error is nil in the case of a successful subscription. In this case gQoss represents an
     array of grantes Qos
@@ -889,14 +570,14 @@ withConnectionHandler:(void (^)(MQTTSessionEvent event))connHandler
  #import "MQTTClient.h"
  
  MQTTSession *session = [[MQTTSession alloc] init];
- 
- [session connectToHost:@"192.168.0.1" port:1883 usingSSL:NO];
+ ...
+ [session connect];
  
  [session subscribeToTopics:@{
     @"example/#": @(0),
     @"example/status": @(2),
     @"other/#": @(1)
- } subscribeHandler:^(NSError *error, NSArray *gQoss){
+ } subscribeHandler:^(NSError *error, NSArray<NSNumber *> *gQoss){
     if (error) {
         NSLog(@"Subscription failed %@", error.localizedDescription);
     } else {
@@ -909,32 +590,7 @@ withConnectionHandler:(void (^)(MQTTSessionEvent event))connHandler
  */
 
 
-- (UInt16)subscribeToTopics:(NSDictionary *)topics subscribeHandler:(MQTTSubscribeHandler)subscribeHandler;
-
-/** subscribes a number of topics
- 
- @param topics an NSDictionary containing the Topic Filters to subscribe to as keys and the corresponding QoS as NSNumber values
- 
- @return TRUE if the subscribe was succesfull
- 
- @code
- #import "MQTTClient.h"
- 
- MQTTSession *session = [[MQTTSession alloc] init];
- 
- [session connectToHost:@"192.168.0.1" port:1883 usingSSL:NO];
- 
- [session subscribeToTopics:@{
- @"example/#": @(0),
- @"example/status": @(2),
- @"other/#": @(1)
- }];
- 
- @endcode
- */
-
-
-- (BOOL)subscribeAndWaitToTopics:(NSDictionary *)topics;
+- (UInt16)subscribeToTopics:(NSDictionary<NSString *, NSNumber *> *)topics subscribeHandler:(MQTTSubscribeHandler)subscribeHandler;
 
 /** unsubscribes from a topic
  
@@ -948,8 +604,8 @@ withConnectionHandler:(void (^)(MQTTSessionEvent event))connHandler
  #import "MQTTClient.h"
  
  MQTTSession *session = [[MQTTSession alloc] init];
- 
- [session connectToHost:@"192.168.0.1" port:1883 usingSSL:NO];
+ ...
+ [session connect];
  
  [session unsubscribeTopic:@"example/#"];
  
@@ -974,29 +630,9 @@ withConnectionHandler:(void (^)(MQTTSessionEvent event))connHandler
 
 - (UInt16)unsubscribeTopic:(NSString *)topic unsubscribeHandler:(MQTTUnsubscribeHandler)unsubscribeHandler;
 
-/** unsubscribes from a topic synchronously
- 
- @param topic the Topic Filter to unsubscribe from.
- 
- @return TRUE if sucessfully unsubscribed
- 
- @code
- #import "MQTTClient.h"
- 
- MQTTSession *session = [[MQTTSession alloc] init];
- 
- [session connectToHost:@"192.168.0.1" port:1883 usingSSL:NO];
- 
- [session unsubscribeTopic:@"example/#"];
- 
- @endcode
- */
-
-- (BOOL)unsubscribeAndWaitTopic:(NSString *)topic;
-
 /** unsubscribes from a number of topics
  
- @param topics an NSArray of topics to unsubscribe from
+ @param topics an NSArray<NSString *> of topics to unsubscribe from
  
  @return the Message Identifier of the UNSUBSCRIBE message.
  
@@ -1006,8 +642,8 @@ withConnectionHandler:(void (^)(MQTTSessionEvent event))connHandler
  #import "MQTTClient.h"
  
  MQTTSession *session = [[MQTTSession alloc] init];
- 
- [session connectToHost:@"192.168.0.1" port:1883 usingSSL:NO];
+ ...
+ [session connect];
  
  [session unsubscribeTopics:@[
  @"example/#",
@@ -1019,11 +655,11 @@ withConnectionHandler:(void (^)(MQTTSessionEvent event))connHandler
  
  */
 
-- (UInt16)unsubscribeTopics:(NSArray *)topics;
+- (UInt16)unsubscribeTopics:(NSArray<NSString *> *)topics;
 
 /** unsubscribes from a number of topics
  
- @param topics an NSArray of topics to unsubscribe from
+ @param topics an NSArray<NSString *> of topics to unsubscribe from
  
  @param unsubscribeHandler identifies a block which is executed on successfull or unsuccessfull subscription.
     Might be nil. error is nil in the case of a successful subscription. In this case gQoss represents an
@@ -1034,35 +670,7 @@ withConnectionHandler:(void (^)(MQTTSessionEvent event))connHandler
  @note returns immediately.
  
  */
-
-
-- (UInt16)unsubscribeTopics:(NSArray *)topics unsubscribeHandler:(MQTTUnsubscribeHandler)unsubscribeHandler;
-
-/** unsubscribes from a number of topics synchronously
- 
- @param topics an NSArray of topics to unsubscribe from
- 
- @return TRUE if the unsubscribe was successful
- 
- @code
- #import "MQTTClient.h"
- 
- MQTTSession *session = [[MQTTSession alloc] init];
- 
- [session connectToHost:@"192.168.0.1" port:1883 usingSSL:NO];
- 
- [session unsubscribeTopics:@[
- @"example/#",
- @"example/status",
- @"other/#"
- ]];
- 
- @endcode
- 
- */
-
-- (BOOL)unsubscribeAndWaitTopics:(NSArray *)topics;
-
+- (UInt16)unsubscribeTopics:(NSArray<NSString *> *)topics unsubscribeHandler:(MQTTUnsubscribeHandler)unsubscribeHandler;
 
 /** publishes data on a given topic at a specified QoS level and retain flag
  
@@ -1079,8 +687,8 @@ withConnectionHandler:(void (^)(MQTTSessionEvent event))connHandler
  #import "MQTTClient.h"
  
  MQTTSession *session = [[MQTTSession alloc] init];
- 
- [session connectToHost:@"192.168.0.1" port:1883 usingSSL:NO];
+ ...
+ [session connect];
  
  [session publishData:[@"Sample Data" dataUsingEncoding:NSUTF8StringEncoding]
  topic:@"example/data"
@@ -1114,95 +722,26 @@ withConnectionHandler:(void (^)(MQTTSessionEvent event))connHandler
  #import "MQTTClient.h"
  
  MQTTSession *session = [[MQTTSession alloc] init];
- 
- [session connectToHost:@"192.168.0.1" port:1883 usingSSL:NO];
+ ...
+ [session connect];
  
  [session publishData:[@"Sample Data" dataUsingEncoding:NSUTF8StringEncoding]
  topic:@"example/data"
  retain:YES
- qos:1];
+ qos:1
+ publishHandler:^(NSError *error){
+ if (error) {
+ DDLogVerbose(@"error: %@ %@", error.localizedDescription, payload);
+ } else {
+ DDLogVerbose(@"delivered:%@", payload);
+ delivered++;
+ }
+ }];
  @endcode
  
  */
 
 - (UInt16)publishData:(NSData *)data onTopic:(NSString *)topic retain:(BOOL)retainFlag qos:(MQTTQosLevel)qos publishHandler:(MQTTPublishHandler)publishHandler;
-
-/** for mqttio-OBJC backward compatibility
- @param theData see publishData for description
- @param theTopic see publishData for description
-  */
-- (void)publishData:(NSData*)theData onTopic:(NSString*)theTopic;
-
-/** for mqttio-OBJC backward compatibility
- @param theData see publishData for description
- @param theTopic see publishData for description
- */
-- (void)publishDataAtLeastOnce:(NSData*)theData onTopic:(NSString*)theTopic;
-
-/** for mqttio-OBJC backward compatibility
- @param theData see publishData for description
- @param theTopic see publishData for description
- @param retainFlag see publishData for description
- */
-- (void)publishDataAtLeastOnce:(NSData*)theData onTopic:(NSString*)theTopic retain:(BOOL)retainFlag;
-
-/** for mqttio-OBJC backward compatibility
- @param theData see publishData for description
- @param theTopic see publishData for description
- */
-- (void)publishDataAtMostOnce:(NSData*)theData onTopic:(NSString*)theTopic;
-
-/** for mqttio-OBJC backward compatibility
- @param theData see publishData for description
- @param theTopic see publishData for description
- @param retainFlag see publishData for description
- */
-- (void)publishDataAtMostOnce:(NSData*)theData onTopic:(NSString*)theTopic retain:(BOOL)retainFlag;
-
-/** for mqttio-OBJC backward compatibility
- @param theData see publishData for description
- @param theTopic see publishData for description
- */
-- (void)publishDataExactlyOnce:(NSData*)theData onTopic:(NSString*)theTopic;
-
-/** for mqttio-OBJC backward compatibility
- @param theData see publishData for description
- @param theTopic see publishData for description
- @param retainFlag see publishData for description
- */
-- (void)publishDataExactlyOnce:(NSData*)theData onTopic:(NSString*)theTopic retain:(BOOL)retainFlag;
-
-/** for mqttio-OBJC backward compatibility
- @param payload JSON payload is converted to NSData and then send. See publishData for description
- @param theTopic see publishData for description
- */
-- (void)publishJson:(id)payload onTopic:(NSString*)theTopic;
-
-/** publishes synchronously data on a given topic at a specified QoS level and retain flag
- 
- @param data the data to be sent. length may range from 0 to 268,435,455 - 4 - _lengthof-topic_ bytes. Defaults to length 0.
- @param topic the Topic to identify the data
- @param retainFlag if YES, data is stored on the MQTT broker until overwritten by the next publish with retainFlag = YES
- @param qos specifies the Quality of Service for the publish
- qos can be 0, 1, or 2.
- @returns TRUE if the publish was successful
- 
- @code
- #import "MQTTClient.h"
- 
- MQTTSession *session = [[MQTTSession alloc] init];
- 
- [session connectToHost:@"192.168.0.1" port:1883 usingSSL:NO];
- 
- [session publishAndWaitData:[@"Sample Data" dataUsingEncoding:NSUTF8StringEncoding]
- topic:@"example/data"
- retain:YES
- qos:1];
- @endcode
- 
- */
-
-- (BOOL)publishAndWaitData:(NSData *)data onTopic:(NSString *)topic retain:(BOOL)retainFlag qos:(MQTTQosLevel)qos;
 
 /** closes an MQTTSession gracefully
  
@@ -1214,8 +753,8 @@ withConnectionHandler:(void (^)(MQTTSessionEvent event))connHandler
  #import "MQTTClient.h"
  
  MQTTSession *session = [[MQTTSession alloc] init];
- 
- [session connectToHost:@"192.168.0.1" port:1883 usingSSL:NO];
+ ...
+ [session connect];
  
  ...
  
@@ -1235,63 +774,5 @@ withConnectionHandler:(void (^)(MQTTSessionEvent event))connHandler
 /** closes an MQTTSession gracefully
   */
 - (void)close;
-
-/** closes an MQTTSession gracefully synchronously
- 
- If the connection was successfully established before, a DISCONNECT is sent.
- 
- @code
- #import "MQTTClient.h"
- 
- MQTTSession *session = [[MQTTSession alloc] init];
- 
- [session connectToHost:@"192.168.0.1" port:1883 usingSSL:NO];
- 
- ...
- 
- [session closeAndWait];
- 
- @endcode
- 
- */
-- (void)closeAndWait;
-
-/** reads the content of a PKCS12 file and converts it to an certificates array for initWith...
- @param path the path to a PKCS12 file
- @param passphrase the passphrase to unlock the PKCS12 file
- @returns a certificates array or nil if an error occured
- 
- @code
- NSString *path = [[NSBundle bundleForClass:[MQTTClientTests class]] pathForResource:@"filename"
- ofType:@"p12"];
- 
- NSArray *myCerts = [MQTTSession clientCertsFromP12:path passphrase:@"passphrase"];
- if (myCerts) {
- 
- self.session = [[MQTTSession alloc] initWithClientId:nil
-    userName:nil
-    password:nil
-    keepAlive:60
-    cleanSession:YES
-    will:NO
-    willTopic:nil
-    willMsg:nil
-    willQoS:0
-    willRetainFlag:NO
-    protocolLevel:4
-    runLoop:[NSRunLoop currentRunLoop]
-    forMode:NSRunLoopCommonModes
-    securityPolicy:nil
-    certificates:myCerts];
- [self.session connectToHost:@"localhost" port:8884 usingSSL:YES];
- ...
- }
-
- @endcode
- 
- */
-
-+ (NSArray *)clientCertsFromP12:(NSString *)path passphrase:(NSString *)passphrase;
-
 
 @end

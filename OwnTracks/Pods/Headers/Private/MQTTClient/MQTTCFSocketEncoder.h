@@ -1,1 +1,1 @@
-../../../../../../../MQTT-Client-Framework/MQTTClient/MQTTClient/MQTTCFSocketEncoder.h
+../../../MQTTClient/MQTTClient/MQTTClient/MQTTCFSocketEncoder.h

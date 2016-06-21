@@ -3,7 +3,7 @@
 //  MQTTClient
 //
 //  Created by Christoph Krey on 09.07.14.
-//  Copyright (c) 2013-2015 Christoph Krey. All rights reserved.
+//  Copyright © 2013-2016 Christoph Krey. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -11,6 +11,7 @@
 #import <UIKit/UIKit.h>
 #endif
 #import "MQTTSession.h"
+#import "MQTTSessionLegacy.h"
 #import "MQTTSSLSecurityPolicy.h"
 
 /** delegate gives your application access to received messages
@@ -53,14 +54,45 @@ typedef NS_ENUM(int, MQTTSessionManagerState) {
  */
 @property (weak, nonatomic) id<MQTTSessionManagerDelegate> delegate;
 
-/** subscriptions as a dictionary of NSNumber instances indicating the MQTTQoSLevel.
+/** subscriptions is a dictionary of NSNumber instances indicating the MQTTQoSLevel.
  *  The keys are topic filters.
  *  The SessionManager subscribes to the given subscriptions after successfull (re-)connect
  *  according to the cleansession parameter and the state of the session as indicated by the broker.
  *  Setting a new subscriptions dictionary initiates SUBSCRIBE or UNSUBSCRIBE messages by SessionManager
  *  by comparing the old and new subscriptions.
  */
-@property (strong, nonatomic) NSDictionary *subscriptions;
+@property (strong, nonatomic) NSDictionary<NSString *, NSNumber *> *subscriptions;
+
+/** effectiveSubscriptions s a dictionary of NSNumber instances indicating the granted MQTTQoSLevel, or 0x80 for subscription failure.
+ *  The keys are topic filters.
+ *  effectiveSubscriptions is observable and is updated everytime subscriptions change
+ *  @code
+        ...
+        MQTTSessionManager *manager = [[MQTTSessionManager alloc] init];
+        manager.delegate = self;
+ 
+        [manager addObserver:self
+            forKeyPath:@"effectiveSubscriptions"
+            options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+            context:nil];
+            manager.subscriptions = [@{@"#": @(0)} mutableCopy];
+            [manager connectTo: ...
+        ...
+        [manager removeObserver:self forKeyPath:@"effectiveSubscriptions"];
+        ...
+ 
+    - (void)observeValueForKeyPath:(NSString *)keyPath
+        ofObject:(id)object
+        change:(NSDictionary<NSString *,id> *)change
+        context:(void *)context {
+        if ([keyPath isEqualToString:@"effectiveSubscriptions"]) {
+            MQTTSessionManager *manager = (MQTTSessionManager *)object;
+            DDLogVerbose(@"effectiveSubscriptions changed: %@", manager.effectiveSubscriptions);
+        }
+    }
+ *  @endcode
+ */
+@property (readonly, strong, nonatomic) NSDictionary<NSString *, NSNumber *> *effectiveSubscriptions;
 
 /** SessionManager status
  */
@@ -83,6 +115,43 @@ typedef NS_ENUM(int, MQTTSessionManagerState) {
                                 maxMessages:(NSUInteger)maxMessages
                                     maxSize:(NSUInteger)maxSize;
 
+/** Connects to the MQTT broker and stores the parameters for subsequent reconnects
+ * @param host specifies the hostname or ip address to connect to. Defaults to @"localhost".
+ * @param port specifies the port to connect to
+ * @param tls specifies whether to use SSL or not
+ * @param keepalive The Keep Alive is a time interval measured in seconds. The MQTTClient ensures that the interval between Control Packets being sent does not exceed the Keep Alive value. In the  absence of sending any other Control Packets, the Client sends a PINGREQ Packet.
+ * @param clean specifies if the server should discard previous session information.
+ * @param auth specifies the user and pass parameters should be used for authenthication
+ * @param user an NSString object containing the user's name (or ID) for authentication. May be nil.
+ * @param pass an NSString object containing the user's password. If userName is nil, password must be nil as well.
+ * @param will indicates whether a will shall be sent
+ * @param willTopic the Will Topic is a string, may be nil
+ * @param willMsg the Will Message, might be zero length or nil
+ * @param willQos specifies the QoS level to be used when publishing the Will Message.
+ * @param willRetainFlag indicates if the server should publish the Will Messages with retainFlag.
+ * @param clientId The Client Identifier identifies the Client to the Server. If nil, a random clientId is generated.
+ * @param securityPolicy A custom SSL security policy or nil.
+ * @param certificates An NSArray of the pinned certificates to use or nil.
+ * @param Protocol version of the connection.
+ */
+
+- (void)connectTo:(NSString *)host
+             port:(NSInteger)port
+              tls:(BOOL)tls
+        keepalive:(NSInteger)keepalive
+            clean:(BOOL)clean
+             auth:(BOOL)auth
+             user:(NSString *)user
+             pass:(NSString *)pass
+             will:(BOOL)will
+        willTopic:(NSString *)willTopic
+          willMsg:(NSData *)willMsg
+          willQos:(MQTTQosLevel)willQos
+   willRetainFlag:(BOOL)willRetainFlag
+     withClientId:(NSString *)clientId
+   securityPolicy:(MQTTSSLSecurityPolicy *)securityPolicy
+     certificates:(NSArray *)certificates
+    protocolLevel:(MQTTProtocolVersion)protocolLevel;
 
 
 /** Connects to the MQTT broker and stores the parameters for subsequent reconnects
