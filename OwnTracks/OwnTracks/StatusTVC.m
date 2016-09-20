@@ -10,6 +10,7 @@
 #import "Connection.h"
 #import "OwnTracksAppDelegate.h"
 #import "Settings.h"
+#import "SettingsTVC.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface StatusTVC ()
@@ -123,6 +124,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (IBAction)documentationPressed:(UIButton *)sender {
     [[UIApplication sharedApplication] openURL:
      [NSURL URLWithString:@"http://owntracks.org/booklet"]];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"privileged"]) {
+        if ([segue.destinationViewController isKindOfClass:[SettingsTVC class]]) {
+            SettingsTVC *settingsTVC = (SettingsTVC *)segue.destinationViewController;
+            settingsTVC.privileged = TRUE;
+        }
+    }
 }
 
 @end

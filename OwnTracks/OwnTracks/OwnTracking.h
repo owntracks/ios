@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Friend+Create.h"
-#import "Waypoint+Create.h"
-#import "Region+Create.h"
+#import "Friend.h"
+#import "Waypoint.h"
+#import "Region.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface OwnTracking : NSObject

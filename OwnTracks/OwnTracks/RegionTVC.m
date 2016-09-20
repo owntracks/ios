@@ -7,7 +7,7 @@
 //
 
 #import "RegionTVC.h"
-#import "Friend+Create.h"
+#import "Friend.h"
 #import "OwnTracksAppDelegate.h"
 #import "Settings.h"
 #import "CoreData.h"

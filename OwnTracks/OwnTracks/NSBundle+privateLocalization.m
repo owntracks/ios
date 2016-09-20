@@ -25,6 +25,10 @@
 #import "Settings.h"
 #import <objc/runtime.h>
 
+#import <CocoaLumberjack/CocoaLumberjack.h>
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+
+
 @implementation NSBundle (privateLocalization)
 
 + (void)load {
@@ -71,11 +75,11 @@
 }
 
 - (NSString *)privateLocalizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)table {
-    NSLog(@"privateLocalizedStringForKey: %@", key);
+    DDLogVerbose(@"privateLocalizedStringForKey: %@", key);
     if ([Settings boolForKey:@"pl"]) {
         NSString *string = [Settings stringForKey:[NSString stringWithFormat:@"pl_%@", key]];
         if (string) {
-            NSLog(@"privateLocalizedStringForKey: %@ = %@", key, string);
+            DDLogVerbose(@"privateLocalizedStringForKey: %@ = %@", key, string);
             return string;
         }
     }

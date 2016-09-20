@@ -17,10 +17,12 @@
 @property (strong, nonatomic) NSDictionary *publicDefaults;
 @property (strong, nonatomic) NSDictionary *hostedDefaults;
 @property (strong, nonatomic) NSDictionary *httpDefaults;
+@property (strong, nonatomic) NSDictionary *watsonDefaults;
+@property (strong, nonatomic) NSDictionary *watsonRegisteredDefaults;
 @end
 
 static SettingsDefaults *defaults;
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 @implementation SettingsDefaults
 + (SettingsDefaults *)theDefaults {
@@ -37,11 +39,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         NSURL *bundleURL = [[NSBundle mainBundle] bundleURL];
         NSURL *settingsPlistURL = [bundleURL URLByAppendingPathComponent:@"Settings.plist"];
         NSURL *publicPlistURL = [bundleURL URLByAppendingPathComponent:@"Public.plist"];
+        NSURL *httpPlistURL = [bundleURL URLByAppendingPathComponent:@"HTTP.plist"];
         NSURL *hostedPlistURL = [bundleURL URLByAppendingPathComponent:@"Hosted.plist"];
-        
+        NSURL *watsonPlistURL = [bundleURL URLByAppendingPathComponent:@"Watson.plist"];
+        NSURL *watsonRegisteredPlistURL = [bundleURL URLByAppendingPathComponent:@"WatsonRegistered.plist"];
+
         self.appDefaults = [NSDictionary dictionaryWithContentsOfURL:settingsPlistURL];
         self.publicDefaults = [NSDictionary dictionaryWithContentsOfURL:publicPlistURL];
         self.hostedDefaults = [NSDictionary dictionaryWithContentsOfURL:hostedPlistURL];
+        self.httpDefaults = [NSDictionary dictionaryWithContentsOfURL:httpPlistURL];
+        self.watsonDefaults = [NSDictionary dictionaryWithContentsOfURL:watsonPlistURL];
+        self.watsonRegisteredDefaults = [NSDictionary dictionaryWithContentsOfURL:watsonRegisteredPlistURL];
     }
 
     return self;
@@ -73,8 +81,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         if ([dictionary[@"_type"] isEqualToString:@"configuration"]) {
             NSString *string;
             NSObject *object;
-            int importMode = 0;
 
+            // Language replacements
             for (NSString *key in [dictionary allKeys]) {
                 if ([key rangeOfString:@"pl"].location == 0) {
                     object = dictionary[key];
@@ -83,6 +91,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                 }
             }
 
+            ConnectionMode importMode = CONNECTION_MODE_PRIVATE;
             object = dictionary[@"mode"];
             if (object) {
                 NSString *string = [NSString stringWithFormat:@"%@", object];
@@ -93,13 +102,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
             string = dictionary[@"deviceId"];
             if (string) {
                 switch (importMode) {
-                    case 0:
+                    case CONNECTION_MODE_PRIVATE:
                         [self setString:string forKey:@"deviceid_preference"];
                         break;
-                    case 1:
+                    case CONNECTION_MODE_HOSTED:
                         [self setString:string forKey:@"device"];
                         break;
-                    case 2:
                     default:
                         break;
                 }
@@ -122,17 +130,31 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
             
             string = dictionary[@"url"];
             if (string) [self setString:string forKey:@"url_preference"];
-            
+
+            string = dictionary[@"quickstartId"];
+            if (string) [self setString:string forKey:@"quickstartid_preference"];
+
+            string = dictionary[@"watsonOrganization"];
+            if (string) [self setString:string forKey:@"watsonorganization_preference"];
+
+            string = dictionary[@"watsonDeviceType"];
+            if (string) [self setString:string forKey:@"watsondevicetype_preference"];
+
+            string = dictionary[@"watsonDeviceId"];
+            if (string) [self setString:string forKey:@"watsondeviceid_preference"];
+
+            string = dictionary[@"watsonAuthToken"];
+            if (string) [self setString:string forKey:@"watsonauthtoken_preference"];
+
             string = dictionary[@"username"];
             if (string) {
                 switch (importMode) {
-                    case 0:
+                    case CONNECTION_MODE_PRIVATE:
                         [self setString:string forKey:@"user_preference"];
                         break;
-                    case 1:
+                    case CONNECTION_MODE_HOSTED:
                         [self setString:string forKey:@"user"];
                         break;
-                    case 2:
                     default:
                         break;
                 }
@@ -141,13 +163,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
             string = dictionary[@"password"];
             if (string) {
                 switch (importMode) {
-                    case 0:
+                    case CONNECTION_MODE_PRIVATE:
                         [self setString:string forKey:@"pass_preference"];
                         break;
-                    case 1:
+                    case CONNECTION_MODE_HOSTED:
                         [self setString:string forKey:@"token"];
                         break;
-                    case 2:
                     default:
                         break;
                 }
@@ -168,7 +189,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
             object = dictionary[@"port"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
                                  forKey:@"port_preference"];
-            
+
+            object = dictionary[@"ignoreStaleLocations"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                 forKey:@"ignorestalelocations_preference"];
+
             object = dictionary[@"keepalive"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
                                  forKey:@"keepalive_preference"];
@@ -196,8 +221,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
             object = dictionary[@"cmd"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
                                  forKey:@"cmd_preference"];
-            
-            
+
+            object = dictionary[@"sub"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+                                 forKey:@"sub_preference"];
+
+
             object = dictionary[@"pubRetain"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
                                  forKey:@"retain_preference"];
@@ -383,6 +412,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     dict[@"tid"] =                  [Settings stringOrZeroForKey:@"trackerid_preference"];
     dict[@"monitoring"] =           @([Settings intForKey:@"monitoring_preference"]);
     dict[@"waypoints"] =            [Settings waypointsToArray];
+    dict[@"sub"] =                  @([Settings boolForKey:@"sub_preference"]);
+    dict[@"positions"] =            @([Settings intForKey:@"positions_preference"]);
+    dict[@"locatorDisplacement"] =  @([Settings intForKey:@"mindist_preference"]);
+    dict[@"locatorInterval"] =      @([Settings intForKey:@"mintime_preference"]);
+    dict[@"extendedData"] =         @([Settings boolForKey:@"extendeddata_preference"]);
+    dict[@"updateAddressBook"] =    @([Settings boolForKey:@"ab_preference"]);
+    dict[@"ignoreStaleLocations"] = @([Settings intForKey:@"ignorestalelocations_preference"]);
+
+
     for (Setting *setting in [Setting allSettingsInManagedObjectContext:[CoreData theManagedObjectContext]]) {
         NSString *key = setting.key;
         if ([key rangeOfString:@"pl"].location == 0) {
@@ -391,26 +429,26 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     }
 
     switch ([Settings intForKey:@"mode"]) {
-        case MODE_PRIVATE:
-            dict[@"deviceId"] =     [Settings stringOrZeroForKey:@"deviceid_preference"];
-            dict[@"clientId"] =     [Settings stringOrZeroForKey:@"clientid_preference"];
-            dict[@"subTopic"] =     [Settings stringOrZeroForKey:@"subscription_preference"];
-            dict[@"pubTopicBase"] = [Settings stringOrZeroForKey:@"topic_preference"];
-            dict[@"host"] =         [Settings stringOrZeroForKey:@"host_preference"];
-            dict[@"url"] =         [Settings stringOrZeroForKey:@"url_preference"];
-            dict[@"username"] =     [Settings stringOrZeroForKey:@"user_preference"];
-            dict[@"password"] =     [Settings stringOrZeroForKey:@"pass_preference"];
-            dict[@"willTopic"] =    [Settings stringOrZeroForKey:@"willtopic_preference"];
-            dict[@"clientpkcs"] =    [Settings stringOrZeroForKey:@"clientpkcs"];
-            dict[@"passphrase"] =    [Settings stringOrZeroForKey:@"passphrase"];
-            dict[@"servercer"] =    [Settings stringOrZeroForKey:@"servercer"];
+        case CONNECTION_MODE_PRIVATE:
+            dict[@"deviceId"] =             [Settings stringOrZeroForKey:@"deviceid_preference"];
+            dict[@"clientId"] =             [Settings stringOrZeroForKey:@"clientid_preference"];
+            dict[@"subTopic"] =             [Settings stringOrZeroForKey:@"subscription_preference"];
+            dict[@"pubTopicBase"] =         [Settings stringOrZeroForKey:@"topic_preference"];
+            dict[@"host"] =                 [Settings stringOrZeroForKey:@"host_preference"];
+            dict[@"url"] =                  [Settings stringOrZeroForKey:@"url_preference"];
+            dict[@"username"] =             [Settings stringOrZeroForKey:@"user_preference"];
+            dict[@"password"] =             [Settings stringOrZeroForKey:@"pass_preference"];
+            dict[@"willTopic"] =            [Settings stringOrZeroForKey:@"willtopic_preference"];
+            dict[@"clientpkcs"] =           [Settings stringOrZeroForKey:@"clientpkcs"];
+            dict[@"passphrase"] =           [Settings stringOrZeroForKey:@"passphrase"];
+            dict[@"servercer"] =            [Settings stringOrZeroForKey:@"servercer"];
             
-            dict[@"subQos"] =       @([Settings intForKey:@"subscriptionqos_preference"]);
-            dict[@"pubQos"] =       @([Settings intForKey:@"qos_preference"]);
-            dict[@"port"] =         @([Settings intForKey:@"port_preference"]);
-            dict[@"keepalive"] =    @([Settings intForKey:@"keepalive_preference"]);
-            dict[@"willQos"] =      @([Settings intForKey:@"willqos_preference"]);
-            dict[@"policymode"] =      @([Settings intForKey:@"policymode"]);
+            dict[@"subQos"] =               @([Settings intForKey:@"subscriptionqos_preference"]);
+            dict[@"pubQos"] =               @([Settings intForKey:@"qos_preference"]);
+            dict[@"port"] =                 @([Settings intForKey:@"port_preference"]);
+            dict[@"keepalive"] =            @([Settings intForKey:@"keepalive_preference"]);
+            dict[@"willQos"] =              @([Settings intForKey:@"willqos_preference"]);
+            dict[@"policymode"] =           @([Settings intForKey:@"policymode"]);
             dict[@"positions"] =            @([Settings intForKey:@"positions_preference"]);
             dict[@"locatorDisplacement"] =  @([Settings intForKey:@"mindist_preference"]);
             dict[@"locatorInterval"] =      @([Settings intForKey:@"mintime_preference"]);
@@ -424,33 +462,38 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
             dict[@"updateAddressBook"] =    @([Settings boolForKey:@"ab_preference"]);
             dict[@"allowRemoteLocation"] =  @([Settings boolForKey:@"allowremotelocation_preference"]);
             dict[@"extendedData"] =         @([Settings boolForKey:@"extendeddata_preference"]);
-            dict[@"usepolicy"] =         @([Settings boolForKey:@"usepolicy"]);
-            dict[@"allowinvalidcerts"] =         @([Settings boolForKey:@"allowinvalidcerts"]);
-            dict[@"validatecertificatechain"] =         @([Settings boolForKey:@"validatecertificatechain"]);
-            dict[@"validatedomainname"] =         @([Settings boolForKey:@"validatedomainname"]);
-
+            dict[@"usepolicy"] =            @([Settings boolForKey:@"usepolicy"]);
+            dict[@"allowinvalidcerts"] =    @([Settings boolForKey:@"allowinvalidcerts"]);
+            dict[@"validatecertificatechain"] =  @([Settings boolForKey:@"validatecertificatechain"]);
+            dict[@"validatedomainname"] =   @([Settings boolForKey:@"validatedomainname"]);
             break;
 
-        case MODE_HTTP:
-            dict[@"deviceId"] =     [Settings stringOrZeroForKey:@"deviceid_preference"];
-            dict[@"url"] =         [Settings stringOrZeroForKey:@"url_preference"];
-            dict[@"positions"] =            @([Settings intForKey:@"positions_preference"]);
-            dict[@"locatorDisplacement"] =  @([Settings intForKey:@"mindist_preference"]);
-            dict[@"locatorInterval"] =      @([Settings intForKey:@"mintime_preference"]);
-            
+        case CONNECTION_MODE_HTTP:
+            dict[@"deviceId"] =             [Settings stringOrZeroForKey:@"deviceid_preference"];
+            dict[@"url"] =                  [Settings stringOrZeroForKey:@"url_preference"];
             dict[@"cmd"] =                  @([Settings boolForKey:@"cmd_preference"]);
-            dict[@"updateAddressBook"] =    @([Settings boolForKey:@"ab_preference"]);
             dict[@"allowRemoteLocation"] =  @([Settings boolForKey:@"allowremotelocation_preference"]);
-            dict[@"extendedData"] =         @([Settings boolForKey:@"extendeddata_preference"]);
-            dict[@"allowinvalidcerts"] =         @([Settings boolForKey:@"allowinvalidcerts"]);
-
+            dict[@"allowinvalidcerts"] =    @([Settings boolForKey:@"allowinvalidcerts"]);
             break;
-        case MODE_HOSTED:
+
+        case CONNECTION_MODE_HOSTED:
             dict[@"username"] = [Settings stringOrZeroForKey:@"user"];
             dict[@"deviceId"] = [Settings stringOrZeroForKey:@"device"];
             dict[@"password"] = [Settings stringOrZeroForKey:@"token"];
             break;
-        case MODE_PUBLIC:
+
+        case CONNECTION_MODE_WATSON:
+            dict[@"quickstartId"] =         [Settings stringOrZeroForKey:@"quickstartid_preference"];
+            break;
+
+        case CONNECTION_MODE_WATSONREGISTERED:
+            dict[@"watsonOrganization"] =   [Settings stringOrZeroForKey:@"watsonorganization_preference"];
+            dict[@"watsonDeviceType"] =     [Settings stringOrZeroForKey:@"watsondevicetype_preference"];
+            dict[@"watsonDeviceId"] =       [Settings stringOrZeroForKey:@"watsondeviceid_preference"];
+            dict[@"watsonAuthToken"] =      [Settings stringOrZeroForKey:@"watsonauthtoken_preference"];
+            break;
+
+        case CONNECTION_MODE_PUBLIC:
         default:
             break;
     }
@@ -477,31 +520,48 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     return myData;
 }
 
-+ (BOOL)validInPublicMode:(NSString *)key {
-    return ([key isEqualToString:@"mode"] ||
-            [key isEqualToString:@"locked"] ||
-            [key isEqualToString:@"monitoring_preference"] ||
-            [key isEqualToString:@"trackerid_preference"] ||
-            [key isEqualToString:@"ranging_preference"]);
-    
-}
++ (BOOL)validKey:(NSString *)key inMode:(ConnectionMode)mode {
+    if ([key isEqualToString:@"mode"] ||
+        [key isEqualToString:@"locked"] ||
+        [key isEqualToString:@"sub"] ||
+        [key isEqualToString:@"extendedData_preference"] ||
+        [key isEqualToString:@"ab_preference"] ||
+        [key isEqualToString:@"monitoring_preference"] ||
+        [key isEqualToString:@"trackerid_preference"] ||
+        [key isEqualToString:@"ranging_preference"]) {
+        return true;
+    }
 
-+ (BOOL)validInHostedMode:(NSString *)key {
-    return ([key isEqualToString:@"mode"] ||
-            [key isEqualToString:@"locked"] ||
-            [key isEqualToString:@"monitoring_preference"] ||
-            [key isEqualToString:@"trackerid_preference"] ||
-            [key isEqualToString:@"user"] ||
-            [key isEqualToString:@"device"] ||
-            [key isEqualToString:@"token"] ||
-            [key isEqualToString:@"ranging_preference"]);
-    
+    switch (mode) {
+        case CONNECTION_MODE_WATSON:
+            return ([key isEqualToString:@"quickstartid_preference"]);
+            break;
+
+        case CONNECTION_MODE_WATSONREGISTERED:
+            return ([key isEqualToString:@"watsonorganization_preference"] ||
+                    [key isEqualToString:@"watsondevicetype_preference"] ||
+                    [key isEqualToString:@"watsondeviceid_preference"] ||
+                    [key isEqualToString:@"watsonauthtoken_preference"]);
+            break;
+
+        case CONNECTION_MODE_PUBLIC:
+            return false;
+            break;
+
+        case CONNECTION_MODE_HOSTED:
+            return ([key isEqualToString:@"user"] ||
+                    [key isEqualToString:@"device"] ||
+                    [key isEqualToString:@"token"]);
+            break;
+
+        default:
+            return true;
+
+    }
 }
 
 + (void)setString:(NSString *)string forKey:(NSString *)key {
-    if ([self intForKey:@"mode"] == 0 || [self intForKey:@"mode"] == 3 ||
-        ([self intForKey:@"mode"] == 1 && [self validInHostedMode:key]) ||
-        ([self intForKey:@"mode"] == 2 && [self validInPublicMode:key])) {
+    if ([self validKey:key inMode:[self intForKey:@"mode"]]) {
         [[CoreData theManagedObjectContext] performBlockAndWait:^{
             Setting *setting = [Setting settingWithKey:key inManagedObjectContext:[CoreData theManagedObjectContext]];
             setting.value = string;
@@ -533,18 +593,31 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 + (NSString *)stringForKey:(NSString *)key {
     NSString *value = nil;
-    
-    if ([[self stringForKeyRaw:@"mode"] intValue] == MODE_PUBLIC && ![self validInPublicMode:key]) {
-        id object = [[SettingsDefaults theDefaults].publicDefaults objectForKey:key];
-        if (object) {
-            if ([object isKindOfClass:[NSString class]]) {
-                value = (NSString *)object;
-            } else if ([object isKindOfClass:[NSNumber class]]) {
-                value = [(NSNumber *)object stringValue];
-            }
+
+    int mode = [[self stringForKeyRaw:@"mode"] intValue];
+    id object;
+    if (![self validKey:key inMode:mode]) {
+        switch (mode) {
+            case CONNECTION_MODE_PUBLIC:
+                object = [[SettingsDefaults theDefaults].publicDefaults objectForKey:key];
+                break;
+            case CONNECTION_MODE_HOSTED:
+                object = [[SettingsDefaults theDefaults].hostedDefaults objectForKey:key];
+                break;
+            case CONNECTION_MODE_HTTP:
+                object = [[SettingsDefaults theDefaults].httpDefaults objectForKey:key];
+                break;
+            case CONNECTION_MODE_WATSON:
+                object = [[SettingsDefaults theDefaults].watsonDefaults objectForKey:key];
+                break;
+            case CONNECTION_MODE_WATSONREGISTERED:
+                object = [[SettingsDefaults theDefaults].watsonRegisteredDefaults objectForKey:key];
+                break;
+            case CONNECTION_MODE_PRIVATE:
+            default:
+                object = [[SettingsDefaults theDefaults].appDefaults objectForKey:key];
+                break;
         }
-    } else if ([[self stringForKeyRaw:@"mode"] intValue] == MODE_HOSTED && ![self validInHostedMode:key]) {
-        id object = [[SettingsDefaults theDefaults].hostedDefaults objectForKey:key];
         if (object) {
             if ([object isKindOfClass:[NSString class]]) {
                 value = (NSString *)object;
@@ -599,14 +672,21 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     NSString *topic;
     
     switch (mode) {
-        case MODE_PUBLIC:
+        case CONNECTION_MODE_WATSON:
+        case CONNECTION_MODE_WATSONREGISTERED:
+            topic = [NSString stringWithFormat:@"iot-2/evt/location/fmt/json"];
+            break;
+
+        case CONNECTION_MODE_PUBLIC:
             topic = [NSString stringWithFormat:@"public/user/%@", [self theDeviceId]];
             break;
-        case MODE_HOSTED:
+
+        case CONNECTION_MODE_HOSTED:
             topic = [NSString stringWithFormat:@"owntracks/%@", [self theId]];
             break;
-        case MODE_PRIVATE:
-        case MODE_HTTP:
+
+        case CONNECTION_MODE_PRIVATE:
+        case CONNECTION_MODE_HTTP:
         default:
             topic = [self stringForKey:@"topic_preference"];
             
@@ -644,12 +724,25 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     NSString *theId;
     
     switch (mode) {
-        case MODE_PUBLIC:
-        case MODE_HOSTED:
+        case CONNECTION_MODE_WATSON:
+            theId = [NSString stringWithFormat:@"d:quickstart:owntracks:%@",
+                     [self theDeviceId]];
+            break;
+
+        case CONNECTION_MODE_WATSONREGISTERED:
+            theId = [NSString stringWithFormat:@"d:%@:%@:%@",
+                     [self stringForKey:@"watsonorganization_preference"],
+                     [self stringForKey:@"watsondevicetype_preference"],
+                     [self theDeviceId]];
+            break;
+
+        case CONNECTION_MODE_PUBLIC:
+        case CONNECTION_MODE_HOSTED:
             theId = [NSString stringWithFormat:@"%@/%@", [self theUserId], [self theDeviceId]];
             break;
-        case MODE_PRIVATE:
-        case MODE_HTTP:
+
+        case CONNECTION_MODE_PRIVATE:
+        case CONNECTION_MODE_HTTP:
         default: {
             NSString *userId = [self theUserId];
             NSString *deviceId = [self theDeviceId];
@@ -680,19 +773,27 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     NSString *deviceId;
     
     switch (mode) {
-        case MODE_HTTP:
+        case CONNECTION_MODE_WATSON:
+            deviceId = [self stringForKey:@"quickstartid_preference"];
+            break;
+
+        case CONNECTION_MODE_WATSONREGISTERED:
+            deviceId = [self stringForKey:@"watsondeviceid_preference"];
+            break;
+
+        case CONNECTION_MODE_HTTP:
             deviceId = [self stringForKey:@"trackerid_preference"];
             if (!deviceId || deviceId.length == 0) {
                 deviceId = [[UIDevice currentDevice].identifierForVendor UUIDString];
             }
             break;
-        case MODE_PUBLIC:
+        case CONNECTION_MODE_PUBLIC:
             deviceId = [[UIDevice currentDevice].identifierForVendor UUIDString];
             break;
-        case MODE_HOSTED:
+        case CONNECTION_MODE_HOSTED:
             deviceId = [self stringForKey:@"device"];
             break;
-        case MODE_PRIVATE:
+        case CONNECTION_MODE_PRIVATE:
         default:
             deviceId = [self stringForKey:@"deviceid_preference"];
             break;
@@ -705,13 +806,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     NSString *subscriptions;
     
     switch (mode) {
-        case MODE_PUBLIC:
+        case CONNECTION_MODE_WATSON:
+        case CONNECTION_MODE_WATSONREGISTERED:
+            break;
+
+        case CONNECTION_MODE_PUBLIC:
             subscriptions = [NSString stringWithFormat:@"public/user/+ public/user/+/event public/user/+/info public/user/%@/cmd",
                              [self theDeviceId]];
             break;
-        case MODE_HOSTED:
-        case MODE_PRIVATE:
-        case MODE_HTTP:
+
+        case CONNECTION_MODE_HOSTED:
+        case CONNECTION_MODE_PRIVATE:
+        case CONNECTION_MODE_HTTP:
         default:
             subscriptions = [self stringForKey:@"subscription_preference"];
             
@@ -757,18 +863,50 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 + (NSString *)theUserId {
     int mode = [self intForKey:@"mode"];
     switch (mode) {
-        case MODE_HTTP:
+        case CONNECTION_MODE_HTTP:
             return @"http";
             break;
-        case MODE_PUBLIC:
+
+        case CONNECTION_MODE_PUBLIC:
             return @"user";
             break;
-        case MODE_HOSTED:
+
+        case CONNECTION_MODE_HOSTED:
             return [self stringForKey:@"user"];
             break;
-        case MODE_PRIVATE:
+
+        case CONNECTION_MODE_PRIVATE:
         default:
             return [self stringForKey:@"user_preference"];
+            break;
+    }
+}
+
++ (NSString *)theHost {
+    int mode = [self intForKey:@"mode"];
+    switch (mode) {
+        case CONNECTION_MODE_PUBLIC:
+            return @"public-mqtt.owntracks.org";
+            break;
+
+        case CONNECTION_MODE_WATSON:
+            return @"quickstart.messaging.internetofthings.ibmcloud.com";
+            break;
+
+        case CONNECTION_MODE_WATSONREGISTERED:
+            return [NSString stringWithFormat:@"%@.messaging.internetofthings.ibmcloud.com",
+                    [self stringForKey:@"watsonorganization_preference"]];
+            break;
+
+        case CONNECTION_MODE_HOSTED:
+            return @"hosted-mqtt.owntracks.org";
+            break;
+
+        case CONNECTION_MODE_PRIVATE:
+        case CONNECTION_MODE_HTTP:
+
+        default:
+            return [self stringForKey:@"host_preference"];
             break;
     }
 }
@@ -776,16 +914,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 + (NSString *)theMqttUser {
     int mode = [self intForKey:@"mode"];
     switch (mode) {
-        case MODE_PUBLIC:
-        case MODE_HTTP:
+        case CONNECTION_MODE_PUBLIC:
+        case CONNECTION_MODE_HTTP:
+        case CONNECTION_MODE_WATSON:
             return nil;
             break;
-        case MODE_HOSTED:
+
+        case CONNECTION_MODE_WATSONREGISTERED:
+            return @"use-token-auth";
+            break;
+
+        case CONNECTION_MODE_HOSTED:
             return [NSString stringWithFormat:@"%@|%@",
                     [self stringForKey:@"user"],
                     [self theDeviceId]];
             break;
-        case MODE_PRIVATE:
+
+        case CONNECTION_MODE_PRIVATE:
         default:
             return [self stringForKey:@"user_preference"];
             break;
@@ -795,14 +940,21 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 + (NSString *)theMqttPass {
     int mode = [self intForKey:@"mode"];
     switch (mode) {
-        case MODE_PUBLIC:
-        case MODE_HTTP:
+        case CONNECTION_MODE_PUBLIC:
+        case CONNECTION_MODE_HTTP:
+        case CONNECTION_MODE_WATSON:
             return nil;
             break;
-        case MODE_HOSTED:
+
+        case CONNECTION_MODE_WATSONREGISTERED:
+            return [self stringForKey:@"watsonauthtoken_preference"];
+            break;
+
+        case CONNECTION_MODE_HOSTED:
             return [self stringForKey:@"token"];
             break;
-        case MODE_PRIVATE:
+
+        case CONNECTION_MODE_PRIVATE:
         default:
             return [self stringForKey:@"pass_preference"];
             break;
@@ -812,14 +964,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 + (BOOL)theMqttAuth {
     int mode = [self intForKey:@"mode"];
     switch (mode) {
-        case MODE_HTTP:
-        case MODE_PUBLIC:
+        case CONNECTION_MODE_HTTP:
+        case CONNECTION_MODE_PUBLIC:
+        case CONNECTION_MODE_WATSON:
             return FALSE;
             break;
-        case MODE_HOSTED:
+
+        case CONNECTION_MODE_HOSTED:
+        case CONNECTION_MODE_WATSONREGISTERED:
             return TRUE;
             break;
-        case MODE_PRIVATE:
+
+        case CONNECTION_MODE_PRIVATE:
         default:
             return [self boolForKey:@"auth_preference"];
             break;

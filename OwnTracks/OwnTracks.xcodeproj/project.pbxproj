@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		84001C141C78982800413E5B /* Queue+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84001C111C78982800413E5B /* Queue+CoreDataProperties.m */; };
 		84001C151C78982800413E5B /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 84001C131C78982800413E5B /* Queue.m */; };
+		8400D9711D83589F00DEA134 /* WebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8400D9701D83589F00DEA134 /* WebVC.m */; };
+		8400D9731D83825E00DEA134 /* HTTP.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8400D9721D83825E00DEA134 /* HTTP.plist */; };
 		8404876B1C5386DD00569C79 /* FeaturedContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8404876A1C5386DD00569C79 /* FeaturedContentVC.m */; };
 		8411B82C189FDB140019D2D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82B189FDB140019D2D6 /* Foundation.framework */; };
 		8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82D189FDB140019D2D6 /* CoreGraphics.framework */; };
@@ -18,7 +20,6 @@
 		8411B83E189FDB140019D2D6 /* OwnTracksAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B83D189FDB140019D2D6 /* OwnTracksAppDelegate.m */; };
 		8411B843189FDB140019D2D6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8411B842189FDB140019D2D6 /* Images.xcassets */; };
 		8411B861189FDD200019D2D6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B860189FDD200019D2D6 /* MapKit.framework */; };
-		8411B878189FE1ED0019D2D6 /* Friend+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B869189FE1ED0019D2D6 /* Friend+Create.m */; };
 		8411B87F189FE35C0019D2D6 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */; };
 		8411B88A189FE79B0019D2D6 /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B887189FE79B0019D2D6 /* AlertView.m */; };
 		8411B88B189FE79B0019D2D6 /* CoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B889189FE79B0019D2D6 /* CoreData.m */; };
@@ -44,7 +45,6 @@
 		843635871AE95D6100157D66 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843635851AE95D6100157D66 /* Interface.storyboard */; };
 		843635891AE95D6100157D66 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843635881AE95D6100157D66 /* Images.xcassets */; };
 		843B91721C8A14BF00DBD306 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843B91741C8A14BF00DBD306 /* Storyboard.storyboard */; };
-		843B91791C8A1CCE00DBD306 /* Setting+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 843B91781C8A1CCE00DBD306 /* Setting+Create.m */; };
 		8455DFBE1ADF2BD8003C7BC8 /* Hosted.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8455DFBD1ADF2BD8003C7BC8 /* Hosted.plist */; };
 		845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845AA1B31B44245100945856 /* CertificatesTVC.m */; };
 		845AA1BB1B4846AF00945856 /* OwnTracks-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1B81B4846AF00945856 /* OwnTracks-29.png */; };
@@ -56,14 +56,16 @@
 		846FFA191B401A4E001482A6 /* UIColor+WithName.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA181B401A4E001482A6 /* UIColor+WithName.m */; };
 		846FFA451B402A1F001482A6 /* OwnTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA441B402A1F001482A6 /* OwnTracking.m */; };
 		846FFA4F1B40C13C001482A6 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA4E1B40C13C001482A6 /* NavigationController.m */; };
-		846FFA521B416CD6001482A6 /* Region+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA511B416CD6001482A6 /* Region+Create.m */; };
 		846FFA581B419687001482A6 /* RegionTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA571B419687001482A6 /* RegionTVC.m */; };
-		846FFA5B1B4196D0001482A6 /* Waypoint+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA5A1B4196D0001482A6 /* Waypoint+Create.m */; };
 		846FFA5E1B420938001482A6 /* FriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA5D1B420938001482A6 /* FriendTableViewCell.m */; };
 		8479EEB718E4529900923B24 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
 		847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847F8B5719295C65003876D4 /* CoreMotion.framework */; };
 		84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A2B1B3755AF00810C3A /* TabBarController.m */; };
+		84A046C41D81FE8000796C56 /* IdPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A046C31D81FE8000796C56 /* IdPicker.m */; };
+		84A046C71D82081B00796C56 /* Watson.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84A046C51D82081B00796C56 /* Watson.plist */; };
+		84A046C81D82081B00796C56 /* WatsonRegistered.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84A046C61D82081B00796C56 /* WatsonRegistered.plist */; };
 		84A173681B427BDD00CCB7D0 /* ModeBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A173671B427BDD00CCB7D0 /* ModeBarButtonItem.m */; };
+		84A6612A1D914ED7003A21CA /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A661291D914ED7003A21CA /* Friend.m */; };
 		84B7397A1A65629200B103F4 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B739791A65629200B103F4 /* LocationManager.m */; };
 		84CA3D0D1AEE708200AABDC1 /* OwnTracks WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 843635731AE95D6000157D66 /* OwnTracks WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84CDB2501AD197AD005E272B /* Public.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84CDB24F1AD197AD005E272B /* Public.plist */; };
@@ -85,7 +87,6 @@
 		84E8A19B1BB94B1D002518AA /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1911BB94B1D002518AA /* Location.m */; };
 		84E8A19D1BB94B1D002518AA /* Waypoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1951BB94B1D002518AA /* Waypoint.m */; };
 		84E8A19E1BB94B1D002518AA /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1971BB94B1D002518AA /* Setting.m */; };
-		84E8A19F1BB94B1D002518AA /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1991BB94B1D002518AA /* Friend.m */; };
 		84F0AFE41C830C1D00C9F69F /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F0AFE31C830C1D00C9F69F /* AddressBookUI.framework */; };
 		84F0AFE61C830C2C00C9F69F /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F0AFE51C830C2C00C9F69F /* AddressBook.framework */; };
 		E4CE633CB6B79DBAEBEEA6C1 /* libPods-OwnTracks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2089C17582819190AE08A7E2 /* libPods-OwnTracks.a */; };
@@ -133,6 +134,10 @@
 		84001C111C78982800413E5B /* Queue+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Queue+CoreDataProperties.m"; sourceTree = "<group>"; };
 		84001C121C78982800413E5B /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
 		84001C131C78982800413E5B /* Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Queue.m; sourceTree = "<group>"; };
+		8400D96F1D83589F00DEA134 /* WebVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebVC.h; sourceTree = "<group>"; };
+		8400D9701D83589F00DEA134 /* WebVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebVC.m; sourceTree = "<group>"; };
+		8400D9721D83825E00DEA134 /* HTTP.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HTTP.plist; sourceTree = "<group>"; };
+		8400D9741D84946E00DEA134 /* Model 9.1.7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.1.7.xcdatamodel"; sourceTree = "<group>"; };
 		840487691C5386DD00569C79 /* FeaturedContentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeaturedContentVC.h; sourceTree = "<group>"; };
 		8404876A1C5386DD00569C79 /* FeaturedContentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeaturedContentVC.m; sourceTree = "<group>"; };
 		840BBDD318E4274200DC113C /* Model 6.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 6.2.xcdatamodel"; sourceTree = "<group>"; };
@@ -152,8 +157,6 @@
 		8411B860189FDD200019D2D6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8411B862189FDD300019D2D6 /* OwnTracks.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OwnTracks.entitlements; sourceTree = "<group>"; };
 		8411B863189FDE0D0019D2D6 /* MQTTClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MQTTClient.framework; path = "../../MQTT-Client-Framework/MQTTClient/dist/MQTTClient.framework"; sourceTree = "<group>"; };
-		8411B868189FE1ED0019D2D6 /* Friend+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Friend+Create.h"; sourceTree = "<group>"; };
-		8411B869189FE1ED0019D2D6 /* Friend+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Friend+Create.m"; sourceTree = "<group>"; };
 		8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		8411B886189FE79B0019D2D6 /* AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertView.h; sourceTree = "<group>"; };
 		8411B887189FE79B0019D2D6 /* AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertView.m; sourceTree = "<group>"; };
@@ -208,8 +211,6 @@
 		843635881AE95D6100157D66 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		843817FB1C386A8700CE14EE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		843B91731C8A14BF00DBD306 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Storyboard.storyboard; sourceTree = "<group>"; };
-		843B91771C8A1CCE00DBD306 /* Setting+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Setting+Create.h"; sourceTree = "<group>"; };
-		843B91781C8A1CCE00DBD306 /* Setting+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Setting+Create.m"; sourceTree = "<group>"; };
 		84401D901CCB5A8400F754C5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/Launch Screen.strings"; sourceTree = "<group>"; };
 		84401D921CCB5A8700F754C5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/Launch Screen.strings"; sourceTree = "<group>"; };
 		84401D941CCB5AB600F754C5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Storyboard.strings; sourceTree = "<group>"; };
@@ -231,12 +232,8 @@
 		846FFA441B402A1F001482A6 /* OwnTracking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OwnTracking.m; sourceTree = "<group>"; };
 		846FFA4D1B40C13C001482A6 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		846FFA4E1B40C13C001482A6 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
-		846FFA501B416CD6001482A6 /* Region+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Region+Create.h"; sourceTree = "<group>"; };
-		846FFA511B416CD6001482A6 /* Region+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Region+Create.m"; sourceTree = "<group>"; };
 		846FFA561B419687001482A6 /* RegionTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionTVC.h; sourceTree = "<group>"; };
 		846FFA571B419687001482A6 /* RegionTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionTVC.m; sourceTree = "<group>"; };
-		846FFA591B4196D0001482A6 /* Waypoint+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Waypoint+Create.h"; sourceTree = "<group>"; };
-		846FFA5A1B4196D0001482A6 /* Waypoint+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Waypoint+Create.m"; sourceTree = "<group>"; };
 		846FFA5C1B420938001482A6 /* FriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendTableViewCell.h; sourceTree = "<group>"; };
 		846FFA5D1B420938001482A6 /* FriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendTableViewCell.m; sourceTree = "<group>"; };
 		8474B15319A8CB7D00427427 /* Model 7.3.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.1.xcdatamodel"; sourceTree = "<group>"; };
@@ -250,9 +247,15 @@
 		84930A2D1B376DDF00810C3A /* Model 8.1.3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.3.xcdatamodel"; sourceTree = "<group>"; };
 		84930A311B37729000810C3A /* Model 8.1.4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.4.xcdatamodel"; sourceTree = "<group>"; };
 		849D457B18CDACDF00201BF3 /* Settings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Settings.plist; sourceTree = "<group>"; };
+		84A046C21D81FE8000796C56 /* IdPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdPicker.h; sourceTree = "<group>"; };
+		84A046C31D81FE8000796C56 /* IdPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdPicker.m; sourceTree = "<group>"; };
+		84A046C51D82081B00796C56 /* Watson.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Watson.plist; sourceTree = "<group>"; };
+		84A046C61D82081B00796C56 /* WatsonRegistered.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WatsonRegistered.plist; sourceTree = "<group>"; };
 		84A173661B427BDD00CCB7D0 /* ModeBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModeBarButtonItem.h; sourceTree = "<group>"; };
 		84A173671B427BDD00CCB7D0 /* ModeBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModeBarButtonItem.m; sourceTree = "<group>"; };
 		84A173691B428E5C00CCB7D0 /* Model 8.2.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.1.xcdatamodel"; sourceTree = "<group>"; };
+		84A661281D914ED7003A21CA /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
+		84A661291D914ED7003A21CA /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
 		84AF468F1AB9571800E954E3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		84B739781A65629200B103F4 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		84B739791A65629200B103F4 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
@@ -291,8 +294,7 @@
 		84E8A1951BB94B1D002518AA /* Waypoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Waypoint.m; sourceTree = "<group>"; };
 		84E8A1961BB94B1D002518AA /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
 		84E8A1971BB94B1D002518AA /* Setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
-		84E8A1981BB94B1D002518AA /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
-		84E8A1991BB94B1D002518AA /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
+		84EACB601D9196F600CFE781 /* OwnTracks WatchKit App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "OwnTracks WatchKit App.entitlements"; sourceTree = "<group>"; };
 		84F0AFE31C830C1D00C9F69F /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		84F0AFE51C830C2C00C9F69F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.0.xcdatamodel"; sourceTree = "<group>"; };
@@ -426,6 +428,9 @@
 				849D457B18CDACDF00201BF3 /* Settings.plist */,
 				84CDB24F1AD197AD005E272B /* Public.plist */,
 				8455DFBD1ADF2BD8003C7BC8 /* Hosted.plist */,
+				8400D9721D83825E00DEA134 /* HTTP.plist */,
+				84A046C51D82081B00796C56 /* Watson.plist */,
+				84A046C61D82081B00796C56 /* WatsonRegistered.plist */,
 				8411B88F189FE9CE0019D2D6 /* Settings.h */,
 				8411B890189FE9CE0019D2D6 /* Settings.m */,
 				84664E9B1CC83A38002123EC /* NSBundle+privateLocalization.h */,
@@ -465,8 +470,8 @@
 				84E8A1951BB94B1D002518AA /* Waypoint.m */,
 				84E8A1961BB94B1D002518AA /* Setting.h */,
 				84E8A1971BB94B1D002518AA /* Setting.m */,
-				84E8A1981BB94B1D002518AA /* Friend.h */,
-				84E8A1991BB94B1D002518AA /* Friend.m */,
+				84A661281D914ED7003A21CA /* Friend.h */,
+				84A661291D914ED7003A21CA /* Friend.m */,
 				84E8A17C1BB94782002518AA /* Location+CoreDataProperties.h */,
 				84E8A17D1BB94782002518AA /* Location+CoreDataProperties.m */,
 				84E8A17E1BB94782002518AA /* Setting+CoreDataProperties.h */,
@@ -477,14 +482,6 @@
 				84E8A1851BB94782002518AA /* Waypoint+CoreDataProperties.m */,
 				84E8A1861BB94782002518AA /* Region+CoreDataProperties.h */,
 				84E8A1871BB94782002518AA /* Region+CoreDataProperties.m */,
-				846FFA591B4196D0001482A6 /* Waypoint+Create.h */,
-				846FFA5A1B4196D0001482A6 /* Waypoint+Create.m */,
-				846FFA501B416CD6001482A6 /* Region+Create.h */,
-				846FFA511B416CD6001482A6 /* Region+Create.m */,
-				843B91771C8A1CCE00DBD306 /* Setting+Create.h */,
-				843B91781C8A1CCE00DBD306 /* Setting+Create.m */,
-				8411B868189FE1ED0019D2D6 /* Friend+Create.h */,
-				8411B869189FE1ED0019D2D6 /* Friend+Create.m */,
 				8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */,
 				8411B888189FE79B0019D2D6 /* CoreData.h */,
 				8411B889189FE79B0019D2D6 /* CoreData.m */,
@@ -531,6 +528,7 @@
 		843635821AE95D6100157D66 /* OwnTracks WatchKit App */ = {
 			isa = PBXGroup;
 			children = (
+				84EACB601D9196F600CFE781 /* OwnTracks WatchKit App.entitlements */,
 				843635851AE95D6100157D66 /* Interface.storyboard */,
 				843635881AE95D6100157D66 /* Images.xcassets */,
 				843635831AE95D6100157D66 /* Supporting Files */,
@@ -614,6 +612,10 @@
 			children = (
 				84DDEAC51BD9F37900B01879 /* SettingsTVC.h */,
 				84DDEAC61BD9F37900B01879 /* SettingsTVC.m */,
+				84A046C21D81FE8000796C56 /* IdPicker.h */,
+				84A046C31D81FE8000796C56 /* IdPicker.m */,
+				8400D96F1D83589F00DEA134 /* WebVC.h */,
+				8400D9701D83589F00DEA134 /* WebVC.m */,
 				8411B908189FEC070019D2D6 /* StatusTVC.h */,
 				8411B909189FEC070019D2D6 /* StatusTVC.m */,
 				845AA1B21B44245100945856 /* CertificatesTVC.h */,
@@ -650,13 +652,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8411B85A189FDB140019D2D6 /* Build configuration list for PBXNativeTarget "OwnTracks" */;
 			buildPhases = (
-				A46C33B668D7A90E40A247E6 /* 📦 Check Pods Manifest.lock */,
+				A46C33B668D7A90E40A247E6 /* [CP] Check Pods Manifest.lock */,
 				8411B824189FDB140019D2D6 /* Sources */,
 				8411B825189FDB140019D2D6 /* Frameworks */,
 				8411B826189FDB140019D2D6 /* Resources */,
 				844E826B1AB8061500516D1A /* Embed App Extensions */,
-				B9074668360D50063C01DD10 /* 📦 Embed Pods Frameworks */,
-				637F2361C42E2D21D6FE2B89 /* 📦 Copy Pods Resources */,
+				B9074668360D50063C01DD10 /* [CP] Embed Pods Frameworks */,
+				637F2361C42E2D21D6FE2B89 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -726,7 +728,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = OwnTracks;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = OwnTracks;
 				TargetAttributes = {
 					8411B827189FDB140019D2D6 = {
@@ -761,6 +763,11 @@
 					8436357D1AE95D6000157D66 = {
 						CreatedOnToolsVersion = 6.3;
 						DevelopmentTeam = C652JFWU23;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 					84D3072C1ACD644500FACB9E = {
 						CreatedOnToolsVersion = 6.2;
@@ -801,8 +808,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				846FFA161B4013BB001482A6 /* Colors.plist in Resources */,
+				84A046C71D82081B00796C56 /* Watson.plist in Resources */,
+				84A046C81D82081B00796C56 /* WatsonRegistered.plist in Resources */,
 				841D1A241C8AF70900DC5765 /* Localizable.strings in Resources */,
 				8479EEB718E4529900923B24 /* Settings.plist in Resources */,
+				8400D9731D83825E00DEA134 /* HTTP.plist in Resources */,
 				843B91721C8A14BF00DBD306 /* Storyboard.storyboard in Resources */,
 				845AA1BD1B4846AF00945856 /* OwnTracks-320.png in Resources */,
 				8411B843189FDB140019D2D6 /* Images.xcassets in Resources */,
@@ -847,14 +857,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		637F2361C42E2D21D6FE2B89 /* 📦 Copy Pods Resources */ = {
+		637F2361C42E2D21D6FE2B89 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -862,29 +872,29 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OwnTracks/Pods-OwnTracks-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A46C33B668D7A90E40A247E6 /* 📦 Check Pods Manifest.lock */ = {
+		A46C33B668D7A90E40A247E6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		B9074668360D50063C01DD10 /* 📦 Embed Pods Frameworks */ = {
+		B9074668360D50063C01DD10 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -899,7 +909,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				846FFA5B1B4196D0001482A6 /* Waypoint+Create.m in Sources */,
 				8411B83A189FDB140019D2D6 /* main.m in Sources */,
 				8411B90C189FEC070019D2D6 /* WaypointTVC.m in Sources */,
 				8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */,
@@ -911,23 +920,21 @@
 				84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */,
 				84E8A1881BB94782002518AA /* Location+CoreDataProperties.m in Sources */,
 				84664E9D1CC83A38002123EC /* NSBundle+privateLocalization.m in Sources */,
+				84A6612A1D914ED7003A21CA /* Friend.m in Sources */,
 				8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */,
+				8400D9711D83589F00DEA134 /* WebVC.m in Sources */,
 				846FFA5E1B420938001482A6 /* FriendTableViewCell.m in Sources */,
 				84001C141C78982800413E5B /* Queue+CoreDataProperties.m in Sources */,
-				843B91791C8A1CCE00DBD306 /* Setting+Create.m in Sources */,
 				8411B87F189FE35C0019D2D6 /* Model.xcdatamodeld in Sources */,
 				84E8A1891BB94782002518AA /* Setting+CoreDataProperties.m in Sources */,
 				84E8A19E1BB94B1D002518AA /* Setting.m in Sources */,
 				8411B90D189FEC070019D2D6 /* FriendAnnotationV.m in Sources */,
-				84E8A19F1BB94B1D002518AA /* Friend.m in Sources */,
 				8411B88A189FE79B0019D2D6 /* AlertView.m in Sources */,
 				8411B90E189FEC070019D2D6 /* FriendsTVC.m in Sources */,
 				84E8A18C1BB94782002518AA /* Waypoint+CoreDataProperties.m in Sources */,
 				8411B90F189FEC070019D2D6 /* RegionsTVC.m in Sources */,
-				846FFA521B416CD6001482A6 /* Region+Create.m in Sources */,
 				8411B88B189FE79B0019D2D6 /* CoreData.m in Sources */,
 				84001C151C78982800413E5B /* Queue.m in Sources */,
-				8411B878189FE1ED0019D2D6 /* Friend+Create.m in Sources */,
 				84E8A18A1BB94782002518AA /* Friend+CoreDataProperties.m in Sources */,
 				846FFA4F1B40C13C001482A6 /* NavigationController.m in Sources */,
 				84E8A19B1BB94B1D002518AA /* Location.m in Sources */,
@@ -938,6 +945,7 @@
 				84B7397A1A65629200B103F4 /* LocationManager.m in Sources */,
 				8411B891189FE9CE0019D2D6 /* Settings.m in Sources */,
 				84E8A19D1BB94B1D002518AA /* Waypoint.m in Sources */,
+				84A046C41D81FE8000796C56 /* IdPicker.m in Sources */,
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,
 				84E8A18D1BB94782002518AA /* Region+CoreDataProperties.m in Sources */,
 				8404876B1C5386DD00569C79 /* FeaturedContentVC.m in Sources */,
@@ -1055,6 +1063,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1064,14 +1073,19 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1084,7 +1098,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -1094,6 +1108,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1103,20 +1118,25 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1139,7 +1159,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
 				INFOPLIST_FILE = "OwnTracks/OwnTracks-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1171,7 +1191,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
 				INFOPLIST_FILE = "OwnTracks/OwnTracks-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1387,6 +1407,7 @@
 		8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				8400D9741D84946E00DEA134 /* Model 9.1.7.xcdatamodel */,
 				84001C0F1C78976100413E5B /* Model 9.0.2.xcdatamodel */,
 				84E8A17B1BB946F0002518AA /* Model 8.2.18.xcdatamodel */,
 				84A173691B428E5C00CCB7D0 /* Model 8.2.1.xcdatamodel */,
@@ -1406,7 +1427,7 @@
 				84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */,
 				8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 84001C0F1C78976100413E5B /* Model 9.0.2.xcdatamodel */;
+			currentVersion = 8400D9741D84946E00DEA134 /* Model 9.1.7.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

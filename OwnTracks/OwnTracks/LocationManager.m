@@ -98,25 +98,21 @@ static LocationManager *theInstance = nil;
                                                       DDLogVerbose(@"UIApplicationWillTerminateNotification");
                                                       [self stop];
                                                   }];
-    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
-        self.altimeter = [[CMAltimeter alloc] init];
-    }
-    
+    self.altimeter = [[CMAltimeter alloc] init];
+
     return self;
 }
 
 - (void)start {
     DDLogVerbose(@"start");
     [self authorize];
-    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
-        if ([CMAltimeter isRelativeAltitudeAvailable]) {
-            DDLogVerbose(@"startRelativeAltitudeUpdatesToQueue");
-            [self.altimeter startRelativeAltitudeUpdatesToQueue:[NSOperationQueue mainQueue]
-                                                    withHandler:^(CMAltitudeData *altitudeData, NSError *error) {
-                                                        DDLogVerbose(@"altitudeData %@", altitudeData);
-                                                        self.altitude = altitudeData;
-                                                    }];
-        }
+    if ([CMAltimeter isRelativeAltitudeAvailable]) {
+        DDLogVerbose(@"startRelativeAltitudeUpdatesToQueue");
+        [self.altimeter startRelativeAltitudeUpdatesToQueue:[NSOperationQueue mainQueue]
+                                                withHandler:^(CMAltitudeData *altitudeData, NSError *error) {
+                                                    DDLogVerbose(@"altitudeData %@", altitudeData);
+                                                    self.altitude = altitudeData;
+                                                }];
     }
 }
 
@@ -139,30 +135,23 @@ static LocationManager *theInstance = nil;
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     DDLogVerbose(@"authorizationStatus=%d", status);
     if (status == kCLAuthorizationStatusNotDetermined) {
-        DDLogVerbose(@"systemVersion=%@", [[UIDevice currentDevice] systemVersion]);
-        if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
-            [self.manager requestAlwaysAuthorization];
-        }
+        [self.manager requestAlwaysAuthorization];
     }
 }
 
 - (void)sleep {
     DDLogVerbose(@"sleep");
-    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
-        for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
-            [self.manager stopRangingBeaconsInRegion:beaconRegion];
-        }
+    for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
+        [self.manager stopRangingBeaconsInRegion:beaconRegion];
     }
     [self.activityTimer invalidate];
 }
 
 - (void)stop {
     DDLogVerbose(@"stop");
-    if ([[[UIDevice currentDevice] systemVersion] compare:@"8.0"] != NSOrderedAscending) {
-        if ([CMAltimeter isRelativeAltitudeAvailable]) {
-            DDLogVerbose(@"stopRelativeAltitudeUpdates");
-            [self.altimeter stopRelativeAltitudeUpdates];
-        }
+    if ([CMAltimeter isRelativeAltitudeAvailable]) {
+        DDLogVerbose(@"stopRelativeAltitudeUpdates");
+        [self.altimeter stopRelativeAltitudeUpdates];
     }
 }
 
@@ -263,12 +252,10 @@ static LocationManager *theInstance = nil;
     DDLogVerbose(@"ranging=%d", ranging);
     _ranging = ranging;
     
-    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
-        if (!ranging) {
-            for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
-                DDLogVerbose(@"stopRangingBeaconsInRegion %@", beaconRegion.identifier);
-                [self.manager stopRangingBeaconsInRegion:beaconRegion];
-            }
+    if (!ranging) {
+        for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
+            DDLogVerbose(@"stopRangingBeaconsInRegion %@", beaconRegion.identifier);
+            [self.manager stopRangingBeaconsInRegion:beaconRegion];
         }
     }
     for (CLRegion *region in self.manager.monitoredRegions) {

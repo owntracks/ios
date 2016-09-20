@@ -6,7 +6,7 @@
 //  Copyright © 2013-2016 Christoph Krey. All rights reserved.
 //
 
-#import "Friend+Create.h"
+#import "Friend.h"
 
 @interface FriendsTVC : UITableViewController <NSFetchedResultsControllerDelegate>
 @end

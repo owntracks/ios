@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Region+Create.h"
+#import "Region.h"
 
 @interface RegionTVC : UITableViewController <UITextFieldDelegate>
 @property (strong, nonatomic) Region *editRegion;

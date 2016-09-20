@@ -1,17 +1,22 @@
 PODS:
   - ABStaticTableViewController (1.1.0)
-  - CocoaLumberjack (2.3.0):
-    - CocoaLumberjack/Default (= 2.3.0)
-    - CocoaLumberjack/Extensions (= 2.3.0)
-  - CocoaLumberjack/Core (2.3.0)
-  - CocoaLumberjack/Default (2.3.0):
+  - CocoaLumberjack (2.4.0):
+    - CocoaLumberjack/Default (= 2.4.0)
+    - CocoaLumberjack/Extensions (= 2.4.0)
+  - CocoaLumberjack/Core (2.4.0)
+  - CocoaLumberjack/Default (2.4.0):
     - CocoaLumberjack/Core
-  - CocoaLumberjack/Extensions (2.3.0):
+  - CocoaLumberjack/Extensions (2.4.0):
     - CocoaLumberjack/Default
   - libsodium (1.0.3)
-  - MQTTClient (0.7.8):
-    - MQTTClient/Core (= 0.7.8)
-  - MQTTClient/Core (0.7.8):
+  - MQTTClient (0.8.1):
+    - MQTTClient/Core (= 0.8.1)
+  - MQTTClient/Core (0.8.1):
+    - MQTTClient/Manager
+    - MQTTClient/Min
+  - MQTTClient/Manager (0.8.1):
+    - MQTTClient/Min
+  - MQTTClient/Min (0.8.1):
     - CocoaLumberjack
   - QRCodeReaderViewController (4.0.1)
 
@@ -24,11 +29,11 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   ABStaticTableViewController: ef94678753f8873d364ca6cc74ea0237b41fb848
-  CocoaLumberjack: 97fab7ee5f507fe54445cca7ea80f926729cfd15
+  CocoaLumberjack: aa9dcab71bdf9eaf2a63bbd9ddc87863efe45457
   libsodium: be547e31dc75725629acc5717dc0a40fc05ef243
-  MQTTClient: be89741654eccf5a57eb62f4ef0fd57e0e19aa17
+  MQTTClient: 097b1e62c319f7c90b489fa540038064afc95f42
   QRCodeReaderViewController: 6538745c8f4ffa9407a26bd7f9489ea01739e7b0
 
-PODFILE CHECKSUM: 3690d6ff9dcde9fa3a48d2dbf4b119f311cb28b7
+PODFILE CHECKSUM: c62ca1fa593b9471cea04d264f34fa9eca9afdde
 
-COCOAPODS: 1.0.0
+COCOAPODS: 1.1.0.rc.2

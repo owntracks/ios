@@ -318,7 +318,7 @@ extern unsigned long long const kDDDefaultLogFilesDiskQuota;
  * Log File Rolling:
  *
  * `maximumFileSize`:
- *   The approximate maximum size to allow log files to grow.
+ *   The approximate maximum size (in bytes) to allow log files to grow.
  *   If a log file is larger than this value after a log statement is appended,
  *   then the log file is rolled.
  *
@@ -326,6 +326,9 @@ extern unsigned long long const kDDDefaultLogFilesDiskQuota;
  *   How often to roll the log file.
  *   The frequency is given as an `NSTimeInterval`, which is a double that specifies the interval in seconds.
  *   Once the log file gets to be this old, it is rolled.
+ *
+ * `doNotReuseLogFiles`
+ *   When set, will always create a new log file at application launch.
  *
  * Both the `maximumFileSize` and the `rollingFrequency` are used to manage rolling.
  * Whichever occurs first will cause the log file to be rolled.

@@ -10,7 +10,7 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @implementation FriendAnnotationV
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 #define CIRCLE_SIZE 40.0
 #define CIRCLE_COLOR [UIColor yellowColor]
@@ -31,22 +31,26 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 #define TACHO_SCALE 30.0
 #define TACHO_MAX 540.0
 
-- (instancetype)initWithFrame:(CGRect)frame
-{
+
+/** This method does not seem to be called anymore in ios10
+ */
+- (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     DDLogVerbose(@"FriendAnnotationView initWithFrame ddLogLevel %lu", (unsigned long)ddLogLevel);
-
-    if (self) {
-        self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.0];
-        self.frame = CGRectMake(0, 0, CIRCLE_SIZE, CIRCLE_SIZE);
-    }
+    [self internalInit];
     return self;
 }
 
 - (instancetype)initWithAnnotation:(id<MKAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier {
     DDLogVerbose(@"FriendAnnotationView initWithAnnotation reuseIdentifer %@", reuseIdentifier);
     self = [super initWithAnnotation:annotation reuseIdentifier:reuseIdentifier];
+    [self internalInit];
     return self;
+}
+
+- (void)internalInit {
+    self.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.0];
+    self.frame = CGRectMake(0, 0, CIRCLE_SIZE, CIRCLE_SIZE);
 }
 
 - (void)setPersonImage:(UIImage *)image

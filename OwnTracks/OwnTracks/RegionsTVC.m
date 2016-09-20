@@ -8,7 +8,7 @@
 
 #import "RegionsTVC.h"
 #import "WaypointTVC.h"
-#import "Region+Create.h"
+#import "Region.h"
 #import "RegionTVC.h"
 #import "CoreData.h"
 #import "Settings.h"

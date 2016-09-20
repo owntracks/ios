@@ -13,7 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Setting : NSManagedObject
 
-// Insert code here to declare functionality of your managed object subclass
++ (Setting *)existsSettingWithKey:(NSString *)key inManagedObjectContext:(NSManagedObjectContext *)context;
++ (Setting *)settingWithKey:(NSString *)key inManagedObjectContext:(NSManagedObjectContext *)context;
++ (NSArray *)allSettingsInManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end
 

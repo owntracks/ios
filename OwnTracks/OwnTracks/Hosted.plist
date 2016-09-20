@@ -12,8 +12,6 @@
 	<true/>
 	<key>qos_preference</key>
 	<integer>1</integer>
-	<key>host_preference</key>
-	<string>hosted-mqtt.owntracks.org</string>
 	<key>port_preference</key>
 	<real>8883</real>
 	<key>tls_preference</key>
@@ -52,5 +50,7 @@
 	<string></string>
 	<key>positions_preference</key>
 	<integer>50</integer>
+	<key>sub</key>
+	<true/>
 </dict>
 </plist>

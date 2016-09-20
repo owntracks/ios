@@ -7,16 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Setting+Create.h"
+#import "Setting.h"
 
 #define SETTINGS_ACTION @"action"
 #define SETTINGS_ACTIONURL @"actionurl"
 #define SETTINGS_ACTIONEXTERN @"actionextern"
 
-#define MODE_PRIVATE 0
-#define MODE_HOSTED 1
-#define MODE_PUBLIC 2
-#define MODE_HTTP 3
+typedef NS_ENUM(int, ConnectionMode) {
+    CONNECTION_MODE_PRIVATE = 0,
+    CONNECTION_MODE_HOSTED = 1,
+    CONNECTION_MODE_PUBLIC = 2,
+    CONNECTION_MODE_HTTP = 3,
+    CONNECTION_MODE_WATSON = 4,
+    CONNECTION_MODE_WATSONREGISTERED = 5
+};
 
 @interface Settings : NSObject
 
@@ -39,6 +43,7 @@
 + (void)setDouble:(double)d forKey:(NSString *)key;
 + (void)setBool:(BOOL)b forKey:(NSString *)key;
 
++ (NSString *)theHost;
 + (NSString *)theGeneralTopic;
 + (NSString *)theWillTopic;
 + (NSString *)theClientId;
@@ -50,8 +55,7 @@
 + (NSString *)theMqttPass;
 + (BOOL)theMqttAuth;
 
-+ (BOOL)validInPublicMode:(NSString *)key;
-+ (BOOL)validInHostedMode:(NSString *)key;
++ (BOOL)validKey:(NSString *)key inMode:(ConnectionMode)mode;
 
 + (BOOL)validIds;
 

@@ -11,9 +11,9 @@
 #import "FriendsTVC.h"
 #import "WaypointTVC.h"
 #import "PersonTVC.h"
-#import "Friend+Create.h"
+#import "Friend.h"
 #import "FriendTableViewCell.h"
-#import "Waypoint+Create.h"
+#import "Waypoint.h"
 #import "CoreData.h"
 #import "FriendAnnotationV.h"
 #import "OwnTracking.h"
@@ -219,9 +219,15 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
                                               inManagedObjectContext:[CoreData theManagedObjectContext]];
     [fetchRequest setEntity:entity];
     [fetchRequest setFetchBatchSize:20];
-    
+
+    int ignoreStaleLocations = [Settings intForKey:@"ignorestalelocations_preference"];
+    if (ignoreStaleLocations) {
+        NSTimeInterval stale = -ignoreStaleLocations * 24.0 * 3600.0;
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"lastLocation > %@",
+                                  [NSDate dateWithTimeIntervalSinceNow:stale]];
+    }
+
     NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"topic" ascending:YES];
-    
     NSArray *sortDescriptors = @[sortDescriptor1];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
@@ -329,7 +335,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         friendAnnotationView.course = -1;
     }
     
-    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit
+    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay
                                                                        fromDate:[NSDate date]];
     NSDate *thisMorning = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
     if ([waypoint.tst timeIntervalSinceDate:thisMorning] > 0) {

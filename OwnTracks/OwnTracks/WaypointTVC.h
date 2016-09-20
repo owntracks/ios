@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Waypoint+Create.h"
+#import "Waypoint.h"
 
 @interface WaypointTVC : UITableViewController
 @property (strong, nonatomic) Waypoint *waypoint;

@@ -13,8 +13,8 @@
 #import "RegionsTVC.h"
 #import "WaypointTVC.h"
 #import "CoreData.h"
-#import "Friend+Create.h"
-#import "Region+Create.h"
+#import "Friend.h"
+#import "Region.h"
 #import "Waypoint.h"
 #import "UIColor+WithName.h"
 #import "LocationManager.h"
@@ -60,6 +60,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if ([CoreData theManagedObjectContext]) {
         if (!self.frcFriends) {
             NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Friend"];
+
+            int ignoreStaleLocations = [Settings intForKey:@"ignorestalelocations_preference"];
+            if (ignoreStaleLocations) {
+                NSTimeInterval stale = -ignoreStaleLocations * 24.0 * 3600.0;
+                request.predicate = [NSPredicate predicateWithFormat:@"lastLocation > %@",
+                                          [NSDate dateWithTimeIntervalSinceNow:stale]];
+            }
+            
             request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"topic" ascending:TRUE]];
             self.frcFriends = [[NSFetchedResultsController alloc] initWithFetchRequest:request
                                                                   managedObjectContext:[CoreData theManagedObjectContext]
@@ -281,7 +289,8 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             [self performFetch:newfrc];
         }
     }
-    [self.mapView addAnnotations:[Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]]];
+    NSArray *friends = _frcFriends.fetchedObjects;
+    [self.mapView addAnnotations:friends];
 }
 
 - (void)setFrcRegions:(NSFetchedResultsController *)newfrc

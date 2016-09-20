@@ -7,8 +7,8 @@
 //
 
 #import "WaypointTVC.h"
-#import "Friend+Create.h"
-#import "Waypoint+Create.h"
+#import "Friend.h"
+#import "Waypoint.h"
 #import "OwnTracksAppDelegate.h"
 #import "PersonTVC.h"
 #import "Settings.h"

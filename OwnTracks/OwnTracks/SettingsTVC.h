@@ -11,5 +11,5 @@
 #import <QRCodeReaderViewController.h>
 
 @interface SettingsTVC : ABStaticTableViewController <UIDocumentInteractionControllerDelegate, UIAlertViewDelegate, UITextFieldDelegate, QRCodeReaderDelegate>
-
+@property (nonatomic) BOOL privileged;
 @end

@@ -8,14 +8,19 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
 
 @class Friend;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Region : NSManagedObject
+@interface Region : NSManagedObject <MKAnnotation, MKOverlay>
 
-// Insert code here to declare functionality of your managed object subclass
+@property (nonatomic) CLLocationCoordinate2D coordinate;
+- (CLRegion *)CLregion;
+- (MKCircle *)circle;
+- (NSDate *)getAndFillTst;
 
 @end
 

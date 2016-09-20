@@ -1,3 +1,4 @@
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/ABStaticTableViewController" "${PODS_ROOT}/Headers/Public/CocoaLumberjack" "${PODS_ROOT}/Headers/Public/MQTTClient" "${PODS_ROOT}/Headers/Public/QRCodeReaderViewController" "${PODS_ROOT}/Headers/Public/libsodium"
 LIBRARY_SEARCH_PATHS = $(inherited) "$PODS_CONFIGURATION_BUILD_DIR/ABStaticTableViewController" "$PODS_CONFIGURATION_BUILD_DIR/CocoaLumberjack" "$PODS_CONFIGURATION_BUILD_DIR/MQTTClient" "$PODS_CONFIGURATION_BUILD_DIR/QRCodeReaderViewController" "$PODS_CONFIGURATION_BUILD_DIR/libsodium"

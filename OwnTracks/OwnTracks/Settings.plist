@@ -22,8 +22,6 @@
 	<integer>1</integer>
 	<key>host_preference</key>
 	<string>host</string>
-	<key>url_preference</key>
-	<string>https://user:password@host:port/path</string>
 	<key>port_preference</key>
 	<real>8883</real>
 	<key>tls_preference</key>
@@ -32,12 +30,6 @@
 	<true/>
 	<key>user_preference</key>
 	<string>user</string>
-	<key>user</key>
-	<string></string>
-	<key>device</key>
-	<string></string>
-	<key>token</key>
-	<string></string>
 	<key>pass_preference</key>
 	<string>pass</string>
 	<key>keepalive_preference</key>
@@ -74,6 +66,8 @@
 	<false/>
 	<key>policymode</key>
 	<integer>0</integer>
+	<key>sub</key>
+	<true/>
 	<key>allowinvalidcerts</key>
 	<false/>
 	<key>validatedomainname</key>

@@ -4,12 +4,14 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "EB540C0B049ABC3AA4BCD303AD4EFC9E8C3C2D7D" : 0,
     "243667A1AAEAA3477EEE9DD0FB5B9EB17C817875" : 0,
     "35900F890DA32A28E8775453DB420201422CF214" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "30859505-D86E-416C-A477-05A1439D38AC",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "243667A1AAEAA3477EEE9DD0FB5B9EB17C817875" : "ios",
+    "EB540C0B049ABC3AA4BCD303AD4EFC9E8C3C2D7D" : "..\/..\/..\/Volumes\/Extension\/wegeheld\/wegeheld",
+    "243667A1AAEAA3477EEE9DD0FB5B9EB17C817875" : "ios\/",
     "35900F890DA32A28E8775453DB420201422CF214" : "..\/MQTT-Client-Framework"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "OwnTracks",
@@ -25,6 +27,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ckrey\/MQTT-Client-Framework.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "35900F890DA32A28E8775453DB420201422CF214"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/bitbucket.org\/wegeheldorg\/wegeheld.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "EB540C0B049ABC3AA4BCD303AD4EFC9E8C3C2D7D"
     }
   ]
 }

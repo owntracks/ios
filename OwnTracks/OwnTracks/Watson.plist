@@ -2,16 +2,30 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>subscriptionqos_preference</key>
-	<integer>0</integer>
+	<key>mindist_preference</key>
+	<integer>200</integer>
+	<key>mintime_preference</key>
+	<integer>180</integer>
+	<key>deviceid_preference</key>
+	<string>device</string>
+	<key>sub</key>
+	<false/>
 	<key>retain_preference</key>
 	<false/>
 	<key>qos_preference</key>
 	<integer>0</integer>
+	<key>host_preference</key>
+	<string>quickstart.messaging.internetofthings.ibmcloud.com</string>
 	<key>port_preference</key>
-	<real>8889</real>
+	<real>8883</real>
 	<key>tls_preference</key>
 	<true/>
+	<key>auth_preference</key>
+	<false/>
+	<key>user_preference</key>
+	<string>user</string>
+	<key>pass_preference</key>
+	<string>pass</string>
 	<key>keepalive_preference</key>
 	<integer>60</integer>
 	<key>clean_preference</key>
@@ -23,14 +37,12 @@
 	<key>willqos_preference</key>
 	<integer>0</integer>
 	<key>monitoring_preference</key>
-	<integer>0</integer>
+	<integer>1</integer>
 	<key>ranging_preference</key>
 	<false/>
 	<key>cmd_preference</key>
-	<true/>
-	<key>ab_preference</key>
 	<false/>
-	<key>allowremotelocation_preference</key>
+	<key>ab_preference</key>
 	<true/>
 	<key>extendeddata_preference</key>
 	<true/>
@@ -38,11 +50,5 @@
 	<string></string>
 	<key>positions_preference</key>
 	<integer>50</integer>
-	<key>mindist_preference</key>
-	<integer>200</integer>
-	<key>mintime_preference</key>
-	<integer>180</integer>
-	<key>sub</key>
-	<true/>
 </dict>
 </plist>

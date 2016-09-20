@@ -30,7 +30,7 @@ static OwnTracking *theInstance = nil;
 - (instancetype)init {
     self = [super init];
     self.inQueue = @(0);
-    
+
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
                                                           [self share];
@@ -65,10 +65,10 @@ static OwnTracking *theInstance = nil;
                 NSDictionary *dictionary = json;
                 NSArray *topicComponents = [topic componentsSeparatedByString:@"/"];
                 NSArray *baseComponents = [[Settings theGeneralTopic] componentsSeparatedByString:@"/"];
-                
+
                 NSString *device = @"";
                 BOOL ownDevice = true;
-                
+
                 for (int i = 0; i < [baseComponents count]; i++) {
                     if (i > 0) {
                         device = [device stringByAppendingString:@"/"];
@@ -82,7 +82,7 @@ static OwnTracking *theInstance = nil;
                         ownDevice = false;
                     }
                 }
-                
+
                 if (ownDevice) {
                     if ([dictionary[@"_type"] isEqualToString:@"card"]) {
                         [context performBlock:^{
@@ -95,13 +95,13 @@ static OwnTracking *theInstance = nil;
                     }
                 } else /* not own device */ {
                     if (data.length) {
-                        
+
                         if ([dictionary[@"_type"] isEqualToString:@"location"]) {
                             CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
                                                                                            [dictionary[@"lat"] doubleValue],
                                                                                            [dictionary[@"lon"] doubleValue]
                                                                                            );
-                            
+
                             int speed = [dictionary[@"vel"] intValue];
                             if (speed != -1) {
                                 speed = speed * 1000 / 3600;
@@ -123,21 +123,28 @@ static OwnTracking *theInstance = nil;
                             NSString *type = dictionary[@"t"];
                             if (!type || ![type isEqualToString:@"b"]) {
                                 NSString *tid = dictionary[@"tid"];
+                                NSDate *tst = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]];
                                 NSString *event = dictionary[@"event"];
                                 NSString *desc = dictionary[@"desc"];
                                 if (!desc) {
                                     desc = NSLocalizedString(@"a region",
                                                              @"name of an unknown or hidden region");
                                 }
-                                NSString *message = [NSString stringWithFormat:@"%@ %@s %@",
+
+                                NSString *shortTime = [NSDateFormatter localizedStringFromDate:tst
+                                                                                     dateStyle:NSDateFormatterShortStyle
+                                                                                     timeStyle:NSDateFormatterShortStyle];
+
+                                NSString *message = [NSString stringWithFormat:@"%@ %@s %@ @ %@",
                                                      tid,
                                                      event,
-                                                     desc];
-                                
+                                                     desc,
+                                                     shortTime];
+
                                 UILocalNotification *notification = [[UILocalNotification alloc] init];
                                 notification.alertBody = message;
                                 notification.userInfo = @{@"notify": @"friend"};
-                                notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
+                                notification.fireDate = tst;
                                 [[UIApplication sharedApplication] scheduleLocalNotification:notification];
                                 [AlertView alert:NSLocalizedString(@"Friend",
                                                                    @"Alert message header for friend's messages")
@@ -146,12 +153,12 @@ static OwnTracking *theInstance = nil;
                                  ];
 
                             }
-                            
+
                         } else if ([dictionary[@"_type"] isEqualToString:@"card"]) {
                             Friend *friend = [Friend friendWithTopic:device
                                               inManagedObjectContext:context];
                             [self processFace:friend dictionary:dictionary];
-                            
+
                         } else {
                             DDLogInfo(@"unknown record type %@)", dictionary[@"_type"]);
                         }
@@ -165,7 +172,7 @@ static OwnTracking *theInstance = nil;
             } else {
                 DDLogError(@"illegal json %@, %@ %@)", error.localizedDescription, error.userInfo, data.description);
             }
-            
+
             @synchronized (self.inQueue) {
                 self.inQueue = @([self.inQueue unsignedLongValue] - 1);
             }
@@ -174,7 +181,7 @@ static OwnTracking *theInstance = nil;
                 [self performSelectorOnMainThread:@selector(share) withObject:nil waitUntilDone:NO];
             }
         }];
-        
+
         return TRUE;
     } else {
         return FALSE;
@@ -199,7 +206,9 @@ static OwnTracking *theInstance = nil;
     }
 }
 
-- (void)limitWaypointsFor:(Friend *)friend toMaximum:(NSInteger)max inManagedObjectContext:(NSManagedObjectContext *)context {
+- (void)limitWaypointsFor:(Friend *)friend
+                toMaximum:(NSInteger)max
+   inManagedObjectContext:(NSManagedObjectContext *)context {
     while (friend.hasWaypoints.count > max) {
         DDLogVerbose(@"%@ hasWaypoints.count %lu", friend.topic, (unsigned long)friend.hasWaypoints.count);
         Waypoint *oldestWaypoint = nil;
@@ -213,53 +222,61 @@ static OwnTracking *theInstance = nil;
             [CoreData saveContext:context];
         }
     }
+    Waypoint *newestWaypoint = nil;
+    for (Waypoint *waypoint in friend.hasWaypoints) {
+        if (!newestWaypoint || (!waypoint.isDeleted && [newestWaypoint.tst compare:waypoint.tst] == NSOrderedAscending)) {
+            newestWaypoint = waypoint;
+        }
+    }
+    if (newestWaypoint && ![newestWaypoint.tst isEqualToDate:friend.lastLocation]) {
+        friend.lastLocation = newestWaypoint.tst;
+        [CoreData saveContext:context];
+    }
 }
 
 - (void)share {
-    
-    if ([[[UIDevice currentDevice] systemVersion] compare:@"7.0"] != NSOrderedAscending) {
-        NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
-        NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
-        NSMutableDictionary *sharedFriends = [[NSMutableDictionary alloc] init];
-        CLLocation *myCLLocation = [LocationManager sharedInstance].location;
-        
-        for (Friend *friend in friends) {
-            NSString *name = [friend name];
-            NSData *image = [friend image];
-            
-            if (!image) {
-                image = UIImageJPEGRepresentation([UIImage imageNamed:@"Friend"], 0.5);
-            }
-            
-            Waypoint *waypoint = [friend newestWaypoint];
-            if (waypoint) {
-                CLLocation *location = [[CLLocation alloc]
-                                        initWithLatitude:[waypoint.lat doubleValue]
-                                        longitude:[waypoint.lon doubleValue]];
-                NSNumber *distance = @([myCLLocation distanceFromLocation:location]);
-                if (name) {
-                    if (waypoint.tst &&
-                        waypoint.lat &&
-                        waypoint.lon &&
-                        friend.topic &&
-                        image) {
-                        NSMutableDictionary *aFriend = [[NSMutableDictionary alloc] init];
-                        [aFriend setObject:image forKey:@"image"];
-                        [aFriend setObject:distance forKey:@"distance"];
-                        [aFriend setObject:waypoint.lon forKey:@"longitude"];
-                        [aFriend setObject:waypoint.lat forKey:@"latitude"];
-                        [aFriend setObject:waypoint.tst forKey:@"timestamp"];
-                        [aFriend setObject:friend.topic forKey:@"topic"];
-                        [sharedFriends setObject:aFriend forKey:name];
-                    } else {
-                        DDLogError(@"friend or location incomplete");
-                    }
+
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+    NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
+    NSMutableDictionary *sharedFriends = [[NSMutableDictionary alloc] init];
+    CLLocation *myCLLocation = [LocationManager sharedInstance].location;
+
+    for (Friend *friend in friends) {
+        NSString *name = [friend name];
+        NSData *image = [friend image];
+
+        if (!image) {
+            image = UIImageJPEGRepresentation([UIImage imageNamed:@"Friend"], 0.5);
+        }
+
+        Waypoint *waypoint = [friend newestWaypoint];
+        if (waypoint) {
+            CLLocation *location = [[CLLocation alloc]
+                                    initWithLatitude:[waypoint.lat doubleValue]
+                                    longitude:[waypoint.lon doubleValue]];
+            NSNumber *distance = @([myCLLocation distanceFromLocation:location]);
+            if (name) {
+                if (waypoint.tst &&
+                    waypoint.lat &&
+                    waypoint.lon &&
+                    friend.topic &&
+                    image) {
+                    NSMutableDictionary *aFriend = [[NSMutableDictionary alloc] init];
+                    [aFriend setObject:image forKey:@"image"];
+                    [aFriend setObject:distance forKey:@"distance"];
+                    [aFriend setObject:waypoint.lon forKey:@"longitude"];
+                    [aFriend setObject:waypoint.lat forKey:@"latitude"];
+                    [aFriend setObject:waypoint.tst forKey:@"timestamp"];
+                    [aFriend setObject:friend.topic forKey:@"topic"];
+                    [sharedFriends setObject:aFriend forKey:name];
+                } else {
+                    DDLogError(@"friend or location incomplete");
                 }
             }
         }
-        DDLogVerbose(@"sharedFriends %@", [sharedFriends allKeys]);
-        [shared setValue:sharedFriends forKey:@"sharedFriends"];
     }
+    DDLogVerbose(@"sharedFriends %@", [sharedFriends allKeys]);
+    [shared setValue:sharedFriends forKey:@"sharedFriends"];
 }
 
 - (Waypoint *)addWaypointFor:(Friend *)friend
@@ -283,7 +300,7 @@ static OwnTracking *theInstance = nil;
     waypoint.vel = [NSNumber numberWithDouble:speed];
     waypoint.cog = [NSNumber numberWithDouble:location.course];
     waypoint.placemark = nil;
-    
+
     return waypoint;
 }
 
@@ -325,53 +342,53 @@ static OwnTracking *theInstance = nil;
     if (waypoint.trigger) {
         [json setValue:waypoint.trigger forKey:@"t"];
     }
-    
+
     [json setValue:waypoint.lat forKey:@"lat"];
     [json setValue:waypoint.lon forKey:@"lon"];
     [json setValue:@((int)[waypoint.tst timeIntervalSince1970]) forKey:@"tst"];
-    
+
     int acc = [waypoint.acc intValue];
     if (acc >= 0) {
         [json setValue:@(acc) forKey:@"acc"];
     }
-    
+
     if ([Settings boolForKey:@"extendeddata_preference"]) {
         int alt = [waypoint.alt intValue];
         [json setValue:@(alt) forKey:@"alt"];
-        
+
         int vac = [waypoint.vac intValue];
         if (vac >= 0) {
             [json setValue:@(vac) forKey:@"vac"];
         }
-        
+
         int vel = [waypoint.vel intValue];
         if (vel >= 0) {
             [json setValue:@(vel) forKey:@"vel"];
         }
-        
+
         int cog = [waypoint.cog intValue];
         if (cog >= 0) {
             [json setValue:@(cog) forKey:@"cog"];
         }
-        
+
         CMAltitudeData *altitude = [LocationManager sharedInstance].altitude;
         if (altitude) {
             [json setValue:altitude.pressure forKey:@"p"];
         }
     }
-    
+
     NSString *tid = [Settings stringForKey:@"trackerid_preference"];
     if (tid && tid.length > 0) {
         [json setValue:tid forKeyPath:@"tid"];
     } else {
         [json setValue:[waypoint.belongsTo getEffectiveTid] forKeyPath:@"tid"];
     }
-    
+
     int batteryLevel = [UIDevice currentDevice].batteryLevel != -1 ? [UIDevice currentDevice].batteryLevel * 100 : -1;
     if (batteryLevel >= 0) {
         [json setValue:@(batteryLevel) forKey:@"batt"];
     }
-    
+
     return json;
 }
 
