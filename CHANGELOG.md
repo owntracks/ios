@@ -1,14 +1,16 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## Owntracks 9.1.7/8/9
+## Owntracks 9.1.7/9.2.2
 
->Release date 2016-09-13
+>Release date 2016-09-21
 * [NEW] Modes for WatsonIoT
 * [NEW] Ignore _old_ location pubs closes #410
 * [NEW] Minimum requirements iOS 8.0
 * [NEW] Again new App icon requirements by XCode8 and iOS10
 * [FIX] No images on map with XCode8 / iOS10 #414
+* [FIX] Add privacy description for camera use
+* [FIX] Crash on response in HTTP mode
 
 ## Owntracks 9.1.6
 

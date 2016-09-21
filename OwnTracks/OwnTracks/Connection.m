@@ -355,12 +355,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     self.lastErrorCode = nil;
 
     __block NSRunLoop *myRunLoop = [NSRunLoop currentRunLoop];
-    
-    NSURLSessionDownloadTask *downloadTask =
-    [[NSURLSession sharedSession] downloadTaskWithRequest:request completionHandler:
-     ^(NSURL *location, NSURLResponse *response, NSError *error) {
-         
-         DDLogVerbose(@"downloadTaskWithRequest %@ %@ %@", location, response, error);
+
+    NSURLSessionDataTask *dataTask =
+    [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
+     ^(NSData *data, NSURLResponse *response, NSError *error) {
+
+         DDLogVerbose(@"dataTaskWithRequest %@ %@ %@", data, response, error);
          if (!error) {
              
              if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
@@ -383,21 +383,25 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                              }
                          }
                          
-                         NSData *incomingData = [NSData dataWithContentsOfURL:location];
+                         NSData *incomingData = data;
                          DDLogVerbose(@"incomingData %@", [[NSString alloc] initWithData:incomingData encoding:NSUTF8StringEncoding]);
                          if (self.key && self.key.length) {
                              incomingData = [self decrypt:incomingData];
                          }
-                         
-                         id json = [NSJSONSerialization JSONObjectWithData:incomingData options:0 error:nil];
-                         if (json && [json isKindOfClass:[NSArray class]]) {
-                             for (id element in json) {
-                                 if ([element isKindOfClass:[NSDictionary class]]) {
-                                     [self oneMessage:element];
+
+                         if (incomingData) {
+                             id json = [NSJSONSerialization JSONObjectWithData:incomingData options:0 error:nil];
+                             if (json && [json isKindOfClass:[NSArray class]]) {
+                                 for (id element in json) {
+                                     if ([element isKindOfClass:[NSDictionary class]]) {
+                                         [self oneMessage:element];
+                                     }
                                  }
+                             } else if ([json isKindOfClass:[NSDictionary class]]) {
+                                 [self oneMessage:json];
+                             } else {
+                                 //
                              }
-                         } else if ([json isKindOfClass:[NSDictionary class]]) {
-                             [self oneMessage:json];
                          } else {
                              //
                          }
@@ -424,7 +428,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
              [self startReconnectTimer:myRunLoop];
          }
      }];
-    [downloadTask resume];
+    [dataTask resume];
 }
 
 - (void)oneMessage:(NSDictionary *)message {
