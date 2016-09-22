@@ -33,6 +33,7 @@
 
 @end
 
+
 @implementation ViewController
 static const DDLogLevel ddLogLevel = DDLogLevelError;
 
@@ -52,39 +53,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSMutableArray *rightButtonItems = [self.navigationItem.rightBarButtonItems mutableCopy];
     [rightButtonItems insertObject:[[ModeBarButtonItem alloc] init] atIndex:0];
     self.navigationItem.rightBarButtonItems = rightButtonItems;
+
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"reload"
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note){
+                                                      self.frcFriends = nil;
+                                                      self.frcRegions = nil;
+                                                      }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    if ([CoreData theManagedObjectContext]) {
-        if (!self.frcFriends) {
-            NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Friend"];
-
-            int ignoreStaleLocations = [Settings intForKey:@"ignorestalelocations_preference"];
-            if (ignoreStaleLocations) {
-                NSTimeInterval stale = -ignoreStaleLocations * 24.0 * 3600.0;
-                request.predicate = [NSPredicate predicateWithFormat:@"lastLocation > %@",
-                                          [NSDate dateWithTimeIntervalSinceNow:stale]];
-            }
-            
-            request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"topic" ascending:TRUE]];
-            self.frcFriends = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                                  managedObjectContext:[CoreData theManagedObjectContext]
-                                                                    sectionNameKeyPath:nil
-                                                                             cacheName:nil];
-            self.frcFriends.delegate = self;
-        }
-        if (!self.frcRegions) {
-            [[LocationManager sharedInstance] resetRegions];
-            NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
-            request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:TRUE]];
-            self.frcRegions = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                                  managedObjectContext:[CoreData theManagedObjectContext]
-                                                                    sectionNameKeyPath:nil
-                                                                             cacheName:nil];
-            self.frcRegions.delegate = self;
-        }
+    while (!self.frcFriends) {
+        //
+    }
+    while (!self.frcRegions) {
+        //
     }
 }
 
@@ -279,44 +264,54 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     }
 }
 
-- (void)setFrcFriends:(NSFetchedResultsController *)newfrc
-{
-    NSFetchedResultsController *oldfrc = _frcFriends;
-    if (newfrc != oldfrc) {
-        _frcFriends = newfrc;
-        newfrc.delegate = self;
-        if (newfrc) {
-            [self performFetch:newfrc];
+- (NSFetchedResultsController *)frcFriends {
+    if (!_frcFriends) {
+        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Friend"];
+
+        int ignoreStaleLocations = [Settings intForKey:@"ignorestalelocations_preference"];
+        if (ignoreStaleLocations) {
+            NSTimeInterval stale = -ignoreStaleLocations * 24.0 * 3600.0;
+            request.predicate = [NSPredicate predicateWithFormat:@"lastLocation > %@",
+                                 [NSDate dateWithTimeIntervalSinceNow:stale]];
         }
+
+        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"topic" ascending:TRUE]];
+        _frcFriends = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                          managedObjectContext:[CoreData theManagedObjectContext]
+                                                            sectionNameKeyPath:nil
+                                                                     cacheName:nil];
+        _frcFriends.delegate = self;
+        [self performFetch:_frcFriends];
+        [self.mapView addAnnotations:_frcFriends.fetchedObjects];
     }
-    NSArray *friends = _frcFriends.fetchedObjects;
-    [self.mapView addAnnotations:friends];
+    return _frcFriends;
 }
 
-- (void)setFrcRegions:(NSFetchedResultsController *)newfrc
-{
-    NSFetchedResultsController *oldfrc = _frcRegions;
-    if (newfrc != oldfrc) {
-        _frcRegions = newfrc;
-        newfrc.delegate = self;
-        if (newfrc) {
-            [self performFetch:newfrc];
+- (NSFetchedResultsController *)frcRegions {
+    if (!_frcRegions) {
+        [[LocationManager sharedInstance] resetRegions];
+        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
+        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:TRUE]];
+        _frcRegions = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                          managedObjectContext:[CoreData theManagedObjectContext]
+                                                            sectionNameKeyPath:nil
+                                                                     cacheName:nil];
+        _frcRegions.delegate = self;
+        [self performFetch:_frcRegions];
+        Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic]
+                          inManagedObjectContext:[CoreData theManagedObjectContext]];
+        [self.mapView addOverlays:[friend.hasRegions
+                                   sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                                                               ascending:YES]]]];
+        for (Region *region in friend.hasRegions) {
+            if (region.CLregion) {
+                [[LocationManager sharedInstance] startRegion:region.CLregion];
+            }
         }
+        [self.mapView addAnnotations:[friend.hasRegions sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                                                                                    ascending:YES]]]];
     }
-    
-    Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic]
-                            inManagedObjectContext:[CoreData theManagedObjectContext]];
-    [self.mapView addOverlays:[friend.hasRegions
-                               sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name"
-                                                                                           ascending:YES]]]];
-    for (Region *region in friend.hasRegions) {
-        if (region.CLregion) {
-            [[LocationManager sharedInstance] startRegion:region.CLregion];
-        }
-    }
-    [self.mapView addAnnotations:[friend.hasRegions
-                                  sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name"
-                                                                                              ascending:YES]]]];
+    return _frcRegions;
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller

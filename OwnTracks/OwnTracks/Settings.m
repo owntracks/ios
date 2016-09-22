@@ -79,132 +79,132 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         }
         
         if ([dictionary[@"_type"] isEqualToString:@"configuration"]) {
-            NSString *string;
             NSObject *object;
 
             // Language replacements
             for (NSString *key in [dictionary allKeys]) {
                 if ([key rangeOfString:@"pl"].location == 0) {
                     object = dictionary[key];
-                    if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                         forKey:key];
+                    if (object) [self setString:object forKey:key];
                 }
             }
 
             ConnectionMode importMode = CONNECTION_MODE_PRIVATE;
             object = dictionary[@"mode"];
             if (object) {
-                NSString *string = [NSString stringWithFormat:@"%@", object];
-                [self setString:string forKey:@"mode"];
-                importMode = [string intValue];
+                [self setString:object forKey:@"mode"];
+                if ([object respondsToSelector:@selector(intValue)]) {
+                    importMode = (int)[object performSelector:@selector(intValue)];
+                }
             }
-            
-            string = dictionary[@"deviceId"];
-            if (string) {
+
+            object = dictionary[@"deviceId"];
+            if (object) {
                 switch (importMode) {
                     case CONNECTION_MODE_PRIVATE:
-                        [self setString:string forKey:@"deviceid_preference"];
+                        if ([object isKindOfClass:[NSNull class]]) {
+                            [self  setString:@"" forKey:@"deviceid_preference"];
+                        } else if ([object isKindOfClass:[NSString class]]) {
+                            [self setString:(NSString *)object forKey:@"deviceid_preference"];
+                        }
                         break;
                     case CONNECTION_MODE_HOSTED:
-                        [self setString:string forKey:@"device"];
+                        if ([object isKindOfClass:[NSNull class]]) {
+                            [self  setString:@"" forKey:@"device"];
+                        } else if ([object isKindOfClass:[NSString class]]) {
+                            [self setString:(NSString *)object forKey:@"device"];
+                        }
                         break;
                     default:
                         break;
                 }
             }
             
-            string = dictionary[@"tid"];
-            if (string) [self setString:string forKey:@"trackerid_preference"];
+            object = dictionary[@"tid"];
+            if (object) [self setString:object forKey:@"trackerid_preference"];
             
-            string = dictionary[@"clientId"];
-            if (string) [self setString:string forKey:@"clientid_preference"];
+            object = dictionary[@"clientId"];
+            if (object) [self setString:object forKey:@"clientid_preference"];
             
-            string = dictionary[@"subTopic"];
-            if (string) [self setString:string forKey:@"subscription_preference"];
+            object = dictionary[@"subTopic"];
+            if (object) [self setString:object forKey:@"subscription_preference"];
             
-            string = dictionary[@"pubTopicBase"];
-            if (string) [self setString:string forKey:@"topic_preference"];
+            object = dictionary[@"pubTopicBase"];
+            if (object) [self setString:object forKey:@"topic_preference"];
             
-            string = dictionary[@"host"];
-            if (string) [self setString:string forKey:@"host_preference"];
+            object = dictionary[@"host"];
+            if (object) [self setString:object forKey:@"host_preference"];
             
-            string = dictionary[@"url"];
-            if (string) [self setString:string forKey:@"url_preference"];
+            object = dictionary[@"url"];
+            if (object) [self setString:object forKey:@"url_preference"];
 
-            string = dictionary[@"quickstartId"];
-            if (string) [self setString:string forKey:@"quickstartid_preference"];
+            object = dictionary[@"quickstartId"];
+            if (object) [self setString:object forKey:@"quickstartid_preference"];
 
-            string = dictionary[@"watsonOrganization"];
-            if (string) [self setString:string forKey:@"watsonorganization_preference"];
+            object = dictionary[@"watsonOrganization"];
+            if (object) [self setString:object forKey:@"watsonorganization_preference"];
 
-            string = dictionary[@"watsonDeviceType"];
-            if (string) [self setString:string forKey:@"watsondevicetype_preference"];
+            object = dictionary[@"watsonDeviceType"];
+            if (object) [self setString:object forKey:@"watsondevicetype_preference"];
 
-            string = dictionary[@"watsonDeviceId"];
-            if (string) [self setString:string forKey:@"watsondeviceid_preference"];
+            object = dictionary[@"watsonDeviceId"];
+            if (object) [self setString:object forKey:@"watsondeviceid_preference"];
 
-            string = dictionary[@"watsonAuthToken"];
-            if (string) [self setString:string forKey:@"watsonauthtoken_preference"];
+            object = dictionary[@"watsonAuthToken"];
+            if (object) [self setString:object forKey:@"watsonauthtoken_preference"];
 
-            string = dictionary[@"username"];
-            if (string) {
+            object = dictionary[@"username"];
+            if (object) {
                 switch (importMode) {
                     case CONNECTION_MODE_PRIVATE:
-                        [self setString:string forKey:@"user_preference"];
+                        [self setString:object forKey:@"user_preference"];
                         break;
                     case CONNECTION_MODE_HOSTED:
-                        [self setString:string forKey:@"user"];
+                        [self setString:object forKey:@"user"];
                         break;
                     default:
                         break;
                 }
             }
             
-            string = dictionary[@"password"];
-            if (string) {
+            object = dictionary[@"password"];
+            if (object) {
                 switch (importMode) {
                     case CONNECTION_MODE_PRIVATE:
-                        [self setString:string forKey:@"pass_preference"];
+                        [self setString:object forKey:@"pass_preference"];
                         break;
                     case CONNECTION_MODE_HOSTED:
-                        [self setString:string forKey:@"token"];
+                        [self setString:object forKey:@"token"];
                         break;
                     default:
                         break;
                 }
             }
-                [self setString:string forKey:@"pass_preference"];
-            
-            string = dictionary[@"willTopic"];
-            if (string) [self setString:string forKey:@"willtopic_preference"];
+
+            object = dictionary[@"willTopic"];
+            if (object) [self setString:object forKey:@"willtopic_preference"];
         
             object = dictionary[@"subQos"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                 forKey:@"subscriptionqos_preference"];
+            if (object) [self setString:object forKey:@"subscriptionqos_preference"];
             
             object = dictionary[@"pubQos"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                 forKey:@"qos_preference"];
+            if (object) [self setString:object forKey:@"qos_preference"];
             
             object = dictionary[@"port"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                 forKey:@"port_preference"];
+            if (object) [self setString:object forKey:@"port_preference"];
 
             object = dictionary[@"ignoreStaleLocations"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                 forKey:@"ignorestalelocations_preference"];
+            if (object) [self setString:object forKey:@"ignorestalelocations_preference"];
 
             object = dictionary[@"keepalive"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
                                  forKey:@"keepalive_preference"];
             
             object = dictionary[@"willQos"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                 forKey:@"willqos_preference"];
+            if (object) [self setString:object forKey:@"willqos_preference"];
             
             object = dictionary[@"locatorDisplacement"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                 forKey:@"mindist_preference"];
+            if (object) [self setString:object forKey:@"mindist_preference"];
             
             object = dictionary[@"locatorInterval"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
@@ -215,81 +215,72 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                  forKey:@"monitoring_preference"];
             
             object = dictionary[@"ranging"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                 forKey:@"ranging_preference"];
+            if (object) [self setString:object forKey:@"ranging_preference"];
             
             object = dictionary[@"cmd"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                 forKey:@"cmd_preference"];
+            if (object) [self setString:object forKey:@"cmd_preference"];
 
             object = dictionary[@"sub"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                 forKey:@"sub_preference"];
+            if (object) [self setString:object forKey:@"sub_preference"];
 
 
             object = dictionary[@"pubRetain"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                 forKey:@"retain_preference"];
+            if (object) [self setString:object forKey:@"retain_preference"];
             
             object = dictionary[@"tls"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                 forKey:@"tls_preference"];
+            if (object) [self setString:object forKey:@"tls_preference"];
             
             object = dictionary[@"auth"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                 forKey:@"auth_preference"];
+            if (object) [self setString:object forKey:@"auth_preference"];
             
             object = dictionary[@"cleanSession"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
                                  forKey:@"clean_preference"];
             
             object = dictionary[@"willRetain"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                 forKey:@"willretain_preference"];
+            if (object) [self setString:object forKey:@"willretain_preference"];
             
             object = dictionary[@"updateAddressBook"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                 forKey:@"ab_preference"];
+            if (object) [self setString:object forKey:@"ab_preference"];
             
             object = dictionary[@"positions"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                 forKey:@"positions_preference"];
+            if (object) [self setString:object forKey:@"positions_preference"];
             
             object = dictionary[@"allowRemoteLocation"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"allowremotelocation_preference"];
+            if (object) [self setString:object forKey:@"allowremotelocation_preference"];
             
             object = dictionary[@"extendedData"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"extendeddata_preference"];
+            if (object) [self setString:object forKey:@"extendeddata_preference"];
             
             object = dictionary[@"locked"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"locked"];
+            if (object) [self setString:object forKey:@"locked"];
             
             object = dictionary[@"clientpkcs"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"clientpkcs"];
+            if (object) [self setString:object forKey:@"clientpkcs"];
 
             object = dictionary[@"passphrase"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"passphrase"];
+            if (object) [self setString:object forKey:@"passphrase"];
             
             object = dictionary[@"servercer"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"servercer"];
+            if (object) [self setString:object forKey:@"servercer"];
             
             object = dictionary[@"policymode"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"policymode"];
+            if (object) [self setString:object forKey:@"policymode"];
 
             object = dictionary[@"usepolicy"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"usepolicy"];
+            if (object) [self setString:object forKey:@"usepolicy"];
             
             object = dictionary[@"allowinvalidcerts"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"allowinvalidcerts"];
+            if (object) [self setString:object forKey:@"allowinvalidcerts"];
             
             object = dictionary[@"validatecertificatechain"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"validatecertificatechain"];
+            if (object) [self setString:object forKey:@"validatecertificatechain"];
             
             object = dictionary[@"validatedomainname"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object] forKey:@"validatedomainname"];
+            if (object) [self setString:object forKey:@"validatedomainname"];
             
-            string = dictionary[@"tid"];
-            if (string) [self setString:string forKey:@"trackerid_preference"];
+            object = dictionary[@"tid"];
+            if (object) [self setString:object forKey:@"trackerid_preference"];
             
             NSArray *waypoints = dictionary[@"waypoints"];
             [self setWaypoints:waypoints];
@@ -298,7 +289,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             return [NSError errorWithDomain:@"OwnTracks Settings" code:1 userInfo:@{@"_type": dictionary[@"_type"]}];
         }
     }
-    
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"reload" object:nil];
     return nil;
 }
 
@@ -560,11 +552,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     }
 }
 
-+ (void)setString:(NSString *)string forKey:(NSString *)key {
++ (void)setString:(NSObject *)object forKey:(NSString *)key {
     if ([self validKey:key inMode:[self intForKey:@"mode"]]) {
         [[CoreData theManagedObjectContext] performBlockAndWait:^{
-            Setting *setting = [Setting settingWithKey:key inManagedObjectContext:[CoreData theManagedObjectContext]];
-            setting.value = string;
+            if (object && ![object isKindOfClass:[NSNull class]]) {
+                Setting *setting = [Setting settingWithKey:key
+                                    inManagedObjectContext:[CoreData theManagedObjectContext]];
+                setting.value = [NSString stringWithFormat:@"%@", object];
+            } else {
+                Setting *setting = [Setting existsSettingWithKey:key inManagedObjectContext:[CoreData theManagedObjectContext]];
+                if (setting) {
+                    [[CoreData theManagedObjectContext] deleteObject:setting];
+                }
+            }
         }];
     }
 }

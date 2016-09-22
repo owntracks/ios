@@ -38,7 +38,7 @@ typedef NS_ENUM(int, ConnectionMode) {
 + (double)doubleForKey:(NSString *)key;
 + (BOOL)boolForKey:(NSString *)key;
 
-+ (void)setString:(NSString *)string forKey:(NSString *)key;
++ (void)setString:(NSObject *)object forKey:(NSString *)key;
 + (void)setInt:(int)i forKey:(NSString *)key;
 + (void)setDouble:(double)d forKey:(NSString *)key;
 + (void)setBool:(BOOL)b forKey:(NSString *)key;

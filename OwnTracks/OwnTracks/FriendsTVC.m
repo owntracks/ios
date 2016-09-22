@@ -45,6 +45,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 {
     [super viewDidLoad];
 
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"reload"
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note){
+                                                      self.fetchedResultsController = nil;
+                                                  }];
+
     ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
     
     switch (status) {
@@ -91,6 +98,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             });
             break;
     }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+    while (!self.fetchedResultsController) {
+        //
+    }
+    [self.tableView reloadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath

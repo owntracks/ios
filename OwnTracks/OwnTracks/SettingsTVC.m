@@ -110,6 +110,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [delegate removeObserver:self
                   forKeyPath:@"configLoad"
                      context:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"reload" object:nil];
     [self reconnect];
     [super viewWillDisappear:animated];
 }
