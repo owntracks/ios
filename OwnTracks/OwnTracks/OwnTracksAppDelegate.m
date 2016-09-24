@@ -394,8 +394,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if ([LocationManager sharedInstance].monitoring == LocationMonitoringSignificant ||
         [LocationManager sharedInstance].monitoring == LocationMonitoringMove) {
         CLLocation *lastLocation = [LocationManager sharedInstance].location;
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:lastLocation.coordinate.latitude
-                                                          longitude:lastLocation.coordinate.longitude];
+        CLLocation *location = [[CLLocation alloc] initWithCoordinate:lastLocation.coordinate
+                                                             altitude:lastLocation.altitude
+                                                   horizontalAccuracy:lastLocation.horizontalAccuracy
+                                                     verticalAccuracy:lastLocation.verticalAccuracy
+                                                               course:lastLocation.course
+                                                                speed:lastLocation.speed
+                                                            timestamp:[NSDate date]];
         [self publishLocation:location trigger:@"p"];
     }
 }

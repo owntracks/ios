@@ -1,6 +1,11 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## Owntracks 9.2.5
+
+>Release date 2016-09-??
+* [FIX] incorrect accuracy = 0 send in location messages triggered by backgroundFetch closes #419
+
 ## Owntracks 9.1.7/9.2.4
 
 >Release date 2016-09-24
