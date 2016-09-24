@@ -15,13 +15,15 @@
 @property (strong, nonatomic) NSDictionary *sharedFriends;
 @property (nonatomic) int mode;
 @property (nonatomic) unsigned long offset;
+@property (nonatomic) unsigned long page;
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @property (weak, nonatomic) IBOutlet UIButton *backward;
 @property (weak, nonatomic) IBOutlet UIButton *forward;
 
 @end
 
-#define PAGE 3
+#define TOP 22.0
+#define ROW 44.0
 
 @implementation TodayViewController
 
@@ -30,12 +32,42 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.mode = 0;
+    self.page = 1;
     self.offset = 0;
+    [self.extensionContext setWidgetLargestAvailableDisplayMode:NCWidgetDisplayModeExpanded];
 }
 
-- (CGSize)preferredContentSize {
-    CGSize size = CGSizeMake(320, 44 * PAGE + 31);
-    return size;
+- (void)widgetActiveDisplayModeDidChange:(NCWidgetDisplayMode)activeDisplayMode withMaximumSize:(CGSize)maxSize {
+    NSLog(@"widgetActiveDisplayModeDidChange: %ld withMaximumSize %f %f",
+          (long)activeDisplayMode,
+          maxSize.width,
+          maxSize.height);
+
+    self.offset = 0;
+    self.page = MAX(MIN((long)((maxSize.height - TOP) / ROW), self.sharedFriends.count - self.offset), 2);
+
+    if (activeDisplayMode == NCWidgetDisplayModeExpanded) {
+        self.preferredContentSize = CGSizeMake(maxSize.width, self.page * ROW + TOP);
+    } else if (activeDisplayMode == NCWidgetDisplayModeCompact) {
+        self.preferredContentSize = CGSizeMake(maxSize.width, self.page * ROW + TOP);;
+    }
+    [self.view setNeedsLayout];
+    [self.view setNeedsDisplay];
+}
+
+- (void)viewDidLayoutSubviews {
+    [self show];
+    [self.tableView reloadData];
+}
+
+- (UIEdgeInsets)widgetMarginInsetsForProposedMarginInsets:(UIEdgeInsets)defaultMarginInsets {
+    NSLog(@"widgetMarginInsetsForProposedMarginInsets: %f %f %f %f",
+          defaultMarginInsets.bottom,
+          defaultMarginInsets.left,
+          defaultMarginInsets.top,
+          defaultMarginInsets.right);
+    return defaultMarginInsets;
+
 }
 
 - (void)widgetPerformUpdateWithCompletionHandler:(void (^)(NCUpdateResult))completionHandler {
@@ -52,15 +84,10 @@
 - (void)show {
     self.label.text = [NSString stringWithFormat:@"%lu - %lu / %lu",
                   MIN(self.offset + 1, self.sharedFriends.count),
-                  MIN(self.offset + PAGE, self.sharedFriends.count),
+                  MIN(self.offset + self.page, self.sharedFriends.count),
                   (unsigned long)self.sharedFriends.count];
-    self.forward.enabled = self.sharedFriends.count > self.offset + PAGE;
-    self.backward.enabled = self.offset >= PAGE;
-}
-
-- (UIEdgeInsets)widgetMarginInsetsForProposedMarginInsets:(UIEdgeInsets)defaultMarginInsets {
-    UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
-    return edgeInsets;
+    self.forward.enabled = self.sharedFriends.count > self.offset + self.page;
+    self.backward.enabled = self.offset >= self.page;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -68,7 +95,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSInteger min = MIN(PAGE, self.sharedFriends.count - self.offset);
+    NSInteger min = MIN(self.page, self.sharedFriends.count - self.offset);
     NSLog(@"numberOfRowsInSection %ld", (long)min);
     return min;
 }
@@ -174,7 +201,7 @@
 }
 
 - (IBAction)forwardPressed:(UIButton *)sender {
-    self.offset += PAGE;
+    self.offset += self.page;
     NSLog(@"forwardPressed %lu", (long)self.offset);
 
     [self show];
@@ -182,7 +209,7 @@
 }
 
 - (IBAction)backwardPressed:(UIButton *)sender {
-    self.offset -= PAGE;
+    self.offset -= self.page;
     NSLog(@"backwardPressed %lu", (long)self.offset);
     [self show];
     [self.tableView reloadData];

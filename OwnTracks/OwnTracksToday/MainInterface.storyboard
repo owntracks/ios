@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="M4Y-Lb-cyx">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Today View Controller-->
@@ -15,32 +15,64 @@
                         <viewControllerLayoutGuide type="bottom" id="FKl-LY-JtV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="148"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <rect key="frame" x="0.0" y="44" width="320" height="110"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wOM-J5-pkE">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="fLr-Ai-GvT"/>
+                                </constraints>
+                                <state key="normal" title="Backward">
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="backwardPressed:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="JjS-xY-Xgy"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 - 3 / 6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1p-y7-Qo8">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="OXm-Jq-qBJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bed-eO-POB">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="MlR-od-gWc"/>
+                                </constraints>
+                                <state key="normal" title="Forward">
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="forwardPressed:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="Qp8-GR-N44"/>
+                                </connections>
+                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Hk7-3Z-JeF">
-                                <rect key="frame" x="0.0" y="30" width="320" height="118"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="88" id="Nwj-1b-Mo5"/>
+                                </constraints>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sharedFriend" textLabel="0YG-ZB-KGI" detailTextLabel="h78-3f-Ome" style="IBUITableViewCellStyleSubtitle" id="eLU-me-XFA">
                                         <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eLU-me-XFA" id="QE3-Cj-dpp">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <frame key="frameInset" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0YG-ZB-KGI">
-                                                    <rect key="frame" x="15" y="5" width="32" height="20"/>
+                                                    <frame key="frameInset" minX="15" minY="5" width="32" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h78-3f-Ome">
-                                                    <rect key="frame" x="15" y="25" width="31" height="14"/>
+                                                    <frame key="frameInset" minX="15" minY="25" width="31" height="14"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -48,57 +80,27 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wOM-J5-pkE">
-                                <rect key="frame" x="16" y="0.0" width="69" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="69" id="2Jl-xQ-fk2"/>
-                                    <constraint firstAttribute="height" constant="30" id="fLr-Ai-GvT"/>
-                                </constraints>
-                                <state key="normal" title="Backward">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="backwardPressed:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="JjS-xY-Xgy"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bed-eO-POB">
-                                <rect key="frame" x="247" y="0.0" width="57" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="MlR-od-gWc"/>
-                                    <constraint firstAttribute="width" constant="57" id="N2G-o8-rR1"/>
-                                </constraints>
-                                <state key="normal" title="Forward">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="forwardPressed:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="Qp8-GR-N44"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1 - 3 / 6" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1p-y7-Qo8">
-                                <rect key="frame" x="93" y="4" width="146" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="wOM-J5-pkE" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="4Mu-o4-GFg"/>
+                            <constraint firstItem="B1p-y7-Qo8" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="1" id="2I3-ms-JT0"/>
                             <constraint firstAttribute="trailing" secondItem="Hk7-3Z-JeF" secondAttribute="trailing" id="72s-rX-zX1"/>
-                            <constraint firstItem="bed-eO-POB" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="BYe-qH-VBf"/>
-                            <constraint firstItem="bed-eO-POB" firstAttribute="trailing" secondItem="S3S-Oj-5AN" secondAttribute="trailingMargin" id="F4b-1k-WG3"/>
-                            <constraint firstItem="wOM-J5-pkE" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leadingMargin" id="KXF-7i-dgr"/>
-                            <constraint firstItem="Hk7-3Z-JeF" firstAttribute="top" secondItem="bed-eO-POB" secondAttribute="bottom" id="ab5-Vd-YLe"/>
+                            <constraint firstAttribute="trailing" secondItem="bed-eO-POB" secondAttribute="trailing" constant="16" id="9fI-Ct-4Vl"/>
+                            <constraint firstItem="wOM-J5-pkE" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="Zg9-6W-RKH"/>
+                            <constraint firstItem="wOM-J5-pkE" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="16" id="fhi-OQ-upW"/>
+                            <constraint firstItem="Hk7-3Z-JeF" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="22" id="jKi-iS-6HA"/>
                             <constraint firstItem="Hk7-3Z-JeF" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="lSX-XI-lid"/>
-                            <constraint firstItem="Hk7-3Z-JeF" firstAttribute="top" secondItem="wOM-J5-pkE" secondAttribute="bottom" id="obD-ad-b4x"/>
-                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="Hk7-3Z-JeF" secondAttribute="bottom" id="qek-AC-64X"/>
+                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="Hk7-3Z-JeF" secondAttribute="bottom" id="mZO-lQ-Hj6"/>
+                            <constraint firstItem="bed-eO-POB" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="odF-K8-2u7"/>
+                            <constraint firstItem="B1p-y7-Qo8" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="t1L-Pt-rof"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
+                    <value key="contentSizeForViewInPopover" type="size" width="320" height="200"/>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="148"/>
+                    <size key="freeformSize" width="320" height="154"/>
                     <connections>
                         <outlet property="backward" destination="wOM-J5-pkE" id="1og-ad-6v2"/>
                         <outlet property="forward" destination="bed-eO-POB" id="4cZ-m2-FFM"/>
@@ -111,4 +113,9 @@
             <point key="canvasLocation" x="516" y="285"/>
         </scene>
     </scenes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4_0.fullscreen"/>
+    </simulatedMetricsContainer>
 </document>
