@@ -67,6 +67,7 @@
 		84A173681B427BDD00CCB7D0 /* ModeBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A173671B427BDD00CCB7D0 /* ModeBarButtonItem.m */; };
 		84A6612A1D914ED7003A21CA /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A661291D914ED7003A21CA /* Friend.m */; };
 		84B7397A1A65629200B103F4 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B739791A65629200B103F4 /* LocationManager.m */; };
+		84B776431D9A65C600C707EC /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B776421D9A65C600C707EC /* LoginVC.m */; };
 		84CA3D0D1AEE708200AABDC1 /* OwnTracks WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 843635731AE95D6000157D66 /* OwnTracks WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84CDB2501AD197AD005E272B /* Public.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84CDB24F1AD197AD005E272B /* Public.plist */; };
 		84D113B51AEE0BF8005F8F4B /* SharedFriendsRC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D113B41AEE0BF8005F8F4B /* SharedFriendsRC.m */; };
@@ -259,6 +260,8 @@
 		84AF468F1AB9571800E954E3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		84B739781A65629200B103F4 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		84B739791A65629200B103F4 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
+		84B776411D9A65C600C707EC /* LoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginVC.h; sourceTree = "<group>"; };
+		84B776421D9A65C600C707EC /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		84C38C14193F88C200F56D04 /* Model 7.2.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.2.2.xcdatamodel"; sourceTree = "<group>"; };
 		84C756A61A89F706003BC8A8 /* Model 7.4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.4.xcdatamodel"; sourceTree = "<group>"; };
 		84CDB24F1AD197AD005E272B /* Public.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Public.plist; sourceTree = "<group>"; };
@@ -559,6 +562,8 @@
 			children = (
 				84930A2A1B3755AF00810C3A /* TabBarController.h */,
 				84930A2B1B3755AF00810C3A /* TabBarController.m */,
+				84B776411D9A65C600C707EC /* LoginVC.h */,
+				84B776421D9A65C600C707EC /* LoginVC.m */,
 				846FFA4D1B40C13C001482A6 /* NavigationController.h */,
 				846FFA4E1B40C13C001482A6 /* NavigationController.m */,
 				8411B886189FE79B0019D2D6 /* AlertView.h */,
@@ -921,6 +926,7 @@
 				84E8A1881BB94782002518AA /* Location+CoreDataProperties.m in Sources */,
 				84664E9D1CC83A38002123EC /* NSBundle+privateLocalization.m in Sources */,
 				84A6612A1D914ED7003A21CA /* Friend.m in Sources */,
+				84B776431D9A65C600C707EC /* LoginVC.m in Sources */,
 				8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */,
 				8400D9711D83589F00DEA134 /* WebVC.m in Sources */,
 				846FFA5E1B420938001482A6 /* FriendTableViewCell.m in Sources */,

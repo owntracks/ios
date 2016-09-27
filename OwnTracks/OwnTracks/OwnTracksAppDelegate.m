@@ -826,36 +826,41 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         location.coordinate.latitude != 0.0 &&
         location.coordinate.longitude != 0.0 &&
         [Settings validIds]) {
-        Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic]
-                          inManagedObjectContext:[CoreData theManagedObjectContext]];
-        if (friend) {
-            friend.tid = [Settings stringForKey:@"trackerid_preference"];
 
-            Waypoint *waypoint = [[OwnTracking sharedInstance] addWaypointFor:friend
-                                                                     location:location
-                                                                      trigger:trigger
-                                                                      context:[CoreData theManagedObjectContext]];
-            if (waypoint) {
-                [CoreData saveContext];
+        int ignoreInaccurateLocations = [Settings intForKey:@"ignoreinaccuratelocations_preference"];
+        if (!ignoreInaccurateLocations || location.horizontalAccuracy < ignoreInaccurateLocations) {
+            Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic]
+                              inManagedObjectContext:[CoreData theManagedObjectContext]];
+            if (friend) {
+                friend.tid = [Settings stringForKey:@"trackerid_preference"];
 
-                NSMutableDictionary *json = [[[OwnTracking sharedInstance] waypointAsJSON:waypoint] mutableCopy];
-                if (json) {
-                    NSData *data = [self jsonToData:json];
-                    [self.connection sendData:data
-                                        topic:[Settings theGeneralTopic]
-                                          qos:[Settings intForKey:@"qos_preference"]
-                                       retain:[Settings boolForKey:@"retain_preference"]];
+                Waypoint *waypoint = [[OwnTracking sharedInstance] addWaypointFor:friend
+                                                                         location:location
+                                                                          trigger:trigger
+                                                                          context:[CoreData theManagedObjectContext]];
+                if (waypoint) {
+                    [CoreData saveContext];
+
+                    NSMutableDictionary *json = [[[OwnTracking sharedInstance] waypointAsJSON:waypoint] mutableCopy];
+                    if (json) {
+                        NSData *data = [self jsonToData:json];
+                        [self.connection sendData:data
+                                            topic:[Settings theGeneralTopic]
+                                              qos:[Settings intForKey:@"qos_preference"]
+                                           retain:[Settings boolForKey:@"retain_preference"]];
+                    } else {
+                        DDLogError(@"no JSON created from waypoint %@", waypoint);
+                    }
+                    [[OwnTracking sharedInstance] limitWaypointsFor:friend
+                                                          toMaximum:[Settings intForKey:@"positions_preference"]
+                                             inManagedObjectContext:[CoreData theManagedObjectContext]];
                 } else {
-                    DDLogError(@"no JSON created from waypoint %@", waypoint);
+                    DDLogError(@"waypoint creation failed from friend %@, location %@", friend, location);
                 }
-                [[OwnTracking sharedInstance] limitWaypointsFor:friend
-                                                      toMaximum:[Settings intForKey:@"positions_preference"]
-                                         inManagedObjectContext:[CoreData theManagedObjectContext]];
             } else {
-                DDLogError(@"waypoint creation failed from friend %@, location %@", friend, location);
+                DDLogError(@"no friend found");
             }
-        } else {
-            DDLogError(@"no friend found");
+            DDLogWarn(@"inaccurate location %fm/%dm", location.horizontalAccuracy, ignoreInaccurateLocations);
         }
     } else {
         DDLogError(@"invalid location");

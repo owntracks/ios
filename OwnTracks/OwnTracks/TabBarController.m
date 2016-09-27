@@ -13,6 +13,7 @@
 
 @interface TabBarController ()
 @property (strong, nonatomic) UIViewController *featuredVC;
+@property (nonatomic) BOOL warning;
 @end
 
 @implementation TabBarController
@@ -65,5 +66,14 @@
         [self setViewControllers:viewControllers animated:TRUE];
     }
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (!self.warning && [Settings intForKey:@"mode"] == CONNECTION_MODE_PUBLIC) {
+        self.warning = TRUE;
+        [self performSegueWithIdentifier:@"login" sender:nil];
+    }
+}
+
 
 @end

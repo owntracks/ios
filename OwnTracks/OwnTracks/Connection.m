@@ -267,6 +267,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     self.url = url;
     self.reconnectTime = RECONNECT_TIMER;
     self.reconnectFlag = FALSE;
+    self.state = state_starting;
     [self connectToInternal];
 }
 

@@ -3,8 +3,11 @@ OwnTracks iOS App Release Notes
 
 ## Owntracks 9.2.5
 
->Release date 2016-09-??
+>Release date 2016-09-27
 * [FIX] incorrect accuracy = 0 send in location messages triggered by backgroundFetch closes #419
+* [FIX] App rejected closes #421
+* [FIX] Today widget size too small to show 3 lines in iOS10 closes #418
+* [FIX] Location permissions disabled under iOS10 closes #417
 
 ## Owntracks 9.1.7/9.2.4
 

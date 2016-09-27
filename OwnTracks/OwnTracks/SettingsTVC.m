@@ -53,6 +53,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIwatsonDeviceType;
 @property (weak, nonatomic) IBOutlet UITextField *UIwatsonOrganization;
 @property (weak, nonatomic) IBOutlet UITextField *UIignoreStaleLocations;
+@property (weak, nonatomic) IBOutlet UITextField *UIignoreInaccurateLocations;
+@property (weak, nonatomic) IBOutlet UISwitch *UIranging;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
 @property (strong, nonatomic) UIAlertView *tidAlertView;
@@ -72,6 +74,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.UIHost.delegate = self;
     self.UIPort.delegate = self;
     self.UIignoreStaleLocations.delegate = self;
+    self.UIignoreInaccurateLocations.delegate = self;
     self.UIUserID.delegate = self;
     self.UIPassword.delegate = self;
     self.UIsecret.delegate = self;
@@ -152,8 +155,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     if (self.UIPort) [Settings setString:self.UIPort.text forKey:@"port_preference"];
     if (self.UIignoreStaleLocations) [Settings setString:self.UIignoreStaleLocations.text forKey:@"ignorestalelocations_preference"];
+    if (self.UIignoreInaccurateLocations) [Settings setString:self.UIignoreInaccurateLocations.text forKey:@"ignoreinaccuratelocations_preference"];
     if (self.UITLS) [Settings setBool:self.UITLS.on forKey:@"tls_preference"];
     if (self.UIAuth) [Settings setBool:self.UIAuth.on forKey:@"auth_preference"];
+    if (self.UIranging) [Settings setBool:self.UIranging.on forKey:@"ranging_preference"];
     if (self.UIurl) [Settings setString:self.UIurl.text forKey:@"url_preference"];
     if (self.UIquickstartId) [Settings setString:self.UIquickstartId.text forKey:@"quickstartid_preference"];
     if (self.UIwatsonOrganization) [Settings setString:self.UIwatsonOrganization.text forKey:@"watsonorganization_preference"];
@@ -278,6 +283,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         self.UIignoreStaleLocations.text = [Settings stringForKey:@"ignorestalelocations_preference"];
         self.UIignoreStaleLocations.enabled = !locked;
     }
+    if (self.UIignoreInaccurateLocations) {
+        self.UIignoreInaccurateLocations.text = [Settings stringForKey:@"ignoreinaccuratelocations_preference"];
+        self.UIignoreInaccurateLocations.enabled = !locked;
+    }
     if (self.UITLS) {
         self.UITLS.on = [Settings boolForKey:@"tls_preference"];
         self.UITLS.enabled = !locked;
@@ -285,6 +294,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIAuth) {
         self.UIAuth.on = [Settings boolForKey:@"auth_preference"];
         self.UIAuth.enabled = !locked;
+    }
+    if (self.UIranging) {
+        self.UIranging.on = [Settings boolForKey:@"ranging_preference"];
+        self.UIranging.enabled = !locked;
     }
     if (self.UIurl) {
         self.UIurl.text = [Settings stringForKey:@"url_preference"];
@@ -544,6 +557,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.UIHost resignFirstResponder];
     [self.UIPort resignFirstResponder];
     [self.UIignoreStaleLocations resignFirstResponder];
+    [self.UIignoreInaccurateLocations resignFirstResponder];
     [self.UIUserID resignFirstResponder];
     [self.UIPassword resignFirstResponder];
     [self.UIsecret resignFirstResponder];

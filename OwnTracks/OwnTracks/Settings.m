@@ -196,6 +196,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             object = dictionary[@"ignoreStaleLocations"];
             if (object) [self setString:object forKey:@"ignorestalelocations_preference"];
 
+            object = dictionary[@"ignoreInaccurateLocations"];
+            if (object) [self setString:object forKey:@"ignoreinaccuratelocations_preference"];
+
             object = dictionary[@"keepalive"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
                                  forKey:@"keepalive_preference"];
@@ -398,19 +401,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 + (NSDictionary *)toDictionary {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:@{@"_type": @"configuration"}];
-    dict[@"mode"] =                 @([Settings intForKey:@"mode"]);
-    dict[@"ranging"] =              @([Settings boolForKey:@"ranging_preference"]);
-    dict[@"locked"] =              @([Settings boolForKey:@"locked"]);
-    dict[@"tid"] =                  [Settings stringOrZeroForKey:@"trackerid_preference"];
-    dict[@"monitoring"] =           @([Settings intForKey:@"monitoring_preference"]);
-    dict[@"waypoints"] =            [Settings waypointsToArray];
-    dict[@"sub"] =                  @([Settings boolForKey:@"sub_preference"]);
-    dict[@"positions"] =            @([Settings intForKey:@"positions_preference"]);
-    dict[@"locatorDisplacement"] =  @([Settings intForKey:@"mindist_preference"]);
-    dict[@"locatorInterval"] =      @([Settings intForKey:@"mintime_preference"]);
-    dict[@"extendedData"] =         @([Settings boolForKey:@"extendeddata_preference"]);
-    dict[@"updateAddressBook"] =    @([Settings boolForKey:@"ab_preference"]);
-    dict[@"ignoreStaleLocations"] = @([Settings intForKey:@"ignorestalelocations_preference"]);
+    dict[@"mode"] =                         @([Settings intForKey:@"mode"]);
+    dict[@"ranging"] =                      @([Settings boolForKey:@"ranging_preference"]);
+    dict[@"locked"] =                       @([Settings boolForKey:@"locked"]);
+    dict[@"tid"] =                          [Settings stringOrZeroForKey:@"trackerid_preference"];
+    dict[@"monitoring"] =                   @([Settings intForKey:@"monitoring_preference"]);
+    dict[@"waypoints"] =                    [Settings waypointsToArray];
+    dict[@"sub"] =                          @([Settings boolForKey:@"sub_preference"]);
+    dict[@"positions"] =                    @([Settings intForKey:@"positions_preference"]);
+    dict[@"locatorDisplacement"] =          @([Settings intForKey:@"mindist_preference"]);
+    dict[@"locatorInterval"] =              @([Settings intForKey:@"mintime_preference"]);
+    dict[@"extendedData"] =                 @([Settings boolForKey:@"extendeddata_preference"]);
+    dict[@"updateAddressBook"] =            @([Settings boolForKey:@"ab_preference"]);
+    dict[@"ignoreStaleLocations"] =         @([Settings intForKey:@"ignorestalelocations_preference"]);
+    dict[@"ignoreInaccurateLocations"] =    @([Settings intForKey:@"ignoreinaccuratelocations_preference"]);
 
 
     for (Setting *setting in [Setting allSettingsInManagedObjectContext:[CoreData theManagedObjectContext]]) {

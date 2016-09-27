@@ -74,7 +74,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                @(state_closed):     NSLocalizedString(@"closed",        @"description connection closed state")
                };
     
-    NSString *stateName = NSLocalizedString(@"unknown state", @"description connection unknown state");
+    NSString *stateName = [NSString stringWithFormat:@"%@ (%@)",
+                           NSLocalizedString(@"unknown state", @"description connection unknown state"),
+                           delegate.connectionState];
     if (delegate.connectionState) {
         stateName = [states objectForKey:delegate.connectionState];
         if (!stateName) {
