@@ -43,7 +43,7 @@
 	<key>cmd_preference</key>
 	<false/>
 	<key>ab_preference</key>
-	<true/>
+	<false/>
 	<key>extendeddata_preference</key>
 	<true/>
 	<key>trackerid_preference</key>

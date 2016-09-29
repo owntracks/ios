@@ -290,5 +290,7 @@
 	<string>Camera can be used to scan configuration or region codes</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Contacts can be used to assign tracker IDs to persons</string>
+	<key>NSMotionUsageDescription</key>
+	<string>OwnTracks delivers your step count, floors climbed and distance walked on request</string>
 </dict>
 </plist>

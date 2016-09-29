@@ -323,107 +323,112 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         self.UIwatsonAuthToken.text = [Settings stringForKey:@"watsonauthtoken_preference"];
         self.UIwatsonAuthToken.enabled = !locked;
     }
-    int mode = [Settings intForKey:@"mode"];
 
-    NSArray <NSIndexPath *> *publishPaths = @[[NSIndexPath indexPathForRow:3 inSection:0]];
-    for (NSIndexPath *indexPath in publishPaths) {
-        if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_PRIVATE && mode != CONNECTION_MODE_HTTP)) {
-            [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        } else if (![self isRowVisible:indexPath] && (mode == CONNECTION_MODE_PRIVATE || mode != CONNECTION_MODE_HTTP)) {
-            [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    if (!self.UIusepolicy) {
+
+        int mode = [Settings intForKey:@"mode"];
+
+        NSArray <NSIndexPath *> *publishPaths = @[[NSIndexPath indexPathForRow:3 inSection:0]];
+        for (NSIndexPath *indexPath in publishPaths) {
+            if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_PRIVATE && mode != CONNECTION_MODE_HTTP)) {
+                [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            } else if (![self isRowVisible:indexPath] && (mode == CONNECTION_MODE_PRIVATE || mode == CONNECTION_MODE_HTTP)) {
+                [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
         }
-    }
 
-    NSArray <NSIndexPath *> *privatePaths = @[[NSIndexPath indexPathForRow:4 inSection:0],
-                                              [NSIndexPath indexPathForRow:5 inSection:0],
-                                              [NSIndexPath indexPathForRow:6 inSection:0],
-                                              [NSIndexPath indexPathForRow:7 inSection:0],
-                                              [NSIndexPath indexPathForRow:8 inSection:0],
-                                              [NSIndexPath indexPathForRow:9 inSection:0],
-                                              [NSIndexPath indexPathForRow:10 inSection:0]
-                                              ];
-    for (NSIndexPath *indexPath in privatePaths) {
-        if ([self isRowVisible:indexPath] && mode != CONNECTION_MODE_PRIVATE) {
-            [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        } else if (![self isRowVisible:indexPath] && mode == CONNECTION_MODE_PRIVATE) {
-            [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        NSArray <NSIndexPath *> *privatePaths = @[[NSIndexPath indexPathForRow:4 inSection:0],
+                                                  [NSIndexPath indexPathForRow:5 inSection:0],
+                                                  [NSIndexPath indexPathForRow:6 inSection:0],
+                                                  [NSIndexPath indexPathForRow:7 inSection:0],
+                                                  [NSIndexPath indexPathForRow:8 inSection:0],
+                                                  [NSIndexPath indexPathForRow:9 inSection:0],
+                                                  [NSIndexPath indexPathForRow:10 inSection:0]
+                                                  ];
+        for (NSIndexPath *indexPath in privatePaths) {
+            if ([self isRowVisible:indexPath] && mode != CONNECTION_MODE_PRIVATE) {
+                [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            } else if (![self isRowVisible:indexPath] && mode == CONNECTION_MODE_PRIVATE) {
+                [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
         }
-    }
 
-    if (self.UIUserID) {
-        if (self.UIAuth) {
-            self.UIUserID.enabled = !locked && self.UIAuth.on;
-            self.UIUserID.textColor = self.UIAuth.on ? [UIColor blackColor] : [UIColor lightGrayColor];
+        if (self.UIUserID) {
+            if (self.UIAuth) {
+                self.UIUserID.enabled = !locked && self.UIAuth.on;
+                self.UIUserID.textColor = self.UIAuth.on ? [UIColor blackColor] : [UIColor lightGrayColor];
+            }
         }
-    }
-    if (self.UIPassword) {
-        if (self.UIAuth) {
-            self.UIPassword.enabled = !locked && self.UIAuth.on;
-            self.UIPassword.textColor = self.UIAuth.on ? [UIColor blackColor] : [UIColor lightGrayColor];
+        if (self.UIPassword) {
+            if (self.UIAuth) {
+                self.UIPassword.enabled = !locked && self.UIAuth.on;
+                self.UIPassword.textColor = self.UIAuth.on ? [UIColor blackColor] : [UIColor lightGrayColor];
+            }
         }
-    }
 
-    NSArray <NSIndexPath *> *secretPaths = @[[NSIndexPath indexPathForRow:11 inSection:0]
-                                             ];
-    for (NSIndexPath *indexPath in secretPaths) {
-        if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_PRIVATE && mode != CONNECTION_MODE_HTTP)) {
-            [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        } else if (![self isRowVisible:indexPath] && (mode == CONNECTION_MODE_PRIVATE || mode == CONNECTION_MODE_HTTP)) {
-            [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        NSArray <NSIndexPath *> *secretPaths = @[[NSIndexPath indexPathForRow:11 inSection:0]
+                                                 ];
+        for (NSIndexPath *indexPath in secretPaths) {
+            if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_PRIVATE && mode != CONNECTION_MODE_HTTP)) {
+                [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            } else if (![self isRowVisible:indexPath] && (mode == CONNECTION_MODE_PRIVATE || mode == CONNECTION_MODE_HTTP)) {
+                [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
         }
-    }
 
-    NSArray <NSIndexPath *> *httpPaths = @[[NSIndexPath indexPathForRow:12 inSection:0]
-                                             ];
-    for (NSIndexPath *indexPath in httpPaths) {
-        if ([self isRowVisible:indexPath] && mode != CONNECTION_MODE_HTTP) {
-            [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        } else if (![self isRowVisible:indexPath] && mode == CONNECTION_MODE_HTTP) {
-            [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        NSArray <NSIndexPath *> *httpPaths = @[[NSIndexPath indexPathForRow:12 inSection:0]
+                                               ];
+        for (NSIndexPath *indexPath in httpPaths) {
+            if ([self isRowVisible:indexPath] && mode != CONNECTION_MODE_HTTP) {
+                [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            } else if (![self isRowVisible:indexPath] && mode == CONNECTION_MODE_HTTP) {
+                [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
         }
-    }
 
-    // hide mode row if locked
-    if (self.UImode) {
-        NSIndexPath *modeIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-        if ([self isRowVisible:modeIndexPath] && locked) {
-            [self deleteRowsAtIndexPaths:@[modeIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        } else if (![self isRowVisible:modeIndexPath] && !locked) {
-            [self insertRowsAtIndexPaths:@[modeIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        // hide mode row if locked
+        if (self.UImode) {
+            NSIndexPath *modeIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+            if ([self isRowVisible:modeIndexPath] && locked) {
+                [self deleteRowsAtIndexPaths:@[modeIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            } else if (![self isRowVisible:modeIndexPath] && !locked) {
+                [self insertRowsAtIndexPaths:@[modeIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
         }
-    }
 
-    NSArray <NSIndexPath *> *watsonQuickstartPaths = @[[NSIndexPath indexPathForRow:13 inSection:0]];
-    for (NSIndexPath *indexPath in watsonQuickstartPaths) {
-        if ([self isRowVisible:indexPath] && mode != CONNECTION_MODE_WATSON) {
-            [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        } else if (![self isRowVisible:indexPath] && mode == CONNECTION_MODE_WATSON) {
-            [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        NSArray <NSIndexPath *> *watsonQuickstartPaths = @[[NSIndexPath indexPathForRow:13 inSection:0]];
+        for (NSIndexPath *indexPath in watsonQuickstartPaths) {
+            if ([self isRowVisible:indexPath] && mode != CONNECTION_MODE_WATSON) {
+                [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            } else if (![self isRowVisible:indexPath] && mode == CONNECTION_MODE_WATSON) {
+                [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
         }
-    }
 
-    NSArray <NSIndexPath *> *watsonRegisteredPaths = @[[NSIndexPath indexPathForRow:14 inSection:0],
-                                                       [NSIndexPath indexPathForRow:15 inSection:0],
-                                                       [NSIndexPath indexPathForRow:16 inSection:0],
-                                                       [NSIndexPath indexPathForRow:17 inSection:0]
-                                                       ];
-    for (NSIndexPath *indexPath in watsonRegisteredPaths) {
-        if ([self isRowVisible:indexPath] && mode != CONNECTION_MODE_WATSONREGISTERED) {
-            [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-        } else if (![self isRowVisible:indexPath] && mode == CONNECTION_MODE_WATSONREGISTERED) {
-            [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        NSArray <NSIndexPath *> *watsonRegisteredPaths = @[[NSIndexPath indexPathForRow:14 inSection:0],
+                                                           [NSIndexPath indexPathForRow:15 inSection:0],
+                                                           [NSIndexPath indexPathForRow:16 inSection:0],
+                                                           [NSIndexPath indexPathForRow:17 inSection:0]
+                                                           ];
+        for (NSIndexPath *indexPath in watsonRegisteredPaths) {
+            if ([self isRowVisible:indexPath] && mode != CONNECTION_MODE_WATSONREGISTERED) {
+                [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            } else if (![self isRowVisible:indexPath] && mode == CONNECTION_MODE_WATSONREGISTERED) {
+                [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
         }
+
+        if ([self isSectionVisible:1] && !self.privileged) {
+            [self deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+        } else if (![self isSectionVisible:1] && self.privileged) {
+            [self insertSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+
+
+        if (self.UIexport) self.UIexport.hidden = (mode == CONNECTION_MODE_PUBLIC);
+        if (self.UIpublish) self.UIpublish.hidden = (mode == CONNECTION_MODE_PUBLIC);
+
     }
-
-    if ([self isSectionVisible:1] && !self.privileged) {
-        [self deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
-    } else if (![self isSectionVisible:1] && self.privileged) {
-        [self insertSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
-    }
-
-
-    if (self.UIexport) self.UIexport.hidden = (mode == CONNECTION_MODE_PUBLIC);
-    if (self.UIpublish) self.UIpublish.hidden = (mode == CONNECTION_MODE_PUBLIC);
 
     if (self.UITLS) {
         if (self.UITLSCell) {
@@ -438,16 +443,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (IBAction)publishSettingsPressed:(UIButton *)sender {
+    [self updateValues];
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate dump];
 }
 
 - (IBAction)publishWaypointsPressed:(UIButton *)sender {
+    [self updateValues];
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate waypoints];
 }
 
 - (IBAction)exportPressed:(UIButton *)sender {
+    [self updateValues];
     NSError *error;
 
     NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
@@ -469,6 +477,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (IBAction)exportWaypointsPressed:(UIButton *)sender {
+    [self updateValues];
     NSError *error;
 
     NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory

@@ -1,6 +1,15 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## Owntracks 9.2.6
+
+>Release date 2016-09-29
+* [FIX] Latest code crash in TLS settings. closes #423
+* [FIX] Mode 5: Watson Quickstart shows Publish Settings option closes #425
+* [FIX] App crashes when asking for Steps closes #424
+* [FIX] Location permissions disabled under iOS10 closes #417
+* [FIX] iOS 10 issues? closes #416
+
 ## Owntracks 9.2.5
 
 >Release date 2016-09-27
