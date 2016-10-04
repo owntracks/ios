@@ -12,8 +12,8 @@
 #import "Queue.h"
 
 #import <UIKit/UIKit.h>
-#import <CocoaLumberjack/CocoaLumberjack.h>
-#import <libsodium/sodium.h>
+#import "CocoaLumberjack.h"
+#import "sodium.h"
 
 #define BACKGROUND_DISCONNECT_AFTER 8.0
 
