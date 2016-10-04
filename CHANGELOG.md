@@ -1,6 +1,12 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## Owntracks 9.2.7
+
+>Release date 2016-10-04
+* [FIX] Background location updates not enabled in iOS 10
+* [NEW] add "_wifi":true if connected to Wifi when location is published
+
 ## Owntracks 9.2.6
 
 >Release date 2016-09-29

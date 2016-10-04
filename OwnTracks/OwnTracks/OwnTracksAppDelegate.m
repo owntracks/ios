@@ -15,6 +15,7 @@
 #import "Settings.h"
 #import "OwnTracking.h"
 #import <NotificationCenter/NotificationCenter.h>
+#import <SystemConfiguration/SystemConfiguration.h>
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static const DDLogLevel ddLogLevel = DDLogLevelError;
@@ -843,6 +844,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
                     NSMutableDictionary *json = [[[OwnTracking sharedInstance] waypointAsJSON:waypoint] mutableCopy];
                     if (json) {
+                        if ([OwnTracksAppDelegate connectionType] == ConnectionTypeWiFi) {
+                            [json setObject:[NSNumber numberWithBool:TRUE] forKey:@"_wifi"];
+                        }
                         NSData *data = [self jsonToData:json];
                         [self.connection sendData:data
                                             topic:[Settings theGeneralTopic]
@@ -899,7 +903,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 #pragma internal helpers
 
 - (void)connect {
-    if ([Settings intForKey:@"mode"] == 3) {
+    if ([Settings intForKey:@"mode"] == CONNECTION_MODE_HTTP) {
         self.connection.key = [Settings stringForKey:@"secret_preference"];
         [self.connection connectHTTP:[Settings stringForKey:@"url_preference"]];
     } else {
@@ -1009,5 +1013,34 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return data;
 }
 
+typedef enum {
+    ConnectionTypeUnknown,
+    ConnectionTypeNone,
+    ConnectionType3G,
+    ConnectionTypeWiFi
+} ConnectionType;
+
+
++ (ConnectionType)connectionType
+{
+    SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, [[Settings theHost] cStringUsingEncoding:NSASCIIStringEncoding]);
+    SCNetworkReachabilityFlags flags;
+    BOOL success = SCNetworkReachabilityGetFlags(reachability, &flags);
+    CFRelease(reachability);
+    if (!success) {
+        return ConnectionTypeUnknown;
+    }
+    BOOL isReachable = ((flags & kSCNetworkReachabilityFlagsReachable) != 0);
+    BOOL needsConnection = ((flags & kSCNetworkReachabilityFlagsConnectionRequired) != 0);
+    BOOL isNetworkReachable = (isReachable && !needsConnection);
+
+    if (!isNetworkReachable) {
+        return ConnectionTypeNone;
+    } else if ((flags & kSCNetworkReachabilityFlagsIsWWAN) != 0) {
+        return ConnectionType3G;
+    } else {
+        return ConnectionTypeWiFi;
+    }
+}
 @end
 

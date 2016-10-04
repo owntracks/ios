@@ -3,8 +3,7 @@ platform :ios, '8.0'
 
 pod 'CocoaLumberjack'
 pod 'ABStaticTableViewController'
-#pod 'MQTTClient'
-pod 'MQTTClient'
+pod 'MQTTClient/MinL'
 pod 'QRCodeReaderViewController'
 pod 'libsodium', '~> 1.0'
 

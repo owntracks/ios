@@ -906,9 +906,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             return @"hosted-mqtt.owntracks.org";
             break;
 
-        case CONNECTION_MODE_PRIVATE:
-        case CONNECTION_MODE_HTTP:
+        case CONNECTION_MODE_HTTP: {
+            NSURL *url = [NSURL URLWithString:[self stringForKey:@"url_preference"]];
+            NSString *host = url.host;
+            return host ? host : @"hosted.owntracks.org";
+            break;
+        }
 
+        case CONNECTION_MODE_PRIVATE:
         default:
             return [self stringForKey:@"host_preference"];
             break;

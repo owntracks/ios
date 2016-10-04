@@ -217,7 +217,7 @@ static LocationManager *theInstance = nil;
     DDLogVerbose(@"monitoring=%ld", (long)monitoring);
     _monitoring = monitoring;
     self.manager.pausesLocationUpdatesAutomatically = NO;
-    if ([[[UIDevice currentDevice] systemVersion] compare:@"9.0"] != NSOrderedAscending) {
+    if ([[[UIDevice currentDevice] systemVersion] compare:@"9.0" options:NSNumericSearch] != NSOrderedAscending) {
         self.manager.allowsBackgroundLocationUpdates = TRUE;
     }
     

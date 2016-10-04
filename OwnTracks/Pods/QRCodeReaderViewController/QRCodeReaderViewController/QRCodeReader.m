@@ -41,6 +41,17 @@
 
 @implementation QRCodeReader
 
+- (id)init
+{
+  if ((self = [super init])) {
+    _metadataObjectTypes = @[AVMetadataObjectTypeQRCode];
+
+    [self setupAVComponents];
+    [self configureDefaultComponents];
+  }
+  return self;
+}
+
 - (id)initWithMetadataObjectTypes:(NSArray *)metadataObjectTypes
 {
   if ((self = [super init])) {
@@ -90,7 +101,10 @@
   }
 
   [_metadataOutput setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
-  [_metadataOutput setMetadataObjectTypes:_metadataObjectTypes];
+  NSMutableSet *available = [NSMutableSet setWithArray:[_metadataOutput availableMetadataObjectTypes]];
+  NSSet *desired = [NSSet setWithArray:_metadataObjectTypes];
+  [available intersectSet:desired];
+  [_metadataOutput setMetadataObjectTypes:available.allObjects];
   [_previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
 }
 
@@ -237,7 +251,7 @@
   for (AVMetadataObject *current in metadataObjects) {
     if ([current isKindOfClass:[AVMetadataMachineReadableCodeObject class]]
         && [_metadataObjectTypes containsObject:current.type]) {
-      NSString *scannedResult = [(AVMetadataMachineReadableCodeObject *) current stringValue];
+      NSString *scannedResult = [(AVMetadataMachineReadableCodeObject *)current stringValue];
 
       if (_completionBlock) {
         _completionBlock(scannedResult);
