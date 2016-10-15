@@ -1,6 +1,13 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## Owntracks 9.2.8
+
+>Release date 2016-10-15
+* [NEW] Enable Remote Commands closes #411
+* [NEW] add Wifi status
+* [FIX] Location stops updating in iOS 9.3 in background closes #399
+
 ## Owntracks 9.2.7
 
 >Release date 2016-10-04

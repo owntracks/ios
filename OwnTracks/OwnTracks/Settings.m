@@ -289,7 +289,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             [self setWaypoints:waypoints];
             
         } else {
-            return [NSError errorWithDomain:@"OwnTracks Settings" code:1 userInfo:@{@"_type": dictionary[@"_type"]}];
+            return [NSError errorWithDomain:@"OwnTracks Settings"
+                                       code:1
+                                   userInfo:@{@"_type": [NSString stringWithFormat:@"%@", dictionary[@"_type"]]}];
         }
     }
 

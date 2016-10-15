@@ -58,6 +58,7 @@
 		846FFA4F1B40C13C001482A6 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA4E1B40C13C001482A6 /* NavigationController.m */; };
 		846FFA581B419687001482A6 /* RegionTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA571B419687001482A6 /* RegionTVC.m */; };
 		846FFA5E1B420938001482A6 /* FriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA5D1B420938001482A6 /* FriendTableViewCell.m */; };
+		8474443A1DA4BC9600975BE4 /* ConnType.m in Sources */ = {isa = PBXBuildFile; fileRef = 847444391DA4BC9600975BE4 /* ConnType.m */; };
 		8479EEB718E4529900923B24 /* Settings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* Settings.plist */; };
 		847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847F8B5719295C65003876D4 /* CoreMotion.framework */; };
 		84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A2B1B3755AF00810C3A /* TabBarController.m */; };
@@ -237,6 +238,8 @@
 		846FFA571B419687001482A6 /* RegionTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionTVC.m; sourceTree = "<group>"; };
 		846FFA5C1B420938001482A6 /* FriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendTableViewCell.h; sourceTree = "<group>"; };
 		846FFA5D1B420938001482A6 /* FriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendTableViewCell.m; sourceTree = "<group>"; };
+		847444381DA4BC9600975BE4 /* ConnType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnType.h; sourceTree = "<group>"; };
+		847444391DA4BC9600975BE4 /* ConnType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnType.m; sourceTree = "<group>"; };
 		8474B15319A8CB7D00427427 /* Model 7.3.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.1.xcdatamodel"; sourceTree = "<group>"; };
 		847F8B5719295C65003876D4 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		84856A8B1BD6201800621533 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -422,6 +425,8 @@
 				8411B867189FE1ED0019D2D6 /* coredata */,
 				8411B83C189FDB140019D2D6 /* OwnTracksAppDelegate.h */,
 				8411B83D189FDB140019D2D6 /* OwnTracksAppDelegate.m */,
+				847444381DA4BC9600975BE4 /* ConnType.h */,
+				847444391DA4BC9600975BE4 /* ConnType.m */,
 				846FFA431B402A1F001482A6 /* OwnTracking.h */,
 				846FFA441B402A1F001482A6 /* OwnTracking.m */,
 				84B739781A65629200B103F4 /* LocationManager.h */,
@@ -935,6 +940,7 @@
 				84E8A1891BB94782002518AA /* Setting+CoreDataProperties.m in Sources */,
 				84E8A19E1BB94B1D002518AA /* Setting.m in Sources */,
 				8411B90D189FEC070019D2D6 /* FriendAnnotationV.m in Sources */,
+				8474443A1DA4BC9600975BE4 /* ConnType.m in Sources */,
 				8411B88A189FE79B0019D2D6 /* AlertView.m in Sources */,
 				8411B90E189FEC070019D2D6 /* FriendsTVC.m in Sources */,
 				84E8A18C1BB94782002518AA /* Waypoint+CoreDataProperties.m in Sources */,

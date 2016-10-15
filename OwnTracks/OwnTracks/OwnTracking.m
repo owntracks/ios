@@ -12,6 +12,7 @@
 #import "AlertView.h"
 #import "Waypoint.h"
 #import "CoreData.h"
+#import "ConnType.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 #define MAXQUEUE 999
@@ -375,6 +376,11 @@ static OwnTracking *theInstance = nil;
         if (altitude) {
             [json setValue:altitude.pressure forKey:@"p"];
         }
+
+        if ([ConnType connectionType:[Settings theHost]] == ConnectionTypeWIFI) {
+            [json setObject:[NSNumber numberWithBool:TRUE] forKey:@"_wifi"];
+        }
+
     }
 
     NSString *tid = [Settings stringForKey:@"trackerid_preference"];
