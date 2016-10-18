@@ -42,6 +42,7 @@ enum state {
 
 - (void)connectTo:(NSString *)host
              port:(NSInteger)port
+               ws:(BOOL)ws
               tls:(BOOL)tls
         keepalive:(NSInteger)keepalive
             clean:(BOOL)clean

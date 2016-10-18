@@ -377,10 +377,31 @@ static OwnTracking *theInstance = nil;
             [json setValue:altitude.pressure forKey:@"p"];
         }
 
-        if ([ConnType connectionType:[Settings theHost]] == ConnectionTypeWIFI) {
-            [json setObject:[NSNumber numberWithBool:TRUE] forKey:@"_wifi"];
-        }
+        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
 
+        if ([delegate.connectionState integerValue] == state_connected ||
+            [delegate.connectionState integerValue] == state_connecting ||
+            [delegate.connectionState integerValue] == state_connected) {
+            switch ([ConnType connectionType:[Settings theHost]]) {
+                case ConnectionTypeNone:
+                    [json setObject:@"o" forKey:@"conn"];
+                    break;
+
+                case ConnectionTypeWIFI:
+                    [json setObject:@"w" forKey:@"conn"];
+                    break;
+
+                case ConnectionTypeWWAN:
+                    [json setObject:@"m" forKey:@"conn"];
+                    break;
+
+                case ConnectionTypeUnknown:
+                default:
+                    break;
+            }
+        } else {
+            [json setObject:@"o" forKey:@"conn"];
+        }
     }
 
     NSString *tid = [Settings stringForKey:@"trackerid_preference"];

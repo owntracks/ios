@@ -4,6 +4,7 @@ platform :ios, '8.0'
 pod 'CocoaLumberjack'
 pod 'ABStaticTableViewController'
 pod 'MQTTClient/MinL'
+pod 'MQTTClient/WebsocketL'
 pod 'QRCodeReaderViewController'
 pod 'libsodium', '~> 1.0'
 

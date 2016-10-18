@@ -983,6 +983,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
         [self.connection connectTo:[Settings theHost]
                               port:[Settings intForKey:@"port_preference"]
+                               ws:[Settings boolForKey:@"ws_preference"]
                                tls:[Settings boolForKey:@"tls_preference"]
                          keepalive:[Settings intForKey:@"keepalive_preference"]
                              clean:[Settings intForKey:@"clean_preference"]

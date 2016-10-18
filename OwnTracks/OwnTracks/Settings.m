@@ -232,7 +232,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             
             object = dictionary[@"tls"];
             if (object) [self setString:object forKey:@"tls_preference"];
-            
+
+            object = dictionary[@"ws"];
+            if (object) [self setString:object forKey:@"ws_preference"];
+
             object = dictionary[@"auth"];
             if (object) [self setString:object forKey:@"auth_preference"];
             
@@ -454,6 +457,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             dict[@"cmd"] =                  @([Settings boolForKey:@"cmd_preference"]);
             dict[@"pubRetain"] =            @([Settings boolForKey:@"retain_preference"]);
             dict[@"tls"] =                  @([Settings boolForKey:@"tls_preference"]);
+            dict[@"ws"] =                  @([Settings boolForKey:@"ws_preference"]);
             dict[@"auth"] =                 @([Settings boolForKey:@"auth_preference"]);
             dict[@"cleanSession"] =         @([Settings boolForKey:@"clean_preference"]);
             dict[@"willRetain"] =           @([Settings boolForKey:@"willretain_preference"]);

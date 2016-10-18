@@ -14,6 +14,7 @@
 #import <UIKit/UIKit.h>
 #import "CocoaLumberjack.h"
 #import "sodium.h"
+#import "MQTTWebsocketTransport.h"
 
 #define BACKGROUND_DISCONNECT_AFTER 8.0
 
@@ -33,6 +34,7 @@
 
 @property (strong, nonatomic) NSString *host;
 @property (nonatomic) UInt32 port;
+@property (nonatomic) BOOL ws;
 @property (nonatomic) BOOL tls;
 @property (nonatomic) NSInteger keepalive;
 @property (nonatomic) BOOL clean;
@@ -172,6 +174,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)connectTo:(NSString *)host
              port:(NSInteger)port
+               ws:(BOOL)ws
               tls:(BOOL)tls
         keepalive:(NSInteger)keepalive
             clean:(BOOL)clean
@@ -185,12 +188,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
      withClientId:(NSString *)clientId
    securityPolicy:(MQTTSSLSecurityPolicy *)securityPolicy
      certificates:(NSArray *)certificates {
-    DDLogVerbose(@"%@ connectTo: %@:%@@%@:%ld %@ (%ld) c%d / %@ %@ q%ld r%d as %@ %@ %@",
+    DDLogVerbose(@"%@ connectTo: %@:%@@%@:%ld %@ %@ (%ld) c%d / %@ %@ q%ld r%d as %@ %@ %@",
                  self.clientId,
                  auth ? user : @"",
                  auth ? pass : @"",
                  host,
                  (long)port,
+                 ws ? @"WS" : @"MQTT",
                  tls ? @"TLS" : @"PLAIN",
                  (long)keepalive,
                  clean,
@@ -208,6 +212,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     if (!self.session ||
         ![host isEqualToString:self.host] ||
         port != self.port ||
+        ws != self.ws ||
         tls != self.tls ||
         keepalive != self.keepalive ||
         clean != self.clean ||
@@ -223,6 +228,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         certificates != self.certificates) {
         self.host = host;
         self.port = (int)port;
+        self.ws = ws;
         self.tls = tls;
         self.keepalive = keepalive;
         self.clean = clean;
@@ -238,25 +244,59 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         self.certificates = certificates;
         
         DDLogVerbose(@"%@ new session", self.clientId);
-        self.session = [[MQTTSession alloc] initWithClientId:clientId
-                                                    userName:auth ? user : nil
-                                                    password:auth ? pass : nil
-                                                   keepAlive:keepalive
-                                                cleanSession:clean
-                                                        will:willTopic != nil
-                                                   willTopic:willTopic
-                                                     willMsg:will
-                                                     willQoS:willQos
-                                              willRetainFlag:willRetainFlag
-                                               protocolLevel:3
-                                                     runLoop:[NSRunLoop currentRunLoop]
-                                                     forMode:NSDefaultRunLoopMode
-                                              securityPolicy:securityPolicy
-                                                certificates:certificates];
-        [self.session setDelegate:self];
+        MQTTTransport *mqttTransport;
+        if (ws) {
+            MQTTWebsocketTransport *websocketTransport = [[MQTTWebsocketTransport alloc] init];
+            websocketTransport.host = host;
+            websocketTransport.port = port;
+            websocketTransport.tls = tls;
+            if (securityPolicy) {
+                websocketTransport.allowUntrustedCertificates = securityPolicy.allowInvalidCertificates;
+                websocketTransport.pinnedCertificates = securityPolicy.pinnedCertificates;
+            }
+
+            mqttTransport = websocketTransport;
+        } else {
+            if (securityPolicy) {
+                MQTTSSLSecurityPolicyTransport *sslSecPolTransport = [[MQTTSSLSecurityPolicyTransport alloc] init];
+                sslSecPolTransport.host = host;
+                sslSecPolTransport.port = port;
+                sslSecPolTransport.tls = tls;
+                sslSecPolTransport.certificates = certificates;
+                sslSecPolTransport.securityPolicy = securityPolicy;
+
+                mqttTransport = sslSecPolTransport;
+            } else {
+                MQTTCFSocketTransport *cfSocketTransport = [[MQTTCFSocketTransport alloc] init];
+                cfSocketTransport.host = host;
+                cfSocketTransport.port = port;
+                cfSocketTransport.tls = tls;
+                cfSocketTransport.certificates = certificates;
+                mqttTransport = cfSocketTransport;
+            }
+        }
+
+        self.session = [[MQTTSession alloc] init];
+        self.session.transport = mqttTransport;
+        self.session.clientId = clientId;
+        self.session.userName = auth ? user : nil;
+        self.session.password = auth ? pass : nil;
+        self.session.keepAliveInterval = keepalive;
+        self.session.cleanSessionFlag = clean;
+
+        self.session.willFlag = willTopic != nil;
+        self.session.willTopic = willTopic;
+        self.session.willMsg = will;
+        self.session.willQoS = willQos;
+        self.session.willRetainFlag = willRetainFlag;
+
+        self.session.protocolLevel = MQTTProtocolVersion31;
         self.session.persistence.persistent = TRUE;
         self.session.persistence.maxMessages = 100 * 1024;
         self.session.persistence.maxSize = 100 * 1024 * 1024;
+
+        [self.session setDelegate:self];
+
         self.reconnectTime = RECONNECT_TIMER;
         self.reconnectFlag = FALSE;
     }
@@ -600,9 +640,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     if (!self.url) {
         if (self.state == state_starting) {
             self.state = state_connecting;
-            [self.session connectToHost:self.host
-                                   port:self.port
-                               usingSSL:self.tls];
+            [self.session connect];
         } else {
             DDLogVerbose(@"%@ not starting, can't connect", self.clientId);
         }
@@ -615,7 +653,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         return self.url;
     } else {
         return [NSString stringWithFormat:@"%@://%@%@:%ld c%d k%ld as %@",
-                self.tls ? @"mqtts" : @"mqtt",
+                self.ws ? (self.tls ? @"wss" : @"ws") : (self.tls ? @"mqtts" : @"mqtt"),
                 self.auth ? [NSString stringWithFormat:@"%@@", self.user] : @"",
                 self.host,
                 (long)self.port,

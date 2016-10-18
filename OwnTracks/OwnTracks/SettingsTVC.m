@@ -40,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIPassword;
 @property (weak, nonatomic) IBOutlet UITextField *UIPort;
 @property (weak, nonatomic) IBOutlet UISwitch *UITLS;
+@property (weak, nonatomic) IBOutlet UISwitch *UIWS;
 @property (weak, nonatomic) IBOutlet UISwitch *UIAuth;
 @property (weak, nonatomic) IBOutlet UITextField *UItrackerid;
 @property (weak, nonatomic) IBOutlet UIButton *UIexport;
@@ -157,6 +158,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIignoreStaleLocations) [Settings setString:self.UIignoreStaleLocations.text forKey:@"ignorestalelocations_preference"];
     if (self.UIignoreInaccurateLocations) [Settings setString:self.UIignoreInaccurateLocations.text forKey:@"ignoreinaccuratelocations_preference"];
     if (self.UITLS) [Settings setBool:self.UITLS.on forKey:@"tls_preference"];
+    if (self.UIWS) [Settings setBool:self.UIWS.on forKey:@"ws_preference"];
     if (self.UIAuth) [Settings setBool:self.UIAuth.on forKey:@"auth_preference"];
     if (self.UIranging) [Settings setBool:self.UIranging.on forKey:@"ranging_preference"];
     if (self.UIurl) [Settings setString:self.UIurl.text forKey:@"url_preference"];
@@ -290,6 +292,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UITLS) {
         self.UITLS.on = [Settings boolForKey:@"tls_preference"];
         self.UITLS.enabled = !locked;
+    }
+    if (self.UIWS) {
+        self.UIWS.on = [Settings boolForKey:@"ws_preference"];
+        self.UIWS.enabled = !locked;
     }
     if (self.UIAuth) {
         self.UIAuth.on = [Settings boolForKey:@"auth_preference"];

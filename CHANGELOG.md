@@ -1,6 +1,12 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## Owntracks 9.2.9
+
+>Release date 2016-10-18
+* [NEW] Add Websockets Transport closes #428
+* [NEW] connection type as extended attribute closes #427
+
 ## Owntracks 9.2.8
 
 >Release date 2016-10-15
