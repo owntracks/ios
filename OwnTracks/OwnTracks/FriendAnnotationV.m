@@ -27,9 +27,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 #define COURSE_COLOR [UIColor blueColor]
 #define COURSE_WIDTH 10.0
 
-#define TACHO_COLOR [UIColor redColor]
+#define TACHO_COLOR [UIColor colorWithRed:1.0 green:0 blue:0 alpha:0.5]
 #define TACHO_SCALE 30.0
-#define TACHO_MAX 540.0
+#define TACHO_MAX (260.0 * 3.6)
 
 
 /** This method does not seem to be called anymore in ios10
@@ -91,17 +91,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
      
     if (self.speed > 0) {
         UIBezierPath *tacho = [[UIBezierPath alloc] init];
-        [tacho moveToPoint:CGPointMake(rect.origin.x + rect.size.width / 2, rect.origin.y + rect.size.height / 2)];
-        [tacho addLineToPoint:CGPointMake(rect.origin.x + rect.size.width / 2, rect.origin.y + rect.size.height)];
-        [tacho appendPath:[UIBezierPath bezierPathWithArcCenter:CGPointMake(rect.size.width / 2, rect.size.height / 2)
-                                                         radius:CIRCLE_SIZE / 2
-                                                     startAngle:M_PI_2
-                                                       endAngle:M_PI_2 +
-                           2 * M_PI *log(1 + self.speed / TACHO_SCALE) / log (1 + TACHO_MAX / TACHO_SCALE)
+        [tacho moveToPoint:CGPointMake(rect.origin.x + rect.size.width / 2.0,
+                                       rect.origin.y + rect.size.height / 2.0)];
+        [tacho appendPath:[UIBezierPath bezierPathWithArcCenter: CGPointMake(rect.size.width / 2.0,
+                                                                             rect.size.height / 2.0)
+                                                         radius:CIRCLE_SIZE / 2.0
+                                                     startAngle:M_PI_2 + M_PI / 6.0
+                                                       endAngle:M_PI_2 + M_PI / 6.0 + M_PI * 2.0 * 5.0 / 6.0 * (MIN(self.speed / TACHO_MAX, 1.0))
                                                       clockwise:true]];
-        [tacho addLineToPoint:CGPointMake(rect.origin.x + rect.size.width / 2, rect.origin.y + rect.size.height / 2)];
+        [tacho addLineToPoint:CGPointMake(rect.origin.x + rect.size.width / 2.0,
+                                          rect.origin.y + rect.size.height / 2.0)];
         [tacho closePath];
-        
+
         [TACHO_COLOR setFill];
         [tacho fill];
         [CIRCLE_COLOR setStroke];
@@ -138,7 +139,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [circle stroke];
 
     // Course
-    if (self.course >= 0) {
+    if (self.course > 0) {
         UIBezierPath *course = [UIBezierPath bezierPathWithOvalInRect:
                                 CGRectMake(
                                            rect.origin.x + rect.size.width / 2 + CIRCLE_SIZE / 2 * cos((self.course -90 )/ 360 * 2 * M_PI) - COURSE_WIDTH / 2,

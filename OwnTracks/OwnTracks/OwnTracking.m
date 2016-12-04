@@ -18,7 +18,7 @@
 #define MAXQUEUE 999
 
 @implementation OwnTracking
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 static OwnTracking *theInstance = nil;
 
 + (OwnTracking *)sharedInstance {
@@ -61,6 +61,8 @@ static OwnTracking *theInstance = nil;
         }
         [context performBlock:^{
             NSError *error;
+            DDLogVerbose(@"performBlock %@ %@", topic, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+
             id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
             if (json && [json isKindOfClass:[NSDictionary class]]) {
                 NSDictionary *dictionary = json;
