@@ -303,8 +303,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     [self connectToInternal];
 }
 
-- (void)connectHTTP:(NSString *)url {
+- (void)connectHTTP:(NSString *)url auth:(BOOL)auth user:(NSString *)user pass:(NSString *)pass {
     self.url = url;
+    self.user = auth ? user : nil;
+    self.pass = auth ? pass : nil;
     self.reconnectTime = RECONNECT_TIMER;
     self.reconnectFlag = FALSE;
     self.state = state_starting;
@@ -381,6 +383,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     DDLogVerbose(@"sendtHTTP %@(%@):%@", topic, postLength, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    
+    // auth
+    if (self.user) {
+        NSString *authString = [NSString stringWithFormat:@"%@:%@", self.user, self.pass];
+        NSData *authData = [authString dataUsingEncoding:NSASCIIStringEncoding];
+        NSString *authValue = [authData base64EncodedStringWithOptions:0];
+        [request setValue:[NSString stringWithFormat:@"Basic %@", authValue] forHTTPHeaderField:@"Authorization"];
+    }
     
     [request setURL:[NSURL URLWithString:self.url]];
     [request setHTTPMethod:@"POST"];

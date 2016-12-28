@@ -11,7 +11,13 @@
 	<key>clientid_preference</key>
 	<string></string>
 	<key>url_preference</key>
-	<string>https://user:password@host:port/path</string>
+	<string>https://host:port/path</string>
+	<key>auth_preference</key>
+	<false/>
+	<key>user_preference</key>
+	<string>user</string>
+	<key>pass_preference</key>
+	<string>pass</string>
 	<key>monitoring_preference</key>
 	<integer>1</integer>
 	<key>ranging_preference</key>
