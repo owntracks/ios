@@ -7,7 +7,7 @@
 //
 
 #import "Location.h"
-#import "Friend.h"
+#import "Friend+CoreDataClass.h"
 
 @implementation Location
 

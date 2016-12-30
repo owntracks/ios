@@ -7,7 +7,7 @@
 //
 
 #import "PersonTVC.h"
-#import "Friend.h"
+#import "Friend+CoreDataClass.h"
 
 @interface PersonTVC ()
 @property (strong, nonatomic) NSMutableDictionary *sections;

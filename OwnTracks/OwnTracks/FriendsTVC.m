@@ -11,7 +11,7 @@
 #import "FriendsTVC.h"
 #import "WaypointTVC.h"
 #import "PersonTVC.h"
-#import "Friend.h"
+#import "Friend+CoreDataClass.h"
 #import "FriendTableViewCell.h"
 #import "Waypoint.h"
 #import "CoreData.h"

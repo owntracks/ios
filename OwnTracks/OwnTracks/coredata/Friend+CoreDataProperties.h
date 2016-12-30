@@ -2,28 +2,29 @@
 //  Friend+CoreDataProperties.h
 //  OwnTracks
 //
-//  Created by Christoph Krey on 10.09.16.
+//  Created by Christoph Krey on 08.12.16.
 //  Copyright © 2016 OwnTracks. All rights reserved.
 //
-//  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
-//  to delete and recreate this implementation file for your updated model.
-//
 
-#import "Friend.h"
+#import "Friend+CoreDataClass.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Friend (CoreDataProperties)
 
-@property (nullable, nonatomic, retain) NSNumber *abRecordId;
++ (NSFetchRequest<Friend *> *)fetchRequest;
+
+@property (nullable, nonatomic, copy) NSNumber *abRecordId;
 @property (nullable, nonatomic, retain) NSData *cardImage;
-@property (nullable, nonatomic, retain) NSString *cardName;
-@property (nullable, nonatomic, retain) NSString *tid;
-@property (nullable, nonatomic, retain) NSString *topic;
-@property (nullable, nonatomic, retain) NSDate *lastLocation;
+@property (nullable, nonatomic, copy) NSString *cardName;
+@property (nullable, nonatomic, copy) NSDate *lastLocation;
+@property (nullable, nonatomic, copy) NSString *tid;
+@property (nullable, nonatomic, copy) NSString *topic;
 @property (nullable, nonatomic, retain) NSSet<Location *> *hasLocations;
 @property (nullable, nonatomic, retain) NSSet<Region *> *hasRegions;
 @property (nullable, nonatomic, retain) NSSet<Waypoint *> *hasWaypoints;
+@property (nullable, nonatomic, retain) NSSet<Subscription *> *hasSubscriptions;
 
 @end
 
@@ -43,6 +44,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeHasWaypointsObject:(Waypoint *)value;
 - (void)addHasWaypoints:(NSSet<Waypoint *> *)values;
 - (void)removeHasWaypoints:(NSSet<Waypoint *> *)values;
+
+- (void)addHasSubscriptionsObject:(Subscription *)value;
+- (void)removeHasSubscriptionsObject:(Subscription *)value;
+- (void)addHasSubscriptions:(NSSet<Subscription *> *)values;
+- (void)removeHasSubscriptions:(NSSet<Subscription *> *)values;
 
 @end
 

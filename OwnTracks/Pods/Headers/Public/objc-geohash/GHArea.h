@@ -1,0 +1,1 @@
+../../../objc-geohash/Classes/ARC/GHArea.h

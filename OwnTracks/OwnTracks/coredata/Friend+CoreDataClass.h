@@ -1,9 +1,9 @@
 //
-//  Friend.h
+//  Friend+CoreDataClass.h
 //  OwnTracks
 //
-//  Created by Christoph Krey on 28.09.15.
-//  Copyright © 2015-2016 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 08.12.16.
+//  Copyright © 2016 OwnTracks. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -11,7 +11,7 @@
 #import <MapKit/MapKit.h>
 #import <AddressBook/AddressBook.h>
 
-@class Location, Region, Waypoint;
+@class Location, Region, Subscription, Waypoint;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)getEffectiveTid;
 - (Waypoint *)newestWaypoint;
 - (MKPolyline *)polyLine;
+
 @end
 
 NS_ASSUME_NONNULL_END

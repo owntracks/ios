@@ -7,7 +7,7 @@
 //
 
 #import "Region.h"
-#import "Friend.h"
+#import "Friend+CoreDataClass.h"
 
 @implementation Region
 

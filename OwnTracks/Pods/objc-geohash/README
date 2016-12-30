@@ -1,0 +1,59 @@
+=======================================================================
+ INSTALL
+=======================================================================
+
+Copy all files under 'Classes/ARC' or 'Classes/NonARC' directory into your project.
+
+=======================================================================
+ USAGE
+=======================================================================
+
+#import "GeoHash.h"
+
+/* Get GetHash by latitude, longitude, and hash-length */
+
+NSString *hash = [GeoHash hashForLatitude:35.6894875
+                               longitude:139.6917064 
+                                   length:13];
+
+/* hash equals to @"xn774c06kdtve" */
+
+
+/* Decode GeoHash and get an area which the hash indicates */
+
+GHArea *area = [GeoHash areaForHash:@"c216ne"];
+
+area.latitude.max
+area.latitude.min
+area.longitude.max
+area.longitude.min
+
+
+/* Adjacent */
+NSString *adjacentHash = [GeoHash adjacentForHash:@"dqcjq"
+                                        direction:GHDirectionNorth];
+/* @"dqcjw" */
+
+
+GHNeighbors *neighbors = [GeoHash neighborsForHash:@"dqcw5"];
+
+neighbors.north
+neighbors.south
+neighbors.east
+neighbors.west
+neighbors.northEast
+neighbors.northWest
+neighbors.southEast
+neighbors.southWest
+
+
+/* check invalid hash */
+if (![GeoHash verifyHash:@"abw!@"])
+{
+    ...
+}
+
+
+
+
+

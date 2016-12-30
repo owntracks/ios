@@ -14,7 +14,7 @@
 #import "Connection.h"
 #import "Settings.h"
 
-#import "Friend.h"
+#import "Friend+CoreDataClass.h"
 #import "Region.h"
 
 @interface OwnTracksAppDelegate : UIResponder <UIApplicationDelegate, ConnectionDelegate, LocationManagerDelegate>

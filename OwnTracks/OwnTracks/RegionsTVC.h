@@ -6,7 +6,7 @@
 //  Copyright © 2013-2016 Christoph Krey. All rights reserved.
 //
 
-#import "Friend.h"
+#import "Friend+CoreDataClass.h"
 
 @interface RegionsTVC : UITableViewController <NSFetchedResultsControllerDelegate>
 @end

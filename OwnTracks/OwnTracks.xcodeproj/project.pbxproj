@@ -37,6 +37,7 @@
 		841D1A301C8AFF8000DC5765 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841D1A2E1C8AFF8000DC5765 /* Localizable.strings */; };
 		841D1A351C8AFF9400DC5765 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841D1A331C8AFF9400DC5765 /* Localizable.strings */; };
 		8422AF681AF825C7008932A2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8422AF671AF825C7008932A2 /* SystemConfiguration.framework */; };
+		8426F8851DF4D7F300CB9915 /* GeoHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = 8426F8841DF4D7F300CB9915 /* GeoHashing.m */; };
 		842DFBC71AEE6F36000F4BA6 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842DFBC61AEE6F36000F4BA6 /* NotificationController.m */; };
 		842DFBC91AEE6F46000F4BA6 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = 842DFBC81AEE6F46000F4BA6 /* PushNotificationPayload.apns */; };
 		843635791AE95D6000157D66 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843635781AE95D6000157D66 /* InterfaceController.m */; };
@@ -45,6 +46,11 @@
 		843635871AE95D6100157D66 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843635851AE95D6100157D66 /* Interface.storyboard */; };
 		843635891AE95D6100157D66 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843635881AE95D6100157D66 /* Images.xcassets */; };
 		843B91721C8A14BF00DBD306 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843B91741C8A14BF00DBD306 /* Storyboard.storyboard */; };
+		845299E51DFA004000A4DC21 /* Subscription+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 845299DC1DFA004000A4DC21 /* Subscription+CoreDataClass.m */; };
+		845299E61DFA004000A4DC21 /* Subscription+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 845299DE1DFA004000A4DC21 /* Subscription+CoreDataProperties.m */; };
+		845299E71DFA004000A4DC21 /* Friend+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 845299E01DFA004000A4DC21 /* Friend+CoreDataClass.m */; };
+		845299E81DFA004000A4DC21 /* Info+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 845299E21DFA004000A4DC21 /* Info+CoreDataClass.m */; };
+		845299E91DFA004000A4DC21 /* Info+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 845299E41DFA004000A4DC21 /* Info+CoreDataProperties.m */; };
 		8455DFBE1ADF2BD8003C7BC8 /* Hosted.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8455DFBD1ADF2BD8003C7BC8 /* Hosted.plist */; };
 		845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845AA1B31B44245100945856 /* CertificatesTVC.m */; };
 		845AA1BB1B4846AF00945856 /* OwnTracks-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1B81B4846AF00945856 /* OwnTracks-29.png */; };
@@ -66,7 +72,6 @@
 		84A046C71D82081B00796C56 /* Watson.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84A046C51D82081B00796C56 /* Watson.plist */; };
 		84A046C81D82081B00796C56 /* WatsonRegistered.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84A046C61D82081B00796C56 /* WatsonRegistered.plist */; };
 		84A173681B427BDD00CCB7D0 /* ModeBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A173671B427BDD00CCB7D0 /* ModeBarButtonItem.m */; };
-		84A6612A1D914ED7003A21CA /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A661291D914ED7003A21CA /* Friend.m */; };
 		84B7397A1A65629200B103F4 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B739791A65629200B103F4 /* LocationManager.m */; };
 		84B776431D9A65C600C707EC /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B776421D9A65C600C707EC /* LoginVC.m */; };
 		84CA3D0D1AEE708200AABDC1 /* OwnTracks WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 843635731AE95D6000157D66 /* OwnTracks WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -198,6 +203,8 @@
 		841D1A361C8AFF9800DC5765 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		841D1A371C8AFF9900DC5765 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		8422AF671AF825C7008932A2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		8426F8831DF4D7F300CB9915 /* GeoHashing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoHashing.h; sourceTree = "<group>"; };
+		8426F8841DF4D7F300CB9915 /* GeoHashing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoHashing.m; sourceTree = "<group>"; };
 		842CA4CE1B3C76D000B7FF1C /* Model 8.1.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.5.xcdatamodel"; sourceTree = "<group>"; };
 		842DFBC51AEE6F36000F4BA6 /* NotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
 		842DFBC61AEE6F36000F4BA6 /* NotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
@@ -217,6 +224,17 @@
 		84401D921CCB5A8700F754C5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/Launch Screen.strings"; sourceTree = "<group>"; };
 		84401D941CCB5AB600F754C5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Storyboard.strings; sourceTree = "<group>"; };
 		84401D961CCB5ABA00F754C5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Storyboard.strings; sourceTree = "<group>"; };
+		845299DA1DF9FD6200A4DC21 /* Model 9.5.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.5.0.xcdatamodel"; sourceTree = "<group>"; };
+		845299DB1DFA004000A4DC21 /* Subscription+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Subscription+CoreDataClass.h"; sourceTree = "<group>"; };
+		845299DC1DFA004000A4DC21 /* Subscription+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Subscription+CoreDataClass.m"; sourceTree = "<group>"; };
+		845299DD1DFA004000A4DC21 /* Subscription+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Subscription+CoreDataProperties.h"; sourceTree = "<group>"; };
+		845299DE1DFA004000A4DC21 /* Subscription+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Subscription+CoreDataProperties.m"; sourceTree = "<group>"; };
+		845299DF1DFA004000A4DC21 /* Friend+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Friend+CoreDataClass.h"; sourceTree = "<group>"; };
+		845299E01DFA004000A4DC21 /* Friend+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Friend+CoreDataClass.m"; sourceTree = "<group>"; };
+		845299E11DFA004000A4DC21 /* Info+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Info+CoreDataClass.h"; sourceTree = "<group>"; };
+		845299E21DFA004000A4DC21 /* Info+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Info+CoreDataClass.m"; sourceTree = "<group>"; };
+		845299E31DFA004000A4DC21 /* Info+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Info+CoreDataProperties.h"; sourceTree = "<group>"; };
+		845299E41DFA004000A4DC21 /* Info+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Info+CoreDataProperties.m"; sourceTree = "<group>"; };
 		8455DFBD1ADF2BD8003C7BC8 /* Hosted.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Hosted.plist; sourceTree = "<group>"; };
 		845AA1B21B44245100945856 /* CertificatesTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificatesTVC.h; sourceTree = "<group>"; };
 		845AA1B31B44245100945856 /* CertificatesTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificatesTVC.m; sourceTree = "<group>"; };
@@ -258,8 +276,6 @@
 		84A173661B427BDD00CCB7D0 /* ModeBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModeBarButtonItem.h; sourceTree = "<group>"; };
 		84A173671B427BDD00CCB7D0 /* ModeBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModeBarButtonItem.m; sourceTree = "<group>"; };
 		84A173691B428E5C00CCB7D0 /* Model 8.2.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.1.xcdatamodel"; sourceTree = "<group>"; };
-		84A661281D914ED7003A21CA /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
-		84A661291D914ED7003A21CA /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
 		84AF468F1AB9571800E954E3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		84B739781A65629200B103F4 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		84B739791A65629200B103F4 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
@@ -429,6 +445,8 @@
 				847444391DA4BC9600975BE4 /* ConnType.m */,
 				846FFA431B402A1F001482A6 /* OwnTracking.h */,
 				846FFA441B402A1F001482A6 /* OwnTracking.m */,
+				8426F8831DF4D7F300CB9915 /* GeoHashing.h */,
+				8426F8841DF4D7F300CB9915 /* GeoHashing.m */,
 				84B739781A65629200B103F4 /* LocationManager.h */,
 				84B739791A65629200B103F4 /* LocationManager.m */,
 				8411B88C189FE9940019D2D6 /* Connection.h */,
@@ -466,30 +484,38 @@
 		8411B867189FE1ED0019D2D6 /* coredata */ = {
 			isa = PBXGroup;
 			children = (
+				845299DB1DFA004000A4DC21 /* Subscription+CoreDataClass.h */,
+				845299DC1DFA004000A4DC21 /* Subscription+CoreDataClass.m */,
+				845299DD1DFA004000A4DC21 /* Subscription+CoreDataProperties.h */,
+				845299DE1DFA004000A4DC21 /* Subscription+CoreDataProperties.m */,
+				84E8A1801BB94782002518AA /* Friend+CoreDataProperties.h */,
+				84E8A1811BB94782002518AA /* Friend+CoreDataProperties.m */,
+				845299DF1DFA004000A4DC21 /* Friend+CoreDataClass.h */,
+				845299E01DFA004000A4DC21 /* Friend+CoreDataClass.m */,
+				845299E11DFA004000A4DC21 /* Info+CoreDataClass.h */,
+				845299E21DFA004000A4DC21 /* Info+CoreDataClass.m */,
+				845299E31DFA004000A4DC21 /* Info+CoreDataProperties.h */,
+				845299E41DFA004000A4DC21 /* Info+CoreDataProperties.m */,
 				84001C101C78982800413E5B /* Queue+CoreDataProperties.h */,
 				84001C111C78982800413E5B /* Queue+CoreDataProperties.m */,
 				84001C121C78982800413E5B /* Queue.h */,
 				84001C131C78982800413E5B /* Queue.m */,
-				84E8A18E1BB94B1D002518AA /* Region.h */,
-				84E8A18F1BB94B1D002518AA /* Region.m */,
-				84E8A1901BB94B1D002518AA /* Location.h */,
-				84E8A1911BB94B1D002518AA /* Location.m */,
-				84E8A1941BB94B1D002518AA /* Waypoint.h */,
-				84E8A1951BB94B1D002518AA /* Waypoint.m */,
-				84E8A1961BB94B1D002518AA /* Setting.h */,
-				84E8A1971BB94B1D002518AA /* Setting.m */,
-				84A661281D914ED7003A21CA /* Friend.h */,
-				84A661291D914ED7003A21CA /* Friend.m */,
-				84E8A17C1BB94782002518AA /* Location+CoreDataProperties.h */,
-				84E8A17D1BB94782002518AA /* Location+CoreDataProperties.m */,
-				84E8A17E1BB94782002518AA /* Setting+CoreDataProperties.h */,
-				84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */,
-				84E8A1801BB94782002518AA /* Friend+CoreDataProperties.h */,
-				84E8A1811BB94782002518AA /* Friend+CoreDataProperties.m */,
-				84E8A1841BB94782002518AA /* Waypoint+CoreDataProperties.h */,
-				84E8A1851BB94782002518AA /* Waypoint+CoreDataProperties.m */,
 				84E8A1861BB94782002518AA /* Region+CoreDataProperties.h */,
 				84E8A1871BB94782002518AA /* Region+CoreDataProperties.m */,
+				84E8A18E1BB94B1D002518AA /* Region.h */,
+				84E8A18F1BB94B1D002518AA /* Region.m */,
+				84E8A17C1BB94782002518AA /* Location+CoreDataProperties.h */,
+				84E8A17D1BB94782002518AA /* Location+CoreDataProperties.m */,
+				84E8A1901BB94B1D002518AA /* Location.h */,
+				84E8A1911BB94B1D002518AA /* Location.m */,
+				84E8A17E1BB94782002518AA /* Setting+CoreDataProperties.h */,
+				84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */,
+				84E8A1961BB94B1D002518AA /* Setting.h */,
+				84E8A1971BB94B1D002518AA /* Setting.m */,
+				84E8A1841BB94782002518AA /* Waypoint+CoreDataProperties.h */,
+				84E8A1851BB94782002518AA /* Waypoint+CoreDataProperties.m */,
+				84E8A1941BB94B1D002518AA /* Waypoint.h */,
+				84E8A1951BB94B1D002518AA /* Waypoint.m */,
 				8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */,
 				8411B888189FE79B0019D2D6 /* CoreData.h */,
 				8411B889189FE79B0019D2D6 /* CoreData.m */,
@@ -927,10 +953,12 @@
 				846FFA581B419687001482A6 /* RegionTVC.m in Sources */,
 				846FFA451B402A1F001482A6 /* OwnTracking.m in Sources */,
 				8411B912189FEC070019D2D6 /* ViewController.m in Sources */,
+				845299E61DFA004000A4DC21 /* Subscription+CoreDataProperties.m in Sources */,
+				845299E51DFA004000A4DC21 /* Subscription+CoreDataClass.m in Sources */,
 				84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */,
+				845299E91DFA004000A4DC21 /* Info+CoreDataProperties.m in Sources */,
 				84E8A1881BB94782002518AA /* Location+CoreDataProperties.m in Sources */,
 				84664E9D1CC83A38002123EC /* NSBundle+privateLocalization.m in Sources */,
-				84A6612A1D914ED7003A21CA /* Friend.m in Sources */,
 				84B776431D9A65C600C707EC /* LoginVC.m in Sources */,
 				8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */,
 				8400D9711D83589F00DEA134 /* WebVC.m in Sources */,
@@ -949,14 +977,17 @@
 				84001C151C78982800413E5B /* Queue.m in Sources */,
 				84E8A18A1BB94782002518AA /* Friend+CoreDataProperties.m in Sources */,
 				846FFA4F1B40C13C001482A6 /* NavigationController.m in Sources */,
+				8426F8851DF4D7F300CB9915 /* GeoHashing.m in Sources */,
 				84E8A19B1BB94B1D002518AA /* Location.m in Sources */,
 				8411B83E189FDB140019D2D6 /* OwnTracksAppDelegate.m in Sources */,
 				84DDEAC71BD9F37900B01879 /* SettingsTVC.m in Sources */,
 				84A173681B427BDD00CCB7D0 /* ModeBarButtonItem.m in Sources */,
 				845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */,
+				845299E81DFA004000A4DC21 /* Info+CoreDataClass.m in Sources */,
 				84B7397A1A65629200B103F4 /* LocationManager.m in Sources */,
 				8411B891189FE9CE0019D2D6 /* Settings.m in Sources */,
 				84E8A19D1BB94B1D002518AA /* Waypoint.m in Sources */,
+				845299E71DFA004000A4DC21 /* Friend+CoreDataClass.m in Sources */,
 				84A046C41D81FE8000796C56 /* IdPicker.m in Sources */,
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,
 				84E8A18D1BB94782002518AA /* Region+CoreDataProperties.m in Sources */,
@@ -1417,6 +1448,7 @@
 		8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				845299DA1DF9FD6200A4DC21 /* Model 9.5.0.xcdatamodel */,
 				8400D9741D84946E00DEA134 /* Model 9.1.7.xcdatamodel */,
 				84001C0F1C78976100413E5B /* Model 9.0.2.xcdatamodel */,
 				84E8A17B1BB946F0002518AA /* Model 8.2.18.xcdatamodel */,
@@ -1437,7 +1469,7 @@
 				84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */,
 				8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 8400D9741D84946E00DEA134 /* Model 9.1.7.xcdatamodel */;
+			currentVersion = 845299DA1DF9FD6200A4DC21 /* Model 9.5.0.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

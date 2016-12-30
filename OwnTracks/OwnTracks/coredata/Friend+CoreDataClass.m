@@ -1,20 +1,20 @@
 //
-//  Friend.m
+//  Friend+CoreDataClass.m
 //  OwnTracks
 //
-//  Created by Christoph Krey on 28.09.15.
-//  Copyright © 2015-2016 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 08.12.16.
+//  Copyright © 2016 OwnTracks. All rights reserved.
 //
 
-#import "Friend.h"
+#import "Friend+CoreDataClass.h"
 #import "Location.h"
 #import "Region.h"
+#import "Subscription+CoreDataClass.h"
 #import "Waypoint.h"
 #import "Settings.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @implementation Friend
-
 static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 + (ABAddressBookRef)theABRef
@@ -400,5 +400,6 @@ ABRecordRef recordWithTopic(CFStringRef topic)
         return @"";
     }
 }
+
 
 @end

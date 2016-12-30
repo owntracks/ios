@@ -16,6 +16,7 @@
 #import "OwnTracking.h"
 #import <NotificationCenter/NotificationCenter.h>
 #import "ConnType.h"
+#import "GeoHashing.h"
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static const DDLogLevel ddLogLevel = DDLogLevelError;
@@ -418,10 +419,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)newLocation:(CLLocation *)location {
     [self publishLocation:location trigger:nil];
+    [[GeoHashing sharedInstance] newLocation:location];
 }
 
 - (void)timerLocation:(CLLocation *)location {
     [self publishLocation:location trigger:@"t"];
+    [[GeoHashing sharedInstance] newLocation:location];
 }
 
 - (void)regionEvent:(CLRegion *)region enter:(BOOL)enter {
@@ -582,6 +585,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (BOOL)handleMessage:(Connection *)connection data:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
     DDLogVerbose(@"handleMessage");
+
+    if (![[GeoHashing sharedInstance] processMessage:topic data:data retained:retained context:self.queueManagedObjectContext]) {
+        return false;
+    }
 
     if (![[OwnTracking sharedInstance] processMessage:topic data:data retained:retained context:self.queueManagedObjectContext]) {
         return false;
@@ -800,6 +807,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     DDLogVerbose(@"sendNow");
     CLLocation *location = [LocationManager sharedInstance].location;
     [self publishLocation:location trigger:@"u"];
+    [[GeoHashing sharedInstance] newLocation:location];
 }
 
 - (void)connectionOff {

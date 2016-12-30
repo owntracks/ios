@@ -7,7 +7,7 @@
 //
 
 #import "Waypoint.h"
-#import "Friend.h"
+#import "Friend+CoreDataClass.h"
 #import <MapKit/MapKit.h>
 #import <AddressBookUI/AddressBookUI.h>
 

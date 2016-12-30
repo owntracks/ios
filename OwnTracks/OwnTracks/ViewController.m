@@ -13,7 +13,9 @@
 #import "RegionsTVC.h"
 #import "WaypointTVC.h"
 #import "CoreData.h"
-#import "Friend.h"
+#import "Friend+CoreDataClass.h"
+#import "Subscription+CoreDataClass.h"
+#import "Info+CoreDataClass.h"
 #import "Region.h"
 #import "Waypoint.h"
 #import "UIColor+WithName.h"
@@ -21,6 +23,7 @@
 #import "OwnTracking.h"
 #import "AlertView.h"
 #import "ModeBarButtonItem.h"
+#import "GeoHashing.h"
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
@@ -29,6 +32,7 @@
 
 @property (strong, nonatomic) NSFetchedResultsController *frcFriends;
 @property (strong, nonatomic) NSFetchedResultsController *frcRegions;
+@property (strong, nonatomic) NSFetchedResultsController *frcInfos;
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
 
 @end
@@ -45,7 +49,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     self.mapView.mapType = MKMapTypeStandard;
     self.mapView.showsUserLocation = TRUE;
-    
+
     NSMutableArray *leftButtonItems = [self.navigationItem.leftBarButtonItems mutableCopy];
     [leftButtonItems addObject:[[MKUserTrackingBarButtonItem alloc] initWithMapView:self.mapView]];
     self.navigationItem.leftBarButtonItems = leftButtonItems;
@@ -60,6 +64,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                   usingBlock:^(NSNotification *note){
                                                       self.frcFriends = nil;
                                                       self.frcRegions = nil;
+                                                      self.frcInfos = nil;
                                                       }];
 }
 
@@ -69,6 +74,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         //
     }
     while (!self.frcRegions) {
+        //
+    }
+    while (!self.frcInfos) {
         //
     }
 }
@@ -131,6 +139,34 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     }
 }
 
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+    Neighbors *neighbors = [GeoHashing sharedInstance].neighbors;
+    [self.mapView removeOverlay:neighbors.center];
+    [self.mapView removeOverlay:neighbors.west];
+    [self.mapView removeOverlay:neighbors.northWest];
+    [self.mapView removeOverlay:neighbors.north];
+    [self.mapView removeOverlay:neighbors.northEast];
+    [self.mapView removeOverlay:neighbors.east];
+    [self.mapView removeOverlay:neighbors.southEast];
+    [self.mapView removeOverlay:neighbors.south];
+    [self.mapView removeOverlay:neighbors.southWest];
+
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:userLocation.coordinate.latitude
+                                                      longitude:userLocation.coordinate.longitude];
+    [[GeoHashing sharedInstance] newLocation:location];
+
+    neighbors = [GeoHashing sharedInstance].neighbors;
+    [self.mapView addOverlay:neighbors.center];
+    [self.mapView addOverlay:neighbors.west];
+    [self.mapView addOverlay:neighbors.northWest];
+    [self.mapView addOverlay:neighbors.north];
+    [self.mapView addOverlay:neighbors.northEast];
+    [self.mapView addOverlay:neighbors.east];
+    [self.mapView addOverlay:neighbors.southEast];
+    [self.mapView addOverlay:neighbors.south];
+    [self.mapView addOverlay:neighbors.southWest];
+}
+
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
 {
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
@@ -138,7 +174,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     } else if ([annotation isKindOfClass:[Friend class]]) {
         Friend *friend = (Friend *)annotation;
         Waypoint *waypoint = [friend newestWaypoint];
-        
+
         MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_PICTURE];
         FriendAnnotationV *friendAnnotationV;
         if (annotationView) {
@@ -152,7 +188,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         annotationView.leftCalloutAccessoryView = refreshButton;
         friendAnnotationV.canShowCallout = YES;
         friendAnnotationV.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        
+
         NSData *data = [friend image];
         UIImage *image = [UIImage imageWithData:data];
         friendAnnotationV.personImage = image;
@@ -161,9 +197,33 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         friendAnnotationV.course = [waypoint.cog doubleValue];
         friendAnnotationV.me = [friend.topic isEqualToString:[Settings theGeneralTopic]];
         [friendAnnotationV setNeedsDisplay];
-        
+
         return friendAnnotationV;
-        
+
+    } else if ([annotation isKindOfClass:[Info class]]) {
+        Info *info = (Info *)annotation;
+
+        MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_PICTURE];
+        FriendAnnotationV *friendAnnotationV;
+        if (annotationView) {
+            friendAnnotationV = (FriendAnnotationV *)annotationView;
+        } else {
+            friendAnnotationV = [[FriendAnnotationV alloc] initWithAnnotation:info reuseIdentifier:REUSE_ID_PICTURE];
+        }
+        friendAnnotationV.canShowCallout = YES;
+        friendAnnotationV.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+
+        NSData *data = info.image;
+        UIImage *image = [UIImage imageWithData:data];
+        friendAnnotationV.personImage = image;
+        friendAnnotationV.tid = [info.name substringToIndex:2];
+        friendAnnotationV.speed = [info.level doubleValue] * 260  / 3.6;
+        friendAnnotationV.course = [info.level doubleValue];
+        friendAnnotationV.me = FALSE;
+        [friendAnnotationV setNeedsDisplay];
+
+        return friendAnnotationV;
+
     } else if ([annotation isKindOfClass:[Region class]]) {
         Region *region = (Region *)annotation;
         if ([region.CLregion isKindOfClass:[CLBeaconRegion class]]) {
@@ -217,7 +277,15 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             renderer.fillColor = [UIColor colorWithName:@"outside" defaultColor:[UIColor blueColor]];
         }
         return renderer;
-        
+
+    } else if ([overlay isKindOfClass:[Area class]]) {
+        Area *area = (Area *)overlay;
+        MKPolygonRenderer *renderer = [[MKPolygonRenderer alloc] initWithPolygon:area.polygon];
+        [renderer setFillColor:[UIColor colorWithRed:0.5 green:1.0 blue:0.5 alpha:0.3]];
+        [renderer setLineWidth:1];
+        [renderer setStrokeColor:[UIColor colorWithRed:0.0 green:0.5 blue:0.0 alpha:0.3]];
+        return renderer;
+
     } else {
         return nil;
     }
@@ -314,6 +382,27 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     return _frcRegions;
 }
 
+- (NSFetchedResultsController *)frcInfos {
+    if (!_frcInfos) {
+        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Info"];
+        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:TRUE]];
+        _frcInfos = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                          managedObjectContext:[CoreData theManagedObjectContext]
+                                                            sectionNameKeyPath:nil
+                                                                     cacheName:nil];
+        _frcInfos.delegate = self;
+        [self performFetch:_frcRegions];
+        Friend *myself = [Friend friendWithTopic:[Settings theGeneralTopic]
+                          inManagedObjectContext:[CoreData theManagedObjectContext]];
+        for (Subscription *subscription in myself.hasSubscriptions) {
+            for (Info *info in subscription.hasInfos) {
+                [self.mapView addAnnotation:info];
+            }
+        }
+    }
+    return _frcInfos;
+}
+
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
     //
@@ -394,7 +483,27 @@ didChangeDragState:(MKAnnotationViewDragState)newState
                     
                     break;
             }
-            
+        } else if ([anObject isKindOfClass:[Info class]]) {
+            Info *info = (Info *)anObject;
+            switch(type) {
+                case NSFetchedResultsChangeInsert:
+                    if ([info.lat doubleValue] != 0.0 && [info.lon doubleValue] != 0.0) {
+                        [self.mapView addAnnotation:info];
+                    }
+                    break;
+
+                case NSFetchedResultsChangeDelete:
+                    [self.mapView removeAnnotation:info];
+                    break;
+
+                case NSFetchedResultsChangeUpdate:
+                case NSFetchedResultsChangeMove:
+                    [self.mapView removeAnnotation:info];
+                    if ([info.lat doubleValue] != 0.0 && [info.lon doubleValue] != 0.0) {
+                        [self.mapView addAnnotation:info];
+                    }
+                    break;
+            }
         }
     }
 }

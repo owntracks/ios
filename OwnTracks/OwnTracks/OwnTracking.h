@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Friend.h"
+#import "Friend+CoreDataClass.h"
 #import "Waypoint.h"
 #import "Region.h"
 #import <CoreLocation/CoreLocation.h>
@@ -21,6 +21,7 @@
 - (BOOL)processMessage:(NSString *)topic data:(NSData *)data retained:(BOOL)retained context:(NSManagedObjectContext *)context;
 
 - (Waypoint *)addWaypointFor:(Friend *)friend location:(CLLocation *)location trigger:(NSString *)trigger context:(NSManagedObjectContext *)context;
+
 - (void)limitWaypointsFor:(Friend *)friend toMaximum:(NSInteger)max inManagedObjectContext:(NSManagedObjectContext *)context;
 
 - (Region *)addRegionFor:(Friend *)friend name:(NSString *)name uuid:(NSString *)uuid major:(unsigned int)major minor:(unsigned int)minor share:(BOOL)share radius:(double)radius lat:(double)lat lon:(double)lon context:(NSManagedObjectContext *)context;
