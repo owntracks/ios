@@ -66,4 +66,6 @@ enum state {
 - (void)reset;
 
 - (NSString *)parameters;
+- (void)addExtraSubscription:(NSString *)topicFilter qos:(MQTTQosLevel)qos;
+- (void)removeExtraSubscription:(NSString *)topicFilter;
 @end

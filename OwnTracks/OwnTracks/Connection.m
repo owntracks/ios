@@ -29,6 +29,7 @@
 @property (nonatomic) BOOL reconnectFlag;
 
 @property (strong, nonatomic) MQTTSession *session;
+@property (strong, nonatomic) NSMutableDictionary <NSString *, NSNumber *> *extraSubscriptions;
 
 @property (strong, nonatomic) NSString *url;
 
@@ -517,6 +518,22 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     }];
 }
 
+- (void)addExtraSubscription:(NSString *)topicFilter qos:(MQTTQosLevel)qos {
+    NSNumber *extraSubscription = [self.extraSubscriptions objectForKey:topicFilter];
+    if (!extraSubscription) {
+        [self.extraSubscriptions setObject:[NSNumber numberWithInt:qos] forKey:topicFilter];
+        [self.session subscribeToTopic:topicFilter atLevel:qos];
+    }
+}
+
+- (void)removeExtraSubscription:(NSString *)topicFilter {
+    NSNumber *extraSubscription = [self.extraSubscriptions objectForKey:topicFilter];
+    if (extraSubscription) {
+        [self.session unsubscribeTopic:topicFilter];
+        [self.extraSubscriptions removeObjectForKey:topicFilter];
+    }
+}
+
 #pragma mark - MQTT Callback methods
 
 - (void)connected:(MQTTSession *)session sessionPresent:(BOOL)sessionPresent
@@ -532,6 +549,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             if (topicFilter.length) {
                 [self.session subscribeToTopic:topicFilter atLevel:self.subscriptionQos];
             }
+        }
+        for (NSString *topicFilter in self.extraSubscriptions.allKeys) {
+            NSNumber *qos = [self.extraSubscriptions objectForKey:topicFilter];
+            [self.session subscribeToTopic:topicFilter atLevel:[qos intValue]];
         }
         self.reconnectFlag = TRUE;
     }
