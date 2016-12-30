@@ -346,10 +346,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         NSArray <NSIndexPath *> *privatePaths = @[[NSIndexPath indexPathForRow:4 inSection:0],
                                                   [NSIndexPath indexPathForRow:5 inSection:0],
                                                   [NSIndexPath indexPathForRow:6 inSection:0],
-                                                  [NSIndexPath indexPathForRow:7 inSection:0],
-                                                  [NSIndexPath indexPathForRow:8 inSection:0],
-                                                  [NSIndexPath indexPathForRow:9 inSection:0],
-                                                  [NSIndexPath indexPathForRow:10 inSection:0]
+                                                  [NSIndexPath indexPathForRow:7 inSection:0]
                                                   ];
         for (NSIndexPath *indexPath in privatePaths) {
             if ([self isRowVisible:indexPath] && mode != CONNECTION_MODE_PRIVATE) {
@@ -375,6 +372,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         NSArray <NSIndexPath *> *secretPaths = @[[NSIndexPath indexPathForRow:11 inSection:0]
                                                  ];
         for (NSIndexPath *indexPath in secretPaths) {
+            if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_PRIVATE && mode != CONNECTION_MODE_HTTP)) {
+                [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            } else if (![self isRowVisible:indexPath] && (mode == CONNECTION_MODE_PRIVATE || mode == CONNECTION_MODE_HTTP)) {
+                [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+        }
+        
+        NSArray <NSIndexPath *> *authPaths = @[[NSIndexPath indexPathForRow:8 inSection:0],
+                                                 [NSIndexPath indexPathForRow:9 inSection:0],
+                                                 [NSIndexPath indexPathForRow:10 inSection:0]
+                                                 ];
+        for (NSIndexPath *indexPath in authPaths) {
             if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_PRIVATE && mode != CONNECTION_MODE_HTTP)) {
                 [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             } else if (![self isRowVisible:indexPath] && (mode == CONNECTION_MODE_PRIVATE || mode == CONNECTION_MODE_HTTP)) {
