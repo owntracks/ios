@@ -11,7 +11,7 @@
 #import "TabBarController.h"
 #import "OwnTracksAppDelegate.h"
 #import "Settings.h"
-#import "Friend.h"
+#import "Friend+CoreDataClass.h"
 #import "CoreData.h"
 #import "AlertView.h"
 #import "OwnTracking.h"
