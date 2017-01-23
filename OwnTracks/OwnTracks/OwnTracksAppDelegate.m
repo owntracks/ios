@@ -678,11 +678,21 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
                     } else if ([@"setWaypoints" saveEqual:dictionary[@"action"]]) {
                         NSDictionary *payload = [NSDictionary saveCopy:dictionary[@"payload"]];
-                        [Settings waypointsFromDictionary:payload];
+                        NSDictionary *waypoints = [NSDictionary saveCopy:dictionary[@"waypoints"]];
+                        if (waypoints && [waypoints isKindOfClass:[NSDictionary class]]) {
+                            [Settings waypointsFromDictionary:waypoints];
+                        } else if (payload && [payload isKindOfClass:[NSDictionary class]]) {
+                            [Settings waypointsFromDictionary:payload];
+                        }
 
                     } else if ([@"setConfiguration" saveEqual:dictionary[@"action"]]) {
                         NSDictionary *payload = [NSDictionary saveCopy:dictionary[@"payload"]];
-                        [Settings fromDictionary:payload];
+                        NSDictionary *configuration = [NSDictionary saveCopy:dictionary[@"configuration"]];
+                        if (configuration && [configuration isKindOfClass:[NSDictionary class]]) {
+                            [Settings fromDictionary:configuration];
+                        } else if (payload && [payload isKindOfClass:[NSDictionary class]]) {
+                            [Settings fromDictionary:payload];
+                        }
                         self.configLoad = [NSDate date];
                         [self performSelectorOnMainThread:@selector(reconnect) withObject:nil waitUntilDone:NO];
 
@@ -917,7 +927,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)connect {
     if ([Settings intForKey:@"mode"] == CONNECTION_MODE_HTTP) {
         self.connection.key = [Settings stringForKey:@"secret_preference"];
-        [self.connection connectHTTP:[Settings stringForKey:@"url_preference"]];
+        [self.connection connectHTTP:[Settings stringForKey:@"url_preference"]
+                                auth:[Settings theMqttAuth]
+                                user:[Settings theMqttUser]
+                                pass:[Settings theMqttPass]];
+
     } else {
         NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
                                                                      inDomain:NSUserDomainMask
