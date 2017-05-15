@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 25.08.13.
-//  Copyright © 2013-2016 Christoph Krey. All rights reserved.
+//  Copyright © 2013-2017 Christoph Krey. All rights reserved.
 //
 
 #import "Connection.h"
@@ -37,6 +37,7 @@
 @property (nonatomic) UInt32 port;
 @property (nonatomic) BOOL ws;
 @property (nonatomic) BOOL tls;
+@property (nonatomic) MQTTProtocolVersion protocolVersion;
 @property (nonatomic) NSInteger keepalive;
 @property (nonatomic) BOOL clean;
 @property (nonatomic) BOOL auth;
@@ -177,6 +178,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
              port:(NSInteger)port
                ws:(BOOL)ws
               tls:(BOOL)tls
+  protocolVersion:(MQTTProtocolVersion)protocolVersion
         keepalive:(NSInteger)keepalive
             clean:(BOOL)clean
              auth:(BOOL)auth
@@ -189,12 +191,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
      withClientId:(NSString *)clientId
    securityPolicy:(MQTTSSLSecurityPolicy *)securityPolicy
      certificates:(NSArray *)certificates {
-    DDLogVerbose(@"%@ connectTo: %@:%@@%@:%ld %@ %@ (%ld) c%d / %@ %@ q%ld r%d as %@ %@ %@",
+    DDLogVerbose(@"%@ connectTo: %@:%@@%@:%ld v%d %@ %@ (%ld) c%d / %@ %@ q%ld r%d as %@ %@ %@",
                  self.clientId,
                  auth ? user : @"",
                  auth ? pass : @"",
                  host,
                  (long)port,
+                 protocolVersion,
                  ws ? @"WS" : @"MQTT",
                  tls ? @"TLS" : @"PLAIN",
                  (long)keepalive,
@@ -229,6 +232,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         certificates != self.certificates) {
         self.host = host;
         self.port = (int)port;
+        self.protocolVersion = protocolVersion;
         self.ws = ws;
         self.tls = tls;
         self.keepalive = keepalive;
@@ -291,7 +295,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         self.session.willQoS = willQos;
         self.session.willRetainFlag = willRetainFlag;
 
-        self.session.protocolLevel = MQTTProtocolVersion31;
+        self.session.protocolLevel = protocolVersion;
         self.session.persistence.persistent = TRUE;
         self.session.persistence.maxMessages = 100 * 1024;
         self.session.persistence.maxSize = 100 * 1024 * 1024;

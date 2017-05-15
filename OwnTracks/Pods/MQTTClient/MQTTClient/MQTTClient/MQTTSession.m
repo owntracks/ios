@@ -2,24 +2,21 @@
 // MQTTSession.m
 // MQTTClient.framework
 //
-// Copyright © 2013-2016, Christoph Krey
+// Copyright © 2013-2017, Christoph Krey. All rights reserved.
 //
 
 
 #import "MQTTSession.h"
 #import "MQTTDecoder.h"
+#import "MQTTProperties.h"
 #import "MQTTMessage.h"
 #import "MQTTCoreDataPersistence.h"
+
+@class MQTTSSLSecurityPolicy;
 
 //#define myLogLevel DDLogLevelVerbose
 
 #import "MQTTLog.h"
-
-#ifdef LUMBERJACK
-#warning with LumberJack
-#else
-#warning without LumberJack
-#endif
 
 NSString * const MQTTSessionErrorDomain = @"MQTT";
 
@@ -48,6 +45,8 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
 @property (nonatomic) UInt16 synchronSubMid;
 @property (nonatomic) BOOL synchronConnect;
 @property (nonatomic) BOOL synchronDisconnect;
+
+@property (strong, nonatomic) MQTTSSLSecurityPolicy *securityPolicy;
 
 @end
 
@@ -130,7 +129,10 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
 
 - (void)setProtocolLevel:(MQTTProtocolVersion)protocolLevel
 {
-    //NSAssert(protocolLevel == MQTTProtocolVersion31 || protocolLevel == MQTTProtocolVersion311, @"allowed protocolLevel values are 3 or 4 only");
+//    NSAssert(protocolLevel == MQTTProtocolVersion31 ||
+//             protocolLevel == MQTTProtocolVersion311 ||
+//             protocolLevel == MQTTProtocolVersion50,
+//             @"allowed protocolLevel values are 3,4 or 5 only");
     _protocolLevel = protocolLevel;
 }
 
@@ -179,7 +181,9 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
         [self.subscribeHandlers removeObjectForKey:@(mid)];
     }
     (void)[self encode:[MQTTMessage subscribeMessageWithMessageId:mid
-                                                           topics:topics]];
+                                                           topics:topics
+                                                    protocolLevel:self.protocolLevel
+                                           subscriptionIdentifier:nil]];
     
     return mid;
 }
@@ -205,7 +209,8 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
         [self.unsubscribeHandlers removeObjectForKey:@(mid)];
     }
     (void)[self encode:[MQTTMessage unsubscribeMessageWithMessageId:mid
-                                                             topics:topics]];
+                                                             topics:topics
+                                                      protocolLevel:self.protocolLevel]];
     return mid;
 }
 
@@ -232,29 +237,75 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
     //NSAssert(qos >= 0 && qos <= 2, @"qos must be 0, 1, or 2");
     
     UInt16 msgId = 0;
-    if (qos) {
+    if (!qos) {
+        MQTTMessage *msg = [MQTTMessage publishMessageWithData:data
+                                                       onTopic:topic
+                                                           qos:qos
+                                                         msgId:msgId
+                                                    retainFlag:retainFlag
+                                                       dupFlag:FALSE
+                                                 protocolLevel:self.protocolLevel
+                                        payloadFormatIndicator:nil
+                                     publicationExpiryInterval:nil
+                                                    topicAlias:nil
+                                                 responseTopic:nil
+                                               correlationData:nil
+                                                  userProperty:nil
+                                                   contentType:nil];
+        NSError *error = nil;
+        if (![self encode:msg]) {
+            error = [NSError errorWithDomain:MQTTSessionErrorDomain
+                                        code:MQTTSessionErrorEncoderNotReady
+                                    userInfo:@{NSLocalizedDescriptionKey : @"Encoder not ready"}];
+        }
+        if (publishHandler) {
+            [self onPublish:publishHandler error:error];
+        }
+    } else {
         msgId = [self nextMsgId];
-    }
-    MQTTMessage *msg = [MQTTMessage publishMessageWithData:data
-                                                   onTopic:topic
-                                                       qos:qos
-                                                     msgId:msgId
-                                                retainFlag:retainFlag
-                                                   dupFlag:FALSE];
-    if (qos) {
+        MQTTMessage *msg = nil;
+        
         id<MQTTFlow> flow;
-        if ([self.persistence windowSize:self.clientId] <= self.persistence.maxWindowSize &&
-            self.status == MQTTSessionStatusConnected) {
-            flow = [self.persistence storeMessageForClientId:self.clientId
-                                                       topic:topic
-                                                        data:data
-                                                  retainFlag:retainFlag
-                                                         qos:qos
-                                                       msgId:msgId
-                                                incomingFlag:NO
-                                                 commandType:MQTTPublish
-                                                    deadline:[NSDate dateWithTimeIntervalSinceNow:DUPTIMEOUT]];
-        } else {
+        if (self.status == MQTTSessionStatusConnected) {
+            NSArray *flows = [self.persistence allFlowsforClientId:self.clientId
+                                                      incomingFlag:NO];
+            
+            BOOL unprocessedMessageNotExists = TRUE;
+            NSUInteger windowSize = 0;
+            for (id<MQTTFlow> flow in flows) {
+                if ([flow.commandType intValue] != MQTT_None) {
+                    windowSize++;
+                } else {
+                    unprocessedMessageNotExists = FALSE;
+                }
+            }
+            if (unprocessedMessageNotExists && windowSize <= self.persistence.maxWindowSize) {
+                msg = [MQTTMessage publishMessageWithData:data
+                                                  onTopic:topic
+                                                      qos:qos
+                                                    msgId:msgId
+                                               retainFlag:retainFlag
+                                                  dupFlag:FALSE
+                                            protocolLevel:self.protocolLevel
+                                   payloadFormatIndicator:nil
+                                publicationExpiryInterval:nil
+                                               topicAlias:nil
+                                            responseTopic:nil
+                                          correlationData:nil
+                                             userProperty:nil
+                                              contentType:nil];
+                flow = [self.persistence storeMessageForClientId:self.clientId
+                                                           topic:topic
+                                                            data:data
+                                                      retainFlag:retainFlag
+                                                             qos:qos
+                                                           msgId:msgId
+                                                    incomingFlag:NO
+                                                     commandType:MQTTPublish
+                                                        deadline:[NSDate dateWithTimeIntervalSinceNow:DUPTIMEOUT]];
+            }
+        }
+        if (!msg) {
             flow = [self.persistence storeMessageForClientId:self.clientId
                                                        topic:topic
                                                         data:data
@@ -294,16 +345,6 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                 DDLogVerbose(@"[MQTTSession] queueing message %d", msgId);
             }
         }
-    } else {
-        NSError *error = nil;
-        if (![self encode:msg]) {
-            error = [NSError errorWithDomain:MQTTSessionErrorDomain
-                                        code:MQTTSessionErrorEncoderNotReady
-                                    userInfo:@{NSLocalizedDescriptionKey : @"Encoder not ready"}];
-        }
-        if (publishHandler) {
-            [self onPublish:publishHandler error:error];
-        }
     }
     [self tell];
     return msgId;
@@ -319,12 +360,21 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
     self.disconnectHandler = disconnectHandler;
     
     if (self.status == MQTTSessionStatusConnected) {
-        DDLogVerbose(@"[MQTTSession] disconnecting");
-        self.status = MQTTSessionStatusDisconnecting;
-        (void)[self encode:[MQTTMessage disconnectMessage]];
+        [self disconnect];
     } else {
         [self closeInternal];
     }
+}
+
+- (void)disconnect {
+    DDLogVerbose(@"[MQTTSession] sending DISCONNECT");
+    self.status = MQTTSessionStatusDisconnecting;
+
+    (void)[self encode:[MQTTMessage disconnectMessage:self.protocolLevel
+                                           returnCode:MQTTSuccess
+                                sessionExpiryInterval:nil
+                                         reasonString:nil
+                                         userProperty:nil]];
 }
 
 - (void)closeInternal
@@ -349,6 +399,18 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
     if(self.decoder){
         [self.decoder close];
         self.decoder.delegate = nil;
+    }
+    
+    NSArray *flows = [self.persistence allFlowsforClientId:self.clientId
+                                              incomingFlag:NO];
+    for (id<MQTTFlow> flow in flows) {
+        switch ([flow.commandType intValue]) {
+            case MQTTPublish:
+            case MQTTPubrel:
+                flow.deadline = [flow.deadline dateByAddingTimeInterval:-DUPTIMEOUT];
+                [self.persistence sync];
+                break;
+        }
     }
     
     self.status = MQTTSessionStatusClosed;
@@ -432,7 +494,15 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                                                                   qos:[flow.qosLevel intValue]
                                                                 msgId:[flow.messageId intValue]
                                                            retainFlag:[flow.retainedFlag boolValue]
-                                                              dupFlag:NO];
+                                                              dupFlag:NO
+                                                        protocolLevel:self.protocolLevel
+                                               payloadFormatIndicator:nil
+                                            publicationExpiryInterval:nil
+                                                           topicAlias:nil
+                                                        responseTopic:nil
+                                                      correlationData:nil
+                                                         userProperty:nil
+                                                          contentType:nil];
                         if ([self encode:message]) {
                             flow.commandType = @(MQTTPublish);
                             flow.deadline = [NSDate dateWithTimeIntervalSinceNow:DUPTIMEOUT];
@@ -448,7 +518,15 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                                                               qos:[flow.qosLevel intValue]
                                                             msgId:[flow.messageId intValue]
                                                        retainFlag:[flow.retainedFlag boolValue]
-                                                          dupFlag:YES];
+                                                          dupFlag:YES
+                                                    protocolLevel:self.protocolLevel
+                                           payloadFormatIndicator:nil
+                                        publicationExpiryInterval:nil
+                                                       topicAlias:nil
+                                                    responseTopic:nil
+                                                  correlationData:nil
+                                                     userProperty:nil
+                                                      contentType:nil];
                     if ([self encode:message]) {
                         flow.deadline = [NSDate dateWithTimeIntervalSinceNow:DUPTIMEOUT];
                         [self.persistence sync];
@@ -456,7 +534,11 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                     break;
                 case MQTTPubrel:
                     DDLogInfo(@"[MQTTSession] resend PUBREL %@", flow.messageId);
-                    message = [MQTTMessage pubrelMessageWithMessageId:[flow.messageId intValue]];
+                    message = [MQTTMessage pubrelMessageWithMessageId:[flow.messageId intValue]
+                                                        protocolLevel:self.protocolLevel
+                                                           returnCode:MQTTSuccess
+                                                         reasonString:nil
+                                                         userProperty:nil];
                     if ([self encode:message]) {
                         flow.deadline = [NSDate dateWithTimeIntervalSinceNow:DUPTIMEOUT];
                         [self.persistence sync];
@@ -499,14 +581,14 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
 }
 
 - (void)decoder:(MQTTDecoder*)sender didReceiveMessage:(NSData *)data {
-    MQTTMessage *message = [MQTTMessage messageFromData:data];
+    MQTTMessage *message = [MQTTMessage messageFromData:data protocolLevel:self.protocolLevel];
     if (!message) {
         DDLogError(@"[MQTTSession] MQTT illegal message received");
         NSError * error = [NSError errorWithDomain:MQTTSessionErrorDomain
                                               code:MQTTSessionErrorIllegalMessageReceived
                                           userInfo:@{NSLocalizedDescriptionKey : @"MQTT illegal message received"}];
         [self protocolError:error];
-        
+
         return;
     }
     
@@ -535,7 +617,8 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
             case MQTTSessionStatusConnecting:
                 switch (message.type) {
                     case MQTTConnack:
-                        if (message.data.length != 2) {
+                        if ((self.protocolLevel == MQTTProtocolVersion50 && message.data.length < 3) ||
+                            (self.protocolLevel != MQTTProtocolVersion50 && message.data.length != 2)) {
                             NSError *error = [NSError errorWithDomain:MQTTSessionErrorDomain
                                                                  code:MQTTSessionErrorInvalidConnackReceived
                                                              userInfo:@{NSLocalizedDescriptionKey : @"MQTT protocol CONNACK expected"}];
@@ -547,9 +630,9 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                                 [self onConnect:connectHandler error:error];
                             }
                         } else {
-                            const UInt8 *bytes = message.data.bytes;
-                            if (bytes[1] == 0) {
+                            if (message.returnCode && [message.returnCode intValue] == MQTTSuccess) {
                                 self.status = MQTTSessionStatusConnected;
+                                const UInt8 *bytes = message.data.bytes;
                                 self.sessionPresent = ((bytes[0] & 0x01) == 0x01);
                                 
                                 self.checkDupTimer = [NSTimer timerWithTimeInterval:DUPLOOP
@@ -587,33 +670,35 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                                 }
                                 
                             } else {
-                                NSString *errorDescription;
+                                NSString *errorDescription = @"unknown";
                                 NSInteger errorCode = 0;
-                                switch (bytes[1]) {
-                                    case 1:
-                                        errorDescription = @"MQTT CONNACK: unacceptable protocol version";
-                                        errorCode = MQTTSessionErrorConnackUnacceptableProtocolVersion;
-                                        break;
-                                    case 2:
-                                        errorDescription = @"MQTT CONNACK: identifier rejected";
-                                        errorCode = MQTTSessionErrorConnackIdentifierRejected;
-                                        break;
-                                    case 3:
-                                        errorDescription = @"MQTT CONNACK: server unavailable";
-                                        errorCode = MQTTSessionErrorConnackServeUnavailable;
-                                        break;
-                                    case 4:
-                                        errorDescription = @"MQTT CONNACK: bad user name or password";
-                                        errorCode = MQTTSessionErrorConnackBadUsernameOrPassword;
-                                        break;
-                                    case 5:
-                                        errorDescription = @"MQTT CONNACK: not authorized";
-                                        errorCode = MQTTSessionErrorConnackNotAuthorized;
-                                        break;
-                                    default:
-                                        errorDescription = @"MQTT CONNACK: reserved for future use";
-                                        errorCode = MQTTSessionErrorConnackReserved;
-                                        break;
+                                if (message.returnCode) {
+                                    switch ([message.returnCode intValue]) {
+                                        case 1:
+                                            errorDescription = @"MQTT CONNACK: unacceptable protocol version";
+                                            errorCode = MQTTSessionErrorConnackUnacceptableProtocolVersion;
+                                            break;
+                                        case 2:
+                                            errorDescription = @"MQTT CONNACK: identifier rejected";
+                                            errorCode = MQTTSessionErrorConnackIdentifierRejected;
+                                            break;
+                                        case 3:
+                                            errorDescription = @"MQTT CONNACK: server unavailable";
+                                            errorCode = MQTTSessionErrorConnackServeUnavailable;
+                                            break;
+                                        case 4:
+                                            errorDescription = @"MQTT CONNACK: bad user name or password";
+                                            errorCode = MQTTSessionErrorConnackBadUsernameOrPassword;
+                                            break;
+                                        case 5:
+                                            errorDescription = @"MQTT CONNACK: not authorized";
+                                            errorCode = MQTTSessionErrorConnackNotAuthorized;
+                                            break;
+                                        default:
+                                            errorDescription = @"MQTT CONNACK: reserved for future use";
+                                            errorCode = MQTTSessionErrorConnackReserved;
+                                            break;
+                                    }
                                 }
                                 
                                 NSError *error = [NSError errorWithDomain:MQTTSessionErrorDomain
@@ -701,7 +786,15 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
     }
     NSRange range = NSMakeRange(2 + topicLength, [data length] - topicLength - 2);
     data = [data subdataWithRange:range];
+
     if ([msg qos] == 0) {
+        if (self.protocolLevel == MQTTProtocolVersion50) {
+            int propertiesLength = [MQTTProperties getVariableLength:data];
+            int variableLength = [MQTTProperties variableIntLength:propertiesLength];
+            msg.properties = [[MQTTProperties alloc] initFromData:data];
+            NSRange range = NSMakeRange(variableLength + propertiesLength, [data length] - variableLength - propertiesLength);
+            data = [data subdataWithRange:range];
+        }
         if ([self.delegate respondsToSelector:@selector(newMessage:data:onTopic:qos:retained:mid:)]) {
             [self.delegate newMessage:self
                                  data:data
@@ -728,6 +821,14 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
             msg.mid = msgId;
             data = [data subdataWithRange:NSMakeRange(2, [data length] - 2)];
             if ([msg qos] == 1) {
+                if (self.protocolLevel == MQTTProtocolVersion50) {
+                    int propertiesLength = [MQTTProperties getVariableLength:data];
+                    int variableLength = [MQTTProperties variableIntLength:propertiesLength];
+                    msg.properties = [[MQTTProperties alloc] initFromData:data];
+                    NSRange range = NSMakeRange(variableLength + propertiesLength, [data length] - variableLength - propertiesLength);
+                    data = [data subdataWithRange:range];
+                }
+
                 BOOL processed = true;
                 if ([self.delegate respondsToSelector:@selector(newMessage:data:onTopic:qos:retained:mid:)]) {
                     [self.delegate newMessage:self
@@ -749,7 +850,11 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                     self.messageHandler(data, topic);
                 }
                 if (processed) {
-                    (void)[self encode:[MQTTMessage pubackMessageWithMessageId:msgId]];
+                    (void)[self encode:[MQTTMessage pubackMessageWithMessageId:msgId
+                                                                 protocolLevel:self.protocolLevel
+                                                                    returnCode:MQTTSuccess
+                                                                  reasonString:nil
+                                                                  userProperty:nil]];
                 }
                 return;
             } else {
@@ -766,7 +871,11 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                 } else {
                     [self.persistence sync];
                     [self tell];
-                    (void)[self encode:[MQTTMessage pubrecMessageWithMessageId:msgId]];
+                    (void)[self encode:[MQTTMessage pubrecMessageWithMessageId:msgId
+                                                                 protocolLevel:self.protocolLevel
+                                                                    returnCode:MQTTSuccess
+                                                                  reasonString:nil
+                                                                  userProperty:nil]];
                 }
             }
         }
@@ -784,11 +893,16 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                                                     messageId:messageId];
         if (flow) {
             if ([flow.commandType intValue] == MQTTPublish && [flow.qosLevel intValue] == MQTTQosLevelAtLeastOnce) {
-                [self.persistence deleteFlow:flow];
-                [self.persistence sync];
-                [self tell];
                 if ([self.delegate respondsToSelector:@selector(messageDelivered:msgID:)]) {
                     [self.delegate messageDelivered:self msgID:messageId];
+                }
+                if ([self.delegate respondsToSelector:@selector(messageDelivered:msgID:topic:data:qos:retainFlag:)]) {
+                    [self.delegate messageDelivered:self
+                                              msgID:messageId
+                                              topic:flow.topic
+                                               data:flow.data
+                                                qos:[flow.qosLevel intValue]
+                                         retainFlag:[flow.retainedFlag boolValue]];
                 }
                 if (self.synchronPub && self.synchronPubMid == messageId) {
                     self.synchronPub = FALSE;
@@ -798,6 +912,9 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                     [self.publishHandlers removeObjectForKey:@(msg.mid)];
                     [self onPublish:publishHandler error:nil];
                 }
+                [self.persistence deleteFlow:flow];
+                [self.persistence sync];
+                [self tell];
             }
         }
     }
@@ -842,15 +959,17 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
 }
 
 - (void)handlePubrec:(MQTTMessage *)message {
-    MQTTMessage *pubrelmessage = [MQTTMessage pubrelMessageWithMessageId:message.mid];
+    MQTTMessage *pubrelmessage = [MQTTMessage pubrelMessageWithMessageId:message.mid
+                                                           protocolLevel:self.protocolLevel
+                                                              returnCode:MQTTSuccess
+                                                            reasonString:nil
+                                                            userProperty:nil];
     id<MQTTFlow> flow = [self.persistence flowforClientId:self.clientId
                                              incomingFlag:NO
                                                 messageId:message.mid];
     if (flow) {
         if ([flow.commandType intValue] == MQTTPublish && [flow.qosLevel intValue] == MQTTQosLevelExactlyOnce) {
             flow.commandType = @(MQTTPubrel);
-            flow.topic = nil;
-            flow.data = nil;
             flow.deadline = [NSDate dateWithTimeIntervalSinceNow:DUPTIMEOUT];
             [self.persistence sync];
         }
@@ -864,9 +983,18 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                                                 messageId:message.mid];
     if (flow) {
         BOOL processed = true;
+        NSData *data = flow.data;
+        if (self.protocolLevel == MQTTProtocolVersion50) {
+            int propertiesLength = [MQTTProperties getVariableLength:data];
+            int variableLength = [MQTTProperties variableIntLength:propertiesLength];
+            NSRange range = NSMakeRange(variableLength + propertiesLength, [data length] - variableLength - propertiesLength);
+            data = [data subdataWithRange:range];
+        }
+
+
         if ([self.delegate respondsToSelector:@selector(newMessage:data:onTopic:qos:retained:mid:)]) {
             [self.delegate newMessage:self
-                                 data:flow.data
+                                 data:data
                               onTopic:flow.topic
                                   qos:[flow.qosLevel intValue]
                              retained:[flow.retainedFlag boolValue]
@@ -875,7 +1003,7 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
         }
         if ([self.delegate respondsToSelector:@selector(newMessageWithFeedback:data:onTopic:qos:retained:mid:)]) {
             processed = [self.delegate newMessageWithFeedback:self
-                                                         data:flow.data
+                                                         data:data
                                                       onTopic:flow.topic
                                                           qos:[flow.qosLevel intValue]
                                                      retained:[flow.retainedFlag boolValue]
@@ -889,7 +1017,11 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
             [self.persistence deleteFlow:flow];
             [self.persistence sync];
             [self tell];
-            (void)[self encode:[MQTTMessage pubcompMessageWithMessageId:message.mid]];
+            (void)[self encode:[MQTTMessage pubcompMessageWithMessageId:message.mid
+                                                          protocolLevel:self.protocolLevel
+                                                             returnCode:MQTTSuccess
+                                                           reasonString:nil
+                                                           userProperty:nil]];
         }
     }
 }
@@ -899,12 +1031,18 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                                              incomingFlag:NO
                                                 messageId:message.mid];
     if (flow && [flow.commandType intValue] == MQTTPubrel) {
-        [self.persistence deleteFlow:flow];
-        [self.persistence sync];
-        [self tell];
         if ([self.delegate respondsToSelector:@selector(messageDelivered:msgID:)]) {
             [self.delegate messageDelivered:self msgID:message.mid];
         }
+        if ([self.delegate respondsToSelector:@selector(messageDelivered:msgID:topic:data:qos:retainFlag:)]) {
+            [self.delegate messageDelivered:self
+                                      msgID:message.mid
+                                      topic:flow.topic
+                                       data:flow.data
+                                        qos:[flow.qosLevel intValue]
+                                 retainFlag:[flow.retainedFlag boolValue]];
+        }
+
         if (self.synchronPub && self.synchronPubMid == message.mid) {
             self.synchronPub = FALSE;
         }
@@ -913,6 +1051,9 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
             [self.publishHandlers removeObjectForKey:@(message.mid)];
             [self onPublish:publishHandler error:nil];
         }
+        [self.persistence deleteFlow:flow];
+        [self.persistence sync];
+        [self tell];
     }
 }
 
@@ -1112,13 +1253,6 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
     [self connect];
 }
 
-- (void)disconnect {
-    DDLogVerbose(@"[MQTTSession] sending DISCONNECT");
-    self.status = MQTTSessionStatusDisconnecting;
-    
-    (void)[self encode:[MQTTMessage disconnectMessage]];
-}
-
 - (BOOL)encode:(MQTTMessage *)message {
     if (message) {
         NSData *wireFormat = message.wireFormat;
@@ -1177,7 +1311,17 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                                                            willMsg:self.willMsg
                                                            willQoS:self.willQoS
                                                         willRetain:self.willRetainFlag
-                                                     protocolLevel:self.protocolLevel]];
+                                                     protocolLevel:self.protocolLevel
+                            sessionExpiryInterval:self.sessionExpiryInterval
+                                                        authMethod:self.authMethod
+                                                          authData:self.authData
+                                         requestProblemInformation:self.requestProblemInformation
+                                                 willDelayInterval:self.willDelayInterval
+                                        requestResponseInformation:self.requestResponseInformation
+                                                    receiveMaximum:self.receiveMaximum
+                                                 topicAliasMaximum:self.topicAliasMaximum
+                                                      userProperty:self.userProperty
+                                                 maximumPacketSize:self.maximumPacketSize]];
     } else {
         (void)[self encode:self.connectMessage];
     }

@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 01.07.15.
-//  Copyright © 2015-2016 OwnTracks. All rights reserved.
+//  Copyright © 2015-2017 OwnTracks. All rights reserved.
 //
 
 #import "CertificatesTVC.h"
@@ -106,28 +106,27 @@
     return NO;
 }
 
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *file = self.contents[indexPath.row];
-    
+
     NSString *found = nil;
-    NSMutableArray *fileNames = [[self.selectedFileNames componentsSeparatedByString:@" "] mutableCopy];
+    NSMutableArray *fileNames = [[NSMutableArray alloc] init];
+    if (self.selectedFileNames && self.selectedFileNames.length) {
+        fileNames = [[self.selectedFileNames componentsSeparatedByString:@" "] mutableCopy];
+    }
     for (NSString *name in fileNames) {
         if ([name isEqualToString:file]) {
             found = name;
             break;
         }
     }
-    
+
     if (found) {
         [fileNames removeObject:found];
     } else {
-        if (![self.multiple boolValue]) {
-            [fileNames removeAllObjects];
-        }
         [fileNames addObject:file];
     }
-    
+
     self.selectedFileNames = @"";
     if (fileNames.count > 0) {
         self.selectedFileNames = fileNames[0];
@@ -139,5 +138,6 @@
     [tableView reloadData];
     return indexPath;
 }
+
 
 @end

@@ -128,12 +128,12 @@
 
 - (void)insertRowsAtIndexPaths:(NSArray *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation
 {
+    [self insertRowsAtIndexPaths:indexPaths];
     [self.tableView beginUpdates];
     NSMutableArray *ips = [NSMutableArray array];
     for (NSIndexPath *ip in indexPaths)
         [ips addObject:[self recoverRow:ip]];
     [self.tableView insertRowsAtIndexPaths:ips withRowAnimation:animation];
-    [self insertRowsAtIndexPaths:indexPaths];
     [self.tableView endUpdates];
 }
 

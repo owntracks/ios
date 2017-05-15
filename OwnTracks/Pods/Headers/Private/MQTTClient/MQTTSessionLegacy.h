@@ -1,1 +1,0 @@
-../../../MQTTClient/MQTTClient/MQTTClient/MQTTSessionLegacy.h

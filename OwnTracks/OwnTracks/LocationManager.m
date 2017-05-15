@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 21.10.14.
-//  Copyright © 2014-2016 OwnTracks. All rights reserved.
+//  Copyright © 2014-2017 OwnTracks. All rights reserved.
 //
 
 #import "LocationManager.h"
@@ -12,7 +12,7 @@
 
 @interface LocationManager()
 @property (strong, nonatomic) CLLocationManager *manager;
-@property (strong, nonatomic) CMAltimeter *altimeter;
+//@property (strong, nonatomic) CMAltimeter *altimeter;
 @property (strong, nonatomic) CLLocation *lastUsedLocation;
 @property (strong, nonatomic) NSTimer *activityTimer;
 @property (strong, nonatomic) NSMutableSet *pendingRegionEvents;
@@ -48,7 +48,7 @@
 @end
 
 @implementation LocationManager
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+static const DDLogLevel ddLogLevel = DDLogLevelDebug;
 static LocationManager *theInstance = nil;
 
 + (LocationManager *)sharedInstance {
@@ -98,7 +98,7 @@ static LocationManager *theInstance = nil;
                                                       DDLogVerbose(@"UIApplicationWillTerminateNotification");
                                                       [self stop];
                                                   }];
-    self.altimeter = [[CMAltimeter alloc] init];
+    //self.altimeter = [[CMAltimeter alloc] init];
 
     return self;
 }
@@ -106,14 +106,14 @@ static LocationManager *theInstance = nil;
 - (void)start {
     DDLogVerbose(@"start");
     [self authorize];
-    if ([CMAltimeter isRelativeAltitudeAvailable]) {
-        DDLogVerbose(@"startRelativeAltitudeUpdatesToQueue");
-        [self.altimeter startRelativeAltitudeUpdatesToQueue:[NSOperationQueue mainQueue]
-                                                withHandler:^(CMAltitudeData *altitudeData, NSError *error) {
-                                                    DDLogVerbose(@"altitudeData %@", altitudeData);
-                                                    self.altitude = altitudeData;
-                                                }];
-    }
+//    if ([CMAltimeter isRelativeAltitudeAvailable]) {
+//        DDLogVerbose(@"startRelativeAltitudeUpdatesToQueue");
+//        [self.altimeter startRelativeAltitudeUpdatesToQueue:[NSOperationQueue mainQueue]
+//                                                withHandler:^(CMAltitudeData *altitudeData, NSError *error) {
+//                                                    DDLogVerbose(@"altitudeData %@", altitudeData);
+//                                                    self.altitude = altitudeData;
+//                                                }];
+//    }
 }
 
 - (void)wakeup {
@@ -149,10 +149,10 @@ static LocationManager *theInstance = nil;
 
 - (void)stop {
     DDLogVerbose(@"stop");
-    if ([CMAltimeter isRelativeAltitudeAvailable]) {
-        DDLogVerbose(@"stopRelativeAltitudeUpdates");
-        [self.altimeter stopRelativeAltitudeUpdates];
-    }
+//    if ([CMAltimeter isRelativeAltitudeAvailable]) {
+//        DDLogVerbose(@"stopRelativeAltitudeUpdates");
+//        [self.altimeter stopRelativeAltitudeUpdates];
+//    }
 }
 
 - (void)startRegion:(CLRegion *)region {

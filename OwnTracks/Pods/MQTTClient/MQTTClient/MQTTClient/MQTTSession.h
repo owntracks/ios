@@ -6,8 +6,8 @@
 /**
  Using MQTT in your Objective-C application
  
- @author Christoph Krey krey.christoph@gmail.com
- @copyright Copyright © 2013-2016, Christoph Krey 
+ @author Christoph Krey c@ckrey.de
+ @copyright Copyright © 2013-2017, Christoph Krey. All rights reserved.
  
  based on Copyright (c) 2011, 2013, 2lemetry LLC
     All rights reserved. This program and the accompanying materials
@@ -68,6 +68,7 @@ typedef NS_ENUM(NSInteger, MQTTSessionError) {
     MQTTSessionErrorEncoderNotReady = -5,
     MQTTSessionErrorInvalidConnackReceived = -2, // Sent if the message received from server was an invalid connack message
     MQTTSessionErrorNoConnackReceived = -1, // Sent if first message received from server was no connack message
+
     MQTTSessionErrorConnackUnacceptableProtocolVersion = 1, // Value as defined by MQTT Protocol
     MQTTSessionErrorConnackIdentifierRejected = 2, // Value as defined by MQTT Protocol
     MQTTSessionErrorConnackServeUnavailable = 3, // Value as defined by MQTT Protocol
@@ -178,6 +179,22 @@ typedef NS_ENUM(NSInteger, MQTTSessionError) {
  @note this method is called after a publish with qos 1 or 2 only
  */
 - (void)messageDelivered:(MQTTSession *)session msgID:(UInt16)msgID;
+
+/** gets called when a published message was actually delivered
+ @param session the MQTTSession reporting the delivery
+ @param msgID the Message Identifier of the delivered message
+ @param topic the topic of the delivered message
+ @param data the data Identifier of the delivered message
+ @param qos the QoS level of the delivered message
+ @param retainFlag the retain Flag of the delivered message
+ @note this method is called after a publish with qos 1 or 2 only
+ */
+- (void)messageDelivered:(MQTTSession *)session
+                   msgID:(UInt16)msgID
+                   topic:(NSString *)topic
+                    data:(NSData *)data
+                     qos:(MQTTQosLevel)qos
+              retainFlag:(BOOL)retainFlag;
 
 /** gets called when a subscription is acknowledged by the MQTT broker
  @param session the MQTTSession reporting the acknowledge
@@ -333,9 +350,7 @@ typedef void (^MQTTPublishHandler)(NSError *error);
  */
 @property (nonatomic, readonly) BOOL sessionPresent;
 
-/** see initWithClientId for description
- * @param clientId The Client Identifier identifies the Client to the Server. If nil, a random clientId is generated.
-
+/** The Client Identifier identifies the Client to the Server. If nil, a random clientId is generated.
  */
 @property (strong, nonatomic) NSString *clientId;
 
@@ -383,17 +398,42 @@ typedef void (^MQTTPublishHandler)(NSError *error);
 /** protocolLevel specifies the protocol to be used */
 @property (nonatomic) MQTTProtocolVersion protocolLevel;
 
+/** sessionExpiryInterval specifies the number of seconds after which a session should expire MQTT v5.0*/
+@property (strong, nonatomic) NSNumber *sessionExpiryInterval;
+
+/** authMethod specifies the number of seconds after which a session should expire MQTT v5.0*/
+@property (strong, nonatomic) NSString *authMethod;
+
+/** authData specifies the number of seconds after which a session should expire MQTT v5.0*/
+@property (strong, nonatomic) NSData *authData;
+
+/** requestProblemInformation specifies the number of seconds after which a session should expire MQTT v5.0*/
+@property (strong, nonatomic) NSNumber *requestProblemInformation;
+
+/** willDelayInterval specifies the number of seconds after which a session should expire MQTT v5.0*/
+@property (strong, nonatomic) NSNumber *willDelayInterval;
+
+/** requestResponseInformation specifies the number of seconds after which a session should expire MQTT v5.0*/
+@property (strong, nonatomic) NSNumber *requestResponseInformation;
+
+/** receiveMaximum specifies the number of seconds after which a session should expire MQTT v5.0*/
+@property (strong, nonatomic) NSNumber *receiveMaximum;
+
+/** topicAliasMaximum specifies the number of seconds after which a session should expire MQTT v5.0*/
+@property (strong, nonatomic) NSNumber *topicAliasMaximum;
+
+/** topicAliasMaximum specifies the number of seconds after which a session should expire MQTT v5.0*/
+@property (strong, nonatomic) NSDictionary <NSString *, NSString*> *userProperty;
+
+/** maximumPacketSize specifies the number of seconds after which a session should expire MQTT v5.0*/
+@property (strong, nonatomic) NSNumber *maximumPacketSize;
+
 /** runLoop The runLoop where the streams are scheduled. If nil, defaults to [NSRunLoop currentRunLoop]. */
 @property (strong, nonatomic) NSRunLoop *runLoop;
 
 /** runLoopMode The runLoopMode where the streams are scheduled. If nil, defaults to NSRunLoopCommonModes. */
 @property (strong, nonatomic) NSString *runLoopMode;
 
-
-/** The security policy used to evaluate server trust for secure connections.
- * (see MQTTSSLSecurityPolicy.h for more detail).
- */
-@property (strong, nonatomic) MQTTSSLSecurityPolicy *securityPolicy;
 
 /** for mqttio-OBJC backward compatibility
  the connect message used is stored here
@@ -410,6 +450,11 @@ typedef void (^MQTTPublishHandler)(NSError *error);
 /** certificates an NSArray holding client certificates or nil */
 @property (strong, nonatomic) NSArray *certificates;
 
+/** Require for VoIP background service
+ * defaults to NO
+ */
+@property (nonatomic) BOOL voip;
+
 /** connect to the given host through the given transport with the given
  *  MQTT session parameters asynchronously
  *
@@ -425,8 +470,7 @@ typedef void (^MQTTPublishHandler)(NSError *error);
  @param connectHandler identifies a block which is executed on successfull or unsuccessfull connect. Might be nil
  error is nil in the case of a successful connect
  sessionPresent indicates in MQTT 3.1.1 if persistent session data was present at the server
- 
- @return nothing and returns immediately. To check the connect results, register as an MQTTSessionDelegate and
+ returns nothing and returns immediately. To check the connect results, register as an MQTTSessionDelegate and
  - watch for events
  - watch for connect or connectionRefused messages
  - watch for error messages
@@ -709,7 +753,7 @@ typedef void (^MQTTPublishHandler)(NSError *error);
  qos can be 0, 1, or 2.
  
  
- @param publishHandler identifies a block which is executed on successfull or unsuccessfull connect. Might be nil
+ @param publishHandler identifies a block which is executed on successfull or unsuccessfull publsh. Might be nil
  error is nil in the case of a successful connect
  sessionPresent indicates in MQTT 3.1.1 if persistent session data was present at the server
  

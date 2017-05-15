@@ -1,10 +1,13 @@
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
+use_frameworks!
 
 pod 'CocoaLumberjack'
 pod 'ABStaticTableViewController'
 pod 'MQTTClient/MinL'
+#pod 'MQTTClient/MinL', :path => '~/MQTT-Client-Framework'
 pod 'MQTTClient/WebsocketL'
+#pod 'MQTTClient/WebsocketL', :path => '~/MQTT-Client-Framework'
 pod 'QRCodeReaderViewController'
 pod 'objc-geohash'
 pod 'libsodium', '~> 1.0'

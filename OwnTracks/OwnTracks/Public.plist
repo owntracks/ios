@@ -10,6 +10,8 @@
 	<integer>0</integer>
 	<key>port_preference</key>
 	<real>8889</real>
+	<key>mqttProtocolLevel</key>
+	<integer>4</integer>
 	<key>tls_preference</key>
 	<true/>
 	<key>keepalive_preference</key>

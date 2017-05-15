@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3FED3637B94322E5E278EAB4 /* Pods_OwnTracks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39BEA95034CFAACF86EF90A3 /* Pods_OwnTracks.framework */; };
 		84001C141C78982800413E5B /* Queue+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84001C111C78982800413E5B /* Queue+CoreDataProperties.m */; };
 		84001C151C78982800413E5B /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 84001C131C78982800413E5B /* Queue.m */; };
 		8400D9711D83589F00DEA134 /* WebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8400D9701D83589F00DEA134 /* WebVC.m */; };
@@ -33,7 +34,6 @@
 		8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B907189FEC070019D2D6 /* PersonTVC.m */; };
 		8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B909189FEC070019D2D6 /* StatusTVC.m */; };
 		8411B912189FEC070019D2D6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B90B189FEC070019D2D6 /* ViewController.m */; };
-		841D1A241C8AF70900DC5765 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841D1A221C8AF70900DC5765 /* Localizable.strings */; };
 		841D1A301C8AFF8000DC5765 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841D1A2E1C8AFF8000DC5765 /* Localizable.strings */; };
 		841D1A351C8AFF9400DC5765 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841D1A331C8AFF9400DC5765 /* Localizable.strings */; };
 		8422AF681AF825C7008932A2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8422AF671AF825C7008932A2 /* SystemConfiguration.framework */; };
@@ -57,7 +57,6 @@
 		845AA1BC1B4846AF00945856 /* OwnTracks-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1B91B4846AF00945856 /* OwnTracks-64.png */; };
 		845AA1BD1B4846AF00945856 /* OwnTracks-320.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1BA1B4846AF00945856 /* OwnTracks-320.png */; };
 		84664E9D1CC83A38002123EC /* NSBundle+privateLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 84664E9C1CC83A38002123EC /* NSBundle+privateLocalization.m */; };
-		84664E9E1CC8B8E0002123EC /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84664EA01CC8B8E0002123EC /* Launch Screen.xib */; };
 		846FFA161B4013BB001482A6 /* Colors.plist in Resources */ = {isa = PBXBuildFile; fileRef = 846FFA151B4013BB001482A6 /* Colors.plist */; };
 		846FFA191B401A4E001482A6 /* UIColor+WithName.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA181B401A4E001482A6 /* UIColor+WithName.m */; };
 		846FFA451B402A1F001482A6 /* OwnTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA441B402A1F001482A6 /* OwnTracking.m */; };
@@ -85,6 +84,9 @@
 		84D3073A1ACD644500FACB9E /* OwnTracksToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84D307681ACDA62100FACB9E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AF468F1AB9571800E954E3 /* CoreLocation.framework */; };
 		84DDEAC71BD9F37900B01879 /* SettingsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DDEAC61BD9F37900B01879 /* SettingsTVC.m */; };
+		84E2C4511EC34B3B00BC02CE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841D1A221C8AF70900DC5765 /* Localizable.strings */; };
+		84E2C4531EC34B4600BC02CE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8411B836189FDB140019D2D6 /* InfoPlist.strings */; };
+		84E2C4541EC34B5600BC02CE /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84664EA01CC8B8E0002123EC /* Launch Screen.xib */; };
 		84E8A1881BB94782002518AA /* Location+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A17D1BB94782002518AA /* Location+CoreDataProperties.m */; };
 		84E8A1891BB94782002518AA /* Setting+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */; };
 		84E8A18A1BB94782002518AA /* Friend+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1811BB94782002518AA /* Friend+CoreDataProperties.m */; };
@@ -96,7 +98,6 @@
 		84E8A19E1BB94B1D002518AA /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1971BB94B1D002518AA /* Setting.m */; };
 		84F0AFE41C830C1D00C9F69F /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F0AFE31C830C1D00C9F69F /* AddressBookUI.framework */; };
 		84F0AFE61C830C2C00C9F69F /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F0AFE51C830C2C00C9F69F /* AddressBook.framework */; };
-		E4CE633CB6B79DBAEBEEA6C1 /* libPods-OwnTracks.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2089C17582819190AE08A7E2 /* libPods-OwnTracks.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,8 +133,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2089C17582819190AE08A7E2 /* libPods-OwnTracks.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OwnTracks.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B8643F553F1754500F087C5 /* Pods-OwnTracks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracks.release.xcconfig"; path = "Pods/Target Support Files/Pods-OwnTracks/Pods-OwnTracks.release.xcconfig"; sourceTree = "<group>"; };
+		39BEA95034CFAACF86EF90A3 /* Pods_OwnTracks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OwnTracks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79D18EEC7116C6156B1DDE93 /* Pods-OwnTracks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OwnTracks/Pods-OwnTracks.debug.xcconfig"; sourceTree = "<group>"; };
 		84001C0D1C78729200413E5B /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		84001C0F1C78976100413E5B /* Model 9.0.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.0.2.xcdatamodel"; sourceTree = "<group>"; };
@@ -221,7 +222,6 @@
 		843817FB1C386A8700CE14EE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		843B91731C8A14BF00DBD306 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Storyboard.storyboard; sourceTree = "<group>"; };
 		84401D901CCB5A8400F754C5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/Launch Screen.strings"; sourceTree = "<group>"; };
-		84401D921CCB5A8700F754C5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/Launch Screen.strings"; sourceTree = "<group>"; };
 		84401D941CCB5AB600F754C5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Storyboard.strings; sourceTree = "<group>"; };
 		84401D961CCB5ABA00F754C5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Storyboard.strings; sourceTree = "<group>"; };
 		845299DA1DF9FD6200A4DC21 /* Model 9.5.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.5.0.xcdatamodel"; sourceTree = "<group>"; };
@@ -297,6 +297,7 @@
 		84D7516F1B35B1C600B06A0C /* Model 8.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.xcdatamodel"; sourceTree = "<group>"; };
 		84DDEAC51BD9F37900B01879 /* SettingsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTVC.h; sourceTree = "<group>"; };
 		84DDEAC61BD9F37900B01879 /* SettingsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTVC.m; sourceTree = "<group>"; };
+		84E2C4551EC34BD100BC02CE /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/Launch Screen.strings"; sourceTree = "<group>"; };
 		84E8A17B1BB946F0002518AA /* Model 8.2.18.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.18.xcdatamodel"; sourceTree = "<group>"; };
 		84E8A17C1BB94782002518AA /* Location+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Location+CoreDataProperties.h"; sourceTree = "<group>"; };
 		84E8A17D1BB94782002518AA /* Location+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Location+CoreDataProperties.m"; sourceTree = "<group>"; };
@@ -336,7 +337,7 @@
 				8411B861189FDD200019D2D6 /* MapKit.framework in Frameworks */,
 				8411B830189FDB140019D2D6 /* UIKit.framework in Frameworks */,
 				8411B82C189FDB140019D2D6 /* Foundation.framework in Frameworks */,
-				E4CE633CB6B79DBAEBEEA6C1 /* libPods-OwnTracks.a in Frameworks */,
+				3FED3637B94322E5E278EAB4 /* Pods_OwnTracks.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,7 +430,7 @@
 				8411B831189FDB140019D2D6 /* CoreData.framework */,
 				8411B849189FDB140019D2D6 /* XCTest.framework */,
 				84D3072E1ACD644500FACB9E /* NotificationCenter.framework */,
-				2089C17582819190AE08A7E2 /* libPods-OwnTracks.a */,
+				39BEA95034CFAACF86EF90A3 /* Pods_OwnTracks.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -844,9 +845,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				846FFA161B4013BB001482A6 /* Colors.plist in Resources */,
+				84E2C4531EC34B4600BC02CE /* InfoPlist.strings in Resources */,
 				84A046C71D82081B00796C56 /* Watson.plist in Resources */,
 				84A046C81D82081B00796C56 /* WatsonRegistered.plist in Resources */,
-				841D1A241C8AF70900DC5765 /* Localizable.strings in Resources */,
 				8479EEB718E4529900923B24 /* Settings.plist in Resources */,
 				8400D9731D83825E00DEA134 /* HTTP.plist in Resources */,
 				843B91721C8A14BF00DBD306 /* Storyboard.storyboard in Resources */,
@@ -854,10 +855,11 @@
 				8411B843189FDB140019D2D6 /* Images.xcassets in Resources */,
 				8455DFBE1ADF2BD8003C7BC8 /* Hosted.plist in Resources */,
 				84CDB2501AD197AD005E272B /* Public.plist in Resources */,
+				84E2C4511EC34B3B00BC02CE /* Localizable.strings in Resources */,
 				845AA1BC1B4846AF00945856 /* OwnTracks-64.png in Resources */,
+				84E2C4541EC34B5600BC02CE /* Launch Screen.xib in Resources */,
 				8411B8E1189FEB790019D2D6 /* Location.gpx in Resources */,
 				845AA1BB1B4846AF00945856 /* OwnTracks-29.png in Resources */,
-				84664E9E1CC8B8E0002123EC /* Launch Screen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -920,7 +922,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		B9074668360D50063C01DD10 /* [CP] Embed Pods Frameworks */ = {
@@ -1094,7 +1096,7 @@
 			children = (
 				84664E9F1CC8B8E0002123EC /* Base */,
 				84401D901CCB5A8400F754C5 /* en */,
-				84401D921CCB5A8700F754C5 /* de */,
+				84E2C4551EC34BD100BC02CE /* de */,
 			);
 			name = "Launch Screen.xib";
 			sourceTree = "<group>";
@@ -1189,7 +1191,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 79D18EEC7116C6156B1DDE93 /* Pods-OwnTracks.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = OwnTracks/OwnTracks.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1220,7 +1222,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2B8643F553F1754500F087C5 /* Pods-OwnTracks.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = OwnTracks/OwnTracks.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

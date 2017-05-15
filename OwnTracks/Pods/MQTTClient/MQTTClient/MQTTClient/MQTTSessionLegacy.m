@@ -2,7 +2,7 @@
 // MQTTSessionLegacy.m
 // MQTTClient.framework
 //
-// Copyright © 2013-2016, Christoph Krey
+// Copyright © 2013-2017, Christoph Krey. All rights reserved.
 //
 // based on
 //
@@ -22,7 +22,7 @@
  
  This file contains implementation for mqttio-OBJC backward compatibility
  
- @author Christoph Krey krey.christoph@gmail.com
+ @author Christoph Krey c@ckrey.de
  @see http://mqtt.org
  */
 
@@ -32,6 +32,11 @@
 #import "MQTTSSLSecurityPolicyTransport.h"
 
 #import "MQTTLog.h"
+
+@interface MQTTSession()
+@property (strong, nonatomic) MQTTSSLSecurityPolicy *securityPolicy;
+
+@end
 
 @implementation MQTTSession(Legacy)
 
@@ -345,6 +350,7 @@
         transport.tls = usingSSL;
         transport.securityPolicy = self.securityPolicy;
         transport.certificates = self.certificates;
+        transport.voip = self.voip;
         transport.runLoop = self.runLoop;
         transport.runLoopMode = self.runLoopMode;
         self.transport = transport;
@@ -355,6 +361,7 @@
         transport.port = port;
         transport.tls = usingSSL;
         transport.certificates = self.certificates;
+        transport.voip = self.voip;
         transport.runLoop = self.runLoop;
         transport.runLoopMode = self.runLoopMode;
         self.transport = transport;
@@ -364,11 +371,13 @@
 }
 
 
-- (void)connectToHost:(NSString*)ip port:(UInt32)port {
+- (void)connectToHost:(NSString*)ip
+                 port:(UInt32)port {
     [self connectToHost:ip port:port usingSSL:NO];
 }
 
-- (void)connectToHost:(NSString*)ip port:(UInt32)port
+- (void)connectToHost:(NSString*)ip
+                 port:(UInt32)port
 withConnectionHandler:(void (^)(MQTTSessionEvent event))connHandler
        messageHandler:(void (^)(NSData* data, NSString* topic))messHandler {
     self.messageHandler = messHandler;

@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 03.02.14.
-//  Copyright © 2014-2016 OwnTracks. All rights reserved.
+//  Copyright © 2014-2017 OwnTracks. All rights reserved.
 //
 
 #import "OwnTracksAppDelegate.h"
@@ -19,7 +19,7 @@
 #import "GeoHashing.h"
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 @interface NSString (safe)
 - (BOOL)saveEqual:(NSString *)aString;
@@ -1005,8 +1005,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
         [self.connection connectTo:[Settings theHost]
                               port:[Settings intForKey:@"port_preference"]
-                               ws:[Settings boolForKey:@"ws_preference"]
+                                ws:[Settings boolForKey:@"ws_preference"]
                                tls:[Settings boolForKey:@"tls_preference"]
+                   protocolVersion:[Settings boolForKey:@"mqttProtocolVersion"]
                          keepalive:[Settings intForKey:@"keepalive_preference"]
                              clean:[Settings intForKey:@"clean_preference"]
                               auth:[Settings theMqttAuth]

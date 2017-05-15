@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 05.12.16.
-//  Copyright © 2016 OwnTracks. All rights reserved.
+//  Copyright © 2016-2017 OwnTracks. All rights reserved.
 //
 
 #import "GeoHashing.h"
@@ -105,16 +105,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
     Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
                             inManagedObjectContext:[CoreData theManagedObjectContext]];
+
+#ifdef DEBUG
     if (!myself.hasSubscriptions.count) {
-        [self addSubscriptionFor:myself name:@"parking" level:6 context:myself.managedObjectContext];
+        [self addSubscriptionFor:myself name:@"luftinfo" level:6 context:myself.managedObjectContext];
     } else {
         for (Subscription *subscription in myself.hasSubscriptions) {
             subscription.level = [NSNumber numberWithInteger:6];
         }
     }
-    self.geoHash = [Settings stringForKey:@"geoHash"];
+    for (Subscription *subscription in myself.hasSubscriptions) {
+        DDLogInfo(@"subscription %@, %@",subscription.name, subscription.level);
+    }
 
     [CoreData saveContext:myself.managedObjectContext];
+#endif
+
+    self.geoHash = [Settings stringForKey:@"geoHash"];
 
     self.neighbors = [[Neighbors alloc] init];
     self.neighbors.center = [[Area alloc] init];
@@ -126,6 +133,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     self.neighbors.southEast = [[Area alloc] init];
     self.neighbors.south = [[Area alloc] init];
     self.neighbors.southWest = [[Area alloc] init];
+
     return self;
 }
 
@@ -272,23 +280,25 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [Settings setString:self.geoHash forKey:@"geoHash"];
     self.neighbors.center.geoHash = geoHash;
     self.neighbors.center.coordinate = CLLocationCoordinate2DMake(0, 0);
-    GHNeighbors *neighbors = [GeoHash neighborsForHash:self.geoHash];
-    self.neighbors.west.geoHash = neighbors.west;
-    self.neighbors.west.coordinate = CLLocationCoordinate2DMake(0, 0);
-    self.neighbors.northWest.geoHash = neighbors.northWest;
-    self.neighbors.northWest.coordinate = CLLocationCoordinate2DMake(0, 0);
-    self.neighbors.north.geoHash = neighbors.north;
-    self.neighbors.north.coordinate = CLLocationCoordinate2DMake(0, 0);
-    self.neighbors.northEast.geoHash = neighbors.northEast;
-    self.neighbors.northEast.coordinate = CLLocationCoordinate2DMake(0, 0);
-    self.neighbors.east.geoHash = neighbors.east;
-    self.neighbors.east.coordinate = CLLocationCoordinate2DMake(0, 0);
-    self.neighbors.southEast.geoHash = neighbors.southEast;
-    self.neighbors.southEast.coordinate = CLLocationCoordinate2DMake(0, 0);
-    self.neighbors.south.geoHash = neighbors.south;
-    self.neighbors.south.coordinate = CLLocationCoordinate2DMake(0, 0);
-    self.neighbors.southWest.geoHash = neighbors.southWest;
-    self.neighbors.southWest.coordinate = CLLocationCoordinate2DMake(0, 0);
+    if (self.geoHash) {
+        GHNeighbors *neighbors = [GeoHash neighborsForHash:self.geoHash];
+        self.neighbors.west.geoHash = neighbors.west;
+        self.neighbors.west.coordinate = CLLocationCoordinate2DMake(0, 0);
+        self.neighbors.northWest.geoHash = neighbors.northWest;
+        self.neighbors.northWest.coordinate = CLLocationCoordinate2DMake(0, 0);
+        self.neighbors.north.geoHash = neighbors.north;
+        self.neighbors.north.coordinate = CLLocationCoordinate2DMake(0, 0);
+        self.neighbors.northEast.geoHash = neighbors.northEast;
+        self.neighbors.northEast.coordinate = CLLocationCoordinate2DMake(0, 0);
+        self.neighbors.east.geoHash = neighbors.east;
+        self.neighbors.east.coordinate = CLLocationCoordinate2DMake(0, 0);
+        self.neighbors.southEast.geoHash = neighbors.southEast;
+        self.neighbors.southEast.coordinate = CLLocationCoordinate2DMake(0, 0);
+        self.neighbors.south.geoHash = neighbors.south;
+        self.neighbors.south.coordinate = CLLocationCoordinate2DMake(0, 0);
+        self.neighbors.southWest.geoHash = neighbors.southWest;
+        self.neighbors.southWest.coordinate = CLLocationCoordinate2DMake(0, 0);
+    }
     [CoreData saveContext];
 }
 

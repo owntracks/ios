@@ -18,6 +18,13 @@
 	<string>quickstart.messaging.internetofthings.ibmcloud.com</string>
 	<key>port_preference</key>
 	<real>8883</real>
+	<key>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;
+&lt;plist version=&quot;1.0&quot;&gt;
+&lt;real&gt;8883&lt;/real&gt;
+&lt;/plist&gt;
+mqttProtocolLevel</key>
+	<integer>3</integer>
 	<key>tls_preference</key>
 	<true/>
 	<key>auth_preference</key>

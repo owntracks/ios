@@ -206,8 +206,10 @@
 /* Class = "UILabel"; text = "Host"; ObjectID = "a19-FN-Mwf"; */
 "a19-FN-Mwf.text" = "Host";
 
-/* Class = "UILabel"; text = "Street Town\nCountry\ndef\nxyz"; ObjectID = "apt-Il-Ih4"; */
-"apt-Il-Ih4.text" = "Street Town\nCountry\ndef\nxyz";
+/* Class = "UILabel"; text = "Street
+Town\nCountry\ndef\nxyz"; ObjectID = "apt-Il-Ih4"; */
+"apt-Il-Ih4.text" = "Street
+Town\nCountry\ndef\nxyz";
 
 /* Class = "UILabel"; text = "Mode"; ObjectID = "bAP-Sq-XeK"; */
 "bAP-Sq-XeK.text" = "Mode";
@@ -227,8 +229,8 @@
 /* Class = "UITextField"; placeholder = "trackerid"; ObjectID = "dUg-TH-IQ0"; */
 "dUg-TH-IQ0.placeholder" = "trackerid";
 
-/* Class = "UITextView"; text = "Copyright © 2013-2016 by Christoph Krey, http://owntracks.org"; ObjectID = "dZg-CC-7yD"; */
-"dZg-CC-7yD.text" = "Copyright © 2013-2016 by Christoph Krey, http://owntracks.org";
+/* Class = "UITextView"; text = "Copyright © 2013-2017 by Christoph Krey, http://owntracks.org"; ObjectID = "dZg-CC-7yD"; */
+"dZg-CC-7yD.text" = "Copyright © 2013-2017 by Christoph Krey, http://owntracks.org";
 
 /* Class = "UITabBarController"; title = "Tab Bar"; ObjectID = "e04-OU-xZ4"; */
 "e04-OU-xZ4.title" = "Tab Bar";

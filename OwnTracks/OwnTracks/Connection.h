@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 25.08.13.
-//  Copyright © 2013-2016 Christoph Krey. All rights reserved.
+//  Copyright © 2013-2017 Christoph Krey. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -44,6 +44,7 @@ enum state {
              port:(NSInteger)port
                ws:(BOOL)ws
               tls:(BOOL)tls
+  protocolVersion:(MQTTProtocolVersion)protocolVersion
         keepalive:(NSInteger)keepalive
             clean:(BOOL)clean
              auth:(BOOL)auth

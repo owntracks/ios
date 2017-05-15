@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 31.01.14.
-//  Copyright © 2014-2016 Christoph Krey. All rights reserved.
+//  Copyright © 2014-2017 Christoph Krey. All rights reserved.
 //
 
 #import "Settings.h"
@@ -192,6 +192,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             
             object = dictionary[@"port"];
             if (object) [self setString:object forKey:@"port_preference"];
+
+            object = dictionary[@"mqttProtocolLevel"];
+            if (object) [self setString:object forKey:@"mqttProtocolLevel"];
 
             object = dictionary[@"ignoreStaleLocations"];
             if (object) [self setString:object forKey:@"ignorestalelocations_preference"];
@@ -447,6 +450,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             dict[@"subQos"] =               @([Settings intForKey:@"subscriptionqos_preference"]);
             dict[@"pubQos"] =               @([Settings intForKey:@"qos_preference"]);
             dict[@"port"] =                 @([Settings intForKey:@"port_preference"]);
+            dict[@"mqttProtocolLevel"] =    @([Settings intForKey:@"mqttProtocolLevel"]);
             dict[@"keepalive"] =            @([Settings intForKey:@"keepalive_preference"]);
             dict[@"willQos"] =              @([Settings intForKey:@"willqos_preference"]);
             dict[@"policymode"] =           @([Settings intForKey:@"policymode"]);
@@ -702,6 +706,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             
             if (!topic || [topic isEqualToString:@""]) {
                 topic = [NSString stringWithFormat:@"owntracks/%@", [self theId]];
+            } else {
+                topic = [topic stringByReplacingOccurrencesOfString:@"%%u"
+                                                         withString:[Settings theUserId]];
+                topic = [topic stringByReplacingOccurrencesOfString:@"%%d"
+                                                         withString:[Settings theDeviceId]];
             }
             break;
     }

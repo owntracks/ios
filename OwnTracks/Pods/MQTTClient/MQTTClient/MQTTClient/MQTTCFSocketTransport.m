@@ -3,7 +3,7 @@
 //  MQTTClient
 //
 //  Created by Christoph Krey on 06.12.15.
-//  Copyright © 2015-2016 Christoph Krey. All rights reserved.
+//  Copyright © 2015-2017 Christoph Krey. All rights reserved.
 //
 
 #import "MQTTCFSocketTransport.h"
@@ -26,6 +26,7 @@
     self.host = @"localhost";
     self.port = 1883;
     self.tls = false;
+    self.voip = false;
     self.certificates = nil;
     return self;
 }
@@ -74,6 +75,9 @@
         self.encoder.runLoop = self.runLoop;
         self.encoder.runLoopMode = self.runLoopMode;
         self.encoder.delegate = self;
+        if (self.voip) {
+            [self.encoder.stream setProperty:NSStreamNetworkServiceTypeVoIP forKey:NSStreamNetworkServiceType];
+        }
         [self.encoder open];
         
         self.decoder.delegate = nil;
@@ -82,6 +86,9 @@
         self.decoder.runLoop = self.runLoop;
         self.decoder.runLoopMode = self.runLoopMode;
         self.decoder.delegate = self;
+        if (self.voip) {
+            [self.decoder.stream setProperty:NSStreamNetworkServiceTypeVoIP forKey:NSStreamNetworkServiceType];
+        }
         [self.decoder open];
         
     } else {

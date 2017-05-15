@@ -14,6 +14,8 @@
 	<integer>1</integer>
 	<key>port_preference</key>
 	<real>8883</real>
+	<key>mqttProtocolLevel</key>
+	<integer>4</integer>
 	<key>tls_preference</key>
 	<true/>
 	<key>auth_preference</key>

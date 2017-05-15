@@ -3,13 +3,13 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 05.12.16.
-//  Copyright © 2016 OwnTracks. All rights reserved.
+//  Copyright © 2016-2017 OwnTracks. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <Mapkit/Mapkit.h>
 #import <CoreLocation/CoreLocation.h>
-#import "objc-geohash/Geohash.h"
+#import "GeoHash.h"
 #import "Subscription+CoreDataClass.h"
 
 @interface Area : NSObject <MKOverlay>

@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 15.09.13.
-//  Copyright © 2013-2016 Christoph Krey. All rights reserved.
+//  Copyright © 2013-2017 Christoph Krey. All rights reserved.
 //
 
 #import "FriendAnnotationV.h"
@@ -29,7 +29,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 #define TACHO_COLOR [UIColor colorWithRed:1.0 green:0 blue:0 alpha:0.5]
 #define TACHO_SCALE 30.0
-#define TACHO_MAX (260.0 * 3.6)
+#define TACHO_MAX 260.0
 
 
 /** This method does not seem to be called anymore in ios10
@@ -87,7 +87,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         [self.personImage drawInRect:rect];
     }
     
-    // Tachometer logarithmic
+    // Tachometer
      
     if (self.speed > 0) {
         UIBezierPath *tacho = [[UIBezierPath alloc] init];

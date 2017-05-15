@@ -1,0 +1,6 @@
+framework module objc_geohash {
+  umbrella header "objc-geohash-umbrella.h"
+
+  export *
+  module * { export * }
+}

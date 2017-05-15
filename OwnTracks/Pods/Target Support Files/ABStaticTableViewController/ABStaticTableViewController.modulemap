@@ -1,0 +1,6 @@
+framework module ABStaticTableViewController {
+  umbrella header "ABStaticTableViewController-umbrella.h"
+
+  export *
+  module * { export * }
+}
