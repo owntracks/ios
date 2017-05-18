@@ -40,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIPassword;
 @property (weak, nonatomic) IBOutlet UITextField *UIPort;
 @property (weak, nonatomic) IBOutlet UISwitch *UITLS;
+@property (weak, nonatomic) IBOutlet UITextField *UIproto;
 @property (weak, nonatomic) IBOutlet UISwitch *UIWS;
 @property (weak, nonatomic) IBOutlet UISwitch *UIAuth;
 @property (weak, nonatomic) IBOutlet UITextField *UItrackerid;
@@ -74,6 +75,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.UImode.delegate = self;
     self.UIHost.delegate = self;
     self.UIPort.delegate = self;
+    self.UIproto.delegate = self;
     self.UIignoreStaleLocations.delegate = self;
     self.UIignoreInaccurateLocations.delegate = self;
     self.UIUserID.delegate = self;
@@ -155,6 +157,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         }
     }
     if (self.UIPort) [Settings setString:self.UIPort.text forKey:@"port_preference"];
+    if (self.UIproto) [Settings setString:self.UIproto.text forKey:@"mqttProtocolLevel"];
     if (self.UIignoreStaleLocations) [Settings setString:self.UIignoreStaleLocations.text forKey:@"ignorestalelocations_preference"];
     if (self.UIignoreInaccurateLocations) [Settings setString:self.UIignoreInaccurateLocations.text forKey:@"ignoreinaccuratelocations_preference"];
     if (self.UITLS) [Settings setBool:self.UITLS.on forKey:@"tls_preference"];
@@ -280,6 +283,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIPort) {
         self.UIPort.text = [Settings stringForKey:@"port_preference"];
         self.UIPort.enabled = !locked;
+    }
+    if (self.UIproto) {
+        self.UIproto.text = [Settings stringForKey:@"mqttProtocolLevel"];
+        self.UIproto.enabled = !locked;
     }
     if (self.UIignoreStaleLocations) {
         self.UIignoreStaleLocations.text = [Settings stringForKey:@"ignorestalelocations_preference"];
@@ -580,6 +587,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (IBAction)touchedOutsideText:(UITapGestureRecognizer *)sender {
     [self.UIHost resignFirstResponder];
     [self.UIPort resignFirstResponder];
+    [self.UIproto resignFirstResponder];
     [self.UIignoreStaleLocations resignFirstResponder];
     [self.UIignoreInaccurateLocations resignFirstResponder];
     [self.UIUserID resignFirstResponder];

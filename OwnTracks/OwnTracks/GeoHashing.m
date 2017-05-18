@@ -134,6 +134,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     self.neighbors.south = [[Area alloc] init];
     self.neighbors.southWest = [[Area alloc] init];
 
+    if (!self.geoHash) {
+        [self newLocation:[[CLLocation alloc] initWithLatitude:0 longitude:0]];
+    }
+
     return self;
 }
 
@@ -193,6 +197,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)newLocation:(CLLocation *)location {
     NSString *geoHash;
+    geoHash = [GeoHash hashForLatitude:location.coordinate.latitude
+                             longitude:location.coordinate.longitude
+                                length:6];
+
     OwnTracksAppDelegate *appDelegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
                             inManagedObjectContext:[CoreData theManagedObjectContext]];

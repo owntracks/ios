@@ -1007,7 +1007,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                               port:[Settings intForKey:@"port_preference"]
                                 ws:[Settings boolForKey:@"ws_preference"]
                                tls:[Settings boolForKey:@"tls_preference"]
-                   protocolVersion:[Settings boolForKey:@"mqttProtocolVersion"]
+                   protocolVersion:[Settings intForKey:@"mqttProtocolLevel"]
                          keepalive:[Settings intForKey:@"keepalive_preference"]
                              clean:[Settings intForKey:@"clean_preference"]
                               auth:[Settings theMqttAuth]

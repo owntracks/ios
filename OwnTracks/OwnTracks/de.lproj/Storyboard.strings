@@ -135,7 +135,10 @@
 "NS8-pg-IlP.title" = "TLS";
 
 /* Class = "UILabel"; text = "TLS"; ObjectID = "NZB-F6-F8c"; */
-"NZB-F6-F8c.text" = "TLS";
+"NZB-F6-F8c.text" = "Proto";
+
+/* Class = "UILabel"; text = "TLS"; ObjectID = "VQE-Wz-JiS"; */
+"VQE-Wz-JiS.text" = "TLS";
 
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "OIH-xB-QZe"; */
 "OIH-xB-QZe.text" = "Subtitle";
