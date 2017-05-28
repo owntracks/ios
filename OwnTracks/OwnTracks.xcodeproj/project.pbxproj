@@ -96,6 +96,7 @@
 		84E8A19B1BB94B1D002518AA /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1911BB94B1D002518AA /* Location.m */; };
 		84E8A19D1BB94B1D002518AA /* Waypoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1951BB94B1D002518AA /* Waypoint.m */; };
 		84E8A19E1BB94B1D002518AA /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1971BB94B1D002518AA /* Setting.m */; };
+		84EA258D1EDADA6200199720 /* CopyBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EA258C1EDADA6200199720 /* CopyBarButtonItem.m */; };
 		84F0AFE41C830C1D00C9F69F /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F0AFE31C830C1D00C9F69F /* AddressBookUI.framework */; };
 		84F0AFE61C830C2C00C9F69F /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F0AFE51C830C2C00C9F69F /* AddressBook.framework */; };
 /* End PBXBuildFile section */
@@ -317,6 +318,8 @@
 		84E8A1951BB94B1D002518AA /* Waypoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Waypoint.m; sourceTree = "<group>"; };
 		84E8A1961BB94B1D002518AA /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
 		84E8A1971BB94B1D002518AA /* Setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
+		84EA258B1EDADA6200199720 /* CopyBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CopyBarButtonItem.h; sourceTree = "<group>"; };
+		84EA258C1EDADA6200199720 /* CopyBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CopyBarButtonItem.m; sourceTree = "<group>"; };
 		84EACB601D9196F600CFE781 /* OwnTracks WatchKit App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "OwnTracks WatchKit App.entitlements"; sourceTree = "<group>"; };
 		84F0AFE31C830C1D00C9F69F /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		84F0AFE51C830C2C00C9F69F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
@@ -604,6 +607,8 @@
 				8411B90B189FEC070019D2D6 /* ViewController.m */,
 				84A173661B427BDD00CCB7D0 /* ModeBarButtonItem.h */,
 				84A173671B427BDD00CCB7D0 /* ModeBarButtonItem.m */,
+				84EA258B1EDADA6200199720 /* CopyBarButtonItem.h */,
+				84EA258C1EDADA6200199720 /* CopyBarButtonItem.m */,
 				84A1737A1B428F0600CCB7D0 /* Friends */,
 				84A1737B1B428F3600CCB7D0 /* Regions */,
 				84A1737C1B428F3E00CCB7D0 /* Settings */,
@@ -972,6 +977,7 @@
 				8411B90D189FEC070019D2D6 /* FriendAnnotationV.m in Sources */,
 				8474443A1DA4BC9600975BE4 /* ConnType.m in Sources */,
 				8411B88A189FE79B0019D2D6 /* AlertView.m in Sources */,
+				84EA258D1EDADA6200199720 /* CopyBarButtonItem.m in Sources */,
 				8411B90E189FEC070019D2D6 /* FriendsTVC.m in Sources */,
 				84E8A18C1BB94782002518AA /* Waypoint+CoreDataProperties.m in Sources */,
 				8411B90F189FEC070019D2D6 /* RegionsTVC.m in Sources */,

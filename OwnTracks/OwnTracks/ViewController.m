@@ -23,6 +23,7 @@
 #import "OwnTracking.h"
 #import "AlertView.h"
 #import "ModeBarButtonItem.h"
+#import "CopyBarButtonItem.h"
 #import "GeoHashing.h"
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
@@ -56,6 +57,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
     NSMutableArray *rightButtonItems = [self.navigationItem.rightBarButtonItems mutableCopy];
     [rightButtonItems insertObject:[[ModeBarButtonItem alloc] init] atIndex:0];
+    [rightButtonItems insertObject:[[CopyBarButtonItem alloc] init] atIndex:0];
     self.navigationItem.rightBarButtonItems = rightButtonItems;
 
     [[NSNotificationCenter defaultCenter] addObserverForName:@"reload"
