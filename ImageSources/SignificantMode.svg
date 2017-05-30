@@ -14,7 +14,7 @@
    inkscape:version="0.91 r13725"
    width="100%"
    height="100%"
-   sodipodi:docname="Play.svg"
+   sodipodi:docname="SignificantMode.svg"
    style="fill:none;stroke:none">
   <metadata
      id="metadata19">
@@ -43,8 +43,8 @@
      inkscape:window-height="692"
      id="namedview15"
      showgrid="true"
-     inkscape:zoom="0.27065071"
-     inkscape:cx="185.20233"
+     inkscape:zoom="0.19063138"
+     inkscape:cx="-153.27025"
      inkscape:cy="870.85311"
      inkscape:window-x="0"
      inkscape:window-y="0"
@@ -88,7 +88,7 @@
      inkscape:rounded="1.0408341e-17"
      inkscape:randomized="0"
      d="m 299.99998,49.999994 -374.999967,216.506346 -1.1e-5,-433.01267 z"
-     transform="matrix(0.80000004,0,0,-0.92376052,255.34698,428.18803)"
+     transform="matrix(0.80000004,0,0,-0.92376052,255.34698,396.18803)"
      inkscape:transform-center-x="16.168822"
      inkscape:transform-center-y="-7.305943" />
 </svg>

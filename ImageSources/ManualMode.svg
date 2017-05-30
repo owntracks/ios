@@ -43,8 +43,8 @@
      inkscape:window-height="818"
      id="namedview15"
      showgrid="true"
-     inkscape:zoom="1.1457042"
-     inkscape:cx="292.36574"
+     inkscape:zoom="0.71158972"
+     inkscape:cx="228.24874"
      inkscape:cy="324.56745"
      inkscape:window-x="0"
      inkscape:window-y="0"
@@ -77,21 +77,25 @@
        id="path9"
        inkscape:connector-curvature="0"
        style="fill:#000000;fill-opacity:0;fill-rule:nonzero" />
-    <rect
-       style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:17.57010269;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4139"
-       width="115.69997"
-       height="372.87833"
-       x="320.39999"
-       y="-511.62369"
-       transform="scale(1,-1)" />
-    <rect
-       transform="scale(1,-1)"
-       y="-511.62369"
-       x="142.39999"
-       height="372.87827"
-       width="115.7"
-       id="rect4141"
-       style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:17.57010269;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+    <g
+       id="g5987"
+       transform="translate(22.250024,-21.67894)">
+      <rect
+         transform="scale(1,-1)"
+         y="-511.62369"
+         x="320.39999"
+         height="372.87833"
+         width="115.69997"
+         id="rect4139"
+         style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:17.57010269;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         style="opacity:1;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:17.57010269;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4141"
+         width="115.7"
+         height="372.87827"
+         x="142.39999"
+         y="-511.62369"
+         transform="scale(1,-1)" />
+    </g>
   </g>
 </svg>

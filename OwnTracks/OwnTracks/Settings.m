@@ -757,7 +757,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
         case CONNECTION_MODE_PUBLIC:
         case CONNECTION_MODE_HOSTED:
-            theId = [NSString stringWithFormat:@"%@/%@", [self theUserId], [self theDeviceId]];
+            theId = [NSString stringWithFormat:@"%@%@",
+                     [self theUserId],
+                     [self theDeviceId]];
             break;
 
         case CONNECTION_MODE_PRIVATE:
@@ -776,7 +778,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                 if (!deviceId || [deviceId isEqualToString:@""]) {
                     theId = userId;
                 } else {
-                    theId = [NSString stringWithFormat:@"%@/%@", userId, deviceId];
+                    theId = [NSString stringWithFormat:@"%@%@",
+                             userId,
+                             deviceId];
                 }
             }
         }

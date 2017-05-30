@@ -45,8 +45,6 @@
                   options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
     [delegate addObserver:self forKeyPath:@"connectionBuffered"
                   options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
-    [[OwnTracking sharedInstance] addObserver:self forKeyPath:@"inQueue"
-                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
 
 }
 
@@ -54,7 +52,6 @@
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate removeObserver:self forKeyPath:@"connectionState"];
     [delegate removeObserver:self forKeyPath:@"connectionBuffered"];
-    [[OwnTracking sharedInstance] removeObserver:self forKeyPath:@"inQueue"];
 
     [super viewWillDisappear:animated];
 }
