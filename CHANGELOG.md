@@ -1,28 +1,45 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## Owntracks 9.3.0
+## Owntracks 9.5.1 
+*Release date 2017-05-31*
+**mosquitto 1.4.12 compatible clientIDs**
+**Copy attribute**
+**pubTopicBase parameter expansion**
+**HTTP Basic Authentication**
 
->Release date 2016-10-18
+* [FIX] Restrict clientId to minimum MQTT 3.1.1 requirements
+* [NEW] copy attribute in payload controlled by UI #449
+* [NEW] MQTT 3.1.1 support #444
+* [NEW] pubTopicBase may contain %u or %d to be replaced with UserID / DeviceID #445
+* [FIX] Change setConfiguration and setWaypoints payloads to match Android #437
+* [NEW] Added HTTP Basic Authentication
+
+
+
+
+## Owntracks 9.3.0
+*Release date 2016-10-18*
+
 * [NEW] Add Websockets Transport closes #428
 * [NEW] connection type as extended attribute closes #427
 
 ## Owntracks 9.2.8
+*Release date 2016-10-15*
 
->Release date 2016-10-15
 * [NEW] Enable Remote Commands closes #411
 * [NEW] add Wifi status
 * [FIX] Location stops updating in iOS 9.3 in background closes #399
 
 ## Owntracks 9.2.7
+*Release date 2016-10-04*
 
->Release date 2016-10-04
 * [FIX] Background location updates not enabled in iOS 10
 * [NEW] add "_wifi":true if connected to Wifi when location is published
 
 ## Owntracks 9.2.6
+*Release date 2016-09-29*
 
->Release date 2016-09-29
 * [FIX] Latest code crash in TLS settings. closes #423
 * [FIX] Mode 5: Watson Quickstart shows Publish Settings option closes #425
 * [FIX] App crashes when asking for Steps closes #424
@@ -30,16 +47,16 @@ OwnTracks iOS App Release Notes
 * [FIX] iOS 10 issues? closes #416
 
 ## Owntracks 9.2.5
+*Release date 2016-09-27*
 
->Release date 2016-09-27
 * [FIX] incorrect accuracy = 0 send in location messages triggered by backgroundFetch closes #419
 * [FIX] App rejected closes #421
 * [FIX] Today widget size too small to show 3 lines in iOS10 closes #418
 * [FIX] Location permissions disabled under iOS10 closes #417
 
 ## Owntracks 9.1.7/9.2.4
+*Release date 2016-09-24*
 
->Release date 2016-09-24
 * [NEW] Modes for WatsonIoT
 * [NEW] Ignore _old_ location pubs closes #410
 * [NEW] Minimum requirements iOS 8.0
@@ -53,11 +70,11 @@ OwnTracks iOS App Release Notes
 * [FIX] Location permissions disabled under iOS10 #417
 
 ## Owntracks 9.1.6
+*Release date 2016-04-23*
 
->Release date 2016-04-23
 * [FIX] CoreData settings data not available after restart closes #403
 
->Release date 2016-04-23
+*Release date 2016-04-23*
 * [NEW] Customizable Texts closes #401
 * [FIX] Loss of data when changing mode or reopening app after crash closes #387
 * [FIX] Crash if importing invalid JSON closes #398
@@ -66,31 +83,31 @@ OwnTracks iOS App Release Notes
 * [FIX] Radius display in waypoint closes #395
 
 ## OwnTracks 9.1.1
->Release date: 2016-03-17
+*Release date: 2016-03-17*
 
 * [NEW] Localization support
 * [FIX] Font issue on Friends geo-locator closes #391
 * [FIX] Transition event without desc displays (null) closes #390
 
 ## OwnTracks 9.1.0
->Release date: 2016-03-03
+*Release date: 2016-03-03*
 
 * [NEW] call Private mode MQTT mode from now on
 * [REVERT] Loss of data when changing mode or reopening app after crash closes #387
 
 ## OwnTracks 9.0.8/9
->Release date: 2016-03-02
+*Release date: 2016-03-02*
 
 * [FIX] Loss of data when changing mode or reopening app after crash closes #387
 
 ## OwnTracks 9.0.7
->Release date: 2016-03-01 to alpha testers
+*Release date: 2016-03-01 to alpha testers*
 
 * [FIX] ignore size of HTTP offline queue in non-HTTP modes
 * [FIX] centered time/date stamp
 
 ## OwnTracks 9.0.6
->Release date: 2016-02-29 to alpha testers
+*Release date: 2016-02-29 to alpha testers*
 
 * [FIX] Reset offline queue for HTTP mode when switching modes closes #386
 * [NEW] Addresses returned from reverse geocoding more compact closes #385
@@ -101,61 +118,61 @@ OwnTracks iOS App Release Notes
 * [NEW] Little cosmetic issue in Friends tab, finally closes #314
 
 ## OwnTracks 9.0.5
->Release date: 2016-02-24 to alpha testers
+*Release date: 2016-02-24 to alpha testers*
 
 * [FIX] fix decryption issues
 
 ## OwnTracks 9.0.4
->Release date: 2016-02-23 to alpha testers
+*Release date: 2016-02-23 to alpha testers*
 
 * [NEW] removed Hosted from UI
 * [NEW] simplified Settings UI (values are effective when leaving screen)
 * [NEW] HTTP mode processes returned messages or array of messages (messages are JSON dictionaries with `_type`:)
 
 ## OwnTracks 9.0.3
->Release date: 2016-02-21 to alpha testers
+*Release date: 2016-02-21 to alpha testers*
 
 * [FIX] use secret key for encryption in HTTP mode
 
 ## OwnTracks 9.0.2
->Release date: 2016-02-20 to alpha testers
+*Release date: 2016-02-20 to alpha testers*
 
 * [NEW] removed in-app purchase preparations
 * [NEW] added HTTP mode
 * [NEW] removed Messaging (msg)
 
 ## OwnTracks 8.6.7
->Release date: 2016-02-16 to alpha testers
+*Release date: 2016-02-16 to alpha testers*
 
 * [FIX] Featured content web view refresh closes #383
 * [FIX] Toggle "Featured" tab sometimes works only halfway closes #382
 * [FIX] Crash on (I) closes #381
 
 ## OwnTracks 8.6.5
->Release date: 2016-02-13 to alpha 
+*Release date: 2016-02-13 to alpha *
 
 * [NEW] Featured content Tab closes #380
 
 ## OwnTracks 8.6.0/2
->Release date: 2016-02-11 to alpha and beta testers
+*Release date: 2016-02-11 to alpha and beta testers*
 
 * [NEW] raise space to 100k offline locations closes #378
 * [FIX] Certificate error connecting to broker - peer did not return a certificate closes #379
 
 ## OwnTracks 8.5.5
->Release date: open
+*Release date: open*
 
 * [FIX] Credits need cutting closes #374
 
 ## OwnTracks 8.5.4
->Release date: 2016-02-02 to alpha and beta testers
+*Release date: 2016-02-02 to alpha and beta testers*
 
 * [FIX] remove fabric/crashlytics
 * [FIX] increase precision of 'acc' in 'beacon' payload (int -> double)
 * [FIX] send 'acc' only if changed by > 20%
 
 ## OwnTracks 8.5.1,2,3
->Release date: 2016-01-26 for alpha testers
+*Release date: 2016-01-26 for alpha testers*
 
 * [FIX] limit time of beacon ranging in background closes #370
 * [FIX] in locked mode, disable editing of secret key closes #369
@@ -163,14 +180,14 @@ OwnTracks iOS App Release Notes
 * [NEW] Featured content tab (moves settings tab under (i)) 
 
 ## OwnTracks 8.5.0
->Release date: 2016-01-14 for alpha testers
+*Release date: 2016-01-14 for alpha testers*
 
 new test version and:
 
 * [FIX] tid in beacon message closes #366
 
 ## OwnTracks 8.4.91
->Release date: 2015-11-14 for alpha testers
+*Release date: 2015-11-14 for alpha testers*
 
 Fix delayed publish problem
 
@@ -179,7 +196,7 @@ Fix delayed publish problem
 * [NEW] In-app purchases renewal detection / display of purchased/expiry/checked timestamps
 
 ## OwnTracks 8.4.9
->Release date: 2015-11-11 for alpha testers
+*Release date: 2015-11-11 for alpha testers*
 
 Fixing OpenSSL Bitcode distribution problem
 
@@ -187,21 +204,21 @@ Fixing OpenSSL Bitcode distribution problem
 * [NEW] OpenSSL to do local receipt validation for in-app purchases closes #356
 
 ## OwnTracks 8.4.8
->Release date: 2015-11-08 for alpha testers
+*Release date: 2015-11-08 for alpha testers*
 
 in-app purchases with local validation
 
 * [NEW] local receipt validation via PKCS7, ASN1 (openssl)
 
 ## OwnTracks 8.4.6
->Release date: 2015-10-23 for alpha testers
+*Release date: 2015-10-23 for alpha testers*
 
 in-app purchase continued
 
 * [NEW] Subscription status subscreen
 
 ## OwnTracks 8.4.5
->Release date: 2015-10-22 for alpha testers
+*Release date: 2015-10-22 for alpha testers*
 
 in-app purchase cleaning
 
@@ -211,14 +228,14 @@ in-app purchase cleaning
 	`s/Connect your device to your Mac/Install from Testflight/`
 
 ## OwnTracks 8.4.4
->Release date: 2015-10-22 for alpha testers
+*Release date: 2015-10-22 for alpha testers*
 
 Crashing on first time use on new device
 
 * [FIX] Initialization problem first use of in-app purchases on device
 
 ## OwnTracks 8.4.3
->Release date: 2015-10-22 for alpha testers
+*Release date: 2015-10-22 for alpha testers*
 
 Missing Enter/Leave events and Hosted recording
 
@@ -227,7 +244,7 @@ Missing Enter/Leave events and Hosted recording
 * [OLD] Removed premature fix for False Positives #76
 
 ## OwnTracks 8.3.2
->Release date: 2015-10-19 for alpha testers and app store
+*Release date: 2015-10-19 for alpha testers and app store*
 
 Oops
 
@@ -235,7 +252,7 @@ Oops
 * [NEW] republish waypoints closes #346
 
 ## OwnTracks 8.3.1
->Release date: 2015-10-17 for alpha testers and app store
+*Release date: 2015-10-17 for alpha testers and app store*
 
 Oops
 
@@ -243,14 +260,14 @@ Oops
 * [NEW] updated frameworks
 
 ## OwnTracks 8.3.0
->Release date: 2015-10-06 for alpha testers and app store
+*Release date: 2015-10-06 for alpha testers and app store*
 
 A few fixes for Move Mode and iOS9
 
 * [FIX] Null locations send in Move mode sporadically closes #339 again
 
 ## OwnTracks 8.2.22/23
->Release date: 2015-10-01 for alpha testers
+*Release date: 2015-10-01 for alpha testers*
 
 A few fixes for Move Mode and iOS9
 
@@ -260,7 +277,7 @@ A few fixes for Move Mode and iOS9
 * [FIX] crash - OwnTracksAppDelegate.m line 233 closes #330
 
 ## OwnTracks 8.2.20/21
->Release date: 2015-09-30 for alpha testers
+*Release date: 2015-09-30 for alpha testers*
 
 A few fixes for Move Mode 
 
@@ -268,7 +285,7 @@ A few fixes for Move Mode
 * [FIX] activity timer is not re-activated at wakeup in Move mode closes #336
 
 ## OwnTracks 8.2.19
->Release date: 2015-09-29 for alpha testers
+*Release date: 2015-09-29 for alpha testers*
 
 iOS issues in entry screen
 
@@ -276,28 +293,28 @@ iOS issues in entry screen
 * [FIX] login credentials hidden by keyboard on iPhone4 #334
 
 ## OwnTracks 8.2.18
->Release date: 2015-09-27 for alpha testers
+*Release date: 2015-09-27 for alpha testers*
 
 Missing "wtst"
 
 * [FIX] missing wtst element in JSON of waypoints closes #332
 
 ## OwnTracks 8.2.17
->Release date: 2015-09-27 for alpha testers
+*Release date: 2015-09-27 for alpha testers*
 
 Problem in "waypoint" payload
 
 * [FIX] remove trailing ":" in waypoint description in playload closes #329
 
 ## OwnTracks 8.2.16
->Release date: 2015-09-24 for alpha testers
+*Release date: 2015-09-24 for alpha testers*
 
 iOS9 and Altimeter
 
 * [FIX] temptative fix for missing Barometric pressure values in iOS9 #328
 
 ## OwnTracks 8.2.15
->Release date: 2015-09-21 for alpha testers
+*Release date: 2015-09-21 for alpha testers*
 
 A few fixes
 
@@ -306,7 +323,7 @@ A few fixes
 * [NEW] iOS9 and Xcode7 compatibility
 
 ## OwnTracks 8.2.14
->Release date: 2015-08-27 for alpha testers
+*Release date: 2015-08-27 for alpha testers*
 
 Again false positives on leaving region
 
@@ -314,7 +331,7 @@ Again false positives on leaving region
 
 
 ## OwnTracks 8.2.13
->Release date: 2015-08-22 for alpha testers
+*Release date: 2015-08-22 for alpha testers*
 
 A few fixes
 
@@ -325,7 +342,7 @@ A few fixes
 * [FIX] false positives for Geofence closes #76
 
 ## OwnTracks 8.2.12
->Release date: 2015-08-16 alpha testers
+*Release date: 2015-08-16 alpha testers*
 
 A few fixes
 
@@ -335,7 +352,7 @@ A few fixes
 * [FIX] incomplete FontAwesome closes #297
 
 ## OwnTracks 8.2.11
->Release date: 2015-08-01 release candidate
+*Release date: 2015-08-01 release candidate*
 
 A new UI and fine new features
 
@@ -344,7 +361,7 @@ A new UI and fine new features
 * [FIX] missing update of iBeacon position
 
 ## OwnTracks 8.2.10
->Release date: 2015-07-27 for alpha-testers only
+*Release date: 2015-07-27 for alpha-testers only*
 
 A few fixes and enhancements
 
@@ -352,7 +369,7 @@ A few fixes and enhancements
 * [NEW] include enter/leave events in messages and messages in notifications closes #283
 
 ## OwnTracks 8.2.9
->Release date: 2015-07-23 for alpha-testers only
+*Release date: 2015-07-23 for alpha-testers only*
 
 A few fixes and enhancements
 
@@ -363,7 +380,7 @@ A few fixes and enhancements
 * [NEW] Adding waypoints from regions tab closes #280
 
 ## OwnTracks 8.2.8
->Release date: 2015-07-22 for alpha-testers only
+*Release date: 2015-07-22 for alpha-testers only*
 
 A few fixes and enhancements
 
@@ -376,7 +393,7 @@ A few fixes and enhancements
 * [FIX] subscribes to message topics with QOS0 only closes #272
 
 ## OwnTracks 8.2.7
->Release date: 2015-07-20 for alpha-testers only
+*Release date: 2015-07-20 for alpha-testers only*
 
 A few fixes
 
@@ -385,7 +402,7 @@ A few fixes
 * [FIX] show correct TID for self and friends closes #265
 
 ## OwnTracks 8.2.6
->Release date: 2015-07-20 for alpha-testers only
+*Release date: 2015-07-20 for alpha-testers only*
 
 A few fixes and a new reduced UI for settings
 
@@ -396,7 +413,7 @@ A few fixes and a new reduced UI for settings
 * [NEW] updated first login screen
 
 ## OwnTracks 8.2.5
->Release date: 2015-07-18 for alpha-testers only
+*Release date: 2015-07-18 for alpha-testers only*
 
 A bigger thing, threading issues accessing the Address Book
 And the missing database migration from 8.0.32 for waypoints
@@ -409,7 +426,7 @@ And the missing database migration from 8.0.32 for waypoints
 * [NEW] migration from 8.0.32 database closes #248
 
 ## OwnTracks 8.2.4
->Release date: 2015-07-18 for alpha-testers only
+*Release date: 2015-07-18 for alpha-testers only*
 
 Just a small fix, but I will help to test messaging
 
@@ -417,7 +434,7 @@ Just a small fix, but I will help to test messaging
 * [FIX] messages should not expire it ttl = 0
 
 ## OwnTracks 8.2.3
->Release date: 2015-07-14 for alpha-testers only
+*Release date: 2015-07-14 for alpha-testers only*
 
 A few bug fixes and UI enhancements
 
@@ -429,7 +446,7 @@ A few bug fixes and UI enhancements
 
 
 ## OwnTracks 8.2.2
->Release date: 2015-07-13 for alpha-testers only
+*Release date: 2015-07-13 for alpha-testers only*
 
 A few bug fixes and UI enhancements
 
@@ -442,7 +459,7 @@ A few bug fixes and UI enhancements
 
 
 ## OwnTracks 8.2.1
->Release date: 2015-07-12 for alpha-testers only
+*Release date: 2015-07-12 for alpha-testers only*
 
 A few bug fixes
 
@@ -452,7 +469,7 @@ A few bug fixes
 
 
 ## OwnTracks 8.2.0
->Release date: 2015-07-06 for alpha-testers only
+*Release date: 2015-07-06 for alpha-testers only*
 
 * [NEW] new colors 
 * [NEW] new images
@@ -465,7 +482,7 @@ A few bug fixes
 * [FIX] crash when requesting refresh from friend #232
 
 ## OwnTracks 8.1.3
->Release date: 2015-06-27 for alpha-testers only
+*Release date: 2015-06-27 for alpha-testers only*
 
 * [FIX] use "tst" from message instead of now for message timestamp
 * [NEW] expire message according to "tst" and "ttl"
@@ -475,45 +492,45 @@ A few bug fixes
 * [FIX] message tableview: use darker "yellow" for prio 1 icons
 
 ## OwnTracks 8.1.2
->Release date: 2015-06-26 for alpha-testers only
+*Release date: 2015-06-26 for alpha-testers only*
 
 * [NEW] rename lbs to msg
 * [NEW] msg/system topic and <basetopic>/msg
 * [NEW] FontAwesome for message icons
 
 ## OwnTracks 8.1.1
->Release date: 2015-06-22 for alpha-testers only
+*Release date: 2015-06-22 for alpha-testers only*
 
 * [NEW] optional Location Based Service subscriptions
 * [NEW] barometric pressure in extended location data if available
 
 ## OwnTracks 8.1.0
->Release date: 2015-06-21 for alpha-testers only
+*Release date: 2015-06-21 for alpha-testers only*
 
 * [FIX] dynamic coloring of iBeacon indicators on map
 * [NEW] iBeacon images v2
 
 ## OwnTracks 8.0.39
->Release date: 2015-06-21 for alpha-testers only
+*Release date: 2015-06-21 for alpha-testers only*
 
 * [NEW] show cold and hot Circular and iBeacon regions in Friend Tab / Location list
 * [NEW] show cold and hot iBeacon regions on map
 * [NEW] process and show dynamic Location Based Service info
 
 ## OwnTracks 8.0.36
->Release date: 2015-06-17 for alpha-testers only - resubmitted b/c apparent app store problems
+*Release date: 2015-06-17 for alpha-testers only - resubmitted b/c apparent app store problems*
 
 * [NEW] use real timestamp in "t":"p" location messages #197
 * [NEW] enable Hosted mode and Beacon parameters via URL, external QR reader or app internal QR scan 
 
 ## OwnTracks 8.0.35
->Release date: 2015-06-17 for alpha-testers only
+*Release date: 2015-06-17 for alpha-testers only*
 
 * [NEW] use real timestamp in "t":"p" location messages #197
 * [NEW] enable Hosted mode and Beacon parameters via URL, external QR reader or app internal QR scan 
 
 ## OwnTracks 8.0.34
->Release date: 2015-06-13 for alpha-testers only
+*Release date: 2015-06-13 for alpha-testers only*
 
 * [NEW] Minimum iOS Version 7.0 (b/c QR reader)
 * [NEW] QR reader for iBeacon labels 
@@ -522,7 +539,7 @@ A few bug fixes
 * [NEW] iBeacon images on map
 
 ## OwnTracks 8.0.33
->Release date: 2015-06-13 for alpha-testers only
+*Release date: 2015-06-13 for alpha-testers only*
 
 * [FIX] crash when accessing addressbook with leading `@` in names #115, #202
 * [FIX] typo in .otrc/.otrw processing message #203
@@ -545,7 +562,7 @@ A few bug fixes
 * [FIX] crash upgrading db on iPhone4S #214
 
 ## OwnTracks 8.0.32
->Release date: 2015-05-22 for beta testing
+*Release date: 2015-05-22 for beta testing*
 
 Bug fixes and small enhancements
 
@@ -555,7 +572,7 @@ Bug fixes and small enhancements
 * [FIX] correct beacon region indicator when all beacons reset
 
 ## OwnTracks 8.0.31
->Release date: 2015-05-21 for alpha testers only
+*Release date: 2015-05-21 for alpha testers only*
 
 Beacon related bug fixes
 
@@ -563,7 +580,7 @@ Beacon related bug fixes
 * [FIX] correct beacon region indicator when using multiple beacons
 
 ## OwnTracks 8.0.30
->Release date: 2015-05-?? for alpha testers only
+*Release date: 2015-05-?? for alpha testers only*
 
 Public Mode UI Clarity
 
@@ -572,14 +589,14 @@ Public Mode UI Clarity
 * [NEW] implement new .otrc format // unfortunately Safari on iOS does not support direct download and open in app
 
 ## OwnTracks 8.0.29
->Release date: 2015-05-17 for alpha testers only
+*Release date: 2015-05-17 for alpha testers only*
 
 App crashing Down Under
 
 * [FIX] crash when linking to address book entry w/o contact image #196
 
 ## OwnTracks 8.0.28
->Release date: 2015-05-09 for alpha testers only
+*Release date: 2015-05-09 for alpha testers only*
 
 Bug fixing and avoiding
 
@@ -587,21 +604,21 @@ Bug fixing and avoiding
 * [FIX] fixed iPad export settings popup location #187
 
 ## OwnTracks 8.0.27
->Release date: 2015-05-08 for alpha testers only
+*Release date: 2015-05-08 for alpha testers only*
 
 Preparing for launch 3
 
 * [NEW] user warning when no location is available
 
 ## OwnTracks 8.0.26
->Release date: 2015-05-08 (skipped)
+*Release date: 2015-05-08 (skipped)*
 
 Preparing for launch 2
 
 * [FIX] correct link to registration site
 
 ## OwnTracks 8.0.25
->Release date: 2015-05-08 for alpha testers only
+*Release date: 2015-05-08 for alpha testers only*
 
 Preparing for launch
 
@@ -610,7 +627,7 @@ Preparing for launch
 * [NEW] Upgrade to fabric.io 1.2.5
 
 ## OwnTracks 8.0.24
->Release date: 2015-05-07 for alpha testers only
+*Release date: 2015-05-07 for alpha testers only*
 
 Bugfix continued
 
@@ -619,7 +636,7 @@ Bugfix continued
 * [NEW] Warning when switching between Modes #182
                     	
 ## OwnTracks 8.0.23
->Release date: 2015-05-06 for alpha testers only
+*Release date: 2015-05-06 for alpha testers only*
 
 Bugfix for Hosted Mode
 
@@ -627,21 +644,21 @@ Bugfix for Hosted Mode
 * [FIX] Enabled response to 'reportLocation' command in hosted mode #179
                     	
 ## OwnTracks 8.0.22
->Release date: 2015-05-03 for alpha testers only
+*Release date: 2015-05-03 for alpha testers only*
 
 Bugfix message processing
 
 * [FIX] db updates are saved to "disk" after processing incoming messages  #176
                     	
 ## OwnTracks 8.0.21
->Release date: 2015-05-02 for alpha testers only
+*Release date: 2015-05-02 for alpha testers only*
 
 Bugfix for short lived connections
 
 * [FIX] Messages queued and not delivered although in Wifi environment #173
                     	
 ## OwnTracks 8.0.20
->Release date: 2015-05-01 for alpha testers only
+*Release date: 2015-05-01 for alpha testers only*
 
 Hunting bugs still
 
@@ -649,7 +666,7 @@ Hunting bugs still
 * [FIX] Freeze screen after reconnect and a bunch of queued messages #175
                     	
 ## OwnTracks 8.0.19
->Release date: 2015-05-01 for alpha testers only
+*Release date: 2015-05-01 for alpha testers only*
 
 Tracing down some bugs
 
@@ -660,7 +677,7 @@ Tracing down some bugs
 * [FIX] Freeze of screen is eliminated by avoiding unnecessary UI re-draws #174
 
 ## OwnTracks 8.0.18
->Release date: 2015-04-27 for alpha testers only (8.0.17 skipped)
+*Release date: 2015-04-27 for alpha testers only (8.0.17 skipped)*
 
 And here it comes: Apple Watch --- Wrist ready
 as well as fixes and enhancements to a number of UI issues
@@ -674,7 +691,7 @@ as well as fixes and enhancements to a number of UI issues
 * [FIX] Connection idle (blue indicator) after startup is eliminated #109
 
 ## OwnTracks 8.0.16
->Release date: 2015-04-23 for alpha testers only
+*Release date: 2015-04-23 for alpha testers only*
 
 Elaborated on iPad and Hosted Mode
 
@@ -683,7 +700,7 @@ Elaborated on iPad and Hosted Mode
 * [FIX] Fix missing display on iPad for effective subscriptions #152
 
 ## OwnTracks 8.0.15
->Release date: 2015-04-20 for alpha testers only (8.0.14 skipped)
+*Release date: 2015-04-20 for alpha testers only (8.0.14 skipped)*
 
 Found a number of bugs while testing in different environments
 
@@ -694,7 +711,7 @@ Found a number of bugs while testing in different environments
 * [FIX] notifications in-app and in iOS Notification Center when entering/leaving regions #150
 
 ## OwnTracks 8.0.13
->Release date: 2015-04-19 for alpha testers only
+*Release date: 2015-04-19 for alpha testers only*
 
 Testing in different private environments
 
@@ -702,14 +719,14 @@ Testing in different private environments
 * [NEW] Rename Mode Own to Private #144
 
 ## OwnTracks 8.0.12
->Release date: 2015-04-18 for alpha testers only
+*Release date: 2015-04-18 for alpha testers only*
 
 UI feedback said the settings tab is confusing when switching between modes
 
 * [NEW] Dynamic field selection in settings tab depending on Mode
 
 ## OwnTracks 8.0.11
->Release date: 2015-04-16 for alpha testers only
+*Release date: 2015-04-16 for alpha testers only*
 
 Extending Public Mode
 
@@ -717,14 +734,14 @@ Extending Public Mode
 * [FIX] Load correct image format for assigned friends without image in address book
 
 ## OwnTracks 8.0.10
->Release date: 2015-04-13 for alpha testers only
+*Release date: 2015-04-13 for alpha testers only*
 
 You were having problems bootstrapping a new install with the help of a saved config file.
 
 * [FIX] loading config (.otrc) while settings tab was open did not update values #140
 
 ## OwnTracks 8.0.9
->Release date: 2015-04-12 for alpha testers only
+*Release date: 2015-04-12 for alpha testers only*
 
 You experienced crashes, missed faces on the map, missed enter/leave notifications.
 
@@ -736,7 +753,7 @@ You experienced crashes, missed faces on the map, missed enter/leave notificatio
 * [FIX] re-enabled local notification for own enter/leave events #139
 
 ## OwnTracks 8.0.8
->Release date: 2015-04-11 for alpha testers only
+*Release date: 2015-04-11 for alpha testers only*
 
 You always missed the possibility to hide the keyboard in settings.
 You wondered which updates OwnTracks is doing in the background.
@@ -754,25 +771,18 @@ You experienced crashes when inserting new waypoints or watched incorrect list d
 * [FIX] crash when pointing to an invalid address book entry
 
 ## OwnTracks 8.0.7
->Release date: 2015-04-08 for alpha testers only
+*Release date: 2015-04-08 for alpha testers only*
 
 * [FIX] re-subscribe to correct topics after change Public Mode
 * [FIX] import config new format (numbers and booleans instead of strings)
 * [FIX] auto enabling Public Mode only if first install
 
 ## OwnTracks 8.0.6
->Release date: 2015-04-08 for beta testers - laster revoked due to stability issues
+*Release date: 2015-04-08 for beta testers - laster revoked due to stability issues*
 
 * [NEW] display images from address book or MQTT (face) on Today widget or Watch
 * [NEW] receive faces and names via MQTT and store in local db
 * [NEW] public mode as initial setting. Public mode connects to predifined broker, hiding
 	all other configuration fields
 * [FIX] no subscription to `cmd` subtopic
-
-
-
-Migrating to 8.0 from 7.5.1
-===========================
-
-OwnTracks 8.0 is a major release with a number of enhancements.
 
