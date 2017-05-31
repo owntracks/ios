@@ -1,10 +1,10 @@
-all: Info-33.png\
-	QuietMode-33.png\
-	ManualMode-33.png\
-	SignificantMode-33.png\
-	MoveMode-33.png\
-	Copy-33.png\
-	NoCopy-33.png\
+all: Info-25.png\
+	QuietMode-25.png\
+	ManualMode-25.png\
+	SignificantMode-25.png\
+	MoveMode-25.png\
+	Copy-25.png\
+	NoCopy-25.png\
 	Friends-33.png\
 	iBeaconOn-33.png\
 	iBeaconOn2-33.png\
@@ -35,26 +35,26 @@ iBeaconOn2-33.png:iBeaconOn2.svg
 Regions-33.png:Regions.svg
 	./size33.sh Regions.svg
 
-Info-33.png:Info.svg
-	./size33.sh Info.svg
+Info-25.png:Info.svg
+	./size25.sh Info.svg
 
-QuietMode-33.png:QuietMode.svg
-	./size33.sh QuietMode.svg
+QuietMode-25.png:QuietMode.svg
+	./size25.sh QuietMode.svg
 
-ManualMode-33.png:ManualMode.svg
-	./size33.sh ManualMode.svg
+ManualMode-25.png:ManualMode.svg
+	./size25.sh ManualMode.svg
 
-SignificantMode-33.png:SignificantMode.svg
-	./size33.sh SignificantMode.svg
+SignificantMode-25.png:SignificantMode.svg
+	./size25.sh SignificantMode.svg
 
-MoveMode-33.png:MoveMode.svg
-	./size33.sh MoveMode.svg
+MoveMode-25.png:MoveMode.svg
+	./size25.sh MoveMode.svg
 
-Copy-33.png:Copy.svg
-	./size33.sh Copy.svg
+Copy-25.png:Copy.svg
+	./size25.sh Copy.svg
 
-NoCopy-33.png:NoCopy.svg
-	./size33.sh NoCopy.svg
+NoCopy-25.png:NoCopy.svg
+	./size25.sh NoCopy.svg
 
 Friends-33.png:Friends.svg
 	./size33.sh Friends.svg

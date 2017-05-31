@@ -22,19 +22,20 @@
 #import "LocationManager.h"
 #import "OwnTracking.h"
 #import "AlertView.h"
-#import "ModeBarButtonItem.h"
-#import "CopyBarButtonItem.h"
 #import "GeoHashing.h"
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *buttonCopy;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *buttonMove;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @property (strong, nonatomic) NSFetchedResultsController *frcFriends;
 @property (strong, nonatomic) NSFetchedResultsController *frcRegions;
 @property (strong, nonatomic) NSFetchedResultsController *frcInfos;
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
+@property (strong, nonatomic) MKUserTrackingBarButtonItem *userTracker;
 
 @end
 
@@ -55,10 +56,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [leftButtonItems addObject:[[MKUserTrackingBarButtonItem alloc] initWithMapView:self.mapView]];
     self.navigationItem.leftBarButtonItems = leftButtonItems;
 
-    NSMutableArray *rightButtonItems = [self.navigationItem.rightBarButtonItems mutableCopy];
-    [rightButtonItems insertObject:[[ModeBarButtonItem alloc] init] atIndex:0];
-    [rightButtonItems insertObject:[[CopyBarButtonItem alloc] init] atIndex:0];
-    self.navigationItem.rightBarButtonItems = rightButtonItems;
+    [self setButtonCopy];
+    [self setButtonMove];
 
     [[NSNotificationCenter defaultCenter] addObserverForName:@"reload"
                                                       object:nil
@@ -72,6 +71,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+
     while (!self.frcFriends) {
         //
     }
@@ -573,5 +573,99 @@ didChangeDragState:(MKAnnotationViewDragState)newState
          ];
     }
 }
+- (IBAction)buttonMovePressed:(UIBarButtonItem *)sender {
+    switch ([LocationManager sharedInstance].monitoring) {
+        case LocationMonitoringMove:
+            [LocationManager sharedInstance].monitoring = LocationMonitoringSignificant;
+            [AlertView alert:NSLocalizedString(@"Mode",
+                                               @"Header of an alert message regarding monitoring mode")
+                     message:NSLocalizedString(@"significant changes mode enabled",
+                                               @"content of an alert message regarding monitoring mode")
+                dismissAfter:1
+             ];
+            break;
 
+        case LocationMonitoringQuiet:
+            [LocationManager sharedInstance].monitoring = LocationMonitoringMove;
+            [AlertView alert:NSLocalizedString(@"Mode",
+                                               @"Header of an alert message regarding monitoring mode")
+                     message:NSLocalizedString(@"move mode enabled",
+                                               @"content of an alert message regarding monitoring mode")
+                dismissAfter:1
+             ];
+            break;
+
+        case LocationMonitoringManual:
+            [LocationManager sharedInstance].monitoring = LocationMonitoringQuiet;
+            [AlertView alert:NSLocalizedString(@"Mode",
+                                               @"Header of an alert message regarding monitoring mode")
+                     message:NSLocalizedString(@"quiet mode enabled",
+                                               @"content of an alert message regarding monitoring mode")
+                dismissAfter:1
+             ];
+            break;
+
+        case LocationMonitoringSignificant:
+        default:
+            [LocationManager sharedInstance].monitoring = LocationMonitoringManual;
+            [AlertView alert:NSLocalizedString(@"Mode",
+                                               @"Header of an alert message regarding monitoring mode")
+                     message:NSLocalizedString(@"manual mode enabled",
+                                               @"content of an alert message regarding monitoring mode")
+                dismissAfter:1
+             ];
+
+            break;
+    }
+    [Settings setInt:[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"];
+    [self setButtonMove];
+}
+
+- (void)setButtonMove {
+    switch ([LocationManager sharedInstance].monitoring) {
+        case LocationMonitoringMove:
+            self.buttonMove.image = [UIImage imageNamed:@"MoveMode"];
+            break;
+        case LocationMonitoringSignificant:
+            self.buttonMove.image = [UIImage imageNamed:@"SignificantMode"];
+            break;
+        case LocationMonitoringManual:
+            self.buttonMove.image = [UIImage imageNamed:@"ManualMode"];
+            break;
+        case LocationMonitoringQuiet:
+        default:
+            self.buttonMove.image = [UIImage imageNamed:@"QuietMode"];
+            break;
+    }
+}
+
+- (IBAction)buttonCopyPressed:(UIBarButtonItem *)sender {
+    if ([OwnTracking sharedInstance].cp) {
+        [OwnTracking sharedInstance].cp = FALSE;
+        [AlertView alert:NSLocalizedString(@"Copying",
+                                           @"Header of an alert message regarding copying")
+                 message:NSLocalizedString(@"copying disabled",
+                                           @"content of an alert message regarding copying disabled")
+            dismissAfter:1
+         ];
+    } else {
+        [OwnTracking sharedInstance].cp = TRUE;
+        [AlertView alert:NSLocalizedString(@"Copying",
+                                           @"Header of an alert message regarding copying")
+                 message:NSLocalizedString(@"copying enabled",
+                                           @"content of an alert message regarding copying enabled")
+            dismissAfter:1
+         ];
+    }
+    [Settings setBool:[OwnTracking sharedInstance].cp forKey:@"cp"];
+    [self setButtonCopy];
+}
+
+- (void)setButtonCopy {
+    if ([OwnTracking sharedInstance].cp) {
+        self.buttonCopy.image = [UIImage imageNamed:@"Copy"];
+    } else {
+        self.buttonCopy.image = [UIImage imageNamed:@"NoCopy"];
+    }
+}
 @end

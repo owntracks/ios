@@ -92,8 +92,8 @@
 /* Class = "UITabBarItem"; title = "Regions"; ObjectID = "HB5-wo-JZx"; */
 "HB5-wo-JZx.title" = "Regions";
 
-/* Class = "UITabBarItem"; title = "OwnTracks"; ObjectID = "HCO-pB-vNN"; */
-"HCO-pB-vNN.title" = "OwnTracks";
+/* Class = "UITabBarItem"; title = "Map"; ObjectID = "HCO-pB-vNN"; */
+"HCO-pB-vNN.title" = "Map";
 
 /* Class = "UITextView"; text = "param"; ObjectID = "HQZ-wy-aC5"; */
 "HQZ-wy-aC5.text" = "param";
@@ -143,8 +143,8 @@
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "OIH-xB-QZe"; */
 "OIH-xB-QZe.text" = "Subtitle";
 
-/* Class = "UINavigationItem"; title = "OwnTracks"; ObjectID = "OeB-EW-2jx"; */
-"OeB-EW-2jx.title" = "OwnTracks";
+/* Class = "UINavigationItem"; title = "Map"; ObjectID = "OeB-EW-2jx"; */
+"OeB-EW-2jx.title" = "Map";
 
 /* Class = "UILabel"; text = "Longitude"; ObjectID = "OgN-Bg-AeZ"; */
 "OgN-Bg-AeZ.text" = "Longitude";
