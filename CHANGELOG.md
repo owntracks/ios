@@ -1,7 +1,7 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## Owntracks 9.5.2 
+## Owntracks 9.5.3 
 *Release date 2017-05-31*
 **mosquitto 1.4.12 compatible clientIDs**
 **Copy attribute**
