@@ -705,7 +705,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             topic = [self stringForKey:@"topic_preference"];
             
             if (!topic || [topic isEqualToString:@""]) {
-                topic = [NSString stringWithFormat:@"owntracks/%@", [self theId]];
+                NSString *userId = [self theUserId];
+                NSString *deviceId = [self theDeviceId];
+
+                if (!userId || [userId isEqualToString:@""]) {
+                    userId = @"user";
+                }
+                if (!deviceId || [deviceId isEqualToString:@""]) {
+                    deviceId = @"device";
+                }
+
+                topic = [NSString stringWithFormat:@"owntracks/%@/%@", userId, deviceId];
             } else {
                 topic = [topic stringByReplacingOccurrencesOfString:@"%%u"
                                                          withString:[Settings theUserId]];
