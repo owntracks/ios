@@ -103,10 +103,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 - (instancetype)init {
     self = [super init];
 
+#ifdef GEOHASHING
+
     Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
                             inManagedObjectContext:[CoreData theManagedObjectContext]];
 
-#ifdef DEBUG
     if (!myself.hasSubscriptions.count) {
         [self addSubscriptionFor:myself name:@"luftinfo" level:6 context:myself.managedObjectContext];
     } else {
@@ -119,6 +120,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     }
 
     [CoreData saveContext:myself.managedObjectContext];
+
 #endif
 
     self.geoHash = [Settings stringForKey:@"geoHash"];
@@ -196,6 +198,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (void)newLocation:(CLLocation *)location {
+#ifdef GEOHASHING
     NSString *geoHash;
     geoHash = [GeoHash hashForLatitude:location.coordinate.latitude
                              longitude:location.coordinate.longitude
@@ -308,6 +311,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         self.neighbors.southWest.coordinate = CLLocationCoordinate2DMake(0, 0);
     }
     [CoreData saveContext];
+#endif
 }
 
 - (Subscription *)addSubscriptionFor:(Friend *)friend

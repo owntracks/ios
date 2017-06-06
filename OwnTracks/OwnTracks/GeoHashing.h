@@ -12,6 +12,8 @@
 #import "GeoHash.h"
 #import "Subscription+CoreDataClass.h"
 
+#undef GEOHASHING // work without geohashing
+
 @interface Area : NSObject <MKOverlay>
 @property (strong, nonatomic) NSString *geoHash;
 - (void)setCoordinate:(CLLocationCoordinate2D)coordinate;

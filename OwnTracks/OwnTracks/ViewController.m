@@ -142,6 +142,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 }
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+#ifdef GEOHASHING
     Neighbors *neighbors = [GeoHashing sharedInstance].neighbors;
     [self.mapView removeOverlay:neighbors.center];
     [self.mapView removeOverlay:neighbors.west];
@@ -167,6 +168,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     [self.mapView addOverlay:neighbors.southEast];
     [self.mapView addOverlay:neighbors.south];
     [self.mapView addOverlay:neighbors.southWest];
+#endif
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
