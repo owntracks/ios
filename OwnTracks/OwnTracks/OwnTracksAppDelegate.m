@@ -815,7 +815,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     DDLogVerbose(@"reconnect");
     [self.connection disconnect];
     [self connect];
-    [self sendNow];
 }
 
 - (void)publishLocation:(CLLocation *)location trigger:(NSString *)trigger {
