@@ -911,10 +911,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 + (NSString *)theUserId {
     int mode = [self intForKey:@"mode"];
     switch (mode) {
-        case CONNECTION_MODE_HTTP:
-            return @"http";
-            break;
-
         case CONNECTION_MODE_PUBLIC:
             return @"user";
             break;
@@ -923,6 +919,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             return [self stringForKey:@"user"];
             break;
 
+        case CONNECTION_MODE_HTTP:
         case CONNECTION_MODE_PRIVATE:
         default:
             return [self stringForKey:@"user_preference"];
@@ -968,7 +965,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     int mode = [self intForKey:@"mode"];
     switch (mode) {
         case CONNECTION_MODE_PUBLIC:
-        case CONNECTION_MODE_HTTP:
         case CONNECTION_MODE_WATSON:
             return nil;
             break;
@@ -983,6 +979,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                     [self theDeviceId]];
             break;
 
+        case CONNECTION_MODE_HTTP:
         case CONNECTION_MODE_PRIVATE:
         default:
             return [self stringForKey:@"user_preference"];
@@ -994,7 +991,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     int mode = [self intForKey:@"mode"];
     switch (mode) {
         case CONNECTION_MODE_PUBLIC:
-        case CONNECTION_MODE_HTTP:
         case CONNECTION_MODE_WATSON:
             return nil;
             break;
@@ -1007,6 +1003,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             return [self stringForKey:@"token"];
             break;
 
+        case CONNECTION_MODE_HTTP:
         case CONNECTION_MODE_PRIVATE:
         default:
             return [self stringForKey:@"pass_preference"];
@@ -1017,7 +1014,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 + (BOOL)theMqttAuth {
     int mode = [self intForKey:@"mode"];
     switch (mode) {
-        case CONNECTION_MODE_HTTP:
         case CONNECTION_MODE_PUBLIC:
         case CONNECTION_MODE_WATSON:
             return FALSE;
@@ -1028,6 +1024,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             return TRUE;
             break;
 
+        case CONNECTION_MODE_HTTP:
         case CONNECTION_MODE_PRIVATE:
         default:
             return [self boolForKey:@"auth_preference"];
