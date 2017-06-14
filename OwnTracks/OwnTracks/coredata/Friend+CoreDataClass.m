@@ -150,7 +150,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 {
     ABRecordRef record = NULL;
 
-    if ([Settings boolForKey:@"ab_preference"]) {
+    if ([Settings sharedInstance].updateAddressbook) {
         record = recordWithTopic((__bridge CFStringRef)(self.topic));
     } else {
         if ([self.abRecordId intValue] != kABRecordInvalidID) {
@@ -165,7 +165,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)linkToAB:(ABRecordRef)record
 {
-    if ([Settings boolForKey:@"ab_preference"]) {
+    if ([Settings sharedInstance].updateAddressbook) {
         ABRecordRef oldrecord = recordWithTopic((__bridge CFStringRef)(self.topic));
 
         if (oldrecord) {
@@ -287,19 +287,25 @@ ABRecordRef recordWithTopic(CFStringRef topic)
     }
 }
 
+
 - (NSString *)getEffectiveTid {
-    NSString *tid = @"";
-    if (self.tid != nil && ![self.tid isEqualToString:@""]) {
-        tid = self.tid;
+    NSArray <NSString *> *components = [self.topic componentsSeparatedByString:@"/"];
+    return [Friend effectiveTid:self.tid device:components.count ? components[components.count-1] : @"xx"];
+}
+
++ (NSString *)effectiveTid:(NSString *)tid device:(NSString *)device {
+    NSString *effectiveTid = @"";
+    if (tid != nil && ![tid isEqualToString:@""]) {
+        effectiveTid = tid;
     } else {
-        NSUInteger length = self.topic.length;
+        NSUInteger length = device.length;
         if (length > 2) {
-            tid = [self.topic substringFromIndex:length - 2].uppercaseString;
+            effectiveTid = [device substringFromIndex:length - 2].uppercaseString;
         } else {
-            tid = self.topic.uppercaseString;
+            effectiveTid = device.uppercaseString;
         }
     }
-    return tid;
+    return effectiveTid;
 }
 
 - (Waypoint *)newestWaypoint {

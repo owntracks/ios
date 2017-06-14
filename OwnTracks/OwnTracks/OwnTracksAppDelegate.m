@@ -135,39 +135,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         }
     } while (state & UIDocumentStateClosed || ![CoreData theManagedObjectContext]);
 
-    //
-    // Migrate Waypoints from 8.0.32 to 8.2.0
-    //
-    Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
-                            inManagedObjectContext:[CoreData theManagedObjectContext]];
-    if (myself) {
-        for (Location *location in myself.hasLocations) {
-            if (![location.automatic boolValue]) {
-                if (location.remark && location.remark.length) {
-                    NSArray *components = [location.remark componentsSeparatedByString:@":"];
-                    NSString *name = components.count >= 1 ? components[0] : nil;
-                    NSString *uuid = components.count >= 2 ? components[1] : nil;
-                    unsigned int major = components.count >= 3 ? [components[2] unsignedIntValue]: 0;
-                    unsigned int minor = components.count >= 4 ? [components[3] unsignedIntValue]: 0;
-
-                    [[OwnTracking sharedInstance] addRegionFor:myself
-                                                          name:name
-                                                          uuid:uuid
-                                                         major:major
-                                                         minor:minor
-                                                         share:[location.share boolValue]
-                                                        radius:[location.regionradius doubleValue]
-                                                           lat:[location.latitude doubleValue]
-                                                           lon:[location.longitude doubleValue]
-                                                       context:[CoreData theManagedObjectContext]];
-                }
-            }
-            [[CoreData theManagedObjectContext] deleteObject:location];
-        }
-        [CoreData saveContext];
-    }
-
-
     if (![Setting existsSettingWithKey:@"mode"
                 inManagedObjectContext:[CoreData theManagedObjectContext]]) {
         if (![Setting existsSettingWithKey:@"host_preference"
@@ -426,6 +393,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)timerLocation:(CLLocation *)location {
     [self publishLocation:location trigger:@"t"];
+    [[GeoHashing sharedInstance] newLocation:location];
+}
+
+- (void)visitLocation:(CLLocation *)location {
+    [self publishLocation:location trigger:@"v"];
     [[GeoHashing sharedInstance] newLocation:location];
 }
 
@@ -702,8 +674,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                         DDLogVerbose(@"unknown action %@", dictionary[@"action"]);
                     }
                 }
-            } else {
-                DDLogVerbose(@"unhandled record type %@", dictionary[@"_type"]);
             }
         } else {
             DDLogVerbose(@"illegal json %@ %@ %@", error.localizedDescription, error.userInfo, data.description);
@@ -856,7 +826,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         [Settings validIds]) {
 
         int ignoreInaccurateLocations = [Settings intForKey:@"ignoreinaccuratelocations_preference"];
-        if (!ignoreInaccurateLocations || location.horizontalAccuracy < ignoreInaccurateLocations) {
+        DDLogVerbose(@"inaccurate location %fm/%dm",
+                     location.horizontalAccuracy, ignoreInaccurateLocations);
+
+        if (ignoreInaccurateLocations == 0 || location.horizontalAccuracy < ignoreInaccurateLocations) {
             Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic]
                               inManagedObjectContext:[CoreData theManagedObjectContext]];
             if (friend) {
@@ -888,7 +861,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             } else {
                 DDLogError(@"no friend found");
             }
-            DDLogWarn(@"inaccurate location %fm/%dm", location.horizontalAccuracy, ignoreInaccurateLocations);
         }
     } else {
         DDLogError(@"invalid location");
@@ -1009,7 +981,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                               port:[Settings intForKey:@"port_preference"]
                                 ws:[Settings boolForKey:@"ws_preference"]
                                tls:[Settings boolForKey:@"tls_preference"]
-                   protocolVersion:[Settings intForKey:@"mqttProtocolLevel"]
+                   protocolVersion:[Settings sharedInstance].protocol
                          keepalive:[Settings intForKey:@"keepalive_preference"]
                              clean:[Settings intForKey:@"clean_preference"]
                               auth:[Settings theMqttAuth]

@@ -9,6 +9,7 @@
 #import "Settings.h"
 #import "CoreData.h"
 #import "OwnTracking.h"
+#import "LocationManager.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 
@@ -194,7 +195,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             if (object) [self setString:object forKey:@"port_preference"];
 
             object = dictionary[@"mqttProtocolLevel"];
-            if (object) [self setString:object forKey:@"mqttProtocolLevel"];
+            if (object) [self setString:object forKey:SETTINGS_PROTOCOL];
 
             object = dictionary[@"ignoreStaleLocations"];
             if (object) [self setString:object forKey:@"ignorestalelocations_preference"];
@@ -210,15 +211,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             if (object) [self setString:object forKey:@"willqos_preference"];
             
             object = dictionary[@"locatorDisplacement"];
-            if (object) [self setString:object forKey:@"mindist_preference"];
+            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
+            			 forKey:@"mindist_preference"];
             
             object = dictionary[@"locatorInterval"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
                                  forKey:@"mintime_preference"];
             
             object = dictionary[@"monitoring"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                 forKey:@"monitoring_preference"];
+            if (object) {
+                [self setString:[NSString stringWithFormat:@"%@", object]
+                         forKey:@"monitoring_preference"];
+                [LocationManager sharedInstance].monitoring = [Settings intForKey:@"monitoring_preference"];
+
+            }
             
             object = dictionary[@"ranging"];
             if (object) [self setString:object forKey:@"ranging_preference"];
@@ -229,6 +235,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             object = dictionary[@"sub"];
             if (object) [self setString:object forKey:@"sub_preference"];
 
+            object = dictionary[@"cp"];
+            if (object) {
+                [self setString:object forKey:@"cp"];
+                [OwnTracking sharedInstance].cp = [Settings boolForKey:@"cp"];
+            }
 
             object = dictionary[@"pubRetain"];
             if (object) [self setString:object forKey:@"retain_preference"];
@@ -250,7 +261,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             if (object) [self setString:object forKey:@"willretain_preference"];
             
             object = dictionary[@"updateAddressBook"];
-            if (object) [self setString:object forKey:@"ab_preference"];
+            if (object) [self setString:object forKey:SETTINGS_ADDRESSBOOK];
             
             object = dictionary[@"positions"];
             if (object) [self setString:object forKey:@"positions_preference"];
@@ -416,11 +427,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     dict[@"monitoring"] =                   @([Settings intForKey:@"monitoring_preference"]);
     dict[@"waypoints"] =                    [Settings waypointsToArray];
     dict[@"sub"] =                          @([Settings boolForKey:@"sub_preference"]);
+    dict[@"cp"] =                           @([Settings boolForKey:@"cp"]);
     dict[@"positions"] =                    @([Settings intForKey:@"positions_preference"]);
     dict[@"locatorDisplacement"] =          @([Settings intForKey:@"mindist_preference"]);
     dict[@"locatorInterval"] =              @([Settings intForKey:@"mintime_preference"]);
     dict[@"extendedData"] =                 @([Settings boolForKey:@"extendeddata_preference"]);
-    dict[@"updateAddressBook"] =            @([Settings boolForKey:@"ab_preference"]);
+    dict[@"updateAddressBook"] =            @([Settings sharedInstance].updateAddressbook);
     dict[@"ignoreStaleLocations"] =         @([Settings intForKey:@"ignorestalelocations_preference"]);
     dict[@"ignoreInaccurateLocations"] =    @([Settings intForKey:@"ignoreinaccuratelocations_preference"]);
 
@@ -450,22 +462,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             dict[@"subQos"] =               @([Settings intForKey:@"subscriptionqos_preference"]);
             dict[@"pubQos"] =               @([Settings intForKey:@"qos_preference"]);
             dict[@"port"] =                 @([Settings intForKey:@"port_preference"]);
-            dict[@"mqttProtocolLevel"] =    @([Settings intForKey:@"mqttProtocolLevel"]);
+            dict[@"mqttProtocolLevel"] =    @([Settings intForKey:SETTINGS_PROTOCOL]);
             dict[@"keepalive"] =            @([Settings intForKey:@"keepalive_preference"]);
             dict[@"willQos"] =              @([Settings intForKey:@"willqos_preference"]);
             dict[@"policymode"] =           @([Settings intForKey:@"policymode"]);
             dict[@"positions"] =            @([Settings intForKey:@"positions_preference"]);
-            dict[@"locatorDisplacement"] =  @([Settings intForKey:@"mindist_preference"]);
-            dict[@"locatorInterval"] =      @([Settings intForKey:@"mintime_preference"]);
-            
+
             dict[@"cmd"] =                  @([Settings boolForKey:@"cmd_preference"]);
             dict[@"pubRetain"] =            @([Settings boolForKey:@"retain_preference"]);
             dict[@"tls"] =                  @([Settings boolForKey:@"tls_preference"]);
-            dict[@"ws"] =                  @([Settings boolForKey:@"ws_preference"]);
+            dict[@"ws"] =                   @([Settings boolForKey:@"ws_preference"]);
             dict[@"auth"] =                 @([Settings boolForKey:@"auth_preference"]);
             dict[@"cleanSession"] =         @([Settings boolForKey:@"clean_preference"]);
             dict[@"willRetain"] =           @([Settings boolForKey:@"willretain_preference"]);
-            dict[@"updateAddressBook"] =    @([Settings boolForKey:@"ab_preference"]);
             dict[@"allowRemoteLocation"] =  @([Settings boolForKey:@"allowremotelocation_preference"]);
             dict[@"extendedData"] =         @([Settings boolForKey:@"extendeddata_preference"]);
             dict[@"usepolicy"] =            @([Settings boolForKey:@"usepolicy"]);
@@ -530,8 +539,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     if ([key isEqualToString:@"mode"] ||
         [key isEqualToString:@"locked"] ||
         [key isEqualToString:@"sub"] ||
+        [key isEqualToString:@"cp"] ||
         [key isEqualToString:@"extendedData_preference"] ||
-        [key isEqualToString:@"ab_preference"] ||
+        [key isEqualToString:SETTINGS_ADDRESSBOOK] ||
         [key isEqualToString:@"monitoring_preference"] ||
         [key isEqualToString:@"trackerid_preference"] ||
         [key isEqualToString:@"ranging_preference"]) {
@@ -766,12 +776,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             break;
 
         case CONNECTION_MODE_PUBLIC:
-        case CONNECTION_MODE_HOSTED:
-            theId = [NSString stringWithFormat:@"%@%@",
-                     [self theUserId],
-                     [self theDeviceId]];
+        case CONNECTION_MODE_HOSTED:  {
+            NSCharacterSet *allowed = [NSCharacterSet alphanumericCharacterSet];
+            NSCharacterSet *notAllowed = [allowed invertedSet];
+            theId = [[[NSString stringWithFormat:@"%@%@", [self theUserId], [self theDeviceId]]
+                         componentsSeparatedByCharactersInSet:notAllowed]
+                        componentsJoinedByString:@""];
             break;
-
+        }
         case CONNECTION_MODE_PRIVATE:
         case CONNECTION_MODE_HTTP:
         default: {
@@ -793,8 +805,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                              deviceId];
                 }
             }
-        }
+            NSCharacterSet *allowed = [NSCharacterSet alphanumericCharacterSet];
+            NSCharacterSet *notAllowed = [allowed invertedSet];
+            theId = [[theId componentsSeparatedByCharactersInSet:notAllowed]
+                     componentsJoinedByString:@""];
             break;
+        }
     }
 
     
@@ -814,21 +830,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             deviceId = [self stringForKey:@"watsondeviceid_preference"];
             break;
 
-        case CONNECTION_MODE_HTTP:
-            deviceId = [self stringForKey:@"trackerid_preference"];
-            if (!deviceId || deviceId.length == 0) {
-                deviceId = [[UIDevice currentDevice].identifierForVendor UUIDString];
-            }
-            break;
-        case CONNECTION_MODE_PUBLIC:
+        case CONNECTION_MODE_PUBLIC: {
             deviceId = [[UIDevice currentDevice].identifierForVendor UUIDString];
             break;
+        }
         case CONNECTION_MODE_HOSTED:
             deviceId = [self stringForKey:@"device"];
             break;
         case CONNECTION_MODE_PRIVATE:
+        case CONNECTION_MODE_HTTP:
         default:
             deviceId = [self stringForKey:@"deviceid_preference"];
+            if (!deviceId || deviceId.length == 0) {
+                deviceId = [[UIDevice currentDevice].identifierForVendor UUIDString];
+            }
             break;
     }
     return deviceId;
@@ -1025,6 +1040,36 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     NSString *device = [self theDeviceId];
     
     return (user && user.length != 0 && device && device.length != 0);
+}
+
++ (instancetype)sharedInstance {
+    static dispatch_once_t once = 0;
+    static id sharedInstance = nil;
+    dispatch_once(&once, ^{
+        sharedInstance = [[self alloc] init];
+    });
+    return sharedInstance;
+}
+
+- (instancetype)init {
+    self = [super init];
+    return self;
+}
+
+- (BOOL)updateAddressbook {
+    return [Settings boolForKey:SETTINGS_ADDRESSBOOK];
+}
+
+- (void)setUpdateAddressbook:(BOOL)updateAddressbook {
+    [Settings setBool:updateAddressbook forKey:SETTINGS_ADDRESSBOOK];
+}
+
+- (MQTTProtocolVersion)protocol {
+    return [Settings intForKey:SETTINGS_PROTOCOL];
+}
+
+- (void)setProtocol:(MQTTProtocolVersion)protocol {
+    [Settings setInt:protocol forKey:SETTINGS_ADDRESSBOOK];
 }
 
 @end

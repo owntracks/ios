@@ -63,10 +63,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                       object:nil
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *note){
-                                                      self.frcFriends = nil;
-                                                      self.frcRegions = nil;
-                                                      self.frcInfos = nil;
+                                                      [self performSelectorOnMainThread:@selector(reloaded)
+                                                                             withObject:nil
+                                                                          waitUntilDone:NO];
                                                       }];
+}
+
+- (void)reloaded {
+    self.frcFriends = nil;
+    self.frcRegions = nil;
+    self.frcInfos = nil;
+    [self setButtonCopy];
+    [self setButtonMove];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

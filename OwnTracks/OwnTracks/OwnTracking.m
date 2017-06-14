@@ -18,7 +18,7 @@
 #define MAXQUEUE 999
 
 @implementation OwnTracking
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 static OwnTracking *theInstance = nil;
 
 + (OwnTracking *)sharedInstance {

@@ -43,6 +43,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIproto;
 @property (weak, nonatomic) IBOutlet UISwitch *UIWS;
 @property (weak, nonatomic) IBOutlet UISwitch *UIAuth;
+@property (weak, nonatomic) IBOutlet UISwitch *UIextendedData;
 @property (weak, nonatomic) IBOutlet UITextField *UItrackerid;
 @property (weak, nonatomic) IBOutlet UIButton *UIexport;
 @property (weak, nonatomic) IBOutlet UIButton *UIpublish;
@@ -57,6 +58,33 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIignoreStaleLocations;
 @property (weak, nonatomic) IBOutlet UITextField *UIignoreInaccurateLocations;
 @property (weak, nonatomic) IBOutlet UISwitch *UIranging;
+@property (weak, nonatomic) IBOutlet UISwitch *UIupdateAddressBook;
+@property (weak, nonatomic) IBOutlet UISwitch *UIlocked;
+@property (weak, nonatomic) IBOutlet UISwitch *UIsub;
+@property (weak, nonatomic) IBOutlet UISwitch *UIcp;
+@property (weak, nonatomic) IBOutlet UISwitch *UIcmd;
+@property (weak, nonatomic) IBOutlet UISwitch *UIpubRetain;
+@property (weak, nonatomic) IBOutlet UISwitch *UIwillRetain;
+@property (weak, nonatomic) IBOutlet UISwitch *UIallowRemoteLocation;
+@property (weak, nonatomic) IBOutlet UISwitch *UIcleanSession;
+@property (weak, nonatomic) IBOutlet UITextField *UIsubTopic;
+@property (weak, nonatomic) IBOutlet UITextField *UIpubTopicBase;
+@property (weak, nonatomic) IBOutlet UITextField *UIwillTopic;
+@property (weak, nonatomic) IBOutlet UITextField *UIlocatorDisplacement;
+@property (weak, nonatomic) IBOutlet UITextField *UIlocatorInterval;
+@property (weak, nonatomic) IBOutlet UITextField *UIpositions;
+@property (weak, nonatomic) IBOutlet UITextField *UIsubQos;
+@property (weak, nonatomic) IBOutlet UITextField *UIkeepAlive;
+@property (weak, nonatomic) IBOutlet UITextField *UIpubQos;
+@property (weak, nonatomic) IBOutlet UITextField *UIwillQos;
+@property (weak, nonatomic) IBOutlet UITextField *UImonitoring;
+@property (weak, nonatomic) IBOutlet UILabel *UIeffectivePubTopic;
+@property (weak, nonatomic) IBOutlet UILabel *UIeffectiveWillTopic;
+@property (weak, nonatomic) IBOutlet UILabel *UIeffectiveSubTopic;
+@property (weak, nonatomic) IBOutlet UILabel *UIeffectiveClientId;
+@property (weak, nonatomic) IBOutlet UITextField *UIclientId;
+@property (weak, nonatomic) IBOutlet UILabel *UIeffectiveTid;
+@property (weak, nonatomic) IBOutlet UILabel *UIeffectiveDeviceId;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
 @property (strong, nonatomic) UIAlertView *tidAlertView;
@@ -133,6 +161,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIvalidatecertificatechain) [Settings setBool:self.UIvalidatecertificatechain.on forKey:@"validatecertificatechain"];
     if (self.UItrackerid) [Settings setString:self.UItrackerid.text forKey:@"trackerid_preference"];
     if (self.UIHost) [Settings setString:self.UIHost.text forKey:@"host_preference"];
+    if (self.UIwillTopic) [Settings setString:self.UIwillTopic.text forKey:@"willtopic_preference"];
+    if (self.UIclientId) [Settings setString:self.UIclientId.text forKey:@"clientid_preference"];
+    if (self.UIpubTopicBase) [Settings setString:self.UIpubTopicBase.text forKey:@"topic_preference"];
+    if (self.UIsubTopic) [Settings setString:self.UIsubTopic.text forKey:@"subscription_preference"];
     if (self.UIUserID) [Settings setString:self.UIUserID.text forKey:@"user_preference"];
     if (self.UIPassword) [Settings setString:self.UIPassword.text forKey:@"pass_preference"];
     if (self.UIsecret) [Settings setString:self.UIsecret.text forKey:@"secret_preference"];
@@ -157,13 +189,37 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         }
     }
     if (self.UIPort) [Settings setString:self.UIPort.text forKey:@"port_preference"];
-    if (self.UIproto) [Settings setString:self.UIproto.text forKey:@"mqttProtocolLevel"];
+    if (self.UIproto) [Settings sharedInstance].protocol = [self.UIproto.text intValue];
     if (self.UIignoreStaleLocations) [Settings setString:self.UIignoreStaleLocations.text forKey:@"ignorestalelocations_preference"];
+    if (self.UIlocatorDisplacement) [Settings setString:self.UIlocatorDisplacement.text forKey:@"mindist_preference"];
+    if (self.UIlocatorInterval) [Settings setString:self.UIlocatorInterval.text forKey:@"mintime_preference"];
+    if (self.UIpositions) [Settings setString:self.UIpositions.text forKey:@"positions_preference"];
+    if (self.UIsubQos) [Settings setString:self.UIsubQos.text forKey:@"subscriptionqos_preference"];
+    if (self.UIpubQos) [Settings setString:self.UIpubQos.text forKey:@"qos_preference"];
+    if (self.UIwillQos) [Settings setString:self.UIwillQos.text forKey:@"willqos_preference"];
+    if (self.UIkeepAlive) [Settings setString:self.UIkeepAlive.text forKey:@"keepalive_preference"];
+    if (self.UImonitoring) {
+        [LocationManager sharedInstance].monitoring = [self.UImonitoring.text intValue];
+        [Settings setString:self.UImonitoring.text forKey:@"monitoring_preference"];
+    }
     if (self.UIignoreInaccurateLocations) [Settings setString:self.UIignoreInaccurateLocations.text forKey:@"ignoreinaccuratelocations_preference"];
     if (self.UITLS) [Settings setBool:self.UITLS.on forKey:@"tls_preference"];
     if (self.UIWS) [Settings setBool:self.UIWS.on forKey:@"ws_preference"];
     if (self.UIAuth) [Settings setBool:self.UIAuth.on forKey:@"auth_preference"];
     if (self.UIranging) [Settings setBool:self.UIranging.on forKey:@"ranging_preference"];
+    if (self.UIextendedData) [Settings setBool:self.UIextendedData.on forKey:@"extendeddata_preference"];
+    if (self.UIupdateAddressBook) [Settings setBool:self.UIupdateAddressBook.on forKey:SETTINGS_ADDRESSBOOK];
+    if (self.UIlocked) [Settings setBool:self.UIlocked.on forKey:@"locked"];
+    if (self.UIsub) [Settings setBool:self.UIsub.on forKey:@"sub_preference"];
+    if (self.UIcp) {
+        [OwnTracking sharedInstance].cp = self.UIcp.on;
+        [Settings setBool:self.UIcp.on forKey:@"cp"];
+    }
+    if (self.UIcmd) [Settings setBool:self.UIcmd.on forKey:@"cmd_preference"];
+    if (self.UIpubRetain) [Settings setBool:self.UIpubRetain.on forKey:@"retain_preference"];
+    if (self.UIwillRetain) [Settings setBool:self.UIwillRetain.on forKey:@"willretain_preference"];
+    if (self.UIcleanSession) [Settings setBool:self.UIcleanSession.on forKey:@"clean_preference"];
+    if (self.UIallowRemoteLocation) [Settings setBool:self.UIallowRemoteLocation.on forKey:@"allowremotelocation_preference"];
     if (self.UIurl) [Settings setString:self.UIurl.text forKey:@"url_preference"];
     if (self.UIquickstartId) [Settings setString:self.UIquickstartId.text forKey:@"quickstartid_preference"];
     if (self.UIwatsonOrganization) [Settings setString:self.UIwatsonOrganization.text forKey:@"watsonorganization_preference"];
@@ -199,6 +255,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIDeviceID) {
         self.UIDeviceID.text =  [Settings stringForKey:@"deviceid_preference"];
         self.UIDeviceID.enabled = !locked;
+    }
+    if (self.UIeffectiveDeviceId) {
+        self.UIeffectiveDeviceId.text = [Settings theDeviceId];
     }
 
     if (self.UIclientPKCS) {
@@ -258,10 +317,47 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         self.UItrackerid.text = [Settings stringForKey:@"trackerid_preference"];
         self.UItrackerid.enabled = !locked;
     }
+    if (self.UIeffectiveTid) {
+        self.UIeffectiveTid.text = [Friend effectiveTid:[Settings stringForKey:@"trackerid_preference"]
+                                                  device:[Settings theDeviceId]];
+    }
+
     if (self.UIHost) {
         self.UIHost.text = [Settings stringForKey:@"host_preference"];
         self.UIHost.enabled = !locked;
     }
+    if (self.UIwillTopic) {
+        self.UIwillTopic.text = [Settings stringForKey:@"willtopic_preference"];
+        self.UIwillTopic.enabled = !locked;
+    }
+    if (self.UIeffectiveWillTopic) {
+        self.UIeffectiveWillTopic.text = [Settings theWillTopic];
+    }
+
+    if (self.UIclientId) {
+        self.UIclientId.text = [Settings stringForKey:@"clientid_preference"];
+        self.UIclientId.enabled = !locked;
+    }
+    if (self.UIeffectiveClientId) {
+        self.UIeffectiveClientId.text = [Settings theClientId];
+    }
+
+    if (self.UIpubTopicBase) {
+        self.UIpubTopicBase.text = [Settings stringForKey:@"topic_preference"];
+        self.UIpubTopicBase.enabled = !locked;
+    }
+    if (self.UIeffectivePubTopic) {
+        self.UIeffectivePubTopic.text = [Settings theGeneralTopic];
+    }
+
+    if (self.UIsubTopic) {
+        self.UIsubTopic.text = [Settings stringForKey:@"subscription_preference"];
+        self.UIsubTopic.enabled = !locked;
+    }
+    if (self.UIeffectiveSubTopic) {
+        self.UIeffectiveSubTopic.text = [Settings theSubscriptions];
+    }
+
     if (self.UIUserID) {
         self.UIUserID.text = [Settings stringForKey:@"user_preference"];
         self.UIUserID.enabled = !locked;
@@ -285,12 +381,44 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         self.UIPort.enabled = !locked;
     }
     if (self.UIproto) {
-        self.UIproto.text = [Settings stringForKey:@"mqttProtocolLevel"];
+        self.UIproto.text = [NSString stringWithFormat:@"%d", [Settings sharedInstance].protocol];
         self.UIproto.enabled = !locked;
     }
     if (self.UIignoreStaleLocations) {
         self.UIignoreStaleLocations.text = [Settings stringForKey:@"ignorestalelocations_preference"];
         self.UIignoreStaleLocations.enabled = !locked;
+    }
+    if (self.UIkeepAlive) {
+        self.UIkeepAlive.text = [Settings stringForKey:@"keepalive_preference"];
+        self.UIkeepAlive.enabled = !locked;
+    }
+    if (self.UIpubQos) {
+        self.UIpubQos.text = [Settings stringForKey:@"qos_preference"];
+        self.UIpubQos.enabled = !locked;
+    }
+    if (self.UIsubQos) {
+        self.UIsubQos.text = [Settings stringForKey:@"subscriptionqos_preference"];
+        self.UIsubQos.enabled = !locked;
+    }
+    if (self.UIwillQos) {
+        self.UIwillQos.text = [Settings stringForKey:@"willqos_preference"];
+        self.UIwillQos.enabled = !locked;
+    }
+    if (self.UIpositions) {
+        self.UIpositions.text = [Settings stringForKey:@"positions_preference"];
+        self.UIpositions.enabled = !locked;
+    }
+    if (self.UIlocatorInterval) {
+        self.UIlocatorInterval.text = [Settings stringForKey:@"mintime_preference"];
+        self.UIlocatorInterval.enabled = !locked;
+    }
+    if (self.UIlocatorDisplacement) {
+        self.UIlocatorDisplacement.text = [Settings stringForKey:@"mindist_preference"];
+        self.UIlocatorDisplacement.enabled = !locked;
+    }
+    if (self.UImonitoring) {
+        self.UImonitoring.text = [Settings stringForKey:@"monitoring_preference"];
+        self.UImonitoring.enabled = !locked;
     }
     if (self.UIignoreInaccurateLocations) {
         self.UIignoreInaccurateLocations.text = [Settings stringForKey:@"ignoreinaccuratelocations_preference"];
@@ -311,6 +439,46 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIranging) {
         self.UIranging.on = [Settings boolForKey:@"ranging_preference"];
         self.UIranging.enabled = !locked;
+    }
+    if (self.UIextendedData) {
+        self.UIextendedData.on = [Settings boolForKey:@"extendeddata_preference"];
+        self.UIextendedData.enabled = !locked;
+    }
+    if (self.self.UIupdateAddressBook) {
+        self.self.UIupdateAddressBook.on = [Settings sharedInstance].updateAddressbook;
+        self.self.UIupdateAddressBook.enabled = !locked;
+    }
+    if (self.self.UIlocked) {
+        self.self.UIlocked.on = [Settings boolForKey:@"locked"];
+        self.self.UIlocked.enabled = !locked;
+    }
+    if (self.self.UIsub) {
+        self.self.UIsub.on = [Settings boolForKey:@"sub_preference"];
+        self.self.UIsub.enabled = !locked;
+    }
+    if (self.self.UIcp) {
+        self.self.UIcp.on = [Settings boolForKey:@"cp"];
+        self.self.UIcp.enabled = !locked;
+    }
+    if (self.UIcmd) {
+        self.UIcmd.on = [Settings boolForKey:@"cmd_preference"];
+        self.UIcmd.enabled = !locked;
+    }
+    if (self.self.UIpubRetain) {
+        self.self.UIpubRetain.on = [Settings boolForKey:@"retain_preference"];
+        self.self.UIpubRetain.enabled = !locked;
+    }
+    if (self.UIwillRetain) {
+        self.UIwillRetain.on = [Settings boolForKey:@"willretain_preference"];
+        self.UIwillRetain.enabled = !locked;
+    }
+    if (self.UIcleanSession) {
+        self.UIcleanSession.on = [Settings boolForKey:@"clean_preference"];
+        self.UIcleanSession.enabled = !locked;
+    }
+    if (self.UIallowRemoteLocation) {
+        self.UIallowRemoteLocation.on = [Settings boolForKey:@"allowremotelocation_preference"];
+        self.UIallowRemoteLocation.enabled = !locked;
     }
     if (self.UIurl) {
         self.UIurl.text = [Settings stringForKey:@"url_preference"];
@@ -568,22 +736,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (NSString *)qosString:(int)qos
-{
-    switch (qos) {
-        case 2:
-            return NSLocalizedString(@"exactly once (2)",
-                                     @"description of MQTT QoS level 2");
-        case 1:
-            return NSLocalizedString(@"at least once (1)",
-                                     @"description of MQTT QoS level 1");
-        case 0:
-        default:
-            return NSLocalizedString(@"at most once (0)",
-                                     @"description of MQTT QoS level 0");
-    }
-}
-
 - (IBAction)touchedOutsideText:(UITapGestureRecognizer *)sender {
     [self.UIHost resignFirstResponder];
     [self.UIPort resignFirstResponder];
@@ -601,6 +753,42 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.UIwatsonDeviceId resignFirstResponder];
     [self.UIwatsonAuthToken resignFirstResponder];
     [self.UImode resignFirstResponder];
+    [self.UIclientId resignFirstResponder];
+    [self.UIpubTopicBase resignFirstResponder];
+    [self.UIsubTopic resignFirstResponder];
+    [self.UIwillTopic resignFirstResponder];
+    [self.UImonitoring resignFirstResponder];
+    [self.UIwillQos resignFirstResponder];
+    [self.UIpubQos resignFirstResponder];
+    [self.UIsubQos resignFirstResponder];
+    [self.UIkeepAlive resignFirstResponder];
+    [self.UIlocatorDisplacement resignFirstResponder];
+    [self.UIlocatorInterval resignFirstResponder];
+    [self.UIpositions resignFirstResponder];
+}
+
+
+- (IBAction)protocolChanged:(UITextField *)sender {
+    int protocol = [sender.text intValue];
+    if (protocol != MQTTProtocolVersion31 && protocol != MQTTProtocolVersion311) {
+        UIAlertView *alertView = [[UIAlertView alloc]
+                                  initWithTitle:NSLocalizedString(@"Protocol invalid",
+                                                                  @"Alert header regarding protocol input")
+                                  message:NSLocalizedString(@"Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1",
+                                                            @"Alert content regarding protocol input")
+                                  delegate:self
+                                  cancelButtonTitle:nil
+                                  otherButtonTitles:NSLocalizedString(@"OK",
+                                                                      @"OK button title"),
+                                  nil
+                                  ];
+        [alertView show];
+        sender.text = [NSString stringWithFormat:@"%d", [Settings sharedInstance].protocol];
+        return;
+    }
+    [Settings sharedInstance].protocol = protocol;
+    [self updateValues];
+    [self updated];
 }
 
 #define INVALIDTRACKERID NSLocalizedString(@"TrackerID invalid", @"Alert header regarding TrackerID input")
@@ -640,6 +828,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         }
     }
     [Settings setString:sender.text forKey:@"trackerid_preference"];
+    [self updateValues];
+    [self updated];
 }
 
 - (IBAction)modeChanged:(UITextField *)sender {
@@ -674,20 +864,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self presentViewController:ac animated:TRUE completion:nil];
 }
 
-- (IBAction)authChanged:(UISwitch *)sender {
-    [self updateValues];
-    [self updated];
-}
-
-- (IBAction)tlsChanged:(UISwitch *)sender {
-    [self updateValues];
-    [self updated];
-}
-- (IBAction)usePolicyChanged:(UISwitch *)sender {
-    [self updateValues];
-    [self updated];
-}
-- (IBAction)policyModeChanged:(UISegmentedControl *)sender {
+- (IBAction)changed:(id)sender {
     [self updateValues];
     [self updated];
 }

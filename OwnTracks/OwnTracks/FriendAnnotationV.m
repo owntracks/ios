@@ -10,7 +10,7 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @implementation FriendAnnotationV
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 #define CIRCLE_SIZE 40.0
 #define CIRCLE_COLOR [UIColor yellowColor]

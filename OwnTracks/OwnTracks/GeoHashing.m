@@ -89,7 +89,7 @@
 @end
 
 @implementation GeoHashing
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 + (instancetype)sharedInstance {
     static dispatch_once_t once = 0;

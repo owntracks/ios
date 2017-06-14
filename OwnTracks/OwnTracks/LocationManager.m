@@ -12,7 +12,6 @@
 
 @interface LocationManager()
 @property (strong, nonatomic) CLLocationManager *manager;
-//@property (strong, nonatomic) CMAltimeter *altimeter;
 @property (strong, nonatomic) CLLocation *lastUsedLocation;
 @property (strong, nonatomic) NSTimer *activityTimer;
 @property (strong, nonatomic) NSMutableSet *pendingRegionEvents;
@@ -48,7 +47,7 @@
 @end
 
 @implementation LocationManager
-static const DDLogLevel ddLogLevel = DDLogLevelDebug;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 static LocationManager *theInstance = nil;
 
 + (LocationManager *)sharedInstance {
@@ -98,22 +97,12 @@ static LocationManager *theInstance = nil;
                                                       DDLogVerbose(@"UIApplicationWillTerminateNotification");
                                                       [self stop];
                                                   }];
-    //self.altimeter = [[CMAltimeter alloc] init];
-
     return self;
 }
 
 - (void)start {
     DDLogVerbose(@"start");
     [self authorize];
-//    if ([CMAltimeter isRelativeAltitudeAvailable]) {
-//        DDLogVerbose(@"startRelativeAltitudeUpdatesToQueue");
-//        [self.altimeter startRelativeAltitudeUpdatesToQueue:[NSOperationQueue mainQueue]
-//                                                withHandler:^(CMAltitudeData *altitudeData, NSError *error) {
-//                                                    DDLogVerbose(@"altitudeData %@", altitudeData);
-//                                                    self.altitude = altitudeData;
-//                                                }];
-//    }
 }
 
 - (void)wakeup {
@@ -121,8 +110,13 @@ static LocationManager *theInstance = nil;
     [self authorize];
     if (self.monitoring == LocationMonitoringMove) {
         [self.activityTimer invalidate];
-        self.activityTimer = [NSTimer timerWithTimeInterval:self.minTime target:self selector:@selector(activityTimer:) userInfo:Nil repeats:YES];
-        [[NSRunLoop currentRunLoop] addTimer:self.activityTimer forMode:NSRunLoopCommonModes];
+        self.activityTimer = [NSTimer timerWithTimeInterval:self.minTime
+                                                     target:self
+                                                   selector:@selector(activityTimer:)
+                                                   userInfo:Nil
+                                                    repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:self.activityTimer
+                                     forMode:NSRunLoopCommonModes];
     }
     for (CLRegion *region in self.manager.monitoredRegions) {
         DDLogVerbose(@"requestStateForRegion %@", region.identifier);
@@ -149,10 +143,6 @@ static LocationManager *theInstance = nil;
 
 - (void)stop {
     DDLogVerbose(@"stop");
-//    if ([CMAltimeter isRelativeAltitudeAvailable]) {
-//        DDLogVerbose(@"stopRelativeAltitudeUpdates");
-//        [self.altimeter stopRelativeAltitudeUpdates];
-//    }
 }
 
 - (void)startRegion:(CLRegion *)region {
@@ -215,22 +205,35 @@ static LocationManager *theInstance = nil;
 
 - (void)setMonitoring:(LocationMonitoring)monitoring {
     DDLogVerbose(@"monitoring=%ld", (long)monitoring);
+    if (monitoring != LocationMonitoringMove &&
+        monitoring != LocationMonitoringManual &&
+        monitoring != LocationMonitoringQuiet &&
+        monitoring != LocationMonitoringSignificant) {
+        monitoring = LocationMonitoringQuiet;
+        DDLogWarn(@"[LocationManager] monitoring set to %ld", (long)monitoring);
+    }
     _monitoring = monitoring;
     self.manager.pausesLocationUpdatesAutomatically = NO;
     if ([[[UIDevice currentDevice] systemVersion] compare:@"9.0" options:NSNumericSearch] != NSOrderedAscending) {
         self.manager.allowsBackgroundLocationUpdates = TRUE;
     }
+
+    [self.manager startMonitoringVisits];
     
     switch (monitoring) {
         case LocationMonitoringMove:
-            self.manager.distanceFilter = self.minDist;
+            self.manager.distanceFilter = self.minDist > 0 ? self.minDist : kCLDistanceFilterNone;
             self.manager.desiredAccuracy = kCLLocationAccuracyBest;
             [self.manager stopMonitoringSignificantLocationChanges];
             [self.activityTimer invalidate];
             
             [self.manager startUpdatingLocation];
-            self.activityTimer = [NSTimer timerWithTimeInterval:self.minTime target:self selector:@selector(activityTimer:) userInfo:Nil repeats:YES];
-            [[NSRunLoop currentRunLoop] addTimer:self.activityTimer forMode:NSRunLoopCommonModes];
+            self.activityTimer = [NSTimer timerWithTimeInterval:self.minTime
+                                                         target:self selector:@selector(activityTimer:)
+                                                       userInfo:Nil
+                                                        repeats:YES];
+            [[NSRunLoop currentRunLoop] addTimer:self.activityTimer
+                                         forMode:NSRunLoopCommonModes];
             break;
         case LocationMonitoringSignificant:
             [self.activityTimer invalidate];
@@ -452,26 +455,6 @@ static LocationManager *theInstance = nil;
 {
     DDLogVerbose(@"didEnterRegion %@", region);
     
-    //    This fix for FALSE POSITIVES does not work right and suppresses too many enter leave events
-    //    if ([region isKindOfClass:[CLCircularRegion class]]) {
-    //        CLCircularRegion *circular = (CLCircularRegion *)region;
-    //        DDLogVerbose(@"region lat,lon,rad %f,%f,%f",
-    //                     circular.center.latitude,
-    //                     circular.center.longitude,
-    //                     circular.radius);
-    //        DDLogVerbose(@"loc lat,lon,acc %f,%f,%f @ %@",
-    //                     manager.location.coordinate.latitude,
-    //                     manager.location.coordinate.longitude,
-    //                     manager.location.horizontalAccuracy,
-    //                     manager.location.timestamp
-    //                     );
-    //        if ([self insideCircularRegion:circular.identifier] || ![circular containsCoordinate:manager.location.coordinate]) {
-    //            DDLogVerbose(@"didEnterRegion incorrect!");
-    //            return;
-    //        }
-    //    }
-    //
-    
     if (![self removeHoldDown:region]) {
         [self.delegate regionEvent:region enter:YES];
     }
@@ -480,26 +463,6 @@ static LocationManager *theInstance = nil;
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
     DDLogVerbose(@"didExitRegion %@", region);
-    
-    //    This fix for FALSE POSITIVES does not work right and suppresses too many enter leave events
-    //    if ([region isKindOfClass:[CLCircularRegion class]]) {
-    //        CLCircularRegion *circular = (CLCircularRegion *)region;
-    //        DDLogVerbose(@"region lat,lon,rad %f,%f,%f",
-    //                     circular.center.latitude,
-    //                     circular.center.longitude,
-    //                     circular.radius);
-    //        DDLogVerbose(@"loc lat,lon,acc %f,%f,%f @ %@",
-    //                     manager.location.coordinate.latitude,
-    //                     manager.location.coordinate.longitude,
-    //                     manager.location.horizontalAccuracy,
-    //                     manager.location.timestamp
-    //                     );
-    //        if (![self insideCircularRegion:circular.identifier] || [circular containsCoordinate:manager.location.coordinate]) {
-    //            DDLogVerbose(@"didExitRegion incorrect!");
-    //            return;
-    //        }
-    //    }
-    //
     
     if ([region.identifier hasPrefix:@"-"]) {
         [self removeHoldDown:region];
@@ -635,7 +598,31 @@ static LocationManager *theInstance = nil;
  *
  */
 - (void)locationManager:(CLLocationManager *)manager didVisit:(CLVisit *)visit {
-    //
+    DDLogVerbose(@"[LocationManager] didVisit %g,%g ±%gm a=%@ d=%@",
+                 visit.coordinate.latitude,
+                 visit.coordinate.longitude,
+                 visit.horizontalAccuracy,
+                 visit.arrivalDate,
+                 visit.departureDate);
+
+    CLLocation *location;
+    if (visit.departureDate && ![visit.departureDate isEqualToDate:[NSDate distantFuture]]) {
+        location = [[CLLocation alloc] initWithCoordinate:visit.coordinate
+                                                 altitude:-1.0
+                                       horizontalAccuracy:visit.horizontalAccuracy
+                                         verticalAccuracy:-1.0
+                                                timestamp:visit.departureDate];
+    } else if (visit.arrivalDate && ![visit.arrivalDate isEqualToDate:[NSDate distantPast]]) {
+        location = [[CLLocation alloc] initWithCoordinate:visit.coordinate
+                                                 altitude:-1.0
+                                       horizontalAccuracy:visit.horizontalAccuracy
+                                         verticalAccuracy:-1.0
+                                                timestamp:visit.arrivalDate];
+    }
+
+    if (location) {
+        [self.delegate visitLocation:location];
+    }
 }
 
 

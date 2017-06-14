@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)nameOrTopic;
 - (NSData *)image;
 
++ (NSString *)effectiveTid:(NSString *)tid device:(NSString *)device;
 - (NSString *)getEffectiveTid;
 - (Waypoint *)newestWaypoint;
 - (MKPolyline *)polyLine;

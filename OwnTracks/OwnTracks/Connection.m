@@ -15,6 +15,7 @@
 #import "CocoaLumberjack.h"
 #import "sodium.h"
 #import "MQTTWebsocketTransport.h"
+#import "LocationManager.h"
 
 #define BACKGROUND_DISCONNECT_AFTER 8.0
 
@@ -101,7 +102,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
                                                           DDLogVerbose(@"UIApplicationWillResignActiveNotification");
-                                                          [self disconnect];
+                                                          if ([LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
+                                                              [self disconnect];
+                                                          }
                                                       }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
@@ -321,7 +324,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 - (void)startBackgroundTimer {
     DDLogVerbose(@"%@ startBackgroundTimer", self.clientId);
     
-    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground &&
+        [LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
         if (self.disconnectTimer && self.disconnectTimer.isValid) {
             DDLogVerbose(@"%@ disconnectTimer.isValid %@",
                          self.clientId,

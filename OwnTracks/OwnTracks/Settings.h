@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "Setting.h"
+#import "MQTTMessage.h"
 
 #define SETTINGS_ACTION @"action"
 #define SETTINGS_ACTIONURL @"actionurl"
 #define SETTINGS_ACTIONEXTERN @"actionextern"
+#define SETTINGS_ADDRESSBOOK @"ab_preference"
+#define SETTINGS_PROTOCOL @"mqttProtocolLevel"
 
 typedef NS_ENUM(int, ConnectionMode) {
     CONNECTION_MODE_PRIVATE = 0,
@@ -58,6 +61,11 @@ typedef NS_ENUM(int, ConnectionMode) {
 + (BOOL)validKey:(NSString *)key inMode:(ConnectionMode)mode;
 
 + (BOOL)validIds;
+
++ (Settings *)sharedInstance;
+@property (nonatomic) BOOL updateAddressbook;
+@property (nonatomic) MQTTProtocolVersion protocol;
+
 
 @end
 
