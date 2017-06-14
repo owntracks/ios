@@ -727,9 +727,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
                 topic = [NSString stringWithFormat:@"owntracks/%@/%@", userId, deviceId];
             } else {
-                topic = [topic stringByReplacingOccurrencesOfString:@"%%u"
+                topic = [topic stringByReplacingOccurrencesOfString:@"%u"
                                                          withString:[Settings theUserId]];
-                topic = [topic stringByReplacingOccurrencesOfString:@"%%d"
+                topic = [topic stringByReplacingOccurrencesOfString:@"%d"
                                                          withString:[Settings theDeviceId]];
             }
             break;
