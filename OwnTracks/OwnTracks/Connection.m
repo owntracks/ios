@@ -357,7 +357,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                  [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding],
                  (long)qos,
                  retainFlag);
-    
+
+    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+    if (json && [json isKindOfClass:[NSDictionary class]] && self.url) {
+        NSMutableDictionary *mutableJson = [json mutableCopy];
+        [mutableJson setObject:topic forKey:@"topic"];
+        data = [NSJSONSerialization dataWithJSONObject:mutableJson options:0 error:nil];
+    }
     NSData *outgoingData = (self.key && self.key.length) ? [self encrypt:data] : data;
     
     if (self.url) {
