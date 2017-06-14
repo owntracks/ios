@@ -218,12 +218,11 @@ static LocationManager *theInstance = nil;
         self.manager.allowsBackgroundLocationUpdates = TRUE;
     }
 
-    [self.manager startMonitoringVisits];
-    
     switch (monitoring) {
         case LocationMonitoringMove:
             self.manager.distanceFilter = self.minDist > 0 ? self.minDist : kCLDistanceFilterNone;
             self.manager.desiredAccuracy = kCLLocationAccuracyBest;
+            [self.manager stopMonitoringVisits];
             [self.manager stopMonitoringSignificantLocationChanges];
             [self.activityTimer invalidate];
             
@@ -235,16 +234,20 @@ static LocationManager *theInstance = nil;
             [[NSRunLoop currentRunLoop] addTimer:self.activityTimer
                                          forMode:NSRunLoopCommonModes];
             break;
+
         case LocationMonitoringSignificant:
             [self.activityTimer invalidate];
             [self.manager stopUpdatingLocation];
             [self.manager startMonitoringSignificantLocationChanges];
+            [self.manager startMonitoringVisits];
             break;
+
         case LocationMonitoringManual:
         case LocationMonitoringQuiet:
         default:
             [self.activityTimer invalidate];
             [self.manager stopUpdatingLocation];
+            [self.manager stopMonitoringVisits];
             [self.manager stopMonitoringSignificantLocationChanges];
             break;
     }
