@@ -400,8 +400,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
     // auth
-    if (self.user) {
-        NSString *authString = [NSString stringWithFormat:@"%@:%@", self.user, self.pass];
+    if (self.auth) {
+        NSString *authString = [NSString stringWithFormat:@"%@:%@",
+                                self.user ? self.user : @"",
+                                self.pass ? self.pass : @""];
         NSData *authData = [authString dataUsingEncoding:NSASCIIStringEncoding];
         NSString *authValue = [authData base64EncodedStringWithOptions:0];
         [request setValue:[NSString stringWithFormat:@"Basic %@", authValue] forHTTPHeaderField:@"Authorization"];
