@@ -743,8 +743,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     
     if (!topic || [topic isEqualToString:@""]) {
         topic = [self theGeneralTopic];
+    } else {
+        topic = [topic stringByReplacingOccurrencesOfString:@"%u"
+                                                 withString:[Settings theUserId]];
+        topic = [topic stringByReplacingOccurrencesOfString:@"%d"
+                                                 withString:[Settings theDeviceId]];
     }
-    
+
     return topic;
 }
 
@@ -902,6 +907,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                  anyDevice,
                                  [self theGeneralTopic]];
             }
+            subscriptions = [subscriptions stringByReplacingOccurrencesOfString:@"%u"
+                                                                     withString:[Settings theUserId]];
+            subscriptions = [subscriptions stringByReplacingOccurrencesOfString:@"%d"
+                                                                     withString:[Settings theDeviceId]];
+            
             break;
     }
 
