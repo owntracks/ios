@@ -17,6 +17,8 @@
 #import <NotificationCenter/NotificationCenter.h>
 #import "ConnType.h"
 #import "GeoHashing.h"
+#import "MQTTCFSocketTransport.h"
+#import "MQTTSSLSecurityPolicy.h"
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static const DDLogLevel ddLogLevel = DDLogLevelInfo;

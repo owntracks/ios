@@ -16,6 +16,8 @@
 #import "sodium.h"
 #import "MQTTWebsocketTransport.h"
 #import "LocationManager.h"
+#import "MQTTSSLSecurityPolicy.h"
+#import "MQTTSSLSecurityPolicyTransport.h"
 
 #define BACKGROUND_DISCONNECT_AFTER 8.0
 

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <MQTTClient/MQTTClient.h>
+#import "MQTTSession.h"
 
 @class Connection;
 
