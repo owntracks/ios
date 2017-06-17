@@ -1,11 +1,30 @@
 OwnTracks iOS App Release Notes
 ===================================
+## OwnTracks 9.5.7
+*Release date 2017-06-17*
 
-## Owntracks 9.5.3 
+**native traccar interface [booklet](http://owntracks.org/booklet/features/traccar/)**<br> 
+**bug fixes**
+
+* [FIX] Friends show "Resolving..." #440#
+* [FIX] Beta - app crash when deleting friends #460
+* [FIX] extend %d and %u substitution logic to willTopic and subscriptions
+* [FIX] use monitoring Visits in Significant mode only
+* [FIX] use HTTP basic auth if AUTH is true
+* [FIX] correct user in HTTP "topic"
+* [NEW] topic in HTTP json payload
+* [FIX] Entering/Leaving triggers location update even in Quiet mode #459
+* [FIX]  substitutions is pubTopicBase #458
+* [NEW] extended expert mode settings
+* [FIX] immediate effect of remote config changes #457 #456
+* [FIX] Hide experimental "Green Boxes" feature #454
+
+## OwnTracks 9.5.3 
 *Release date 2017-05-31*
-**mosquitto 1.4.12 compatible clientIDs**
-**Copy attribute**
-**pubTopicBase parameter expansion**
+
+**mosquitto 1.4.12 compatible clientIDs**<br>
+**Copy attribute**<br>
+**pubTopicBase parameter expansion**<br>
 **HTTP Basic Authentication**
 
 * [FIX] Restrict clientId to minimum MQTT 3.1.1 requirements
@@ -18,26 +37,26 @@ OwnTracks iOS App Release Notes
 
 
 
-## Owntracks 9.3.0
+## OwnTracks 9.3.0
 *Release date 2016-10-18*
 
 * [NEW] Add Websockets Transport closes #428
 * [NEW] connection type as extended attribute closes #427
 
-## Owntracks 9.2.8
+## OwnTracks 9.2.8
 *Release date 2016-10-15*
 
 * [NEW] Enable Remote Commands closes #411
 * [NEW] add Wifi status
 * [FIX] Location stops updating in iOS 9.3 in background closes #399
 
-## Owntracks 9.2.7
+## OwnTracks 9.2.7
 *Release date 2016-10-04*
 
 * [FIX] Background location updates not enabled in iOS 10
 * [NEW] add "_wifi":true if connected to Wifi when location is published
 
-## Owntracks 9.2.6
+## OwnTracks 9.2.6
 *Release date 2016-09-29*
 
 * [FIX] Latest code crash in TLS settings. closes #423
@@ -46,7 +65,7 @@ OwnTracks iOS App Release Notes
 * [FIX] Location permissions disabled under iOS10 closes #417
 * [FIX] iOS 10 issues? closes #416
 
-## Owntracks 9.2.5
+## OwnTracks 9.2.5
 *Release date 2016-09-27*
 
 * [FIX] incorrect accuracy = 0 send in location messages triggered by backgroundFetch closes #419
@@ -54,7 +73,7 @@ OwnTracks iOS App Release Notes
 * [FIX] Today widget size too small to show 3 lines in iOS10 closes #418
 * [FIX] Location permissions disabled under iOS10 closes #417
 
-## Owntracks 9.1.7/9.2.4
+## OwnTracks 9.1.7/9.2.4
 *Release date 2016-09-24*
 
 * [NEW] Modes for WatsonIoT
@@ -69,7 +88,7 @@ OwnTracks iOS App Release Notes
 * [FIX] Today widget size too small to show 3 lines in iOS10 #418
 * [FIX] Location permissions disabled under iOS10 #417
 
-## Owntracks 9.1.6
+## OwnTracks 9.1.6
 *Release date 2016-04-23*
 
 * [FIX] CoreData settings data not available after restart closes #403
