@@ -360,19 +360,24 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                  (long)qos,
                  retainFlag);
 
-    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    if (json && [json isKindOfClass:[NSDictionary class]] && self.url) {
-        NSMutableDictionary *mutableJson = [json mutableCopy];
-        [mutableJson setObject:topic forKey:@"topic"];
-        data = [NSJSONSerialization dataWithJSONObject:mutableJson options:0 error:nil];
-    }
-    NSData *outgoingData = (self.key && self.key.length) ? [self encrypt:data] : data;
-    
     if (self.url) {
         [self.queueContext performBlock:^{
             Queue *queue = [NSEntityDescription insertNewObjectForEntityForName:@"Queue"
                                                          inManagedObjectContext:self.queueContext];
-            
+
+            NSData *outgoingData = data;
+            if (outgoingData) {
+                NSDictionary *json = [NSJSONSerialization JSONObjectWithData:outgoingData options:0 error:nil];
+                if (json && [json isKindOfClass:[NSDictionary class]] && self.url) {
+                    NSMutableDictionary *mutableJson = [json mutableCopy];
+                    [mutableJson setObject:topic forKey:@"topic"];
+                    outgoingData = [NSJSONSerialization dataWithJSONObject:mutableJson options:0 error:nil];
+                }
+            }
+            if (self.key && self.key.length) {
+                outgoingData = [self encrypt:outgoingData];
+            }
+
             queue.timestamp = [NSDate date];
             queue.topic = topic;
             queue.data = outgoingData;
@@ -385,7 +390,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         if (self.state != state_connected) {
             [self connectToLast];
         }
-        
+
+        NSData *outgoingData = (self.key && self.key.length) ? [self encrypt:data] : data;
+
         UInt16 msgId = [self.session publishData:outgoingData
                                          onTopic:topic
                                           retain:retainFlag
