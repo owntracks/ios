@@ -27,7 +27,12 @@
                      self.placemark = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
                      self.belongsTo.topic = self.belongsTo.topic;
                  } else {
-                     self.placemark = nil;
+                     self.placemark = [NSString stringWithFormat:@"%@\n%@ %ld\n%@",
+                                       NSLocalizedString(@"Address resolver failed", @"reverseGeocodeLocation error"),
+                                       error.domain,
+                                       (long)error.code,
+                                       NSLocalizedString(@"due to rate limit or off-line", @"reverseGeocodeLocation text")
+                                       ];
                  }
              }
          }];
