@@ -85,6 +85,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 @interface OwnTracksAppDelegate()
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
 @property (strong, nonatomic) void (^completionHandler)(UIBackgroundFetchResult);
+@property (strong, nonatomic) NSString *backgroundFetchCheckMessage;
 @property (strong, nonatomic) CoreData *coreData;
 @property (strong, nonatomic) CMPedometer *pedometer;
 
@@ -105,14 +106,30 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.backgroundTask = UIBackgroundTaskInvalid;
     self.completionHandler = nil;
 
-    [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+    UIBackgroundRefreshStatus status = [[UIApplication sharedApplication] backgroundRefreshStatus];
+    switch (status) {
+        case UIBackgroundRefreshStatusAvailable:
+            DDLogVerbose(@"[OwnTracksAppDelegate] UIBackgroundRefreshStatusAvailable");
+            [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+            break;
+        case UIBackgroundRefreshStatusDenied:
+            DDLogWarn(@"[OwnTracksAppDelegate] UIBackgroundRefreshStatusDenied");
+            self.backgroundFetchCheckMessage = NSLocalizedString(@"You did disable background fetch",
+                                                                 @"You did disable background fetch");
+            break;
+        case UIBackgroundRefreshStatusRestricted:
+            DDLogWarn(@"[OwnTracksAppDelegate] UIBackgroundRefreshStatusRestricted");
+            self.backgroundFetchCheckMessage = NSLocalizedString(@"You cannot use background fetch",
+                                                                 @"You cannot use background fetch");
+            break;
+    }
 
     UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:
                                             UIUserNotificationTypeAlert |UIUserNotificationTypeBadge
                                                                              categories:nil];
     [application registerUserNotificationSettings:settings];
 
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationUserDidTakeScreenshotNotification
                                                       object:nil
                                                        queue:nil
                                                   usingBlock:^(NSNotification *note){
@@ -172,7 +189,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     //
 }
 
--(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options {
+-(BOOL)application:(UIApplication *)app
+           openURL:(NSURL *)url
+           options:(NSDictionary<NSString *,id> *)options {
     return [self application:app openURL:url sourceApplication:nil annotation:options];
 }
 
@@ -336,6 +355,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     DDLogVerbose(@"applicationDidBecomeActive");
+
+    if (self.backgroundFetchCheckMessage) {
+        [AlertView alert:@"Background Fetch" message:self.backgroundFetchCheckMessage];
+        self.backgroundFetchCheckMessage = nil;
+    }
 
     if (self.processingMessage) {
         [AlertView alert:@"openURL" message:self.processingMessage];
