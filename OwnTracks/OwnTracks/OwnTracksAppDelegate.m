@@ -90,6 +90,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 @property (strong, nonatomic) CMPedometer *pedometer;
 
 @property (strong, nonatomic) NSManagedObjectContext *queueManagedObjectContext;
+
+#define BACKGROUND_DISCONNECT_AFTER 15.0
+@property (strong, nonatomic) NSTimer *disconnectTimer;
+
 @end
 
 @implementation OwnTracksAppDelegate
@@ -339,22 +343,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     DDLogVerbose(@"applicationDidEnterBackground");
-    self.backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        DDLogVerbose(@"BackgroundTaskExpirationHandler");
-        /*
-         * we might end up here if the connection could not be closed within the given
-         * background time
-         */
-        if (self.backgroundTask) {
-            [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
-            self.backgroundTask = UIBackgroundTaskInvalid;
-        }
-    }];
+    [self background];
 }
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     DDLogVerbose(@"applicationDidBecomeActive");
+
+    if (self.disconnectTimer && self.disconnectTimer.isValid) {
+        DDLogVerbose(@"disconnectTimer invalidate %@",
+                     self.disconnectTimer.fireDate);
+        [self.disconnectTimer invalidate];
+    }
 
     if (self.backgroundFetchCheckMessage) {
         [AlertView alert:@"Background Fetch" message:self.backgroundFetchCheckMessage];
@@ -382,9 +382,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     }
 }
 
-- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+- (void)application:(UIApplication *)application
+performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+
     DDLogVerbose(@"performFetchWithCompletionHandler");
     self.completionHandler = completionHandler;
+    [self background];
+
     [[LocationManager sharedInstance] wakeup];
     [self.connection connectToLast];
 
@@ -406,6 +410,56 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     DDLogVerbose(@"didRegisterUserNotificationSettings %@", notificationSettings);
 }
 
+- (void)background {
+    [self startBackgroundTimer];
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground &&
+        self.backgroundTask == UIBackgroundTaskInvalid) {
+        self.backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+            DDLogVerbose(@"BackgroundTaskExpirationHandler");
+
+            if (self.completionHandler) {
+                DDLogVerbose(@"completionHandler");
+                self.completionHandler(UIBackgroundFetchResultNewData);
+                self.completionHandler = nil;
+            }
+
+            if (self.backgroundTask) {
+                [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
+                self.backgroundTask = UIBackgroundTaskInvalid;
+            }
+
+        }];
+    }
+}
+
+- (void)startBackgroundTimer {
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground &&
+        [LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
+        if (self.disconnectTimer && self.disconnectTimer.isValid) {
+            DDLogVerbose(@"disconnectTimer.isValid %@",
+                         self.disconnectTimer.fireDate);
+        } else {
+            self.disconnectTimer = [NSTimer timerWithTimeInterval:BACKGROUND_DISCONNECT_AFTER
+                                                           target:self
+                                                         selector:@selector(disconnectInBackground)
+                                                         userInfo:Nil
+                                                          repeats:FALSE];
+            NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
+            [runLoop addTimer:self.disconnectTimer forMode:NSDefaultRunLoopMode];
+            DDLogVerbose(@"disconnectTimer %@",
+                         self.disconnectTimer.fireDate);
+        }
+    }
+}
+
+- (void)disconnectInBackground {
+    DDLogVerbose(@"disconnectInBackground");
+    self.disconnectTimer = nil;
+    [self.connection disconnect];
+}
+
+
+
 /*
  *
  * LocationManagerDelegate
@@ -413,21 +467,25 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
  */
 
 - (void)newLocation:(CLLocation *)location {
+    [self background];
     [self publishLocation:location trigger:nil];
     [[GeoHashing sharedInstance] newLocation:location];
 }
 
 - (void)timerLocation:(CLLocation *)location {
+    [self background];
     [self publishLocation:location trigger:@"t"];
     [[GeoHashing sharedInstance] newLocation:location];
 }
 
 - (void)visitLocation:(CLLocation *)location {
+    [self background];
     [self publishLocation:location trigger:@"v"];
     [[GeoHashing sharedInstance] newLocation:location];
 }
 
 - (void)regionEvent:(CLRegion *)region enter:(BOOL)enter {
+    [self background];
     CLLocation *location = [LocationManager sharedInstance].location;
     NSString *message = [NSString stringWithFormat:@"%@ %@",
                          (enter ?
@@ -513,7 +571,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     }
 }
 
-- (void)beaconInRange:(CLBeacon *)beacon region:(CLBeaconRegion *)region{
+- (void)beaconInRange:(CLBeacon *)beacon region:(CLBeaconRegion *)region {
+    [self background];
     if ([Settings validIds]) {
         Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
                                 inManagedObjectContext:[CoreData theManagedObjectContext]];
@@ -559,17 +618,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
      **
      ** If the background task is ended, occasionally the disconnect message is not received well before the server senses the tcp disconnect
      **/
+    DDLogInfo(@"showState %g", [UIApplication sharedApplication].backgroundTimeRemaining);
 
     if ([self.connectionState intValue] == state_closed) {
-        if (self.backgroundTask) {
-            DDLogVerbose(@"endBackGroundTask");
-            [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
-            self.backgroundTask = UIBackgroundTaskInvalid;
-        }
         if (self.completionHandler) {
             DDLogVerbose(@"completionHandler");
             self.completionHandler(UIBackgroundFetchResultNewData);
             self.completionHandler = nil;
+        }
+        if (self.backgroundTask) {
+            DDLogVerbose(@"endBackGroundTask");
+            [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
+            self.backgroundTask = UIBackgroundTaskInvalid;
         }
     }
 }

@@ -138,7 +138,9 @@ static LocationManager *theInstance = nil;
     for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
         [self.manager stopRangingBeaconsInRegion:beaconRegion];
     }
-    [self.activityTimer invalidate];
+    if (self.monitoring != LocationMonitoringMove) {
+        [self.activityTimer invalidate];
+    }
 }
 
 - (void)stop {

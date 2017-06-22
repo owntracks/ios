@@ -19,13 +19,10 @@
 #import "MQTTSSLSecurityPolicy.h"
 #import "MQTTSSLSecurityPolicyTransport.h"
 
-#define BACKGROUND_DISCONNECT_AFTER 8.0
-
 @interface Connection()
 
 @property (nonatomic) NSInteger state;
 
-@property (strong, nonatomic) NSTimer *disconnectTimer;
 @property (strong, nonatomic) NSTimer *reconnectTimer;
 @property (strong, nonatomic) NSTimer *idleTimer;
 @property (nonatomic) double reconnectTime;
@@ -89,12 +86,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
                                                           DDLogVerbose(@"UIApplicationDidBecomeActiveNotification");
-                                                          if (self.disconnectTimer && self.disconnectTimer.isValid) {
-                                                              DDLogVerbose(@"%@ disconnectTimer invalidate %@",
-                                                                           self.clientId,
-                                                                           self.disconnectTimer.fireDate);
-                                                              [self.disconnectTimer invalidate];
-                                                          }
                                                           [self connectToLast];
                                                       }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification
@@ -321,35 +312,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     self.reconnectFlag = FALSE;
     self.state = state_starting;
     [self connectToInternal];
-}
-
-- (void)startBackgroundTimer {
-    DDLogVerbose(@"%@ startBackgroundTimer", self.clientId);
-    
-    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground &&
-        [LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
-        if (self.disconnectTimer && self.disconnectTimer.isValid) {
-            DDLogVerbose(@"%@ disconnectTimer.isValid %@",
-                         self.clientId,
-                         self.disconnectTimer.fireDate);
-        } else {
-            self.disconnectTimer = [NSTimer timerWithTimeInterval:BACKGROUND_DISCONNECT_AFTER
-                                                           target:self
-                                                         selector:@selector(disconnectInBackground)
-                                                         userInfo:Nil repeats:FALSE];
-            NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
-            [runLoop addTimer:self.disconnectTimer forMode:NSDefaultRunLoopMode];
-            DDLogVerbose(@"%@ disconnectTimer %@",
-                         self.clientId,
-                         self.disconnectTimer.fireDate);
-        }
-    }
-}
-
-- (void)disconnectInBackground {
-    DDLogVerbose(@"%@ disconnectInBackground", self.clientId);
-    self.disconnectTimer = nil;
-    [self disconnect];
 }
 
 - (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(NSInteger)qos retain:(BOOL)retainFlag {
@@ -701,7 +663,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             DDLogVerbose(@"%@ not starting, can't connect", self.clientId);
         }
     }
-    [self startBackgroundTimer];
 }
 
 - (NSString *)parameters {
