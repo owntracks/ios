@@ -1,5 +1,14 @@
 OwnTracks iOS App Release Notes
 ===================================
+
+## OwnTracks 9.5.8
+* Release date 2017-06-23
+
+**iPhone6s/7s compatibility issues solved**
+
+[FIX] Missing t:p on iPhone 6 and higher? #462
+[NEW] Background Fetch check code #462
+
 ## OwnTracks 9.5.7
 *Release date 2017-06-17*
 
