@@ -123,6 +123,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.tableView setNeedsDisplay];
 }
 
+- (IBAction)talkPressed:(UIButton *)sender {
+    [[UIApplication sharedApplication] openURL:
+     [NSURL URLWithString:@"https://github.com/owntracks/talk"]];
+}
+
 - (IBAction)documentationPressed:(UIButton *)sender {
     [[UIApplication sharedApplication] openURL:
      [NSURL URLWithString:@"http://owntracks.org/booklet"]];

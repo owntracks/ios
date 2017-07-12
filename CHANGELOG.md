@@ -1,11 +1,12 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 9.6.0
+## OwnTracks 9.6.1
 * Release date 2017-07-12
 
-**minor fixes**
+**minor bug fixes**
 
+    [NEW] Add link to "Talk" page #468
     [FIX] respect auth setting for HTTP mode
     [FIX] remove reporting visits
 
