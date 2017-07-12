@@ -1,6 +1,14 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 9.6.0
+* Release date 2017-07-12
+
+**minor fixes**
+
+    [FIX] respect auth setting for HTTP mode
+    [FIX] remove reporting visits
+
 ## OwnTracks 9.5.8
 * Release date 2017-06-23
 
