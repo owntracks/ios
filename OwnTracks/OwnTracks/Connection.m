@@ -306,6 +306,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)connectHTTP:(NSString *)url auth:(BOOL)auth user:(NSString *)user pass:(NSString *)pass {
     self.url = url;
+    self.auth = auth;
     self.user = auth ? user : nil;
     self.pass = auth ? pass : nil;
     self.reconnectTime = RECONNECT_TIMER;
