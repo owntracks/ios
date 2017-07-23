@@ -1,2 +1,3 @@
 language: objective-c
 xcode_workspace: OwnTracks.xcworkspace
+os: osx
