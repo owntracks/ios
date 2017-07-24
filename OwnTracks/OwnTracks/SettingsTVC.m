@@ -168,26 +168,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIUserID) [Settings setString:self.UIUserID.text forKey:@"user_preference"];
     if (self.UIPassword) [Settings setString:self.UIPassword.text forKey:@"pass_preference"];
     if (self.UIsecret) [Settings setString:self.UIsecret.text forKey:@"secret_preference"];
-    if (self.UImode) {
-        switch ([self.UImode arrayId]) {
-            case 5:
-                [Settings setInt:CONNECTION_MODE_WATSONREGISTERED forKey:@"mode"];
-                break;
-            case 4:
-                [Settings setInt:CONNECTION_MODE_WATSON forKey:@"mode"];
-                break;
-            case 3:
-                [Settings setInt:CONNECTION_MODE_HTTP forKey:@"mode"];
-                break;
-            case 2:
-                [Settings setInt:CONNECTION_MODE_PUBLIC forKey:@"mode"];
-                break;
-            case 0:
-            default:
-                [Settings setInt:CONNECTION_MODE_PRIVATE forKey:@"mode"];
-                break;
-        }
-    }
     if (self.UIPort) [Settings setString:self.UIPort.text forKey:@"port_preference"];
     if (self.UIproto) [Settings sharedInstance].protocol = [self.UIproto.text intValue];
     if (self.UIignoreStaleLocations) [Settings setString:self.UIignoreStaleLocations.text forKey:@"ignorestalelocations_preference"];
@@ -226,6 +206,28 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIwatsonDeviceType) [Settings setString:self.UIwatsonDeviceType.text forKey:@"watsondevicetype_preference"];
     if (self.UIwatsonDeviceId) [Settings setString:self.UIwatsonDeviceId.text forKey:@"watsondeviceid_preference"];
     if (self.UIwatsonAuthToken) [Settings setString:self.UIwatsonAuthToken.text forKey:@"watsonauthtoken_preference"];
+
+    // important to save UImode last. Otherwise parameters not valid in the old mode may get persisted
+    if (self.UImode) {
+        switch ([self.UImode arrayId]) {
+            case 5:
+                [Settings setInt:CONNECTION_MODE_WATSONREGISTERED forKey:@"mode"];
+                break;
+            case 4:
+                [Settings setInt:CONNECTION_MODE_WATSON forKey:@"mode"];
+                break;
+            case 3:
+                [Settings setInt:CONNECTION_MODE_HTTP forKey:@"mode"];
+                break;
+            case 2:
+                [Settings setInt:CONNECTION_MODE_PUBLIC forKey:@"mode"];
+                break;
+            case 0:
+            default:
+                [Settings setInt:CONNECTION_MODE_PRIVATE forKey:@"mode"];
+                break;
+        }
+    }
 
     [CoreData saveContext];
     int mode = [Settings intForKey:@"mode"];
@@ -854,6 +856,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
                                                    [delegate terminateSession];
                                                    [self updateValues];
+                                                   
                                                    [self updated];
                                                    [delegate reconnect];
                                                    [self.UImode resignFirstResponder];
