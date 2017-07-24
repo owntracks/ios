@@ -321,7 +321,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     if (self.UIeffectiveTid) {
         self.UIeffectiveTid.text = [Friend effectiveTid:[Settings stringForKey:@"trackerid_preference"]
-                                                  device:[Settings theDeviceId]];
+                                                 device:[Settings theDeviceId]];
     }
 
     if (self.UIHost) {
@@ -555,11 +555,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                 [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             }
         }
-        
+
         NSArray <NSIndexPath *> *authPaths = @[[NSIndexPath indexPathForRow:8 inSection:0],
-                                                 [NSIndexPath indexPathForRow:9 inSection:0],
-                                                 [NSIndexPath indexPathForRow:10 inSection:0]
-                                                 ];
+                                               [NSIndexPath indexPathForRow:9 inSection:0],
+                                               [NSIndexPath indexPathForRow:10 inSection:0]
+                                               ];
         for (NSIndexPath *indexPath in authPaths) {
             if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_PRIVATE && mode != CONNECTION_MODE_HTTP)) {
                 [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -856,7 +856,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
                                                    [delegate terminateSession];
                                                    [self updateValues];
-                                                   
+
                                                    [self updated];
                                                    [delegate reconnect];
                                                    [self.UImode resignFirstResponder];
@@ -911,8 +911,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 {
     [self dismissViewControllerAnimated:YES completion:^{
         DDLogVerbose(@"result %@", result);
+
+        NSURL *url = [NSURL URLWithString:result];
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        if ([delegate application:[UIApplication sharedApplication] openURL:[NSURL URLWithString:result] options:@{}]) {
+        if ([delegate application:[UIApplication sharedApplication] openURL:url options:@{}]) {
             [AlertView alert:QRSCANNER
                      message:NSLocalizedString(@"QR code successfully processed!",
                                                @"content of an alert message regarging QR code scanning")

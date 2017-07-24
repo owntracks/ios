@@ -260,6 +260,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             }
         } else if ([url.scheme isEqualToString:@"file"]) {
             return [self processFile:url];
+        } else if ([url.scheme isEqualToString:@"http"] ||
+                   [url.scheme isEqualToString:@"https"]) {
+            return [self processNSURL:url];
         } else {
             self.processingMessage = [NSString stringWithFormat:@"%@ %@",
                                       NSLocalizedString(@"unknown scheme in url",
@@ -271,6 +274,104 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.processingMessage = NSLocalizedString(@"no url specified",
                                                @"Display after trying to process a file");
     return FALSE;
+}
+
+- (BOOL)processNSURL:(NSURL *)url {
+    self.processingMessage = nil;
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURLSessionDataTask *dataTask =
+    [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
+     ^(NSData *data, NSURLResponse *response, NSError *error) {
+
+         DDLogVerbose(@"dataTaskWithRequest %@ %@ %@", data, response, error);
+         if (!error) {
+
+             if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
+                 NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                 DDLogVerbose(@"NSHTTPURLResponse %@", httpResponse);
+                 if (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299) {
+                     NSError *error;
+                     NSString *extension = [url pathExtension];
+                     if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
+                         [self terminateSession];
+                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
+                                                                              options:0
+                                                                                error:nil];
+                         [self performSelectorOnMainThread:@selector(configFromDictionary:)
+                                                withObject:json
+                                             waitUntilDone:TRUE];
+                         self.configLoad = [NSDate date];
+                     } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
+                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
+                                                                              options:0
+                                                                                error:nil];
+
+
+                         [self performSelectorOnMainThread:@selector(waypointsFromDictionary:)
+                                                withObject:json
+                                             waitUntilDone:TRUE];
+                     } else if ([extension isEqualToString:@"otrp"] || [extension isEqualToString:@"otre"]) {
+                         NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
+                                                                                      inDomain:NSUserDomainMask
+                                                                             appropriateForURL:nil
+                                                                                        create:YES
+                                                                                         error:&error];
+                         NSString *fileName = [url lastPathComponent];
+                         NSURL *fileURL = [directoryURL URLByAppendingPathComponent:fileName];
+                         [[NSFileManager defaultManager] createFileAtPath:fileURL.path
+                                                                 contents:data
+                                                               attributes:nil];
+                     } else {
+                         [AlertView alert:@"processNSURL"
+                                  message:[NSString stringWithFormat:@"OOPS %@ %@",
+                                           [NSError errorWithDomain:@"OwnTracks"
+                                                               code:2
+                                                           userInfo:@{@"extension":extension ? extension : @"(null)"}],
+                                           url]];
+                     }
+                 } else {
+                     [AlertView alert:@"processNSURL"
+                              message:[NSString stringWithFormat:@"httpResponse.statusCode %ld %@",
+                                       (long)httpResponse.statusCode,
+                                       url]];
+                 }
+             } else {
+                 [AlertView alert:@"processNSURL"
+                          message:[NSString stringWithFormat:@"response %@ %@",
+                                   response,
+                                   url]];
+             }
+         } else {
+             [AlertView alert:@"processNSURL"
+                      message:[NSString stringWithFormat:@"dataTaskWithRequest %@ %@",
+                               error,
+                               url]];
+         }
+     }];
+    [dataTask resume];
+    return TRUE;
+}
+
+- (void)configFromDictionary:(NSDictionary *)json {
+    NSError *error = [Settings fromDictionary:json];
+    [CoreData saveContext];
+    if (error) {
+        [AlertView alert:@"processNSURL"
+                 message:[NSString stringWithFormat:@"configFromDictionary %@ %@",
+                          error,
+                          json]];
+    }
+}
+
+- (void)waypointsFromDictionary:(NSDictionary *)json {
+    NSError *error = [Settings waypointsFromDictionary:json];
+    [CoreData saveContext];
+    if (error) {
+        [AlertView alert:@"processNSURL"
+                 message:[NSString stringWithFormat:@"waypointsFromDictionary %@ %@",
+                          error,
+                          json]];
+    }
 }
 
 - (BOOL)processFile:(NSURL *)url {
@@ -1084,7 +1185,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 
 - (NSData *)jsonToData:(NSDictionary *)jsonObject {
     NSData *data;
-    
+
     if ([NSJSONSerialization isValidJSONObject:jsonObject]) {
         NSError *error;
         data = [NSJSONSerialization dataWithJSONObject:jsonObject options:0 /* not pretty printed */ error:&error];
