@@ -1,6 +1,14 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 9.6.2
+* Release date 2017-07-26
+
+**Setup Bug Fixes**
+
+    [NEW] iOS QR Configuration #443
+    [FIX] incorrect defaults used for Private mode - Waypoints/shared location with ibeacon #472
+
 ## OwnTracks 9.6.1
 * Release date 2017-07-12
 
