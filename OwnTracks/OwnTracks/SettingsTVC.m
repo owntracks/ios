@@ -169,7 +169,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIPassword) [Settings setString:self.UIPassword.text forKey:@"pass_preference"];
     if (self.UIsecret) [Settings setString:self.UIsecret.text forKey:@"secret_preference"];
     if (self.UIPort) [Settings setString:self.UIPort.text forKey:@"port_preference"];
-    if (self.UIproto) [Settings sharedInstance].protocol = [self.UIproto.text intValue];
     if (self.UIignoreStaleLocations) [Settings setString:self.UIignoreStaleLocations.text forKey:@"ignorestalelocations_preference"];
     if (self.UIlocatorDisplacement) [Settings setString:self.UIlocatorDisplacement.text forKey:@"mindist_preference"];
     if (self.UIlocatorInterval) [Settings setString:self.UIlocatorInterval.text forKey:@"mintime_preference"];
@@ -771,26 +770,27 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 
 - (IBAction)protocolChanged:(UITextField *)sender {
-    int protocol = [sender.text intValue];
-    if (protocol != MQTTProtocolVersion31 && protocol != MQTTProtocolVersion311) {
-        UIAlertView *alertView = [[UIAlertView alloc]
-                                  initWithTitle:NSLocalizedString(@"Protocol invalid",
-                                                                  @"Alert header regarding protocol input")
-                                  message:NSLocalizedString(@"Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1",
-                                                            @"Alert content regarding protocol input")
-                                  delegate:self
-                                  cancelButtonTitle:nil
-                                  otherButtonTitles:NSLocalizedString(@"OK",
-                                                                      @"OK button title"),
-                                  nil
-                                  ];
-        [alertView show];
-        sender.text = [NSString stringWithFormat:@"%d", [Settings sharedInstance].protocol];
-        return;
+    if (sender.text.length) {
+        int protocol = [sender.text intValue];
+        if (protocol != MQTTProtocolVersion31 && protocol != MQTTProtocolVersion311) {
+            UIAlertView *alertView = [[UIAlertView alloc]
+                                      initWithTitle:NSLocalizedString(@"Protocol invalid",
+                                                                      @"Alert header regarding protocol input")
+                                      message:NSLocalizedString(@"Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1",
+                                                                @"Alert content regarding protocol input")
+                                      delegate:self
+                                      cancelButtonTitle:nil
+                                      otherButtonTitles:NSLocalizedString(@"OK",
+                                                                          @"OK button title"),
+                                      nil
+                                      ];
+            [alertView show];
+            sender.text = [NSString stringWithFormat:@"%d", [Settings sharedInstance].protocol];
+            return;
+        }
+        [Settings sharedInstance].protocol = protocol;
+        [self updated];
     }
-    [Settings sharedInstance].protocol = protocol;
-    [self updateValues];
-    [self updated];
 }
 
 #define INVALIDTRACKERID NSLocalizedString(@"TrackerID invalid", @"Alert header regarding TrackerID input")

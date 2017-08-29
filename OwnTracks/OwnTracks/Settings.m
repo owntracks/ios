@@ -1076,7 +1076,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 - (void)setProtocol:(MQTTProtocolVersion)protocol {
-    [Settings setInt:protocol forKey:SETTINGS_ADDRESSBOOK];
+    [Settings setInt:protocol forKey:SETTINGS_PROTOCOL];
 }
 
 @end
