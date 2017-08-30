@@ -17,7 +17,7 @@
 	<key>host_preference</key>
 	<string>quickstart.messaging.internetofthings.ibmcloud.com</string>
 	<key>port_preference</key>
-	<real>8883</real>
+	<integer>8883</integer>
 	<key>mqttProtocolLevel</key>
 	<integer>3</integer>
 	<key>tls_preference</key>
