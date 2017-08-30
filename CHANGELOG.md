@@ -1,6 +1,14 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 9.6.3
+* Release date 2017-08-20
+
+**Watson regression fixes**
+
+    [FIX] No connect in Watson Quickstart mode #476
+    [FIX] Cannot edit MQTT protocol level in Settings screen #475
+
 ## OwnTracks 9.6.2
 * Release date 2017-07-26
 
