@@ -17,8 +17,7 @@
 @implementation Friend
 static const DDLogLevel ddLogLevel = DDLogLevelError;
 
-+ (ABAddressBookRef)theABRef
-{
++ (ABAddressBookRef)theABRef {
     static ABAddressBookRef ab = nil;
 
     if (!ab) {
@@ -33,9 +32,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 + (Friend *)existsFriendWithTopic:(NSString *)topic
-           inManagedObjectContext:(NSManagedObjectContext *)context
-
-{
+           inManagedObjectContext:(NSManagedObjectContext *)context {
     Friend *friend = nil;
 
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Friend"];
@@ -45,11 +42,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
     NSArray *matches = [context executeFetchRequest:request error:&error];
 
-    if (!matches || [matches count] > 1) {
+    if (!matches || matches.count > 1) {
         // handle error
     } else {
-        if ([matches count]) {
-            friend = [matches lastObject];
+        if (matches.count) {
+            friend = matches.lastObject;
         }
     }
 
@@ -68,9 +65,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 + (Friend *)friendWithTopic:(NSString *)topic
-     inManagedObjectContext:(NSManagedObjectContext *)context
-
-{
+     inManagedObjectContext:(NSManagedObjectContext *)context {
     Friend *friend = [self existsFriendWithTopic:topic inManagedObjectContext:context];
 
     if (!friend) {
@@ -83,8 +78,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return friend;
 }
 
-- (NSString *)name
-{
+- (NSString *)name {
     NSString *name = self.cardName;
 
     ABRecordRef record = [self recordOfFriend];
@@ -101,17 +95,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return self.name ? self.name : self.topic;
 }
 
-+ (NSString *)nameOfPerson:(ABRecordRef)record
-{
++ (NSString *)nameOfPerson:(ABRecordRef)record {
     NSString *name = nil;
 
     if (record) {
         CFStringRef nameRef = ABRecordCopyValue(record, kABPersonNicknameProperty);
-        if (nameRef != NULL) {
+        if (nameRef != NULL && CFStringGetLength(nameRef) > 0) {
             name = (NSString *)CFBridgingRelease(nameRef);
         } else {
             nameRef = ABRecordCopyCompositeName(record);
-            if (nameRef != NULL) {
+            if (nameRef != NULL && CFStringGetLength(nameRef) > 0) {
                 name = (NSString *)CFBridgingRelease(nameRef);
             }
         }
@@ -119,8 +112,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return name;
 }
 
-- (NSData *)image
-{
+- (NSData *)image {
     NSData *data = self.cardImage;
 
     ABRecordRef record = [self recordOfFriend];
@@ -133,8 +125,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return data;
 }
 
-+ (NSData *)imageDataOfPerson:(ABRecordRef)record
-{
++ (NSData *)imageDataOfPerson:(ABRecordRef)record {
     NSData *imageData = nil;
 
     if (record) {
@@ -146,25 +137,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return imageData;
 }
 
-- (ABRecordRef)recordOfFriend
-{
+- (ABRecordRef)recordOfFriend {
     ABRecordRef record = NULL;
 
     if ([Settings sharedInstance].updateAddressbook) {
         record = recordWithTopic((__bridge CFStringRef)(self.topic));
     } else {
-        if ([self.abRecordId intValue] != kABRecordInvalidID) {
+        if ((self.abRecordId).intValue != kABRecordInvalidID) {
             ABAddressBookRef ab = [Friend theABRef];
             if (ab) {
-                record = ABAddressBookGetPersonWithRecordID(ab, [self.abRecordId intValue]);
+                record = ABAddressBookGetPersonWithRecordID(ab, (self.abRecordId).intValue);
             }
         }
     }
     return record;
 }
 
-- (void)linkToAB:(ABRecordRef)record
-{
+- (void)linkToAB:(ABRecordRef)record {
     if ([Settings sharedInstance].updateAddressbook) {
         ABRecordRef oldrecord = recordWithTopic((__bridge CFStringRef)(self.topic));
 
@@ -184,8 +173,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 #define RELATION_NAME CFSTR("OwnTracks")
 
-ABRecordRef recordWithTopic(CFStringRef topic)
-{
+ABRecordRef recordWithTopic(CFStringRef topic) {
     ABRecordRef theRecord = NULL;
     ABAddressBookRef ab = [Friend theABRef];
     if (ab) {
@@ -229,8 +217,7 @@ ABRecordRef recordWithTopic(CFStringRef topic)
     return theRecord;
 }
 
-- (void)ABsetTopic:(NSString *)topic record:(ABRecordRef)record
-{
+- (void)ABsetTopic:(NSString *)topic record:(ABRecordRef)record {
     CFErrorRef errorRef;
 
     ABMutableMultiValueRef relationsRW;
@@ -327,18 +314,17 @@ ABRecordRef recordWithTopic(CFStringRef topic)
     //
 }
 
-- (CLLocationCoordinate2D)coordinate
-{
+- (CLLocationCoordinate2D)coordinate {
     CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(0.0, 0.0);
-    Waypoint *waypoint = [self newestWaypoint];
+    Waypoint *waypoint = self.newestWaypoint;
     if (waypoint) {
-        coord = CLLocationCoordinate2DMake([waypoint.lat doubleValue], [waypoint.lon doubleValue]);
+        coord = CLLocationCoordinate2DMake((waypoint.lat).doubleValue, (waypoint.lon).doubleValue);
     }
     return coord;
 }
 
 - (MKMapRect)boundingMapRect {
-    MKMapPoint point = MKMapPointForCoordinate([self coordinate]);
+    MKMapPoint point = MKMapPointForCoordinate(self.coordinate);
     MKMapRect mapRect = MKMapRectMake(
                                       point.x,
                                       point.y,
@@ -348,8 +334,8 @@ ABRecordRef recordWithTopic(CFStringRef topic)
     if (self.hasWaypoints) {
         for (Waypoint *waypoint in self.hasWaypoints) {
             CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
-                                                                           [waypoint.lat doubleValue],
-                                                                           [waypoint.lon doubleValue]
+                                                                           (waypoint.lat).doubleValue,
+                                                                           (waypoint.lon).doubleValue
                                                                            );
             MKMapPoint mapPoint = MKMapPointForCoordinate(coordinate);
             if (mapPoint.x < mapRect.origin.x) {
@@ -381,8 +367,8 @@ ABRecordRef recordWithTopic(CFStringRef topic)
             NSArray *sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tst" ascending:TRUE]];
             for (Waypoint *waypoint in [waypoints sortedArrayUsingDescriptors:sortDescriptors]) {
                 coordinates[count++] = CLLocationCoordinate2DMake(
-                                                                  [waypoint.lat doubleValue],
-                                                                  [waypoint.lon doubleValue]
+                                                                  (waypoint.lat).doubleValue,
+                                                                  (waypoint.lon).doubleValue
                                                                   );
             }
         }
@@ -397,7 +383,7 @@ ABRecordRef recordWithTopic(CFStringRef topic)
 }
 
 - (NSString *)subtitle {
-    Waypoint *waypoint = [self newestWaypoint];
+    Waypoint *waypoint = self.newestWaypoint;
     if (waypoint) {
         return [NSDateFormatter localizedStringFromDate:waypoint.tst
                                               dateStyle:NSDateFormatterShortStyle
