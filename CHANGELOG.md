@@ -1,6 +1,15 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 9.6.4
+* Release date 2017-09-27
+
+**iOS11 fixes**
+
+    [FIX] Empty Nicknames shown instead of Full Name in iOS11 #481
+    [NEW] updated pods
+    [NEW] style updates
+
 ## OwnTracks 9.6.3
 * Release date 2017-08-20
 
