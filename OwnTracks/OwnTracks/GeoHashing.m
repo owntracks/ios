@@ -29,8 +29,8 @@
     GHArea *a = [GeoHash areaForHash:self.geoHash];
     CLLocationCoordinate2D coordinate =
     CLLocationCoordinate2DMake(
-                               [a.latitude.min doubleValue],
-                               [a.longitude.min doubleValue]
+                               (a.latitude.min).doubleValue,
+                               (a.longitude.min).doubleValue
                                );
     return coordinate;
 }
@@ -40,23 +40,23 @@
     CLLocationCoordinate2D coordinates[4];
     coordinates[0] =
     CLLocationCoordinate2DMake(
-                               [a.latitude.min doubleValue],
-                               [a.longitude.min doubleValue]
+                               (a.latitude.min).doubleValue,
+                               (a.longitude.min).doubleValue
                                );
     coordinates[1] =
     CLLocationCoordinate2DMake(
-                               [a.latitude.min doubleValue],
-                               [a.longitude.max doubleValue]
+                               (a.latitude.min).doubleValue,
+                               (a.longitude.max).doubleValue
                                );
     coordinates[2] =
     CLLocationCoordinate2DMake(
-                               [a.latitude.max doubleValue],
-                               [a.longitude.max doubleValue]
+                               (a.latitude.max).doubleValue,
+                               (a.longitude.max).doubleValue
                                );
     coordinates[3] =
     CLLocationCoordinate2DMake(
-                               [a.latitude.max doubleValue],
-                               [a.longitude.min doubleValue]
+                               (a.latitude.max).doubleValue,
+                               (a.longitude.min).doubleValue
                                );
 
 
@@ -68,13 +68,13 @@
     GHArea *a = [GeoHash areaForHash:self.geoHash];
     CLLocationCoordinate2D coordinateMin =
     CLLocationCoordinate2DMake(
-                               [a.latitude.min doubleValue],
-                               [a.longitude.min doubleValue]
+                               (a.latitude.min).doubleValue,
+                               (a.longitude.min).doubleValue
                                );
     CLLocationCoordinate2D coordinateMax =
     CLLocationCoordinate2DMake(
-                               [a.latitude.max doubleValue],
-                               [a.longitude.max doubleValue]
+                               (a.latitude.max).doubleValue,
+                               (a.longitude.max).doubleValue
                                );
 
     MKMapPoint min = MKMapPointForCoordinate(coordinateMin);
@@ -322,7 +322,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                                                inManagedObjectContext:context];
     subscription.belongsTo = friend;
     subscription.name = name;
-    subscription.level = [NSNumber numberWithInt:level];
+    subscription.level = @(level);
     return subscription;
 }
 
@@ -359,8 +359,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     if (!matches) {
         // handle error
     } else {
-        if ([matches count]) {
-            info = [matches lastObject];
+        if (matches.count) {
+            info = matches.lastObject;
         } else {
             info = [NSEntityDescription insertNewObjectForEntityForName:@"Info"
                                                  inManagedObjectContext:context];
@@ -374,14 +374,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     info.tst = tst;
     info.tid = tid;
     info.image = image;
-    info.ringColor = [NSNumber numberWithInt:ringColor];
-    info.lat = [NSNumber numberWithFloat:lat];
-    info.lon = [NSNumber numberWithFloat:lon];
-    info.size = [NSNumber numberWithFloat:size];
-    info.hand = [NSNumber numberWithFloat:hand];
-    info.level = [NSNumber numberWithFloat:level];
-    info.circleStart = [NSNumber numberWithFloat:circleStart];
-    info.circleEnd = [NSNumber numberWithFloat:circleEnd];
+    info.ringColor = @(ringColor);
+    info.lat = @(lat);
+    info.lon = @(lon);
+    info.size = @(size);
+    info.hand = @(hand);
+    info.level = @(level);
+    info.circleStart = @(circleStart);
+    info.circleEnd = @(circleEnd);
     return info;
 }
 

@@ -10,14 +10,14 @@
 #import "Subscription+CoreDataClass.h"
 @implementation Info
 - (CLLocationCoordinate2D)coordinate {
-    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake([self.lat doubleValue],
-                                                              [self.lon doubleValue]);
+    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake((self.lat).doubleValue,
+                                                              (self.lon).doubleValue);
     return coord;
 }
 
 - (void)setCoordinate:(CLLocationCoordinate2D)coordinate {
-    self.lat = [NSNumber numberWithDouble:coordinate.latitude];
-    self.lon = [NSNumber numberWithDouble:coordinate.longitude];
+    self.lat = @(coordinate.latitude);
+    self.lon = @(coordinate.longitude);
 }
 
 - (NSString *)title {

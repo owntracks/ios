@@ -44,7 +44,7 @@ static OwnTracking *theInstance = nil;
 }
 
 - (void)syncProcessing {
-    while ([self.inQueue unsignedLongValue] > 0) {
+    while ((self.inQueue).unsignedLongValue > 0) {
         DDLogVerbose(@"syncProcessing %lu", [self.inQueue unsignedLongValue]);
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     };
@@ -55,9 +55,9 @@ static OwnTracking *theInstance = nil;
               retained:(BOOL)retained
                context:(NSManagedObjectContext *)context {
 
-    if ([self.inQueue unsignedLongValue] < MAXQUEUE) {
+    if ((self.inQueue).unsignedLongValue < MAXQUEUE) {
         @synchronized (self.inQueue) {
-            self.inQueue = @([self.inQueue unsignedLongValue] + 1);
+            self.inQueue = @((self.inQueue).unsignedLongValue + 1);
         }
         [context performBlock:^{
             NSError *error;
@@ -72,7 +72,7 @@ static OwnTracking *theInstance = nil;
                 NSString *device = @"";
                 BOOL ownDevice = true;
 
-                for (int i = 0; i < [baseComponents count]; i++) {
+                for (int i = 0; i < baseComponents.count; i++) {
                     if (i > 0) {
                         device = [device stringByAppendingString:@"/"];
                     }
@@ -177,9 +177,9 @@ static OwnTracking *theInstance = nil;
             }
 
             @synchronized (self.inQueue) {
-                self.inQueue = @([self.inQueue unsignedLongValue] - 1);
+                self.inQueue = @((self.inQueue).unsignedLongValue - 1);
             }
-            if ([self.inQueue intValue] == 0) {
+            if ((self.inQueue).intValue == 0) {
                 [context save:nil];
                 [self performSelectorOnMainThread:@selector(share) withObject:nil waitUntilDone:NO];
             }
@@ -245,18 +245,18 @@ static OwnTracking *theInstance = nil;
     CLLocation *myCLLocation = [LocationManager sharedInstance].location;
 
     for (Friend *friend in friends) {
-        NSString *name = [friend name];
-        NSData *image = [friend image];
+        NSString *name = friend.name;
+        NSData *image = friend.image;
 
         if (!image) {
             image = UIImageJPEGRepresentation([UIImage imageNamed:@"Friend"], 0.5);
         }
 
-        Waypoint *waypoint = [friend newestWaypoint];
+        Waypoint *waypoint = friend.newestWaypoint;
         if (waypoint) {
             CLLocation *location = [[CLLocation alloc]
-                                    initWithLatitude:[waypoint.lat doubleValue]
-                                    longitude:[waypoint.lon doubleValue]];
+                                    initWithLatitude:(waypoint.lat).doubleValue
+                                    longitude:(waypoint.lon).doubleValue];
             NSNumber *distance = @([myCLLocation distanceFromLocation:location]);
             if (name) {
                 if (waypoint.tst &&
@@ -265,13 +265,13 @@ static OwnTracking *theInstance = nil;
                     friend.topic &&
                     image) {
                     NSMutableDictionary *aFriend = [[NSMutableDictionary alloc] init];
-                    [aFriend setObject:image forKey:@"image"];
-                    [aFriend setObject:distance forKey:@"distance"];
-                    [aFriend setObject:waypoint.lon forKey:@"longitude"];
-                    [aFriend setObject:waypoint.lat forKey:@"latitude"];
-                    [aFriend setObject:waypoint.tst forKey:@"timestamp"];
-                    [aFriend setObject:friend.topic forKey:@"topic"];
-                    [sharedFriends setObject:aFriend forKey:name];
+                    aFriend[@"image"] = image;
+                    aFriend[@"distance"] = distance;
+                    aFriend[@"longitude"] = waypoint.lon;
+                    aFriend[@"latitude"] = waypoint.lat;
+                    aFriend[@"timestamp"] = waypoint.tst;
+                    aFriend[@"topic"] = friend.topic;
+                    sharedFriends[name] = aFriend;
                 } else {
                     DDLogError(@"friend or location incomplete");
                 }
@@ -290,18 +290,18 @@ static OwnTracking *theInstance = nil;
                                                        inManagedObjectContext:context];
     waypoint.belongsTo = friend;
     waypoint.trigger = trigger;
-    waypoint.acc = [NSNumber numberWithDouble:location.horizontalAccuracy];
-    waypoint.alt = [NSNumber numberWithDouble:location.altitude];
-    waypoint.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
-    waypoint.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
-    waypoint.vac = [NSNumber numberWithDouble:location.verticalAccuracy];
+    waypoint.acc = @(location.horizontalAccuracy);
+    waypoint.alt = @(location.altitude);
+    waypoint.lat = @(location.coordinate.latitude);
+    waypoint.lon = @(location.coordinate.longitude);
+    waypoint.vac = @(location.verticalAccuracy);
     waypoint.tst = location.timestamp;
     double speed = location.speed;
     if (speed != -1) {
         speed = speed * 3600 / 1000;
     }
-    waypoint.vel = [NSNumber numberWithDouble:speed];
-    waypoint.cog = [NSNumber numberWithDouble:location.course];
+    waypoint.vel = @(speed);
+    waypoint.cog = @(location.course);
     waypoint.placemark = nil;
 
     return waypoint;
@@ -323,12 +323,12 @@ static OwnTracking *theInstance = nil;
     region.tst = [NSDate date];
     region.name = name;
     region.uuid = uuid;
-    region.major = [NSNumber numberWithUnsignedInt:major];
-    region.minor = [NSNumber numberWithUnsignedInt:minor];
-    region.share = [NSNumber numberWithBool:share];
-    region.radius = [NSNumber numberWithDouble:radius];
-    region.lat = [NSNumber numberWithDouble:lat];
-    region.lon = [NSNumber numberWithDouble:lon];
+    region.major = @(major);
+    region.minor = @(minor);
+    region.share = @(share);
+    region.radius = @(radius);
+    region.lat = @(lat);
+    region.lon = @(lon);
     [[LocationManager sharedInstance] startRegion:region.CLregion];
     return region;
 }
@@ -346,33 +346,33 @@ static OwnTracking *theInstance = nil;
         [json setValue:waypoint.trigger forKey:@"t"];
     }
     if (self.cp) {
-        [json setValue:[NSNumber numberWithBool:TRUE] forKey:@"_cp"];
+        [json setValue:@(1) forKey:@"_cp"];
     }
 
     [json setValue:waypoint.lat forKey:@"lat"];
     [json setValue:waypoint.lon forKey:@"lon"];
-    [json setValue:@((int)[waypoint.tst timeIntervalSince1970]) forKey:@"tst"];
+    [json setValue:@((int)(waypoint.tst).timeIntervalSince1970) forKey:@"tst"];
 
-    int acc = [waypoint.acc intValue];
+    int acc = (waypoint.acc).intValue;
     if (acc >= 0) {
         [json setValue:@(acc) forKey:@"acc"];
     }
 
     if ([Settings boolForKey:@"extendeddata_preference"]) {
-        int alt = [waypoint.alt intValue];
+        int alt = (waypoint.alt).intValue;
         [json setValue:@(alt) forKey:@"alt"];
 
-        int vac = [waypoint.vac intValue];
+        int vac = (waypoint.vac).intValue;
         if (vac >= 0) {
             [json setValue:@(vac) forKey:@"vac"];
         }
 
-        int vel = [waypoint.vel intValue];
+        int vel = (waypoint.vel).intValue;
         if (vel >= 0) {
             [json setValue:@(vel) forKey:@"vel"];
         }
 
-        int cog = [waypoint.cog intValue];
+        int cog = (waypoint.cog).intValue;
         if (cog >= 0) {
             [json setValue:@(cog) forKey:@"cog"];
         }
@@ -384,15 +384,15 @@ static OwnTracking *theInstance = nil;
 
             switch ([ConnType connectionType:[Settings theHost]]) {
                 case ConnectionTypeNone:
-                    [json setObject:@"o" forKey:@"conn"];
+                    json[@"conn"] = @"o";
                     break;
 
                 case ConnectionTypeWIFI:
-                    [json setObject:@"w" forKey:@"conn"];
+                    json[@"conn"] = @"w";
                     break;
 
                 case ConnectionTypeWWAN:
-                    [json setObject:@"m" forKey:@"conn"];
+                    json[@"conn"] = @"m";
                     break;
 
                 case ConnectionTypeUnknown:
@@ -405,7 +405,7 @@ static OwnTracking *theInstance = nil;
     if (tid && tid.length > 0) {
         [json setValue:tid forKeyPath:@"tid"];
     } else {
-        [json setValue:[waypoint.belongsTo getEffectiveTid] forKeyPath:@"tid"];
+        [json setValue:(waypoint.belongsTo).effectiveTid forKeyPath:@"tid"];
     }
 
     int batteryLevel = [UIDevice currentDevice].batteryLevel != -1 ? [UIDevice currentDevice].batteryLevel * 100 : -1;
@@ -421,13 +421,13 @@ static OwnTracking *theInstance = nil;
                            @"lat": region.lat,
                            @"lon": region.lon,
                            @"rad": region.radius,
-                           @"tst": @(floor([[region getAndFillTst] timeIntervalSince1970])),
+                           @"tst": @(floor(region.andFillTst.timeIntervalSince1970)),
                            @"desc": [NSString stringWithFormat:@"%@%@%@%@",
                                      region.name,
                                      (region.uuid && region.uuid.length > 0) ?
                                      [NSString stringWithFormat: @":%@", region.uuid] : @"",
-                                     [region.major unsignedIntValue] ? [NSString stringWithFormat: @":%@", region.major] : @"",
-                                     [region.minor unsignedIntValue]? [NSString stringWithFormat: @":%@", region.minor] : @""]
+                                     (region.major).unsignedIntValue ? [NSString stringWithFormat: @":%@", region.major] : @"",
+                                     (region.minor).unsignedIntValue? [NSString stringWithFormat: @":%@", region.minor] : @""]
                            };
     return json;
 }

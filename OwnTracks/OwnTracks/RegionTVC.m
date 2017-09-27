@@ -44,7 +44,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.UIminor.delegate = self;
     self.UIradius.delegate = self;
     
-    self.title = [self.editRegion name];
+    self.title = (self.editRegion).name;
     
     [self setup];
     self.oldRegion = self.editRegion.CLregion;
@@ -60,21 +60,21 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [super viewWillDisappear:animated];
     if (self.needsUpdate) {
         self.editRegion.name = self.UIname.text;
-        self.editRegion.share = [NSNumber numberWithBool:self.UIshare.on];
+        self.editRegion.share = @(self.UIshare.on);
         
-        self.editRegion.lat = [NSNumber numberWithDouble:[self.UIlatitude.text doubleValue]];
-        self.editRegion.lon = [NSNumber numberWithDouble:[self.UIlongitude.text doubleValue]];
-        self.editRegion.radius = [NSNumber numberWithDouble:[self.UIradius.text doubleValue]];
+        self.editRegion.lat = @((self.UIlatitude.text).doubleValue);
+        self.editRegion.lon = @((self.UIlongitude.text).doubleValue);
+        self.editRegion.radius = @((self.UIradius.text).doubleValue);
         
         self.editRegion.uuid = self.UIuuid.text;
         DDLogVerbose(@"UImajor %@", self.UImajor.text);
         DDLogVerbose(@"UImajor intValue %d", [self.UImajor.text intValue]);
-        DDLogVerbose(@"UImajor NSNumber %@", [NSNumber numberWithUnsignedInteger:[self.UImajor.text intValue]]);
-        self.editRegion.major = [NSNumber numberWithUnsignedShort:[self.UImajor.text intValue]];
-        self.editRegion.minor = [NSNumber numberWithUnsignedShort:[self.UIminor.text intValue]];
+        DDLogVerbose(@"UImajor NSNumber %@", @(self.UImajor.text.intValue));
+        self.editRegion.major = @((self.UImajor.text).intValue);
+        self.editRegion.minor = @((self.UIminor.text).intValue);
         
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        if ([self.editRegion.share boolValue]) {
+        if ((self.editRegion.share).boolValue) {
             [delegate sendRegion:self.editRegion];
         }
         if (self.oldRegion) {
@@ -91,18 +91,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (void)setup
 {
     self.UIname.text = self.editRegion.name;
-    self.UIshare.on = [self.editRegion.share boolValue];
+    self.UIshare.on = (self.editRegion.share).boolValue;
     
-    self.UIlatitude.text = [NSString stringWithFormat:@"%.14g", [self.editRegion.lat doubleValue]];
-    self.UIlongitude.text = [NSString stringWithFormat:@"%.14g", [self.editRegion.lon doubleValue]];
-    self.UIradius.text = [NSString stringWithFormat:@"%.14g", [self.editRegion.radius doubleValue]];
+    self.UIlatitude.text = [NSString stringWithFormat:@"%.14g", (self.editRegion.lat).doubleValue];
+    self.UIlongitude.text = [NSString stringWithFormat:@"%.14g", (self.editRegion.lon).doubleValue];
+    self.UIradius.text = [NSString stringWithFormat:@"%.14g", (self.editRegion.radius).doubleValue];
     
     self.UIuuid.text = self.editRegion.uuid;
     DDLogVerbose(@"UImajor NSNumber %@", self.editRegion.major);
     DDLogVerbose(@"UImajor unsignedIntValue %u", [self.editRegion.major unsignedIntValue]);
     DDLogVerbose(@"UImajor NSString %@", [NSString stringWithFormat:@"%u", [self.editRegion.major unsignedIntValue]]);
-    self.UImajor.text = [NSString stringWithFormat:@"%u", [self.editRegion.major unsignedShortValue]];
-    self.UIminor.text = [NSString stringWithFormat:@"%u", [self.editRegion.minor unsignedShortValue]];
+    self.UImajor.text = [NSString stringWithFormat:@"%u", (self.editRegion.major).unsignedShortValue];
+    self.UIminor.text = [NSString stringWithFormat:@"%u", (self.editRegion.minor).unsignedShortValue];
 }
 
 - (IBAction)latitudechanged:(UITextField *)sender {

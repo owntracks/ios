@@ -350,6 +350,14 @@ typedef void (^MQTTPublishHandler)(NSError *error);
  */
 @property (nonatomic, readonly) BOOL sessionPresent;
 
+/** host an NSString containing the hostName or IP address of the Server
+ */
+@property (readonly) NSString *host;
+
+/** port an unsigned 32 bit integer containing the IP port number of the Server
+ */
+@property (readonly) UInt32 port;
+
 /** The Client Identifier identifies the Client to the Server. If nil, a random clientId is generated.
  */
 @property (strong, nonatomic) NSString *clientId;
@@ -475,8 +483,6 @@ typedef void (^MQTTPublishHandler)(NSError *error);
 
 /** connect to the given host through the given transport with the given
  *  MQTT session parameters asynchronously
- *
- *  @exception NSInternalInconsistencyException if the parameters are invalid
  *
  */
 
@@ -850,6 +856,7 @@ typedef void (^MQTTPublishHandler)(NSError *error);
  *  @param sessionExpiryInterval the time in seconds before the session can be deleted
  *  @param reasonString a string explaining the reason
  *  @param userProperty additional dictionary of user key/value combinations
+ *  @param disconnectHandler will be called when the disconnect finished
  */
 - (void)closeWithReturnCode:(MQTTReturnCode)returnCode
       sessionExpiryInterval:(NSNumber *)sessionExpiryInterval

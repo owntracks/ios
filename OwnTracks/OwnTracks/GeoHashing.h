@@ -17,7 +17,7 @@
 @interface Area : NSObject <MKOverlay>
 @property (strong, nonatomic) NSString *geoHash;
 - (void)setCoordinate:(CLLocationCoordinate2D)coordinate;
-- (MKPolygon *)polygon;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) MKPolygon *polygon;
 
 @end
 

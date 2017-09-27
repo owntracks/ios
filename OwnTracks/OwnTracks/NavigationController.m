@@ -61,7 +61,7 @@
 {
     
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    switch ([delegate.connectionState intValue]) {
+    switch ((delegate.connectionState).intValue) {
         case state_connected:
             self.progressView.progressTintColor = [UIColor colorWithName:@"connected" defaultColor:[UIColor whiteColor]];
                 self.progressView.progress = 0.0;

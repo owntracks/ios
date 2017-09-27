@@ -66,7 +66,7 @@
 @implementation Connection
 static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     DDLogVerbose(@"Connection init");
     
@@ -111,7 +111,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 {
     if (!_queueContext) {
         _queueContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        [_queueContext setParentContext:[CoreData theManagedObjectContext]];
+        _queueContext.parentContext = [CoreData theManagedObjectContext];
     }
     return _queueContext;
 }
@@ -171,7 +171,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 - (void)connectTo:(NSString *)host
-             port:(NSInteger)port
+             port:(UInt32)port
                ws:(BOOL)ws
               tls:(BOOL)tls
   protocolVersion:(MQTTProtocolVersion)protocolVersion
@@ -296,7 +296,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         self.session.persistence.maxMessages = 100 * 1024;
         self.session.persistence.maxSize = 100 * 1024 * 1024;
 
-        [self.session setDelegate:self];
+        (self.session).delegate = self;
 
         self.reconnectTime = RECONNECT_TIMER;
         self.reconnectFlag = FALSE;
@@ -333,7 +333,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                 NSDictionary *json = [NSJSONSerialization JSONObjectWithData:outgoingData options:0 error:nil];
                 if (json && [json isKindOfClass:[NSDictionary class]] && self.url) {
                     NSMutableDictionary *mutableJson = [json mutableCopy];
-                    [mutableJson setObject:topic forKey:@"topic"];
+                    mutableJson[@"topic"] = topic;
                     outgoingData = [NSJSONSerialization dataWithJSONObject:mutableJson options:0 error:nil];
                 }
             }
@@ -366,7 +366,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 - (void)sendHTTP:(NSString *)topic data:(NSData *)data {
-    NSString *postLength = [NSString stringWithFormat:@"%ld",(unsigned long)[data length]];
+    NSString *postLength = [NSString stringWithFormat:@"%ld",(unsigned long)data.length];
     DDLogVerbose(@"sendtHTTP %@(%@):%@", topic, postLength, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
@@ -381,10 +381,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         [request setValue:[NSString stringWithFormat:@"Basic %@", authValue] forHTTPHeaderField:@"Authorization"];
     }
     
-    [request setURL:[NSURL URLWithString:self.url]];
-    [request setHTTPMethod:@"POST"];
+    request.URL = [NSURL URLWithString:self.url];
+    request.HTTPMethod = @"POST";
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [request setHTTPBody:data];
+    request.HTTPBody = data;
     
     NSString *contentType = [NSString stringWithFormat:@"application/json"];
     [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
@@ -473,8 +473,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)oneMessage:(NSDictionary *)message {
     NSString *tid = @"??";
-    if (message && [message objectForKey:@"tid"]) {
-        tid = [message objectForKey:@"tid"];
+    if (message && message[@"tid"]) {
+        tid = message[@"tid"];
     }
     DDLogVerbose(@"oneMessage %@", message.description);
     [self.delegate handleMessage:self
@@ -517,15 +517,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 - (void)addExtraSubscription:(NSString *)topicFilter qos:(MQTTQosLevel)qos {
-    NSNumber *extraSubscription = [self.extraSubscriptions objectForKey:topicFilter];
+    NSNumber *extraSubscription = (self.extraSubscriptions)[topicFilter];
     if (!extraSubscription) {
-        [self.extraSubscriptions setObject:[NSNumber numberWithInt:qos] forKey:topicFilter];
+        (self.extraSubscriptions)[topicFilter] = [NSNumber numberWithInt:qos];
         [self.session subscribeToTopic:topicFilter atLevel:qos];
     }
 }
 
 - (void)removeExtraSubscription:(NSString *)topicFilter {
-    NSNumber *extraSubscription = [self.extraSubscriptions objectForKey:topicFilter];
+    NSNumber *extraSubscription = (self.extraSubscriptions)[topicFilter];
     if (extraSubscription) {
         [self.session unsubscribeTopic:topicFilter];
         [self.extraSubscriptions removeObjectForKey:topicFilter];
@@ -549,8 +549,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             }
         }
         for (NSString *topicFilter in self.extraSubscriptions.allKeys) {
-            NSNumber *qos = [self.extraSubscriptions objectForKey:topicFilter];
-            [self.session subscribeToTopic:topicFilter atLevel:[qos intValue]];
+            NSNumber *qos = (self.extraSubscriptions)[topicFilter];
+            [self.session subscribeToTopic:topicFilter atLevel:qos.intValue];
         }
         self.reconnectFlag = TRUE;
     }

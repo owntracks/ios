@@ -18,9 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Region : NSManagedObject <MKAnnotation, MKOverlay>
 
 @property (nonatomic) CLLocationCoordinate2D coordinate;
-- (CLRegion *)CLregion;
-- (MKCircle *)circle;
-- (NSDate *)getAndFillTst;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) CLRegion * _Nonnull CLregion;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) MKCircle * _Nonnull circle;
+@property (NS_NONATOMIC_IOSONLY, getter=getAndFillTst, readonly, copy) NSDate * _Nonnull andFillTst;
 
 @end
 

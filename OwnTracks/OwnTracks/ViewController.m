@@ -103,7 +103,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         if ([segue.destinationViewController respondsToSelector:@selector(setWaypoint:)]) {
             MKAnnotationView *view = (MKAnnotationView *)sender;
             Friend *friend  = (Friend *)view.annotation;
-            Waypoint *waypoint = [friend newestWaypoint];
+            Waypoint *waypoint = friend.newestWaypoint;
             if (waypoint) {
                 [segue.destinationViewController performSelector:@selector(setWaypoint:) withObject:waypoint];
             }
@@ -179,13 +179,13 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 #endif
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
-{
+- (MKAnnotationView *)mapView:(MKMapView *)mapView
+            viewForAnnotation:(id<MKAnnotation>)annotation {
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
         return nil;
     } else if ([annotation isKindOfClass:[Friend class]]) {
         Friend *friend = (Friend *)annotation;
-        Waypoint *waypoint = [friend newestWaypoint];
+        Waypoint *waypoint = friend.newestWaypoint;
 
         MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_PICTURE];
         FriendAnnotationV *friendAnnotationV;
@@ -201,12 +201,12 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         friendAnnotationV.canShowCallout = YES;
         friendAnnotationV.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 
-        NSData *data = [friend image];
+        NSData *data = friend.image;
         UIImage *image = [UIImage imageWithData:data];
         friendAnnotationV.personImage = image;
-        friendAnnotationV.tid = [friend getEffectiveTid];
-        friendAnnotationV.speed = [waypoint.vel doubleValue];
-        friendAnnotationV.course = [waypoint.cog doubleValue];
+        friendAnnotationV.tid = friend.effectiveTid;
+        friendAnnotationV.speed = (waypoint.vel).doubleValue;
+        friendAnnotationV.course = (waypoint.cog).doubleValue;
         friendAnnotationV.me = [friend.topic isEqualToString:[Settings theGeneralTopic]];
         [friendAnnotationV setNeedsDisplay];
 
@@ -229,8 +229,8 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         UIImage *image = [UIImage imageWithData:data];
         friendAnnotationV.personImage = image;
         friendAnnotationV.tid = [info.name substringToIndex:2];
-        friendAnnotationV.speed = [info.level doubleValue] * 260  / 3.6;
-        friendAnnotationV.course = [info.level doubleValue];
+        friendAnnotationV.speed = (info.level).doubleValue * 260  / 3.6;
+        friendAnnotationV.course = (info.level).doubleValue;
         friendAnnotationV.me = FALSE;
         [friendAnnotationV setNeedsDisplay];
 
@@ -271,13 +271,12 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     return nil;
 }
 
-- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay
-{
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay {
     if ([overlay isKindOfClass:[Friend class]]) {
         Friend *friend = (Friend *)overlay;
         MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithPolyline:friend.polyLine];
-        [renderer setLineWidth:3];
-        [renderer setStrokeColor:[UIColor colorWithName:@"track" defaultColor:[UIColor redColor]]];
+        renderer.lineWidth = 3;
+        renderer.strokeColor = [UIColor colorWithName:@"track" defaultColor:[UIColor redColor]];
         return renderer;
         
     } else if ([overlay isKindOfClass:[Region class]]) {
@@ -293,9 +292,9 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     } else if ([overlay isKindOfClass:[Area class]]) {
         Area *area = (Area *)overlay;
         MKPolygonRenderer *renderer = [[MKPolygonRenderer alloc] initWithPolygon:area.polygon];
-        [renderer setFillColor:[UIColor colorWithRed:0.5 green:1.0 blue:0.5 alpha:0.3]];
-        [renderer setLineWidth:1];
-        [renderer setStrokeColor:[UIColor colorWithRed:0.0 green:0.5 blue:0.0 alpha:0.3]];
+        renderer.fillColor = [UIColor colorWithRed:0.5 green:1.0 blue:0.5 alpha:0.3];
+        renderer.lineWidth = 1;
+        renderer.strokeColor = [UIColor colorWithRed:0.0 green:0.5 blue:0.0 alpha:0.3];
         return renderer;
 
     } else {
@@ -303,12 +302,14 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     }
 }
 
-- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+- (void)mapView:(MKMapView *)mapView
+ annotationView:(MKAnnotationView *)view
+calloutAccessoryControlTapped:(UIControl *)control {
     if (control == view.rightCalloutAccessoryView) {
         [self performSegueWithIdentifier:@"showWaypointFromMap" sender:view];
     } else if (control == view.leftCalloutAccessoryView) {
         Friend *friend = (Friend *)view.annotation;
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
+        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         [delegate requestLocationFromFriend:friend];
         [AlertView alert:NSLocalizedString(@"Location",
                                            @"Header of an alert message regarding a location")
@@ -335,8 +336,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 
 #pragma mark - NSFetchedResultsControllerDelegate
 
-- (void)performFetch:(NSFetchedResultsController *)frc
-{
+- (void)performFetch:(NSFetchedResultsController *)frc {
     if (frc) {
         NSError *error;
         [frc performFetch:&error];
@@ -423,8 +423,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 - (void)controller:(NSFetchedResultsController *)controller
   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex
-     forChangeType:(NSFetchedResultsChangeType)type
-{
+     forChangeType:(NSFetchedResultsChangeType)type {
     if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext)
     {
         switch(type)
@@ -442,17 +441,16 @@ didChangeDragState:(MKAnnotationViewDragState)newState
    didChangeObject:(id)anObject
        atIndexPath:(NSIndexPath *)indexPath
      forChangeType:(NSFetchedResultsChangeType)type
-      newIndexPath:(NSIndexPath *)newIndexPath
-{
+      newIndexPath:(NSIndexPath *)newIndexPath {
     if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext)
     {
         if ([anObject isKindOfClass:[Friend class]]) {
             Friend *friend = (Friend *)anObject;
-            Waypoint *waypoint = [friend newestWaypoint];
+            Waypoint *waypoint = friend.newestWaypoint;
             switch(type)
             {
                 case NSFetchedResultsChangeInsert:
-                    if (waypoint && [waypoint.lat doubleValue] != 0.0 && [waypoint.lon doubleValue] != 0.0) {
+                    if (waypoint && (waypoint.lat).doubleValue != 0.0 && (waypoint.lon).doubleValue != 0.0) {
                         [self.mapView addAnnotation:friend];
                     }
                     break;
@@ -466,7 +464,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
                 case NSFetchedResultsChangeMove:
                     [self.mapView removeOverlay:friend];
                     [self.mapView removeAnnotation:friend];
-                    if (waypoint && [waypoint.lat doubleValue] != 0.0 && [waypoint.lon doubleValue] != 0.0) {
+                    if (waypoint && (waypoint.lat).doubleValue != 0.0 && (waypoint.lon).doubleValue != 0.0) {
                         [self.mapView addAnnotation:friend];
                     }
                     break;
@@ -499,7 +497,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             Info *info = (Info *)anObject;
             switch(type) {
                 case NSFetchedResultsChangeInsert:
-                    if ([info.lat doubleValue] != 0.0 && [info.lon doubleValue] != 0.0) {
+                    if ((info.lat).doubleValue != 0.0 && (info.lon).doubleValue != 0.0) {
                         [self.mapView addAnnotation:info];
                     }
                     break;
@@ -511,7 +509,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
                 case NSFetchedResultsChangeUpdate:
                 case NSFetchedResultsChangeMove:
                     [self.mapView removeAnnotation:info];
-                    if ([info.lat doubleValue] != 0.0 && [info.lon doubleValue] != 0.0) {
+                    if ((info.lat).doubleValue != 0.0 && (info.lon).doubleValue != 0.0) {
                         [self.mapView addAnnotation:info];
                     }
                     break;
@@ -566,7 +564,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic] inManagedObjectContext:[CoreData theManagedObjectContext]];
         [[OwnTracking sharedInstance] addRegionFor:friend
                                               name:[NSString stringWithFormat:@"Center-%d",
-                                                    (int)[[NSDate date] timeIntervalSince1970]]
+                                                    (int)[NSDate date].timeIntervalSince1970]
                                               uuid:nil
                                              major:0
                                              minor:0

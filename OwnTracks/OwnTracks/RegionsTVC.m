@@ -72,7 +72,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         CLLocation *location = [LocationManager sharedInstance].location;
         Region *newRegion = [[OwnTracking sharedInstance] addRegionFor:friend
                                                                   name:[NSString stringWithFormat:@"Here-%d",
-                                                                        (int)[[NSDate date] timeIntervalSince1970]]
+                                                                        (int)[NSDate date].timeIntervalSince1970]
                                                                   uuid:nil
                                                                  major:0
                                                                  minor:0
@@ -93,12 +93,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 #pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [[self.fetchedResultsController sections] count];
+    return (self.fetchedResultsController).sections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-    return [sectionInfo numberOfObjects];
+    id <NSFetchedResultsSectionInfo> sectionInfo = (self.fetchedResultsController).sections[section];
+    return sectionInfo.numberOfObjects;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -140,7 +140,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+        NSManagedObjectContext *context = (self.fetchedResultsController).managedObjectContext;
         Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
         if (region) {
             [[OwnTracking sharedInstance] removeRegion:region context:context];
@@ -168,11 +168,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Region"
                                               inManagedObjectContext:[CoreData theManagedObjectContext]];
-    [fetchRequest setEntity:entity];
+    fetchRequest.entity = entity;
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"belongsTo = %@", friend];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
     NSArray *sortDescriptors = @[sortDescriptor];
-    [fetchRequest setSortDescriptors:sortDescriptors];
+    fetchRequest.sortDescriptors = sortDescriptors;
     
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc]
                                                              initWithFetchRequest:fetchRequest

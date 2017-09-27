@@ -24,8 +24,8 @@
     if (!matches) {
         // handle error
     } else {
-        if ([matches count]) {
-            setting = [matches lastObject];
+        if (matches.count) {
+            setting = matches.lastObject;
         }
     }
 

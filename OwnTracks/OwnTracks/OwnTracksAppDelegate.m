@@ -110,7 +110,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.backgroundTask = UIBackgroundTaskInvalid;
     self.completionHandler = nil;
 
-    UIBackgroundRefreshStatus status = [[UIApplication sharedApplication] backgroundRefreshStatus];
+    UIBackgroundRefreshStatus status = [UIApplication sharedApplication].backgroundRefreshStatus;
     switch (status) {
         case UIBackgroundRefreshStatusAvailable:
             DDLogVerbose(@"[OwnTracksAppDelegate] UIBackgroundRefreshStatusAvailable");
@@ -238,7 +238,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 [Settings waypointsFromDictionary:@{@"_type":@"waypoints",
                                                     @"waypoints":@[@{@"_type":@"waypoint",
                                                                      @"desc":desc,
-                                                                     @"tst":@((int)([[NSDate date] timeIntervalSince1970])),
+                                                                     @"tst":@((int)([NSDate date].timeIntervalSince1970)),
                                                                      @"lat":@([LocationManager sharedInstance].location.coordinate.latitude),
                                                                      @"lon":@([LocationManager sharedInstance].location.coordinate.longitude),
                                                                      @"rad":@(-1)
@@ -291,7 +291,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                  DDLogVerbose(@"NSHTTPURLResponse %@", httpResponse);
                  if (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299) {
                      NSError *error;
-                     NSString *extension = [url pathExtension];
+                     NSString *extension = url.pathExtension;
                      if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
                          [self terminateSession];
                          NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
@@ -316,7 +316,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                                                              appropriateForURL:nil
                                                                                         create:YES
                                                                                          error:&error];
-                         NSString *fileName = [url lastPathComponent];
+                         NSString *fileName = url.lastPathComponent;
                          NSURL *fileURL = [directoryURL URLByAppendingPathComponent:fileName];
                          [[NSFileManager defaultManager] createFileAtPath:fileURL.path
                                                                  contents:data
@@ -377,18 +377,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 - (BOOL)processFile:(NSURL *)url {
 
     NSInputStream *input = [NSInputStream inputStreamWithURL:url];
-    if ([input streamError]) {
+    if (input.streamError) {
         self.processingMessage = [NSString stringWithFormat:@"inputStreamWithURL %@ %@",
-                                  [input streamError],
+                                  input.streamError,
                                   url];
         return FALSE;
     }
     [input open];
-    if ([input streamError]) {
+    if (input.streamError) {
         self.processingMessage = [NSString stringWithFormat:@"%@ %@ %@",
                                   NSLocalizedString(@"file open error",
                                                     @"Display after trying to open a file"),
-                                  [input streamError],
+                                  input.streamError,
                                   url];
         return FALSE;
     }
@@ -396,7 +396,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     DDLogVerbose(@"URL pathExtension %@", url.pathExtension);
 
     NSError *error;
-    NSString *extension = [url pathExtension];
+    NSString *extension = url.pathExtension;
     if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
         [self terminateSession];
         error = [Settings fromStream:input];
@@ -411,7 +411,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                                             appropriateForURL:nil
                                                                        create:YES
                                                                         error:&error];
-        NSString *fileName = [url lastPathComponent];
+        NSString *fileName = url.lastPathComponent;
         NSURL *fileURL = [directoryURL URLByAppendingPathComponent:fileName];
         [[NSFileManager defaultManager] removeItemAtURL:fileURL error:nil];
         [[NSFileManager defaultManager] copyItemAtURL:url toURL:fileURL error:nil];
@@ -427,7 +427,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         self.processingMessage = [NSString stringWithFormat:@"%@ %@: %@ %@",
                                   NSLocalizedString(@"Error processing file",
                                                     @"Display when file processing fails"),
-                                  [url lastPathComponent],
+                                  url.lastPathComponent,
                                   error.localizedDescription,
                                   error.userInfo];
         return FALSE;
@@ -435,7 +435,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.processingMessage = [NSString stringWithFormat:@"%@ %@ %@",
                               NSLocalizedString(@"File",
                                                 @"Display when file processing succeeds (filename follows)"),
-                              [url lastPathComponent],
+                              url.lastPathComponent,
                               NSLocalizedString(@"successfully processed",
                                                 @"Display when file processing succeeds")
                               ];
@@ -609,9 +609,9 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                        @"_type": @"transition",
                                        @"lat": @(location.coordinate.latitude),
                                        @"lon": @(location.coordinate.longitude),
-                                       @"tst": @(floor([location.timestamp timeIntervalSince1970])),
+                                       @"tst": @(floor((location.timestamp).timeIntervalSince1970)),
                                        @"acc": @(location.horizontalAccuracy),
-                                       @"tid": [myself getEffectiveTid],
+                                       @"tid": myself.effectiveTid,
                                        @"event": enter ? @"enter" : @"leave",
                                        @"t": [region isKindOfClass:[CLBeaconRegion class]] ? @"b" : @"c"
                                        } mutableCopy];
@@ -619,9 +619,9 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         for (Region *anyRegion in myself.hasRegions) {
             if ([region.identifier isEqualToString:anyRegion.CLregion.identifier]) {
                 anyRegion.name = anyRegion.name;
-                if ([anyRegion.share boolValue]) {
+                if ((anyRegion.share).boolValue) {
                     [json setValue:region.identifier forKey:@"desc"];
-                    [json setValue:@(floor([[anyRegion getAndFillTst] timeIntervalSince1970])) forKey:@"wtst"];
+                    [json setValue:@(floor(anyRegion.andFillTst.timeIntervalSince1970)) forKey:@"wtst"];
 
                     switch ([Settings intForKey:@"mode"]) {
                         case CONNECTION_MODE_WATSON:
@@ -642,9 +642,9 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                     }
                 }
                 if ([region isKindOfClass:[CLBeaconRegion class]]) {
-                    if ([anyRegion.radius doubleValue] < 0) {
-                        anyRegion.lat = [NSNumber numberWithDouble:location.coordinate.latitude];
-                        anyRegion.lon = [NSNumber numberWithDouble:location.coordinate.longitude];
+                    if ((anyRegion.radius).doubleValue < 0) {
+                        anyRegion.lat = @(location.coordinate.latitude);
+                        anyRegion.lon = @(location.coordinate.longitude);
                         [self sendRegion:anyRegion];
                     }
                 }
@@ -680,9 +680,9 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 
         NSMutableDictionary *json = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                                     @"_type": @"beacon",
-                                                                                    @"tid": [myself getEffectiveTid],
-                                                                                    @"tst": @(floor([[LocationManager sharedInstance].location.timestamp timeIntervalSince1970])),
-                                                                                    @"uuid": [beacon.proximityUUID UUIDString],
+                                                                                    @"tid": myself.effectiveTid,
+                                                                                    @"tst": @(floor(([LocationManager sharedInstance].location.timestamp).timeIntervalSince1970)),
+                                                                                    @"uuid": (beacon.proximityUUID).UUIDString,
                                                                                     @"major": beacon.major,
                                                                                     @"minor": beacon.minor,
                                                                                     @"prox": @(beacon.proximity),
@@ -721,7 +721,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
      **/
     DDLogInfo(@"showState %g", [UIApplication sharedApplication].backgroundTimeRemaining);
 
-    if ([self.connectionState intValue] == state_closed) {
+    if ((self.connectionState).intValue == state_closed) {
         if (self.completionHandler) {
             DDLogVerbose(@"completionHandler");
             self.completionHandler(UIBackgroundFetchResultNewData);
@@ -739,7 +739,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 {
     if (!_queueManagedObjectContext) {
         _queueManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        [_queueManagedObjectContext setParentContext:[CoreData theManagedObjectContext]];
+        _queueManagedObjectContext.parentContext = [CoreData theManagedObjectContext];
     }
     return _queueManagedObjectContext;
 }
@@ -761,7 +761,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     NSString *device = @"";
     BOOL ownDevice = true;
 
-    for (int i = 0; i < [baseComponents count]; i++) {
+    for (int i = 0; i < baseComponents.count; i++) {
         if (i > 0) {
             device = [device stringByAppendingString:@"/"];
         }
@@ -809,14 +809,14 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                         [self waypoints];
 
                     } else if ([@"action" saveEqual:dictionary[@"action"]]) {
-                        NSString *content = [NSString saveCopy:[dictionary objectForKey:@"content"]];
-                        NSString *url = [NSString saveCopy:[dictionary objectForKey:@"url"] ];
-                        NSString *notificationMessage = [NSString saveCopy:[dictionary objectForKey:@"notification"]];
-                        NSNumber *external = [NSNumber saveCopy:[dictionary objectForKey:@"extern"]];
+                        NSString *content = [NSString saveCopy:dictionary[@"content"]];
+                        NSString *url = [NSString saveCopy:dictionary[@"url"] ];
+                        NSString *notificationMessage = [NSString saveCopy:dictionary[@"notification"]];
+                        NSNumber *external = [NSNumber saveCopy:dictionary[@"extern"]];
 
                         [Settings setString:content forKey:SETTINGS_ACTION];
                         [Settings setString:url forKey:SETTINGS_ACTIONURL];
-                        [Settings setBool:[external boolValue] forKey:SETTINGS_ACTIONEXTERN];
+                        [Settings setBool:external.boolValue forKey:SETTINGS_ACTIONEXTERN];
 
                         if (notificationMessage) {
                             UILocalNotification *notification = [[UILocalNotification alloc] init];
@@ -901,12 +901,12 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     NSDate *toDate;
     NSDate *fromDate;
     if (to && [to isKindOfClass:[NSNumber class]]) {
-        toDate = [NSDate dateWithTimeIntervalSince1970:[to doubleValue]];
+        toDate = [NSDate dateWithTimeIntervalSince1970:to.doubleValue];
     } else {
         toDate = [NSDate date];
     }
     if (from && [from isKindOfClass:[NSNumber class]]) {
-        fromDate = [NSDate dateWithTimeIntervalSince1970:[from doubleValue]];
+        fromDate = [NSDate dateWithTimeIntervalSince1970:from.doubleValue];
     } else {
         NSDateComponents *components = [[NSCalendar currentCalendar]
                                         components: NSCalendarUnitDay |
@@ -943,23 +943,23 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                            NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
                                            [json addEntriesFromDictionary:@{
                                                                             @"_type": @"steps",
-                                                                            @"tst": @(floor([[NSDate date] timeIntervalSince1970])),
-                                                                            @"from": @(floor([fromDate timeIntervalSince1970])),
-                                                                            @"to": @(floor([toDate timeIntervalSince1970])),
+                                                                            @"tst": @(floor([NSDate date].timeIntervalSince1970)),
+                                                                            @"from": @(floor(fromDate.timeIntervalSince1970)),
+                                                                            @"to": @(floor(toDate.timeIntervalSince1970)),
                                                                             }];
                                            if (pedometerData) {
-                                               [json setObject:pedometerData.numberOfSteps forKey:@"steps"];
+                                               json[@"steps"] = pedometerData.numberOfSteps;
                                                if (pedometerData.floorsAscended) {
-                                                   [json setObject:pedometerData.floorsAscended forKey:@"floorsup"];
+                                                   json[@"floorsup"] = pedometerData.floorsAscended;
                                                }
                                                if (pedometerData.floorsDescended) {
-                                                   [json setObject:pedometerData.floorsDescended forKey:@"floorsdown"];
+                                                   json[@"floorsdown"] = pedometerData.floorsDescended;
                                                }
                                                if (pedometerData.distance) {
-                                                   [json setObject:pedometerData.distance forKey:@"distance"];
+                                                   json[@"distance"] = pedometerData.distance;
                                                }
                                            } else {
-                                               [json setObject:@(-1) forKey:@"steps"];
+                                               json[@"steps"] = @(-1);
                                            }
 
                                            [self.connection sendData:[self jsonToData:json]
@@ -1159,7 +1159,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         self.connection.subscriptionQos = subscriptionQos;
 
         NSMutableDictionary *json = [NSMutableDictionary dictionaryWithDictionary:@{
-                                                                                    @"tst": [NSString stringWithFormat:@"%.0f", [[NSDate date] timeIntervalSince1970]],
+                                                                                    @"tst": [NSString stringWithFormat:@"%.0f", [NSDate date].timeIntervalSince1970],
                                                                                     @"_type": @"lwt"}];
         self.connection.key = [Settings stringForKey:@"secret_preference"];
 

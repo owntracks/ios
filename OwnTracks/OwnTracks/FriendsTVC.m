@@ -119,10 +119,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (void)setBadge:(NSNumber *)number {
-    unsigned long inQueue = [number unsignedLongValue];
+    unsigned long inQueue = number.unsignedLongValue;
     DDLogVerbose(@"inQueue %lu", inQueue);
     if (inQueue > 0) {
-        [self.navigationController.tabBarItem setBadgeValue:[NSString stringWithFormat:@"%lu", inQueue]];
+        (self.navigationController.tabBarItem).badgeValue = [NSString stringWithFormat:@"%lu", inQueue];
     } else {
         [self.navigationController.tabBarItem setBadgeValue:nil];
     }
@@ -141,7 +141,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
         if ([segue.identifier isEqualToString:@"showWaypointFromFriends"]) {
             if ([segue.destinationViewController respondsToSelector:@selector(setWaypoint:)]) {
-                Waypoint *waypoint = [friend newestWaypoint];
+                Waypoint *waypoint = friend.newestWaypoint;
                 if (waypoint) {
                     [segue.destinationViewController performSelector:@selector(setWaypoint:) withObject:waypoint];
                 }
@@ -181,13 +181,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [[self.fetchedResultsController sections] count];
+    return (self.fetchedResultsController).sections.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    id <NSFetchedResultsSectionInfo> sectionInfo = [self.fetchedResultsController sections][section];
-    return [sectionInfo numberOfObjects];
+    id <NSFetchedResultsSectionInfo> sectionInfo = (self.fetchedResultsController).sections[section];
+    return sectionInfo.numberOfObjects;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -209,7 +209,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+        NSManagedObjectContext *context = (self.fetchedResultsController).managedObjectContext;
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         Friend *friend = [self.fetchedResultsController objectAtIndexPath:indexPath];
         [delegate sendEmpty:friend.topic];
@@ -233,8 +233,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Friend"
                                               inManagedObjectContext:[CoreData theManagedObjectContext]];
-    [fetchRequest setEntity:entity];
-    [fetchRequest setFetchBatchSize:20];
+    fetchRequest.entity = entity;
+    fetchRequest.fetchBatchSize = 20;
 
     int ignoreStaleLocations = [Settings intForKey:@"ignorestalelocations_preference"];
     if (ignoreStaleLocations) {
@@ -245,7 +245,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
     NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"topic" ascending:YES];
     NSArray *sortDescriptors = @[sortDescriptor1];
-    [fetchRequest setSortDescriptors:sortDescriptors];
+    fetchRequest.sortDescriptors = sortDescriptors;
     
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc]
                                                              initWithFetchRequest:fetchRequest
@@ -336,16 +336,16 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     FriendAnnotationV *friendAnnotationView = [[FriendAnnotationV alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     friendAnnotationView.personImage = friend.image ? [UIImage imageWithData:friend.image] : nil;
     friendAnnotationView.me = [friend.topic isEqualToString:[Settings theGeneralTopic]];
-    friendAnnotationView.tid = [friend getEffectiveTid];
+    friendAnnotationView.tid = friend.effectiveTid;
 
-    Waypoint *waypoint = [friend newestWaypoint];
+    Waypoint *waypoint = friend.newestWaypoint;
     if (waypoint) {
         [friendTableViewCell deferredReverseGeoCode:waypoint];
         
         friendTableViewCell.address.text = waypoint.placemark ? waypoint.placemark : NSLocalizedString(@"resolving...",
                                                                                                       @"temporary display while resolving address");
-        friendAnnotationView.speed = [waypoint.vel doubleValue];
-        friendAnnotationView.course = [waypoint.cog doubleValue];
+        friendAnnotationView.speed = (waypoint.vel).doubleValue;
+        friendAnnotationView.course = (waypoint.cog).doubleValue;
     } else {
         friendAnnotationView.speed = -1;
         friendAnnotationView.course = -1;

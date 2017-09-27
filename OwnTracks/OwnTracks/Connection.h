@@ -41,7 +41,7 @@ enum state {
 @property (nonatomic) MQTTQosLevel subscriptionQos;
 
 - (void)connectTo:(NSString *)host
-             port:(NSInteger)port
+             port:(UInt32)port
                ws:(BOOL)ws
               tls:(BOOL)tls
   protocolVersion:(MQTTProtocolVersion)protocolVersion
@@ -66,7 +66,7 @@ enum state {
 - (void)disconnect;
 - (void)reset;
 
-- (NSString *)parameters;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *parameters;
 - (void)addExtraSubscription:(NSString *)topicFilter qos:(MQTTQosLevel)qos;
 - (void)removeExtraSubscription:(NSString *)topicFilter;
 @end

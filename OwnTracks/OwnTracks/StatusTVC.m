@@ -78,7 +78,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                            NSLocalizedString(@"unknown state", @"description connection unknown state"),
                            delegate.connectionState];
     if (delegate.connectionState) {
-        stateName = [states objectForKey:delegate.connectionState];
+        stateName = states[delegate.connectionState];
         if (!stateName) {
             stateName = delegate.connectionState.description;
         }
@@ -111,7 +111,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         } else if (mode == 2) {
             self.UIparameters.text = @"Public";
         } else {
-            self.UIparameters.text = [delegate.connection parameters];
+            self.UIparameters.text = (delegate.connection).parameters;
         }
     }
     

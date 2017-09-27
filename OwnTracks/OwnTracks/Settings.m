@@ -33,11 +33,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     return defaults;
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
 
     if (self) {
-        NSURL *bundleURL = [[NSBundle mainBundle] bundleURL];
+        NSURL *bundleURL = [NSBundle mainBundle].bundleURL;
         NSURL *settingsPlistURL = [bundleURL URLByAppendingPathComponent:@"Settings.plist"];
         NSURL *publicPlistURL = [bundleURL URLByAppendingPathComponent:@"Public.plist"];
         NSURL *httpPlistURL = [bundleURL URLByAppendingPathComponent:@"HTTP.plist"];
@@ -75,7 +75,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 + (NSError *)fromDictionary:(NSDictionary *)dictionary {
     if (dictionary) {
-        for (NSString *key in [dictionary allKeys]) {
+        for (NSString *key in dictionary.allKeys) {
             DDLogVerbose(@"Configuration %@:%@", key, dictionary[key]);
         }
         
@@ -83,7 +83,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             NSObject *object;
 
             // Language replacements
-            for (NSString *key in [dictionary allKeys]) {
+            for (NSString *key in dictionary.allKeys) {
                 if ([key rangeOfString:@"pl"].location == 0) {
                     object = dictionary[key];
                     if (object) [self setString:object forKey:key];
@@ -212,7 +212,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             
             object = dictionary[@"locatorDisplacement"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-            			 forKey:@"mindist_preference"];
+                         forKey:@"mindist_preference"];
             
             object = dictionary[@"locatorInterval"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
@@ -331,7 +331,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 + (NSError *)waypointsFromDictionary:(NSDictionary *)dictionary {
     if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
-        for (NSString *key in [dictionary allKeys]) {
+        for (NSString *key in dictionary.allKeys) {
             DDLogVerbose(@"Waypoints %@:%@", key, dictionary[key]);
         }
         
@@ -618,35 +618,35 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 + (NSString *)stringForKey:(NSString *)key {
     NSString *value = nil;
 
-    int mode = [[self stringForKeyRaw:@"mode"] intValue];
+    int mode = [self stringForKeyRaw:@"mode"].intValue;
     id object;
     if (![self validKey:key inMode:mode]) {
         switch (mode) {
             case CONNECTION_MODE_PUBLIC:
-                object = [[SettingsDefaults theDefaults].publicDefaults objectForKey:key];
+                object = ([SettingsDefaults theDefaults].publicDefaults)[key];
                 break;
             case CONNECTION_MODE_HOSTED:
-                object = [[SettingsDefaults theDefaults].hostedDefaults objectForKey:key];
+                object = ([SettingsDefaults theDefaults].hostedDefaults)[key];
                 break;
             case CONNECTION_MODE_HTTP:
-                object = [[SettingsDefaults theDefaults].httpDefaults objectForKey:key];
+                object = ([SettingsDefaults theDefaults].httpDefaults)[key];
                 break;
             case CONNECTION_MODE_WATSON:
-                object = [[SettingsDefaults theDefaults].watsonDefaults objectForKey:key];
+                object = ([SettingsDefaults theDefaults].watsonDefaults)[key];
                 break;
             case CONNECTION_MODE_WATSONREGISTERED:
-                object = [[SettingsDefaults theDefaults].watsonRegisteredDefaults objectForKey:key];
+                object = ([SettingsDefaults theDefaults].watsonRegisteredDefaults)[key];
                 break;
             case CONNECTION_MODE_PRIVATE:
             default:
-                object = [[SettingsDefaults theDefaults].appDefaults objectForKey:key];
+                object = ([SettingsDefaults theDefaults].appDefaults)[key];
                 break;
         }
         if (object) {
             if ([object isKindOfClass:[NSString class]]) {
                 value = (NSString *)object;
             } else if ([object isKindOfClass:[NSNumber class]]) {
-                value = [(NSNumber *)object stringValue];
+                value = ((NSNumber *)object).stringValue;
             }
         }
     } else {
@@ -663,12 +663,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             value = setting.value;
         } else {
             // if not found in Core Data or NSUserdefaults, use defaults from .plist
-            id object = [[SettingsDefaults theDefaults].appDefaults objectForKey:key];
+            id object = ([SettingsDefaults theDefaults].appDefaults)[key];
             if (object) {
                 if ([object isKindOfClass:[NSString class]]) {
                     value = (NSString *)object;
                 } else if ([object isKindOfClass:[NSNumber class]]) {
-                    value = [(NSNumber *)object stringValue];
+                    value = ((NSNumber *)object).stringValue;
                 }
             }
         }
@@ -677,17 +677,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 + (int)intForKey:(NSString *)key {
-    return [[self stringForKey:key] intValue];
+    return [self stringForKey:key].intValue;
 }
 
 + (double)doubleForKey:(NSString *)key {
-    return [[self stringForKey:key] doubleValue];
+    return [self stringForKey:key].doubleValue;
 }
 
 + (BOOL)boolForKey:(NSString *)key {
     NSString *value = [self stringForKey:key];
     DDLogVerbose(@"boolForKey:%@ = %@", key, value);
-    return [value boolValue];
+    return value.boolValue;
 }
 
 
@@ -783,7 +783,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         case CONNECTION_MODE_PUBLIC:
         case CONNECTION_MODE_HOSTED:  {
             NSCharacterSet *allowed = [NSCharacterSet alphanumericCharacterSet];
-            NSCharacterSet *notAllowed = [allowed invertedSet];
+            NSCharacterSet *notAllowed = allowed.invertedSet;
             theId = [[[NSString stringWithFormat:@"%@%@", [self theUserId], [self theDeviceId]]
                          componentsSeparatedByCharactersInSet:notAllowed]
                         componentsJoinedByString:@""];
@@ -797,7 +797,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             
             if (!userId || [userId isEqualToString:@""]) {
                 if (!deviceId || [deviceId isEqualToString:@""]) {
-                    theId = [[UIDevice currentDevice] name];
+                    theId = [UIDevice currentDevice].name;
                 } else {
                     theId = deviceId;
                 }
@@ -811,7 +811,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                 }
             }
             NSCharacterSet *allowed = [NSCharacterSet alphanumericCharacterSet];
-            NSCharacterSet *notAllowed = [allowed invertedSet];
+            NSCharacterSet *notAllowed = allowed.invertedSet;
             theId = [[theId componentsSeparatedByCharactersInSet:notAllowed]
                      componentsJoinedByString:@""];
             break;
@@ -836,7 +836,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             break;
 
         case CONNECTION_MODE_PUBLIC: {
-            deviceId = [[UIDevice currentDevice].identifierForVendor UUIDString];
+            deviceId = ([UIDevice currentDevice].identifierForVendor).UUIDString;
             break;
         }
         case CONNECTION_MODE_HOSTED:
@@ -847,7 +847,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         default:
             deviceId = [self stringForKey:@"deviceid_preference"];
             if (!deviceId || deviceId.length == 0) {
-                deviceId = [[UIDevice currentDevice].identifierForVendor UUIDString];
+                deviceId = ([UIDevice currentDevice].identifierForVendor).UUIDString;
             }
             break;
     }
@@ -894,7 +894,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                     anyDevice = [anyDevice stringByAppendingString:baseComponents[i]];
                 }
                 
-                for (int i = any; i < [baseComponents count]; i++) {
+                for (int i = any; i < baseComponents.count; i++) {
                     if (i > 0) {
                         anyDevice = [anyDevice stringByAppendingString:@"/"];
                     }

@@ -14,20 +14,18 @@ static NSManagedObjectContext *theManagedObjectContext = nil;
 @implementation CoreData
 static const DDLogLevel ddLogLevel = DDLogLevelError;
 
-- (id)init
+- (instancetype)init
 {
-    NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+    NSURL *url = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].lastObject;
     url = [url URLByAppendingPathComponent:@"OwnTracks"];
 
     self = [super initWithFileURL:url];
         
-    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
-                             [NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption,
-                             [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption,
-                             nil];
+    NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @YES,
+                             NSInferMappingModelAutomaticallyOption: @YES};
     self.persistentStoreOptions = options;
     
-    if (![[NSFileManager defaultManager] fileExistsAtPath:[url path]]) {
+    if (![[NSFileManager defaultManager] fileExistsAtPath:url.path]) {
         DDLogVerbose(@"Document creation %@\n", [url path]);
         [self saveToURL:url forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success){
             if (success) {
@@ -92,7 +90,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 + (void)saveContext:(NSManagedObjectContext *)context {
     if (context != nil) {
-        if ([context hasChanges]) {
+        if (context.hasChanges) {
             NSError *error = nil;
             DDLogVerbose(@"managedObjectContext save");
             if (![context save:&error]) {

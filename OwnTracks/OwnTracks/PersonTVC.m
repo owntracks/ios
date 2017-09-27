@@ -28,28 +28,28 @@
             {
                 ABRecordRef person = CFArrayGetValueAtIndex(records, i);
                 NSString *name = CFBridgingRelease(ABRecordCopyCompositeName(person));
-                NSString *key = [[name substringToIndex:1] uppercaseString];
+                NSString *key = [name substringToIndex:1].uppercaseString;
                 if (key) {
-                    NSMutableArray *array = [self.sections objectForKey:key];
+                    NSMutableArray *array = (self.sections)[key];
                     if (!array) {
                         array = [[NSMutableArray alloc] init];
                     }
                     [array addObject:@(ABRecordGetRecordID(person))];
-                    [self.sections setObject:array forKey:key];
+                    (self.sections)[key] = array;
                 }
             }
             CFRelease(records);
         }
     
         for (NSString *key in self.sections.allKeys) {
-            NSArray *persons = [[self.sections objectForKey:key] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            NSArray *persons = [(self.sections)[key] sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
                 ABRecordRef ABRecordRef1 = ABAddressBookGetPersonWithRecordID(ab, [obj1 intValue]);
                 ABRecordRef ABRecordRef2 = ABAddressBookGetPersonWithRecordID(ab, [obj2 intValue]);
                 CFComparisonResult r = ABPersonComparePeopleByName(ABRecordRef1, ABRecordRef2, ABPersonGetSortOrdering());
                 return (NSComparisonResult)r;
             }];
             
-            [self.sections setObject:persons forKey:key];
+            (self.sections)[key] = persons;
         }
     }
     
@@ -66,12 +66,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return [self.sections count];
+    return (self.sections).count;
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-    return [[self.sections allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    return [(self.sections).allKeys sortedArrayUsingSelector:@selector(compare:)];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
@@ -81,15 +81,15 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NSArray *keys = [[self.sections allKeys] sortedArrayUsingSelector:@selector(compare:)];
+    NSArray *keys = [(self.sections).allKeys sortedArrayUsingSelector:@selector(compare:)];
     return keys[section];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray *keys = [[self.sections allKeys] sortedArrayUsingSelector:@selector(compare:)];
-    NSArray *persons = [self.sections objectForKey:keys[section]];
-    return [persons count];
+    NSArray *keys = [(self.sections).allKeys sortedArrayUsingSelector:@selector(compare:)];
+    NSArray *persons = (self.sections)[keys[section]];
+    return persons.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -136,8 +136,8 @@
 
 - (NSArray *)sortedPersonsInSection:(NSInteger)index
 {
-    NSArray *keys = [[self.sections allKeys] sortedArrayUsingSelector:@selector(compare:)];
-    NSArray *persons = [self.sections objectForKey:keys[index]];
+    NSArray *keys = [(self.sections).allKeys sortedArrayUsingSelector:@selector(compare:)];
+    NSArray *persons = (self.sections)[keys[index]];
     return persons;
 }
 

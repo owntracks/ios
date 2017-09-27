@@ -59,10 +59,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)setup
 {
-    self.UIcoordinate.text = [self.waypoint coordinateText];
+    self.UIcoordinate.text = (self.waypoint).coordinateText;
     
-    self.UItimestamp.text = [self.waypoint timestampText];
-    self.UIinfo.text = [self.waypoint infoText];
+    self.UItimestamp.text = (self.waypoint).timestampText;
+    self.UIinfo.text = (self.waypoint).infoText;
     self.UItopic.text = self.waypoint.belongsTo.topic;
     
     [self.waypoint addObserver:self forKeyPath:@"placemark" options:NSKeyValueObservingOptionNew context:nil];
@@ -77,15 +77,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (IBAction)navigatePressed:(UIButton *)sender {
-    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake([self.waypoint.lat doubleValue],
-                                                              [self.waypoint.lon doubleValue]);
+    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake((self.waypoint.lat).doubleValue,
+                                                              (self.waypoint.lon).doubleValue);
     MKPlacemark* place = [[MKPlacemark alloc] initWithCoordinate: coord addressDictionary: nil];
     MKMapItem* destination = [[MKMapItem alloc] initWithPlacemark: place];
     destination.name = self.waypoint.belongsTo.nameOrTopic;
-    NSArray* items = [[NSArray alloc] initWithObjects: destination, nil];
-    NSDictionary* options = [[NSDictionary alloc] initWithObjectsAndKeys:
-                             MKLaunchOptionsDirectionsModeDriving,
-                             MKLaunchOptionsDirectionsModeKey, nil];
+    NSArray* items = @[destination];
+    NSDictionary* options = @{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving};
     [MKMapItem openMapsWithItems: items launchOptions: options];
 }
 

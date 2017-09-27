@@ -178,7 +178,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIwillQos) [Settings setString:self.UIwillQos.text forKey:@"willqos_preference"];
     if (self.UIkeepAlive) [Settings setString:self.UIkeepAlive.text forKey:@"keepalive_preference"];
     if (self.UImonitoring) {
-        [LocationManager sharedInstance].monitoring = [self.UImonitoring.text intValue];
+        [LocationManager sharedInstance].monitoring = (self.UImonitoring.text).intValue;
         [Settings setString:self.UImonitoring.text forKey:@"monitoring_preference"];
     }
     if (self.UIignoreInaccurateLocations) [Settings setString:self.UIignoreInaccurateLocations.text forKey:@"ignoreinaccuratelocations_preference"];
@@ -208,7 +208,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
     // important to save UImode last. Otherwise parameters not valid in the old mode may get persisted
     if (self.UImode) {
-        switch ([self.UImode arrayId]) {
+        switch ((self.UImode).arrayId) {
             case 5:
                 [Settings setInt:CONNECTION_MODE_WATSONREGISTERED forKey:@"mode"];
                 break;
@@ -657,7 +657,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSString *fileName = [NSString stringWithFormat:@"config.otrc"];
     NSURL *fileURL = [directoryURL URLByAppendingPathComponent:fileName];
 
-    [[NSFileManager defaultManager] createFileAtPath:[fileURL path]
+    [[NSFileManager defaultManager] createFileAtPath:fileURL.path
                                             contents:[Settings toData]
                                           attributes:nil];
 
@@ -679,7 +679,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSString *fileName = [NSString stringWithFormat:@"config.otrw"];
     NSURL *fileURL = [directoryURL URLByAppendingPathComponent:fileName];
 
-    [[NSFileManager defaultManager] createFileAtPath:[fileURL path]
+    [[NSFileManager defaultManager] createFileAtPath:fileURL.path
                                             contents:[Settings waypointsToData]
                                           attributes:nil];
 
@@ -771,7 +771,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (IBAction)protocolChanged:(UITextField *)sender {
     if (sender.text.length) {
-        int protocol = [sender.text intValue];
+        int protocol = (sender.text).intValue;
         if (protocol != MQTTProtocolVersion31 && protocol != MQTTProtocolVersion311) {
             UIAlertView *alertView = [[UIAlertView alloc]
                                       initWithTitle:NSLocalizedString(@"Protocol invalid",

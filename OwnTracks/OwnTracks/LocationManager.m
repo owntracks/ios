@@ -57,7 +57,7 @@ static LocationManager *theInstance = nil;
     return theInstance;
 }
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     
     self.manager = [[CLLocationManager alloc] init];
@@ -173,8 +173,8 @@ static LocationManager *theInstance = nil;
 }
 
 - (BOOL)insideBeaconRegion:(NSString *)identifier {
-    NSNumber *number = [self.insideBeaconRegions objectForKey:identifier];
-    return (number ? [number boolValue] : false);
+    NSNumber *number = (self.insideBeaconRegions)[identifier];
+    return (number ? number.boolValue : false);
 }
 
 - (BOOL)insideCircularRegion {
@@ -182,8 +182,8 @@ static LocationManager *theInstance = nil;
 }
 
 - (BOOL)insideCircularRegion:(NSString *)identifier {
-    NSNumber *number = [self.insideCircularRegions objectForKey:identifier];
-    return (number ? [number boolValue] : false);
+    NSNumber *number = (self.insideCircularRegions)[identifier];
+    return (number ? number.boolValue : false);
 }
 
 - (CLLocation *)location {
@@ -216,7 +216,7 @@ static LocationManager *theInstance = nil;
     }
     _monitoring = monitoring;
     self.manager.pausesLocationUpdatesAutomatically = NO;
-    if ([[[UIDevice currentDevice] systemVersion] compare:@"9.0" options:NSNumericSearch] != NSOrderedAscending) {
+    if ([[UIDevice currentDevice].systemVersion compare:@"9.0" options:NSNumericSearch] != NSOrderedAscending) {
         self.manager.allowsBackgroundLocationUpdates = TRUE;
     }
 
@@ -403,7 +403,7 @@ static LocationManager *theInstance = nil;
     
     if ([region isKindOfClass:[CLBeaconRegion class]]) {
         if (state == CLRegionStateInside) {
-            [self.insideBeaconRegions setObject:[NSNumber numberWithBool:TRUE] forKey:region.identifier];
+            (self.insideBeaconRegions)[region.identifier] = [NSNumber numberWithBool:TRUE];
             if (self.ranging) {
                 //if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
                 CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
@@ -448,7 +448,7 @@ static LocationManager *theInstance = nil;
         }
         
         if (state == CLRegionStateInside) {
-            [self.insideCircularRegions setObject:[NSNumber numberWithBool:TRUE] forKey:region.identifier];
+            (self.insideCircularRegions)[region.identifier] = [NSNumber numberWithBool:TRUE];
         } else {
             [self.insideCircularRegions removeObjectForKey:region.identifier];
         }
@@ -543,8 +543,8 @@ static LocationManager *theInstance = nil;
                 [beacon.proximityUUID getUUIDBytes:beaconUUID];
                 
                 if (uuid_compare(rangedBeaconUUID, beaconUUID) == 0 &&
-                    [rangedBeacon.major intValue] == [beacon.major intValue] &&
-                    [rangedBeacon.minor intValue] == [beacon.minor intValue]) {
+                    (rangedBeacon.major).intValue == (beacon.major).intValue &&
+                    (rangedBeacon.minor).intValue == (beacon.minor).intValue) {
                     foundBeacon = rangedBeacon;
                     break;
                 }

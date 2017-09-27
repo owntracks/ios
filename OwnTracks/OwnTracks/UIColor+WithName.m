@@ -13,7 +13,7 @@ static NSDictionary *colors;
 + (UIColor *)colorWithName:(NSString *)name {
     
     if (!colors) {
-        NSURL *bundleURL = [[NSBundle mainBundle] bundleURL];
+        NSURL *bundleURL = [NSBundle mainBundle].bundleURL;
         NSURL *colorsPlistURL = [bundleURL URLByAppendingPathComponent:@"Colors.plist"];
         colors = [NSDictionary dictionaryWithContentsOfURL:colorsPlistURL];
     }

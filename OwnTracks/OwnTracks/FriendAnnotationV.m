@@ -106,7 +106,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         [TACHO_COLOR setFill];
         [tacho fill];
         [CIRCLE_COLOR setStroke];
-        [tacho setLineWidth:1.0];
+        tacho.lineWidth = 1.0;
         [tacho stroke];
     }
 
@@ -151,7 +151,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         [COURSE_COLOR setFill];
         [course fill];
         [CIRCLE_COLOR setStroke];
-        [course setLineWidth:1.0];
+        course.lineWidth = 1.0;
         [course stroke];
     }
 }
@@ -174,7 +174,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)setSelected:(BOOL)selected {
     DDLogVerbose(@"selected %lu", (unsigned long)selected);
-    [super setSelected:selected];
+    super.selected = selected;
 }
 
 - (void)prepareForReuse {

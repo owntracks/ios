@@ -40,7 +40,6 @@
  @param runLoop see runLoop for description.
  @param runLoopMode see runLoopMode for description.
  @return the initialised MQTTSession object
- @exception NSInternalInconsistencyException if the parameters are invalid
  */
 - (MQTTSession *)initWithClientId:(NSString *)clientId
                          userName:(NSString *)userName
@@ -72,7 +71,6 @@
  @param runLoopMode see initWithClientId for description.
  @param securityPolicy see initWithClientId for description.
  @return the initialised MQTTSession object
- @exception NSInternalInconsistencyException if the parameters are invalid
  */
 - (MQTTSession *)initWithClientId:(NSString *)clientId
                          userName:(NSString *)userName
@@ -124,7 +122,6 @@
  * @param securityPolicy The security policy used to evaluate server trust for secure connections.
  * @param certificates An identity certificate used to reply to a server requiring client certificates according to the description given for SSLSetCertificate(). You may build the certificates array yourself or use the sundry method clientCertFromP12
  * @return the initialised MQTTSession object
- * @exception NSInternalInconsistencyException if the parameters are invalid
  *
  * @code
  #import "MQTTClient.h"
@@ -176,7 +173,7 @@
 * @return the initialised MQTTSession object
 * All other parameters are set to defaults
 */
-- (id)initWithClientId:(NSString *)theClientId;
+- (instancetype)initWithClientId:(NSString *)theClientId;
 
 /** for mqttio-OBJC backward compatibility
  @param theClientId see initWithClientId for description.
@@ -185,7 +182,7 @@
  @return the initialised MQTTSession object
  All other parameters are set to defaults
  */
-- (id)initWithClientId:(NSString*)theClientId
+- (instancetype)initWithClientId:(NSString*)theClientId
                runLoop:(NSRunLoop*)theRunLoop
                forMode:(NSString*)theRunLoopMode;
 
@@ -196,7 +193,7 @@
  @return the initialised MQTTSession object
  All other parameters are set to defaults
  */
-- (id)initWithClientId:(NSString*)theClientId
+- (instancetype)initWithClientId:(NSString*)theClientId
               userName:(NSString*)theUsername
               password:(NSString*)thePassword;
 
@@ -209,7 +206,7 @@
  @return the initialised MQTTSession object
  All other parameters are set to defaults
  */
-- (id)initWithClientId:(NSString*)theClientId
+- (instancetype)initWithClientId:(NSString*)theClientId
               userName:(NSString*)theUserName
               password:(NSString*)thePassword
                runLoop:(NSRunLoop*)theRunLoop
@@ -224,7 +221,7 @@
  @return the initialised MQTTSession object
  All other parameters are set to defaults
  */
-- (id)initWithClientId:(NSString*)theClientId
+- (instancetype)initWithClientId:(NSString*)theClientId
               userName:(NSString*)theUsername
               password:(NSString*)thePassword
              keepAlive:(UInt16)theKeepAliveInterval
@@ -241,7 +238,7 @@
  @return the initialised MQTTSession object
  All other parameters are set to defaults
  */
-- (id)initWithClientId:(NSString*)theClientId
+- (instancetype)initWithClientId:(NSString*)theClientId
               userName:(NSString*)theUsername
               password:(NSString*)thePassword
              keepAlive:(UInt16)theKeepAlive
@@ -262,7 +259,7 @@
  @return the initialised MQTTSession object
  All other parameters are set to defaults
  */
-- (id)initWithClientId:(NSString*)theClientId
+- (instancetype)initWithClientId:(NSString*)theClientId
               userName:(NSString*)theUserName
               password:(NSString*)thePassword
              keepAlive:(UInt16)theKeepAliveInterval
@@ -287,7 +284,7 @@
  @return the initialised MQTTSession object
  All other parameters are set to defaults
  */
-- (id)initWithClientId:(NSString*)theClientId
+- (instancetype)initWithClientId:(NSString*)theClientId
               userName:(NSString*)theUserName
               password:(NSString*)thePassword
              keepAlive:(UInt16)theKeepAliveInterval
@@ -308,7 +305,7 @@
  @return the initialised MQTTSession object
  All other parameters are set to defaults
  */
-- (id)initWithClientId:(NSString*)theClientId
+- (instancetype)initWithClientId:(NSString*)theClientId
              keepAlive:(UInt16)theKeepAliveInterval
         connectMessage:(MQTTMessage*)theConnectMessage
                runLoop:(NSRunLoop*)theRunLoop

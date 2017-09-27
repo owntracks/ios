@@ -44,7 +44,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (void)setup:(NSNumber *)interval {
-    NSTimeInterval timeInterval = [interval doubleValue];
+    NSTimeInterval timeInterval = interval.doubleValue;
     [self.alertView show];
     if (timeInterval) {
         [self performSelector:@selector(dismissAfterDelay:) withObject:self.alertView afterDelay:timeInterval];

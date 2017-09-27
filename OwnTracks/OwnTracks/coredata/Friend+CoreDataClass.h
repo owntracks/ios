@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 
-+ (ABAddressBookRef)theABRef;
++ (ABAddressBookRef)theABRef CF_RETURNS_NOT_RETAINED;
 
 + (Friend *)existsFriendWithTopic:(NSString *)topic
            inManagedObjectContext:(NSManagedObjectContext *)context;
@@ -33,14 +33,14 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSArray *)allFriendsInManagedObjectContext:(NSManagedObjectContext *)context;
 
 - (void)linkToAB:(ABRecordRef)record;
-- (NSString *)name;
-- (NSString *)nameOrTopic;
-- (NSData *)image;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull name;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull nameOrTopic;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSData * _Nonnull image;
 
 + (NSString *)effectiveTid:(NSString *)tid device:(NSString *)device;
-- (NSString *)getEffectiveTid;
-- (Waypoint *)newestWaypoint;
-- (MKPolyline *)polyLine;
+@property (NS_NONATOMIC_IOSONLY, getter=getEffectiveTid, readonly, copy) NSString * _Nonnull effectiveTid;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) Waypoint * _Nonnull newestWaypoint;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) MKPolyline * _Nonnull polyLine;
 
 @end
 

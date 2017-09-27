@@ -18,7 +18,7 @@
 
 - (void)initialize {
     self.pickerView = [[UIPickerView alloc] init];
-    [self.pickerView setAutoresizingMask:UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth];
+    (self.pickerView).autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.pickerView setShowsSelectionIndicator:YES];
     self.pickerView.delegate = self;
     self.pickerView.dataSource = self;
@@ -33,9 +33,8 @@
                                                                                    action:nil];
     UIToolbar *toolBar = [[UIToolbar alloc]initWithFrame:
                           CGRectMake(0, self.frame.size.height-50, self.frame.size.width, 50)];
-    NSArray *toolbarItems = [NSArray arrayWithObjects:
-                             flexibleSpace, doneButton, nil];
-    [toolBar setItems:toolbarItems];
+    NSArray *toolbarItems = @[flexibleSpace, doneButton];
+    toolBar.items = toolbarItems;
     self.inputAccessoryView = toolBar;
 }
 

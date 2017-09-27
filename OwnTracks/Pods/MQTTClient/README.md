@@ -3,7 +3,7 @@ MQTT-Client-Framework
 
 an Objective-C native MQTT Framework http://mqtt.org
 
-### Tested with
+### Tested with a long list of brokers
 
 * mosquitto
 * paho
@@ -19,6 +19,7 @@ an Objective-C native MQTT Framework http://mqtt.org
 * CloudMQTT
 * aws
 * hbmqtt (MQTTv311 only, limitations)
+* [aedes](https://github.com/mcollina/aedes) 
 
 ### As a CocoaPod
 
@@ -62,6 +63,19 @@ Or include the source from here.
 ### With Carthage
 
 [Carthage](https://github.com/Carthage/Carthage)
+```
+github "ckrey/MQTT-Client-Framework"
+```
+
+### docs
+
+Documentation generated with doxygen http://doxygen.org in the `./MQTTClient/dist/documentation` subdirectory.
+
+Here is the [PDF](MQTTClient/dist/documentation/latex/refman.pdf).
+
+You may open the HTML version of the documentation here  [index.html](MQTTClient/dist/documentation/html/index.html)
+
+Run `make install` in the `./MQTTClient/dist/documentation/html` subdirectory to install the the documentation as a DOCSET on your Mac.
 
 ### Usage
 
@@ -120,9 +134,7 @@ Publish a message to a topic:
 	                qos:MQTTQosLevelAtLeastOnce]; // this is part of the asynchronous API
 ```
 
-### docs
 
-Documentation generated with doxygen http://doxygen.org in [Documentation](MQTTClient/dist/documentation/html/index.html)
 
 
 ### Comparison MQTT Clients for iOS (incomplete)
