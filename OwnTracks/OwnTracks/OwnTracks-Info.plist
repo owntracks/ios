@@ -83,6 +83,10 @@
 	</array>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleIcons</key>
+	<dict/>
+	<key>CFBundleIcons~ipad</key>
+	<dict/>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -92,7 +96,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>9.6.4</string>
+	<string>9.7.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -111,21 +115,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>9.6.4</string>
-	<key>Fabric</key>
-	<dict>
-		<key>APIKey</key>
-		<string>d0b0c708e43f69036ebedad1766ad086074d30f6</string>
-		<key>Kits</key>
-		<array>
-			<dict>
-				<key>KitInfo</key>
-				<dict/>
-				<key>KitName</key>
-				<string>Crashlytics</string>
-			</dict>
-		</array>
-	</dict>
+	<string>9.7.0</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -139,11 +129,11 @@
 	<string>Camera can be used to scan configuration or region codes</string>
 	<key>NSContactsUsageDescription</key>
 	<string>Contacts can be used to assign tracker IDs to persons</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Your location is used to share and record it on a server of your choice</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Your location is used to share and record it on a server of your choice</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Your location is used to share and record it on a server of your choice</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Your location is used to share and record it on a server of your choice</string>
 	<key>NSMotionUsageDescription</key>
 	<string>OwnTracks delivers your step count, floors climbed and distance walked on request</string>

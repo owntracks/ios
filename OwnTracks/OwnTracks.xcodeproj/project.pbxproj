@@ -41,10 +41,9 @@
 		842DFBC71AEE6F36000F4BA6 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842DFBC61AEE6F36000F4BA6 /* NotificationController.m */; };
 		842DFBC91AEE6F46000F4BA6 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = 842DFBC81AEE6F46000F4BA6 /* PushNotificationPayload.apns */; };
 		843635791AE95D6000157D66 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843635781AE95D6000157D66 /* InterfaceController.m */; };
-		8436357B1AE95D6000157D66 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8436357A1AE95D6000157D66 /* Images.xcassets */; };
 		8436357F1AE95D6100157D66 /* OwnTracks WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 8436357E1AE95D6000157D66 /* OwnTracks WatchKit App.app */; };
 		843635871AE95D6100157D66 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843635851AE95D6100157D66 /* Interface.storyboard */; };
-		843635891AE95D6100157D66 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843635881AE95D6100157D66 /* Images.xcassets */; };
+		843635891AE95D6100157D66 /* WatchKitAppImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843635881AE95D6100157D66 /* WatchKitAppImages.xcassets */; };
 		843B91721C8A14BF00DBD306 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843B91741C8A14BF00DBD306 /* Storyboard.storyboard */; };
 		845299E51DFA004000A4DC21 /* Subscription+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 845299DC1DFA004000A4DC21 /* Subscription+CoreDataClass.m */; };
 		845299E61DFA004000A4DC21 /* Subscription+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 845299DE1DFA004000A4DC21 /* Subscription+CoreDataProperties.m */; };
@@ -70,6 +69,7 @@
 		84A046C41D81FE8000796C56 /* IdPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A046C31D81FE8000796C56 /* IdPicker.m */; };
 		84A046C71D82081B00796C56 /* Watson.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84A046C51D82081B00796C56 /* Watson.plist */; };
 		84A046C81D82081B00796C56 /* WatsonRegistered.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84A046C61D82081B00796C56 /* WatsonRegistered.plist */; };
+		84A488E21F7BBFD900ADCF98 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84A488E11F7BBFD900ADCF98 /* Media.xcassets */; };
 		84B7397A1A65629200B103F4 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B739791A65629200B103F4 /* LocationManager.m */; };
 		84B776431D9A65C600C707EC /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B776421D9A65C600C707EC /* LoginVC.m */; };
 		84CA3D0D1AEE708200AABDC1 /* OwnTracks WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 843635731AE95D6000157D66 /* OwnTracks WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -213,11 +213,10 @@
 		843635761AE95D6000157D66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		843635771AE95D6000157D66 /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
 		843635781AE95D6000157D66 /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceController.m; sourceTree = "<group>"; };
-		8436357A1AE95D6000157D66 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8436357E1AE95D6000157D66 /* OwnTracks WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OwnTracks WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		843635841AE95D6100157D66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		843635861AE95D6100157D66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
-		843635881AE95D6100157D66 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		843635881AE95D6100157D66 /* WatchKitAppImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = WatchKitAppImages.xcassets; sourceTree = "<group>"; };
 		843817FB1C386A8700CE14EE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		843B91731C8A14BF00DBD306 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Storyboard.storyboard; sourceTree = "<group>"; };
 		84401D901CCB5A8400F754C5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "en.lproj/Launch Screen.strings"; sourceTree = "<group>"; };
@@ -273,6 +272,7 @@
 		84A046C51D82081B00796C56 /* Watson.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Watson.plist; sourceTree = "<group>"; };
 		84A046C61D82081B00796C56 /* WatsonRegistered.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WatsonRegistered.plist; sourceTree = "<group>"; };
 		84A173691B428E5C00CCB7D0 /* Model 8.2.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.1.xcdatamodel"; sourceTree = "<group>"; };
+		84A488E11F7BBFD900ADCF98 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		84AF468F1AB9571800E954E3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		84B739781A65629200B103F4 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		84B739791A65629200B103F4 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
@@ -542,7 +542,6 @@
 				842DFBC61AEE6F36000F4BA6 /* NotificationController.m */,
 				84D113B31AEE0BF8005F8F4B /* SharedFriendsRC.h */,
 				84D113B41AEE0BF8005F8F4B /* SharedFriendsRC.m */,
-				8436357A1AE95D6000157D66 /* Images.xcassets */,
 				843635751AE95D6000157D66 /* Supporting Files */,
 			);
 			path = "OwnTracks WatchKit Extension";
@@ -562,7 +561,7 @@
 			children = (
 				84EACB601D9196F600CFE781 /* OwnTracks WatchKit App.entitlements */,
 				843635851AE95D6100157D66 /* Interface.storyboard */,
-				843635881AE95D6100157D66 /* Images.xcassets */,
+				843635881AE95D6100157D66 /* WatchKitAppImages.xcassets */,
 				843635831AE95D6100157D66 /* Supporting Files */,
 			);
 			path = "OwnTracks WatchKit App";
@@ -664,6 +663,7 @@
 				84D307341ACD644500FACB9E /* TodayViewController.m */,
 				84D307361ACD644500FACB9E /* MainInterface.storyboard */,
 				84D307311ACD644500FACB9E /* Supporting Files */,
+				84A488E11F7BBFD900ADCF98 /* Media.xcassets */,
 			);
 			path = OwnTracksToday;
 			sourceTree = "<group>";
@@ -687,10 +687,10 @@
 				A46C33B668D7A90E40A247E6 /* [CP] Check Pods Manifest.lock */,
 				8411B824189FDB140019D2D6 /* Sources */,
 				8411B825189FDB140019D2D6 /* Frameworks */,
-				8411B826189FDB140019D2D6 /* Resources */,
 				844E826B1AB8061500516D1A /* Embed App Extensions */,
 				B9074668360D50063C01DD10 /* [CP] Embed Pods Frameworks */,
 				637F2361C42E2D21D6FE2B89 /* [CP] Copy Pods Resources */,
+				8411B826189FDB140019D2D6 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -862,7 +862,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8436357B1AE95D6000157D66 /* Images.xcassets in Resources */,
 				841D1A351C8AFF9400DC5765 /* Localizable.strings in Resources */,
 				8436357F1AE95D6100157D66 /* OwnTracks WatchKit App.app in Resources */,
 				842DFBC91AEE6F46000F4BA6 /* PushNotificationPayload.apns in Resources */,
@@ -874,7 +873,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				843635871AE95D6100157D66 /* Interface.storyboard in Resources */,
-				843635891AE95D6100157D66 /* Images.xcassets in Resources */,
+				843635891AE95D6100157D66 /* WatchKitAppImages.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -883,6 +882,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84D307371ACD644500FACB9E /* MainInterface.storyboard in Resources */,
+				84A488E21F7BBFD900ADCF98 /* Media.xcassets in Resources */,
 				841D1A301C8AFF8000DC5765 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1369,7 +1369,7 @@
 		84D3073B1ACD644600FACB9E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = OwnTracksToday/OwnTracksToday.entitlements;
@@ -1386,13 +1386,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		84D3073C1ACD644600FACB9E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CODE_SIGN_ENTITLEMENTS = OwnTracksToday/OwnTracksToday.entitlements;
@@ -1408,6 +1409,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
