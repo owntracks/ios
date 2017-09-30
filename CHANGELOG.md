@@ -1,7 +1,14 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 9.6.4
+## OwnTracks 9.7.2
+* Release date 2017-09-30
+
+**iOS11 location fixes**
+
+    [FIX] OwnTracks locationsettings are wrong #483
+
+## OwnTracks 9.6.4/9.7.1
 * Release date 2017-09-27
 
 **iOS11 fixes**
