@@ -12,7 +12,7 @@
 #import "Queue.h"
 
 #import <UIKit/UIKit.h>
-#import "CocoaLumberjack.h"
+#import "MQTTLog.h"
 #import "sodium.h"
 #import "MQTTWebsocketTransport.h"
 #import "LocationManager.h"
@@ -64,7 +64,7 @@
 #define RECONNECT_TIMER_MAX 64.0
 
 @implementation Connection
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (instancetype)init {
     self = [super init];
@@ -75,7 +75,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     } else {
         DDLogError(@"sodium_init succeeded");
     }
-    
+
+    [MQTTLog setLogLevel:DDLogLevelWarning];
+
     self.state = state_starting;
     self.subscriptions = [[NSArray alloc] init];
     

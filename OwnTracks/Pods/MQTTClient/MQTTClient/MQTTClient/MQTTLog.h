@@ -9,8 +9,6 @@
 @import Foundation;
 
 #ifdef LUMBERJACK
-
-#define LOG_LEVEL_DEF ddLogLevel
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 #else /* LUMBERJACK */

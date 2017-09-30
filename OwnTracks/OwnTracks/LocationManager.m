@@ -67,6 +67,7 @@ static LocationManager *theInstance = nil;
     self.rangedBeacons = [[NSMutableArray alloc] init];
     self.lastUsedLocation = [[CLLocation alloc] initWithLatitude:0 longitude:0];
     self.pendingRegionEvents = [[NSMutableSet alloc] init];
+
     [self authorize];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification
@@ -288,7 +289,8 @@ static LocationManager *theInstance = nil;
  *
  */
 
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+- (void)locationManager:(CLLocationManager *)manager
+didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     DDLogVerbose(@"didChangeAuthorizationStatus to %d", status);
     if (status != kCLAuthorizationStatusAuthorizedAlways) {
         [self showError];

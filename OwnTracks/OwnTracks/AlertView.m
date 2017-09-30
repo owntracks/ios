@@ -16,7 +16,7 @@
 @end
 
 @implementation AlertView
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 + (void)alert:(NSString *)title message:(NSString *)message {
     [AlertView alert:title message:message dismissAfter:0];
@@ -26,19 +26,22 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     (void)[[AlertView alloc] initWithAlert:title message:message dismissAfter:interval];
 }
 
-- (AlertView *)initWithAlert:(NSString *)title message:(NSString *)message dismissAfter:(NSTimeInterval)interval {
+- (AlertView *)initWithAlert:(NSString *)title
+                     message:(NSString *)message
+                dismissAfter:(NSTimeInterval)interval {
     self = [super init];
     
-    DDLogVerbose(@"AlertView ddLogLevel %lu", (unsigned long)ddLogLevel);
-    DDLogVerbose(@"AlertView %@/%@ (%f)", title, message, interval);
-    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+    DDLogVerbose(@"[AlertView] applicationState %ld", (long)[UIApplication sharedApplication].applicationState);
+    DDLogVerbose(@"[AlertView] %@/%@ (%f)", title, message, interval);
+    if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
         self.alertView = [[UIAlertView alloc] initWithTitle:title
                                                     message:message
                                                    delegate:nil
                                           cancelButtonTitle:interval ? nil :
                                             NSLocalizedString(@"OK", @"OK button title")
                                           otherButtonTitles:nil];
-        [self performSelectorOnMainThread:@selector(setup:) withObject:[NSNumber numberWithFloat:interval] waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(setup:)
+                               withObject:[NSNumber numberWithFloat:interval] waitUntilDone:NO];
     }
     return self;
 }
