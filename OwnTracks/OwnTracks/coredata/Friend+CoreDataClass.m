@@ -64,6 +64,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return matches;
 }
 
++ (NSArray *)allNonStaleFriendsInManagedObjectContext:(NSManagedObjectContext *)context {
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Friend"];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"topic" ascending:YES]];
+    int ignoreStaleLocations = [Settings intForKey:@"ignorestalelocations_preference"];
+    if (ignoreStaleLocations) {
+        NSTimeInterval stale = -ignoreStaleLocations * 24.0 * 3600.0;
+        request.predicate = [NSPredicate predicateWithFormat:@"lastLocation > %@",
+                             [NSDate dateWithTimeIntervalSinceNow:stale]];
+    }
+
+    NSError *error = nil;
+
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+
+    return matches;
+}
+
 + (Friend *)friendWithTopic:(NSString *)topic
      inManagedObjectContext:(NSManagedObjectContext *)context {
     Friend *friend = [self existsFriendWithTopic:topic inManagedObjectContext:context];

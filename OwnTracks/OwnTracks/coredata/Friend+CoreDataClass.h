@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSData *)imageDataOfPerson:(ABRecordRef)record;
 
 + (NSArray *)allFriendsInManagedObjectContext:(NSManagedObjectContext *)context;
++ (NSArray *)allNonStaleFriendsInManagedObjectContext:(NSManagedObjectContext *)context;
 
 - (void)linkToAB:(ABRecordRef)record;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull name;

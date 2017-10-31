@@ -222,7 +222,7 @@ static OwnTracking *theInstance = nil;
         }
         if (oldestWaypoint) {
             [context deleteObject:oldestWaypoint];
-            [CoreData saveContext:context];
+            [CoreData.sharedInstance sync];
         }
     }
     Waypoint *newestWaypoint = nil;
@@ -233,14 +233,12 @@ static OwnTracking *theInstance = nil;
     }
     if (newestWaypoint && ![newestWaypoint.tst isEqualToDate:friend.lastLocation]) {
         friend.lastLocation = newestWaypoint.tst;
-        [CoreData saveContext:context];
+        [CoreData.sharedInstance sync];
     }
 }
 
 - (void)share {
-
-    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
-    NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
+    NSArray *friends = [Friend allNonStaleFriendsInManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
     NSMutableDictionary *sharedFriends = [[NSMutableDictionary alloc] init];
     CLLocation *myCLLocation = [LocationManager sharedInstance].location;
 
@@ -279,6 +277,7 @@ static OwnTracking *theInstance = nil;
         }
     }
     DDLogVerbose(@"sharedFriends %@", [sharedFriends allKeys]);
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
     [shared setValue:sharedFriends forKey:@"sharedFriends"];
 }
 
