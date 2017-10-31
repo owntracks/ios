@@ -12,8 +12,10 @@
 @interface InterfaceController()
 @property (strong, nonatomic) NSDictionary *sharedFriends;
 @property (strong, nonatomic) NSMutableDictionary *places;
+@property (nonatomic) NSInteger monitoring;
 @property (nonatomic) int mode;
 @property (weak, nonatomic) IBOutlet WKInterfaceTable *table;
+@property (unsafe_unretained, nonatomic) IBOutlet WKInterfaceButton *button;
 
 @end
 
@@ -32,6 +34,8 @@
     self.sharedFriends = [shared dictionaryForKey:@"sharedFriends"];
     self.places = [[NSMutableDictionary alloc] init];
     NSLog(@"sharedFriends: %@", self.sharedFriends);
+    self.monitoring = [shared integerForKey:@"monitoring"];
+    NSLog(@"sharedFriends: %ld", (long)self.monitoring);
     [self show];
 }
 
@@ -60,6 +64,26 @@
         [row.label setAttributedText:as];
         [row.image setImage:[UIImage imageWithData:friend[@"image"]]];
     }
+
+    switch (self.monitoring) {
+        case 0:
+            [self.button setBackgroundImageNamed:@"Manual"];
+            [self.button setTitle:@"Manual Mode"];
+            break;
+        case 1:
+            [self.button setBackgroundImageNamed:@"Significant"];
+            [self.button setTitle:@"Significant Mode"];
+            break;
+        case 2:
+            [self.button setBackgroundImageNamed:@"Move"];
+            [self.button setTitle:@"Move Mode"];
+            break;
+        case -1:
+        default:
+            [self.button setBackgroundImageNamed:@"Quiet"];
+            [self.button setTitle:@"Quiet Mode"];
+            break;
+    }
 }
 
 - (void)didDeactivate {
@@ -67,10 +91,10 @@
     [super didDeactivate];
 }
 
-         - (NSString *)itemText:(NSString *)name {
-             NSString *itemText;
-             NSDictionary *friend = self.sharedFriends[name];
-             
+- (NSString *)itemText:(NSString *)name {
+    NSString *itemText;
+    NSDictionary *friend = self.sharedFriends[name];
+
     switch (self.mode) {
         default:
         case 0: {
@@ -172,6 +196,27 @@
     [self show];
 }
 
+- (IBAction)buttonPressed {
+    switch (self.monitoring) {
+        case 0:
+            self.monitoring = -1;
+            break;
+        case 1:
+            self.monitoring = 0;
+            break;
+        case 2:
+            self.monitoring = 1;
+            break;
+        case -1:
+        default:
+            self.monitoring = 2;
+            break;
+    }
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+    [shared setInteger:self.monitoring forKey:@"monitoring"];
+    [shared synchronize];
+    [self show];
+}
 
 @end
 

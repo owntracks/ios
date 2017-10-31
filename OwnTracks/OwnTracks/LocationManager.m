@@ -98,7 +98,23 @@ static LocationManager *theInstance = nil;
                                                       DDLogVerbose(@"UIApplicationWillTerminateNotification");
                                                       [self stop];
                                                   }];
+
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+    [shared addObserver:self forKeyPath:@"monitoring"
+                options:NSKeyValueObservingOptionNew
+                context:nil];
     return self;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                       context:(void *)context {
+    if ([keyPath isEqualToString:@"monitoring"]) {
+        NSUserDefaults *shared = object;
+        NSInteger monitoring = [shared integerForKey:@"monitoring"];
+        self.monitoring = monitoring;
+    }
 }
 
 - (void)start {
@@ -254,6 +270,8 @@ static LocationManager *theInstance = nil;
             [self.manager stopMonitoringSignificantLocationChanges];
             break;
     }
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+    [shared setInteger:self.monitoring forKey:@"monitoring"];
 }
 
 - (void)setRanging:(BOOL)ranging

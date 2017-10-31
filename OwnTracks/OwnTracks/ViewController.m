@@ -67,6 +67,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                                              withObject:nil
                                                                           waitUntilDone:NO];
                                                       }];
+
+    [[LocationManager sharedInstance] addObserver:self
+                                       forKeyPath:@"monitoring"
+                                          options:NSKeyValueObservingOptionNew
+                                          context:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                       context:(void *)context {
+    if ([keyPath isEqualToString:@"monitoring"]) {
+        [self setButtonMove];
+    }
 }
 
 - (void)reloaded {
@@ -357,7 +371,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
 
         request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"topic" ascending:TRUE]];
         _frcFriends = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                          managedObjectContext:[CoreData theManagedObjectContext]
+                                                          managedObjectContext:CoreData.sharedInstance.managedObjectContext
                                                             sectionNameKeyPath:nil
                                                                      cacheName:nil];
         _frcFriends.delegate = self;
@@ -373,13 +387,13 @@ calloutAccessoryControlTapped:(UIControl *)control {
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
         request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:TRUE]];
         _frcRegions = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                          managedObjectContext:[CoreData theManagedObjectContext]
+                                                          managedObjectContext:CoreData.sharedInstance.managedObjectContext
                                                             sectionNameKeyPath:nil
                                                                      cacheName:nil];
         _frcRegions.delegate = self;
         [self performFetch:_frcRegions];
         Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic]
-                          inManagedObjectContext:[CoreData theManagedObjectContext]];
+                          inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
         [self.mapView addOverlays:[friend.hasRegions
                                    sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name"
                                                                                                ascending:YES]]]];
@@ -399,13 +413,13 @@ calloutAccessoryControlTapped:(UIControl *)control {
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Info"];
         request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:TRUE]];
         _frcInfos = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                          managedObjectContext:[CoreData theManagedObjectContext]
+                                                          managedObjectContext:CoreData.sharedInstance.managedObjectContext
                                                             sectionNameKeyPath:nil
                                                                      cacheName:nil];
         _frcInfos.delegate = self;
         [self performFetch:_frcRegions];
         Friend *myself = [Friend friendWithTopic:[Settings theGeneralTopic]
-                          inManagedObjectContext:[CoreData theManagedObjectContext]];
+                          inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
         for (Subscription *subscription in myself.hasSubscriptions) {
             for (Info *info in subscription.hasInfos) {
                 [self.mapView addAnnotation:info];
@@ -442,78 +456,82 @@ calloutAccessoryControlTapped:(UIControl *)control {
        atIndexPath:(NSIndexPath *)indexPath
      forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath {
-    if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext)
-    {
-        if ([anObject isKindOfClass:[Friend class]]) {
-            Friend *friend = (Friend *)anObject;
-            Waypoint *waypoint = friend.newestWaypoint;
-            switch(type)
-            {
-                case NSFetchedResultsChangeInsert:
-                    if (waypoint && (waypoint.lat).doubleValue != 0.0 && (waypoint.lon).doubleValue != 0.0) {
-                        [self.mapView addAnnotation:friend];
-                    }
-                    break;
-                    
-                case NSFetchedResultsChangeDelete:
-                    [self.mapView removeOverlay:friend];
-                    [self.mapView removeAnnotation:friend];
-                    break;
-                    
-                case NSFetchedResultsChangeUpdate:
-                case NSFetchedResultsChangeMove:
-                    [self.mapView removeOverlay:friend];
-                    [self.mapView removeAnnotation:friend];
-                    if (waypoint && (waypoint.lat).doubleValue != 0.0 && (waypoint.lon).doubleValue != 0.0) {
-                        [self.mapView addAnnotation:friend];
-                    }
-                    break;
-            }
-            
-        } else if ([anObject isKindOfClass:[Region class]]) {
-            Region *region = (Region *)anObject;
-            switch(type)
-            {
-                case NSFetchedResultsChangeInsert:
-                    [self.mapView addAnnotation:region];
-                    [self.mapView addOverlay:region];
-                    break;
-                    
-                case NSFetchedResultsChangeDelete:
-                    [self.mapView removeOverlay:region];
-                    [self.mapView removeAnnotation:region];
-                    break;
-                    
-                case NSFetchedResultsChangeUpdate:
-                case NSFetchedResultsChangeMove:
-                    [self.mapView removeOverlay:region];
-                    [self.mapView removeAnnotation:region];
-                    [self.mapView addAnnotation:region];
-                    [self.mapView addOverlay:region];
-                    
-                    break;
-            }
-        } else if ([anObject isKindOfClass:[Info class]]) {
-            Info *info = (Info *)anObject;
-            switch(type) {
-                case NSFetchedResultsChangeInsert:
-                    if ((info.lat).doubleValue != 0.0 && (info.lon).doubleValue != 0.0) {
-                        [self.mapView addAnnotation:info];
-                    }
-                    break;
+    if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext) {
+        NSDictionary *d = @{@"object": anObject, @"type": @(type)};
+        [self performSelectorOnMainThread:@selector(p:) withObject:d waitUntilDone:NO];
+    }
+}
 
-                case NSFetchedResultsChangeDelete:
-                    [self.mapView removeAnnotation:info];
-                    break;
+- (void)p:(NSDictionary *)d {
+    id anObject = d[@"object"];
+    NSNumber *type = d[@"type"];
+    if ([anObject isKindOfClass:[Friend class]]) {
+        Friend *friend = (Friend *)anObject;
+        Waypoint *waypoint = friend.newestWaypoint;
+        switch(type.intValue) {
+            case NSFetchedResultsChangeInsert:
+                if (waypoint && (waypoint.lat).doubleValue != 0.0 && (waypoint.lon).doubleValue != 0.0) {
+                    [self.mapView addAnnotation:friend];
+                }
+                break;
 
-                case NSFetchedResultsChangeUpdate:
-                case NSFetchedResultsChangeMove:
-                    [self.mapView removeAnnotation:info];
-                    if ((info.lat).doubleValue != 0.0 && (info.lon).doubleValue != 0.0) {
-                        [self.mapView addAnnotation:info];
-                    }
-                    break;
-            }
+            case NSFetchedResultsChangeDelete:
+                [self.mapView removeOverlay:friend];
+                [self.mapView removeAnnotation:friend];
+                break;
+
+            case NSFetchedResultsChangeUpdate:
+            case NSFetchedResultsChangeMove:
+                [self.mapView removeOverlay:friend];
+                [self.mapView removeAnnotation:friend];
+                if (waypoint && (waypoint.lat).doubleValue != 0.0 && (waypoint.lon).doubleValue != 0.0) {
+                    [self.mapView addAnnotation:friend];
+                }
+                break;
+        }
+
+    } else if ([anObject isKindOfClass:[Region class]]) {
+        Region *region = (Region *)anObject;
+        switch(type.intValue) {
+            case NSFetchedResultsChangeInsert:
+                [self.mapView addAnnotation:region];
+                [self.mapView addOverlay:region];
+                break;
+
+            case NSFetchedResultsChangeDelete:
+                [self.mapView removeOverlay:region];
+                [self.mapView removeAnnotation:region];
+                break;
+
+            case NSFetchedResultsChangeUpdate:
+            case NSFetchedResultsChangeMove:
+                [self.mapView removeOverlay:region];
+                [self.mapView removeAnnotation:region];
+                [self.mapView addAnnotation:region];
+                [self.mapView addOverlay:region];
+
+                break;
+        }
+    } else if ([anObject isKindOfClass:[Info class]]) {
+        Info *info = (Info *)anObject;
+        switch(type.intValue) {
+            case NSFetchedResultsChangeInsert:
+                if ((info.lat).doubleValue != 0.0 && (info.lon).doubleValue != 0.0) {
+                    [self.mapView addAnnotation:info];
+                }
+                break;
+
+            case NSFetchedResultsChangeDelete:
+                [self.mapView removeAnnotation:info];
+                break;
+
+            case NSFetchedResultsChangeUpdate:
+            case NSFetchedResultsChangeMove:
+                [self.mapView removeAnnotation:info];
+                if ((info.lat).doubleValue != 0.0 && (info.lon).doubleValue != 0.0) {
+                    [self.mapView addAnnotation:info];
+                }
+                break;
         }
     }
 }
@@ -561,7 +579,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
 - (IBAction)longPress:(UILongPressGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
         
-        Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic] inManagedObjectContext:[CoreData theManagedObjectContext]];
+        Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic] inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
         [[OwnTracking sharedInstance] addRegionFor:friend
                                               name:[NSString stringWithFormat:@"Center-%d",
                                                     (int)[NSDate date].timeIntervalSince1970]
@@ -572,7 +590,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
                                             radius:0
                                                lat:self.mapView.centerCoordinate.latitude
                                                lon:self.mapView.centerCoordinate.longitude
-                                           context:[CoreData theManagedObjectContext]];
+                                           context:CoreData.sharedInstance.managedObjectContext];
         [AlertView alert:NSLocalizedString(@"Region",
                                            @"Header of an alert message regarding circular region")
                  message:NSLocalizedString(@"created at center of map",

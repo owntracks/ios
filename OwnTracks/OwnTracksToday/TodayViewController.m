@@ -14,11 +14,13 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) NSDictionary *sharedFriends;
 @property (nonatomic) int mode;
+@property (nonatomic) NSInteger monitoring;
 @property (nonatomic) unsigned long offset;
 @property (nonatomic) unsigned long page;
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @property (weak, nonatomic) IBOutlet UIButton *backward;
 @property (weak, nonatomic) IBOutlet UIButton *forward;
+@property (weak, nonatomic) IBOutlet UIButton *button;
 
 @end
 
@@ -74,6 +76,8 @@
     NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
     self.sharedFriends = [shared dictionaryForKey:@"sharedFriends"];
     NSLog(@"sharedFriends: %@", self.sharedFriends);
+    self.monitoring = [shared integerForKey:@"monitoring"];
+    NSLog(@"monitoring: %ld", (long)self.monitoring);
     self.offset = 0;
     [self show];
     [self.tableView reloadData];
@@ -88,6 +92,22 @@
                   (unsigned long)self.sharedFriends.count];
     self.forward.enabled = self.sharedFriends.count > self.offset + self.page;
     self.backward.enabled = self.offset >= self.page;
+
+    switch (self.monitoring) {
+        case 0:
+            [self.button setImage:[UIImage imageNamed:@"Manual"] forState:UIControlStateNormal];
+            break;
+        case 1:
+            [self.button setImage:[UIImage imageNamed:@"Significant"] forState:UIControlStateNormal];
+            break;
+        case 2:
+            [self.button setImage:[UIImage imageNamed:@"Move"] forState:UIControlStateNormal];
+            break;
+        case -1:
+        default:
+            [self.button setImage:[UIImage imageNamed:@"Quiet"] forState:UIControlStateNormal];
+            break;
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -213,5 +233,27 @@
     NSLog(@"backwardPressed %lu", (long)self.offset);
     [self show];
     [self.tableView reloadData];
+}
+
+- (IBAction)buttonPressed:(UIButton *)sender {
+    switch (self.monitoring) {
+        case 0:
+            self.monitoring = -1;
+            break;
+        case 1:
+            self.monitoring = 0;
+            break;
+        case 2:
+            self.monitoring = 1;
+            break;
+        case -1:
+        default:
+            self.monitoring = 2;
+            break;
+    }
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+    [shared setInteger:self.monitoring forKey:@"monitoring"];
+    [shared synchronize];
+    [self show];
 }
 @end
