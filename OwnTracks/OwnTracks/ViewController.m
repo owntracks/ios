@@ -37,20 +37,27 @@
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
 @property (strong, nonatomic) MKUserTrackingBarButtonItem *userTracker;
 
+@property (nonatomic) BOOL initialCenter;
+
 @end
 
 
 @implementation ViewController
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     self.mapView.delegate = self;
     
     self.mapView.mapType = MKMapTypeStandard;
     self.mapView.showsUserLocation = TRUE;
+
+    DDLogInfo(@"[ViewController] viewDidLoad mapView region %g %g %g %g",
+              self.mapView.region.center.latitude,
+              self.mapView.region.center.longitude,
+              self.mapView.region.span.latitudeDelta,
+              self.mapView.region.span.longitudeDelta);
 
     NSMutableArray *leftButtonItems = [self.navigationItem.leftBarButtonItems mutableCopy];
     [leftButtonItems addObject:[[MKUserTrackingBarButtonItem alloc] initWithMapView:self.mapView]];
@@ -111,8 +118,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.mapView.userTrackingMode = MKUserTrackingModeNone;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showWaypointFromMap"]) {
         if ([segue.destinationViewController respondsToSelector:@selector(setWaypoint:)]) {
             MKAnnotationView *view = (MKAnnotationView *)sender;
@@ -129,8 +135,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 #define INITIAL_RADIUS 600.0
 
-- (MKMapRect)centeredRect:(CLLocationCoordinate2D)center
-{
+- (MKMapRect)centeredRect:(CLLocationCoordinate2D)center {
     MKMapRect rect;
     
     double r = INITIAL_RADIUS * MKMapPointsPerMeterAtLatitude(center.latitude);
@@ -164,6 +169,11 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 }
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation {
+    if (!self.initialCenter) {
+        self.initialCenter = TRUE;
+        [self.mapView setCenterCoordinate:userLocation.location.coordinate animated:TRUE];
+    }
+
 #ifdef GEOHASHING
     Neighbors *neighbors = [GeoHashing sharedInstance].neighbors;
     [self.mapView removeOverlay:neighbors.center];
@@ -458,7 +468,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
       newIndexPath:(NSIndexPath *)newIndexPath {
     if (!self.suspendAutomaticTrackingOfChangesInManagedObjectContext) {
         NSDictionary *d = @{@"object": anObject, @"type": @(type)};
-        [self performSelectorOnMainThread:@selector(p:) withObject:d waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(p:) withObject:d waitUntilDone:FALSE];
     }
 }
 
