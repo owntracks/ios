@@ -30,27 +30,37 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                      message:(NSString *)message
                 dismissAfter:(NSTimeInterval)interval {
     self = [super init];
-    
-    DDLogVerbose(@"[AlertView] applicationState %ld", (long)[UIApplication sharedApplication].applicationState);
-    DDLogVerbose(@"[AlertView] %@/%@ (%f)", title, message, interval);
-    if ([UIApplication sharedApplication].applicationState != UIApplicationStateBackground) {
-        self.alertView = [[UIAlertView alloc] initWithTitle:title
-                                                    message:message
-                                                   delegate:nil
-                                          cancelButtonTitle:interval ? nil :
-                                            NSLocalizedString(@"OK", @"OK button title")
-                                          otherButtonTitles:nil];
-        [self performSelectorOnMainThread:@selector(setup:)
-                               withObject:[NSNumber numberWithFloat:interval] waitUntilDone:NO];
+
+    NSMutableDictionary *d = [@{@"interval": @(interval)} mutableCopy];
+
+    if (title) {
+        d[@"title"] = title;
     }
+    if (message) {
+        d[@"message"] = message;
+    }
+    [self performSelectorOnMainThread:@selector(setup:)
+                           withObject:d
+                        waitUntilDone:NO];
     return self;
 }
 
-- (void)setup:(NSNumber *)interval {
-    NSTimeInterval timeInterval = interval.doubleValue;
-    [self.alertView show];
-    if (timeInterval) {
-        [self performSelector:@selector(dismissAfterDelay:) withObject:self.alertView afterDelay:timeInterval];
+- (void)setup:(NSMutableDictionary *)d {
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+        NSNumber *interval = d[@"interval"];
+        NSString *title = d[@"title"];
+        NSString *message = d[@"message"];
+        self.alertView = [[UIAlertView alloc] initWithTitle:title
+                                                    message:message
+                                                   delegate:nil
+                                          cancelButtonTitle:interval.doubleValue ? nil :
+                          NSLocalizedString(@"OK", @"OK button title")
+                                          otherButtonTitles:nil];
+
+        [self.alertView show];
+        if (interval.doubleValue) {
+            [self performSelector:@selector(dismissAfterDelay:) withObject:self.alertView afterDelay:interval.doubleValue];
+        }
     }
 }
 
