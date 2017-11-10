@@ -32,6 +32,6 @@
 #import "MQTTTransport.h"
 #import "MQTTWebsocketTransport.h"
 
-FOUNDATION_EXPORT double MQTTClientVersionNumber;
-FOUNDATION_EXPORT const unsigned char MQTTClientVersionString[];
+FOUNDATION_EXPORT double mqttcVersionNumber;
+FOUNDATION_EXPORT const unsigned char mqttcVersionString[];
 

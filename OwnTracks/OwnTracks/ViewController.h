@@ -10,7 +10,6 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreData/CoreData.h>
 #import <MapKit/MapKit.h>
-#import <MQTTClient/MQTTClient.h>
 #import "Connection.h"
 #import "OwnTracksAppDelegate.h"
 
