@@ -9,8 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@interface CoreData : UIManagedDocument
-+ (NSManagedObjectContext *)theManagedObjectContext;
-+ (void)saveContext;
-+ (void)saveContext:(NSManagedObjectContext*)context;
+@interface CoreData : NSObject
+@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
++ (CoreData *)sharedInstance;
+- (void)sync;
 @end

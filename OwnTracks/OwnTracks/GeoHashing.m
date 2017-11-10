@@ -106,7 +106,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 #ifdef GEOHASHING
 
     Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
-                            inManagedObjectContext:[CoreData theManagedObjectContext]];
+                            inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
 
     if (!myself.hasSubscriptions.count) {
         [self addSubscriptionFor:myself name:@"luftinfo" level:6 context:myself.managedObjectContext];
@@ -119,7 +119,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         DDLogInfo(@"subscription %@, %@",subscription.name, subscription.level);
     }
 
-    [CoreData saveContext:myself.managedObjectContext];
+    [CoreData.sharedInstance sync];
 
 #endif
 
@@ -190,7 +190,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                              tid:dictionary[@"tid"]
                            image:imageData
                          context:context];
-                [CoreData saveContext:context];
+                [CoreData.sharedInstance sync];
             }
         }
     }];
@@ -206,7 +206,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
     OwnTracksAppDelegate *appDelegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
-                            inManagedObjectContext:[CoreData theManagedObjectContext]];
+                            inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
     for (Subscription *subscription in myself.hasSubscriptions) {
         int precision = [subscription.level intValue];
         geoHash = [GeoHash hashForLatitude:location.coordinate.latitude
@@ -310,7 +310,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         self.neighbors.southWest.geoHash = neighbors.southWest;
         self.neighbors.southWest.coordinate = CLLocationCoordinate2DMake(0, 0);
     }
-    [CoreData saveContext];
+    [CoreData.sharedInstance sync];
 #endif
 }
 

@@ -364,11 +364,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                 unsigned int minor = components.count >= 4 ? [components[3] unsignedIntValue]: 0;
                 
                 Friend *friend = [Friend friendWithTopic:[self theGeneralTopic]
-                                        inManagedObjectContext:[CoreData theManagedObjectContext]];
+                                        inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
 
                 for (Region *region in friend.hasRegions) {
                     if ([region.name isEqualToString:name]) {
-                        [[OwnTracking sharedInstance] removeRegion:region context:[CoreData theManagedObjectContext]];
+                        [[OwnTracking sharedInstance] removeRegion:region context:CoreData.sharedInstance.managedObjectContext];
                         break;
                     }
                 }
@@ -387,11 +387,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                                         radius:[waypoint[@"rad"] doubleValue]
                                                            lat:[waypoint[@"lat"] doubleValue]
                                                            lon:[waypoint[@"lon"] doubleValue]
-                                                       context:[CoreData theManagedObjectContext]];
+                                                       context:CoreData.sharedInstance.managedObjectContext];
                 } else {
                     for (Region *region in friend.hasRegions) {
                         if ([region.name isEqualToString:name]) {
-                            [[OwnTracking sharedInstance] removeRegion:region context:[CoreData theManagedObjectContext]];
+                            [[OwnTracking sharedInstance] removeRegion:region context:CoreData.sharedInstance.managedObjectContext];
                             break;
                         }
                     }
@@ -404,7 +404,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 + (NSArray *)waypointsToArray {
     NSMutableArray *waypoints = [[NSMutableArray alloc] init];
     Friend *friend = [Friend existsFriendWithTopic:[self theGeneralTopic]
-                            inManagedObjectContext:[CoreData theManagedObjectContext]];
+                            inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
     for (Region *region in friend.hasRegions) {
         [waypoints addObject:[[OwnTracking sharedInstance] regionAsJSON:region]];
     }
@@ -437,7 +437,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     dict[@"ignoreInaccurateLocations"] =    @([Settings intForKey:@"ignoreinaccuratelocations_preference"]);
 
 
-    for (Setting *setting in [Setting allSettingsInManagedObjectContext:[CoreData theManagedObjectContext]]) {
+    for (Setting *setting in [Setting allSettings]) {
         NSString *key = setting.key;
         if ([key rangeOfString:@"pl"].location == 0) {
             dict[key] = setting.value;
@@ -578,15 +578,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 + (void)setString:(NSObject *)object forKey:(NSString *)key {
     if ([self validKey:key inMode:[self intForKey:@"mode"]]) {
-        [[CoreData theManagedObjectContext] performBlockAndWait:^{
+        [CoreData.sharedInstance.managedObjectContext performBlockAndWait:^{
             if (object && ![object isKindOfClass:[NSNull class]]) {
-                Setting *setting = [Setting settingWithKey:key
-                                    inManagedObjectContext:[CoreData theManagedObjectContext]];
+                Setting *setting = [Setting settingWithKey:key];
                 setting.value = [NSString stringWithFormat:@"%@", object];
             } else {
-                Setting *setting = [Setting existsSettingWithKey:key inManagedObjectContext:[CoreData theManagedObjectContext]];
+                Setting *setting = [Setting existsSettingWithKey:key];
                 if (setting) {
-                    [[CoreData theManagedObjectContext] deleteObject:setting];
+                    [CoreData.sharedInstance.managedObjectContext deleteObject:setting];
                 }
             }
         }];
@@ -657,8 +656,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 + (NSString *)stringForKeyRaw:(NSString *)key {
     __block NSString *value = nil;
-    [[CoreData theManagedObjectContext] performBlockAndWait:^{
-        Setting *setting = [Setting existsSettingWithKey:key inManagedObjectContext:[CoreData theManagedObjectContext]];
+    [CoreData.sharedInstance.managedObjectContext performBlockAndWait:^{
+        Setting *setting = [Setting existsSettingWithKey:key];
         if (setting) {
             value = setting.value;
         } else {

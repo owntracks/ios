@@ -16,10 +16,12 @@
 @property (strong, nonatomic) NSTimer *activityTimer;
 @property (strong, nonatomic) NSMutableSet *pendingRegionEvents;
 - (void)holdDownExpired:(NSTimer *)timer;
+
 @property (strong, nonatomic) NSMutableDictionary *insideBeaconRegions;
 @property (strong, nonatomic) NSMutableDictionary *insideCircularRegions;
 @property (strong, nonatomic) NSMutableArray *rangedBeacons;
 @property (strong, nonatomic) NSTimer *backgroundTimer;
+@property (strong, nonatomic) NSUserDefaults *sharedUserDefaults;
 @end
 
 @interface PendingRegionEvent : NSObject
@@ -99,10 +101,10 @@ static LocationManager *theInstance = nil;
                                                       [self stop];
                                                   }];
 
-    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
-    [shared addObserver:self forKeyPath:@"monitoring"
-                options:NSKeyValueObservingOptionNew
-                context:nil];
+    self.sharedUserDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+    [self.sharedUserDefaults addObserver:self forKeyPath:@"monitoring"
+                                 options:NSKeyValueObservingOptionNew
+                                 context:nil];
     return self;
 }
 
@@ -425,10 +427,8 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
         if (state == CLRegionStateInside) {
             (self.insideBeaconRegions)[region.identifier] = [NSNumber numberWithBool:TRUE];
             if (self.ranging) {
-                //if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
                 CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
                 [self.manager startRangingBeaconsInRegion:beaconRegion];
-                //}
             }
         } else {
             [self.insideBeaconRegions removeObjectForKey:region.identifier];

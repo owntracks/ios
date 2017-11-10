@@ -89,8 +89,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 @property (strong, nonatomic) CoreData *coreData;
 @property (strong, nonatomic) CMPedometer *pedometer;
 
-@property (strong, nonatomic) NSManagedObjectContext *queueManagedObjectContext;
-
 #define BACKGROUND_DISCONNECT_AFTER 15.0
 @property (strong, nonatomic) NSTimer *disconnectTimer;
 
@@ -106,7 +104,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 #endif
     [DDLog addLogger:[DDASLLogger sharedInstance] withLevel:DDLogLevelWarning];
 
-
+    [CoreData.sharedInstance sync];
+    
     self.backgroundTask = UIBackgroundTaskInvalid;
     self.completionHandler = nil;
 
@@ -146,22 +145,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
     DDLogVerbose(@"didFinishLaunchingWithOptions");
 
-    UIDocumentState state;
 
-    do {
-        state = self.coreData.documentState;
-        if (state & UIDocumentStateClosed || ![CoreData theManagedObjectContext]) {
-            DDLogVerbose(@"documentState 0x%02lx theManagedObjectContext %@",
-                         (long)self.coreData.documentState,
-                         [CoreData theManagedObjectContext]);
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
-        }
-    } while (state & UIDocumentStateClosed || ![CoreData theManagedObjectContext]);
-
-    if (![Setting existsSettingWithKey:@"mode"
-                inManagedObjectContext:[CoreData theManagedObjectContext]]) {
-        if (![Setting existsSettingWithKey:@"host_preference"
-                    inManagedObjectContext:[CoreData theManagedObjectContext]]) {
+    if (![Setting existsSettingWithKey:@"mode"]) {
+        if (![Setting existsSettingWithKey:@"host_preference"]) {
             [Settings setInt:2 forKey:@"mode"];
         } else {
             [Settings setInt:0 forKey:@"mode"];
@@ -244,7 +230,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                                                      @"rad":@(-1)
                                                                      }]
                                                     }];
-                [CoreData saveContext];
+                [CoreData.sharedInstance sync];
                 self.processingMessage = NSLocalizedString(@"Beacon QR successfully processed",
                                                            @"Display after processing beacon QR code");
                 return TRUE;
@@ -354,7 +340,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)configFromDictionary:(NSDictionary *)json {
     NSError *error = [Settings fromDictionary:json];
-    [CoreData saveContext];
+    [CoreData.sharedInstance sync];
     if (error) {
         [AlertView alert:@"processNSURL"
                  message:[NSString stringWithFormat:@"configFromDictionary %@ %@",
@@ -365,7 +351,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)waypointsFromDictionary:(NSDictionary *)json {
     NSError *error = [Settings waypointsFromDictionary:json];
-    [CoreData saveContext];
+    [CoreData.sharedInstance sync];
     if (error) {
         [AlertView alert:@"processNSURL"
                  message:[NSString stringWithFormat:@"waypointsFromDictionary %@ %@",
@@ -400,11 +386,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
         [self terminateSession];
         error = [Settings fromStream:input];
-        [CoreData saveContext];
+        [CoreData.sharedInstance sync];
         self.configLoad = [NSDate date];
     } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
         error = [Settings waypointsFromStream:input];
-        [CoreData saveContext];
+        [CoreData.sharedInstance sync];
     } else if ([extension isEqualToString:@"otrp"] || [extension isEqualToString:@"otre"]) {
         NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
                                                                      inDomain:NSUserDomainMask
@@ -466,13 +452,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         [AlertView alert:@"openURL" message:self.processingMessage];
         self.processingMessage = nil;
         [self reconnect];
-    }
-
-    if (self.coreData.documentState) {
-        NSString *message = [NSString stringWithFormat:@"documentState 0x%02lx %@",
-                             (long)self.coreData.documentState,
-                             self.coreData.fileURL];
-        [AlertView alert:@"CoreData" message:message];
     }
 
     if (![Settings validIds]) {
@@ -599,10 +578,12 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     notification.alertBody = message;
     notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    [[UIApplication sharedApplication] performSelectorOnMainThread:@selector(scheduleLocalNotification:)
+                                                        withObject:notification
+                                                     waitUntilDone:NO];
 
     Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
-                            inManagedObjectContext:[CoreData theManagedObjectContext]];
+                            inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
 
     if ([LocationManager sharedInstance].monitoring != LocationMonitoringQuiet && [Settings validIds]) {
         NSMutableDictionary *json = [@{
@@ -663,7 +644,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 - (void)regionState:(CLRegion *)region inside:(BOOL)inside {
     DDLogVerbose(@"regionState %@ i:%d", region.identifier, inside);
     Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
-                            inManagedObjectContext:[CoreData theManagedObjectContext]];
+                            inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
 
     for (Region *anyRegion in myself.hasRegions) {
         if ([region.identifier isEqualToString:anyRegion.CLregion.identifier]) {
@@ -676,7 +657,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     [self background];
     if ([Settings validIds]) {
         Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
-                                inManagedObjectContext:[CoreData theManagedObjectContext]];
+                                inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
 
         NSMutableDictionary *json = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                                     @"_type": @"beacon",
@@ -735,137 +716,133 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     }
 }
 
-- (NSManagedObjectContext *)queueManagedObjectContext
-{
-    if (!_queueManagedObjectContext) {
-        _queueManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        _queueManagedObjectContext.parentContext = [CoreData theManagedObjectContext];
-    }
-    return _queueManagedObjectContext;
-}
-
 - (BOOL)handleMessage:(Connection *)connection data:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
     DDLogVerbose(@"handleMessage");
 
-    if (![[GeoHashing sharedInstance] processMessage:topic data:data retained:retained context:self.queueManagedObjectContext]) {
-        return false;
-    }
+    [CoreData.sharedInstance.managedObjectContext performBlockAndWait:^{
+        (void)[[GeoHashing sharedInstance] processMessage:topic
+                                                     data:data
+                                                 retained:retained
+                                                  context:CoreData.sharedInstance.managedObjectContext];
+        (void)[[OwnTracking sharedInstance] processMessage:topic
+                                                      data:data
+                                                  retained:retained
+                                                   context:CoreData.sharedInstance.managedObjectContext];
+        NSArray *baseComponents = [[Settings theGeneralTopic] componentsSeparatedByString:@"/"];
+        NSArray *topicComponents = [[Settings theGeneralTopic] componentsSeparatedByString:@"/"];
 
-    if (![[OwnTracking sharedInstance] processMessage:topic data:data retained:retained context:self.queueManagedObjectContext]) {
-        return false;
-    }
+        NSString *device = @"";
+        BOOL ownDevice = true;
 
-    NSArray *baseComponents = [[Settings theGeneralTopic] componentsSeparatedByString:@"/"];
-    NSArray *topicComponents = [[Settings theGeneralTopic] componentsSeparatedByString:@"/"];
-
-    NSString *device = @"";
-    BOOL ownDevice = true;
-
-    for (int i = 0; i < baseComponents.count; i++) {
-        if (i > 0) {
-            device = [device stringByAppendingString:@"/"];
-        }
-        if (i < topicComponents.count) {
-            device = [device stringByAppendingString:topicComponents[i]];
-            if (![baseComponents[i] isEqualToString:topicComponents [i]]) {
+        for (int i = 0; i < baseComponents.count; i++) {
+            if (i > 0) {
+                device = [device stringByAppendingString:@"/"];
+            }
+            if (i < topicComponents.count) {
+                device = [device stringByAppendingString:topicComponents[i]];
+                if (![baseComponents[i] isEqualToString:topicComponents [i]]) {
+                    ownDevice = false;
+                }
+            } else {
                 ownDevice = false;
             }
-        } else {
-            ownDevice = false;
         }
-    }
 
-    DDLogVerbose(@"device %@", device);
+        DDLogVerbose(@"device %@", device);
 
-    if (ownDevice) {
+        if (ownDevice) {
 
-        NSError *error;
-        id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-        if (json && [json isKindOfClass:[NSDictionary class]]) {
-            NSDictionary *dictionary = json;
-            if ([@"cmd" saveEqual:dictionary[@"_type"]]) {
-                if (
+            NSError *error;
+            id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+            if (json && [json isKindOfClass:[NSDictionary class]]) {
+                NSDictionary *dictionary = json;
+                if ([@"cmd" saveEqual:dictionary[@"_type"]]) {
+                    if (
 #ifdef DEBUG
-                    true /* dirty work around not being able to set simulator .otrc */
+                        true /* dirty work around not being able to set simulator .otrc */
 #else
-                    [Settings boolForKey:@"cmd_preference"]
+                        [Settings boolForKey:@"cmd_preference"]
 #endif
-                    ) {
-                    if ([@"dump" saveEqual:dictionary[@"action"]]) {
-                        [self dump];
+                        ) {
+                        if ([@"dump" saveEqual:dictionary[@"action"]]) {
+                            [self dump];
 
-                    } else if ([@"reportLocation" saveEqual:dictionary[@"action"]]) {
-                        if ([LocationManager sharedInstance].monitoring == LocationMonitoringSignificant ||
-                            [LocationManager sharedInstance].monitoring == LocationMonitoringMove ||
-                            [Settings boolForKey:@"allowremotelocation_preference"]) {
-                            [self publishLocation:[LocationManager sharedInstance].location trigger:@"r"];
-                        }
-
-                    } else if ([@"reportSteps" saveEqual:dictionary[@"action"]]) {
-                        [self stepsFrom:[NSNumber saveCopy:dictionary[@"from"]]
-                                     to:[NSNumber saveCopy:dictionary[@"to"]]];
-
-                    } else if ([@"waypoints" saveEqual:dictionary[@"action"]]) {
-                        [self waypoints];
-
-                    } else if ([@"action" saveEqual:dictionary[@"action"]]) {
-                        NSString *content = [NSString saveCopy:dictionary[@"content"]];
-                        NSString *url = [NSString saveCopy:dictionary[@"url"] ];
-                        NSString *notificationMessage = [NSString saveCopy:dictionary[@"notification"]];
-                        NSNumber *external = [NSNumber saveCopy:dictionary[@"extern"]];
-
-                        [Settings setString:content forKey:SETTINGS_ACTION];
-                        [Settings setString:url forKey:SETTINGS_ACTIONURL];
-                        [Settings setBool:external.boolValue forKey:SETTINGS_ACTIONEXTERN];
-
-                        if (notificationMessage) {
-                            UILocalNotification *notification = [[UILocalNotification alloc] init];
-                            notification.alertBody = notificationMessage;
-                            notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
-                            [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-                        }
-
-                        if (content || url) {
-                            if (url && ![url isEqualToString:self.action]) {
-                                self.action = url;
-                            } else {
-                                if (content && ![content isEqualToString:self.action]) {
-                                    self.action = content;
-                                }
+                        } else if ([@"reportLocation" saveEqual:dictionary[@"action"]]) {
+                            if ([LocationManager sharedInstance].monitoring == LocationMonitoringSignificant ||
+                                [LocationManager sharedInstance].monitoring == LocationMonitoringMove ||
+                                [Settings boolForKey:@"allowremotelocation_preference"]) {
+                                [self publishLocation:[LocationManager sharedInstance].location trigger:@"r"];
                             }
+
+                        } else if ([@"reportSteps" saveEqual:dictionary[@"action"]]) {
+                            [self stepsFrom:[NSNumber saveCopy:dictionary[@"from"]]
+                                         to:[NSNumber saveCopy:dictionary[@"to"]]];
+
+                        } else if ([@"waypoints" saveEqual:dictionary[@"action"]]) {
+                            [self waypoints];
+
+                        } else if ([@"action" saveEqual:dictionary[@"action"]]) {
+                            NSString *content = [NSString saveCopy:dictionary[@"content"]];
+                            NSString *url = [NSString saveCopy:dictionary[@"url"] ];
+                            NSString *notificationMessage = [NSString saveCopy:dictionary[@"notification"]];
+                            NSNumber *external = [NSNumber saveCopy:dictionary[@"extern"]];
+
+                            [Settings setString:content forKey:SETTINGS_ACTION];
+                            [Settings setString:url forKey:SETTINGS_ACTIONURL];
+                            [Settings setBool:external.boolValue forKey:SETTINGS_ACTIONEXTERN];
+
+                            if (notificationMessage) {
+                                UILocalNotification *notification = [[UILocalNotification alloc] init];
+                                notification.alertBody = notificationMessage;
+                                notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
+                                [[UIApplication sharedApplication] performSelectorOnMainThread:@selector(scheduleLocalNotification:)
+                                                                                    withObject:notification
+                                                                                 waitUntilDone:NO];
+                            }
+
+                            if (content || url) {
+                                if (url && ![url isEqualToString:self.action]) {
+                                    self.action = url;
+                                } else {
+                                    if (content && ![content isEqualToString:self.action]) {
+                                        self.action = content;
+                                    }
+                                }
+                            } else {
+                                self.action = nil;
+                            }
+
+                        } else if ([@"setWaypoints" saveEqual:dictionary[@"action"]]) {
+                            NSDictionary *payload = [NSDictionary saveCopy:dictionary[@"payload"]];
+                            NSDictionary *waypoints = [NSDictionary saveCopy:dictionary[@"waypoints"]];
+                            if (waypoints && [waypoints isKindOfClass:[NSDictionary class]]) {
+                                [Settings waypointsFromDictionary:waypoints];
+                            } else if (payload && [payload isKindOfClass:[NSDictionary class]]) {
+                                [Settings waypointsFromDictionary:payload];
+                            }
+
+                        } else if ([@"setConfiguration" saveEqual:dictionary[@"action"]]) {
+                            NSDictionary *payload = [NSDictionary saveCopy:dictionary[@"payload"]];
+                            NSDictionary *configuration = [NSDictionary saveCopy:dictionary[@"configuration"]];
+                            if (configuration && [configuration isKindOfClass:[NSDictionary class]]) {
+                                [Settings fromDictionary:configuration];
+                            } else if (payload && [payload isKindOfClass:[NSDictionary class]]) {
+                                [Settings fromDictionary:payload];
+                            }
+                            self.configLoad = [NSDate date];
+                            [self performSelectorOnMainThread:@selector(reconnect) withObject:nil waitUntilDone:NO];
+
                         } else {
-                            self.action = nil;
+                            DDLogVerbose(@"unknown action %@", dictionary[@"action"]);
                         }
-
-                    } else if ([@"setWaypoints" saveEqual:dictionary[@"action"]]) {
-                        NSDictionary *payload = [NSDictionary saveCopy:dictionary[@"payload"]];
-                        NSDictionary *waypoints = [NSDictionary saveCopy:dictionary[@"waypoints"]];
-                        if (waypoints && [waypoints isKindOfClass:[NSDictionary class]]) {
-                            [Settings waypointsFromDictionary:waypoints];
-                        } else if (payload && [payload isKindOfClass:[NSDictionary class]]) {
-                            [Settings waypointsFromDictionary:payload];
-                        }
-
-                    } else if ([@"setConfiguration" saveEqual:dictionary[@"action"]]) {
-                        NSDictionary *payload = [NSDictionary saveCopy:dictionary[@"payload"]];
-                        NSDictionary *configuration = [NSDictionary saveCopy:dictionary[@"configuration"]];
-                        if (configuration && [configuration isKindOfClass:[NSDictionary class]]) {
-                            [Settings fromDictionary:configuration];
-                        } else if (payload && [payload isKindOfClass:[NSDictionary class]]) {
-                            [Settings fromDictionary:payload];
-                        }
-                        self.configLoad = [NSDate date];
-                        [self performSelectorOnMainThread:@selector(reconnect) withObject:nil waitUntilDone:NO];
-
-                    } else {
-                        DDLogVerbose(@"unknown action %@", dictionary[@"action"]);
                     }
                 }
+            } else {
+                DDLogVerbose(@"illegal json %@ %@ %@", error.localizedDescription, error.userInfo, data.description);
             }
-        } else {
-            DDLogVerbose(@"illegal json %@ %@ %@", error.localizedDescription, error.userInfo, data.description);
         }
-    }
+    }];
+
     return true;
 }
 
@@ -991,11 +968,11 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     [[OwnTracking sharedInstance] syncProcessing];
     [[LocationManager sharedInstance] resetRegions];
     [self.connection reset];
-    NSArray *friends = [Friend allFriendsInManagedObjectContext:[CoreData theManagedObjectContext]];
+    NSArray *friends = [Friend allFriendsInManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
     for (Friend *friend in friends) {
-        [[CoreData theManagedObjectContext] deleteObject:friend];
+        [CoreData.sharedInstance.managedObjectContext deleteObject:friend];
     }
-    [CoreData saveContext];
+    [CoreData.sharedInstance sync];
 }
 
 - (void)reconnect {
@@ -1017,16 +994,16 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 
         if (ignoreInaccurateLocations == 0 || location.horizontalAccuracy < ignoreInaccurateLocations) {
             Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic]
-                              inManagedObjectContext:[CoreData theManagedObjectContext]];
+                              inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
             if (friend) {
                 friend.tid = [Settings stringForKey:@"trackerid_preference"];
 
                 Waypoint *waypoint = [[OwnTracking sharedInstance] addWaypointFor:friend
                                                                          location:location
                                                                           trigger:trigger
-                                                                          context:[CoreData theManagedObjectContext]];
+                                                                          context:CoreData.sharedInstance.managedObjectContext];
                 if (waypoint) {
-                    [CoreData saveContext];
+                    [CoreData.sharedInstance sync];
 
                     NSMutableDictionary *json = [[[OwnTracking sharedInstance] waypointAsJSON:waypoint] mutableCopy];
                     if (json) {
@@ -1040,7 +1017,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                     }
                     [[OwnTracking sharedInstance] limitWaypointsFor:friend
                                                           toMaximum:[Settings intForKey:@"positions_preference"]
-                                             inManagedObjectContext:[CoreData theManagedObjectContext]];
+                                             inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
                 } else {
                     DDLogError(@"waypoint creation failed from friend %@, location %@", friend, location);
                 }

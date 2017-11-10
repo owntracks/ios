@@ -148,7 +148,9 @@ static OwnTracking *theInstance = nil;
                                 notification.alertBody = message;
                                 notification.userInfo = @{@"notify": @"friend"};
                                 notification.fireDate = tst;
-                                [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+                                [[UIApplication sharedApplication] performSelectorOnMainThread:@selector(scheduleLocalNotification:)
+                                                                                    withObject:notification
+                                                                                 waitUntilDone:NO];
                                 [AlertView alert:NSLocalizedString(@"Friend",
                                                                    @"Alert message header for friend's messages")
                                          message:notification.alertBody

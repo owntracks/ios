@@ -50,8 +50,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSIndexPath *indexPath = nil;
     
     if ([sender isKindOfClass:[UITableViewCell class]]) {
@@ -68,7 +67,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     
     if ([segue.identifier isEqualToString:@"newRegion:"]) {
-        Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic] inManagedObjectContext:[CoreData theManagedObjectContext]];
+        Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic] inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
         CLLocation *location = [LocationManager sharedInstance].location;
         Region *newRegion = [[OwnTracking sharedInstance] addRegionFor:friend
                                                                   name:[NSString stringWithFormat:@"Here-%d",
@@ -80,7 +79,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                                 radius:0
                                                                    lat:location.coordinate.latitude
                                                                    lon:location.coordinate.longitude
-                                                               context:[CoreData theManagedObjectContext]];
+                                                               context:CoreData.sharedInstance.managedObjectContext];
         if ([segue.destinationViewController respondsToSelector:@selector(setEditRegion:)]) {
             [segue.destinationViewController performSelector:@selector(setEditRegion:) withObject:newRegion];
         }
@@ -144,7 +143,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
         if (region) {
             [[OwnTracking sharedInstance] removeRegion:region context:context];
-            [CoreData saveContext:context];
+            [CoreData.sharedInstance sync];
         }
     }
 }
@@ -163,11 +162,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     
     Friend *friend = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
-                            inManagedObjectContext:[CoreData theManagedObjectContext]];
+                            inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Region"
-                                              inManagedObjectContext:[CoreData theManagedObjectContext]];
+                                              inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
     fetchRequest.entity = entity;
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"belongsTo = %@", friend];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
@@ -176,7 +175,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc]
                                                              initWithFetchRequest:fetchRequest
-                                                             managedObjectContext:[CoreData theManagedObjectContext]
+                                                             managedObjectContext:CoreData.sharedInstance.managedObjectContext
                                                              sectionNameKeyPath:nil
                                                              cacheName:nil];
     aFetchedResultsController.delegate = self;
@@ -192,6 +191,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    [self performSelectorOnMainThread:@selector(beginUpdates) withObject:nil waitUntilDone:FALSE];
+}
+
+- (void)beginUpdates {
     [self.tableView beginUpdates];
 }
 
@@ -199,18 +202,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex
      forChangeType:(NSFetchedResultsChangeType)type {
-    DDLogVerbose(@"didChangeSection atIndex:%lu forChangeType:%lu ",
-                 (unsigned long)sectionIndex,
-                 (unsigned long)type
-                 );
-    switch(type) {
+    NSDictionary *d = @{@"type": @(type),
+                        @"sectionIndex": @(sectionIndex)};
+    [self performSelectorOnMainThread:@selector(didChangeSection:) withObject:d waitUntilDone:FALSE];
+}
+
+- (void)didChangeSection:(NSDictionary *)d {
+    NSNumber *type = d[@"type"];
+    NSNumber *sectionIndex = d[@"sectionIndex"];
+
+    switch(type.intValue) {
         case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex.intValue]
                           withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
             
         case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex.intValue]
                           withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
         default:
@@ -223,33 +231,52 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
        atIndexPath:(NSIndexPath *)indexPath
      forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath {
-    UITableView *tableView = self.tableView;
-    switch(type) {
+    NSMutableDictionary *d = [@{@"type": @(type)}
+                              mutableCopy];
+    if (indexPath) {
+        d[@"indexPath"] = indexPath;
+    }
+    if (newIndexPath) {
+        d[@"newIndexPath"] = newIndexPath;
+    }
+    [self performSelectorOnMainThread:@selector(didChangeObject:) withObject:d waitUntilDone:FALSE];
+}
+
+- (void)didChangeObject:(NSDictionary *)d {
+    NSNumber *type = d[@"type"];
+    NSIndexPath *indexPath = d[@"indexPath"];
+    NSIndexPath *newIndexPath = d[@"newIndexPath"];
+
+    switch(type.intValue) {
         case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:@[newIndexPath]
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath]
                              withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
             
         case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:@[indexPath]
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath]
                              withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [tableView reloadRowsAtIndexPaths:@[indexPath]
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath]
                              withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
             
         case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:@[indexPath]
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath]
                              withRowAnimation:UITableViewRowAnimationAutomatic];
-            [tableView insertRowsAtIndexPaths:@[newIndexPath]
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath]
                              withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
     }
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    [self performSelectorOnMainThread:@selector(endUpdates) withObject:nil waitUntilDone:FALSE];
+}
+
+- (void)endUpdates {
     [self.tableView endUpdates];
 }
 

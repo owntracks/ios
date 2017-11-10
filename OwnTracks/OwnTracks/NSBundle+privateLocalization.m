@@ -76,6 +76,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (NSString *)privateLocalizedStringForKey:(NSString *)key value:(NSString *)value table:(NSString *)table {
     DDLogVerbose(@"privateLocalizedStringForKey: %@", key);
+#ifdef xxx
     if ([Settings boolForKey:@"pl"]) {
         NSString *string = [Settings stringForKey:[NSString stringWithFormat:@"pl_%@", key]];
         if (string) {
@@ -83,6 +84,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             return string;
         }
     }
+#endif
     return [self privateLocalizedStringForKey:key value:value table:table];
 }
 

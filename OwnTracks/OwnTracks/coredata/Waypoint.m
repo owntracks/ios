@@ -10,31 +10,34 @@
 #import "Friend+CoreDataClass.h"
 #import <MapKit/MapKit.h>
 #import <AddressBookUI/AddressBookUI.h>
+#import "CoreData.h"
 
 @implementation Waypoint
 
-- (void)getReverseGeoCode
-{
+- (void)getReverseGeoCode {
     if (!self.placemark) {
         CLGeocoder *geocoder = [[CLGeocoder alloc] init];
         CLLocation *location = [[CLLocation alloc] initWithLatitude:(self.lat).doubleValue
                                                           longitude:(self.lon).doubleValue];
         [geocoder reverseGeocodeLocation:location completionHandler:
          ^(NSArray *placemarks, NSError *error) {
-             if (!self.isDeleted) {
-                 if (placemarks.count > 0) {
-                     CLPlacemark *placemark = placemarks[0];
-                     self.placemark = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
+             [self.managedObjectContext performBlock:^{
+                 if (!self.isDeleted) {
+                     if (placemarks.count > 0) {
+                         CLPlacemark *placemark = placemarks[0];
+                         self.placemark = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
+                     } else {
+                         self.placemark = [NSString stringWithFormat:@"%@\n%@ %ld\n%@",
+                                           NSLocalizedString(@"Address resolver failed", @"reverseGeocodeLocation error"),
+                                           error.domain,
+                                           (long)error.code,
+                                           NSLocalizedString(@"due to rate limit or off-line", @"reverseGeocodeLocation text")
+                                           ];
+                     }
                      self.belongsTo.topic = self.belongsTo.topic;
-                 } else {
-                     self.placemark = [NSString stringWithFormat:@"%@\n%@ %ld\n%@",
-                                       NSLocalizedString(@"Address resolver failed", @"reverseGeocodeLocation error"),
-                                       error.domain,
-                                       (long)error.code,
-                                       NSLocalizedString(@"due to rate limit or off-line", @"reverseGeocodeLocation text")
-                                       ];
+                     [[CoreData sharedInstance] sync];
                  }
-             }
+             }];
          }];
     }
 }

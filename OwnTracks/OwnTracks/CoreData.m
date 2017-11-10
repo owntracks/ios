@@ -9,103 +9,110 @@
 #import "CoreData.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
-static NSManagedObjectContext *theManagedObjectContext = nil;
+@interface CoreData ()
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@end
 
 @implementation CoreData
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
-- (instancetype)init
-{
-    NSURL *url = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].lastObject;
-    url = [url URLByAppendingPathComponent:@"OwnTracks"];
++ (CoreData *)sharedInstance {
+    static dispatch_once_t once = 0;
+    static id sharedInstance = nil;
+    dispatch_once(&once, ^{
+        sharedInstance = [[self alloc] init];
+    });
+    return sharedInstance;
+}
 
-    self = [super initWithFileURL:url];
-        
-    NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @YES,
-                             NSInferMappingModelAutomaticallyOption: @YES};
-    self.persistentStoreOptions = options;
-    
-    if (![[NSFileManager defaultManager] fileExistsAtPath:url.path]) {
-        DDLogVerbose(@"Document creation %@\n", [url path]);
-        [self saveToURL:url forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success){
-            if (success) {
-                DDLogVerbose(@"Document created %@\n", [url path]);
-                theManagedObjectContext = self.managedObjectContext;
-            }
-        }];
-    } else {
-        if (self.documentState == UIDocumentStateClosed) {
-            DDLogVerbose(@"Document opening %@\n", [url path]);
-            [self openWithCompletionHandler:^(BOOL success){
-                if (success) {
-                    DDLogVerbose(@"Document opened %@\n", [url path]);
-                    theManagedObjectContext = self.managedObjectContext;
-                }
-            }];
-        } else {
-            DDLogVerbose(@"Document used %@\n", [url path]);
-            theManagedObjectContext = self.managedObjectContext;
-        }
-    }
+- (instancetype)init {
+    self = [super init];
+
+    NSPersistentStoreCoordinator *coordinator = [self createPersistentStoreCoordinator];
+    self.managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    self.managedObjectContext.persistentStoreCoordinator = coordinator;
 
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
                                                           DDLogVerbose(@"UIApplicationWillResignActiveNotification");
-                                                          [CoreData saveContext];
+                                                          [self sync];
                                                       }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification
                                                       object:nil queue:nil usingBlock:^(NSNotification *note){
                                                           DDLogVerbose(@"UIApplicationWillTerminateNotification");
-                                                          [CoreData saveContext];
+                                                          [self sync];
                                                       }];
-    while (!theManagedObjectContext) {
-        DDLogVerbose(@"Waiting for open");
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-    }
+
     return self;
 }
 
-- (void)handleError:(NSError *)error userInteractionPermitted:(BOOL)userInteractionPermitted
-{
-    DDLogVerbose(@"CoreData handleError: %@", error);
-    [self finishedHandlingError:error recovered:NO];
+- (void)sync {
+    [self internalSync];
 }
 
-- (void)userInteractionNoLongerPermittedForError:(NSError *)error
-{
-    DDLogVerbose(@"CoreData userInteractionNoLongerPermittedForError: %@", error);
-}
-
-+ (NSManagedObjectContext *)theManagedObjectContext
-{
-    if (!theManagedObjectContext) {
-        (void)[[CoreData alloc] init];
-    }
-    return theManagedObjectContext;
-}
-
-+ (void)saveContext {
-    [CoreData saveContext:theManagedObjectContext];
-}
-
-+ (void)saveContext:(NSManagedObjectContext *)context {
-    if (context != nil) {
-        if (context.hasChanges) {
-            NSError *error = nil;
-            DDLogVerbose(@"managedObjectContext save");
-            if (![context save:&error]) {
-                NSString *message = [NSString stringWithFormat:@"%@ %@", error.localizedDescription, error.userInfo];
-                DDLogError(@"managedObjectContext save error: %@", message);
-            } else {
-                if (context.parentContext) {
-                    [CoreData saveContext:context.parentContext];
-                }
-            }
-
+- (void)internalSync {
+    if (self.managedObjectContext.hasChanges) {
+        NSError *error = nil;
+        if (![self.managedObjectContext save:&error]) {
+            //
         }
     }
 }
 
+#pragma mark - Core Data stack
+- (NSPersistentStoreCoordinator *)createPersistentStoreCoordinator {
+    NSURL *persistentStoreURLOld = [self.applicationDocumentsDirectory
+                                 URLByAppendingPathComponent:@"OwnTracks/StoreContent/persistentStore"];
+    DDLogInfo(@"[MQTTPersistence] Persistent store old: %@", persistentStoreURLOld.path);
+
+    NSURL *persistentStoreURLNew = [self.applicationDocumentsDirectory
+                                 URLByAppendingPathComponent:@"OwnTracks"];
+    DDLogInfo(@"[MQTTPersistence] Persistent store new: %@", persistentStoreURLNew.path);
+
+    NSError *error = nil;
+    NSPersistentStoreCoordinator *persistentStoreCoordinator =
+    [[NSPersistentStoreCoordinator alloc]
+     initWithManagedObjectModel:self.managedObjectModel];
+
+    NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @YES,
+                              NSInferMappingModelAutomaticallyOption: @YES,
+                              NSSQLiteAnalyzeOption: @YES,
+                              NSSQLiteManualVacuumOption: @YES
+                              };
+
+    if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                  configuration:nil
+                                                            URL:persistentStoreURLOld
+                                                        options:options
+                                                          error:&error]) {
+        DDLogError(@"[MQTTPersistence] managedObjectContext save old: %@", error);
+        if (error) {
+            if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
+                                                          configuration:nil
+                                                                    URL:persistentStoreURLNew
+                                                                options:options
+                                                                  error:&error]) {
+                DDLogError(@"[MQTTPersistence] managedObjectContext save new: %@", error);
+                persistentStoreCoordinator = nil;
+            }
+        }
+    }
+    return persistentStoreCoordinator;
+}
+
+- (NSURL *)applicationDocumentsDirectory {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray <NSURL *> *directories = [fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+    NSURL *directory = directories.lastObject;
+    return directory;
+}
+
+- (NSManagedObjectModel *)managedObjectModel {
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSURL *URL = [bundle URLForResource:@"Model" withExtension:@"momd"];
+    NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:URL];
+    return model;
+}
 
 
 @end

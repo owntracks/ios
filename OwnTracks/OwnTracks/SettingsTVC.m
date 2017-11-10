@@ -228,7 +228,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         }
     }
 
-    [CoreData saveContext];
+    [CoreData.sharedInstance sync];
     int mode = [Settings intForKey:@"mode"];
     DDLogVerbose(@"[Settings] mode set to %d", mode);
 }

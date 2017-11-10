@@ -7,19 +7,17 @@
 //
 
 #import "Setting.h"
+#import "CoreData.h"
 
 @implementation Setting
 
-+ (Setting *)existsSettingWithKey:(NSString *)key inManagedObjectContext:(NSManagedObjectContext *)context
-{
-    Setting *setting = nil;
-
++ (Setting *)existsSettingWithKey:(NSString *)key {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Setting"];
     request.predicate = [NSPredicate predicateWithFormat:@"key = %@", key];
 
+    Setting *setting = nil;
     NSError *error = nil;
-
-    NSArray *matches = [context executeFetchRequest:request error:&error];
+    NSArray *matches = [CoreData.sharedInstance.managedObjectContext executeFetchRequest:request error:&error];
 
     if (!matches) {
         // handle error
@@ -32,28 +30,25 @@
     return setting;
 }
 
-+ (Setting *)settingWithKey:(NSString *)key inManagedObjectContext:(NSManagedObjectContext *)context
-{
-    Setting *setting = [Setting existsSettingWithKey:key inManagedObjectContext:context];
++ (Setting *)settingWithKey:(NSString *)key {
+    Setting *setting = [Setting existsSettingWithKey:key];
 
     if (!setting) {
-
-        setting = [NSEntityDescription insertNewObjectForEntityForName:@"Setting" inManagedObjectContext:context];
-
+        setting = [NSEntityDescription insertNewObjectForEntityForName:@"Setting"
+                                                inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
         setting.key = key;
     }
 
     return setting;
 }
 
-+ (NSArray *)allSettingsInManagedObjectContext:(NSManagedObjectContext *)context {
++ (NSArray *)allSettings {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Setting"];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"key" ascending:YES]];
 
+    NSArray *matches = nil;
     NSError *error = nil;
-
-    NSArray *matches = [context executeFetchRequest:request error:&error];
-
+    matches = [CoreData.sharedInstance.managedObjectContext executeFetchRequest:request error:&error];
     return matches;
 }
 
