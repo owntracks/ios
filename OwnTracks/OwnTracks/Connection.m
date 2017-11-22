@@ -62,16 +62,16 @@
 #define RECONNECT_TIMER_MAX 64.0
 
 @implementation Connection
-DDLogLevel ddLogLevel = DDLogLevelWarning;
+DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (instancetype)init {
     self = [super init];
-    DDLogVerbose(@"Connection init");
+    DDLogVerbose(@"[Connection] Connection init");
     
     if (sodium_init() == -1) {
-        DDLogError(@"sodium_init failed");
+        DDLogError(@"[Connection] sodium_init failed");
     } else {
-        DDLogError(@"sodium_init succeeded");
+        DDLogInfo(@"[Connection] sodium_init succeeded");
     }
 
     [MQTTLog setLogLevel:DDLogLevelWarning];
@@ -80,35 +80,45 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
     self.subscriptions = [[NSArray alloc] init];
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification
-                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          DDLogVerbose(@"UIApplicationWillEnterForegroundNotification");
-                                                      }];
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      DDLogVerbose(@"[Connection] UIApplicationWillEnterForegroundNotification");
+                                                  }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
-                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          DDLogVerbose(@"UIApplicationDidBecomeActiveNotification");
-                                                          [self connectToLast];
-                                                      }];
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      DDLogVerbose(@"[Connection] UIApplicationDidBecomeActiveNotification");
+                                                      [self connectToLast];
+                                                  }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification
-                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          DDLogVerbose(@"UIApplicationDidEnterBackgroundNotification");
-                                                      }];
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      DDLogVerbose(@"[Connection] UIApplicationDidEnterBackgroundNotification");
+                                                  }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
-                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          DDLogVerbose(@"UIApplicationWillResignActiveNotification");
-                                                          if ([LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
-                                                              [self disconnect];
-                                                          }
-                                                      }];
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      DDLogVerbose(@"[Connection] UIApplicationWillResignActiveNotification");
+                                                      if ([LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
+                                                          [self disconnect];
+                                                      }
+                                                  }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification
-                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          DDLogVerbose(@"UIApplicationWillTerminateNotification");
-                                                          self.terminate = true;
-                                                      }];
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+                                                      DDLogVerbose(@"[Connection] UIApplicationWillTerminateNotification");
+                                                      self.terminate = true;
+                                                  }];
     return self;
 }
 
 - (void)main {
-    DDLogVerbose(@"Connection main");
+    DDLogVerbose(@"[Connection] main");
     // if there is no timer running, runUntilDate: does return immediately!?
     self.idleTimer = [NSTimer timerWithTimeInterval:60
                                              target:self
@@ -119,7 +129,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
     [runLoop addTimer:self.idleTimer forMode:NSDefaultRunLoopMode];
     
     while (!self.terminate) {
-        DDLogVerbose(@"Connection main %@", [NSDate date]);
+        DDLogVerbose(@"[Connection] main %@", [NSDate date]);
         if (self.url) {
             [CoreData.sharedInstance.managedObjectContext performBlockAndWait:^{
                 NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
@@ -158,7 +168,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 - (void)idle {
-    DDLogVerbose(@"%@ idle", self.clientId);
+    DDLogVerbose(@"[Connection] %@ idle", self.clientId);
 }
 
 - (void)connectTo:(NSString *)host
@@ -178,7 +188,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
      withClientId:(NSString *)clientId
    securityPolicy:(MQTTSSLSecurityPolicy *)securityPolicy
      certificates:(NSArray *)certificates {
-    DDLogVerbose(@"%@ connectTo: %@:%@@%@:%ld v%d %@ %@ (%ld) c%d / %@ %@ q%ld r%d as %@ %@ %@",
+    DDLogVerbose(@"[Connection] %@ connectTo: %@:%@@%@:%ld v%d %@ %@ (%ld) c%d / %@ %@ q%ld r%d as %@ %@ %@",
                  self.clientId,
                  auth ? user : @"",
                  auth ? pass : @"",
@@ -235,7 +245,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
         self.securityPolicy = securityPolicy;
         self.certificates = certificates;
         
-        DDLogVerbose(@"%@ new session", self.clientId);
+        DDLogVerbose(@"[Connection] %@ new session", self.clientId);
         MQTTTransport *mqttTransport;
         if (ws) {
             MQTTWebsocketTransport *websocketTransport = [[MQTTWebsocketTransport alloc] init];
@@ -307,7 +317,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 - (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(NSInteger)qos retain:(BOOL)retainFlag {
-    DDLogVerbose(@"%@ sendData:%@ %@ q%ld r%d",
+    DDLogVerbose(@"[Connection] %@ sendData:%@ %@ q%ld r%d",
                  self.clientId,
                  topic,
                  [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding],
@@ -358,7 +368,8 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)sendHTTP:(NSString *)topic data:(NSData *)data {
     NSString *postLength = [NSString stringWithFormat:@"%ld",(unsigned long)data.length];
-    DDLogVerbose(@"sendtHTTP %@(%@):%@", topic, postLength, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    DDLogVerbose(@"[Connection] sendtHTTP %@(%@):%@",
+                 topic, postLength, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
@@ -380,7 +391,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
     NSString *contentType = [NSString stringWithFormat:@"application/json"];
     [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
     
-    DDLogVerbose(@"NSMutableURLRequest %@", request);
+    DDLogVerbose(@"[Connection] NSMutableURLRequest %@", request);
     
     self.state = state_connecting;
     self.lastErrorCode = nil;
@@ -391,12 +402,12 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
     [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
      ^(NSData *data, NSURLResponse *response, NSError *error) {
 
-         DDLogVerbose(@"dataTaskWithRequest %@ %@ %@", data, response, error);
+         DDLogVerbose(@"[Connection] dataTaskWithRequest %@ %@ %@", data, response, error);
          if (!error) {
              
              if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
                  NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-                 DDLogVerbose(@"NSHTTPURLResponse %@", httpResponse);
+                 DDLogVerbose(@"[Connection] NSHTTPURLResponse %@", httpResponse);
                  if (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299) {
                      self.state = state_connected;
                      
@@ -415,7 +426,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
                          }
                          
                          NSData *incomingData = data;
-                         DDLogVerbose(@"incomingData %@", [[NSString alloc] initWithData:incomingData encoding:NSUTF8StringEncoding]);
+                         DDLogVerbose(@"[Connection] incomingData %@", [[NSString alloc] initWithData:incomingData encoding:NSUTF8StringEncoding]);
                          if (self.key && self.key.length) {
                              incomingData = [self decrypt:incomingData];
                          }
@@ -467,7 +478,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
     if (message && message[@"tid"]) {
         tid = message[@"tid"];
     }
-    DDLogVerbose(@"oneMessage %@", message.description);
+    DDLogVerbose(@"[Connection] oneMessage %@", message.description);
     [self.delegate handleMessage:self
                             data:[NSJSONSerialization dataWithJSONObject:message options:0 error:nil]
                          onTopic:[NSString stringWithFormat:@"owntracks/http/%@", tid]
@@ -475,7 +486,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 - (void)disconnect {
-    DDLogVerbose(@"%@ disconnect:", self.clientId);
+    DDLogInfo(@"[Connection] %@ disconnect:", self.clientId);
     if (!self.url) {
         self.state = state_closing;
         [self.session close];
@@ -488,7 +499,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 - (void)reset {
-    DDLogVerbose(@"reset");
+    DDLogInfo(@"[Connection] reset");
     
     [CoreData.sharedInstance.managedObjectContext performBlockAndWait:^{
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
@@ -525,8 +536,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 #pragma mark - MQTT Callback methods
 
-- (void)connected:(MQTTSession *)session sessionPresent:(BOOL)sessionPresent
-{
+- (void)connected:(MQTTSession *)session sessionPresent:(BOOL)sessionPresent {
     self.lastErrorCode = nil;
     self.state = state_connected;
     
@@ -547,9 +557,8 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
     }
 }
 
-- (void)handleEvent:(MQTTSession *)session event:(MQTTSessionEvent)eventCode error:(NSError *)error
-{
-    DDLogVerbose(@"%@ MQTT eventCode: %@ (%ld) %@",
+- (void)handleEvent:(MQTTSession *)session event:(MQTTSessionEvent)eventCode error:(NSError *)error {
+    DDLogInfo(@"[Connection] %@ MQTT eventCode: %@ (%ld) %@",
                  self.clientId,
                  @{@(MQTTSessionEventConnected): @"connected",
                    @(MQTTSessionEventConnectionRefused): @"connection refused",
@@ -586,23 +595,21 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 - (void)subAckReceived:(MQTTSession *)session msgID:(UInt16)msgID grantedQoss:(NSArray *)qoss {
-    DDLogVerbose(@"%@ subAckReceived m%u %@",
+    DDLogInfo(@"[Connection] %@ subAckReceived m%u %@",
                  self.clientId,
                  msgID,
                  qoss);
-    
 }
 
 - (void)unsubAckReceived:(MQTTSession *)session msgID:(UInt16)msgID {
-    DDLogVerbose(@"%@ unsubAckReceived m%u",
+    DDLogInfo(@"[Connection] %@ unsubAckReceived m%u",
                  self.clientId,
                  msgID);
 }
 
 
-- (void)messageDelivered:(MQTTSession *)session msgID:(UInt16)msgID
-{
-    DDLogVerbose(@"%@ messageDelivered m%u",
+- (void)messageDelivered:(MQTTSession *)session msgID:(UInt16)msgID {
+    DDLogInfo(@"[Connection] %@ messageDelivered m%u",
                  self.clientId,
                  msgID);
     [self.delegate messageDelivered:self msgID:msgID];
@@ -619,7 +626,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
         data = [self decrypt:data];
     }
 
-    DDLogVerbose(@"%@ received %@ %@",
+    DDLogVerbose(@"[Connection] %@ received %@ %@",
                  self.clientId,
                  topic,
                  [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
@@ -630,7 +637,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 - (void)buffered:(MQTTSession *)session flowingIn:(NSUInteger)flowingIn flowingOut:(NSUInteger)flowingOut {
-    DDLogVerbose(@"%@ buffered i%lu o%lu",
+    DDLogVerbose(@"[Connection] %@ buffered i%lu o%lu",
                  self.clientId,
                  (unsigned long)flowingIn,
                  (unsigned long)flowingOut);
@@ -652,7 +659,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
             self.state = state_connecting;
             [self.session connect];
         } else {
-            DDLogVerbose(@"%@ not starting, can't connect", self.clientId);
+            DDLogVerbose(@"[Connection] %@ not starting, can't connect", self.clientId);
         }
     }
 }
@@ -675,7 +682,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)setState:(NSInteger)state {
     _state = state;
-    DDLogVerbose(@"%@ state %@ (%ld)",
+    DDLogVerbose(@"[Connection] %@ state %@ (%ld)",
                  self.clientId,
                  @{@(state_starting): @"starting",
                    @(state_connecting): @"connecting",
@@ -689,7 +696,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 - (void)reconnect {
-    DDLogVerbose(@"%@ reconnect", self.clientId);
+    DDLogInfo(@"[Connection] %@ reconnect", self.clientId);
     
     self.reconnectTimer = nil;
     self.state = state_starting;
@@ -702,7 +709,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 - (void)connectToLast {
-    DDLogVerbose(@"%@ connectToLast", self.clientId);
+    DDLogInfo(@"[Connection] %@ connectToLast", self.clientId);
     
     self.reconnectTime = RECONNECT_TIMER;
     
@@ -710,7 +717,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 - (void)startReconnectTimer:(NSRunLoop *)runLoop {
-    DDLogVerbose(@"%@ setTimer %f", self.clientId, self.reconnectTime);
+    DDLogVerbose(@"[Connection] %@ setTimer %f", self.clientId, self.reconnectTime);
     self.reconnectTimer = [NSTimer timerWithTimeInterval:self.reconnectTime
                                                   target:self
                                                 selector:@selector(reconnect)
