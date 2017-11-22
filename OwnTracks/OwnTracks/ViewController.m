@@ -588,19 +588,23 @@ calloutAccessoryControlTapped:(UIControl *)control {
 
 - (IBAction)longPress:(UILongPressGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
+
+        [CoreData.sharedInstance.managedObjectContext performBlock:^{
+            Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic] inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
+            [[OwnTracking sharedInstance] addRegionFor:friend
+                                                  name:[NSString stringWithFormat:@"Center-%d",
+                                                        (int)[NSDate date].timeIntervalSince1970]
+                                                  uuid:nil
+                                                 major:0
+                                                 minor:0
+                                                 share:NO
+                                                radius:0
+                                                   lat:self.mapView.centerCoordinate.latitude
+                                                   lon:self.mapView.centerCoordinate.longitude
+                                               context:CoreData.sharedInstance.managedObjectContext];
+            [CoreData.sharedInstance sync];
+        }];
         
-        Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic] inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
-        [[OwnTracking sharedInstance] addRegionFor:friend
-                                              name:[NSString stringWithFormat:@"Center-%d",
-                                                    (int)[NSDate date].timeIntervalSince1970]
-                                              uuid:nil
-                                             major:0
-                                             minor:0
-                                             share:NO
-                                            radius:0
-                                               lat:self.mapView.centerCoordinate.latitude
-                                               lon:self.mapView.centerCoordinate.longitude
-                                           context:CoreData.sharedInstance.managedObjectContext];
         [AlertView alert:NSLocalizedString(@"Region",
                                            @"Header of an alert message regarding circular region")
                  message:NSLocalizedString(@"created at center of map",
