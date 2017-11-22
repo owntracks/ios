@@ -136,14 +136,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                                       object:nil
                                                        queue:nil
                                                   usingBlock:^(NSNotification *note){
-                                                      DDLogVerbose(@"UIApplicationUserDidTakeScreenshotNotification");
+                                                      DDLogVerbose(@"[OwnTracksAppDelegate]  UIApplicationUserDidTakeScreenshotNotification");
                                                   }];
     return YES;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-    DDLogVerbose(@"didFinishLaunchingWithOptions");
+    DDLogVerbose(@"[OwnTracksAppDelegate] didFinishLaunchingWithOptions");
 
 
     if (![Setting existsSettingWithKey:@"mode"]) {
@@ -189,13 +189,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
-    DDLogVerbose(@"openURL %@ from %@ annotation %@", url, sourceApplication, annotation);
+    DDLogVerbose(@"[OwnTracksAppDelegate] openURL %@ from %@ annotation %@", url, sourceApplication, annotation);
 
     if (url) {
-        DDLogVerbose(@"URL scheme %@", url.scheme);
+        DDLogVerbose(@"[OwnTracksAppDelegate] URL scheme %@", url.scheme);
 
         if ([url.scheme isEqualToString:@"owntracks"]) {
-            DDLogVerbose(@"URL path %@ query %@", url.path, url.query);
+            DDLogVerbose(@"[OwnTracksAppDelegate] URL path %@ query %@", url.path, url.query);
 
             NSMutableDictionary *queryStrings = [[NSMutableDictionary alloc] init];
             for (NSString *parameter in [url.query componentsSeparatedByString:@"&"]) {
@@ -269,12 +269,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
      ^(NSData *data, NSURLResponse *response, NSError *error) {
 
-         DDLogVerbose(@"dataTaskWithRequest %@ %@ %@", data, response, error);
+         DDLogVerbose(@"[OwnTracksAppDelegate] dataTaskWithRequest %@ %@ %@", data, response, error);
          if (!error) {
 
              if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
                  NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-                 DDLogVerbose(@"NSHTTPURLResponse %@", httpResponse);
+                 DDLogVerbose(@"[OwnTracksAppDelegate] NSHTTPURLResponse %@", httpResponse);
                  if (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299) {
                      NSError *error;
                      NSString *extension = url.pathExtension;
@@ -379,7 +379,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         return FALSE;
     }
 
-    DDLogVerbose(@"URL pathExtension %@", url.pathExtension);
+    DDLogVerbose(@"[OwnTracksAppDelegate] URL pathExtension %@", url.pathExtension);
 
     NSError *error;
     NSString *extension = url.pathExtension;
@@ -429,16 +429,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    DDLogVerbose(@"applicationDidEnterBackground");
+    DDLogVerbose(@"[OwnTracksAppDelegate] applicationDidEnterBackground");
     [self background];
 }
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    DDLogVerbose(@"applicationDidBecomeActive");
+    DDLogVerbose(@"[OwnTracksAppDelegate] applicationDidBecomeActive");
 
     if (self.disconnectTimer && self.disconnectTimer.isValid) {
-        DDLogVerbose(@"disconnectTimer invalidate %@",
+        DDLogVerbose(@"[OwnTracksAppDelegate] disconnectTimer invalidate %@",
                      self.disconnectTimer.fireDate);
         [self.disconnectTimer invalidate];
     }
@@ -465,7 +465,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 - (void)application:(UIApplication *)application
 performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 
-    DDLogVerbose(@"performFetchWithCompletionHandler");
+    DDLogVerbose(@"[OwnTracksAppDelegate] performFetchWithCompletionHandler");
     self.completionHandler = completionHandler;
     [self background];
 
@@ -487,7 +487,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 }
 
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
-    DDLogVerbose(@"didRegisterUserNotificationSettings %@", notificationSettings);
+    DDLogVerbose(@"[OwnTracksAppDelegate] didRegisterUserNotificationSettings %@", notificationSettings);
 }
 
 - (void)background {
@@ -495,10 +495,10 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground &&
         self.backgroundTask == UIBackgroundTaskInvalid) {
         self.backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-            DDLogVerbose(@"BackgroundTaskExpirationHandler");
+            DDLogVerbose(@"[OwnTracksAppDelegate] BackgroundTaskExpirationHandler");
 
             if (self.completionHandler) {
-                DDLogVerbose(@"completionHandler");
+                DDLogVerbose(@"[OwnTracksAppDelegate] completionHandler");
                 self.completionHandler(UIBackgroundFetchResultNewData);
                 self.completionHandler = nil;
             }
@@ -516,7 +516,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground &&
         [LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
         if (self.disconnectTimer && self.disconnectTimer.isValid) {
-            DDLogVerbose(@"disconnectTimer.isValid %@",
+            DDLogVerbose(@"[OwnTracksAppDelegate] disconnectTimer.isValid %@",
                          self.disconnectTimer.fireDate);
         } else {
             self.disconnectTimer = [NSTimer timerWithTimeInterval:BACKGROUND_DISCONNECT_AFTER
@@ -526,14 +526,14 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                                           repeats:FALSE];
             NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
             [runLoop addTimer:self.disconnectTimer forMode:NSDefaultRunLoopMode];
-            DDLogVerbose(@"disconnectTimer %@",
+            DDLogVerbose(@"[OwnTracksAppDelegate] disconnectTimer %@",
                          self.disconnectTimer.fireDate);
         }
     }
 }
 
 - (void)disconnectInBackground {
-    DDLogVerbose(@"disconnectInBackground");
+    DDLogVerbose(@"[OwnTracksAppDelegate] disconnectInBackground");
     self.disconnectTimer = nil;
     [self.connection disconnect];
 }
@@ -642,7 +642,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 }
 
 - (void)regionState:(CLRegion *)region inside:(BOOL)inside {
-    DDLogVerbose(@"regionState %@ i:%d", region.identifier, inside);
+    DDLogVerbose(@"[OwnTracksAppDelegate] regionState %@ i:%d", region.identifier, inside);
     Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
                             inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
 
@@ -659,17 +659,18 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
                                 inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
 
-        NSMutableDictionary *json = [NSMutableDictionary dictionaryWithDictionary:@{
-                                                                                    @"_type": @"beacon",
-                                                                                    @"tid": myself.effectiveTid,
-                                                                                    @"tst": @(floor(([LocationManager sharedInstance].location.timestamp).timeIntervalSince1970)),
-                                                                                    @"uuid": (beacon.proximityUUID).UUIDString,
-                                                                                    @"major": beacon.major,
-                                                                                    @"minor": beacon.minor,
-                                                                                    @"prox": @(beacon.proximity),
-                                                                                    @"acc": @(beacon.accuracy),
-                                                                                    @"rssi": @(beacon.rssi)
-                                                                                    }];
+        NSMutableDictionary *json = [NSMutableDictionary dictionaryWithDictionary:
+                                     @{
+                                       @"_type": @"beacon",
+                                       @"tid": myself.effectiveTid,
+                                       @"tst": @(floor(([LocationManager sharedInstance].location.timestamp).timeIntervalSince1970)),
+                                       @"uuid": (beacon.proximityUUID).UUIDString,
+                                       @"major": beacon.major,
+                                       @"minor": beacon.minor,
+                                       @"prox": @(beacon.proximity),
+                                       @"acc": @(beacon.accuracy),
+                                       @"rssi": @(beacon.rssi)
+                                       }];
         switch ([Settings intForKey:@"mode"]) {
             case CONNECTION_MODE_WATSON:
             case CONNECTION_MODE_WATSONREGISTERED:
@@ -693,23 +694,28 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 
 #pragma ConnectionDelegate
 
-- (void)showState:(Connection *)connection state:(NSInteger)state {
+- (void)showState:(Connection *)connection
+            state:(NSInteger)state {
     self.connectionState = @(state);
     /**
      ** This is a hack to ensure the connection gets gracefully closed at the server
      **
      ** If the background task is ended, occasionally the disconnect message is not received well before the server senses the tcp disconnect
      **/
-    DDLogInfo(@"showState %g", [UIApplication sharedApplication].backgroundTimeRemaining);
+
+    NSTimeInterval backgroundTimeRemaining = [UIApplication sharedApplication].backgroundTimeRemaining;
+    DDLogInfo(@"[OwnTracksAppDelegate] showState: %@, backgroundTimeRemaining: %@",
+              self.connectionState.stringValue,
+              backgroundTimeRemaining > 24 * 3600 ? @"∞": @(floor(backgroundTimeRemaining)).stringValue);
 
     if ((self.connectionState).intValue == state_closed) {
         if (self.completionHandler) {
-            DDLogVerbose(@"completionHandler");
+            DDLogVerbose(@"[OwnTracksAppDelegate] call completionHandler");
             self.completionHandler(UIBackgroundFetchResultNewData);
             self.completionHandler = nil;
         }
         if (self.backgroundTask) {
-            DDLogVerbose(@"endBackGroundTask");
+            DDLogVerbose(@"[OwnTracksAppDelegate] endBackGroundTask");
             [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
             self.backgroundTask = UIBackgroundTaskInvalid;
         }
@@ -717,9 +723,9 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 }
 
 - (BOOL)handleMessage:(Connection *)connection data:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
-    DDLogVerbose(@"handleMessage");
+    DDLogVerbose(@"[OwnTracksAppDelegate] handleMessage");
 
-    [CoreData.sharedInstance.managedObjectContext performBlockAndWait:^{
+    [CoreData.sharedInstance.managedObjectContext performBlock:^{
         (void)[[GeoHashing sharedInstance] processMessage:topic
                                                      data:data
                                                  retained:retained
@@ -748,7 +754,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
             }
         }
 
-        DDLogVerbose(@"device %@", device);
+        DDLogVerbose(@"[OwnTracksAppDelegate] device %@", device);
 
         if (ownDevice) {
 
@@ -833,12 +839,12 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                             [self performSelectorOnMainThread:@selector(reconnect) withObject:nil waitUntilDone:NO];
 
                         } else {
-                            DDLogVerbose(@"unknown action %@", dictionary[@"action"]);
+                            DDLogVerbose(@"[OwnTracksAppDelegate] unknown action %@", dictionary[@"action"]);
                         }
                     }
                 }
             } else {
-                DDLogVerbose(@"illegal json %@ %@ %@", error.localizedDescription, error.userInfo, data.description);
+                DDLogVerbose(@"[OwnTracksAppDelegate] illegal json %@ %@ %@", error.localizedDescription, error.userInfo, data.description);
             }
         }
     }];
@@ -847,7 +853,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 }
 
 - (void)messageDelivered:(Connection *)connection msgID:(UInt16)msgID {
-    DDLogVerbose(@"Message delivered id=%u", msgID);
+    DDLogVerbose(@"[OwnTracksAppDelegate] Message delivered id=%u", msgID);
 }
 
 - (void)totalBuffered:(Connection *)connection count:(NSUInteger)count {
@@ -900,69 +906,70 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         fromDate = [[NSCalendar currentCalendar] dateFromComponents:components];
     }
 
-    DDLogVerbose(@"isStepCountingAvailable %d", [CMPedometer isStepCountingAvailable]);
-    DDLogVerbose(@"isFloorCountingAvailable %d", [CMPedometer isFloorCountingAvailable]);
-    DDLogVerbose(@"isDistanceAvailable %d", [CMPedometer isDistanceAvailable]);
+    DDLogVerbose(@"[OwnTracksAppDelegate] isStepCountingAvailable %d", [CMPedometer isStepCountingAvailable]);
+    DDLogVerbose(@"[OwnTracksAppDelegate] isFloorCountingAvailable %d", [CMPedometer isFloorCountingAvailable]);
+    DDLogVerbose(@"[OwnTracksAppDelegate] isDistanceAvailable %d", [CMPedometer isDistanceAvailable]);
     if (!self.pedometer) {
         self.pedometer = [[CMPedometer alloc] init];
     }
     [self.pedometer queryPedometerDataFromDate:fromDate
                                         toDate:toDate
-                                   withHandler:^(CMPedometerData *pedometerData, NSError *error) {
-                                       DDLogVerbose(@"StepCounter queryPedometerDataFromDate handler %ld %ld %ld %ld %@",
-                                                    [pedometerData.numberOfSteps longValue],
-                                                    [pedometerData.floorsAscended longValue],
-                                                    [pedometerData.floorsDescended longValue],
-                                                    [pedometerData.distance longValue],
-                                                    error.localizedDescription);
-                                       dispatch_async(dispatch_get_main_queue(), ^{
-
-                                           NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-                                           [json addEntriesFromDictionary:@{
-                                                                            @"_type": @"steps",
-                                                                            @"tst": @(floor([NSDate date].timeIntervalSince1970)),
-                                                                            @"from": @(floor(fromDate.timeIntervalSince1970)),
-                                                                            @"to": @(floor(toDate.timeIntervalSince1970)),
-                                                                            }];
-                                           if (pedometerData) {
-                                               json[@"steps"] = pedometerData.numberOfSteps;
-                                               if (pedometerData.floorsAscended) {
-                                                   json[@"floorsup"] = pedometerData.floorsAscended;
-                                               }
-                                               if (pedometerData.floorsDescended) {
-                                                   json[@"floorsdown"] = pedometerData.floorsDescended;
-                                               }
-                                               if (pedometerData.distance) {
-                                                   json[@"distance"] = pedometerData.distance;
-                                               }
-                                           } else {
-                                               json[@"steps"] = @(-1);
-                                           }
-
-                                           [self.connection sendData:[self jsonToData:json]
-                                                               topic:[[Settings theGeneralTopic] stringByAppendingString:@"/step"]
-                                                                 qos:[Settings intForKey:@"qos_preference"]
-                                                              retain:NO];
-                                       });
-                                   }];
+                                   withHandler:
+     ^(CMPedometerData *pedometerData, NSError *error) {
+         DDLogVerbose(@"[OwnTracksAppDelegate] StepCounter queryPedometerDataFromDate handler %ld %ld %ld %ld %@",
+                      [pedometerData.numberOfSteps longValue],
+                      [pedometerData.floorsAscended longValue],
+                      [pedometerData.floorsDescended longValue],
+                      [pedometerData.distance longValue],
+                      error.localizedDescription);
+         dispatch_async(dispatch_get_main_queue(), ^{
+             
+             NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
+             [json addEntriesFromDictionary:@{
+                                              @"_type": @"steps",
+                                              @"tst": @(floor([NSDate date].timeIntervalSince1970)),
+                                              @"from": @(floor(fromDate.timeIntervalSince1970)),
+                                              @"to": @(floor(toDate.timeIntervalSince1970)),
+                                              }];
+             if (pedometerData) {
+                 json[@"steps"] = pedometerData.numberOfSteps;
+                 if (pedometerData.floorsAscended) {
+                     json[@"floorsup"] = pedometerData.floorsAscended;
+                 }
+                 if (pedometerData.floorsDescended) {
+                     json[@"floorsdown"] = pedometerData.floorsDescended;
+                 }
+                 if (pedometerData.distance) {
+                     json[@"distance"] = pedometerData.distance;
+                 }
+             } else {
+                 json[@"steps"] = @(-1);
+             }
+             
+             [self.connection sendData:[self jsonToData:json]
+                                 topic:[[Settings theGeneralTopic] stringByAppendingString:@"/step"]
+                                   qos:[Settings intForKey:@"qos_preference"]
+                                retain:NO];
+         });
+     }];
 }
 
 #pragma actions
 
 - (void)sendNow {
-    DDLogVerbose(@"sendNow");
+    DDLogVerbose(@"[OwnTracksAppDelegate] sendNow");
     CLLocation *location = [LocationManager sharedInstance].location;
     [self publishLocation:location trigger:@"u"];
     [[GeoHashing sharedInstance] newLocation:location];
 }
 
 - (void)connectionOff {
-    DDLogVerbose(@"connectionOff");
+    DDLogVerbose(@"[OwnTracksAppDelegate] connectionOff");
     [self.connection disconnect];
 }
 
 - (void)terminateSession {
-    DDLogVerbose(@"terminateSession");
+    DDLogVerbose(@"[OwnTracksAppDelegate] terminateSession");
 
     [self connectionOff];
     [[OwnTracking sharedInstance] syncProcessing];
@@ -976,7 +983,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 }
 
 - (void)reconnect {
-    DDLogVerbose(@"reconnect");
+    DDLogVerbose(@"[OwnTracksAppDelegate] reconnect");
     [self.connection disconnect];
     [self connect];
 }
@@ -989,7 +996,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         [Settings validIds]) {
 
         int ignoreInaccurateLocations = [Settings intForKey:@"ignoreinaccuratelocations_preference"];
-        DDLogVerbose(@"inaccurate location %fm/%dm",
+        DDLogVerbose(@"[OwnTracksAppDelegate] inaccurate location %fm/%dm",
                      location.horizontalAccuracy, ignoreInaccurateLocations);
 
         if (ignoreInaccurateLocations == 0 || location.horizontalAccuracy < ignoreInaccurateLocations) {
@@ -1013,20 +1020,20 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                               qos:[Settings intForKey:@"qos_preference"]
                                            retain:[Settings boolForKey:@"retain_preference"]];
                     } else {
-                        DDLogError(@"no JSON created from waypoint %@", waypoint);
+                        DDLogError(@"[OwnTracksAppDelegate] no JSON created from waypoint %@", waypoint);
                     }
                     [[OwnTracking sharedInstance] limitWaypointsFor:friend
                                                           toMaximum:[Settings intForKey:@"positions_preference"]
                                              inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
                 } else {
-                    DDLogError(@"waypoint creation failed from friend %@, location %@", friend, location);
+                    DDLogError(@"[OwnTracksAppDelegate] waypoint creation failed from friend %@, location %@", friend, location);
                 }
             } else {
-                DDLogError(@"no friend found");
+                DDLogError(@"[OwnTracksAppDelegate] no friend found");
             }
         }
     } else {
-        DDLogError(@"invalid location");
+        DDLogError(@"[OwnTracksAppDelegate] invalid location");
     }
 }
 
@@ -1078,7 +1085,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         NSArray *certificates = nil;
         NSString *fileName = [Settings stringForKey:@"clientpkcs"];
         if (fileName && fileName.length) {
-            DDLogVerbose(@"getting p12 filename:%@ passphrase:%@", fileName, [Settings stringForKey:@"passphrase"]);
+            DDLogVerbose(@"[OwnTracksAppDelegate] getting p12 filename:%@ passphrase:%@", fileName, [Settings stringForKey:@"passphrase"]);
             NSString *clientPKCSPath = [directoryURL.path stringByAppendingPathComponent:fileName];
             certificates = [MQTTCFSocketTransport clientCertsFromP12:clientPKCSPath
                                                           passphrase:[Settings stringForKey:@"passphrase"]];
@@ -1167,13 +1174,13 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         NSError *error;
         data = [NSJSONSerialization dataWithJSONObject:jsonObject options:0 /* not pretty printed */ error:&error];
         if (!data) {
-            DDLogError(@"dataWithJSONObject failed: %@ %@ %@",
+            DDLogError(@"[OwnTracksAppDelegate] dataWithJSONObject failed: %@ %@ %@",
                        error.localizedDescription,
                        error.userInfo,
                        [jsonObject description]);
         }
     } else {
-        DDLogError(@"isValidJSONObject failed %@", [jsonObject description]);
+        DDLogError(@"[OwnTracksAppDelegate] isValidJSONObject failed %@", [jsonObject description]);
     }
     return data;
 }
