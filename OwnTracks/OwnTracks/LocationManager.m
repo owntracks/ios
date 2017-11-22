@@ -399,10 +399,10 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    DDLogVerbose(@"didUpdateLocations");
+    DDLogVerbose(@"[LocationManager] didUpdateLocations");
     
     for (CLLocation *location in locations) {
-        DDLogVerbose(@"Location: %@", location);
+        DDLogVerbose(@"[LocationManager] Location: %@", location);
         if ([location.timestamp compare:self.lastUsedLocation.timestamp] != NSOrderedAscending ) {
             [self.delegate newLocation:location];
         }
@@ -410,7 +410,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    DDLogError(@"didFailWithError %@ %@", error.localizedDescription, error.userInfo);
+    DDLogError(@"[LocationManager] didFailWithError %@ %@", error.localizedDescription, error.userInfo);
     // error
 }
 
@@ -420,8 +420,10 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
  * Regions
  *
  */
-- (void)locationManager:(CLLocationManager *)manager didDetermineState:(CLRegionState)state forRegion:(CLRegion *)region {
-    DDLogVerbose(@"didDetermineState %ld %@", (long)state, region);
+- (void)locationManager:(CLLocationManager *)manager
+      didDetermineState:(CLRegionState)state
+              forRegion:(CLRegion *)region {
+    DDLogVerbose(@"[LocationManager] didDetermineState %ld %@", (long)state, region);
     
     if ([region isKindOfClass:[CLBeaconRegion class]]) {
         if (state == CLRegionStateInside) {
@@ -439,11 +441,11 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     
     if ([region isKindOfClass:[CLCircularRegion class]]) {
         CLCircularRegion *circular = (CLCircularRegion *)region;
-        DDLogVerbose(@"region lat,lon,rad %f,%f,%f",
+        DDLogVerbose(@"[LocationManager] region lat,lon,rad %f,%f,%f",
                      circular.center.latitude,
                      circular.center.longitude,
                      circular.radius);
-        DDLogVerbose(@"loc lat,lon,acc %f,%f,%f @ %@",
+        DDLogVerbose(@"[LocationManager] loc lat,lon,acc %f,%f,%f @ %@",
                      manager.location.coordinate.latitude,
                      manager.location.coordinate.longitude,
                      manager.location.horizontalAccuracy,
@@ -452,13 +454,13 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
         switch (state) {
             case CLRegionStateInside:
                 if (![circular containsCoordinate:manager.location.coordinate]) {
-                    DDLogVerbose(@"didDeterminState false positive!");
+                    DDLogVerbose(@"[LocationManager] didDeterminState false positive!");
                     state = CLRegionStateOutside;
                 }
                 break;
             case CLRegionStateOutside:
                 if ([circular containsCoordinate:manager.location.coordinate]) {
-                    DDLogVerbose(@"didDeterminState false negative!");
+                    DDLogVerbose(@"[LocationManager] didDeterminState false negative!");
                     state = CLRegionStateInside;
                 }
                 break;
@@ -476,18 +478,18 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     [self.delegate regionState:region inside:(state == CLRegionStateInside)];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
-{
-    DDLogVerbose(@"didEnterRegion %@", region);
+- (void)locationManager:(CLLocationManager *)manager
+         didEnterRegion:(CLRegion *)region {
+    DDLogVerbose(@"[LocationManager] didEnterRegion %@", region);
     
     if (![self removeHoldDown:region]) {
         [self.delegate regionEvent:region enter:YES];
     }
 }
 
-- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
-{
-    DDLogVerbose(@"didExitRegion %@", region);
+- (void)locationManager:(CLLocationManager *)manager
+          didExitRegion:(CLRegion *)region {
+    DDLogVerbose(@"[LocationManager] didExitRegion %@", region);
     
     if ([region.identifier hasPrefix:@"-"]) {
         [self removeHoldDown:region];
@@ -498,11 +500,11 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
 }
 
 - (BOOL)removeHoldDown:(CLRegion *)region {
-    DDLogVerbose(@"removeHoldDown %@ [%lu]", region.identifier, (unsigned long)self.pendingRegionEvents.count);
+    DDLogVerbose(@"[LocationManager] removeHoldDown %@ [%lu]", region.identifier, (unsigned long)self.pendingRegionEvents.count);
     
     for (PendingRegionEvent *p in self.pendingRegionEvents) {
         if (p.region == region) {
-            DDLogVerbose(@"holdDownInvalidated %@", region.identifier);
+            DDLogVerbose(@"[LocationManager] holdDownInvalidated %@", region.identifier);
             [p.holdDownTimer invalidate];
             p.region = nil;
             [self.pendingRegionEvents removeObject:p];
@@ -513,24 +515,24 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
 }
 
 - (void)holdDownExpired:(NSTimer *)timer {
-    DDLogVerbose(@"holdDownExpired %@", timer.userInfo);
+    DDLogVerbose(@"[LocationManager] holdDownExpired %@", timer.userInfo);
     if ([timer.userInfo isKindOfClass:[PendingRegionEvent class]]) {
         PendingRegionEvent *p = (PendingRegionEvent *)timer.userInfo;
-        DDLogVerbose(@"holdDownExpired %@", p.region.identifier);
+        DDLogVerbose(@"[LocationManager] holdDownExpired %@", p.region.identifier);
         [self.delegate regionEvent:p.region enter:NO];
         [self removeHoldDown:p.region];
     }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
-    DDLogVerbose(@"didStartMonitoringForRegion %@", region);
+    DDLogVerbose(@"[LocationManager] didStartMonitoringForRegion %@", region);
     [self.manager requestStateForRegion:region];
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
-    DDLogVerbose(@"monitoringDidFailForRegion %@ %@ %@", region, error.localizedDescription, error.userInfo);
+    DDLogVerbose(@"[LocationManager] monitoringDidFailForRegion %@ %@ %@", region, error.localizedDescription, error.userInfo);
     for (CLRegion *monitoredRegion in manager.monitoredRegions) {
-        DDLogVerbose(@"monitoredRegion: %@", monitoredRegion);
+        DDLogVerbose(@"[LocationManager] monitoredRegion: %@", monitoredRegion);
     }
     
     if ((error.domain != kCLErrorDomain || error.code != 5) && [manager.monitoredRegions containsObject:region]) {
@@ -544,15 +546,18 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
  * Beacons
  *
  */
-- (void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error {
-    DDLogVerbose(@"rangingBeaconsDidFailForRegion %@ %@ %@", region, error.localizedDescription, error.userInfo);
+- (void)locationManager:(CLLocationManager *)manager
+rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
+              withError:(NSError *)error {
+    DDLogVerbose(@"[LocationManager] rangingBeaconsDidFailForRegion %@ %@ %@",
+                 region, error.localizedDescription, error.userInfo);
     // error
 }
 
 - (void)locationManager:(CLLocationManager *)manager
         didRangeBeacons:(NSArray *)beacons
                inRegion:(CLBeaconRegion *)region {
-    DDLogVerbose(@"didRangeBeacons %@ %@", beacons, region);
+    DDLogVerbose(@"[LocationManager] didRangeBeacons %@ %@", beacons, region);
     for (CLBeacon *beacon in beacons) {
         if (beacon.proximity != CLProximityUnknown) {
             CLBeacon *foundBeacon = nil;
