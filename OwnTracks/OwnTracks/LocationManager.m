@@ -49,7 +49,7 @@
 @end
 
 @implementation LocationManager
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 static LocationManager *theInstance = nil;
 
 + (LocationManager *)sharedInstance {

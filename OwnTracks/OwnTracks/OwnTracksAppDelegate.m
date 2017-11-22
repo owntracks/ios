@@ -21,7 +21,7 @@
 #import "MQTTSSLSecurityPolicy.h"
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
-static const DDLogLevel ddLogLevel = DDLogLevelInfo;
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 @interface NSString (safe)
 - (BOOL)saveEqual:(NSString *)aString;

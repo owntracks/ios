@@ -62,7 +62,7 @@
 #define RECONNECT_TIMER_MAX 64.0
 
 @implementation Connection
-DDLogLevel ddLogLevel = DDLogLevelInfo;
+DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (instancetype)init {
     self = [super init];
