@@ -39,14 +39,6 @@
       "subtype" : "38mm"
     },
     {
-      "size" : "44x44",
-      "idiom" : "watch",
-      "filename" : "OwnTracks-44@2x.png",
-      "scale" : "2x",
-      "role" : "longLook",
-      "subtype" : "42mm"
-    },
-    {
       "size" : "86x86",
       "idiom" : "watch",
       "filename" : "OwnTracks-86@2x.png",
