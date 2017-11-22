@@ -578,7 +578,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 + (void)setString:(NSObject *)object forKey:(NSString *)key {
     if ([self validKey:key inMode:[self intForKey:@"mode"]]) {
-        [CoreData.sharedInstance.managedObjectContext performBlockAndWait:^{
+        [CoreData.sharedInstance.managedObjectContext performBlock:^{
             if (object && ![object isKindOfClass:[NSNull class]]) {
                 Setting *setting = [Setting settingWithKey:key];
                 setting.value = [NSString stringWithFormat:@"%@", object];
