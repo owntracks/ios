@@ -409,10 +409,17 @@ static OwnTracking *theInstance = nil;
         [json setValue:(waypoint.belongsTo).effectiveTid forKeyPath:@"tid"];
     }
 
-    int batteryLevel = [UIDevice currentDevice].batteryLevel != -1 ? [UIDevice currentDevice].batteryLevel * 100 : -1;
-    if (batteryLevel >= 0) {
-        [json setValue:@(batteryLevel) forKey:@"batt"];
+    float batteryLevel = [UIDevice currentDevice].batteryLevel;
+    if (batteryLevel != -1) {
+        int batteryLevelInt = batteryLevel * 100;
+        [json setValue:@(batteryLevelInt) forKey:@"batt"];
     }
+
+    // NOT IMPLEMENTED
+    //UIDeviceBatteryState batteryState = [UIDevice currentDevice].batteryState;
+    //if (batteryState != UIDeviceBatteryStateUnknown) {
+    //    [json setValue:@(batteryState) forKey:@"bs"];
+    //}
 
     return json;
 }
