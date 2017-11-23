@@ -131,6 +131,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
     while (!self.terminate) {
         DDLogVerbose(@"[Connection] main %@", [NSDate date]);
         if (self.url) {
+            __block NSTimeInterval runUntilDate = 1.0;
             [CoreData.sharedInstance.managedObjectContext performBlockAndWait:^{
                 NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
                 request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]];
@@ -144,20 +145,18 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
                         
                         if (self.state == state_starting) {
                             [self sendHTTP:queue.topic data:queue.data];
-                        } else {
-                            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
+                            runUntilDate = 0.1;
                         }
+
                         if (matches.count > 100 * 1024) {
                             queue = matches.lastObject;
                             [CoreData.sharedInstance.managedObjectContext deleteObject:queue];
                             [CoreData.sharedInstance sync];
                         }
-                    } else {
-                        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
                     }
                 }
             }];
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:runUntilDate]];
         } else {
             [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1.0]];
         }
