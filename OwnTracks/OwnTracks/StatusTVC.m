@@ -56,7 +56,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [super viewWillDisappear:animated];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
     DDLogVerbose(@"observeValueForKeyPath %@", keyPath);
     [self performSelectorOnMainThread:@selector(updatedStatus) withObject:nil waitUntilDone:NO];
 }

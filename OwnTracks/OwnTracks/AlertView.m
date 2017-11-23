@@ -16,7 +16,7 @@
 @end
 
 @implementation AlertView
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 + (void)alert:(NSString *)title message:(NSString *)message {
     [AlertView alert:title message:message dismissAfter:0];
@@ -46,6 +46,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (void)setup:(NSMutableDictionary *)d {
+    DDLogVerbose(@"[AlertView] setup %@", d);
+
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
         NSNumber *interval = d[@"interval"];
         NSString *title = d[@"title"];
@@ -65,7 +67,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (void)dismissAfterDelay:(UIAlertView *)alertView {
-    DDLogVerbose(@"AlertView dismissAfterDelay");
+    DDLogVerbose(@"[AlertView] dismissAfterDelay");
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
 }
 

@@ -697,6 +697,10 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 - (void)showState:(Connection *)connection
             state:(NSInteger)state {
     self.connectionState = @(state);
+    [self performSelectorOnMainThread:@selector(checkState) withObject:nil waitUntilDone:NO];
+}
+
+- (void)checkState {
     /**
      ** This is a hack to ensure the connection gets gracefully closed at the server
      **
@@ -858,7 +862,11 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 
 - (void)totalBuffered:(Connection *)connection count:(NSUInteger)count {
     self.connectionBuffered = @(count);
-    [UIApplication sharedApplication].applicationIconBadgeNumber = count;
+    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
+}
+
+- (void)updateUI {
+    [UIApplication sharedApplication].applicationIconBadgeNumber = self.connectionBuffered.intValue;
 }
 
 - (void)dump {
