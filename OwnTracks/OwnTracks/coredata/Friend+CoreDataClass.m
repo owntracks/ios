@@ -315,7 +315,7 @@ ABRecordRef recordWithTopic(CFStringRef topic) {
 - (Waypoint *)newestWaypoint {
     Waypoint *newestWaypoint = nil;
 
-    for (Waypoint *waypoint in self.hasWaypoints) {
+    for (Waypoint *waypoint in [self.hasWaypoints copy]) {
         if (!newestWaypoint) {
             newestWaypoint = waypoint;
         } else {

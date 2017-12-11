@@ -805,10 +805,11 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                 UILocalNotification *notification = [[UILocalNotification alloc] init];
                                 notification.alertBody = notificationMessage;
                                 notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
-                                [[UIApplication sharedApplication] performSelectorOnMainThread:@selector(scheduleLocalNotification:)
-                                                                                    withObject:notification
-                                                                                 waitUntilDone:NO];
-                            }
+                                [[UIApplication sharedApplication]
+                                 performSelectorOnMainThread:@selector(scheduleLocalNotification:)
+                                 withObject:notification
+                                 waitUntilDone:NO];
+                                 }
 
                             if (content || url) {
                                 if (url && ![url isEqualToString:self.action]) {

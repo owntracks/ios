@@ -656,7 +656,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 + (NSString *)stringForKeyRaw:(NSString *)key {
     __block NSString *value = nil;
-    [CoreData.sharedInstance.managedObjectContext performBlockAndWait:^{
+    //[CoreData.sharedInstance.managedObjectContext performBlockAndWait:^{
         Setting *setting = [Setting existsSettingWithKey:key];
         if (setting) {
             value = setting.value;
@@ -671,7 +671,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                 }
             }
         }
-    }];
+    //}];
     return value;
 }
 
