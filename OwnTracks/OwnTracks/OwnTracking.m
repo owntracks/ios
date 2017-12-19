@@ -67,7 +67,8 @@ static OwnTracking *theInstance = nil;
             if (json && [json isKindOfClass:[NSDictionary class]]) {
                 NSDictionary *dictionary = json;
                 NSArray *topicComponents = [topic componentsSeparatedByString:@"/"];
-                NSArray *baseComponents = [[Settings theGeneralTopic] componentsSeparatedByString:@"/"];
+                NSArray *baseComponents = [[Settings theGeneralTopicInMOC:context]
+                                           componentsSeparatedByString:@"/"];
 
                 NSString *device = @"";
                 BOOL ownDevice = true;
@@ -120,8 +121,7 @@ static OwnTracking *theInstance = nil;
                             friend.tid = dictionary[@"tid"];
                             [self addWaypointFor:friend location:location trigger:dictionary[@"t"] context:context];
                             [self limitWaypointsFor:friend
-                                          toMaximum:[Settings intForKey:@"positions_preference"]
-                             inManagedObjectContext:context];
+                                          toMaximum:[Settings intForKey:@"positions_preference" inMOC:context]];
                         } else if ([dictionary[@"_type"] isEqualToString:@"transition"]) {
                             NSString *type = dictionary[@"t"];
                             if (!type || ![type isEqualToString:@"b"]) {
@@ -212,8 +212,7 @@ static OwnTracking *theInstance = nil;
 }
 
 - (void)limitWaypointsFor:(Friend *)friend
-                toMaximum:(NSInteger)max
-   inManagedObjectContext:(NSManagedObjectContext *)context {
+                toMaximum:(NSInteger)max {
     while (friend.hasWaypoints.count > max) {
         DDLogVerbose(@"%@ hasWaypoints.count %lu", friend.topic, (unsigned long)friend.hasWaypoints.count);
         Waypoint *oldestWaypoint = nil;
@@ -223,8 +222,8 @@ static OwnTracking *theInstance = nil;
             }
         }
         if (oldestWaypoint) {
-            [context deleteObject:oldestWaypoint];
-            [CoreData.sharedInstance sync];
+            [friend.managedObjectContext deleteObject:oldestWaypoint];
+            [CoreData.sharedInstance sync:friend.managedObjectContext];
         }
     }
     Waypoint *newestWaypoint = nil;
@@ -235,52 +234,55 @@ static OwnTracking *theInstance = nil;
     }
     if (newestWaypoint && ![newestWaypoint.tst isEqualToDate:friend.lastLocation]) {
         friend.lastLocation = newestWaypoint.tst;
-        [CoreData.sharedInstance sync];
+        [CoreData.sharedInstance sync:friend.managedObjectContext];
     }
 }
 
 - (void)share {
-    NSArray *friends = [Friend allNonStaleFriendsInManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
-    NSMutableDictionary *sharedFriends = [[NSMutableDictionary alloc] init];
-    CLLocation *myCLLocation = [LocationManager sharedInstance].location;
+    [CoreData.sharedInstance.queuedMOC performBlock:^{
+        NSArray *friends = [Friend allNonStaleFriendsInManagedObjectContext:CoreData.sharedInstance.queuedMOC];
+        NSMutableDictionary *sharedFriends = [[NSMutableDictionary alloc] init];
+        CLLocation *myCLLocation = [LocationManager sharedInstance].location;
 
-    for (Friend *friend in friends) {
-        NSString *name = friend.name;
-        NSData *image = friend.image;
+        for (Friend *friend in friends) {
+            NSString *name = friend.name;
+            NSData *image = friend.image;
 
-        if (!image) {
-            image = UIImageJPEGRepresentation([UIImage imageNamed:@"Friend"], 0.5);
-        }
+            if (!image) {
+                image = UIImageJPEGRepresentation([UIImage imageNamed:@"Friend"], 0.5);
+            }
 
-        Waypoint *waypoint = friend.newestWaypoint;
-        if (waypoint) {
-            CLLocation *location = [[CLLocation alloc]
-                                    initWithLatitude:(waypoint.lat).doubleValue
-                                    longitude:(waypoint.lon).doubleValue];
-            NSNumber *distance = @([myCLLocation distanceFromLocation:location]);
-            if (name) {
-                if (waypoint.tst &&
-                    waypoint.lat &&
-                    waypoint.lon &&
-                    friend.topic &&
-                    image) {
-                    NSMutableDictionary *aFriend = [[NSMutableDictionary alloc] init];
-                    aFriend[@"image"] = image;
-                    aFriend[@"distance"] = distance;
-                    aFriend[@"longitude"] = waypoint.lon;
-                    aFriend[@"latitude"] = waypoint.lat;
-                    aFriend[@"timestamp"] = waypoint.tst;
-                    aFriend[@"topic"] = friend.topic;
-                    sharedFriends[name] = aFriend;
-                } else {
-                    DDLogError(@"friend or location incomplete");
+            Waypoint *waypoint = friend.newestWaypoint;
+            if (waypoint) {
+                CLLocation *location = [[CLLocation alloc]
+                                        initWithLatitude:(waypoint.lat).doubleValue
+                                        longitude:(waypoint.lon).doubleValue];
+                NSNumber *distance = @([myCLLocation distanceFromLocation:location]);
+                if (name) {
+                    if (waypoint.tst &&
+                        waypoint.lat &&
+                        waypoint.lon &&
+                        friend.topic &&
+                        image) {
+                        NSMutableDictionary *aFriend = [[NSMutableDictionary alloc] init];
+                        aFriend[@"image"] = image;
+                        aFriend[@"distance"] = distance;
+                        aFriend[@"longitude"] = waypoint.lon;
+                        aFriend[@"latitude"] = waypoint.lat;
+                        aFriend[@"timestamp"] = waypoint.tst;
+                        aFriend[@"topic"] = friend.topic;
+                        sharedFriends[name] = aFriend;
+                    } else {
+                        DDLogError(@"friend or location incomplete");
+                    }
                 }
             }
         }
-    }
-    DDLogVerbose(@"sharedFriends %@", [sharedFriends allKeys]);
-    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
-    [shared setValue:sharedFriends forKey:@"sharedFriends"];
+        DDLogVerbose(@"sharedFriends %@", [sharedFriends allKeys]);
+        NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+        [shared setValue:sharedFriends forKey:@"sharedFriends"];
+
+    }];
 }
 
 - (Waypoint *)addWaypointFor:(Friend *)friend
@@ -359,7 +361,7 @@ static OwnTracking *theInstance = nil;
         [json setValue:@(acc) forKey:@"acc"];
     }
 
-    if ([Settings boolForKey:@"extendeddata_preference"]) {
+    if ([Settings boolForKey:@"extendeddata_preference" inMOC:waypoint.managedObjectContext]) {
         int alt = (waypoint.alt).intValue;
         [json setValue:@(alt) forKey:@"alt"];
 
@@ -383,7 +385,7 @@ static OwnTracking *theInstance = nil;
             [json setValue:altitude.pressure forKey:@"p"];
         }
 
-            switch ([ConnType connectionType:[Settings theHost]]) {
+            switch ([ConnType connectionType:[Settings theHostInMOC:waypoint.managedObjectContext]]) {
                 case ConnectionTypeNone:
                     json[@"conn"] = @"o";
                     break;
@@ -402,7 +404,7 @@ static OwnTracking *theInstance = nil;
             }
     }
 
-    NSString *tid = [Settings stringForKey:@"trackerid_preference"];
+    NSString *tid = [Settings stringForKey:@"trackerid_preference" inMOC:waypoint.managedObjectContext];
     if (tid && tid.length > 0) {
         [json setValue:tid forKeyPath:@"tid"];
     } else {

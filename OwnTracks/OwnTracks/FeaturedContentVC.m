@@ -9,6 +9,7 @@
 
 #import "FeaturedContentVC.h"
 #import "Settings.h"
+#import "CoreData.h"
 #import "TabBarController.h"
 #import "OwnTracksAppDelegate.h"
 #import "AlertView.h"
@@ -47,9 +48,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 - (void)updated {
     [self.UIhtml stopLoading];
-    NSString *content = [Settings stringForKey:SETTINGS_ACTION];
-    NSString *url = [Settings stringForKey:SETTINGS_ACTIONURL];
-    BOOL external = [Settings boolForKey:SETTINGS_ACTIONEXTERN];
+    NSString *content = [Settings stringForKey:SETTINGS_ACTION inMOC:CoreData.sharedInstance.mainMOC];
+    NSString *url = [Settings stringForKey:SETTINGS_ACTIONURL inMOC:CoreData.sharedInstance.mainMOC];
+    BOOL external = [Settings boolForKey:SETTINGS_ACTIONEXTERN inMOC:CoreData.sharedInstance.mainMOC];
     
     if (url) {
         if (self.tabBarController.selectedViewController != self.navigationController) {

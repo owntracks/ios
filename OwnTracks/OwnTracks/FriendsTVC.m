@@ -232,11 +232,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Friend"
-                                              inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
+                                              inManagedObjectContext:CoreData.sharedInstance.mainMOC];
     fetchRequest.entity = entity;
     fetchRequest.fetchBatchSize = 20;
 
-    int ignoreStaleLocations = [Settings intForKey:@"ignorestalelocations_preference"];
+    int ignoreStaleLocations = [Settings intForKey:@"ignorestalelocations_preference"
+                                             inMOC:CoreData.sharedInstance.mainMOC];
     if (ignoreStaleLocations) {
         NSTimeInterval stale = -ignoreStaleLocations * 24.0 * 3600.0;
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"lastLocation > %@",
@@ -249,7 +250,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc]
                                                              initWithFetchRequest:fetchRequest
-                                                             managedObjectContext:CoreData.sharedInstance.managedObjectContext
+                                                             managedObjectContext:CoreData.sharedInstance.mainMOC
                                                              sectionNameKeyPath:nil
                                                              cacheName:nil];
     aFetchedResultsController.delegate = self;
@@ -354,7 +355,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     FriendAnnotationV *friendAnnotationView = [[FriendAnnotationV alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     friendAnnotationView.personImage = friend.image ? [UIImage imageWithData:friend.image] : nil;
-    friendAnnotationView.me = [friend.topic isEqualToString:[Settings theGeneralTopic]];
+    friendAnnotationView.me = [friend.topic isEqualToString:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]];
     friendAnnotationView.tid = friend.effectiveTid;
 
     Waypoint *waypoint = friend.newestWaypoint;

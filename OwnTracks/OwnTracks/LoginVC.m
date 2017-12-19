@@ -8,6 +8,7 @@
 
 #import "LoginVC.h"
 #import "Settings.h"
+#import "CoreData.h"
 
 @interface LoginVC ()
 @end
@@ -16,7 +17,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if ([Settings intForKey:@"mode"] != CONNECTION_MODE_PUBLIC) {
+    if ([Settings intForKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC] != CONNECTION_MODE_PUBLIC) {
         [self dismissViewControllerAnimated:TRUE completion:^(void){
         }];
     }

@@ -231,7 +231,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         friendAnnotationV.tid = friend.effectiveTid;
         friendAnnotationV.speed = (waypoint.vel).doubleValue;
         friendAnnotationV.course = (waypoint.cog).doubleValue;
-        friendAnnotationV.me = [friend.topic isEqualToString:[Settings theGeneralTopic]];
+        friendAnnotationV.me = [friend.topic isEqualToString:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]];
         [friendAnnotationV setNeedsDisplay];
 
         return friendAnnotationV;
@@ -372,7 +372,8 @@ calloutAccessoryControlTapped:(UIControl *)control {
     if (!_frcFriends) {
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Friend"];
 
-        int ignoreStaleLocations = [Settings intForKey:@"ignorestalelocations_preference"];
+        int ignoreStaleLocations = [Settings intForKey:@"ignorestalelocations_preference"
+                                                 inMOC:CoreData.sharedInstance.mainMOC];
         if (ignoreStaleLocations) {
             NSTimeInterval stale = -ignoreStaleLocations * 24.0 * 3600.0;
             request.predicate = [NSPredicate predicateWithFormat:@"lastLocation > %@",
@@ -381,7 +382,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
 
         request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"topic" ascending:TRUE]];
         _frcFriends = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                          managedObjectContext:CoreData.sharedInstance.managedObjectContext
+                                                          managedObjectContext:CoreData.sharedInstance.mainMOC
                                                             sectionNameKeyPath:nil
                                                                      cacheName:nil];
         _frcFriends.delegate = self;
@@ -397,13 +398,13 @@ calloutAccessoryControlTapped:(UIControl *)control {
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
         request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:TRUE]];
         _frcRegions = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                          managedObjectContext:CoreData.sharedInstance.managedObjectContext
+                                                          managedObjectContext:CoreData.sharedInstance.mainMOC
                                                             sectionNameKeyPath:nil
                                                                      cacheName:nil];
         _frcRegions.delegate = self;
         [self performFetch:_frcRegions];
-        Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic]
-                          inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
+        Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
+                          inManagedObjectContext:CoreData.sharedInstance.mainMOC];
         [self.mapView addOverlays:[friend.hasRegions
                                    sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name"
                                                                                                ascending:YES]]]];
@@ -423,13 +424,13 @@ calloutAccessoryControlTapped:(UIControl *)control {
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Info"];
         request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:TRUE]];
         _frcInfos = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                          managedObjectContext:CoreData.sharedInstance.managedObjectContext
+                                                          managedObjectContext:CoreData.sharedInstance.mainMOC
                                                             sectionNameKeyPath:nil
                                                                      cacheName:nil];
         _frcInfos.delegate = self;
         [self performFetch:_frcRegions];
-        Friend *myself = [Friend friendWithTopic:[Settings theGeneralTopic]
-                          inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
+        Friend *myself = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
+                          inManagedObjectContext:CoreData.sharedInstance.mainMOC];
         for (Subscription *subscription in myself.hasSubscriptions) {
             for (Info *info in subscription.hasInfos) {
                 [self.mapView addAnnotation:info];
@@ -589,22 +590,20 @@ calloutAccessoryControlTapped:(UIControl *)control {
 - (IBAction)longPress:(UILongPressGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
 
-        [CoreData.sharedInstance.managedObjectContext performBlock:^{
-            Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic] inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
-            [[OwnTracking sharedInstance] addRegionFor:friend
-                                                  name:[NSString stringWithFormat:@"Center-%d",
-                                                        (int)[NSDate date].timeIntervalSince1970]
-                                                  uuid:nil
-                                                 major:0
-                                                 minor:0
-                                                 share:NO
-                                                radius:0
-                                                   lat:self.mapView.centerCoordinate.latitude
-                                                   lon:self.mapView.centerCoordinate.longitude
-                                               context:CoreData.sharedInstance.managedObjectContext];
-            [CoreData.sharedInstance sync];
-        }];
-        
+        Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] inManagedObjectContext:CoreData.sharedInstance.mainMOC];
+        [[OwnTracking sharedInstance] addRegionFor:friend
+                                              name:[NSString stringWithFormat:@"Center-%d",
+                                                    (int)[NSDate date].timeIntervalSince1970]
+                                              uuid:nil
+                                             major:0
+                                             minor:0
+                                             share:NO
+                                            radius:0
+                                               lat:self.mapView.centerCoordinate.latitude
+                                               lon:self.mapView.centerCoordinate.longitude
+                                           context:CoreData.sharedInstance.mainMOC];
+        [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
+
         [AlertView alert:NSLocalizedString(@"Region",
                                            @"Header of an alert message regarding circular region")
                  message:NSLocalizedString(@"created at center of map",
@@ -657,7 +656,8 @@ calloutAccessoryControlTapped:(UIControl *)control {
 
             break;
     }
-    [Settings setInt:[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"];
+    [Settings setInt:[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"
+               inMOC:CoreData.sharedInstance.mainMOC];
     [self setButtonMove];
 }
 
@@ -697,7 +697,8 @@ calloutAccessoryControlTapped:(UIControl *)control {
             dismissAfter:1
          ];
     }
-    [Settings setBool:[OwnTracking sharedInstance].cp forKey:@"cp"];
+    [Settings setBool:[OwnTracking sharedInstance].cp forKey:@"cp"
+                inMOC:CoreData.sharedInstance.mainMOC];
     [self setButtonCopy];
 }
 

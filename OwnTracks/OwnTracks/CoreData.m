@@ -10,7 +10,9 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface CoreData ()
-@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (strong, nonatomic) NSManagedObjectContext *mainMOC;
+@property (strong, nonatomic) NSManagedObjectContext *queuedMOC;
+@property (strong, nonatomic) NSPersistentStoreCoordinator *PSC;
 @end
 
 @implementation CoreData
@@ -28,33 +30,22 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 - (instancetype)init {
     self = [super init];
 
-    NSPersistentStoreCoordinator *coordinator = [self createPersistentStoreCoordinator];
-    self.managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    self.managedObjectContext.persistentStoreCoordinator = coordinator;
+    self.PSC = [self createPersistentStoreCoordinator];
 
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
-                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          DDLogVerbose(@"UIApplicationWillResignActiveNotification");
-                                                          [self sync];
-                                                      }];
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification
-                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          DDLogVerbose(@"UIApplicationWillTerminateNotification");
-                                                          [self sync];
-                                                      }];
+    self.mainMOC = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    self.mainMOC.persistentStoreCoordinator = self.PSC;
+
+    self.queuedMOC = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    self.queuedMOC.persistentStoreCoordinator = self.PSC;
 
     return self;
 }
 
-- (void)sync {
-    [self internalSync];
-}
-
-- (void)internalSync {
-    if (self.managedObjectContext.hasChanges) {
+- (void)sync:(NSManagedObjectContext *)context {
+    if (context.hasChanges) {
         NSError *error = nil;
-        if (![self.managedObjectContext save:&error]) {
-            //
+        if (![context save:&error]) {
+            DDLogError(@"[CoreData] save error: %@", error);
         }
     }
 }

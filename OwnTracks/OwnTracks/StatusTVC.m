@@ -11,6 +11,7 @@
 #import "OwnTracksAppDelegate.h"
 #import "Settings.h"
 #import "SettingsTVC.h"
+#import "CoreData.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface StatusTVC ()
@@ -107,7 +108,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         self.UILocation.text =NSLocalizedString( @"No location available",  @"No location available indication");
     }
 
-    int mode = [Settings intForKey:@"mode"];
+    int mode = [Settings intForKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC];
     if (self.UIparameters) {
         if (mode == 1) {
             self.UIparameters.text = @"Hosted";

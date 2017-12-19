@@ -67,7 +67,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
     
     if ([segue.identifier isEqualToString:@"newRegion:"]) {
-        Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic] inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
+        Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] inManagedObjectContext:CoreData.sharedInstance.mainMOC];
         CLLocation *location = [LocationManager sharedInstance].location;
         Region *newRegion = [[OwnTracking sharedInstance] addRegionFor:friend
                                                                   name:[NSString stringWithFormat:@"Here-%d",
@@ -79,7 +79,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                                 radius:0
                                                                    lat:location.coordinate.latitude
                                                                    lon:location.coordinate.longitude
-                                                               context:CoreData.sharedInstance.managedObjectContext];
+                                                               context:CoreData.sharedInstance.mainMOC];
         if ([segue.destinationViewController respondsToSelector:@selector(setEditRegion:)]) {
             [segue.destinationViewController performSelector:@selector(setEditRegion:) withObject:newRegion];
         }
@@ -143,7 +143,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
         if (region) {
             [[OwnTracking sharedInstance] removeRegion:region context:context];
-            [CoreData.sharedInstance sync];
+            [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
         }
     }
 }
@@ -161,12 +161,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         return _fetchedResultsController;
     }
     
-    Friend *friend = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
-                            inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
+    Friend *friend = [Friend existsFriendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
+                            inManagedObjectContext:CoreData.sharedInstance.mainMOC];
     
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Region"
-                                              inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
+                                              inManagedObjectContext:CoreData.sharedInstance.mainMOC];
     fetchRequest.entity = entity;
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"belongsTo = %@", friend];
     NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES];
@@ -175,7 +175,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc]
                                                              initWithFetchRequest:fetchRequest
-                                                             managedObjectContext:CoreData.sharedInstance.managedObjectContext
+                                                             managedObjectContext:CoreData.sharedInstance.mainMOC
                                                              sectionNameKeyPath:nil
                                                              cacheName:nil];
     aFetchedResultsController.delegate = self;

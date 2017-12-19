@@ -27,45 +27,42 @@ typedef NS_ENUM(int, ConnectionMode) {
 
 @interface Settings : NSObject
 
-+ (NSError *)fromStream:(NSInputStream *)input;
-+ (NSError *)fromDictionary:(NSDictionary *)dictionary;
-+ (NSError *)waypointsFromStream:(NSInputStream *)input;
-+ (NSError *)waypointsFromDictionary:(NSDictionary *)dictionary;
-+ (NSData *)toData;
-+ (NSData *)waypointsToData;
-+ (NSDictionary *)waypointsToDictionary;
-+ (NSDictionary *)toDictionary;
++ (NSError *)fromStream:(NSInputStream *)input inMOC:(NSManagedObjectContext *)context;
++ (NSError *)fromDictionary:(NSDictionary *)dictionary inMOC:(NSManagedObjectContext *)context;
++ (NSError *)waypointsFromStream:(NSInputStream *)input inMOC:(NSManagedObjectContext *)context;
++ (NSError *)waypointsFromDictionary:(NSDictionary *)dictionary inMOC:(NSManagedObjectContext *)context;
++ (NSData *)toDataInMOC:(NSManagedObjectContext *)context;
++ (NSData *)waypointsToDataInMOC:(NSManagedObjectContext *)context;
++ (NSDictionary *)waypointsToDictionaryInMOC:(NSManagedObjectContext *)context;
++ (NSDictionary *)toDictionaryInMOC:(NSManagedObjectContext *)context;
 
-+ (NSString *)stringForKey:(NSString *)key;
-+ (int)intForKey:(NSString *)key;
-+ (double)doubleForKey:(NSString *)key;
-+ (BOOL)boolForKey:(NSString *)key;
++ (NSString *)stringForKey:(NSString *)key inMOC:(NSManagedObjectContext *)context;
++ (int)intForKey:(NSString *)key inMOC:(NSManagedObjectContext *)context;
++ (double)doubleForKey:(NSString *)key inMOC:(NSManagedObjectContext *)context;
++ (BOOL)boolForKey:(NSString *)key inMOC:(NSManagedObjectContext *)context;
 
-+ (void)setString:(NSObject *)object forKey:(NSString *)key;
-+ (void)setInt:(int)i forKey:(NSString *)key;
-+ (void)setDouble:(double)d forKey:(NSString *)key;
-+ (void)setBool:(BOOL)b forKey:(NSString *)key;
++ (void)setString:(NSObject *)object forKey:(NSString *)key inMOC:(NSManagedObjectContext *)context;
++ (void)setInt:(int)i forKey:(NSString *)key inMOC:(NSManagedObjectContext *)context;
++ (void)setDouble:(double)d forKey:(NSString *)key inMOC:(NSManagedObjectContext *)context;
++ (void)setBool:(BOOL)b forKey:(NSString *)key inMOC:(NSManagedObjectContext *)context;
 
-+ (NSString *)theHost;
-+ (NSString *)theGeneralTopic;
-+ (NSString *)theWillTopic;
-+ (NSString *)theClientId;
-+ (NSString *)theDeviceId;
-+ (NSString *)theUserId;
-+ (NSString *)theSubscriptions;
++ (NSString *)theHostInMOC:(NSManagedObjectContext *)context;
++ (NSString *)theGeneralTopicInMOC:(NSManagedObjectContext *)context;
++ (NSString *)theWillTopicInMOC:(NSManagedObjectContext *)context;
++ (NSString *)theClientIdInMOC:(NSManagedObjectContext *)context;
++ (NSString *)theDeviceIdInMOC:(NSManagedObjectContext *)context;
++ (NSString *)theUserIdInMOC:(NSManagedObjectContext *)context;
++ (NSString *)theSubscriptionsInMOC:(NSManagedObjectContext *)context;
 
-+ (NSString *)theMqttUser;
-+ (NSString *)theMqttPass;
-+ (BOOL)theMqttAuth;
++ (NSString *)theMqttUserInMOC:(NSManagedObjectContext *)context;
++ (NSString *)theMqttPassInMOC:(NSManagedObjectContext *)context;
++ (BOOL)theMqttAuthInMOC:(NSManagedObjectContext *)context;
 
 + (BOOL)validKey:(NSString *)key inMode:(ConnectionMode)mode;
 
-+ (BOOL)validIds;
++ (BOOL)validIdsInMOC:(NSManagedObjectContext *)context;
 
 + (Settings *)sharedInstance;
-@property (nonatomic) BOOL updateAddressbook;
-@property (nonatomic) MQTTProtocolVersion protocol;
-
 
 @end
 

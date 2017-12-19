@@ -10,7 +10,10 @@
 #import <CoreData/CoreData.h>
 
 @interface CoreData : NSObject
-@property (readonly, strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (readonly, strong, nonatomic) NSManagedObjectContext *mainMOC;
+@property (readonly, strong, nonatomic) NSManagedObjectContext *queuedMOC;
+@property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *PSC;
+
 + (CoreData *)sharedInstance;
-- (void)sync;
+- (void)sync:(NSManagedObjectContext *)context;
 @end

@@ -11,13 +11,13 @@
 
 @implementation Setting
 
-+ (Setting *)existsSettingWithKey:(NSString *)key {
++ (Setting *)existsSettingWithKey:(NSString *)key inMOC:(NSManagedObjectContext *)context {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Setting"];
     request.predicate = [NSPredicate predicateWithFormat:@"key = %@", key];
 
     Setting *setting = nil;
     NSError *error = nil;
-    NSArray *matches = [CoreData.sharedInstance.managedObjectContext executeFetchRequest:request error:&error];
+    NSArray *matches = [context executeFetchRequest:request error:&error];
 
     if (!matches) {
         // handle error
@@ -30,25 +30,25 @@
     return setting;
 }
 
-+ (Setting *)settingWithKey:(NSString *)key {
-    Setting *setting = [Setting existsSettingWithKey:key];
++ (Setting *)settingWithKey:(NSString *)key inMOC:(NSManagedObjectContext *)context {
+    Setting *setting = [Setting existsSettingWithKey:key inMOC:context];
 
     if (!setting) {
         setting = [NSEntityDescription insertNewObjectForEntityForName:@"Setting"
-                                                inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
+                                                inManagedObjectContext:context];
         setting.key = key;
     }
 
     return setting;
 }
 
-+ (NSArray *)allSettings {
++ (NSArray *)allSettingsInMOC:(NSManagedObjectContext *)context {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Setting"];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"key" ascending:YES]];
 
     NSArray *matches = nil;
     NSError *error = nil;
-    matches = [CoreData.sharedInstance.managedObjectContext executeFetchRequest:request error:&error];
+    matches = [context executeFetchRequest:request error:&error];
     return matches;
 }
 

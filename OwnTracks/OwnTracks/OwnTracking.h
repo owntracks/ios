@@ -23,7 +23,7 @@
 
 - (Waypoint *)addWaypointFor:(Friend *)friend location:(CLLocation *)location trigger:(NSString *)trigger context:(NSManagedObjectContext *)context;
 
-- (void)limitWaypointsFor:(Friend *)friend toMaximum:(NSInteger)max inManagedObjectContext:(NSManagedObjectContext *)context;
+- (void)limitWaypointsFor:(Friend *)friend toMaximum:(NSInteger)max;
 
 - (Region *)addRegionFor:(Friend *)friend name:(NSString *)name uuid:(NSString *)uuid major:(unsigned int)major minor:(unsigned int)minor share:(BOOL)share radius:(double)radius lat:(double)lat lon:(double)lon context:(NSManagedObjectContext *)context;
 - (void)removeRegion:(Region *)region context:(NSManagedObjectContext *)context;

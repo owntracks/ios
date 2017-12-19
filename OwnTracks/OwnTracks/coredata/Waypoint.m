@@ -35,7 +35,7 @@
                                            ];
                      }
                      self.belongsTo.topic = self.belongsTo.topic;
-                     [[CoreData sharedInstance] sync];
+                     [CoreData.sharedInstance sync:self.managedObjectContext];
                  }
              }];
          }];

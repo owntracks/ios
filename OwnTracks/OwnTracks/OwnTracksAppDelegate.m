@@ -104,7 +104,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 #endif
     [DDLog addLogger:[DDASLLogger sharedInstance] withLevel:DDLogLevelWarning];
 
-    [CoreData.sharedInstance sync];
+    [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
     
     self.backgroundTask = UIBackgroundTaskInvalid;
     self.completionHandler = nil;
@@ -146,11 +146,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     DDLogVerbose(@"[OwnTracksAppDelegate] didFinishLaunchingWithOptions");
 
 
-    if (![Setting existsSettingWithKey:@"mode"]) {
-        if (![Setting existsSettingWithKey:@"host_preference"]) {
-            [Settings setInt:2 forKey:@"mode"];
+    if (![Setting existsSettingWithKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC]) {
+        if (![Setting existsSettingWithKey:@"host_preference" inMOC:CoreData.sharedInstance.mainMOC]) {
+            [Settings setInt:2 forKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC];
         } else {
-            [Settings setInt:0 forKey:@"mode"];
+            [Settings setInt:0 forKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC];
         }
     }
 
@@ -162,14 +162,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
     [[UIDevice currentDevice] setBatteryMonitoringEnabled:TRUE];
 
-    [OwnTracking sharedInstance].cp = [Settings boolForKey:@"cp"];
+    [OwnTracking sharedInstance].cp = [Settings boolForKey:@"cp"
+                                                     inMOC:CoreData.sharedInstance.mainMOC];
 
     LocationManager *locationManager = [LocationManager sharedInstance];
     locationManager.delegate = self;
-    locationManager.monitoring = [Settings intForKey:@"monitoring_preference"];
-    locationManager.ranging = [Settings boolForKey:@"ranging_preference"];
-    locationManager.minDist = [Settings doubleForKey:@"mindist_preference"];
-    locationManager.minTime = [Settings doubleForKey:@"mintime_preference"];
+    locationManager.monitoring = [Settings intForKey:@"monitoring_preference"
+                                               inMOC:CoreData.sharedInstance.mainMOC];
+    locationManager.ranging = [Settings boolForKey:@"ranging_preference"
+                                             inMOC:CoreData.sharedInstance.mainMOC];
+    locationManager.minDist = [Settings doubleForKey:@"mindist_preference"
+                                               inMOC:CoreData.sharedInstance.mainMOC];
+    locationManager.minTime = [Settings doubleForKey:@"mintime_preference"
+                                               inMOC:CoreData.sharedInstance.mainMOC];
     [locationManager start];
 
     return YES;
@@ -229,8 +234,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                                                      @"lon":@([LocationManager sharedInstance].location.coordinate.longitude),
                                                                      @"rad":@(-1)
                                                                      }]
-                                                    }];
-                [CoreData.sharedInstance sync];
+                                                    } inMOC:CoreData.sharedInstance.mainMOC];
+                [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
                 self.processingMessage = NSLocalizedString(@"Beacon QR successfully processed",
                                                            @"Display after processing beacon QR code");
                 return TRUE;
@@ -339,8 +344,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 - (void)configFromDictionary:(NSDictionary *)json {
-    NSError *error = [Settings fromDictionary:json];
-    [CoreData.sharedInstance sync];
+    NSError *error = [Settings fromDictionary:json inMOC:CoreData.sharedInstance.mainMOC];
+    [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
     if (error) {
         [AlertView alert:@"processNSURL"
                  message:[NSString stringWithFormat:@"configFromDictionary %@ %@",
@@ -350,8 +355,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 - (void)waypointsFromDictionary:(NSDictionary *)json {
-    NSError *error = [Settings waypointsFromDictionary:json];
-    [CoreData.sharedInstance sync];
+    NSError *error = [Settings waypointsFromDictionary:json inMOC:CoreData.sharedInstance.mainMOC];
+    [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
     if (error) {
         [AlertView alert:@"processNSURL"
                  message:[NSString stringWithFormat:@"waypointsFromDictionary %@ %@",
@@ -385,12 +390,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     NSString *extension = url.pathExtension;
     if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
         [self terminateSession];
-        error = [Settings fromStream:input];
-        [CoreData.sharedInstance sync];
+        error = [Settings fromStream:input inMOC:CoreData.sharedInstance.mainMOC];
+        [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
         self.configLoad = [NSDate date];
     } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
-        error = [Settings waypointsFromStream:input];
-        [CoreData.sharedInstance sync];
+        error = [Settings waypointsFromStream:input inMOC:CoreData.sharedInstance.mainMOC];
+        [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
     } else if ([extension isEqualToString:@"otrp"] || [extension isEqualToString:@"otre"]) {
         NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
                                                                      inDomain:NSUserDomainMask
@@ -454,7 +459,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         [self reconnect];
     }
 
-    if (![Settings validIds]) {
+    if (![Settings validIdsInMOC:CoreData.sharedInstance.mainMOC]) {
         NSString *message = NSLocalizedString(@"To publish your location userID and deviceID must be set",
                                               @"Warning displayed if necessary settings are missing");
 
@@ -582,10 +587,11 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                                         withObject:notification
                                                      waitUntilDone:NO];
 
-    Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
-                            inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
+    Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
+                            inManagedObjectContext:CoreData.sharedInstance.mainMOC];
 
-    if ([LocationManager sharedInstance].monitoring != LocationMonitoringQuiet && [Settings validIds]) {
+    if ([LocationManager sharedInstance].monitoring != LocationMonitoringQuiet &&
+        [Settings validIdsInMOC:CoreData.sharedInstance.mainMOC]) {
         NSMutableDictionary *json = [@{
                                        @"_type": @"transition",
                                        @"lat": @(location.coordinate.latitude),
@@ -604,20 +610,23 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                     [json setValue:region.identifier forKey:@"desc"];
                     [json setValue:@(floor(anyRegion.andFillTst.timeIntervalSince1970)) forKey:@"wtst"];
 
-                    switch ([Settings intForKey:@"mode"]) {
+                    switch ([Settings intForKey:@"mode"
+                                          inMOC:CoreData.sharedInstance.mainMOC]) {
                         case CONNECTION_MODE_WATSON:
                         case CONNECTION_MODE_WATSONREGISTERED:
                             [self.connection sendData:[self jsonToData:json]
-                                                topic:[[Settings theGeneralTopic] stringByReplacingOccurrencesOfString:@"/location/"
+                                                topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByReplacingOccurrencesOfString:@"/location/"
                                                                                                             withString:@"/event/"]
-                                                  qos:[Settings intForKey:@"qos_preference"]
+                                                  qos:[Settings intForKey:@"qos_preference"
+                                                                    inMOC:CoreData.sharedInstance.mainMOC]
                                                retain:NO];
                             break;
 
                         default:
                             [self.connection sendData:[self jsonToData:json]
-                                                topic:[[Settings theGeneralTopic] stringByAppendingString:@"/event"]
-                                                  qos:[Settings intForKey:@"qos_preference"]
+                                                topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/event"]
+                                                  qos:[Settings intForKey:@"qos_preference"
+                                                        inMOC:CoreData.sharedInstance.mainMOC]
                                                retain:NO];
                             break;
                     }
@@ -643,8 +652,8 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 
 - (void)regionState:(CLRegion *)region inside:(BOOL)inside {
     DDLogVerbose(@"[OwnTracksAppDelegate] regionState %@ i:%d", region.identifier, inside);
-    Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
-                            inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
+    Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
+                            inManagedObjectContext:CoreData.sharedInstance.mainMOC];
 
     for (Region *anyRegion in myself.hasRegions) {
         if ([region.identifier isEqualToString:anyRegion.CLregion.identifier]) {
@@ -655,9 +664,9 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 
 - (void)beaconInRange:(CLBeacon *)beacon region:(CLBeaconRegion *)region {
     [self background];
-    if ([Settings validIds]) {
-        Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
-                                inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
+    if ([Settings validIdsInMOC:CoreData.sharedInstance.mainMOC]) {
+        Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
+                                inManagedObjectContext:CoreData.sharedInstance.mainMOC];
 
         NSMutableDictionary *json = [NSMutableDictionary dictionaryWithDictionary:
                                      @{
@@ -671,20 +680,23 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                        @"acc": @(beacon.accuracy),
                                        @"rssi": @(beacon.rssi)
                                        }];
-        switch ([Settings intForKey:@"mode"]) {
+        switch ([Settings intForKey:@"mode"
+                              inMOC:CoreData.sharedInstance.mainMOC]) {
             case CONNECTION_MODE_WATSON:
             case CONNECTION_MODE_WATSONREGISTERED:
                 [self.connection sendData:[self jsonToData:json]
-                                    topic:[[Settings theGeneralTopic] stringByReplacingOccurrencesOfString:@"/location/"
+                                    topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByReplacingOccurrencesOfString:@"/location/"
                                                                                                 withString:@"/beacon/"]
-                                      qos:[Settings intForKey:@"qos_preference"]
+                                      qos:[Settings intForKey:@"qos_preference"
+                                                        inMOC:CoreData.sharedInstance.mainMOC]
                                    retain:NO];
                 break;
 
             default:
                 [self.connection sendData:[self jsonToData:json]
-                                    topic:[[Settings theGeneralTopic] stringByAppendingString:@"/beacon"]
-                                      qos:[Settings intForKey:@"qos_preference"]
+                                    topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/beacon"]
+                                      qos:[Settings intForKey:@"qos_preference"
+                                                        inMOC:CoreData.sharedInstance.mainMOC]
                                    retain:NO];
                 break;
 
@@ -729,17 +741,17 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 - (BOOL)handleMessage:(Connection *)connection data:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
     DDLogVerbose(@"[OwnTracksAppDelegate] handleMessage");
 
-    [CoreData.sharedInstance.managedObjectContext performBlock:^{
+    [CoreData.sharedInstance.queuedMOC performBlock:^{
         (void)[[GeoHashing sharedInstance] processMessage:topic
                                                      data:data
                                                  retained:retained
-                                                  context:CoreData.sharedInstance.managedObjectContext];
+                                                  context:CoreData.sharedInstance.queuedMOC];
         (void)[[OwnTracking sharedInstance] processMessage:topic
                                                       data:data
                                                   retained:retained
-                                                   context:CoreData.sharedInstance.managedObjectContext];
-        NSArray *baseComponents = [[Settings theGeneralTopic] componentsSeparatedByString:@"/"];
-        NSArray *topicComponents = [[Settings theGeneralTopic] componentsSeparatedByString:@"/"];
+                                                   context:CoreData.sharedInstance.queuedMOC];
+        NSArray *baseComponents = [[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] componentsSeparatedByString:@"/"];
+        NSArray *topicComponents = [[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] componentsSeparatedByString:@"/"];
 
         NSString *device = @"";
         BOOL ownDevice = true;
@@ -780,7 +792,8 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                         } else if ([@"reportLocation" saveEqual:dictionary[@"action"]]) {
                             if ([LocationManager sharedInstance].monitoring == LocationMonitoringSignificant ||
                                 [LocationManager sharedInstance].monitoring == LocationMonitoringMove ||
-                                [Settings boolForKey:@"allowremotelocation_preference"]) {
+                                [Settings boolForKey:@"allowremotelocation_preference"
+                                               inMOC:CoreData.sharedInstance.mainMOC]) {
                                 [self publishLocation:[LocationManager sharedInstance].location trigger:@"r"];
                             }
 
@@ -797,9 +810,15 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                             NSString *notificationMessage = [NSString saveCopy:dictionary[@"notification"]];
                             NSNumber *external = [NSNumber saveCopy:dictionary[@"extern"]];
 
-                            [Settings setString:content forKey:SETTINGS_ACTION];
-                            [Settings setString:url forKey:SETTINGS_ACTIONURL];
-                            [Settings setBool:external.boolValue forKey:SETTINGS_ACTIONEXTERN];
+                            [Settings setString:content
+                                         forKey:SETTINGS_ACTION
+                                          inMOC:CoreData.sharedInstance.mainMOC];
+                            [Settings setString:url
+                                         forKey:SETTINGS_ACTIONURL
+                                          inMOC:CoreData.sharedInstance.mainMOC];
+                            [Settings setBool:external.boolValue
+                                       forKey:SETTINGS_ACTIONEXTERN
+                                        inMOC:CoreData.sharedInstance.mainMOC];
 
                             if (notificationMessage) {
                                 UILocalNotification *notification = [[UILocalNotification alloc] init];
@@ -827,18 +846,22 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                             NSDictionary *payload = [NSDictionary saveCopy:dictionary[@"payload"]];
                             NSDictionary *waypoints = [NSDictionary saveCopy:dictionary[@"waypoints"]];
                             if (waypoints && [waypoints isKindOfClass:[NSDictionary class]]) {
-                                [Settings waypointsFromDictionary:waypoints];
+                                [Settings waypointsFromDictionary:waypoints
+                                                            inMOC:CoreData.sharedInstance.mainMOC];
                             } else if (payload && [payload isKindOfClass:[NSDictionary class]]) {
-                                [Settings waypointsFromDictionary:payload];
+                                [Settings waypointsFromDictionary:payload
+                                                            inMOC:CoreData.sharedInstance.mainMOC];
                             }
 
                         } else if ([@"setConfiguration" saveEqual:dictionary[@"action"]]) {
                             NSDictionary *payload = [NSDictionary saveCopy:dictionary[@"payload"]];
                             NSDictionary *configuration = [NSDictionary saveCopy:dictionary[@"configuration"]];
                             if (configuration && [configuration isKindOfClass:[NSDictionary class]]) {
-                                [Settings fromDictionary:configuration];
+                                [Settings fromDictionary:configuration
+                                                   inMOC:CoreData.sharedInstance.mainMOC];
                             } else if (payload && [payload isKindOfClass:[NSDictionary class]]) {
-                                [Settings fromDictionary:payload];
+                                [Settings fromDictionary:payload
+                                                   inMOC:CoreData.sharedInstance.mainMOC];
                             }
                             self.configLoad = [NSDate date];
                             [self performSelectorOnMainThread:@selector(reconnect) withObject:nil waitUntilDone:NO];
@@ -852,6 +875,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                 DDLogVerbose(@"[OwnTracksAppDelegate] illegal json %@ %@ %@", error.localizedDescription, error.userInfo, data.description);
             }
         }
+        [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
     }];
 
     return true;
@@ -871,21 +895,24 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 }
 
 - (void)dump {
-    NSMutableDictionary *json = [NSMutableDictionary dictionaryWithDictionary:@{
-                                                                                @"_type":@"dump",
-                                                                                @"configuration":[Settings toDictionary],
-                                                                                }];
+    NSMutableDictionary *json = [NSMutableDictionary dictionaryWithDictionary:
+                                 @{
+                                   @"_type":@"dump",
+                                   @"configuration":[Settings toDictionaryInMOC:CoreData.sharedInstance.mainMOC],
+                                   }];
     [self.connection sendData:[self jsonToData:json]
-                        topic:[[Settings theGeneralTopic] stringByAppendingString:@"/dump"]
-                          qos:[Settings intForKey:@"qos_preference"]
+                        topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/dump"]
+                          qos:[Settings intForKey:@"qos_preference"
+                                            inMOC:CoreData.sharedInstance.mainMOC]
                        retain:NO];
 }
 
 - (void)waypoints {
-    NSMutableDictionary *json = [[Settings waypointsToDictionary] mutableCopy];
+    NSMutableDictionary *json = [[Settings waypointsToDictionaryInMOC:CoreData.sharedInstance.mainMOC] mutableCopy];
     [self.connection sendData:[self jsonToData:json]
-                        topic:[[Settings theGeneralTopic] stringByAppendingString:@"/waypoints"]
-                          qos:[Settings intForKey:@"qos_preference"]
+                        topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/waypoints"]
+                          qos:[Settings intForKey:@"qos_preference"
+                                            inMOC:CoreData.sharedInstance.mainMOC]
                        retain:NO];
 }
 
@@ -956,8 +983,9 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
              }
              
              [self.connection sendData:[self jsonToData:json]
-                                 topic:[[Settings theGeneralTopic] stringByAppendingString:@"/step"]
-                                   qos:[Settings intForKey:@"qos_preference"]
+                                 topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/step"]
+                                   qos:[Settings intForKey:@"qos_preference"
+                                         inMOC:CoreData.sharedInstance.mainMOC]
                                 retain:NO];
          });
      }];
@@ -984,11 +1012,11 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     [[OwnTracking sharedInstance] syncProcessing];
     [[LocationManager sharedInstance] resetRegions];
     [self.connection reset];
-    NSArray *friends = [Friend allFriendsInManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
+    NSArray *friends = [Friend allFriendsInManagedObjectContext:CoreData.sharedInstance.mainMOC];
     for (Friend *friend in friends) {
-        [CoreData.sharedInstance.managedObjectContext deleteObject:friend];
+        [CoreData.sharedInstance.mainMOC deleteObject:friend];
     }
-    [CoreData.sharedInstance sync];
+    [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
 }
 
 - (void)reconnect {
@@ -1002,38 +1030,42 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         CLLocationCoordinate2DIsValid(location.coordinate) &&
         location.coordinate.latitude != 0.0 &&
         location.coordinate.longitude != 0.0 &&
-        [Settings validIds]) {
+        [Settings validIdsInMOC:CoreData.sharedInstance.mainMOC]) {
 
-        int ignoreInaccurateLocations = [Settings intForKey:@"ignoreinaccuratelocations_preference"];
+        int ignoreInaccurateLocations = [Settings intForKey:@"ignoreinaccuratelocations_preference"
+                                                      inMOC:CoreData.sharedInstance.mainMOC];
         DDLogVerbose(@"[OwnTracksAppDelegate] inaccurate location %fm/%dm",
                      location.horizontalAccuracy, ignoreInaccurateLocations);
 
         if (ignoreInaccurateLocations == 0 || location.horizontalAccuracy < ignoreInaccurateLocations) {
-            Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopic]
-                              inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
+            Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
+                              inManagedObjectContext:CoreData.sharedInstance.mainMOC];
             if (friend) {
-                friend.tid = [Settings stringForKey:@"trackerid_preference"];
+                friend.tid = [Settings stringForKey:@"trackerid_preference"
+                                              inMOC:CoreData.sharedInstance.mainMOC];
 
                 Waypoint *waypoint = [[OwnTracking sharedInstance] addWaypointFor:friend
                                                                          location:location
                                                                           trigger:trigger
-                                                                          context:CoreData.sharedInstance.managedObjectContext];
+                                                                          context:CoreData.sharedInstance.mainMOC];
                 if (waypoint) {
-                    [CoreData.sharedInstance sync];
+                    [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
 
                     NSMutableDictionary *json = [[[OwnTracking sharedInstance] waypointAsJSON:waypoint] mutableCopy];
                     if (json) {
                         NSData *data = [self jsonToData:json];
                         [self.connection sendData:data
-                                            topic:[Settings theGeneralTopic]
-                                              qos:[Settings intForKey:@"qos_preference"]
-                                           retain:[Settings boolForKey:@"retain_preference"]];
+                                            topic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
+                                              qos:[Settings intForKey:@"qos_preference"
+                                                    inMOC:CoreData.sharedInstance.mainMOC]
+                                           retain:[Settings boolForKey:@"retain_preference"
+                                                    inMOC:CoreData.sharedInstance.mainMOC]];
                     } else {
                         DDLogError(@"[OwnTracksAppDelegate] no JSON created from waypoint %@", waypoint);
                     }
                     [[OwnTracking sharedInstance] limitWaypointsFor:friend
-                                                          toMaximum:[Settings intForKey:@"positions_preference"]
-                                             inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
+                                                          toMaximum:[Settings intForKey:@"positions_preference"
+                                                                                  inMOC:CoreData.sharedInstance.mainMOC]];
                 } else {
                     DDLogError(@"[OwnTracksAppDelegate] waypoint creation failed from friend %@, location %@", friend, location);
                 }
@@ -1049,7 +1081,8 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 - (void)sendEmpty:(NSString *)topic {
     [self.connection sendData:nil
                         topic:topic
-                          qos:[Settings intForKey:@"qos_preference"]
+                          qos:[Settings intForKey:@"qos_preference"
+                                            inMOC:CoreData.sharedInstance.mainMOC]
                        retain:YES];
 }
 
@@ -1060,17 +1093,19 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                    } mutableCopy];
     [self.connection sendData:[self jsonToData:json]
                         topic:[friend.topic stringByAppendingString:@"/cmd"]
-                          qos:[Settings intForKey:@"qos_preference"]
+                          qos:[Settings intForKey:@"qos_preference"
+                                            inMOC:CoreData.sharedInstance.mainMOC]
                        retain:NO];
 }
 
 - (void)sendRegion:(Region *)region {
-    if ([Settings validIds]) {
+    if ([Settings validIdsInMOC:CoreData.sharedInstance.mainMOC]) {
         NSMutableDictionary *json = [[[OwnTracking sharedInstance] regionAsJSON:region] mutableCopy];
         NSData *data = [self jsonToData:json];
         [self.connection sendData:data
-                            topic:[[Settings theGeneralTopic] stringByAppendingString:@"/waypoint"]
-                              qos:[Settings intForKey:@"qos_preference"]
+                            topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/waypoint"]
+                              qos:[Settings intForKey:@"qos_preference"
+                                                inMOC:CoreData.sharedInstance.mainMOC]
                            retain:NO];
     }
 }
@@ -1078,12 +1113,14 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 #pragma internal helpers
 
 - (void)connect {
-    if ([Settings intForKey:@"mode"] == CONNECTION_MODE_HTTP) {
-        self.connection.key = [Settings stringForKey:@"secret_preference"];
-        [self.connection connectHTTP:[Settings stringForKey:@"url_preference"]
-                                auth:[Settings theMqttAuth]
-                                user:[Settings theMqttUser]
-                                pass:[Settings theMqttPass]];
+    if ([Settings intForKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC] == CONNECTION_MODE_HTTP) {
+        self.connection.key = [Settings stringForKey:@"secret_preference"
+                                               inMOC:CoreData.sharedInstance.mainMOC];
+        [self.connection connectHTTP:[Settings stringForKey:@"url_preference"
+                                                      inMOC:CoreData.sharedInstance.mainMOC]
+                                auth:[Settings theMqttAuthInMOC:CoreData.sharedInstance.mainMOC]
+                                user:[Settings theMqttUserInMOC:CoreData.sharedInstance.mainMOC]
+                                pass:[Settings theMqttPassInMOC:CoreData.sharedInstance.mainMOC]];
 
     } else {
         NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
@@ -1092,12 +1129,14 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                                                        create:YES
                                                                         error:nil];
         NSArray *certificates = nil;
-        NSString *fileName = [Settings stringForKey:@"clientpkcs"];
+        NSString *fileName = [Settings stringForKey:@"clientpkcs" inMOC:CoreData.sharedInstance.mainMOC];
         if (fileName && fileName.length) {
-            DDLogVerbose(@"[OwnTracksAppDelegate] getting p12 filename:%@ passphrase:%@", fileName, [Settings stringForKey:@"passphrase"]);
+            DDLogVerbose(@"[OwnTracksAppDelegate] getting p12 filename:%@ passphrase:%@",
+                         fileName, [Settings stringForKey:@"passphrase" inMOC:CoreData.sharedInstance.mainMOC]);
             NSString *clientPKCSPath = [directoryURL.path stringByAppendingPathComponent:fileName];
             certificates = [MQTTCFSocketTransport clientCertsFromP12:clientPKCSPath
-                                                          passphrase:[Settings stringForKey:@"passphrase"]];
+                                                          passphrase:[Settings stringForKey:@"passphrase"
+                                                                                      inMOC:CoreData.sharedInstance.mainMOC]];
             if (!certificates) {
                 [AlertView alert:NSLocalizedString(@"TLS Client Certificate",
                                                    @"Heading for certificate error message")
@@ -1108,13 +1147,16 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         }
 
         MQTTSSLSecurityPolicy *securityPolicy = nil;
-        if ([Settings boolForKey:@"usepolicy"]) {
-            securityPolicy = [MQTTSSLSecurityPolicy policyWithPinningMode:[Settings intForKey:@"policymode"]];
+        if ([Settings boolForKey:@"usepolicy"
+                           inMOC:CoreData.sharedInstance.mainMOC]) {
+            securityPolicy = [MQTTSSLSecurityPolicy policyWithPinningMode:
+                               [Settings intForKey:@"policymode" inMOC:CoreData.sharedInstance.mainMOC]];
             if (!securityPolicy) {
                 [AlertView alert:@"TLS Security Policy" message:@"invalide mode"];
             }
 
-            NSString *fileNames = [Settings stringForKey:@"servercer"];
+            NSString *fileNames = [Settings stringForKey:@"servercer"
+                                                   inMOC:CoreData.sharedInstance.mainMOC];
             NSMutableArray *certs = nil;
             NSArray *components = [fileNames componentsSeparatedByString:@" "];
             for (NSString *fileName in components) {
@@ -1136,15 +1178,19 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                 }
             }
             securityPolicy.pinnedCertificates = certs;
-            securityPolicy.allowInvalidCertificates = [Settings boolForKey:@"allowinvalidcerts"];
-            securityPolicy.validatesCertificateChain = [Settings boolForKey:@"validatecertificatechain"];
-            securityPolicy.validatesDomainName = [Settings boolForKey:@"validatedomainname"];
+            securityPolicy.allowInvalidCertificates = [Settings boolForKey:@"allowinvalidcerts"
+                                                                     inMOC:CoreData.sharedInstance.mainMOC];
+            securityPolicy.validatesCertificateChain = [Settings boolForKey:@"validatecertificatechain"
+                                                                      inMOC:CoreData.sharedInstance.mainMOC];
+            securityPolicy.validatesDomainName = [Settings boolForKey:@"validatedomainname"
+                                                                inMOC:CoreData.sharedInstance.mainMOC];
         }
 
-        MQTTQosLevel subscriptionQos =[Settings intForKey:@"subscriptionqos_preference"];
+        MQTTQosLevel subscriptionQos =[Settings intForKey:@"subscriptionqos_preference"
+                                                    inMOC:CoreData.sharedInstance.mainMOC];
         NSArray *subscriptions = [[NSArray alloc] init];
-        if ([Settings boolForKey:@"sub"]) {
-            subscriptions = [[Settings theSubscriptions] componentsSeparatedByCharactersInSet:
+        if ([Settings boolForKey:@"sub" inMOC:CoreData.sharedInstance.mainMOC]) {
+            subscriptions = [[Settings theSubscriptionsInMOC:CoreData.sharedInstance.mainMOC] componentsSeparatedByCharactersInSet:
                              [NSCharacterSet whitespaceCharacterSet]];
         }
 
@@ -1154,23 +1200,24 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         NSMutableDictionary *json = [NSMutableDictionary dictionaryWithDictionary:@{
                                                                                     @"tst": [NSString stringWithFormat:@"%.0f", [NSDate date].timeIntervalSince1970],
                                                                                     @"_type": @"lwt"}];
-        self.connection.key = [Settings stringForKey:@"secret_preference"];
+        self.connection.key = [Settings stringForKey:@"secret_preference"
+                                               inMOC:CoreData.sharedInstance.mainMOC];
 
-        [self.connection connectTo:[Settings theHost]
-                              port:[Settings intForKey:@"port_preference"]
-                                ws:[Settings boolForKey:@"ws_preference"]
-                               tls:[Settings boolForKey:@"tls_preference"]
-                   protocolVersion:[Settings sharedInstance].protocol
-                         keepalive:[Settings intForKey:@"keepalive_preference"]
-                             clean:[Settings intForKey:@"clean_preference"]
-                              auth:[Settings theMqttAuth]
-                              user:[Settings theMqttUser]
-                              pass:[Settings theMqttPass]
-                         willTopic:[Settings theWillTopic]
+        [self.connection connectTo:[Settings theHostInMOC:CoreData.sharedInstance.mainMOC]
+                              port:[Settings intForKey:@"port_preference" inMOC:CoreData.sharedInstance.mainMOC]
+                                ws:[Settings boolForKey:@"ws_preference" inMOC:CoreData.sharedInstance.mainMOC]
+                               tls:[Settings boolForKey:@"tls_preference" inMOC:CoreData.sharedInstance.mainMOC]
+                   protocolVersion:[Settings intForKey:SETTINGS_PROTOCOL  inMOC:CoreData.sharedInstance.mainMOC]
+                         keepalive:[Settings intForKey:@"keepalive_preference" inMOC:CoreData.sharedInstance.mainMOC]
+                             clean:[Settings intForKey:@"clean_preference" inMOC:CoreData.sharedInstance.mainMOC]
+                              auth:[Settings theMqttAuthInMOC:CoreData.sharedInstance.mainMOC]
+                              user:[Settings theMqttUserInMOC:CoreData.sharedInstance.mainMOC]
+                              pass:[Settings theMqttPassInMOC:CoreData.sharedInstance.mainMOC]
+                         willTopic:[Settings theWillTopicInMOC:CoreData.sharedInstance.mainMOC]
                               will:[self jsonToData:json]
-                           willQos:[Settings intForKey:@"willqos_preference"]
-                    willRetainFlag:[Settings boolForKey:@"willretain_preference"]
-                      withClientId:[Settings theClientId]
+                           willQos:[Settings intForKey:@"willqos_preference" inMOC:CoreData.sharedInstance.mainMOC]
+                    willRetainFlag:[Settings boolForKey:@"willretain_preference" inMOC:CoreData.sharedInstance.mainMOC]
+                      withClientId:[Settings theClientIdInMOC:CoreData.sharedInstance.mainMOC]
                     securityPolicy:securityPolicy
                       certificates:certificates];
     }

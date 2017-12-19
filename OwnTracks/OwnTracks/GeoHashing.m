@@ -123,7 +123,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 #endif
 
-    self.geoHash = [Settings stringForKey:@"geoHash"];
+    self.geoHash = [Settings stringForKey:@"geoHash" inMOC:CoreData.sharedInstance.mainMOC];
 
     self.neighbors = [[Neighbors alloc] init];
     self.neighbors.center = [[Area alloc] init];
@@ -164,7 +164,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     }
 
     [context performBlock:^{
-        Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopic]
+        Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopicInMOC:context]
                                 inManagedObjectContext:context];
         for (Subscription *subscription in myself.hasSubscriptions) {
             if ([subscription.name isEqualToString:topicComponents[1]]) {
@@ -190,7 +190,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                              tid:dictionary[@"tid"]
                            image:imageData
                          context:context];
-                [CoreData.sharedInstance sync];
+                [CoreData.sharedInstance sync:context];
             }
         }
     }];

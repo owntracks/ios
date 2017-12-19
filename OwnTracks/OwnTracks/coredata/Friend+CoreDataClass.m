@@ -67,7 +67,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 + (NSArray *)allNonStaleFriendsInManagedObjectContext:(NSManagedObjectContext *)context {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Friend"];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"topic" ascending:YES]];
-    int ignoreStaleLocations = [Settings intForKey:@"ignorestalelocations_preference"];
+    int ignoreStaleLocations = [Settings intForKey:@"ignorestalelocations_preference" inMOC:context];
     if (ignoreStaleLocations) {
         NSTimeInterval stale = -ignoreStaleLocations * 24.0 * 3600.0;
         request.predicate = [NSPredicate predicateWithFormat:@"lastLocation > %@",
@@ -157,7 +157,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (ABRecordRef)recordOfFriend {
     ABRecordRef record = NULL;
 
-    if ([Settings sharedInstance].updateAddressbook) {
+    if ([Settings boolForKey:SETTINGS_ADDRESSBOOK inMOC:self.managedObjectContext]) {
         record = recordWithTopic((__bridge CFStringRef)(self.topic));
     } else {
         if ((self.abRecordId).intValue != kABRecordInvalidID) {
@@ -171,7 +171,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (void)linkToAB:(ABRecordRef)record {
-    if ([Settings sharedInstance].updateAddressbook) {
+    if ([Settings boolForKey:SETTINGS_ADDRESSBOOK inMOC:self.managedObjectContext]) {
         ABRecordRef oldrecord = recordWithTopic((__bridge CFStringRef)(self.topic));
 
         if (oldrecord) {

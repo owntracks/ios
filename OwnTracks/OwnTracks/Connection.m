@@ -132,12 +132,12 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
         DDLogVerbose(@"[Connection] main %@", [NSDate date]);
         if (self.url) {
             __block NSTimeInterval runUntilDate = 1.0;
-            [CoreData.sharedInstance.managedObjectContext performBlockAndWait:^{
+            [CoreData.sharedInstance.queuedMOC performBlockAndWait:^{
                 NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
                 request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]];
                 
                 NSError *error = nil;
-                NSArray *matches = [CoreData.sharedInstance.managedObjectContext executeFetchRequest:request error:&error];
+                NSArray *matches = [CoreData.sharedInstance.queuedMOC executeFetchRequest:request error:&error];
                 if (matches) {
                     [self.delegate totalBuffered: self count:matches.count];
                     if (matches.count) {
@@ -150,8 +150,8 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
 
                         if (matches.count > 100 * 1024) {
                             queue = matches.lastObject;
-                            [CoreData.sharedInstance.managedObjectContext deleteObject:queue];
-                            [CoreData.sharedInstance sync];
+                            [CoreData.sharedInstance.queuedMOC deleteObject:queue];
+                            [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
                         }
                     }
                 }
@@ -324,9 +324,9 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
                  retainFlag);
 
     if (self.url) {
-        [CoreData.sharedInstance.managedObjectContext performBlock:^{
+        [CoreData.sharedInstance.queuedMOC performBlock:^{
             Queue *queue = [NSEntityDescription insertNewObjectForEntityForName:@"Queue"
-                                                         inManagedObjectContext:CoreData.sharedInstance.managedObjectContext];
+                                                         inManagedObjectContext:CoreData.sharedInstance.queuedMOC];
 
             NSData *outgoingData = data;
             if (outgoingData) {
@@ -345,7 +345,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
             queue.topic = topic;
             queue.data = outgoingData;
             
-            [CoreData.sharedInstance sync];
+            [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
         }];
         
         return 0;
@@ -410,22 +410,23 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
                  if (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299) {
                      self.state = state_connected;
                      
-                     [CoreData.sharedInstance.managedObjectContext performBlock:^{
+                     [CoreData.sharedInstance.queuedMOC performBlock:^{
                          NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
                          request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]];
                          
-                         NSArray *matches = [CoreData.sharedInstance.managedObjectContext executeFetchRequest:request error:nil];
+                         NSArray *matches = [CoreData.sharedInstance.queuedMOC executeFetchRequest:request error:nil];
                          if (matches) {
                              [self.delegate totalBuffered: self count:matches.count];
                              if (matches.count) {
                                  Queue *queue = matches.firstObject;
-                                 [CoreData.sharedInstance.managedObjectContext deleteObject:queue];
-                                 [CoreData.sharedInstance sync];
+                                 [CoreData.sharedInstance.queuedMOC deleteObject:queue];
+                                 [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
                              }
                          }
                          
                          NSData *incomingData = data;
-                         DDLogVerbose(@"[Connection] incomingData %@", [[NSString alloc] initWithData:incomingData encoding:NSUTF8StringEncoding]);
+                         DDLogVerbose(@"[Connection] incomingData %@",
+                                      [[NSString alloc] initWithData:incomingData encoding:NSUTF8StringEncoding]);
                          if (self.key && self.key.length) {
                              incomingData = [self decrypt:incomingData];
                          }
@@ -500,17 +501,17 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
 - (void)reset {
     DDLogInfo(@"[Connection] reset");
     
-    [CoreData.sharedInstance.managedObjectContext performBlockAndWait:^{
+    [CoreData.sharedInstance.queuedMOC performBlockAndWait:^{
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
         
         NSError *error = nil;
-        NSArray *matches = [CoreData.sharedInstance.managedObjectContext executeFetchRequest:request error:&error];
+        NSArray *matches = [CoreData.sharedInstance.queuedMOC executeFetchRequest:request error:&error];
         if (matches) {
             if (matches.count) {
                 for (NSManagedObject *object in matches) {
-                    [CoreData.sharedInstance.managedObjectContext deleteObject:object];
+                    [CoreData.sharedInstance.queuedMOC deleteObject:object];
                 }
-                [CoreData.sharedInstance sync];
+                [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
             }
         }
         [self.delegate totalBuffered:self count:0];

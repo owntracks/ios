@@ -10,6 +10,7 @@
 #import "Settings.h"
 #import "UIColor+WithName.h"
 #import "OwnTracksAppDelegate.h"
+#import "CoreData.h"
 
 @interface TabBarController ()
 @property (strong, nonatomic) UIViewController *featuredVC;
@@ -69,7 +70,8 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (!self.warning && [Settings intForKey:@"mode"] == CONNECTION_MODE_PUBLIC) {
+    if (!self.warning && [Settings intForKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC
+                        ] == CONNECTION_MODE_PUBLIC) {
         self.warning = TRUE;
         [self performSegueWithIdentifier:@"login" sender:nil];
     }
