@@ -68,20 +68,24 @@
     switch (self.monitoring) {
         case 0:
             [self.button setBackgroundImageNamed:@"Manual"];
-            [self.button setTitle:@"Manual Mode"];
+            [self.button setTitle:NSLocalizedString(@"Manual Mode",
+                                                    @"Manual Mode on Watch")];
             break;
         case 1:
             [self.button setBackgroundImageNamed:@"Significant"];
-            [self.button setTitle:@"Significant Mode"];
+            [self.button setTitle:NSLocalizedString(@"Significant Mode",
+                                                    @"Significant Mode on Watch")];
             break;
         case 2:
             [self.button setBackgroundImageNamed:@"Move"];
-            [self.button setTitle:@"Move Mode"];
+            [self.button setTitle:NSLocalizedString(@"Move Mode",
+                                                    @"Move Mode on Watch")];
             break;
         case -1:
         default:
             [self.button setBackgroundImageNamed:@"Quiet"];
-            [self.button setTitle:@"Quiet Mode"];
+            [self.button setTitle:NSLocalizedString(@"Quiet Mode",
+                                                    @"Quiet Mode on Watch")];
             break;
     }
 }
