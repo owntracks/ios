@@ -145,6 +145,9 @@
 /* Alert header for mode change warning */
 "Mode change" = "Zmiana trybu";
 
+/* Text explaining modes */
+"Modes_Text" = "Public Mode\n\nIn public mode, you can get an impression of OwnTracks functionality.\n\nYour location will be anonymously published to owntrack.org's public broker and will be shared with all other users in public mode. Your data will not be stored and will only be forwarded to users connected at the same time.\n\nMQTT Mode\n\nOr you may setup your own OwnTracks server for full privacy protection. More Info on http://owntracks.org/booklet\n\nHTTP Mode\n\nSimilar to MQTT mode, except data transmission uses HTTP, not MQTT\n\nPlease note:\nWhen switching between  modes, all OwnTracks data will be deleted for privacy reasons.";
+
 /* content of an alert message regarding monitoring mode */
 "move mode enabled" = "tryb poruszania aktywny";
 

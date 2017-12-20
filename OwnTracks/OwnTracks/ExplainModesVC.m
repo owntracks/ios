@@ -29,7 +29,7 @@
                                                              "Similar to MQTT mode, except data transmission uses HTTP, not MQTT\n\n"
                                                              "Please note:\n"
                                                              "When switching between  modes, all OwnTracks data will be deleted for privacy reasons.",
-                                                             @"Text explaining Modes");
+                                                             @"Text explaining modes");
 
     // Do any additional setup after loading the view.
 }
