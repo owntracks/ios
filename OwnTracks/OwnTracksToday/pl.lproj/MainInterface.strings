@@ -1,15 +1,15 @@
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "0YG-ZB-KGI"; */
-"0YG-ZB-KGI.text" = "Title";
+"0YG-ZB-KGI.text" = "Tytuł";
 
 /* Class = "UILabel"; text = "1 - 3 / 6"; ObjectID = "B1p-y7-Qo8"; */
 "B1p-y7-Qo8.text" = "1 - 3 / 6";
 
 /* Class = "UIButton"; normalTitle = "Forward"; ObjectID = "bed-eO-POB"; */
-"bed-eO-POB.normalTitle" = "Forward";
+"bed-eO-POB.normalTitle" = "Dalej";
 
 /* Class = "UILabel"; text = "Detail"; ObjectID = "h78-3f-Ome"; */
-"h78-3f-Ome.text" = "Detail";
+"h78-3f-Ome.text" = "Szczegóły";
 
 /* Class = "UIButton"; normalTitle = "Backward"; ObjectID = "wOM-J5-pkE"; */
-"wOM-J5-pkE.normalTitle" = "Backward";
+"wOM-J5-pkE.normalTitle" = "Wstecz";
