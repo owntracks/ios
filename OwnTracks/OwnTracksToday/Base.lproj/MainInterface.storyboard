@@ -21,8 +21,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label verifyAmbiguity="off" opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1p-y7-Qo8">
-                                <rect key="frame" x="128" y="1" width="54.5" height="21"/>
+                            <label verifyAmbiguity="off" opaque="NO" userInteractionEnabled="NO" contentMode="left" text="5 -6 / 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B1p-y7-Qo8">
+                                <rect key="frame" x="96" y="1" width="130" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="OXm-Jq-qBJ"/>
                                 </constraints>
@@ -30,18 +30,6 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bed-eO-POB">
-                                <rect key="frame" x="195" y="0.0" width="100" height="22"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="22" id="MlR-od-gWc"/>
-                                </constraints>
-                                <state key="normal" title="Forward">
-                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="forwardPressed:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="Qp8-GR-N44"/>
-                                </connections>
-                            </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Hk7-3Z-JeF">
                                 <rect key="frame" x="0.0" y="22" width="320" height="88"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -56,15 +44,15 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0YG-ZB-KGI">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0YG-ZB-KGI">
                                                     <rect key="frame" x="15" y="6" width="31.5" height="19.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h78-3f-Ome">
-                                                    <rect key="frame" x="15" y="25.5" width="30.5" height="13.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h78-3f-Ome">
+                                                    <rect key="frame" x="15" y="25.5" width="40.5" height="13.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -76,18 +64,18 @@
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6cp-b0-7ip">
-                                <rect key="frame" x="295" y="0.0" width="25" height="22"/>
+                                <rect key="frame" x="298" y="0.0" width="22" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="KaT-vm-8Vt"/>
-                                    <constraint firstAttribute="width" constant="25" id="URq-C9-8K0"/>
+                                    <constraint firstAttribute="width" constant="22" id="URq-C9-8K0"/>
                                 </constraints>
                                 <state key="normal" image="Move"/>
                                 <connections>
                                     <action selector="buttonPressed:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="XVU-Io-A3P"/>
                                 </connections>
                             </button>
-                            <button verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wOM-J5-pkE">
-                                <rect key="frame" x="20" y="0.0" width="100" height="22"/>
+                            <button verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wOM-J5-pkE">
+                                <rect key="frame" x="20" y="0.0" width="68" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="fLr-Ai-GvT"/>
                                 </constraints>
@@ -98,15 +86,28 @@
                                     <action selector="backwardPressed:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="JjS-xY-Xgy"/>
                                 </connections>
                             </button>
+                            <button verifyAmbiguity="off" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bed-eO-POB">
+                                <rect key="frame" x="234" y="0.0" width="56" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="MlR-od-gWc"/>
+                                </constraints>
+                                <state key="normal" title="Forward">
+                                    <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="forwardPressed:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="Qp8-GR-N44"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="B1p-y7-Qo8" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="1" id="2I3-ms-JT0"/>
+                            <constraint firstItem="6cp-b0-7ip" firstAttribute="leading" secondItem="bed-eO-POB" secondAttribute="trailing" constant="8" id="39y-yG-5lS"/>
                             <constraint firstAttribute="trailing" secondItem="Hk7-3Z-JeF" secondAttribute="trailing" id="72s-rX-zX1"/>
-                            <constraint firstItem="6cp-b0-7ip" firstAttribute="leading" secondItem="bed-eO-POB" secondAttribute="trailing" constant="8" symbolic="YES" id="7ix-e0-GT0"/>
                             <constraint firstItem="bed-eO-POB" firstAttribute="leading" secondItem="B1p-y7-Qo8" secondAttribute="trailing" constant="8" symbolic="YES" id="Ao9-aE-bE8"/>
                             <constraint firstItem="6cp-b0-7ip" firstAttribute="top" secondItem="S3S-Oj-5AN" secondAttribute="top" id="NQ6-5m-TWw"/>
                             <constraint firstItem="B1p-y7-Qo8" firstAttribute="leading" secondItem="wOM-J5-pkE" secondAttribute="trailing" constant="8" symbolic="YES" id="NjC-ay-qvY"/>
                             <constraint firstItem="wOM-J5-pkE" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="Zg9-6W-RKH"/>
+                            <constraint firstAttribute="trailing" secondItem="6cp-b0-7ip" secondAttribute="trailing" constant="20" symbolic="YES" id="eRp-01-jke"/>
                             <constraint firstAttribute="trailing" secondItem="6cp-b0-7ip" secondAttribute="trailing" id="gCX-Ib-WUO"/>
                             <constraint firstItem="Hk7-3Z-JeF" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="22" id="jKi-iS-6HA"/>
                             <constraint firstItem="Hk7-3Z-JeF" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="lSX-XI-lid"/>

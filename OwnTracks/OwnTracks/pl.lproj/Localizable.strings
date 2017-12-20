@@ -127,6 +127,12 @@
 /* indicates a locked configuration */
 "locked" = "zablokowane";
 
+/* Text explaining the purpose and dangers of Public Mode */
+"Login_Text_1" = "W Trybie Publicznym możesz zaobserwować funkcjonalność OwnTracks.\n\nJeśli kontynuujesz, uruchomisz OwnTracks w Trybie Publicznym. W tym trybie Twoja lokalizacja jest publikowana anonimowo do współdzielonego brokera owntracks.org i będzie udostępniona innym użytkownikom trybu publicznego. Twoje dane nie będą przechowywane i zostaną jedynie przekierowane do użytkowników połączonych w tym samym czasie.";
+
+/* Text linking to documentation */
+"Login_Text_2" = "Możesz też skonfigurować własny serwer OwnTracks dla zachowania pełnej prywatności.\n\nSzczegółowe informacje tutaj: http://owntracks.org/booklet";
+
 /* Short for meters */
 "m" = "m";
 

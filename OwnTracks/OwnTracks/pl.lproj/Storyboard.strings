@@ -71,9 +71,6 @@
 /* Class = "UINavigationItem"; title = "Waypoint"; ObjectID = "8DB-l4-Dop"; */
 "8DB-l4-Dop.title" = "Punkt orientacyjny";
 
-/* Class = "UITextView"; text = "Or you may setup your own OwnTracks server for full privacy protection.\n\nDetailed info on http://owntracks.org/booklet"; ObjectID = "9gj-hj-Y9f"; */
-"9gj-hj-Y9f.text" = "Możesz też skonfigurować własny serwer OwnTracks dla zachowania pełnej prywatności.\n\nSzczegółowe informacje tutaj: http://owntracks.org/booklet";
-
 /* Class = "UITableViewSection"; headerTitle = "Info"; ObjectID = "9tZ-tQ-x72"; */
 "9tZ-tQ-x72.headerTitle" = "Info";
 
@@ -181,9 +178,6 @@
 
 /* Class = "UITextField"; placeholder = "meters"; ObjectID = "M0H-SF-pCO"; */
 "M0H-SF-pCO.placeholder" = "metry";
-
-/* Class = "UITextView"; text = "Uses the following http://cocoapods.org\n\nCocoaLumberjack\nABStaticTableViewController\nMQTTClient\nQRCodeReaderViewController\nlibsodium (libsodium.org)\n\n"; ObjectID = "Moe-Di-frm"; */
-"Moe-Di-frm.text" = "Używa following http://cocoapods.org\n\nCocoaLumberjack\nABStaticTableViewController\nMQTTClient\nQRCodeReaderViewController\nlibsodium (libsodium.org)\n\n";
 
 /* Class = "UITableViewSection"; headerTitle = "Expert Mode"; ObjectID = "NRQ-7X-SLM"; */
 "NRQ-7X-SLM.headerTitle" = "Tryb Eksperta";
@@ -325,9 +319,6 @@
 
 /* Class = "UITextField"; placeholder = "trackerid"; ObjectID = "dUg-TH-IQ0"; */
 "dUg-TH-IQ0.placeholder" = "trackerid";
-
-/* Class = "UITextView"; text = "Copyright © 2013-2017 by Christoph Krey, http://owntracks.org"; ObjectID = "dZg-CC-7yD"; */
-"dZg-CC-7yD.text" = "Wszystkie prawa zastrzeżone © 2013-2017 Christoph Krey, http://owntracks.org";
 
 /* Class = "UITabBarController"; title = "Tab Bar"; ObjectID = "e04-OU-xZ4"; */
 "e04-OU-xZ4.title" = "Pasek Zakładek";
@@ -481,9 +472,6 @@
 
 /* Class = "UILabel"; text = "willRetain"; ObjectID = "udF-FX-N41"; */
 "udF-FX-N41.text" = "willRetain";
-
-/* Class = "UITextView"; text = "In Public Mode, you can get an impression of OwnTracks functionality.\n\nIf you press continue you will be starting OwnTracks in Public Mode. In this mode, your location is published anonymously to owntracks.org's shared broker and will be shared with all other users in public mode. Your data will not be stored and will only be forwarded to users connected at the same time."; ObjectID = "v2D-6q-oH5"; */
-"v2D-6q-oH5.text" = "W Trybie Publicznym możesz zaobserwować funkcjonalność OwnTracks.\n\nJeśli kontynuujesz, uruchomisz OwnTracks w Trybie Publicznym. W tym trybie Twoja lokalizacja jest publikowana anonimowo do współdzielonego brokera owntracks.org i będzie udostępniona innym użytkownikom trybu publicznego. Twoje dane nie będą przechowywane i zostaną jedynie przekierowane do użytkowników połączonych w tym samym czasie.";
 
 /* Class = "UILabel"; text = "ignoreStaleLocations"; ObjectID = "vHW-Iv-6Q1"; */
 "vHW-Iv-6Q1.text" = "ignoreStaleLocations";
