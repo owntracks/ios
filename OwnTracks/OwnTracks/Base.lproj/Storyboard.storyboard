@@ -1778,7 +1778,7 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="K3J-wU-omB">
-                                            <rect key="frame" x="60" y="8" width="184" height="21"/>
+                                            <rect key="frame" x="60" y="8" width="239" height="21"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="21" id="5Ep-qZ-pZI"/>
                                             </constraints>
@@ -1787,7 +1787,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="clip" numberOfLines="5" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="apt-Il-Ih4">
-                                            <rect key="frame" x="60" y="29" width="184" height="50.5"/>
+                                            <rect key="frame" x="60" y="29" width="239" height="50.5"/>
                                             <string key="text">Street Town
 Country
 def
@@ -3030,7 +3030,7 @@ libsodium (libsodium.org)
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s1I-Ff-fYw">
-                                                    <rect key="frame" x="73" y="13.5" width="227" height="17"/>
+                                                    <rect key="frame" x="73" y="13.5" width="282" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
@@ -3063,7 +3063,7 @@ libsodium (libsodium.org)
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="anz-OE-h12">
-                                                    <rect key="frame" x="251" y="6.5" width="51" height="31"/>
+                                                    <rect key="frame" x="306" y="6.5" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="sharechanged:" destination="qjh-5o-Yio" eventType="valueChanged" id="Hrt-Ot-YRI"/>
                                                     </connections>
@@ -3094,7 +3094,7 @@ libsodium (libsodium.org)
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="radius" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0WN-ST-XQq">
-                                                    <rect key="frame" x="194" y="13.5" width="106" height="17"/>
+                                                    <rect key="frame" x="194" y="13.5" width="161" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -3127,7 +3127,7 @@ libsodium (libsodium.org)
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="latitude" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lmo-Kp-uCi">
-                                                    <rect key="frame" x="91" y="13.5" width="209" height="17"/>
+                                                    <rect key="frame" x="91" y="13.5" width="264" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -3160,7 +3160,7 @@ libsodium (libsodium.org)
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="longitude" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JZL-1C-khg">
-                                                    <rect key="frame" x="105" y="13.5" width="195" height="17"/>
+                                                    <rect key="frame" x="105" y="13.5" width="250" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -3197,7 +3197,7 @@ libsodium (libsodium.org)
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="uuid" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fPO-vc-4UX">
-                                                    <rect key="frame" x="69" y="13.5" width="231" height="17"/>
+                                                    <rect key="frame" x="69" y="13.5" width="286" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
@@ -3230,7 +3230,7 @@ libsodium (libsodium.org)
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="major" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UqU-7l-HX1">
-                                                    <rect key="frame" x="71" y="13.5" width="229" height="17"/>
+                                                    <rect key="frame" x="71" y="13.5" width="284" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -3263,7 +3263,7 @@ libsodium (libsodium.org)
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="minor" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tc6-JR-qOB">
-                                                    <rect key="frame" x="72" y="13.5" width="228" height="17"/>
+                                                    <rect key="frame" x="72" y="13.5" width="283" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -3453,7 +3453,7 @@ If you press continue you will be starting OwnTracks in Public Mode. In this mod
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OwnTracks" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="45H-aU-ltr">
-                                <rect key="frame" x="68" y="100" width="185" height="43"/>
+                                <rect key="frame" x="67.5" y="100" width="185" height="43"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="43" id="YvG-jg-nB8"/>
                                 </constraints>
