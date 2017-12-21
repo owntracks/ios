@@ -750,8 +750,8 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                                       data:data
                                                   retained:retained
                                                    context:CoreData.sharedInstance.queuedMOC];
-        NSArray *baseComponents = [[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] componentsSeparatedByString:@"/"];
-        NSArray *topicComponents = [[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] componentsSeparatedByString:@"/"];
+        NSArray *baseComponents = [[Settings theGeneralTopicInMOC:CoreData.sharedInstance.queuedMOC] componentsSeparatedByString:@"/"];
+        NSArray *topicComponents = [[Settings theGeneralTopicInMOC:CoreData.sharedInstance.queuedMOC] componentsSeparatedByString:@"/"];
 
         NSString *device = @"";
         BOOL ownDevice = true;
@@ -783,7 +783,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 #ifdef DEBUG
                         true /* dirty work around not being able to set simulator .otrc */
 #else
-                        [Settings boolForKey:@"cmd_preference"]
+                        [Settings boolForKey:@"cmd_preference" inMOC:CoreData.sharedInstance.queuedMOC]
 #endif
                         ) {
                         if ([@"dump" saveEqual:dictionary[@"action"]]) {
@@ -793,7 +793,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                             if ([LocationManager sharedInstance].monitoring == LocationMonitoringSignificant ||
                                 [LocationManager sharedInstance].monitoring == LocationMonitoringMove ||
                                 [Settings boolForKey:@"allowremotelocation_preference"
-                                               inMOC:CoreData.sharedInstance.mainMOC]) {
+                                               inMOC:CoreData.sharedInstance.queuedMOC]) {
                                 [self publishLocation:[LocationManager sharedInstance].location trigger:@"r"];
                             }
 
@@ -812,13 +812,13 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 
                             [Settings setString:content
                                          forKey:SETTINGS_ACTION
-                                          inMOC:CoreData.sharedInstance.mainMOC];
+                                          inMOC:CoreData.sharedInstance.queuedMOC];
                             [Settings setString:url
                                          forKey:SETTINGS_ACTIONURL
-                                          inMOC:CoreData.sharedInstance.mainMOC];
+                                          inMOC:CoreData.sharedInstance.queuedMOC];
                             [Settings setBool:external.boolValue
                                        forKey:SETTINGS_ACTIONEXTERN
-                                        inMOC:CoreData.sharedInstance.mainMOC];
+                                        inMOC:CoreData.sharedInstance.queuedMOC];
 
                             if (notificationMessage) {
                                 UILocalNotification *notification = [[UILocalNotification alloc] init];
@@ -847,10 +847,10 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                             NSDictionary *waypoints = [NSDictionary saveCopy:dictionary[@"waypoints"]];
                             if (waypoints && [waypoints isKindOfClass:[NSDictionary class]]) {
                                 [Settings waypointsFromDictionary:waypoints
-                                                            inMOC:CoreData.sharedInstance.mainMOC];
+                                                            inMOC:CoreData.sharedInstance.queuedMOC];
                             } else if (payload && [payload isKindOfClass:[NSDictionary class]]) {
                                 [Settings waypointsFromDictionary:payload
-                                                            inMOC:CoreData.sharedInstance.mainMOC];
+                                                            inMOC:CoreData.sharedInstance.queuedMOC];
                             }
 
                         } else if ([@"setConfiguration" saveEqual:dictionary[@"action"]]) {
@@ -858,10 +858,10 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                             NSDictionary *configuration = [NSDictionary saveCopy:dictionary[@"configuration"]];
                             if (configuration && [configuration isKindOfClass:[NSDictionary class]]) {
                                 [Settings fromDictionary:configuration
-                                                   inMOC:CoreData.sharedInstance.mainMOC];
+                                                   inMOC:CoreData.sharedInstance.queuedMOC];
                             } else if (payload && [payload isKindOfClass:[NSDictionary class]]) {
                                 [Settings fromDictionary:payload
-                                                   inMOC:CoreData.sharedInstance.mainMOC];
+                                                   inMOC:CoreData.sharedInstance.queuedMOC];
                             }
                             self.configLoad = [NSDate date];
                             [self performSelectorOnMainThread:@selector(reconnect) withObject:nil waitUntilDone:NO];
