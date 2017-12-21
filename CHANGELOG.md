@@ -1,6 +1,16 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 9.7.8
+* Release date 2017-12-21
+
+** Internationalization and Crash Fixes**
+
+    [NEW] Polish text version
+    [FIX] Starting map position #496
+    [NEW] Apple watch: mode change #434
+    [FIX] Watch and TodayWidget do not honor ignoreStaleLocations setting #493
+
 ## OwnTracks 9.7.2
 * Release date 2017-09-30
 
