@@ -128,7 +128,7 @@
 "locked" = "zablokowane";
 
 /* Text explaining the purpose and dangers of Public Mode */
-"Login_Text_1" = "W Trybie Publicznym możesz zaobserwować funkcjonalność OwnTracks.\n\nJeśli kontynuujesz, uruchomisz OwnTracks w Trybie Publicznym. W tym trybie Twoja lokalizacja jest publikowana anonimowo do współdzielonego brokera owntracks.org i będzie udostępniona innym użytkownikom trybu publicznego. Twoje dane nie będą przechowywane i zostaną jedynie przekierowane do użytkowników połączonych w tym samym czasie.";
+"Login_Text_1" = "W Trybie Publicznym możesz zaobserwować działanie OwnTracks.\n\nJeśli kontynuujesz, uruchomisz OwnTracks w Trybie Publicznym. W tym trybie Twoja lokalizacja jest publikowana anonimowo do współdzielonego brokera owntracks.org i będzie udostępniona innym użytkownikom trybu publicznego. Twoje dane nie będą przechowywane i zostaną jedynie przekierowane do użytkowników połączonych w tym samym czasie.";
 
 /* Text linking to documentation */
 "Login_Text_2" = "Możesz też skonfigurować własny serwer OwnTracks dla zachowania pełnej prywatności.\n\nSzczegółowe informacje tutaj: http://owntracks.org/booklet";
@@ -146,7 +146,7 @@
 "Mode change" = "Zmiana trybu";
 
 /* Text explaining modes */
-"Modes_Text" = "Public Mode\n\nIn public mode, you can get an impression of OwnTracks functionality.\n\nYour location will be anonymously published to owntrack.org's public broker and will be shared with all other users in public mode. Your data will not be stored and will only be forwarded to users connected at the same time.\n\nMQTT Mode\n\nOr you may setup your own OwnTracks server for full privacy protection. More Info on http://owntracks.org/booklet\n\nHTTP Mode\n\nSimilar to MQTT mode, except data transmission uses HTTP, not MQTT\n\nPlease note:\nWhen switching between  modes, all OwnTracks data will be deleted for privacy reasons.";
+"Modes_Text" = "Tryb Publiczny\n\nW trybie publicznym możesz zaobserwować działanie OwnTracks.\n\nTwoja lokalizacja zostanie anonimowo opublikowana do publicznego brokera owntracks.org i będzie dostępna dla wszystkich innych użytkowników trybu publicznego. Twoje dane nie będą przechowywane i zostaną jedynie przekazane do użytkowników połączonych w tym samym czasie.\n\nTryb MQTT\n\nMożesz skonfigurować własny serwer OwnTracks dla pełnej ochrony prywatności. Więcej informacji tutaj: http://owntracks.org/booklet\n\nTryb HTTP\n\nPodobnie do trybu MQTT, jednak transmisja danych używa protokołu HTTP, zamiast MQTT\n\nUwaga:\nPodczas przełączania trybów, wszystkie dane OwnTracks zostaną usunięte ze względów prywatności.";
 
 /* content of an alert message regarding monitoring mode */
 "move mode enabled" = "tryb poruszania aktywny";
