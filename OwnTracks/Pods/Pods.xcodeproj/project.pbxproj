@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		01475EA576B7DB430CA2C5A3350AE0FD /* MQTTTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C4EE19A1BF88F5FCAAEB848CC36F018 /* MQTTTransport.m */; };
+		01475EA576B7DB430CA2C5A3350AE0FD /* MQTTTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 24CC34274120A687CE44A2B957C91814 /* MQTTTransport.m */; };
 		01630B2CDB6B45477072484503523233 /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = EAC6F6B880FF964F3D07F7FB801C002F /* DDASLLogCapture.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		016E85B37A49B4EDDBBFB35EC067AC96 /* argon2-fill-block-ssse3.c in Sources */ = {isa = PBXBuildFile; fileRef = 46AA7EC7ACB42D42505D4023838334B6 /* argon2-fill-block-ssse3.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		01EBB92FDD6D17CD996ED4F3CE745104 /* SRWebSocket.h in Headers */ = {isa = PBXBuildFile; fileRef = EFBD4B84D6738837B740BF9379F68E4F /* SRWebSocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -20,7 +20,7 @@
 		08284B0947FEECE865742912B045BCCF /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 785789BFD391665ED289CF09545B96AF /* DDMultiFormatter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		0842A55A6C2FF1F7682024A5258CF492 /* beforenm_aes128ctr.c in Sources */ = {isa = PBXBuildFile; fileRef = 92BEF208E7D5EA410075C644B5B99635 /* beforenm_aes128ctr.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0853B4573417B4EA70C3E5868D9F2B79 /* x25519_ref10.h in Headers */ = {isa = PBXBuildFile; fileRef = 9914D849866226EB467023D979982EB4 /* x25519_ref10.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		08A94E9D2E4520E3F1F360CE27CFB76A /* MQTTWebsocketTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C047EAD3300C52AC0B321372747564C /* MQTTWebsocketTransport.m */; };
+		08A94E9D2E4520E3F1F360CE27CFB76A /* MQTTWebsocketTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 3958BCDD15D1973D1C9B9CDC76DE342E /* MQTTWebsocketTransport.m */; };
 		0C057F605156BADF076E230EA43AAEE6 /* curve25519_donna_c64.c in Sources */ = {isa = PBXBuildFile; fileRef = 5F32A3BB5F1AAF6664A6ACF8A9F25C1C /* curve25519_donna_c64.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0C8A2D86647DF8D8B66DCFA60181A438 /* mutex.h in Headers */ = {isa = PBXBuildFile; fileRef = 3CFE685DED69BF2424DD2CE53B30C238 /* mutex.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0D88FE4F5E550BFC99CCC87CE477FC45 /* stream_aes128ctr_nacl.c in Sources */ = {isa = PBXBuildFile; fileRef = 5F4A2AA0EF1FDFA144FE7FC7AC90A0E5 /* stream_aes128ctr_nacl.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -29,14 +29,14 @@
 		0F85C22525EF69923FAD0F9EFB419751 /* onetimeauth_poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = 5556EB944421D19791089C8DB21DB437 /* onetimeauth_poly1305.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		0F93AAE199D886AA9B5AFAD928AFCD82 /* GHArea.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD531307297B8EE1A496DBF817B5A76 /* GHArea.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		0FBDCD21AD05262C3FC4D88B558E7B8E /* u1.h in Headers */ = {isa = PBXBuildFile; fileRef = 5A31F1D713E5FD91EF3E496F885B3B25 /* u1.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		121D92172757D47659C8C79A1657FDFE /* MQTTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 72D801549DEF55974139C1DA698FE54A /* MQTTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		121D92172757D47659C8C79A1657FDFE /* MQTTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 10AD407E06E945E4ACCD442AABA64F36 /* MQTTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		13F6AB7435F9F3AB5D92EDDF8ECF8A78 /* crypto_onetimeauth_poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C1F8B87BA846C2773BBFA8679343B23 /* crypto_onetimeauth_poly1305.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1437647AF7C88C65998EFA2A2C2B4C01 /* DDOSLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = AC5017EA87128C9983529AF0A92FDEB0 /* DDOSLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		148300644F7986B9FE60EFDFAAD85320 /* mqttc-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8EB6CD14238944F172F620CE8D882F64 /* mqttc-dummy.m */; };
+		148300644F7986B9FE60EFDFAAD85320 /* mqttc-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 92BEB7D51B2214AC95A95EB822AA6BD2 /* mqttc-dummy.m */; };
 		159DD145BC492A8EFF8F47B2935D3106 /* crypto_kdf.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C29D947562D6BEEC9684D279D2B45D5 /* crypto_kdf.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		169F9CB5F6BF738C6E2C7A443C978A8E /* GeoHash.h in Headers */ = {isa = PBXBuildFile; fileRef = 988F63FD27A31DAE1726D9740B878C04 /* GeoHash.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		16EACCEBFC4C0A2857AB6CB05CA0C963 /* crypto_kx.c in Sources */ = {isa = PBXBuildFile; fileRef = 48FD0E3F6F64B4E6F62FF42287174AD6 /* crypto_kx.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		1808FF53D0EF68BE901D34ACFFDCC030 /* mqttc-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 97BD3DF2F1334F8F128414E839B2004B /* mqttc-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1808FF53D0EF68BE901D34ACFFDCC030 /* mqttc-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 637299387A7CA5055E81430AB494B262 /* mqttc-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		184A9AFF9E0D54594DB4774FAC297C05 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF401E12A927AF4663D4D2A146CD1259 /* Foundation.framework */; };
 		19AAF5745745DEB67D791B8718188504 /* QRCodeReaderViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 30A07CA3EE28139307AF9AE5EBF7D4F0 /* QRCodeReaderViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1C2D5ED83EDD1CF7DB4D6691650A071B /* auth_hmacsha512256.c in Sources */ = {isa = PBXBuildFile; fileRef = D57E314619BBE850CC87B31ECBBB4909 /* auth_hmacsha512256.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -44,7 +44,7 @@
 		1D44C163D50469DB2C82978E42CC999B /* stream_salsa2012.c in Sources */ = {isa = PBXBuildFile; fileRef = B5EB808F89CF0183D351E72D87CA1757 /* stream_salsa2012.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1FE784EA6C983CCFADBBC32B77159FAE /* DDMultiFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = FD82F74852E6B929F7D4514DFBF4368A /* DDMultiFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		205818B8F737EB4D6EE703420C049384 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DB2CC4F6CC0D31F36A7B85F7392F03E /* Security.framework */; };
-		20C0D744D49470521BE63635ACA69106 /* MQTTSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FE610A2DB88B0494BC495CE6A7304B3 /* MQTTSession.m */; };
+		20C0D744D49470521BE63635ACA69106 /* MQTTSession.m in Sources */ = {isa = PBXBuildFile; fileRef = BC5E8DF8AFAEAB6D8A1FE538BE921FE6 /* MQTTSession.m */; };
 		21C97C03E4D9EC8B9379141BC0897B68 /* ladder_namespace.h in Headers */ = {isa = PBXBuildFile; fileRef = C4F7B1E3BC69A7122C5F8BEA32717B1A /* ladder_namespace.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		220386C2111838454BBE3EE9E472813B /* argon2-encoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 538A353ACB0532E403B0D85C4E1F5A69 /* argon2-encoding.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		225836AD15DDD554EF06403574523533 /* crypto_aead_xchacha20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C8C08D93887BF8AB50824DDFD21F8AF /* crypto_aead_xchacha20poly1305.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -58,7 +58,7 @@
 		24ABD62828F7C2B470704860823FF864 /* blake2b-compress-avx2.h in Headers */ = {isa = PBXBuildFile; fileRef = 79E9E6C80B62BD3C26D56138C8404F98 /* blake2b-compress-avx2.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		25DC254F0F91AA1D23E52CFABA3C1B0D /* onetimeauth_poly1305.c in Sources */ = {isa = PBXBuildFile; fileRef = 940865E178FF37BCFBFA66EBC158B081 /* onetimeauth_poly1305.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		27237C7A22E52925D078E609F9E492D3 /* QRCodeReaderViewController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B9B0672D7B6CED9C627808DC276052 /* QRCodeReaderViewController-dummy.m */; };
-		2743F276C97EDC6D91F80F0270C3497B /* MQTTInMemoryPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = E7550524F8E0F26CB5A8DB253671EED8 /* MQTTInMemoryPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2743F276C97EDC6D91F80F0270C3497B /* MQTTInMemoryPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 7002A3178E28B36F6A9314FF3F1CAFDF /* MQTTInMemoryPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		2794CAB200DDF53433F9078B5CA43B49 /* blake2b-compress-ssse3.c in Sources */ = {isa = PBXBuildFile; fileRef = C60FBAAD886C791C7E257EDBA5135424 /* blake2b-compress-ssse3.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		27A81607F812846904D6F15BDA729DD7 /* runtime.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BEAA1D54492C9FC75B52F1AE1BB532B /* runtime.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		27B2CA031E61FC87E4A53CB2B458CBCB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF401E12A927AF4663D4D2A146CD1259 /* Foundation.framework */; };
@@ -70,17 +70,17 @@
 		2E87C1D283D28C61FAB08B36FEBCBE11 /* chacha20_dolbeau-avx2.c in Sources */ = {isa = PBXBuildFile; fileRef = 9E46DF5482709FA2FF326BFD3878D9EB /* chacha20_dolbeau-avx2.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2ED198E9CD25FD62702F73006CA5A137 /* ladder_base_namespace.h in Headers */ = {isa = PBXBuildFile; fileRef = 5641F27171E92A3AD94B99F44BF0BAE2 /* ladder_base_namespace.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2F3BB1E6009B0270780CC6D916A2E3C3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF401E12A927AF4663D4D2A146CD1259 /* Foundation.framework */; };
-		2F3D9FEDDC8F06741EC0677921E926CA /* MQTTPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = C51C2CD7B6A44C8697799D887F585D7A /* MQTTPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2F3D9FEDDC8F06741EC0677921E926CA /* MQTTPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = CB7CC9A9A2A343B411D49F8C2B6F3C06 /* MQTTPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		30AA0CB65A0C2ECB33366C5BE6B9675D /* crypto_kdf.c in Sources */ = {isa = PBXBuildFile; fileRef = D1CBA41E5901A7F1FFC9823163B6422A /* crypto_kdf.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		31349FB34E03796C41AEDF45E76ECDE0 /* SocketRocket.h in Headers */ = {isa = PBXBuildFile; fileRef = F2439EFD7F6BD309855132BBC1BB1C50 /* SocketRocket.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		31D9CCCECC0EEAB5E1CDA07F806FADBA /* box_curve25519xsalsa20poly1305.c in Sources */ = {isa = PBXBuildFile; fileRef = A74612F430D93C0D4D070113604A5FCC /* box_curve25519xsalsa20poly1305.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3229EA2459C85C71829E5A449ACB38C2 /* objc-geohash-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E91AB5777337C0C7B390F8791518E022 /* objc-geohash-dummy.m */; };
 		33C6400354FD62EBB412A930162F3AF1 /* crypto_stream_salsa2012.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DB34A21C46B89311FB5C75AB4B7AE24 /* crypto_stream_salsa2012.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		33D0E6D4B689B45A565B7762C0CE8C51 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF401E12A927AF4663D4D2A146CD1259 /* Foundation.framework */; };
-		343A270CD306886D9F734571753E78EF /* MQTTSSLSecurityPolicyEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B4C650C225B6933A01BAD0867A0931A /* MQTTSSLSecurityPolicyEncoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		343A270CD306886D9F734571753E78EF /* MQTTSSLSecurityPolicyEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = EACB9347819D9BB275BB87B5E470AE02 /* MQTTSSLSecurityPolicyEncoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		34ADF6CEA813D96341D2C4ED247D0DFD /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 908177425DE3C342A3DEF3A72108881B /* DDASLLogCapture.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		35E471ED57984AE320D0F646D62E0128 /* crypto_box_seal.c in Sources */ = {isa = PBXBuildFile; fileRef = 713257EE13013CAB9A46D9A33AC396F4 /* crypto_box_seal.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		3602891ACD51987D963497859DFB864C /* MQTTCFSocketDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 691323F5DA3E82076EB6EF4FFCA46047 /* MQTTCFSocketDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3602891ACD51987D963497859DFB864C /* MQTTCFSocketDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C03F1D3CE83413A5617C1D8BFB05A50 /* MQTTCFSocketDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		36403880474BB3D9AFFEDA5401DB79CD /* base.h in Headers */ = {isa = PBXBuildFile; fileRef = 95713EB0CDFF57213182F5A00C031B28 /* base.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		36C1874BB7D075DB54486AF6527079F4 /* randombytes_sysrandom.c in Sources */ = {isa = PBXBuildFile; fileRef = 7202F889847FE0FF9D717C5CB2E98481 /* randombytes_sysrandom.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		36E8B09B7AE86A747F4BB58FDF1A5326 /* crypto_shorthash_siphash24.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DFD70C588311CC7F6E39E3B76DCBDB6 /* crypto_shorthash_siphash24.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -94,13 +94,13 @@
 		3FFB518D11A6E10939ADC380F61245E9 /* DDAssertMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 26E06CE5D7E92FC00785254E22934DDB /* DDAssertMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4048FB3E06D542865BC2F966C8DA21CF /* crypto_auth_hmacsha256.h in Headers */ = {isa = PBXBuildFile; fileRef = D28BB4C5D3D8A67D6346FB9BB2D887C6 /* crypto_auth_hmacsha256.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		405399419B157DF8EF37D56349523B94 /* blake2b-compress-avx2.c in Sources */ = {isa = PBXBuildFile; fileRef = 09B08FB5F625B8B933954B7608EF25C7 /* blake2b-compress-avx2.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		41655CA059906A7367667A6C8694948E /* MQTTSSLSecurityPolicyEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 181EC6B3C420D5FAD0759B80DEFDE250 /* MQTTSSLSecurityPolicyEncoder.m */; };
+		41655CA059906A7367667A6C8694948E /* MQTTSSLSecurityPolicyEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9027D6F72D9542CAFFFA681B3385A6F0 /* MQTTSSLSecurityPolicyEncoder.m */; };
 		41C2FA1F4D0080553E9123A51A805F88 /* sse2_64_32.h in Headers */ = {isa = PBXBuildFile; fileRef = B8E7D1703DD2FE97ECE3DF73A11E464D /* sse2_64_32.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4321841108FEE455C008A9D8667795AA /* crypto_hash_sha512.h in Headers */ = {isa = PBXBuildFile; fileRef = 75AF1431A26DC36A9643D0D30BC7062C /* crypto_hash_sha512.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		43A6DBA2BB4EBB96EE9B363ADA66FA5A /* QRToggleTorchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 187B2BA9589EFE17B3FA735DD6D15631 /* QRToggleTorchButton.m */; };
 		43BD49FBF2F61B795CBA8A300148A773 /* stream_salsa2012_ref.c in Sources */ = {isa = PBXBuildFile; fileRef = 5751D68EBBE15AB2B129596492CD9C84 /* stream_salsa2012_ref.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		4468FC3E35360ADB85AEFB29324AD6BF /* stream_salsa208_ref.c in Sources */ = {isa = PBXBuildFile; fileRef = A2ED0AE6FF346DC62CA4832F8AFC27DB /* stream_salsa208_ref.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		4535BF86F3E6DB9C9297827EBB8DF12B /* MQTTCFSocketTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = F09B91F12ABD5EFD8D56D24A683E1ED4 /* MQTTCFSocketTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4535BF86F3E6DB9C9297827EBB8DF12B /* MQTTCFSocketTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 33FB92DD0B8CA80D8C8D6D352FCF1956 /* MQTTCFSocketTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4588D2AC75968B78C7153936F67A189E /* blake2b-long.c in Sources */ = {isa = PBXBuildFile; fileRef = 153A2724FD589103EA27DC325D9BEE37 /* blake2b-long.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		466560586F04FC7219636C25771ADAB7 /* DDLegacyMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C538638E574BD7B822FDC7B42D8D7A7 /* DDLegacyMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4856104E402235169F42552A1F92322A /* salsa20_ref.c in Sources */ = {isa = PBXBuildFile; fileRef = 88CD270B6D3694CE039EC487CE6DAD5E /* salsa20_ref.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -115,13 +115,13 @@
 		52B580124EECC6A3FCE43AFD40E3A1EA /* crypto_box.c in Sources */ = {isa = PBXBuildFile; fileRef = 80E5B39289CD99E2DEDA77D34ED869D9 /* crypto_box.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		539683E1BE43B51D259946D0AF765610 /* core.h in Headers */ = {isa = PBXBuildFile; fileRef = D13C37A65C60DBA59EA358D3D3151AEE /* core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		56192271D947F1014DB51C3D54AD5DF1 /* SocketRocket-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = E24D665F26C88FE8F9F68D97254BE145 /* SocketRocket-dummy.m */; };
-		56411BEE18EB658B18BEB20F2A27E140 /* MQTTSessionSynchron.m in Sources */ = {isa = PBXBuildFile; fileRef = A298D0EEB65522FEDF99FF70DD15FACF /* MQTTSessionSynchron.m */; };
+		56411BEE18EB658B18BEB20F2A27E140 /* MQTTSessionSynchron.m in Sources */ = {isa = PBXBuildFile; fileRef = FD1210A6990A52447FBC77CF9C56690C /* MQTTSessionSynchron.m */; };
 		5718A4EA67229BCA48EA7D5F15B8227A /* crypto_onetimeauth.c in Sources */ = {isa = PBXBuildFile; fileRef = D4FB00C99A994616A6448CD727775290 /* crypto_onetimeauth.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		57A4EE979E8F6DB6E0D7F17D790664FA /* crypto_verify_16.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D431B982D0D26CE1F0B4B737DA481FD /* crypto_verify_16.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5856683A8121429EE0AEB526D99CA07B /* MQTTMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A22B9F5EC251B57BBA58635D3380C1D /* MQTTMessage.m */; };
+		5856683A8121429EE0AEB526D99CA07B /* MQTTMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CFD7DFFF704BF2C66D7519F8DE939F4 /* MQTTMessage.m */; };
 		58C1CBA175A793C5E07FEF72B05EECA3 /* hash_sha256_cp.c in Sources */ = {isa = PBXBuildFile; fileRef = 4FC7F2DC5AEC8382EF1E5F6722F4D65C /* hash_sha256_cp.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		5909C683B44C54CD4F4B07E5F00803DA /* MQTTCoreDataPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A0DFE75103834CD4C4ED8827A357F97 /* MQTTCoreDataPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5917E80508F71B535A16742706F77763 /* MQTTSSLSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E1C1D25AEC928C6F7ADBD83FD3F8A17 /* MQTTSSLSecurityPolicy.m */; };
+		5909C683B44C54CD4F4B07E5F00803DA /* MQTTCoreDataPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = B036FACEDF6FA01DEB99A944AE5EAD6E /* MQTTCoreDataPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5917E80508F71B535A16742706F77763 /* MQTTSSLSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = D96D3DC1FB8E1179EE4A5B7D5FC204EC /* MQTTSSLSecurityPolicy.m */; };
 		5921F073F767DDC2129FEF09E19AA0B5 /* auth_hmacsha256.c in Sources */ = {isa = PBXBuildFile; fileRef = 96680E95C095E7400C7F82D93597DEC1 /* auth_hmacsha256.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5A4C6FDD694EE65473E7311591774DE3 /* blake2b-load-avx2.h in Headers */ = {isa = PBXBuildFile; fileRef = FE49C5A0E14E9B73669395A54410B869 /* blake2b-load-avx2.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		5A61ECF02B253714874524C7972BD609 /* chacha20_ref.c in Sources */ = {isa = PBXBuildFile; fileRef = 60719FCBBD789BD7AA69ABC6D5ED5900 /* chacha20_ref.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -142,12 +142,12 @@
 		6A98B460FAEDD2932AC335AE207EFA68 /* Pods-OwnTracks-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C5C84AF7D8D40047EE92158B6EF16760 /* Pods-OwnTracks-dummy.m */; };
 		6B182DBB8160703465DB01BC5594E185 /* curve25519_ref10.h in Headers */ = {isa = PBXBuildFile; fileRef = C8BAC55B6FE1749860CDF230B6A2C7FB /* curve25519_ref10.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6C5202D8D10FE90280A1AF0A2F6FDDBB /* curve25519_sandy2x.h in Headers */ = {isa = PBXBuildFile; fileRef = B3C2296BD5710498C8C7899A83FCE095 /* curve25519_sandy2x.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		6DA34FF147B2C7FE714E5BB342FDB33F /* MQTTSSLSecurityPolicyDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 9BC104A903F57CEDE91D78E5B95CBDED /* MQTTSSLSecurityPolicyDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6DA34FF147B2C7FE714E5BB342FDB33F /* MQTTSSLSecurityPolicyDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E7B69CF680503317A99DC7744E64A57 /* MQTTSSLSecurityPolicyDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6EB74E98F6A4FEA3044AC51730B96706 /* crypto_secretbox_xsalsa20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = 204F39B660E789BBD88EEB842865CA66 /* crypto_secretbox_xsalsa20poly1305.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6F15B9866FA60F9FE289025DB028B35D /* MQTTCFSocketDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = D74E70469E347EC7EF8D9C6DF1BF31E9 /* MQTTCFSocketDecoder.m */; };
+		6F15B9866FA60F9FE289025DB028B35D /* MQTTCFSocketDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 449DAC63915D7F4E65D9759D8B4EE9B7 /* MQTTCFSocketDecoder.m */; };
 		6FFCEB922EC2EBD0FCD2E931ABE38841 /* pwhash_scryptsalsa208sha256_sse.c in Sources */ = {isa = PBXBuildFile; fileRef = 2772A2128C0B95A25763178E29AAE750 /* pwhash_scryptsalsa208sha256_sse.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		7073CB5B447AA22EAA4B6F8257CA6D53 /* MQTTProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = E26057ACFDE42CF210A9232E9DC074FE /* MQTTProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		715CB83C125CC9F4D6859AE7FC695DAB /* MQTTSessionLegacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 24AB1041D89873C1E01D5CFB055946E9 /* MQTTSessionLegacy.m */; };
+		7073CB5B447AA22EAA4B6F8257CA6D53 /* MQTTProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = 6932C8C105D5B91C6D1DE09978286A21 /* MQTTProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		715CB83C125CC9F4D6859AE7FC695DAB /* MQTTSessionLegacy.m in Sources */ = {isa = PBXBuildFile; fileRef = 07611BF8A83D89548DFBF52709C94A02 /* MQTTSessionLegacy.m */; };
 		7163FCA57C02C890435DFA2A4F3AE4C8 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 99829E11E6C63267ADB15374637C793E /* DDContextFilterLogFormatter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		724018A8AF8F3D7397A802DE2B1FBAC0 /* GeoHash.m in Sources */ = {isa = PBXBuildFile; fileRef = 425A4DBF5F92F98C005D9D585495A517 /* GeoHash.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		724AFE234B247F1F137817CB3F161F37 /* cgeohash.m in Sources */ = {isa = PBXBuildFile; fileRef = 69E8FE7A0CEDA55BFC44C3B3FD0F396D /* cgeohash.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
@@ -167,14 +167,14 @@
 		7F5D20E1AFFC76F22D719853CA2747AC /* crypto_scrypt.h in Headers */ = {isa = PBXBuildFile; fileRef = 856825948A3124D3B44A649D4D933E97 /* crypto_scrypt.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		8001DCF5668C6D6CEA52F6E96E4FF8E1 /* blamka-round-ref.h in Headers */ = {isa = PBXBuildFile; fileRef = 52F9977B8EEA6DA9A05F4E675E5993CB /* blamka-round-ref.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		811E0C8A7497C3FFA507A63FF5C1284E /* utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 5B0918D6FE694E6F5ABF76B63E24FAD6 /* utils.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		82A8D4BF80EA8E07A8C3A4C3DF067391 /* MQTTInMemoryPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = F615CD79A906FCDDD59FDB2F11B29CE4 /* MQTTInMemoryPersistence.m */; };
+		82A8D4BF80EA8E07A8C3A4C3DF067391 /* MQTTInMemoryPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F37A8CFD06662233B067D6B60AC5AAD /* MQTTInMemoryPersistence.m */; };
 		83AC0B1406FDCB6740F11DA1E7EB6C02 /* libsodium-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = ECEA9BE2DD11FB4C4CA0667AEC8C1004 /* libsodium-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8531699A416CD1D208BD055FBD0048E2 /* crypto_auth.h in Headers */ = {isa = PBXBuildFile; fileRef = 9617B6C57552860B7BFEFFA11F195B38 /* crypto_auth.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		85438FAAEA79B1C00CADCC2A5945AA59 /* ABStaticTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F52E18C7305A4C20A57D078F2630C0 /* ABStaticTableViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		86DBBAC815B2A39841FCB00FECE79827 /* consts_namespace.h in Headers */ = {isa = PBXBuildFile; fileRef = 160CB47B66D0E78D21764D6182B9BC83 /* consts_namespace.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		880BEF301A0F2AD68B7FE2436C9BE851 /* blake2b-compress-sse41.c in Sources */ = {isa = PBXBuildFile; fileRef = 7AD1713518AA8560AE083AE5F683BF7D /* blake2b-compress-sse41.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		88359A85A4D14EAC3D0277DD48A16C79 /* core_hsalsa20.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A1EFD5658BE7473F59B584F99E6F30 /* core_hsalsa20.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		88E709DE248BF626AC3FA801AAC69C17 /* MQTTSessionSynchron.h in Headers */ = {isa = PBXBuildFile; fileRef = 25395DBFFD09CB5F5865DBD968F32D5A /* MQTTSessionSynchron.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		88E709DE248BF626AC3FA801AAC69C17 /* MQTTSessionSynchron.h in Headers */ = {isa = PBXBuildFile; fileRef = 8181290F03181A474608C2BBCD73B2D6 /* MQTTSessionSynchron.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89576682721D776432E16F3E664DD3C6 /* scalarmult_curve25519.h in Headers */ = {isa = PBXBuildFile; fileRef = FA26D937242F48215BBE373FA484466B /* scalarmult_curve25519.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		89CFF9870692F4AF533A77583BBE8DDC /* ladder.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DD5BB562C76798F64F4019FE7D37216 /* ladder.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		8A9F3BD25534A980BD62555DC2E92ABA /* blake2b-compress-sse41.h in Headers */ = {isa = PBXBuildFile; fileRef = 30DD6B96CDB618276B43F25220CC399F /* blake2b-compress-sse41.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -188,11 +188,11 @@
 		91366A249194B4899247055432900843 /* randombytes.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A99D96F66F4AD736E895BB2D0348794 /* randombytes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		919E4D4FC5CE47800969723DCD6AC02A /* randombytes_nativeclient.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C327337FFFC2FA99AD6A7EB16B87F91 /* randombytes_nativeclient.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		93FD8484D9CD31674F4497504B598426 /* core_hsalsa20_ref2.c in Sources */ = {isa = PBXBuildFile; fileRef = 64A9923BE7EBE5F8036D64707DCB4142 /* core_hsalsa20_ref2.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		94699271EE56CC30F807B4951F395BFA /* MQTTSSLSecurityPolicyTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A1F62F5E1A275824186087614E7D2C /* MQTTSSLSecurityPolicyTransport.m */; };
+		94699271EE56CC30F807B4951F395BFA /* MQTTSSLSecurityPolicyTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = E4132EDE4A3CE32A12EE83081D537D84 /* MQTTSSLSecurityPolicyTransport.m */; };
 		952AB7AD38F38AAFE9D25A2BC72D0E7C /* x25519_ref10.c in Sources */ = {isa = PBXBuildFile; fileRef = 12F7DE8C603DF17639A040942C73DAC6 /* x25519_ref10.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9538652F8FCB6771FD07C89980AFF103 /* export.h in Headers */ = {isa = PBXBuildFile; fileRef = F064ECE532C500D6A0FABDDBEE68E374 /* export.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		956090D063AA9DDE51456A0BB06D4F4C /* crypto_verify_32.h in Headers */ = {isa = PBXBuildFile; fileRef = 633FC17B0069CF6A1B76C34F5DD6AEF8 /* crypto_verify_32.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		965EEDF73F0A22067D729D089833AB6F /* MQTTSession.h in Headers */ = {isa = PBXBuildFile; fileRef = E6D0119597F0C4EF82653397F8244F06 /* MQTTSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		965EEDF73F0A22067D729D089833AB6F /* MQTTSession.h in Headers */ = {isa = PBXBuildFile; fileRef = C8482D0B259DB83CA243743EC9F01008 /* MQTTSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9676A00BD95FA0AEDAA22F8FC72C622C /* fe51_namespace.h in Headers */ = {isa = PBXBuildFile; fileRef = 2B9A4876C749F2CE40E910DD7657E20D /* fe51_namespace.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		96B6DEFB38590AB92CE6DC78B6F9A34C /* chacha20_dolbeau-ssse3.c in Sources */ = {isa = PBXBuildFile; fileRef = 081C24A21D7136E9194615793043D22F /* chacha20_dolbeau-ssse3.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		96ED6DAB7BD1AF963388C074B2269A8C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF401E12A927AF4663D4D2A146CD1259 /* Foundation.framework */; };
@@ -204,7 +204,7 @@
 		9918A0C7FD602ED3988D5784CFA70782 /* stream_aes128ctr.c in Sources */ = {isa = PBXBuildFile; fileRef = 73266D9877981ACD90FF678E745AA91F /* stream_aes128ctr.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		995F331F1AD175699434CBF4A76FABB3 /* poly1305_sse2.c in Sources */ = {isa = PBXBuildFile; fileRef = E383998EBA66BC4C46BDB7B3F50A3EBC /* poly1305_sse2.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9A6C64C0407BA0C5F1E4F5B0DF043E26 /* GHRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FDCE2B97F4CA1725585F524FFEA45EE /* GHRange.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		9B3F89F188DE44BCC5ECC1DC294FE434 /* MQTTProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AF19B101F914629C2642360F0612232 /* MQTTProperties.m */; };
+		9B3F89F188DE44BCC5ECC1DC294FE434 /* MQTTProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = E62618AED97E52166FB477F26FAD72E1 /* MQTTProperties.m */; };
 		9B43BA7CF53FFCF36179C759B8F3C10C /* consts.h in Headers */ = {isa = PBXBuildFile; fileRef = A672856BBBC739A300019A178BA59C30 /* consts.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		9B888D8946DF940A9CA34BD1B4F31854 /* common.h in Headers */ = {isa = PBXBuildFile; fileRef = 9161DFE3B7BEEA487BBD9679E218887A /* common.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9DB7932C315D13744C4AF35304EB30BE /* randombytes_nativeclient.h in Headers */ = {isa = PBXBuildFile; fileRef = 8260D5EBA02CA185B58E84EA412D7A8E /* randombytes_nativeclient.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -212,17 +212,17 @@
 		9E1FD88B6CC61B62F7BB3A1D8295685E /* aead_chacha20poly1305.c in Sources */ = {isa = PBXBuildFile; fileRef = F11B440D4CBE53FCE1ADF35847FC4FAC /* aead_chacha20poly1305.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9E38F66830CB3782647DDA1149455938 /* pwhash_scryptsalsa208sha256_nosse.c in Sources */ = {isa = PBXBuildFile; fileRef = 71FA66583CC9C34512B3AA50600DA848 /* pwhash_scryptsalsa208sha256_nosse.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9E74F6F1B37AD4805EEBB587B02F64BF /* curve25519_donna_c64.h in Headers */ = {isa = PBXBuildFile; fileRef = 185135A15950D17F42C323F0A73569D8 /* curve25519_donna_c64.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		9E8D82CEDA9E5EA7BC6A2C63CDC0414C /* MQTTSSLSecurityPolicyDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD822606653215CFF8D751CD3CE93BC /* MQTTSSLSecurityPolicyDecoder.m */; };
+		9E8D82CEDA9E5EA7BC6A2C63CDC0414C /* MQTTSSLSecurityPolicyDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD3E237C343E2385890173EA52EEAE1 /* MQTTSSLSecurityPolicyDecoder.m */; };
 		9ECDFDB4B9829BBB0E369F85D240B8AE /* CocoaLumberjack-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 82344505FBD013D93C723ABE69C03A63 /* CocoaLumberjack-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9F02C796CA4AEF49E0E0D7BCA9E9E7F0 /* pwhash_scryptsalsa208sha256.c in Sources */ = {isa = PBXBuildFile; fileRef = F85ADBE0166514B67C33868F22B787DF /* pwhash_scryptsalsa208sha256.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9F7C888C4EA6F8A22EEC1FEBFB234673 /* fe51_invert.c in Sources */ = {isa = PBXBuildFile; fileRef = 9CCF867C77B8AA151F31221ED6F77A95 /* fe51_invert.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9FB787A8B3AE62C4B2138CE330C15922 /* obsolete.c in Sources */ = {isa = PBXBuildFile; fileRef = 54382130741151C35BDC3F1E2FBD04D4 /* obsolete.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		9FD55704A200EA5FA9322ABC879A5F60 /* QRCameraSwitchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 56D172DF21FB5C90AB9B7FDD84AB71FE /* QRCameraSwitchButton.m */; };
-		A10971D860EDA4B0F1D79B69957C750C /* MQTTStrict.m in Sources */ = {isa = PBXBuildFile; fileRef = EBADAE1B9C2867C6F784DF9954E83D0B /* MQTTStrict.m */; };
+		A10971D860EDA4B0F1D79B69957C750C /* MQTTStrict.m in Sources */ = {isa = PBXBuildFile; fileRef = A003E8C3FA58055A35738762C2A2EA08 /* MQTTStrict.m */; };
 		A143DDE978DF66CDADE266F58C532F0E /* poly1305_donna64.h in Headers */ = {isa = PBXBuildFile; fileRef = C5B3183AF9DD694A004216B0DD89977D /* poly1305_donna64.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A1DAF32197BC5D216E386115A642F6DF /* blamka-round-ssse3.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B40BF5110BEC8FB1CB8D4C020D57E33 /* blamka-round-ssse3.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A38FD606BF174D0485A33F01074216FA /* DDOSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D78B20727DDD84E61F690486274E6F6 /* DDOSLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		A39FFCE96C8E330A25D0E4B8AB440F75 /* MQTTSSLSecurityPolicyTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A4807D48F15C4747DB82F09C971566 /* MQTTSSLSecurityPolicyTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A39FFCE96C8E330A25D0E4B8AB440F75 /* MQTTSSLSecurityPolicyTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B0971407BA009503ACA6590834C62C2 /* MQTTSSLSecurityPolicyTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A3A355D71BAC02F3F3AD8EBAF2357497 /* secretbox_xchacha20poly1305.c in Sources */ = {isa = PBXBuildFile; fileRef = EC16A7370923560757F461371495E395 /* secretbox_xchacha20poly1305.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A3FB6F24C037D1DA41DD32384EA4F3DE /* stream_chacha20.c in Sources */ = {isa = PBXBuildFile; fileRef = D2B4C80C6EA2A914A4202E6BF699C93E /* stream_chacha20.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A4259E916DC71A4543E51214268C3ECB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF401E12A927AF4663D4D2A146CD1259 /* Foundation.framework */; };
@@ -230,19 +230,19 @@
 		A6D5FC7F3A79BA39362E85A2D4D1B949 /* crypto_core_salsa2012.h in Headers */ = {isa = PBXBuildFile; fileRef = 14D4A03619155DD8526C180081A9559C /* crypto_core_salsa2012.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A71589232624DF9F930BDF1C678C73AB /* crypto_auth.c in Sources */ = {isa = PBXBuildFile; fileRef = 2F47BFAF92F8C4BD46BCAA18B017660D /* crypto_auth.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		A7E4A8B70BC86095B0A77D02EE19A93A /* crypto_hash.c in Sources */ = {isa = PBXBuildFile; fileRef = 8A8594893501A3F3F60699D636825525 /* crypto_hash.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		A8130375359295BD6431D85FB768D40D /* MQTTDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B4B2E19841A78355AB636F273DC8999 /* MQTTDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A8130375359295BD6431D85FB768D40D /* MQTTDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = E0A3C08B8322528DFDBA3180C6B5B081 /* MQTTDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A85F8A5780775D0632ADC51CAABACF94 /* crypto_hash_sha256.h in Headers */ = {isa = PBXBuildFile; fileRef = 9CFF060986F8953917E42FE68C2FC681 /* crypto_hash_sha256.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A9E95CD5B0E0FF487A8E11C8229A8D63 /* Pods-OwnTracks-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F16D18892F4F9913CAFB7D0D9EF03D22 /* Pods-OwnTracks-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ACB004A77A7A762A5583903C363AC58A /* MQTTCFSocketEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9987C1A32FB89CD5E33749915EC2D60A /* MQTTCFSocketEncoder.m */; };
+		ACB004A77A7A762A5583903C363AC58A /* MQTTCFSocketEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = A2D1857FCF83914A38F85E5469112899 /* MQTTCFSocketEncoder.m */; };
 		ADA8CE4149AF0319A0BD2E21C2B76267 /* crypto_aead_aes256gcm.h in Headers */ = {isa = PBXBuildFile; fileRef = A1C2C73017B6B7CC04106930149C0F80 /* crypto_aead_aes256gcm.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ADCD43A71973724922E1B1D750C17651 /* core_salsa_ref.c in Sources */ = {isa = PBXBuildFile; fileRef = 4E59D31C2264A9F76150665BC161F258 /* core_salsa_ref.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		AE944313E0393946C2EC404352C1A36E /* QRCameraSwitchButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C59374AEF45F828ECE26654BC894D4C /* QRCameraSwitchButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B0976E52D6D8ED5776B7C4E6263D77CE /* MQTTCoreDataPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = FCD07991780A0B2F6BEF4E7DB0C61E92 /* MQTTCoreDataPersistence.m */; };
+		B0976E52D6D8ED5776B7C4E6263D77CE /* MQTTCoreDataPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 204F64A639E470556940837D29BE564B /* MQTTCoreDataPersistence.m */; };
 		B11800ACC2FFBA1790290BA1172BCCFB /* randombytes.c in Sources */ = {isa = PBXBuildFile; fileRef = B358A92A3DEDAEC9FDBBE7EC5C04C8BF /* randombytes.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B42F7CED1FF4AE8DC8E146BADCB25A94 /* objc-geohash-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B28EB374B6037A70696FA46A925FCC9 /* objc-geohash-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B451097C5BB2BA8D7B45CAC5B69F2459 /* crypto_generichash_blake2b.h in Headers */ = {isa = PBXBuildFile; fileRef = 43A6106955B5034E44725FE2393BCD3F /* crypto_generichash_blake2b.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B4A899A69FE05A6BB6D7CB39935975E1 /* blake2b-load-sse41.h in Headers */ = {isa = PBXBuildFile; fileRef = EF0B4FB1DE1EDF41E02FCB4ADC727E8C /* blake2b-load-sse41.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		B56D738E5EDE261D61D9D65434E9949E /* MQTTCFSocketEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = EAAFCA36C75C88FFA70C6A3D9EF96C8D /* MQTTCFSocketEncoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B56D738E5EDE261D61D9D65434E9949E /* MQTTCFSocketEncoder.h in Headers */ = {isa = PBXBuildFile; fileRef = B4C7F800D5076FC9376482376796B91F /* MQTTCFSocketEncoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B6446CB56C59D567F9293525EE3EB76A /* QRCodeReaderView.h in Headers */ = {isa = PBXBuildFile; fileRef = D4AAC0242636436152AF246CD3275DD9 /* QRCodeReaderView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B720E820753C02585B13AEFA3E05E315 /* crypto_stream.h in Headers */ = {isa = PBXBuildFile; fileRef = 95C652232027B2305765599CB9D21EA8 /* crypto_stream.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B81CDE4E17BD882B639A529859EA7232 /* blake2b-compress-ssse3.h in Headers */ = {isa = PBXBuildFile; fileRef = E8ED8D8F58FBBBBCAE1BF1CD5A454768 /* blake2b-compress-ssse3.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -254,14 +254,14 @@
 		B95A2B8FA25CAC50E9734F1CB8C5BEB0 /* crypto_pwhash.h in Headers */ = {isa = PBXBuildFile; fileRef = D7A3D51503ACF8A7ACFBDD27D0745278 /* crypto_pwhash.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA5D0812B52994415A498B3606373582 /* u1.h in Headers */ = {isa = PBXBuildFile; fileRef = 5612E8E7235570865EEEEB36E13FDCFF /* u1.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		BC0319F54BCD536CED47F10407D271E6 /* crypto_stream.c in Sources */ = {isa = PBXBuildFile; fileRef = 016C9DBA9A0EAFF10FC2CD73EB61E0D6 /* crypto_stream.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		BD1A235DFB5FB70ED8BFBA08076F1F10 /* MQTTDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = B81C856CF153422B5218E06332972467 /* MQTTDecoder.m */; };
+		BD1A235DFB5FB70ED8BFBA08076F1F10 /* MQTTDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0558495E5DF24C430A4AB9A8B3BA0584 /* MQTTDecoder.m */; };
 		BD55173B7A37CDC519B0F34761FF4419 /* secretbox_xsalsa20poly1305.c in Sources */ = {isa = PBXBuildFile; fileRef = 4AA0CF4BD97F221483729CA1BCEB1EFF /* secretbox_xsalsa20poly1305.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BE9A022C0D93DB3E10116EF512B408D7 /* crypto_verify_64.h in Headers */ = {isa = PBXBuildFile; fileRef = C21839ADDC0A98044E31712973A67145 /* crypto_verify_64.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BF68453E0A6C85F7A6ED90159629FB40 /* ed25519_ref10.h in Headers */ = {isa = PBXBuildFile; fileRef = 48E405B2E568665E9426A068541C3F56 /* ed25519_ref10.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		C04082AC0AAB7253CC1054ADF74178FA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3060B66AE8FA8278BCD6A1195A3B7493 /* AVFoundation.framework */; };
 		C106C9D0D84773B90D1350E884BC8C0B /* crypto_box_curve25519xchacha20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = 725B5C5D2E0517C6136EE742241282FB /* crypto_box_curve25519xchacha20poly1305.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C14502EA132126EEA32E9FB3C1B7DE7F /* crypto_pwhash.c in Sources */ = {isa = PBXBuildFile; fileRef = A8D0178E89BAE2185DC7EAA204AAAF56 /* crypto_pwhash.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C148F01D84A3D7CAD2591403B93D984C /* MQTTMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 4428D5FF0D0E8EC4AD5624C39002E742 /* MQTTMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C148F01D84A3D7CAD2591403B93D984C /* MQTTMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 5BE5C56A929165530578BA1AF21AF629 /* MQTTMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C14D43DC2C53879C2BE40D8EE098F227 /* argon2-core.h in Headers */ = {isa = PBXBuildFile; fileRef = 24CCB5501CF1D87AFF090A80ADCE945C /* argon2-core.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		C2A3950504AB404C3B2446AC1CEAEA3C /* crypto_auth_hmacsha512.h in Headers */ = {isa = PBXBuildFile; fileRef = 97E7DB9ECC552C95D2A1C1C031E27255 /* crypto_auth_hmacsha512.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3130968E152EF492C8CB769B7E5E8F9 /* generichash_blake2b.c in Sources */ = {isa = PBXBuildFile; fileRef = D66447C20ACF79D782C880505DD3C274 /* generichash_blake2b.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -279,34 +279,34 @@
 		C858774035B92D95ADA3CCFD3C37E90F /* fe51.h in Headers */ = {isa = PBXBuildFile; fileRef = 1674C5AA701687EF72D032DCCED6CA1E /* fe51.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		C91B8EFA1B0B2110848841893335BEB9 /* randombytes_salsa20_random.h in Headers */ = {isa = PBXBuildFile; fileRef = B21E0B492BD53BE9603F2058FB43AC21 /* randombytes_salsa20_random.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C91E3DA5D4BFBAA21EFBF8BBB0CE6173 /* SocketRocket-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = EC6B492F4F8A9E57ED4DC9A9F071EEA8 /* SocketRocket-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C9568F58EEAB299F50DB4C25A2550CB7 /* MQTTLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F4FB2EE0B6512972A5A1FD69407559 /* MQTTLog.m */; };
+		C9568F58EEAB299F50DB4C25A2550CB7 /* MQTTLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E0A2BFEC1C5E1BDBBAD3B134DC48DB /* MQTTLog.m */; };
 		CBF2C4DBF59A35F343242AE6431C8ED2 /* QRCodeReaderViewController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 78F0FD3F84E67B719036C3124ADA3B6D /* QRCodeReaderViewController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CC870D61CBE8FD2A0D24A3A3D8CE5C62 /* CocoaLumberjack-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A7E55BD7F3A108C9C4495E93C94AE918 /* CocoaLumberjack-dummy.m */; };
 		CC9AAC42D425779ED720F5942BF78BD9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF401E12A927AF4663D4D2A146CD1259 /* Foundation.framework */; };
-		CCEA2087524F0922E29E3C053576DB53 /* MQTTCFSocketTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = A93D0B56DB04AD73638A2892A0E7228B /* MQTTCFSocketTransport.m */; };
-		CD607A43BF503077C1FF0058AE9CE4DA /* MQTTStrict.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BBF3E5CAB6DF3C1AA7011D1BF1751FD /* MQTTStrict.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CCEA2087524F0922E29E3C053576DB53 /* MQTTCFSocketTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F66E13DED0DC47DC4DEB4C0546BF4A /* MQTTCFSocketTransport.m */; };
+		CD607A43BF503077C1FF0058AE9CE4DA /* MQTTStrict.h in Headers */ = {isa = PBXBuildFile; fileRef = F34D5940436DF7C20CCFAB46351DEA40 /* MQTTStrict.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CDEC4EEFBFF1D666750F5F84B86B9FD5 /* crypto_kx.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A08A454C43F0A0638FFAF920BF7FC3D /* crypto_kx.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE0DDEB478F72FC416E2C6C52D0C2B29 /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = A81E31F3FE2665ECC43021C4F3BF403C /* DDDispatchQueueLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D05DA78C0B928B624B3F2031FDB16C0A /* randombytes_sysrandom.h in Headers */ = {isa = PBXBuildFile; fileRef = 34CC8AC0CCDDD9A6DBBE7E9643C0FE4B /* randombytes_sysrandom.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0AE2B051E26CC5B262406ECDE6C3C55 /* open.c in Sources */ = {isa = PBXBuildFile; fileRef = E5FE1E580D429CB519A903125F258A93 /* open.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D2127B991CF68FA72E00E8D74947DF33 /* QRCodeReaderDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = F1C2B0E569CB1FD5FA50772B8EEB8E14 /* QRCodeReaderDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D284BEF9C0C613DDB3935D54FE462D0C /* MQTTLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 84F5C4F357E53F272A7D26139E002F28 /* MQTTLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D284BEF9C0C613DDB3935D54FE462D0C /* MQTTLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FB0EC19661953655C8CCF25E9012C53 /* MQTTLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D3AD93489D6D8DB458840C6EE7892A3B /* ABStaticTableViewController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AD984FAFAC376149EF42072077C66B05 /* ABStaticTableViewController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D403200B2063EC83BDC42DCDC7B74BAA /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = C3F02B51325AC66838AAB7B5DB9AB8D9 /* SRWebSocket.m */; };
 		D5453909DD216F4AFF596850A3DE4FCF /* poly1305_donna.c in Sources */ = {isa = PBXBuildFile; fileRef = D0E4036EC6DBD84B97F13CFA7DB00BFE /* poly1305_donna.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D5D4A699779F1796A4F24BFE1FB94E20 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D62EA652659509EF4D192F615CCDEEA /* DDAbstractDatabaseLogger.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		D89F9414E7017267AA3E2867CC35F9DB /* crypto_stream_salsa208.h in Headers */ = {isa = PBXBuildFile; fileRef = 8D69528F7BE1DA4ACDAEA4A9FDDEBB7A /* crypto_stream_salsa208.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D8C95AC92204950B7EE6DFBDC716D797 /* crypto_core_salsa20.h in Headers */ = {isa = PBXBuildFile; fileRef = F8D8FE0CC52A1D16B26DD1871F2484FA /* crypto_core_salsa20.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D8E5EC411D0A0A661A7C81A95790251D /* MQTTSSLSecurityPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 868401D21A38EC45607520F61F5A9DF7 /* MQTTSSLSecurityPolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D8E5EC411D0A0A661A7C81A95790251D /* MQTTSSLSecurityPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 57A3A5380C07D774553051E4C9E68927 /* MQTTSSLSecurityPolicy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA7BC5F55C30B04142B7029667FE88F5 /* crypto_pwhash_scryptsalsa208sha256.h in Headers */ = {isa = PBXBuildFile; fileRef = 79B4062B6C4A633E1DBFCA5E28B5FBFF /* crypto_pwhash_scryptsalsa208sha256.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DA9B436408E2C274B67172AFA5CA8BC8 /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = 4579F42844BC471207EB8414793DD015 /* CocoaLumberjack.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DB0FAEEB5CE1CD69EA18E4F8F852E759 /* curve25519_sandy2x.c in Sources */ = {isa = PBXBuildFile; fileRef = 9910A2935711C4FB37BD0C3971EF7DF0 /* curve25519_sandy2x.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		DB54BEF7C1F0F5A2E29E6479DB4392D5 /* crypto_sign_ed25519.h in Headers */ = {isa = PBXBuildFile; fileRef = AC8775F61FB78B23177011A3FC6FE7CB /* crypto_sign_ed25519.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DB647A6497ED605FF0608B0F73F8C7D6 /* MQTTTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 95F973509286EB99558D63622CEB2FBA /* MQTTTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DB647A6497ED605FF0608B0F73F8C7D6 /* MQTTTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 36C3AB51A3B181E6FD69515C5FD8D058 /* MQTTTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DC44923BF11DDE1DF4A43E4BA0FA5404 /* GHArea.h in Headers */ = {isa = PBXBuildFile; fileRef = 7927541EEE67AFFD5AC603D060389AC1 /* GHArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DCBE7AF3E2813C2E370F0554CE7DD314 /* runtime.c in Sources */ = {isa = PBXBuildFile; fileRef = F3889BA34E7D1277988DB6A659640C4B /* runtime.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		DD66654526350CBBDD49E0FEA6C00060 /* crypto_hash.h in Headers */ = {isa = PBXBuildFile; fileRef = A6A764D4FED9B38D032992AF0B62CD9D /* crypto_hash.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DF0336EA17EE511F8F0D7806AC74CEA9 /* MQTTSessionLegacy.h in Headers */ = {isa = PBXBuildFile; fileRef = 8855C1FF512213D7C90C67490ED12745 /* MQTTSessionLegacy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DF0336EA17EE511F8F0D7806AC74CEA9 /* MQTTSessionLegacy.h in Headers */ = {isa = PBXBuildFile; fileRef = D751043EE61C704FCDF5F340B2F7B6C3 /* MQTTSessionLegacy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		DF5D609D3CD9D07B42493E87380DFA25 /* int128.h in Headers */ = {isa = PBXBuildFile; fileRef = 374448B1937BF49F945FC0EC5DE6DE36 /* int128.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		E013D3ABAE744071FE759A793C86E071 /* crypto_scalarmult.c in Sources */ = {isa = PBXBuildFile; fileRef = 817DBC3C658E782BE9874365B755C4AF /* crypto_scalarmult.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		E178D9DCC7569C338DA21578B1F10A33 /* u0.h in Headers */ = {isa = PBXBuildFile; fileRef = DE500169530832ECF44E59D069E4053B /* u0.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -334,7 +334,7 @@
 		ED396217C1F01CD19B0FE87C3E1414B0 /* hash_sha512.c in Sources */ = {isa = PBXBuildFile; fileRef = 573FC71F31C7EE1DA64233707DFF09E7 /* hash_sha512.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		EDF75CB56E38689C860609B918D121F8 /* crypto_auth_hmacsha512256.h in Headers */ = {isa = PBXBuildFile; fileRef = 6590DAF846F1CB109DE3889693673034 /* crypto_auth_hmacsha512256.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EE645BE8AF4CDEEDDD25ECB0A6D53E21 /* QRCodeReaderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F10EE579764C6B05552A819B514FA25 /* QRCodeReaderViewController.m */; };
-		EEBAC258DCA5A8C145EE6472D6F50E3C /* MQTTWebsocketTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A33528E1B71414260D661AA4E2EC3E9 /* MQTTWebsocketTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EEBAC258DCA5A8C145EE6472D6F50E3C /* MQTTWebsocketTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = EC423B01C4118E47E7F5B0164652CAC4 /* MQTTWebsocketTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EFA025B72A5751B648D0E89F4F027C9B /* core.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F3AFCDEEC21EA97EA28DC1166961FB1 /* core.c */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		F03712B3C30398F54C1A108901DFC8D2 /* crypto_scalarmult.h in Headers */ = {isa = PBXBuildFile; fileRef = 5365460AC81713B94305ABFF2FA7F856 /* crypto_scalarmult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F17D3D26ADE94380EAEE45707FDED798 /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = EBAFD15395BD38D0C968BF5AB2B30C21 /* DDASLLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -422,8 +422,10 @@
 /* Begin PBXFileReference section */
 		014923DECF1A6A5CCFF0B7A38D633728 /* argon2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = argon2.h; path = src/libsodium/crypto_pwhash/argon2/argon2.h; sourceTree = "<group>"; };
 		016C9DBA9A0EAFF10FC2CD73EB61E0D6 /* crypto_stream.c */ = {isa = PBXFileReference; includeInIndex = 1; name = crypto_stream.c; path = src/libsodium/crypto_stream/crypto_stream.c; sourceTree = "<group>"; };
+		0558495E5DF24C430A4AB9A8B3BA0584 /* MQTTDecoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTDecoder.m; path = MQTTClient/MQTTClient/MQTTDecoder.m; sourceTree = "<group>"; };
 		056D353EE2E2A805D7A512FE763A2449 /* DDASLLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDASLLogger.m; path = Classes/DDASLLogger.m; sourceTree = "<group>"; };
 		067B796A3327B048C7AD87AEEC1EE609 /* chacha20_ref.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = chacha20_ref.h; path = src/libsodium/crypto_stream/chacha20/ref/chacha20_ref.h; sourceTree = "<group>"; };
+		07611BF8A83D89548DFBF52709C94A02 /* MQTTSessionLegacy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSessionLegacy.m; path = MQTTClient/MQTTClient/MQTTSessionLegacy.m; sourceTree = "<group>"; };
 		0761B09E96DC9EFBBC04F4BE5FC83EAE /* hash_sha512_cp.c */ = {isa = PBXFileReference; includeInIndex = 1; name = hash_sha512_cp.c; path = src/libsodium/crypto_hash/sha512/cp/hash_sha512_cp.c; sourceTree = "<group>"; };
 		0790FAE6BCF0B88A52993DA35BFAF7B9 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDAbstractDatabaseLogger.h; path = Classes/DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
 		07F3F9B1AE2D2073C8BE8779270FBD32 /* poly1305_donna32.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = poly1305_donna32.h; path = src/libsodium/crypto_onetimeauth/poly1305/donna/poly1305_donna32.h; sourceTree = "<group>"; };
@@ -440,6 +442,7 @@
 		0DD5BB562C76798F64F4019FE7D37216 /* ladder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ladder.h; path = src/libsodium/crypto_scalarmult/curve25519/sandy2x/ladder.h; sourceTree = "<group>"; };
 		0F06BF0A8AD7FDCAA52D4D791469BAB3 /* chacha20_dolbeau-ssse3.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "chacha20_dolbeau-ssse3.h"; path = "src/libsodium/crypto_stream/chacha20/dolbeau/chacha20_dolbeau-ssse3.h"; sourceTree = "<group>"; };
 		0FDCE2B97F4CA1725585F524FFEA45EE /* GHRange.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GHRange.m; path = Classes/ARC/GHRange.m; sourceTree = "<group>"; };
+		10AD407E06E945E4ACCD442AABA64F36 /* MQTTClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTClient.h; path = MQTTClient/MQTTClient/MQTTClient.h; sourceTree = "<group>"; };
 		12B4403921CF037F264895781CA800F8 /* stream_xchacha20.c */ = {isa = PBXFileReference; includeInIndex = 1; name = stream_xchacha20.c; path = src/libsodium/crypto_stream/xchacha20/stream_xchacha20.c; sourceTree = "<group>"; };
 		12F7DE8C603DF17639A040942C73DAC6 /* x25519_ref10.c */ = {isa = PBXFileReference; includeInIndex = 1; name = x25519_ref10.c; path = src/libsodium/crypto_scalarmult/curve25519/ref10/x25519_ref10.c; sourceTree = "<group>"; };
 		13C204145A980729A24D75C467212011 /* mqttc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = mqttc.framework; path = mqttc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -452,34 +455,30 @@
 		164EB4A8C1B6E55DB803DF572D8637B0 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		1674C5AA701687EF72D032DCCED6CA1E /* fe51.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = fe51.h; path = src/libsodium/crypto_scalarmult/curve25519/sandy2x/fe51.h; sourceTree = "<group>"; };
 		17050F987B550B1516AE2AD50F9D0EDA /* ABStaticTableViewController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ABStaticTableViewController.framework; path = ABStaticTableViewController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		181EC6B3C420D5FAD0759B80DEFDE250 /* MQTTSSLSecurityPolicyEncoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSSLSecurityPolicyEncoder.m; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicyEncoder.m; sourceTree = "<group>"; };
 		185135A15950D17F42C323F0A73569D8 /* curve25519_donna_c64.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = curve25519_donna_c64.h; path = src/libsodium/crypto_scalarmult/curve25519/donna_c64/curve25519_donna_c64.h; sourceTree = "<group>"; };
 		187B2BA9589EFE17B3FA735DD6D15631 /* QRToggleTorchButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRToggleTorchButton.m; path = QRCodeReaderViewController/QRToggleTorchButton.m; sourceTree = "<group>"; };
 		18830646B435B7D022F72170D1ED096A /* DDLogMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLogMacros.h; path = Classes/DDLogMacros.h; sourceTree = "<group>"; };
-		1A0DFE75103834CD4C4ED8827A357F97 /* MQTTCoreDataPersistence.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTCoreDataPersistence.h; path = MQTTClient/MQTTClient/MQTTCoreDataPersistence.h; sourceTree = "<group>"; };
 		1A2FA437BFD07AA13B97D616BCC136EE /* ABStaticTableViewController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ABStaticTableViewController.xcconfig; sourceTree = "<group>"; };
+		1B0971407BA009503ACA6590834C62C2 /* MQTTSSLSecurityPolicyTransport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSSLSecurityPolicyTransport.h; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicyTransport.h; sourceTree = "<group>"; };
+		1B46C40668B7330EF03D8A94AA814820 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BB8B8D1871463B0C688EC0997012B4F /* objc-geohash-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "objc-geohash-prefix.pch"; sourceTree = "<group>"; };
-		1C047EAD3300C52AC0B321372747564C /* MQTTWebsocketTransport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTWebsocketTransport.m; path = MQTTClient/MQTTClient/MQTTWebsocketTransport/MQTTWebsocketTransport.m; sourceTree = "<group>"; };
 		1C29D947562D6BEEC9684D279D2B45D5 /* crypto_kdf.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_kdf.h; path = src/libsodium/include/sodium/crypto_kdf.h; sourceTree = "<group>"; };
 		1C327337FFFC2FA99AD6A7EB16B87F91 /* randombytes_nativeclient.c */ = {isa = PBXFileReference; includeInIndex = 1; name = randombytes_nativeclient.c; path = src/libsodium/randombytes/nativeclient/randombytes_nativeclient.c; sourceTree = "<group>"; };
 		1C8C08D93887BF8AB50824DDFD21F8AF /* crypto_aead_xchacha20poly1305.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_aead_xchacha20poly1305.h; path = src/libsodium/include/sodium/crypto_aead_xchacha20poly1305.h; sourceTree = "<group>"; };
 		1DFD70C588311CC7F6E39E3B76DCBDB6 /* crypto_shorthash_siphash24.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_shorthash_siphash24.h; path = src/libsodium/include/sodium/crypto_shorthash_siphash24.h; sourceTree = "<group>"; };
-		1FD822606653215CFF8D751CD3CE93BC /* MQTTSSLSecurityPolicyDecoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSSLSecurityPolicyDecoder.m; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicyDecoder.m; sourceTree = "<group>"; };
 		204F39B660E789BBD88EEB842865CA66 /* crypto_secretbox_xsalsa20poly1305.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_secretbox_xsalsa20poly1305.h; path = src/libsodium/include/sodium/crypto_secretbox_xsalsa20poly1305.h; sourceTree = "<group>"; };
+		204F64A639E470556940837D29BE564B /* MQTTCoreDataPersistence.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTCoreDataPersistence.m; path = MQTTClient/MQTTClient/MQTTCoreDataPersistence.m; sourceTree = "<group>"; };
 		22D039A910453CA20E13327843B91C45 /* shorthash_siphashx24.c */ = {isa = PBXFileReference; includeInIndex = 1; name = shorthash_siphashx24.c; path = src/libsodium/crypto_shorthash/siphash24/shorthash_siphashx24.c; sourceTree = "<group>"; };
-		22F4FB2EE0B6512972A5A1FD69407559 /* MQTTLog.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTLog.m; path = MQTTClient/MQTTClient/MQTTLog.m; sourceTree = "<group>"; };
+		22F66E13DED0DC47DC4DEB4C0546BF4A /* MQTTCFSocketTransport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTCFSocketTransport.m; path = MQTTClient/MQTTClient/MQTTCFSocketTransport.m; sourceTree = "<group>"; };
 		23CBEB954655CC9F9A3E82CC9962D8F5 /* GHNeighbors.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GHNeighbors.h; path = Classes/ARC/GHNeighbors.h; sourceTree = "<group>"; };
-		24AB1041D89873C1E01D5CFB055946E9 /* MQTTSessionLegacy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSessionLegacy.m; path = MQTTClient/MQTTClient/MQTTSessionLegacy.m; sourceTree = "<group>"; };
+		24CC34274120A687CE44A2B957C91814 /* MQTTTransport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTTransport.m; path = MQTTClient/MQTTClient/MQTTTransport.m; sourceTree = "<group>"; };
 		24CCB5501CF1D87AFF090A80ADCE945C /* argon2-core.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "argon2-core.h"; path = "src/libsodium/crypto_pwhash/argon2/argon2-core.h"; sourceTree = "<group>"; };
-		25395DBFFD09CB5F5865DBD968F32D5A /* MQTTSessionSynchron.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSessionSynchron.h; path = MQTTClient/MQTTClient/MQTTSessionSynchron.h; sourceTree = "<group>"; };
 		26E06CE5D7E92FC00785254E22934DDB /* DDAssertMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDAssertMacros.h; path = Classes/DDAssertMacros.h; sourceTree = "<group>"; };
 		2772A2128C0B95A25763178E29AAE750 /* pwhash_scryptsalsa208sha256_sse.c */ = {isa = PBXFileReference; includeInIndex = 1; name = pwhash_scryptsalsa208sha256_sse.c; path = src/libsodium/crypto_pwhash/scryptsalsa208sha256/sse/pwhash_scryptsalsa208sha256_sse.c; sourceTree = "<group>"; };
 		278C6896389598C1E19F7EDEA429E7F2 /* pbkdf2-sha256.c */ = {isa = PBXFileReference; includeInIndex = 1; name = "pbkdf2-sha256.c"; path = "src/libsodium/crypto_pwhash/scryptsalsa208sha256/pbkdf2-sha256.c"; sourceTree = "<group>"; };
 		2894746E9F78328ACAA3836125FD94A7 /* CocoaLumberjack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CocoaLumberjack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29C0C7AB24A06D044C6A9BE69B08A806 /* cgeohash.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = cgeohash.h; path = Classes/ARC/cgeohash.h; sourceTree = "<group>"; };
-		2A22B9F5EC251B57BBA58635D3380C1D /* MQTTMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTMessage.m; path = MQTTClient/MQTTClient/MQTTMessage.m; sourceTree = "<group>"; };
 		2B9A4876C749F2CE40E910DD7657E20D /* fe51_namespace.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = fe51_namespace.h; path = src/libsodium/crypto_scalarmult/curve25519/sandy2x/fe51_namespace.h; sourceTree = "<group>"; };
-		2BBF3E5CAB6DF3C1AA7011D1BF1751FD /* MQTTStrict.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTStrict.h; path = MQTTClient/MQTTClient/MQTTStrict.h; sourceTree = "<group>"; };
 		2BF7EDF6E4F8B01F4871D716AF2620DE /* QRCodeReaderViewController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "QRCodeReaderViewController-prefix.pch"; sourceTree = "<group>"; };
 		2C1F8B87BA846C2773BBFA8679343B23 /* crypto_onetimeauth_poly1305.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_onetimeauth_poly1305.h; path = src/libsodium/include/sodium/crypto_onetimeauth_poly1305.h; sourceTree = "<group>"; };
 		2C82B3ACF5857AE1846740EA3137FF5B /* poly1305_donna.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = poly1305_donna.h; path = src/libsodium/crypto_onetimeauth/poly1305/donna/poly1305_donna.h; sourceTree = "<group>"; };
@@ -493,24 +492,29 @@
 		30A07CA3EE28139307AF9AE5EBF7D4F0 /* QRCodeReaderViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReaderViewController.h; path = QRCodeReaderViewController/QRCodeReaderViewController.h; sourceTree = "<group>"; };
 		30DD6B96CDB618276B43F25220CC399F /* blake2b-compress-sse41.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "blake2b-compress-sse41.h"; path = "src/libsodium/crypto_generichash/blake2b/ref/blake2b-compress-sse41.h"; sourceTree = "<group>"; };
 		32DD5D000A2470A307DFB45DEDE33514 /* objc_geohash.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = objc_geohash.framework; path = "objc-geohash.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		33FB92DD0B8CA80D8C8D6D352FCF1956 /* MQTTCFSocketTransport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTCFSocketTransport.h; path = MQTTClient/MQTTClient/MQTTCFSocketTransport.h; sourceTree = "<group>"; };
 		34588A8424A6ADA67EC27D3A6A2D8F56 /* CocoaLumberjack-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CocoaLumberjack-prefix.pch"; sourceTree = "<group>"; };
 		34CC8AC0CCDDD9A6DBBE7E9643C0FE4B /* randombytes_sysrandom.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = randombytes_sysrandom.h; path = src/libsodium/include/sodium/randombytes_sysrandom.h; sourceTree = "<group>"; };
 		36958473DAF5BA3C171DD6358D87B4E7 /* crypto_sign.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_sign.h; path = src/libsodium/include/sodium/crypto_sign.h; sourceTree = "<group>"; };
+		36C3AB51A3B181E6FD69515C5FD8D058 /* MQTTTransport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTTransport.h; path = MQTTClient/MQTTClient/MQTTTransport.h; sourceTree = "<group>"; };
 		374448B1937BF49F945FC0EC5DE6DE36 /* int128.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = int128.h; path = src/libsodium/crypto_stream/aes128ctr/nacl/int128.h; sourceTree = "<group>"; };
 		3787F8DFAC109E03CB204BFAE69E89AD /* shorthash_siphash24.c */ = {isa = PBXFileReference; includeInIndex = 1; name = shorthash_siphash24.c; path = src/libsodium/crypto_shorthash/siphash24/shorthash_siphash24.c; sourceTree = "<group>"; };
 		37F1AC053565649E509E4BAD479F9DD2 /* DDContextFilterLogFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDContextFilterLogFormatter.h; path = Classes/Extensions/DDContextFilterLogFormatter.h; sourceTree = "<group>"; };
 		393E07C62C61B362309EA55A7B77B306 /* argon2-encoding.c */ = {isa = PBXFileReference; includeInIndex = 1; name = "argon2-encoding.c"; path = "src/libsodium/crypto_pwhash/argon2/argon2-encoding.c"; sourceTree = "<group>"; };
+		3958BCDD15D1973D1C9B9CDC76DE342E /* MQTTWebsocketTransport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTWebsocketTransport.m; path = MQTTClient/MQTTClient/MQTTWebsocketTransport/MQTTWebsocketTransport.m; sourceTree = "<group>"; };
 		3A7A142FE0522301A8A81575E96254E0 /* crypto_stream_chacha20.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_stream_chacha20.h; path = src/libsodium/include/sodium/crypto_stream_chacha20.h; sourceTree = "<group>"; };
 		3CFE685DED69BF2424DD2CE53B30C238 /* mutex.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = mutex.h; path = src/libsodium/include/sodium/private/mutex.h; sourceTree = "<group>"; };
 		3D431B982D0D26CE1F0B4B737DA481FD /* crypto_verify_16.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_verify_16.h; path = src/libsodium/include/sodium/crypto_verify_16.h; sourceTree = "<group>"; };
 		3E206331396078D752F1358AC9C6B8FC /* crypto_scrypt-common.c */ = {isa = PBXFileReference; includeInIndex = 1; name = "crypto_scrypt-common.c"; path = "src/libsodium/crypto_pwhash/scryptsalsa208sha256/crypto_scrypt-common.c"; sourceTree = "<group>"; };
+		3E7B69CF680503317A99DC7744E64A57 /* MQTTSSLSecurityPolicyDecoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSSLSecurityPolicyDecoder.h; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicyDecoder.h; sourceTree = "<group>"; };
 		3FE6591EE00A5258427FEA5AA764B962 /* keypair.c */ = {isa = PBXFileReference; includeInIndex = 1; name = keypair.c; path = src/libsodium/crypto_sign/ed25519/ref10/keypair.c; sourceTree = "<group>"; };
 		425A4DBF5F92F98C005D9D585495A517 /* GeoHash.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GeoHash.m; path = Classes/ARC/GeoHash.m; sourceTree = "<group>"; };
 		43A6106955B5034E44725FE2393BCD3F /* crypto_generichash_blake2b.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_generichash_blake2b.h; path = src/libsodium/include/sodium/crypto_generichash_blake2b.h; sourceTree = "<group>"; };
-		4428D5FF0D0E8EC4AD5624C39002E742 /* MQTTMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTMessage.h; path = MQTTClient/MQTTClient/MQTTMessage.h; sourceTree = "<group>"; };
+		449DAC63915D7F4E65D9759D8B4EE9B7 /* MQTTCFSocketDecoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTCFSocketDecoder.m; path = MQTTClient/MQTTClient/MQTTCFSocketDecoder.m; sourceTree = "<group>"; };
 		44A6B5AFD278E83ABABCB4AB49A8D9D0 /* crypto_kdf_blake2b.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_kdf_blake2b.h; path = src/libsodium/include/sodium/crypto_kdf_blake2b.h; sourceTree = "<group>"; };
 		4572ACC165F01B037ABBB4CF051DE9EB /* libsodium.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = libsodium.xcconfig; sourceTree = "<group>"; };
 		4579F42844BC471207EB8414793DD015 /* CocoaLumberjack.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CocoaLumberjack.h; path = Classes/CocoaLumberjack.h; sourceTree = "<group>"; };
+		45E0A2BFEC1C5E1BDBBAD3B134DC48DB /* MQTTLog.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTLog.m; path = MQTTClient/MQTTClient/MQTTLog.m; sourceTree = "<group>"; };
 		46AA7EC7ACB42D42505D4023838334B6 /* argon2-fill-block-ssse3.c */ = {isa = PBXFileReference; includeInIndex = 1; name = "argon2-fill-block-ssse3.c"; path = "src/libsodium/crypto_pwhash/argon2/argon2-fill-block-ssse3.c"; sourceTree = "<group>"; };
 		482C04FA4CA8129FA82CF6827FC76344 /* argon2-fill-block-ref.c */ = {isa = PBXFileReference; includeInIndex = 1; name = "argon2-fill-block-ref.c"; path = "src/libsodium/crypto_pwhash/argon2/argon2-fill-block-ref.c"; sourceTree = "<group>"; };
 		48E405B2E568665E9426A068541C3F56 /* ed25519_ref10.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ed25519_ref10.h; path = src/libsodium/crypto_sign/ed25519/ref10/ed25519_ref10.h; sourceTree = "<group>"; };
@@ -519,12 +523,13 @@
 		4A99D96F66F4AD736E895BB2D0348794 /* randombytes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = randombytes.h; path = src/libsodium/include/sodium/randombytes.h; sourceTree = "<group>"; };
 		4AA0CF4BD97F221483729CA1BCEB1EFF /* secretbox_xsalsa20poly1305.c */ = {isa = PBXFileReference; includeInIndex = 1; name = secretbox_xsalsa20poly1305.c; path = src/libsodium/crypto_secretbox/xsalsa20poly1305/secretbox_xsalsa20poly1305.c; sourceTree = "<group>"; };
 		4B28EB374B6037A70696FA46A925FCC9 /* objc-geohash-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "objc-geohash-umbrella.h"; sourceTree = "<group>"; };
-		4B4C650C225B6933A01BAD0867A0931A /* MQTTSSLSecurityPolicyEncoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSSLSecurityPolicyEncoder.h; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicyEncoder.h; sourceTree = "<group>"; };
+		4CFD7DFFF704BF2C66D7519F8DE939F4 /* MQTTMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTMessage.m; path = MQTTClient/MQTTClient/MQTTMessage.m; sourceTree = "<group>"; };
+		4D668DEDB561DFB8B8999D89D5BD33BB /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		4E59D31C2264A9F76150665BC161F258 /* core_salsa_ref.c */ = {isa = PBXFileReference; includeInIndex = 1; name = core_salsa_ref.c; path = src/libsodium/crypto_core/salsa/ref/core_salsa_ref.c; sourceTree = "<group>"; };
 		4F14331452A25EC2E161028BEE1F8134 /* QRCodeReader.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCodeReader.m; path = QRCodeReaderViewController/QRCodeReader.m; sourceTree = "<group>"; };
+		4F37A8CFD06662233B067D6B60AC5AAD /* MQTTInMemoryPersistence.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTInMemoryPersistence.m; path = MQTTClient/MQTTClient/MQTTInMemoryPersistence.m; sourceTree = "<group>"; };
 		4F94BC45FC41238E11F8B0AA135EF414 /* stream_salsa208.c */ = {isa = PBXFileReference; includeInIndex = 1; name = stream_salsa208.c; path = src/libsodium/crypto_stream/salsa208/stream_salsa208.c; sourceTree = "<group>"; };
 		4FC7F2DC5AEC8382EF1E5F6722F4D65C /* hash_sha256_cp.c */ = {isa = PBXFileReference; includeInIndex = 1; name = hash_sha256_cp.c; path = src/libsodium/crypto_hash/sha256/cp/hash_sha256_cp.c; sourceTree = "<group>"; };
-		4FE610A2DB88B0494BC495CE6A7304B3 /* MQTTSession.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSession.m; path = MQTTClient/MQTTClient/MQTTSession.m; sourceTree = "<group>"; };
 		5014575A29284CE64ED53CBD571DBEBC /* crypto_generichash.c */ = {isa = PBXFileReference; includeInIndex = 1; name = crypto_generichash.c; path = src/libsodium/crypto_generichash/crypto_generichash.c; sourceTree = "<group>"; };
 		52A1EFD5658BE7473F59B584F99E6F30 /* core_hsalsa20.c */ = {isa = PBXFileReference; includeInIndex = 1; name = core_hsalsa20.c; path = src/libsodium/crypto_core/hsalsa20/core_hsalsa20.c; sourceTree = "<group>"; };
 		52F9977B8EEA6DA9A05F4E675E5993CB /* blamka-round-ref.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "blamka-round-ref.h"; path = "src/libsodium/crypto_pwhash/argon2/blamka-round-ref.h"; sourceTree = "<group>"; };
@@ -535,7 +540,6 @@
 		54E7F0585812738D6FC63224014E8BDF /* salsa20_xmm6int-avx2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "salsa20_xmm6int-avx2.h"; path = "src/libsodium/crypto_stream/salsa20/xmm6int/salsa20_xmm6int-avx2.h"; sourceTree = "<group>"; };
 		554E871C10B1DFBDB4FBD3B22FA49773 /* salsa20_xmm6.c */ = {isa = PBXFileReference; includeInIndex = 1; name = salsa20_xmm6.c; path = src/libsodium/crypto_stream/salsa20/xmm6/salsa20_xmm6.c; sourceTree = "<group>"; };
 		5556EB944421D19791089C8DB21DB437 /* onetimeauth_poly1305.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = onetimeauth_poly1305.h; path = src/libsodium/crypto_onetimeauth/poly1305/onetimeauth_poly1305.h; sourceTree = "<group>"; };
-		55A1F62F5E1A275824186087614E7D2C /* MQTTSSLSecurityPolicyTransport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSSLSecurityPolicyTransport.m; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicyTransport.m; sourceTree = "<group>"; };
 		55B6031B6CC41507B8EFA96D3EC86591 /* libsodium.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = libsodium.modulemap; sourceTree = "<group>"; };
 		5612E8E7235570865EEEEB36E13FDCFF /* u1.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = u1.h; path = src/libsodium/crypto_stream/chacha20/dolbeau/u1.h; sourceTree = "<group>"; };
 		5641F27171E92A3AD94B99F44BF0BAE2 /* ladder_base_namespace.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ladder_base_namespace.h; path = src/libsodium/crypto_scalarmult/curve25519/sandy2x/ladder_base_namespace.h; sourceTree = "<group>"; };
@@ -543,15 +547,16 @@
 		56D172DF21FB5C90AB9B7FDD84AB71FE /* QRCameraSwitchButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCameraSwitchButton.m; path = QRCodeReaderViewController/QRCameraSwitchButton.m; sourceTree = "<group>"; };
 		573FC71F31C7EE1DA64233707DFF09E7 /* hash_sha512.c */ = {isa = PBXFileReference; includeInIndex = 1; name = hash_sha512.c; path = src/libsodium/crypto_hash/sha512/hash_sha512.c; sourceTree = "<group>"; };
 		5751D68EBBE15AB2B129596492CD9C84 /* stream_salsa2012_ref.c */ = {isa = PBXFileReference; includeInIndex = 1; name = stream_salsa2012_ref.c; path = src/libsodium/crypto_stream/salsa2012/ref/stream_salsa2012_ref.c; sourceTree = "<group>"; };
+		57A3A5380C07D774553051E4C9E68927 /* MQTTSSLSecurityPolicy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSSLSecurityPolicy.h; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicy.h; sourceTree = "<group>"; };
 		591E2FEC8B43A935FE369D0368459BB9 /* scrypt_platform.c */ = {isa = PBXFileReference; includeInIndex = 1; name = scrypt_platform.c; path = src/libsodium/crypto_pwhash/scryptsalsa208sha256/scrypt_platform.c; sourceTree = "<group>"; };
 		5A31F1D713E5FD91EF3E496F885B3B25 /* u1.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = u1.h; path = src/libsodium/crypto_stream/salsa20/xmm6int/u1.h; sourceTree = "<group>"; };
+		5AD3E237C343E2385890173EA52EEAE1 /* MQTTSSLSecurityPolicyDecoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSSLSecurityPolicyDecoder.m; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicyDecoder.m; sourceTree = "<group>"; };
 		5B0918D6FE694E6F5ABF76B63E24FAD6 /* utils.c */ = {isa = PBXFileReference; includeInIndex = 1; name = utils.c; path = src/libsodium/sodium/utils.c; sourceTree = "<group>"; };
-		5B4B2E19841A78355AB636F273DC8999 /* MQTTDecoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTDecoder.h; path = MQTTClient/MQTTClient/MQTTDecoder.h; sourceTree = "<group>"; };
 		5B72F5B6F5E88C55C6732F1AE4046692 /* objc-geohash.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "objc-geohash.xcconfig"; sourceTree = "<group>"; };
+		5BE5C56A929165530578BA1AF21AF629 /* MQTTMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTMessage.h; path = MQTTClient/MQTTClient/MQTTMessage.h; sourceTree = "<group>"; };
 		5BEAA1D54492C9FC75B52F1AE1BB532B /* runtime.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = runtime.h; path = src/libsodium/include/sodium/runtime.h; sourceTree = "<group>"; };
 		5C538638E574BD7B822FDC7B42D8D7A7 /* DDLegacyMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLegacyMacros.h; path = Classes/DDLegacyMacros.h; sourceTree = "<group>"; };
 		5D16622A1F6CB8610D84302D7931C247 /* SocketRocket.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SocketRocket.framework; path = SocketRocket.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5E1C1D25AEC928C6F7ADBD83FD3F8A17 /* MQTTSSLSecurityPolicy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSSLSecurityPolicy.m; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicy.m; sourceTree = "<group>"; };
 		5EF9A3A3D10D0A539A6657115B26D69C /* libsodium.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = libsodium.framework; path = libsodium.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F32A3BB5F1AAF6664A6ACF8A9F25C1C /* curve25519_donna_c64.c */ = {isa = PBXFileReference; includeInIndex = 1; name = curve25519_donna_c64.c; path = src/libsodium/crypto_scalarmult/curve25519/donna_c64/curve25519_donna_c64.c; sourceTree = "<group>"; };
 		5F4A2AA0EF1FDFA144FE7FC7AC90A0E5 /* stream_aes128ctr_nacl.c */ = {isa = PBXFileReference; includeInIndex = 1; name = stream_aes128ctr_nacl.c; path = src/libsodium/crypto_stream/aes128ctr/nacl/stream_aes128ctr_nacl.c; sourceTree = "<group>"; };
@@ -560,19 +565,22 @@
 		61DF75DC8648B8F0C7F1A51E912EFF8A /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDDispatchQueueLogFormatter.m; path = Classes/Extensions/DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
 		62556885DDFD04B93B3F38714ADBA1D4 /* crypto_secretbox.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_secretbox.h; path = src/libsodium/include/sodium/crypto_secretbox.h; sourceTree = "<group>"; };
 		633FC17B0069CF6A1B76C34F5DD6AEF8 /* crypto_verify_32.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_verify_32.h; path = src/libsodium/include/sodium/crypto_verify_32.h; sourceTree = "<group>"; };
+		637299387A7CA5055E81430AB494B262 /* mqttc-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "mqttc-umbrella.h"; sourceTree = "<group>"; };
 		63FDA119312CC453FB3747C139D34ED1 /* Pods_OwnTracks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_OwnTracks.framework; path = "Pods-OwnTracks.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		64A9923BE7EBE5F8036D64707DCB4142 /* core_hsalsa20_ref2.c */ = {isa = PBXFileReference; includeInIndex = 1; name = core_hsalsa20_ref2.c; path = src/libsodium/crypto_core/hsalsa20/ref2/core_hsalsa20_ref2.c; sourceTree = "<group>"; };
 		6590DAF846F1CB109DE3889693673034 /* crypto_auth_hmacsha512256.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_auth_hmacsha512256.h; path = src/libsodium/include/sodium/crypto_auth_hmacsha512256.h; sourceTree = "<group>"; };
-		691323F5DA3E82076EB6EF4FFCA46047 /* MQTTCFSocketDecoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTCFSocketDecoder.h; path = MQTTClient/MQTTClient/MQTTCFSocketDecoder.h; sourceTree = "<group>"; };
-		69A4807D48F15C4747DB82F09C971566 /* MQTTSSLSecurityPolicyTransport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSSLSecurityPolicyTransport.h; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicyTransport.h; sourceTree = "<group>"; };
+		6932C8C105D5B91C6D1DE09978286A21 /* MQTTProperties.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTProperties.h; path = MQTTClient/MQTTClient/MQTTProperties.h; sourceTree = "<group>"; };
 		69E8FE7A0CEDA55BFC44C3B3FD0F396D /* cgeohash.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = cgeohash.m; path = Classes/ARC/cgeohash.m; sourceTree = "<group>"; };
 		6A08A454C43F0A0638FFAF920BF7FC3D /* crypto_kx.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_kx.h; path = src/libsodium/include/sodium/crypto_kx.h; sourceTree = "<group>"; };
 		6B0531548D268DCB323693E5ADEA4004 /* DDLog.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLog.h; path = Classes/DDLog.h; sourceTree = "<group>"; };
+		6C03F1D3CE83413A5617C1D8BFB05A50 /* MQTTCFSocketDecoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTCFSocketDecoder.h; path = MQTTClient/MQTTClient/MQTTCFSocketDecoder.h; sourceTree = "<group>"; };
 		6D62EA652659509EF4D192F615CCDEEA /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDAbstractDatabaseLogger.m; path = Classes/DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
+		6D6D3EEC0609FFEE162D333639389861 /* mqttc.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = mqttc.modulemap; sourceTree = "<group>"; };
 		6D78B20727DDD84E61F690486274E6F6 /* DDOSLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDOSLogger.m; path = Classes/DDOSLogger.m; sourceTree = "<group>"; };
 		6DE83294A5DC7799DEBB92B7C9420BB5 /* Pods-OwnTracks-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-OwnTracks-frameworks.sh"; sourceTree = "<group>"; };
 		6FC9C4E36D022FA67578319EC3B72AC2 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		70028CF62D7D2F60E5EF7304F916E479 /* verify.c */ = {isa = PBXFileReference; includeInIndex = 1; name = verify.c; path = src/libsodium/crypto_verify/sodium/verify.c; sourceTree = "<group>"; };
+		7002A3178E28B36F6A9314FF3F1CAFDF /* MQTTInMemoryPersistence.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTInMemoryPersistence.h; path = MQTTClient/MQTTClient/MQTTInMemoryPersistence.h; sourceTree = "<group>"; };
 		7017EA0DE6EB8F06E541736A497294F7 /* crypto_secretbox_easy.c */ = {isa = PBXFileReference; includeInIndex = 1; name = crypto_secretbox_easy.c; path = src/libsodium/crypto_secretbox/crypto_secretbox_easy.c; sourceTree = "<group>"; };
 		7087A7FC3BF9D7A35FE2F1AE75F235AF /* version.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = version.h; path = src/libsodium/include/sodium/version.h; sourceTree = "<group>"; };
 		713257EE13013CAB9A46D9A33AC396F4 /* crypto_box_seal.c */ = {isa = PBXFileReference; includeInIndex = 1; name = crypto_box_seal.c; path = src/libsodium/crypto_box/crypto_box_seal.c; sourceTree = "<group>"; };
@@ -583,7 +591,6 @@
 		726AA94F1A41C34D7A37DB0C612E4B59 /* QRToggleTorchButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRToggleTorchButton.h; path = QRCodeReaderViewController/QRToggleTorchButton.h; sourceTree = "<group>"; };
 		72A1E53667D1DC065A91654C4DAB9901 /* crypto_onetimeauth.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_onetimeauth.h; path = src/libsodium/include/sodium/crypto_onetimeauth.h; sourceTree = "<group>"; };
 		72A4BE03BB0F1480E80EBF20C7E8DEAD /* crypto_core_hsalsa20.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_core_hsalsa20.h; path = src/libsodium/include/sodium/crypto_core_hsalsa20.h; sourceTree = "<group>"; };
-		72D801549DEF55974139C1DA698FE54A /* MQTTClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTClient.h; path = MQTTClient/MQTTClient/MQTTClient.h; sourceTree = "<group>"; };
 		73188082446E5EEB370331411C0C8044 /* salsa20_xmm6int-sse2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "salsa20_xmm6int-sse2.h"; path = "src/libsodium/crypto_stream/salsa20/xmm6int/salsa20_xmm6int-sse2.h"; sourceTree = "<group>"; };
 		73266D9877981ACD90FF678E745AA91F /* stream_aes128ctr.c */ = {isa = PBXFileReference; includeInIndex = 1; name = stream_aes128ctr.c; path = src/libsodium/crypto_stream/aes128ctr/stream_aes128ctr.c; sourceTree = "<group>"; };
 		75AF1431A26DC36A9643D0D30BC7062C /* crypto_hash_sha512.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_hash_sha512.h; path = src/libsodium/include/sodium/crypto_hash_sha512.h; sourceTree = "<group>"; };
@@ -599,42 +606,39 @@
 		79E9E6C80B62BD3C26D56138C8404F98 /* blake2b-compress-avx2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "blake2b-compress-avx2.h"; path = "src/libsodium/crypto_generichash/blake2b/ref/blake2b-compress-avx2.h"; sourceTree = "<group>"; };
 		79EC450F81F5DD0A561A455E8E7315FA /* DDFileLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDFileLogger.m; path = Classes/DDFileLogger.m; sourceTree = "<group>"; };
 		7A2B1638BC2885C437B981BBF2977A57 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7A33528E1B71414260D661AA4E2EC3E9 /* MQTTWebsocketTransport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTWebsocketTransport.h; path = MQTTClient/MQTTClient/MQTTWebsocketTransport/MQTTWebsocketTransport.h; sourceTree = "<group>"; };
 		7A767614C1623EBEF00310AE7749C15D /* argon2-core.c */ = {isa = PBXFileReference; includeInIndex = 1; name = "argon2-core.c"; path = "src/libsodium/crypto_pwhash/argon2/argon2-core.c"; sourceTree = "<group>"; };
 		7A812453AB3EF52CC5F33705DDA27773 /* Pods-OwnTracks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OwnTracks.debug.xcconfig"; sourceTree = "<group>"; };
 		7AD1713518AA8560AE083AE5F683BF7D /* blake2b-compress-sse41.c */ = {isa = PBXFileReference; includeInIndex = 1; name = "blake2b-compress-sse41.c"; path = "src/libsodium/crypto_generichash/blake2b/ref/blake2b-compress-sse41.c"; sourceTree = "<group>"; };
-		7AF19B101F914629C2642360F0612232 /* MQTTProperties.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTProperties.m; path = MQTTClient/MQTTClient/MQTTProperties.m; sourceTree = "<group>"; };
 		7C59374AEF45F828ECE26654BC894D4C /* QRCameraSwitchButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCameraSwitchButton.h; path = QRCodeReaderViewController/QRCameraSwitchButton.h; sourceTree = "<group>"; };
 		7CB2E8F3E4C0A211C65FC845007ED80F /* u8.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = u8.h; path = src/libsodium/crypto_stream/salsa20/xmm6int/u8.h; sourceTree = "<group>"; };
 		7DD531307297B8EE1A496DBF817B5A76 /* GHArea.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GHArea.m; path = Classes/ARC/GHArea.m; sourceTree = "<group>"; };
+		7FB0EC19661953655C8CCF25E9012C53 /* MQTTLog.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTLog.h; path = MQTTClient/MQTTClient/MQTTLog.h; sourceTree = "<group>"; };
 		80E5B39289CD99E2DEDA77D34ED869D9 /* crypto_box.c */ = {isa = PBXFileReference; includeInIndex = 1; name = crypto_box.c; path = src/libsodium/crypto_box/crypto_box.c; sourceTree = "<group>"; };
 		817DBC3C658E782BE9874365B755C4AF /* crypto_scalarmult.c */ = {isa = PBXFileReference; includeInIndex = 1; name = crypto_scalarmult.c; path = src/libsodium/crypto_scalarmult/crypto_scalarmult.c; sourceTree = "<group>"; };
+		8181290F03181A474608C2BBCD73B2D6 /* MQTTSessionSynchron.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSessionSynchron.h; path = MQTTClient/MQTTClient/MQTTSessionSynchron.h; sourceTree = "<group>"; };
+		820E37371EB13655DDC063B4DE65DFC5 /* mqttc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = mqttc.xcconfig; sourceTree = "<group>"; };
 		82344505FBD013D93C723ABE69C03A63 /* CocoaLumberjack-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "CocoaLumberjack-umbrella.h"; sourceTree = "<group>"; };
 		8260D5EBA02CA185B58E84EA412D7A8E /* randombytes_nativeclient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = randombytes_nativeclient.h; path = src/libsodium/include/sodium/randombytes_nativeclient.h; sourceTree = "<group>"; };
-		828C060CD37B6E3AAABB31769BC19919 /* mqttc-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "mqttc-prefix.pch"; sourceTree = "<group>"; };
-		84F5C4F357E53F272A7D26139E002F28 /* MQTTLog.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTLog.h; path = MQTTClient/MQTTClient/MQTTLog.h; sourceTree = "<group>"; };
 		856825948A3124D3B44A649D4D933E97 /* crypto_scrypt.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_scrypt.h; path = src/libsodium/crypto_pwhash/scryptsalsa208sha256/crypto_scrypt.h; sourceTree = "<group>"; };
 		85AD4429839DB0783A867BDBC789617E /* kdf_blake2b.c */ = {isa = PBXFileReference; includeInIndex = 1; name = kdf_blake2b.c; path = src/libsodium/crypto_kdf/blake2b/kdf_blake2b.c; sourceTree = "<group>"; };
 		85B14DB15108B755B736FF76BADDD100 /* QRCodeReaderViewController.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = QRCodeReaderViewController.xcconfig; sourceTree = "<group>"; };
 		86344011679953920A0425BED616BA67 /* DDTTYLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDTTYLogger.h; path = Classes/DDTTYLogger.h; sourceTree = "<group>"; };
-		868401D21A38EC45607520F61F5A9DF7 /* MQTTSSLSecurityPolicy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSSLSecurityPolicy.h; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicy.h; sourceTree = "<group>"; };
 		8843C0732EEC774038FA11BF7A599ECB /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8855C1FF512213D7C90C67490ED12745 /* MQTTSessionLegacy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSessionLegacy.h; path = MQTTClient/MQTTClient/MQTTSessionLegacy.h; sourceTree = "<group>"; };
 		88CD270B6D3694CE039EC487CE6DAD5E /* salsa20_ref.c */ = {isa = PBXFileReference; includeInIndex = 1; name = salsa20_ref.c; path = src/libsodium/crypto_stream/salsa20/ref/salsa20_ref.c; sourceTree = "<group>"; };
 		8945A6897E677CFBBFC8F73AFB14720A /* crypto_scalarmult_curve25519.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_scalarmult_curve25519.h; path = src/libsodium/include/sodium/crypto_scalarmult_curve25519.h; sourceTree = "<group>"; };
 		8A7A392C875F37B837435DF1F2546395 /* hash_sha256.c */ = {isa = PBXFileReference; includeInIndex = 1; name = hash_sha256.c; path = src/libsodium/crypto_hash/sha256/hash_sha256.c; sourceTree = "<group>"; };
 		8A8594893501A3F3F60699D636825525 /* crypto_hash.c */ = {isa = PBXFileReference; includeInIndex = 1; name = crypto_hash.c; path = src/libsodium/crypto_hash/crypto_hash.c; sourceTree = "<group>"; };
-		8C4EE19A1BF88F5FCAAEB848CC36F018 /* MQTTTransport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTTransport.m; path = MQTTClient/MQTTClient/MQTTTransport.m; sourceTree = "<group>"; };
 		8C64056D2382C9D2F0DBA2B9A2553CF3 /* salsa20_xmm6int-sse2.c */ = {isa = PBXFileReference; includeInIndex = 1; name = "salsa20_xmm6int-sse2.c"; path = "src/libsodium/crypto_stream/salsa20/xmm6int/salsa20_xmm6int-sse2.c"; sourceTree = "<group>"; };
 		8D69528F7BE1DA4ACDAEA4A9FDDEBB7A /* crypto_stream_salsa208.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_stream_salsa208.h; path = src/libsodium/include/sodium/crypto_stream_salsa208.h; sourceTree = "<group>"; };
 		8DAE6D54EED7E91861A08D66C17129FA /* u4.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = u4.h; path = src/libsodium/crypto_stream/chacha20/dolbeau/u4.h; sourceTree = "<group>"; };
 		8DE64DA461D6D0FBA76D103C617C4985 /* objc-geohash.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "objc-geohash.modulemap"; sourceTree = "<group>"; };
-		8EB6CD14238944F172F620CE8D882F64 /* mqttc-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "mqttc-dummy.m"; sourceTree = "<group>"; };
 		8F3AFCDEEC21EA97EA28DC1166961FB1 /* core.c */ = {isa = PBXFileReference; includeInIndex = 1; name = core.c; path = src/libsodium/sodium/core.c; sourceTree = "<group>"; };
+		9027D6F72D9542CAFFFA681B3385A6F0 /* MQTTSSLSecurityPolicyEncoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSSLSecurityPolicyEncoder.m; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicyEncoder.m; sourceTree = "<group>"; };
 		908177425DE3C342A3DEF3A72108881B /* DDASLLogCapture.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDASLLogCapture.m; path = Classes/DDASLLogCapture.m; sourceTree = "<group>"; };
 		90B412F44E7C6B9799A9A3A71F665431 /* SocketRocket.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SocketRocket.modulemap; sourceTree = "<group>"; };
 		9161DFE3B7BEEA487BBD9679E218887A /* common.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = common.h; path = src/libsodium/include/sodium/private/common.h; sourceTree = "<group>"; };
 		91C28658209DA40CBB645B24CF075A69 /* DDTTYLogger.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDTTYLogger.m; path = Classes/DDTTYLogger.m; sourceTree = "<group>"; };
+		92BEB7D51B2214AC95A95EB822AA6BD2 /* mqttc-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "mqttc-dummy.m"; sourceTree = "<group>"; };
 		92BEF208E7D5EA410075C644B5B99635 /* beforenm_aes128ctr.c */ = {isa = PBXFileReference; includeInIndex = 1; name = beforenm_aes128ctr.c; path = src/libsodium/crypto_stream/aes128ctr/nacl/beforenm_aes128ctr.c; sourceTree = "<group>"; };
 		939ADBE3B6B63FB793AA1A97C11DA567 /* Pods-OwnTracks.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-OwnTracks.modulemap"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -643,12 +647,9 @@
 		95713EB0CDFF57213182F5A00C031B28 /* base.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = base.h; path = src/libsodium/crypto_core/curve25519/ref10/base.h; sourceTree = "<group>"; };
 		95C537937536426AB01011B59A0CEE38 /* QRCodeReaderViewController.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = QRCodeReaderViewController.modulemap; sourceTree = "<group>"; };
 		95C652232027B2305765599CB9D21EA8 /* crypto_stream.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_stream.h; path = src/libsodium/include/sodium/crypto_stream.h; sourceTree = "<group>"; };
-		95F4F3EBA2F63E9253ACB276808354CB /* mqttc.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = mqttc.modulemap; sourceTree = "<group>"; };
-		95F973509286EB99558D63622CEB2FBA /* MQTTTransport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTTransport.h; path = MQTTClient/MQTTClient/MQTTTransport.h; sourceTree = "<group>"; };
 		9617B6C57552860B7BFEFFA11F195B38 /* crypto_auth.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_auth.h; path = src/libsodium/include/sodium/crypto_auth.h; sourceTree = "<group>"; };
 		96680E95C095E7400C7F82D93597DEC1 /* auth_hmacsha256.c */ = {isa = PBXFileReference; includeInIndex = 1; name = auth_hmacsha256.c; path = src/libsodium/crypto_auth/hmacsha256/auth_hmacsha256.c; sourceTree = "<group>"; };
 		96ED5548A113E1AC23006D24EE9212E7 /* Pods-OwnTracks-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-OwnTracks-acknowledgements.markdown"; sourceTree = "<group>"; };
-		97BD3DF2F1334F8F128414E839B2004B /* mqttc-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "mqttc-umbrella.h"; sourceTree = "<group>"; };
 		97D27415BB6FC66E94DF20F64C3DF15C /* pbkdf2-sha256.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "pbkdf2-sha256.h"; path = "src/libsodium/crypto_pwhash/scryptsalsa208sha256/pbkdf2-sha256.h"; sourceTree = "<group>"; };
 		97E7DB9ECC552C95D2A1C1C031E27255 /* crypto_auth_hmacsha512.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_auth_hmacsha512.h; path = src/libsodium/include/sodium/crypto_auth_hmacsha512.h; sourceTree = "<group>"; };
 		985343ACCF6F7021F6330DF1D060B7D6 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -656,22 +657,22 @@
 		9910A2935711C4FB37BD0C3971EF7DF0 /* curve25519_sandy2x.c */ = {isa = PBXFileReference; includeInIndex = 1; name = curve25519_sandy2x.c; path = src/libsodium/crypto_scalarmult/curve25519/sandy2x/curve25519_sandy2x.c; sourceTree = "<group>"; };
 		9914D849866226EB467023D979982EB4 /* x25519_ref10.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = x25519_ref10.h; path = src/libsodium/crypto_scalarmult/curve25519/ref10/x25519_ref10.h; sourceTree = "<group>"; };
 		99829E11E6C63267ADB15374637C793E /* DDContextFilterLogFormatter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDContextFilterLogFormatter.m; path = Classes/Extensions/DDContextFilterLogFormatter.m; sourceTree = "<group>"; };
-		9987C1A32FB89CD5E33749915EC2D60A /* MQTTCFSocketEncoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTCFSocketEncoder.m; path = MQTTClient/MQTTClient/MQTTCFSocketEncoder.m; sourceTree = "<group>"; };
 		99D2F502C605563FDD50D46E48944D49 /* blake2b-long.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "blake2b-long.h"; path = "src/libsodium/crypto_pwhash/argon2/blake2b-long.h"; sourceTree = "<group>"; };
-		9BC104A903F57CEDE91D78E5B95CBDED /* MQTTSSLSecurityPolicyDecoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSSLSecurityPolicyDecoder.h; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicyDecoder.h; sourceTree = "<group>"; };
 		9C1DCBE470F8C6376AA9B0DFF84B669C /* crypto_stream_xsalsa20.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_stream_xsalsa20.h; path = src/libsodium/include/sodium/crypto_stream_xsalsa20.h; sourceTree = "<group>"; };
 		9C4AC339BD1E79E5D84C3389738C68FF /* crypto_sign.c */ = {isa = PBXFileReference; includeInIndex = 1; name = crypto_sign.c; path = src/libsodium/crypto_sign/crypto_sign.c; sourceTree = "<group>"; };
 		9CCF867C77B8AA151F31221ED6F77A95 /* fe51_invert.c */ = {isa = PBXFileReference; includeInIndex = 1; name = fe51_invert.c; path = src/libsodium/crypto_scalarmult/curve25519/sandy2x/fe51_invert.c; sourceTree = "<group>"; };
 		9CFF060986F8953917E42FE68C2FC681 /* crypto_hash_sha256.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_hash_sha256.h; path = src/libsodium/include/sodium/crypto_hash_sha256.h; sourceTree = "<group>"; };
 		9E46DF5482709FA2FF326BFD3878D9EB /* chacha20_dolbeau-avx2.c */ = {isa = PBXFileReference; includeInIndex = 1; name = "chacha20_dolbeau-avx2.c"; path = "src/libsodium/crypto_stream/chacha20/dolbeau/chacha20_dolbeau-avx2.c"; sourceTree = "<group>"; };
 		9E558657CEC3FCB4FD7DB1B182779751 /* libsodium-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "libsodium-prefix.pch"; sourceTree = "<group>"; };
+		9EF9451BB2C56246C89310ABAA0584D6 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		9F10EE579764C6B05552A819B514FA25 /* QRCodeReaderViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = QRCodeReaderViewController.m; path = QRCodeReaderViewController/QRCodeReaderViewController.m; sourceTree = "<group>"; };
+		A003E8C3FA58055A35738762C2A2EA08 /* MQTTStrict.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTStrict.m; path = MQTTClient/MQTTClient/MQTTStrict.m; sourceTree = "<group>"; };
 		A0A4E7F423E2387E994EF63A3E0FA1A2 /* SocketRocket-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-prefix.pch"; sourceTree = "<group>"; };
 		A1B2CFD5452136F31F570F27B2494D96 /* box_curve25519xchacha20poly1305.c */ = {isa = PBXFileReference; includeInIndex = 1; name = box_curve25519xchacha20poly1305.c; path = src/libsodium/crypto_box/curve25519xchacha20poly1305/box_curve25519xchacha20poly1305.c; sourceTree = "<group>"; };
 		A1C2C73017B6B7CC04106930149C0F80 /* crypto_aead_aes256gcm.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_aead_aes256gcm.h; path = src/libsodium/include/sodium/crypto_aead_aes256gcm.h; sourceTree = "<group>"; };
 		A21E3E6D04C9ED5CB96FF01395CF70B9 /* generichash_blake2.c */ = {isa = PBXFileReference; includeInIndex = 1; name = generichash_blake2.c; path = src/libsodium/crypto_generichash/blake2b/generichash_blake2.c; sourceTree = "<group>"; };
 		A26EFA3E42859E4FAD94AED9BB7D4DB6 /* stream_salsa20.c */ = {isa = PBXFileReference; includeInIndex = 1; name = stream_salsa20.c; path = src/libsodium/crypto_stream/salsa20/stream_salsa20.c; sourceTree = "<group>"; };
-		A298D0EEB65522FEDF99FF70DD15FACF /* MQTTSessionSynchron.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSessionSynchron.m; path = MQTTClient/MQTTClient/MQTTSessionSynchron.m; sourceTree = "<group>"; };
+		A2D1857FCF83914A38F85E5469112899 /* MQTTCFSocketEncoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTCFSocketEncoder.m; path = MQTTClient/MQTTClient/MQTTCFSocketEncoder.m; sourceTree = "<group>"; };
 		A2ED0AE6FF346DC62CA4832F8AFC27DB /* stream_salsa208_ref.c */ = {isa = PBXFileReference; includeInIndex = 1; name = stream_salsa208_ref.c; path = src/libsodium/crypto_stream/salsa208/ref/stream_salsa208_ref.c; sourceTree = "<group>"; };
 		A53ED89538C7C26AD6D28A143B2A3593 /* blake2b-ref.c */ = {isa = PBXFileReference; includeInIndex = 1; name = "blake2b-ref.c"; path = "src/libsodium/crypto_generichash/blake2b/ref/blake2b-ref.c"; sourceTree = "<group>"; };
 		A5B8CB99AC2562D0217211215A71BFE4 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -683,43 +684,46 @@
 		A81E31F3FE2665ECC43021C4F3BF403C /* DDDispatchQueueLogFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDDispatchQueueLogFormatter.h; path = Classes/Extensions/DDDispatchQueueLogFormatter.h; sourceTree = "<group>"; };
 		A8CE9942583FB2377E4758C893996676 /* crypto_sign_edwards25519sha512batch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_sign_edwards25519sha512batch.h; path = src/libsodium/include/sodium/crypto_sign_edwards25519sha512batch.h; sourceTree = "<group>"; };
 		A8D0178E89BAE2185DC7EAA204AAAF56 /* crypto_pwhash.c */ = {isa = PBXFileReference; includeInIndex = 1; name = crypto_pwhash.c; path = src/libsodium/crypto_pwhash/crypto_pwhash.c; sourceTree = "<group>"; };
-		A93D0B56DB04AD73638A2892A0E7228B /* MQTTCFSocketTransport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTCFSocketTransport.m; path = MQTTClient/MQTTClient/MQTTCFSocketTransport.m; sourceTree = "<group>"; };
 		AA816308CFA2E0965C16142CBDD2714A /* stream_salsa20.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = stream_salsa20.h; path = src/libsodium/crypto_stream/salsa20/stream_salsa20.h; sourceTree = "<group>"; };
 		AA8E5CCA615F9C27810D80D2FDF7881D /* sign.c */ = {isa = PBXFileReference; includeInIndex = 1; name = sign.c; path = src/libsodium/crypto_sign/ed25519/ref10/sign.c; sourceTree = "<group>"; };
 		AC5017EA87128C9983529AF0A92FDEB0 /* DDOSLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDOSLogger.h; path = Classes/DDOSLogger.h; sourceTree = "<group>"; };
 		AC8775F61FB78B23177011A3FC6FE7CB /* crypto_sign_ed25519.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_sign_ed25519.h; path = src/libsodium/include/sodium/crypto_sign_ed25519.h; sourceTree = "<group>"; };
 		AD984FAFAC376149EF42072077C66B05 /* ABStaticTableViewController-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ABStaticTableViewController-umbrella.h"; sourceTree = "<group>"; };
 		AF7C94C6DB4ADEB4C403A69E584827BE /* randombytes_salsa20_random.c */ = {isa = PBXFileReference; includeInIndex = 1; name = randombytes_salsa20_random.c; path = src/libsodium/randombytes/salsa20/randombytes_salsa20_random.c; sourceTree = "<group>"; };
+		B036FACEDF6FA01DEB99A944AE5EAD6E /* MQTTCoreDataPersistence.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTCoreDataPersistence.h; path = MQTTClient/MQTTClient/MQTTCoreDataPersistence.h; sourceTree = "<group>"; };
 		B21E0B492BD53BE9603F2058FB43AC21 /* randombytes_salsa20_random.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = randombytes_salsa20_random.h; path = src/libsodium/include/sodium/randombytes_salsa20_random.h; sourceTree = "<group>"; };
 		B2F7892F3F077B8402D39B296E3EC552 /* GHRange.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GHRange.h; path = Classes/ARC/GHRange.h; sourceTree = "<group>"; };
 		B358A92A3DEDAEC9FDBBE7EC5C04C8BF /* randombytes.c */ = {isa = PBXFileReference; includeInIndex = 1; name = randombytes.c; path = src/libsodium/randombytes/randombytes.c; sourceTree = "<group>"; };
 		B3C2296BD5710498C8C7899A83FCE095 /* curve25519_sandy2x.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = curve25519_sandy2x.h; path = src/libsodium/crypto_scalarmult/curve25519/sandy2x/curve25519_sandy2x.h; sourceTree = "<group>"; };
 		B41AD8B6F67235E4050DDD6E9474D523 /* afternm_aes128ctr.c */ = {isa = PBXFileReference; includeInIndex = 1; name = afternm_aes128ctr.c; path = src/libsodium/crypto_stream/aes128ctr/nacl/afternm_aes128ctr.c; sourceTree = "<group>"; };
+		B4C7F800D5076FC9376482376796B91F /* MQTTCFSocketEncoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTCFSocketEncoder.h; path = MQTTClient/MQTTClient/MQTTCFSocketEncoder.h; sourceTree = "<group>"; };
 		B56A554A4DF3F0234692C70FD7DF16A1 /* DDFileLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDFileLogger.h; path = Classes/DDFileLogger.h; sourceTree = "<group>"; };
 		B5EB808F89CF0183D351E72D87CA1757 /* stream_salsa2012.c */ = {isa = PBXFileReference; includeInIndex = 1; name = stream_salsa2012.c; path = src/libsodium/crypto_stream/salsa2012/stream_salsa2012.c; sourceTree = "<group>"; };
 		B6A39FBEC50F1ACB8A48FEC95E2C2F89 /* crypto_secretbox.c */ = {isa = PBXFileReference; includeInIndex = 1; name = crypto_secretbox.c; path = src/libsodium/crypto_secretbox/crypto_secretbox.c; sourceTree = "<group>"; };
 		B7166BDC1F58D5C03D0D24FFC556BA94 /* crypto_aead_chacha20poly1305.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_aead_chacha20poly1305.h; path = src/libsodium/include/sodium/crypto_aead_chacha20poly1305.h; sourceTree = "<group>"; };
 		B7769C609198DDA84DAA5286C7E89733 /* curve25519_ref10.c */ = {isa = PBXFileReference; includeInIndex = 1; name = curve25519_ref10.c; path = src/libsodium/crypto_core/curve25519/ref10/curve25519_ref10.c; sourceTree = "<group>"; };
 		B7D76D72CFCBBACAE2444CF557674C35 /* DDLog.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = DDLog.m; path = Classes/DDLog.m; sourceTree = "<group>"; };
-		B81C856CF153422B5218E06332972467 /* MQTTDecoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTDecoder.m; path = MQTTClient/MQTTClient/MQTTDecoder.m; sourceTree = "<group>"; };
 		B8E7D1703DD2FE97ECE3DF73A11E464D /* sse2_64_32.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = sse2_64_32.h; path = src/libsodium/include/sodium/private/sse2_64_32.h; sourceTree = "<group>"; };
 		B9FC6F433DA89DA8F284A006BFD1207C /* crypto_secretbox_xchacha20poly1305.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_secretbox_xchacha20poly1305.h; path = src/libsodium/include/sodium/crypto_secretbox_xchacha20poly1305.h; sourceTree = "<group>"; };
+		BC5E8DF8AFAEAB6D8A1FE538BE921FE6 /* MQTTSession.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSession.m; path = MQTTClient/MQTTClient/MQTTSession.m; sourceTree = "<group>"; };
 		BDFF15885ED85C17D0FC8D7451289819 /* Pods-OwnTracks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-OwnTracks.release.xcconfig"; sourceTree = "<group>"; };
 		C00AAEEB6550F2633460679B990E8A4B /* u4.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = u4.h; path = src/libsodium/crypto_stream/salsa20/xmm6int/u4.h; sourceTree = "<group>"; };
 		C097E29F58F65F68AF840F2327C66EB2 /* crypto_shorthash.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_shorthash.h; path = src/libsodium/include/sodium/crypto_shorthash.h; sourceTree = "<group>"; };
+		C200FD8BFD9E1CBA36A9790A5348A575 /* mqttc-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "mqttc-prefix.pch"; sourceTree = "<group>"; };
 		C20E756D32AF68DAE0F03D3CD9FCD81F /* salsa20_ref.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = salsa20_ref.h; path = src/libsodium/crypto_stream/salsa20/ref/salsa20_ref.h; sourceTree = "<group>"; };
 		C21839ADDC0A98044E31712973A67145 /* crypto_verify_64.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_verify_64.h; path = src/libsodium/include/sodium/crypto_verify_64.h; sourceTree = "<group>"; };
 		C3F02B51325AC66838AAB7B5DB9AB8D9 /* SRWebSocket.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SRWebSocket.m; path = SocketRocket/SRWebSocket.m; sourceTree = "<group>"; };
 		C3F52E18C7305A4C20A57D078F2630C0 /* ABStaticTableViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ABStaticTableViewController.h; sourceTree = "<group>"; };
 		C4F7B1E3BC69A7122C5F8BEA32717B1A /* ladder_namespace.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ladder_namespace.h; path = src/libsodium/crypto_scalarmult/curve25519/sandy2x/ladder_namespace.h; sourceTree = "<group>"; };
-		C51C2CD7B6A44C8697799D887F585D7A /* MQTTPersistence.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTPersistence.h; path = MQTTClient/MQTTClient/MQTTPersistence.h; sourceTree = "<group>"; };
 		C5B3183AF9DD694A004216B0DD89977D /* poly1305_donna64.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = poly1305_donna64.h; path = src/libsodium/crypto_onetimeauth/poly1305/donna/poly1305_donna64.h; sourceTree = "<group>"; };
 		C5C84AF7D8D40047EE92158B6EF16760 /* Pods-OwnTracks-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-OwnTracks-dummy.m"; sourceTree = "<group>"; };
 		C60FBAAD886C791C7E257EDBA5135424 /* blake2b-compress-ssse3.c */ = {isa = PBXFileReference; includeInIndex = 1; name = "blake2b-compress-ssse3.c"; path = "src/libsodium/crypto_generichash/blake2b/ref/blake2b-compress-ssse3.c"; sourceTree = "<group>"; };
 		C71249923B97D40A49A661DF9D99A185 /* shorthash_siphashx24_ref.c */ = {isa = PBXFileReference; includeInIndex = 1; name = shorthash_siphashx24_ref.c; path = src/libsodium/crypto_shorthash/siphash24/ref/shorthash_siphashx24_ref.c; sourceTree = "<group>"; };
 		C82DFFB28C15594D264BF1AE1FA8566F /* fe.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = fe.h; path = src/libsodium/crypto_scalarmult/curve25519/sandy2x/fe.h; sourceTree = "<group>"; };
+		C8482D0B259DB83CA243743EC9F01008 /* MQTTSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSession.h; path = MQTTClient/MQTTClient/MQTTSession.h; sourceTree = "<group>"; };
 		C8BAC55B6FE1749860CDF230B6A2C7FB /* curve25519_ref10.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = curve25519_ref10.h; path = src/libsodium/include/sodium/private/curve25519_ref10.h; sourceTree = "<group>"; };
 		CAA8976FA0F88476389D06DC284C0CBC /* ABStaticTableViewController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ABStaticTableViewController-prefix.pch"; sourceTree = "<group>"; };
+		CB7CC9A9A2A343B411D49F8C2B6F3C06 /* MQTTPersistence.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTPersistence.h; path = MQTTClient/MQTTClient/MQTTPersistence.h; sourceTree = "<group>"; };
 		CDC6A586D3048CB8ACDC4F543321B8A5 /* crypto_box_curve25519xsalsa20poly1305.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_box_curve25519xsalsa20poly1305.h; path = src/libsodium/include/sodium/crypto_box_curve25519xsalsa20poly1305.h; sourceTree = "<group>"; };
 		CF43B4A3074579F725EBB7FA7801A521 /* aead_xchacha20poly1305.c */ = {isa = PBXFileReference; includeInIndex = 1; name = aead_xchacha20poly1305.c; path = src/libsodium/crypto_aead/xchacha20poly1305/sodium/aead_xchacha20poly1305.c; sourceTree = "<group>"; };
 		D0E4036EC6DBD84B97F13CFA7DB00BFE /* poly1305_donna.c */ = {isa = PBXFileReference; includeInIndex = 1; name = poly1305_donna.c; path = src/libsodium/crypto_onetimeauth/poly1305/donna/poly1305_donna.c; sourceTree = "<group>"; };
@@ -734,40 +738,41 @@
 		D4FB00C99A994616A6448CD727775290 /* crypto_onetimeauth.c */ = {isa = PBXFileReference; includeInIndex = 1; name = crypto_onetimeauth.c; path = src/libsodium/crypto_onetimeauth/crypto_onetimeauth.c; sourceTree = "<group>"; };
 		D57E314619BBE850CC87B31ECBBB4909 /* auth_hmacsha512256.c */ = {isa = PBXFileReference; includeInIndex = 1; name = auth_hmacsha512256.c; path = src/libsodium/crypto_auth/hmacsha512256/auth_hmacsha512256.c; sourceTree = "<group>"; };
 		D66447C20ACF79D782C880505DD3C274 /* generichash_blake2b.c */ = {isa = PBXFileReference; includeInIndex = 1; name = generichash_blake2b.c; path = src/libsodium/crypto_generichash/blake2b/ref/generichash_blake2b.c; sourceTree = "<group>"; };
-		D74E70469E347EC7EF8D9C6DF1BF31E9 /* MQTTCFSocketDecoder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTCFSocketDecoder.m; path = MQTTClient/MQTTClient/MQTTCFSocketDecoder.m; sourceTree = "<group>"; };
+		D751043EE61C704FCDF5F340B2F7B6C3 /* MQTTSessionLegacy.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSessionLegacy.h; path = MQTTClient/MQTTClient/MQTTSessionLegacy.h; sourceTree = "<group>"; };
 		D7A3D51503ACF8A7ACFBDD27D0745278 /* crypto_pwhash.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_pwhash.h; path = src/libsodium/include/sodium/crypto_pwhash.h; sourceTree = "<group>"; };
 		D81B6D693992121D9CEA80A258005EE4 /* auth_hmacsha512.c */ = {isa = PBXFileReference; includeInIndex = 1; name = auth_hmacsha512.c; path = src/libsodium/crypto_auth/hmacsha512/auth_hmacsha512.c; sourceTree = "<group>"; };
 		D892D9A564FB26825F95973FF90B2215 /* chacha20_dolbeau-avx2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "chacha20_dolbeau-avx2.h"; path = "src/libsodium/crypto_stream/chacha20/dolbeau/chacha20_dolbeau-avx2.h"; sourceTree = "<group>"; };
-		D9177C6FC22542B0D46BA7AE10AD9AF3 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D96D3DC1FB8E1179EE4A5B7D5FC204EC /* MQTTSSLSecurityPolicy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSSLSecurityPolicy.m; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicy.m; sourceTree = "<group>"; };
 		D995BBFC221559829C0F312ABF0F1A23 /* SocketRocket.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SocketRocket.xcconfig; sourceTree = "<group>"; };
 		D9A69CC9CD5D25A691178E7ADFAAE2F0 /* shorthash_siphash24_ref.c */ = {isa = PBXFileReference; includeInIndex = 1; name = shorthash_siphash24_ref.c; path = src/libsodium/crypto_shorthash/siphash24/ref/shorthash_siphash24_ref.c; sourceTree = "<group>"; };
 		DA1CA7A38F5350D3BF90343CEBF65997 /* poly1305_sse2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = poly1305_sse2.h; path = src/libsodium/crypto_onetimeauth/poly1305/sse2/poly1305_sse2.h; sourceTree = "<group>"; };
 		DAC1D0846EB7DD89F77007BDAEF096D3 /* blake2b-compress-ref.c */ = {isa = PBXFileReference; includeInIndex = 1; name = "blake2b-compress-ref.c"; path = "src/libsodium/crypto_generichash/blake2b/ref/blake2b-compress-ref.c"; sourceTree = "<group>"; };
 		DD1709C02F9FE49D84D0D609C5EDE178 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD8BFD4B78F5EAA956D65918558E1578 /* mqttc.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = mqttc.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		DE500169530832ECF44E59D069E4053B /* u0.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = u0.h; path = src/libsodium/crypto_stream/chacha20/dolbeau/u0.h; sourceTree = "<group>"; };
 		DF17E42A100BD975E625E78C0564116C /* blake2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = blake2.h; path = src/libsodium/crypto_generichash/blake2b/ref/blake2.h; sourceTree = "<group>"; };
+		E0A3C08B8322528DFDBA3180C6B5B081 /* MQTTDecoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTDecoder.h; path = MQTTClient/MQTTClient/MQTTDecoder.h; sourceTree = "<group>"; };
 		E0DA325E7C4D61B6C157A391C2FEFDA7 /* CocoaLumberjack.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = CocoaLumberjack.modulemap; sourceTree = "<group>"; };
 		E12A2A8AB1F4F42E70A5DDF53B30E2FB /* GHNeighbors.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GHNeighbors.m; path = Classes/ARC/GHNeighbors.m; sourceTree = "<group>"; };
 		E15378B915274D39AE42FADB71C85525 /* crypto_core_salsa208.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_core_salsa208.h; path = src/libsodium/include/sodium/crypto_core_salsa208.h; sourceTree = "<group>"; };
 		E196341C4CB8202DA562FFF93A310271 /* shorthash_siphash_ref.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = shorthash_siphash_ref.h; path = src/libsodium/crypto_shorthash/siphash24/ref/shorthash_siphash_ref.h; sourceTree = "<group>"; };
 		E24D665F26C88FE8F9F68D97254BE145 /* SocketRocket-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SocketRocket-dummy.m"; sourceTree = "<group>"; };
-		E26057ACFDE42CF210A9232E9DC074FE /* MQTTProperties.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTProperties.h; path = MQTTClient/MQTTClient/MQTTProperties.h; sourceTree = "<group>"; };
 		E383998EBA66BC4C46BDB7B3F50A3EBC /* poly1305_sse2.c */ = {isa = PBXFileReference; includeInIndex = 1; name = poly1305_sse2.c; path = src/libsodium/crypto_onetimeauth/poly1305/sse2/poly1305_sse2.c; sourceTree = "<group>"; };
+		E4132EDE4A3CE32A12EE83081D537D84 /* MQTTSSLSecurityPolicyTransport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSSLSecurityPolicyTransport.m; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicyTransport.m; sourceTree = "<group>"; };
 		E5FE1E580D429CB519A903125F258A93 /* open.c */ = {isa = PBXFileReference; includeInIndex = 1; name = open.c; path = src/libsodium/crypto_sign/ed25519/ref10/open.c; sourceTree = "<group>"; };
-		E6D0119597F0C4EF82653397F8244F06 /* MQTTSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSession.h; path = MQTTClient/MQTTClient/MQTTSession.h; sourceTree = "<group>"; };
-		E7550524F8E0F26CB5A8DB253671EED8 /* MQTTInMemoryPersistence.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTInMemoryPersistence.h; path = MQTTClient/MQTTClient/MQTTInMemoryPersistence.h; sourceTree = "<group>"; };
+		E62618AED97E52166FB477F26FAD72E1 /* MQTTProperties.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTProperties.m; path = MQTTClient/MQTTClient/MQTTProperties.m; sourceTree = "<group>"; };
 		E868224202AF8A2F5714969301DA105D /* consts_aes128ctr.c */ = {isa = PBXFileReference; includeInIndex = 1; name = consts_aes128ctr.c; path = src/libsodium/crypto_stream/aes128ctr/nacl/consts_aes128ctr.c; sourceTree = "<group>"; };
 		E8ED8D8F58FBBBBCAE1BF1CD5A454768 /* blake2b-compress-ssse3.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "blake2b-compress-ssse3.h"; path = "src/libsodium/crypto_generichash/blake2b/ref/blake2b-compress-ssse3.h"; sourceTree = "<group>"; };
 		E91AB5777337C0C7B390F8791518E022 /* objc-geohash-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "objc-geohash-dummy.m"; sourceTree = "<group>"; };
 		EA05D4726E8BCE073BC1AFD1B4E5F049 /* crypto_generichash.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_generichash.h; path = src/libsodium/include/sodium/crypto_generichash.h; sourceTree = "<group>"; };
 		EA40C84DE9AF4A352CD13A07BBE817DE /* crypto_box_easy.c */ = {isa = PBXFileReference; includeInIndex = 1; name = crypto_box_easy.c; path = src/libsodium/crypto_box/crypto_box_easy.c; sourceTree = "<group>"; };
-		EAAFCA36C75C88FFA70C6A3D9EF96C8D /* MQTTCFSocketEncoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTCFSocketEncoder.h; path = MQTTClient/MQTTClient/MQTTCFSocketEncoder.h; sourceTree = "<group>"; };
 		EAC6F6B880FF964F3D07F7FB801C002F /* DDASLLogCapture.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDASLLogCapture.h; path = Classes/DDASLLogCapture.h; sourceTree = "<group>"; };
+		EACB9347819D9BB275BB87B5E470AE02 /* MQTTSSLSecurityPolicyEncoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTSSLSecurityPolicyEncoder.h; path = MQTTClient/MQTTClient/MQTTSSLSecurityPolicyEncoder.h; sourceTree = "<group>"; };
 		EAF8C21FB9DA7D1D57E7BA68BE77FFE2 /* libsodium-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "libsodium-dummy.m"; sourceTree = "<group>"; };
-		EBADAE1B9C2867C6F784DF9954E83D0B /* MQTTStrict.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTStrict.m; path = MQTTClient/MQTTClient/MQTTStrict.m; sourceTree = "<group>"; };
 		EBAFD15395BD38D0C968BF5AB2B30C21 /* DDASLLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDASLLogger.h; path = Classes/DDASLLogger.h; sourceTree = "<group>"; };
 		EC16A7370923560757F461371495E395 /* secretbox_xchacha20poly1305.c */ = {isa = PBXFileReference; includeInIndex = 1; name = secretbox_xchacha20poly1305.c; path = src/libsodium/crypto_secretbox/xchacha20poly1305/secretbox_xchacha20poly1305.c; sourceTree = "<group>"; };
 		EC25E84D943F1D18C10768ABE9D33AD2 /* stream_xsalsa20.c */ = {isa = PBXFileReference; includeInIndex = 1; name = stream_xsalsa20.c; path = src/libsodium/crypto_stream/xsalsa20/stream_xsalsa20.c; sourceTree = "<group>"; };
+		EC423B01C4118E47E7F5B0164652CAC4 /* MQTTWebsocketTransport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTWebsocketTransport.h; path = MQTTClient/MQTTClient/MQTTWebsocketTransport/MQTTWebsocketTransport.h; sourceTree = "<group>"; };
 		EC6B492F4F8A9E57ED4DC9A9F071EEA8 /* SocketRocket-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-umbrella.h"; sourceTree = "<group>"; };
 		EC6EC20359CCD420A38645B1009C67E7 /* base2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = base2.h; path = src/libsodium/crypto_core/curve25519/ref10/base2.h; sourceTree = "<group>"; };
 		ECEA9BE2DD11FB4C4CA0667AEC8C1004 /* libsodium-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "libsodium-umbrella.h"; sourceTree = "<group>"; };
@@ -777,7 +782,6 @@
 		EFBD4B84D6738837B740BF9379F68E4F /* SRWebSocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SRWebSocket.h; path = SocketRocket/SRWebSocket.h; sourceTree = "<group>"; };
 		F0366FB33A21396D9E325AC362AF1222 /* CocoaLumberjack.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = CocoaLumberjack.xcconfig; sourceTree = "<group>"; };
 		F064ECE532C500D6A0FABDDBEE68E374 /* export.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = export.h; path = src/libsodium/include/sodium/export.h; sourceTree = "<group>"; };
-		F09B91F12ABD5EFD8D56D24A683E1ED4 /* MQTTCFSocketTransport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTCFSocketTransport.h; path = MQTTClient/MQTTClient/MQTTCFSocketTransport.h; sourceTree = "<group>"; };
 		F0A353BD9C93B1D61455BAE245260F85 /* salsa20_xmm6.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = salsa20_xmm6.h; path = src/libsodium/crypto_stream/salsa20/xmm6/salsa20_xmm6.h; sourceTree = "<group>"; };
 		F0FDF28C437E5E131D4AF1677CF1D060 /* u0.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = u0.h; path = src/libsodium/crypto_stream/salsa20/xmm6int/u0.h; sourceTree = "<group>"; };
 		F11B440D4CBE53FCE1ADF35847FC4FAC /* aead_chacha20poly1305.c */ = {isa = PBXFileReference; includeInIndex = 1; name = aead_chacha20poly1305.c; path = src/libsodium/crypto_aead/chacha20poly1305/sodium/aead_chacha20poly1305.c; sourceTree = "<group>"; };
@@ -786,10 +790,9 @@
 		F2439EFD7F6BD309855132BBC1BB1C50 /* SocketRocket.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SocketRocket.h; path = SocketRocket/SocketRocket.h; sourceTree = "<group>"; };
 		F253ED600E87DC225BDD76B26247713D /* QRCodeReader.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = QRCodeReader.h; path = QRCodeReaderViewController/QRCodeReader.h; sourceTree = "<group>"; };
 		F2E86A9E8F5782BCA64A814B9C0C5412 /* aead_aes256gcm_aesni.c */ = {isa = PBXFileReference; includeInIndex = 1; name = aead_aes256gcm_aesni.c; path = src/libsodium/crypto_aead/aes256gcm/aesni/aead_aes256gcm_aesni.c; sourceTree = "<group>"; };
+		F34D5940436DF7C20CCFAB46351DEA40 /* MQTTStrict.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MQTTStrict.h; path = MQTTClient/MQTTClient/MQTTStrict.h; sourceTree = "<group>"; };
 		F3889BA34E7D1277988DB6A659640C4B /* runtime.c */ = {isa = PBXFileReference; includeInIndex = 1; name = runtime.c; path = src/libsodium/sodium/runtime.c; sourceTree = "<group>"; };
-		F615CD79A906FCDDD59FDB2F11B29CE4 /* MQTTInMemoryPersistence.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTInMemoryPersistence.m; path = MQTTClient/MQTTClient/MQTTInMemoryPersistence.m; sourceTree = "<group>"; };
 		F6F44D9227AAA3DDA6777DE04EBF2571 /* Pods-OwnTracks-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-OwnTracks-acknowledgements.plist"; sourceTree = "<group>"; };
-		F7285161B8F478D9278FD28447C5FAF8 /* mqttc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = mqttc.xcconfig; sourceTree = "<group>"; };
 		F7DFD92DBFB1B4E44A34A51A27E3D0F5 /* salsa20_xmm6int-avx2.c */ = {isa = PBXFileReference; includeInIndex = 1; name = "salsa20_xmm6int-avx2.c"; path = "src/libsodium/crypto_stream/salsa20/xmm6int/salsa20_xmm6int-avx2.c"; sourceTree = "<group>"; };
 		F85ADBE0166514B67C33868F22B787DF /* pwhash_scryptsalsa208sha256.c */ = {isa = PBXFileReference; includeInIndex = 1; name = pwhash_scryptsalsa208sha256.c; path = src/libsodium/crypto_pwhash/scryptsalsa208sha256/pwhash_scryptsalsa208sha256.c; sourceTree = "<group>"; };
 		F8D8FE0CC52A1D16B26DD1871F2484FA /* crypto_core_salsa20.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_core_salsa20.h; path = src/libsodium/include/sodium/crypto_core_salsa20.h; sourceTree = "<group>"; };
@@ -797,7 +800,7 @@
 		FA26D937242F48215BBE373FA484466B /* scalarmult_curve25519.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = scalarmult_curve25519.h; path = src/libsodium/crypto_scalarmult/curve25519/scalarmult_curve25519.h; sourceTree = "<group>"; };
 		FA7E5A893028279AD3ECD5573238501B /* sodium.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = sodium.h; path = src/libsodium/include/sodium.h; sourceTree = "<group>"; };
 		FB31931545EF56CEBEF8F5AB446DAC04 /* int128_aes128ctr.c */ = {isa = PBXFileReference; includeInIndex = 1; name = int128_aes128ctr.c; path = src/libsodium/crypto_stream/aes128ctr/nacl/int128_aes128ctr.c; sourceTree = "<group>"; };
-		FCD07991780A0B2F6BEF4E7DB0C61E92 /* MQTTCoreDataPersistence.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTCoreDataPersistence.m; path = MQTTClient/MQTTClient/MQTTCoreDataPersistence.m; sourceTree = "<group>"; };
+		FD1210A6990A52447FBC77CF9C56690C /* MQTTSessionSynchron.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTSessionSynchron.m; path = MQTTClient/MQTTClient/MQTTSessionSynchron.m; sourceTree = "<group>"; };
 		FD2C271A2DF12D530A88A26F34E1294D /* crypto_pwhash_argon2i.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_pwhash_argon2i.h; path = src/libsodium/include/sodium/crypto_pwhash_argon2i.h; sourceTree = "<group>"; };
 		FD82F74852E6B929F7D4514DFBF4368A /* DDMultiFormatter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDMultiFormatter.h; path = Classes/Extensions/DDMultiFormatter.h; sourceTree = "<group>"; };
 		FE49C5A0E14E9B73669395A54410B869 /* blake2b-load-avx2.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "blake2b-load-avx2.h"; path = "src/libsodium/crypto_generichash/blake2b/ref/blake2b-load-avx2.h"; sourceTree = "<group>"; };
@@ -951,13 +954,14 @@
 			path = "../Target Support Files/libsodium";
 			sourceTree = "<group>";
 		};
-		486AE65D0753C28DF36D05BE8D132224 /* WebsocketL */ = {
+		3BB51249C1876F63D6ED46923A7E3614 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				7A33528E1B71414260D661AA4E2EC3E9 /* MQTTWebsocketTransport.h */,
-				1C047EAD3300C52AC0B321372747564C /* MQTTWebsocketTransport.m */,
+				4D668DEDB561DFB8B8999D89D5BD33BB /* LICENSE */,
+				DD8BFD4B78F5EAA956D65918558E1578 /* mqttc.podspec */,
+				9EF9451BB2C56246C89310ABAA0584D6 /* README.md */,
 			);
-			name = WebsocketL;
+			name = Pod;
 			sourceTree = "<group>";
 		};
 		492E510DD11D3A3F5AEEC6BB0647696D /* CocoaLumberjack */ = {
@@ -985,12 +989,13 @@
 			path = "../Target Support Files/ABStaticTableViewController";
 			sourceTree = "<group>";
 		};
-		590C8EF8E89679430BB5763EDCFECD3A /* Development Pods */ = {
+		545F474C7864703CC30F5433CFC11450 /* WebsocketL */ = {
 			isa = PBXGroup;
 			children = (
-				8ED4E677CE266586F94738B8FE3E536A /* mqttc */,
+				EC423B01C4118E47E7F5B0164652CAC4 /* MQTTWebsocketTransport.h */,
+				3958BCDD15D1973D1C9B9CDC76DE342E /* MQTTWebsocketTransport.m */,
 			);
-			name = "Development Pods";
+			name = WebsocketL;
 			sourceTree = "<group>";
 		};
 		591F90ABA6676A1A2D89B5C3E9E0428D /* Pods */ = {
@@ -1047,7 +1052,7 @@
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				590C8EF8E89679430BB5763EDCFECD3A /* Development Pods */,
+				9CC59047A2881D46CA0089D2CE9A512D /* Development Pods */,
 				E492A7854E3961302E3820BFB710C8F3 /* Frameworks */,
 				591F90ABA6676A1A2D89B5C3E9E0428D /* Pods */,
 				7A2BCA48A844C1616A5A7453426C06A2 /* Products */,
@@ -1067,17 +1072,6 @@
 			path = SocketRocket;
 			sourceTree = "<group>";
 		};
-		8ED4E677CE266586F94738B8FE3E536A /* mqttc */ = {
-			isa = PBXGroup;
-			children = (
-				E09D31E825D2A7CF928B4C3C8721A499 /* MinL */,
-				CF39A15D489722F7FCD7ED3EA5B00320 /* Support Files */,
-				486AE65D0753C28DF36D05BE8D132224 /* WebsocketL */,
-			);
-			name = mqttc;
-			path = /Users/ckrey/mqttc;
-			sourceTree = "<absolute>";
-		};
 		92D28A4D651E24C90B9DC0A22D33E320 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -1091,6 +1085,59 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		93B740FC5481AD213AE68E1587DFAFF5 /* MinL */ = {
+			isa = PBXGroup;
+			children = (
+				6C03F1D3CE83413A5617C1D8BFB05A50 /* MQTTCFSocketDecoder.h */,
+				449DAC63915D7F4E65D9759D8B4EE9B7 /* MQTTCFSocketDecoder.m */,
+				B4C7F800D5076FC9376482376796B91F /* MQTTCFSocketEncoder.h */,
+				A2D1857FCF83914A38F85E5469112899 /* MQTTCFSocketEncoder.m */,
+				33FB92DD0B8CA80D8C8D6D352FCF1956 /* MQTTCFSocketTransport.h */,
+				22F66E13DED0DC47DC4DEB4C0546BF4A /* MQTTCFSocketTransport.m */,
+				10AD407E06E945E4ACCD442AABA64F36 /* MQTTClient.h */,
+				B036FACEDF6FA01DEB99A944AE5EAD6E /* MQTTCoreDataPersistence.h */,
+				204F64A639E470556940837D29BE564B /* MQTTCoreDataPersistence.m */,
+				E0A3C08B8322528DFDBA3180C6B5B081 /* MQTTDecoder.h */,
+				0558495E5DF24C430A4AB9A8B3BA0584 /* MQTTDecoder.m */,
+				7002A3178E28B36F6A9314FF3F1CAFDF /* MQTTInMemoryPersistence.h */,
+				4F37A8CFD06662233B067D6B60AC5AAD /* MQTTInMemoryPersistence.m */,
+				7FB0EC19661953655C8CCF25E9012C53 /* MQTTLog.h */,
+				45E0A2BFEC1C5E1BDBBAD3B134DC48DB /* MQTTLog.m */,
+				5BE5C56A929165530578BA1AF21AF629 /* MQTTMessage.h */,
+				4CFD7DFFF704BF2C66D7519F8DE939F4 /* MQTTMessage.m */,
+				CB7CC9A9A2A343B411D49F8C2B6F3C06 /* MQTTPersistence.h */,
+				6932C8C105D5B91C6D1DE09978286A21 /* MQTTProperties.h */,
+				E62618AED97E52166FB477F26FAD72E1 /* MQTTProperties.m */,
+				C8482D0B259DB83CA243743EC9F01008 /* MQTTSession.h */,
+				BC5E8DF8AFAEAB6D8A1FE538BE921FE6 /* MQTTSession.m */,
+				D751043EE61C704FCDF5F340B2F7B6C3 /* MQTTSessionLegacy.h */,
+				07611BF8A83D89548DFBF52709C94A02 /* MQTTSessionLegacy.m */,
+				8181290F03181A474608C2BBCD73B2D6 /* MQTTSessionSynchron.h */,
+				FD1210A6990A52447FBC77CF9C56690C /* MQTTSessionSynchron.m */,
+				57A3A5380C07D774553051E4C9E68927 /* MQTTSSLSecurityPolicy.h */,
+				D96D3DC1FB8E1179EE4A5B7D5FC204EC /* MQTTSSLSecurityPolicy.m */,
+				3E7B69CF680503317A99DC7744E64A57 /* MQTTSSLSecurityPolicyDecoder.h */,
+				5AD3E237C343E2385890173EA52EEAE1 /* MQTTSSLSecurityPolicyDecoder.m */,
+				EACB9347819D9BB275BB87B5E470AE02 /* MQTTSSLSecurityPolicyEncoder.h */,
+				9027D6F72D9542CAFFFA681B3385A6F0 /* MQTTSSLSecurityPolicyEncoder.m */,
+				1B0971407BA009503ACA6590834C62C2 /* MQTTSSLSecurityPolicyTransport.h */,
+				E4132EDE4A3CE32A12EE83081D537D84 /* MQTTSSLSecurityPolicyTransport.m */,
+				F34D5940436DF7C20CCFAB46351DEA40 /* MQTTStrict.h */,
+				A003E8C3FA58055A35738762C2A2EA08 /* MQTTStrict.m */,
+				36C3AB51A3B181E6FD69515C5FD8D058 /* MQTTTransport.h */,
+				24CC34274120A687CE44A2B957C91814 /* MQTTTransport.m */,
+			);
+			name = MinL;
+			sourceTree = "<group>";
+		};
+		9CC59047A2881D46CA0089D2CE9A512D /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DF780832E288320C50F3BE0C7C66EDC6 /* mqttc */,
+			);
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
 		9E0B9F8382011521AEBA6ACD0626F179 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
@@ -1100,6 +1147,20 @@
 				2DB2CC4F6CC0D31F36A7B85F7392F03E /* Security.framework */,
 			);
 			name = iOS;
+			sourceTree = "<group>";
+		};
+		9E9766612B6A18B137EF815512AE5DDB /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				1B46C40668B7330EF03D8A94AA814820 /* Info.plist */,
+				6D6D3EEC0609FFEE162D333639389861 /* mqttc.modulemap */,
+				820E37371EB13655DDC063B4DE65DFC5 /* mqttc.xcconfig */,
+				92BEB7D51B2214AC95A95EB822AA6BD2 /* mqttc-dummy.m */,
+				C200FD8BFD9E1CBA36A9790A5348A575 /* mqttc-prefix.pch */,
+				637299387A7CA5055E81430AB494B262 /* mqttc-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../OwnTracks/ios/OwnTracks/Pods/Target Support Files/mqttc";
 			sourceTree = "<group>";
 		};
 		A0E0F41AB5826EE700A73098C81D276B /* Support Files */ = {
@@ -1114,20 +1175,6 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/QRCodeReaderViewController";
-			sourceTree = "<group>";
-		};
-		CF39A15D489722F7FCD7ED3EA5B00320 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				D9177C6FC22542B0D46BA7AE10AD9AF3 /* Info.plist */,
-				95F4F3EBA2F63E9253ACB276808354CB /* mqttc.modulemap */,
-				F7285161B8F478D9278FD28447C5FAF8 /* mqttc.xcconfig */,
-				8EB6CD14238944F172F620CE8D882F64 /* mqttc-dummy.m */,
-				828C060CD37B6E3AAABB31769BC19919 /* mqttc-prefix.pch */,
-				97BD3DF2F1334F8F128414E839B2004B /* mqttc-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../OwnTracks/ios/OwnTracks/Pods/Target Support Files/mqttc";
 			sourceTree = "<group>";
 		};
 		D7907985A0FED5B91968014C34E3FC1F /* objc-geohash */ = {
@@ -1163,50 +1210,17 @@
 			path = "../Target Support Files/objc-geohash";
 			sourceTree = "<group>";
 		};
-		E09D31E825D2A7CF928B4C3C8721A499 /* MinL */ = {
+		DF780832E288320C50F3BE0C7C66EDC6 /* mqttc */ = {
 			isa = PBXGroup;
 			children = (
-				691323F5DA3E82076EB6EF4FFCA46047 /* MQTTCFSocketDecoder.h */,
-				D74E70469E347EC7EF8D9C6DF1BF31E9 /* MQTTCFSocketDecoder.m */,
-				EAAFCA36C75C88FFA70C6A3D9EF96C8D /* MQTTCFSocketEncoder.h */,
-				9987C1A32FB89CD5E33749915EC2D60A /* MQTTCFSocketEncoder.m */,
-				F09B91F12ABD5EFD8D56D24A683E1ED4 /* MQTTCFSocketTransport.h */,
-				A93D0B56DB04AD73638A2892A0E7228B /* MQTTCFSocketTransport.m */,
-				72D801549DEF55974139C1DA698FE54A /* MQTTClient.h */,
-				1A0DFE75103834CD4C4ED8827A357F97 /* MQTTCoreDataPersistence.h */,
-				FCD07991780A0B2F6BEF4E7DB0C61E92 /* MQTTCoreDataPersistence.m */,
-				5B4B2E19841A78355AB636F273DC8999 /* MQTTDecoder.h */,
-				B81C856CF153422B5218E06332972467 /* MQTTDecoder.m */,
-				E7550524F8E0F26CB5A8DB253671EED8 /* MQTTInMemoryPersistence.h */,
-				F615CD79A906FCDDD59FDB2F11B29CE4 /* MQTTInMemoryPersistence.m */,
-				84F5C4F357E53F272A7D26139E002F28 /* MQTTLog.h */,
-				22F4FB2EE0B6512972A5A1FD69407559 /* MQTTLog.m */,
-				4428D5FF0D0E8EC4AD5624C39002E742 /* MQTTMessage.h */,
-				2A22B9F5EC251B57BBA58635D3380C1D /* MQTTMessage.m */,
-				C51C2CD7B6A44C8697799D887F585D7A /* MQTTPersistence.h */,
-				E26057ACFDE42CF210A9232E9DC074FE /* MQTTProperties.h */,
-				7AF19B101F914629C2642360F0612232 /* MQTTProperties.m */,
-				E6D0119597F0C4EF82653397F8244F06 /* MQTTSession.h */,
-				4FE610A2DB88B0494BC495CE6A7304B3 /* MQTTSession.m */,
-				8855C1FF512213D7C90C67490ED12745 /* MQTTSessionLegacy.h */,
-				24AB1041D89873C1E01D5CFB055946E9 /* MQTTSessionLegacy.m */,
-				25395DBFFD09CB5F5865DBD968F32D5A /* MQTTSessionSynchron.h */,
-				A298D0EEB65522FEDF99FF70DD15FACF /* MQTTSessionSynchron.m */,
-				868401D21A38EC45607520F61F5A9DF7 /* MQTTSSLSecurityPolicy.h */,
-				5E1C1D25AEC928C6F7ADBD83FD3F8A17 /* MQTTSSLSecurityPolicy.m */,
-				9BC104A903F57CEDE91D78E5B95CBDED /* MQTTSSLSecurityPolicyDecoder.h */,
-				1FD822606653215CFF8D751CD3CE93BC /* MQTTSSLSecurityPolicyDecoder.m */,
-				4B4C650C225B6933A01BAD0867A0931A /* MQTTSSLSecurityPolicyEncoder.h */,
-				181EC6B3C420D5FAD0759B80DEFDE250 /* MQTTSSLSecurityPolicyEncoder.m */,
-				69A4807D48F15C4747DB82F09C971566 /* MQTTSSLSecurityPolicyTransport.h */,
-				55A1F62F5E1A275824186087614E7D2C /* MQTTSSLSecurityPolicyTransport.m */,
-				2BBF3E5CAB6DF3C1AA7011D1BF1751FD /* MQTTStrict.h */,
-				EBADAE1B9C2867C6F784DF9954E83D0B /* MQTTStrict.m */,
-				95F973509286EB99558D63622CEB2FBA /* MQTTTransport.h */,
-				8C4EE19A1BF88F5FCAAEB848CC36F018 /* MQTTTransport.m */,
+				93B740FC5481AD213AE68E1587DFAFF5 /* MinL */,
+				3BB51249C1876F63D6ED46923A7E3614 /* Pod */,
+				9E9766612B6A18B137EF815512AE5DDB /* Support Files */,
+				545F474C7864703CC30F5433CFC11450 /* WebsocketL */,
 			);
-			name = MinL;
-			sourceTree = "<group>";
+			name = mqttc;
+			path = /Users/ckrey/mqttc;
+			sourceTree = "<absolute>";
 		};
 		E492A7854E3961302E3820BFB710C8F3 /* Frameworks */ = {
 			isa = PBXGroup;
@@ -2200,7 +2214,7 @@
 		};
 		10FD7782A5B626189674513503C724D9 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F7285161B8F478D9278FD28447C5FAF8 /* mqttc.xcconfig */;
+			baseConfigurationReference = 820E37371EB13655DDC063B4DE65DFC5 /* mqttc.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -2643,7 +2657,7 @@
 		};
 		DAD74C6F4BB4818E8F90AADC04DFFA8B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F7285161B8F478D9278FD28447C5FAF8 /* mqttc.xcconfig */;
+			baseConfigurationReference = 820E37371EB13655DDC063B4DE65DFC5 /* mqttc.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";

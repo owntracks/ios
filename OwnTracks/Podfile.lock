@@ -33,11 +33,11 @@ SPEC CHECKSUMS:
   ABStaticTableViewController: d8cfbdd596fbf58b515b13e49cc8ca8ca86c6e12
   CocoaLumberjack: 3c8c74683302f9012bb168e1c4b7ae3c0b558431
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
-  mqttc: 59eaa5525e3a6d5d8b4c18250b3ae344d487241e
+  mqttc: 5a63ea59982783639329a7340081a5323b7b15b0
   objc-geohash: 5a92a1deb6c4729ecefdf847159991a1068fb4cc
   QRCodeReaderViewController: e8f27d035b3e72b1d4b1c61ff66458287e3be0ff
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
 
 PODFILE CHECKSUM: 60b9acc992a7f676afe6b2d451036cd5f55e05e3
 
-COCOAPODS: 1.4.0.beta.1
+COCOAPODS: 1.4.0.rc.1

@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 20.12.13.
-//  Copyright © 2013-2017 Christoph Krey. All rights reserved.
+//  Copyright © 2013-2018 Christoph Krey. All rights reserved.
 //
 
 #import "AlertView.h"

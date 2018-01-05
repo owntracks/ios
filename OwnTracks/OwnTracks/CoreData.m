@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 29.09.13.
-//  Copyright © 2013-2017 Christoph Krey. All rights reserved.
+//  Copyright © 2013-2018 Christoph Krey. All rights reserved.
 //
 
 #import "CoreData.h"
@@ -36,7 +36,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     self.mainMOC.persistentStoreCoordinator = self.PSC;
 
     self.queuedMOC = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    self.queuedMOC.persistentStoreCoordinator = self.PSC;
+    //self.queuedMOC.persistentStoreCoordinator = self.PSC;
+    self.queuedMOC.parentContext = self.mainMOC;
 
     return self;
 }
