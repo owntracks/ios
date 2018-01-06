@@ -115,7 +115,9 @@ static LocationManager *theInstance = nil;
     if ([keyPath isEqualToString:@"monitoring"]) {
         NSUserDefaults *shared = object;
         NSInteger monitoring = [shared integerForKey:@"monitoring"];
-        self.monitoring = monitoring;
+        if (monitoring != self.monitoring) {
+            self.monitoring = monitoring;
+        }
     }
 }
 
