@@ -19,7 +19,7 @@
 #import "MQTTSSLSecurityPolicy.h"
 #import "MQTTSSLSecurityPolicyTransport.h"
 
-@interface Connection()
+@interface Connection() <NSURLSessionDelegate>
 
 @property (nonatomic) NSInteger state;
 
@@ -55,6 +55,8 @@
 
 @property (nonatomic) NSUInteger outCount;
 @property (nonatomic) NSUInteger inCount;
+
+@property (strong, nonatomic) NSURLSession *urlSession;
 
 @end
 
@@ -304,6 +306,20 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
     [self connectToInternal];
 }
 
+- (void)URLSession:(NSURLSession *)session
+              task:(NSURLSessionTask *)task
+willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
+        newRequest:(NSURLRequest *)request
+ completionHandler:(void (^)(NSURLRequest *))completionHandler {
+    NSMutableURLRequest *newRequest = request.mutableCopy;
+    if (redirectResponse) {
+        newRequest = nil;
+    }
+
+    completionHandler(newRequest);
+}
+
+
 - (void)connectHTTP:(NSString *)url auth:(BOOL)auth user:(NSString *)user pass:(NSString *)pass {
     self.url = url;
     self.auth = auth;
@@ -313,6 +329,15 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
     self.reconnectFlag = FALSE;
     self.state = state_starting;
     [self connectToInternal];
+
+#if 1
+    NSURLSessionConfiguration *usc = NSURLSessionConfiguration.defaultSessionConfiguration;
+    self.urlSession = [NSURLSession sessionWithConfiguration:usc
+                                                    delegate:self
+                                               delegateQueue:nil];
+#else
+    self.urlSession = NSURLSession.sharedSession;
+#endif
 }
 
 - (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(NSInteger)qos retain:(BOOL)retainFlag {
@@ -398,7 +423,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
     __block NSRunLoop *myRunLoop = [NSRunLoop currentRunLoop];
 
     NSURLSessionDataTask *dataTask =
-    [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
+    [self.urlSession dataTaskWithRequest:request completionHandler:
      ^(NSData *data, NSURLResponse *response, NSError *error) {
 
          DDLogVerbose(@"[Connection] dataTaskWithRequest %@ %@ %@", data, response, error);
