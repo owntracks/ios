@@ -36,7 +36,7 @@
 "4yQ-Ca-0gL.placeholder" = "quickstart id";
 
 /* Class = "UIButton"; normalTitle = "Export Waypoints"; ObjectID = "54d-E6-cWX"; */
-"54d-E6-cWX.normalTitle" = "Eksport Punktów";
+"54d-E6-cWX.normalTitle" = "Eksportuj Punkty";
 
 /* Class = "UITextField"; placeholder = "days"; ObjectID = "5Nq-by-zFb"; */
 "5Nq-by-zFb.placeholder" = "dni";
@@ -66,7 +66,7 @@
 "7ve-03-oxG.placeholder" = "token autoryzacyjny";
 
 /* Class = "UITableViewSection"; headerTitle = "Circular Region"; ObjectID = "7xg-sB-qXa"; */
-"7xg-sB-qXa.headerTitle" = "Obszar okrągły";
+"7xg-sB-qXa.headerTitle" = "Okręg";
 
 /* Class = "UINavigationItem"; title = "Waypoint"; ObjectID = "8DB-l4-Dop"; */
 "8DB-l4-Dop.title" = "Punkt orientacyjny";
@@ -150,7 +150,7 @@
 "JSF-BR-9Nb.placeholder" = "plik certyfikatu klienta";
 
 /* Class = "UITextField"; placeholder = "longitude"; ObjectID = "JZL-1C-khg"; */
-"JZL-1C-khg.placeholder" = "długość [LON]";
+"JZL-1C-khg.placeholder" = "długość geogr.";
 
 /* Class = "UILabel"; text = "sub"; ObjectID = "Jw3-DE-n5i"; */
 "Jw3-DE-n5i.text" = "sub";
@@ -198,7 +198,7 @@
 "OeB-EW-2jx.title" = "Mapa";
 
 /* Class = "UILabel"; text = "Longitude"; ObjectID = "OgN-Bg-AeZ"; */
-"OgN-Bg-AeZ.text" = "Długość geogr.";
+"OgN-Bg-AeZ.text" = "Długość [LON]";
 
 /* Class = "UITextField"; placeholder = "userid"; ObjectID = "Oiq-Kb-qLx"; */
 "Oiq-Kb-qLx.placeholder" = "userid";
@@ -498,7 +498,7 @@
 "yni-yE-tcr.text" = "ignoreInaccurateLocations";
 
 /* Class = "UIButton"; normalTitle = "Export Settings"; ObjectID = "ysB-cv-35Y"; */
-"ysB-cv-35Y.normalTitle" = "Eksport Ustawień";
+"ysB-cv-35Y.normalTitle" = "Eksportuj Ustawienia";
 
 /* Class = "UITextField"; placeholder = "mode"; ObjectID = "zrE-4x-uNc"; */
 "zrE-4x-uNc.placeholder" = "tryb";
