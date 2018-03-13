@@ -34,7 +34,9 @@
 
 @implementation PendingRegionEvent
 
-+ (PendingRegionEvent *)holdDown:(CLRegion *)region for:(NSTimeInterval)interval to:(id)to{
++ (PendingRegionEvent *)holdDown:(CLRegion *)region
+                             for:(NSTimeInterval)interval
+                              to:(id)to {
     PendingRegionEvent *p = [[PendingRegionEvent alloc] init];
     p.region = region;
     p.holdDownTimer = [NSTimer timerWithTimeInterval:interval
@@ -72,34 +74,38 @@ static LocationManager *theInstance = nil;
 
     [self authorize];
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification
-                                                      object:nil
-                                                       queue:nil
-                                                  usingBlock:^(NSNotification *note){
-                                                      DDLogVerbose(@"UIApplicationWillEnterForegroundNotification");
-                                                      //
-                                                  }];
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
-                                                      object:nil
-                                                       queue:nil
-                                                  usingBlock:^(NSNotification *note){
-                                                      DDLogVerbose(@"UIApplicationDidBecomeActiveNotification");
-                                                      [self wakeup];
-                                                  }];
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
-                                                      object:nil
-                                                       queue:nil
-                                                  usingBlock:^(NSNotification *note){
-                                                      DDLogVerbose(@"UIApplicationWillResignActiveNotification");
-                                                      [self sleep];
-                                                  }];
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification
-                                                      object:nil
-                                                       queue:nil
-                                                  usingBlock:^(NSNotification *note){
-                                                      DDLogVerbose(@"UIApplicationWillTerminateNotification");
-                                                      [self stop];
-                                                  }];
+    [[NSNotificationCenter defaultCenter]
+     addObserverForName:UIApplicationWillEnterForegroundNotification
+     object:nil
+     queue:nil
+     usingBlock:^(NSNotification *note){
+         DDLogVerbose(@"UIApplicationWillEnterForegroundNotification");
+         //
+     }];
+    [[NSNotificationCenter defaultCenter]
+     addObserverForName:UIApplicationDidBecomeActiveNotification
+     object:nil
+     queue:nil
+     usingBlock:^(NSNotification *note){
+         DDLogVerbose(@"UIApplicationDidBecomeActiveNotification");
+         [self wakeup];
+     }];
+    [[NSNotificationCenter defaultCenter]
+     addObserverForName:UIApplicationWillResignActiveNotification
+     object:nil
+     queue:nil
+     usingBlock:^(NSNotification *note){
+         DDLogVerbose(@"UIApplicationWillResignActiveNotification");
+         [self sleep];
+     }];
+    [[NSNotificationCenter defaultCenter]
+     addObserverForName:UIApplicationWillTerminateNotification
+     object:nil
+     queue:nil
+     usingBlock:^(NSNotification *note){
+         DDLogVerbose(@"UIApplicationWillTerminateNotification");
+         [self stop];
+     }];
 
     self.sharedUserDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
     [self.sharedUserDefaults addObserver:self forKeyPath:@"monitoring"
@@ -400,18 +406,21 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     }
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations {
     DDLogVerbose(@"[LocationManager] didUpdateLocations");
     
     for (CLLocation *location in locations) {
         DDLogVerbose(@"[LocationManager] Location: %@", location);
         if ([location.timestamp compare:self.lastUsedLocation.timestamp] != NSOrderedAscending ) {
+            self.lastUsedLocation = location;
             [self.delegate newLocation:location];
         }
     }
 }
 
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error {
     DDLogError(@"[LocationManager] didFailWithError %@ %@", error.localizedDescription, error.userInfo);
     // error
 }
