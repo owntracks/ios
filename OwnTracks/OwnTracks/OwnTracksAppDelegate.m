@@ -668,6 +668,14 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
                                 inManagedObjectContext:CoreData.sharedInstance.mainMOC];
 
+        Region *myRegion;
+        for (Region *anyRegion in myself.hasRegions) {
+            if ([region.identifier isEqualToString:anyRegion.CLregion.identifier]) {
+                myRegion = anyRegion;
+                break;
+            }
+        }
+
         NSMutableDictionary *json = [NSMutableDictionary dictionaryWithDictionary:
                                      @{
                                        @"_type": @"beacon",
@@ -680,6 +688,9 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                        @"acc": @(beacon.accuracy),
                                        @"rssi": @(beacon.rssi)
                                        }];
+        if (myRegion) {
+            json[@"desc"] = myRegion.name;
+        }
         switch ([Settings intForKey:@"mode"
                               inMOC:CoreData.sharedInstance.mainMOC]) {
             case CONNECTION_MODE_WATSON:
