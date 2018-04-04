@@ -12,13 +12,27 @@
 @implementation ConnType
 
 + (ConnectionType)connectionType:(NSString *)host {
-    SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, [host cStringUsingEncoding:NSASCIIStringEncoding]);
+    if (!host) {
+        return ConnectionTypeUnknown;
+    }
+
+    const char *hostCString = [host cStringUsingEncoding:NSASCIIStringEncoding];
+    if (hostCString == NULL) {
+        return ConnectionTypeUnknown;
+    }
+
+    SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, hostCString);
+    if (reachability == NULL) {
+        return ConnectionTypeUnknown;
+    }
+
     SCNetworkReachabilityFlags flags;
     BOOL success = SCNetworkReachabilityGetFlags(reachability, &flags);
     CFRelease(reachability);
     if (!success) {
         return ConnectionTypeUnknown;
     }
+    
     BOOL isReachable = ((flags & kSCNetworkReachabilityFlagsReachable) != 0);
     BOOL needsConnection = ((flags & kSCNetworkReachabilityFlagsConnectionRequired) != 0);
     BOOL isNetworkReachable = (isReachable && !needsConnection);
