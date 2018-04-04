@@ -805,7 +805,9 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                 [LocationManager sharedInstance].monitoring == LocationMonitoringMove ||
                                 [Settings boolForKey:@"allowremotelocation_preference"
                                                inMOC:CoreData.sharedInstance.queuedMOC]) {
-                                [self publishLocation:[LocationManager sharedInstance].location trigger:@"r"];
+                                   [self performSelectorOnMainThread:@selector(reportLocation)
+                                                          withObject:nil
+                                                       waitUntilDone:NO];
                             }
 
                         } else if ([@"reportSteps" saveEqual:dictionary[@"action"]]) {
@@ -1008,6 +1010,13 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     DDLogVerbose(@"[OwnTracksAppDelegate] sendNow");
     CLLocation *location = [LocationManager sharedInstance].location;
     [self publishLocation:location trigger:@"u"];
+    [[GeoHashing sharedInstance] newLocation:location];
+}
+
+- (void)reportLocation {
+    DDLogVerbose(@"[OwnTracksAppDelegate] reportLocation");
+    CLLocation *location = [LocationManager sharedInstance].location;
+    [self publishLocation:location trigger:@"r"];
     [[GeoHashing sharedInstance] newLocation:location];
 }
 
