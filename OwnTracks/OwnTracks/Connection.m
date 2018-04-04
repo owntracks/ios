@@ -64,7 +64,7 @@
 #define RECONNECT_TIMER_MAX 64.0
 
 @implementation Connection
-DDLogLevel ddLogLevel = DDLogLevelWarning;
+DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (instancetype)init {
     self = [super init];
@@ -76,7 +76,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
         DDLogInfo(@"[Connection] sodium_init succeeded");
     }
 
-    [MQTTLog setLogLevel:DDLogLevelWarning];
+    [MQTTLog setLogLevel:DDLogLevelVerbose];
 
     self.state = state_starting;
     self.subscriptions = [[NSArray alloc] init];
@@ -287,11 +287,20 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
         self.session.keepAliveInterval = keepalive;
         self.session.cleanSessionFlag = clean;
 
-        self.session.willFlag = willTopic != nil;
-        self.session.willTopic = willTopic;
-        self.session.willMsg = will;
-        self.session.willQoS = willQos;
-        self.session.willRetainFlag = willRetainFlag;
+        if (willTopic) {
+            MQTTWill *mqttWill = [[MQTTWill alloc] initWithTopic:willTopic
+                                                            data:will
+                                                      retainFlag:willRetainFlag
+                                                             qos:willQos
+                                               willDelayInterval:nil
+                                          payloadFormatIndicator:nil
+                                           messageExpiryInterval:nil
+                                                     contentType:nil
+                                                   responseTopic:nil
+                                                 correlationData:nil
+                                                  userProperties:nil];
+            self.session.will = mqttWill;
+        }
 
         self.session.protocolLevel = protocolVersion;
         self.session.persistence.persistent = TRUE;
@@ -381,10 +390,18 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 
         NSData *outgoingData = (self.key && self.key.length) ? [self encrypt:data] : data;
 
-        UInt16 msgId = [self.session publishData:outgoingData
-                                         onTopic:topic
-                                          retain:retainFlag
-                                             qos:qos];
+        UInt16 msgId = [self.session publishDataV5:outgoingData
+                                           onTopic:topic
+                                            retain:retainFlag
+                                               qos:qos
+                            payloadFormatIndicator:nil
+                             messageExpiryInterval:nil
+                                        topicAlias:nil
+                                     responseTopic:nil
+                                   correlationData:nil
+                                    userProperties:nil
+                                       contentType:nil
+                                    publishHandler:nil];
         DDLogVerbose(@"%@ sendData m%u", self.clientId, msgId);
         return msgId;
     }
@@ -514,8 +531,12 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     DDLogInfo(@"[Connection] %@ disconnect:", self.clientId);
     if (!self.url) {
         self.state = state_closing;
-        [self.session close];
-        
+        [self.session closeWithReturnCode:MQTTSuccess
+                    sessionExpiryInterval:nil
+                             reasonString:nil
+                           userProperties:nil
+                        disconnectHandler:nil];
+
         if (self.reconnectTimer) {
             [self.reconnectTimer invalidate];
             self.reconnectTimer = nil;
@@ -547,14 +568,23 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     NSNumber *extraSubscription = (self.extraSubscriptions)[topicFilter];
     if (!extraSubscription) {
         (self.extraSubscriptions)[topicFilter] = [NSNumber numberWithInt:qos];
-        [self.session subscribeToTopic:topicFilter atLevel:qos];
+        [self.session subscribeToTopicV5:topicFilter
+                                 atLevel:qos
+                                 noLocal:FALSE
+                       retainAsPublished:FALSE
+                          retainHandling:MQTTSendRetained
+                  subscriptionIdentifier:0
+                          userProperties:nil
+                        subscribeHandler:nil];
     }
 }
 
 - (void)removeExtraSubscription:(NSString *)topicFilter {
     NSNumber *extraSubscription = (self.extraSubscriptions)[topicFilter];
     if (extraSubscription) {
-        [self.session unsubscribeTopic:topicFilter];
+        [self.session unsubscribeTopicsV5:@[topicFilter]
+                           userProperties:nil
+                       unsubscribeHandler:nil];
         [self.extraSubscriptions removeObjectForKey:topicFilter];
     }
 }
@@ -571,12 +601,26 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     if (self.clean || !self.reconnectFlag) {
         for (NSString *topicFilter in self.subscriptions) {
             if (topicFilter.length) {
-                [self.session subscribeToTopic:topicFilter atLevel:self.subscriptionQos];
+                [self.session subscribeToTopicV5:topicFilter
+                                         atLevel:self.subscriptionQos
+                                         noLocal:FALSE
+                               retainAsPublished:FALSE
+                                  retainHandling:MQTTSendRetained
+                          subscriptionIdentifier:0
+                                  userProperties:nil
+                                subscribeHandler:nil];
             }
         }
         for (NSString *topicFilter in self.extraSubscriptions.allKeys) {
             NSNumber *qos = (self.extraSubscriptions)[topicFilter];
-            [self.session subscribeToTopic:topicFilter atLevel:qos.intValue];
+            [self.session subscribeToTopicV5:topicFilter
+                                     atLevel:qos.intValue
+                                     noLocal:FALSE
+                           retainAsPublished:FALSE
+                              retainHandling:MQTTSendRetained
+                      subscriptionIdentifier:0
+                              userProperties:nil
+                            subscribeHandler:nil];
         }
         self.reconnectFlag = TRUE;
     }
@@ -619,49 +663,85 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     }
 }
 
-- (void)subAckReceived:(MQTTSession *)session msgID:(UInt16)msgID grantedQoss:(NSArray *)qoss {
-    DDLogInfo(@"[Connection] %@ subAckReceived m%u %@",
-                 self.clientId,
-                 msgID,
-                 qoss);
+- (void)subAckReceivedV5:(MQTTSession *)session
+                   msgID:(UInt16)msgID
+            reasonString:(NSString *)reasonString
+          userProperties:(NSArray<NSDictionary<NSString *,NSString *> *> *)userProperties
+             reasonCodes:(NSArray<NSNumber *> *)reasonCodes {
+    DDLogInfo(@"[Connection] %@ subAckReceived mid=%u rc=%@ up=%@",
+              session.clientId,
+              msgID,
+              reasonCodes,
+              userProperties);
+
 }
 
-- (void)unsubAckReceived:(MQTTSession *)session msgID:(UInt16)msgID {
-    DDLogInfo(@"[Connection] %@ unsubAckReceived m%u",
-                 self.clientId,
-                 msgID);
+- (void)unsubAckReceivedV5:(MQTTSession *)session
+                     msgID:(UInt16)msgID
+              reasonString:(NSString *)reasonString
+            userProperties:(NSArray<NSDictionary<NSString *,NSString *> *> *)userProperties
+               reasonCodes:(NSArray<NSNumber *> *)reasonCodes {
+    DDLogInfo(@"[Connection] %@ unsubAckReceived mid=%u rs=%@ rc=%@ up=%@",
+              session.clientId,
+              msgID,
+              reasonString,
+              reasonCodes,
+              userProperties);
 }
 
-
-- (void)messageDelivered:(MQTTSession *)session msgID:(UInt16)msgID {
-    DDLogInfo(@"[Connection] %@ messageDelivered m%u",
-                 self.clientId,
-                 msgID);
+- (void)messageDeliveredV5:(MQTTSession *)session
+                     msgID:(UInt16)msgID
+                     topic:(NSString *)topic
+                      data:(NSData *)data
+                       qos:(MQTTQosLevel)qos
+                retainFlag:(BOOL)retainFlag
+    payloadFormatIndicator:(NSNumber *)payloadFormatIndicator
+     messageExpiryInterval:(NSNumber *)messageExpiryInterval
+                topicAlias:(NSNumber *)topicAlias
+             responseTopic:(NSString *)responseTopic
+           correlationData:(NSData *)correlationData
+            userProperties:(NSArray<NSDictionary<NSString *,NSString *> *> *)userProperties
+               contentType:(NSString *)contentType {
+    DDLogInfo(@"[Connection] %@ messageDelivered mid=%u",
+              session.clientId,
+              msgID);
     [self.delegate messageDelivered:self msgID:msgID];
+
 }
 
-- (BOOL)newMessageWithFeedback:(MQTTSession *)session
-                          data:(NSData *)data
-                       onTopic:(NSString *)topic
-                           qos:(MQTTQosLevel)qos
-                      retained:(BOOL)retained
-                           mid:(unsigned int)mid {
-    
+- (BOOL)newMessageWithFeedbackV5:(MQTTSession *)session
+                            data:(NSData *)data
+                         onTopic:(NSString *)topic
+                             qos:(MQTTQosLevel)qos
+                        retained:(BOOL)retained
+                             mid:(unsigned int)mid
+          payloadFormatIndicator:(NSNumber *)payloadFormatIndicator
+           messageExpiryInterval:(NSNumber *)messageExpiryInterval
+                      topicAlias:(NSNumber *)topicAlias
+                   responseTopic:(NSString *)responseTopic
+                 correlationData:(NSData *)correlationData
+                  userProperties:(NSArray<NSDictionary<NSString *,NSString *> *> *)userProperties
+                     contentType:(NSString *)contentType
+         subscriptionIdentifiers:(NSArray<NSNumber *> *)subscriptionIdentifiers {
+
     if (self.key && self.key.length) {
         data = [self decrypt:data];
     }
 
-    DDLogVerbose(@"[Connection] %@ received %@ %@",
-                 self.clientId,
+    DDLogVerbose(@"[Connection] %@ received topic=%@ dataString=%@",
+                 session.clientId,
                  topic,
                  [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     return [self.delegate handleMessage:self
                                    data:data
                                 onTopic:topic
                                retained:retained];
+
 }
 
-- (void)buffered:(MQTTSession *)session flowingIn:(NSUInteger)flowingIn flowingOut:(NSUInteger)flowingOut {
+- (void)buffered:(MQTTSession *)session
+       flowingIn:(NSUInteger)flowingIn
+      flowingOut:(NSUInteger)flowingOut {
     DDLogVerbose(@"[Connection] %@ buffered i%lu o%lu",
                  self.clientId,
                  (unsigned long)flowingIn,
@@ -682,7 +762,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     if (!self.url) {
         if (self.state == state_starting) {
             self.state = state_connecting;
-            [self.session connect];
+            [self.session connectWithConnectHandler:nil];
         } else {
             DDLogVerbose(@"[Connection] %@ not starting, can't connect", self.clientId);
         }

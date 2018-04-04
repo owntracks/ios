@@ -17,6 +17,7 @@
 #import "MQTTDecoder.h"
 #import "MQTTInMemoryPersistence.h"
 #import "MQTTLog.h"
+#import "MQTTWill.h"
 #import "MQTTStrict.h"
 #import "MQTTClient.h"
 #import "MQTTMessage.h"
@@ -27,8 +28,6 @@
 #import "MQTTSSLSecurityPolicyTransport.h"
 #import "MQTTProperties.h"
 #import "MQTTSession.h"
-#import "MQTTSessionLegacy.h"
-#import "MQTTSessionSynchron.h"
 #import "MQTTTransport.h"
 #import "MQTTWebsocketTransport.h"
 
