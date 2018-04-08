@@ -36,10 +36,17 @@
     self.mode = 0;
     self.page = 1;
     self.offset = 0;
-    [self.extensionContext setWidgetLargestAvailableDisplayMode:NCWidgetDisplayModeExpanded];
+
+    NSOperatingSystemVersion ios8_0_0 = (NSOperatingSystemVersion){8, 0, 0};
+    if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:ios8_0_0]) {
+        [self.extensionContext setWidgetLargestAvailableDisplayMode:NCWidgetDisplayModeExpanded];
+    } else {
+        //
+    }
 }
 
-- (void)widgetActiveDisplayModeDidChange:(NCWidgetDisplayMode)activeDisplayMode withMaximumSize:(CGSize)maxSize {
+- (void)widgetActiveDisplayModeDidChange:(NCWidgetDisplayMode)activeDisplayMode
+                         withMaximumSize:(CGSize)maxSize {
     NSLog(@"widgetActiveDisplayModeDidChange: %ld withMaximumSize %f %f",
           (long)activeDisplayMode,
           maxSize.width,
@@ -114,13 +121,15 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section {
     NSInteger min = MIN(self.page, self.sharedFriends.count - self.offset);
     NSLog(@"numberOfRowsInSection %ld", (long)min);
     return min;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"sharedFriend" forIndexPath:indexPath];
     
     NSString *name = [self.sharedFriends allKeys][indexPath.row + self.offset];
@@ -214,7 +223,8 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.mode = (self.mode + 1) % 3;
     [tableView deselectRowAtIndexPath:indexPath animated:true];
     [tableView reloadData];
