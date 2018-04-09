@@ -815,7 +815,9 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                          to:[NSNumber saveCopy:dictionary[@"to"]]];
 
                         } else if ([@"waypoints" saveEqual:dictionary[@"action"]]) {
-                            [self waypoints];
+                            [self performSelectorOnMainThread:@selector(waypoints)
+                                                   withObject:nil
+                                                waitUntilDone:NO];
 
                         } else if ([@"action" saveEqual:dictionary[@"action"]]) {
                             NSString *content = [NSString saveCopy:dictionary[@"content"]];

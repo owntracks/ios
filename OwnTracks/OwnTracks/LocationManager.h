@@ -48,6 +48,7 @@ typedef NS_ENUM(NSInteger, LocationMonitoring) {
 - (void)wakeup;
 - (void)sleep;
 - (void)stop;
+
 - (void)startRegion:(CLRegion *)region;
 - (void)stopRegion:(CLRegion *)region;
 - (void)resetRegions;
@@ -55,5 +56,8 @@ typedef NS_ENUM(NSInteger, LocationMonitoring) {
 - (BOOL)insideBeaconRegion:(NSString *)identifier;
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL insideCircularRegion;
 - (BOOL)insideCircularRegion:(NSString *)identifier;
+@property (readonly, strong, nonatomic) NSMutableDictionary *insideBeaconRegions;
+@property (readonly, strong, nonatomic) NSMutableDictionary *insideCircularRegions;
+
 @end
 

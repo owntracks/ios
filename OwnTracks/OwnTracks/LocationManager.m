@@ -465,13 +465,13 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
         switch (state) {
             case CLRegionStateInside:
                 if (![circular containsCoordinate:manager.location.coordinate]) {
-                    DDLogVerbose(@"[LocationManager] didDeterminState false positive!");
+                    DDLogVerbose(@"[LocationManager] didDetermineState false positive!");
                     state = CLRegionStateOutside;
                 }
                 break;
             case CLRegionStateOutside:
                 if ([circular containsCoordinate:manager.location.coordinate]) {
-                    DDLogVerbose(@"[LocationManager] didDeterminState false negative!");
+                    DDLogVerbose(@"[LocationManager] didDetermineState false negative!");
                     state = CLRegionStateInside;
                 }
                 break;
@@ -494,6 +494,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     DDLogVerbose(@"[LocationManager] didEnterRegion %@", region);
     
     if (![self removeHoldDown:region]) {
+        [self locationManager:manager didDetermineState:CLRegionStateInside forRegion:region];
         [self.delegate regionEvent:region enter:YES];
     }
 }
@@ -506,6 +507,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
         [self removeHoldDown:region];
         [self.pendingRegionEvents addObject:[PendingRegionEvent holdDown:region for:3.0 to:self]];
     } else {
+        [self locationManager:manager didDetermineState:CLRegionStateOutside forRegion:region];
         [self.delegate regionEvent:region enter:NO];
     }
 }

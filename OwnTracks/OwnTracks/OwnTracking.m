@@ -420,6 +420,17 @@ static OwnTracking *theInstance = nil;
     //    [json setValue:@(batteryState) forKey:@"bs"];
     //}
 
+    NSMutableArray <NSString *> *inRegions = [[NSMutableArray alloc] init];
+    for (Region *region in waypoint.belongsTo.hasRegions) {
+        if (region.share.boolValue) {
+            if ([LocationManager sharedInstance].insideCircularRegions[region.name] ||
+                [LocationManager sharedInstance].insideBeaconRegions[region.name]) {
+                [inRegions addObject:region.name];
+            }
+        }
+    }
+    json[@"inregions"] = inRegions;
+
     return json;
 }
 
