@@ -28,10 +28,17 @@
         NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.path error:&error];
         _contents = [[NSMutableArray alloc] init];
         for (NSString *file in contents) {
-            NSString *path = [self.path stringByAppendingPathComponent:file];
-            BOOL directory;
-            if ([[NSFileManager defaultManager] fileExistsAtPath:path isDirectory:&directory] && !directory) {
-                [_contents addObject:file];
+            if (([self.fileNameIdentifier isEqualToString:@"clientpkcs"] &&
+                 [file.pathExtension isEqualToString:@"otrp"]) ||
+                ([self.fileNameIdentifier isEqualToString:@"servercer"] &&
+                 [file.pathExtension isEqualToString:@"otre"])) {
+                    NSString *path = [self.path stringByAppendingPathComponent:file];
+                    BOOL directory;
+                    if ([[NSFileManager defaultManager] fileExistsAtPath:path
+                                                             isDirectory:&directory] &&
+                        !directory) {
+                        [_contents addObject:file];
+                    }
             }
         }
 
@@ -106,7 +113,8 @@
     return NO;
 }
 
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSIndexPath *)tableView:(UITableView *)tableView
+  willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *file = self.contents[indexPath.row];
 
     NSString *found = nil;
@@ -130,8 +138,10 @@
     self.selectedFileNames = @"";
     if (fileNames.count > 0) {
         self.selectedFileNames = fileNames[0];
-        for (int i = 1; i < fileNames.count; i++) {
-            self.selectedFileNames = [self.selectedFileNames stringByAppendingFormat:@" %@", fileNames[i]];
+        if (self.multiple.boolValue) {
+            for (int i = 1; i < fileNames.count; i++) {
+                self.selectedFileNames = [self.selectedFileNames stringByAppendingFormat:@" %@", fileNames[i]];
+            }
         }
     }
 
