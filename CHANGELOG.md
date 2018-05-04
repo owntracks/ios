@@ -1,6 +1,31 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 9.8.5/6
+* Release date 2017-05-04
+
+** Crash Fixes and a few new Things
+
+    [NEW] Include current regions in "location" payload #523
+    [NEW] use MQTT V5 library
+    [NEW] Include desc in _type=beacon messages #521
+    [NEW] translation (PL) update
+
+    [FIX] show matching files when selecting certificates only
+    [FIX] Crash in TodayViewController on iOS 9.3.5 iPhone4S #528
+    [FIX] Crash when accessing Address Book #529
+    [FIX] Crash when requesting reportLocation #527 
+    [FIX] Crash in ConnectionType #526
+    [FIX] update lastUsedLocation immediately
+
+## OwnTracks 9.8.3/4
+* Release date 2017-01-06
+
+** Urgent fixes
+
+    [FIX] OwnTracks 9.8.3 not start on iOS 10 #504
+    [FIX] HTTP: app sending GET requests instead of POST #503
+
 ## OwnTracks 9.7.8
 * Release date 2017-12-21
 
