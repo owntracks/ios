@@ -157,140 +157,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (ABRecordRef)recordOfFriend {
     ABRecordRef record = NULL;
 
-    if ([Settings boolForKey:SETTINGS_ADDRESSBOOK inMOC:self.managedObjectContext]) {
-        record = recordWithTopic((__bridge CFStringRef)(self.topic));
-    } else {
-        if ((self.abRecordId).intValue != kABRecordInvalidID) {
-            ABAddressBookRef ab = [Friend theABRef];
-            if (ab) {
-                record = ABAddressBookGetPersonWithRecordID(ab, (self.abRecordId).intValue);
-            }
+    if ((self.abRecordId).intValue != kABRecordInvalidID) {
+        ABAddressBookRef ab = [Friend theABRef];
+        if (ab) {
+            record = ABAddressBookGetPersonWithRecordID(ab, (self.abRecordId).intValue);
         }
     }
     return record;
 }
 
 - (void)linkToAB:(ABRecordRef)record {
-    if ([Settings boolForKey:SETTINGS_ADDRESSBOOK inMOC:self.managedObjectContext]) {
-        ABRecordRef oldrecord = recordWithTopic((__bridge CFStringRef)(self.topic));
-
-        if (oldrecord) {
-            [self ABsetTopic:nil record:oldrecord];
-        }
-
-        if (record) {
-            [self ABsetTopic:self.topic record:record];
-        }
-
-    } else {
-        ABRecordID abRecordID = ABRecordGetRecordID(record);
-        self.abRecordId = @(abRecordID);
-    }
+    ABRecordID abRecordID = ABRecordGetRecordID(record);
+    self.abRecordId = @(abRecordID);
 }
-
-#define RELATION_NAME CFSTR("OwnTracks")
-
-ABRecordRef recordWithTopic(CFStringRef topic) {
-    ABRecordRef theRecord = NULL;
-    ABAddressBookRef ab = [Friend theABRef];
-    if (ab) {
-        CFArrayRef records = ABAddressBookCopyArrayOfAllPeople(ab);
-
-        if (records) {
-            for (CFIndex i = 0; i < CFArrayGetCount(records); i++) {
-                ABRecordRef record = CFArrayGetValueAtIndex(records, i);
-
-                ABMultiValueRef relations = ABRecordCopyValue(record, kABPersonRelatedNamesProperty);
-                if (relations) {
-                    CFIndex relationsCount = ABMultiValueGetCount(relations);
-
-                    for (CFIndex k = 0 ; k < relationsCount ; k++) {
-                        CFStringRef label = ABMultiValueCopyLabelAtIndex(relations, k);
-                        if (label != NULL) {
-                            if (CFStringCompare(label, RELATION_NAME, kCFCompareCaseInsensitive) == kCFCompareEqualTo) {
-                                CFStringRef value = ABMultiValueCopyValueAtIndex(relations, k);
-                                if (value != NULL) {
-                                    if (CFStringCompare(value, topic, kCFCompareCaseInsensitive) == kCFCompareEqualTo) {
-                                        theRecord = record;
-                                        CFRelease(label);
-                                        CFRelease(value);
-                                        break;
-                                    }
-                                    CFRelease(value);
-                                }
-                            }
-                            CFRelease(label);
-                        }
-                    }
-                    CFRelease(relations);
-                }
-                if (theRecord != NULL) {
-                    break;
-                }
-            }
-            CFRelease(records);
-        }
-    }
-    return theRecord;
-}
-
-- (void)ABsetTopic:(NSString *)topic record:(ABRecordRef)record {
-    CFErrorRef errorRef;
-
-    ABMutableMultiValueRef relationsRW;
-
-    ABMultiValueRef relationsRO = ABRecordCopyValue(record, kABPersonRelatedNamesProperty);
-
-    if (relationsRO) {
-        relationsRW = ABMultiValueCreateMutableCopy(relationsRO);
-        CFRelease(relationsRO);
-    } else {
-        relationsRW = ABMultiValueCreateMutable(kABMultiDictionaryPropertyType);
-    }
-
-    CFIndex relationsCount = ABMultiValueGetCount(relationsRW);
-    CFIndex i;
-
-    for (i = 0 ; i < relationsCount ; i++) {
-        CFStringRef label = ABMultiValueCopyLabelAtIndex(relationsRW, i);
-        if(CFStringCompare(label, RELATION_NAME, kCFCompareCaseInsensitive) == kCFCompareEqualTo) {
-            if (topic) {
-                if (!ABMultiValueReplaceValueAtIndex(relationsRW, (__bridge CFTypeRef)(topic), i)) {
-                    DDLogError(@"Friend error ABMultiValueReplaceValueAtIndex %@ %ld", topic, i);
-                }
-            } else {
-                if (!ABMultiValueRemoveValueAndLabelAtIndex(relationsRW, i))  {
-                    DDLogError(@"Friend error ABMultiValueRemoveValueAndLabelAtIndex %ld", i);
-                }
-            }
-            CFRelease(label);
-            break;
-        }
-        CFRelease(label);
-    }
-    if (i == relationsCount) {
-        if (topic) {
-            if (!ABMultiValueAddValueAndLabel(relationsRW, (__bridge CFStringRef)(self.topic), RELATION_NAME, NULL)) {
-                DDLogError(@"Friend error ABMultiValueAddValueAndLabel %@ %@", topic, RELATION_NAME);
-            }
-        }
-    }
-
-    if (!ABRecordSetValue(record, kABPersonRelatedNamesProperty, relationsRW, &errorRef)) {
-        DDLogError(@"Friend error ABRecordSetValue %@", errorRef);
-    }
-    CFRelease(relationsRW);
-
-    ABAddressBookRef ab = [Friend theABRef];
-    if (ab) {
-        if (ABAddressBookHasUnsavedChanges(ab)) {
-            if (!ABAddressBookSave(ab, &errorRef)) {
-                DDLogError(@"Friend error ABAddressBookSave %@", errorRef);
-            }
-        }
-    }
-}
-
 
 - (NSString *)getEffectiveTid {
     NSArray <NSString *> *components = [self.topic componentsSeparatedByString:@"/"];
