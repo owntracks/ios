@@ -17,6 +17,9 @@
 
 @implementation NavigationController
 - (void)viewDidLoad {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    delegate.navigationController = self;
+
     self.progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
     [self.view addSubview:self.progressView];
 }
@@ -96,6 +99,46 @@
             self.progressView.progress = 1.0;
             break;
     }
+}
+
+- (void)alert:(NSString *)title message:(NSString *)message {
+    [self alert:title message:message dismissAfter:0];
+}
+
+- (void)alert:(NSString *)title message:(NSString *)message dismissAfter:(NSTimeInterval)interval {
+    [self performSelectorOnMainThread:@selector(alert:)
+                           withObject:@{
+                                        @"title": title,
+                                        @"message": message,
+                                        @"interval": [NSNumber numberWithFloat:interval]
+                                        }
+                        waitUntilDone:NO];
+}
+
+- (void)alert:(NSDictionary *)parameters {
+UIAlertController *ac = [UIAlertController
+                              alertControllerWithTitle:parameters[@"title"]
+                              message:parameters[@"message"]
+                              preferredStyle:UIAlertControllerStyleAlert];
+    NSNumber *interval = parameters[@"interval"];
+    if (!interval || interval.floatValue == 0.0) {
+        UIAlertAction *ok = [UIAlertAction
+                             actionWithTitle:NSLocalizedString(@"Continue",
+                                                               @"Continue button title")
+
+                             style:UIAlertActionStyleDefault
+                             handler:nil];
+        [ac addAction:ok];
+    }
+    [self presentViewController:ac animated:TRUE completion:nil];
+
+    if (interval && interval.floatValue > 0.0) {
+        [self performSelector:@selector(dismiss) withObject:nil afterDelay:interval.floatValue];
+    }
+}
+
+- (void)dismiss {
+    [self dismissViewControllerAnimated:TRUE completion:nil];
 }
 
 @end

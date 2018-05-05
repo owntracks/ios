@@ -12,7 +12,6 @@
 #import "RegionTVC.h"
 #import "CoreData.h"
 #import "Settings.h"
-#import "AlertView.h"
 #import "OwnTracksAppDelegate.h"
 #import "OwnTracking.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>

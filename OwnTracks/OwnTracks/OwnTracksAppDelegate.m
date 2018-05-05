@@ -9,16 +9,16 @@
 #import "OwnTracksAppDelegate.h"
 #import "CoreData.h"
 #import "Setting.h"
-#import "AlertView.h"
 #import "Settings.h"
 #import "Location.h"
 #import "Settings.h"
 #import "OwnTracking.h"
-#import <NotificationCenter/NotificationCenter.h>
 #import "ConnType.h"
 #import "GeoHashing.h"
 #import "MQTTCFSocketTransport.h"
 #import "MQTTSSLSecurityPolicy.h"
+#import <UserNotifications/UserNotifications.h>
+#import <UserNotifications/UNUserNotificationCenter.h>
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static const DDLogLevel ddLogLevel = DDLogLevelWarning;
@@ -127,16 +127,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             break;
     }
 
-    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:
-                                            UIUserNotificationTypeAlert |UIUserNotificationTypeBadge
-                                                                             categories:nil];
-    [application registerUserNotificationSettings:settings];
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    UNAuthorizationOptions options = UNAuthorizationOptionSound| UNAuthorizationOptionAlert | UNAuthorizationOptionBadge;
+    [center requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        DDLogVerbose(@"[OwnTracksAppDelegate] requestAuthorizationWithOptions granted:%d error:%@", granted, error);
+    }];
 
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationUserDidTakeScreenshotNotification
                                                       object:nil
                                                        queue:nil
                                                   usingBlock:^(NSNotification *note){
-                                                      DDLogVerbose(@"[OwnTracksAppDelegate]  UIApplicationUserDidTakeScreenshotNotification");
+                                                      DDLogVerbose(@"[OwnTracksAppDelegate] UIApplicationUserDidTakeScreenshotNotification");
                                                   }];
     return YES;
 }
@@ -187,14 +188,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 -(BOOL)application:(UIApplication *)app
            openURL:(NSURL *)url
            options:(NSDictionary<NSString *,id> *)options {
-    return [self application:app openURL:url sourceApplication:nil annotation:options];
-}
-
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation {
-    DDLogVerbose(@"[OwnTracksAppDelegate] openURL %@ from %@ annotation %@", url, sourceApplication, annotation);
+    DDLogVerbose(@"[OwnTracksAppDelegate] openURL %@ options %@", url, options);
 
     if (url) {
         DDLogVerbose(@"[OwnTracksAppDelegate] URL scheme %@", url.scheme);
@@ -209,7 +203,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                     NSString *key = pair[0];
                     NSString *value = pair[1];
                     value = [value stringByReplacingOccurrencesOfString:@"+" withString:@" "];
-                    value = [value stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                    value = [value stringByRemovingPercentEncoding];
                     queryStrings[key] = value;
                 }
             }
@@ -313,30 +307,30 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                                                  contents:data
                                                                attributes:nil];
                      } else {
-                         [AlertView alert:@"processNSURL"
-                                  message:[NSString stringWithFormat:@"OOPS %@ %@",
-                                           [NSError errorWithDomain:@"OwnTracks"
-                                                               code:2
-                                                           userInfo:@{@"extension":extension ? extension : @"(null)"}],
-                                           url]];
+                         [self.navigationController alert:@"processNSURL"
+                                                  message:[NSString stringWithFormat:@"OOPS %@ %@",
+                                                           [NSError errorWithDomain:@"OwnTracks"
+                                                                               code:2
+                                                                           userInfo:@{@"extension":extension ? extension : @"(null)"}],
+                                                           url]];
                      }
                  } else {
-                     [AlertView alert:@"processNSURL"
-                              message:[NSString stringWithFormat:@"httpResponse.statusCode %ld %@",
-                                       (long)httpResponse.statusCode,
-                                       url]];
+                     [self.navigationController alert:@"processNSURL"
+                                              message:[NSString stringWithFormat:@"httpResponse.statusCode %ld %@",
+                                                       (long)httpResponse.statusCode,
+                                                       url]];
                  }
              } else {
-                 [AlertView alert:@"processNSURL"
-                          message:[NSString stringWithFormat:@"response %@ %@",
-                                   response,
-                                   url]];
+                 [self.navigationController alert:@"processNSURL"
+                                          message:[NSString stringWithFormat:@"response %@ %@",
+                                                   response,
+                                                   url]];
              }
          } else {
-             [AlertView alert:@"processNSURL"
-                      message:[NSString stringWithFormat:@"dataTaskWithRequest %@ %@",
-                               error,
-                               url]];
+             [self.navigationController alert:@"processNSURL"
+                                      message:[NSString stringWithFormat:@"dataTaskWithRequest %@ %@",
+                                               error,
+                                               url]];
          }
      }];
     [dataTask resume];
@@ -347,10 +341,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     NSError *error = [Settings fromDictionary:json inMOC:CoreData.sharedInstance.mainMOC];
     [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
     if (error) {
-        [AlertView alert:@"processNSURL"
-                 message:[NSString stringWithFormat:@"configFromDictionary %@ %@",
-                          error,
-                          json]];
+        [self.navigationController alert:@"processNSURL"
+                                 message:[NSString stringWithFormat:@"configFromDictionary %@ %@",
+                                          error,
+                                          json]];
     }
 }
 
@@ -358,10 +352,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     NSError *error = [Settings waypointsFromDictionary:json inMOC:CoreData.sharedInstance.mainMOC];
     [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
     if (error) {
-        [AlertView alert:@"processNSURL"
-                 message:[NSString stringWithFormat:@"waypointsFromDictionary %@ %@",
-                          error,
-                          json]];
+        [self.navigationController alert:@"processNSURL"
+                                 message:[NSString stringWithFormat:@"waypointsFromDictionary %@ %@",
+                                          error,
+                                          json]];
     }
 }
 
@@ -449,12 +443,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     }
 
     if (self.backgroundFetchCheckMessage) {
-        [AlertView alert:@"Background Fetch" message:self.backgroundFetchCheckMessage];
+        [self.navigationController alert:@"Background Fetch" message:self.backgroundFetchCheckMessage];
         self.backgroundFetchCheckMessage = nil;
     }
 
     if (self.processingMessage) {
-        [AlertView alert:@"openURL" message:self.processingMessage];
+        [self.navigationController alert:@"openURL" message:self.processingMessage];
         self.processingMessage = nil;
         [self reconnect];
     }
@@ -463,7 +457,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         NSString *message = NSLocalizedString(@"To publish your location userID and deviceID must be set",
                                               @"Warning displayed if necessary settings are missing");
 
-        [AlertView alert:@"Settings" message:message];
+        [self.navigationController alert:@"Settings" message:message];
     }
 }
 
@@ -489,10 +483,6 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                                             timestamp:[NSDate date]];
         [self publishLocation:location trigger:@"p"];
     }
-}
-
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
-    DDLogVerbose(@"[OwnTracksAppDelegate] didRegisterUserNotificationSettings %@", notificationSettings);
 }
 
 - (void)background {
@@ -572,20 +562,25 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 - (void)regionEvent:(CLRegion *)region enter:(BOOL)enter {
     [self background];
     CLLocation *location = [LocationManager sharedInstance].location;
-    NSString *message = [NSString stringWithFormat:@"%@ %@",
-                         (enter ?
-                          NSLocalizedString(@"Entering",
-                                            @"Display when entering region (region name follows)"):
-                          NSLocalizedString(@"Leaving",
-                                            @"Display when leaving region (region name follows)")
-                          ),
-                         region.identifier];
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.alertBody = message;
-    notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
-    [[UIApplication sharedApplication] performSelectorOnMainThread:@selector(scheduleLocalNotification:)
-                                                        withObject:notification
-                                                     waitUntilDone:NO];
+    NSString *notificationMessage = [NSString stringWithFormat:@"%@ %@",
+                                     (enter ?
+                                      NSLocalizedString(@"Entering",
+                                                        @"Display when entering region (region name follows)"):
+                                      NSLocalizedString(@"Leaving",
+                                                        @"Display when leaving region (region name follows)")
+                                      ),
+                                     region.identifier];
+    
+    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+    content.body = notificationMessage;
+    UNTimeIntervalNotificationTrigger* trigger = [UNTimeIntervalNotificationTrigger
+                                                  triggerWithTimeInterval:1.0
+                                                  repeats:NO];
+    UNNotificationRequest* request = [UNNotificationRequest requestWithIdentifier:@"region"
+                                                                          content:content
+                                                                          trigger:trigger];
+    UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+    [center addNotificationRequest:request withCompletionHandler:nil];
 
     Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
                             inManagedObjectContext:CoreData.sharedInstance.mainMOC];
@@ -836,14 +831,17 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                         inMOC:CoreData.sharedInstance.queuedMOC];
 
                             if (notificationMessage) {
-                                UILocalNotification *notification = [[UILocalNotification alloc] init];
-                                notification.alertBody = notificationMessage;
-                                notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1.0];
-                                [[UIApplication sharedApplication]
-                                 performSelectorOnMainThread:@selector(scheduleLocalNotification:)
-                                 withObject:notification
-                                 waitUntilDone:NO];
-                                 }
+                                UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                                content.body = notificationMessage;
+                                UNTimeIntervalNotificationTrigger* trigger = [UNTimeIntervalNotificationTrigger
+                                                                              triggerWithTimeInterval:1.0
+                                                                              repeats:NO];
+                                UNNotificationRequest* request = [UNNotificationRequest requestWithIdentifier:@"action"
+                                                                                                      content:content
+                                                                                                      trigger:trigger];
+                                UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+                                [center addNotificationRequest:request withCompletionHandler:nil];
+                            }
 
                             if (content || url) {
                                 if (url && ![url isEqualToString:self.action]) {
@@ -1160,10 +1158,10 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                                           passphrase:[Settings stringForKey:@"passphrase"
                                                                                       inMOC:CoreData.sharedInstance.mainMOC]];
             if (!certificates) {
-                [AlertView alert:NSLocalizedString(@"TLS Client Certificate",
-                                                   @"Heading for certificate error message")
-                         message:NSLocalizedString(@"incorrect file or passphrase",
-                                                   @"certificate error message")
+                [self.navigationController alert:NSLocalizedString(@"TLS Client Certificate",
+                                                                   @"Heading for certificate error message")
+                                         message:NSLocalizedString(@"incorrect file or passphrase",
+                                                                   @"certificate error message")
                  ];
             }
         }
@@ -1174,7 +1172,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
             securityPolicy = [MQTTSSLSecurityPolicy policyWithPinningMode:
                                [Settings intForKey:@"policymode" inMOC:CoreData.sharedInstance.mainMOC]];
             if (!securityPolicy) {
-                [AlertView alert:@"TLS Security Policy" message:@"invalide mode"];
+                [self.navigationController alert:@"TLS Security Policy" message:@"invalid mode"];
             }
 
             NSString *fileNames = [Settings stringForKey:@"servercer"
@@ -1191,10 +1189,10 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                         }
                         [certs addObject:certificateData];
                     } else {
-                        [AlertView alert:NSLocalizedString(@"TLS Security Policy",
-                                                           @"Heading for security policy error message")
-                                 message:NSLocalizedString(@"invalid certificate file",
-                                                           @"certificate file error message")
+                        [self.navigationController alert:NSLocalizedString(@"TLS Security Policy",
+                                                                           @"Heading for security policy error message")
+                                                 message:NSLocalizedString(@"invalid certificate file",
+                                                                           @"certificate file error message")
                          ];
                     }
                 }

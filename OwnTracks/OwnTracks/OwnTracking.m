@@ -9,11 +9,12 @@
 #import "OwnTracking.h"
 #import "Settings.h"
 #import "OwnTracksAppDelegate.h"
-#import "AlertView.h"
 #import "Waypoint.h"
 #import "CoreData.h"
 #import "ConnType.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import <UserNotifications/UserNotifications.h>
+#import <UserNotifications/UNUserNotificationCenter.h>
 
 #define MAXQUEUE 999
 
@@ -138,23 +139,29 @@ static OwnTracking *theInstance = nil;
                                                                                      dateStyle:NSDateFormatterShortStyle
                                                                                      timeStyle:NSDateFormatterShortStyle];
 
-                                NSString *message = [NSString stringWithFormat:@"%@ %@s %@ @ %@",
-                                                     tid,
-                                                     event,
-                                                     desc,
-                                                     shortTime];
+                                NSString *notificationMessage = [NSString stringWithFormat:@"%@ %@s %@ @ %@",
+                                                                 tid,
+                                                                 event,
+                                                                 desc,
+                                                                 shortTime];
 
-                                UILocalNotification *notification = [[UILocalNotification alloc] init];
-                                notification.alertBody = message;
-                                notification.userInfo = @{@"notify": @"friend"};
-                                notification.fireDate = tst;
-                                [[UIApplication sharedApplication] performSelectorOnMainThread:@selector(scheduleLocalNotification:)
-                                                                                    withObject:notification
-                                                                                 waitUntilDone:NO];
-                                [AlertView alert:NSLocalizedString(@"Friend",
-                                                                   @"Alert message header for friend's messages")
-                                         message:notification.alertBody
-                                    dismissAfter:2.0
+                                UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+                                content.body = notificationMessage;
+                                content.userInfo = @{@"notify": @"friend"};
+                                UNTimeIntervalNotificationTrigger* trigger = [UNTimeIntervalNotificationTrigger
+                                                                              triggerWithTimeInterval:1.0
+                                                                              repeats:NO];
+                                UNNotificationRequest* request = [UNNotificationRequest requestWithIdentifier:@"transition"
+                                                                                                      content:content
+                                                                                                      trigger:trigger];
+                                UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+                                [center addNotificationRequest:request withCompletionHandler:nil];
+
+                                OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+                                [delegate.navigationController alert:NSLocalizedString(@"Friend",
+                                                                                       @"Alert message header for friend's messages")
+                                                             message:notificationMessage
+                                                        dismissAfter:2.0
                                  ];
 
                             }

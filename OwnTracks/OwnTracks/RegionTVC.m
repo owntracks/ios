@@ -11,7 +11,6 @@
 #import "OwnTracksAppDelegate.h"
 #import "Settings.h"
 #import "CoreData.h"
-#import "AlertView.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface RegionTVC ()

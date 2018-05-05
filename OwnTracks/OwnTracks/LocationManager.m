@@ -7,7 +7,7 @@
 //
 
 #import "LocationManager.h"
-#import "AlertView.h"
+#import "OwnTracksAppDelegate.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface LocationManager()
@@ -71,7 +71,7 @@ static LocationManager *theInstance = nil;
     self.rangedBeacons = [[NSMutableArray alloc] init];
     self.lastUsedLocation = [[CLLocation alloc] initWithLatitude:0 longitude:0];
     self.pendingRegionEvents = [[NSMutableSet alloc] init];
-
+    
     [self authorize];
     
     [[NSNotificationCenter defaultCenter]
@@ -106,7 +106,7 @@ static LocationManager *theInstance = nil;
          DDLogVerbose(@"UIApplicationWillTerminateNotification");
          [self stop];
      }];
-
+    
     self.sharedUserDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
     [self.sharedUserDefaults addObserver:self forKeyPath:@"monitoring"
                                  options:NSKeyValueObservingOptionNew
@@ -243,10 +243,8 @@ static LocationManager *theInstance = nil;
     }
     _monitoring = monitoring;
     self.manager.pausesLocationUpdatesAutomatically = NO;
-    if ([[UIDevice currentDevice].systemVersion compare:@"9.0" options:NSNumericSearch] != NSOrderedAscending) {
-        self.manager.allowsBackgroundLocationUpdates = TRUE;
-    }
-
+    self.manager.allowsBackgroundLocationUpdates = TRUE;
+    
     switch (monitoring) {
         case LocationMonitoringMove:
             self.manager.distanceFilter = self.minDist > 0 ? self.minDist : kCLDistanceFilterNone;
@@ -263,14 +261,14 @@ static LocationManager *theInstance = nil;
             [[NSRunLoop currentRunLoop] addTimer:self.activityTimer
                                          forMode:NSRunLoopCommonModes];
             break;
-
+            
         case LocationMonitoringSignificant:
             [self.activityTimer invalidate];
             [self.manager stopUpdatingLocation];
             [self.manager startMonitoringSignificantLocationChanges];
             [self.manager startMonitoringVisits];
             break;
-
+            
         case LocationMonitoringManual:
         case LocationMonitoringQuiet:
         default:
@@ -326,84 +324,86 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
 }
 
 - (void)showError {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     switch (status) {
         case kCLAuthorizationStatusAuthorizedAlways:
             break;
         case kCLAuthorizationStatusAuthorizedWhenInUse:
-            [AlertView alert:@"LocationManager"
-                     message:NSLocalizedString(@"App is not allowed to use location services in background",
-                                               @"Location Manager error message")
+            [delegate.navigationController alert:@"LocationManager"
+                                         message:NSLocalizedString(@"App is not allowed to use location services in background",
+                                                                   @"Location Manager error message")
              ];
             break;
         case kCLAuthorizationStatusNotDetermined:
-            [AlertView alert:@"LocationManager"
-                     message:NSLocalizedString(@"App is not allowed to use location services yet",
-                                               @"Location Manager error message")
+            [delegate.navigationController alert:@"LocationManager"
+                                         message:NSLocalizedString(@"App is not allowed to use location services yet",
+                                                                   @"Location Manager error message")
              ];
             break;
         case kCLAuthorizationStatusDenied:
-            [AlertView alert:@"LocationManager"
-                     message:NSLocalizedString(@"App is not allowed to use location services",
-                                               @"Location Manager error message")
+            [delegate.navigationController alert:@"LocationManager"
+                                         message:NSLocalizedString(@"App is not allowed to use location services",
+                                                                   @"Location Manager error message")
              ];
             break;
         case kCLAuthorizationStatusRestricted:
-            [AlertView alert:@"LocationManager"
-                     message:NSLocalizedString(@"App use of location services is restricted",
-                                               @"Location Manager error message")
+            [delegate.navigationController alert:@"LocationManager"
+                                         message:NSLocalizedString(@"App use of location services is restricted",
+                                                                   @"Location Manager error message")
              ];
             break;
         default:
-            [AlertView alert:@"LocationManager"
-                     message:NSLocalizedString(@"App use of location services is unclear",
-                                               @"Location Manager error message")
+            [delegate.navigationController alert:@"LocationManager"
+                                         message:NSLocalizedString(@"App use of location services is unclear",
+                                                                   @"Location Manager error message")
              ];
             break;
     }
     
     if (![CLLocationManager locationServicesEnabled]) {
-        [AlertView alert:@"LocationManager"
-                 message:NSLocalizedString(@"Location services are not enabled",
-                                           @"Location Manager error message")
+        [delegate.navigationController alert:@"LocationManager"
+                                     message:NSLocalizedString(@"Location services are not enabled",
+                                                               @"Location Manager error message")
          ];
     }
     
     if (![CLLocationManager significantLocationChangeMonitoringAvailable]) {
-        [AlertView alert:@"LocationManager"
-                 message:NSLocalizedString(@"Significant location change monitoring not available",
-                                           @"Location Manager error message")
+        [delegate.navigationController alert:@"LocationManager"
+                                     message:NSLocalizedString(@"Significant location change monitoring not available",
+                                                               @"Location Manager error message")
          ];
     }
     
     if (![CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
-        [AlertView alert:@"LocationManager"
-                 message:NSLocalizedString(@"Circular region monitoring not available",
-                                           @"Location Manager error message")
+        [delegate.navigationController alert:@"LocationManager"
+                                     message:NSLocalizedString(@"Circular region monitoring not available",
+                                                               @"Location Manager error message")
          ];
     }
     
     if (![CLLocationManager isMonitoringAvailableForClass:[CLBeaconRegion class]]) {
-        [AlertView alert:@"LocationManager"
-                 message:NSLocalizedString(@"iBeacon region monitoring not available",
-                                           @"Location Manager error message")
+        [delegate.navigationController alert:@"LocationManager"
+                                     message:NSLocalizedString(@"iBeacon region monitoring not available",
+                                                               @"Location Manager error message")
          ];
     }
     
     if (![CLLocationManager isRangingAvailable]) {
-        [AlertView alert:@"LocationManager"
-                 message:NSLocalizedString(@"iBeacon ranging not available",
-                                           @"Location Manager error message")
+        [delegate.navigationController alert:@"LocationManager"
+                                     message:NSLocalizedString(@"iBeacon ranging not available",
+                                                               @"Location Manager error message")
          ];
     }
     
     if (![CLLocationManager deferredLocationUpdatesAvailable]) {
-        // [AlertView alert:where message:@"Deferred location updates not available"];
+        // [delegate.navigationController alert:where message:@"Deferred location updates not available"];
     }
     
     if (![CLLocationManager headingAvailable]) {
-        // [AlertView alert:where message:@"Heading not available"];
+        // [delegate.navigationController alert:where message:@"Heading not available"];
     }
+    
 }
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -647,25 +647,25 @@ rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
                  visit.horizontalAccuracy,
                  visit.arrivalDate,
                  visit.departureDate);
-
-//    CLLocation *location;
-//    if (visit.departureDate && ![visit.departureDate isEqualToDate:[NSDate distantFuture]]) {
-//        location = [[CLLocation alloc] initWithCoordinate:visit.coordinate
-//                                                 altitude:-1.0
-//                                       horizontalAccuracy:visit.horizontalAccuracy
-//                                         verticalAccuracy:-1.0
-//                                                timestamp:visit.departureDate];
-//    } else if (visit.arrivalDate && ![visit.arrivalDate isEqualToDate:[NSDate distantPast]]) {
-//        location = [[CLLocation alloc] initWithCoordinate:visit.coordinate
-//                                                 altitude:-1.0
-//                                       horizontalAccuracy:visit.horizontalAccuracy
-//                                         verticalAccuracy:-1.0
-//                                                timestamp:visit.arrivalDate];
-//    }
-//
-//    if (location) {
-//        [self.delegate visitLocation:location];
-//    }
+    
+    //    CLLocation *location;
+    //    if (visit.departureDate && ![visit.departureDate isEqualToDate:[NSDate distantFuture]]) {
+    //        location = [[CLLocation alloc] initWithCoordinate:visit.coordinate
+    //                                                 altitude:-1.0
+    //                                       horizontalAccuracy:visit.horizontalAccuracy
+    //                                         verticalAccuracy:-1.0
+    //                                                timestamp:visit.departureDate];
+    //    } else if (visit.arrivalDate && ![visit.arrivalDate isEqualToDate:[NSDate distantPast]]) {
+    //        location = [[CLLocation alloc] initWithCoordinate:visit.coordinate
+    //                                                 altitude:-1.0
+    //                                       horizontalAccuracy:visit.horizontalAccuracy
+    //                                         verticalAccuracy:-1.0
+    //                                                timestamp:visit.arrivalDate];
+    //    }
+    //
+    //    if (location) {
+    //        [self.delegate visitLocation:location];
+    //    }
     if (self.manager.location) {
         [self.delegate newLocation:self.manager.location];
     }

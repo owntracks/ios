@@ -128,13 +128,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (IBAction)talkPressed:(UIButton *)sender {
-    [[UIApplication sharedApplication] openURL:
-     [NSURL URLWithString:@"https://github.com/owntracks/talk"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/owntracks/talk"]
+                                       options:@{}
+                             completionHandler:nil];
 }
 
 - (IBAction)documentationPressed:(UIButton *)sender {
-    [[UIApplication sharedApplication] openURL:
-     [NSURL URLWithString:@"http://owntracks.org/booklet"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://owntracks.org/booklet"]
+                                       options:@{}
+                             completionHandler:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

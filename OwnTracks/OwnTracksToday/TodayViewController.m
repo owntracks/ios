@@ -37,12 +37,7 @@
     self.page = 1;
     self.offset = 0;
 
-    NSOperatingSystemVersion ios8_0_0 = (NSOperatingSystemVersion){8, 0, 0};
-    if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:ios8_0_0]) {
-        [self.extensionContext setWidgetLargestAvailableDisplayMode:NCWidgetDisplayModeExpanded];
-    } else {
-        //
-    }
+    [self.extensionContext setWidgetLargestAvailableDisplayMode:NCWidgetDisplayModeExpanded];
 }
 
 - (void)widgetActiveDisplayModeDidChange:(NCWidgetDisplayMode)activeDisplayMode
@@ -67,16 +62,6 @@
 - (void)viewDidLayoutSubviews {
     [self show];
     [self.tableView reloadData];
-}
-
-- (UIEdgeInsets)widgetMarginInsetsForProposedMarginInsets:(UIEdgeInsets)defaultMarginInsets {
-    NSLog(@"widgetMarginInsetsForProposedMarginInsets: %f %f %f %f",
-          defaultMarginInsets.bottom,
-          defaultMarginInsets.left,
-          defaultMarginInsets.top,
-          defaultMarginInsets.right);
-    return defaultMarginInsets;
-
 }
 
 - (void)widgetPerformUpdateWithCompletionHandler:(void (^)(NCUpdateResult))completionHandler {

@@ -20,7 +20,6 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface FriendsTVC ()
-@property (strong, nonatomic) UIAlertView *alertView;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
@@ -55,31 +54,43 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
     
     switch (status) {
-        case kABAuthorizationStatusRestricted:
+        case kABAuthorizationStatusRestricted: {
             DDLogVerbose(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusRestricted");
-            self.alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Addressbook Access",
-                                                                                  @"Headline in addressbook related error messages")
-                                                        message:NSLocalizedString(@"has been restricted, possibly due to restrictions such as parental controls.",
-                                                                                  @"kABAuthorizationStatusRestricted")
-                                                       delegate:nil
-                                              cancelButtonTitle:NSLocalizedString(@"OK",
-                                                                                  @"OK button title")
-                                              otherButtonTitles:nil];
-            [self.alertView show];
+            UIAlertController *ac = [UIAlertController
+                                     alertControllerWithTitle:NSLocalizedString(@"Addressbook Access",
+                                                                                @"Headline in addressbook related error messages")
+                                     message:NSLocalizedString(@"has been restricted, possibly due to restrictions such as parental controls.",
+                                                               @"kABAuthorizationStatusRestricted")
+                                     preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *ok = [UIAlertAction
+                                 actionWithTitle:NSLocalizedString(@"Continue",
+                                                                   @"Continue button title")
+
+                                 style:UIAlertActionStyleDefault
+                                 handler:nil];
+            [ac addAction:ok];
+            [self presentViewController:ac animated:TRUE completion:nil];
             break;
+        }
             
-        case kABAuthorizationStatusDenied:
+        case kABAuthorizationStatusDenied: {
             DDLogVerbose(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusDenied");
-            self.alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Addressbook Access",
-                                                                                  @"Headline in addressbook related error messages")
-                                                        message:NSLocalizedString(@"has been denied by user. Go to Settings/Privacy/Contacts to change",
-                                                                                  @"kABAuthorizationStatusDenied")
-                                                       delegate:nil
-                                              cancelButtonTitle:NSLocalizedString(@"OK",
-                                                                                  @"OK button title")
-                                              otherButtonTitles:nil];
-            [self.alertView show];
+            UIAlertController *ac = [UIAlertController
+                                     alertControllerWithTitle:NSLocalizedString(@"Addressbook Access",
+                                                                                @"Headline in addressbook related error messages")
+                                     message:NSLocalizedString(@"has been denied by user. Go to Settings/Privacy/Contacts to change",
+                                                               @"kABAuthorizationStatusDenied")
+                                     preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *ok = [UIAlertAction
+                                 actionWithTitle:NSLocalizedString(@"Continue",
+                                                                   @"Continue button title")
+
+                                 style:UIAlertActionStyleDefault
+                                 handler:nil];
+            [ac addAction:ok];
+            [self presentViewController:ac animated:TRUE completion:nil];
             break;
+        }
             
         case kABAuthorizationStatusAuthorized:
             DDLogVerbose(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusAuthorized");

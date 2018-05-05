@@ -12,7 +12,6 @@
 #import "CoreData.h"
 #import "TabBarController.h"
 #import "OwnTracksAppDelegate.h"
-#import "AlertView.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface FeaturedContentVC ()
@@ -65,7 +64,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                          ]
                                 baseURL:nil
              ];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]
+                                               options:@{}
+                                     completionHandler:nil];
         } else {
             [self.UIhtml loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
         }

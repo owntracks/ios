@@ -13,7 +13,6 @@
 #import "Settings.h"
 #import "Friend+CoreDataClass.h"
 #import "CoreData.h"
-#import "AlertView.h"
 #import "OwnTracking.h"
 #import "IdPicker.h"
 #import "WebVC.h"
@@ -87,7 +86,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *UIeffectiveDeviceId;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
-@property (strong, nonatomic) UIAlertView *tidAlertView;
 @property (strong, nonatomic) QRCodeReaderViewController *reader;
 
 @end
@@ -853,8 +851,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (IBAction)hostedPressed:(UIButton *)sender {
-    [[UIApplication sharedApplication] openURL:
-     [NSURL URLWithString:@"https://hosted.owntracks.org"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://hosted.owntracks.org"]
+                                       options:@{}
+                             completionHandler:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -888,7 +887,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     NSString *urlString = [NSString
                            stringWithFormat:@"https://quickstart.internetofthings.ibmcloud.com/#/device/%@/sensor/",
                            self.UIquickstartId.text];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]
+                                       options:@{}
+                             completionHandler:nil];
+
 }
 
 - (IBAction)setNames:(UIStoryboardSegue *)segue {
@@ -939,22 +941,27 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (sender.text.length) {
         int protocol = (sender.text).intValue;
         if (protocol != MQTTProtocolVersion31 && protocol != MQTTProtocolVersion311) {
-            UIAlertView *alertView = [[UIAlertView alloc]
-                                      initWithTitle:NSLocalizedString(@"Protocol invalid",
-                                                                      @"Alert header regarding protocol input")
-                                      message:NSLocalizedString(@"Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1",
-                                                                @"Alert content regarding protocol input")
-                                      delegate:self
-                                      cancelButtonTitle:nil
-                                      otherButtonTitles:NSLocalizedString(@"OK",
-                                                                          @"OK button title"),
-                                      nil
-                                      ];
-            [alertView show];
-            sender.text = [NSString stringWithFormat:@"%d",
-                           [Settings intForKey:SETTINGS_PROTOCOL
-                                         inMOC:CoreData.sharedInstance.mainMOC]];
+            UIAlertController *ac = [UIAlertController
+                                     alertControllerWithTitle:NSLocalizedString(@"Protocol invalid",
+                                                                                @"Alert header regarding protocol input")
+                                     message:NSLocalizedString(@"Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1",
+                                                               @"Alert content regarding protocol input")
+                                     preferredStyle:UIAlertControllerStyleAlert];
+
+            UIAlertAction *ok = [UIAlertAction
+                                 actionWithTitle:NSLocalizedString(@"Continue",
+                                                                   @"Continue button title")
+                                 style:UIAlertActionStyleDefault
+                                 handler:^(UIAlertAction *action) {
+                                     sender.text = [NSString stringWithFormat:@"%d",
+                                                    [Settings intForKey:SETTINGS_PROTOCOL
+                                                                  inMOC:CoreData.sharedInstance.mainMOC]];
+                                 }];
+
+            [ac addAction:ok];
+            [self presentViewController:ac animated:TRUE completion:nil];
             return;
+
         }
         [Settings setInt:protocol forKey:SETTINGS_PROTOCOL inMOC:CoreData.sharedInstance.mainMOC];
         [self updated];
@@ -966,36 +973,44 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (IBAction)tidChanged:(UITextField *)sender {
 
     if (sender.text.length > 2) {
-        UIAlertView *alertView = [[UIAlertView alloc]
-                                  initWithTitle:INVALIDTRACKERID
-                                  message:NSLocalizedString(@"TrackerID may be empty or up to 2 characters long",
-                                                            @"Alert content regarding TrackerID input")
-                                  delegate:self
-                                  cancelButtonTitle:nil
-                                  otherButtonTitles:NSLocalizedString(@"OK",
-                                                                      @"OK button title"),
-                                  nil
-                                  ];
-        [alertView show];
-        sender.text = [Settings stringForKey:@"trackerid_preference"
-                                       inMOC:CoreData.sharedInstance.mainMOC];
+        UIAlertController *ac = [UIAlertController
+                                 alertControllerWithTitle:INVALIDTRACKERID
+                                 message:NSLocalizedString(@"TrackerID may be empty or up to 2 characters long",
+                                                           @"Alert content regarding TrackerID input")
+                                 preferredStyle:UIAlertControllerStyleAlert];
+
+        UIAlertAction *ok = [UIAlertAction
+                             actionWithTitle:NSLocalizedString(@"Continue",
+                                                               @"Continue button title")
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction *action) {
+                                 sender.text = [Settings stringForKey:@"trackerid_preference"
+                                                                inMOC:CoreData.sharedInstance.mainMOC];
+                             }];
+
+        [ac addAction:ok];
+        [self presentViewController:ac animated:TRUE completion:nil];
         return;
     }
     for (int i = 0; i < sender.text.length; i++) {
         if (![[NSCharacterSet alphanumericCharacterSet] characterIsMember:[sender.text characterAtIndex:i]]) {
-            self.tidAlertView = [[UIAlertView alloc]
-                                 initWithTitle:INVALIDTRACKERID
-                                 message:NSLocalizedString(@"TrackerID may contain alphanumeric characters only",
-                                                           @"Alert content regarding TrackerID input")
-                                 delegate:self
-                                 cancelButtonTitle:nil
-                                 otherButtonTitles:NSLocalizedString(@"OK",
-                                                                     @"OK button title"),
-                                 nil
-                                 ];
-            [self.tidAlertView show];
-            sender.text = [Settings stringForKey:@"trackerid_preference"
-                                           inMOC:CoreData.sharedInstance.mainMOC];
+            UIAlertController *ac = [UIAlertController
+                                     alertControllerWithTitle:INVALIDTRACKERID
+                                     message:NSLocalizedString(@"TrackerID may contain alphanumeric characters only",
+                                                               @"Alert content regarding TrackerID input")
+                                     preferredStyle:UIAlertControllerStyleAlert];
+
+            UIAlertAction *ok = [UIAlertAction
+                                 actionWithTitle:NSLocalizedString(@"Continue",
+                                                                   @"Continue button title")
+                                 style:UIAlertActionStyleDefault
+                                 handler:^(UIAlertAction *action) {
+                                     sender.text = [Settings stringForKey:@"trackerid_preference"
+                                                                    inMOC:CoreData.sharedInstance.mainMOC];
+                                 }];
+
+            [ac addAction:ok];
+            [self presentViewController:ac animated:TRUE completion:nil];
             return;
         }
     }
@@ -1007,32 +1022,35 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (IBAction)modeChanged:(UITextField *)sender {
-    UIAlertController *ac = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Mode change",
-                                                                                          @"Alert header for mode change warning")
-                                                                message:NSLocalizedString(@"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before.",
-                                                                                          @"Alert content for mode change warning")
-                                                         preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *ac = [UIAlertController
+                             alertControllerWithTitle:NSLocalizedString(@"Mode change",
+                                                                        @"Alert header for mode change warning")
+                             message:NSLocalizedString(@"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before.",
+                                                       @"Alert content for mode change warning")
+                             preferredStyle:UIAlertControllerStyleAlert];
 
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel",
-                                                                             @"Cancel button title")
+    UIAlertAction *cancel = [UIAlertAction
+                             actionWithTitle:NSLocalizedString(@"Cancel",
+                                                               @"Cancel button title")
 
-                                                     style:UIAlertActionStyleCancel
-                                                   handler:^(UIAlertAction *action){
-                                                       [self updated];
-                                                   }];
-    UIAlertAction *ok = [UIAlertAction actionWithTitle:NSLocalizedString(@"Continue",
-                                                                         @"Continue button title")
+                             style:UIAlertActionStyleCancel
+                             handler:^(UIAlertAction *action){
+                                 [self updated];
+                             }];
+    UIAlertAction *ok = [UIAlertAction
+                         actionWithTitle:NSLocalizedString(@"Continue",
+                                                           @"Continue button title")
 
-                                                 style:UIAlertActionStyleDestructive
-                                               handler:^(UIAlertAction *action) {
-                                                   OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-                                                   [delegate terminateSession];
-                                                   [self updateValues];
+                         style:UIAlertActionStyleDestructive
+                         handler:^(UIAlertAction *action) {
+                             OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+                             [delegate terminateSession];
+                             [self updateValues];
 
-                                                   [self updated];
-                                                   [delegate reconnect];
-                                                   [self.UImode resignFirstResponder];
-                                               }];
+                             [self updated];
+                             [delegate reconnect];
+                             [self.UImode resignFirstResponder];
+                         }];
 
     [ac addAction:cancel];
     [ac addAction:ok];
@@ -1042,13 +1060,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (IBAction)changed:(id)sender {
     [self updateValues];
     [self updated];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (alertView == self.tidAlertView) {
-        self.UItrackerid.text = [Settings stringForKey:@"trackerid_preference"
-                                                 inMOC:CoreData.sharedInstance.mainMOC];
-    }
 }
 
 - (void)reconnect {
@@ -1070,10 +1081,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
         [self presentViewController:_reader animated:YES completion:NULL];
     } else {
-        [AlertView alert:QRSCANNER
-                 message:NSLocalizedString(@"App does not have access to camera",
-                                           @"content of an alert message regarging QR code scanning")
-         ];
+        UIAlertController *ac = [UIAlertController
+                                 alertControllerWithTitle:QRSCANNER
+                                 message:NSLocalizedString(@"App does not have access to camera",
+                                                           @"content of an alert message regarging QR code scanning")
+                                 preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ok = [UIAlertAction
+                             actionWithTitle:NSLocalizedString(@"Continue",
+                                                               @"Continue button title")
+
+                             style:UIAlertActionStyleDefault
+                             handler:nil];
+        [ac addAction:ok];
+        [self presentViewController:ac animated:TRUE completion:nil];
     }
 }
 
@@ -1088,14 +1108,33 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         NSURL *url = [NSURL URLWithString:result];
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         if ([delegate application:[UIApplication sharedApplication] openURL:url options:@{}]) {
-            [AlertView alert:QRSCANNER
-                     message:NSLocalizedString(@"QR code successfully processed!",
-                                               @"content of an alert message regarging QR code scanning")
-             ];
+            UIAlertController *ac = [UIAlertController
+                                     alertControllerWithTitle:QRSCANNER
+                                     message:NSLocalizedString(@"QR code successfully processed!",
+                                                               @"content of an alert message regarging QR code scanning")
+                                     preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *ok = [UIAlertAction
+                                 actionWithTitle:NSLocalizedString(@"Continue",
+                                                                   @"Continue button title")
+
+                                 style:UIAlertActionStyleDefault
+                                 handler:nil];
+            [ac addAction:ok];
+            [self presentViewController:ac animated:TRUE completion:nil];
+
         } else {
-            [AlertView alert:QRSCANNER
-                     message:delegate.processingMessage
-             ];
+            UIAlertController *ac = [UIAlertController
+                                     alertControllerWithTitle:QRSCANNER
+                                     message:delegate.processingMessage
+                                     preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *ok = [UIAlertAction
+                                 actionWithTitle:NSLocalizedString(@"Continue",
+                                                                   @"Continue button title")
+
+                                 style:UIAlertActionStyleDefault
+                                 handler:nil];
+            [ac addAction:ok];
+            [self presentViewController:ac animated:TRUE completion:nil];
         }
         delegate.processingMessage = nil;
     }];

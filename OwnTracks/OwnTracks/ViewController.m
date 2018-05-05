@@ -21,7 +21,6 @@
 #import "UIColor+WithName.h"
 #import "LocationManager.h"
 #import "OwnTracking.h"
-#import "AlertView.h"
 #import "GeoHashing.h"
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
@@ -282,7 +281,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             if (!annotationView) {
                 MKPinAnnotationView *pAV;
                 pAV = [[MKPinAnnotationView alloc] initWithAnnotation:region reuseIdentifier:REUSE_ID_OTHER];
-                pAV.pinColor = MKPinAnnotationColorGreen;
+                pAV.pinTintColor = [UIColor greenColor];
                 annotationView = pAV;
             }
             annotationView.draggable = true;
@@ -335,11 +334,11 @@ calloutAccessoryControlTapped:(UIControl *)control {
         Friend *friend = (Friend *)view.annotation;
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         [delegate requestLocationFromFriend:friend];
-        [AlertView alert:NSLocalizedString(@"Location",
-                                           @"Header of an alert message regarding a location")
-                 message:NSLocalizedString(@"requested from friend",
-                                           @"content of an alert message regarding publish request")
-            dismissAfter:1
+        [delegate.navigationController alert:NSLocalizedString(@"Location",
+                                                               @"Header of an alert message regarding a location")
+                                     message:NSLocalizedString(@"requested from friend",
+                                                               @"content of an alert message regarding publish request")
+                                dismissAfter:1
          ];
     }
 }
@@ -579,11 +578,11 @@ calloutAccessoryControlTapped:(UIControl *)control {
 - (void)sendNow {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate sendNow];
-    [AlertView alert:NSLocalizedString(@"Location",
-                                       @"Header of an alert message regarding a location")
-             message:NSLocalizedString(@"publish queued on user request",
-                                       @"content of an alert message regarding user publish")
-        dismissAfter:1
+    [delegate.navigationController alert:NSLocalizedString(@"Location",
+                                                           @"Header of an alert message regarding a location")
+                                 message:NSLocalizedString(@"publish queued on user request",
+                                                           @"content of an alert message regarding user publish")
+                            dismissAfter:1
      ];
 }
 
@@ -604,54 +603,57 @@ calloutAccessoryControlTapped:(UIControl *)control {
                                            context:CoreData.sharedInstance.mainMOC];
         [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
 
-        [AlertView alert:NSLocalizedString(@"Region",
-                                           @"Header of an alert message regarding circular region")
-                 message:NSLocalizedString(@"created at center of map",
-                                           @"content of an alert message regarding circular region")
-            dismissAfter:1
+        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegate.navigationController alert:NSLocalizedString(@"Region",
+                                                               @"Header of an alert message regarding circular region")
+                                     message:NSLocalizedString(@"created at center of map",
+                                                               @"content of an alert message regarding circular region")
+                                dismissAfter:1
          ];
     }
 }
 - (IBAction)buttonMovePressed:(UIBarButtonItem *)sender {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+
     switch ([LocationManager sharedInstance].monitoring) {
         case LocationMonitoringMove:
             [LocationManager sharedInstance].monitoring = LocationMonitoringSignificant;
-            [AlertView alert:NSLocalizedString(@"Mode",
-                                               @"Header of an alert message regarding monitoring mode")
-                     message:NSLocalizedString(@"significant changes mode enabled",
-                                               @"content of an alert message regarding monitoring mode")
-                dismissAfter:1
+            [delegate.navigationController alert:NSLocalizedString(@"Mode",
+                                                                   @"Header of an alert message regarding monitoring mode")
+                                         message:NSLocalizedString(@"significant changes mode enabled",
+                                                                   @"content of an alert message regarding monitoring mode")
+                                    dismissAfter:1
              ];
             break;
 
         case LocationMonitoringQuiet:
             [LocationManager sharedInstance].monitoring = LocationMonitoringMove;
-            [AlertView alert:NSLocalizedString(@"Mode",
-                                               @"Header of an alert message regarding monitoring mode")
-                     message:NSLocalizedString(@"move mode enabled",
-                                               @"content of an alert message regarding monitoring mode")
-                dismissAfter:1
+            [delegate.navigationController alert:NSLocalizedString(@"Mode",
+                                                                   @"Header of an alert message regarding monitoring mode")
+                                         message:NSLocalizedString(@"move mode enabled",
+                                                                   @"content of an alert message regarding monitoring mode")
+                                    dismissAfter:1
              ];
             break;
 
         case LocationMonitoringManual:
             [LocationManager sharedInstance].monitoring = LocationMonitoringQuiet;
-            [AlertView alert:NSLocalizedString(@"Mode",
-                                               @"Header of an alert message regarding monitoring mode")
-                     message:NSLocalizedString(@"quiet mode enabled",
-                                               @"content of an alert message regarding monitoring mode")
-                dismissAfter:1
+            [delegate.navigationController alert:NSLocalizedString(@"Mode",
+                                                                   @"Header of an alert message regarding monitoring mode")
+                                         message:NSLocalizedString(@"quiet mode enabled",
+                                                                   @"content of an alert message regarding monitoring mode")
+                                    dismissAfter:1
              ];
             break;
 
         case LocationMonitoringSignificant:
         default:
             [LocationManager sharedInstance].monitoring = LocationMonitoringManual;
-            [AlertView alert:NSLocalizedString(@"Mode",
-                                               @"Header of an alert message regarding monitoring mode")
-                     message:NSLocalizedString(@"manual mode enabled",
-                                               @"content of an alert message regarding monitoring mode")
-                dismissAfter:1
+            [delegate.navigationController alert:NSLocalizedString(@"Mode",
+                                                                   @"Header of an alert message regarding monitoring mode")
+                                         message:NSLocalizedString(@"manual mode enabled",
+                                                                   @"content of an alert message regarding monitoring mode")
+                                    dismissAfter:1
              ];
 
             break;
@@ -680,21 +682,23 @@ calloutAccessoryControlTapped:(UIControl *)control {
 }
 
 - (IBAction)buttonCopyPressed:(UIBarButtonItem *)sender {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+
     if ([OwnTracking sharedInstance].cp) {
         [OwnTracking sharedInstance].cp = FALSE;
-        [AlertView alert:NSLocalizedString(@"Copying",
-                                           @"Header of an alert message regarding copying")
-                 message:NSLocalizedString(@"copying disabled",
-                                           @"content of an alert message regarding copying disabled")
-            dismissAfter:1
+        [delegate.navigationController alert:NSLocalizedString(@"Copying",
+                                                               @"Header of an alert message regarding copying")
+                                     message:NSLocalizedString(@"copying disabled",
+                                                               @"content of an alert message regarding copying disabled")
+                                dismissAfter:1
          ];
     } else {
         [OwnTracking sharedInstance].cp = TRUE;
-        [AlertView alert:NSLocalizedString(@"Copying",
-                                           @"Header of an alert message regarding copying")
-                 message:NSLocalizedString(@"copying enabled",
-                                           @"content of an alert message regarding copying enabled")
-            dismissAfter:1
+        [delegate.navigationController alert:NSLocalizedString(@"Copying",
+                                                               @"Header of an alert message regarding copying")
+                                     message:NSLocalizedString(@"copying enabled",
+                                                               @"content of an alert message regarding copying enabled")
+                                dismissAfter:1
          ];
     }
     [Settings setBool:[OwnTracking sharedInstance].cp forKey:@"cp"
