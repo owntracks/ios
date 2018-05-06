@@ -57,7 +57,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIignoreStaleLocations;
 @property (weak, nonatomic) IBOutlet UITextField *UIignoreInaccurateLocations;
 @property (weak, nonatomic) IBOutlet UISwitch *UIranging;
-@property (weak, nonatomic) IBOutlet UISwitch *UIupdateAddressBook;
 @property (weak, nonatomic) IBOutlet UISwitch *UIlocked;
 @property (weak, nonatomic) IBOutlet UISwitch *UIsub;
 @property (weak, nonatomic) IBOutlet UISwitch *UIcp;
@@ -253,9 +252,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIextendedData) [Settings setBool:self.UIextendedData.on
                                         forKey:@"extendeddata_preference"
                                          inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIupdateAddressBook) [Settings setBool:self.UIupdateAddressBook.on
-                                             forKey:SETTINGS_ADDRESSBOOK
-                                              inMOC:CoreData.sharedInstance.mainMOC];
     if (self.UIlocked) [Settings setBool:self.UIlocked.on
                                   forKey:@"locked"
                                    inMOC:CoreData.sharedInstance.mainMOC];
@@ -589,11 +585,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         self.UIextendedData.on = [Settings boolForKey:@"extendeddata_preference"
                                                 inMOC:CoreData.sharedInstance.mainMOC];
         self.UIextendedData.enabled = !locked;
-    }
-    if (self.self.UIupdateAddressBook) {
-        self.self.UIupdateAddressBook.on = [Settings boolForKey:SETTINGS_ADDRESSBOOK
-                                                          inMOC:CoreData.sharedInstance.mainMOC];
-        self.self.UIupdateAddressBook.enabled = !locked;
     }
     if (self.self.UIlocked) {
         self.self.UIlocked.on = [Settings boolForKey:@"locked"

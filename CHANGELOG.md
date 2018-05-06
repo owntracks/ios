@@ -1,16 +1,22 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 9.8.5/6
+## OwnTracks 9.8.5/6/7
 * Release date 2017-05-04
 
-** Crash Fixes and a few new Things
+** Crash Fixes, a few new Things, and drop AppleWatch support
 
     [NEW] Include current regions in "location" payload #523
     [NEW] use MQTT V5 library
     [NEW] Include desc in _type=beacon messages #521
     [NEW] translation (PL) update
 
+    [FIX] Drop AppleWatch support because Apple stops Watchkit 1 support
+    [FIX] Drop Support for iOS < 11.0, older iOS versions use old version
+    [FIX] Drop Addressbook links via Relation "owntracks" / "updateaddressbook" 
+    [FIX] Replace deprecated UIAlertView
+    [FIX] Replace deprecated UILocalNotification
+    [FIX] Replace deprecated AddressBook interface
     [FIX] show matching files when selecting certificates only
     [FIX] Crash in TodayViewController on iOS 9.3.5 iPhone4S #528
     [FIX] Crash when accessing Address Book #529

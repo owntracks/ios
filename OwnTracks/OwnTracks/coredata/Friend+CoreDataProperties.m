@@ -2,8 +2,9 @@
 //  Friend+CoreDataProperties.m
 //  OwnTracks
 //
-//  Created by Christoph Krey on 08.12.16.
-//  Copyright © 2016-2018 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 05.05.18.
+//  Copyright © 2018 OwnTracks. All rights reserved.
+//
 //
 
 #import "Friend+CoreDataProperties.h"
@@ -11,18 +12,18 @@
 @implementation Friend (CoreDataProperties)
 
 + (NSFetchRequest<Friend *> *)fetchRequest {
-	return [[NSFetchRequest alloc] initWithEntityName:@"Friend"];
+	return [NSFetchRequest fetchRequestWithEntityName:@"Friend"];
 }
 
-@dynamic abRecordId;
 @dynamic cardImage;
 @dynamic cardName;
 @dynamic lastLocation;
 @dynamic tid;
 @dynamic topic;
+@dynamic contactId;
 @dynamic hasLocations;
 @dynamic hasRegions;
-@dynamic hasWaypoints;
 @dynamic hasSubscriptions;
+@dynamic hasWaypoints;
 
 @end

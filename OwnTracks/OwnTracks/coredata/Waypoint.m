@@ -9,7 +9,7 @@
 #import "Waypoint.h"
 #import "Friend+CoreDataClass.h"
 #import <MapKit/MapKit.h>
-#import <AddressBookUI/AddressBookUI.h>
+#import <Contacts/Contacts.h>
 #import "CoreData.h"
 
 @implementation Waypoint
@@ -25,7 +25,10 @@
                  if (!self.isDeleted) {
                      if (placemarks.count > 0) {
                          CLPlacemark *placemark = placemarks[0];
-                         self.placemark = ABCreateStringWithAddressDictionary(placemark.addressDictionary, NO);
+                         CNPostalAddress *postalAddress = placemark.postalAddress;
+                         self.placemark = [CNPostalAddressFormatter
+                                           stringFromPostalAddress:postalAddress
+                                           style:CNPostalAddressFormatterStyleMailingAddress];
                      } else {
                          self.placemark = [NSString stringWithFormat:@"%@\n%@ %ld\n%@",
                                            NSLocalizedString(@"Address resolver failed", @"reverseGeocodeLocation error"),

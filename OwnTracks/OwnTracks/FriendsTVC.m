@@ -1,4 +1,4 @@
-    //
+//
 //  FriendTVC.m
 //  OwnTracks
 //
@@ -18,6 +18,7 @@
 #import "FriendAnnotationV.h"
 #import "OwnTracking.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import <Contacts/Contacts.h>
 
 @interface FriendsTVC ()
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
@@ -51,16 +52,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                       self.fetchedResultsController = nil;
                                                   }];
 
-    ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
-    
+    CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
     switch (status) {
-        case kABAuthorizationStatusRestricted: {
-            DDLogVerbose(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusRestricted");
+        case CNAuthorizationStatusRestricted: {
+            DDLogVerbose(@"CNAuthorizationStatus: CNAuthorizationStatusRestricted");
             UIAlertController *ac = [UIAlertController
                                      alertControllerWithTitle:NSLocalizedString(@"Addressbook Access",
                                                                                 @"Headline in addressbook related error messages")
                                      message:NSLocalizedString(@"has been restricted, possibly due to restrictions such as parental controls.",
-                                                               @"kABAuthorizationStatusRestricted")
+                                                               @"CNAuthorizationStatusRestricted")
                                      preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *ok = [UIAlertAction
                                  actionWithTitle:NSLocalizedString(@"Continue",
@@ -73,13 +73,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             break;
         }
             
-        case kABAuthorizationStatusDenied: {
-            DDLogVerbose(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusDenied");
+        case CNAuthorizationStatusDenied: {
+            DDLogVerbose(@"CNAuthorizationStatus: CNAuthorizationStatusDenied");
             UIAlertController *ac = [UIAlertController
                                      alertControllerWithTitle:NSLocalizedString(@"Addressbook Access",
                                                                                 @"Headline in addressbook related error messages")
                                      message:NSLocalizedString(@"has been denied by user. Go to Settings/Privacy/Contacts to change",
-                                                               @"kABAuthorizationStatusDenied")
+                                                               @"CNAuthorizationStatusDenied")
                                      preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *ok = [UIAlertAction
                                  actionWithTitle:NSLocalizedString(@"Continue",
@@ -92,21 +92,22 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             break;
         }
             
-        case kABAuthorizationStatusAuthorized:
-            DDLogVerbose(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusAuthorized");
+        case CNAuthorizationStatusAuthorized:
+            DDLogVerbose(@"CNAuthorizationStatus: CNAuthorizationStatusAuthorized");
             break;
             
-        case kABAuthorizationStatusNotDetermined:
+        case CNAuthorizationStatusNotDetermined:
         default:
-            DDLogVerbose(@"ABAddressBookGetAuthorizationStatus: kABAuthorizationStatusNotDetermined");
-            ABAddressBookRef ab = ABAddressBookCreateWithOptions(NULL, NULL);
-            ABAddressBookRequestAccessWithCompletion(ab, ^(bool granted, CFErrorRef error) {
-                if (granted) {
-                    DDLogVerbose(@"ABAddressBookRequestAccessCompletionHandler granted");
-                } else {
-                    DDLogVerbose(@"ABAddressBookRequestAccessCompletionHandler denied");
-                }
-            });
+            DDLogVerbose(@"CNAuthorizationStatus: CNAuthorizationStatusNotDetermined");
+            CNContactStore *contactStore = [[CNContactStore alloc] init];
+            [contactStore requestAccessForEntityType:CNEntityTypeContacts
+                                   completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                                       if (granted) {
+                                           DDLogVerbose(@"requestAccessForEntityType granted");
+                                       } else {
+                                           DDLogVerbose(@"requestAccessForEntityType denied %@", error);
+                                       }
+                                   }];
             break;
     }
 }

@@ -265,9 +265,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             object = dictionary[@"willRetain"];
             if (object) [self setString:object forKey:@"willretain_preference" inMOC:context];
             
-            object = dictionary[@"updateAddressBook"];
-            if (object) [self setString:object forKey:SETTINGS_ADDRESSBOOK inMOC:context];
-            
             object = dictionary[@"positions"];
             if (object) [self setString:object forKey:@"positions_preference" inMOC:context];
             
@@ -437,7 +434,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     dict[@"locatorDisplacement"] =          @([Settings intForKey:@"mindist_preference" inMOC:context]);
     dict[@"locatorInterval"] =              @([Settings intForKey:@"mintime_preference" inMOC:context]);
     dict[@"extendedData"] =                 @([Settings boolForKey:@"extendeddata_preference" inMOC:context]);
-    dict[@"updateAddressBook"] =            @([Settings boolForKey:SETTINGS_ADDRESSBOOK inMOC:context]);
     dict[@"ignoreStaleLocations"] =         @([Settings intForKey:@"ignorestalelocations_preference" inMOC:context]);
     dict[@"ignoreInaccurateLocations"] =    @([Settings intForKey:@"ignoreinaccuratelocations_preference" inMOC:context]);
 

@@ -32,14 +32,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (IBAction)setPerson:(UIStoryboardSegue *)segue {
     if ([segue.sourceViewController isKindOfClass:[PersonTVC class]]) {
         PersonTVC *personTVC = (PersonTVC *)segue.sourceViewController;
-        [self.waypoint.belongsTo linkToAB:personTVC.person];
+        self.waypoint.belongsTo.contactId = personTVC.contactId;
+        [[CoreData sharedInstance] sync:self.waypoint.managedObjectContext];
         [self.tableView reloadData];
         self.title = self.waypoint.belongsTo.nameOrTopic;
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tableView.estimatedRowHeight = 150;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
@@ -50,27 +50,29 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self setup];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.waypoint removeObserver:self forKeyPath:@"placemark"];
 }
 
-- (void)setup
-{
+- (void)setup {
     self.UIcoordinate.text = (self.waypoint).coordinateText;
     
     self.UItimestamp.text = (self.waypoint).timestampText;
     self.UIinfo.text = (self.waypoint).infoText;
     self.UItopic.text = self.waypoint.belongsTo.topic;
     
-    [self.waypoint addObserver:self forKeyPath:@"placemark" options:NSKeyValueObservingOptionNew context:nil];
+    [self.waypoint addObserver:self
+                    forKeyPath:@"placemark"
+                       options:NSKeyValueObservingOptionNew context:nil];
     self.UIplace.text = self.waypoint.placemark;
     
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
     DDLogVerbose(@"revgeo updated");
     self.UIplace.text = self.waypoint.placemark;
 }

@@ -53,8 +53,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     self.frame = CGRectMake(0, 0, CIRCLE_SIZE, CIRCLE_SIZE);
 }
 
-- (void)setPersonImage:(UIImage *)image
-{
+- (void)setPersonImage:(UIImage *)image {
     if (image) {
         _personImage = [UIImage imageWithCGImage:image.CGImage
                                            scale:(MAX(image.size.width, image.size.height) / CIRCLE_SIZE)

@@ -50,8 +50,6 @@
 	<false/>
 	<key>cmd_preference</key>
 	<false/>
-	<key>ab_preference</key>
-	<true/>
 	<key>allowremotelocation_preference</key>
 	<true/>
 	<key>extendeddata_preference</key>

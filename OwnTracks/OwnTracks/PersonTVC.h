@@ -10,6 +10,5 @@
 #import <AddressBook/AddressBook.h>
 
 @interface PersonTVC : UITableViewController
-@property (nonatomic) ABRecordRef person;
-
+@property (strong, nonatomic) NSString *contactId;
 @end

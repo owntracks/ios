@@ -102,25 +102,29 @@ static OwnTracking *theInstance = nil;
                     if (data.length) {
 
                         if ([dictionary[@"_type"] isEqualToString:@"location"]) {
-                            CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
-                                                                                           [dictionary[@"lat"] doubleValue],
-                                                                                           [dictionary[@"lon"] doubleValue]
-                                                                                           );
+                            CLLocationCoordinate2D coordinate =
+                            CLLocationCoordinate2DMake(
+                                                       [dictionary[@"lat"] doubleValue],
+                                                       [dictionary[@"lon"] doubleValue]
+                                                       );
 
                             int speed = [dictionary[@"vel"] intValue];
                             if (speed != -1) {
                                 speed = speed * 1000 / 3600;
                             }
-                            CLLocation *location = [[CLLocation alloc] initWithCoordinate:coordinate
-                                                                                 altitude:[dictionary[@"alt"] intValue]
-                                                                       horizontalAccuracy:[dictionary[@"acc"] doubleValue]
-                                                                         verticalAccuracy:[dictionary[@"vac"] intValue]
-                                                                                   course:[dictionary[@"cog"] intValue]
-                                                                                    speed:speed
-                                                                                timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]];
+                            CLLocation *location = [[CLLocation alloc]
+                                                    initWithCoordinate:coordinate
+                                                    altitude:[dictionary[@"alt"] intValue]
+                                                    horizontalAccuracy:[dictionary[@"acc"] doubleValue]
+                                                    verticalAccuracy:[dictionary[@"vac"] intValue]
+                                                    course:[dictionary[@"cog"] intValue]
+                                                    speed:speed
+                                                    timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]];
                             Friend *friend = [Friend friendWithTopic:device inManagedObjectContext:context];
                             friend.tid = dictionary[@"tid"];
-                            [self addWaypointFor:friend location:location trigger:dictionary[@"t"] context:context];
+                            [self addWaypointFor:friend location:location
+                                         trigger:dictionary[@"t"]
+                                         context:context];
                             [self limitWaypointsFor:friend
                                           toMaximum:[Settings intForKey:@"positions_preference" inMOC:context]];
                         } else if ([dictionary[@"_type"] isEqualToString:@"transition"]) {
@@ -135,9 +139,10 @@ static OwnTracking *theInstance = nil;
                                                              @"name of an unknown or hidden region");
                                 }
 
-                                NSString *shortTime = [NSDateFormatter localizedStringFromDate:tst
-                                                                                     dateStyle:NSDateFormatterShortStyle
-                                                                                     timeStyle:NSDateFormatterShortStyle];
+                                NSString *shortTime = [NSDateFormatter
+                                                       localizedStringFromDate:tst
+                                                       dateStyle:NSDateFormatterShortStyle
+                                                       timeStyle:NSDateFormatterShortStyle];
 
                                 NSString *notificationMessage = [NSString stringWithFormat:@"%@ %@s %@ @ %@",
                                                                  tid,
@@ -158,10 +163,11 @@ static OwnTracking *theInstance = nil;
                                 [center addNotificationRequest:request withCompletionHandler:nil];
 
                                 OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-                                [delegate.navigationController alert:NSLocalizedString(@"Friend",
-                                                                                       @"Alert message header for friend's messages")
-                                                             message:notificationMessage
-                                                        dismissAfter:2.0
+                                [delegate.navigationController
+                                 alert:NSLocalizedString(@"Friend",
+                                                         @"Alert message header for friend's messages")
+                                 message:notificationMessage
+                                 dismissAfter:2.0
                                  ];
 
                             }

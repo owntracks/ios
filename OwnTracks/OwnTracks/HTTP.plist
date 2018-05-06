@@ -22,8 +22,6 @@
 	<integer>1</integer>
 	<key>ranging_preference</key>
 	<false/>
-	<key>ab_preference</key>
-	<true/>
 	<key>extendeddata_preference</key>
 	<true/>
 	<key>trackerid_preference</key>

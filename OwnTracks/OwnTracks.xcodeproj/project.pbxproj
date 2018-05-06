@@ -22,7 +22,6 @@
 		8411B843189FDB140019D2D6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8411B842189FDB140019D2D6 /* Images.xcassets */; };
 		8411B861189FDD200019D2D6 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B860189FDD200019D2D6 /* MapKit.framework */; };
 		8411B87F189FE35C0019D2D6 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */; };
-		8411B88A189FE79B0019D2D6 /* AlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B887189FE79B0019D2D6 /* AlertView.m */; };
 		8411B88B189FE79B0019D2D6 /* CoreData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B889189FE79B0019D2D6 /* CoreData.m */; };
 		8411B88E189FE9940019D2D6 /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B88D189FE9940019D2D6 /* Connection.m */; };
 		8411B891189FE9CE0019D2D6 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B890189FE9CE0019D2D6 /* Settings.m */; };
@@ -35,15 +34,10 @@
 		8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B909189FEC070019D2D6 /* StatusTVC.m */; };
 		8411B912189FEC070019D2D6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B90B189FEC070019D2D6 /* ViewController.m */; };
 		841D1A301C8AFF8000DC5765 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841D1A2E1C8AFF8000DC5765 /* Localizable.strings */; };
-		841D1A351C8AFF9400DC5765 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841D1A331C8AFF9400DC5765 /* Localizable.strings */; };
+		841D3523209C5DDF0084FCD0 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841D3522209C5DDF0084FCD0 /* UserNotifications.framework */; };
+		841D3525209C74E70084FCD0 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841D3524209C74E60084FCD0 /* Contacts.framework */; };
 		8422AF681AF825C7008932A2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8422AF671AF825C7008932A2 /* SystemConfiguration.framework */; };
 		8426F8851DF4D7F300CB9915 /* GeoHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = 8426F8841DF4D7F300CB9915 /* GeoHashing.m */; };
-		842DFBC71AEE6F36000F4BA6 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 842DFBC61AEE6F36000F4BA6 /* NotificationController.m */; };
-		842DFBC91AEE6F46000F4BA6 /* PushNotificationPayload.apns in Resources */ = {isa = PBXBuildFile; fileRef = 842DFBC81AEE6F46000F4BA6 /* PushNotificationPayload.apns */; };
-		843635791AE95D6000157D66 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843635781AE95D6000157D66 /* InterfaceController.m */; };
-		8436357F1AE95D6100157D66 /* OwnTracks WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 8436357E1AE95D6000157D66 /* OwnTracks WatchKit App.app */; };
-		843635871AE95D6100157D66 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843635851AE95D6100157D66 /* Interface.storyboard */; };
-		843635891AE95D6100157D66 /* WatchKitAppImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 843635881AE95D6100157D66 /* WatchKitAppImages.xcassets */; };
 		843B91721C8A14BF00DBD306 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843B91741C8A14BF00DBD306 /* Storyboard.storyboard */; };
 		845299E51DFA004000A4DC21 /* Subscription+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 845299DC1DFA004000A4DC21 /* Subscription+CoreDataClass.m */; };
 		845299E61DFA004000A4DC21 /* Subscription+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 845299DE1DFA004000A4DC21 /* Subscription+CoreDataProperties.m */; };
@@ -72,13 +66,9 @@
 		84A488E21F7BBFD900ADCF98 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84A488E11F7BBFD900ADCF98 /* Media.xcassets */; };
 		84B7397A1A65629200B103F4 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B739791A65629200B103F4 /* LocationManager.m */; };
 		84B776431D9A65C600C707EC /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B776421D9A65C600C707EC /* LoginVC.m */; };
-		84CA3D0D1AEE708200AABDC1 /* OwnTracks WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 843635731AE95D6000157D66 /* OwnTracks WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84CC5A4C1FEADE950010314C /* ExplainModesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CC5A4B1FEADE950010314C /* ExplainModesVC.m */; };
 		84CC5A521FEC71850010314C /* OwnTracks-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CC5A511FEC71840010314C /* OwnTracks-29.png */; };
 		84CDB2501AD197AD005E272B /* Public.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84CDB24F1AD197AD005E272B /* Public.plist */; };
-		84D113B51AEE0BF8005F8F4B /* SharedFriendsRC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D113B41AEE0BF8005F8F4B /* SharedFriendsRC.m */; };
-		84D113B61AEE0C6B005F8F4B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AF468F1AB9571800E954E3 /* CoreLocation.framework */; };
-		84D113B71AEE0C79005F8F4B /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D3072E1ACD644500FACB9E /* NotificationCenter.framework */; };
 		84D3072F1ACD644500FACB9E /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D3072E1ACD644500FACB9E /* NotificationCenter.framework */; };
 		84D307351ACD644500FACB9E /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D307341ACD644500FACB9E /* TodayViewController.m */; };
 		84D3073A1ACD644500FACB9E /* OwnTracksToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -101,13 +91,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		843635801AE95D6100157D66 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8411B820189FDB140019D2D6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8436357D1AE95D6000157D66;
-			remoteInfo = "OwnTracks WatchKit App";
-		};
 		84D307381ACD644500FACB9E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8411B820189FDB140019D2D6 /* Project object */;
@@ -124,7 +107,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				84CA3D0D1AEE708200AABDC1 /* OwnTracks WatchKit Extension.appex in Embed App Extensions */,
 				84D3073A1ACD644500FACB9E /* OwnTracksToday.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -165,8 +147,6 @@
 		8411B862189FDD300019D2D6 /* OwnTracks.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OwnTracks.entitlements; sourceTree = "<group>"; };
 		8411B863189FDE0D0019D2D6 /* MQTTClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MQTTClient.framework; path = "../../MQTT-Client-Framework/MQTTClient/dist/MQTTClient.framework"; sourceTree = "<group>"; };
 		8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		8411B886189FE79B0019D2D6 /* AlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertView.h; sourceTree = "<group>"; };
-		8411B887189FE79B0019D2D6 /* AlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertView.m; sourceTree = "<group>"; };
 		8411B888189FE79B0019D2D6 /* CoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreData.h; path = ../CoreData.h; sourceTree = "<group>"; };
 		8411B889189FE79B0019D2D6 /* CoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreData.m; path = ../CoreData.m; sourceTree = "<group>"; };
 		8411B88C189FE9940019D2D6 /* Connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Connection.h; sourceTree = "<group>"; };
@@ -196,24 +176,13 @@
 		841D1A2F1C8AFF8000DC5765 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		841D1A311C8AFF8400DC5765 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		841D1A321C8AFF8600DC5765 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		841D1A341C8AFF9400DC5765 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		841D1A361C8AFF9800DC5765 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		841D1A371C8AFF9900DC5765 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		841D3522209C5DDF0084FCD0 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		841D3524209C74E60084FCD0 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
+		841D3526209DA1960084FCD0 /* Model 9.8.7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.8.7.xcdatamodel"; sourceTree = "<group>"; };
 		8422AF671AF825C7008932A2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		8426F8831DF4D7F300CB9915 /* GeoHashing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoHashing.h; sourceTree = "<group>"; };
 		8426F8841DF4D7F300CB9915 /* GeoHashing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoHashing.m; sourceTree = "<group>"; };
 		842CA4CE1B3C76D000B7FF1C /* Model 8.1.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.5.xcdatamodel"; sourceTree = "<group>"; };
-		842DFBC51AEE6F36000F4BA6 /* NotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
-		842DFBC61AEE6F36000F4BA6 /* NotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
-		842DFBC81AEE6F46000F4BA6 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
-		843635731AE95D6000157D66 /* OwnTracks WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "OwnTracks WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		843635761AE95D6000157D66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		843635771AE95D6000157D66 /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
-		843635781AE95D6000157D66 /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceController.m; sourceTree = "<group>"; };
-		8436357E1AE95D6000157D66 /* OwnTracks WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OwnTracks WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		843635841AE95D6100157D66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		843635861AE95D6100157D66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
-		843635881AE95D6100157D66 /* WatchKitAppImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = WatchKitAppImages.xcassets; sourceTree = "<group>"; };
 		843817FB1C386A8700CE14EE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		843B91731C8A14BF00DBD306 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Storyboard.storyboard; sourceTree = "<group>"; };
 		845299DA1DF9FD6200A4DC21 /* Model 9.5.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.5.0.xcdatamodel"; sourceTree = "<group>"; };
@@ -261,7 +230,6 @@
 		84930A311B37729000810C3A /* Model 8.1.4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.4.xcdatamodel"; sourceTree = "<group>"; };
 		849B1E021FE9114C0016EF1A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		849B1E041FE9114D0016EF1A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		849B1E051FE9114D0016EF1A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		849B1E091FE912010016EF1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		849B1E0B1FE912030016EF1A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		849B1E0D1FE912050016EF1A /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MainInterface.strings; sourceTree = "<group>"; };
@@ -287,9 +255,6 @@
 		84CC5A501FEAE3A40010314C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Storyboard.strings; sourceTree = "<group>"; };
 		84CC5A511FEC71840010314C /* OwnTracks-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-29.png"; sourceTree = "<group>"; };
 		84CDB24F1AD197AD005E272B /* Public.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Public.plist; sourceTree = "<group>"; };
-		84D113B21AEE0A46005F8F4B /* OwnTracks WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "OwnTracks WatchKit Extension.entitlements"; sourceTree = "<group>"; };
-		84D113B31AEE0BF8005F8F4B /* SharedFriendsRC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedFriendsRC.h; sourceTree = "<group>"; };
-		84D113B41AEE0BF8005F8F4B /* SharedFriendsRC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedFriendsRC.m; sourceTree = "<group>"; };
 		84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OwnTracksToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D3072E1ACD644500FACB9E /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		84D307321ACD644500FACB9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -318,7 +283,6 @@
 		84E8A1951BB94B1D002518AA /* Waypoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Waypoint.m; sourceTree = "<group>"; };
 		84E8A1961BB94B1D002518AA /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
 		84E8A1971BB94B1D002518AA /* Setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
-		84EACB601D9196F600CFE781 /* OwnTracks WatchKit App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "OwnTracks WatchKit App.entitlements"; sourceTree = "<group>"; };
 		84F0AFE31C830C1D00C9F69F /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		84F0AFE51C830C2C00C9F69F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.0.xcdatamodel"; sourceTree = "<group>"; };
@@ -329,6 +293,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				841D3525209C74E70084FCD0 /* Contacts.framework in Frameworks */,
+				841D3523209C5DDF0084FCD0 /* UserNotifications.framework in Frameworks */,
 				84F0AFE61C830C2C00C9F69F /* AddressBook.framework in Frameworks */,
 				84F0AFE41C830C1D00C9F69F /* AddressBookUI.framework in Frameworks */,
 				8422AF681AF825C7008932A2 /* SystemConfiguration.framework in Frameworks */,
@@ -342,28 +308,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		843635701AE95D6000157D66 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				84D113B71AEE0C79005F8F4B /* NotificationCenter.framework in Frameworks */,
-				84D113B61AEE0C6B005F8F4B /* CoreLocation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		84D3072A1ACD644500FACB9E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				84D307681ACDA62100FACB9E /* CoreLocation.framework in Frameworks */,
 				84D3072F1ACD644500FACB9E /* NotificationCenter.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		881BBF77340490BCAEA59BC3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,8 +343,6 @@
 			children = (
 				8411B833189FDB140019D2D6 /* OwnTracks */,
 				84D307301ACD644500FACB9E /* OwnTracksToday */,
-				843635741AE95D6000157D66 /* OwnTracks WatchKit Extension */,
-				843635821AE95D6100157D66 /* OwnTracks WatchKit App */,
 				8411B82A189FDB140019D2D6 /* Frameworks */,
 				8411B829189FDB140019D2D6 /* Products */,
 				22910A1FA4A795478AEB7094 /* Pods */,
@@ -406,8 +354,6 @@
 			children = (
 				8411B828189FDB140019D2D6 /* OwnTracks.app */,
 				84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */,
-				843635731AE95D6000157D66 /* OwnTracks WatchKit Extension.appex */,
-				8436357E1AE95D6000157D66 /* OwnTracks WatchKit App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -415,6 +361,8 @@
 		8411B82A189FDB140019D2D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				841D3524209C74E60084FCD0 /* Contacts.framework */,
+				841D3522209C5DDF0084FCD0 /* UserNotifications.framework */,
 				84F0AFE51C830C2C00C9F69F /* AddressBook.framework */,
 				84F0AFE31C830C1D00C9F69F /* AddressBookUI.framework */,
 				84001C0D1C78729200413E5B /* iAd.framework */,
@@ -494,6 +442,7 @@
 				84E8A1811BB94782002518AA /* Friend+CoreDataProperties.m */,
 				845299DF1DFA004000A4DC21 /* Friend+CoreDataClass.h */,
 				845299E01DFA004000A4DC21 /* Friend+CoreDataClass.m */,
+				84E8A1961BB94B1D002518AA /* Setting.h */,
 				845299E11DFA004000A4DC21 /* Info+CoreDataClass.h */,
 				845299E21DFA004000A4DC21 /* Info+CoreDataClass.m */,
 				845299E31DFA004000A4DC21 /* Info+CoreDataProperties.h */,
@@ -512,7 +461,6 @@
 				84E8A1911BB94B1D002518AA /* Location.m */,
 				84E8A17E1BB94782002518AA /* Setting+CoreDataProperties.h */,
 				84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */,
-				84E8A1961BB94B1D002518AA /* Setting.h */,
 				84E8A1971BB94B1D002518AA /* Setting.m */,
 				84E8A1841BB94782002518AA /* Waypoint+CoreDataProperties.h */,
 				84E8A1851BB94782002518AA /* Waypoint+CoreDataProperties.m */,
@@ -535,50 +483,6 @@
 			path = assets;
 			sourceTree = "<group>";
 		};
-		843635741AE95D6000157D66 /* OwnTracks WatchKit Extension */ = {
-			isa = PBXGroup;
-			children = (
-				84D113B21AEE0A46005F8F4B /* OwnTracks WatchKit Extension.entitlements */,
-				843635771AE95D6000157D66 /* InterfaceController.h */,
-				843635781AE95D6000157D66 /* InterfaceController.m */,
-				842DFBC81AEE6F46000F4BA6 /* PushNotificationPayload.apns */,
-				842DFBC51AEE6F36000F4BA6 /* NotificationController.h */,
-				842DFBC61AEE6F36000F4BA6 /* NotificationController.m */,
-				84D113B31AEE0BF8005F8F4B /* SharedFriendsRC.h */,
-				84D113B41AEE0BF8005F8F4B /* SharedFriendsRC.m */,
-				843635751AE95D6000157D66 /* Supporting Files */,
-			);
-			path = "OwnTracks WatchKit Extension";
-			sourceTree = "<group>";
-		};
-		843635751AE95D6000157D66 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				841D1A331C8AFF9400DC5765 /* Localizable.strings */,
-				843635761AE95D6000157D66 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		843635821AE95D6100157D66 /* OwnTracks WatchKit App */ = {
-			isa = PBXGroup;
-			children = (
-				84EACB601D9196F600CFE781 /* OwnTracks WatchKit App.entitlements */,
-				843635851AE95D6100157D66 /* Interface.storyboard */,
-				843635881AE95D6100157D66 /* WatchKitAppImages.xcassets */,
-				843635831AE95D6100157D66 /* Supporting Files */,
-			);
-			path = "OwnTracks WatchKit App";
-			sourceTree = "<group>";
-		};
-		843635831AE95D6100157D66 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				843635841AE95D6100157D66 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		846FFA1A1B401DB4001482A6 /* Colors */ = {
 			isa = PBXGroup;
 			children = (
@@ -598,8 +502,6 @@
 				84B776421D9A65C600C707EC /* LoginVC.m */,
 				846FFA4D1B40C13C001482A6 /* NavigationController.h */,
 				846FFA4E1B40C13C001482A6 /* NavigationController.m */,
-				8411B886189FE79B0019D2D6 /* AlertView.h */,
-				8411B887189FE79B0019D2D6 /* AlertView.m */,
 				8411B90A189FEC070019D2D6 /* ViewController.h */,
 				8411B90B189FEC070019D2D6 /* ViewController.m */,
 				84A1737A1B428F0600CCB7D0 /* Friends */,
@@ -708,40 +610,6 @@
 			productReference = 8411B828189FDB140019D2D6 /* OwnTracks.app */;
 			productType = "com.apple.product-type.application";
 		};
-		843635721AE95D6000157D66 /* OwnTracks WatchKit Extension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 843635901AE95D6100157D66 /* Build configuration list for PBXNativeTarget "OwnTracks WatchKit Extension" */;
-			buildPhases = (
-				8436356F1AE95D6000157D66 /* Sources */,
-				843635701AE95D6000157D66 /* Frameworks */,
-				843635711AE95D6000157D66 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				843635811AE95D6100157D66 /* PBXTargetDependency */,
-			);
-			name = "OwnTracks WatchKit Extension";
-			productName = "OwnTracks WatchKit Extension";
-			productReference = 843635731AE95D6000157D66 /* OwnTracks WatchKit Extension.appex */;
-			productType = "com.apple.product-type.watchkit-extension";
-		};
-		8436357D1AE95D6000157D66 /* OwnTracks WatchKit App */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8436358D1AE95D6100157D66 /* Build configuration list for PBXNativeTarget "OwnTracks WatchKit App" */;
-			buildPhases = (
-				8436357C1AE95D6000157D66 /* Resources */,
-				881BBF77340490BCAEA59BC3 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "OwnTracks WatchKit App";
-			productName = "OwnTracks WatchKit App";
-			productReference = 8436357E1AE95D6000157D66 /* OwnTracks WatchKit App.app */;
-			productType = "com.apple.product-type.application.watchapp";
-		};
 		84D3072C1ACD644500FACB9E /* OwnTracksToday */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84D3073D1ACD644600FACB9E /* Build configuration list for PBXNativeTarget "OwnTracksToday" */;
@@ -790,24 +658,6 @@
 							};
 						};
 					};
-					843635721AE95D6000157D66 = {
-						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = C652JFWU23;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-						};
-					};
-					8436357D1AE95D6000157D66 = {
-						CreatedOnToolsVersion = 6.3;
-						DevelopmentTeam = C652JFWU23;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 0;
-							};
-						};
-					};
 					84D3072C1ACD644500FACB9E = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = C652JFWU23;
@@ -836,8 +686,6 @@
 			targets = (
 				8411B827189FDB140019D2D6 /* OwnTracks */,
 				84D3072C1ACD644500FACB9E /* OwnTracksToday */,
-				843635721AE95D6000157D66 /* OwnTracks WatchKit Extension */,
-				8436357D1AE95D6000157D66 /* OwnTracks WatchKit App */,
 			);
 		};
 /* End PBXProject section */
@@ -863,25 +711,6 @@
 				845AA1BC1B4846AF00945856 /* OwnTracks-64.png in Resources */,
 				84E2C4541EC34B5600BC02CE /* Launch Screen.xib in Resources */,
 				8411B8E1189FEB790019D2D6 /* Location.gpx in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		843635711AE95D6000157D66 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				841D1A351C8AFF9400DC5765 /* Localizable.strings in Resources */,
-				8436357F1AE95D6100157D66 /* OwnTracks WatchKit App.app in Resources */,
-				842DFBC91AEE6F46000F4BA6 /* PushNotificationPayload.apns in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8436357C1AE95D6000157D66 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				843635871AE95D6100157D66 /* Interface.storyboard in Resources */,
-				843635891AE95D6100157D66 /* WatchKitAppImages.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -993,7 +822,6 @@
 				8411B90D189FEC070019D2D6 /* FriendAnnotationV.m in Sources */,
 				8474443A1DA4BC9600975BE4 /* ConnType.m in Sources */,
 				84CC5A4C1FEADE950010314C /* ExplainModesVC.m in Sources */,
-				8411B88A189FE79B0019D2D6 /* AlertView.m in Sources */,
 				8411B90E189FEC070019D2D6 /* FriendsTVC.m in Sources */,
 				84E8A18C1BB94782002518AA /* Waypoint+CoreDataProperties.m in Sources */,
 				8411B90F189FEC070019D2D6 /* RegionsTVC.m in Sources */,
@@ -1018,16 +846,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8436356F1AE95D6000157D66 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				843635791AE95D6000157D66 /* InterfaceController.m in Sources */,
-				84D113B51AEE0BF8005F8F4B /* SharedFriendsRC.m in Sources */,
-				842DFBC71AEE6F36000F4BA6 /* NotificationController.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		84D307291ACD644500FACB9E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1039,11 +857,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		843635811AE95D6100157D66 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8436357D1AE95D6000157D66 /* OwnTracks WatchKit App */;
-			targetProxy = 843635801AE95D6100157D66 /* PBXContainerItemProxy */;
-		};
 		84D307391ACD644500FACB9E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 84D3072C1ACD644500FACB9E /* OwnTracksToday */;
@@ -1080,25 +893,6 @@
 				849B1E041FE9114D0016EF1A /* pl */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		841D1A331C8AFF9400DC5765 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				841D1A341C8AFF9400DC5765 /* Base */,
-				841D1A361C8AFF9800DC5765 /* en */,
-				841D1A371C8AFF9900DC5765 /* de */,
-				849B1E051FE9114D0016EF1A /* pl */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		843635851AE95D6100157D66 /* Interface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				843635861AE95D6100157D66 /* Base */,
-			);
-			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 		843B91741C8A14BF00DBD306 /* Storyboard.storyboard */ = {
@@ -1181,7 +975,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -1227,7 +1021,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1252,7 +1046,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
 				INFOPLIST_FILE = "OwnTracks/OwnTracks-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1287,7 +1081,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
 				INFOPLIST_FILE = "OwnTracks/OwnTracks-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -1300,99 +1094,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/OwnTracks/include";
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		8436358E1AE95D6100157D66 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IBSC_MODULE = OwnTracks_WatchKit_Extension;
-				INFOPLIST_FILE = "OwnTracks WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = Debug;
-		};
-		8436358F1AE95D6100157D66 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IBSC_MODULE = OwnTracks_WatchKit_Extension;
-				INFOPLIST_FILE = "OwnTracks WatchKit App/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = 4;
-				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
-			};
-			name = Release;
-		};
-		843635911AE95D6100157D66 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = "OwnTracks WatchKit Extension/OwnTracks WatchKit Extension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "OwnTracks WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude.OwnTracksWatchkitExtension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		843635921AE95D6100157D66 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = "OwnTracks WatchKit Extension/OwnTracks WatchKit Extension.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = "OwnTracks WatchKit Extension/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude.OwnTracksWatchkitExtension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -1409,7 +1110,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = OwnTracksToday/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.mqttitude.MQTTitude.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1432,7 +1133,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = OwnTracksToday/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.mqttitude.MQTTitude.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1464,24 +1165,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8436358D1AE95D6100157D66 /* Build configuration list for PBXNativeTarget "OwnTracks WatchKit App" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8436358E1AE95D6100157D66 /* Debug */,
-				8436358F1AE95D6100157D66 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		843635901AE95D6100157D66 /* Build configuration list for PBXNativeTarget "OwnTracks WatchKit Extension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				843635911AE95D6100157D66 /* Debug */,
-				843635921AE95D6100157D66 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		84D3073D1ACD644600FACB9E /* Build configuration list for PBXNativeTarget "OwnTracksToday" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1497,6 +1180,7 @@
 		8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				841D3526209DA1960084FCD0 /* Model 9.8.7.xcdatamodel */,
 				845299DA1DF9FD6200A4DC21 /* Model 9.5.0.xcdatamodel */,
 				8400D9741D84946E00DEA134 /* Model 9.1.7.xcdatamodel */,
 				84001C0F1C78976100413E5B /* Model 9.0.2.xcdatamodel */,
@@ -1518,7 +1202,7 @@
 				84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */,
 				8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 845299DA1DF9FD6200A4DC21 /* Model 9.5.0.xcdatamodel */;
+			currentVersion = 841D3526209DA1960084FCD0 /* Model 9.8.7.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -12,24 +12,9 @@
 #import "Subscription+CoreDataClass.h"
 #import "Waypoint.h"
 #import "Settings.h"
-#import <CocoaLumberjack/CocoaLumberjack.h>
+#import <Contacts/Contacts.h>
 
 @implementation Friend
-static const DDLogLevel ddLogLevel = DDLogLevelError;
-
-+ (ABAddressBookRef)theABRef {
-    static ABAddressBookRef ab = nil;
-
-    if (!ab) {
-        ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
-        if (status == kABAuthorizationStatusAuthorized || status == kABAuthorizationStatusNotDetermined) {
-            CFErrorRef error;
-            ab = ABAddressBookCreateWithOptions(NULL, &error);
-        }
-    }
-
-    return ab;
-}
 
 + (Friend *)existsFriendWithTopic:(NSString *)topic
            inManagedObjectContext:(NSManagedObjectContext *)context {
@@ -89,7 +74,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         friend = [NSEntityDescription insertNewObjectForEntityForName:@"Friend" inManagedObjectContext:context];
 
         friend.topic = topic;
-        friend.abRecordId = @(kABRecordInvalidID);
     }
 
     return friend;
@@ -98,9 +82,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (NSString *)name {
     NSString *name = self.cardName;
 
-    ABRecordRef record = [self recordOfFriend];
-    if (record) {
-        NSString *nameOfPerson = [Friend nameOfPerson:record];
+    if (self.contactId) {
+        NSString *nameOfPerson = [Friend nameOfPerson:self.contactId];
         if (nameOfPerson) {
             name = nameOfPerson;
         }
@@ -112,18 +95,25 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return self.name ? self.name : self.topic;
 }
 
-+ (NSString *)nameOfPerson:(ABRecordRef)record {
++ (NSString *)nameOfPerson:(NSString *)contactId {
     NSString *name = nil;
 
-    if (record) {
-        CFStringRef nameRef = ABRecordCopyValue(record, kABPersonNicknameProperty);
-        if (nameRef != NULL && CFStringGetLength(nameRef) > 0) {
-            name = (NSString *)CFBridgingRelease(nameRef);
+    CNContactStore *contactStore = [[CNContactStore alloc] init];
+    NSArray *keys = @[[CNContactFormatter
+                       descriptorForRequiredKeysForStyle:CNContactFormatterStyleFullName],
+                      CNContactNicknameKey
+                      ];
+    CNContact *contact = [contactStore unifiedContactWithIdentifier:contactId
+                                                        keysToFetch:keys
+                                                              error:nil];
+
+    if (contact) {
+        if (contact.nickname && contact.nickname.length > 0) {
+            name = contact.nickname;
         } else {
-            nameRef = ABRecordCopyCompositeName(record);
-            if (nameRef != NULL && CFStringGetLength(nameRef) > 0) {
-                name = (NSString *)CFBridgingRelease(nameRef);
-            }
+            name = [CNContactFormatter
+                    stringFromContact:contact
+                    style:CNContactFormatterStyleFullName];
         }
     }
     return name;
@@ -132,9 +122,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 - (NSData *)image {
     NSData *data = self.cardImage;
 
-    ABRecordRef record = [self recordOfFriend];
-    if (record) {
-        NSData *imageData = [Friend imageDataOfPerson:record];
+    if (self.contactId) {
+        NSData *imageData = [Friend imageDataOfPerson:self.contactId];
         if (imageData) {
             data = imageData;
         }
@@ -142,33 +131,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     return data;
 }
 
-+ (NSData *)imageDataOfPerson:(ABRecordRef)record {
++ (NSData *)imageDataOfPerson:(NSString *)contactId {
     NSData *imageData = nil;
 
-    if (record) {
-        if (ABPersonHasImageData(record)) {
-            CFDataRef ir = ABPersonCopyImageDataWithFormat(record, kABPersonImageFormatThumbnail);
-            imageData = CFBridgingRelease(ir);
+    CNContactStore *contactStore = [[CNContactStore alloc] init];
+    NSArray *keys = @[CNContactThumbnailImageDataKey,
+                      CNContactImageDataAvailableKey
+                      ];
+    CNContact *contact = [contactStore unifiedContactWithIdentifier:contactId
+                                                        keysToFetch:keys
+                                                              error:nil];
+
+    if (contact) {
+        if (contact.imageDataAvailable) {
+            imageData = contact.thumbnailImageData;
         }
     }
     return imageData;
-}
-
-- (ABRecordRef)recordOfFriend {
-    ABRecordRef record = NULL;
-
-    if ((self.abRecordId).intValue != kABRecordInvalidID) {
-        ABAddressBookRef ab = [Friend theABRef];
-        if (ab) {
-            record = ABAddressBookGetPersonWithRecordID(ab, (self.abRecordId).intValue);
-        }
-    }
-    return record;
-}
-
-- (void)linkToAB:(ABRecordRef)record {
-    ABRecordID abRecordID = ABRecordGetRecordID(record);
-    self.abRecordId = @(abRecordID);
 }
 
 - (NSString *)getEffectiveTid {

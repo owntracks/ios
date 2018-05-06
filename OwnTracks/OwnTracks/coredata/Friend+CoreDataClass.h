@@ -19,21 +19,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 
-+ (ABAddressBookRef)theABRef CF_RETURNS_NOT_RETAINED;
-
 + (Friend *)existsFriendWithTopic:(NSString *)topic
            inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (Friend *)friendWithTopic:(NSString *)topic
      inManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (NSString *)nameOfPerson:(ABRecordRef)record;
-+ (NSData *)imageDataOfPerson:(ABRecordRef)record;
++ (NSString *)nameOfPerson:(NSString *)contactId;
++ (NSData *)imageDataOfPerson:(NSString *)contactId;
 
 + (NSArray *)allFriendsInManagedObjectContext:(NSManagedObjectContext *)context;
 + (NSArray *)allNonStaleFriendsInManagedObjectContext:(NSManagedObjectContext *)context;
 
-- (void)linkToAB:(ABRecordRef)record;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull name;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull nameOrTopic;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSData * _Nonnull image;
