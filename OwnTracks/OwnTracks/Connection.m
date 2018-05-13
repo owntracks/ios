@@ -16,6 +16,7 @@
 #import "sodium.h"
 #import "MQTTWebsocketTransport.h"
 #import "LocationManager.h"
+#import "Settings.h"
 #import "MQTTSSLSecurityPolicy.h"
 #import "MQTTSSLSecurityPolicyTransport.h"
 
@@ -516,15 +517,25 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 }
 
 - (void)oneMessage:(NSDictionary *)message {
-    NSString *tid = @"??";
-    if (message && message[@"tid"]) {
-        tid = message[@"tid"];
-    }
     DDLogVerbose(@"[Connection] oneMessage %@", message.description);
-    [self.delegate handleMessage:self
-                            data:[NSJSONSerialization dataWithJSONObject:message options:0 error:nil]
-                         onTopic:[NSString stringWithFormat:@"owntracks/http/%@", tid]
-                        retained:FALSE];
+
+    if (message && [message isKindOfClass:[NSDictionary class]]) {
+        NSString *topic = @"owntracks/http/??";
+        NSString *type = message[@"_type"];
+        if (type && [type isEqualToString:@"cmd"]) {
+            topic = [Settings theGeneralTopicInMOC:CoreData.sharedInstance.queuedMOC];
+        } else {
+            if (message[@"tid"]) {
+                topic = [NSString stringWithFormat:@"owntracks/http/%@", message[@"tid"]];
+            }
+        }
+        DDLogVerbose(@"[Connection] oneMessage topic %@", topic);
+        
+        [self.delegate handleMessage:self
+                                data:[NSJSONSerialization dataWithJSONObject:message options:0 error:nil]
+                             onTopic:topic
+                            retained:FALSE];
+    }
 }
 
 - (void)disconnect {
