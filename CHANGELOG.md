@@ -1,8 +1,8 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 9.8.5/6/7
-* Release date 2017-05-04
+## OwnTracks 9.8.8
+* Release date 2017-05-13
 
 ** Crash Fixes, a few new Things, and drop AppleWatch support
 
@@ -11,6 +11,8 @@ OwnTracks iOS App Release Notes
     [NEW] Include desc in _type=beacon messages #521
     [NEW] translation (PL) update
 
+    [FIX] not updating when app is in the background #498
+    [FIX] Requesting StepCount via HTTP-Connection seems not to work #535
     [FIX] Drop AppleWatch support because Apple stops Watchkit 1 support
     [FIX] Drop Support for iOS < 11.0, older iOS versions use old version
     [FIX] Drop Addressbook links via Relation "owntracks" / "updateaddressbook" 
