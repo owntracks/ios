@@ -244,13 +244,15 @@ static LocationManager *theInstance = nil;
     _monitoring = monitoring;
     self.manager.pausesLocationUpdatesAutomatically = NO;
     self.manager.allowsBackgroundLocationUpdates = TRUE;
-    
+
+    [self.manager stopUpdatingLocation];
+    [self.manager stopMonitoringVisits];
+    [self.manager stopMonitoringSignificantLocationChanges];
+
     switch (monitoring) {
         case LocationMonitoringMove:
             self.manager.distanceFilter = self.minDist > 0 ? self.minDist : kCLDistanceFilterNone;
             self.manager.desiredAccuracy = kCLLocationAccuracyBest;
-            [self.manager stopMonitoringVisits];
-            [self.manager stopMonitoringSignificantLocationChanges];
             [self.activityTimer invalidate];
             
             [self.manager startUpdatingLocation];
@@ -264,7 +266,6 @@ static LocationManager *theInstance = nil;
             
         case LocationMonitoringSignificant:
             [self.activityTimer invalidate];
-            [self.manager stopUpdatingLocation];
             [self.manager startMonitoringSignificantLocationChanges];
             [self.manager startMonitoringVisits];
             break;
@@ -273,9 +274,6 @@ static LocationManager *theInstance = nil;
         case LocationMonitoringQuiet:
         default:
             [self.activityTimer invalidate];
-            [self.manager stopUpdatingLocation];
-            [self.manager stopMonitoringVisits];
-            [self.manager stopMonitoringSignificantLocationChanges];
             break;
     }
     NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
