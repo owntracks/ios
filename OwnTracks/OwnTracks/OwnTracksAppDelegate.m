@@ -815,69 +815,19 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                                 waitUntilDone:NO];
 
                         } else if ([@"action" saveEqual:dictionary[@"action"]]) {
-                            NSString *content = [NSString saveCopy:dictionary[@"content"]];
-                            NSString *url = [NSString saveCopy:dictionary[@"url"] ];
-                            NSString *notificationMessage = [NSString saveCopy:dictionary[@"notification"]];
-                            NSNumber *external = [NSNumber saveCopy:dictionary[@"extern"]];
-
-                            [Settings setString:content
-                                         forKey:SETTINGS_ACTION
-                                          inMOC:CoreData.sharedInstance.queuedMOC];
-                            [Settings setString:url
-                                         forKey:SETTINGS_ACTIONURL
-                                          inMOC:CoreData.sharedInstance.queuedMOC];
-                            [Settings setBool:external.boolValue
-                                       forKey:SETTINGS_ACTIONEXTERN
-                                        inMOC:CoreData.sharedInstance.queuedMOC];
-
-                            if (notificationMessage) {
-                                UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-                                content.body = notificationMessage;
-                                UNTimeIntervalNotificationTrigger* trigger = [UNTimeIntervalNotificationTrigger
-                                                                              triggerWithTimeInterval:1.0
-                                                                              repeats:NO];
-                                UNNotificationRequest* request = [UNNotificationRequest requestWithIdentifier:@"action"
-                                                                                                      content:content
-                                                                                                      trigger:trigger];
-                                UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
-                                [center addNotificationRequest:request withCompletionHandler:nil];
-                            }
-
-                            if (content || url) {
-                                if (url && ![url isEqualToString:self.action]) {
-                                    self.action = url;
-                                } else {
-                                    if (content && ![content isEqualToString:self.action]) {
-                                        self.action = content;
-                                    }
-                                }
-                            } else {
-                                self.action = nil;
-                            }
+                            [self performSelectorOnMainThread:@selector(performAction:)
+                                                   withObject:dictionary
+                                                waitUntilDone:NO];
 
                         } else if ([@"setWaypoints" saveEqual:dictionary[@"action"]]) {
-                            NSDictionary *payload = [NSDictionary saveCopy:dictionary[@"payload"]];
-                            NSDictionary *waypoints = [NSDictionary saveCopy:dictionary[@"waypoints"]];
-                            if (waypoints && [waypoints isKindOfClass:[NSDictionary class]]) {
-                                [Settings waypointsFromDictionary:waypoints
-                                                            inMOC:CoreData.sharedInstance.queuedMOC];
-                            } else if (payload && [payload isKindOfClass:[NSDictionary class]]) {
-                                [Settings waypointsFromDictionary:payload
-                                                            inMOC:CoreData.sharedInstance.queuedMOC];
-                            }
+                            [self performSelectorOnMainThread:@selector(performSetWaypoints:)
+                                                   withObject:dictionary
+                                                waitUntilDone:NO];
 
                         } else if ([@"setConfiguration" saveEqual:dictionary[@"action"]]) {
-                            NSDictionary *payload = [NSDictionary saveCopy:dictionary[@"payload"]];
-                            NSDictionary *configuration = [NSDictionary saveCopy:dictionary[@"configuration"]];
-                            if (configuration && [configuration isKindOfClass:[NSDictionary class]]) {
-                                [Settings fromDictionary:configuration
-                                                   inMOC:CoreData.sharedInstance.queuedMOC];
-                            } else if (payload && [payload isKindOfClass:[NSDictionary class]]) {
-                                [Settings fromDictionary:payload
-                                                   inMOC:CoreData.sharedInstance.queuedMOC];
-                            }
-                            self.configLoad = [NSDate date];
-                            [self performSelectorOnMainThread:@selector(reconnect) withObject:nil waitUntilDone:NO];
+                            [self performSelectorOnMainThread:@selector(performSetConfiguration:)
+                                                   withObject:dictionary
+                                                waitUntilDone:NO];
 
                         } else {
                             DDLogVerbose(@"[OwnTracksAppDelegate] unknown action %@", dictionary[@"action"]);
@@ -918,6 +868,74 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                           qos:[Settings intForKey:@"qos_preference"
                                             inMOC:CoreData.sharedInstance.mainMOC]
                        retain:NO];
+}
+
+- (void)performAction:(NSDictionary *)dictionary {
+    NSString *content = [NSString saveCopy:dictionary[@"content"]];
+    NSString *url = [NSString saveCopy:dictionary[@"url"] ];
+    NSString *notificationMessage = [NSString saveCopy:dictionary[@"notification"]];
+    NSNumber *external = [NSNumber saveCopy:dictionary[@"extern"]];
+
+    [Settings setString:content
+                 forKey:SETTINGS_ACTION
+                  inMOC:CoreData.sharedInstance.mainMOC];
+    [Settings setString:url
+                 forKey:SETTINGS_ACTIONURL
+                  inMOC:CoreData.sharedInstance.mainMOC];
+    [Settings setBool:external.boolValue
+               forKey:SETTINGS_ACTIONEXTERN
+                inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (notificationMessage) {
+        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+        content.body = notificationMessage;
+        UNTimeIntervalNotificationTrigger* trigger = [UNTimeIntervalNotificationTrigger
+                                                      triggerWithTimeInterval:1.0
+                                                      repeats:NO];
+        UNNotificationRequest* request = [UNNotificationRequest requestWithIdentifier:@"action"
+                                                                              content:content
+                                                                              trigger:trigger];
+        UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+        [center addNotificationRequest:request withCompletionHandler:nil];
+    }
+
+    if (content || url) {
+        if (url && ![url isEqualToString:self.action]) {
+            self.action = url;
+        } else {
+            if (content && ![content isEqualToString:self.action]) {
+                self.action = content;
+            }
+        }
+    } else {
+        self.action = nil;
+    }
+}
+
+- (void)performSetConfiguration:(NSDictionary *)dictionary {
+    NSDictionary *payload = [NSDictionary saveCopy:dictionary[@"payload"]];
+    NSDictionary *configuration = [NSDictionary saveCopy:dictionary[@"configuration"]];
+    if (configuration && [configuration isKindOfClass:[NSDictionary class]]) {
+        [Settings fromDictionary:configuration
+                           inMOC:CoreData.sharedInstance.mainMOC];
+    } else if (payload && [payload isKindOfClass:[NSDictionary class]]) {
+        [Settings fromDictionary:payload
+                           inMOC:CoreData.sharedInstance.mainMOC];
+    }
+    self.configLoad = [NSDate date];
+    [self reconnect];
+}
+
+- (void)performSetWaypoints:(NSDictionary *)dictionary {
+    NSDictionary *payload = [NSDictionary saveCopy:dictionary[@"payload"]];
+    NSDictionary *waypoints = [NSDictionary saveCopy:dictionary[@"waypoints"]];
+    if (waypoints && [waypoints isKindOfClass:[NSDictionary class]]) {
+        [Settings waypointsFromDictionary:waypoints
+                                    inMOC:CoreData.sharedInstance.mainMOC];
+    } else if (payload && [payload isKindOfClass:[NSDictionary class]]) {
+        [Settings waypointsFromDictionary:payload
+                                    inMOC:CoreData.sharedInstance.mainMOC];
+    }
 }
 
 - (void)waypoints {

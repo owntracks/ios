@@ -15,7 +15,7 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface FeaturedContentVC ()
-@property (weak, nonatomic) IBOutlet UIWebView *UIhtml;
+@property (weak, nonatomic) IBOutlet WKWebView *UIhtml;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *UIrefresh;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *UIforward;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *UIbackward;
@@ -31,7 +31,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                forKeyPath:@"action"
                   options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                   context:nil];
-    self.UIhtml.delegate = self;
+    self.UIhtml.UIDelegate = self;
+    self.UIhtml.navigationDelegate = self;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -108,28 +109,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.UIforward.enabled = self.UIhtml.canGoForward;
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+- (void)webView:(WKWebView *)webView didFailLoadWithError:(nonnull NSError *)error {
     DDLogVerbose(@"didFailLoadWithError %@", error);
     [self.UIhtml loadHTMLString:[NSString stringWithFormat:@"%@\n%@\n%@",
                                  NSLocalizedString(@"webView didFailLoadWithError",
                                                    @"webView didFailLoadWithError display"),
                                  error.localizedDescription,
-                                 webView.request.URL.absoluteString]
+                                 webView.URL.absoluteString]
                         baseURL:nil];
     [self adjust];
 }
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    DDLogVerbose(@"shouldStartLoadWithRequest %@", request);
-    return YES;
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    DDLogVerbose(@"webViewDidFinishLoad");
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    DDLogVerbose(@"didFinishNavigation");
     [self adjust];
 }
 
-- (void)webViewDidStartLoad:(UIWebView *)webView {
-    DDLogVerbose(@"webViewDidStartLoad");
-}
 @end

@@ -1,8 +1,8 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 9.8.9
-* Release date 2017-05-14
+## OwnTracks 9.8.11
+* Release date 2017-05-15
 
 ** Crash Fixes, a few new Things, and drop AppleWatch support
 
@@ -11,12 +11,14 @@ OwnTracks iOS App Release Notes
     [NEW] Include desc in _type=beacon messages #521
     [NEW] translation (PL) update
 
+    [FIX] re-enable Altimeter/pressure reporting
     [FIX] not updating when app is in the background #498
     [FIX] Requesting StepCount via HTTP-Connection seems not to work #535
     [FIX] Drop AppleWatch support because Apple stops Watchkit 1 support
     [FIX] Drop Support for iOS < 11.0, older iOS versions use old version
     [FIX] Drop Addressbook links via Relation "owntracks" / "updateaddressbook" 
     [FIX] Replace deprecated UIAlertView
+    [FIX] Replace deprecated UIWebWiew
     [FIX] Replace deprecated UILocalNotification
     [FIX] Replace deprecated AddressBook interface
     [FIX] show matching files when selecting certificates only
