@@ -12,6 +12,7 @@
 
 @interface LocationManager()
 @property (strong, nonatomic) CLLocationManager *manager;
+@property (strong, nonatomic) CMAltimeter *altimeter;
 @property (strong, nonatomic) CLLocation *lastUsedLocation;
 @property (strong, nonatomic) NSTimer *activityTimer;
 @property (strong, nonatomic) NSMutableSet *pendingRegionEvents;
@@ -130,6 +131,21 @@ static LocationManager *theInstance = nil;
 - (void)start {
     DDLogVerbose(@"start");
     [self authorize];
+
+    CMAuthorizationStatus status = [CMAltimeter authorizationStatus];
+    BOOL available = [CMAltimeter isRelativeAltitudeAvailable];
+    DDLogVerbose(@"CMAltimeter status=%ld, available=%d",
+                 (long)status,
+                 available);
+
+    if (status == CMAuthorizationStatusAuthorized && available) {
+        DDLogVerbose(@"startRelativeAltitudeUpdatesToQueue");
+        [self.altimeter startRelativeAltitudeUpdatesToQueue:[NSOperationQueue mainQueue]
+                                                withHandler:^(CMAltitudeData *altitudeData, NSError *error) {
+                                                    DDLogVerbose(@"altitudeData %@", altitudeData);
+                                                    self.altitude = altitudeData;
+                                                }];
+    }
 }
 
 - (void)wakeup {
@@ -172,6 +188,11 @@ static LocationManager *theInstance = nil;
 
 - (void)stop {
     DDLogVerbose(@"stop");
+
+    if ([CMAltimeter isRelativeAltitudeAvailable]) {
+        DDLogVerbose(@"stopRelativeAltitudeUpdates");
+        [self.altimeter stopRelativeAltitudeUpdates];
+    }
 }
 
 - (void)startRegion:(CLRegion *)region {
