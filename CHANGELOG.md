@@ -2,7 +2,7 @@ OwnTracks iOS App Release Notes
 ===================================
 
 ## OwnTracks 9.8.11
-* Release date 2017-05-15
+* Release date 2018-05-15
 
 ** Crash Fixes, a few new Things, and drop AppleWatch support
 
@@ -29,7 +29,7 @@ OwnTracks iOS App Release Notes
     [FIX] update lastUsedLocation immediately
 
 ## OwnTracks 9.8.3/4
-* Release date 2017-01-06
+* Release date 2018-01-06
 
 ** Urgent fixes
 
