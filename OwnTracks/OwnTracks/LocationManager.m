@@ -67,6 +67,9 @@ static LocationManager *theInstance = nil;
     
     self.manager = [[CLLocationManager alloc] init];
     self.manager.delegate = self;
+
+    self.altimeter = [[CMAltimeter alloc] init];
+    
     self.insideBeaconRegions = [[NSMutableDictionary alloc] init];
     self.insideCircularRegions = [[NSMutableDictionary alloc] init];
     self.rangedBeacons = [[NSMutableArray alloc] init];
@@ -138,7 +141,9 @@ static LocationManager *theInstance = nil;
                  (long)status,
                  available);
 
-    if (status == CMAuthorizationStatusAuthorized && available) {
+    if (available &&
+        (status == CMAuthorizationStatusNotDetermined ||
+         status == CMAuthorizationStatusAuthorized)) {
         DDLogVerbose(@"startRelativeAltitudeUpdatesToQueue");
         [self.altimeter startRelativeAltitudeUpdatesToQueue:[NSOperationQueue mainQueue]
                                                 withHandler:^(CMAltitudeData *altitudeData, NSError *error) {

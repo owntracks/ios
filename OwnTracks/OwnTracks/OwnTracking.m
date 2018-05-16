@@ -395,23 +395,23 @@ static OwnTracking *theInstance = nil;
             [json setValue:altitude.pressure forKey:@"p"];
         }
 
-            switch ([ConnType connectionType:[Settings theHostInMOC:waypoint.managedObjectContext]]) {
-                case ConnectionTypeNone:
-                    json[@"conn"] = @"o";
-                    break;
+        switch ([ConnType connectionType:[Settings theHostInMOC:waypoint.managedObjectContext]]) {
+            case ConnectionTypeNone:
+                json[@"conn"] = @"o";
+                break;
 
-                case ConnectionTypeWIFI:
-                    json[@"conn"] = @"w";
-                    break;
+            case ConnectionTypeWIFI:
+                json[@"conn"] = @"w";
+                break;
 
-                case ConnectionTypeWWAN:
-                    json[@"conn"] = @"m";
-                    break;
+            case ConnectionTypeWWAN:
+                json[@"conn"] = @"m";
+                break;
 
-                case ConnectionTypeUnknown:
-                default:
-                    break;
-            }
+            case ConnectionTypeUnknown:
+            default:
+                break;
+        }
     }
 
     NSString *tid = [Settings stringForKey:@"trackerid_preference" inMOC:waypoint.managedObjectContext];
