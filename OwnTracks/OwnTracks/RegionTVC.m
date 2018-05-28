@@ -29,7 +29,7 @@
 @end
 
 @implementation RegionTVC
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)viewWillAppear:(BOOL)animated
 {

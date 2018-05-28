@@ -28,7 +28,7 @@
 @end
 
 @implementation FriendsTVC
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
@@ -140,8 +140,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSIndexPath *indexPath = nil;
     
     if ([sender isKindOfClass:[UITableViewCell class]]) {
@@ -163,8 +162,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Friend *friend = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     UITabBarController *tbc;
@@ -191,19 +189,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
 #pragma mark - Table View
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return (self.fetchedResultsController).sections.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     id <NSFetchedResultsSectionInfo> sectionInfo = (self.fetchedResultsController).sections[section];
     return sectionInfo.numberOfObjects;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"friend" forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
@@ -236,8 +231,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
 #pragma mark - Fetched results controller
 
-- (NSFetchedResultsController *)fetchedResultsController
-{
+- (NSFetchedResultsController *)fetchedResultsController {
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
@@ -287,8 +281,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)controller:(NSFetchedResultsController *)controller
   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex
-     forChangeType:(NSFetchedResultsChangeType)type
-{
+     forChangeType:(NSFetchedResultsChangeType)type {
     switch(type) {
         case NSFetchedResultsChangeInsert:
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
@@ -373,18 +366,25 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     Waypoint *waypoint = friend.newestWaypoint;
     if (waypoint) {
         [friendTableViewCell deferredReverseGeoCode:waypoint];
-        
-        friendTableViewCell.address.text = waypoint.placemark ? waypoint.placemark : NSLocalizedString(@"resolving...",
-                                                                                                      @"temporary display while resolving address");
+
+        if (waypoint.placemark) {
+            friendTableViewCell.address.text = waypoint.placemark;
+        } else {
+            DDLogVerbose(@"[FriendsTVC] configureCell resolving %@", waypoint);
+            friendTableViewCell.address.text = NSLocalizedString(@"resolving...",
+                                                                 @"temporary display while resolving address");
+        }
         friendAnnotationView.speed = (waypoint.vel).doubleValue;
         friendAnnotationView.course = (waypoint.cog).doubleValue;
     } else {
+        friendTableViewCell.address.text = @"";
         friendAnnotationView.speed = -1;
         friendAnnotationView.course = -1;
     }
     
-    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay
-                                                                       fromDate:[NSDate date]];
+    NSDateComponents *dateComponents = [[NSCalendar currentCalendar]
+                                        components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay
+                                        fromDate:[NSDate date]];
     NSDate *thisMorning = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
     if ([waypoint.tst timeIntervalSinceDate:thisMorning] > 0) {
         friendTableViewCell.timestamp.text = [NSDateFormatter localizedStringFromDate:waypoint.tst

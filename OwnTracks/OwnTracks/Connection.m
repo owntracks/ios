@@ -65,7 +65,7 @@
 #define RECONNECT_TIMER_MAX 64.0
 
 @implementation Connection
-DDLogLevel ddLogLevel = DDLogLevelVerbose;
+DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (instancetype)init {
     self = [super init];
@@ -77,7 +77,7 @@ DDLogLevel ddLogLevel = DDLogLevelVerbose;
         DDLogInfo(@"[Connection] sodium_init succeeded");
     }
 
-    [MQTTLog setLogLevel:DDLogLevelVerbose];
+    [MQTTLog setLogLevel:DDLogLevelWarning];
 
     self.state = state_starting;
     self.subscriptions = [[NSArray alloc] init];

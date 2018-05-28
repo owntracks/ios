@@ -23,7 +23,7 @@
 @end
 
 @implementation StatusTVC
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -108,15 +108,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         self.UILocation.text =NSLocalizedString( @"No location available",  @"No location available indication");
     }
 
-    int mode = [Settings intForKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC];
     if (self.UIparameters) {
-        if (mode == 1) {
-            self.UIparameters.text = @"Hosted";
-        } else if (mode == 2) {
-            self.UIparameters.text = @"Public";
-        } else {
-            self.UIparameters.text = (delegate.connection).parameters;
-        }
+        self.UIparameters.text = (delegate.connection).parameters;
     }
     
     self.UIVersion.text = [NSString stringWithFormat:@"%@/%@",
@@ -134,7 +127,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 }
 
 - (IBAction)documentationPressed:(UIButton *)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://owntracks.org/booklet"]
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://owntracks.org/booklet"]
                                        options:@{}
                              completionHandler:nil];
 }

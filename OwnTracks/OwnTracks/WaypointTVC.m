@@ -27,7 +27,7 @@
 @end
 
 @implementation WaypointTVC
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (IBAction)setPerson:(UIStoryboardSegue *)segue {
     if ([segue.sourceViewController isKindOfClass:[PersonTVC class]]) {

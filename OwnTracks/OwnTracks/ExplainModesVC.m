@@ -20,11 +20,8 @@
     self.UItextview.text = NSLocalizedStringWithDefaultValue(@"Modes_Text",
                                                              nil,
                                                              [NSBundle mainBundle],
-                                                             @"Public Mode\n\n"
-                                                             "In public mode, you can get an impression of OwnTracks functionality.\n\n"
-                                                             "Your location will be anonymously published to owntrack.org's public broker and will be shared with all other users in public mode. Your data will not be stored and will only be forwarded to users connected at the same time.\n\n"
-                                                             "MQTT Mode\n\n"
-                                                             "Or you may setup your own OwnTracks server for full privacy protection. More Info on http://owntracks.org/booklet\n\n"
+                                                             @"MQTT Mode\n\n"
+                                                             "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet\n\n"
                                                              "HTTP Mode\n\n"
                                                              "Similar to MQTT mode, except data transmission uses HTTP, not MQTT\n\n"
                                                              "Please note:\n"

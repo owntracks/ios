@@ -23,7 +23,7 @@
 @end
 
 @implementation RegionsTVC
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)viewDidLoad {
     [super viewDidLoad];

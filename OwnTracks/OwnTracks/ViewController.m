@@ -113,8 +113,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)setCenter:(id<MKAnnotation>)annotation {
     CLLocationCoordinate2D coordinate = annotation.coordinate;
-    [self.mapView setVisibleMapRect:[self centeredRect:coordinate] animated:YES];
-    self.mapView.userTrackingMode = MKUserTrackingModeNone;
+    if (CLLocationCoordinate2DIsValid(coordinate)) {
+        [self.mapView setVisibleMapRect:[self centeredRect:coordinate] animated:YES];
+        self.mapView.userTrackingMode = MKUserTrackingModeNone;
+    }
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

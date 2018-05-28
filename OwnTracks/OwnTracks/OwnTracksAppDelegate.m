@@ -146,15 +146,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
     DDLogVerbose(@"[OwnTracksAppDelegate] didFinishLaunchingWithOptions");
 
-
-    if (![Setting existsSettingWithKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC]) {
-        if (![Setting existsSettingWithKey:@"host_preference" inMOC:CoreData.sharedInstance.mainMOC]) {
-            [Settings setInt:2 forKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC];
-        } else {
-            [Settings setInt:0 forKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC];
-        }
-    }
-
     self.connection = [[Connection alloc] init];
     self.connection.delegate = self;
     [self.connection start];
@@ -234,13 +225,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                                            @"Display after processing beacon QR code");
                 return TRUE;
             } else {
-                self.processingMessage = NSLocalizedString(@"Hosted QR successfully processed",
-                                                           @"Display after processing hosted QR code");
-
-                self.processingMessage = [NSString stringWithFormat:@"%@ %@",
-                                          NSLocalizedString(@"unknown path in url",
-                                                            @"Display after entering an unknown path in url"),
-                                          url.path];
                 return FALSE;
             }
         } else if ([url.scheme isEqualToString:@"file"]) {
@@ -605,26 +589,11 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                     [json setValue:region.identifier forKey:@"desc"];
                     [json setValue:@(floor(anyRegion.andFillTst.timeIntervalSince1970)) forKey:@"wtst"];
 
-                    switch ([Settings intForKey:@"mode"
-                                          inMOC:CoreData.sharedInstance.mainMOC]) {
-                        case CONNECTION_MODE_WATSON:
-                        case CONNECTION_MODE_WATSONREGISTERED:
-                            [self.connection sendData:[self jsonToData:json]
-                                                topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByReplacingOccurrencesOfString:@"/location/"
-                                                                                                            withString:@"/event/"]
-                                                  qos:[Settings intForKey:@"qos_preference"
-                                                                    inMOC:CoreData.sharedInstance.mainMOC]
-                                               retain:NO];
-                            break;
-
-                        default:
-                            [self.connection sendData:[self jsonToData:json]
-                                                topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/event"]
-                                                  qos:[Settings intForKey:@"qos_preference"
-                                                        inMOC:CoreData.sharedInstance.mainMOC]
-                                               retain:NO];
-                            break;
-                    }
+                    [self.connection sendData:[self jsonToData:json]
+                                        topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/event"]
+                                          qos:[Settings intForKey:@"qos_preference"
+                                                            inMOC:CoreData.sharedInstance.mainMOC]
+                                       retain:NO];
                 }
                 if ([region isKindOfClass:[CLBeaconRegion class]]) {
                     if ((anyRegion.radius).doubleValue < 0) {
@@ -686,27 +655,11 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         if (myRegion) {
             json[@"desc"] = myRegion.name;
         }
-        switch ([Settings intForKey:@"mode"
-                              inMOC:CoreData.sharedInstance.mainMOC]) {
-            case CONNECTION_MODE_WATSON:
-            case CONNECTION_MODE_WATSONREGISTERED:
-                [self.connection sendData:[self jsonToData:json]
-                                    topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByReplacingOccurrencesOfString:@"/location/"
-                                                                                                withString:@"/beacon/"]
-                                      qos:[Settings intForKey:@"qos_preference"
-                                                        inMOC:CoreData.sharedInstance.mainMOC]
-                                   retain:NO];
-                break;
-
-            default:
-                [self.connection sendData:[self jsonToData:json]
-                                    topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/beacon"]
-                                      qos:[Settings intForKey:@"qos_preference"
-                                                        inMOC:CoreData.sharedInstance.mainMOC]
-                                   retain:NO];
-                break;
-
-        }
+        [self.connection sendData:[self jsonToData:json]
+                            topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/beacon"]
+                              qos:[Settings intForKey:@"qos_preference"
+                                                inMOC:CoreData.sharedInstance.mainMOC]
+                           retain:NO];
     }
 }
 

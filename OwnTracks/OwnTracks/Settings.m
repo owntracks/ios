@@ -14,12 +14,8 @@
 
 
 @interface SettingsDefaults: NSObject
-@property (strong, nonatomic) NSDictionary *appDefaults;
-@property (strong, nonatomic) NSDictionary *publicDefaults;
-@property (strong, nonatomic) NSDictionary *hostedDefaults;
+@property (strong, nonatomic) NSDictionary *mqttDefaults;
 @property (strong, nonatomic) NSDictionary *httpDefaults;
-@property (strong, nonatomic) NSDictionary *watsonDefaults;
-@property (strong, nonatomic) NSDictionary *watsonRegisteredDefaults;
 @end
 
 static SettingsDefaults *defaults;
@@ -38,19 +34,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
     if (self) {
         NSURL *bundleURL = [NSBundle mainBundle].bundleURL;
-        NSURL *settingsPlistURL = [bundleURL URLByAppendingPathComponent:@"Settings.plist"];
-        NSURL *publicPlistURL = [bundleURL URLByAppendingPathComponent:@"Public.plist"];
+        NSURL *mqttPlistURL = [bundleURL URLByAppendingPathComponent:@"MQTT.plist"];
         NSURL *httpPlistURL = [bundleURL URLByAppendingPathComponent:@"HTTP.plist"];
-        NSURL *hostedPlistURL = [bundleURL URLByAppendingPathComponent:@"Hosted.plist"];
-        NSURL *watsonPlistURL = [bundleURL URLByAppendingPathComponent:@"Watson.plist"];
-        NSURL *watsonRegisteredPlistURL = [bundleURL URLByAppendingPathComponent:@"WatsonRegistered.plist"];
 
-        self.appDefaults = [NSDictionary dictionaryWithContentsOfURL:settingsPlistURL];
-        self.publicDefaults = [NSDictionary dictionaryWithContentsOfURL:publicPlistURL];
-        self.hostedDefaults = [NSDictionary dictionaryWithContentsOfURL:hostedPlistURL];
+        self.mqttDefaults = [NSDictionary dictionaryWithContentsOfURL:mqttPlistURL];
         self.httpDefaults = [NSDictionary dictionaryWithContentsOfURL:httpPlistURL];
-        self.watsonDefaults = [NSDictionary dictionaryWithContentsOfURL:watsonPlistURL];
-        self.watsonRegisteredDefaults = [NSDictionary dictionaryWithContentsOfURL:watsonRegisteredPlistURL];
     }
 
     return self;
@@ -90,7 +78,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                 }
             }
 
-            ConnectionMode importMode = CONNECTION_MODE_PRIVATE;
+            ConnectionMode importMode = CONNECTION_MODE_MQTT;
             object = dictionary[@"mode"];
             if (object) {
                 [self setString:object forKey:@"mode" inMOC:context];
@@ -102,18 +90,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             object = dictionary[@"deviceId"];
             if (object) {
                 switch (importMode) {
-                    case CONNECTION_MODE_PRIVATE:
+                    case CONNECTION_MODE_MQTT:
                         if ([object isKindOfClass:[NSNull class]]) {
                             [self  setString:@"" forKey:@"deviceid_preference" inMOC:context];
                         } else if ([object isKindOfClass:[NSString class]]) {
                             [self setString:(NSString *)object forKey:@"deviceid_preference" inMOC:context];
-                        }
-                        break;
-                    case CONNECTION_MODE_HOSTED:
-                        if ([object isKindOfClass:[NSNull class]]) {
-                            [self  setString:@"" forKey:@"device" inMOC:context];
-                        } else if ([object isKindOfClass:[NSString class]]) {
-                            [self setString:(NSString *)object forKey:@"device" inMOC:context];
                         }
                         break;
                     default:
@@ -139,29 +120,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             object = dictionary[@"url"];
             if (object) [self setString:object forKey:@"url_preference" inMOC:context];
 
-            object = dictionary[@"quickstartId"];
-            if (object) [self setString:object forKey:@"quickstartid_preference" inMOC:context];
-
-            object = dictionary[@"watsonOrganization"];
-            if (object) [self setString:object forKey:@"watsonorganization_preference" inMOC:context];
-
-            object = dictionary[@"watsonDeviceType"];
-            if (object) [self setString:object forKey:@"watsondevicetype_preference" inMOC:context];
-
-            object = dictionary[@"watsonDeviceId"];
-            if (object) [self setString:object forKey:@"watsondeviceid_preference" inMOC:context];
-
-            object = dictionary[@"watsonAuthToken"];
-            if (object) [self setString:object forKey:@"watsonauthtoken_preference" inMOC:context];
-
             object = dictionary[@"username"];
             if (object) {
                 switch (importMode) {
-                    case CONNECTION_MODE_PRIVATE:
+                    case CONNECTION_MODE_MQTT:
                         [self setString:object forKey:@"user_preference" inMOC:context];
-                        break;
-                    case CONNECTION_MODE_HOSTED:
-                        [self setString:object forKey:@"user" inMOC:context];
                         break;
                     default:
                         break;
@@ -171,11 +134,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             object = dictionary[@"password"];
             if (object) {
                 switch (importMode) {
-                    case CONNECTION_MODE_PRIVATE:
+                    case CONNECTION_MODE_MQTT:
                         [self setString:object forKey:@"pass_preference" inMOC:context];
-                        break;
-                    case CONNECTION_MODE_HOSTED:
-                        [self setString:object forKey:@"token" inMOC:context];
                         break;
                     default:
                         break;
@@ -446,7 +406,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     }
 
     switch ([Settings intForKey:@"mode" inMOC:context]) {
-        case CONNECTION_MODE_PRIVATE:
+        case CONNECTION_MODE_MQTT:
             dict[@"deviceId"] =             [Settings stringOrZeroForKey:@"deviceid_preference" inMOC:context];
             dict[@"clientId"] =             [Settings stringOrZeroForKey:@"clientid_preference" inMOC:context];
             dict[@"subTopic"] =             [Settings stringOrZeroForKey:@"subscription_preference" inMOC:context];
@@ -492,24 +452,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             dict[@"allowinvalidcerts"] =    @([Settings boolForKey:@"allowinvalidcerts" inMOC:context]);
             break;
 
-        case CONNECTION_MODE_HOSTED:
-            dict[@"username"] = [Settings stringOrZeroForKey:@"user" inMOC:context];
-            dict[@"deviceId"] = [Settings stringOrZeroForKey:@"device" inMOC:context];
-            dict[@"password"] = [Settings stringOrZeroForKey:@"token" inMOC:context];
-            break;
-
-        case CONNECTION_MODE_WATSON:
-            dict[@"quickstartId"] =         [Settings stringOrZeroForKey:@"quickstartid_preference" inMOC:context];
-            break;
-
-        case CONNECTION_MODE_WATSONREGISTERED:
-            dict[@"watsonOrganization"] =   [Settings stringOrZeroForKey:@"watsonorganization_preference" inMOC:context];
-            dict[@"watsonDeviceType"] =     [Settings stringOrZeroForKey:@"watsondevicetype_preference" inMOC:context];
-            dict[@"watsonDeviceId"] =       [Settings stringOrZeroForKey:@"watsondeviceid_preference" inMOC:context];
-            dict[@"watsonAuthToken"] =      [Settings stringOrZeroForKey:@"watsonauthtoken_preference" inMOC:context];
-            break;
-
-        case CONNECTION_MODE_PUBLIC:
         default:
             break;
     }
@@ -550,30 +492,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     }
 
     switch (mode) {
-        case CONNECTION_MODE_WATSON:
-            return ([key isEqualToString:@"quickstartid_preference"]);
-            break;
-
-        case CONNECTION_MODE_WATSONREGISTERED:
-            return ([key isEqualToString:@"watsonorganization_preference"] ||
-                    [key isEqualToString:@"watsondevicetype_preference"] ||
-                    [key isEqualToString:@"watsondeviceid_preference"] ||
-                    [key isEqualToString:@"watsonauthtoken_preference"]);
-            break;
-
-        case CONNECTION_MODE_PUBLIC:
-            return false;
-            break;
-
-        case CONNECTION_MODE_HOSTED:
-            return ([key isEqualToString:@"user"] ||
-                    [key isEqualToString:@"device"] ||
-                    [key isEqualToString:@"token"]);
-            break;
-
         default:
             return true;
-
     }
 }
 
@@ -620,24 +540,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     id object;
     if (![self validKey:key inMode:mode]) {
         switch (mode) {
-            case CONNECTION_MODE_PUBLIC:
-                object = ([SettingsDefaults theDefaults].publicDefaults)[key];
-                break;
-            case CONNECTION_MODE_HOSTED:
-                object = ([SettingsDefaults theDefaults].hostedDefaults)[key];
-                break;
             case CONNECTION_MODE_HTTP:
                 object = ([SettingsDefaults theDefaults].httpDefaults)[key];
                 break;
-            case CONNECTION_MODE_WATSON:
-                object = ([SettingsDefaults theDefaults].watsonDefaults)[key];
-                break;
-            case CONNECTION_MODE_WATSONREGISTERED:
-                object = ([SettingsDefaults theDefaults].watsonRegisteredDefaults)[key];
-                break;
-            case CONNECTION_MODE_PRIVATE:
+            case CONNECTION_MODE_MQTT:
             default:
-                object = ([SettingsDefaults theDefaults].appDefaults)[key];
+                object = ([SettingsDefaults theDefaults].mqttDefaults)[key];
                 break;
         }
         if (object) {
@@ -659,8 +567,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         if (setting) {
             value = setting.value;
         } else {
-            // if not found in Core Data or NSUserdefaults, use defaults from .plist
-            id object = ([SettingsDefaults theDefaults].appDefaults)[key];
+            id object = ([SettingsDefaults theDefaults].mqttDefaults)[key];
             if (object) {
                 if ([object isKindOfClass:[NSString class]]) {
                     value = (NSString *)object;
@@ -688,53 +595,30 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 
 + (NSString *)theGeneralTopicInMOC:(NSManagedObjectContext *)context {
-    int mode = [self intForKey:@"mode" inMOC:context];
-    NSString *topic;
-    
-    switch (mode) {
-        case CONNECTION_MODE_WATSON:
-        case CONNECTION_MODE_WATSONREGISTERED:
-            topic = [NSString stringWithFormat:@"iot-2/evt/location/fmt/json"];
-            break;
-
-        case CONNECTION_MODE_PUBLIC:
-            topic = [NSString stringWithFormat:@"public/user/%@", [self theDeviceIdInMOC:context]];
-            break;
-
-        case CONNECTION_MODE_HOSTED:
-            topic = [NSString stringWithFormat:@"owntracks/%@", [self theIdInMOC:context]];
-            break;
-
-        case CONNECTION_MODE_PRIVATE:
-        case CONNECTION_MODE_HTTP:
-        default:
-            topic = [self stringForKey:@"topic_preference" inMOC:context];
+    NSString *topic = [self stringForKey:@"topic_preference" inMOC:context];
             
-            if (!topic || [topic isEqualToString:@""]) {
-                NSString *userId = [self theUserIdInMOC:context];
-                NSString *deviceId = [self theDeviceIdInMOC:context];
+    if (!topic || [topic isEqualToString:@""]) {
+        NSString *userId = [self theUserIdInMOC:context];
+        NSString *deviceId = [self theDeviceIdInMOC:context];
 
-                if (!userId || [userId isEqualToString:@""]) {
-                    userId = @"user";
-                }
-                if (!deviceId || [deviceId isEqualToString:@""]) {
-                    deviceId = @"device";
-                }
+        if (!userId || [userId isEqualToString:@""]) {
+            userId = @"user";
+        }
+        if (!deviceId || [deviceId isEqualToString:@""]) {
+            deviceId = @"device";
+        }
 
-                topic = [NSString stringWithFormat:@"owntracks/%@/%@", userId, deviceId];
-            } else {
-                topic = [topic stringByReplacingOccurrencesOfString:@"%u"
-                                                         withString:[Settings theUserIdInMOC:context]];
-                topic = [topic stringByReplacingOccurrencesOfString:@"%d"
-                                                         withString:[Settings theDeviceIdInMOC:context]];
-            }
-            break;
+        topic = [NSString stringWithFormat:@"owntracks/%@/%@", userId, deviceId];
+    } else {
+        topic = [topic stringByReplacingOccurrencesOfString:@"%u"
+                                                 withString:[Settings theUserIdInMOC:context]];
+        topic = [topic stringByReplacingOccurrencesOfString:@"%d"
+                                                 withString:[Settings theDeviceIdInMOC:context]];
     }
     return topic;
 }
 
-+ (NSString *)theWillTopicInMOC:(NSManagedObjectContext *)context
-{
++ (NSString *)theWillTopicInMOC:(NSManagedObjectContext *)context {
     NSString *topic = [self stringForKey:@"willtopic_preference" inMOC:context];
     
     if (!topic || [topic isEqualToString:@""]) {
@@ -760,209 +644,101 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 + (NSString *)theIdInMOC:(NSManagedObjectContext *)context {
-    int mode = [self intForKey:@"mode" inMOC:context];
     NSString *theId;
     
-    switch (mode) {
-        case CONNECTION_MODE_WATSON:
-            theId = [NSString stringWithFormat:@"d:quickstart:owntracks:%@",
-                     [self theDeviceIdInMOC:context]];
-            break;
+    NSString *userId = [self theUserIdInMOC:context];
+    NSString *deviceId = [self theDeviceIdInMOC:context];
 
-        case CONNECTION_MODE_WATSONREGISTERED:
-            theId = [NSString stringWithFormat:@"d:%@:%@:%@",
-                     [self stringForKey:@"watsonorganization_preference" inMOC:context],
-                     [self stringForKey:@"watsondevicetype_preference" inMOC:context],
-                     [self theDeviceIdInMOC:context]];
-            break;
-
-        case CONNECTION_MODE_PUBLIC:
-        case CONNECTION_MODE_HOSTED:  {
-            NSCharacterSet *allowed = [NSCharacterSet alphanumericCharacterSet];
-            NSCharacterSet *notAllowed = allowed.invertedSet;
-            theId = [[[NSString stringWithFormat:@"%@%@",
-                       [self theUserIdInMOC:context],
-                       [self theDeviceIdInMOC:context]]
-                         componentsSeparatedByCharactersInSet:notAllowed]
-                        componentsJoinedByString:@""];
-            break;
+    if (!userId || [userId isEqualToString:@""]) {
+        if (!deviceId || [deviceId isEqualToString:@""]) {
+            theId = [UIDevice currentDevice].name;
+        } else {
+            theId = deviceId;
         }
-        case CONNECTION_MODE_PRIVATE:
-        case CONNECTION_MODE_HTTP:
-        default: {
-            NSString *userId = [self theUserIdInMOC:context];
-            NSString *deviceId = [self theDeviceIdInMOC:context];
-            
-            if (!userId || [userId isEqualToString:@""]) {
-                if (!deviceId || [deviceId isEqualToString:@""]) {
-                    theId = [UIDevice currentDevice].name;
-                } else {
-                    theId = deviceId;
-                }
-            } else {
-                if (!deviceId || [deviceId isEqualToString:@""]) {
-                    theId = userId;
-                } else {
-                    theId = [NSString stringWithFormat:@"%@%@",
-                             userId,
-                             deviceId];
-                }
-            }
-            NSCharacterSet *allowed = [NSCharacterSet alphanumericCharacterSet];
-            NSCharacterSet *notAllowed = allowed.invertedSet;
-            theId = [[theId componentsSeparatedByCharactersInSet:notAllowed]
-                     componentsJoinedByString:@""];
-            break;
+    } else {
+        if (!deviceId || [deviceId isEqualToString:@""]) {
+            theId = userId;
+        } else {
+            theId = [NSString stringWithFormat:@"%@%@",
+                     userId,
+                     deviceId];
         }
     }
+    NSCharacterSet *allowed = [NSCharacterSet alphanumericCharacterSet];
+    NSCharacterSet *notAllowed = allowed.invertedSet;
+    theId = [[theId componentsSeparatedByCharactersInSet:notAllowed]
+             componentsJoinedByString:@""];
 
-    
     return theId;
 }
 
 + (NSString *)theDeviceIdInMOC:(NSManagedObjectContext *)context {
-    int mode = [self intForKey:@"mode" inMOC:context];
-    NSString *deviceId;
-    
-    switch (mode) {
-        case CONNECTION_MODE_WATSON:
-            deviceId = [self stringForKey:@"quickstartid_preference" inMOC:context];
-            break;
-
-        case CONNECTION_MODE_WATSONREGISTERED:
-            deviceId = [self stringForKey:@"watsondeviceid_preference" inMOC:context];
-            break;
-
-        case CONNECTION_MODE_PUBLIC: {
-            deviceId = ([UIDevice currentDevice].identifierForVendor).UUIDString;
-            break;
-        }
-        case CONNECTION_MODE_HOSTED:
-            deviceId = [self stringForKey:@"device" inMOC:context];
-            break;
-        case CONNECTION_MODE_PRIVATE:
-        case CONNECTION_MODE_HTTP:
-        default:
-            deviceId = [self stringForKey:@"deviceid_preference" inMOC:context];
-            if (!deviceId || deviceId.length == 0) {
-                deviceId = ([UIDevice currentDevice].identifierForVendor).UUIDString;
-            }
-            break;
+    NSString *deviceId = [self stringForKey:@"deviceid_preference" inMOC:context];
+    if (!deviceId || deviceId.length == 0) {
+        deviceId = ([UIDevice currentDevice].identifierForVendor).UUIDString;
     }
     return deviceId;
 }
 
 + (NSString *)theSubscriptionsInMOC:(NSManagedObjectContext *)context {
-    int mode = [self intForKey:@"mode" inMOC:context];
-    NSString *subscriptions;
-    
-    switch (mode) {
-        case CONNECTION_MODE_WATSON:
-        case CONNECTION_MODE_WATSONREGISTERED:
-            break;
+    NSString *subscriptions = [self stringForKey:@"subscription_preference" inMOC:context];
 
-        case CONNECTION_MODE_PUBLIC:
-            subscriptions = [NSString stringWithFormat:@"public/user/+ public/user/+/event public/user/+/info public/user/%@/cmd",
-                             [self theDeviceIdInMOC:context]];
-            break;
+    if (!subscriptions || subscriptions.length == 0) {
+        NSArray *baseComponents = [[self theGeneralTopicInMOC:context] componentsSeparatedByString:@"/"];
 
-        case CONNECTION_MODE_HOSTED:
-        case CONNECTION_MODE_PRIVATE:
-        case CONNECTION_MODE_HTTP:
-        default:
-            subscriptions = [self stringForKey:@"subscription_preference" inMOC:context];
-            
-            if (!subscriptions || subscriptions.length == 0) {
-                NSArray *baseComponents = [[self theGeneralTopicInMOC:context] componentsSeparatedByString:@"/"];
-                
-                NSString *anyDevice = @"";
-                int any = 1;
-                NSString *firstString = nil;
-                if (baseComponents.count > 0) {
-                    firstString = baseComponents[0];
-                }
-                if (firstString && firstString.length == 0) {
-                    any++;
-                }
-                
-                for (int i = 0; i < any; i++) {
-                    if (i > 0) {
-                        anyDevice = [anyDevice stringByAppendingString:@"/"];
-                    }
-                    anyDevice = [anyDevice stringByAppendingString:baseComponents[i]];
-                }
-                
-                for (int i = any; i < baseComponents.count; i++) {
-                    if (i > 0) {
-                        anyDevice = [anyDevice stringByAppendingString:@"/"];
-                    }
-                    anyDevice = [anyDevice stringByAppendingString:@"+"];
-                }
-                
-                subscriptions = [NSString stringWithFormat:@"%@ %@/event %@/info %@/cmd",
-                                 anyDevice,
-                                 anyDevice,
-                                 anyDevice,
-                                 [self theGeneralTopicInMOC:context]];
+        NSString *anyDevice = @"";
+        int any = 1;
+        NSString *firstString = nil;
+        if (baseComponents.count > 0) {
+            firstString = baseComponents[0];
+        }
+        if (firstString && firstString.length == 0) {
+            any++;
+        }
+
+        for (int i = 0; i < any; i++) {
+            if (i > 0) {
+                anyDevice = [anyDevice stringByAppendingString:@"/"];
             }
-            subscriptions = [subscriptions stringByReplacingOccurrencesOfString:@"%u"
-                                                                     withString:[Settings theUserIdInMOC:context]];
-            subscriptions = [subscriptions stringByReplacingOccurrencesOfString:@"%d"
-                                                                     withString:[Settings theDeviceIdInMOC:context]];
-            
-            break;
+            anyDevice = [anyDevice stringByAppendingString:baseComponents[i]];
+        }
+
+        for (int i = any; i < baseComponents.count; i++) {
+            if (i > 0) {
+                anyDevice = [anyDevice stringByAppendingString:@"/"];
+            }
+            anyDevice = [anyDevice stringByAppendingString:@"+"];
+        }
+
+        subscriptions = [NSString stringWithFormat:@"%@ %@/event %@/info %@/cmd",
+                         anyDevice,
+                         anyDevice,
+                         anyDevice,
+                         [self theGeneralTopicInMOC:context]];
     }
+    subscriptions = [subscriptions stringByReplacingOccurrencesOfString:@"%u"
+                                                             withString:[Settings theUserIdInMOC:context]];
+    subscriptions = [subscriptions stringByReplacingOccurrencesOfString:@"%d"
+                                                             withString:[Settings theDeviceIdInMOC:context]];
 
     return subscriptions;
 }
 
 + (NSString *)theUserIdInMOC:(NSManagedObjectContext *)context {
-    int mode = [self intForKey:@"mode" inMOC:context];
-    switch (mode) {
-        case CONNECTION_MODE_PUBLIC:
-            return @"user";
-            break;
-
-        case CONNECTION_MODE_HOSTED:
-            return [self stringForKey:@"user" inMOC:context];
-            break;
-
-        case CONNECTION_MODE_HTTP:
-        case CONNECTION_MODE_PRIVATE:
-        default:
-            return [self stringForKey:@"user_preference" inMOC:context];
-            break;
-    }
+    return [self stringForKey:@"user_preference" inMOC:context];
 }
 
 + (NSString *)theHostInMOC:(NSManagedObjectContext *)context {
     int mode = [self intForKey:@"mode" inMOC:context];
     switch (mode) {
-        case CONNECTION_MODE_PUBLIC:
-            return @"public-mqtt.owntracks.org";
-            break;
-
-        case CONNECTION_MODE_WATSON:
-            return @"quickstart.messaging.internetofthings.ibmcloud.com";
-            break;
-
-        case CONNECTION_MODE_WATSONREGISTERED:
-            return [NSString stringWithFormat:@"%@.messaging.internetofthings.ibmcloud.com",
-                    [self stringForKey:@"watsonorganization_preference" inMOC:context]];
-            break;
-
-        case CONNECTION_MODE_HOSTED:
-            return @"hosted-mqtt.owntracks.org";
-            break;
-
         case CONNECTION_MODE_HTTP: {
             NSURL *url = [NSURL URLWithString:[self stringForKey:@"url_preference" inMOC:context]];
             NSString *host = url.host;
-            return host ? host : @"hosted.owntracks.org";
+            return host ? host : @"host";
             break;
         }
 
-        case CONNECTION_MODE_PRIVATE:
+        case CONNECTION_MODE_MQTT:
         default:
             return [self stringForKey:@"host_preference" inMOC:context];
             break;
@@ -970,74 +746,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 + (NSString *)theMqttUserInMOC:(NSManagedObjectContext *)context {
-    int mode = [self intForKey:@"mode" inMOC:context];
-    switch (mode) {
-        case CONNECTION_MODE_PUBLIC:
-        case CONNECTION_MODE_WATSON:
-            return nil;
-            break;
-
-        case CONNECTION_MODE_WATSONREGISTERED:
-            return @"use-token-auth";
-            break;
-
-        case CONNECTION_MODE_HOSTED:
-            return [NSString stringWithFormat:@"%@|%@",
-                    [self stringForKey:@"user" inMOC:context],
-                    [self theDeviceIdInMOC:context]];
-            break;
-
-        case CONNECTION_MODE_HTTP:
-        case CONNECTION_MODE_PRIVATE:
-        default:
-            return [self stringForKey:@"user_preference" inMOC:context];
-            break;
-    }
+    return [self stringForKey:@"user_preference" inMOC:context];
 }
 
 + (NSString *)theMqttPassInMOC:(NSManagedObjectContext *)context {
-    int mode = [self intForKey:@"mode" inMOC:context];
-    switch (mode) {
-        case CONNECTION_MODE_PUBLIC:
-        case CONNECTION_MODE_WATSON:
-            return nil;
-            break;
-
-        case CONNECTION_MODE_WATSONREGISTERED:
-            return [self stringForKey:@"watsonauthtoken_preference" inMOC:context];
-            break;
-
-        case CONNECTION_MODE_HOSTED:
-            return [self stringForKey:@"token" inMOC:context];
-            break;
-
-        case CONNECTION_MODE_HTTP:
-        case CONNECTION_MODE_PRIVATE:
-        default:
-            return [self stringForKey:@"pass_preference" inMOC:context];
-            break;
-    }
+    return [self stringForKey:@"pass_preference" inMOC:context];
 }
 
 + (BOOL)theMqttAuthInMOC:(NSManagedObjectContext *)context {
-    int mode = [self intForKey:@"mode" inMOC:context];
-    switch (mode) {
-        case CONNECTION_MODE_PUBLIC:
-        case CONNECTION_MODE_WATSON:
-            return FALSE;
-            break;
-
-        case CONNECTION_MODE_HOSTED:
-        case CONNECTION_MODE_WATSONREGISTERED:
-            return TRUE;
-            break;
-
-        case CONNECTION_MODE_HTTP:
-        case CONNECTION_MODE_PRIVATE:
-        default:
-            return [self boolForKey:@"auth_preference" inMOC:context];
-            break;
-    }
+    return [self boolForKey:@"auth_preference" inMOC:context];
 }
 
 + (BOOL)validIdsInMOC:(NSManagedObjectContext *)context {

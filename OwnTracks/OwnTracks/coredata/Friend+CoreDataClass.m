@@ -190,7 +190,7 @@
 }
 
 - (CLLocationCoordinate2D)coordinate {
-    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(0.0, 0.0);
+    CLLocationCoordinate2D coord = kCLLocationCoordinate2DInvalid;
     Waypoint *waypoint = self.newestWaypoint;
     if (waypoint) {
         coord = CLLocationCoordinate2DMake((waypoint.lat).doubleValue, (waypoint.lon).doubleValue);

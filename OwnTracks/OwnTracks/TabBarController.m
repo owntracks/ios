@@ -70,8 +70,8 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    if (!self.warning && [Settings intForKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC
-                        ] == CONNECTION_MODE_PUBLIC) {
+    if (!self.warning &&
+        ![Setting existsSettingWithKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC]) {
         self.warning = TRUE;
         [self performSegueWithIdentifier:@"login" sender:nil];
     }

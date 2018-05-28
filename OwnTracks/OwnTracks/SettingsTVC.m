@@ -49,11 +49,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIsecret;
 @property (weak, nonatomic) IBOutlet UITextField *UIurl;
 @property (weak, nonatomic) IBOutlet IdPicker *UImode;
-@property (weak, nonatomic) IBOutlet UITextField *UIquickstartId;
-@property (weak, nonatomic) IBOutlet UITextField *UIwatsonDeviceId;
-@property (weak, nonatomic) IBOutlet UITextField *UIwatsonAuthToken;
-@property (weak, nonatomic) IBOutlet UITextField *UIwatsonDeviceType;
-@property (weak, nonatomic) IBOutlet UITextField *UIwatsonOrganization;
 @property (weak, nonatomic) IBOutlet UITextField *UIignoreStaleLocations;
 @property (weak, nonatomic) IBOutlet UITextField *UIignoreInaccurateLocations;
 @property (weak, nonatomic) IBOutlet UISwitch *UIranging;
@@ -91,7 +86,7 @@
 
 @implementation SettingsTVC
 
-static const DDLogLevel ddLogLevel = DDLogLevelError;
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -110,17 +105,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     self.UIDeviceID.delegate = self;
     self.UIpassphrase.delegate = self;
     self.UIurl.delegate = self;
-    self.UIquickstartId.delegate = self;
-    self.UIwatsonOrganization.delegate = self;
-    self.UIwatsonDeviceType.delegate = self;
-    self.UIwatsonDeviceId.delegate = self;
-    self.UIwatsonAuthToken.delegate = self;
 
-    self.UImode.array = @[@{@"identifier":@0, @"name": @"Private"},
-                          @{@"identifier":@2, @"name": @"Public"},
-                          @{@"identifier":@3, @"name": @"HTTP"},
-                          @{@"identifier":@4, @"name": @"Watson quickstart", @"hidden":@(!self.privileged)},
-                          @{@"identifier":@5, @"name": @"Watson registered", @"hidden":@(!self.privileged)}
+    self.UImode.array = @[@{@"identifier":@(CONNECTION_MODE_MQTT), @"name": @"MQTT"},
+                          @{@"identifier":@(CONNECTION_MODE_HTTP), @"name": @"HTTP"}
                           ];
 
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
@@ -282,48 +269,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     if (self.UIurl) [Settings setString:self.UIurl.text
                                  forKey:@"url_preference"
                                   inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIquickstartId) [Settings setString:self.UIquickstartId.text
-                                          forKey:@"quickstartid_preference"
-                                           inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIwatsonOrganization) [Settings setString:self.UIwatsonOrganization.text
-                                                forKey:@"watsonorganization_preference"
-                                                 inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIwatsonDeviceType) [Settings setString:self.UIwatsonDeviceType.text
-                                              forKey:@"watsondevicetype_preference"
-                                               inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIwatsonDeviceId) [Settings setString:self.UIwatsonDeviceId.text
-                                            forKey:@"watsondeviceid_preference"
-                                             inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIwatsonAuthToken) [Settings setString:self.UIwatsonAuthToken.text
-                                             forKey:@"watsonauthtoken_preference"
-                                              inMOC:CoreData.sharedInstance.mainMOC];
 
     // important to save UImode last. Otherwise parameters not valid in the old mode may get persisted
     if (self.UImode) {
         switch ((self.UImode).arrayId) {
-            case 5:
-                [Settings setInt:CONNECTION_MODE_WATSONREGISTERED
-                          forKey:@"mode"
-                           inMOC:CoreData.sharedInstance.mainMOC];
-                break;
-            case 4:
-                [Settings setInt:CONNECTION_MODE_WATSON
-                          forKey:@"mode"
-                           inMOC:CoreData.sharedInstance.mainMOC];
-                break;
-            case 3:
+            case CONNECTION_MODE_HTTP:
                 [Settings setInt:CONNECTION_MODE_HTTP
                           forKey:@"mode"
                            inMOC:CoreData.sharedInstance.mainMOC];
                 break;
-            case 2:
-                [Settings setInt:CONNECTION_MODE_PUBLIC
-                          forKey:@"mode"
-                           inMOC:CoreData.sharedInstance.mainMOC];
-                break;
-            case 0:
+            case CONNECTION_MODE_MQTT:
             default:
-                [Settings setInt:CONNECTION_MODE_PRIVATE
+                [Settings setInt:CONNECTION_MODE_MQTT
                           forKey:@"mode"
                            inMOC:CoreData.sharedInstance.mainMOC];
                 break;
@@ -631,31 +588,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                            inMOC:CoreData.sharedInstance.mainMOC];
         self.UIurl.enabled = !locked;
     }
-    if (self.UIquickstartId) {
-        self.UIquickstartId.text = [Settings stringForKey:@"quickstartid_preference"
-                                                    inMOC:CoreData.sharedInstance.mainMOC];
-        self.UIquickstartId.enabled = !locked;
-    }
-    if (self.UIwatsonOrganization) {
-        self.UIwatsonOrganization.text = [Settings stringForKey:@"watsonorganization_preference"
-                                                          inMOC:CoreData.sharedInstance.mainMOC];
-        self.UIwatsonOrganization.enabled = !locked;
-    }
-    if (self.UIwatsonDeviceType) {
-        self.UIwatsonDeviceType.text = [Settings stringForKey:@"watsondevicetype_preference"
-                                                        inMOC:CoreData.sharedInstance.mainMOC];
-        self.UIwatsonDeviceType.enabled = !locked;
-    }
-    if (self.UIwatsonDeviceId) {
-        self.UIwatsonDeviceId.text = [Settings stringForKey:@"watsondeviceid_preference"
-                                                      inMOC:CoreData.sharedInstance.mainMOC];
-        self.UIwatsonDeviceId.enabled = !locked;
-    }
-    if (self.UIwatsonAuthToken) {
-        self.UIwatsonAuthToken.text = [Settings stringForKey:@"watsonauthtoken_preference"
-                                                       inMOC:CoreData.sharedInstance.mainMOC];
-        self.UIwatsonAuthToken.enabled = !locked;
-    }
 
     if (!self.UIusepolicy) {
 
@@ -664,9 +596,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
 
         NSArray <NSIndexPath *> *publishPaths = @[[NSIndexPath indexPathForRow:3 inSection:0]];
         for (NSIndexPath *indexPath in publishPaths) {
-            if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_PRIVATE && mode != CONNECTION_MODE_HTTP)) {
+            if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_MQTT && mode != CONNECTION_MODE_HTTP)) {
                 [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if (![self isRowVisible:indexPath] && (mode == CONNECTION_MODE_PRIVATE || mode == CONNECTION_MODE_HTTP)) {
+            } else if (![self isRowVisible:indexPath] && (mode == CONNECTION_MODE_MQTT || mode == CONNECTION_MODE_HTTP)) {
                 [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             }
         }
@@ -677,9 +609,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                   [NSIndexPath indexPathForRow:7 inSection:0]
                                                   ];
         for (NSIndexPath *indexPath in privatePaths) {
-            if ([self isRowVisible:indexPath] && mode != CONNECTION_MODE_PRIVATE) {
+            if ([self isRowVisible:indexPath] && mode != CONNECTION_MODE_MQTT) {
                 [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if (![self isRowVisible:indexPath] && mode == CONNECTION_MODE_PRIVATE) {
+            } else if (![self isRowVisible:indexPath] && mode == CONNECTION_MODE_MQTT) {
                 [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             }
         }
@@ -700,9 +632,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
         NSArray <NSIndexPath *> *secretPaths = @[[NSIndexPath indexPathForRow:11 inSection:0]
                                                  ];
         for (NSIndexPath *indexPath in secretPaths) {
-            if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_PRIVATE && mode != CONNECTION_MODE_HTTP)) {
+            if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_MQTT && mode != CONNECTION_MODE_HTTP)) {
                 [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if (![self isRowVisible:indexPath] && (mode == CONNECTION_MODE_PRIVATE || mode == CONNECTION_MODE_HTTP)) {
+            } else if (![self isRowVisible:indexPath] && (mode == CONNECTION_MODE_MQTT || mode == CONNECTION_MODE_HTTP)) {
                 [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             }
         }
@@ -712,9 +644,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
                                                [NSIndexPath indexPathForRow:10 inSection:0]
                                                ];
         for (NSIndexPath *indexPath in authPaths) {
-            if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_PRIVATE && mode != CONNECTION_MODE_HTTP)) {
+            if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_MQTT && mode != CONNECTION_MODE_HTTP)) {
                 [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if (![self isRowVisible:indexPath] && (mode == CONNECTION_MODE_PRIVATE || mode == CONNECTION_MODE_HTTP)) {
+            } else if (![self isRowVisible:indexPath] && (mode == CONNECTION_MODE_MQTT || mode == CONNECTION_MODE_HTTP)) {
                 [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             }
         }
@@ -739,38 +671,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
             }
         }
 
-        NSArray <NSIndexPath *> *watsonQuickstartPaths = @[[NSIndexPath indexPathForRow:13 inSection:0]];
-        for (NSIndexPath *indexPath in watsonQuickstartPaths) {
-            if ([self isRowVisible:indexPath] && mode != CONNECTION_MODE_WATSON) {
-                [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if (![self isRowVisible:indexPath] && mode == CONNECTION_MODE_WATSON) {
-                [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-        }
-
-        NSArray <NSIndexPath *> *watsonRegisteredPaths = @[[NSIndexPath indexPathForRow:14 inSection:0],
-                                                           [NSIndexPath indexPathForRow:15 inSection:0],
-                                                           [NSIndexPath indexPathForRow:16 inSection:0],
-                                                           [NSIndexPath indexPathForRow:17 inSection:0]
-                                                           ];
-        for (NSIndexPath *indexPath in watsonRegisteredPaths) {
-            if ([self isRowVisible:indexPath] && mode != CONNECTION_MODE_WATSONREGISTERED) {
-                [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if (![self isRowVisible:indexPath] && mode == CONNECTION_MODE_WATSONREGISTERED) {
-                [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-        }
-
         if ([self isSectionVisible:1] && !self.privileged) {
             [self deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
         } else if (![self isSectionVisible:1] && self.privileged) {
             [self insertSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
-
-
-        if (self.UIexport) self.UIexport.hidden = (mode == CONNECTION_MODE_PUBLIC);
-        if (self.UIpublish) self.UIpublish.hidden = (mode == CONNECTION_MODE_PUBLIC);
-
     }
 
     if (self.UITLS) {
@@ -841,14 +746,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.dic presentOptionsMenuFromRect:self.UIexport.frame inView:self.UIexport animated:TRUE];
 }
 
-- (IBAction)hostedPressed:(UIButton *)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://hosted.owntracks.org"]
-                                       options:@{}
-                             completionHandler:nil];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.destinationViewController respondsToSelector:@selector(setSelectedFileNames:)] &&
         [segue.destinationViewController respondsToSelector:@selector(setMultiple:)] &&
         [segue.destinationViewController respondsToSelector:@selector(setFileNameIdentifier:)]) {
@@ -874,16 +772,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     }
 }
 
-- (IBAction)dataPressed:(UIButton *)sender {
-    NSString *urlString = [NSString
-                           stringWithFormat:@"https://quickstart.internetofthings.ibmcloud.com/#/device/%@/sensor/",
-                           self.UIquickstartId.text];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]
-                                       options:@{}
-                             completionHandler:nil];
-
-}
-
 - (IBAction)setNames:(UIStoryboardSegue *)segue {
     if ([segue.sourceViewController respondsToSelector:@selector(selectedFileNames)] &&
         [segue.sourceViewController respondsToSelector:@selector(fileNameIdentifier)]) {
@@ -907,11 +795,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelError;
     [self.UIsecret resignFirstResponder];
     [self.UItrackerid resignFirstResponder];
     [self.UIDeviceID resignFirstResponder];
-    [self.UIquickstartId resignFirstResponder];
-    [self.UIwatsonOrganization resignFirstResponder];
-    [self.UIwatsonDeviceType resignFirstResponder];
-    [self.UIwatsonDeviceId resignFirstResponder];
-    [self.UIwatsonAuthToken resignFirstResponder];
     [self.UImode resignFirstResponder];
     [self.UIclientId resignFirstResponder];
     [self.UIpubTopicBase resignFirstResponder];

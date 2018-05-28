@@ -11,7 +11,6 @@
 #import "CoreData.h"
 
 @interface LoginVC ()
-@property (weak, nonatomic) IBOutlet UITextView *UItext2;
 @property (weak, nonatomic) IBOutlet UITextView *UItext1;
 @end
 
@@ -19,23 +18,16 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if ([Settings intForKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC] != CONNECTION_MODE_PUBLIC) {
+    if ([Setting existsSettingWithKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC]) {
         [self dismissViewControllerAnimated:TRUE completion:^(void){
         }];
     }
     self.UItext1.text = NSLocalizedStringWithDefaultValue(@"Login_Text_1",
                                                           nil,
                                                           [NSBundle mainBundle],
-                                                          @"In Public Mode, you can get an impression of OwnTracks functionality.\n\n"
-                                                          "If you press continue you will be starting OwnTracks in Public Mode. In this mode, your location is published anonymously to owntracks.org's shared broker and will be shared with all other users in public mode. Your data will not be stored and will only be forwarded to users connected at the same time.",
-                                                          @"Text explaining the purpose and dangers of Public Mode");
-    
-    self.UItext2.text = NSLocalizedStringWithDefaultValue(@"Login_Text_2",
-                                                          nil,
-                                                          [NSBundle mainBundle],
-                                                          @"Or you may setup your own OwnTracks server for full privacy protection.\n\n"
-                                                          "Detailed info on http://owntracks.org/booklet",
-                                                          @"Text linking to documentation");
+                                                          @"You need to setup your own OwnTracks server and edit your configuration for full privacy protection.\n\n"
+                                                          "Detailed info on https://owntracks.org/booklet",
+                                                          @"Text explaining the Setup");
 }
 
 - (IBAction)continuePressed:(id)sender {

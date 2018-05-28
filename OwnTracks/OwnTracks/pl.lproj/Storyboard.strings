@@ -32,9 +32,6 @@
 /* Class = "UITextField"; placeholder = "password"; ObjectID = "4OY-Dm-bnz"; */
 "4OY-Dm-bnz.placeholder" = "hasło";
 
-/* Class = "UITextField"; placeholder = "quickstart id"; ObjectID = "4yQ-Ca-0gL"; */
-"4yQ-Ca-0gL.placeholder" = "quickstart id";
-
 /* Class = "UIButton"; normalTitle = "Export Waypoints"; ObjectID = "54d-E6-cWX"; */
 "54d-E6-cWX.normalTitle" = "Eksportuj Punkty";
 
@@ -58,12 +55,6 @@
 
 /* Class = "UILabel"; text = "Filename"; ObjectID = "7ie-NC-EFG"; */
 "7ie-NC-EFG.text" = "Nazwa pliku";
-
-/* Class = "UILabel"; text = "Device Type"; ObjectID = "7jq-Bh-KI3"; */
-"7jq-Bh-KI3.text" = "Typ Urządzenia";
-
-/* Class = "UITextField"; placeholder = "auth token"; ObjectID = "7ve-03-oxG"; */
-"7ve-03-oxG.placeholder" = "token autoryzacyjny";
 
 /* Class = "UITableViewSection"; headerTitle = "Circular Region"; ObjectID = "7xg-sB-qXa"; */
 "7xg-sB-qXa.headerTitle" = "Okręg";
@@ -95,9 +86,6 @@
 /* Class = "UILabel"; text = "Topic"; ObjectID = "Dgw-5m-uvy"; */
 "Dgw-5m-uvy.text" = "Temat";
 
-/* Class = "UITextField"; placeholder = "device type"; ObjectID = "Dxt-9W-76R"; */
-"Dxt-9W-76R.placeholder" = "typ urządzenia";
-
 /* Class = "UILabel"; text = "Port"; ObjectID = "EWI-7o-7Jo"; */
 "EWI-7o-7Jo.text" = "Port";
 
@@ -106,9 +94,6 @@
 
 /* Class = "UIButton"; normalTitle = "Talk to us"; ObjectID = "Fng-qL-diO"; */
 "Fng-qL-diO.normalTitle" = "Porozmawiaj z nami";
-
-/* Class = "UILabel"; text = "Organization"; ObjectID = "G1D-za-PCO"; */
-"G1D-za-PCO.text" = "Organizacja";
 
 /* Class = "UINavigationItem"; title = "Regions"; ObjectID = "GM9-KK-8vY"; */
 "GM9-KK-8vY.title" = "Regiony";
@@ -163,9 +148,6 @@
 
 /* Class = "UITextField"; placeholder = "passphrase"; ObjectID = "KhB-Z4-umi"; */
 "KhB-Z4-umi.placeholder" = "hasło";
-
-/* Class = "UILabel"; text = "Quickstart Id"; ObjectID = "Kl5-os-CL5"; */
-"Kl5-os-CL5.text" = "ID Quickstart";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "Kvr-J3-4fw"; */
 "Kvr-J3-4fw.text" = "Tytuł";
@@ -290,14 +272,8 @@
 /* Class = "UILabel"; text = "Mode"; ObjectID = "bAP-Sq-XeK"; */
 "bAP-Sq-XeK.text" = "Tryb";
 
-/* Class = "UILabel"; text = "Auth Token"; ObjectID = "ba9-eA-DKU"; */
-"ba9-eA-DKU.text" = "Token Autoryzacyjny";
-
 /* Class = "UITextField"; placeholder = "qos"; ObjectID = "cBn-p7-eqG"; */
 "cBn-p7-eqG.placeholder" = "qos";
-
-/* Class = "UITextField"; placeholder = "organization"; ObjectID = "cQm-NN-zyO"; */
-"cQm-NN-zyO.placeholder" = "organizacja";
 
 /* Class = "UILabel"; text = "cmd"; ObjectID = "cTs-Rr-JTs"; */
 "cTs-Rr-JTs.text" = "cmd";
@@ -365,9 +341,6 @@
 /* Class = "UINavigationItem"; title = "Status Info"; ObjectID = "hFq-9F-EAc"; */
 "hFq-9F-EAc.title" = "Status";
 
-/* Class = "UILabel"; text = "Device ID"; ObjectID = "hG6-Ts-1Yv"; */
-"hG6-Ts-1Yv.text" = "Device ID";
-
 /* Class = "UILabel"; text = "Info"; ObjectID = "hLa-Yd-Jmn"; */
 "hLa-Yd-Jmn.text" = "Info";
 
@@ -412,9 +385,6 @@
 
 /* Class = "UITextField"; placeholder = "number"; ObjectID = "lTh-wG-5YG"; */
 "lTh-wG-5YG.placeholder" = "numer";
-
-/* Class = "UITextField"; placeholder = "device id"; ObjectID = "mKu-Hj-7Bf"; */
-"mKu-Hj-7Bf.placeholder" = "device id";
 
 /* Class = "UITabBarItem"; title = "Friends"; ObjectID = "msF-bI-hEJ"; */
 "msF-bI-hEJ.title" = "Znajomi";
