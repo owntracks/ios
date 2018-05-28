@@ -442,7 +442,10 @@ static OwnTracking *theInstance = nil;
             }
         }
     }
-    json[@"inregions"] = inRegions;
+
+    if (inRegions.count > 0) {
+        json[@"inregions"] = inRegions;
+    }
 
     return json;
 }
