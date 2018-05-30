@@ -7,6 +7,7 @@ OwnTracks iOS App Release Notes
 ** Cleanup Modes, remove Public Mode due to privacy considerations
 
     [FIX] Drop Copy Mode
+    [FIX] Remove "shared" attribute for Regions / Waypoints
     [FIX] Drop Public Mode #536
     [FIX] Rename Private Mode MQTT Mode
     [FIX] suppress "inregions" if empty
