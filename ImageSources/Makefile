@@ -3,8 +3,6 @@ all: Info-25.png\
 	ManualMode-25.png\
 	SignificantMode-25.png\
 	MoveMode-25.png\
-	Copy-25.png\
-	NoCopy-25.png\
 	Friends-33.png\
 	iBeaconOn-33.png\
 	iBeaconOn2-33.png\
@@ -49,12 +47,6 @@ SignificantMode-25.png:SignificantMode.svg
 
 MoveMode-25.png:MoveMode.svg
 	./size25.sh MoveMode.svg
-
-Copy-25.png:Copy.svg
-	./size25.sh Copy.svg
-
-NoCopy-25.png:NoCopy.svg
-	./size25.sh NoCopy.svg
 
 Friends-33.png:Friends.svg
 	./size33.sh Friends.svg
