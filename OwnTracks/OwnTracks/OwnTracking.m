@@ -358,9 +358,6 @@ static OwnTracking *theInstance = nil;
     if (waypoint.trigger) {
         [json setValue:waypoint.trigger forKey:@"t"];
     }
-    if (self.cp) {
-        [json setValue:@(1) forKey:@"_cp"];
-    }
 
     [json setValue:waypoint.lat forKey:@"lat"];
     [json setValue:waypoint.lon forKey:@"lon"];

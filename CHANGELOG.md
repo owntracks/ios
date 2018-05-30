@@ -1,11 +1,12 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 9.9.2
-* Release date 2018-05-28
+## OwnTracks 9.9.3
+* Release date 2018-05-30
 
-** Cleanup Modes, remove Public Mode for Privacy Considerations
+** Cleanup Modes, remove Public Mode due to privacy considerations
 
+    [FIX] Drop Copy Mode
     [FIX] Drop Public Mode #536
     [FIX] Rename Private Mode MQTT Mode
     [FIX] suppress "inregions" if empty

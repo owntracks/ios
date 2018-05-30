@@ -54,7 +54,6 @@
 @property (weak, nonatomic) IBOutlet UISwitch *UIranging;
 @property (weak, nonatomic) IBOutlet UISwitch *UIlocked;
 @property (weak, nonatomic) IBOutlet UISwitch *UIsub;
-@property (weak, nonatomic) IBOutlet UISwitch *UIcp;
 @property (weak, nonatomic) IBOutlet UISwitch *UIcmd;
 @property (weak, nonatomic) IBOutlet UISwitch *UIpubRetain;
 @property (weak, nonatomic) IBOutlet UISwitch *UIwillRetain;
@@ -245,12 +244,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     if (self.UIsub) [Settings setBool:self.UIsub.on
                                forKey:@"sub_preference"
                                 inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIcp) {
-        [OwnTracking sharedInstance].cp = self.UIcp.on;
-        [Settings setBool:self.UIcp.on
-                   forKey:@"cp"
-                    inMOC:CoreData.sharedInstance.mainMOC];
-    }
     if (self.UIcmd) [Settings setBool:self.UIcmd.on
                                forKey:@"cmd_preference"
                                 inMOC:CoreData.sharedInstance.mainMOC];
@@ -552,11 +545,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         self.self.UIsub.on = [Settings boolForKey:@"sub_preference"
                                             inMOC:CoreData.sharedInstance.mainMOC];
         self.self.UIsub.enabled = !locked;
-    }
-    if (self.self.UIcp) {
-        self.self.UIcp.on = [Settings boolForKey:@"cp"
-                                           inMOC:CoreData.sharedInstance.mainMOC];
-        self.self.UIcp.enabled = !locked;
     }
     if (self.UIcmd) {
         self.UIcmd.on = [Settings boolForKey:@"cmd_preference"

@@ -199,12 +199,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             object = dictionary[@"sub"];
             if (object) [self setString:object forKey:@"sub_preference" inMOC:context];
 
-            object = dictionary[@"cp"];
-            if (object) {
-                [self setString:object forKey:@"cp" inMOC:context];
-                [OwnTracking sharedInstance].cp = [Settings boolForKey:@"cp" inMOC:context];
-            }
-
             object = dictionary[@"pubRetain"];
             if (object) [self setString:object forKey:@"retain_preference" inMOC:context];
             
@@ -389,7 +383,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     dict[@"monitoring"] =                   @([Settings intForKey:@"monitoring_preference" inMOC:context]);
     dict[@"waypoints"] =                    [Settings waypointsToArrayInMOC:context];
     dict[@"sub"] =                          @([Settings boolForKey:@"sub_preference" inMOC:context]);
-    dict[@"cp"] =                           @([Settings boolForKey:@"cp" inMOC:context]);
     dict[@"positions"] =                    @([Settings intForKey:@"positions_preference" inMOC:context]);
     dict[@"locatorDisplacement"] =          @([Settings intForKey:@"mindist_preference" inMOC:context]);
     dict[@"locatorInterval"] =              @([Settings intForKey:@"mintime_preference" inMOC:context]);
@@ -482,7 +475,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     if ([key isEqualToString:@"mode"] ||
         [key isEqualToString:@"locked"] ||
         [key isEqualToString:@"sub"] ||
-        [key isEqualToString:@"cp"] ||
         [key isEqualToString:@"extendedData_preference"] ||
         [key isEqualToString:SETTINGS_ADDRESSBOOK] ||
         [key isEqualToString:@"monitoring_preference"] ||

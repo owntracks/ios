@@ -14,7 +14,6 @@
 
 @interface OwnTracking : NSObject
 @property (strong, nonatomic) NSNumber *inQueue;
-@property (nonatomic) BOOL cp;
 
 + (OwnTracking *)sharedInstance;
 - (void)syncProcessing;

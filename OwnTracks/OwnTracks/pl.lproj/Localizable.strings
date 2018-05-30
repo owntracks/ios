@@ -52,15 +52,6 @@
 /* Continue button title */
 "Continue" = "Kontynuuj";
 
-/* Header of an alert message regarding copying */
-"Copying" = "Kopiowanie";
-
-/* content of an alert message regarding copying disabled */
-"copying disabled" = "kopiowanie wyłączone";
-
-/* content of an alert message regarding copying enabled */
-"copying enabled" = "kopiowanie włączone";
-
 /* content of an alert message regarding circular region */
 "created at center of map" = "utworzono na środku mapy";
 

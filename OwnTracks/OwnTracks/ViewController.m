@@ -26,7 +26,6 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface ViewController ()
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *buttonCopy;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *buttonMove;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
@@ -62,7 +61,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     [leftButtonItems addObject:[[MKUserTrackingBarButtonItem alloc] initWithMapView:self.mapView]];
     self.navigationItem.leftBarButtonItems = leftButtonItems;
 
-    [self setButtonCopy];
     [self setButtonMove];
 
     [[NSNotificationCenter defaultCenter] addObserverForName:@"reload"
@@ -93,7 +91,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     self.frcFriends = nil;
     self.frcRegions = nil;
     self.frcInfos = nil;
-    [self setButtonCopy];
     [self setButtonMove];
 }
 
@@ -683,36 +680,4 @@ calloutAccessoryControlTapped:(UIControl *)control {
     }
 }
 
-- (IBAction)buttonCopyPressed:(UIBarButtonItem *)sender {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-
-    if ([OwnTracking sharedInstance].cp) {
-        [OwnTracking sharedInstance].cp = FALSE;
-        [delegate.navigationController alert:NSLocalizedString(@"Copying",
-                                                               @"Header of an alert message regarding copying")
-                                     message:NSLocalizedString(@"copying disabled",
-                                                               @"content of an alert message regarding copying disabled")
-                                dismissAfter:1
-         ];
-    } else {
-        [OwnTracking sharedInstance].cp = TRUE;
-        [delegate.navigationController alert:NSLocalizedString(@"Copying",
-                                                               @"Header of an alert message regarding copying")
-                                     message:NSLocalizedString(@"copying enabled",
-                                                               @"content of an alert message regarding copying enabled")
-                                dismissAfter:1
-         ];
-    }
-    [Settings setBool:[OwnTracking sharedInstance].cp forKey:@"cp"
-                inMOC:CoreData.sharedInstance.mainMOC];
-    [self setButtonCopy];
-}
-
-- (void)setButtonCopy {
-    if ([OwnTracking sharedInstance].cp) {
-        self.buttonCopy.image = [UIImage imageNamed:@"Copy"];
-    } else {
-        self.buttonCopy.image = [UIImage imageNamed:@"NoCopy"];
-    }
-}
 @end

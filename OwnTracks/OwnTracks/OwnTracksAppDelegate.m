@@ -154,9 +154,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
     [[UIDevice currentDevice] setBatteryMonitoringEnabled:TRUE];
 
-    [OwnTracking sharedInstance].cp = [Settings boolForKey:@"cp"
-                                                     inMOC:CoreData.sharedInstance.mainMOC];
-
     LocationManager *locationManager = [LocationManager sharedInstance];
     locationManager.delegate = self;
     locationManager.monitoring = [Settings intForKey:@"monitoring_preference"

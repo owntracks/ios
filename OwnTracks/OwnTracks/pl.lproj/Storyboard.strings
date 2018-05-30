@@ -359,9 +359,6 @@
 /* Class = "UITextField"; placeholder = "version"; ObjectID = "hdf-7C-N25"; */
 "hdf-7C-N25.placeholder" = "wersja";
 
-/* Class = "UILabel"; text = "cp"; ObjectID = "hlI-TW-c9K"; */
-"hlI-TW-c9K.text" = "cp";
-
 /* Class = "UILabel"; text = "willTopic"; ObjectID = "iuh-ye-xuh"; */
 "iuh-ye-xuh.text" = "willTopic";
 
