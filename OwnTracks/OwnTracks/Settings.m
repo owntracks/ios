@@ -339,7 +339,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                                           uuid:uuid
                                                          major:major
                                                          minor:minor
-                                                         share:YES
                                                         radius:[waypoint[@"rad"] doubleValue]
                                                            lat:[waypoint[@"lat"] doubleValue]
                                                            lon:[waypoint[@"lon"] doubleValue]

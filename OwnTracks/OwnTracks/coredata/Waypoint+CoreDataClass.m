@@ -1,12 +1,13 @@
 //
-//  Waypoint.m
+//  Waypoint+CoreDataClass.m
 //  OwnTracks
 //
-//  Created by Christoph Krey on 28.09.15.
-//  Copyright © 2015-2018 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 30.05.18.
+//  Copyright © 2018 OwnTracks. All rights reserved.
+//
 //
 
-#import "Waypoint.h"
+#import "Waypoint+CoreDataClass.h"
 #import "Friend+CoreDataClass.h"
 #import <MapKit/MapKit.h>
 #import <Contacts/Contacts.h>
@@ -75,7 +76,5 @@
             NSLocalizedString(@"°", @"Short for degrees celsius as in 20°")
             ];
 }
-
-
 
 @end

@@ -13,7 +13,7 @@
 #import "PersonTVC.h"
 #import "Friend+CoreDataClass.h"
 #import "FriendTableViewCell.h"
-#import "Waypoint.h"
+#import "Waypoint+CoreDataClass.h"
 #import "CoreData.h"
 #import "FriendAnnotationV.h"
 #import "OwnTracking.h"

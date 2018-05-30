@@ -2,8 +2,9 @@
 //  Info+CoreDataProperties.m
 //  OwnTracks
 //
-//  Created by Christoph Krey on 08.12.16.
-//  Copyright © 2016-2018 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 30.05.18.
+//  Copyright © 2018 OwnTracks. All rights reserved.
+//
 //
 
 #import "Info+CoreDataProperties.h"
@@ -11,23 +12,23 @@
 @implementation Info (CoreDataProperties)
 
 + (NSFetchRequest<Info *> *)fetchRequest {
-	return [[NSFetchRequest alloc] initWithEntityName:@"Info"];
+	return [NSFetchRequest fetchRequestWithEntityName:@"Info"];
 }
 
 @dynamic circleEnd;
-@dynamic image;
-@dynamic name;
-@dynamic tid;
 @dynamic circleStart;
-@dynamic level;
-@dynamic hand;
-@dynamic ringColor;
-@dynamic lat;
-@dynamic lon;
-@dynamic size;
 @dynamic geohash;
-@dynamic tst;
+@dynamic hand;
 @dynamic identifier;
+@dynamic image;
+@dynamic lat;
+@dynamic level;
+@dynamic lon;
+@dynamic name;
+@dynamic ringColor;
+@dynamic size;
+@dynamic tid;
+@dynamic tst;
 @dynamic belongsTo;
 
 @end

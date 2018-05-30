@@ -22,7 +22,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIlatitude;
 @property (weak, nonatomic) IBOutlet UITextField *UIlongitude;
 @property (weak, nonatomic) IBOutlet UITextField *UIradius;
-@property (weak, nonatomic) IBOutlet UISwitch *UIshare;
 
 @property (nonatomic) BOOL needsUpdate;
 @property (strong, nonatomic) CLRegion *oldRegion;
@@ -31,8 +30,7 @@
 @implementation RegionTVC
 static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
     self.UIlatitude.delegate = self;
@@ -54,13 +52,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     return TRUE;
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     if (self.needsUpdate) {
         self.editRegion.name = self.UIname.text;
-        self.editRegion.share = @(self.UIshare.on);
-        
+
         self.editRegion.lat = @((self.UIlatitude.text).doubleValue);
         self.editRegion.lon = @((self.UIlongitude.text).doubleValue);
         self.editRegion.radius = @((self.UIradius.text).doubleValue);
@@ -73,9 +69,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         self.editRegion.minor = @((self.UIminor.text).intValue);
         
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        if ((self.editRegion.share).boolValue) {
-            [delegate sendRegion:self.editRegion];
-        }
+        [delegate sendRegion:self.editRegion];
         if (self.oldRegion) {
             DDLogVerbose(@"stopMonitoringForRegion %@", self.oldRegion.identifier);
             [[LocationManager sharedInstance] stopRegion:self.oldRegion];
@@ -87,11 +81,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     }
 }
 
-- (void)setup
-{
+- (void)setup {
     self.UIname.text = self.editRegion.name;
-    self.UIshare.on = (self.editRegion.share).boolValue;
-    
+
     self.UIlatitude.text = [NSString stringWithFormat:@"%.14g", (self.editRegion.lat).doubleValue];
     self.UIlongitude.text = [NSString stringWithFormat:@"%.14g", (self.editRegion.lon).doubleValue];
     self.UIradius.text = [NSString stringWithFormat:@"%.14g", (self.editRegion.radius).doubleValue];
@@ -109,10 +101,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 - (IBAction)longitudechanged:(UITextField *)sender {
-    self.needsUpdate = TRUE;
-}
-
-- (IBAction)sharechanged:(UISwitch *)sender {
     self.needsUpdate = TRUE;
 }
 

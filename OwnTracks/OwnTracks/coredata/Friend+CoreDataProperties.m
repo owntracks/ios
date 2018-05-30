@@ -2,7 +2,7 @@
 //  Friend+CoreDataProperties.m
 //  OwnTracks
 //
-//  Created by Christoph Krey on 05.05.18.
+//  Created by Christoph Krey on 30.05.18.
 //  Copyright © 2018 OwnTracks. All rights reserved.
 //
 //
@@ -17,11 +17,10 @@
 
 @dynamic cardImage;
 @dynamic cardName;
+@dynamic contactId;
 @dynamic lastLocation;
 @dynamic tid;
 @dynamic topic;
-@dynamic contactId;
-@dynamic hasLocations;
 @dynamic hasRegions;
 @dynamic hasSubscriptions;
 @dynamic hasWaypoints;

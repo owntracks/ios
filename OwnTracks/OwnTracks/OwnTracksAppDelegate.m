@@ -8,9 +8,7 @@
 
 #import "OwnTracksAppDelegate.h"
 #import "CoreData.h"
-#import "Setting.h"
-#import "Settings.h"
-#import "Location.h"
+#import "Setting+CoreDataClass.h"
 #import "Settings.h"
 #import "OwnTracking.h"
 #import "ConnType.h"
@@ -582,16 +580,14 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         for (Region *anyRegion in myself.hasRegions) {
             if ([region.identifier isEqualToString:anyRegion.CLregion.identifier]) {
                 anyRegion.name = anyRegion.name;
-                if ((anyRegion.share).boolValue) {
-                    [json setValue:region.identifier forKey:@"desc"];
-                    [json setValue:@(floor(anyRegion.andFillTst.timeIntervalSince1970)) forKey:@"wtst"];
-
-                    [self.connection sendData:[self jsonToData:json]
-                                        topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/event"]
-                                          qos:[Settings intForKey:@"qos_preference"
-                                                            inMOC:CoreData.sharedInstance.mainMOC]
-                                       retain:NO];
-                }
+                [json setValue:region.identifier forKey:@"desc"];
+                [json setValue:@(floor(anyRegion.andFillTst.timeIntervalSince1970)) forKey:@"wtst"];
+                
+                [self.connection sendData:[self jsonToData:json]
+                                    topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/event"]
+                                      qos:[Settings intForKey:@"qos_preference"
+                                                        inMOC:CoreData.sharedInstance.mainMOC]
+                                   retain:NO];
                 if ([region isKindOfClass:[CLBeaconRegion class]]) {
                     if ((anyRegion.radius).doubleValue < 0) {
                         anyRegion.lat = @(location.coordinate.latitude);

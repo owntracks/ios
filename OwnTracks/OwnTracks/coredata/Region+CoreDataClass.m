@@ -1,12 +1,13 @@
 //
-//  Region.m
+//  Region+CoreDataClass.m
 //  OwnTracks
 //
-//  Created by Christoph Krey on 28.09.15.
-//  Copyright © 2015-2018 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 30.05.18.
+//  Copyright © 2018 OwnTracks. All rights reserved.
+//
 //
 
-#import "Region.h"
+#import "Region+CoreDataClass.h"
 #import "Friend+CoreDataClass.h"
 
 @implementation Region
@@ -18,8 +19,7 @@
     return self.tst;
 }
 
-- (CLLocationCoordinate2D)coordinate
-{
+- (CLLocationCoordinate2D)coordinate {
     CLLocationCoordinate2D coord = CLLocationCoordinate2DMake((self.lat).doubleValue,
                                                               (self.lon).doubleValue);
     return coord;
@@ -30,14 +30,14 @@
     self.lon = @(coordinate.longitude);
 }
 
-- (MKMapRect)boundingMapRect
-{
+- (MKMapRect)boundingMapRect {
     return [MKCircle circleWithCenterCoordinate:self.coordinate radius:(self.radius).doubleValue].boundingMapRect;
 }
 
 - (MKCircle *)circle {
     return [MKCircle circleWithCenterCoordinate:self.coordinate radius:(self.radius).doubleValue];
 }
+
 - (NSString *)title {
     return self.name;
 }
@@ -63,8 +63,7 @@
     }
 }
 
-- (CLRegion *)CLregion
-{
+- (CLRegion *)CLregion {
     CLRegion *region = nil;
 
     if (self.name && self.name.length) {

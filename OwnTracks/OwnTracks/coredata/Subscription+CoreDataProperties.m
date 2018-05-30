@@ -2,8 +2,9 @@
 //  Subscription+CoreDataProperties.m
 //  OwnTracks
 //
-//  Created by Christoph Krey on 08.12.16.
-//  Copyright © 2016-2018 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 30.05.18.
+//  Copyright © 2018 OwnTracks. All rights reserved.
+//
 //
 
 #import "Subscription+CoreDataProperties.h"
@@ -11,11 +12,11 @@
 @implementation Subscription (CoreDataProperties)
 
 + (NSFetchRequest<Subscription *> *)fetchRequest {
-	return [[NSFetchRequest alloc] initWithEntityName:@"Subscription"];
+	return [NSFetchRequest fetchRequestWithEntityName:@"Subscription"];
 }
 
-@dynamic name;
 @dynamic level;
+@dynamic name;
 @dynamic belongsTo;
 @dynamic hasInfos;
 

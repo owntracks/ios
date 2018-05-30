@@ -2,7 +2,7 @@
 //  Friend+CoreDataProperties.h
 //  OwnTracks
 //
-//  Created by Christoph Krey on 05.05.18.
+//  Created by Christoph Krey on 30.05.18.
 //  Copyright © 2018 OwnTracks. All rights reserved.
 //
 //
@@ -18,11 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, retain) NSData *cardImage;
 @property (nullable, nonatomic, copy) NSString *cardName;
+@property (nullable, nonatomic, copy) NSString *contactId;
 @property (nullable, nonatomic, copy) NSDate *lastLocation;
 @property (nullable, nonatomic, copy) NSString *tid;
 @property (nullable, nonatomic, copy) NSString *topic;
-@property (nullable, nonatomic, copy) NSString *contactId;
-@property (nullable, nonatomic, retain) NSSet<Location *> *hasLocations;
 @property (nullable, nonatomic, retain) NSSet<Region *> *hasRegions;
 @property (nullable, nonatomic, retain) NSSet<Subscription *> *hasSubscriptions;
 @property (nullable, nonatomic, retain) NSSet<Waypoint *> *hasWaypoints;
@@ -30,11 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface Friend (CoreDataGeneratedAccessors)
-
-- (void)addHasLocationsObject:(Location *)value;
-- (void)removeHasLocationsObject:(Location *)value;
-- (void)addHasLocations:(NSSet<Location *> *)values;
-- (void)removeHasLocations:(NSSet<Location *> *)values;
 
 - (void)addHasRegionsObject:(Region *)value;
 - (void)removeHasRegionsObject:(Region *)value;

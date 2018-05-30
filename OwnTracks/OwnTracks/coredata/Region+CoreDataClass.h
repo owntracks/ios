@@ -1,9 +1,10 @@
 //
-//  Region.h
+//  Region+CoreDataClass.h
 //  OwnTracks
 //
-//  Created by Christoph Krey on 28.09.15.
-//  Copyright © 2015-2018 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 30.05.18.
+//  Copyright © 2018 OwnTracks. All rights reserved.
+//
 //
 
 #import <Foundation/Foundation.h>

@@ -8,7 +8,7 @@
 
 #import "RegionsTVC.h"
 #import "WaypointTVC.h"
-#import "Region.h"
+#import "Region+CoreDataClass.h"
 #import "RegionTVC.h"
 #import "CoreData.h"
 #import "Settings.h"
@@ -74,7 +74,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                                                   uuid:nil
                                                                  major:0
                                                                  minor:0
-                                                                 share:NO
                                                                 radius:0
                                                                    lat:location.coordinate.latitude
                                                                    lon:location.coordinate.longitude
@@ -99,7 +98,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     return sectionInfo.numberOfObjects;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"region" forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
@@ -109,8 +109,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     return YES;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView
+didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     UITabBarController *tbc;

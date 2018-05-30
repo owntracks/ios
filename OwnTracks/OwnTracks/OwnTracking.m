@@ -9,7 +9,7 @@
 #import "OwnTracking.h"
 #import "Settings.h"
 #import "OwnTracksAppDelegate.h"
-#import "Waypoint.h"
+#import "Waypoint+CoreDataClass.h"
 #import "CoreData.h"
 #import "ConnType.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
@@ -325,7 +325,6 @@ static OwnTracking *theInstance = nil;
                     uuid:(NSString *)uuid
                    major:(unsigned int)major
                    minor:(unsigned int)minor
-                   share:(BOOL)share
                   radius:(double)radius
                      lat:(double)lat
                      lon:(double)lon
@@ -338,7 +337,6 @@ static OwnTracking *theInstance = nil;
     region.uuid = uuid;
     region.major = @(major);
     region.minor = @(minor);
-    region.share = @(share);
     region.radius = @(radius);
     region.lat = @(lat);
     region.lon = @(lon);
@@ -432,11 +430,9 @@ static OwnTracking *theInstance = nil;
 
     NSMutableArray <NSString *> *inRegions = [[NSMutableArray alloc] init];
     for (Region *region in waypoint.belongsTo.hasRegions) {
-        if (region.share.boolValue) {
-            if ([LocationManager sharedInstance].insideCircularRegions[region.name] ||
-                [LocationManager sharedInstance].insideBeaconRegions[region.name]) {
-                [inRegions addObject:region.name];
-            }
+        if ([LocationManager sharedInstance].insideCircularRegions[region.name] ||
+            [LocationManager sharedInstance].insideBeaconRegions[region.name]) {
+            [inRegions addObject:region.name];
         }
     }
 

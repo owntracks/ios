@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Setting.h"
+#import "Setting+CoreDataClass.h"
 #import "MQTTMessage.h"
 
 #define SETTINGS_ACTION @"action"

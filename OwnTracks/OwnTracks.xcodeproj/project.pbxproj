@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		3FED3637B94322E5E278EAB4 /* Pods_OwnTracks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39BEA95034CFAACF86EF90A3 /* Pods_OwnTracks.framework */; };
 		84001C141C78982800413E5B /* Queue+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84001C111C78982800413E5B /* Queue+CoreDataProperties.m */; };
-		84001C151C78982800413E5B /* Queue.m in Sources */ = {isa = PBXBuildFile; fileRef = 84001C131C78982800413E5B /* Queue.m */; };
 		8400D9711D83589F00DEA134 /* WebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8400D9701D83589F00DEA134 /* WebVC.m */; };
 		8400D9731D83825E00DEA134 /* HTTP.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8400D9721D83825E00DEA134 /* HTTP.plist */; };
 		8404876B1C5386DD00569C79 /* FeaturedContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8404876A1C5386DD00569C79 /* FeaturedContentVC.m */; };
@@ -38,6 +37,10 @@
 		841D3525209C74E70084FCD0 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841D3524209C74E60084FCD0 /* Contacts.framework */; };
 		8422AF681AF825C7008932A2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8422AF671AF825C7008932A2 /* SystemConfiguration.framework */; };
 		8426F8851DF4D7F300CB9915 /* GeoHashing.m in Sources */ = {isa = PBXBuildFile; fileRef = 8426F8841DF4D7F300CB9915 /* GeoHashing.m */; };
+		842E6ECE20BEE96F001928FA /* Region+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E6ECD20BEE96F001928FA /* Region+CoreDataClass.m */; };
+		842E6ED520BEF031001928FA /* Setting+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E6ED020BEF031001928FA /* Setting+CoreDataClass.m */; };
+		842E6ED620BEF031001928FA /* Queue+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E6ED220BEF031001928FA /* Queue+CoreDataClass.m */; };
+		842E6ED720BEF031001928FA /* Waypoint+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E6ED420BEF031001928FA /* Waypoint+CoreDataClass.m */; };
 		843B91721C8A14BF00DBD306 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843B91741C8A14BF00DBD306 /* Storyboard.storyboard */; };
 		845299E51DFA004000A4DC21 /* Subscription+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 845299DC1DFA004000A4DC21 /* Subscription+CoreDataClass.m */; };
 		845299E61DFA004000A4DC21 /* Subscription+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 845299DE1DFA004000A4DC21 /* Subscription+CoreDataProperties.m */; };
@@ -74,15 +77,10 @@
 		84E2C4511EC34B3B00BC02CE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841D1A221C8AF70900DC5765 /* Localizable.strings */; };
 		84E2C4531EC34B4600BC02CE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8411B836189FDB140019D2D6 /* InfoPlist.strings */; };
 		84E2C4541EC34B5600BC02CE /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84664EA01CC8B8E0002123EC /* Launch Screen.xib */; };
-		84E8A1881BB94782002518AA /* Location+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A17D1BB94782002518AA /* Location+CoreDataProperties.m */; };
 		84E8A1891BB94782002518AA /* Setting+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */; };
 		84E8A18A1BB94782002518AA /* Friend+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1811BB94782002518AA /* Friend+CoreDataProperties.m */; };
 		84E8A18C1BB94782002518AA /* Waypoint+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1851BB94782002518AA /* Waypoint+CoreDataProperties.m */; };
 		84E8A18D1BB94782002518AA /* Region+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1871BB94782002518AA /* Region+CoreDataProperties.m */; };
-		84E8A19A1BB94B1D002518AA /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A18F1BB94B1D002518AA /* Region.m */; };
-		84E8A19B1BB94B1D002518AA /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1911BB94B1D002518AA /* Location.m */; };
-		84E8A19D1BB94B1D002518AA /* Waypoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1951BB94B1D002518AA /* Waypoint.m */; };
-		84E8A19E1BB94B1D002518AA /* Setting.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1971BB94B1D002518AA /* Setting.m */; };
 		84F0AFE41C830C1D00C9F69F /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F0AFE31C830C1D00C9F69F /* AddressBookUI.framework */; };
 		84F0AFE61C830C2C00C9F69F /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F0AFE51C830C2C00C9F69F /* AddressBook.framework */; };
 /* End PBXBuildFile section */
@@ -119,8 +117,6 @@
 		84001C0F1C78976100413E5B /* Model 9.0.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.0.2.xcdatamodel"; sourceTree = "<group>"; };
 		84001C101C78982800413E5B /* Queue+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Queue+CoreDataProperties.h"; sourceTree = "<group>"; };
 		84001C111C78982800413E5B /* Queue+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Queue+CoreDataProperties.m"; sourceTree = "<group>"; };
-		84001C121C78982800413E5B /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
-		84001C131C78982800413E5B /* Queue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Queue.m; sourceTree = "<group>"; };
 		8400D96F1D83589F00DEA134 /* WebVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebVC.h; sourceTree = "<group>"; };
 		8400D9701D83589F00DEA134 /* WebVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebVC.m; sourceTree = "<group>"; };
 		8400D9721D83825E00DEA134 /* HTTP.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HTTP.plist; sourceTree = "<group>"; };
@@ -180,6 +176,15 @@
 		8426F8831DF4D7F300CB9915 /* GeoHashing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoHashing.h; sourceTree = "<group>"; };
 		8426F8841DF4D7F300CB9915 /* GeoHashing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoHashing.m; sourceTree = "<group>"; };
 		842CA4CE1B3C76D000B7FF1C /* Model 8.1.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.5.xcdatamodel"; sourceTree = "<group>"; };
+		842E6ECB20BEE893001928FA /* Model 9.9.3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.9.3.xcdatamodel"; sourceTree = "<group>"; };
+		842E6ECC20BEE96F001928FA /* Region+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Region+CoreDataClass.h"; sourceTree = "<group>"; };
+		842E6ECD20BEE96F001928FA /* Region+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Region+CoreDataClass.m"; sourceTree = "<group>"; };
+		842E6ECF20BEF031001928FA /* Setting+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Setting+CoreDataClass.h"; sourceTree = "<group>"; };
+		842E6ED020BEF031001928FA /* Setting+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Setting+CoreDataClass.m"; sourceTree = "<group>"; };
+		842E6ED120BEF031001928FA /* Queue+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Queue+CoreDataClass.h"; sourceTree = "<group>"; };
+		842E6ED220BEF031001928FA /* Queue+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Queue+CoreDataClass.m"; sourceTree = "<group>"; };
+		842E6ED320BEF031001928FA /* Waypoint+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Waypoint+CoreDataClass.h"; sourceTree = "<group>"; };
+		842E6ED420BEF031001928FA /* Waypoint+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Waypoint+CoreDataClass.m"; sourceTree = "<group>"; };
 		843817FB1C386A8700CE14EE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		843B91731C8A14BF00DBD306 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Storyboard.storyboard; sourceTree = "<group>"; };
 		845299DA1DF9FD6200A4DC21 /* Model 9.5.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.5.0.xcdatamodel"; sourceTree = "<group>"; };
@@ -259,8 +264,6 @@
 		84DDEAC51BD9F37900B01879 /* SettingsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTVC.h; sourceTree = "<group>"; };
 		84DDEAC61BD9F37900B01879 /* SettingsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTVC.m; sourceTree = "<group>"; };
 		84E8A17B1BB946F0002518AA /* Model 8.2.18.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.18.xcdatamodel"; sourceTree = "<group>"; };
-		84E8A17C1BB94782002518AA /* Location+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Location+CoreDataProperties.h"; sourceTree = "<group>"; };
-		84E8A17D1BB94782002518AA /* Location+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Location+CoreDataProperties.m"; sourceTree = "<group>"; };
 		84E8A17E1BB94782002518AA /* Setting+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Setting+CoreDataProperties.h"; sourceTree = "<group>"; };
 		84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Setting+CoreDataProperties.m"; sourceTree = "<group>"; };
 		84E8A1801BB94782002518AA /* Friend+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Friend+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -269,14 +272,6 @@
 		84E8A1851BB94782002518AA /* Waypoint+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Waypoint+CoreDataProperties.m"; sourceTree = "<group>"; };
 		84E8A1861BB94782002518AA /* Region+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Region+CoreDataProperties.h"; sourceTree = "<group>"; };
 		84E8A1871BB94782002518AA /* Region+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Region+CoreDataProperties.m"; sourceTree = "<group>"; };
-		84E8A18E1BB94B1D002518AA /* Region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Region.h; sourceTree = "<group>"; };
-		84E8A18F1BB94B1D002518AA /* Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Region.m; sourceTree = "<group>"; };
-		84E8A1901BB94B1D002518AA /* Location.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
-		84E8A1911BB94B1D002518AA /* Location.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
-		84E8A1941BB94B1D002518AA /* Waypoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Waypoint.h; sourceTree = "<group>"; };
-		84E8A1951BB94B1D002518AA /* Waypoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Waypoint.m; sourceTree = "<group>"; };
-		84E8A1961BB94B1D002518AA /* Setting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Setting.h; sourceTree = "<group>"; };
-		84E8A1971BB94B1D002518AA /* Setting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Setting.m; sourceTree = "<group>"; };
 		84F0AFE31C830C1D00C9F69F /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		84F0AFE51C830C2C00C9F69F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.0.xcdatamodel"; sourceTree = "<group>"; };
@@ -434,30 +429,26 @@
 				84E8A1811BB94782002518AA /* Friend+CoreDataProperties.m */,
 				845299DF1DFA004000A4DC21 /* Friend+CoreDataClass.h */,
 				845299E01DFA004000A4DC21 /* Friend+CoreDataClass.m */,
-				84E8A1961BB94B1D002518AA /* Setting.h */,
 				845299E11DFA004000A4DC21 /* Info+CoreDataClass.h */,
 				845299E21DFA004000A4DC21 /* Info+CoreDataClass.m */,
 				845299E31DFA004000A4DC21 /* Info+CoreDataProperties.h */,
 				845299E41DFA004000A4DC21 /* Info+CoreDataProperties.m */,
 				84001C101C78982800413E5B /* Queue+CoreDataProperties.h */,
 				84001C111C78982800413E5B /* Queue+CoreDataProperties.m */,
-				84001C121C78982800413E5B /* Queue.h */,
-				84001C131C78982800413E5B /* Queue.m */,
+				842E6ED120BEF031001928FA /* Queue+CoreDataClass.h */,
+				842E6ED220BEF031001928FA /* Queue+CoreDataClass.m */,
 				84E8A1861BB94782002518AA /* Region+CoreDataProperties.h */,
 				84E8A1871BB94782002518AA /* Region+CoreDataProperties.m */,
-				84E8A18E1BB94B1D002518AA /* Region.h */,
-				84E8A18F1BB94B1D002518AA /* Region.m */,
-				84E8A17C1BB94782002518AA /* Location+CoreDataProperties.h */,
-				84E8A17D1BB94782002518AA /* Location+CoreDataProperties.m */,
-				84E8A1901BB94B1D002518AA /* Location.h */,
-				84E8A1911BB94B1D002518AA /* Location.m */,
+				842E6ECC20BEE96F001928FA /* Region+CoreDataClass.h */,
+				842E6ECD20BEE96F001928FA /* Region+CoreDataClass.m */,
 				84E8A17E1BB94782002518AA /* Setting+CoreDataProperties.h */,
 				84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */,
-				84E8A1971BB94B1D002518AA /* Setting.m */,
+				842E6ECF20BEF031001928FA /* Setting+CoreDataClass.h */,
+				842E6ED020BEF031001928FA /* Setting+CoreDataClass.m */,
 				84E8A1841BB94782002518AA /* Waypoint+CoreDataProperties.h */,
 				84E8A1851BB94782002518AA /* Waypoint+CoreDataProperties.m */,
-				84E8A1941BB94B1D002518AA /* Waypoint.h */,
-				84E8A1951BB94B1D002518AA /* Waypoint.m */,
+				842E6ED320BEF031001928FA /* Waypoint+CoreDataClass.h */,
+				842E6ED420BEF031001928FA /* Waypoint+CoreDataClass.m */,
 				8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */,
 				8411B888189FE79B0019D2D6 /* CoreData.h */,
 				8411B889189FE79B0019D2D6 /* CoreData.m */,
@@ -789,7 +780,6 @@
 				8411B90C189FEC070019D2D6 /* WaypointTVC.m in Sources */,
 				8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */,
 				846FFA191B401A4E001482A6 /* UIColor+WithName.m in Sources */,
-				84E8A19A1BB94B1D002518AA /* Region.m in Sources */,
 				846FFA581B419687001482A6 /* RegionTVC.m in Sources */,
 				846FFA451B402A1F001482A6 /* OwnTracking.m in Sources */,
 				8411B912189FEC070019D2D6 /* ViewController.m in Sources */,
@@ -797,7 +787,6 @@
 				845299E51DFA004000A4DC21 /* Subscription+CoreDataClass.m in Sources */,
 				84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */,
 				845299E91DFA004000A4DC21 /* Info+CoreDataProperties.m in Sources */,
-				84E8A1881BB94782002518AA /* Location+CoreDataProperties.m in Sources */,
 				84664E9D1CC83A38002123EC /* NSBundle+privateLocalization.m in Sources */,
 				84B776431D9A65C600C707EC /* LoginVC.m in Sources */,
 				8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */,
@@ -806,31 +795,31 @@
 				84001C141C78982800413E5B /* Queue+CoreDataProperties.m in Sources */,
 				8411B87F189FE35C0019D2D6 /* Model.xcdatamodeld in Sources */,
 				84E8A1891BB94782002518AA /* Setting+CoreDataProperties.m in Sources */,
-				84E8A19E1BB94B1D002518AA /* Setting.m in Sources */,
 				8411B90D189FEC070019D2D6 /* FriendAnnotationV.m in Sources */,
 				8474443A1DA4BC9600975BE4 /* ConnType.m in Sources */,
 				84CC5A4C1FEADE950010314C /* ExplainModesVC.m in Sources */,
 				8411B90E189FEC070019D2D6 /* FriendsTVC.m in Sources */,
+				842E6ED620BEF031001928FA /* Queue+CoreDataClass.m in Sources */,
 				84E8A18C1BB94782002518AA /* Waypoint+CoreDataProperties.m in Sources */,
 				8411B90F189FEC070019D2D6 /* RegionsTVC.m in Sources */,
 				8411B88B189FE79B0019D2D6 /* CoreData.m in Sources */,
-				84001C151C78982800413E5B /* Queue.m in Sources */,
 				84E8A18A1BB94782002518AA /* Friend+CoreDataProperties.m in Sources */,
 				846FFA4F1B40C13C001482A6 /* NavigationController.m in Sources */,
+				842E6ED720BEF031001928FA /* Waypoint+CoreDataClass.m in Sources */,
+				842E6ED520BEF031001928FA /* Setting+CoreDataClass.m in Sources */,
 				8426F8851DF4D7F300CB9915 /* GeoHashing.m in Sources */,
-				84E8A19B1BB94B1D002518AA /* Location.m in Sources */,
 				8411B83E189FDB140019D2D6 /* OwnTracksAppDelegate.m in Sources */,
 				84DDEAC71BD9F37900B01879 /* SettingsTVC.m in Sources */,
 				845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */,
 				845299E81DFA004000A4DC21 /* Info+CoreDataClass.m in Sources */,
 				84B7397A1A65629200B103F4 /* LocationManager.m in Sources */,
 				8411B891189FE9CE0019D2D6 /* Settings.m in Sources */,
-				84E8A19D1BB94B1D002518AA /* Waypoint.m in Sources */,
 				845299E71DFA004000A4DC21 /* Friend+CoreDataClass.m in Sources */,
 				84A046C41D81FE8000796C56 /* IdPicker.m in Sources */,
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,
 				84E8A18D1BB94782002518AA /* Region+CoreDataProperties.m in Sources */,
 				8404876B1C5386DD00569C79 /* FeaturedContentVC.m in Sources */,
+				842E6ECE20BEE96F001928FA /* Region+CoreDataClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1168,6 +1157,7 @@
 		8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				842E6ECB20BEE893001928FA /* Model 9.9.3.xcdatamodel */,
 				841D3526209DA1960084FCD0 /* Model 9.8.7.xcdatamodel */,
 				845299DA1DF9FD6200A4DC21 /* Model 9.5.0.xcdatamodel */,
 				8400D9741D84946E00DEA134 /* Model 9.1.7.xcdatamodel */,
@@ -1190,7 +1180,7 @@
 				84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */,
 				8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 841D3526209DA1960084FCD0 /* Model 9.8.7.xcdatamodel */;
+			currentVersion = 842E6ECB20BEE893001928FA /* Model 9.9.3.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

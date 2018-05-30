@@ -9,7 +9,7 @@
 #import "Connection.h"
 
 #import "CoreData.h"
-#import "Queue.h"
+#import "Queue+CoreDataClass.h"
 
 #import <UIKit/UIKit.h>
 #import "MQTTLog.h"

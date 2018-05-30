@@ -2773,46 +2773,12 @@ libsodium (libsodium.org)
                                             <constraint firstItem="WPX-rf-Obi" firstAttribute="centerY" secondItem="RRE-Gl-cIi" secondAttribute="centerY" id="90c-sF-GFa"/>
                                         </constraints>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="LEW-Aw-28C">
-                                        <rect key="frame" x="0.0" y="79" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LEW-Aw-28C" id="Tm7-sd-aez">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="64C-jE-zRd">
-                                                    <rect key="frame" x="20" y="11.5" width="223" height="20.5"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="20.5" id="784-FH-axS"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="anz-OE-h12">
-                                                    <rect key="frame" x="251" y="6.5" width="51" height="31"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="49" id="CET-wm-3Nm"/>
-                                                    </constraints>
-                                                    <connections>
-                                                        <action selector="sharechanged:" destination="qjh-5o-Yio" eventType="valueChanged" id="Hrt-Ot-YRI"/>
-                                                    </connections>
-                                                </switch>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="64C-jE-zRd" secondAttribute="centerY" id="0Qp-CT-tNj"/>
-                                                <constraint firstItem="anz-OE-h12" firstAttribute="leading" secondItem="64C-jE-zRd" secondAttribute="trailing" constant="8" symbolic="YES" id="ICR-2a-X42"/>
-                                                <constraint firstAttribute="centerY" secondItem="anz-OE-h12" secondAttribute="centerY" id="Jn7-W0-B08"/>
-                                                <constraint firstAttribute="trailing" secondItem="anz-OE-h12" secondAttribute="trailing" constant="20" symbolic="YES" id="uXn-ag-fAg"/>
-                                                <constraint firstItem="64C-jE-zRd" firstAttribute="leading" secondItem="Tm7-sd-aez" secondAttribute="leading" constant="20" symbolic="YES" id="yl5-cg-gtO"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Circular Region" id="7xg-sB-qXa">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ote-Wx-0k8">
-                                        <rect key="frame" x="0.0" y="171" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="127" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ote-Wx-0k8" id="yi1-FC-Ocp">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -2845,7 +2811,7 @@ libsodium (libsodium.org)
                                         </constraints>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="gBi-gV-GcZ">
-                                        <rect key="frame" x="0.0" y="215" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="171" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gBi-gV-GcZ" id="6dW-PN-GBf">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -2878,7 +2844,7 @@ libsodium (libsodium.org)
                                         </constraints>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="mlm-aE-HjI">
-                                        <rect key="frame" x="0.0" y="259" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="215" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mlm-aE-HjI" id="JZt-5O-m85">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -2915,7 +2881,7 @@ libsodium (libsodium.org)
                             <tableViewSection headerTitle="Beacon Region" id="dPT-PC-ShQ">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="4Cu-Wx-Jmd">
-                                        <rect key="frame" x="0.0" y="351" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="307" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Cu-Wx-Jmd" id="dpR-sx-d8Q">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -2948,7 +2914,7 @@ libsodium (libsodium.org)
                                         </constraints>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="zn3-PB-iwp">
-                                        <rect key="frame" x="0.0" y="395" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="351" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zn3-PB-iwp" id="Tr7-zH-7DJ">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -2981,7 +2947,7 @@ libsodium (libsodium.org)
                                         </constraints>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="BBq-am-g3c">
-                                        <rect key="frame" x="0.0" y="439" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="395" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BBq-am-g3c" id="xby-Hy-Wio">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -3029,7 +2995,6 @@ libsodium (libsodium.org)
                         <outlet property="UIminor" destination="Tc6-JR-qOB" id="HYB-mA-aeu"/>
                         <outlet property="UIname" destination="s1I-Ff-fYw" id="2CD-d8-AYB"/>
                         <outlet property="UIradius" destination="0WN-ST-XQq" id="ReM-QM-4cT"/>
-                        <outlet property="UIshare" destination="anz-OE-h12" id="ht7-st-i7O"/>
                         <outlet property="UIuuid" destination="fPO-vc-4UX" id="ZIR-w4-4QU"/>
                     </connections>
                 </tableViewController>

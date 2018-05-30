@@ -7,10 +7,9 @@
 //
 
 #import "Friend+CoreDataClass.h"
-#import "Location.h"
-#import "Region.h"
+#import "Region+CoreDataClass.h"
 #import "Subscription+CoreDataClass.h"
-#import "Waypoint.h"
+#import "Waypoint+CoreDataClass.h"
 #import "Settings.h"
 #import <Contacts/Contacts.h>
 

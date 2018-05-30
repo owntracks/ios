@@ -15,7 +15,7 @@
 #import "Settings.h"
 
 #import "Friend+CoreDataClass.h"
-#import "Region.h"
+#import "Region+CoreDataClass.h"
 
 #import "NavigationController.h"
 

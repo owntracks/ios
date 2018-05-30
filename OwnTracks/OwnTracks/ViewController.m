@@ -16,8 +16,8 @@
 #import "Friend+CoreDataClass.h"
 #import "Subscription+CoreDataClass.h"
 #import "Info+CoreDataClass.h"
-#import "Region.h"
-#import "Waypoint.h"
+#import "Region+CoreDataClass.h"
+#import "Waypoint+CoreDataClass.h"
 #import "UIColor+WithName.h"
 #import "LocationManager.h"
 #import "OwnTracking.h"
@@ -595,7 +595,6 @@ calloutAccessoryControlTapped:(UIControl *)control {
                                               uuid:nil
                                              major:0
                                              minor:0
-                                             share:NO
                                             radius:0
                                                lat:self.mapView.centerCoordinate.latitude
                                                lon:self.mapView.centerCoordinate.longitude

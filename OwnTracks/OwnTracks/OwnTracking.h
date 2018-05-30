@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "Friend+CoreDataClass.h"
-#import "Waypoint.h"
-#import "Region.h"
+#import "Waypoint+CoreDataClass.h"
+#import "Region+CoreDataClass.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface OwnTracking : NSObject
@@ -24,7 +24,15 @@
 
 - (void)limitWaypointsFor:(Friend *)friend toMaximum:(NSInteger)max;
 
-- (Region *)addRegionFor:(Friend *)friend name:(NSString *)name uuid:(NSString *)uuid major:(unsigned int)major minor:(unsigned int)minor share:(BOOL)share radius:(double)radius lat:(double)lat lon:(double)lon context:(NSManagedObjectContext *)context;
+- (Region *)addRegionFor:(Friend *)friend
+name:(NSString *)name
+uuid:(NSString *)uuid
+major:(unsigned int)major
+minor:(unsigned int)minor
+radius:(double)radius
+lat:(double)lat
+lon:(double)lon
+context:(NSManagedObjectContext *)context;
 - (void)removeRegion:(Region *)region context:(NSManagedObjectContext *)context;
 
 - (NSDictionary *)waypointAsJSON:(Waypoint *)waypoint;

@@ -38,9 +38,6 @@
 /* Class = "UITextField"; placeholder = "days"; ObjectID = "5Nq-by-zFb"; */
 "5Nq-by-zFb.placeholder" = "dni";
 
-/* Class = "UILabel"; text = "Share"; ObjectID = "64C-jE-zRd"; */
-"64C-jE-zRd.text" = "Udostępnij";
-
 /* Class = "UILabel"; text = "11:30 PM"; ObjectID = "6AN-cF-srI"; */
 "6AN-cF-srI.text" = "23:30";
 

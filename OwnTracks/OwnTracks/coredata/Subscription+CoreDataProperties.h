@@ -2,8 +2,9 @@
 //  Subscription+CoreDataProperties.h
 //  OwnTracks
 //
-//  Created by Christoph Krey on 08.12.16.
-//  Copyright © 2016-2018 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 30.05.18.
+//  Copyright © 2018 OwnTracks. All rights reserved.
+//
 //
 
 #import "Subscription+CoreDataClass.h"
@@ -15,8 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSFetchRequest<Subscription *> *)fetchRequest;
 
-@property (nullable, nonatomic, copy) NSString *name;
 @property (nullable, nonatomic, copy) NSNumber *level;
+@property (nullable, nonatomic, copy) NSString *name;
 @property (nullable, nonatomic, retain) Friend *belongsTo;
 @property (nullable, nonatomic, retain) NSSet<Info *> *hasInfos;
 
