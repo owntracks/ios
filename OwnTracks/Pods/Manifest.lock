@@ -26,7 +26,7 @@ DEPENDENCIES:
   - QRCodeReaderViewController
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - ABStaticTableViewController
     - CocoaLumberjack
     - libsodium
@@ -49,4 +49,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 60b9acc992a7f676afe6b2d451036cd5f55e05e3
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

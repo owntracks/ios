@@ -247,73 +247,79 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
         self.securityPolicy = securityPolicy;
         self.certificates = certificates;
         
-        DDLogVerbose(@"[Connection] %@ new session", self.clientId);
-        MQTTTransport *mqttTransport;
-        if (ws) {
-            MQTTWebsocketTransport *websocketTransport = [[MQTTWebsocketTransport alloc] init];
-            websocketTransport.host = host;
-            websocketTransport.port = port;
-            websocketTransport.tls = tls;
-            if (securityPolicy) {
-                websocketTransport.allowUntrustedCertificates = securityPolicy.allowInvalidCertificates;
-                websocketTransport.pinnedCertificates = securityPolicy.pinnedCertificates;
-            }
-
-            mqttTransport = websocketTransport;
-        } else {
-            if (securityPolicy) {
-                MQTTSSLSecurityPolicyTransport *sslSecPolTransport = [[MQTTSSLSecurityPolicyTransport alloc] init];
-                sslSecPolTransport.host = host;
-                sslSecPolTransport.port = port;
-                sslSecPolTransport.tls = tls;
-                sslSecPolTransport.certificates = certificates;
-                sslSecPolTransport.securityPolicy = securityPolicy;
-
-                mqttTransport = sslSecPolTransport;
-            } else {
-                MQTTCFSocketTransport *cfSocketTransport = [[MQTTCFSocketTransport alloc] init];
-                cfSocketTransport.host = host;
-                cfSocketTransport.port = port;
-                cfSocketTransport.tls = tls;
-                cfSocketTransport.certificates = certificates;
-                mqttTransport = cfSocketTransport;
-            }
-        }
-
-        self.session = [[MQTTSession alloc] init];
-        self.session.transport = mqttTransport;
-        self.session.clientId = clientId;
-        self.session.userName = auth ? user : nil;
-        self.session.password = auth ? pass : nil;
-        self.session.keepAliveInterval = keepalive;
-        self.session.cleanSessionFlag = clean;
-
-        if (willTopic) {
-            MQTTWill *mqttWill = [[MQTTWill alloc] initWithTopic:willTopic
-                                                            data:will
-                                                      retainFlag:willRetainFlag
-                                                             qos:willQos
-                                               willDelayInterval:nil
-                                          payloadFormatIndicator:nil
-                                           messageExpiryInterval:nil
-                                                     contentType:nil
-                                                   responseTopic:nil
-                                                 correlationData:nil
-                                                  userProperties:nil];
-            self.session.will = mqttWill;
-        }
-
-        self.session.protocolLevel = protocolVersion;
-        self.session.persistence.persistent = TRUE;
-        self.session.persistence.maxMessages = 100 * 1024;
-        self.session.persistence.maxSize = 100 * 1024 * 1024;
-
-        (self.session).delegate = self;
-
-        self.reconnectTime = RECONNECT_TIMER;
-        self.reconnectFlag = FALSE;
+        self.session = [self newMQTTSession];
     }
     [self connectToInternal];
+}
+
+- (MQTTSession *)newMQTTSession {
+    DDLogVerbose(@"[Connection] %@ new session", self.clientId);
+    MQTTSession *session;
+    MQTTTransport *mqttTransport;
+    if (self.ws) {
+        MQTTWebsocketTransport *websocketTransport = [[MQTTWebsocketTransport alloc] init];
+        websocketTransport.host = self.host;
+        websocketTransport.port = self.port;
+        websocketTransport.tls = self.tls;
+        if (self.securityPolicy) {
+            websocketTransport.allowUntrustedCertificates = self.securityPolicy.allowInvalidCertificates;
+            websocketTransport.pinnedCertificates = self.securityPolicy.pinnedCertificates;
+        }
+
+        mqttTransport = websocketTransport;
+    } else {
+        if (self.securityPolicy) {
+            MQTTSSLSecurityPolicyTransport *sslSecPolTransport = [[MQTTSSLSecurityPolicyTransport alloc] init];
+            sslSecPolTransport.host = self.host;
+            sslSecPolTransport.port = self.port;
+            sslSecPolTransport.tls = self.tls;
+            sslSecPolTransport.certificates = self.certificates;
+            sslSecPolTransport.securityPolicy = self.securityPolicy;
+            mqttTransport = sslSecPolTransport;
+        } else {
+            MQTTCFSocketTransport *cfSocketTransport = [[MQTTCFSocketTransport alloc] init];
+            cfSocketTransport.host = self.host;
+            cfSocketTransport.port = self.port;
+            cfSocketTransport.tls = self.tls;
+            cfSocketTransport.certificates = self.certificates;
+            mqttTransport = cfSocketTransport;
+        }
+    }
+
+    session = [[MQTTSession alloc] init];
+    session.transport = mqttTransport;
+    session.clientId = self.clientId;
+    session.userName = self.auth ? self.user : nil;
+    session.password = self.auth ? self.pass : nil;
+    session.keepAliveInterval = self.keepalive;
+    session.cleanSessionFlag = self.clean;
+
+    if (self.willTopic) {
+        MQTTWill *mqttWill = [[MQTTWill alloc] initWithTopic:self.willTopic
+                                                        data:self.will
+                                                  retainFlag:self.willRetainFlag
+                                                         qos:self.willQos
+                                           willDelayInterval:nil
+                                      payloadFormatIndicator:nil
+                                       messageExpiryInterval:nil
+                                                 contentType:nil
+                                               responseTopic:nil
+                                             correlationData:nil
+                                              userProperties:nil];
+        session.will = mqttWill;
+    }
+
+    session.protocolLevel = self.protocolVersion;
+    session.persistence.persistent = TRUE;
+    session.persistence.maxMessages = 100 * 1024;
+    session.persistence.maxSize = 100 * 1024 * 1024;
+
+    session.delegate = self;
+
+    self.reconnectTime = RECONNECT_TIMER;
+    self.reconnectFlag = FALSE;
+
+    return session;
 }
 
 - (void)URLSession:(NSURLSession *)session
@@ -664,6 +670,12 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
         case MQTTSessionEventProtocolError:
         case MQTTSessionEventConnectionRefused:
         case MQTTSessionEventConnectionError: {
+            DDLogError(@"[Connection] error.code %ld, error %@",
+                       error.code,
+                       error);
+            if (error.domain == NSOSStatusErrorDomain && error.code == errSSLPeerCertUnknown) {
+                self.session = nil;
+            }
             [self startReconnectTimer:[NSRunLoop currentRunLoop]];
             self.state = state_error;
             self.lastErrorCode = error;
@@ -773,6 +785,9 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     if (!self.url) {
         if (self.state == state_starting) {
             self.state = state_connecting;
+            if (!self.session) {
+                self.session = [self newMQTTSession];
+            }
             [self.session connectWithConnectHandler:nil];
         } else {
             DDLogVerbose(@"[Connection] %@ not starting, can't connect", self.clientId);
