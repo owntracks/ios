@@ -94,7 +94,7 @@ GEOHASH_verify_hash(const char *hash)
         if (c < 0x30)
             return false;
         c -= 0x30;
-        if (c > 43)
+        if (c > 42)
             return false;
         if (BASE32_DECODE_TABLE[c] == -1)
             return false;
@@ -237,13 +237,13 @@ GEOHASH_get_neighbors(const char* hash)
 char*
 GEOHASH_get_adjacent(const char* hash, GEOHASH_direction dir)
 {
-    int len, idx;
+    size_t len, idx;
     const char *border_table, *neighbor_table;
     char *base, *refined_base, *ptr, last;
 
     assert(hash != NULL);
 
-    len  = strlen(hash);
+    len  = (int)strlen(hash);
     last = tolower(hash[len - 1]);
     idx  = dir * 2 + (len % 2);
 
@@ -274,7 +274,7 @@ GEOHASH_get_adjacent(const char* hash, GEOHASH_direction dir)
         return NULL;
     }
     idx = (int)(ptr - neighbor_table);
-    len = strlen(base);
+    len = (int)strlen(base);
     base[len] = BASE32_ENCODE_TABLE[idx];
     return base;
 }

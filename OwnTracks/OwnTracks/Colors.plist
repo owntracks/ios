@@ -16,6 +16,8 @@
 	<string>3fff7f7f</string>
 	<key>outside</key>
 	<string>3f7f7fff</string>
+	<key>follow</key>
+	<string>3f7ffff7</string>
 	<key>track</key>
 	<string>ffff0000</string>
 	<key>connecting</key>

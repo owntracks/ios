@@ -7,12 +7,12 @@ PODS:
   - CocoaLumberjack/Extensions (3.4.2):
     - CocoaLumberjack/Default
   - libsodium (1.0.12)
-  - mqttc/MinL (5.0.1):
+  - mqttc/MinL (5.0.5):
     - CocoaLumberjack
-  - mqttc/WebsocketL (5.0.1):
+  - mqttc/WebsocketL (5.0.5):
     - mqttc/MinL
     - SocketRocket
-  - objc-geohash (0.0.1)
+  - objc-geohash (0.0.3)
   - QRCodeReaderViewController (4.0.2)
   - SocketRocket (0.5.1)
 
@@ -42,8 +42,8 @@ SPEC CHECKSUMS:
   ABStaticTableViewController: d8cfbdd596fbf58b515b13e49cc8ca8ca86c6e12
   CocoaLumberjack: db7cc9e464771f12054c22ff6947c5a58d43a0fd
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
-  mqttc: 3fd7a83fd2154066a62d3e8b387a9360b6c0e3cb
-  objc-geohash: 5a92a1deb6c4729ecefdf847159991a1068fb4cc
+  mqttc: f70f5bccea6c45ed416d52bcee24644e2046bdaf
+  objc-geohash: d0e90301db6da57e69d1569f25607c0fb99f8731
   QRCodeReaderViewController: e8f27d035b3e72b1d4b1c61ff66458287e3be0ff
   SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
 

@@ -19,7 +19,7 @@
 
 #import "NavigationController.h"
 
-@interface OwnTracksAppDelegate : UIResponder <UIApplicationDelegate, ConnectionDelegate, LocationManagerDelegate>
+@interface OwnTracksAppDelegate : UIResponder <UIApplicationDelegate, ConnectionDelegate, LocationManagerDelegate, NSUserActivityDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (weak, nonatomic) NavigationController *navigationController;

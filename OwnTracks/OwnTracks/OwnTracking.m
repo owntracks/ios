@@ -430,9 +430,11 @@ static OwnTracking *theInstance = nil;
 
     NSMutableArray <NSString *> *inRegions = [[NSMutableArray alloc] init];
     for (Region *region in waypoint.belongsTo.hasRegions) {
-        if ([LocationManager sharedInstance].insideCircularRegions[region.name] ||
-            [LocationManager sharedInstance].insideBeaconRegions[region.name]) {
-            [inRegions addObject:region.name];
+        if (![region.name hasPrefix:@"+"]) {
+            if ([LocationManager sharedInstance].insideCircularRegions[region.name] ||
+                [LocationManager sharedInstance].insideBeaconRegions[region.name]) {
+                [inRegions addObject:region.name];
+            }
         }
     }
 

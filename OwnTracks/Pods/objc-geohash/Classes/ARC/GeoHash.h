@@ -23,9 +23,9 @@ THE SOFTWARE.
 */
 
 #import <Foundation/Foundation.h>
-#import "GHArea.h"
-#import "GHRange.h"
-#import "GHNeighbors.h"
+
+@class GHArea;
+@class GHNeighbors;
 
 typedef enum {
     GHDirectionNorth = 0,

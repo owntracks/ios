@@ -25,7 +25,10 @@ THE SOFTWARE.
 #import "GeoHash.h"
 #import "GHArea.h"
 #import "GHRange.h"
+#import "GHNeighbors.h"
 #import "cgeohash.h"
+
+
 
 @interface GeoHash()
 + (GEOHASH_direction)convertDirectionType:(GHDirection)dir;

@@ -16,6 +16,6 @@
 #import "GHNeighbors.h"
 #import "GHRange.h"
 
-FOUNDATION_EXPORT double objc_geohashVersionNumber;
-FOUNDATION_EXPORT const unsigned char objc_geohashVersionString[];
+FOUNDATION_EXPORT double Objc_GeoHashVersionNumber;
+FOUNDATION_EXPORT const unsigned char Objc_GeoHashVersionString[];
 

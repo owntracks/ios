@@ -86,6 +86,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 @property (strong, nonatomic) NSString *backgroundFetchCheckMessage;
 @property (strong, nonatomic) CoreData *coreData;
 @property (strong, nonatomic) CMPedometer *pedometer;
+@property (strong, nonatomic) NSUserActivity *userActivity;
 
 #define BACKGROUND_DISCONNECT_AFTER 15.0
 @property (strong, nonatomic) NSTimer *disconnectTimer;
@@ -151,6 +152,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     [self connect];
 
     [[UIDevice currentDevice] setBatteryMonitoringEnabled:TRUE];
+
+    self.userActivity = [[NSUserActivity alloc] initWithActivityType:NSUserActivityTypeBrowsingWeb];
+    self.userActivity.title = @"Configuration via Browser";
+    self.userActivity.eligibleForHandoff = TRUE;
+    self.userActivity.delegate = self;
+    [self.userActivity becomeCurrent];
 
     LocationManager *locationManager = [LocationManager sharedInstance];
     locationManager.delegate = self;
@@ -219,6 +226,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                 self.processingMessage = NSLocalizedString(@"Beacon QR successfully processed",
                                                            @"Display after processing beacon QR code");
                 return TRUE;
+            } else if ([url.path isEqualToString:@"/config"]) {
+                NSString *urlString = queryStrings[@"url"];
+                NSURL *urlFromString = [NSURL URLWithString:urlString];
+                return [self processNSURL:urlFromString];
             } else {
                 return FALSE;
             }
@@ -257,7 +268,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                      NSError *error;
                      NSString *extension = url.pathExtension;
                      if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
-                         [self terminateSession];
+                         [self performSelectorOnMainThread:@selector(terminateSession)
+                                                withObject:nil
+                                             waitUntilDone:TRUE];
                          NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
                                                                               options:0
                                                                                 error:nil];
@@ -540,69 +553,75 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 
 - (void)regionEvent:(CLRegion *)region enter:(BOOL)enter {
     [self background];
-    CLLocation *location = [LocationManager sharedInstance].location;
-    NSString *notificationMessage = [NSString stringWithFormat:@"%@ %@",
-                                     (enter ?
-                                      NSLocalizedString(@"Entering",
-                                                        @"Display when entering region (region name follows)"):
-                                      NSLocalizedString(@"Leaving",
-                                                        @"Display when leaving region (region name follows)")
-                                      ),
-                                     region.identifier];
-    
-    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-    content.body = notificationMessage;
-    UNTimeIntervalNotificationTrigger* trigger = [UNTimeIntervalNotificationTrigger
-                                                  triggerWithTimeInterval:1.0
-                                                  repeats:NO];
-    UNNotificationRequest* request = [UNNotificationRequest requestWithIdentifier:@"region"
-                                                                          content:content
-                                                                          trigger:trigger];
-    UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
-    [center addNotificationRequest:request withCompletionHandler:nil];
-
-    Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
-                            inManagedObjectContext:CoreData.sharedInstance.mainMOC];
-
     if ([LocationManager sharedInstance].monitoring != LocationMonitoringQuiet &&
         [Settings validIdsInMOC:CoreData.sharedInstance.mainMOC]) {
-        NSMutableDictionary *json = [@{
-                                       @"_type": @"transition",
-                                       @"lat": @(location.coordinate.latitude),
-                                       @"lon": @(location.coordinate.longitude),
-                                       @"tst": @(floor((location.timestamp).timeIntervalSince1970)),
-                                       @"acc": @(location.horizontalAccuracy),
-                                       @"tid": myself.effectiveTid,
-                                       @"event": enter ? @"enter" : @"leave",
-                                       @"t": [region isKindOfClass:[CLBeaconRegion class]] ? @"b" : @"c"
-                                       } mutableCopy];
 
-        for (Region *anyRegion in myself.hasRegions) {
-            if ([region.identifier isEqualToString:anyRegion.CLregion.identifier]) {
-                anyRegion.name = anyRegion.name;
-                [json setValue:region.identifier forKey:@"desc"];
-                [json setValue:@(floor(anyRegion.andFillTst.timeIntervalSince1970)) forKey:@"wtst"];
-                
-                [self.connection sendData:[self jsonToData:json]
-                                    topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/event"]
-                                      qos:[Settings intForKey:@"qos_preference"
-                                                        inMOC:CoreData.sharedInstance.mainMOC]
-                                   retain:NO];
-                if ([region isKindOfClass:[CLBeaconRegion class]]) {
-                    if ((anyRegion.radius).doubleValue < 0) {
-                        anyRegion.lat = @(location.coordinate.latitude);
-                        anyRegion.lon = @(location.coordinate.longitude);
-                        [self sendRegion:anyRegion];
+        if (![region.identifier hasPrefix:@"+"]) {
+            NSString *notificationMessage = [NSString stringWithFormat:@"%@ %@",
+                                             (enter ?
+                                              NSLocalizedString(@"Entering",
+                                                                @"Display when entering region (region name follows)"):
+                                              NSLocalizedString(@"Leaving",
+                                                                @"Display when leaving region (region name follows)")
+                                              ),
+                                             region.identifier];
+
+            UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+            content.body = notificationMessage;
+            UNTimeIntervalNotificationTrigger* trigger = [UNTimeIntervalNotificationTrigger
+                                                          triggerWithTimeInterval:1.0
+                                                          repeats:NO];
+            UNNotificationRequest* request = [UNNotificationRequest requestWithIdentifier:@"region"
+                                                                                  content:content
+                                                                                  trigger:trigger];
+            UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+            [center addNotificationRequest:request withCompletionHandler:nil];
+
+            Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
+                                inManagedObjectContext:CoreData.sharedInstance.mainMOC];
+
+            CLLocation *location = [LocationManager sharedInstance].location;
+
+            NSMutableDictionary *json = [@{
+                                           @"_type": @"transition",
+                                           @"lat": @(location.coordinate.latitude),
+                                           @"lon": @(location.coordinate.longitude),
+                                           @"tst": @(floor((location.timestamp).timeIntervalSince1970)),
+                                           @"acc": @(location.horizontalAccuracy),
+                                           @"tid": myself.effectiveTid,
+                                           @"event": enter ? @"enter" : @"leave",
+                                           @"t": [region isKindOfClass:[CLBeaconRegion class]] ? @"b" : @"c"
+                                           } mutableCopy];
+
+            for (Region *anyRegion in myself.hasRegions) {
+                if ([region.identifier isEqualToString:anyRegion.CLregion.identifier]) {
+                    anyRegion.name = anyRegion.name;
+                    [json setValue:region.identifier forKey:@"desc"];
+                    [json setValue:@(floor(anyRegion.andFillTst.timeIntervalSince1970)) forKey:@"wtst"];
+
+                    [self.connection sendData:[self jsonToData:json]
+                                        topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/event"]
+                                          qos:[Settings intForKey:@"qos_preference"
+                                                            inMOC:CoreData.sharedInstance.mainMOC]
+                                       retain:NO];
+                    if ([region isKindOfClass:[CLBeaconRegion class]]) {
+                        if ((anyRegion.radius).doubleValue < 0) {
+                            anyRegion.lat = @(location.coordinate.latitude);
+                            anyRegion.lon = @(location.coordinate.longitude);
+                            [self sendRegion:anyRegion];
+                        }
                     }
+
                 }
-
             }
-        }
 
-        if ([region isKindOfClass:[CLBeaconRegion class]]) {
-            [self publishLocation:[LocationManager sharedInstance].location trigger:@"b"];
+            if ([region isKindOfClass:[CLBeaconRegion class]]) {
+                [self publishLocation:[LocationManager sharedInstance].location trigger:@"b"];
+            } else {
+                [self publishLocation:[LocationManager sharedInstance].location trigger:@"c"];
+            }
         } else {
-            [self publishLocation:[LocationManager sharedInstance].location trigger:@"c"];
+            [self publishLocation:[LocationManager sharedInstance].location trigger:@"C"];
         }
     }
 }
@@ -746,10 +765,10 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                 [LocationManager sharedInstance].monitoring == LocationMonitoringMove ||
                                 [Settings boolForKey:@"allowremotelocation_preference"
                                                inMOC:CoreData.sharedInstance.queuedMOC]) {
-                                   [self performSelectorOnMainThread:@selector(reportLocation)
-                                                          withObject:nil
-                                                       waitUntilDone:NO];
-                            }
+                                    [self performSelectorOnMainThread:@selector(reportLocation)
+                                                           withObject:nil
+                                                        waitUntilDone:NO];
+                                }
 
                         } else if ([@"reportSteps" saveEqual:dictionary[@"action"]]) {
                             [self stepsFrom:[NSNumber saveCopy:dictionary[@"from"]]
@@ -962,7 +981,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
              [self.connection sendData:[self jsonToData:json]
                                  topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/step"]
                                    qos:[Settings intForKey:@"qos_preference"
-                                         inMOC:CoreData.sharedInstance.mainMOC]
+                                                     inMOC:CoreData.sharedInstance.mainMOC]
                                 retain:NO];
          });
      }];
@@ -1025,6 +1044,21 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
             Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
                               inManagedObjectContext:CoreData.sharedInstance.mainMOC];
             if (friend) {
+                for (Region *anyRegion in friend.hasRegions) {
+                    if ([anyRegion.CLregion.identifier hasPrefix:@"+"]) {
+                        if ((anyRegion.radius).doubleValue > 0) {
+                            anyRegion.lat = @(location.coordinate.latitude);
+                            anyRegion.lon = @(location.coordinate.longitude);
+                            if (location.speed >= 0.0) {
+                                anyRegion.radius = @(MAX(location.speed * 30.0, 50.0));
+                            } else {
+                                anyRegion.radius = @(50.0);
+                            }
+                            [[LocationManager sharedInstance] startRegion:anyRegion.CLregion];
+                        }
+                    }
+                }
+
                 friend.tid = [Settings stringForKey:@"trackerid_preference"
                                               inMOC:CoreData.sharedInstance.mainMOC];
 
@@ -1041,9 +1075,9 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                         [self.connection sendData:data
                                             topic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
                                               qos:[Settings intForKey:@"qos_preference"
-                                                    inMOC:CoreData.sharedInstance.mainMOC]
+                                                                inMOC:CoreData.sharedInstance.mainMOC]
                                            retain:[Settings boolForKey:@"retain_preference"
-                                                    inMOC:CoreData.sharedInstance.mainMOC]];
+                                                                 inMOC:CoreData.sharedInstance.mainMOC]];
                     } else {
                         DDLogError(@"[OwnTracksAppDelegate] no JSON created from waypoint %@", waypoint);
                     }
@@ -1134,7 +1168,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         if ([Settings boolForKey:@"usepolicy"
                            inMOC:CoreData.sharedInstance.mainMOC]) {
             securityPolicy = [MQTTSSLSecurityPolicy policyWithPinningMode:
-                               [Settings intForKey:@"policymode" inMOC:CoreData.sharedInstance.mainMOC]];
+                              [Settings intForKey:@"policymode" inMOC:CoreData.sharedInstance.mainMOC]];
             if (!securityPolicy) {
                 [self.navigationController alert:@"TLS Security Policy" message:@"invalid mode"];
             }
@@ -1223,6 +1257,23 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         DDLogError(@"[OwnTracksAppDelegate] isValidJSONObject failed %@", [jsonObject description]);
     }
     return data;
+}
+
+- (void)application:(UIApplication *)application didUpdateUserActivity:(NSUserActivity *)userActivity {
+    //
+}
+
+- (BOOL)application:(UIApplication *)application willContinueUserActivityWithType:(NSString *)userActivityType  {
+    //
+    return true;
+}
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
+    return TRUE;
+}
+
+- (void)application:(UIApplication *)application didFailToContinueUserActivityWithType:(NSString *)userActivityType error:(NSError *)error {
+    //
 }
 
 @end

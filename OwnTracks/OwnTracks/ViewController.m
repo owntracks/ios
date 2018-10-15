@@ -304,10 +304,14 @@ didChangeDragState:(MKAnnotationViewDragState)newState
     } else if ([overlay isKindOfClass:[Region class]]) {
         Region *region = (Region *)overlay;
         MKCircleRenderer *renderer = [[MKCircleRenderer alloc] initWithCircle:region.circle];
-        if ([[LocationManager sharedInstance] insideCircularRegion:region.name]) {
-            renderer.fillColor = [UIColor colorWithName:@"inside" defaultColor:[UIColor redColor]];
+        if ([region.name hasPrefix:@"+"]) {
+            renderer.fillColor = [UIColor colorWithName:@"follow" defaultColor:[UIColor greenColor]];
         } else {
-            renderer.fillColor = [UIColor colorWithName:@"outside" defaultColor:[UIColor blueColor]];
+            if ([[LocationManager sharedInstance] insideCircularRegion:region.name]) {
+                renderer.fillColor = [UIColor colorWithName:@"inside" defaultColor:[UIColor redColor]];
+            } else {
+                renderer.fillColor = [UIColor colorWithName:@"outside" defaultColor:[UIColor blueColor]];
+            }
         }
         return renderer;
 

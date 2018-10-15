@@ -10,6 +10,8 @@
 #import <Mapkit/Mapkit.h>
 #import <CoreLocation/CoreLocation.h>
 #import "GeoHash.h"
+#import "GHArea.h"
+#import "GHRange.h"
 #import "Subscription+CoreDataClass.h"
 
 #undef GEOHASHING // work without geohashing

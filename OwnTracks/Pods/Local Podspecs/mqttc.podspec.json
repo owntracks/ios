@@ -1,6 +1,6 @@
 {
   "name": "mqttc",
-  "version": "5.0.1",
+  "version": "5.0.5",
   "summary": "iOS, OSX and tvOS native ObjectiveC MQTT Client Framework",
   "homepage": "https://github.com/ckrey/mqttc",
   "license": {
@@ -12,7 +12,7 @@
   },
   "source": {
     "git": "https://github.com/ckrey/mqttc.git",
-    "tag": "5.0.1",
+    "tag": "5.0.5",
     "submodules": true
   },
   "requires_arc": true,

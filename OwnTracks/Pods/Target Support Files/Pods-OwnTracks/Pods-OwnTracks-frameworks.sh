@@ -149,7 +149,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SocketRocket/SocketRocket.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/libsodium/libsodium.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/mqttc/mqttc.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/objc-geohash/objc_geohash.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/objc-geohash/Objc_GeoHash.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/ABStaticTableViewController/ABStaticTableViewController.framework"
@@ -158,7 +158,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SocketRocket/SocketRocket.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/libsodium/libsodium.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/mqttc/mqttc.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/objc-geohash/objc_geohash.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/objc-geohash/Objc_GeoHash.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait
