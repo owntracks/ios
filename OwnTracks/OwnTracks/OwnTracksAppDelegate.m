@@ -709,7 +709,10 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     }
 }
 
-- (BOOL)handleMessage:(Connection *)connection data:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained {
+- (BOOL)handleMessage:(Connection *)connection
+                 data:(NSData *)data
+              onTopic:(NSString *)topic
+             retained:(BOOL)retained {
     DDLogVerbose(@"[OwnTracksAppDelegate] handleMessage");
 
     [CoreData.sharedInstance.queuedMOC performBlock:^{
