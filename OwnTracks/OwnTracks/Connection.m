@@ -49,6 +49,7 @@
 @property (nonatomic) NSInteger willQos;
 @property (nonatomic) BOOL willRetainFlag;
 @property (strong, nonatomic) NSString *clientId;
+@property (strong, nonatomic) NSString *device;
 @property (strong, nonatomic) MQTTSSLSecurityPolicy *securityPolicy;
 @property (strong, nonatomic) NSArray *certificates;
 
@@ -336,11 +337,16 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 }
 
 
-- (void)connectHTTP:(NSString *)url auth:(BOOL)auth user:(NSString *)user pass:(NSString *)pass {
+- (void)connectHTTP:(NSString *)url
+               auth:(BOOL)auth
+               user:(NSString *)user
+               pass:(NSString *)pass
+             device:(NSString *)device {
     self.url = url;
     self.auth = auth;
-    self.user = auth ? user : nil;
-    self.pass = auth ? pass : nil;
+    self.user = user;
+    self.pass = pass;
+    self.device = device;
     self.reconnectTime = RECONNECT_TIMER;
     self.reconnectFlag = FALSE;
     self.state = state_starting;
@@ -430,6 +436,17 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
         NSString *authValue = [authData base64EncodedStringWithOptions:0];
         [request setValue:[NSString stringWithFormat:@"Basic %@", authValue] forHTTPHeaderField:@"Authorization"];
     }
+    NSString *user = @"user";
+    if (self.user && self.user.length > 0) {
+        user = self.user;
+    }
+    [request setValue:user forHTTPHeaderField:@"X-Limit-U"];
+
+    NSString *device = @"device";
+    if (self.device && self.device.length > 0) {
+        device = self.device;
+    }
+    [request setValue:device forHTTPHeaderField:@"X-Limit-D"];
     
     request.URL = [NSURL URLWithString:self.url];
     request.HTTPMethod = @"POST";

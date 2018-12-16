@@ -580,13 +580,23 @@ calloutAccessoryControlTapped:(UIControl *)control {
 
 - (void)sendNow {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate sendNow];
-    [delegate.navigationController alert:NSLocalizedString(@"Location",
-                                                           @"Header of an alert message regarding a location")
-                                 message:NSLocalizedString(@"publish queued on user request",
-                                                           @"content of an alert message regarding user publish")
-                            dismissAfter:1
-     ];
+
+    if (![Settings validIdsInMOC:CoreData.sharedInstance.mainMOC]) {
+        NSString *message = NSLocalizedString(@"To publish your location userID and deviceID must be set",
+                                              @"Warning displayed if necessary settings are missing");
+
+        [delegate.navigationController alert:@"Settings" message:message];
+    } else {
+        [delegate sendNow];
+        [delegate.navigationController alert:
+         NSLocalizedString(@"Location",
+                           @"Header of an alert message regarding a location")
+                                     message:
+         NSLocalizedString(@"publish queued on user request",
+                           @"content of an alert message regarding user publish")
+                                dismissAfter:1
+         ];
+    }
 }
 
 - (IBAction)longPress:(UILongPressGestureRecognizer *)sender {

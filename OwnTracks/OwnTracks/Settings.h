@@ -52,6 +52,7 @@ typedef NS_ENUM(int, ConnectionMode) {
 
 + (NSString *)theMqttUserInMOC:(NSManagedObjectContext *)context;
 + (NSString *)theMqttPassInMOC:(NSManagedObjectContext *)context;
++ (BOOL)theMqttUsePasswordInMOC:(NSManagedObjectContext *)context;
 + (BOOL)theMqttAuthInMOC:(NSManagedObjectContext *)context;
 
 + (BOOL)validKey:(NSString *)key inMode:(ConnectionMode)mode;

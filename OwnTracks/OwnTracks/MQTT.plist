@@ -34,6 +34,8 @@
 	<string>user</string>
 	<key>pass_preference</key>
 	<string>pass</string>
+	<key>usepassword_preference</key>
+	<true/>
 	<key>keepalive_preference</key>
 	<integer>60</integer>
 	<key>clean_preference</key>

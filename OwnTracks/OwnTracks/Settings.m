@@ -210,7 +210,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
             object = dictionary[@"auth"];
             if (object) [self setString:object forKey:@"auth_preference" inMOC:context];
-            
+
+            object = dictionary[@"usePassword"];
+            if (object) [self setString:object forKey:@"usepassword_preference" inMOC:context];
+
             object = dictionary[@"cleanSession"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
                                  forKey:@"clean_preference"
@@ -426,6 +429,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             dict[@"tls"] =                  @([Settings boolForKey:@"tls_preference" inMOC:context]);
             dict[@"ws"] =                   @([Settings boolForKey:@"ws_preference" inMOC:context]);
             dict[@"auth"] =                 @([Settings boolForKey:@"auth_preference" inMOC:context]);
+            dict[@"usePassword"] =          @([Settings boolForKey:@"usepassword_preference" inMOC:context]);
             dict[@"cleanSession"] =         @([Settings boolForKey:@"clean_preference" inMOC:context]);
             dict[@"willRetain"] =           @([Settings boolForKey:@"willretain_preference" inMOC:context]);
             dict[@"allowRemoteLocation"] =  @([Settings boolForKey:@"allowremotelocation_preference" inMOC:context]);
@@ -742,6 +746,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 + (NSString *)theMqttPassInMOC:(NSManagedObjectContext *)context {
     return [self stringForKey:@"pass_preference" inMOC:context];
+}
+
++ (BOOL)theMqttUsePasswordInMOC:(NSManagedObjectContext *)context {
+    return [self boolForKey:@"usepassword_preference" inMOC:context];
 }
 
 + (BOOL)theMqttAuthInMOC:(NSManagedObjectContext *)context {

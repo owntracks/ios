@@ -37,6 +37,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIHost;
 @property (weak, nonatomic) IBOutlet UITextField *UIUserID;
 @property (weak, nonatomic) IBOutlet UITextField *UIPassword;
+@property (weak, nonatomic) IBOutlet UISwitch *UIUsePassword;
 @property (weak, nonatomic) IBOutlet UITextField *UIPort;
 @property (weak, nonatomic) IBOutlet UISwitch *UITLS;
 @property (weak, nonatomic) IBOutlet UITextField *UIproto;
@@ -183,6 +184,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                      inMOC:CoreData.sharedInstance.mainMOC];
     if (self.UIPassword) [Settings setString:self.UIPassword.text
                                       forKey:@"pass_preference"
+                                       inMOC:CoreData.sharedInstance.mainMOC];
+    if (self.UIUsePassword) [Settings setBool:self.UIUsePassword.on
+                                      forKey:@"usepassword_preference"
                                        inMOC:CoreData.sharedInstance.mainMOC];
     if (self.UIsecret) [Settings setString:self.UIsecret.text
                                     forKey:@"secret_preference"
@@ -439,6 +443,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                                 inMOC:CoreData.sharedInstance.mainMOC];
         self.UIPassword.enabled = !locked;
     }
+    if (self.UIUsePassword) {
+        self.UIUsePassword.on = [Settings boolForKey:@"usepassword_preference"
+                                               inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIUsePassword.enabled = !locked;
+    }
     if (self.UIsecret) {
         self.UIsecret.text = [Settings stringForKey:@"secret_preference"
                                               inMOC:CoreData.sharedInstance.mainMOC];
@@ -591,8 +600,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             }
         }
 
-        NSArray <NSIndexPath *> *privatePaths = @[[NSIndexPath indexPathForRow:4 inSection:0],
-                                                  [NSIndexPath indexPathForRow:5 inSection:0],
+        NSArray <NSIndexPath *> *privatePaths = @[[NSIndexPath indexPathForRow:5 inSection:0],
                                                   [NSIndexPath indexPathForRow:6 inSection:0],
                                                   [NSIndexPath indexPathForRow:7 inSection:0]
                                                   ];
@@ -606,14 +614,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
         if (self.UIUserID) {
             if (self.UIAuth) {
-                self.UIUserID.enabled = !locked && self.UIAuth.on;
-                self.UIUserID.textColor = self.UIAuth.on ? [UIColor blackColor] : [UIColor lightGrayColor];
+                self.UIUserID.enabled = !locked;
+            }
+        }
+        if (self.UIUsePassword) {
+            if (self.UIAuth) {
+                self.UIUsePassword.enabled = !locked && self.UIAuth.on;
             }
         }
         if (self.UIPassword) {
             if (self.UIAuth) {
-                self.UIPassword.enabled = !locked && self.UIAuth.on;
-                self.UIPassword.textColor = self.UIAuth.on ? [UIColor blackColor] : [UIColor lightGrayColor];
+                self.UIPassword.enabled = !locked && self.UIAuth.on && self.UIUsePassword.on;
+                self.UIPassword.textColor = (self.UIAuth.on && self.UIUsePassword.on) ? [UIColor blackColor] : [UIColor lightGrayColor];
             }
         }
 

@@ -18,6 +18,8 @@
 	<string>user</string>
 	<key>pass_preference</key>
 	<string>pass</string>
+	<key>usepassword_preference</key>
+	<true/>
 	<key>monitoring_preference</key>
 	<integer>1</integer>
 	<key>ranging_preference</key>

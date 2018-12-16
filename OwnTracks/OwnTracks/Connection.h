@@ -58,7 +58,11 @@ enum state {
    securityPolicy:(MQTTSSLSecurityPolicy *)securityPolicy
      certificates:(NSArray *)certificates;
 
-- (void)connectHTTP:(NSString *)url auth:(BOOL)auth user:(NSString *)user pass:(NSString *)pass;
+- (void)connectHTTP:(NSString *)url
+               auth:(BOOL)auth
+               user:(NSString *)user
+               pass:(NSString *)pass
+             device:(NSString *)device;
 
 - (void)connectToLast;
 

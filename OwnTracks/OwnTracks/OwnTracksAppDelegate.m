@@ -1134,6 +1134,11 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 #pragma internal helpers
 
 - (void)connect {
+    BOOL usePassword = [Settings theMqttUsePasswordInMOC:CoreData.sharedInstance.mainMOC];
+    NSString *password = nil;
+    if (usePassword) {
+        password = [Settings theMqttPassInMOC:CoreData.sharedInstance.mainMOC];
+    }
     if ([Settings intForKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC] == CONNECTION_MODE_HTTP) {
         self.connection.key = [Settings stringForKey:@"secret_preference"
                                                inMOC:CoreData.sharedInstance.mainMOC];
@@ -1141,7 +1146,8 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                                       inMOC:CoreData.sharedInstance.mainMOC]
                                 auth:[Settings theMqttAuthInMOC:CoreData.sharedInstance.mainMOC]
                                 user:[Settings theMqttUserInMOC:CoreData.sharedInstance.mainMOC]
-                                pass:[Settings theMqttPassInMOC:CoreData.sharedInstance.mainMOC]];
+                                pass:password
+                              device:[Settings theDeviceIdInMOC:CoreData.sharedInstance.mainMOC]];
 
     } else {
         NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
@@ -1233,7 +1239,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                              clean:[Settings intForKey:@"clean_preference" inMOC:CoreData.sharedInstance.mainMOC]
                               auth:[Settings theMqttAuthInMOC:CoreData.sharedInstance.mainMOC]
                               user:[Settings theMqttUserInMOC:CoreData.sharedInstance.mainMOC]
-                              pass:[Settings theMqttPassInMOC:CoreData.sharedInstance.mainMOC]
+                              pass:password
                          willTopic:[Settings theWillTopicInMOC:CoreData.sharedInstance.mainMOC]
                               will:[self jsonToData:json]
                            willQos:[Settings intForKey:@"willqos_preference" inMOC:CoreData.sharedInstance.mainMOC]
