@@ -1,6 +1,18 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 12.0.2
+* Release date 2018-12-16
+
+** A few bug fixes and enhances
+
+    [FIX] Reconnect Problem after changing 4G/WLAN or other way #525
+    [NEW] Allow authentication without password #559
+    [NEW] Add X-Limit-U and X-Limit-D to HTTP mode headers #560
+    [FIX] a number of crashes
+    [NEW] Use "following" region get more position updates in Significant Changes mode
+
+
 ## OwnTracks 9.9.3
 * Release date 2018-05-30
 
