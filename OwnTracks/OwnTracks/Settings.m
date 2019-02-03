@@ -89,16 +89,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
             object = dictionary[@"deviceId"];
             if (object) {
-                switch (importMode) {
-                    case CONNECTION_MODE_MQTT:
-                        if ([object isKindOfClass:[NSNull class]]) {
-                            [self  setString:@"" forKey:@"deviceid_preference" inMOC:context];
-                        } else if ([object isKindOfClass:[NSString class]]) {
-                            [self setString:(NSString *)object forKey:@"deviceid_preference" inMOC:context];
-                        }
-                        break;
-                    default:
-                        break;
+                if ([object isKindOfClass:[NSNull class]]) {
+                    [self setString:@"" forKey:@"deviceid_preference" inMOC:context];
+                } else if ([object isKindOfClass:[NSString class]]) {
+                    [self setString:(NSString *)object forKey:@"deviceid_preference" inMOC:context];
                 }
             }
             
@@ -121,26 +115,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             if (object) [self setString:object forKey:@"url_preference" inMOC:context];
 
             object = dictionary[@"username"];
-            if (object) {
-                switch (importMode) {
-                    case CONNECTION_MODE_MQTT:
-                        [self setString:object forKey:@"user_preference" inMOC:context];
-                        break;
-                    default:
-                        break;
-                }
-            }
-            
+            if (object) [self setString:object forKey:@"user_preference" inMOC:context];
+
             object = dictionary[@"password"];
-            if (object) {
-                switch (importMode) {
-                    case CONNECTION_MODE_MQTT:
-                        [self setString:object forKey:@"pass_preference" inMOC:context];
-                        break;
-                    default:
-                        break;
-                }
-            }
+            if (object) [self setString:object forKey:@"pass_preference" inMOC:context];
 
             object = dictionary[@"willTopic"];
             if (object) [self setString:object forKey:@"willtopic_preference" inMOC:context];
@@ -187,7 +165,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                           inMOC:context];
                 [LocationManager sharedInstance].monitoring = [Settings intForKey:@"monitoring_preference"
                                                                             inMOC:context];
-
             }
             
             object = dictionary[@"ranging"];
@@ -392,7 +369,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     dict[@"ignoreStaleLocations"] =         @([Settings intForKey:@"ignorestalelocations_preference" inMOC:context]);
     dict[@"ignoreInaccurateLocations"] =    @([Settings intForKey:@"ignoreinaccuratelocations_preference" inMOC:context]);
 
-
     for (Setting *setting in [Setting allSettingsInMOC:context]) {
         NSString *key = setting.key;
         if ([key rangeOfString:@"pl"].location == 0) {
@@ -400,16 +376,24 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         }
     }
 
+    dict[@"deviceId"] =             [Settings stringOrZeroForKey:@"deviceid_preference" inMOC:context];
+    dict[@"cmd"] =                  @([Settings boolForKey:@"cmd_preference" inMOC:context]);
+    dict[@"allowRemoteLocation"] =  @([Settings boolForKey:@"allowremotelocation_preference" inMOC:context]);
+    dict[@"allowinvalidcerts"] =    @([Settings boolForKey:@"allowinvalidcerts" inMOC:context]);
+    dict[@"auth"] =                 @([Settings boolForKey:@"auth_preference" inMOC:context]);
+    dict[@"usePassword"] =          @([Settings boolForKey:@"usepassword_preference" inMOC:context]);
+    dict[@"username"] =             [Settings stringOrZeroForKey:@"user_preference" inMOC:context];
+    dict[@"password"] =             [Settings stringOrZeroForKey:@"pass_preference" inMOC:context];
+    dict[@"positions"] =            @([Settings intForKey:@"positions_preference" inMOC:context]);
+    dict[@"extendedData"] =         @([Settings boolForKey:@"extendeddata_preference" inMOC:context]);
+
     switch ([Settings intForKey:@"mode" inMOC:context]) {
         case CONNECTION_MODE_MQTT:
-            dict[@"deviceId"] =             [Settings stringOrZeroForKey:@"deviceid_preference" inMOC:context];
             dict[@"clientId"] =             [Settings stringOrZeroForKey:@"clientid_preference" inMOC:context];
             dict[@"subTopic"] =             [Settings stringOrZeroForKey:@"subscription_preference" inMOC:context];
             dict[@"pubTopicBase"] =         [Settings stringOrZeroForKey:@"topic_preference" inMOC:context];
             dict[@"host"] =                 [Settings stringOrZeroForKey:@"host_preference" inMOC:context];
             dict[@"url"] =                  [Settings stringOrZeroForKey:@"url_preference" inMOC:context];
-            dict[@"username"] =             [Settings stringOrZeroForKey:@"user_preference" inMOC:context];
-            dict[@"password"] =             [Settings stringOrZeroForKey:@"pass_preference" inMOC:context];
             dict[@"willTopic"] =            [Settings stringOrZeroForKey:@"willtopic_preference" inMOC:context];
             dict[@"clientpkcs"] =           [Settings stringOrZeroForKey:@"clientpkcs" inMOC:context];
             dict[@"passphrase"] =           [Settings stringOrZeroForKey:@"passphrase" inMOC:context];
@@ -422,30 +406,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             dict[@"keepalive"] =            @([Settings intForKey:@"keepalive_preference" inMOC:context]);
             dict[@"willQos"] =              @([Settings intForKey:@"willqos_preference" inMOC:context]);
             dict[@"policymode"] =           @([Settings intForKey:@"policymode" inMOC:context]);
-            dict[@"positions"] =            @([Settings intForKey:@"positions_preference" inMOC:context]);
 
-            dict[@"cmd"] =                  @([Settings boolForKey:@"cmd_preference" inMOC:context]);
             dict[@"pubRetain"] =            @([Settings boolForKey:@"retain_preference" inMOC:context]);
             dict[@"tls"] =                  @([Settings boolForKey:@"tls_preference" inMOC:context]);
             dict[@"ws"] =                   @([Settings boolForKey:@"ws_preference" inMOC:context]);
-            dict[@"auth"] =                 @([Settings boolForKey:@"auth_preference" inMOC:context]);
-            dict[@"usePassword"] =          @([Settings boolForKey:@"usepassword_preference" inMOC:context]);
             dict[@"cleanSession"] =         @([Settings boolForKey:@"clean_preference" inMOC:context]);
             dict[@"willRetain"] =           @([Settings boolForKey:@"willretain_preference" inMOC:context]);
-            dict[@"allowRemoteLocation"] =  @([Settings boolForKey:@"allowremotelocation_preference" inMOC:context]);
-            dict[@"extendedData"] =         @([Settings boolForKey:@"extendeddata_preference" inMOC:context]);
             dict[@"usepolicy"] =            @([Settings boolForKey:@"usepolicy" inMOC:context]);
-            dict[@"allowinvalidcerts"] =    @([Settings boolForKey:@"allowinvalidcerts" inMOC:context]);
             dict[@"validatecertificatechain"] =  @([Settings boolForKey:@"validatecertificatechain" inMOC:context]);
             dict[@"validatedomainname"] =   @([Settings boolForKey:@"validatedomainname" inMOC:context]);
             break;
 
         case CONNECTION_MODE_HTTP:
-            dict[@"deviceId"] =             [Settings stringOrZeroForKey:@"deviceid_preference" inMOC:context];
             dict[@"url"] =                  [Settings stringOrZeroForKey:@"url_preference" inMOC:context];
-            dict[@"cmd"] =                  @([Settings boolForKey:@"cmd_preference" inMOC:context]);
-            dict[@"allowRemoteLocation"] =  @([Settings boolForKey:@"allowremotelocation_preference" inMOC:context]);
-            dict[@"allowinvalidcerts"] =    @([Settings boolForKey:@"allowinvalidcerts" inMOC:context]);
             break;
 
         default:
