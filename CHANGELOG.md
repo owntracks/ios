@@ -1,6 +1,13 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 12.0.3
+* Relase Date 2019-??-??
+
+** A few bug fixes and enhancements
+
+	[FIX] Configuration of Username/Password for HTTP Mode #566
+
 ## OwnTracks 12.0.2
 * Release date 2018-12-16
 

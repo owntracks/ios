@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 20.12.17.
-//  Copyright © 2017-2018 OwnTracks. All rights reserved.
+//  Copyright © 2017 -2019 OwnTracks. All rights reserved.
 //
 
 #import "ExplainModesVC.h"
