@@ -101,7 +101,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 #ifdef DEBUG
     [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelVerbose];
 #endif
-    [DDLog addLogger:[DDASLLogger sharedInstance] withLevel:DDLogLevelWarning];
+    [DDLog addLogger:[DDOSLogger sharedInstance] withLevel:DDLogLevelWarning];
 
     [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
     
