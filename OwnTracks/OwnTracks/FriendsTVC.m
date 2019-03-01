@@ -271,7 +271,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    [self performSelectorOnMainThread:@selector(beginUpdates) withObject:nil waitUntilDone:FALSE];
+    [self performSelectorOnMainThread:@selector(beginUpdates) withObject:nil waitUntilDone:TRUE];
 }
 
 - (void)beginUpdates {
@@ -282,14 +282,23 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
   didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex
      forChangeType:(NSFetchedResultsChangeType)type {
-    switch(type) {
+    NSDictionary *d = @{@"type": @(type),
+                        @"sectionIndex": @(sectionIndex)};
+    [self performSelectorOnMainThread:@selector(didChangeSection:) withObject:d waitUntilDone:TRUE];
+}
+
+- (void)didChangeSection:(NSDictionary *)d {
+    NSNumber *type = d[@"type"];
+    NSNumber *sectionIndex = d[@"sectionIndex"];
+
+    switch(type.intValue) {
         case NSFetchedResultsChangeInsert:
-            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex.intValue]
                           withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
-            
+
         case NSFetchedResultsChangeDelete:
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex.intValue]
                           withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
         default:
@@ -310,7 +319,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (newIndexPath) {
         d[@"newIndexPath"] = newIndexPath;
     }
-    [self performSelectorOnMainThread:@selector(didChangeObject:) withObject:d waitUntilDone:FALSE];
+    [self performSelectorOnMainThread:@selector(didChangeObject:) withObject:d waitUntilDone:TRUE];
 }
 
 - (void)didChangeObject:(NSDictionary *)d {
@@ -344,7 +353,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self performSelectorOnMainThread:@selector(endUpdates) withObject:nil waitUntilDone:FALSE];
+    [self performSelectorOnMainThread:@selector(endUpdates) withObject:nil waitUntilDone:TRUE];
 }
 
 - (void)endUpdates {

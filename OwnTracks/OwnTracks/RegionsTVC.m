@@ -190,10 +190,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    [self performSelectorOnMainThread:@selector(beginUpdates) withObject:nil waitUntilDone:FALSE];
+    DDLogVerbose(@"[RegionsTVC][controllerWillChangeContent]");
+    [self performSelectorOnMainThread:@selector(beginUpdates) withObject:nil waitUntilDone:TRUE];
 }
 
 - (void)beginUpdates {
+    DDLogVerbose(@"[RegionsTVC][beginUpdates]");
     [self.tableView beginUpdates];
 }
 
@@ -203,7 +205,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
      forChangeType:(NSFetchedResultsChangeType)type {
     NSDictionary *d = @{@"type": @(type),
                         @"sectionIndex": @(sectionIndex)};
-    [self performSelectorOnMainThread:@selector(didChangeSection:) withObject:d waitUntilDone:FALSE];
+    [self performSelectorOnMainThread:@selector(didChangeSection:) withObject:d waitUntilDone:TRUE];
 }
 
 - (void)didChangeSection:(NSDictionary *)d {
@@ -230,6 +232,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
        atIndexPath:(NSIndexPath *)indexPath
      forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath {
+    DDLogVerbose(@"[RegionsTVC][controller didChangeObject] %lu/%lu %lu %lu/%lu",
+                 indexPath.section, indexPath.row,
+                 (unsigned long)type,
+                 newIndexPath.section, newIndexPath.row);
+
     NSMutableDictionary *d = [@{@"type": @(type)}
                               mutableCopy];
     if (indexPath) {
@@ -238,13 +245,19 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (newIndexPath) {
         d[@"newIndexPath"] = newIndexPath;
     }
-    [self performSelectorOnMainThread:@selector(didChangeObject:) withObject:d waitUntilDone:FALSE];
+    [self performSelectorOnMainThread:@selector(didChangeObject:) withObject:d waitUntilDone:TRUE];
 }
 
 - (void)didChangeObject:(NSDictionary *)d {
     NSNumber *type = d[@"type"];
     NSIndexPath *indexPath = d[@"indexPath"];
     NSIndexPath *newIndexPath = d[@"newIndexPath"];
+
+    DDLogVerbose(@"[RegionsTVC][didChangeObject] %lu/%lu %@ %lu/%lu %lu",
+                 indexPath.section, indexPath.row,
+                 type,
+                 newIndexPath.section, newIndexPath.row,
+                 [self.tableView numberOfRowsInSection:0]);
 
     switch(type.intValue) {
         case NSFetchedResultsChangeInsert:
@@ -272,10 +285,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    [self performSelectorOnMainThread:@selector(endUpdates) withObject:nil waitUntilDone:FALSE];
+    DDLogVerbose(@"[RegionsTVC][controllerDidChangeContent]");
+    [self performSelectorOnMainThread:@selector(endUpdates) withObject:nil waitUntilDone:TRUE];
 }
 
 - (void)endUpdates {
+    DDLogVerbose(@"[RegionsTVC][endUpdates]");
     [self.tableView endUpdates];
 }
 

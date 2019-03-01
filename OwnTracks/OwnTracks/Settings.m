@@ -48,7 +48,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 @implementation Settings
 
-+ (NSError *)fromStream:(NSInputStream *)input inMOC:(NSManagedObjectContext *)context {
++ (NSError *)fromStream:(NSInputStream *)input
+                  inMOC:(NSManagedObjectContext *)context {
     NSError *error;
     
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithStream:input
@@ -61,7 +62,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     }
 }
 
-+ (NSError *)fromDictionary:(NSDictionary *)dictionary inMOC:(NSManagedObjectContext *)context {
++ (NSError *)fromDictionary:(NSDictionary *)dictionary
+                      inMOC:(NSManagedObjectContext *)context {
     if (dictionary) {
         for (NSString *key in dictionary.allKeys) {
             DDLogVerbose(@"Configuration %@:%@", key, dictionary[key]);
@@ -252,7 +254,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     return nil;
 }
 
-+ (NSError *)waypointsFromStream:(NSInputStream *)input inMOC:(NSManagedObjectContext *)context  {
++ (NSError *)waypointsFromStream:(NSInputStream *)input
+                           inMOC:(NSManagedObjectContext *)context  {
     NSError *error;
     
     NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithStream:input
@@ -265,7 +268,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     }
 }
 
-+ (NSError *)waypointsFromDictionary:(NSDictionary *)dictionary inMOC:(NSManagedObjectContext *)context {
++ (NSError *)waypointsFromDictionary:(NSDictionary *)dictionary
+                               inMOC:(NSManagedObjectContext *)context {
     if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
         for (NSString *key in dictionary.allKeys) {
             DDLogVerbose(@"Waypoints %@:%@", key, dictionary[key]);
@@ -283,16 +287,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     return nil;
 }
 
-+ (void)setWaypoints:(NSArray *)waypoints inMOC:(NSManagedObjectContext *)context {
++ (void)setWaypoints:(NSArray *)waypoints
+               inMOC:(NSManagedObjectContext *)context {
     if (waypoints) {
         for (NSDictionary *waypoint in waypoints) {
             if ([waypoint[@"_type"] isEqualToString:@"waypoint"]) {
-                DDLogVerbose(@"Waypoint desc:%@ lon:%g lat:%g",
+                DDLogVerbose(@"[Settings][setWaypoints] desc:%@ lon:%g lat:%g",
                              waypoint[@"desc"],
                              [waypoint[@"lon"] doubleValue],
                              [waypoint[@"lat"] doubleValue]
                              );
-                
+
                 NSArray *components = [waypoint[@"desc"] componentsSeparatedByString:@":"];
                 NSString *name = components.count >= 1 ? components[0] : nil;
                 NSString *uuid = components.count >= 2 ? components[1] : nil;
@@ -304,6 +309,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
                 for (Region *region in friend.hasRegions) {
                     if ([region.name isEqualToString:name]) {
+                        DDLogVerbose(@"[Settings][setWaypoints] removeRegion desc:%@",
+                                     waypoint[@"desc"]
+                                     );
+
                         [[OwnTracking sharedInstance] removeRegion:region context:context];
                         break;
                     }
@@ -314,6 +323,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                                                                [waypoint[@"lon"] doubleValue]
                                                                                );
                 if (CLLocationCoordinate2DIsValid(coordinate)) {
+                    DDLogVerbose(@"[Settings][setWaypoints] addRegion desc:%@",
+                                 waypoint[@"desc"]
+                                 );
                     [[OwnTracking sharedInstance] addRegionFor:friend
                                                           name:name
                                                           uuid:uuid
@@ -323,13 +335,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                                            lat:[waypoint[@"lat"] doubleValue]
                                                            lon:[waypoint[@"lon"] doubleValue]
                                                        context:context];
-                } else {
-                    for (Region *region in friend.hasRegions) {
-                        if ([region.name isEqualToString:name]) {
-                            [[OwnTracking sharedInstance] removeRegion:region context:context];
-                            break;
-                        }
-                    }
+//                } else {
+//                    for (Region *region in friend.hasRegions) {
+//                        if ([region.name isEqualToString:name]) {
+//                            [[OwnTracking sharedInstance] removeRegion:region context:context];
+//                            break;
+//                        }
+//                    }
                 }
             }
         }
@@ -447,7 +459,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     return myData;
 }
 
-+ (BOOL)validKey:(NSString *)key inMode:(ConnectionMode)mode {
++ (BOOL)validKey:(NSString *)key
+          inMode:(ConnectionMode)mode {
     if ([key isEqualToString:@"mode"] ||
         [key isEqualToString:@"locked"] ||
         [key isEqualToString:@"sub"] ||
@@ -465,7 +478,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     }
 }
 
-+ (void)setString:(NSObject *)object forKey:(NSString *)key inMOC:(NSManagedObjectContext *)context {
++ (void)setString:(NSObject *)object
+           forKey:(NSString *)key
+            inMOC:(NSManagedObjectContext *)context {
     if ([self validKey:key inMode:[self intForKey:@"mode" inMOC:context]]) {
         if (object && ![object isKindOfClass:[NSNull class]]) {
             Setting *setting = [Setting settingWithKey:key inMOC:context];
@@ -479,20 +494,27 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     }
 }
 
-+ (void)setInt:(int)i forKey:(NSString *)key inMOC:(NSManagedObjectContext *)context {
++ (void)setInt:(int)i
+        forKey:(NSString *)key
+         inMOC:(NSManagedObjectContext *)context {
     [self setString:[NSString stringWithFormat:@"%d", i] forKey:key inMOC:context];
 }
 
-+ (void)setDouble:(double)d forKey:(NSString *)key inMOC:(NSManagedObjectContext *)context {
++ (void)setDouble:(double)d
+           forKey:(NSString *)key
+            inMOC:(NSManagedObjectContext *)context {
     [self setString:[NSString stringWithFormat:@"%f", d] forKey:key inMOC:context];
 }
 
-+ (void)setBool:(BOOL)b forKey:(NSString *)key inMOC:(NSManagedObjectContext *)context {
++ (void)setBool:(BOOL)b
+         forKey:(NSString *)key
+          inMOC:(NSManagedObjectContext *)context {
     DDLogVerbose(@"setBoolForKey:%@ = %d", key, b);
     [self setString:[NSString stringWithFormat:@"%d", b] forKey:key inMOC:context];
 }
 
-+ (NSString *)stringOrZeroForKey:(NSString *)key inMOC:(NSManagedObjectContext *)context {
++ (NSString *)stringOrZeroForKey:(NSString *)key
+                           inMOC:(NSManagedObjectContext *)context {
     NSString *value = [self stringForKey:key inMOC:context];
     if (!value) {
         DDLogVerbose(@"stringOrZeroForKey %@", key);
@@ -501,7 +523,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     return value;
 }
 
-+ (NSString *)stringForKey:(NSString *)key inMOC:(NSManagedObjectContext *)context {
++ (NSString *)stringForKey:(NSString *)key
+                     inMOC:(NSManagedObjectContext *)context {
     NSString *value = nil;
 
     int mode = [self stringForKeyRaw:@"mode" inMOC:context].intValue;
@@ -529,7 +552,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     return value;
 }
 
-+ (NSString *)stringForKeyRaw:(NSString *)key inMOC:(NSManagedObjectContext *)context {
++ (NSString *)stringForKeyRaw:(NSString *)key
+                        inMOC:(NSManagedObjectContext *)context {
     __block NSString *value = nil;
         Setting *setting = [Setting existsSettingWithKey:key inMOC:context];
         if (setting) {
@@ -547,15 +571,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     return value;
 }
 
-+ (int)intForKey:(NSString *)key inMOC:(NSManagedObjectContext *)context {
++ (int)intForKey:(NSString *)key
+           inMOC:(NSManagedObjectContext *)context {
     return [self stringForKey:key inMOC:context].intValue;
 }
 
-+ (double)doubleForKey:(NSString *)key inMOC:(NSManagedObjectContext *)context {
++ (double)doubleForKey:(NSString *)key
+                 inMOC:(NSManagedObjectContext *)context {
     return [self stringForKey:key inMOC:context].doubleValue;
 }
 
-+ (BOOL)boolForKey:(NSString *)key inMOC:(NSManagedObjectContext *)context {
++ (BOOL)boolForKey:(NSString *)key
+             inMOC:(NSManagedObjectContext *)context {
     NSString *value = [self stringForKey:key inMOC:context];
     DDLogVerbose(@"boolForKey:%@ = %@", key, value);
     return value.boolValue;
