@@ -6,6 +6,7 @@ OwnTracks iOS App Release Notes
 
 ** A few bug fixes and enhancements
 
+	[FIX] setWaypoints crashes owntracks when removing waypoints #570
 	[FIX] Configuration of Username/Password for HTTP Mode #566
 
 ## OwnTracks 12.0.2
