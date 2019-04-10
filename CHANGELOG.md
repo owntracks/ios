@@ -2,7 +2,7 @@ OwnTracks iOS App Release Notes
 ===================================
 
 ## OwnTracks 12.0.3
-* Relase Date 2019-??-??
+* Relase Date 2019-04-10
 
 ** A few bug fixes and enhancements
 
