@@ -1,6 +1,6 @@
 // Software License Agreement (BSD License)
 //
-// Copyright (c) 2010-2018, Deusty, LLC
+// Copyright (c) 2010-2019, Deusty, LLC
 // All rights reserved.
 //
 // Redistribution and use of this software in source and binary forms,
@@ -804,16 +804,13 @@ unsigned long long const kDDDefaultLogFilesDiskQuota   = 20 * 1024 * 1024; // 20
     }
 
     NSDate *logFileCreationDate = [_currentLogFileInfo creationDate];
-
-    NSTimeInterval ti = [logFileCreationDate timeIntervalSinceReferenceDate];
-    ti += _rollingFrequency;
-
-    NSDate *logFileRollingDate = [NSDate dateWithTimeIntervalSinceReferenceDate:ti];
+    NSTimeInterval frequency = MIN(_rollingFrequency, DBL_MAX - [logFileCreationDate timeIntervalSinceReferenceDate]);
+    NSDate *logFileRollingDate = [logFileCreationDate dateByAddingTimeInterval:frequency];
 
     NSLogVerbose(@"DDFileLogger: scheduleTimerToRollLogFileDueToAge");
-
-    NSLogVerbose(@"DDFileLogger: logFileCreationDate: %@", logFileCreationDate);
-    NSLogVerbose(@"DDFileLogger: logFileRollingDate : %@", logFileRollingDate);
+    NSLogVerbose(@"DDFileLogger: logFileCreationDate    : %@", logFileCreationDate);
+    NSLogVerbose(@"DDFileLogger: actual rollingFrequency: %f", frequency);
+    NSLogVerbose(@"DDFileLogger: logFileRollingDate     : %@", logFileRollingDate);
 
     _rollingTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, _loggerQueue);
 
@@ -829,7 +826,8 @@ unsigned long long const kDDDefaultLogFilesDiskQuota   = 20 * 1024 * 1024; // 20
     });
     #endif
 
-    int64_t delay = (int64_t)([logFileRollingDate timeIntervalSinceNow] * (NSTimeInterval) NSEC_PER_SEC);
+    static NSTimeInterval const kDDMaxTimerDelay = LONG_LONG_MAX / NSEC_PER_SEC;
+    int64_t delay = (int64_t)(MIN([logFileRollingDate timeIntervalSinceNow], kDDMaxTimerDelay) * (NSTimeInterval) NSEC_PER_SEC);
     dispatch_time_t fireTime = dispatch_time(DISPATCH_TIME_NOW, delay);
 
     dispatch_source_set_timer(_rollingTimer, fireTime, DISPATCH_TIME_FOREVER, 1ull * NSEC_PER_SEC);
@@ -1009,39 +1007,55 @@ unsigned long long const kDDDefaultLogFilesDiskQuota   = 20 * 1024 * 1024; // 20
 - (DDLogFileInfo *)lt_currentLogFileInfo {
     NSAssert([self isOnInternalLoggerQueue], @"lt_ methods should be on logger queue.");
 
-    BOOL isResuming = _currentLogFileInfo == nil;
+    // Get the current log file info ivar (might be nil).
+    DDLogFileInfo *newCurrentLogFile = _currentLogFileInfo;
+
+    // Check if we're resuming and if so, get the first of the sorted log file infos.
+    BOOL isResuming = newCurrentLogFile == nil;
     if (isResuming) {
         NSArray *sortedLogFileInfos = [_logFileManager sortedLogFileInfos];
-        _currentLogFileInfo = sortedLogFileInfos.firstObject;
+        newCurrentLogFile = sortedLogFileInfos.firstObject;
     }
 
-    if (_currentLogFileInfo) {
-        BOOL isMostRecentLogArchived = _currentLogFileInfo.isArchived;
-        BOOL forceArchive = _doNotReuseLogFiles && isMostRecentLogArchived == NO;
-
-        if (forceArchive || [self lt_shouldLogFileBeArchived:_currentLogFileInfo]) {
-            _currentLogFileInfo.isArchived = YES;
-            NSString *archivedLogFilePath = [_currentLogFileInfo.fileName copy];
-            _currentLogFileInfo = nil;
-
-            if ([_logFileManager respondsToSelector:@selector(didArchiveLogFile:)]) {
-                dispatch_async(_completionQueue, ^{
-                    [self->_logFileManager didArchiveLogFile:archivedLogFilePath];
-                });
-            }
+    // Check if the file we've found is still valid. Otherwise create a new one.
+    if (newCurrentLogFile != nil && [self lt_shouldUseLogFile:newCurrentLogFile isResuming:isResuming]) {
+        if (isResuming) {
+            NSLogVerbose(@"DDFileLogger: Resuming logging with file %@", newCurrentLogFile.fileName);
         }
-    }
-
-    if (isResuming && _currentLogFileInfo) {
-        NSLogVerbose(@"DDFileLogger: Resuming logging with file %@", _currentLogFileInfo.fileName);
-    }
-
-    if (!_currentLogFileInfo) {
+        _currentLogFileInfo = newCurrentLogFile;
+    } else {
         NSString *currentLogFilePath = [_logFileManager createNewLogFile];
         _currentLogFileInfo = [[DDLogFileInfo alloc] initWithFilePath:currentLogFilePath];
     }
 
     return _currentLogFileInfo;
+}
+
+- (BOOL)lt_shouldUseLogFile:(nonnull DDLogFileInfo *)logFileInfo isResuming:(BOOL)isResuming {
+    NSAssert([self isOnInternalLoggerQueue], @"lt_ methods should be on logger queue.");
+    NSParameterAssert(logFileInfo);
+
+    // Check if the log file is archived. We must not use archived log files.
+    if (logFileInfo.isArchived) {
+        return NO;
+    }
+
+    // If we're resuming, we need to check if the log file is allowed for reuse or needs to be archived.
+    if (isResuming && (_doNotReuseLogFiles || [self lt_shouldLogFileBeArchived:logFileInfo])) {
+        logFileInfo.isArchived = YES;
+        NSString *archivedLogFilePath = [logFileInfo.fileName copy];
+
+        if ([_logFileManager respondsToSelector:@selector(didArchiveLogFile:)]) {
+            dispatch_async(_completionQueue, ^{
+                [self->_logFileManager didArchiveLogFile:archivedLogFilePath];
+            });
+        }
+
+        return NO;
+    }
+
+    // All checks have passed. It's valid.
+    return YES;
 }
 
 - (void)lt_monitorCurrentLogFileForExternalChanges {
@@ -1313,11 +1327,9 @@ static int exception_count = 0;
         if (error) {
             NSLogError(@"DDLogFileInfo: Failed to read file attributes: %@", error);
         }
-    } else {
-        _fileAttributes = [NSDictionary new];
     }
 
-    return _fileAttributes;
+    return _fileAttributes ?: @{};
 }
 
 - (NSString *)fileName {

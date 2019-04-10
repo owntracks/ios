@@ -1,8 +1,8 @@
 PODS:
   - ABStaticTableViewController (1.1.1)
-  - CocoaLumberjack (3.5.0):
-    - CocoaLumberjack/Core (= 3.5.0)
-  - CocoaLumberjack/Core (3.5.0)
+  - CocoaLumberjack (3.5.2):
+    - CocoaLumberjack/Core (= 3.5.2)
+  - CocoaLumberjack/Core (3.5.2)
   - libsodium (1.0.12)
   - mqttc/MinL (5.0.5):
     - CocoaLumberjack
@@ -37,7 +37,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   ABStaticTableViewController: d8cfbdd596fbf58b515b13e49cc8ca8ca86c6e12
-  CocoaLumberjack: cffaa70a9336515228178e3669b71bd49d343850
+  CocoaLumberjack: 118bf4a820efc641f79fa487b75ed928dccfae23
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
   mqttc: f70f5bccea6c45ed416d52bcee24644e2046bdaf
   objc-geohash: d0e90301db6da57e69d1569f25607c0fb99f8731
