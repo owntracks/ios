@@ -124,8 +124,8 @@
 /* Short for meters */
 "m" = "m";
 
-/* content of an alert message regarding monitoring mode */
-"manual mode enabled" = "tryb ręczny aktywny";
+/* Manual */
+"Manual" = "Ręczny";
 
 /* Header of an alert message regarding monitoring mode */
 "Mode" = "Tryb";
@@ -136,8 +136,8 @@
 /* Text explaining modes */
 "Modes_Text" = "Tryb MQTT\n\nMożesz skonfigurować własny serwer OwnTracks dla pełnej ochrony prywatności. Więcej informacji tutaj: https://owntracks.org/booklet\n\nTryb HTTP\n\nPodobnie do trybu MQTT, jednak transmisja danych używa protokołu HTTP, zamiast MQTT\n\nUwaga:\nPodczas przełączania trybów, wszystkie dane OwnTracks zostaną usunięte ze względów prywatności.";
 
-/* content of an alert message regarding monitoring mode */
-"move mode enabled" = "tryb poruszania aktywny";
+/* Move */
+"Move" = "Poruszania";
 
 /* displayed if a name is not known */
 "name unknown" = "nazwa nieznana";
@@ -175,8 +175,8 @@
 /* Header of an alert message regarging QR code scanning */
 "QRScanner" = "Skaner QR";
 
-/* content of an alert message regarding monitoring mode */
-"quiet mode enabled" = "tryb cichy aktywny";
+/* Quiet */
+"Quiet" = "Cichy";
 
 /* Header of an alert message regarding circular region */
 "Region" = "Obszar";
@@ -190,8 +190,8 @@
 /* Settings screen title */
 "Settings" = "Ustawienia";
 
-/* content of an alert message regarding monitoring mode */
-"significant changes mode enabled" = "tryb znaczących zmian lokalizacji aktywny";
+/* Significant */
+"Significant" = "Zmian";
 
 /* Location Manager error message */
 "Significant location change monitoring not available" = "Monitorowanie znaczących zmian lokalizacji niedostępne";

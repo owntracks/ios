@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="e04-OU-xZ4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="e04-OU-xZ4">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eED-yn-0ps">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="411"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="EiO-on-q7c" appends="YES" id="k6b-KH-2BJ"/>
@@ -32,9 +32,9 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="eED-yn-0ps" secondAttribute="bottom" id="WyW-2h-0up"/>
+                            <constraint firstItem="eED-yn-0ps" firstAttribute="top" secondItem="ii2-Sf-Mvd" secondAttribute="bottom" id="0jN-rp-Ei3"/>
+                            <constraint firstItem="LmO-0X-4Sg" firstAttribute="top" secondItem="eED-yn-0ps" secondAttribute="bottom" id="QSc-ri-Kr1"/>
                             <constraint firstItem="eED-yn-0ps" firstAttribute="leading" secondItem="ffw-DX-wWE" secondAttribute="leading" id="aG9-xU-0Hi"/>
-                            <constraint firstItem="eED-yn-0ps" firstAttribute="top" secondItem="ffw-DX-wWE" secondAttribute="top" id="kSO-AH-0PD"/>
                             <constraint firstAttribute="trailing" secondItem="eED-yn-0ps" secondAttribute="trailing" id="v78-dh-01k"/>
                         </constraints>
                     </view>
@@ -45,22 +45,14 @@
                                 <segue destination="G87-RS-wz7" kind="push" id="wKo-Y7-i7P"/>
                             </connections>
                         </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem image="MoveMode" id="vPS-oo-OXx">
-                                <connections>
-                                    <action selector="buttonMovePressed:" destination="HII-kF-avN" id="eJ2-mX-IZv"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="action" id="U2v-aw-iXO">
-                                <connections>
-                                    <action selector="actionPressed:" destination="HII-kF-avN" id="Htj-yh-qil"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="U2v-aw-iXO">
+                            <connections>
+                                <action selector="actionPressed:" destination="HII-kF-avN" id="Htj-yh-qil"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="buttonMove" destination="vPS-oo-OXx" id="aQD-Mi-FjI"/>
                         <outlet property="mapView" destination="eED-yn-0ps" id="ySD-3E-pwJ"/>
                         <segue destination="m9c-8c-Xj9" kind="push" identifier="showWaypointFromMap" id="Hb0-uO-VBI"/>
                     </connections>
@@ -77,7 +69,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1153.5999999999999" y="-1528.3358320839582"/>
+            <point key="canvasLocation" x="1153.125" y="-1528.5211267605634"/>
         </scene>
         <!--Settings-->
         <scene sceneID="GAB-wH-uzK">
@@ -2639,8 +2631,9 @@ Cg
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dZg-CC-7yD">
                                                     <rect key="frame" x="20" y="0.0" width="280" height="56.5"/>
                                                     <attributedString key="attributedText">
-                                                        <fragment content="Copyright © 2013-2018 by Christoph Krey, http://owntracks.org">
+                                                        <fragment content="Copyright © 2013-2019 by Christoph Krey, http://owntracks.org">
                                                             <attributes>
+                                                                <color key="NSColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                                                 <font key="NSFont" metaFont="system" size="14"/>
                                                                 <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
                                                             </attributes>
@@ -3183,11 +3176,10 @@ Detailed info on http://owntracks.org/booklet</string>
         </scene>
     </scenes>
     <resources>
-        <image name="Artwork" width="819.20001220703125" height="819.20001220703125"/>
-        <image name="Friends" width="475.20001220703125" height="475.20001220703125"/>
+        <image name="Artwork" width="512" height="512"/>
+        <image name="Friends" width="33" height="33"/>
         <image name="Info" width="25" height="25"/>
-        <image name="MoveMode" width="25" height="25"/>
-        <image name="OnwTracks" width="45" height="45"/>
+        <image name="OnwTracks" width="30" height="30"/>
         <image name="Regions" width="33" height="33"/>
     </resources>
     <inferredMetricsTieBreakers>

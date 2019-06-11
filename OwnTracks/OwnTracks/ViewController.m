@@ -26,7 +26,6 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface ViewController ()
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *buttonMove;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @property (strong, nonatomic) NSFetchedResultsController *frcFriends;
@@ -36,6 +35,9 @@
 @property (strong, nonatomic) MKUserTrackingBarButtonItem *userTracker;
 
 @property (nonatomic) BOOL initialCenter;
+@property (strong, nonatomic) UIButton *mode;
+@property (strong, nonatomic) UISegmentedControl *modes;
+@property (strong, nonatomic) MKUserTrackingButton *trackingButton;
 
 @end
 
@@ -47,9 +49,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     [super viewDidLoad];
     
     self.mapView.delegate = self;
-    
     self.mapView.mapType = MKMapTypeStandard;
     self.mapView.showsUserLocation = TRUE;
+    self.mapView.showsScale = TRUE;
 
     DDLogInfo(@"[ViewController] viewDidLoad mapView region %g %g %g %g",
               self.mapView.region.center.latitude,
@@ -57,26 +59,184 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
               self.mapView.region.span.latitudeDelta,
               self.mapView.region.span.longitudeDelta);
 
-    NSMutableArray *leftButtonItems = [self.navigationItem.leftBarButtonItems mutableCopy];
-    [leftButtonItems addObject:[[MKUserTrackingBarButtonItem alloc] initWithMapView:self.mapView]];
-    self.navigationItem.leftBarButtonItems = leftButtonItems;
+    self.trackingButton = [MKUserTrackingButton userTrackingButtonWithMapView:self.mapView];
+    self.trackingButton.translatesAutoresizingMaskIntoConstraints = false;
+    [self.view addSubview:self.trackingButton];
+
+    NSLayoutConstraint *bottomTracking = [NSLayoutConstraint
+                                          constraintWithItem:self.trackingButton
+                                          attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual
+                                          toItem:self.mapView
+                                          attribute:NSLayoutAttributeBottom
+                                          multiplier:1
+                                          constant:-10];
+    NSLayoutConstraint *trailingTraccking = [NSLayoutConstraint
+                                             constraintWithItem:self.trackingButton
+                                             attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual
+                                             toItem:self.mapView
+                                             attribute:NSLayoutAttributeTrailing
+                                             multiplier:1
+                                             constant:-10];
+
+    [NSLayoutConstraint activateConstraints:@[bottomTracking, trailingTraccking]];
+
+    self.mode = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.mode setImage:[UIImage imageNamed:@"MoveMode"]
+               forState:UIControlStateNormal];
+    self.mode.translatesAutoresizingMaskIntoConstraints = false;
+    [self.mode addTarget:self
+                  action:@selector(modePressed:)
+        forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.mode];
+
+    NSLayoutConstraint *buttonTop = [NSLayoutConstraint
+                               constraintWithItem:self.mode
+                               attribute:NSLayoutAttributeTop
+                               relatedBy:NSLayoutRelationEqual
+                               toItem:self.mapView
+                               attribute:NSLayoutAttributeTopMargin
+                               multiplier:1
+                               constant:10];
+    NSLayoutConstraint *buttonLeading = [NSLayoutConstraint
+                                   constraintWithItem:self.mode
+                                   attribute:NSLayoutAttributeLeading
+                                   relatedBy:NSLayoutRelationEqual
+                                   toItem:self.mapView
+                                   attribute:NSLayoutAttributeLeading
+                                   multiplier:1
+                                   constant:10];
+
+    [NSLayoutConstraint activateConstraints:@[buttonTop, buttonLeading]];
+
+    self.modes = [[UISegmentedControl alloc]
+                  initWithItems:@[[UIImage imageNamed:@"QuietMode"],
+                                  [UIImage imageNamed:@"ManualMode"],
+                                  [UIImage imageNamed:@"SignificantMode"],
+                                  [UIImage imageNamed:@"MoveMode"]
+                                  ]];
+    self.modes.apportionsSegmentWidthsByContent = YES;
+    self.modes.translatesAutoresizingMaskIntoConstraints = false;
+    self.modes.hidden = TRUE;
+    [self.modes addTarget:self
+                   action:@selector(modesChanged:)
+         forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:self.modes];
+
+    NSLayoutConstraint *top = [NSLayoutConstraint
+                               constraintWithItem:self.modes
+                               attribute:NSLayoutAttributeTop
+                               relatedBy:NSLayoutRelationEqual
+                               toItem:self.mapView
+                               attribute:NSLayoutAttributeTopMargin
+                               multiplier:1
+                               constant:10];
+    NSLayoutConstraint *leading = [NSLayoutConstraint
+                                   constraintWithItem:self.modes
+                                   attribute:NSLayoutAttributeLeading
+                                   relatedBy:NSLayoutRelationEqual
+                                   toItem:self.mode
+                                   attribute:NSLayoutAttributeTrailing
+                                   multiplier:1
+                                   constant:8];
+
+    [NSLayoutConstraint activateConstraints:@[top, leading]];
 
     [self setButtonMove];
-
-    [[NSNotificationCenter defaultCenter] addObserverForName:@"reload"
-                                                      object:nil
-                                                       queue:[NSOperationQueue mainQueue]
-                                                  usingBlock:^(NSNotification *note){
-                                                      [self performSelectorOnMainThread:@selector(reloaded)
-                                                                             withObject:nil
-                                                                          waitUntilDone:NO];
-                                                      }];
 
     [[LocationManager sharedInstance] addObserver:self
                                        forKeyPath:@"monitoring"
                                           options:NSKeyValueObservingOptionNew
                                           context:nil];
+
+    [[NSNotificationCenter defaultCenter]
+     addObserverForName:@"reload"
+     object:nil
+     queue:[NSOperationQueue mainQueue]
+     usingBlock:^(NSNotification *note){
+         [self performSelectorOnMainThread:@selector(reloaded)
+                                withObject:nil
+                             waitUntilDone:NO];
+     }];
 }
+
+- (IBAction)modePressed:(UIButton *)button {
+    if (self.modes.isHidden) {
+        self.modes.hidden = FALSE;
+        [self.modes setImage:[UIImage imageNamed:@"QuietMode"]
+           forSegmentAtIndex:0];
+        [self.modes setImage:[UIImage imageNamed:@"ManualMode"]
+           forSegmentAtIndex:1];
+        [self.modes setImage:[UIImage imageNamed:@"SignificantMode"]
+           forSegmentAtIndex:2];
+        [self.modes setImage:[UIImage imageNamed:@"MoveMode"]
+           forSegmentAtIndex:3];
+    } else {
+        if ([self.modes titleForSegmentAtIndex:0]) {
+            self.modes.hidden = TRUE;
+        } else {
+            [self.modes setTitle:NSLocalizedString(@"Quiet", @"Quiet")
+               forSegmentAtIndex:0];
+            [self.modes setTitle:NSLocalizedString(@"Manual", @"Manual")
+               forSegmentAtIndex:1];
+            [self.modes setTitle:NSLocalizedString(@"Significant", @"Significant")
+               forSegmentAtIndex:2];
+            [self.modes setTitle:NSLocalizedString(@"Move", @"Move")
+               forSegmentAtIndex:3];
+        }
+    }
+}
+
+- (IBAction)modesChanged:(UISegmentedControl *)segmentedControl {
+    NSInteger monitoring;
+    switch (segmentedControl.selectedSegmentIndex) {
+        case 3:
+            monitoring = LocationMonitoringMove;
+            break;
+        case 2:
+            monitoring = LocationMonitoringSignificant;
+            break;
+        case 1:
+            monitoring = LocationMonitoringManual;
+            break;
+        case 0:
+        default:
+            monitoring = LocationMonitoringQuiet;
+            break;
+    }
+    if (monitoring != [LocationManager sharedInstance].monitoring) {
+        [LocationManager sharedInstance].monitoring = monitoring;
+        [Settings setInt:[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"
+                   inMOC:CoreData.sharedInstance.mainMOC];
+        [self setButtonMove];
+    }
+}
+
+- (void)setButtonMove {
+    switch ([LocationManager sharedInstance].monitoring) {
+        case LocationMonitoringMove:
+            self.modes.selectedSegmentIndex = 3;
+            [self.mode setImage:[UIImage imageNamed:@"MoveMode"]
+                       forState:UIControlStateNormal];
+            break;
+        case LocationMonitoringSignificant:
+            self.modes.selectedSegmentIndex = 2;
+            [self.mode setImage:[UIImage imageNamed:@"SignificantMode"]
+                       forState:UIControlStateNormal];
+            break;
+        case LocationMonitoringManual:
+            self.modes.selectedSegmentIndex = 1;
+            [self.mode setImage:[UIImage imageNamed:@"ManualMode"]
+                       forState:UIControlStateNormal];
+            break;
+        case LocationMonitoringQuiet:
+        default:
+            self.modes.selectedSegmentIndex = 0;
+            [self.mode setImage:[UIImage imageNamed:@"QuietMode"]
+                       forState:UIControlStateNormal];
+            break;
+    }
+}
+
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
                       ofObject:(id)object
@@ -673,24 +833,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
     [Settings setInt:[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"
                inMOC:CoreData.sharedInstance.mainMOC];
     [self setButtonMove];
-}
 
-- (void)setButtonMove {
-    switch ([LocationManager sharedInstance].monitoring) {
-        case LocationMonitoringMove:
-            self.buttonMove.image = [UIImage imageNamed:@"MoveMode"];
-            break;
-        case LocationMonitoringSignificant:
-            self.buttonMove.image = [UIImage imageNamed:@"SignificantMode"];
-            break;
-        case LocationMonitoringManual:
-            self.buttonMove.image = [UIImage imageNamed:@"ManualMode"];
-            break;
-        case LocationMonitoringQuiet:
-        default:
-            self.buttonMove.image = [UIImage imageNamed:@"QuietMode"];
-            break;
-    }
 }
 
 @end
