@@ -1,12 +1,13 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 12.0.4
-* Relase Date 2019-06-11
+## OwnTracks 12.0.4/12.0.5
+* Relase Date 2019-06-12
 
 ** A few bug fixes and enhancements
 
-	[NEW] setWaypoints crashes owntracks when removing waypoints #570
+	[NEW] Update mode UI element #583
+        [FIX] Initial size of Today Widget
 
 ## OwnTracks 12.0.3
 * Relase Date 2019-04-10
