@@ -35,7 +35,6 @@
 @property (strong, nonatomic) MKUserTrackingBarButtonItem *userTracker;
 
 @property (nonatomic) BOOL initialCenter;
-@property (strong, nonatomic) UIButton *mode;
 @property (strong, nonatomic) UISegmentedControl *modes;
 @property (strong, nonatomic) MKUserTrackingButton *trackingButton;
 
@@ -51,7 +50,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     self.mapView.delegate = self;
     self.mapView.mapType = MKMapTypeStandard;
     self.mapView.showsUserLocation = TRUE;
-    self.mapView.showsScale = TRUE;
+    // we don't show the scale as it would conflict with the new mode display
+    self.mapView.showsScale = FALSE;
 
     DDLogInfo(@"[ViewController] viewDidLoad mapView region %g %g %g %g",
               self.mapView.region.center.latitude,
@@ -80,43 +80,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
     [NSLayoutConstraint activateConstraints:@[bottomTracking, trailingTraccking]];
 
-    self.mode = [UIButton buttonWithType:UIButtonTypeSystem];
-    [self.mode setImage:[UIImage imageNamed:@"MoveMode"]
-               forState:UIControlStateNormal];
-    self.mode.translatesAutoresizingMaskIntoConstraints = false;
-    [self.mode addTarget:self
-                  action:@selector(modePressed:)
-        forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.mode];
-
-    NSLayoutConstraint *buttonTop = [NSLayoutConstraint
-                               constraintWithItem:self.mode
-                               attribute:NSLayoutAttributeTop
-                               relatedBy:NSLayoutRelationEqual
-                               toItem:self.mapView
-                               attribute:NSLayoutAttributeTopMargin
-                               multiplier:1
-                               constant:10];
-    NSLayoutConstraint *buttonLeading = [NSLayoutConstraint
-                                   constraintWithItem:self.mode
-                                   attribute:NSLayoutAttributeLeading
-                                   relatedBy:NSLayoutRelationEqual
-                                   toItem:self.mapView
-                                   attribute:NSLayoutAttributeLeading
-                                   multiplier:1
-                                   constant:10];
-
-    [NSLayoutConstraint activateConstraints:@[buttonTop, buttonLeading]];
-
     self.modes = [[UISegmentedControl alloc]
-                  initWithItems:@[[UIImage imageNamed:@"QuietMode"],
-                                  [UIImage imageNamed:@"ManualMode"],
-                                  [UIImage imageNamed:@"SignificantMode"],
-                                  [UIImage imageNamed:@"MoveMode"]
+                  initWithItems:@[NSLocalizedString(@"Quiet", @"Quiet"),
+                                  NSLocalizedString(@"Manual", @"Manual"),
+                                  NSLocalizedString(@"Significant", @"Significant"),
+                                  NSLocalizedString(@"Move", @"Move")
                                   ]];
     self.modes.apportionsSegmentWidthsByContent = YES;
     self.modes.translatesAutoresizingMaskIntoConstraints = false;
-    self.modes.hidden = TRUE;
+    self.modes.backgroundColor = [UIColor colorWithRed:1.0
+                                                 green:1.0
+                                                  blue:1.0
+                                                 alpha:0.5];
     [self.modes addTarget:self
                    action:@selector(modesChanged:)
          forControlEvents:UIControlEventValueChanged];
@@ -134,10 +109,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                    constraintWithItem:self.modes
                                    attribute:NSLayoutAttributeLeading
                                    relatedBy:NSLayoutRelationEqual
-                                   toItem:self.mode
-                                   attribute:NSLayoutAttributeTrailing
+                                   toItem:self.mapView
+                                   attribute:NSLayoutAttributeLeading
                                    multiplier:1
-                                   constant:8];
+                                   constant:10];
 
     [NSLayoutConstraint activateConstraints:@[top, leading]];
 
@@ -157,33 +132,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                 withObject:nil
                              waitUntilDone:NO];
      }];
-}
-
-- (IBAction)modePressed:(UIButton *)button {
-    if (self.modes.isHidden) {
-        self.modes.hidden = FALSE;
-        [self.modes setImage:[UIImage imageNamed:@"QuietMode"]
-           forSegmentAtIndex:0];
-        [self.modes setImage:[UIImage imageNamed:@"ManualMode"]
-           forSegmentAtIndex:1];
-        [self.modes setImage:[UIImage imageNamed:@"SignificantMode"]
-           forSegmentAtIndex:2];
-        [self.modes setImage:[UIImage imageNamed:@"MoveMode"]
-           forSegmentAtIndex:3];
-    } else {
-        if ([self.modes titleForSegmentAtIndex:0]) {
-            self.modes.hidden = TRUE;
-        } else {
-            [self.modes setTitle:NSLocalizedString(@"Quiet", @"Quiet")
-               forSegmentAtIndex:0];
-            [self.modes setTitle:NSLocalizedString(@"Manual", @"Manual")
-               forSegmentAtIndex:1];
-            [self.modes setTitle:NSLocalizedString(@"Significant", @"Significant")
-               forSegmentAtIndex:2];
-            [self.modes setTitle:NSLocalizedString(@"Move", @"Move")
-               forSegmentAtIndex:3];
-        }
-    }
 }
 
 - (IBAction)modesChanged:(UISegmentedControl *)segmentedControl {
@@ -215,24 +163,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     switch ([LocationManager sharedInstance].monitoring) {
         case LocationMonitoringMove:
             self.modes.selectedSegmentIndex = 3;
-            [self.mode setImage:[UIImage imageNamed:@"MoveMode"]
-                       forState:UIControlStateNormal];
             break;
         case LocationMonitoringSignificant:
             self.modes.selectedSegmentIndex = 2;
-            [self.mode setImage:[UIImage imageNamed:@"SignificantMode"]
-                       forState:UIControlStateNormal];
             break;
         case LocationMonitoringManual:
             self.modes.selectedSegmentIndex = 1;
-            [self.mode setImage:[UIImage imageNamed:@"ManualMode"]
-                       forState:UIControlStateNormal];
             break;
         case LocationMonitoringQuiet:
         default:
             self.modes.selectedSegmentIndex = 0;
-            [self.mode setImage:[UIImage imageNamed:@"QuietMode"]
-                       forState:UIControlStateNormal];
             break;
     }
 }
