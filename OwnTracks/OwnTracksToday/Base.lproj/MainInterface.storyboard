@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
     <device id="retina3_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -107,7 +107,6 @@
                             <constraint firstItem="6cp-b0-7ip" firstAttribute="top" secondItem="S3S-Oj-5AN" secondAttribute="top" id="NQ6-5m-TWw"/>
                             <constraint firstItem="B1p-y7-Qo8" firstAttribute="leading" secondItem="wOM-J5-pkE" secondAttribute="trailing" constant="8" symbolic="YES" id="NjC-ay-qvY"/>
                             <constraint firstItem="wOM-J5-pkE" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="Zg9-6W-RKH"/>
-                            <constraint firstAttribute="trailing" secondItem="6cp-b0-7ip" secondAttribute="trailing" constant="20" symbolic="YES" id="eRp-01-jke"/>
                             <constraint firstAttribute="trailing" secondItem="6cp-b0-7ip" secondAttribute="trailing" id="gCX-Ib-WUO"/>
                             <constraint firstItem="Hk7-3Z-JeF" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="22" id="jKi-iS-6HA"/>
                             <constraint firstItem="Hk7-3Z-JeF" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="lSX-XI-lid"/>
@@ -133,7 +132,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="516" y="285"/>
+            <point key="canvasLocation" x="747.82608695652175" y="190.84821428571428"/>
         </scene>
     </scenes>
     <resources>

@@ -17,6 +17,7 @@
 @property (nonatomic) NSInteger monitoring;
 @property (nonatomic) unsigned long offset;
 @property (nonatomic) unsigned long page;
+@property (nonatomic) CGSize maxSize;
 @property (weak, nonatomic) IBOutlet UILabel *label;
 @property (weak, nonatomic) IBOutlet UIButton *backward;
 @property (weak, nonatomic) IBOutlet UIButton *forward;
@@ -47,14 +48,13 @@
           maxSize.width,
           maxSize.height);
 
-    self.offset = 0;
-    self.page = MAX(MIN((long)((maxSize.height - TOP) / ROW), self.sharedFriends.count - self.offset), 2);
+    self.maxSize = maxSize;
 
-    if (activeDisplayMode == NCWidgetDisplayModeExpanded) {
-        self.preferredContentSize = CGSizeMake(maxSize.width, self.page * ROW + TOP);
-    } else if (activeDisplayMode == NCWidgetDisplayModeCompact) {
-        self.preferredContentSize = CGSizeMake(maxSize.width, self.page * ROW + TOP);;
-    }
+    self.offset = 0;
+    self.page = MAX(MIN((long)((maxSize.height - TOP) / ROW),
+                        self.sharedFriends.count),
+                    2);
+    self.preferredContentSize = CGSizeMake(maxSize.width, self.page * ROW + TOP);
     [self.view setNeedsLayout];
     [self.view setNeedsDisplay];
 }
@@ -67,10 +67,16 @@
 - (void)widgetPerformUpdateWithCompletionHandler:(void (^)(NCUpdateResult))completionHandler {
     NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
     self.sharedFriends = [shared dictionaryForKey:@"sharedFriends"];
-    NSLog(@"sharedFriends: %@", self.sharedFriends);
+    NSLog(@"sharedFriends: %ld", self.sharedFriends.count);
     self.monitoring = [shared integerForKey:@"monitoring"];
     NSLog(@"monitoring: %ld", (long)self.monitoring);
     self.offset = 0;
+    self.page = MAX(MIN((long)((self.maxSize.height - TOP) / ROW),
+                        self.sharedFriends.count),
+                    2);
+    self.preferredContentSize = CGSizeMake(self.maxSize.width, self.page * ROW + TOP);
+    [self.view setNeedsLayout];
+    [self.view setNeedsDisplay];
     [self show];
     [self.tableView reloadData];
 
