@@ -732,7 +732,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-OwnTracks/Pods-OwnTracks-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-OwnTracks/Pods-OwnTracks-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ABStaticTableViewController/ABStaticTableViewController.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
 				"${BUILT_PRODUCTS_DIR}/QRCodeReaderViewController/QRCodeReaderViewController.framework",
@@ -753,7 +753,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OwnTracks/Pods-OwnTracks-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OwnTracks/Pods-OwnTracks-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
