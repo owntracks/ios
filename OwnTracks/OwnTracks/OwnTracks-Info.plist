@@ -96,7 +96,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>12.0.5</string>
+	<string>12.0.6</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -115,10 +115,12 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>12.0.5</string>
+	<string>12.0.6</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
@@ -133,12 +135,16 @@
 	<string>Your location is used to share and record it on a server of your choice</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Your location is used to share and record it on a server of your choice</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your location is used to share and record it on a server of your choice</string>
 	<key>NSLocationUsageDescription</key>
+	<string>Your location is used to share and record it on a server of your choice</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location is used to share and record it on a server of your choice</string>
 	<key>NSMotionUsageDescription</key>
 	<string>OwnTracks delivers your step count, floors climbed and distance walked on request</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>NSUserActivityTypeBrowsingWeb</string>
+	</array>
 	<key>UIAppFonts</key>
 	<array>
 		<string>fontawesome-webfont.ttf</string>
@@ -286,10 +292,6 @@
 			</dict>
 		</dict>
 	</array>
-	<key>NSUserActivityTypes</key>
-	<array>
-		<string>NSUserActivityTypeBrowsingWeb</string>
-	</array>
 	<key>UTImportedTypeDeclarations</key>
 	<array>
 		<dict>
@@ -409,7 +411,5 @@
 			</dict>
 		</dict>
 	</array>
-	<key>LSSupportsOpeningDocumentsInPlace</key>
-	<true/>
 </dict>
 </plist>

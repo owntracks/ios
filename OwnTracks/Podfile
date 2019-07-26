@@ -7,7 +7,6 @@ pod 'ABStaticTableViewController'
 pod 'mqttc/MinL', :path => '~/mqttc'
 pod 'mqttc/WebsocketL', :path => '~/mqttc'
 pod 'QRCodeReaderViewController'
-pod 'objc-geohash'
 pod 'libsodium', '~> 1.0'
 
 target 'OwnTracks' do

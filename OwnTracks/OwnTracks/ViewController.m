@@ -14,14 +14,11 @@
 #import "WaypointTVC.h"
 #import "CoreData.h"
 #import "Friend+CoreDataClass.h"
-#import "Subscription+CoreDataClass.h"
-#import "Info+CoreDataClass.h"
 #import "Region+CoreDataClass.h"
 #import "Waypoint+CoreDataClass.h"
 #import "UIColor+WithName.h"
 #import "LocationManager.h"
 #import "OwnTracking.h"
-#import "GeoHashing.h"
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
@@ -30,7 +27,6 @@
 
 @property (strong, nonatomic) NSFetchedResultsController *frcFriends;
 @property (strong, nonatomic) NSFetchedResultsController *frcRegions;
-@property (strong, nonatomic) NSFetchedResultsController *frcInfos;
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
 @property (strong, nonatomic) MKUserTrackingBarButtonItem *userTracker;
 
@@ -190,7 +186,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 - (void)reloaded {
     self.frcFriends = nil;
     self.frcRegions = nil;
-    self.frcInfos = nil;
     [self setButtonMove];
 }
 
@@ -201,9 +196,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         //
     }
     while (!self.frcRegions) {
-        //
-    }
-    while (!self.frcInfos) {
         //
     }
 }
@@ -334,30 +326,6 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 
         return friendAnnotationV;
 
-    } else if ([annotation isKindOfClass:[Info class]]) {
-        Info *info = (Info *)annotation;
-
-        MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_PICTURE];
-        FriendAnnotationV *friendAnnotationV;
-        if (annotationView) {
-            friendAnnotationV = (FriendAnnotationV *)annotationView;
-        } else {
-            friendAnnotationV = [[FriendAnnotationV alloc] initWithAnnotation:info reuseIdentifier:REUSE_ID_PICTURE];
-        }
-        friendAnnotationV.canShowCallout = YES;
-        friendAnnotationV.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-
-        NSData *data = info.image;
-        UIImage *image = [UIImage imageWithData:data];
-        friendAnnotationV.personImage = image;
-        friendAnnotationV.tid = [info.name substringToIndex:2];
-        friendAnnotationV.speed = (info.level).doubleValue * 260  / 3.6;
-        friendAnnotationV.course = (info.level).doubleValue;
-        friendAnnotationV.me = FALSE;
-        [friendAnnotationV setNeedsDisplay];
-
-        return friendAnnotationV;
-
     } else if ([annotation isKindOfClass:[Region class]]) {
         Region *region = (Region *)annotation;
         if ([region.CLregion isKindOfClass:[CLBeaconRegion class]]) {
@@ -414,15 +382,6 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             }
         }
         return renderer;
-
-    } else if ([overlay isKindOfClass:[Area class]]) {
-        Area *area = (Area *)overlay;
-        MKPolygonRenderer *renderer = [[MKPolygonRenderer alloc] initWithPolygon:area.polygon];
-        renderer.fillColor = [UIColor colorWithRed:0.5 green:1.0 blue:0.5 alpha:0.3];
-        renderer.lineWidth = 1;
-        renderer.strokeColor = [UIColor colorWithRed:0.0 green:0.5 blue:0.0 alpha:0.3];
-        return renderer;
-
     } else {
         return nil;
     }
@@ -521,27 +480,6 @@ calloutAccessoryControlTapped:(UIControl *)control {
     return _frcRegions;
 }
 
-- (NSFetchedResultsController *)frcInfos {
-    if (!_frcInfos) {
-        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Info"];
-        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:TRUE]];
-        _frcInfos = [[NSFetchedResultsController alloc] initWithFetchRequest:request
-                                                          managedObjectContext:CoreData.sharedInstance.mainMOC
-                                                            sectionNameKeyPath:nil
-                                                                     cacheName:nil];
-        _frcInfos.delegate = self;
-        [self performFetch:_frcRegions];
-        Friend *myself = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
-                          inManagedObjectContext:CoreData.sharedInstance.mainMOC];
-        for (Subscription *subscription in myself.hasSubscriptions) {
-            for (Info *info in subscription.hasInfos) {
-                [self.mapView addAnnotation:info];
-            }
-        }
-    }
-    return _frcInfos;
-}
-
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
     //
@@ -623,27 +561,6 @@ calloutAccessoryControlTapped:(UIControl *)control {
                 [self.mapView addAnnotation:region];
                 [self.mapView addOverlay:region];
 
-                break;
-        }
-    } else if ([anObject isKindOfClass:[Info class]]) {
-        Info *info = (Info *)anObject;
-        switch(type.intValue) {
-            case NSFetchedResultsChangeInsert:
-                if ((info.lat).doubleValue != 0.0 && (info.lon).doubleValue != 0.0) {
-                    [self.mapView addAnnotation:info];
-                }
-                break;
-
-            case NSFetchedResultsChangeDelete:
-                [self.mapView removeAnnotation:info];
-                break;
-
-            case NSFetchedResultsChangeUpdate:
-            case NSFetchedResultsChangeMove:
-                [self.mapView removeAnnotation:info];
-                if ((info.lat).doubleValue != 0.0 && (info.lon).doubleValue != 0.0) {
-                    [self.mapView addAnnotation:info];
-                }
                 break;
         }
     }

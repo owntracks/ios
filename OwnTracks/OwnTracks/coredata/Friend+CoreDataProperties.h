@@ -2,8 +2,8 @@
 //  Friend+CoreDataProperties.h
 //  OwnTracks
 //
-//  Created by Christoph Krey on 30.05.18.
-//  Copyright © 2018-2019 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 26.07.19.
+//  Copyright © 2019 OwnTracks. All rights reserved.
 //
 //
 
@@ -23,7 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSString *tid;
 @property (nullable, nonatomic, copy) NSString *topic;
 @property (nullable, nonatomic, retain) NSSet<Region *> *hasRegions;
-@property (nullable, nonatomic, retain) NSSet<Subscription *> *hasSubscriptions;
 @property (nullable, nonatomic, retain) NSSet<Waypoint *> *hasWaypoints;
 
 @end
@@ -34,11 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)removeHasRegionsObject:(Region *)value;
 - (void)addHasRegions:(NSSet<Region *> *)values;
 - (void)removeHasRegions:(NSSet<Region *> *)values;
-
-- (void)addHasSubscriptionsObject:(Subscription *)value;
-- (void)removeHasSubscriptionsObject:(Subscription *)value;
-- (void)addHasSubscriptions:(NSSet<Subscription *> *)values;
-- (void)removeHasSubscriptions:(NSSet<Subscription *> *)values;
 
 - (void)addHasWaypointsObject:(Waypoint *)value;
 - (void)removeHasWaypointsObject:(Waypoint *)value;

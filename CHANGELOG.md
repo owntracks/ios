@@ -1,11 +1,12 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 12.0.4/12.0.5
-* Relase Date 2019-06-12
+## OwnTracks 12.0.4/12.0.5/12.0.6
+* Relase Date 2019-07-26
 
 ** A few bug fixes and enhancements
 
+	[FIX] Remove Geohashing Code
 	[NEW] Update mode UI element #583
         [FIX] Initial size of Today Widget
 

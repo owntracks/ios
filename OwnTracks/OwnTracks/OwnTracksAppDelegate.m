@@ -12,7 +12,6 @@
 #import "Settings.h"
 #import "OwnTracking.h"
 #import "ConnType.h"
-#import "GeoHashing.h"
 #import "MQTTCFSocketTransport.h"
 #import "MQTTSSLSecurityPolicy.h"
 #import <UserNotifications/UserNotifications.h>
@@ -536,19 +535,16 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 - (void)newLocation:(CLLocation *)location {
     [self background];
     [self publishLocation:location trigger:nil];
-    [[GeoHashing sharedInstance] newLocation:location];
 }
 
 - (void)timerLocation:(CLLocation *)location {
     [self background];
     [self publishLocation:location trigger:@"t"];
-    [[GeoHashing sharedInstance] newLocation:location];
 }
 
 - (void)visitLocation:(CLLocation *)location {
     [self background];
     [self publishLocation:location trigger:@"v"];
-    [[GeoHashing sharedInstance] newLocation:location];
 }
 
 - (void)regionEvent:(CLRegion *)region enter:(BOOL)enter {
@@ -716,10 +712,6 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     DDLogVerbose(@"[OwnTracksAppDelegate] handleMessage");
 
     [CoreData.sharedInstance.queuedMOC performBlock:^{
-        (void)[[GeoHashing sharedInstance] processMessage:topic
-                                                     data:data
-                                                 retained:retained
-                                                  context:CoreData.sharedInstance.queuedMOC];
         (void)[[OwnTracking sharedInstance] processMessage:topic
                                                       data:data
                                                   retained:retained
@@ -996,14 +988,12 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     DDLogVerbose(@"[OwnTracksAppDelegate] sendNow");
     CLLocation *location = [LocationManager sharedInstance].location;
     [self publishLocation:location trigger:@"u"];
-    [[GeoHashing sharedInstance] newLocation:location];
 }
 
 - (void)reportLocation {
     DDLogVerbose(@"[OwnTracksAppDelegate] reportLocation");
     CLLocation *location = [LocationManager sharedInstance].location;
     [self publishLocation:location trigger:@"r"];
-    [[GeoHashing sharedInstance] newLocation:location];
 }
 
 - (void)connectionOff {

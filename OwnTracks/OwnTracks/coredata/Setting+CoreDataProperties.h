@@ -2,8 +2,8 @@
 //  Setting+CoreDataProperties.h
 //  OwnTracks
 //
-//  Created by Christoph Krey on 30.05.18.
-//  Copyright © 2018-2019 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 26.07.19.
+//  Copyright © 2019 OwnTracks. All rights reserved.
 //
 //
 
