@@ -687,7 +687,8 @@ calloutAccessoryControlTapped:(UIControl *)control {
 
             break;
     }
-    [Settings setInt:[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"
+    [Settings setInt:(int)[LocationManager sharedInstance].monitoring
+              forKey:@"monitoring_preference"
                inMOC:CoreData.sharedInstance.mainMOC];
     [self setButtonMove];
 
