@@ -72,6 +72,9 @@
 		84E2C4511EC34B3B00BC02CE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841D1A221C8AF70900DC5765 /* Localizable.strings */; };
 		84E2C4531EC34B4600BC02CE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8411B836189FDB140019D2D6 /* InfoPlist.strings */; };
 		84E2C4541EC34B5600BC02CE /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84664EA01CC8B8E0002123EC /* Launch Screen.xib */; };
+		84E40204231413D400F1D6E6 /* History+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E40202231413D400F1D6E6 /* History+CoreDataClass.m */; };
+		84E40205231413D400F1D6E6 /* History+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E40203231413D400F1D6E6 /* History+CoreDataProperties.m */; };
+		84E402082314140400F1D6E6 /* HistoryTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E402072314140400F1D6E6 /* HistoryTVC.m */; };
 		84E8A1891BB94782002518AA /* Setting+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */; };
 		84E8A18A1BB94782002518AA /* Friend+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1811BB94782002518AA /* Friend+CoreDataProperties.m */; };
 		84E8A18C1BB94782002518AA /* Waypoint+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1851BB94782002518AA /* Waypoint+CoreDataProperties.m */; };
@@ -248,6 +251,13 @@
 		84D7516F1B35B1C600B06A0C /* Model 8.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.xcdatamodel"; sourceTree = "<group>"; };
 		84DDEAC51BD9F37900B01879 /* SettingsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTVC.h; sourceTree = "<group>"; };
 		84DDEAC61BD9F37900B01879 /* SettingsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTVC.m; sourceTree = "<group>"; };
+		84E40200231413D400F1D6E6 /* History+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "History+CoreDataProperties.h"; sourceTree = "<group>"; };
+		84E40201231413D400F1D6E6 /* History+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "History+CoreDataClass.h"; sourceTree = "<group>"; };
+		84E40202231413D400F1D6E6 /* History+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "History+CoreDataClass.m"; sourceTree = "<group>"; };
+		84E40203231413D400F1D6E6 /* History+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "History+CoreDataProperties.m"; sourceTree = "<group>"; };
+		84E402062314140400F1D6E6 /* HistoryTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistoryTVC.h; sourceTree = "<group>"; };
+		84E402072314140400F1D6E6 /* HistoryTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistoryTVC.m; sourceTree = "<group>"; };
+		84E4020923141F3E00F1D6E6 /* Model 12.0.7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 12.0.7.xcdatamodel"; sourceTree = "<group>"; };
 		84E8A17B1BB946F0002518AA /* Model 8.2.18.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.18.xcdatamodel"; sourceTree = "<group>"; };
 		84E8A17E1BB94782002518AA /* Setting+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Setting+CoreDataProperties.h"; sourceTree = "<group>"; };
 		84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Setting+CoreDataProperties.m"; sourceTree = "<group>"; };
@@ -405,6 +415,10 @@
 		8411B867189FE1ED0019D2D6 /* coredata */ = {
 			isa = PBXGroup;
 			children = (
+				84E40200231413D400F1D6E6 /* History+CoreDataProperties.h */,
+				84E40201231413D400F1D6E6 /* History+CoreDataClass.h */,
+				84E40202231413D400F1D6E6 /* History+CoreDataClass.m */,
+				84E40203231413D400F1D6E6 /* History+CoreDataProperties.m */,
 				84E8A1801BB94782002518AA /* Friend+CoreDataProperties.h */,
 				84E8A1811BB94782002518AA /* Friend+CoreDataProperties.m */,
 				845299DF1DFA004000A4DC21 /* Friend+CoreDataClass.h */,
@@ -463,6 +477,8 @@
 				846FFA4E1B40C13C001482A6 /* NavigationController.m */,
 				8411B90A189FEC070019D2D6 /* ViewController.h */,
 				8411B90B189FEC070019D2D6 /* ViewController.m */,
+				84E402062314140400F1D6E6 /* HistoryTVC.h */,
+				84E402072314140400F1D6E6 /* HistoryTVC.m */,
 				84A1737A1B428F0600CCB7D0 /* Friends */,
 				84A1737B1B428F3600CCB7D0 /* Regions */,
 				84A1737C1B428F3E00CCB7D0 /* Settings */,
@@ -741,10 +757,12 @@
 				8411B90C189FEC070019D2D6 /* WaypointTVC.m in Sources */,
 				8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */,
 				846FFA191B401A4E001482A6 /* UIColor+WithName.m in Sources */,
+				84E402082314140400F1D6E6 /* HistoryTVC.m in Sources */,
 				846FFA581B419687001482A6 /* RegionTVC.m in Sources */,
 				846FFA451B402A1F001482A6 /* OwnTracking.m in Sources */,
 				8411B912189FEC070019D2D6 /* ViewController.m in Sources */,
 				84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */,
+				84E40204231413D400F1D6E6 /* History+CoreDataClass.m in Sources */,
 				84664E9D1CC83A38002123EC /* NSBundle+privateLocalization.m in Sources */,
 				84B776431D9A65C600C707EC /* LoginVC.m in Sources */,
 				8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */,
@@ -773,6 +791,7 @@
 				845299E71DFA004000A4DC21 /* Friend+CoreDataClass.m in Sources */,
 				84A046C41D81FE8000796C56 /* IdPicker.m in Sources */,
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,
+				84E40205231413D400F1D6E6 /* History+CoreDataProperties.m in Sources */,
 				84E8A18D1BB94782002518AA /* Region+CoreDataProperties.m in Sources */,
 				8404876B1C5386DD00569C79 /* FeaturedContentVC.m in Sources */,
 				842E6ECE20BEE96F001928FA /* Region+CoreDataClass.m in Sources */,
@@ -1113,6 +1132,7 @@
 		8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				84E4020923141F3E00F1D6E6 /* Model 12.0.7.xcdatamodel */,
 				84FA6C1722EAFF8800AC7D63 /* Model 12.0.6.xcdatamodel */,
 				842E6ECB20BEE893001928FA /* Model 9.9.3.xcdatamodel */,
 				841D3526209DA1960084FCD0 /* Model 9.8.7.xcdatamodel */,
@@ -1137,7 +1157,7 @@
 				84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */,
 				8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 84FA6C1722EAFF8800AC7D63 /* Model 12.0.6.xcdatamodel */;
+			currentVersion = 84E4020923141F3E00F1D6E6 /* Model 12.0.7.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

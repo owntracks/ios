@@ -66,6 +66,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIlocatorDisplacement;
 @property (weak, nonatomic) IBOutlet UITextField *UIlocatorInterval;
 @property (weak, nonatomic) IBOutlet UITextField *UIpositions;
+@property (weak, nonatomic) IBOutlet UITextField *UImaxHistory;
 @property (weak, nonatomic) IBOutlet UITextField *UIsubQos;
 @property (weak, nonatomic) IBOutlet UITextField *UIkeepAlive;
 @property (weak, nonatomic) IBOutlet UITextField *UIpubQos;
@@ -206,6 +207,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     if (self.UIpositions) [Settings setString:self.UIpositions.text
                                        forKey:@"positions_preference"
                                         inMOC:CoreData.sharedInstance.mainMOC];
+    if (self.UImaxHistory) [Settings setString:self.UImaxHistory.text
+                                       forKey:@"maxhistory_preference"
+                                        inMOC:CoreData.sharedInstance.mainMOC];
     if (self.UIsubQos) [Settings setString:self.UIsubQos.text
                                     forKey:@"subscriptionqos_preference"
                                      inMOC:CoreData.sharedInstance.mainMOC];
@@ -290,8 +294,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     DDLogVerbose(@"[Settings] mode set to %d", mode);
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
     DDLogVerbose(@"observeValueForKeyPath %@", keyPath);
 
     if ([keyPath isEqualToString:@"configLoad"]) {
@@ -299,8 +305,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     }
 }
 
-- (void)updated
-{
+- (void)updated {
     BOOL locked = [Settings boolForKey:@"locked"
                                  inMOC:CoreData.sharedInstance.mainMOC];
     self.title = [NSString stringWithFormat:@"%@%@",
@@ -499,6 +504,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         self.UIpositions.text = [Settings stringForKey:@"positions_preference"
                                                  inMOC:CoreData.sharedInstance.mainMOC];
         self.UIpositions.enabled = !locked;
+    }
+    if (self.UImaxHistory) {
+        self.UImaxHistory.text = [Settings stringForKey:@"maxhistory_preference"
+                                                 inMOC:CoreData.sharedInstance.mainMOC];
+        self.UImaxHistory.enabled = !locked;
     }
     if (self.UIlocatorInterval) {
         self.UIlocatorInterval.text = [Settings stringForKey:@"mintime_preference"
@@ -808,8 +818,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     [self.UIlocatorDisplacement resignFirstResponder];
     [self.UIlocatorInterval resignFirstResponder];
     [self.UIpositions resignFirstResponder];
+    [self.UImaxHistory resignFirstResponder];
 }
-
 
 - (IBAction)protocolChanged:(UITextField *)sender {
     if (sender.text.length) {

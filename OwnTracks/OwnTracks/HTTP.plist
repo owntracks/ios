@@ -32,5 +32,7 @@
 	<integer>50</integer>
 	<key>sub</key>
 	<true/>
+	<key>maxhistory_preference</key>
+	<integer>0</integer>
 </dict>
 </plist>

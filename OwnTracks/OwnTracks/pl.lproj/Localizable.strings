@@ -79,6 +79,9 @@
 /* Alert message header for friend's messages */
 "Friend" = "Znajomy";
 
+/* Alert message header for notification messages */
+"Notification" = "Notification";
+
 /* kABAuthorizationStatusDenied */
 "has been denied by user. Go to Settings/Privacy/Contacts to change" = "zostało odrzucone przez użytkownika. Przejdź do Ustawienia/Prywatność/Kontakty aby zmienić";
 

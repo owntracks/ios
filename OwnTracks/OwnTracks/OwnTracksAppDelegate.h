@@ -10,6 +10,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import <CoreMotion/CoreMotion.h>
 
+#import <UserNotifications/UNUserNotificationCenter.h>
+
 #import "LocationManager.h"
 #import "Connection.h"
 #import "Settings.h"
@@ -19,7 +21,7 @@
 
 #import "NavigationController.h"
 
-@interface OwnTracksAppDelegate : UIResponder <UIApplicationDelegate, ConnectionDelegate, LocationManagerDelegate, NSUserActivityDelegate>
+@interface OwnTracksAppDelegate : UIResponder <UIApplicationDelegate, ConnectionDelegate, LocationManagerDelegate, NSUserActivityDelegate, UNUserNotificationCenterDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (weak, nonatomic) NavigationController *navigationController;

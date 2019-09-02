@@ -14,6 +14,7 @@
 
 @interface TabBarController ()
 @property (strong, nonatomic) UIViewController *featuredVC;
+@property (strong, nonatomic) UIViewController *historyVC;
 @property (nonatomic) BOOL warning;
 @end
 
@@ -25,15 +26,28 @@
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     
     for (UIViewController *vc in self.viewControllers) {
+        if (vc.tabBarItem.tag == 97) {
+            self.historyVC = vc;
+        }
         if (vc.tabBarItem.tag == 98) {
             self.featuredVC = vc;
         }
     }
+
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate addObserver:self
                forKeyPath:@"action"
                   options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                   context:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserverForName:@"reload"
+                                                      object:nil
+                                                       queue:[NSOperationQueue mainQueue]
+                                                  usingBlock:^(NSNotification *note){
+                                                      [self performSelectorOnMainThread:@selector(adjust)
+                                                                             withObject:nil
+                                                                          waitUntilDone:NO];
+                                                  }];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -47,7 +61,6 @@
 }
 
 - (void)adjust {
-        
     if (self.featuredVC) {
         NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.viewControllers];
         
@@ -66,6 +79,28 @@
         }
         [self setViewControllers:viewControllers animated:TRUE];
     }
+
+    if (self.historyVC) {
+        NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.viewControllers];
+
+        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+
+        if ([Settings theMaximumHistoryInMOC:[CoreData sharedInstance].mainMOC]) {
+            if (![viewControllers containsObject:self.historyVC]) {
+                if ([viewControllers containsObject:self.featuredVC]) {
+                    [viewControllers insertObject:self.historyVC atIndex:viewControllers.count - 1];
+                } else {
+                    [viewControllers insertObject:self.historyVC atIndex:viewControllers.count];
+                }
+            }
+        } else {
+            if ([viewControllers containsObject:self.historyVC]) {
+                [viewControllers removeObject:self.historyVC];
+            }
+        }
+        [self setViewControllers:viewControllers animated:TRUE];
+    }
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {

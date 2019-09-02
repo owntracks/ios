@@ -10,6 +10,12 @@
         <relationship name="hasRegions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Region" inverseName="belongsTo" inverseEntity="Region" syncable="YES"/>
         <relationship name="hasWaypoints" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Waypoint" inverseName="belongsTo" inverseEntity="Waypoint" syncable="YES"/>
     </entity>
+    <entity name="History" representedClassName="History" syncable="YES">
+        <attribute name="group" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="seen" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+    </entity>
     <entity name="Queue" representedClassName="Queue" syncable="YES">
         <attribute name="data" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -49,5 +55,6 @@
         <element name="Region" positionX="18" positionY="153" width="128" height="180"/>
         <element name="Setting" positionX="9" positionY="90" width="128" height="75"/>
         <element name="Waypoint" positionX="9" positionY="144" width="128" height="210"/>
+        <element name="History" positionX="0" positionY="153" width="128" height="105"/>
     </elements>
 </model>

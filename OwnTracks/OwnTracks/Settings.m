@@ -203,7 +203,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             
             object = dictionary[@"positions"];
             if (object) [self setString:object forKey:@"positions_preference" inMOC:context];
-            
+
+            object = dictionary[@"maxHistory"];
+            if (object) [self setString:object forKey:@"maxhistory_preference" inMOC:context];
+
             object = dictionary[@"allowRemoteLocation"];
             if (object) [self setString:object forKey:@"allowremotelocation_preference" inMOC:context];
             
@@ -375,6 +378,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     dict[@"waypoints"] =                    [Settings waypointsToArrayInMOC:context];
     dict[@"sub"] =                          @([Settings boolForKey:@"sub_preference" inMOC:context]);
     dict[@"positions"] =                    @([Settings intForKey:@"positions_preference" inMOC:context]);
+    dict[@"maxHistory"] =                    @([Settings intForKey:@"maxhistory_preference" inMOC:context]);
     dict[@"locatorDisplacement"] =          @([Settings intForKey:@"mindist_preference" inMOC:context]);
     dict[@"locatorInterval"] =              @([Settings intForKey:@"mintime_preference" inMOC:context]);
     dict[@"extendedData"] =                 @([Settings boolForKey:@"extendeddata_preference" inMOC:context]);
@@ -396,8 +400,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     dict[@"usePassword"] =          @([Settings boolForKey:@"usepassword_preference" inMOC:context]);
     dict[@"username"] =             [Settings stringOrZeroForKey:@"user_preference" inMOC:context];
     dict[@"password"] =             [Settings stringOrZeroForKey:@"pass_preference" inMOC:context];
-    dict[@"positions"] =            @([Settings intForKey:@"positions_preference" inMOC:context]);
-    dict[@"extendedData"] =         @([Settings boolForKey:@"extendeddata_preference" inMOC:context]);
 
     switch ([Settings intForKey:@"mode" inMOC:context]) {
         case CONNECTION_MODE_MQTT:
@@ -754,6 +756,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 + (BOOL)theMqttAuthInMOC:(NSManagedObjectContext *)context {
     return [self boolForKey:@"auth_preference" inMOC:context];
+}
+
++ (int)theMaximumHistoryInMOC:(NSManagedObjectContext *)context {
+    return [self intForKey:@"maxhistory_preference" inMOC:context];
 }
 
 + (BOOL)validIdsInMOC:(NSManagedObjectContext *)context {

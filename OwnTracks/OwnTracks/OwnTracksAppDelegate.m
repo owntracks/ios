@@ -9,13 +9,13 @@
 #import "OwnTracksAppDelegate.h"
 #import "CoreData.h"
 #import "Setting+CoreDataClass.h"
+#import "History+CoreDataClass.h"
 #import "Settings.h"
 #import "OwnTracking.h"
 #import "ConnType.h"
 #import "MQTTCFSocketTransport.h"
 #import "MQTTSSLSecurityPolicy.h"
 #import <UserNotifications/UserNotifications.h>
-#import <UserNotifications/UNUserNotificationCenter.h>
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static const DDLogLevel ddLogLevel = DDLogLevelWarning;
@@ -126,17 +126,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     }
 
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    UNAuthorizationOptions options = UNAuthorizationOptionSound| UNAuthorizationOptionAlert | UNAuthorizationOptionBadge;
-    [center requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        DDLogVerbose(@"[OwnTracksAppDelegate] requestAuthorizationWithOptions granted:%d error:%@", granted, error);
-    }];
-
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationUserDidTakeScreenshotNotification
-                                                      object:nil
-                                                       queue:nil
-                                                  usingBlock:^(NSNotification *note){
-                                                      DDLogVerbose(@"[OwnTracksAppDelegate] UIApplicationUserDidTakeScreenshotNotification");
-                                                  }];
+    UNAuthorizationOptions options =
+        UNAuthorizationOptionSound |
+        UNAuthorizationOptionAlert |
+        UNAuthorizationOptionBadge;
+    [center requestAuthorizationWithOptions:options
+                          completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                              DDLogVerbose(@"[OwnTracksAppDelegate] requestAuthorizationWithOptions granted:%d error:%@", granted, error);
+                          }];
+    center.delegate = self;
     return YES;
 }
 
@@ -171,6 +169,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     [locationManager start];
 
     return YES;
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+       willPresentNotification:(UNNotification *)notification
+         withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+    DDLogVerbose(@"[OwnTracksAppDelegate] willPresentNotification");
+    completionHandler(UNNotificationPresentationOptionAlert);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -567,11 +572,20 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
             UNTimeIntervalNotificationTrigger* trigger = [UNTimeIntervalNotificationTrigger
                                                           triggerWithTimeInterval:1.0
                                                           repeats:NO];
-            UNNotificationRequest* request = [UNNotificationRequest requestWithIdentifier:@"region"
+            NSString *notificationIdentifier = [NSString stringWithFormat:@"region%f",
+                                                [NSDate date].timeIntervalSince1970];
+
+            UNNotificationRequest* request = [UNNotificationRequest requestWithIdentifier:notificationIdentifier
                                                                                   content:content
                                                                                   trigger:trigger];
             UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
             [center addNotificationRequest:request withCompletionHandler:nil];
+
+            [History historyInGroup:@"Region"
+                           withText:notificationMessage
+                              inMOC:[CoreData sharedInstance].mainMOC
+                            maximum:[Settings theMaximumHistoryInMOC:[CoreData sharedInstance].mainMOC]];
+            [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
 
             Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
                                 inManagedObjectContext:CoreData.sharedInstance.mainMOC];
@@ -852,11 +866,27 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         UNTimeIntervalNotificationTrigger* trigger = [UNTimeIntervalNotificationTrigger
                                                       triggerWithTimeInterval:1.0
                                                       repeats:NO];
-        UNNotificationRequest* request = [UNNotificationRequest requestWithIdentifier:@"action"
+        NSString *notificationIdentifier = [NSString stringWithFormat:@"action%f",
+                                            [NSDate date].timeIntervalSince1970];
+        DDLogVerbose(@"[OwnTracksAppDelegate] notificationIdentifier:%@", notificationIdentifier);
+
+        UNNotificationRequest* request = [UNNotificationRequest requestWithIdentifier:notificationIdentifier
                                                                               content:content
                                                                               trigger:trigger];
         UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
         [center addNotificationRequest:request withCompletionHandler:nil];
+
+        [History historyInGroup:@"Notification"
+                       withText:notificationMessage
+                          inMOC:[CoreData sharedInstance].mainMOC
+                        maximum:[Settings theMaximumHistoryInMOC:[CoreData sharedInstance].mainMOC]];
+        [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
+
+        [self.navigationController alert:NSLocalizedString(@"Notification",
+                                                           @"Alert message header for notification messages")
+                                 message:notificationMessage
+                            dismissAfter:2.0
+         ];
     }
 
     if (content || url) {

@@ -10,6 +10,7 @@
 #import "Settings.h"
 #import "OwnTracksAppDelegate.h"
 #import "Waypoint+CoreDataClass.h"
+#import "History+CoreDataClass.h"
 #import "CoreData.h"
 #import "ConnType.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
@@ -128,49 +129,9 @@ static OwnTracking *theInstance = nil;
                             [self limitWaypointsFor:friend
                                           toMaximum:[Settings intForKey:@"positions_preference" inMOC:context]];
                         } else if ([dictionary[@"_type"] isEqualToString:@"transition"]) {
-                            NSString *type = dictionary[@"t"];
-                            if (!type || ![type isEqualToString:@"b"]) {
-                                NSString *tid = dictionary[@"tid"];
-                                NSDate *tst = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]];
-                                NSString *event = dictionary[@"event"];
-                                NSString *desc = dictionary[@"desc"];
-                                if (!desc) {
-                                    desc = NSLocalizedString(@"a region",
-                                                             @"name of an unknown or hidden region");
-                                }
-
-                                NSString *shortTime = [NSDateFormatter
-                                                       localizedStringFromDate:tst
-                                                       dateStyle:NSDateFormatterShortStyle
-                                                       timeStyle:NSDateFormatterShortStyle];
-
-                                NSString *notificationMessage = [NSString stringWithFormat:@"%@ %@s %@ @ %@",
-                                                                 tid,
-                                                                 event,
-                                                                 desc,
-                                                                 shortTime];
-
-                                UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-                                content.body = notificationMessage;
-                                content.userInfo = @{@"notify": @"friend"};
-                                UNTimeIntervalNotificationTrigger* trigger = [UNTimeIntervalNotificationTrigger
-                                                                              triggerWithTimeInterval:1.0
-                                                                              repeats:NO];
-                                UNNotificationRequest* request = [UNNotificationRequest requestWithIdentifier:@"transition"
-                                                                                                      content:content
-                                                                                                      trigger:trigger];
-                                UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
-                                [center addNotificationRequest:request withCompletionHandler:nil];
-
-                                OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-                                [delegate.navigationController
-                                 alert:NSLocalizedString(@"Friend",
-                                                         @"Alert message header for friend's messages")
-                                 message:notificationMessage
-                                 dismissAfter:2.0
-                                 ];
-
-                            }
+                            [self performSelectorOnMainThread:@selector(processTransitionMessage:)
+                                                   withObject:dictionary
+                                                waitUntilDone:NO];
 
                         } else if ([dictionary[@"_type"] isEqualToString:@"card"]) {
                             Friend *friend = [Friend friendWithTopic:device
@@ -203,6 +164,60 @@ static OwnTracking *theInstance = nil;
         return TRUE;
     } else {
         return FALSE;
+    }
+}
+
+- (void)processTransitionMessage:(NSDictionary *)dictionary {
+    NSString *type = dictionary[@"t"];
+    if (!type || ![type isEqualToString:@"b"]) {
+        NSString *tid = dictionary[@"tid"];
+        NSDate *tst = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]];
+        NSString *event = dictionary[@"event"];
+        NSString *desc = dictionary[@"desc"];
+        if (!desc) {
+            desc = NSLocalizedString(@"a region",
+                                     @"name of an unknown or hidden region");
+        }
+
+        NSString *shortTime = [NSDateFormatter
+                               localizedStringFromDate:tst
+                               dateStyle:NSDateFormatterShortStyle
+                               timeStyle:NSDateFormatterShortStyle];
+
+        NSString *notificationMessage = [NSString stringWithFormat:@"%@ %@s %@ @ %@",
+                                         tid,
+                                         event,
+                                         desc,
+                                         shortTime];
+
+        NSString *notificationIdentifier = [NSString stringWithFormat:@"transition%@%f",
+                                            tid,
+                                            tst.timeIntervalSince1970];
+
+        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+        content.body = notificationMessage;
+        content.userInfo = @{@"notify": @"friend"};
+        UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger
+                                                      triggerWithTimeInterval:1.0
+                                                      repeats:NO];
+        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:notificationIdentifier
+                                                                              content:content
+                                                                              trigger:trigger];
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        [center addNotificationRequest:request withCompletionHandler:nil];
+
+        [History historyInGroup:@"Friend"
+                       withText:notificationMessage
+                          inMOC:[CoreData sharedInstance].mainMOC
+                        maximum:[Settings theMaximumHistoryInMOC:[CoreData sharedInstance].mainMOC]];
+        [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
+
+        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegate.navigationController alert:NSLocalizedString(@"Friend",
+                                                               @"Alert message header for friend's messages")
+                                     message:notificationMessage
+                                dismissAfter:2.0
+         ];
     }
 }
 
@@ -422,11 +437,10 @@ static OwnTracking *theInstance = nil;
         [json setValue:@(batteryLevelInt) forKey:@"batt"];
     }
 
-    // NOT IMPLEMENTED
-    //UIDeviceBatteryState batteryState = [UIDevice currentDevice].batteryState;
-    //if (batteryState != UIDeviceBatteryStateUnknown) {
-    //    [json setValue:@(batteryState) forKey:@"bs"];
-    //}
+    UIDeviceBatteryState batteryState = [UIDevice currentDevice].batteryState;
+    if (batteryState != UIDeviceBatteryStateUnknown) {
+        [json setValue:@(batteryState) forKey:@"bs"];
+    }
 
     NSMutableArray <NSString *> *inRegions = [[NSMutableArray alloc] init];
     for (Region *region in waypoint.belongsTo.hasRegions) {

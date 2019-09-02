@@ -78,5 +78,7 @@
 	<false/>
 	<key>servercer</key>
 	<string></string>
+	<key>maxhistory_preference</key>
+	<integer>0</integer>
 </dict>
 </plist>
