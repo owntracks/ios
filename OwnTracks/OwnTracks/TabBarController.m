@@ -83,8 +83,6 @@
     if (self.historyVC) {
         NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.viewControllers];
 
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-
         if ([Settings theMaximumHistoryInMOC:[CoreData sharedInstance].mainMOC]) {
             if (![viewControllers containsObject:self.historyVC]) {
                 if ([viewControllers containsObject:self.featuredVC]) {

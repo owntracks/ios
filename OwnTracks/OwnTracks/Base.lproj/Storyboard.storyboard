@@ -2772,7 +2772,7 @@ libsodium (libsodium.org)
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WPX-rf-Obi">
-                                                    <rect key="frame" x="20" y="12" width="45" height="20.5"/>
+                                                    <rect key="frame" x="20" y="11.5" width="45" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -2842,7 +2842,7 @@ libsodium (libsodium.org)
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latitude" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cuh-Tm-IcV">
-                                                    <rect key="frame" x="20" y="12" width="63" height="20.5"/>
+                                                    <rect key="frame" x="20" y="11.5" width="63" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -2875,7 +2875,7 @@ libsodium (libsodium.org)
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Longitude" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OgN-Bg-AeZ">
-                                                    <rect key="frame" x="20" y="12" width="77" height="20.5"/>
+                                                    <rect key="frame" x="20" y="11.5" width="77" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -3057,9 +3057,8 @@ libsodium (libsodium.org)
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dMM-Pq-ZMh">
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dMM-Pq-ZMh">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -3068,6 +3067,12 @@ libsodium (libsodium.org)
                             </wkWebView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="dMM-Pq-ZMh" firstAttribute="top" secondItem="HTz-uA-AVl" secondAttribute="top" id="Kgv-B7-Jd4"/>
+                            <constraint firstAttribute="bottom" secondItem="dMM-Pq-ZMh" secondAttribute="bottom" id="QxA-kL-JWx"/>
+                            <constraint firstAttribute="trailing" secondItem="dMM-Pq-ZMh" secondAttribute="trailing" id="qeh-3G-LGn"/>
+                            <constraint firstItem="dMM-Pq-ZMh" firstAttribute="leading" secondItem="HTz-uA-AVl" secondAttribute="leading" id="wV8-AY-t4S"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Featured" id="AdM-qz-URl">
                         <leftBarButtonItems>
@@ -4132,7 +4137,7 @@ AAAAAgEAAAAAAAAAbQAAAAAAAAAAAAAAAAAAxHs
     <inferredMetricsTieBreakers>
         <segue reference="Utn-3t-RCv"/>
         <segue reference="8m4-nr-b6B"/>
-        <segue reference="ft5-77-rU8"/>
+        <segue reference="aMd-Tc-ju9"/>
         <segue reference="KLh-ve-vhU"/>
         <segue reference="aNu-aM-21y"/>
     </inferredMetricsTieBreakers>
