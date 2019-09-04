@@ -1,16 +1,18 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 12.0.4/12.0.5/12.0.6/12.0.7
-* Relase Date 2019-09-02
+## OwnTracks 12.0.8
+* Relase Date 2019-09-04
 
 ** A few bug fixes and enhancements
 
-    	[NEW] History Tab
-    	[NEW] Battery State
-	[FIX] Remove Geohashing Code
+   	[NEW] History Tab
+   	[NEW] Battery State
 	[NEW] Update mode UI element #583
-        [FIX] Initial size of Today Widget
+   	[FIX] lost and missing links to status screen
+   	[FIX] WebView is not correctly sized on devices larger than iPhoneSE #596
+	[FIX] Remove Geohashing Code
+	[FIX] Initial size of Today Widget
 
 ## OwnTracks 12.0.3
 * Relase Date 2019-04-10
