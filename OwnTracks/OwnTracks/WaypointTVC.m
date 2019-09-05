@@ -88,4 +88,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     [MKMapItem openMapsWithItems: items launchOptions: options];
 }
 
+- (NSIndexPath *)tableView:(UITableView *)tableView
+  willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0 && indexPath.row == 0) {
+        if ([LocationManager sharedInstance].location) {
+            NSString *locationString = (self.waypoint).shortCoordinateText;
+            UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
+            [generalPasteboard setString:locationString];
+            OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+            [delegate.navigationController alert:NSLocalizedString(@"Clipboard",
+                                                                   @"Clipboard")
+                                         message:NSLocalizedString(@"Location copied to clipboard",
+                                                                   @"Location copied to clipboard")
+                                    dismissAfter:1
+             ];
+        }
+    }
+    return nil;
+}
+
 @end

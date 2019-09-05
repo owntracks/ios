@@ -46,6 +46,13 @@
     }
 }
 
+- (NSString *)shortCoordinateText {
+    return [NSString stringWithFormat:@"%g,%g",
+            (self.lat).doubleValue,
+            (self.lon).doubleValue
+            ];
+}
+
 - (NSString *)coordinateText {
     return [NSString stringWithFormat:@"%g,%g (%@%.0f%@)",
             (self.lat).doubleValue,
@@ -55,6 +62,7 @@
             NSLocalizedString(@"m", @"Short for meters")
             ];
 }
+
 
 - (NSString *)timestampText {
     return [NSDateFormatter localizedStringFromDate:self.tst

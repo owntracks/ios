@@ -247,3 +247,9 @@
 /* Short for altitude as in ✈︎1000m */
 "✈︎" = "✈︎";
 
+/* Clipboard */
+"Clipboard" = "Clipboard";
+
+/* Location copied to clipboard */
+"Location copied to clipboard" = "Location copied to clipboard";
+
