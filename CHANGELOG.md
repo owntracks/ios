@@ -1,6 +1,13 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 12.0.9
+* Relase Date 2019-09-05
+
+** A few bug fixes and enhancements
+
+	[NEW] Copy location coordinates to clipboard #597
+
 ## OwnTracks 12.0.8
 * Relase Date 2019-09-04
 
