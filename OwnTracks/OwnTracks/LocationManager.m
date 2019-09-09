@@ -475,35 +475,6 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     }
     
     if ([region isKindOfClass:[CLCircularRegion class]]) {
-        CLCircularRegion *circular = (CLCircularRegion *)region;
-        DDLogVerbose(@"[LocationManager] region lat,lon,rad %f,%f,%f",
-                     circular.center.latitude,
-                     circular.center.longitude,
-                     circular.radius);
-        DDLogVerbose(@"[LocationManager] loc lat,lon,acc %f,%f,%f @ %@",
-                     manager.location.coordinate.latitude,
-                     manager.location.coordinate.longitude,
-                     manager.location.horizontalAccuracy,
-                     manager.location.timestamp
-                     );
-        switch (state) {
-            case CLRegionStateInside:
-                if (![circular containsCoordinate:manager.location.coordinate]) {
-                    DDLogVerbose(@"[LocationManager] didDetermineState false positive!");
-                    state = CLRegionStateOutside;
-                }
-                break;
-            case CLRegionStateOutside:
-                if ([circular containsCoordinate:manager.location.coordinate]) {
-                    DDLogVerbose(@"[LocationManager] didDetermineState false negative!");
-                    state = CLRegionStateInside;
-                }
-                break;
-            case CLRegionStateUnknown:
-            default:
-                break;
-        }
-        
         if (state == CLRegionStateInside) {
             (self.insideCircularRegions)[region.identifier] = [NSNumber numberWithBool:TRUE];
         } else {
