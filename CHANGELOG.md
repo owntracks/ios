@@ -2,32 +2,34 @@ OwnTracks iOS App Release Notes
 ===================================
 
 ## OwnTracks 12.0.9
-* Relase Date 2019-09-05
+* Relase Date 2019-09-14
 
 ** A few bug fixes and enhancements
 
-	[NEW] Copy location coordinates to clipboard #597
+    [NEW] Copy location coordinates to clipboard #597
+    [FIX] Dark Mode iOS 13 fixes
+    [FIX] Location report "inregions" inconsistent with "transition" messages #598
 
 ## OwnTracks 12.0.8
 * Relase Date 2019-09-04
 
 ** A few bug fixes and enhancements
 
-   	[NEW] History Tab
-   	[NEW] Battery State
-	[NEW] Update mode UI element #583
-   	[FIX] lost and missing links to status screen
-   	[FIX] WebView is not correctly sized on devices larger than iPhoneSE #596
-	[FIX] Remove Geohashing Code
-	[FIX] Initial size of Today Widget
+    [NEW] History Tab
+    [NEW] Battery State
+    [NEW] Update mode UI element #583
+    [FIX] lost and missing links to status screen
+    [FIX] WebView is not correctly sized on devices larger than iPhoneSE #596
+    [FIX] Remove Geohashing Code
+    [FIX] Initial size of Today Widget
 
 ## OwnTracks 12.0.3
 * Relase Date 2019-04-10
 
 ** A few bug fixes and enhancements
 
-	[FIX] setWaypoints crashes owntracks when removing waypoints #570
-	[FIX] Configuration of Username/Password for HTTP Mode #566
+    [FIX] setWaypoints crashes owntracks when removing waypoints #570
+    [FIX] Configuration of Username/Password for HTTP Mode #566
 
 ## OwnTracks 12.0.2
 * Release date 2018-12-16
