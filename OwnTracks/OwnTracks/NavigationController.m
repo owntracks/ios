@@ -36,7 +36,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationBar.translucent = false;
-    self.navigationBar.barTintColor = [UIColor colorWithName:@"primary" defaultColor:[UIColor blackColor]];
+    self.navigationBar.barTintColor = [UIColor colorNamed:@"primaryColor"];
     self.navigationBar.tintColor = [UIColor whiteColor];
 
     NSMutableDictionary *titleTextAttributes = [self.navigationBar.titleTextAttributes mutableCopy];

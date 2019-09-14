@@ -136,9 +136,6 @@
 /* Alert header for mode change warning */
 "Mode change" = "Zmiana trybu";
 
-/* Text explaining modes */
-"Modes_Text" = "Tryb MQTT\n\nMożesz skonfigurować własny serwer OwnTracks dla pełnej ochrony prywatności. Więcej informacji tutaj: https://owntracks.org/booklet\n\nTryb HTTP\n\nPodobnie do trybu MQTT, jednak transmisja danych używa protokołu HTTP, zamiast MQTT\n\nUwaga:\nPodczas przełączania trybów, wszystkie dane OwnTracks zostaną usunięte ze względów prywatności.";
-
 /* Move */
 "Move" = "Poruszania";
 

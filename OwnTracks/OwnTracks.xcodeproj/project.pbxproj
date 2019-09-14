@@ -62,7 +62,6 @@
 		84A488E21F7BBFD900ADCF98 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84A488E11F7BBFD900ADCF98 /* Media.xcassets */; };
 		84B7397A1A65629200B103F4 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B739791A65629200B103F4 /* LocationManager.m */; };
 		84B776431D9A65C600C707EC /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B776421D9A65C600C707EC /* LoginVC.m */; };
-		84CC5A4C1FEADE950010314C /* ExplainModesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CC5A4B1FEADE950010314C /* ExplainModesVC.m */; };
 		84CC5A521FEC71850010314C /* OwnTracks-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CC5A511FEC71840010314C /* OwnTracks-29.png */; };
 		84D3072F1ACD644500FACB9E /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D3072E1ACD644500FACB9E /* NotificationCenter.framework */; };
 		84D307351ACD644500FACB9E /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D307341ACD644500FACB9E /* TodayViewController.m */; };
@@ -238,8 +237,6 @@
 		84B776421D9A65C600C707EC /* LoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginVC.m; sourceTree = "<group>"; };
 		84C38C14193F88C200F56D04 /* Model 7.2.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.2.2.xcdatamodel"; sourceTree = "<group>"; };
 		84C756A61A89F706003BC8A8 /* Model 7.4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.4.xcdatamodel"; sourceTree = "<group>"; };
-		84CC5A4A1FEADE950010314C /* ExplainModesVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExplainModesVC.h; sourceTree = "<group>"; };
-		84CC5A4B1FEADE950010314C /* ExplainModesVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExplainModesVC.m; sourceTree = "<group>"; };
 		84CC5A501FEAE3A40010314C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Storyboard.strings; sourceTree = "<group>"; };
 		84CC5A511FEC71840010314C /* OwnTracks-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-29.png"; sourceTree = "<group>"; };
 		84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OwnTracksToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -532,8 +529,6 @@
 				8411B909189FEC070019D2D6 /* StatusTVC.m */,
 				845AA1B21B44245100945856 /* CertificatesTVC.h */,
 				845AA1B31B44245100945856 /* CertificatesTVC.m */,
-				84CC5A4A1FEADE950010314C /* ExplainModesVC.h */,
-				84CC5A4B1FEADE950010314C /* ExplainModesVC.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -773,7 +768,6 @@
 				84E8A1891BB94782002518AA /* Setting+CoreDataProperties.m in Sources */,
 				8411B90D189FEC070019D2D6 /* FriendAnnotationV.m in Sources */,
 				8474443A1DA4BC9600975BE4 /* ConnType.m in Sources */,
-				84CC5A4C1FEADE950010314C /* ExplainModesVC.m in Sources */,
 				8411B90E189FEC070019D2D6 /* FriendsTVC.m in Sources */,
 				842E6ED620BEF031001928FA /* Queue+CoreDataClass.m in Sources */,
 				84E8A18C1BB94782002518AA /* Waypoint+CoreDataProperties.m in Sources */,

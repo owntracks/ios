@@ -131,7 +131,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 }
 
 - (IBAction)modesChanged:(UISegmentedControl *)segmentedControl {
-    NSInteger monitoring;
+    int monitoring;
     switch (segmentedControl.selectedSegmentIndex) {
         case 3:
             monitoring = LocationMonitoringMove;
@@ -149,7 +149,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     }
     if (monitoring != [LocationManager sharedInstance].monitoring) {
         [LocationManager sharedInstance].monitoring = monitoring;
-        [Settings setInt:[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"
+        [Settings setInt:(int)[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"
                    inMOC:CoreData.sharedInstance.mainMOC];
         [self setButtonMove];
     }

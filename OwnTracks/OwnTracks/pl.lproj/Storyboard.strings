@@ -466,3 +466,21 @@
 
 /* Class = "UITextField"; placeholder = "mode"; ObjectID = "zrE-4x-uNc"; */
 "zrE-4x-uNc.placeholder" = "tryb";
+
+/* Class = "UITableViewSection"; headerTitle = "MQTT Mode"; ObjectID = "vi2-IZ-KJt"; */
+"vi2-IZ-KJt.headerTitle" = "Tryb MQTT";
+
+/* Class = "UITableViewSection"; headerTitle = "HTTP Mode"; ObjectID = "Ac4-3H-YRL"; */
+"Ac4-3H-YRL.headerTitle" = "Tryb HTTP";
+
+/* Class = "UITableViewSection"; headerTitle = "Please note"; ObjectID = "a09-rn-TZE"; */
+"a09-rn-TZE.headerTitle" = "Uwaga";
+
+/* Class = "UITextView"; text = "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet"; ObjectID = "VOr-0S-3k6"; */
+"VOr-0S-3k6.text" = "Możesz skonfigurować własny serwer OwnTracks dla pełnej ochrony prywatności. Więcej informacji tutaj: https://owntracks.org/booklet";
+
+/* Class = "UITextView"; text = "Similar to MQTT mode, except data transmission uses HTTP, not MQTT."; ObjectID = "rKh-bU-tSn"; */
+"rKh-bU-tSn.text" = "Podobnie do trybu MQTT, jednak transmisja danych używa protokołu HTTP, zamiast MQTT";
+
+/* Class = "UITextView"; text = "When switching between  modes, all OwnTracks data will be deleted for privacy reasons."; ObjectID = "2vz-Ec-WTe"; */
+"2vz-Ec-WTe.text" = "Podczas przełączania trybów, wszystkie dane OwnTracks zostaną usunięte ze względów prywatności.";
