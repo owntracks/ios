@@ -583,6 +583,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 
             [History historyInGroup:@"Region"
                            withText:notificationMessage
+                                 at:nil
                               inMOC:[CoreData sharedInstance].mainMOC
                             maximum:[Settings theMaximumHistoryInMOC:[CoreData sharedInstance].mainMOC]];
             [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
@@ -878,6 +879,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 
         [History historyInGroup:@"Notification"
                        withText:notificationMessage
+                             at:nil
                           inMOC:[CoreData sharedInstance].mainMOC
                         maximum:[Settings theMaximumHistoryInMOC:[CoreData sharedInstance].mainMOC]];
         [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];

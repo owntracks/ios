@@ -206,8 +206,14 @@ static OwnTracking *theInstance = nil;
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         [center addNotificationRequest:request withCompletionHandler:nil];
 
+        NSString *shortNotificationMessage = [NSString stringWithFormat:@"%@ %@s %@",
+                                         tid,
+                                         event,
+                                         desc];
+
         [History historyInGroup:@"Friend"
-                       withText:notificationMessage
+                       withText:shortNotificationMessage
+                             at:tst
                           inMOC:[CoreData sharedInstance].mainMOC
                         maximum:[Settings theMaximumHistoryInMOC:[CoreData sharedInstance].mainMOC]];
         [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];

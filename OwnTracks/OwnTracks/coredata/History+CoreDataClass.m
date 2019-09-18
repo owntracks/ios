@@ -13,12 +13,17 @@
 
 + (void)historyInGroup:(NSString *)group
               withText:(NSString *)text
+                    at:(NSDate *)date
                  inMOC:(NSManagedObjectContext *)context
                maximum:(int)maximum {
 
     History *history = [NSEntityDescription insertNewObjectForEntityForName:@"History"
                                             inManagedObjectContext:context];
-    history.timestamp = [NSDate date];
+    if (date) {
+        history.timestamp = date;
+    } else {
+        history.timestamp = [NSDate date];
+    }
     history.seen = [NSNumber numberWithBool:FALSE];
     history.group = group;
     history.text = text;

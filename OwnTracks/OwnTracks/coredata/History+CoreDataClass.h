@@ -13,9 +13,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface History : NSManagedObject
-+ (void)historyInGroup:(NSString *)group
-              withText:(NSString *)text
-                 inMOC:(NSManagedObjectContext *)context
++ (void)historyInGroup:(nonnull NSString *)group
+              withText:(nonnull NSString *)text
+                    at:(nullable NSDate *)date
+                 inMOC:(nonnull NSManagedObjectContext *)context
                maximum:(int)maximum;
 
 - (NSString *)timestampText;
