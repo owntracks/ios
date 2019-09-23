@@ -1,6 +1,15 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 13.0.1
+* Release Date 2019-09-23
+
+** A few bugfixes and enhancements 
+
+    [NEW] Dark Mode support in iOS 13
+    [NEW] Review colors for Dark/Light Mode #600
+    [NEW] Review Layout of "Friends" History messages #601
+
 ## OwnTracks 12.0.9
 * Relase Date 2019-09-14
 
