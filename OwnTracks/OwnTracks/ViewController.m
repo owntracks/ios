@@ -16,7 +16,6 @@
 #import "Friend+CoreDataClass.h"
 #import "Region+CoreDataClass.h"
 #import "Waypoint+CoreDataClass.h"
-#import "UIColor+WithName.h"
 #import "LocationManager.h"
 #import "OwnTracking.h"
 
@@ -84,10 +83,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                   ]];
     self.modes.apportionsSegmentWidthsByContent = YES;
     self.modes.translatesAutoresizingMaskIntoConstraints = false;
-    self.modes.backgroundColor = [UIColor colorWithRed:1.0
-                                                 green:1.0
-                                                  blue:1.0
-                                                 alpha:0.5];
+    self.modes.backgroundColor = [UIColor colorNamed:@"modesColor"];
     [self.modes addTarget:self
                    action:@selector(modesChanged:)
          forControlEvents:UIControlEventValueChanged];
@@ -348,7 +344,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             if (!annotationView) {
                 MKPinAnnotationView *pAV;
                 pAV = [[MKPinAnnotationView alloc] initWithAnnotation:region reuseIdentifier:REUSE_ID_OTHER];
-                pAV.pinTintColor = [UIColor greenColor];
+                pAV.pinTintColor = [UIColor colorNamed:@"pinColor"];
                 annotationView = pAV;
             }
             annotationView.draggable = true;
@@ -366,19 +362,19 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         Friend *friend = (Friend *)overlay;
         MKPolylineRenderer *renderer = [[MKPolylineRenderer alloc] initWithPolyline:friend.polyLine];
         renderer.lineWidth = 3;
-        renderer.strokeColor = [UIColor colorWithName:@"track" defaultColor:[UIColor redColor]];
+        renderer.strokeColor = [UIColor colorNamed:@"trackColor"];
         return renderer;
         
     } else if ([overlay isKindOfClass:[Region class]]) {
         Region *region = (Region *)overlay;
         MKCircleRenderer *renderer = [[MKCircleRenderer alloc] initWithCircle:region.circle];
         if ([region.name hasPrefix:@"+"]) {
-            renderer.fillColor = [UIColor colorWithName:@"follow" defaultColor:[UIColor greenColor]];
+            renderer.fillColor = [UIColor colorNamed:@"followColor"];
         } else {
             if ([[LocationManager sharedInstance] insideCircularRegion:region.name]) {
-                renderer.fillColor = [UIColor colorWithName:@"inside" defaultColor:[UIColor redColor]];
+                renderer.fillColor = [UIColor colorNamed:@"insideColor"];
             } else {
-                renderer.fillColor = [UIColor colorWithName:@"outside" defaultColor:[UIColor blueColor]];
+                renderer.fillColor = [UIColor colorNamed:@"outsideColor"];
             }
         }
         return renderer;

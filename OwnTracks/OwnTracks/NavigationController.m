@@ -9,7 +9,6 @@
 #import "NavigationController.h"
 #import "OwnTracksAppDelegate.h"
 #import "OwnTracking.h"
-#import "UIColor+WithName.h"
 
 @interface NavigationController ()
 @property (strong, nonatomic) UIProgressView *progressView;
@@ -37,22 +36,17 @@
     [super viewWillAppear:animated];
     self.navigationBar.translucent = false;
     self.navigationBar.barTintColor = [UIColor colorNamed:@"primaryColor"];
-    self.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationBar.tintColor = [UIColor colorNamed:@"primaryTintColor"];
 
-    NSMutableDictionary *titleTextAttributes = [self.navigationBar.titleTextAttributes mutableCopy];
-    if (!titleTextAttributes) {
-        titleTextAttributes = [NSMutableDictionary dictionaryWithObject:[UIColor whiteColor] forKey:NSForegroundColorAttributeName];
-    }
-    self.navigationBar.titleTextAttributes = titleTextAttributes;
-    
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate addObserver:self
                forKeyPath:@"connectionState"
-                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
+                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                  context:nil];
     [delegate addObserver:self
                forKeyPath:@"connectionBuffered"
-                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew context:nil];
-
+                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                  context:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -77,25 +71,21 @@
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     switch ((delegate.connectionState).intValue) {
         case state_connected:
-            self.progressView.progressTintColor = [UIColor colorWithName:@"connected"
-                                                            defaultColor:[UIColor whiteColor]];
+            self.progressView.progressTintColor = [UIColor colorNamed:@"connectedColor"];
                 self.progressView.progress = 0.0;
             break;
         case state_starting:
-            self.progressView.progressTintColor = [UIColor colorWithName:@"idle"
-                                                            defaultColor:[UIColor blueColor]];
+            self.progressView.progressTintColor = [UIColor colorNamed:@"idleColor"];
             self.progressView.progress = 1.0;
             break;
         case state_closed:
         case state_closing:
         case state_connecting:
-            self.progressView.progressTintColor = [UIColor colorWithName:@"connecting"
-                                                            defaultColor:[UIColor yellowColor]];
+            self.progressView.progressTintColor = [UIColor colorNamed:@"connectingColor"];
             self.progressView.progress = 1.0;
             break;
         case state_error:
-            self.progressView.progressTintColor = [UIColor colorWithName:@"error"
-                                                            defaultColor:[UIColor redColor]];
+            self.progressView.progressTintColor = [UIColor colorNamed:@"connectionErrorColor"];
             self.progressView.progress = 1.0;
             break;
     }

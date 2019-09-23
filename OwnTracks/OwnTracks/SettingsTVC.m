@@ -336,7 +336,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     if (self.UIpassphrase) {
         if (self.UIclientPKCS) {
             self.UIpassphrase.enabled = !locked && (self.UIclientPKCS.text.length > 0);
-            self.UIpassphrase.textColor = (self.UIclientPKCS.text.length > 0) ? [UIColor blackColor] : [UIColor lightGrayColor];
         }
         self.UIpassphrase.text = [Settings stringForKey:@"passphrase"
                                                   inMOC:CoreData.sharedInstance.mainMOC];
@@ -635,7 +634,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         if (self.UIPassword) {
             if (self.UIAuth) {
                 self.UIPassword.enabled = !locked && self.UIAuth.on && self.UIUsePassword.on;
-                self.UIPassword.textColor = (self.UIAuth.on && self.UIUsePassword.on) ? [UIColor blackColor] : [UIColor lightGrayColor];
             }
         }
 

@@ -13,24 +13,12 @@
 static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 #define CIRCLE_SIZE 40.0
-#define CIRCLE_COLOR [UIColor yellowColor]
-
-#define FENCE_FRIEND_COLOR [UIColor greenColor]
-#define FENCE_ME_COLOR [UIColor orangeColor]
-#define FENCE_MANUAL_COLOR [UIColor blueColor]
 #define FENCE_WIDTH 5.0
-
-#define ID_COLOR [UIColor blackColor]
 #define ID_FONTSIZE 20.0
 #define ID_INSET 3.0
-
-#define COURSE_COLOR [UIColor blueColor]
 #define COURSE_WIDTH 10.0
-
-#define TACHO_COLOR [UIColor colorWithRed:1.0 green:0 blue:0 alpha:0.5]
 #define TACHO_SCALE 30.0
 #define TACHO_MAX 260.0
-
 
 /** This method does not seem to be called anymore in ios10
  */
@@ -78,7 +66,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     [circle addClip];
 
     // Yellow or Photo background
-    [CIRCLE_COLOR setFill];
+    [[UIColor colorNamed:@"circleColor"] setFill];
     [circle fill];
     
     // ID
@@ -102,24 +90,27 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                           rect.origin.y + rect.size.height / 2.0)];
         [tacho closePath];
 
-        [TACHO_COLOR setFill];
+        [[UIColor colorNamed:@"tachoColor"] setFill];
         [tacho fill];
-        [CIRCLE_COLOR setStroke];
+        [[UIColor colorNamed:@"circleColor"] setStroke];
         tacho.lineWidth = 1.0;
         [tacho stroke];
     }
 
     // ID
     if (self.personImage == nil) {
-        if ((self.tid != nil && ![self.tid isEqualToString:@""]) || !self.automatic) {
+        if ((self.tid != nil && ![self.tid isEqualToString:@""])) {
             UIFont *font = [UIFont boldSystemFontOfSize:ID_FONTSIZE];
             NSDictionary *attributes = @{NSFontAttributeName: font,
-                                         NSForegroundColorAttributeName: ID_COLOR};
-            CGRect boundingRect = [self.tid boundingRectWithSize:rect.size options:0 attributes:attributes context:nil];
-            CGRect textRect = CGRectMake(rect.origin.x + (rect.size.width - boundingRect.size.width) / 2,
-                                         rect.origin.y + (rect.size.height - boundingRect.size.height) / 2,
-                                         boundingRect.size.width, boundingRect.size.height);
-            
+                                         NSForegroundColorAttributeName: [UIColor colorNamed:@"idColor"]};
+            CGRect boundingRect = [self.tid boundingRectWithSize:rect.size
+                                                         options:0
+                                                      attributes:attributes
+                                                         context:nil];
+            CGRect textRect =
+            CGRectMake(rect.origin.x + (rect.size.width - boundingRect.size.width) / 2,
+                       rect.origin.y + (rect.size.height - boundingRect.size.height) / 2,
+                       boundingRect.size.width, boundingRect.size.height);
             [self.tid drawInRect:textRect withAttributes:attributes];
         }
     }
@@ -127,13 +118,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     // FENCE
     [circle setLineWidth:FENCE_WIDTH];
     if (self.me) {
-        if (self.automatic) {
-            [FENCE_ME_COLOR setStroke];
-        } else {
-            [FENCE_MANUAL_COLOR setStroke];
-        }
+        [[UIColor colorNamed:@"meColor"] setStroke];
     } else {
-        [FENCE_FRIEND_COLOR setStroke];
+        [[UIColor colorNamed:@"friendColor"] setStroke];
     }
     [circle stroke];
 
@@ -147,9 +134,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                            COURSE_WIDTH
                                            )
                                 ];
-        [COURSE_COLOR setFill];
+        [[UIColor colorNamed:@"courseColor"] setFill];
         [course fill];
-        [CIRCLE_COLOR setStroke];
+        [[UIColor colorNamed:@"circleColor"] setStroke];
         course.lineWidth = 1.0;
         [course stroke];
     }

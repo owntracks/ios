@@ -871,7 +871,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                             [NSDate date].timeIntervalSince1970];
         DDLogVerbose(@"[OwnTracksAppDelegate] notificationIdentifier:%@", notificationIdentifier);
 
-        UNNotificationRequest* request = [UNNotificationRequest requestWithIdentifier:notificationIdentifier
+        UNNotificationRequest* request = [UNNotificationRequest         requestWithIdentifier:notificationIdentifier
                                                                               content:content
                                                                               trigger:trigger];
         UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];

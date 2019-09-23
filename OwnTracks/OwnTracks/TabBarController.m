@@ -8,7 +8,6 @@
 
 #import "TabBarController.h"
 #import "Settings.h"
-#import "UIColor+WithName.h"
 #import "OwnTracksAppDelegate.h"
 #import "CoreData.h"
 
