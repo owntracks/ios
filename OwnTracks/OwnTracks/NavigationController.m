@@ -38,6 +38,14 @@
     self.navigationBar.barTintColor = [UIColor colorNamed:@"primaryColor"];
     self.navigationBar.tintColor = [UIColor colorNamed:@"primaryTintColor"];
 
+    NSMutableDictionary *titleTextAttributes = [self.navigationBar.titleTextAttributes mutableCopy];
+    if (!titleTextAttributes) {
+        titleTextAttributes =
+        [NSMutableDictionary dictionaryWithObject:[UIColor colorNamed:@"primaryTintColor"]
+                                           forKey:NSForegroundColorAttributeName];
+    }
+    self.navigationBar.titleTextAttributes = titleTextAttributes;
+
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate addObserver:self
                forKeyPath:@"connectionState"
