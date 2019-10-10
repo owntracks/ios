@@ -788,11 +788,6 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
                  (unsigned long)flowingOut);
     self.inCount = flowingIn;
     self.outCount = flowingOut;
-    if ((flowingIn + flowingOut) && self.state == state_connected) {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = TRUE;
-    } else {
-        [UIApplication sharedApplication].networkActivityIndicatorVisible = FALSE;
-    }
     [self.delegate totalBuffered: self count:flowingOut ? flowingOut : flowingIn];
 }
 
