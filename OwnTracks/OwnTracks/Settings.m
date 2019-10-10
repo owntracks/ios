@@ -33,10 +33,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     self = [super init];
 
     if (self) {
-        NSURL *bundleURL = [NSBundle mainBundle].bundleURL;
-        NSURL *mqttPlistURL = [bundleURL URLByAppendingPathComponent:@"MQTT.plist"];
-        NSURL *httpPlistURL = [bundleURL URLByAppendingPathComponent:@"HTTP.plist"];
-
+        NSURL *mqttPlistURL = [[NSBundle mainBundle] URLForResource:@"MQTT"
+                                                      withExtension:@"plist"];
+        NSURL *httpPlistURL = [[NSBundle mainBundle] URLForResource:@"HTTP"
+                                                      withExtension:@"plist"];
         self.mqttDefaults = [NSDictionary dictionaryWithContentsOfURL:mqttPlistURL];
         self.httpDefaults = [NSDictionary dictionaryWithContentsOfURL:httpPlistURL];
     }
@@ -713,10 +713,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                          anyDevice,
                          [self theGeneralTopicInMOC:context]];
     }
-    subscriptions = [subscriptions stringByReplacingOccurrencesOfString:@"%u"
-                                                             withString:[Settings theUserIdInMOC:context]];
-    subscriptions = [subscriptions stringByReplacingOccurrencesOfString:@"%d"
-                                                             withString:[Settings theDeviceIdInMOC:context]];
+    NSString *userId = [Settings theUserIdInMOC:context];
+    if (userId) {
+        subscriptions = [subscriptions stringByReplacingOccurrencesOfString:@"%u"
+                                                                 withString:userId];
+    }
+    NSString *deviceId = [Settings theDeviceIdInMOC:context];
+    if (deviceId) {
+        subscriptions = [subscriptions stringByReplacingOccurrencesOfString:@"%d"
+                                                                 withString:deviceId];
+    }
 
     return subscriptions;
 }
