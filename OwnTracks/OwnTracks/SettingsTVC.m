@@ -15,7 +15,6 @@
 #import "CoreData.h"
 #import "OwnTracking.h"
 #import "IdPicker.h"
-#import "WebVC.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 #define QRSCANNER NSLocalizedString(@"QRScanner", @"Header of an alert message regarging QR code scanning")
