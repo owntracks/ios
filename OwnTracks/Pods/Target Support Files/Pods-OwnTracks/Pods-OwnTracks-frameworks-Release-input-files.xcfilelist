@@ -1,0 +1,7 @@
+${PODS_ROOT}/Target Support Files/Pods-OwnTracks/Pods-OwnTracks-frameworks.sh
+${BUILT_PRODUCTS_DIR}/ABStaticTableViewController/ABStaticTableViewController.framework
+${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework
+${BUILT_PRODUCTS_DIR}/QRCodeReaderViewController/QRCodeReaderViewController.framework
+${BUILT_PRODUCTS_DIR}/SocketRocket/SocketRocket.framework
+${BUILT_PRODUCTS_DIR}/libsodium/libsodium.framework
+${BUILT_PRODUCTS_DIR}/mqttc/mqttc.framework

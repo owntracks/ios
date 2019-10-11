@@ -1,8 +1,8 @@
 PODS:
   - ABStaticTableViewController (1.1.1)
-  - CocoaLumberjack (3.5.3):
-    - CocoaLumberjack/Core (= 3.5.3)
-  - CocoaLumberjack/Core (3.5.3)
+  - CocoaLumberjack (3.6.0):
+    - CocoaLumberjack/Core (= 3.6.0)
+  - CocoaLumberjack/Core (3.6.0)
   - libsodium (1.0.12)
   - mqttc/MinL (5.0.5):
     - CocoaLumberjack
@@ -13,33 +13,36 @@ PODS:
   - SocketRocket (0.5.1)
 
 DEPENDENCIES:
-  - ABStaticTableViewController
+  - ABStaticTableViewController (from `~/ABStaticTableViewController`)
   - CocoaLumberjack
   - libsodium (~> 1.0)
   - mqttc/MinL (from `~/mqttc`)
   - mqttc/WebsocketL (from `~/mqttc`)
   - QRCodeReaderViewController
+  - SocketRocket (from `~/SocketRocket`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
-    - ABStaticTableViewController
     - CocoaLumberjack
     - libsodium
     - QRCodeReaderViewController
-    - SocketRocket
 
 EXTERNAL SOURCES:
+  ABStaticTableViewController:
+    :path: "~/ABStaticTableViewController"
   mqttc:
     :path: "~/mqttc"
+  SocketRocket:
+    :path: "~/SocketRocket"
 
 SPEC CHECKSUMS:
   ABStaticTableViewController: d8cfbdd596fbf58b515b13e49cc8ca8ca86c6e12
-  CocoaLumberjack: 2f44e60eb91c176d471fdba43b9e3eae6a721947
+  CocoaLumberjack: 78b0c238666f4f58db069738ec176f4519557516
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
   mqttc: 5255376de8f61a264cb18d6706d5fafaa0b99eba
   QRCodeReaderViewController: e8f27d035b3e72b1d4b1c61ff66458287e3be0ff
-  SocketRocket: d57c7159b83c3c6655745cd15302aa24b6bae531
+  SocketRocket: dbb1554b8fc288ef8ef370d6285aeca7361be31e
 
-PODFILE CHECKSUM: 2a9a1f97acdc8592dfbbdc4437786f1fe3df6f69
+PODFILE CHECKSUM: 76414bc79d85b0307fe11cf04720e0f46f1001eb
 
-COCOAPODS: 1.8.0
+COCOAPODS: 1.8.3
