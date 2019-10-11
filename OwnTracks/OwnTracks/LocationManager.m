@@ -183,9 +183,11 @@ static LocationManager *theInstance = nil;
 
 - (void)sleep {
     DDLogVerbose(@"sleep");
+#ifndef TARGET_OS_MACCATALYST
     for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
         [self.manager stopRangingBeaconsInRegion:beaconRegion];
     }
+#endif
     if (self.monitoring != LocationMonitoringMove) {
         [self.activityTimer invalidate];
     }
@@ -312,10 +314,12 @@ static LocationManager *theInstance = nil;
     _ranging = ranging;
     
     if (!ranging) {
+#ifndef TARGET_OS_MACCATALYST
         for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
             DDLogVerbose(@"stopRangingBeaconsInRegion %@", beaconRegion.identifier);
             [self.manager stopRangingBeaconsInRegion:beaconRegion];
         }
+#endif
     }
     for (CLRegion *region in self.manager.monitoredRegions) {
         DDLogVerbose(@"requestStateForRegion %@", region.identifier);
@@ -419,10 +423,12 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
                                                                @"Location Manager error message")
          ];
     }
-    
+
+#ifndef TARGET_OS_MACCATALYST
     if (![CLLocationManager deferredLocationUpdatesAvailable]) {
         // [delegate.navigationController alert:where message:@"Deferred location updates not available"];
     }
+#endif
     
     if (![CLLocationManager headingAvailable]) {
         // [delegate.navigationController alert:where message:@"Heading not available"];
@@ -464,13 +470,17 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
         if (state == CLRegionStateInside) {
             (self.insideBeaconRegions)[region.identifier] = [NSNumber numberWithBool:TRUE];
             if (self.ranging) {
+#ifndef TARGET_OS_MACCATALYST
                 CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
                 [self.manager startRangingBeaconsInRegion:beaconRegion];
+#endif
             }
         } else {
             [self.insideBeaconRegions removeObjectForKey:region.identifier];
+#ifndef TARGET_OS_MACCATALYST
             CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
             [self.manager stopRangingBeaconsInRegion:beaconRegion];
+#endif
         }
     }
     
@@ -554,6 +564,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
  * Beacons
  *
  */
+#ifndef TARGET_OS_MACCATALYST
 - (void)locationManager:(CLLocationManager *)manager
 rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
               withError:(NSError *)error {
@@ -561,7 +572,9 @@ rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
                  region, error.localizedDescription, error.userInfo);
     // error
 }
+#endif
 
+#ifndef TARGET_OS_MACCATALYST
 - (void)locationManager:(CLLocationManager *)manager
         didRangeBeacons:(NSArray *)beacons
                inRegion:(CLBeaconRegion *)region {
@@ -597,6 +610,7 @@ rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
         }
     }
 }
+#endif
 
 /*
  *
