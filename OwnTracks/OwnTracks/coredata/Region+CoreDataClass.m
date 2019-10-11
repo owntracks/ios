@@ -79,18 +79,42 @@
 
                 if ((self.major).unsignedIntValue > 0) {
                     if ((self.minor).unsignedIntValue > 0) {
-                        beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
-                                                                               major:(self.major).unsignedIntValue
-                                                                               minor:(self.minor).unsignedIntValue
-                                                                          identifier:self.name];
+                        if (@available(iOS 13.0, macCatalyst 13.0, *)) {
+                            beaconRegion = [[CLBeaconRegion alloc]
+                                            initWithUUID:uuid
+                                            major:(self.major).unsignedIntValue
+                                            minor:(self.minor).unsignedIntValue
+                                            identifier:self.name];
+                        } else {
+                            beaconRegion = [[CLBeaconRegion alloc]
+                                            initWithProximityUUID:uuid
+                                            major:(self.major).unsignedIntValue
+                                            minor:(self.minor).unsignedIntValue
+                                            identifier:self.name];
+                        }
                     } else {
-                        beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
-                                                                               major:(self.major).unsignedIntValue
-                                                                          identifier:self.name];
+                        if (@available(iOS 13.0, macCatalyst 13, *)) {
+                            beaconRegion = [[CLBeaconRegion alloc]
+                                            initWithUUID:uuid
+                                            major:(self.major).unsignedIntValue
+                                            identifier:self.name];
+                        } else {
+                            beaconRegion = [[CLBeaconRegion alloc]
+                                            initWithProximityUUID:uuid
+                                            major:(self.major).unsignedIntValue
+                                            identifier:self.name];
+                        }
                     }
                 } else {
-                    beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
-                                                                      identifier:self.name];
+                    if (@available(iOS 13.0, macCatalyst 13.0, *)) {
+                        beaconRegion = [[CLBeaconRegion alloc]
+                                        initWithUUID:uuid
+                                        identifier:self.name];
+                    } else {
+                        beaconRegion = [[CLBeaconRegion alloc]
+                                        initWithProximityUUID:uuid
+                                        identifier:self.name];
+                    }
                 }
 
                 region = beaconRegion;
