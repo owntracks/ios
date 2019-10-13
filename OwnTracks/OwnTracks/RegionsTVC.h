@@ -7,6 +7,7 @@
 //
 
 #import "Friend+CoreDataClass.h"
+#import "OwnTracksEditTVC.h"
 
-@interface RegionsTVC : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface RegionsTVC : OwnTracksEditTVC <NSFetchedResultsControllerDelegate>
 @end

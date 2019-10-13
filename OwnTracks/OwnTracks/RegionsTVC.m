@@ -34,7 +34,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                                   usingBlock:^(NSNotification *note){
                                                       [self reset];
                                                   }];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -51,7 +50,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     NSIndexPath *indexPath = nil;
-    
+
     if ([sender isKindOfClass:[UITableViewCell class]]) {
         indexPath = [self.tableView indexPathForCell:sender];
     }

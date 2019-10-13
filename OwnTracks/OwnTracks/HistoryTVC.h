@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "History+CoreDataClass.h"
+#import "OwnTracksEditTVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HistoryTVC : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface HistoryTVC : OwnTracksEditTVC <NSFetchedResultsControllerDelegate>
 
 @end
 
