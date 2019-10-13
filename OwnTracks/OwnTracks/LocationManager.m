@@ -183,7 +183,7 @@ static LocationManager *theInstance = nil;
 
 - (void)sleep {
     DDLogVerbose(@"sleep");
-#ifndef TARGET_OS_MACCATALYST
+#if !TARGET_OS_MACCATALYST
     for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
         [self.manager stopRangingBeaconsInRegion:beaconRegion];
     }
@@ -314,7 +314,7 @@ static LocationManager *theInstance = nil;
     _ranging = ranging;
     
     if (!ranging) {
-#ifndef TARGET_OS_MACCATALYST
+#if !TARGET_OS_MACCATALYST
         for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
             DDLogVerbose(@"stopRangingBeaconsInRegion %@", beaconRegion.identifier);
             [self.manager stopRangingBeaconsInRegion:beaconRegion];
@@ -424,7 +424,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
          ];
     }
 
-#ifndef TARGET_OS_MACCATALYST
+#if !TARGET_OS_MACCATALYST
     if (![CLLocationManager deferredLocationUpdatesAvailable]) {
         // [delegate.navigationController alert:where message:@"Deferred location updates not available"];
     }
@@ -470,14 +470,14 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
         if (state == CLRegionStateInside) {
             (self.insideBeaconRegions)[region.identifier] = [NSNumber numberWithBool:TRUE];
             if (self.ranging) {
-#ifndef TARGET_OS_MACCATALYST
+#if !TARGET_OS_MACCATALYST
                 CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
                 [self.manager startRangingBeaconsInRegion:beaconRegion];
 #endif
             }
         } else {
             [self.insideBeaconRegions removeObjectForKey:region.identifier];
-#ifndef TARGET_OS_MACCATALYST
+#if !TARGET_OS_MACCATALYST
             CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
             [self.manager stopRangingBeaconsInRegion:beaconRegion];
 #endif
@@ -564,7 +564,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
  * Beacons
  *
  */
-#ifndef TARGET_OS_MACCATALYST
+#if !TARGET_OS_MACCATALYST
 - (void)locationManager:(CLLocationManager *)manager
 rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
               withError:(NSError *)error {
@@ -574,7 +574,7 @@ rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
 }
 #endif
 
-#ifndef TARGET_OS_MACCATALYST
+#if !TARGET_OS_MACCATALYST
 - (void)locationManager:(CLLocationManager *)manager
         didRangeBeacons:(NSArray *)beacons
                inRegion:(CLBeaconRegion *)region {

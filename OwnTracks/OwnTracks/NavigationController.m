@@ -99,17 +99,20 @@
     }
 }
 
-- (void)alert:(NSString *)title message:(NSString *)message {
+- (void)alert:(NSString *)title
+      message:(NSString *)message {
     [self alert:title message:message dismissAfter:0];
 }
 
-- (void)alert:(NSString *)title message:(NSString *)message dismissAfter:(NSTimeInterval)interval {
+- (void)alert:(NSString *)title
+      message:(NSString *)message
+ dismissAfter:(NSTimeInterval)interval {
     [self performSelectorOnMainThread:@selector(alert:)
                            withObject:@{
-                                        @"title": title,
-                                        @"message": message,
-                                        @"interval": [NSNumber numberWithFloat:interval]
-                                        }
+                               @"title": title,
+                               @"message": message,
+                               @"interval": [NSNumber numberWithFloat:interval]
+                           }
                         waitUntilDone:NO];
 }
 
@@ -118,21 +121,31 @@ UIAlertController *ac = [UIAlertController
                               alertControllerWithTitle:parameters[@"title"]
                               message:parameters[@"message"]
                               preferredStyle:UIAlertControllerStyleAlert];
+#if !TARGET_OS_MACCATALYST
+    // in MACCATALYST the UIAlert does not dismiss when told so.
+    // This means we cannot dismiss it after a few seconds
     NSNumber *interval = parameters[@"interval"];
     if (!interval || interval.floatValue == 0.0) {
+#endif
         UIAlertAction *ok = [UIAlertAction
                              actionWithTitle:NSLocalizedString(@"Continue",
                                                                @"Continue button title")
 
                              style:UIAlertActionStyleDefault
-                             handler:nil];
+                             handler:^(UIAlertAction * action) {}];
         [ac addAction:ok];
+#if !TARGET_OS_MACCATALYST
     }
+#endif
     [self presentViewController:ac animated:TRUE completion:nil];
 
+#if !TARGET_OS_MACCATALYST
+    // in MACCATALYST the UIAlert does not dismiss when told so.
+    // This means we cannot dismiss it after a few seconds
     if (interval && interval.floatValue > 0.0) {
         [self performSelector:@selector(dismiss) withObject:nil afterDelay:interval.floatValue];
     }
+#endif
 }
 
 - (void)dismiss {

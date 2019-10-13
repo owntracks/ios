@@ -48,32 +48,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     // we don't show the scale as it would conflict with the new mode display
     self.mapView.showsScale = FALSE;
 
+#if TARGET_OS_MACCATALYST
+    self.mapView.showsZoomControls = TRUE;
+#endif
+
     DDLogInfo(@"[ViewController] viewDidLoad mapView region %g %g %g %g",
               self.mapView.region.center.latitude,
               self.mapView.region.center.longitude,
               self.mapView.region.span.latitudeDelta,
               self.mapView.region.span.longitudeDelta);
-
-    self.trackingButton = [MKUserTrackingButton userTrackingButtonWithMapView:self.mapView];
-    self.trackingButton.translatesAutoresizingMaskIntoConstraints = false;
-    [self.view addSubview:self.trackingButton];
-
-    NSLayoutConstraint *bottomTracking = [NSLayoutConstraint
-                                          constraintWithItem:self.trackingButton
-                                          attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual
-                                          toItem:self.mapView
-                                          attribute:NSLayoutAttributeBottom
-                                          multiplier:1
-                                          constant:-10];
-    NSLayoutConstraint *trailingTraccking = [NSLayoutConstraint
-                                             constraintWithItem:self.trackingButton
-                                             attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual
-                                             toItem:self.mapView
-                                             attribute:NSLayoutAttributeTrailing
-                                             multiplier:1
-                                             constant:-10];
-
-    [NSLayoutConstraint activateConstraints:@[bottomTracking, trailingTraccking]];
 
     self.modes = [[UISegmentedControl alloc]
                   initWithItems:@[NSLocalizedString(@"Quiet", @"Quiet"),
@@ -107,6 +90,28 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                    constant:10];
 
     [NSLayoutConstraint activateConstraints:@[top, leading]];
+
+    self.trackingButton = [MKUserTrackingButton userTrackingButtonWithMapView:self.mapView];
+    self.trackingButton.translatesAutoresizingMaskIntoConstraints = false;
+    [self.view addSubview:self.trackingButton];
+
+    NSLayoutConstraint *topTracking = [NSLayoutConstraint
+                                       constraintWithItem:self.trackingButton
+                                       attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
+                                       toItem:self.modes
+                                       attribute:NSLayoutAttributeBottom
+                                       multiplier:1
+                                       constant:8];
+    NSLayoutConstraint *leadingTracking = [NSLayoutConstraint
+                                           constraintWithItem:self.trackingButton
+                                           attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
+                                           toItem:self.mapView
+                                           attribute:NSLayoutAttributeLeading
+                                           multiplier:1
+                                           constant:10];
+
+    [NSLayoutConstraint activateConstraints:@[topTracking, leadingTracking]];
+
 
     [self setButtonMove];
 

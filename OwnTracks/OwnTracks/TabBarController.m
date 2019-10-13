@@ -22,10 +22,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    if (@available(macCatalyst 13.0, *)) {
-    } else {
-        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    }
+#if !TARGET_OS_MACCATALYST
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+#endif
 
     for (UIViewController *vc in self.viewControllers) {
         if (vc.tabBarItem.tag == 97) {
