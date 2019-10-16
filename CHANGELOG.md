@@ -1,6 +1,12 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 13.1.0
+* Release Date 2019-10-??
+
+** MacOS Version
+
+
 ## OwnTracks 13.0.2
 * Release Date 2019-09-25
 
