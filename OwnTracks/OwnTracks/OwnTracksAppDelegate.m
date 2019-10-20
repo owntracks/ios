@@ -1249,8 +1249,10 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         self.connection.subscriptionQos = subscriptionQos;
 
         NSMutableDictionary *json = [NSMutableDictionary dictionaryWithDictionary:@{
-                                                                                    @"tst": [NSString stringWithFormat:@"%.0f", [NSDate date].timeIntervalSince1970],
-                                                                                    @"_type": @"lwt"}];
+            @"tst": @((int)[NSDate date].timeIntervalSince1970),
+            @"_type": @"lwt"
+        }];
+        
         self.connection.key = [Settings stringForKey:@"secret_preference"
                                                inMOC:CoreData.sharedInstance.mainMOC];
 
