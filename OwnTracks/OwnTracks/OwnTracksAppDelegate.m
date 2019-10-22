@@ -614,6 +614,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 
                     [self.connection sendData:[self jsonToData:json]
                                         topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/event"]
+                                   topicAlias:@(2)
                                           qos:[Settings intForKey:@"qos_preference"
                                                             inMOC:CoreData.sharedInstance.mainMOC]
                                        retain:NO];
@@ -682,6 +683,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         }
         [self.connection sendData:[self jsonToData:json]
                             topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/beacon"]
+                       topicAlias:@(3)
                               qos:[Settings intForKey:@"qos_preference"
                                                 inMOC:CoreData.sharedInstance.mainMOC]
                            retain:NO];
@@ -842,6 +844,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                    }];
     [self.connection sendData:[self jsonToData:json]
                         topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/dump"]
+                   topicAlias:@(4)
                           qos:[Settings intForKey:@"qos_preference"
                                             inMOC:CoreData.sharedInstance.mainMOC]
                        retain:NO];
@@ -936,6 +939,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     NSMutableDictionary *json = [[Settings waypointsToDictionaryInMOC:CoreData.sharedInstance.mainMOC] mutableCopy];
     [self.connection sendData:[self jsonToData:json]
                         topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/waypoints"]
+                   topicAlias:@(5)
                           qos:[Settings intForKey:@"qos_preference"
                                             inMOC:CoreData.sharedInstance.mainMOC]
                        retain:NO];
@@ -1009,6 +1013,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
              
              [self.connection sendData:[self jsonToData:json]
                                  topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/step"]
+                            topicAlias:@(6)
                                    qos:[Settings intForKey:@"qos_preference"
                                                      inMOC:CoreData.sharedInstance.mainMOC]
                                 retain:NO];
@@ -1101,6 +1106,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                         NSData *data = [self jsonToData:json];
                         [self.connection sendData:data
                                             topic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
+                                       topicAlias:@(1)
                                               qos:[Settings intForKey:@"qos_preference"
                                                                 inMOC:CoreData.sharedInstance.mainMOC]
                                            retain:[Settings boolForKey:@"retain_preference"
@@ -1126,6 +1132,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 - (void)sendEmpty:(NSString *)topic {
     [self.connection sendData:nil
                         topic:topic
+                   topicAlias:nil
                           qos:[Settings intForKey:@"qos_preference"
                                             inMOC:CoreData.sharedInstance.mainMOC]
                        retain:YES];
@@ -1138,6 +1145,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                    } mutableCopy];
     [self.connection sendData:[self jsonToData:json]
                         topic:[friend.topic stringByAppendingString:@"/cmd"]
+                   topicAlias:nil
                           qos:[Settings intForKey:@"qos_preference"
                                             inMOC:CoreData.sharedInstance.mainMOC]
                        retain:NO];
@@ -1149,6 +1157,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         NSData *data = [self jsonToData:json];
         [self.connection sendData:data
                             topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/waypoint"]
+                       topicAlias:@(7)
                               qos:[Settings intForKey:@"qos_preference"
                                                 inMOC:CoreData.sharedInstance.mainMOC]
                            retain:NO];
@@ -1260,7 +1269,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                               port:[Settings intForKey:@"port_preference" inMOC:CoreData.sharedInstance.mainMOC]
                                 ws:[Settings boolForKey:@"ws_preference" inMOC:CoreData.sharedInstance.mainMOC]
                                tls:[Settings boolForKey:@"tls_preference" inMOC:CoreData.sharedInstance.mainMOC]
-                   protocolVersion:[Settings intForKey:SETTINGS_PROTOCOL  inMOC:CoreData.sharedInstance.mainMOC]
+                   protocolVersion:[Settings intForKey:SETTINGS_PROTOCOL inMOC:CoreData.sharedInstance.mainMOC]
                          keepalive:[Settings intForKey:@"keepalive_preference" inMOC:CoreData.sharedInstance.mainMOC]
                              clean:[Settings intForKey:@"clean_preference" inMOC:CoreData.sharedInstance.mainMOC]
                               auth:[Settings theMqttAuthInMOC:CoreData.sharedInstance.mainMOC]

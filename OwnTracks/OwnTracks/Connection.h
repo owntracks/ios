@@ -22,25 +22,28 @@ enum state {
     state_closed
 };
 
-- (void)showState:(Connection *)connection state:(NSInteger)state;
-- (BOOL)handleMessage:(Connection *)connection data:(NSData *)data onTopic:(NSString *)topic retained:(BOOL)retained;
-- (void)messageDelivered:(Connection *)connection msgID:(UInt16)msgID;
-- (void)totalBuffered:(Connection *)connection count:(NSUInteger)count;
+- (void)showState:(Connection * _Nonnull)connection state:(NSInteger)state;
+- (BOOL)handleMessage:(Connection * _Nonnull)connection
+                 data:(NSData * _Nullable)data
+              onTopic:(NSString * _Nonnull)topic
+             retained:(BOOL)retained;
+- (void)messageDelivered:(Connection * _Nonnull)connection msgID:(UInt16)msgID;
+- (void)totalBuffered:(Connection * _Nonnull)connection count:(NSUInteger)count;
 
 @end
 
 @interface Connection: NSThread <MQTTSessionDelegate>
 
-@property (weak, nonatomic) id<ConnectionDelegate> delegate;
+@property (weak, nonatomic) _Nullable id<ConnectionDelegate> delegate;
 @property (nonatomic) BOOL terminate;
 @property (nonatomic, readonly) NSInteger state;
-@property (nonatomic, readonly) NSError *lastErrorCode;
-@property (strong, nonatomic) NSArray *subscriptions;
-@property (strong, nonatomic) NSString *key;
+@property (nonatomic, readonly) NSError * _Nullable lastErrorCode;
+@property (strong, nonatomic) NSArray * _Nullable subscriptions;
+@property (strong, nonatomic) NSString *_Nullable key;
 
 @property (nonatomic) MQTTQosLevel subscriptionQos;
 
-- (void)connectTo:(NSString *)host
+- (void)connectTo:(NSString * _Nonnull)host
              port:(UInt32)port
                ws:(BOOL)ws
               tls:(BOOL)tls
@@ -48,29 +51,31 @@ enum state {
         keepalive:(NSInteger)keepalive
             clean:(BOOL)clean
              auth:(BOOL)auth
-             user:(NSString *)user
-             pass:(NSString *)pass
-        willTopic:(NSString *)willTopic
-             will:(NSData *)will
+             user:(NSString * _Nullable)user
+             pass:(NSString * _Nullable)pass
+        willTopic:(NSString * _Nullable)willTopic
+             will:(NSData * _Nullable)will
           willQos:(NSInteger)willQos
    willRetainFlag:(BOOL)willRetainFlag
-     withClientId:(NSString *)clientId
-   securityPolicy:(MQTTSSLSecurityPolicy *)securityPolicy
-     certificates:(NSArray *)certificates;
+     withClientId:(NSString * _Nullable)clientId
+   securityPolicy:(MQTTSSLSecurityPolicy * _Nullable)securityPolicy
+     certificates:(NSArray * _Nullable)certificates;
 
-- (void)connectHTTP:(NSString *)url
+- (void)connectHTTP:(NSString * _Nullable)url
                auth:(BOOL)auth
-               user:(NSString *)user
-               pass:(NSString *)pass
-             device:(NSString *)device;
+               user:(NSString * _Nullable)user
+               pass:(NSString * _Nullable)pass
+             device:(NSString * _Nonnull)device;
 
 - (void)connectToLast;
 
-- (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(NSInteger)qos retain:(BOOL)retainFlag;
+- (UInt16)sendData:(NSData * _Nullable)data
+             topic:(NSString * _Nonnull)topic
+        topicAlias:(NSNumber * _Nullable)topicAlias
+               qos:(NSInteger)qos
+            retain:(BOOL)retainFlag;
 - (void)disconnect;
 - (void)reset;
 
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *parameters;
-- (void)addExtraSubscription:(NSString *)topicFilter qos:(MQTTQosLevel)qos;
-- (void)removeExtraSubscription:(NSString *)topicFilter;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull parameters;
 @end

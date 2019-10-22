@@ -821,11 +821,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 - (IBAction)protocolChanged:(UITextField *)sender {
     if (sender.text.length) {
         int protocol = (sender.text).intValue;
-        if (protocol != MQTTProtocolVersion31 && protocol != MQTTProtocolVersion311) {
+        if (protocol != MQTTProtocolVersion31 &&
+            protocol != MQTTProtocolVersion311 &&
+            protocol != MQTTProtocolVersion50) {
             UIAlertController *ac = [UIAlertController
                                      alertControllerWithTitle:NSLocalizedString(@"Protocol invalid",
                                                                                 @"Alert header regarding protocol input")
-                                     message:NSLocalizedString(@"Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1",
+                                     message:NSLocalizedString(@"Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1 or 5 for MQTT V5",
                                                                @"Alert content regarding protocol input")
                                      preferredStyle:UIAlertControllerStyleAlert];
 

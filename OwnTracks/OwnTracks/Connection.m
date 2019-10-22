@@ -30,7 +30,6 @@
 @property (nonatomic) BOOL reconnectFlag;
 
 @property (strong, nonatomic) MQTTSession *session;
-@property (strong, nonatomic) NSMutableDictionary <NSString *, NSNumber *> *extraSubscriptions;
 
 @property (strong, nonatomic) NSString *url;
 
@@ -229,7 +228,8 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
         willRetainFlag != self.willRetainFlag ||
         ![clientId isEqualToString:self.clientId] ||
         securityPolicy != self.securityPolicy ||
-        certificates != self.certificates) {
+        certificates != self.certificates ||
+        protocolVersion != self.protocolVersion) {
         self.host = host;
         self.port = (int)port;
         self.protocolVersion = protocolVersion;
@@ -294,6 +294,8 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
     session.password = self.auth ? self.pass : nil;
     session.keepAliveInterval = self.keepalive;
     session.cleanSessionFlag = self.clean;
+    session.topicAliasMaximum = @(10);
+    session.sessionExpiryInterval = @(0xFFFFFFFF);
 
     if (self.willTopic) {
         MQTTWill *mqttWill = [[MQTTWill alloc] initWithTopic:self.willTopic
@@ -362,7 +364,11 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 #endif
 }
 
-- (UInt16)sendData:(NSData *)data topic:(NSString *)topic qos:(NSInteger)qos retain:(BOOL)retainFlag {
+- (UInt16)sendData:(NSData *)data
+             topic:(NSString *)topic
+        topicAlias:(NSNumber *)topicAlias
+               qos:(NSInteger)qos
+            retain:(BOOL)retainFlag {
     DDLogVerbose(@"[Connection] %@ sendData:%@ %@ q%ld r%d",
                  self.clientId,
                  topic,
@@ -403,13 +409,22 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 
         NSData *outgoingData = (self.key && self.key.length) ? [self encrypt:data] : data;
 
+        NSNumber *effectiveTopicAlias = nil;
+
+        if (topicAlias &&
+            topicAlias.unsignedIntValue > 0 &&
+            self.session.topicAliasMaximum &&
+            self.session.topicAliasMaximum.unsignedIntValue >= topicAlias.unsignedIntValue) {
+            effectiveTopicAlias = topicAlias;
+        }
+
         UInt16 msgId = [self.session publishDataV5:outgoingData
                                            onTopic:topic
                                             retain:retainFlag
                                                qos:qos
                             payloadFormatIndicator:nil
                              messageExpiryInterval:nil
-                                        topicAlias:nil
+                                        topicAlias:effectiveTopicAlias
                                      responseTopic:nil
                                    correlationData:nil
                                     userProperties:nil
@@ -598,31 +613,6 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     }];
 }
 
-- (void)addExtraSubscription:(NSString *)topicFilter qos:(MQTTQosLevel)qos {
-    NSNumber *extraSubscription = (self.extraSubscriptions)[topicFilter];
-    if (!extraSubscription) {
-        (self.extraSubscriptions)[topicFilter] = [NSNumber numberWithInt:qos];
-        [self.session subscribeToTopicV5:topicFilter
-                                 atLevel:qos
-                                 noLocal:FALSE
-                       retainAsPublished:FALSE
-                          retainHandling:MQTTSendRetained
-                  subscriptionIdentifier:0
-                          userProperties:nil
-                        subscribeHandler:nil];
-    }
-}
-
-- (void)removeExtraSubscription:(NSString *)topicFilter {
-    NSNumber *extraSubscription = (self.extraSubscriptions)[topicFilter];
-    if (extraSubscription) {
-        [self.session unsubscribeTopicsV5:@[topicFilter]
-                           userProperties:nil
-                       unsubscribeHandler:nil];
-        [self.extraSubscriptions removeObjectForKey:topicFilter];
-    }
-}
-
 #pragma mark - MQTT Callback methods
 
 - (void)connected:(MQTTSession *)session sessionPresent:(BOOL)sessionPresent {
@@ -637,24 +627,13 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
             if (topicFilter.length) {
                 [self.session subscribeToTopicV5:topicFilter
                                          atLevel:self.subscriptionQos
-                                         noLocal:FALSE
+                                         noLocal:TRUE
                                retainAsPublished:FALSE
                                   retainHandling:MQTTSendRetained
                           subscriptionIdentifier:0
                                   userProperties:nil
                                 subscribeHandler:nil];
             }
-        }
-        for (NSString *topicFilter in self.extraSubscriptions.allKeys) {
-            NSNumber *qos = (self.extraSubscriptions)[topicFilter];
-            [self.session subscribeToTopicV5:topicFilter
-                                     atLevel:qos.intValue
-                                     noLocal:FALSE
-                           retainAsPublished:FALSE
-                              retainHandling:MQTTSendRetained
-                      subscriptionIdentifier:0
-                              userProperties:nil
-                            subscribeHandler:nil];
         }
         self.reconnectFlag = TRUE;
     }
@@ -811,14 +790,15 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     if (self.url) {
         return self.url;
     } else {
-        return [NSString stringWithFormat:@"%@://%@%@:%ld c%d k%ld as %@",
+        return [NSString stringWithFormat:@"%@://%@%@:%ld c%d k%ld as %@ protocol:%u",
                 self.ws ? (self.tls ? @"wss" : @"ws") : (self.tls ? @"mqtts" : @"mqtt"),
                 self.auth ? [NSString stringWithFormat:@"%@@", self.user] : @"",
                 self.host,
                 (long)self.port,
                 self.clean,
                 (long)self.keepalive,
-                self.clientId
+                self.clientId,
+                self.protocolVersion
                 ];
     }
 }
