@@ -77,7 +77,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
         DDLogInfo(@"[Connection] sodium_init succeeded");
     }
 
-    [MQTTLog setLogLevel:DDLogLevelWarning];
+    [MQTTLog setLogLevel:DDLogLevelVerbose];
 
     self.state = state_starting;
     self.subscriptions = [[NSArray alloc] init];
@@ -295,7 +295,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
     session.keepAliveInterval = self.keepalive;
     session.cleanSessionFlag = self.clean;
     session.topicAliasMaximum = @(10);
-    session.sessionExpiryInterval = @(0xFFFFFFFFx);
+    session.sessionExpiryInterval = @(0xFFFFFFFF);
 
     if (self.willTopic) {
         MQTTWill *mqttWill = [[MQTTWill alloc] initWithTopic:self.willTopic
@@ -662,6 +662,9 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
              * specifically, the caller can end the background task now */
             self.state = state_closed;
             self.state = state_starting;
+            if (!self.lastErrorCode) {
+                self.lastErrorCode = error;
+            }
             break;
         case MQTTSessionEventProtocolError:
         case MQTTSessionEventConnectionRefused:
@@ -674,7 +677,9 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
             }
             [self startReconnectTimer:[NSRunLoop currentRunLoop]];
             self.state = state_error;
-            self.lastErrorCode = error;
+            if (!self.lastErrorCode) {
+                self.lastErrorCode = error;
+            }
             break;
         }
         default:

@@ -88,8 +88,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         }
     }
     
-    self.UIstatusField.text = [NSString stringWithFormat:@"%@ %@ %@",
+    self.UIstatusField.text = [NSString stringWithFormat:@"%@ %@ %@ %@ %@",
                                stateName,
+                               delegate.connection.lastErrorCode ?
+                               delegate.connection.lastErrorCode.domain : @"",
+                               delegate.connection.lastErrorCode ?
+                               [NSString stringWithFormat:@"%ld", delegate.connection.lastErrorCode.code] : @"",
                                delegate.connection.lastErrorCode ?
                                delegate.connection.lastErrorCode.localizedDescription : @"",
                                delegate.connection.lastErrorCode ?
