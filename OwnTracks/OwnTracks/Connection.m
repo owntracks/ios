@@ -295,7 +295,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
     session.keepAliveInterval = self.keepalive;
     session.cleanSessionFlag = self.clean;
     session.topicAliasMaximum = @(10);
-    session.sessionExpiryInterval = @(0xFFFFFFFF);
+    session.sessionExpiryInterval = @(0xFFFFFFFFx);
 
     if (self.willTopic) {
         MQTTWill *mqttWill = [[MQTTWill alloc] initWithTopic:self.willTopic
