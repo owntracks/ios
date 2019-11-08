@@ -19,7 +19,6 @@
 - (void)initialize {
     self.pickerView = [[UIPickerView alloc] init];
     (self.pickerView).autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    [self.pickerView setShowsSelectionIndicator:YES];
     self.pickerView.delegate = self;
     self.pickerView.dataSource = self;
     self.inputView = self.pickerView;

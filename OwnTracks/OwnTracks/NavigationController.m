@@ -117,16 +117,22 @@
 }
 
 - (void)alert:(NSDictionary *)parameters {
-UIAlertController *ac = [UIAlertController
-                              alertControllerWithTitle:parameters[@"title"]
-                              message:parameters[@"message"]
-                              preferredStyle:UIAlertControllerStyleAlert];
-#if !TARGET_OS_MACCATALYST
+    NSNumber *interval = parameters[@"interval"];
+
+#if TARGET_OS_MACCATALYST
     // in MACCATALYST the UIAlert does not dismiss when told so.
     // This means we cannot dismiss it after a few seconds
-    NSNumber *interval = parameters[@"interval"];
-    if (!interval || interval.floatValue == 0.0) {
+
+    if (interval && interval.floatValue > 0.0) {
+        return;
+    }
 #endif
+
+    UIAlertController *ac =
+    [UIAlertController alertControllerWithTitle:parameters[@"title"]
+                                        message:parameters[@"message"]
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    if (!interval || interval.floatValue == 0.0) {
         UIAlertAction *ok = [UIAlertAction
                              actionWithTitle:NSLocalizedString(@"Continue",
                                                                @"Continue button title")
@@ -134,18 +140,12 @@ UIAlertController *ac = [UIAlertController
                              style:UIAlertActionStyleDefault
                              handler:^(UIAlertAction * action) {}];
         [ac addAction:ok];
-#if !TARGET_OS_MACCATALYST
     }
-#endif
     [self presentViewController:ac animated:TRUE completion:nil];
 
-#if !TARGET_OS_MACCATALYST
-    // in MACCATALYST the UIAlert does not dismiss when told so.
-    // This means we cannot dismiss it after a few seconds
     if (interval && interval.floatValue > 0.0) {
         [self performSelector:@selector(dismiss) withObject:nil afterDelay:interval.floatValue];
     }
-#endif
 }
 
 - (void)dismiss {

@@ -627,7 +627,8 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
             if (topicFilter.length) {
                 [self.session subscribeToTopicV5:topicFilter
                                          atLevel:self.subscriptionQos
-                                         noLocal:TRUE
+                                         noLocal:self.protocolVersion >= MQTTProtocolVersion50 ?
+                                           TRUE : FALSE
                                retainAsPublished:FALSE
                                   retainHandling:MQTTSendRetained
                           subscriptionIdentifier:0
