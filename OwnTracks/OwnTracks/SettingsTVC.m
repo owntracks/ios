@@ -86,7 +86,7 @@
 
 @implementation SettingsTVC
 
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)viewWillAppear:(BOOL)animated
 {

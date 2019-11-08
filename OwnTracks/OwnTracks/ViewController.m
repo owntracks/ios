@@ -31,6 +31,7 @@
 
 @property (nonatomic) BOOL initialCenter;
 @property (strong, nonatomic) UISegmentedControl *modes;
+@property (strong, nonatomic) UISegmentedControl *mapMode;
 @property (strong, nonatomic) MKUserTrackingButton *trackingButton;
 
 @end
@@ -90,6 +91,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                    constant:10];
 
     [NSLayoutConstraint activateConstraints:@[top, leading]];
+    [self setButtonMove];
 
     self.trackingButton = [MKUserTrackingButton userTrackingButtonWithMapView:self.mapView];
     self.trackingButton.translatesAutoresizingMaskIntoConstraints = false;
@@ -112,8 +114,43 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
     [NSLayoutConstraint activateConstraints:@[topTracking, leadingTracking]];
 
+    self.mapMode = [[UISegmentedControl alloc]
+                  initWithItems:@[NSLocalizedString(@"Std", @"Std"),
+                                  NSLocalizedString(@"Sat", @"Sat"),
+                                  NSLocalizedString(@"Hyb", @"Hyb"),
+                                  NSLocalizedString(@"Fly", @"Fly"),
+                                  NSLocalizedString(@"HybFly", @"HybFly"),
+                                  NSLocalizedString(@"Mute", @"Mute")
+                                  ]];
+    self.mapMode.apportionsSegmentWidthsByContent = YES;
+    self.mapMode.translatesAutoresizingMaskIntoConstraints = false;
+    self.mapMode.backgroundColor = [UIColor colorNamed:@"modesColor"];
+    [self.mapMode addTarget:self
+                   action:@selector(mapModeChanged:)
+         forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:self.mapMode];
 
-    [self setButtonMove];
+    NSLayoutConstraint *bottomMapMode = [NSLayoutConstraint
+                               constraintWithItem:self.mapMode
+                               attribute:NSLayoutAttributeBottom
+                               relatedBy:NSLayoutRelationEqual
+                               toItem:self.mapView
+                               attribute:NSLayoutAttributeBottomMargin
+                               multiplier:1
+                               constant:-25];
+    NSLayoutConstraint *leadingMapMode = [NSLayoutConstraint
+                                   constraintWithItem:self.mapMode
+                                   attribute:NSLayoutAttributeLeading
+                                   relatedBy:NSLayoutRelationEqual
+                                   toItem:self.mapView
+                                   attribute:NSLayoutAttributeLeading
+                                   multiplier:1
+                                   constant:10];
+
+    [NSLayoutConstraint activateConstraints:@[bottomMapMode, leadingMapMode]];
+    self.mapMode.selectedSegmentIndex =
+    [[NSUserDefaults standardUserDefaults] integerForKey:@"mapMode"];
+    [self mapModeChanged:self.mapMode];
 
     [[LocationManager sharedInstance] addObserver:self
                                        forKeyPath:@"monitoring"
@@ -240,6 +277,34 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     return rect;
 }
 
+- (IBAction)mapModeChanged:(UISegmentedControl *)sender {
+    switch (sender.selectedSegmentIndex) {
+        case 5:
+            self.mapView.mapType = MKMapTypeMutedStandard;
+            break;
+        case 4:
+            self.mapView.mapType = MKMapTypeHybridFlyover;
+            break;
+        case 3:
+            self.mapView.mapType = MKMapTypeSatelliteFlyover;
+            break;
+        case 2:
+            self.mapView.mapType = MKMapTypeHybrid;
+            break;
+        case 1:
+            self.mapView.mapType = MKMapTypeSatellite;
+            break;
+        case 0:
+        default:
+            self.mapView.mapType = MKMapTypeStandard;
+            break;
+    }
+    [self.mapView setNeedsLayout];
+    [[NSUserDefaults standardUserDefaults] setInteger:self.mapView.mapType
+                                               forKey:@"mapMode"];
+
+}
+
 #pragma MKMapViewDelegate
 
 #define REUSE_ID_BEACON @"Annotation_beacon"
@@ -264,34 +329,6 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         self.initialCenter = TRUE;
         [self.mapView setCenterCoordinate:userLocation.location.coordinate animated:TRUE];
     }
-
-#ifdef GEOHASHING
-    Neighbors *neighbors = [GeoHashing sharedInstance].neighbors;
-    [self.mapView removeOverlay:neighbors.center];
-    [self.mapView removeOverlay:neighbors.west];
-    [self.mapView removeOverlay:neighbors.northWest];
-    [self.mapView removeOverlay:neighbors.north];
-    [self.mapView removeOverlay:neighbors.northEast];
-    [self.mapView removeOverlay:neighbors.east];
-    [self.mapView removeOverlay:neighbors.southEast];
-    [self.mapView removeOverlay:neighbors.south];
-    [self.mapView removeOverlay:neighbors.southWest];
-
-    CLLocation *location = [[CLLocation alloc] initWithLatitude:userLocation.coordinate.latitude
-                                                      longitude:userLocation.coordinate.longitude];
-    [[GeoHashing sharedInstance] newLocation:location];
-
-    neighbors = [GeoHashing sharedInstance].neighbors;
-    [self.mapView addOverlay:neighbors.center];
-    [self.mapView addOverlay:neighbors.west];
-    [self.mapView addOverlay:neighbors.northWest];
-    [self.mapView addOverlay:neighbors.north];
-    [self.mapView addOverlay:neighbors.northEast];
-    [self.mapView addOverlay:neighbors.east];
-    [self.mapView addOverlay:neighbors.southEast];
-    [self.mapView addOverlay:neighbors.south];
-    [self.mapView addOverlay:neighbors.southWest];
-#endif
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView
