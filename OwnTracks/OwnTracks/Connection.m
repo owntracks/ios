@@ -59,6 +59,8 @@
 
 @property (strong, nonatomic) NSURLSession *urlSession;
 
+@property (nonatomic) BOOL intendedDisconnect;
+
 @end
 
 #define RECONNECT_TIMER 1.0
@@ -579,6 +581,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 - (void)disconnect {
     DDLogInfo(@"[Connection] %@ disconnect:", self.clientId);
     if (!self.url) {
+        self.intendedDisconnect = TRUE;
         self.state = state_closing;
         [self.session closeWithReturnCode:MQTTSuccess
                     sessionExpiryInterval:nil
@@ -655,7 +658,8 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     [self.reconnectTimer invalidate];
     switch (eventCode) {
         case MQTTSessionEventConnected:
-            // handled in connected callback
+            self.reconnectTime = RECONNECT_TIMER;
+            // more handled in connected callback
             break;
         case MQTTSessionEventConnectionClosed:
         case MQTTSessionEventConnectionClosedByBroker:
@@ -663,6 +667,11 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
              * specifically, the caller can end the background task now */
             self.state = state_closed;
             self.state = state_starting;
+            if (!self.intendedDisconnect) {
+                [self startReconnectTimer:[NSRunLoop currentRunLoop]];
+            } else {
+                self.intendedDisconnect = FALSE;
+            }
             if (!self.lastErrorCode) {
                 self.lastErrorCode = error;
             }
