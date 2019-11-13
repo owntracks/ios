@@ -79,6 +79,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
             [[LocationManager sharedInstance] startRegion:self.editRegion.CLregion];
         }
     }
+    [CoreData.sharedInstance sync:self.editRegion.managedObjectContext];
 }
 
 - (void)setup {
