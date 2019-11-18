@@ -17,9 +17,7 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface RegionsTVC ()
-
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-
 @end
 
 @implementation RegionsTVC
@@ -77,6 +75,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                                                    lat:location.coordinate.latitude
                                                                    lon:location.coordinate.longitude
                                                                context:CoreData.sharedInstance.mainMOC];
+        [self.tableView reloadData];
         if ([segue.destinationViewController respondsToSelector:@selector(setEditRegion:)]) {
             [segue.destinationViewController performSelector:@selector(setEditRegion:) withObject:newRegion];
         }
@@ -92,8 +91,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     return (self.fetchedResultsController).sections.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView
+ numberOfRowsInSection:(NSInteger)section {
     id <NSFetchedResultsSectionInfo> sectionInfo = (self.fetchedResultsController).sections[section];
+    if (sectionInfo.numberOfObjects == 0) {
+        [self empty];
+    } else {
+        [self nonempty];
+    }
     return sectionInfo.numberOfObjects;
 }
 
@@ -104,8 +109,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     return cell;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+- (BOOL)tableView:(UITableView *)tableView
+canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+        return YES;
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -134,7 +140,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     }
 }
 
-
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObjectContext *context = (self.fetchedResultsController).managedObjectContext;
@@ -146,11 +151,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     }
 }
 
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView *)tableView
+canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
 }
-
-
 
 #pragma mark - Fetched results controller
 
@@ -294,26 +298,26 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
-    cell.textLabel.text = region.name;
-    cell.detailTextLabel.text = region.subtitle;
-    
-    if  ([region.CLregion isKindOfClass:[CLCircularRegion class]]) {
-        if ([[LocationManager sharedInstance] insideCircularRegion:region.CLregion.identifier]) {
-            cell.imageView.image = [UIImage imageNamed:@"RegionHot"];
+        Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
+
+        cell.textLabel.text = region.name;
+        cell.detailTextLabel.text = region.subtitle;
+
+        if  ([region.CLregion isKindOfClass:[CLCircularRegion class]]) {
+            if ([[LocationManager sharedInstance] insideCircularRegion:region.CLregion.identifier]) {
+                cell.imageView.image = [UIImage imageNamed:@"RegionHot"];
+            } else {
+                cell.imageView.image = [UIImage imageNamed:@"RegionCold"];
+            }
+        } else if ([region.CLregion isKindOfClass:[CLBeaconRegion class]]){
+            if ([[LocationManager sharedInstance] insideBeaconRegion:region.CLregion.identifier]) {
+                cell.imageView.image = [UIImage imageNamed:@"iBeaconHot"];
+            } else {
+                cell.imageView.image = [UIImage imageNamed:@"iBeaconCold"];
+            }
         } else {
-            cell.imageView.image = [UIImage imageNamed:@"RegionCold"];
+            cell.imageView.image = [UIImage imageNamed:@"Friend"];
         }
-    } else if ([region.CLregion isKindOfClass:[CLBeaconRegion class]]){
-        if ([[LocationManager sharedInstance] insideBeaconRegion:region.CLregion.identifier]) {
-            cell.imageView.image = [UIImage imageNamed:@"iBeaconHot"];
-        } else {
-            cell.imageView.image = [UIImage imageNamed:@"iBeaconCold"];
-        }
-    } else {
-        cell.imageView.image = [UIImage imageNamed:@"Friend"];
-    }
 }
 
 @end

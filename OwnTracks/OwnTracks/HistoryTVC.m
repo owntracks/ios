@@ -59,6 +59,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    if ((self.fetchedResultsController).sections.count == 0) {
+        [self empty];
+    } else {
+        [self nonempty];
+    }
+
     return (self.fetchedResultsController).sections.count;
 }
 

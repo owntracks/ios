@@ -45,6 +45,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *UIextendedData;
 @property (weak, nonatomic) IBOutlet UITextField *UItrackerid;
 @property (weak, nonatomic) IBOutlet UIButton *UIexport;
+@property (weak, nonatomic) IBOutlet UIButton *UIexportWaypoints;
 @property (weak, nonatomic) IBOutlet UIButton *UIpublish;
 @property (weak, nonatomic) IBOutlet UITextField *UIsecret;
 @property (weak, nonatomic) IBOutlet UITextField *UIurl;
@@ -710,6 +711,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (IBAction)exportPressed:(UIButton *)sender {
+#if TARGET_OS_MACCATALYST
+    UIAlertController *ac = [UIAlertController
+                             alertControllerWithTitle:QRSCANNER
+                             message:NSLocalizedString(@"Mac Catalyst does not support export yet",
+                                                       @"content of an alert message regarging missing Mac Catalyst Export")
+                             preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *ok = [UIAlertAction
+                         actionWithTitle:NSLocalizedString(@"Continue",
+                                                           @"Continue button title")
+                         
+                         style:UIAlertActionStyleDefault
+                         handler:nil];
+    [ac addAction:ok];
+    [self presentViewController:ac animated:TRUE completion:nil];
+    return;
+#endif
+
     [self updateValues];
     NSError *error;
 
@@ -732,6 +750,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (IBAction)exportWaypointsPressed:(UIButton *)sender {
+#if TARGET_OS_MACCATALYST
+    UIAlertController *ac = [UIAlertController
+                             alertControllerWithTitle:QRSCANNER
+                             message:NSLocalizedString(@"Mac Catalyst does not support export yet",
+                                                       @"content of an alert message regarging missing Mac Catalyst Export")
+                             preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *ok = [UIAlertAction
+                         actionWithTitle:NSLocalizedString(@"Continue",
+                                                           @"Continue button title")
+
+                         style:UIAlertActionStyleDefault
+                         handler:nil];
+    [ac addAction:ok];
+    [self presentViewController:ac animated:TRUE completion:nil];
+    return;
+#endif
+
     [self updateValues];
     NSError *error;
 
@@ -750,7 +785,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     self.dic = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
     self.dic.delegate = self;
 
-    [self.dic presentOptionsMenuFromRect:self.UIexport.frame inView:self.UIexport animated:TRUE];
+    [self.dic presentOptionsMenuFromRect:self.UIexportWaypoints.frame inView:self.UIexportWaypoints animated:TRUE];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

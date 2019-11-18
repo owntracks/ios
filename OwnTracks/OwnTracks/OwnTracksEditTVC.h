@@ -11,7 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface OwnTracksEditTVC : UITableViewController
-
+@property (strong, nonatomic) NSString *emptyText;
+- (void)empty;
+- (void)nonempty;
 @end
 
 NS_ASSUME_NONNULL_END

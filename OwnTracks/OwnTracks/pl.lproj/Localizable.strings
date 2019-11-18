@@ -83,7 +83,7 @@
 "Notification" = "Notification";
 
 /* kABAuthorizationStatusDenied */
-"has been denied by user. Go to Settings/Privacy/Contacts to change" = "zostało odrzucone przez użytkownika. Przejdź do Ustawienia/Prywatność/Kontakty aby zmienić";
+"has been denied by user.\nIf you allow OwnTracks to access your contacts, you can link your devices to contacts.\nOwnTracks will then display the contact name and image instead of the device Id.\nNo information of your address book will be uploaded to any server.\nGo to Settings/Privacy/Contacts to change" = "has been denied by user.\nIf you allow OwnTracks to access your contacts, you can link your devices to contacts.\nOwnTracks will then display the contact name and image instead of the device Id.\nNo information of your address book will be uploaded to any server.\nGo to Settings/Privacy/Contacts to change";
 
 /* kABAuthorizationStatusRestricted */
 "has been restricted, possibly due to restrictions such as parental controls." = "zostało ograniczone, prawdopodobnie przez blokady takie jak kontrola rodzicielska.";
@@ -250,3 +250,5 @@
 /* Location copied to clipboard */
 "Location copied to clipboard" = "Location copied to clipboard";
 
+/* content of an alert message regarging missing Mac Catalyst Export */
+"Mac Catalyst does not support export yet" = "Mac Catalyst does not support export yet";

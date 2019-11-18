@@ -72,6 +72,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     }
 
     self.tableView.sectionIndexMinimumDisplayRowCount = 8;
+
     [super viewWillAppear:animated];
 }
 
@@ -144,4 +145,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     return persons;
 }
 
+- (IBAction)contactsButton:(UIBarButtonItem *)sender {
+}
 @end

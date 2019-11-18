@@ -41,8 +41,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     [[NSNotificationCenter defaultCenter] addObserverForName:@"reload"
@@ -55,49 +54,69 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
     switch (status) {
         case CNAuthorizationStatusRestricted: {
-            DDLogVerbose(@"CNAuthorizationStatus: CNAuthorizationStatusRestricted");
-            UIAlertController *ac = [UIAlertController
-                                     alertControllerWithTitle:NSLocalizedString(@"Addressbook Access",
-                                                                                @"Headline in addressbook related error messages")
-                                     message:NSLocalizedString(@"has been restricted, possibly due to restrictions such as parental controls.",
-                                                               @"CNAuthorizationStatusRestricted")
-                                     preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *ok = [UIAlertAction
-                                 actionWithTitle:NSLocalizedString(@"Continue",
-                                                                   @"Continue button title")
+            if (![[NSUserDefaults standardUserDefaults]
+                  boolForKey:@"contactsAuthorization"]) {
 
-                                 style:UIAlertActionStyleDefault
-                                 handler:nil];
-            [ac addAction:ok];
-            [self presentViewController:ac animated:TRUE completion:nil];
+                DDLogVerbose(@"CNAuthorizationStatus: CNAuthorizationStatusRestricted");
+                UIAlertController *ac =
+                [UIAlertController
+                 alertControllerWithTitle:NSLocalizedString(@"Addressbook Access",
+                                                            @"Headline in addressbook related error messages")
+                 message:NSLocalizedString(@"has been restricted, possibly due to restrictions such as parental controls.",
+                                           @"CNAuthorizationStatusRestricted")
+                 preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *ok = [UIAlertAction
+                                     actionWithTitle:NSLocalizedString(@"Continue",
+                                                                       @"Continue button title")
+
+                                     style:UIAlertActionStyleDefault
+                                     handler:nil];
+                [ac addAction:ok];
+                [self presentViewController:ac animated:TRUE completion:nil];
+                [[NSUserDefaults standardUserDefaults]
+                 setBool:TRUE
+                 forKey:@"contactsAuthorization"];
+            }
             break;
         }
             
         case CNAuthorizationStatusDenied: {
-            DDLogVerbose(@"CNAuthorizationStatus: CNAuthorizationStatusDenied");
-            UIAlertController *ac = [UIAlertController
-                                     alertControllerWithTitle:NSLocalizedString(@"Addressbook Access",
-                                                                                @"Headline in addressbook related error messages")
-                                     message:NSLocalizedString(@"has been denied by user. Go to Settings/Privacy/Contacts to change",
-                                                               @"CNAuthorizationStatusDenied")
-                                     preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *ok = [UIAlertAction
-                                 actionWithTitle:NSLocalizedString(@"Continue",
-                                                                   @"Continue button title")
+            if (![[NSUserDefaults standardUserDefaults]
+                  boolForKey:@"contactsAuthorization"]) {
 
-                                 style:UIAlertActionStyleDefault
-                                 handler:nil];
-            [ac addAction:ok];
-            [self presentViewController:ac animated:TRUE completion:nil];
+                DDLogVerbose(@"CNAuthorizationStatus: CNAuthorizationStatusDenied");
+                UIAlertController *ac =
+                [UIAlertController
+                 alertControllerWithTitle:NSLocalizedString(@"Addressbook Access",
+                                                            @"Headline in addressbook related error messages")
+                 message:NSLocalizedString(@"has been denied by user.\nIf you allow OwnTracks to access your contacts, you can link your devices to contacts.\nOwnTracks will then display the contact name and image instead of the device Id.\nNo information of your address book will be uploaded to any server.\nGo to Settings/Privacy/Contacts to change",
+                                           @"CNAuthorizationStatusDenied")
+                 preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *ok = [UIAlertAction
+                                     actionWithTitle:NSLocalizedString(@"Continue",
+                                                                       @"Continue button title")
+
+                                     style:UIAlertActionStyleDefault
+                                     handler:nil];
+                [ac addAction:ok];
+                [self presentViewController:ac animated:TRUE completion:nil];
+                [[NSUserDefaults standardUserDefaults]
+                 setBool:TRUE
+                 forKey:@"contactsAuthorization"];
+            }
             break;
         }
             
         case CNAuthorizationStatusAuthorized:
             DDLogVerbose(@"CNAuthorizationStatus: CNAuthorizationStatusAuthorized");
             break;
-            
+
         case CNAuthorizationStatusNotDetermined:
         default:
+            [[NSUserDefaults standardUserDefaults]
+             setBool:FALSE
+             forKey:@"contactsAuthorization"];
+
             DDLogVerbose(@"CNAuthorizationStatus: CNAuthorizationStatusNotDetermined");
             CNContactStore *contactStore = [[CNContactStore alloc] init];
             [contactStore requestAccessForEntityType:CNEntityTypeContacts
@@ -195,6 +214,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     id <NSFetchedResultsSectionInfo> sectionInfo = (self.fetchedResultsController).sections[section];
+    if (sectionInfo.numberOfObjects == 0) {
+        [self empty];
+    } else {
+        [self nonempty];
+    }
     return sectionInfo.numberOfObjects;
 }
 
