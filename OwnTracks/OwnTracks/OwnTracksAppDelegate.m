@@ -96,6 +96,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 #pragma ApplicationDelegate
 
+- (void)buildMenuWithBuilder:(id<UIMenuBuilder>)builder {
+    [builder removeMenuForIdentifier:UIMenuHelp];
+}
+
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 #ifdef DEBUG
     [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelVerbose];
