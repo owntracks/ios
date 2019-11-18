@@ -14,6 +14,7 @@
 #import "Settings.h"
 #import "CoreData.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import <Contacts/Contacts.h>
 
 @interface WaypointTVC ()
 @property (weak, nonatomic) IBOutlet UITextField *UIcoordinate;
@@ -41,6 +42,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+    CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
+    if (status != CNAuthorizationStatusAuthorized) {
+        [self.navigationItem setRightBarButtonItem:nil];
+    }
+
     self.tableView.estimatedRowHeight = 150;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
 
