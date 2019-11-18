@@ -1441,13 +1441,7 @@
                             <outletCollection property="gestureRecognizers" destination="2Ey-zd-g72" appends="YES" id="QL5-Xd-zZm"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Settings" id="jaH-UC-XYI">
-                        <barButtonItem key="rightBarButtonItem" systemItem="camera" id="pEW-Q7-I67">
-                            <connections>
-                                <action selector="scan:" destination="nAk-La-kdM" id="E4w-La-eQf"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Settings" id="jaH-UC-XYI"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="2500"/>
                     <connections>

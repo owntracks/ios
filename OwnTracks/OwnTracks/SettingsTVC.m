@@ -17,8 +17,6 @@
 #import "IdPicker.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
-#define QRSCANNER NSLocalizedString(@"QRScanner", @"Header of an alert message regarging QR code scanning")
-
 @interface SettingsTVC ()
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *UITLSCell;
@@ -81,7 +79,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *UIeffectiveDeviceId;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
-@property (strong, nonatomic) QRCodeReaderViewController *reader;
 
 @end
 
@@ -89,8 +86,7 @@
 
 static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
     self.UImode.delegate = self;
@@ -713,7 +709,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 - (IBAction)exportPressed:(UIButton *)sender {
 #if TARGET_OS_MACCATALYST
     UIAlertController *ac = [UIAlertController
-                             alertControllerWithTitle:QRSCANNER
+                             alertControllerWithTitle:NSLocalizedString(@"Export", @"Export")
                              message:NSLocalizedString(@"Mac Catalyst does not support export yet",
                                                        @"content of an alert message regarging missing Mac Catalyst Export")
                              preferredStyle:UIAlertControllerStyleAlert];
@@ -726,8 +722,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [ac addAction:ok];
     [self presentViewController:ac animated:TRUE completion:nil];
     return;
-#endif
-
+#else
     [self updateValues];
     NSError *error;
 
@@ -747,12 +742,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     self.dic.delegate = self;
 
     [self.dic presentOptionsMenuFromRect:self.UIexport.frame inView:self.UIexport animated:TRUE];
+#endif
 }
 
 - (IBAction)exportWaypointsPressed:(UIButton *)sender {
 #if TARGET_OS_MACCATALYST
     UIAlertController *ac = [UIAlertController
-                             alertControllerWithTitle:QRSCANNER
+                             alertControllerWithTitle:NSLocalizedString(@"Export", @"Export")
                              message:NSLocalizedString(@"Mac Catalyst does not support export yet",
                                                        @"content of an alert message regarging missing Mac Catalyst Export")
                              preferredStyle:UIAlertControllerStyleAlert];
@@ -765,8 +761,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [ac addAction:ok];
     [self presentViewController:ac animated:TRUE completion:nil];
     return;
-#endif
-
+#else
     [self updateValues];
     NSError *error;
 
@@ -786,6 +781,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     self.dic.delegate = self;
 
     [self.dic presentOptionsMenuFromRect:self.UIexportWaypoints.frame inView:self.UIexportWaypoints animated:TRUE];
+#endif
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -987,81 +983,5 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [self updateValues];
     [delegate reconnect];
 }
-
-- (IBAction)scan:(UIBarButtonItem *)sender {
-    if ([QRCodeReader isAvailable]) {
-        NSArray *types = @[AVMetadataObjectTypeQRCode];
-        self.reader = [QRCodeReaderViewController readerWithMetadataObjectTypes:types];
-
-        self.reader.modalPresentationStyle = UIModalPresentationFormSheet;
-
-        self.reader.delegate = self;
-
-        [self presentViewController:_reader animated:YES completion:NULL];
-    } else {
-        UIAlertController *ac = [UIAlertController
-                                 alertControllerWithTitle:QRSCANNER
-                                 message:NSLocalizedString(@"App does not have access to camera",
-                                                           @"content of an alert message regarging QR code scanning")
-                                 preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *ok = [UIAlertAction
-                             actionWithTitle:NSLocalizedString(@"Continue",
-                                                               @"Continue button title")
-
-                             style:UIAlertActionStyleDefault
-                             handler:nil];
-        [ac addAction:ok];
-        [self presentViewController:ac animated:TRUE completion:nil];
-    }
-}
-
-
-#pragma mark - QRCodeReader Delegate Methods
-
-- (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
-{
-    [self dismissViewControllerAnimated:YES completion:^{
-        DDLogVerbose(@"result %@", result);
-
-        NSURL *url = [NSURL URLWithString:result];
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        if ([delegate application:[UIApplication sharedApplication] openURL:url options:@{}]) {
-            UIAlertController *ac = [UIAlertController
-                                     alertControllerWithTitle:QRSCANNER
-                                     message:NSLocalizedString(@"QR code successfully processed!",
-                                                               @"content of an alert message regarging QR code scanning")
-                                     preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *ok = [UIAlertAction
-                                 actionWithTitle:NSLocalizedString(@"Continue",
-                                                                   @"Continue button title")
-
-                                 style:UIAlertActionStyleDefault
-                                 handler:nil];
-            [ac addAction:ok];
-            [self presentViewController:ac animated:TRUE completion:nil];
-
-        } else {
-            UIAlertController *ac = [UIAlertController
-                                     alertControllerWithTitle:QRSCANNER
-                                     message:delegate.processingMessage
-                                     preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *ok = [UIAlertAction
-                                 actionWithTitle:NSLocalizedString(@"Continue",
-                                                                   @"Continue button title")
-
-                                 style:UIAlertActionStyleDefault
-                                 handler:nil];
-            [ac addAction:ok];
-            [self presentViewController:ac animated:TRUE completion:nil];
-        }
-        delegate.processingMessage = nil;
-    }];
-}
-
-- (void)readerDidCancel:(QRCodeReaderViewController *)reader
-{
-    [self dismissViewControllerAnimated:YES completion:NULL];
-}
-
 
 @end

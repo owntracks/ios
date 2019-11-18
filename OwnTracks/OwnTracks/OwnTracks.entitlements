@@ -8,8 +8,6 @@
 	<array>
 		<string>group.org.owntracks.Owntracks</string>
 	</array>
-	<key>com.apple.security.device.camera</key>
-	<true/>
 	<key>com.apple.security.network.client</key>
 	<true/>
 	<key>com.apple.security.personal-information.addressbook</key>

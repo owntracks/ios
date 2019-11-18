@@ -79,44 +79,43 @@
 
                 if ((self.major).unsignedIntValue > 0) {
                     if ((self.minor).unsignedIntValue > 0) {
-                        if (@available(iOS 13.0, macCatalyst 13.0, *)) {
-                            beaconRegion = [[CLBeaconRegion alloc]
-                                            initWithUUID:uuid
-                                            major:(self.major).unsignedIntValue
-                                            minor:(self.minor).unsignedIntValue
-                                            identifier:self.name];
-                        } else {
-                            beaconRegion = [[CLBeaconRegion alloc]
-                                            initWithProximityUUID:uuid
-                                            major:(self.major).unsignedIntValue
-                                            minor:(self.minor).unsignedIntValue
-                                            identifier:self.name];
-                        }
-                    } else {
-                        if (@available(iOS 13.0, macCatalyst 13, *)) {
-                            beaconRegion = [[CLBeaconRegion alloc]
-                                            initWithUUID:uuid
-                                            major:(self.major).unsignedIntValue
-                                            identifier:self.name];
-                        } else {
-                            beaconRegion = [[CLBeaconRegion alloc]
-                                            initWithProximityUUID:uuid
-                                            major:(self.major).unsignedIntValue
-                                            identifier:self.name];
-                        }
-                    }
-                } else {
-                    if (@available(iOS 13.0, macCatalyst 13.0, *)) {
+#if TARGET_OS_MACCATALYST
                         beaconRegion = [[CLBeaconRegion alloc]
                                         initWithUUID:uuid
+                                        major:(self.major).unsignedIntValue
+                                        minor:(self.minor).unsignedIntValue
                                         identifier:self.name];
-                    } else {
+#else
                         beaconRegion = [[CLBeaconRegion alloc]
                                         initWithProximityUUID:uuid
+                                        major:(self.major).unsignedIntValue
+                                        minor:(self.minor).unsignedIntValue
                                         identifier:self.name];
+#endif
+                    } else {
+#if TARGET_OS_MACCATALYST
+                        beaconRegion = [[CLBeaconRegion alloc]
+                                        initWithUUID:uuid
+                                        major:(self.major).unsignedIntValue
+                                        identifier:self.name];
+#else
+                        beaconRegion = [[CLBeaconRegion alloc]
+                                        initWithProximityUUID:uuid
+                                        major:(self.major).unsignedIntValue
+                                        identifier:self.name];
+#endif
                     }
+                } else {
+#if TARGET_OS_MACCATALYST
+                    beaconRegion = [[CLBeaconRegion alloc]
+                                    initWithUUID:uuid
+                                    identifier:self.name];
+#else
+                    beaconRegion = [[CLBeaconRegion alloc]
+                                    initWithProximityUUID:uuid
+                                    identifier:self.name];
+#endif
                 }
-
                 region = beaconRegion;
             }
         }

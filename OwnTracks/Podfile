@@ -8,7 +8,6 @@ pod 'SocketRocket', :path => '~/SocketRocket'
 pod 'ABStaticTableViewController', :path => '~/ABStaticTableViewController'
 pod 'mqttc/MinL', :path => '~/mqttc'
 pod 'mqttc/WebsocketL', :path => '~/mqttc'
-pod 'QRCodeReaderViewController'
 pod 'libsodium', '~> 1.0'
 
 target 'OwnTracks' do

@@ -10,9 +10,6 @@
 /* Headline in addressbook related error messages */
 "Addressbook Access" = "Dostęp do Książki Adresowej";
 
-/* content of an alert message regarging QR code scanning */
-"App does not have access to camera" = "Aplikacja nie ma dostępu do kamery";
-
 /* Location Manager error message */
 "App is not allowed to use location services" = "Aplikacja nie ma dostępu do usług lokalizacji";
 
@@ -27,9 +24,6 @@
 
 /* Location Manager error message */
 "App use of location services is unclear" = "Użycie usług lokalizacji przez aplikację jest niejasne";
-
-/* Display after processing beacon QR code */
-"Beacon QR successfully processed" = "Kod QR Beacona przetworzony pomyślnie";
 
 /* Cancel button title */
 "Cancel" = "Anuluj";
@@ -87,9 +81,6 @@
 
 /* kABAuthorizationStatusRestricted */
 "has been restricted, possibly due to restrictions such as parental controls." = "zostało ograniczone, prawdopodobnie przez blokady takie jak kontrola rodzicielska.";
-
-/* Display after processing hosted QR code */
-"Hosted QR successfully processed" = "Hostowany QR przetworzony poprawnie";
 
 /* Location Manager error message */
 "iBeacon ranging not available" = "Obszarowanie iBeacon niedostępne";
@@ -169,11 +160,8 @@
 /* content of an alert message regarding user publish */
 "publish queued on user request" = "publikacja zakolejkowana na prośbę użytkownika";
 
-/* content of an alert message regarging QR code scanning */
-"QR code successfully processed!" = "Kod QR przetworzony!";
-
-/* Header of an alert message regarging QR code scanning */
-"QRScanner" = "Skaner QR";
+/* Export */
+"Export" = "Export";
 
 /* Quiet */
 "Quiet" = "Cichy";

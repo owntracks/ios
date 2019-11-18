@@ -96,7 +96,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 #pragma ApplicationDelegate
 
-- (void)buildMenuWithBuilder:(id<UIMenuBuilder>)builder {
+- (void)buildMenuWithBuilder:(id<UIMenuBuilder>)builder  API_AVAILABLE(ios(13.0)){
     [builder removeMenuForIdentifier:UIMenuHelp];
 }
 
@@ -115,7 +115,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     switch (status) {
         case UIBackgroundRefreshStatusAvailable:
             DDLogVerbose(@"[OwnTracksAppDelegate] UIBackgroundRefreshStatusAvailable");
+#if !TARGET_OS_MACCATALYST
             [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
+#endif
             break;
         case UIBackgroundRefreshStatusDenied:
             DDLogWarn(@"[OwnTracksAppDelegate] UIBackgroundRefreshStatusDenied");
@@ -463,6 +465,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     }
 }
 
+#if !TARGET_OS_MACCATALYST
 - (void)application:(UIApplication *)application
 performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 
@@ -486,6 +489,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         [self publishLocation:location trigger:@"p"];
     }
 }
+#endif
 
 - (void)background {
     [self startBackgroundTimer];
@@ -675,7 +679,11 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                        @"_type": @"beacon",
                                        @"tid": myself.effectiveTid,
                                        @"tst": @(floor(([LocationManager sharedInstance].location.timestamp).timeIntervalSince1970)),
+#if TARGET_OS_MACCATALYST
+                                       @"uuid": (beacon.UUID).UUIDString,
+#else
                                        @"uuid": (beacon.proximityUUID).UUIDString,
+#endif
                                        @"major": beacon.major,
                                        @"minor": beacon.minor,
                                        @"prox": @(beacon.proximity),

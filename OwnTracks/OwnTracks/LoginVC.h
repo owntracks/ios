@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "QRCodeReaderViewController.h"
 
 @interface LoginVC : UIViewController
 
