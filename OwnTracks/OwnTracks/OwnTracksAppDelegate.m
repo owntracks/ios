@@ -1261,7 +1261,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         MQTTQosLevel subscriptionQos =[Settings intForKey:@"subscriptionqos_preference"
                                                     inMOC:CoreData.sharedInstance.mainMOC];
         NSArray *subscriptions = [[NSArray alloc] init];
-        if ([Settings boolForKey:@"sub" inMOC:CoreData.sharedInstance.mainMOC]) {
+        if ([Settings boolForKey:@"sub_preference" inMOC:CoreData.sharedInstance.mainMOC]) {
             subscriptions = [[Settings theSubscriptionsInMOC:CoreData.sharedInstance.mainMOC] componentsSeparatedByCharactersInSet:
                              [NSCharacterSet whitespaceCharacterSet]];
         }

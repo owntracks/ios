@@ -13,7 +13,6 @@
 #define SETTINGS_ACTION @"action"
 #define SETTINGS_ACTIONURL @"actionurl"
 #define SETTINGS_ACTIONEXTERN @"actionextern"
-#define SETTINGS_ADDRESSBOOK @"ab_preference"
 #define SETTINGS_PROTOCOL @"mqttProtocolLevel"
 
 typedef NS_ENUM(int, ConnectionMode) {

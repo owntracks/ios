@@ -465,9 +465,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
           inMode:(ConnectionMode)mode {
     if ([key isEqualToString:@"mode"] ||
         [key isEqualToString:@"locked"] ||
-        [key isEqualToString:@"sub"] ||
+        [key isEqualToString:@"sub_preference"] ||
         [key isEqualToString:@"extendedData_preference"] ||
-        [key isEqualToString:SETTINGS_ADDRESSBOOK] ||
         [key isEqualToString:@"monitoring_preference"] ||
         [key isEqualToString:@"trackerid_preference"] ||
         [key isEqualToString:@"ranging_preference"]) {
