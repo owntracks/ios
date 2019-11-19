@@ -1,10 +1,41 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 13.1.0
-* Release Date 2019-10-??
+## OwnTracks 13.1.3
+* Release Date 2019-11-19
 
-** MacOS Version
+** iOS Version ported to macOS (via Catalyst), different map view modes, MQTTv5
+
+    [NEW] Allow map to be switched between map view and satellite view #606
+    [NEW] support MQTTv5 (no local, topic aliases in = 10, topic aliases out, session Expiry=indefinetely)
+
+    [FIX] lwt-message: Parameter "tst" is of type string. #604
+    [FIX] end user whose Regions disappear #608
+
+    [FIX] more info on error
+    [NEW] MQTTV5 Session Expiry Interval
+    [FIX] don't use NO_LOCAL in MQTT subscription when not using MQTTV5
+    [FIX] skip info messages for Mac Catalyst
+    [NEW] re-connect after laptop sleep
+    [NEW] clarification of Addressbook usage
+    [FIX] remove BarButton for Addressbook if Addressbook access is not granted
+    [NEW] indicate empty tables in UI
+    [FIX] remove QR reader and associated camera access requirements - use external QR reader
+    [FIX] sub preference key
+    [FIX] Mac Catalyst does not implement left swipes in TableViews. Added Edit/Done Button in each editing TableView
+    [FIX] special Map Zoom handling for Mac Catalyst
+    [FIX] UIAlert cannot be automatically dismissed in Mac Catalyst
+    [NEW] use local pods for Socketrockt and ABStaticTableViewController
+    [FIX] remove unsupported statusbarstyle in Mac Catalyst
+    [FIX] exclude missing APIs for Mac Catalyst
+    [FIX] migrate initWithProximityUUID to iOS13 version
+    [FIX] remove deprecated networkActivityIndicator
+    [FIX] remove unused and using deprecated functions WebVC
+    [FIX] Correct URL for .plist files in different environments
+    [FIX] Do not replace patterns if no substitute is availalbe (crash)
+    [FIX] Tableview background colors for Catalyst
+    [FIX] Dark Mode for Licenses Screen
+    [FIX] Dark Colors for Modes Screen
 
 
 ## OwnTracks 13.0.2
