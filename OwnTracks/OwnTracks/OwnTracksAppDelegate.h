@@ -35,7 +35,7 @@
 @property (strong, nonatomic) NSDate *configLoad;
 @property (strong, nonatomic) NSString *action;
 
-- (void)sendNow;
+- (BOOL)sendNow:(CLLocation *)location;
 - (void)dump;
 - (void)waypoints;
 - (void)requestLocationFromFriend:(Friend *)friend;

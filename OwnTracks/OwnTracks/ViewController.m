@@ -23,6 +23,8 @@
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *accuracyButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *actionButton;
 
 @property (strong, nonatomic) NSFetchedResultsController *frcFriends;
 @property (strong, nonatomic) NSFetchedResultsController *frcRegions;
@@ -33,12 +35,11 @@
 @property (strong, nonatomic) UISegmentedControl *modes;
 @property (strong, nonatomic) UISegmentedControl *mapMode;
 @property (strong, nonatomic) MKUserTrackingButton *trackingButton;
-
 @end
 
 
 @implementation ViewController
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -91,7 +92,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                    constant:10];
 
     [NSLayoutConstraint activateConstraints:@[top, leading]];
-    [self setButtonMove];
+    [self updateMoveButton];
 
     self.trackingButton = [MKUserTrackingButton userTrackingButtonWithMapView:self.mapView];
     self.trackingButton.translatesAutoresizingMaskIntoConstraints = false;
@@ -157,6 +158,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                           options:NSKeyValueObservingOptionNew
                                           context:nil];
 
+    [self.mapView addObserver:self
+                   forKeyPath:@"userLocation"
+                      options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                      context:nil];
+    [self.mapView addObserver:self
+                   forKeyPath:@"userLocation.location"
+                      options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                      context:nil];
+
     [[NSNotificationCenter defaultCenter]
      addObserverForName:@"reload"
      object:nil
@@ -166,6 +176,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                 withObject:nil
                              waitUntilDone:NO];
      }];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
+                       context:(void *)context {
+    if ([keyPath isEqualToString:@"monitoring"]) {
+        [self updateMoveButton];
+    }
+    if ([keyPath isEqualToString:@"userLocation"] ||
+        [keyPath isEqualToString:@"userLocation.location"]) {
+        [self updateAccuracyButton];
+    }
 }
 
 - (IBAction)modesChanged:(UISegmentedControl *)segmentedControl {
@@ -189,11 +212,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
         [LocationManager sharedInstance].monitoring = monitoring;
         [Settings setInt:(int)[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"
                    inMOC:CoreData.sharedInstance.mainMOC];
-        [self setButtonMove];
+        [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
+        [self updateMoveButton];
     }
 }
 
-- (void)setButtonMove {
+- (void)updateMoveButton {
     switch ([LocationManager sharedInstance].monitoring) {
         case LocationMonitoringMove:
             self.modes.selectedSegmentIndex = 3;
@@ -211,20 +235,30 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     }
 }
 
+- (void)updateAccuracyButton {
+    CLLocation *location = self.mapView.userLocation.location;
 
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary<NSKeyValueChangeKey,id> *)change
-                       context:(void *)context {
-    if ([keyPath isEqualToString:@"monitoring"]) {
-        [self setButtonMove];
+    DDLogVerbose(@"[ViewController] updateAccuracyButton %@",
+                 location);
+
+    if (location &&
+        CLLocationCoordinate2DIsValid(location.coordinate) &&
+        (location.coordinate.latitude != 0.0 &&
+         location.coordinate.longitude != 0.0)) {
+        self.accuracyButton.title = [NSString stringWithFormat:@"%@%.0f%@",
+                                     NSLocalizedString(@"±", @"Short for deviation plus/minus"),
+                                     location.horizontalAccuracy,
+                                     NSLocalizedString(@"m", @"Short for meters")
+                                     ];
+    } else {
+        self.accuracyButton.title = @"-";
     }
 }
 
 - (void)reloaded {
     self.frcFriends = nil;
     self.frcRegions = nil;
-    [self setButtonMove];
+    [self updateMoveButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -624,25 +658,50 @@ calloutAccessoryControlTapped:(UIControl *)control {
 }
 
 - (IBAction)actionPressed:(UIBarButtonItem *)sender {
-    [self sendNow];
-}
-
-- (IBAction)longDoublePress:(UILongPressGestureRecognizer *)sender {
-    if (sender.state == UIGestureRecognizerStateBegan) {
-        [self sendNow];
-    }
-}
-
-- (void)sendNow {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    BOOL validIds = [Settings validIdsInMOC:CoreData.sharedInstance.mainMOC];
+    int ignoreInaccurateLocations = [Settings intForKey:@"ignoreinaccuratelocations_preference"
+                                                      inMOC:CoreData.sharedInstance.mainMOC];
+    CLLocation *location = self.mapView.userLocation.location;
 
-    if (![Settings validIdsInMOC:CoreData.sharedInstance.mainMOC]) {
+    DDLogVerbose(@"[ViewController] sendNow %dm %d %@",
+                 ignoreInaccurateLocations, validIds, location);
+
+    if (!validIds) {
         NSString *message = NSLocalizedString(@"To publish your location userID and deviceID must be set",
                                               @"Warning displayed if necessary settings are missing");
 
         [delegate.navigationController alert:@"Settings" message:message];
-    } else {
-        [delegate sendNow];
+        return;
+    }
+
+    if (!location ||
+        !CLLocationCoordinate2DIsValid(location.coordinate) ||
+        (location.coordinate.latitude == 0.0 &&
+         location.coordinate.longitude == 0.0)
+        ) {
+        [delegate.navigationController alert:
+         NSLocalizedString(@"Location",
+                           @"Header of an alert message regarding a location")
+                                     message:
+         NSLocalizedString(@"No location available",
+                           @"Warning displayed if not location available")
+         ];
+        return;
+    }
+
+    if (ignoreInaccurateLocations != 0 && location.horizontalAccuracy > ignoreInaccurateLocations) {
+        [delegate.navigationController alert:
+         NSLocalizedString(@"Location",
+                           @"Header of an alert message regarding a location")
+                                     message:
+         NSLocalizedString(@"Inaccurate or old location information",
+                           @"Warning displayed if location is inaccurate or old")
+         ];
+        return;
+    }
+
+    if ([delegate sendNow:location]) {
         [delegate.navigationController alert:
          NSLocalizedString(@"Location",
                            @"Header of an alert message regarding a location")
@@ -651,6 +710,13 @@ calloutAccessoryControlTapped:(UIControl *)control {
                            @"content of an alert message regarding user publish")
                                 dismissAfter:1
          ];
+    } else {
+        [delegate.navigationController alert:
+         NSLocalizedString(@"Location",
+                           @"Header of an alert message regarding a location")
+                                     message:
+         NSLocalizedString(@"publish queued on user request",
+                           @"content of an alert message regarding user publish")];
     }
 }
 
@@ -678,58 +744,6 @@ calloutAccessoryControlTapped:(UIControl *)control {
                                 dismissAfter:1
          ];
     }
-}
-- (IBAction)buttonMovePressed:(UIBarButtonItem *)sender {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-
-    switch ([LocationManager sharedInstance].monitoring) {
-        case LocationMonitoringMove:
-            [LocationManager sharedInstance].monitoring = LocationMonitoringSignificant;
-            [delegate.navigationController alert:NSLocalizedString(@"Mode",
-                                                                   @"Header of an alert message regarding monitoring mode")
-                                         message:NSLocalizedString(@"significant changes mode enabled",
-                                                                   @"content of an alert message regarding monitoring mode")
-                                    dismissAfter:1
-             ];
-            break;
-
-        case LocationMonitoringQuiet:
-            [LocationManager sharedInstance].monitoring = LocationMonitoringMove;
-            [delegate.navigationController alert:NSLocalizedString(@"Mode",
-                                                                   @"Header of an alert message regarding monitoring mode")
-                                         message:NSLocalizedString(@"move mode enabled",
-                                                                   @"content of an alert message regarding monitoring mode")
-                                    dismissAfter:1
-             ];
-            break;
-
-        case LocationMonitoringManual:
-            [LocationManager sharedInstance].monitoring = LocationMonitoringQuiet;
-            [delegate.navigationController alert:NSLocalizedString(@"Mode",
-                                                                   @"Header of an alert message regarding monitoring mode")
-                                         message:NSLocalizedString(@"quiet mode enabled",
-                                                                   @"content of an alert message regarding monitoring mode")
-                                    dismissAfter:1
-             ];
-            break;
-
-        case LocationMonitoringSignificant:
-        default:
-            [LocationManager sharedInstance].monitoring = LocationMonitoringManual;
-            [delegate.navigationController alert:NSLocalizedString(@"Mode",
-                                                                   @"Header of an alert message regarding monitoring mode")
-                                         message:NSLocalizedString(@"manual mode enabled",
-                                                                   @"content of an alert message regarding monitoring mode")
-                                    dismissAfter:1
-             ];
-
-            break;
-    }
-    [Settings setInt:(int)[LocationManager sharedInstance].monitoring
-              forKey:@"monitoring_preference"
-               inMOC:CoreData.sharedInstance.mainMOC];
-    [self setButtonMove];
-
 }
 
 @end

@@ -243,7 +243,7 @@ static LocationManager *theInstance = nil;
 
 - (CLLocation *)location {
     if (self.manager.location) {
-        self.lastUsedLocation = self.manager.location;
+        _lastUsedLocation = self.manager.location;
     } else {
         DDLogVerbose(@"location == nil");
     }

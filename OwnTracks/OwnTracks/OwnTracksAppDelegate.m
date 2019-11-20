@@ -18,7 +18,7 @@
 #import <UserNotifications/UserNotifications.h>
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 @interface NSString (safe)
 - (BOOL)saveEqual:(NSString *)aString;
@@ -433,7 +433,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     DDLogVerbose(@"[OwnTracksAppDelegate] applicationDidEnterBackground");
+#if !TARGET_OS_MACCATALYST
     [self background];
+#endif
 }
 
 
@@ -538,8 +540,6 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     self.disconnectTimer = nil;
     [self.connection disconnect];
 }
-
-
 
 /*
  *
@@ -1035,10 +1035,9 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 
 #pragma actions
 
-- (void)sendNow {
-    DDLogVerbose(@"[OwnTracksAppDelegate] sendNow");
-    CLLocation *location = [LocationManager sharedInstance].location;
-    [self publishLocation:location trigger:@"u"];
+- (BOOL)sendNow:(CLLocation *)location {
+    DDLogVerbose(@"[OwnTracksAppDelegate] sendNow %@", location);
+    return [self publishLocation:location trigger:@"u"];
 }
 
 - (void)reportLocation {
@@ -1072,7 +1071,8 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     [self connect];
 }
 
-- (void)publishLocation:(CLLocation *)location trigger:(NSString *)trigger {
+- (BOOL)publishLocation:(CLLocation *)location
+                trigger:(NSString *)trigger {
     if (location &&
         CLLocationCoordinate2DIsValid(location.coordinate) &&
         location.coordinate.latitude != 0.0 &&
@@ -1125,20 +1125,25 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                                                  inMOC:CoreData.sharedInstance.mainMOC]];
                     } else {
                         DDLogError(@"[OwnTracksAppDelegate] no JSON created from waypoint %@", waypoint);
+                        return FALSE;
                     }
                     [[OwnTracking sharedInstance] limitWaypointsFor:friend
                                                           toMaximum:[Settings intForKey:@"positions_preference"
                                                                                   inMOC:CoreData.sharedInstance.mainMOC]];
                 } else {
                     DDLogError(@"[OwnTracksAppDelegate] waypoint creation failed from friend %@, location %@", friend, location);
+                    return FALSE;
                 }
             } else {
                 DDLogError(@"[OwnTracksAppDelegate] no friend found");
+                return FALSE;
             }
         }
     } else {
         DDLogError(@"[OwnTracksAppDelegate] invalid location");
+        return FALSE;
     }
+    return TRUE;
 }
 
 - (void)sendEmpty:(NSString *)topic {

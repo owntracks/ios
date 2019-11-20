@@ -88,37 +88,44 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
                                                       object:nil
                                                        queue:nil
                                                   usingBlock:^(NSNotification *note){
-                                                      DDLogVerbose(@"[Connection] UIApplicationWillEnterForegroundNotification");
-                                                  }];
+        DDLogVerbose(@"[Connection] UIApplicationWillEnterForegroundNotification");
+    }];
+    
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
                                                       object:nil
                                                        queue:nil
                                                   usingBlock:^(NSNotification *note){
-                                                      DDLogVerbose(@"[Connection] UIApplicationDidBecomeActiveNotification");
-                                                      [self connectToLast];
-                                                  }];
+        DDLogVerbose(@"[Connection] UIApplicationDidBecomeActiveNotification");
+        [self connectToLast];
+    }];
+
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification
                                                       object:nil
                                                        queue:nil
                                                   usingBlock:^(NSNotification *note){
-                                                      DDLogVerbose(@"[Connection] UIApplicationDidEnterBackgroundNotification");
-                                                  }];
+        DDLogVerbose(@"[Connection] UIApplicationDidEnterBackgroundNotification");
+    }];
+
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
                                                       object:nil
                                                        queue:nil
                                                   usingBlock:^(NSNotification *note){
-                                                      DDLogVerbose(@"[Connection] UIApplicationWillResignActiveNotification");
-                                                      if ([LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
-                                                          [self disconnect];
-                                                      }
+        DDLogVerbose(@"[Connection] UIApplicationWillResignActiveNotification");
+#if !TARGET_OS_MACCATALYST
+        if ([LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
+            [self disconnect];
+        }
+#else
+        [self disconnect];
+#endif
                                                   }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification
                                                       object:nil
                                                        queue:nil
                                                   usingBlock:^(NSNotification *note){
-                                                      DDLogVerbose(@"[Connection] UIApplicationWillTerminateNotification");
-                                                      self.terminate = true;
-                                                  }];
+        DDLogVerbose(@"[Connection] UIApplicationWillTerminateNotification");
+        self.terminate = true;
+    }];
     return self;
 }
 

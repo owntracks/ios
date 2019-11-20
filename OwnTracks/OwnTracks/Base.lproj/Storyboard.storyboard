@@ -24,7 +24,6 @@
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="EiO-on-q7c" appends="YES" id="k6b-KH-2BJ"/>
-                                    <outletCollection property="gestureRecognizers" destination="9x1-XR-OWh" appends="YES" id="sNz-kM-UmQ"/>
                                 </connections>
                             </mapView>
                         </subviews>
@@ -43,14 +42,19 @@
                                 <segue destination="G87-RS-wz7" kind="push" id="wKo-Y7-i7P"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="U2v-aw-iXO">
-                            <connections>
-                                <action selector="actionPressed:" destination="HII-kF-avN" id="Htj-yh-qil"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="action" id="U2v-aw-iXO">
+                                <connections>
+                                    <action selector="actionPressed:" destination="HII-kF-avN" id="Htj-yh-qil"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem enabled="NO" title="Accuracy" id="ere-0U-4rD"/>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="accuracyButton" destination="ere-0U-4rD" id="Ps2-J6-grs"/>
+                        <outlet property="actionButton" destination="U2v-aw-iXO" id="Upc-3E-YYj"/>
                         <outlet property="mapView" destination="eED-yn-0ps" id="ySD-3E-pwJ"/>
                         <segue destination="m9c-8c-Xj9" kind="push" identifier="showWaypointFromMap" id="Hb0-uO-VBI"/>
                     </connections>
@@ -59,11 +63,6 @@
                 <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="EiO-on-q7c">
                     <connections>
                         <action selector="longPress:" destination="HII-kF-avN" id="sSf-Wr-Vr2"/>
-                    </connections>
-                </pongPressGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" numberOfTouchesRequired="3" id="9x1-XR-OWh">
-                    <connections>
-                        <action selector="longDoublePress:" destination="HII-kF-avN" id="R8p-ht-sXs"/>
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
