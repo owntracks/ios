@@ -30,7 +30,7 @@
 	<string></string>
 	<key>positions_preference</key>
 	<integer>50</integer>
-	<key>sub</key>
+	<key>sub_preference</key>
 	<true/>
 	<key>maxhistory_preference</key>
 	<integer>0</integer>

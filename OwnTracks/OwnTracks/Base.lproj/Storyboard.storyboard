@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="e04-OU-xZ4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="e04-OU-xZ4">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -1735,7 +1736,7 @@ xyz</string>
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="QKs-CU-YVj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="2uj-gU-Clr">
                             <rect key="frame" x="0.0" y="420" width="320" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -3256,64 +3257,52 @@ libsodium (libsodium.org)
                         <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Artwork" translatesAutoresizingMaskIntoConstraints="NO" id="NX5-9d-GWE">
-                                <rect key="frame" x="128" y="8" width="64" height="64"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="64" id="3Rs-lx-wUE"/>
-                                    <constraint firstAttribute="height" constant="64" id="POg-bQ-Il7"/>
-                                </constraints>
-                            </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="280" placeholderIntrinsicHeight="224" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="v2D-6q-oH5">
-                                <rect key="frame" x="20" y="131" width="280" height="371"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="9uR-Aq-EsY"/>
-                                </constraints>
-                                <attributedString key="attributedText">
-                                    <fragment>
-                                        <string key="content">You need to setup your own OwnTracks server and edit your configuration for full privacy protection.
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="C3P-Jq-Oc6">
+                                <rect key="frame" x="20" y="8" width="280" height="532"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Artwork" translatesAutoresizingMaskIntoConstraints="NO" id="NX5-9d-GWE">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="64"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="POg-bQ-Il7"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OwnTracks" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="45H-aU-ltr">
+                                        <rect key="frame" x="0.0" y="72" width="280" height="43"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="43" id="YvG-jg-nB8"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
+                                        <color key="textColor" name="primaryTintColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="280" placeholderIntrinsicHeight="224" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v2D-6q-oH5">
+                                        <rect key="frame" x="0.0" y="123" width="280" height="371"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <string key="text">You need to setup your own OwnTracks server and edit your configuration for full privacy protection.
 
 Detailed info on http://owntracks.org/booklet</string>
-                                        <attributes>
-                                            <font key="NSFont" size="14" name="HelveticaNeue"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                            </textView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OwnTracks" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="45H-aU-ltr">
-                                <rect key="frame" x="67.5" y="80" width="185" height="43"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="43" id="YvG-jg-nB8"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abx-Rq-K54">
-                                <rect key="frame" x="20" y="510" width="280" height="30"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Continue"/>
-                                <connections>
-                                    <action selector="continuePressed:" destination="ZI8-3E-DIo" eventType="touchUpInside" id="F8z-Tk-Zkt"/>
-                                </connections>
-                            </button>
+                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abx-Rq-K54">
+                                        <rect key="frame" x="0.0" y="502" width="280" height="30"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <state key="normal" title="Continue"/>
+                                        <connections>
+                                            <action selector="continuePressed:" destination="ZI8-3E-DIo" eventType="touchUpInside" id="F8z-Tk-Zkt"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.2470588235" green="0.44705882349999998" blue="0.70980392160000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="primaryColor"/>
                         <constraints>
-                            <constraint firstItem="45H-aU-ltr" firstAttribute="top" secondItem="NX5-9d-GWE" secondAttribute="bottom" constant="8" symbolic="YES" id="18s-gL-uoM"/>
-                            <constraint firstItem="vov-c0-Ba4" firstAttribute="top" secondItem="abx-Rq-K54" secondAttribute="bottom" constant="8" symbolic="YES" id="4nJ-LD-tzo"/>
-                            <constraint firstItem="abx-Rq-K54" firstAttribute="leading" secondItem="T55-Np-1JM" secondAttribute="leading" constant="20" symbolic="YES" id="BKl-ig-0wz"/>
-                            <constraint firstItem="v2D-6q-oH5" firstAttribute="top" secondItem="45H-aU-ltr" secondAttribute="bottom" constant="8" symbolic="YES" id="Efa-aS-8dP"/>
-                            <constraint firstItem="NX5-9d-GWE" firstAttribute="centerX" secondItem="T55-Np-1JM" secondAttribute="centerX" id="FgH-aW-fxg"/>
-                            <constraint firstAttribute="trailing" secondItem="abx-Rq-K54" secondAttribute="trailing" constant="20" symbolic="YES" id="GRO-3h-1ou"/>
-                            <constraint firstItem="45H-aU-ltr" firstAttribute="centerX" secondItem="T55-Np-1JM" secondAttribute="centerX" id="MBU-V4-a79"/>
-                            <constraint firstItem="v2D-6q-oH5" firstAttribute="leading" secondItem="T55-Np-1JM" secondAttribute="leading" constant="20" symbolic="YES" id="Oy5-YP-Mbv"/>
-                            <constraint firstAttribute="trailing" secondItem="v2D-6q-oH5" secondAttribute="trailing" constant="20" symbolic="YES" id="ZeE-88-Adj"/>
-                            <constraint firstItem="abx-Rq-K54" firstAttribute="top" secondItem="v2D-6q-oH5" secondAttribute="bottom" constant="8" symbolic="YES" id="fSc-IO-kgq"/>
-                            <constraint firstItem="NX5-9d-GWE" firstAttribute="top" secondItem="TFk-6K-4fa" secondAttribute="bottom" constant="8" symbolic="YES" id="qQO-r9-KWK"/>
+                            <constraint firstAttribute="trailing" secondItem="C3P-Jq-Oc6" secondAttribute="trailing" constant="20" symbolic="YES" id="8tx-VL-c6v"/>
+                            <constraint firstItem="C3P-Jq-Oc6" firstAttribute="top" secondItem="TFk-6K-4fa" secondAttribute="bottom" constant="8" symbolic="YES" id="V4n-b9-NuI"/>
+                            <constraint firstItem="vov-c0-Ba4" firstAttribute="top" secondItem="C3P-Jq-Oc6" secondAttribute="bottom" constant="8" symbolic="YES" id="V8f-9P-uXl"/>
+                            <constraint firstItem="C3P-Jq-Oc6" firstAttribute="leading" secondItem="T55-Np-1JM" secondAttribute="leading" constant="20" symbolic="YES" id="ggf-0r-nPo"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -3332,11 +3321,17 @@ Detailed info on http://owntracks.org/booklet</string>
         <image name="Info" width="25" height="25"/>
         <image name="OnwTracks" width="30" height="30"/>
         <image name="Regions" width="33" height="33"/>
+        <namedColor name="primaryColor">
+            <color red="0.24705882352941178" green="0.44705882352941179" blue="0.70980392156862748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primaryTintColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Utn-3t-RCv"/>
         <segue reference="8m4-nr-b6B"/>
-        <segue reference="ft5-77-rU8"/>
+        <segue reference="aMd-Tc-ju9"/>
         <segue reference="KLh-ve-vhU"/>
         <segue reference="aNu-aM-21y"/>
     </inferredMetricsTieBreakers>

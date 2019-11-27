@@ -68,7 +68,7 @@
 	<false/>
 	<key>policymode</key>
 	<integer>0</integer>
-	<key>sub</key>
+	<key>sub_preference</key>
 	<true/>
 	<key>allowinvalidcerts</key>
 	<false/>

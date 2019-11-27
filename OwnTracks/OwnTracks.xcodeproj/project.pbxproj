@@ -262,6 +262,9 @@
 		84FA6C1722EAFF8800AC7D63 /* Model 12.0.6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 12.0.6.xcdatamodel"; sourceTree = "<group>"; };
 		84FD93052353950100CCEC3B /* OwnTracksEditTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OwnTracksEditTVC.h; sourceTree = "<group>"; };
 		84FD93062353950100CCEC3B /* OwnTracksEditTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwnTracksEditTVC.m; sourceTree = "<group>"; };
+		84FF829A238E50210037CBDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		84FF829B238E50250037CBDD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		84FF829C238E50280037CBDD /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -783,6 +786,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				841D1A281C8AF7E900DC5765 /* Base */,
+				84FF829A238E50210037CBDD /* en */,
+				84FF829B238E50250037CBDD /* de */,
+				84FF829C238E50280037CBDD /* pl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
