@@ -383,7 +383,6 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         UIButton *refreshButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [refreshButton setImage:[UIImage imageNamed:@"Refresh"] forState:UIControlStateNormal];
         [refreshButton sizeToFit];
-        annotationView.leftCalloutAccessoryView = refreshButton;
         friendAnnotationV.canShowCallout = YES;
         friendAnnotationV.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 
@@ -464,16 +463,6 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 calloutAccessoryControlTapped:(UIControl *)control {
     if (control == view.rightCalloutAccessoryView) {
         [self performSegueWithIdentifier:@"showWaypointFromMap" sender:view];
-    } else if (control == view.leftCalloutAccessoryView) {
-        Friend *friend = (Friend *)view.annotation;
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [delegate requestLocationFromFriend:friend];
-        [delegate.navigationController alert:NSLocalizedString(@"Location",
-                                                               @"Header of an alert message regarding a location")
-                                     message:NSLocalizedString(@"requested from friend",
-                                                               @"content of an alert message regarding publish request")
-                                dismissAfter:1
-         ];
     }
 }
 

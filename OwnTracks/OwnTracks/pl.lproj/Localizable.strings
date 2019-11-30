@@ -157,9 +157,6 @@
 /* Alert content regarding protocol input */
 "Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1 or 5 for MQTT V5" = "Protokół może przyjąć wartość 3 dla MQTT V3.1 lub 4 dla MQTT V3.1.1 lub 5 dla MQTT V5";
 
-/* content of an alert message regarding user publish */
-"publish queued on user request" = "publikacja zakolejkowana na prośbę użytkownika";
-
 /* Export */
 "Export" = "Export";
 
