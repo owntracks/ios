@@ -1,7 +1,7 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 13.1.3
+## OwnTracks 13.1.4 iOS/ipadOS 13.1.7 macOS
 * Release Date 2019-11-19
 
 ** iOS Version ported to macOS (via Catalyst), different map view modes, MQTTv5
