@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *UIclientPKCSCell;
 @property (weak, nonatomic) IBOutlet UITextField *UIclientPKCS;
 @property (weak, nonatomic) IBOutlet UISwitch *UIallowinvalidcerts;
+@property (weak, nonatomic) IBOutlet UISwitch *UIallowUntrustedCertificates;
 @property (weak, nonatomic) IBOutlet UITextField *UIpassphrase;
 @property (weak, nonatomic) IBOutlet UISwitch *UIvalidatecertificatechain;
 @property (weak, nonatomic) IBOutlet UISwitch *UIvalidatedomainname;
@@ -152,6 +153,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     if (self.UIallowinvalidcerts) [Settings setBool:self.UIallowinvalidcerts.on
                                              forKey:@"allowinvalidcerts"
                                               inMOC:CoreData.sharedInstance.mainMOC];
+    if (self.UIallowUntrustedCertificates) [Settings setBool:self.UIallowUntrustedCertificates.on
+                                                      forKey:@"allowinvalidcerts"
+                                                       inMOC:CoreData.sharedInstance.mainMOC];
     if (self.UIvalidatedomainname) [Settings setBool:self.UIvalidatedomainname.on
                                               forKey:@"validatedomainname"
                                                inMOC:CoreData.sharedInstance.mainMOC];
@@ -365,6 +369,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         }
         self.UIallowinvalidcerts.on = [Settings boolForKey:@"allowinvalidcerts"
                                                      inMOC:CoreData.sharedInstance.mainMOC];
+    }
+    if (self.UIallowUntrustedCertificates) {
+        self.UIallowUntrustedCertificates.enabled = !locked;
+        self.UIallowUntrustedCertificates.on = [Settings boolForKey:@"allowinvalidcerts"
+                                                              inMOC:CoreData.sharedInstance.mainMOC];
     }
     if (self.UIvalidatedomainname) {
         if (self.UIusepolicy) {

@@ -3,11 +3,11 @@ platform :ios, '11.0'
 use_frameworks!
 
 pod 'CocoaLumberjack'
-pod 'SocketRocket', :path => '~/SocketRocket'
+#pod 'SocketRocket', :path => '~/SocketRocket'
 #pod 'ABStaticTableViewController'
 pod 'ABStaticTableViewController', :path => '~/ABStaticTableViewController'
 pod 'mqttc/MinL', :path => '~/mqttc'
-pod 'mqttc/WebsocketL', :path => '~/mqttc'
+#pod 'mqttc/WebsocketL', :path => '~/mqttc'
 pod 'libsodium', '~> 1.0'
 
 target 'OwnTracks' do

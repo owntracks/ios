@@ -22,10 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-#if !TARGET_OS_MACCATALYST
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-#endif
-
     for (UIViewController *vc in self.viewControllers) {
         if (vc.tabBarItem.tag == 97) {
             self.historyVC = vc;

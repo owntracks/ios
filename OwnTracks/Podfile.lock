@@ -4,20 +4,14 @@ PODS:
     - CocoaLumberjack/Core (= 3.6.0)
   - CocoaLumberjack/Core (3.6.0)
   - libsodium (1.0.12)
-  - mqttc/MinL (5.0.5):
+  - mqttc/MinL (13.1.1):
     - CocoaLumberjack
-  - mqttc/WebsocketL (5.0.5):
-    - mqttc/MinL
-    - SocketRocket
-  - SocketRocket (0.5.1)
 
 DEPENDENCIES:
   - ABStaticTableViewController (from `~/ABStaticTableViewController`)
   - CocoaLumberjack
   - libsodium (~> 1.0)
   - mqttc/MinL (from `~/mqttc`)
-  - mqttc/WebsocketL (from `~/mqttc`)
-  - SocketRocket (from `~/SocketRocket`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -29,16 +23,13 @@ EXTERNAL SOURCES:
     :path: "~/ABStaticTableViewController"
   mqttc:
     :path: "~/mqttc"
-  SocketRocket:
-    :path: "~/SocketRocket"
 
 SPEC CHECKSUMS:
   ABStaticTableViewController: d8cfbdd596fbf58b515b13e49cc8ca8ca86c6e12
   CocoaLumberjack: 78b0c238666f4f58db069738ec176f4519557516
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
-  mqttc: 5255376de8f61a264cb18d6706d5fafaa0b99eba
-  SocketRocket: dbb1554b8fc288ef8ef370d6285aeca7361be31e
+  mqttc: 81a8e29e359fb8287a7e196da290e86dfde67972
 
-PODFILE CHECKSUM: b0b3e58b0d38ed05f0214116485f7c5aa74e8fd7
+PODFILE CHECKSUM: 81aaf4c4795848b72aaa854fd96c72102875190c
 
 COCOAPODS: 1.8.3

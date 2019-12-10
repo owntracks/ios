@@ -83,7 +83,7 @@ static LocationManager *theInstance = nil;
      object:nil
      queue:nil
      usingBlock:^(NSNotification *note){
-         DDLogVerbose(@"UIApplicationWillEnterForegroundNotification");
+         DDLogVerbose(@"[LocationManager] UIApplicationWillEnterForegroundNotification");
          //
      }];
     [[NSNotificationCenter defaultCenter]
@@ -91,7 +91,7 @@ static LocationManager *theInstance = nil;
      object:nil
      queue:nil
      usingBlock:^(NSNotification *note){
-         DDLogVerbose(@"UIApplicationDidBecomeActiveNotification");
+         DDLogVerbose(@"[LocationManager] UIApplicationDidBecomeActiveNotification");
          [self wakeup];
      }];
     [[NSNotificationCenter defaultCenter]
@@ -99,7 +99,7 @@ static LocationManager *theInstance = nil;
      object:nil
      queue:nil
      usingBlock:^(NSNotification *note){
-         DDLogVerbose(@"UIApplicationWillResignActiveNotification");
+         DDLogVerbose(@"[LocationManager] UIApplicationWillResignActiveNotification");
          [self sleep];
      }];
     [[NSNotificationCenter defaultCenter]
@@ -107,7 +107,7 @@ static LocationManager *theInstance = nil;
      object:nil
      queue:nil
      usingBlock:^(NSNotification *note){
-         DDLogVerbose(@"UIApplicationWillTerminateNotification");
+         DDLogVerbose(@"[LocationManager] UIApplicationWillTerminateNotification");
          [self stop];
      }];
     
@@ -183,11 +183,9 @@ static LocationManager *theInstance = nil;
 
 - (void)sleep {
     DDLogVerbose(@"sleep");
-#if !TARGET_OS_MACCATALYST
-    for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
-        [self.manager stopRangingBeaconsInRegion:beaconRegion];
+    for (CLBeaconIdentityConstraint *beaconIdentityConstraint in self.manager.rangedBeaconConstraints) {
+        [self.manager stopRangingBeaconsSatisfyingConstraint:beaconIdentityConstraint];
     }
-#endif
     if (self.monitoring != LocationMonitoringMove) {
         [self.activityTimer invalidate];
     }
@@ -308,18 +306,19 @@ static LocationManager *theInstance = nil;
     [shared setInteger:self.monitoring forKey:@"monitoring"];
 }
 
-- (void)setRanging:(BOOL)ranging
-{
+- (void)setRanging:(BOOL)ranging {
     DDLogVerbose(@"ranging=%d", ranging);
     _ranging = ranging;
     
     if (!ranging) {
-#if !TARGET_OS_MACCATALYST
-        for (CLBeaconRegion *beaconRegion in self.manager.rangedRegions) {
-            DDLogVerbose(@"stopRangingBeaconsInRegion %@", beaconRegion.identifier);
-            [self.manager stopRangingBeaconsInRegion:beaconRegion];
+        for (CLBeaconIdentityConstraint *beaconIdentityConstraint in self.manager.rangedBeaconConstraints) {
+            DDLogVerbose(@"stopRangingBeaconsSatisfyingConstraint %@",
+                         [NSString stringWithFormat:@"%@:%@:%@",
+                          beaconIdentityConstraint.UUID.UUIDString,
+                          beaconIdentityConstraint.major,
+                          beaconIdentityConstraint.minor]);
+            [self.manager stopRangingBeaconsSatisfyingConstraint:beaconIdentityConstraint];
         }
-#endif
     }
     for (CLRegion *region in self.manager.monitoredRegions) {
         DDLogVerbose(@"requestStateForRegion %@", region.identifier);
@@ -423,12 +422,6 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
                                                                @"Location Manager error message")
          ];
     }
-
-#if !TARGET_OS_MACCATALYST
-    if (![CLLocationManager deferredLocationUpdatesAvailable]) {
-        // [delegate.navigationController alert:where message:@"Deferred location updates not available"];
-    }
-#endif
     
     if (![CLLocationManager headingAvailable]) {
         // [delegate.navigationController alert:where message:@"Heading not available"];
@@ -470,17 +463,42 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
         if (state == CLRegionStateInside) {
             (self.insideBeaconRegions)[region.identifier] = [NSNumber numberWithBool:TRUE];
             if (self.ranging) {
-#if !TARGET_OS_MACCATALYST
                 CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
-                [self.manager startRangingBeaconsInRegion:beaconRegion];
-#endif
+                CLBeaconIdentityConstraint *beaconIdentityConstraint;
+                if (beaconRegion.major && beaconRegion.minor) {
+                    beaconIdentityConstraint =
+                    [[CLBeaconIdentityConstraint alloc] initWithUUID:beaconRegion.UUID
+                                                               major:beaconRegion.major.intValue
+                                                               minor:beaconRegion.minor.intValue];
+                } else if (beaconRegion.major) {
+                    beaconIdentityConstraint =
+                    [[CLBeaconIdentityConstraint alloc] initWithUUID:beaconRegion.UUID
+                                                               major:beaconRegion.major.intValue];
+                } else {
+                    beaconIdentityConstraint =
+                    [[CLBeaconIdentityConstraint alloc] initWithUUID:beaconRegion.UUID];
+                }
+                [self.manager startRangingBeaconsSatisfyingConstraint:beaconIdentityConstraint];
             }
         } else {
             [self.insideBeaconRegions removeObjectForKey:region.identifier];
-#if !TARGET_OS_MACCATALYST
             CLBeaconRegion *beaconRegion = (CLBeaconRegion *)region;
-            [self.manager stopRangingBeaconsInRegion:beaconRegion];
-#endif
+            CLBeaconIdentityConstraint *beaconIdentityConstraint;
+            if (beaconRegion.major && beaconRegion.minor) {
+                beaconIdentityConstraint =
+                [[CLBeaconIdentityConstraint alloc] initWithUUID:beaconRegion.UUID
+                                                           major:beaconRegion.major.intValue
+                                                           minor:beaconRegion.minor.intValue];
+            } else if (beaconRegion.major) {
+                beaconIdentityConstraint =
+                [[CLBeaconIdentityConstraint alloc] initWithUUID:beaconRegion.UUID
+                                                           major:beaconRegion.major.intValue];
+            } else {
+                beaconIdentityConstraint =
+                [[CLBeaconIdentityConstraint alloc] initWithUUID:beaconRegion.UUID];
+            }
+            [self.manager stopRangingBeaconsSatisfyingConstraint:beaconIdentityConstraint];
+
         }
     }
     
@@ -564,30 +582,28 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
  * Beacons
  *
  */
-#if !TARGET_OS_MACCATALYST
 - (void)locationManager:(CLLocationManager *)manager
-rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
-              withError:(NSError *)error {
-    DDLogVerbose(@"[LocationManager] rangingBeaconsDidFailForRegion %@ %@ %@",
-                 region, error.localizedDescription, error.userInfo);
-    // error
-}
-#endif
+didFailRangingBeaconsForConstraint:(CLBeaconIdentityConstraint *)beaconConstraint
+                  error:(NSError *)error {
+    DDLogVerbose(@"[LocationManager] didFailRangingBeaconsForConstraint %@ %@ %@",
+                 beaconConstraint, error.localizedDescription, error.userInfo);
 
-#if !TARGET_OS_MACCATALYST
+}
+
 - (void)locationManager:(CLLocationManager *)manager
-        didRangeBeacons:(NSArray *)beacons
-               inRegion:(CLBeaconRegion *)region {
-    DDLogVerbose(@"[LocationManager] didRangeBeacons %@ %@", beacons, region);
+        didRangeBeacons:(NSArray<CLBeacon *> *)beacons
+   satisfyingConstraint:(CLBeaconIdentityConstraint *)beaconConstraint {
+    DDLogVerbose(@"[LocationManager] didRangeBeacons %@ satisfyingContraint %@",
+                 beacons, beaconConstraint);
     for (CLBeacon *beacon in beacons) {
         if (beacon.proximity != CLProximityUnknown) {
             CLBeacon *foundBeacon = nil;
             for (CLBeacon *rangedBeacon in self.rangedBeacons) {
                 uuid_t rangedBeaconUUID;
                 uuid_t beaconUUID;
-                [rangedBeacon.proximityUUID getUUIDBytes:rangedBeaconUUID];
-                [beacon.proximityUUID getUUIDBytes:beaconUUID];
-                
+                [rangedBeacon.UUID getUUIDBytes:rangedBeaconUUID];
+                [beacon.UUID getUUIDBytes:beaconUUID];
+
                 if (uuid_compare(rangedBeaconUUID, beaconUUID) == 0 &&
                     (rangedBeacon.major).intValue == (beacon.major).intValue &&
                     (rangedBeacon.minor).intValue == (beacon.minor).intValue) {
@@ -596,21 +612,21 @@ rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
                 }
             }
             if (foundBeacon == nil) {
-                [self.delegate beaconInRange:beacon region:region];
+                [self.delegate beaconInRange:beacon beaconConstraint:beaconConstraint];
                 [self.rangedBeacons addObject:beacon];
             } else {
                 //if (foundBeacon.proximity != beacon.proximity) {
                 //if (foundBeacon.rssi != beacon.rssi) {
                 if (fabs(foundBeacon.accuracy / beacon.accuracy - 1) > 0.2) {
-                    [self.delegate beaconInRange:beacon region:region];
+                    [self.delegate beaconInRange:beacon beaconConstraint:beaconConstraint];
                     [self.rangedBeacons removeObject:foundBeacon];
                     [self.rangedBeacons addObject:beacon];
                 }
             }
         }
     }
+
 }
-#endif
 
 /*
  *
@@ -628,7 +644,6 @@ rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
 - (void)locationManagerDidResumeLocationUpdates:(CLLocationManager *)manager {
     //
 }
-
 
 /*
  *
@@ -699,8 +714,6 @@ rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region
     self.backgroundTimer = nil;
     [self sleep];
 }
-
-
 
 @end
 

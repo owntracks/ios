@@ -14,11 +14,10 @@
 #import <UIKit/UIKit.h>
 #import "MQTTLog.h"
 #import "sodium.h"
-#import "MQTTWebsocketTransport.h"
 #import "LocationManager.h"
 #import "Settings.h"
-#import "MQTTSSLSecurityPolicy.h"
-#import "MQTTSSLSecurityPolicyTransport.h"
+
+#import "MQTTNWTransport.h"
 
 @interface Connection() <NSURLSessionDelegate>
 
@@ -49,7 +48,7 @@
 @property (nonatomic) BOOL willRetainFlag;
 @property (strong, nonatomic) NSString *clientId;
 @property (strong, nonatomic) NSString *device;
-@property (strong, nonatomic) MQTTSSLSecurityPolicy *securityPolicy;
+@property (nonatomic) BOOL allowUntrustedCertificates;
 @property (strong, nonatomic) NSArray *certificates;
 
 @property (nonatomic, readwrite) NSError *lastErrorCode;
@@ -67,7 +66,7 @@
 #define RECONNECT_TIMER_MAX 64.0
 
 @implementation Connection
-DDLogLevel ddLogLevel = DDLogLevelWarning;
+DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (instancetype)init {
     self = [super init];
@@ -79,46 +78,11 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
         DDLogInfo(@"[Connection] sodium_init succeeded");
     }
 
-    [MQTTLog setLogLevel:DDLogLevelVerbose];
+    [MQTTLog setLogLevel:DDLogLevelInfo];
 
     self.state = state_starting;
     self.subscriptions = [[NSArray alloc] init];
     
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillEnterForegroundNotification
-                                                      object:nil
-                                                       queue:nil
-                                                  usingBlock:^(NSNotification *note){
-        DDLogVerbose(@"[Connection] UIApplicationWillEnterForegroundNotification");
-    }];
-    
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
-                                                      object:nil
-                                                       queue:nil
-                                                  usingBlock:^(NSNotification *note){
-        DDLogVerbose(@"[Connection] UIApplicationDidBecomeActiveNotification");
-        [self connectToLast];
-    }];
-
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidEnterBackgroundNotification
-                                                      object:nil
-                                                       queue:nil
-                                                  usingBlock:^(NSNotification *note){
-        DDLogVerbose(@"[Connection] UIApplicationDidEnterBackgroundNotification");
-    }];
-
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
-                                                      object:nil
-                                                       queue:nil
-                                                  usingBlock:^(NSNotification *note){
-        DDLogVerbose(@"[Connection] UIApplicationWillResignActiveNotification");
-#if !TARGET_OS_MACCATALYST
-        if ([LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
-            [self disconnect];
-        }
-#else
-        [self disconnect];
-#endif
-                                                  }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillTerminateNotification
                                                       object:nil
                                                        queue:nil
@@ -174,7 +138,6 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
         }
     }
     
-    [self disconnect];
     [self.idleTimer invalidate];
 }
 
@@ -197,9 +160,9 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
           willQos:(NSInteger)willQos
    willRetainFlag:(BOOL)willRetainFlag
      withClientId:(NSString *)clientId
-   securityPolicy:(MQTTSSLSecurityPolicy *)securityPolicy
+allowUntrustedCertificates:(BOOL)allowUntrustedCertificates
      certificates:(NSArray *)certificates {
-    DDLogVerbose(@"[Connection] %@ connectTo: %@:%@@%@:%ld v%d %@ %@ (%ld) c%d / %@ %@ q%ld r%d as %@ %@ %@",
+    DDLogVerbose(@"[Connection] %@ connectTo: %@:%@@%@:%ld v%d %@ %@ (%ld) c%d / %@ %@ q%ld r%d as %@ %d %@",
                  self.clientId,
                  auth ? user : @"",
                  auth ? pass : @"",
@@ -215,7 +178,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
                  (long)willQos,
                  willRetainFlag,
                  clientId,
-                 securityPolicy,
+                 allowUntrustedCertificates,
                  certificates
                  );
     
@@ -236,7 +199,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
         willQos != self.willQos ||
         willRetainFlag != self.willRetainFlag ||
         ![clientId isEqualToString:self.clientId] ||
-        securityPolicy != self.securityPolicy ||
+        allowUntrustedCertificates != self.allowUntrustedCertificates ||
         certificates != self.certificates ||
         protocolVersion != self.protocolVersion) {
         self.host = host;
@@ -254,7 +217,7 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
         self.willQos = willQos;
         self.willRetainFlag = willRetainFlag;
         self.clientId = clientId;
-        self.securityPolicy = securityPolicy;
+        self.allowUntrustedCertificates = allowUntrustedCertificates;
         self.certificates = certificates;
         
         self.session = [self newMQTTSession];
@@ -266,36 +229,15 @@ DDLogLevel ddLogLevel = DDLogLevelWarning;
     DDLogVerbose(@"[Connection] %@ new session", self.clientId);
     MQTTSession *session;
     MQTTTransport *mqttTransport;
-    if (self.ws) {
-        MQTTWebsocketTransport *websocketTransport = [[MQTTWebsocketTransport alloc] init];
-        websocketTransport.host = self.host;
-        websocketTransport.port = self.port;
-        websocketTransport.tls = self.tls;
-        if (self.securityPolicy) {
-            websocketTransport.allowUntrustedCertificates = self.securityPolicy.allowInvalidCertificates;
-            websocketTransport.pinnedCertificates = self.securityPolicy.pinnedCertificates;
-        }
 
-        mqttTransport = websocketTransport;
-    } else {
-        if (self.securityPolicy) {
-            MQTTSSLSecurityPolicyTransport *sslSecPolTransport = [[MQTTSSLSecurityPolicyTransport alloc] init];
-            sslSecPolTransport.host = self.host;
-            sslSecPolTransport.port = self.port;
-            sslSecPolTransport.tls = self.tls;
-            sslSecPolTransport.certificates = self.certificates;
-            sslSecPolTransport.securityPolicy = self.securityPolicy;
-            mqttTransport = sslSecPolTransport;
-        } else {
-            MQTTCFSocketTransport *cfSocketTransport = [[MQTTCFSocketTransport alloc] init];
-            cfSocketTransport.host = self.host;
-            cfSocketTransport.port = self.port;
-            cfSocketTransport.tls = self.tls;
-            cfSocketTransport.certificates = self.certificates;
-            mqttTransport = cfSocketTransport;
-        }
-    }
-
+    MQTTNWTransport *nwTransport = [[MQTTNWTransport alloc] init];
+    nwTransport.host = self.host;
+    nwTransport.port = self.port;
+    nwTransport.tls = self.tls;
+    nwTransport.ws = self.ws;
+    nwTransport.allowUntrustedCertificates = self.allowUntrustedCertificates;
+    mqttTransport = nwTransport;
+    
     session = [[MQTTSession alloc] init];
     session.transport = mqttTransport;
     session.clientId = self.clientId;

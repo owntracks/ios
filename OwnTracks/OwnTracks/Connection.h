@@ -58,7 +58,7 @@ enum state {
           willQos:(NSInteger)willQos
    willRetainFlag:(BOOL)willRetainFlag
      withClientId:(NSString * _Nullable)clientId
-   securityPolicy:(MQTTSSLSecurityPolicy * _Nullable)securityPolicy
+allowUntrustedCertificates:(BOOL)allowUntrustedCertificates
      certificates:(NSArray * _Nullable)certificates;
 
 - (void)connectHTTP:(NSString * _Nullable)url

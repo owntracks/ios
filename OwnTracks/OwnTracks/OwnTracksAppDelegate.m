@@ -13,9 +13,8 @@
 #import "Settings.h"
 #import "OwnTracking.h"
 #import "ConnType.h"
-#import "MQTTCFSocketTransport.h"
-#import "MQTTSSLSecurityPolicy.h"
 #import <UserNotifications/UserNotifications.h>
+#import <BackgroundTasks/BackgroundTasks.h>
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
@@ -80,15 +79,22 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 @end
 
 @interface OwnTracksAppDelegate()
+
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
-@property (strong, nonatomic) void (^completionHandler)(UIBackgroundFetchResult);
 @property (strong, nonatomic) NSString *backgroundFetchCheckMessage;
+
+@property (strong, nonatomic) BGTaskScheduler *bgTaskScheduler;
+@property (strong, nonatomic) BGTask *bgTask;
+
 @property (strong, nonatomic) CoreData *coreData;
 @property (strong, nonatomic) CMPedometer *pedometer;
 @property (strong, nonatomic) NSUserActivity *userActivity;
 
 #define BACKGROUND_DISCONNECT_AFTER 15.0
+#define BACKGROUND_HOLD_FOR 3.0
 @property (strong, nonatomic) NSTimer *disconnectTimer;
+@property (strong, nonatomic) NSTimer *holdTimer;
+@property (strong, nonatomic) NSTimer *bgTimer;
 
 @end
 
@@ -107,17 +113,55 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [DDLog addLogger:[DDOSLogger sharedInstance] withLevel:DDLogLevelWarning];
 
     [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
-    
+
+#define TASK_IDENTIFIER @"updateSituation"
+    self.bgTaskScheduler = [BGTaskScheduler sharedScheduler];
+    BOOL success = [self.bgTaskScheduler
+                    registerForTaskWithIdentifier:TASK_IDENTIFIER
+                    usingQueue:nil
+                    launchHandler:^(__kindof BGTask * _Nonnull task) {
+        DDLogVerbose(@"[OwnTracksAppDelegate] launchHandler %@",
+                     task.identifier);
+        task.expirationHandler = ^{
+            DDLogVerbose(@"[OwnTracksAppDelegate] bgTaskEspirationHandler");
+            if (self.bgTask) {
+                [self.bgTask setTaskCompletedWithSuccess:FALSE];
+                self.bgTask = nil;
+            }
+            [self performSelectorOnMainThread:@selector(doRefresh)
+                                   withObject:nil
+                                waitUntilDone:TRUE];
+        };
+        self.bgTask = task;
+    }];
+    DDLogVerbose(@"[OwnTracksAppDelegate] registerForTaskWithIdentifier %@ %d",
+                 TASK_IDENTIFIER, success);
+
+    NSError *error;
+    BGAppRefreshTaskRequest *bgAppRefreshTaskRequest =
+    [[BGAppRefreshTaskRequest alloc] initWithIdentifier:TASK_IDENTIFIER];
+    success = [self.bgTaskScheduler submitTaskRequest:bgAppRefreshTaskRequest error:&error];
+    DDLogVerbose(@"[OwnTracksAppDelegate] submitTaskRequest %@ @ %@ %d, %@",
+                 bgAppRefreshTaskRequest.identifier,
+                 bgAppRefreshTaskRequest.earliestBeginDate,
+                 success,
+                 error);
+
+    DDLogVerbose(@"[OwnTracksAppDelegate] getPendingTaskRequestsWithCompletionHandler:");
+    [self.bgTaskScheduler getPendingTaskRequestsWithCompletionHandler:^(NSArray<BGTaskRequest *> * _Nonnull taskRequests) {
+        for (BGTaskRequest *bgTaskRequest in taskRequests) {
+        DDLogVerbose(@"[OwnTracksAppDelegate] getPendingTaskRequestsWithCompletionHandler %@ @ %@",
+                     bgTaskRequest.identifier,
+                     bgTaskRequest.earliestBeginDate);
+        }
+    }];
+
     self.backgroundTask = UIBackgroundTaskInvalid;
-    self.completionHandler = nil;
 
     UIBackgroundRefreshStatus status = [UIApplication sharedApplication].backgroundRefreshStatus;
     switch (status) {
         case UIBackgroundRefreshStatusAvailable:
             DDLogVerbose(@"[OwnTracksAppDelegate] UIBackgroundRefreshStatusAvailable");
-#if !TARGET_OS_MACCATALYST
-            [application setMinimumBackgroundFetchInterval:UIApplicationBackgroundFetchIntervalMinimum];
-#endif
             break;
         case UIBackgroundRefreshStatusDenied:
             DDLogWarn(@"[OwnTracksAppDelegate] UIBackgroundRefreshStatusDenied");
@@ -187,7 +231,35 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    //
+    DDLogVerbose(@"[OwnTracksAppDelegate] applicationWillResignActive");
+//    #if !TARGET_OS_MACCATALYST
+//            if ([LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
+//                [self.connection disconnect];
+//            }
+//    #else
+//            [self.connection disconnect];
+//    #endif
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    DDLogVerbose(@"[OwnTracksAppDelegate] applicationDidEnterBackground");
+#if !TARGET_OS_MACCATALYST
+    [self background];
+    #if !TARGET_OS_MACCATALYST
+            if ([LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
+                [self.connection disconnect];
+            }
+    #else
+            [self.connection disconnect];
+    #endif
+#endif
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+    DDLogVerbose(@"[OwnTracksAppDelegate] applicationWillTerminate");
+    [self background];
+    [self.connection disconnect];
+
 }
 
 -(BOOL)application:(UIApplication *)app
@@ -364,7 +436,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (BOOL)processFile:(NSURL *)url {
-
     NSInputStream *input = [NSInputStream inputStreamWithURL:url];
     if (input.streamError) {
         self.processingMessage = [NSString stringWithFormat:@"inputStreamWithURL %@ %@",
@@ -431,17 +502,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     return TRUE;
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    DDLogVerbose(@"[OwnTracksAppDelegate] applicationDidEnterBackground");
-#if !TARGET_OS_MACCATALYST
-    [self background];
-#endif
-}
-
-
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     DDLogVerbose(@"[OwnTracksAppDelegate] applicationDidBecomeActive");
 
+    [self.connection connectToLast];
+    
     if (self.disconnectTimer && self.disconnectTimer.isValid) {
         DDLogVerbose(@"[OwnTracksAppDelegate] disconnectTimer invalidate %@",
                      self.disconnectTimer.fireDate);
@@ -467,12 +532,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     }
 }
 
-#if !TARGET_OS_MACCATALYST
-- (void)application:(UIApplication *)application
-performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-
-    DDLogVerbose(@"[OwnTracksAppDelegate] performFetchWithCompletionHandler");
-    self.completionHandler = completionHandler;
+- (void)doRefresh {
     [self background];
 
     [[LocationManager sharedInstance] wakeup];
@@ -491,7 +551,6 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         [self publishLocation:location trigger:@"p"];
     }
 }
-#endif
 
 - (void)background {
     [self startBackgroundTimer];
@@ -499,19 +558,13 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
         self.backgroundTask == UIBackgroundTaskInvalid) {
         self.backgroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
             DDLogVerbose(@"[OwnTracksAppDelegate] BackgroundTaskExpirationHandler");
-
-            if (self.completionHandler) {
-                DDLogVerbose(@"[OwnTracksAppDelegate] completionHandler");
-                self.completionHandler(UIBackgroundFetchResultNewData);
-                self.completionHandler = nil;
-            }
-
             if (self.backgroundTask) {
                 [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
                 self.backgroundTask = UIBackgroundTaskInvalid;
             }
-
         }];
+        DDLogVerbose(@"[OwnTracksAppDelegate] beginBackgroundTaskWithExpirationHandler %lu",
+                     (unsigned long)self.backgroundTask);
     }
 }
 
@@ -531,13 +584,41 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
             [runLoop addTimer:self.disconnectTimer forMode:NSDefaultRunLoopMode];
             DDLogVerbose(@"[OwnTracksAppDelegate] disconnectTimer %@",
                          self.disconnectTimer.fireDate);
+
+            if (self.holdTimer) {
+                if (self.holdTimer.isValid) {
+                    [self.holdTimer invalidate];
+                }
+                self.holdTimer = nil;
+            }
+            self.holdTimer = [NSTimer scheduledTimerWithTimeInterval:BACKGROUND_HOLD_FOR
+                                                             repeats:FALSE
+                                                               block:^(NSTimer * _Nonnull timer) {
+                DDLogVerbose(@"[OwnTracksAppDelegate] holdTimer");
+                if (self.bgTimer) {
+                    if (self.bgTimer.isValid) {
+                        [self.bgTimer invalidate];
+                    }
+                    self.bgTimer = nil;
+                }
+                self.bgTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                               repeats:TRUE block:^(NSTimer * _Nonnull timer) {
+                    DDLogVerbose(@"[OwnTracksAppDelegate] bgTimer %@ %@",
+                                 self.connectionState,
+                                 self.connectionBuffered);
+                    if (!self.connectionBuffered || !self.connectionBuffered.intValue) {
+                        if (self.connectionState.intValue == state_connected) {
+                            [self disconnectInBackground];
+                        }
+                    }
+                }];
+            }];
         }
     }
 }
 
 - (void)disconnectInBackground {
     DDLogVerbose(@"[OwnTracksAppDelegate] disconnectInBackground");
-    self.disconnectTimer = nil;
     [self.connection disconnect];
 }
 
@@ -660,7 +741,8 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
     }
 }
 
-- (void)beaconInRange:(CLBeacon *)beacon region:(CLBeaconRegion *)region {
+-(void)beaconInRange:(CLBeacon *)beacon
+    beaconConstraint:(CLBeaconIdentityConstraint *)beaconConstraint {
     [self background];
     if ([Settings validIdsInMOC:CoreData.sharedInstance.mainMOC]) {
         Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
@@ -668,9 +750,26 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 
         Region *myRegion;
         for (Region *anyRegion in myself.hasRegions) {
-            if ([region.identifier isEqualToString:anyRegion.CLregion.identifier]) {
-                myRegion = anyRegion;
-                break;
+            if ([beaconConstraint.UUID.UUIDString isEqualToString:anyRegion.uuid]) {
+                if ((!anyRegion.major &&
+                     !beaconConstraint.major
+                     ) ||
+                    (anyRegion.major &&
+                     beaconConstraint.major &&
+                     anyRegion.major.intValue == beaconConstraint.major.intValue &&
+                     ((!anyRegion.minor &&
+                       !beaconConstraint.minor
+                       ) ||
+                      (anyRegion.minor &&
+                       beaconConstraint.minor &&
+                       anyRegion.minor.intValue == beaconConstraint.minor.intValue
+                       )
+                      )
+                     )
+                    ) {
+                    myRegion = anyRegion;
+                    break;
+                }
             }
         }
 
@@ -679,11 +778,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                        @"_type": @"beacon",
                                        @"tid": myself.effectiveTid,
                                        @"tst": @(floor(([LocationManager sharedInstance].location.timestamp).timeIntervalSince1970)),
-#if TARGET_OS_MACCATALYST
                                        @"uuid": (beacon.UUID).UUIDString,
-#else
-                                       @"uuid": (beacon.proximityUUID).UUIDString,
-#endif
                                        @"major": beacon.major,
                                        @"minor": beacon.minor,
                                        @"prox": @(beacon.proximity),
@@ -706,11 +801,13 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 
 - (void)showState:(Connection *)connection
             state:(NSInteger)state {
+    DDLogInfo(@"[OwnTracksAppDelegate] showState: %ld", (long)state);
+
     self.connectionState = @(state);
-    [self performSelectorOnMainThread:@selector(checkState) withObject:nil waitUntilDone:NO];
+    [self performSelectorOnMainThread:@selector(checkState:) withObject:@(state) waitUntilDone:NO];
 }
 
-- (void)checkState {
+- (void)checkState:(NSNumber *)state {
     /**
      ** This is a hack to ensure the connection gets gracefully closed at the server
      **
@@ -718,20 +815,39 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
      **/
 
     NSTimeInterval backgroundTimeRemaining = [UIApplication sharedApplication].backgroundTimeRemaining;
-    DDLogInfo(@"[OwnTracksAppDelegate] showState: %@, backgroundTimeRemaining: %@",
-              self.connectionState.stringValue,
+    DDLogInfo(@"[OwnTracksAppDelegate] checkState: %@, backgroundTimeRemaining: %@",
+              state,
               backgroundTimeRemaining > 24 * 3600 ? @"∞": @(floor(backgroundTimeRemaining)).stringValue);
 
-    if ((self.connectionState).intValue == state_closed) {
-        if (self.completionHandler) {
-            DDLogVerbose(@"[OwnTracksAppDelegate] call completionHandler");
-            self.completionHandler(UIBackgroundFetchResultNewData);
-            self.completionHandler = nil;
-        }
+    if (state.intValue == state_starting) {
         if (self.backgroundTask) {
-            DDLogVerbose(@"[OwnTracksAppDelegate] endBackGroundTask");
+            if (self.bgTimer) {
+                if (self.bgTimer.isValid) {
+                    [self.bgTimer invalidate];
+                }
+                self.bgTimer = nil;
+            }
+            if (self.holdTimer) {
+                if (self.holdTimer.isValid) {
+                    [self.holdTimer invalidate];
+                }
+                self.holdTimer = nil;
+            }
+            if (self.disconnectTimer) {
+                if (self.disconnectTimer.isValid) {
+                    [self.disconnectTimer invalidate];
+                }
+                self.disconnectTimer = nil;
+            }
+
+            DDLogVerbose(@"[OwnTracksAppDelegate] endBackGroundTask %lu",
+                         (unsigned long)self.backgroundTask);
             [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
             self.backgroundTask = UIBackgroundTaskInvalid;
+        }
+        if (self.bgTask) {
+            [self.bgTask setTaskCompletedWithSuccess:TRUE];
+            self.bgTask = nil;
         }
     }
 }
@@ -748,7 +864,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                                   retained:retained
                                                    context:CoreData.sharedInstance.queuedMOC];
         NSArray *baseComponents = [[Settings theGeneralTopicInMOC:CoreData.sharedInstance.queuedMOC] componentsSeparatedByString:@"/"];
-        NSArray *topicComponents = [[Settings theGeneralTopicInMOC:CoreData.sharedInstance.queuedMOC] componentsSeparatedByString:@"/"];
+        NSArray *topicComponents = [topic componentsSeparatedByString:@"/"];
 
         NSString *device = @"";
         BOOL ownDevice = true;
@@ -767,7 +883,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
             }
         }
 
-        DDLogVerbose(@"[OwnTracksAppDelegate] device %@", device);
+        DDLogVerbose(@"[OwnTracksAppDelegate] device %@ owndevice %d", device, ownDevice);
 
         if (ownDevice) {
 
@@ -1081,7 +1197,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
 
         int ignoreInaccurateLocations = [Settings intForKey:@"ignoreinaccuratelocations_preference"
                                                       inMOC:CoreData.sharedInstance.mainMOC];
-        DDLogVerbose(@"[OwnTracksAppDelegate] inaccurate location %fm/%dm",
+        DDLogVerbose(@"[OwnTracksAppDelegate] location accuracy:%fm, ignoreIncacurationLocations:%dm",
                      location.horizontalAccuracy, ignoreInaccurateLocations);
 
         if (ignoreInaccurateLocations == 0 || location.horizontalAccuracy < ignoreInaccurateLocations) {
@@ -1211,9 +1327,9 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
             DDLogVerbose(@"[OwnTracksAppDelegate] getting p12 filename:%@ passphrase:%@",
                          fileName, [Settings stringForKey:@"passphrase" inMOC:CoreData.sharedInstance.mainMOC]);
             NSString *clientPKCSPath = [directoryURL.path stringByAppendingPathComponent:fileName];
-            certificates = [MQTTCFSocketTransport clientCertsFromP12:clientPKCSPath
-                                                          passphrase:[Settings stringForKey:@"passphrase"
-                                                                                      inMOC:CoreData.sharedInstance.mainMOC]];
+            certificates = [MQTTTransport clientCertsFromP12:clientPKCSPath
+                                                  passphrase:[Settings stringForKey:@"passphrase"
+                                                                              inMOC:CoreData.sharedInstance.mainMOC]];
             if (!certificates) {
                 [self.navigationController alert:NSLocalizedString(@"TLS Client Certificate",
                                                                    @"Heading for certificate error message")
@@ -1221,46 +1337,6 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                                                                    @"certificate error message")
                  ];
             }
-        }
-
-        MQTTSSLSecurityPolicy *securityPolicy = nil;
-        if ([Settings boolForKey:@"usepolicy"
-                           inMOC:CoreData.sharedInstance.mainMOC]) {
-            securityPolicy = [MQTTSSLSecurityPolicy policyWithPinningMode:
-                              [Settings intForKey:@"policymode" inMOC:CoreData.sharedInstance.mainMOC]];
-            if (!securityPolicy) {
-                [self.navigationController alert:@"TLS Security Policy" message:@"invalid mode"];
-            }
-
-            NSString *fileNames = [Settings stringForKey:@"servercer"
-                                                   inMOC:CoreData.sharedInstance.mainMOC];
-            NSMutableArray *certs = nil;
-            NSArray *components = [fileNames componentsSeparatedByString:@" "];
-            for (NSString *fileName in components) {
-                if (fileName && fileName.length) {
-                    NSString *serverCERpath = [directoryURL.path stringByAppendingPathComponent:fileName];;
-                    NSData *certificateData = [NSData dataWithContentsOfFile:serverCERpath];
-                    if (certificateData) {
-                        if (!certs) {
-                            certs = [[NSMutableArray alloc] init];
-                        }
-                        [certs addObject:certificateData];
-                    } else {
-                        [self.navigationController alert:NSLocalizedString(@"TLS Security Policy",
-                                                                           @"Heading for security policy error message")
-                                                 message:NSLocalizedString(@"invalid certificate file",
-                                                                           @"certificate file error message")
-                         ];
-                    }
-                }
-            }
-            securityPolicy.pinnedCertificates = certs;
-            securityPolicy.allowInvalidCertificates = [Settings boolForKey:@"allowinvalidcerts"
-                                                                     inMOC:CoreData.sharedInstance.mainMOC];
-            securityPolicy.validatesCertificateChain = [Settings boolForKey:@"validatecertificatechain"
-                                                                      inMOC:CoreData.sharedInstance.mainMOC];
-            securityPolicy.validatesDomainName = [Settings boolForKey:@"validatedomainname"
-                                                                inMOC:CoreData.sharedInstance.mainMOC];
         }
 
         MQTTQosLevel subscriptionQos =[Settings intForKey:@"subscriptionqos_preference"
@@ -1297,7 +1373,7 @@ performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionH
                            willQos:[Settings intForKey:@"willqos_preference" inMOC:CoreData.sharedInstance.mainMOC]
                     willRetainFlag:[Settings boolForKey:@"willretain_preference" inMOC:CoreData.sharedInstance.mainMOC]
                       withClientId:[Settings theClientIdInMOC:CoreData.sharedInstance.mainMOC]
-                    securityPolicy:securityPolicy
+        allowUntrustedCertificates:[Settings boolForKey:@"allowinvalidcerts" inMOC:CoreData.sharedInstance.mainMOC]
                       certificates:certificates];
     }
 }
