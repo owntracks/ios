@@ -22,7 +22,7 @@
 @end
 
 @implementation FeaturedContentVC
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)viewDidLoad {
     [super viewDidLoad];

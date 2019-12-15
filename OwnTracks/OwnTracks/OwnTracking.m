@@ -20,7 +20,7 @@
 #define MAXQUEUE 999
 
 @implementation OwnTracking
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 static OwnTracking *theInstance = nil;
 
 + (OwnTracking *)sharedInstance {
@@ -138,8 +138,11 @@ static OwnTracking *theInstance = nil;
                                               inManagedObjectContext:context];
                             [self processFace:friend dictionary:dictionary];
 
+                        } else if ([dictionary[@"_type"] isEqualToString:@"lwt"]) {
+                            // ignore
+                            
                         } else {
-                            DDLogInfo(@"unknown record type %@)", dictionary[@"_type"]);
+                            DDLogInfo(@"unknown record type %@", dictionary[@"_type"]);
                         }
                     } else /* data.length == 0 -> delete friend */ {
                         Friend *friend = [Friend existsFriendWithTopic:device inManagedObjectContext:context];

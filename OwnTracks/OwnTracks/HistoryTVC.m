@@ -21,7 +21,7 @@
 
 @implementation HistoryTVC
 
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (IBAction)trashPressed:(UIBarButtonItem *)sender {
     NSArray *histories = [History allHistoriesInManagedObjectContext:CoreData.sharedInstance.mainMOC];

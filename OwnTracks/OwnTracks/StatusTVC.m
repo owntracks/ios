@@ -23,7 +23,7 @@
 @end
 
 @implementation StatusTVC
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

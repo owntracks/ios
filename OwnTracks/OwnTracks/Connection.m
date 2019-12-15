@@ -66,7 +66,7 @@
 #define RECONNECT_TIMER_MAX 64.0
 
 @implementation Connection
-DDLogLevel ddLogLevel = DDLogLevelVerbose;
+DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (instancetype)init {
     self = [super init];
@@ -568,6 +568,10 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 #pragma mark - MQTT Callback methods
 
 - (void)connected:(MQTTSession *)session sessionPresent:(BOOL)sessionPresent {
+
+    DDLogWarn(@"[Connection] %@ connected sessionPresent %d",
+              self.clientId, sessionPresent);
+
     self.lastErrorCode = nil;
     self.state = state_connected;
     
@@ -685,9 +689,9 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
            correlationData:(NSData *)correlationData
             userProperties:(NSArray<NSDictionary<NSString *,NSString *> *> *)userProperties
                contentType:(NSString *)contentType {
-    DDLogInfo(@"[Connection] %@ messageDelivered mid=%u",
-              session.clientId,
-              msgID);
+    DDLogVerbose(@"[Connection] %@ messageDelivered mid=%u",
+                 session.clientId,
+                 msgID);
     [self.delegate messageDelivered:self msgID:msgID];
 
 }
@@ -745,7 +749,8 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
             }
             [self.session connectWithConnectHandler:nil];
         } else {
-            DDLogVerbose(@"[Connection] %@ not starting, can't connect", self.clientId);
+            DDLogWarn(@"[Connection] %@ not starting (%ld), can't connect",
+                      self.clientId, (long)self.state);
         }
     }
 }
@@ -810,8 +815,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 }
 
 - (void)startReconnectTimer:(NSRunLoop *)runLoop {
-    DDLogVerbose(@"[Connection] %@ setTimer %@ %d", self.clientId, self.reconnectTimer, self.reconnectTimer.isValid);
-    DDLogVerbose(@"[Connection] %@ setTimer %f", self.clientId, self.reconnectTime);
+    DDLogInfo(@"[Connection] %@ setTimer %f", self.clientId, self.reconnectTime);
     self.reconnectTimer = [NSTimer timerWithTimeInterval:self.reconnectTime
                                                   target:self
                                                 selector:@selector(reconnect)

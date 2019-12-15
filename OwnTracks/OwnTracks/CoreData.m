@@ -16,7 +16,7 @@
 @end
 
 @implementation CoreData
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 + (CoreData *)sharedInstance {
     static dispatch_once_t once = 0;

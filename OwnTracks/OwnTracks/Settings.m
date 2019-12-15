@@ -19,7 +19,7 @@
 @end
 
 static SettingsDefaults *defaults;
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 @implementation SettingsDefaults
 + (SettingsDefaults *)theDefaults {

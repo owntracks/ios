@@ -10,7 +10,7 @@
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @implementation FriendAnnotationV
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 #define CIRCLE_SIZE 40.0
 #define FENCE_WIDTH 5.0

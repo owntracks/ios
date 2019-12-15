@@ -26,7 +26,7 @@
 #import <objc/runtime.h>
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 
 @implementation NSBundle (privateLocalization)

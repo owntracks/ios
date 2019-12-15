@@ -17,7 +17,7 @@
 #import <BackgroundTasks/BackgroundTasks.h>
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 @interface NSString (safe)
 - (BOOL)saveEqual:(NSString *)aString;
@@ -801,7 +801,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)showState:(Connection *)connection
             state:(NSInteger)state {
-    DDLogInfo(@"[OwnTracksAppDelegate] showState: %ld", (long)state);
+    DDLogVerbose(@"[OwnTracksAppDelegate] showState: %ld", (long)state);
 
     self.connectionState = @(state);
     [self performSelectorOnMainThread:@selector(checkState:) withObject:@(state) waitUntilDone:NO];
@@ -815,7 +815,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
      **/
 
     NSTimeInterval backgroundTimeRemaining = [UIApplication sharedApplication].backgroundTimeRemaining;
-    DDLogInfo(@"[OwnTracksAppDelegate] checkState: %@, backgroundTimeRemaining: %@",
+    DDLogVerbose(@"[OwnTracksAppDelegate] checkState: %@, backgroundTimeRemaining: %@",
               state,
               backgroundTimeRemaining > 24 * 3600 ? @"∞": @(floor(backgroundTimeRemaining)).stringValue);
 
@@ -840,7 +840,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                 self.disconnectTimer = nil;
             }
 
-            DDLogVerbose(@"[OwnTracksAppDelegate] endBackGroundTask %lu",
+            DDLogInfo(@"[OwnTracksAppDelegate] endBackGroundTask %lu",
                          (unsigned long)self.backgroundTask);
             [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
             self.backgroundTask = UIBackgroundTaskInvalid;
@@ -937,12 +937,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                                 waitUntilDone:NO];
 
                         } else {
-                            DDLogVerbose(@"[OwnTracksAppDelegate] unknown action %@", dictionary[@"action"]);
+                            DDLogWarn(@"[OwnTracksAppDelegate] unknown action %@", dictionary[@"action"]);
                         }
                     }
                 }
             } else {
-                DDLogVerbose(@"[OwnTracksAppDelegate] illegal json %@ %@ %@", error.localizedDescription, error.userInfo, data.description);
+                DDLogWarn(@"[OwnTracksAppDelegate] illegal json %@ %@ %@", error.localizedDescription, error.userInfo, data.description);
             }
         }
         [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
@@ -952,7 +952,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (void)messageDelivered:(Connection *)connection msgID:(UInt16)msgID {
-    DDLogVerbose(@"[OwnTracksAppDelegate] Message delivered id=%u", msgID);
+    DDLogVerbose(@"[OwnTracksAppDelegate] messageDelivered msgID=%u", msgID);
 }
 
 - (void)totalBuffered:(Connection *)connection count:(NSUInteger)count {
@@ -1099,9 +1099,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         fromDate = [[NSCalendar currentCalendar] dateFromComponents:components];
     }
 
-    DDLogVerbose(@"[OwnTracksAppDelegate] isStepCountingAvailable %d", [CMPedometer isStepCountingAvailable]);
-    DDLogVerbose(@"[OwnTracksAppDelegate] isFloorCountingAvailable %d", [CMPedometer isFloorCountingAvailable]);
-    DDLogVerbose(@"[OwnTracksAppDelegate] isDistanceAvailable %d", [CMPedometer isDistanceAvailable]);
+    DDLogInfo(@"[OwnTracksAppDelegate] isStepCountingAvailable %d",
+              [CMPedometer isStepCountingAvailable]);
+    DDLogInfo(@"[OwnTracksAppDelegate] isFloorCountingAvailable %d",
+              [CMPedometer isFloorCountingAvailable]);
+    DDLogInfo(@"[OwnTracksAppDelegate] isDistanceAvailable %d",
+              [CMPedometer isDistanceAvailable]);
+
     if (!self.pedometer) {
         self.pedometer = [[CMPedometer alloc] init];
     }
@@ -1109,7 +1113,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                         toDate:toDate
                                    withHandler:
      ^(CMPedometerData *pedometerData, NSError *error) {
-         DDLogVerbose(@"[OwnTracksAppDelegate] StepCounter queryPedometerDataFromDate handler %ld %ld %ld %ld %@",
+         DDLogVerbose(@"[OwnTracksAppDelegate] StepCounter queryPedometerDataFromDate %ld %ld %ld %ld %@",
                       [pedometerData.numberOfSteps longValue],
                       [pedometerData.floorsAscended longValue],
                       [pedometerData.floorsDescended longValue],
@@ -1168,7 +1172,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (void)terminateSession {
-    DDLogVerbose(@"[OwnTracksAppDelegate] terminateSession");
+    DDLogInfo(@"[OwnTracksAppDelegate] terminateSession");
 
     [self connectionOff];
     [[OwnTracking sharedInstance] syncProcessing];
@@ -1182,7 +1186,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (void)reconnect {
-    DDLogVerbose(@"[OwnTracksAppDelegate] reconnect");
+    DDLogInfo(@"[OwnTracksAppDelegate] reconnect");
     [self.connection disconnect];
     [self connect];
 }

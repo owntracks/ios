@@ -17,7 +17,7 @@
 @end
 
 @implementation PersonTVC
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)viewWillAppear:(BOOL)animated {
     self.sections = [[NSMutableDictionary alloc] init];
