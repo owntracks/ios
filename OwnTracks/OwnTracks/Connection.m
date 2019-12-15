@@ -66,7 +66,7 @@
 #define RECONNECT_TIMER_MAX 64.0
 
 @implementation Connection
-DDLogLevel ddLogLevel = DDLogLevelInfo;
+DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (instancetype)init {
     self = [super init];
@@ -617,7 +617,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
             self.state = state_closed;
             self.state = state_starting;
             if (!self.intendedDisconnect) {
-                [self startReconnectTimer:[NSRunLoop currentRunLoop]];
+                [self startReconnectTimer:[NSRunLoop mainRunLoop]];
             } else {
                 self.intendedDisconnect = FALSE;
             }
@@ -634,7 +634,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
             if (error.domain == NSOSStatusErrorDomain && error.code == errSSLPeerCertUnknown) {
                 self.session = nil;
             }
-            [self startReconnectTimer:[NSRunLoop currentRunLoop]];
+            [self startReconnectTimer:[NSRunLoop mainRunLoop]];
             self.state = state_error;
             if (!self.lastErrorCode) {
                 self.lastErrorCode = error;
@@ -784,8 +784,14 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 
 - (void)reconnect {
     DDLogInfo(@"[Connection] %@ reconnect", self.clientId);
-    
-    self.reconnectTimer = nil;
+
+    if (self.reconnectTimer) {
+        if (self.reconnectTimer.isValid) {
+            [self.reconnectTimer invalidate];
+        }
+        self.reconnectTimer = nil;
+    }
+
     self.state = state_starting;
     self.lastErrorCode = nil;
     
@@ -804,11 +810,13 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 }
 
 - (void)startReconnectTimer:(NSRunLoop *)runLoop {
+    DDLogVerbose(@"[Connection] %@ setTimer %@ %d", self.clientId, self.reconnectTimer, self.reconnectTimer.isValid);
     DDLogVerbose(@"[Connection] %@ setTimer %f", self.clientId, self.reconnectTime);
     self.reconnectTimer = [NSTimer timerWithTimeInterval:self.reconnectTime
                                                   target:self
                                                 selector:@selector(reconnect)
-                                                userInfo:Nil repeats:FALSE];
+                                                userInfo:Nil
+                                                 repeats:FALSE];
     [runLoop addTimer:self.reconnectTimer forMode:NSDefaultRunLoopMode];
 }
 
