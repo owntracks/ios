@@ -990,6 +990,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
 				INFOPLIST_FILE = "OwnTracks/OwnTracks-Info.plist";
+				"INFOPLIST_FILE[sdk=*]" = "OwnTracks/OwnTracks-Info.plist";
+				"INFOPLIST_FILE[sdk=macosx*]" = "OwnTracks/OwnTracks-Info-Mac.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1029,6 +1031,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
 				INFOPLIST_FILE = "OwnTracks/OwnTracks-Info.plist";
+				"INFOPLIST_FILE[sdk=*]" = "OwnTracks/OwnTracks-Info.plist";
+				"INFOPLIST_FILE[sdk=macosx*]" = "OwnTracks/OwnTracks-Info-Mac.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
