@@ -1,7 +1,7 @@
 {
   "name": "mqttc",
-  "version": "13.1.1",
-  "summary": "iOS, OSX and tvOS native ObjectiveC MQTT Client Framework",
+  "version": "13.2.1",
+  "summary": "iOS, macOS, watchOS and tvOS native ObjectiveC MQTT Client Framework",
   "homepage": "https://github.com/ckrey/mqttc",
   "license": {
     "type": "EPLv1",
@@ -12,14 +12,15 @@
   },
   "source": {
     "git": "https://github.com/ckrey/mqttc.git",
-    "tag": "13.1.1",
+    "tag": "13.2.1",
     "submodules": true
   },
   "requires_arc": true,
   "platforms": {
-    "ios": "8.0",
-    "osx": "10.10",
-    "tvos": "9.0"
+    "ios": "13.1",
+    "osx": "10.15",
+    "tvos": "13.1",
+    "watchos": "6.1"
   },
   "default_subspecs": "Core",
   "subspecs": [

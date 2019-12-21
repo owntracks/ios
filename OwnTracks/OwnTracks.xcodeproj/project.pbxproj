@@ -90,6 +90,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		84100AD923AE8D8800FC2361 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		844E826B1AB8061500516D1A /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -106,6 +116,7 @@
 /* Begin PBXFileReference section */
 		2B8643F553F1754500F087C5 /* Pods-OwnTracks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracks.release.xcconfig"; path = "Pods/Target Support Files/Pods-OwnTracks/Pods-OwnTracks.release.xcconfig"; sourceTree = "<group>"; };
 		39BEA95034CFAACF86EF90A3 /* Pods_OwnTracks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OwnTracks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		604B9C47BF46E69AA895A10B /* Pods-OwnTracksWatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracksWatch.release.xcconfig"; path = "Pods/Target Support Files/Pods-OwnTracksWatch/Pods-OwnTracksWatch.release.xcconfig"; sourceTree = "<group>"; };
 		79D18EEC7116C6156B1DDE93 /* Pods-OwnTracks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OwnTracks/Pods-OwnTracks.debug.xcconfig"; sourceTree = "<group>"; };
 		84001C0D1C78729200413E5B /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		84001C0F1C78976100413E5B /* Model 9.0.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.0.2.xcdatamodel"; sourceTree = "<group>"; };
@@ -266,6 +277,8 @@
 		84FF829A238E50210037CBDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84FF829B238E50250037CBDD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84FF829C238E50280037CBDD /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AE758900356F1BDB16CD55F5 /* Pods-OwnTracksWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracksWatch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OwnTracksWatch/Pods-OwnTracksWatch.debug.xcconfig"; sourceTree = "<group>"; };
+		E394A9D874A45F89C81D75C1 /* Pods_OwnTracksWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OwnTracksWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -305,6 +318,8 @@
 			children = (
 				79D18EEC7116C6156B1DDE93 /* Pods-OwnTracks.debug.xcconfig */,
 				2B8643F553F1754500F087C5 /* Pods-OwnTracks.release.xcconfig */,
+				AE758900356F1BDB16CD55F5 /* Pods-OwnTracksWatch.debug.xcconfig */,
+				604B9C47BF46E69AA895A10B /* Pods-OwnTracksWatch.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -362,6 +377,7 @@
 				8411B849189FDB140019D2D6 /* XCTest.framework */,
 				84D3072E1ACD644500FACB9E /* NotificationCenter.framework */,
 				39BEA95034CFAACF86EF90A3 /* Pods_OwnTracks.framework */,
+				E394A9D874A45F89C81D75C1 /* Pods_OwnTracksWatch.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -556,6 +572,7 @@
 				844E826B1AB8061500516D1A /* Embed App Extensions */,
 				B9074668360D50063C01DD10 /* [CP] Embed Pods Frameworks */,
 				8466B31E2397F58500537795 /* ShellScript */,
+				84100AD923AE8D8800FC2361 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);

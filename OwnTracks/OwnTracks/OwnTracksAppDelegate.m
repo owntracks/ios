@@ -482,7 +482,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     }
 
     [input close];
+
+// MAC CATALYST opens files in place
+#if !TARGET_OS_MACCATALYST
     [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
+#endif
+
     if (error) {
         self.processingMessage = [NSString stringWithFormat:@"%@ %@: %@ %@",
                                   NSLocalizedString(@"Error processing file",

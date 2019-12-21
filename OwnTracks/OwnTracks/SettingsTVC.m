@@ -600,7 +600,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         self.UIurl.enabled = !locked;
     }
 
-    if (!self.UIusepolicy) {
+//    if (!self.UIusepolicy) {
+    if (self.UImode) {
 
         int mode = [Settings intForKey:@"mode"
                                  inMOC:CoreData.sharedInstance.mainMOC];
@@ -688,6 +689,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             [self deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
         } else if (![self isSectionVisible:1] && self.privileged) {
             [self insertSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
+        }
+    } else {
+        // hide SSLsecuritypolicy
+        if ([self isSectionVisible:1]) {
+            [self deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
     }
 

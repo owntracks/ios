@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="e04-OU-xZ4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="e04-OU-xZ4">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1398,39 +1398,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="c88-NU-yJk">
-                                        <rect key="frame" x="0.0" y="1702" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="c88-NU-yJk" id="NcJ-6j-KVD">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="allowInvalidCerts" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Scp-Jm-DeC">
-                                                    <rect key="frame" x="20" y="11.5" width="223" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FEu-ve-tOo">
-                                                    <rect key="frame" x="251" y="6.5" width="51" height="31"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="49" id="ZuG-R8-fZC"/>
-                                                        <constraint firstAttribute="height" constant="31" id="sof-mm-z0f"/>
-                                                    </constraints>
-                                                    <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="valueChanged" id="9Jy-rp-Pye"/>
-                                                    </connections>
-                                                </switch>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="FEu-ve-tOo" secondAttribute="centerY" id="2Sf-Fx-Ajw"/>
-                                                <constraint firstAttribute="centerY" secondItem="Scp-Jm-DeC" secondAttribute="centerY" id="LIy-Yp-He8"/>
-                                                <constraint firstItem="Scp-Jm-DeC" firstAttribute="leading" secondItem="NcJ-6j-KVD" secondAttribute="leading" constant="20" symbolic="YES" id="cOp-48-D23"/>
-                                                <constraint firstItem="FEu-ve-tOo" firstAttribute="leading" secondItem="Scp-Jm-DeC" secondAttribute="trailing" constant="8" symbolic="YES" id="f85-I6-oUC"/>
-                                                <constraint firstAttribute="trailing" secondItem="FEu-ve-tOo" secondAttribute="trailing" constant="20" symbolic="YES" id="pSQ-fy-WXP"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -1455,7 +1422,6 @@
                         <outlet property="UIUserID" destination="Oiq-Kb-qLx" id="YBA-Mv-Ra6"/>
                         <outlet property="UIWS" destination="BuY-gY-cfZ" id="bZY-2W-Dyg"/>
                         <outlet property="UIallowRemoteLocation" destination="jz2-Iy-vIe" id="2Vp-8g-eED"/>
-                        <outlet property="UIallowinvalidcerts" destination="FEu-ve-tOo" id="hMI-F9-a4g"/>
                         <outlet property="UIcleanSession" destination="xTf-j7-GXN" id="6vf-Qi-gRV"/>
                         <outlet property="UIclientId" destination="IsX-6T-YbC" id="gUd-rU-1Vx"/>
                         <outlet property="UIcmd" destination="PPq-v7-gGw" id="xwH-ut-abi"/>
@@ -2761,7 +2727,6 @@ xyz</string>
 
 CocoaLumberjack
 ABStaticTableViewController
-QRCodeReaderViewController
 libsodium (libsodium.org)
 
 </string>
