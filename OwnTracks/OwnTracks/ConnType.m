@@ -8,8 +8,45 @@
 
 #import "ConnType.h"
 #import <SystemConfiguration/SystemConfiguration.h>
+#import <SystemConfiguration/CaptiveNetwork.h>
 
 @implementation ConnType
+
++ (NSString *)SSID {
+    NSString *ssid;
+
+    CFArrayRef siRef = CNCopySupportedInterfaces();
+    if (siRef != NULL) {
+        CFDictionaryRef niRef = CNCopyCurrentNetworkInfo(CFArrayGetValueAtIndex(siRef, 0));
+        if (niRef != NULL) {
+            CFStringRef ssidRef = CFDictionaryGetValue(niRef, kCNNetworkInfoKeySSID);
+            if (ssidRef != NULL) {
+                ssid = (__bridge NSString *)ssidRef;
+            }
+            CFRelease(niRef);
+        }
+        CFRelease(siRef);
+    }
+    return ssid;
+}
+
++ (NSString *)BSSID {
+    NSString *bssid;
+
+    CFArrayRef siRef = CNCopySupportedInterfaces();
+    if (siRef != NULL) {
+        CFDictionaryRef niRef = CNCopyCurrentNetworkInfo(CFArrayGetValueAtIndex(siRef, 0));
+        if (niRef != NULL) {
+            CFStringRef bssidRef = CFDictionaryGetValue(niRef, kCNNetworkInfoKeyBSSID);
+            if (bssidRef != NULL) {
+                bssid = (__bridge NSString *)(bssidRef);
+            }
+            CFRelease(niRef);
+        }
+        CFRelease(siRef);
+    }
+    return bssid;
+}
 
 + (ConnectionType)connectionType:(NSString *)host {
     if (!host) {

@@ -422,9 +422,19 @@ static OwnTracking *theInstance = nil;
                 break;
 
             case ConnectionTypeWIFI:
+            {
                 json[@"conn"] = @"w";
+                NSString *ssid = [ConnType SSID];
+                if (ssid) {
+                    json[@"SSID"] = ssid;
+                }
+                NSString *bssid = [ConnType BSSID];
+                if (bssid) {
+                    json[@"BSSID"] = bssid;
+                }
                 break;
-
+            }
+                
             case ConnectionTypeWWAN:
                 json[@"conn"] = @"m";
                 break;

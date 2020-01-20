@@ -49,6 +49,7 @@
 		846FFA4F1B40C13C001482A6 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA4E1B40C13C001482A6 /* NavigationController.m */; };
 		846FFA581B419687001482A6 /* RegionTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA571B419687001482A6 /* RegionTVC.m */; };
 		846FFA5E1B420938001482A6 /* FriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA5D1B420938001482A6 /* FriendTableViewCell.m */; };
+		8470352923D5E6B10041AAFB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8470352823D5E6B10041AAFB /* SystemConfiguration.framework */; };
 		8474443A1DA4BC9600975BE4 /* ConnType.m in Sources */ = {isa = PBXBuildFile; fileRef = 847444391DA4BC9600975BE4 /* ConnType.m */; };
 		8479EEB718E4529900923B24 /* MQTT.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* MQTT.plist */; };
 		847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847F8B5719295C65003876D4 /* CoreMotion.framework */; };
@@ -207,6 +208,7 @@
 		846FFA571B419687001482A6 /* RegionTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionTVC.m; sourceTree = "<group>"; };
 		846FFA5C1B420938001482A6 /* FriendTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendTableViewCell.h; sourceTree = "<group>"; };
 		846FFA5D1B420938001482A6 /* FriendTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendTableViewCell.m; sourceTree = "<group>"; };
+		8470352823D5E6B10041AAFB /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		847444381DA4BC9600975BE4 /* ConnType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnType.h; sourceTree = "<group>"; };
 		847444391DA4BC9600975BE4 /* ConnType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnType.m; sourceTree = "<group>"; };
 		8474B15319A8CB7D00427427 /* Model 7.3.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.1.xcdatamodel"; sourceTree = "<group>"; };
@@ -291,6 +293,7 @@
 				841D3525209C74E70084FCD0 /* Contacts.framework in Frameworks */,
 				841D3523209C5DDF0084FCD0 /* UserNotifications.framework in Frameworks */,
 				8422AF681AF825C7008932A2 /* SystemConfiguration.framework in Frameworks */,
+				8470352923D5E6B10041AAFB /* SystemConfiguration.framework in Frameworks */,
 				847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */,
 				8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */,
 				8411B832189FDB140019D2D6 /* CoreData.framework in Frameworks */,
@@ -356,6 +359,7 @@
 		8411B82A189FDB140019D2D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8470352823D5E6B10041AAFB /* SystemConfiguration.framework */,
 				84B0CDAC239E2EFA00CE9305 /* BackgroundTasks.framework */,
 				84929F0A20AAC0CF00227D00 /* WebKit.framework */,
 				841D3524209C74E60084FCD0 /* Contacts.framework */,
