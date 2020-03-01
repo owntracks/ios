@@ -1399,6 +1399,41 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                        error.userInfo,
                        [jsonObject description]);
         }
+
+        // *****
+        // This is a hack because I don't see another chance to modify NSNumber
+        // formatting in NSJSONSerialization
+        // *****
+        NSNumber *lat = [jsonObject valueForKey:@"lat"];
+        NSNumber *lon = [jsonObject valueForKey:@"lon"];
+        NSString *jsonString = [[NSString alloc] initWithData:data
+                                                     encoding:NSUTF8StringEncoding];
+        if (lat) {
+            NSString *latString = [NSString stringWithFormat:@"\"lat\":%.6f", lat.doubleValue];
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@{@"lat": lat}
+                                                               options:0
+                                                                 error:nil];
+            NSString *jsonSubString = [[NSString alloc] initWithData:jsonData
+            encoding:NSUTF8StringEncoding];
+            jsonSubString = [jsonSubString substringWithRange:NSMakeRange(1, jsonSubString.length - 2)];
+
+            jsonString = [jsonString stringByReplacingOccurrencesOfString:jsonSubString
+                                                               withString:latString];
+        }
+        if (lon) {
+            NSString *lonString = [NSString stringWithFormat:@"\"lon\":%.6f", lon.doubleValue];
+            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@{@"lon": lon}
+                                                               options:0
+                                                                 error:nil];
+            NSString *jsonSubString = [[NSString alloc] initWithData:jsonData
+            encoding:NSUTF8StringEncoding];
+            jsonSubString = [jsonSubString substringWithRange:NSMakeRange(1, jsonSubString.length - 2)];
+
+            jsonString = [jsonString stringByReplacingOccurrencesOfString:jsonSubString
+                                                               withString:lonString];
+        }
+        data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+        // ***** 
     } else {
         DDLogError(@"[OwnTracksAppDelegate] isValidJSONObject failed %@", [jsonObject description]);
     }
