@@ -3,7 +3,7 @@
 //  OwnTracksToday
 //
 //  Created by Christoph Krey on 02.04.15.
-//  Copyright © 2015 -2019 OwnTracks. All rights reserved.
+//  Copyright © 2015-2020  OwnTracks. All rights reserved.
 //
 
 #import "TodayViewController.h"

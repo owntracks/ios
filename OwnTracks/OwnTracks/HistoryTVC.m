@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 26.08.19.
-//  Copyright © 2019 OwnTracks. All rights reserved.
+//  Copyright © 2019-2020 OwnTracks. All rights reserved.
 //
 
 #import "HistoryTVC.h"
