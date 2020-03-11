@@ -494,8 +494,8 @@ calloutAccessoryControlTapped:(UIControl *)control {
     if (!_frcFriends) {
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Friend"];
 
-        int ignoreStaleLocations = [Settings intForKey:@"ignorestalelocations_preference"
-                                                 inMOC:CoreData.sharedInstance.mainMOC];
+        double ignoreStaleLocations = [Settings doubleForKey:@"ignorestalelocations_preference"
+                                                       inMOC:CoreData.sharedInstance.mainMOC];
         if (ignoreStaleLocations) {
             NSTimeInterval stale = -ignoreStaleLocations * 24.0 * 3600.0;
             request.predicate = [NSPredicate predicateWithFormat:@"lastLocation > %@",
