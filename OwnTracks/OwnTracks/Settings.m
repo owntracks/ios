@@ -382,7 +382,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     dict[@"locatorDisplacement"] =          @([Settings intForKey:@"mindist_preference" inMOC:context]);
     dict[@"locatorInterval"] =              @([Settings intForKey:@"mintime_preference" inMOC:context]);
     dict[@"extendedData"] =                 @([Settings boolForKey:@"extendeddata_preference" inMOC:context]);
-    dict[@"ignoreStaleLocations"] =         @([Settings doubleForKey:@"ignorestalelocations_preference" inMOC:context]);
+    dict[@"ignoreStaleLocations"] =         @([Settings intForKey:@"ignorestalelocations_preference" inMOC:context]);
     dict[@"ignoreInaccurateLocations"] =    @([Settings intForKey:@"ignoreinaccuratelocations_preference" inMOC:context]);
 
     for (Setting *setting in [Setting allSettingsInMOC:context]) {

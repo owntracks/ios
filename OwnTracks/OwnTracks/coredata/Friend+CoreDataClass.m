@@ -50,7 +50,7 @@
 + (NSArray *)allNonStaleFriendsInManagedObjectContext:(NSManagedObjectContext *)context {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Friend"];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"topic" ascending:YES]];
-    int ignoreStaleLocations = [Settings doubleForKey:@"ignorestalelocations_preference" inMOC:context];
+    int ignoreStaleLocations = [Settings intForKey:@"ignorestalelocations_preference" inMOC:context];
     if (ignoreStaleLocations) {
         NSTimeInterval stale = -ignoreStaleLocations * 24.0 * 3600.0;
         request.predicate = [NSPredicate predicateWithFormat:@"lastLocation > %@",
