@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 28.06.15.
-//  Copyright © 2015 -2019 OwnTracks. All rights reserved.
+//  Copyright © 2015-2020  OwnTracks. All rights reserved.
 //
 
 #import "OwnTracking.h"
