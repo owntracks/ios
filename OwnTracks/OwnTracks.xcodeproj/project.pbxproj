@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		10470402D31FEF2DB834CB50 /* Pods_OwnTracksWrist_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A8151D687E278D52EB5D0C2 /* Pods_OwnTracksWrist_WatchKit_Extension.framework */; };
 		3FED3637B94322E5E278EAB4 /* Pods_OwnTracks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39BEA95034CFAACF86EF90A3 /* Pods_OwnTracks.framework */; };
 		84001C141C78982800413E5B /* Queue+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84001C111C78982800413E5B /* Queue+CoreDataProperties.m */; };
 		8400D9731D83825E00DEA134 /* HTTP.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8400D9721D83825E00DEA134 /* HTTP.plist */; };
@@ -45,7 +46,6 @@
 		845AA1BC1B4846AF00945856 /* OwnTracks-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1B91B4846AF00945856 /* OwnTracks-64.png */; };
 		845AA1BD1B4846AF00945856 /* OwnTracks-320.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1BA1B4846AF00945856 /* OwnTracks-320.png */; };
 		84664E9D1CC83A38002123EC /* NSBundle+privateLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 84664E9C1CC83A38002123EC /* NSBundle+privateLocalization.m */; };
-		846FFA451B402A1F001482A6 /* OwnTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA441B402A1F001482A6 /* OwnTracking.m */; };
 		846FFA4F1B40C13C001482A6 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA4E1B40C13C001482A6 /* NavigationController.m */; };
 		846FFA581B419687001482A6 /* RegionTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA571B419687001482A6 /* RegionTVC.m */; };
 		846FFA5E1B420938001482A6 /* FriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA5D1B420938001482A6 /* FriendTableViewCell.m */; };
@@ -58,6 +58,16 @@
 		849B1E061FE911FD0016EF1A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 849B1E081FE911FD0016EF1A /* MainInterface.storyboard */; };
 		84A046C41D81FE8000796C56 /* IdPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A046C31D81FE8000796C56 /* IdPicker.m */; };
 		84A488E21F7BBFD900ADCF98 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84A488E11F7BBFD900ADCF98 /* Media.xcassets */; };
+		84AFD3DC2434380700F1E922 /* OwnTracksWrist WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 84AFD3DB2434380700F1E922 /* OwnTracksWrist WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		84AFD3E22434380700F1E922 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84AFD3E02434380700F1E922 /* Interface.storyboard */; };
+		84AFD3E42434380A00F1E922 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84AFD3E32434380A00F1E922 /* Assets.xcassets */; };
+		84AFD3EB2434380A00F1E922 /* OwnTracksWrist WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 84AFD3EA2434380A00F1E922 /* OwnTracksWrist WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		84AFD3F12434380A00F1E922 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AFD3F02434380A00F1E922 /* InterfaceController.m */; };
+		84AFD3F42434380A00F1E922 /* ExtensionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AFD3F32434380A00F1E922 /* ExtensionDelegate.m */; };
+		84AFD3F72434380A00F1E922 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AFD3F62434380A00F1E922 /* NotificationController.m */; };
+		84AFD3F92434380B00F1E922 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84AFD3F82434380B00F1E922 /* Assets.xcassets */; };
+		84AFD4092434394000F1E922 /* SettingsInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AFD4082434394000F1E922 /* SettingsInterfaceController.m */; };
+		84AFD40B2434486200F1E922 /* OwnTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AFD40A2434486200F1E922 /* OwnTracking.m */; };
 		84B0CDAD239E2EFA00CE9305 /* BackgroundTasks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B0CDAC239E2EFA00CE9305 /* BackgroundTasks.framework */; };
 		84B7397A1A65629200B103F4 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B739791A65629200B103F4 /* LocationManager.m */; };
 		84B776431D9A65C600C707EC /* LoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B776421D9A65C600C707EC /* LoginVC.m */; };
@@ -81,6 +91,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		84AFD3DD2434380700F1E922 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8411B820189FDB140019D2D6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 84AFD3DA2434380700F1E922;
+			remoteInfo = "OwnTracksWrist WatchKit App";
+		};
+		84AFD3EC2434380A00F1E922 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8411B820189FDB140019D2D6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 84AFD3E92434380A00F1E922;
+			remoteInfo = "OwnTracksWrist WatchKit Extension";
+		};
 		84D307381ACD644500FACB9E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8411B820189FDB140019D2D6 /* Project object */;
@@ -112,13 +136,37 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		84AFD3FE2434380B00F1E922 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				84AFD3DC2434380700F1E922 /* OwnTracksWrist WatchKit App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84AFD4012434380B00F1E922 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				84AFD3EB2434380A00F1E922 /* OwnTracksWrist WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2B8643F553F1754500F087C5 /* Pods-OwnTracks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracks.release.xcconfig"; path = "Pods/Target Support Files/Pods-OwnTracks/Pods-OwnTracks.release.xcconfig"; sourceTree = "<group>"; };
 		39BEA95034CFAACF86EF90A3 /* Pods_OwnTracks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OwnTracks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		604B9C47BF46E69AA895A10B /* Pods-OwnTracksWatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracksWatch.release.xcconfig"; path = "Pods/Target Support Files/Pods-OwnTracksWatch/Pods-OwnTracksWatch.release.xcconfig"; sourceTree = "<group>"; };
+		4FC2BEE46521CEA0CC16621F /* Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OwnTracksWrist WatchKit Extension/Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
+		5233C7D4E609BDBFA4885706 /* Pods_OwnTracksWE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OwnTracksWE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		79D18EEC7116C6156B1DDE93 /* Pods-OwnTracks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracks.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OwnTracks/Pods-OwnTracks.debug.xcconfig"; sourceTree = "<group>"; };
+		7A8151D687E278D52EB5D0C2 /* Pods_OwnTracksWrist_WatchKit_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OwnTracksWrist_WatchKit_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		84001C0D1C78729200413E5B /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		84001C0F1C78976100413E5B /* Model 9.0.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.0.2.xcdatamodel"; sourceTree = "<group>"; };
 		84001C101C78982800413E5B /* Queue+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Queue+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -201,7 +249,6 @@
 		84664E9F1CC8B8E0002123EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Base.lproj/Launch Screen.xib"; sourceTree = "<group>"; };
 		846FFA1B1B4023BE001482A6 /* Model 8.2.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.0.xcdatamodel"; sourceTree = "<group>"; };
 		846FFA431B402A1F001482A6 /* OwnTracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OwnTracking.h; sourceTree = "<group>"; };
-		846FFA441B402A1F001482A6 /* OwnTracking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OwnTracking.m; sourceTree = "<group>"; };
 		846FFA4D1B40C13C001482A6 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		846FFA4E1B40C13C001482A6 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		846FFA561B419687001482A6 /* RegionTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionTVC.h; sourceTree = "<group>"; };
@@ -230,12 +277,32 @@
 		849B1E0E1FE912330016EF1A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		849B1E121FEAAC7A0016EF1A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Storyboard.strings; sourceTree = "<group>"; };
 		849B1E151FEAB91D0016EF1A /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Storyboard.strings; sourceTree = "<group>"; };
+		849B3C0F242F9EFC0052EE6D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.2.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
+		849B3C10242F9F190052EE6D /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.2.sdk/System/Library/Frameworks/Network.framework; sourceTree = DEVELOPER_DIR; };
 		849D457B18CDACDF00201BF3 /* MQTT.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MQTT.plist; sourceTree = "<group>"; };
 		84A046C21D81FE8000796C56 /* IdPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdPicker.h; sourceTree = "<group>"; };
 		84A046C31D81FE8000796C56 /* IdPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdPicker.m; sourceTree = "<group>"; };
 		84A173691B428E5C00CCB7D0 /* Model 8.2.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.1.xcdatamodel"; sourceTree = "<group>"; };
 		84A488E11F7BBFD900ADCF98 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		84AF468F1AB9571800E954E3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		84AFD3D82434380700F1E922 /* OwnTracksWrist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OwnTracksWrist.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		84AFD3DB2434380700F1E922 /* OwnTracksWrist WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OwnTracksWrist WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84AFD3E12434380700F1E922 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		84AFD3E32434380A00F1E922 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		84AFD3E52434380A00F1E922 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84AFD3EA2434380A00F1E922 /* OwnTracksWrist WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "OwnTracksWrist WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84AFD3EF2434380A00F1E922 /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
+		84AFD3F02434380A00F1E922 /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceController.m; sourceTree = "<group>"; };
+		84AFD3F22434380A00F1E922 /* ExtensionDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExtensionDelegate.h; sourceTree = "<group>"; };
+		84AFD3F32434380A00F1E922 /* ExtensionDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExtensionDelegate.m; sourceTree = "<group>"; };
+		84AFD3F52434380A00F1E922 /* NotificationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
+		84AFD3F62434380A00F1E922 /* NotificationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
+		84AFD3F82434380B00F1E922 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		84AFD3FA2434380B00F1E922 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84AFD3FB2434380B00F1E922 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		84AFD4072434394000F1E922 /* SettingsInterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsInterfaceController.h; sourceTree = "<group>"; };
+		84AFD4082434394000F1E922 /* SettingsInterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsInterfaceController.m; sourceTree = "<group>"; };
+		84AFD40A2434486200F1E922 /* OwnTracking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OwnTracking.m; sourceTree = "<group>"; };
 		84B0CDAC239E2EFA00CE9305 /* BackgroundTasks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BackgroundTasks.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/BackgroundTasks.framework; sourceTree = DEVELOPER_DIR; };
 		84B739781A65629200B103F4 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		84B739791A65629200B103F4 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
@@ -279,7 +346,7 @@
 		84FF829A238E50210037CBDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84FF829B238E50250037CBDD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84FF829C238E50280037CBDD /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		AE758900356F1BDB16CD55F5 /* Pods-OwnTracksWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracksWatch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OwnTracksWatch/Pods-OwnTracksWatch.debug.xcconfig"; sourceTree = "<group>"; };
+		91EA2831A5E3EC6B9C390672 /* Pods-OwnTracksWrist WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracksWrist WatchKit Extension.release.xcconfig"; path = "Pods/Target Support Files/Pods-OwnTracksWrist WatchKit Extension/Pods-OwnTracksWrist WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
 		E394A9D874A45F89C81D75C1 /* Pods_OwnTracksWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OwnTracksWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -304,12 +371,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		84AFD3E72434380A00F1E922 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10470402D31FEF2DB834CB50 /* Pods_OwnTracksWrist_WatchKit_Extension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		84D3072A1ACD644500FACB9E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				84D307681ACDA62100FACB9E /* CoreLocation.framework in Frameworks */,
 				84D3072F1ACD644500FACB9E /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD2C0D3CEF1C8C5DB3FD59D9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D1F2D9371429107C51B0DE7A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,8 +410,8 @@
 			children = (
 				79D18EEC7116C6156B1DDE93 /* Pods-OwnTracks.debug.xcconfig */,
 				2B8643F553F1754500F087C5 /* Pods-OwnTracks.release.xcconfig */,
-				AE758900356F1BDB16CD55F5 /* Pods-OwnTracksWatch.debug.xcconfig */,
-				604B9C47BF46E69AA895A10B /* Pods-OwnTracksWatch.release.xcconfig */,
+				4FC2BEE46521CEA0CC16621F /* Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig */,
+				91EA2831A5E3EC6B9C390672 /* Pods-OwnTracksWrist WatchKit Extension.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -341,6 +430,8 @@
 			children = (
 				8411B833189FDB140019D2D6 /* OwnTracks */,
 				84D307301ACD644500FACB9E /* OwnTracksToday */,
+				84AFD3DF2434380700F1E922 /* OwnTracksWrist WatchKit App */,
+				84AFD3EE2434380A00F1E922 /* OwnTracksWrist WatchKit Extension */,
 				8411B82A189FDB140019D2D6 /* Frameworks */,
 				8411B829189FDB140019D2D6 /* Products */,
 				22910A1FA4A795478AEB7094 /* Pods */,
@@ -352,6 +443,9 @@
 			children = (
 				8411B828189FDB140019D2D6 /* OwnTracks.app */,
 				84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */,
+				84AFD3D82434380700F1E922 /* OwnTracksWrist.app */,
+				84AFD3DB2434380700F1E922 /* OwnTracksWrist WatchKit App.app */,
+				84AFD3EA2434380A00F1E922 /* OwnTracksWrist WatchKit Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -359,6 +453,8 @@
 		8411B82A189FDB140019D2D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				849B3C10242F9F190052EE6D /* Network.framework */,
+				849B3C0F242F9EFC0052EE6D /* CoreLocation.framework */,
 				8470352823D5E6B10041AAFB /* SystemConfiguration.framework */,
 				84B0CDAC239E2EFA00CE9305 /* BackgroundTasks.framework */,
 				84929F0A20AAC0CF00227D00 /* WebKit.framework */,
@@ -382,6 +478,8 @@
 				84D3072E1ACD644500FACB9E /* NotificationCenter.framework */,
 				39BEA95034CFAACF86EF90A3 /* Pods_OwnTracks.framework */,
 				E394A9D874A45F89C81D75C1 /* Pods_OwnTracksWatch.framework */,
+				5233C7D4E609BDBFA4885706 /* Pods_OwnTracksWE.framework */,
+				7A8151D687E278D52EB5D0C2 /* Pods_OwnTracksWrist_WatchKit_Extension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -396,7 +494,7 @@
 				847444381DA4BC9600975BE4 /* ConnType.h */,
 				847444391DA4BC9600975BE4 /* ConnType.m */,
 				846FFA431B402A1F001482A6 /* OwnTracking.h */,
-				846FFA441B402A1F001482A6 /* OwnTracking.m */,
+				84AFD40A2434486200F1E922 /* OwnTracking.m */,
 				84B739781A65629200B103F4 /* LocationManager.h */,
 				84B739791A65629200B103F4 /* LocationManager.m */,
 				8411B88C189FE9940019D2D6 /* Connection.h */,
@@ -540,6 +638,34 @@
 			name = Settings;
 			sourceTree = "<group>";
 		};
+		84AFD3DF2434380700F1E922 /* OwnTracksWrist WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				84AFD3E02434380700F1E922 /* Interface.storyboard */,
+				84AFD3E32434380A00F1E922 /* Assets.xcassets */,
+				84AFD3E52434380A00F1E922 /* Info.plist */,
+			);
+			path = "OwnTracksWrist WatchKit App";
+			sourceTree = "<group>";
+		};
+		84AFD3EE2434380A00F1E922 /* OwnTracksWrist WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				84AFD3EF2434380A00F1E922 /* InterfaceController.h */,
+				84AFD3F02434380A00F1E922 /* InterfaceController.m */,
+				84AFD4072434394000F1E922 /* SettingsInterfaceController.h */,
+				84AFD4082434394000F1E922 /* SettingsInterfaceController.m */,
+				84AFD3F22434380A00F1E922 /* ExtensionDelegate.h */,
+				84AFD3F32434380A00F1E922 /* ExtensionDelegate.m */,
+				84AFD3F52434380A00F1E922 /* NotificationController.h */,
+				84AFD3F62434380A00F1E922 /* NotificationController.m */,
+				84AFD3F82434380B00F1E922 /* Assets.xcassets */,
+				84AFD3FA2434380B00F1E922 /* Info.plist */,
+				84AFD3FB2434380B00F1E922 /* PushNotificationPayload.apns */,
+			);
+			path = "OwnTracksWrist WatchKit Extension";
+			sourceTree = "<group>";
+		};
 		84D307301ACD644500FACB9E /* OwnTracksToday */ = {
 			isa = PBXGroup;
 			children = (
@@ -587,6 +713,61 @@
 			productName = OwnTracks;
 			productReference = 8411B828189FDB140019D2D6 /* OwnTracks.app */;
 			productType = "com.apple.product-type.application";
+		};
+		84AFD3D72434380700F1E922 /* OwnTracksWrist */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84AFD4062434380B00F1E922 /* Build configuration list for PBXNativeTarget "OwnTracksWrist" */;
+			buildPhases = (
+				84AFD3D62434380700F1E922 /* Resources */,
+				84AFD3FE2434380B00F1E922 /* Embed Watch Content */,
+				D1F2D9371429107C51B0DE7A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				84AFD3DE2434380700F1E922 /* PBXTargetDependency */,
+			);
+			name = OwnTracksWrist;
+			productName = OwnTracksWrist;
+			productReference = 84AFD3D82434380700F1E922 /* OwnTracksWrist.app */;
+			productType = "com.apple.product-type.application.watchapp2-container";
+		};
+		84AFD3DA2434380700F1E922 /* OwnTracksWrist WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84AFD4052434380B00F1E922 /* Build configuration list for PBXNativeTarget "OwnTracksWrist WatchKit App" */;
+			buildPhases = (
+				84AFD3D92434380700F1E922 /* Resources */,
+				84AFD4012434380B00F1E922 /* Embed App Extensions */,
+				AD2C0D3CEF1C8C5DB3FD59D9 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				84AFD3ED2434380A00F1E922 /* PBXTargetDependency */,
+			);
+			name = "OwnTracksWrist WatchKit App";
+			productName = "OwnTracksWrist WatchKit App";
+			productReference = 84AFD3DB2434380700F1E922 /* OwnTracksWrist WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		84AFD3E92434380A00F1E922 /* OwnTracksWrist WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84AFD4042434380B00F1E922 /* Build configuration list for PBXNativeTarget "OwnTracksWrist WatchKit Extension" */;
+			buildPhases = (
+				AEBD06F9E51D230413E101D9 /* [CP] Check Pods Manifest.lock */,
+				84AFD3E62434380A00F1E922 /* Sources */,
+				84AFD3E72434380A00F1E922 /* Frameworks */,
+				84AFD3E82434380A00F1E922 /* Resources */,
+				3989747A85EF934CDC9DA991 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "OwnTracksWrist WatchKit Extension";
+			productName = "OwnTracksWrist WatchKit Extension";
+			productReference = 84AFD3EA2434380A00F1E922 /* OwnTracksWrist WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
 		};
 		84D3072C1ACD644500FACB9E /* OwnTracksToday */ = {
 			isa = PBXNativeTarget;
@@ -637,6 +818,15 @@
 							};
 						};
 					};
+					84AFD3D72434380700F1E922 = {
+						CreatedOnToolsVersion = 11.4;
+					};
+					84AFD3DA2434380700F1E922 = {
+						CreatedOnToolsVersion = 11.4;
+					};
+					84AFD3E92434380A00F1E922 = {
+						CreatedOnToolsVersion = 11.4;
+					};
 					84D3072C1ACD644500FACB9E = {
 						CreatedOnToolsVersion = 6.2;
 						DevelopmentTeam = C652JFWU23;
@@ -665,6 +855,9 @@
 			targets = (
 				8411B827189FDB140019D2D6 /* OwnTracks */,
 				84D3072C1ACD644500FACB9E /* OwnTracksToday */,
+				84AFD3D72434380700F1E922 /* OwnTracksWrist */,
+				84AFD3DA2434380700F1E922 /* OwnTracksWrist WatchKit App */,
+				84AFD3E92434380A00F1E922 /* OwnTracksWrist WatchKit Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -688,6 +881,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		84AFD3D62434380700F1E922 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84AFD3D92434380700F1E922 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84AFD3E42434380A00F1E922 /* Assets.xcassets in Resources */,
+				84AFD3E22434380700F1E922 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84AFD3E82434380A00F1E922 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84AFD3F92434380B00F1E922 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		84D3072B1ACD644500FACB9E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -701,6 +918,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3989747A85EF934CDC9DA991 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OwnTracksWrist WatchKit Extension/Pods-OwnTracksWrist WatchKit Extension-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OwnTracksWrist WatchKit Extension/Pods-OwnTracksWrist WatchKit Extension-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OwnTracksWrist WatchKit Extension/Pods-OwnTracksWrist WatchKit Extension-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		8466B31E2397F58500537795 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -738,6 +972,28 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		AEBD06F9E51D230413E101D9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OwnTracksWrist WatchKit Extension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B9074668360D50063C01DD10 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -767,7 +1023,6 @@
 				8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */,
 				84E402082314140400F1D6E6 /* HistoryTVC.m in Sources */,
 				846FFA581B419687001482A6 /* RegionTVC.m in Sources */,
-				846FFA451B402A1F001482A6 /* OwnTracking.m in Sources */,
 				8411B912189FEC070019D2D6 /* ViewController.m in Sources */,
 				84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */,
 				84E40204231413D400F1D6E6 /* History+CoreDataClass.m in Sources */,
@@ -794,6 +1049,7 @@
 				84DDEAC71BD9F37900B01879 /* SettingsTVC.m in Sources */,
 				845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */,
 				84B7397A1A65629200B103F4 /* LocationManager.m in Sources */,
+				84AFD40B2434486200F1E922 /* OwnTracking.m in Sources */,
 				8411B891189FE9CE0019D2D6 /* Settings.m in Sources */,
 				845299E71DFA004000A4DC21 /* Friend+CoreDataClass.m in Sources */,
 				84A046C41D81FE8000796C56 /* IdPicker.m in Sources */,
@@ -802,6 +1058,17 @@
 				84E8A18D1BB94782002518AA /* Region+CoreDataProperties.m in Sources */,
 				8404876B1C5386DD00569C79 /* FeaturedContentVC.m in Sources */,
 				842E6ECE20BEE96F001928FA /* Region+CoreDataClass.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84AFD3E62434380A00F1E922 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84AFD3F42434380A00F1E922 /* ExtensionDelegate.m in Sources */,
+				84AFD3F12434380A00F1E922 /* InterfaceController.m in Sources */,
+				84AFD4092434394000F1E922 /* SettingsInterfaceController.m in Sources */,
+				84AFD3F72434380A00F1E922 /* NotificationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -816,6 +1083,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		84AFD3DE2434380700F1E922 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 84AFD3DA2434380700F1E922 /* OwnTracksWrist WatchKit App */;
+			targetProxy = 84AFD3DD2434380700F1E922 /* PBXContainerItemProxy */;
+		};
+		84AFD3ED2434380A00F1E922 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 84AFD3E92434380A00F1E922 /* OwnTracksWrist WatchKit Extension */;
+			targetProxy = 84AFD3EC2434380A00F1E922 /* PBXContainerItemProxy */;
+		};
 		84D307391ACD644500FACB9E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
@@ -886,6 +1163,14 @@
 				849B1E0E1FE912330016EF1A /* pl */,
 			);
 			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+		84AFD3E02434380700F1E922 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84AFD3E12434380700F1E922 /* Base */,
+			);
+			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1072,6 +1357,177 @@
 			};
 			name = Release;
 		};
+		84AFD3FC2434380B00F1E922 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = C652JFWU23;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.owntracks.OwnTracksWrist;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		84AFD3FD2434380B00F1E922 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = C652JFWU23;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.owntracks.OwnTracksWrist;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		84AFD3FF2434380B00F1E922 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = C652JFWU23;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IBSC_MODULE = OwnTracksWrist_WatchKit_Extension;
+				INFOPLIST_FILE = "OwnTracksWrist WatchKit App/Info.plist";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.owntracks.OwnTracksWrist.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.2;
+			};
+			name = Debug;
+		};
+		84AFD4002434380B00F1E922 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = C652JFWU23;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IBSC_MODULE = OwnTracksWrist_WatchKit_Extension;
+				INFOPLIST_FILE = "OwnTracksWrist WatchKit App/Info.plist";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.owntracks.OwnTracksWrist.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.2;
+			};
+			name = Release;
+		};
+		84AFD4022434380B00F1E922 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4FC2BEE46521CEA0CC16621F /* Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = C652JFWU23;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "OwnTracksWrist WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.owntracks.OwnTracksWrist.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.2;
+			};
+			name = Debug;
+		};
+		84AFD4032434380B00F1E922 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91EA2831A5E3EC6B9C390672 /* Pods-OwnTracksWrist WatchKit Extension.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = C652JFWU23;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "OwnTracksWrist WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.owntracks.OwnTracksWrist.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 6.2;
+			};
+			name = Release;
+		};
 		84D3073B1ACD644600FACB9E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1146,6 +1602,33 @@
 			buildConfigurations = (
 				8411B85B189FDB140019D2D6 /* Debug */,
 				8411B85C189FDB140019D2D6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84AFD4042434380B00F1E922 /* Build configuration list for PBXNativeTarget "OwnTracksWrist WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84AFD4022434380B00F1E922 /* Debug */,
+				84AFD4032434380B00F1E922 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84AFD4052434380B00F1E922 /* Build configuration list for PBXNativeTarget "OwnTracksWrist WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84AFD3FF2434380B00F1E922 /* Debug */,
+				84AFD4002434380B00F1E922 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84AFD4062434380B00F1E922 /* Build configuration list for PBXNativeTarget "OwnTracksWrist" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84AFD3FC2434380B00F1E922 /* Debug */,
+				84AFD3FD2434380B00F1E922 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

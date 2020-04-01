@@ -1,0 +1,6 @@
+framework module mqttc {
+  umbrella header "mqttc-MinL-umbrella.h"
+
+  export *
+  module * { export * }
+}
