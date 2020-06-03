@@ -25,7 +25,7 @@
 
     NSArray *matches = [context executeFetchRequest:request error:&error];
 
-    if (!matches || matches.count > 1) {
+    if (!matches) {
         // handle error
     } else {
         if (matches.count) {

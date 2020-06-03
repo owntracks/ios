@@ -28,7 +28,7 @@
 @end
 
 @implementation RegionTVC
-static const DDLogLevel ddLogLevel = DDLogLevelInfo;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];

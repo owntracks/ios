@@ -21,7 +21,7 @@
 @end
 
 @implementation RegionsTVC
-static const DDLogLevel ddLogLevel = DDLogLevelInfo;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)viewDidLoad {
     [super viewDidLoad];

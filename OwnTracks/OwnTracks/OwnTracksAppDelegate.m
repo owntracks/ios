@@ -1406,6 +1406,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         // *****
         NSNumber *lat = [jsonObject valueForKey:@"lat"];
         NSNumber *lon = [jsonObject valueForKey:@"lon"];
+        NSNumber *pressure = [jsonObject valueForKey:@"p"];
         NSString *jsonString = [[NSString alloc] initWithData:data
                                                      encoding:NSUTF8StringEncoding];
         if (lat) {
@@ -1420,6 +1421,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             jsonString = [jsonString stringByReplacingOccurrencesOfString:jsonSubString
                                                                withString:latString];
         }
+        
         if (lon) {
             NSString *lonString = [NSString stringWithFormat:@"\"lon\":%.6f", lon.doubleValue];
             NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@{@"lon": lon}
@@ -1432,6 +1434,24 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             jsonString = [jsonString stringByReplacingOccurrencesOfString:jsonSubString
                                                                withString:lonString];
         }
+
+        if (pressure) {
+            NSString *pressureString = [NSString stringWithFormat:@"\"p\":%.3f", pressure.doubleValue];
+            NSData *jsonData =
+            [NSJSONSerialization dataWithJSONObject:@{@"p": pressure}
+                                            options:0
+                                              error:nil];
+            NSString *jsonSubString =
+            [[NSString alloc] initWithData:jsonData
+                                  encoding:NSUTF8StringEncoding];
+            jsonSubString =
+            [jsonSubString substringWithRange:NSMakeRange(1, jsonSubString.length - 2)];
+
+            jsonString =
+            [jsonString stringByReplacingOccurrencesOfString:jsonSubString
+                                                  withString:pressureString];
+        }
+
         data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
         // ***** 
     } else {
