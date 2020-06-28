@@ -150,6 +150,7 @@ No information of your address book will be uploaded to any server.</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>NSUserActivityTypeBrowsingWeb</string>
+		<string>OwnTracksLocationNowIntent</string>
 	</array>
 	<key>UIAppFonts</key>
 	<array>
