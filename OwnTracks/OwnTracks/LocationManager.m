@@ -115,6 +115,10 @@ static LocationManager *theInstance = nil;
     [self.sharedUserDefaults addObserver:self forKeyPath:@"monitoring"
                                  options:NSKeyValueObservingOptionNew
                                  context:nil];
+    [self.sharedUserDefaults addObserver:self forKeyPath:@"sendNow"
+                                 options:NSKeyValueObservingOptionNew
+                                 context:nil];
+
     return self;
 }
 
@@ -128,6 +132,9 @@ static LocationManager *theInstance = nil;
         if (monitoring != self.monitoring) {
             self.monitoring = monitoring;
         }
+    } else if ([keyPath isEqualToString:@"sendNow"]) {
+        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegate sendNow:self.location];
     }
 }
 

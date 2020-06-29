@@ -19,6 +19,8 @@
 #import "LocationManager.h"
 #import "OwnTracking.h"
 
+#import "OwnTracksChangeMonitoringIntent.h"
+
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface ViewController ()
@@ -193,19 +195,24 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (IBAction)modesChanged:(UISegmentedControl *)segmentedControl {
     int monitoring;
+    OwnTracksEnum intentMonitoring;
     switch (segmentedControl.selectedSegmentIndex) {
         case 3:
             monitoring = LocationMonitoringMove;
+            intentMonitoring = OwnTracksEnumMove;
             break;
         case 2:
             monitoring = LocationMonitoringSignificant;
+            intentMonitoring = OwnTracksEnumSignificant;
             break;
         case 1:
             monitoring = LocationMonitoringManual;
+            intentMonitoring = OwnTracksEnumManual;
             break;
         case 0:
         default:
             monitoring = LocationMonitoringQuiet;
+            intentMonitoring = OwnTracksEnumQuiet;
             break;
     }
     if (monitoring != [LocationManager sharedInstance].monitoring) {
@@ -214,6 +221,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                    inMOC:CoreData.sharedInstance.mainMOC];
         [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
         [self updateMoveButton];
+
+        OwnTracksChangeMonitoringIntent *intent = [[OwnTracksChangeMonitoringIntent alloc] init];
+        intent.monitoring = intentMonitoring;
+        INInteraction *interaction = [[INInteraction alloc] initWithIntent:intent response:nil];
+        [interaction donateInteractionWithCompletion:^(NSError * _Nullable error) {
+            DDLogVerbose(@"[ViewController] donateInteractionWithCompletion %@", error);
+        }];
+
     }
 }
 

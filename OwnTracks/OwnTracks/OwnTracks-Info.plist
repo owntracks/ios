@@ -149,8 +149,9 @@ No information of your address book will be uploaded to any server.</string>
 	<string>OwnTracks delivers your step count, floors climbed and distance walked on request</string>
 	<key>NSUserActivityTypes</key>
 	<array>
-		<string>NSUserActivityTypeBrowsingWeb</string>
-		<string>OwnTracksLocationNowIntent</string>
+		<string>OwnTracksChangeMonitoringIntent</string>
+		<string>OwnTracksSendNowIntent</string>
+		<string>org.mqttitude.MQTTitude.sendNow</string>
 	</array>
 	<key>UIAppFonts</key>
 	<array>

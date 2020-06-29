@@ -26,17 +26,19 @@
 		<dict>
 			<key>IntentsRestrictedWhileLocked</key>
 			<array>
-				<string>LocationNow</string>
+				<string>OwnTracksSendNowIntent</string>
+				<string>OwnTracksChangeMonitoringIntent</string>
 			</array>
 			<key>IntentsSupported</key>
 			<array>
-				<string>LocationNow</string>
+				<string>OwnTracksSendNowIntent</string>
+				<string>OwnTracksChangeMonitoringIntent</string>
 			</array>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.intents-service</string>
 		<key>NSExtensionPrincipalClass</key>
-		<string>$(PRODUCT_MODULE_NAME).IntentHandler</string>
+		<string>IntentHandler</string>
 	</dict>
 </dict>
 </plist>

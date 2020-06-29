@@ -7,14 +7,19 @@
 //
 
 #import "OwnTracksAppDelegate.h"
+#import <Intents/Intents.h>
+#import <UserNotifications/UserNotifications.h>
+#import <BackgroundTasks/BackgroundTasks.h>
+
 #import "CoreData.h"
 #import "Setting+CoreDataClass.h"
 #import "History+CoreDataClass.h"
 #import "Settings.h"
 #import "OwnTracking.h"
 #import "ConnType.h"
-#import <UserNotifications/UserNotifications.h>
-#import <BackgroundTasks/BackgroundTasks.h>
+
+#import "OwnTracksSendNowIntent.h"
+#import "OwnTracksChangeMonitoringIntent.h"
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static const DDLogLevel ddLogLevel = DDLogLevelInfo;
@@ -88,7 +93,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 @property (strong, nonatomic) CoreData *coreData;
 @property (strong, nonatomic) CMPedometer *pedometer;
-@property (strong, nonatomic) NSUserActivity *userActivity;
+
+@property (strong, nonatomic) NSUserActivity *sendNowActivity;
 
 #define BACKGROUND_DISCONNECT_AFTER 15.0
 #define BACKGROUND_HOLD_FOR 3.0
@@ -201,12 +207,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self connect];
 
     [[UIDevice currentDevice] setBatteryMonitoringEnabled:TRUE];
-
-    self.userActivity = [[NSUserActivity alloc] initWithActivityType:NSUserActivityTypeBrowsingWeb];
-    self.userActivity.title = @"Configuration via Browser";
-    self.userActivity.eligibleForHandoff = TRUE;
-    self.userActivity.delegate = self;
-    [self.userActivity becomeCurrent];
 
     LocationManager *locationManager = [LocationManager sharedInstance];
     locationManager.delegate = self;
@@ -1162,6 +1162,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (BOOL)sendNow:(CLLocation *)location {
     DDLogVerbose(@"[OwnTracksAppDelegate] sendNow %@", location);
+
+    if (self.sendNowActivity) {
+        [self.sendNowActivity invalidate];
+    }
+    self.sendNowActivity =
+    [[NSUserActivity alloc]
+     initWithActivityType:@"org.mqttitude.MQTTitude.sendNow"];
+    self.sendNowActivity.title = @"Send location now";
+    self.sendNowActivity.eligibleForSearch = true;
+    self.sendNowActivity.eligibleForPrediction = true;
+    [self.sendNowActivity becomeCurrent];
+
+    OwnTracksSendNowIntent *intent = [[OwnTracksSendNowIntent alloc] init];
+    INInteraction *interaction = [[INInteraction alloc] initWithIntent:intent response:nil];
+    [interaction donateInteractionWithCompletion:^(NSError * _Nullable error) {
+        DDLogVerbose(@"[OwnTracksAppDelegate] donateInteractionWithCompletion %@", error);
+    }];
     return [self publishLocation:location trigger:@"u"];
 }
 
@@ -1460,21 +1477,78 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     return data;
 }
 
-- (void)application:(UIApplication *)application didUpdateUserActivity:(NSUserActivity *)userActivity {
-    //
-}
+- (BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
+    DDLogInfo(@"application continueUserActivity:%@", userActivity);
 
-- (BOOL)application:(UIApplication *)application willContinueUserActivityWithType:(NSString *)userActivityType  {
-    //
-    return true;
-}
+    if ([userActivity.activityType isEqualToString:@"org.mqttitude.MQTTitude.sendNow"]) {
+        if ([self sendNow:[LocationManager sharedInstance].location]) {
+            [self.navigationController alert:
+             NSLocalizedString(@"Location",
+                               @"Header of an alert message regarding a location")
+                                     message:
+             NSLocalizedString(@"publish queued on user request",
+                               @"content of an alert message regarding user publish")
+                                dismissAfter:1
+             ];
+        } else {
+            [self.navigationController alert:
+             NSLocalizedString(@"Location",
+                               @"Header of an alert message regarding a location")
+                                     message:
+             NSLocalizedString(@"publish queued on user request",
+                               @"content of an alert message regarding user publish")];
+        }
 
-- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
-    return TRUE;
-}
+        return YES;
+    } else if ([userActivity.activityType isEqualToString:@"OwnTracksSendNowIntent"]) {
+        OwnTracksSendNowIntent *intent = userActivity.interaction.intent;
+        if ([self sendNow:[LocationManager sharedInstance].location]) {
+            [self.navigationController alert:
+             NSLocalizedString(@"Location",
+                               @"Header of an alert message regarding a location")
+                                     message:
+             NSLocalizedString(@"publish queued on user request",
+                               @"content of an alert message regarding user publish")
+                                dismissAfter:1
+             ];
+        } else {
+            [self.navigationController alert:
+             NSLocalizedString(@"Location",
+                               @"Header of an alert message regarding a location")
+                                     message:
+             NSLocalizedString(@"publish queued on user request",
+                               @"content of an alert message regarding user publish")];
+        }
 
-- (void)application:(UIApplication *)application didFailToContinueUserActivityWithType:(NSString *)userActivityType error:(NSError *)error {
-    //
+        return YES;
+    } else if ([userActivity.activityType isEqualToString:@"OwnTracksChangeMonitoringIntent"]) {
+        OwnTracksChangeMonitoringIntent *intent = userActivity.interaction.intent;
+        LocationMonitoring monitoring = [LocationManager sharedInstance].monitoring;
+        switch (intent.monitoring) {
+            case OwnTracksEnumQuiet:
+                monitoring = LocationMonitoringQuiet;
+                break;
+            case OwnTracksEnumManual:
+                monitoring = LocationMonitoringManual;
+                break;
+            case OwnTracksEnumSignificant:
+                monitoring = LocationMonitoringSignificant;
+                break;
+            case OwnTracksEnumMove:
+                monitoring = LocationMonitoringMove;
+                break;
+            default:
+                break;
+        }
+        [LocationManager sharedInstance].monitoring = monitoring;
+        [Settings setInt:(int)[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"
+                   inMOC:CoreData.sharedInstance.mainMOC];
+        [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
+
+        return YES;
+
+    }
+    return NO;
 }
 
 @end
