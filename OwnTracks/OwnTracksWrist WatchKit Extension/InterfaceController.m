@@ -398,7 +398,6 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     // *****
     NSNumber *lat = [dictionary valueForKey:@"lat"];
     NSNumber *lon = [dictionary valueForKey:@"lon"];
-    NSNumber *pressure = [dictionary valueForKey:@"p"];
     NSString *jsonString = [[NSString alloc] initWithData:data
                                                  encoding:NSUTF8StringEncoding];
     if (lat) {
@@ -432,23 +431,6 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
         jsonString =
         [jsonString stringByReplacingOccurrencesOfString:jsonSubString
                                               withString:lonString];
-    }
-
-    if (pressure) {
-        NSString *pressureString = [NSString stringWithFormat:@"\"p\":%.3f", pressure.doubleValue];
-        NSData *jsonData =
-        [NSJSONSerialization dataWithJSONObject:@{@"p": pressure}
-                                        options:0
-                                          error:nil];
-        NSString *jsonSubString =
-        [[NSString alloc] initWithData:jsonData
-                              encoding:NSUTF8StringEncoding];
-        jsonSubString =
-        [jsonSubString substringWithRange:NSMakeRange(1, jsonSubString.length - 2)];
-
-        jsonString =
-        [jsonString stringByReplacingOccurrencesOfString:jsonSubString
-                                              withString:pressureString];
     }
 
     NSData *newData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
