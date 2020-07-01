@@ -1501,7 +1501,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
         return YES;
     } else if ([userActivity.activityType isEqualToString:@"OwnTracksSendNowIntent"]) {
-        OwnTracksSendNowIntent *intent = userActivity.interaction.intent;
         if ([self sendNow:[LocationManager sharedInstance].location]) {
             [self.navigationController alert:
              NSLocalizedString(@"Location",
@@ -1522,7 +1521,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
         return YES;
     } else if ([userActivity.activityType isEqualToString:@"OwnTracksChangeMonitoringIntent"]) {
-        OwnTracksChangeMonitoringIntent *intent = userActivity.interaction.intent;
+        OwnTracksChangeMonitoringIntent *intent = (OwnTracksChangeMonitoringIntent *)userActivity.interaction.intent;
         LocationMonitoring monitoring = [LocationManager sharedInstance].monitoring;
         switch (intent.monitoring) {
             case OwnTracksEnumQuiet:
