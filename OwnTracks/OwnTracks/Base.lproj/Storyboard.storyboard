@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="e04-OU-xZ4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="e04-OU-xZ4">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -131,7 +131,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="trackerid" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dUg-TH-IQ0">
-                                                    <rect key="frame" x="102" y="13.5" width="198" height="17"/>
+                                                    <rect key="frame" x="102" y="13" width="198" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
@@ -246,7 +246,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="deviceid" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e0q-hc-0z2">
-                                                    <rect key="frame" x="97" y="13.5" width="203" height="17"/>
+                                                    <rect key="frame" x="97" y="13" width="203" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
@@ -289,7 +289,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="host" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tQs-PK-sbV">
-                                                    <rect key="frame" x="65" y="13.5" width="235" height="17"/>
+                                                    <rect key="frame" x="65" y="13" width="235" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL" enablesReturnKeyAutomatically="YES"/>
                                                     <connections>
@@ -429,7 +429,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="userid" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Oiq-Kb-qLx">
-                                                    <rect key="frame" x="81" y="13.5" width="219" height="17"/>
+                                                    <rect key="frame" x="81" y="13" width="219" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
@@ -567,7 +567,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="url" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="pD2-Zj-Toq">
-                                                    <rect key="frame" x="61" y="13.5" width="239" height="17"/>
+                                                    <rect key="frame" x="61" y="13" width="239" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
@@ -602,7 +602,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="clientId" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="IsX-6T-YbC">
-                                                    <rect key="frame" x="84" y="13.5" width="216" height="17"/>
+                                                    <rect key="frame" x="84" y="13" width="216" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
@@ -645,7 +645,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="subTopic" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="suj-kA-G3U">
-                                                    <rect key="frame" x="96" y="13.5" width="204" height="17"/>
+                                                    <rect key="frame" x="96" y="13" width="204" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
@@ -688,7 +688,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="pubTopicBase" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="hNb-lH-EGK">
-                                                    <rect key="frame" x="135" y="13.5" width="165" height="17"/>
+                                                    <rect key="frame" x="135" y="13" width="165" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
@@ -731,7 +731,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="willTopic" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="79P-sU-en0">
-                                                    <rect key="frame" x="94" y="13.5" width="206" height="17"/>
+                                                    <rect key="frame" x="94" y="13" width="206" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
@@ -774,7 +774,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="days" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Nq-by-zFb">
-                                                    <rect key="frame" x="188.5" y="13.5" width="111.5" height="17"/>
+                                                    <rect key="frame" x="188.5" y="13" width="111.5" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -805,7 +805,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="meters" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jqJ-cr-0tT">
-                                                    <rect key="frame" x="231" y="13.5" width="69" height="17"/>
+                                                    <rect key="frame" x="231" y="13" width="69" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -836,7 +836,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="meters" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M0H-SF-pCO">
-                                                    <rect key="frame" x="186" y="13.5" width="114" height="17"/>
+                                                    <rect key="frame" x="186" y="13" width="114" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -867,7 +867,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="seconds" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oBs-Zn-P4m">
-                                                    <rect key="frame" x="137.5" y="13.5" width="162.5" height="17"/>
+                                                    <rect key="frame" x="137.5" y="13" width="162.5" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -898,7 +898,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lTh-wG-5YG">
-                                                    <rect key="frame" x="97.5" y="13.5" width="202.5" height="17"/>
+                                                    <rect key="frame" x="97.5" y="13" width="202.5" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -929,7 +929,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yny-2e-dpz">
-                                                    <rect key="frame" x="115" y="13.5" width="185" height="17"/>
+                                                    <rect key="frame" x="115" y="13" width="185" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -960,7 +960,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="qos" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PBp-Kc-CwF">
-                                                    <rect key="frame" x="87" y="13.5" width="213" height="17"/>
+                                                    <rect key="frame" x="87" y="13" width="213" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -991,7 +991,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="seconds" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZT5-mN-Tt5">
-                                                    <rect key="frame" x="101.5" y="13.5" width="198.5" height="17"/>
+                                                    <rect key="frame" x="101.5" y="13" width="198.5" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -1022,7 +1022,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="qos" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cBn-p7-eqG">
-                                                    <rect key="frame" x="88.5" y="13.5" width="211.5" height="17"/>
+                                                    <rect key="frame" x="88.5" y="13" width="211.5" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -1053,7 +1053,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="qos" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="giY-cI-jfy">
-                                                    <rect key="frame" x="83.5" y="13.5" width="216.5" height="17"/>
+                                                    <rect key="frame" x="83.5" y="13" width="216.5" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -1084,7 +1084,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="meters" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LEn-Jc-PvC">
-                                                    <rect key="frame" x="110.5" y="13.5" width="189.5" height="17"/>
+                                                    <rect key="frame" x="110.5" y="13" width="189.5" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -1727,7 +1727,7 @@ xyz</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="coordinate" textAlignment="right" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="jwK-F1-3iE">
-                                                    <rect key="frame" x="121" y="13.5" width="179" height="17"/>
+                                                    <rect key="frame" x="121" y="13" width="179" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                 </textField>
@@ -1820,7 +1820,7 @@ xyz</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="timestamp" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HVH-Pt-DXp">
-                                                    <rect key="frame" x="114" y="13.5" width="186" height="17"/>
+                                                    <rect key="frame" x="114" y="13" width="186" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -1853,7 +1853,7 @@ xyz</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="info" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ikm-SR-MCD">
-                                                    <rect key="frame" x="57" y="13.5" width="243" height="17"/>
+                                                    <rect key="frame" x="57" y="13" width="243" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -1886,7 +1886,7 @@ xyz</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="topic" textAlignment="right" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="wKK-9Q-BMU">
-                                                    <rect key="frame" x="70" y="13.5" width="230" height="17"/>
+                                                    <rect key="frame" x="70" y="13" width="230" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -2247,7 +2247,7 @@ xyz</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="client certificate file" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JSF-BR-9Nb">
-                                                    <rect key="frame" x="20" y="20.5" width="253" height="17"/>
+                                                    <rect key="frame" x="20" y="20.5" width="253" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -2409,7 +2409,7 @@ xyz</string>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="server certificate file" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uLh-Jg-oIJ">
-                                                    <rect key="frame" x="20" y="20.5" width="253" height="17"/>
+                                                    <rect key="frame" x="20" y="20.5" width="253" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                 </textField>
@@ -2802,7 +2802,7 @@ libsodium (libsodium.org)
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s1I-Ff-fYw">
-                                                    <rect key="frame" x="73" y="13.5" width="227" height="17"/>
+                                                    <rect key="frame" x="73" y="13" width="227" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
@@ -2840,7 +2840,7 @@ libsodium (libsodium.org)
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="radius" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0WN-ST-XQq">
-                                                    <rect key="frame" x="194" y="13.5" width="106" height="17"/>
+                                                    <rect key="frame" x="194" y="13" width="106" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -2874,7 +2874,7 @@ libsodium (libsodium.org)
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="latitude" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lmo-Kp-uCi">
-                                                    <rect key="frame" x="91" y="13.5" width="209" height="17"/>
+                                                    <rect key="frame" x="91" y="13" width="209" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -2908,7 +2908,7 @@ libsodium (libsodium.org)
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="longitude" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JZL-1C-khg">
-                                                    <rect key="frame" x="105" y="13.5" width="195" height="17"/>
+                                                    <rect key="frame" x="105" y="13" width="195" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -2946,7 +2946,7 @@ libsodium (libsodium.org)
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="uuid" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fPO-vc-4UX">
-                                                    <rect key="frame" x="69" y="13.5" width="231" height="17"/>
+                                                    <rect key="frame" x="69" y="13" width="231" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
@@ -2980,7 +2980,7 @@ libsodium (libsodium.org)
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="major" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UqU-7l-HX1">
-                                                    <rect key="frame" x="71" y="13.5" width="229" height="17"/>
+                                                    <rect key="frame" x="71" y="13" width="229" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -3014,7 +3014,7 @@ libsodium (libsodium.org)
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="minor" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tc6-JR-qOB">
-                                                    <rect key="frame" x="72" y="13.5" width="228" height="17"/>
+                                                    <rect key="frame" x="72" y="13" width="228" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -3311,6 +3311,13 @@ Detailed info on http://owntracks.org/booklet</string>
             <point key="canvasLocation" x="-424" y="-38.680659670164921"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Utn-3t-RCv"/>
+        <segue reference="8m4-nr-b6B"/>
+        <segue reference="aMd-Tc-ju9"/>
+        <segue reference="KLh-ve-vhU"/>
+        <segue reference="aNu-aM-21y"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="Artwork" width="512" height="512"/>
         <image name="Friends" width="33" height="33"/>
@@ -3324,11 +3331,4 @@ Detailed info on http://owntracks.org/booklet</string>
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="Utn-3t-RCv"/>
-        <segue reference="8m4-nr-b6B"/>
-        <segue reference="aMd-Tc-ju9"/>
-        <segue reference="KLh-ve-vhU"/>
-        <segue reference="aNu-aM-21y"/>
-    </inferredMetricsTieBreakers>
 </document>
