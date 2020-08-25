@@ -73,11 +73,11 @@
 	<key>INIntentDefinitionNamespace</key>
 	<string>4aUnQr</string>
 	<key>INIntentDefinitionSystemVersion</key>
-	<string>19F101</string>
+	<string>19G2021</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
-	<string>11E608c</string>
+	<string>11E708</string>
 	<key>INIntentDefinitionToolsVersion</key>
-	<string>11.5</string>
+	<string>11.6</string>
 	<key>INIntents</key>
 	<array>
 		<dict>
@@ -89,6 +89,8 @@
 			<true/>
 			<key>INIntentDefaultImageName</key>
 			<string>OnwTracks</string>
+			<key>INIntentDescription</key>
+			<string>Send your location immediately</string>
 			<key>INIntentDescriptionID</key>
 			<string>WvwXPJ</string>
 			<key>INIntentManagedParameterCombinations</key>
@@ -149,6 +151,10 @@
 			<string>OwnTracks</string>
 			<key>INIntentConfigurable</key>
 			<true/>
+			<key>INIntentDefaultImageName</key>
+			<string>OnwTracks</string>
+			<key>INIntentDescription</key>
+			<string>Change your monitoring mode</string>
 			<key>INIntentDescriptionID</key>
 			<string>Ogyrko</string>
 			<key>INIntentLastParameterTag</key>

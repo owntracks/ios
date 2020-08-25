@@ -25,14 +25,13 @@
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>IntentsRestrictedWhileLocked</key>
-			<array>
-				<string>OwnTracksSendNowIntent</string>
-				<string>OwnTracksChangeMonitoringIntent</string>
-			</array>
+			<array/>
+			<key>IntentsRestrictedWhileProtectedDataUnavailable</key>
+			<array/>
 			<key>IntentsSupported</key>
 			<array>
-				<string>OwnTracksSendNowIntent</string>
 				<string>OwnTracksChangeMonitoringIntent</string>
+				<string>OwnTracksSendNowIntent</string>
 			</array>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
