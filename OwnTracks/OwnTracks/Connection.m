@@ -236,6 +236,7 @@ allowUntrustedCertificates:(BOOL)allowUntrustedCertificates
     nwTransport.tls = self.tls;
     nwTransport.ws = self.ws;
     nwTransport.allowUntrustedCertificates = self.allowUntrustedCertificates;
+    nwTransport.certificates = self.certificates;
     mqttTransport = nwTransport;
     
     session = [[MQTTSession alloc] init];
