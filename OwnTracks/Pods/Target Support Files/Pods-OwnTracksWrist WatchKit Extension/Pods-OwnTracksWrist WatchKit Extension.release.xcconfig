@@ -1,8 +1,8 @@
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/mqttc-Min"
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/mqttc-Min/mqttc.framework/Headers"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack-watchOS" "${PODS_CONFIGURATION_BUILD_DIR}/mqttc-watchOS"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1 LUMBERJACK=1
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack-watchOS/CocoaLumberjack.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/mqttc-watchOS/mqttc.framework/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_LDFLAGS = $(inherited) -framework "mqttc"
+OTHER_LDFLAGS = $(inherited) -framework "CocoaLumberjack" -framework "mqttc"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.

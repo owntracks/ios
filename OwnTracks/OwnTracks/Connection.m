@@ -12,12 +12,12 @@
 #import "Queue+CoreDataClass.h"
 
 #import <UIKit/UIKit.h>
-#import "MQTTLog.h"
+#import <mqttc/MQTTLog.h>
 #import "sodium.h"
 #import "LocationManager.h"
 #import "Settings.h"
 
-#import "MQTTNWTransport.h"
+#import <mqttc/MQTTNWTransport.h>
 
 @interface Connection() <NSURLSessionDelegate>
 

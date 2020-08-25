@@ -136,15 +136,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                              completionHandler:nil];
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"privileged"]) {
-        if ([segue.destinationViewController isKindOfClass:[SettingsTVC class]]) {
-            SettingsTVC *settingsTVC = (SettingsTVC *)segue.destinationViewController;
-            settingsTVC.privileged = TRUE;
-        }
-    }
-}
-
 - (NSIndexPath *)tableView:(UITableView *)tableView
   willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 && indexPath.row == 0) {

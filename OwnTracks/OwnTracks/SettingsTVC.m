@@ -22,15 +22,8 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *UITLSCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *UIclientPKCSCell;
 @property (weak, nonatomic) IBOutlet UITextField *UIclientPKCS;
-@property (weak, nonatomic) IBOutlet UISwitch *UIallowinvalidcerts;
 @property (weak, nonatomic) IBOutlet UISwitch *UIallowUntrustedCertificates;
 @property (weak, nonatomic) IBOutlet UITextField *UIpassphrase;
-@property (weak, nonatomic) IBOutlet UISwitch *UIvalidatecertificatechain;
-@property (weak, nonatomic) IBOutlet UISwitch *UIvalidatedomainname;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *UIpolicymode;
-@property (weak, nonatomic) IBOutlet UISwitch *UIusepolicy;
-@property (weak, nonatomic) IBOutlet UITableViewCell *UIserverCERCell;
-@property (weak, nonatomic) IBOutlet UITextField *UIserverCER;
 @property (weak, nonatomic) IBOutlet UITextField *UIDeviceID;
 @property (weak, nonatomic) IBOutlet UITextField *UIHost;
 @property (weak, nonatomic) IBOutlet UITextField *UIUserID;
@@ -138,30 +131,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if (self.UIclientPKCS) [Settings setString:self.UIclientPKCS.text
                                         forKey:@"clientpkcs"
                                          inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIserverCER) [Settings setString:self.UIserverCER.text
-                                       forKey:@"servercer"
-                                        inMOC:CoreData.sharedInstance.mainMOC];
     if (self.UIpassphrase) [Settings setString:self.UIpassphrase.text
                                         forKey:@"passphrase"
                                          inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIpolicymode) [Settings setInt:(int)self.UIpolicymode.selectedSegmentIndex
-                                     forKey:@"policymode"
-                                      inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIusepolicy) [Settings setBool:self.UIusepolicy.on
-                                     forKey:@"usepolicy"
-                                      inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIallowinvalidcerts) [Settings setBool:self.UIallowinvalidcerts.on
-                                             forKey:@"allowinvalidcerts"
-                                              inMOC:CoreData.sharedInstance.mainMOC];
     if (self.UIallowUntrustedCertificates) [Settings setBool:self.UIallowUntrustedCertificates.on
                                                       forKey:@"allowinvalidcerts"
                                                        inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIvalidatedomainname) [Settings setBool:self.UIvalidatedomainname.on
-                                              forKey:@"validatedomainname"
-                                               inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIvalidatecertificatechain) [Settings setBool:self.UIvalidatecertificatechain.on
-                                                    forKey:@"validatecertificatechain"
-                                                     inMOC:CoreData.sharedInstance.mainMOC];
     if (self.UItrackerid) [Settings setString:self.UItrackerid.text
                                        forKey:@"trackerid_preference"
                                         inMOC:CoreData.sharedInstance.mainMOC];
@@ -341,53 +316,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                                   inMOC:CoreData.sharedInstance.mainMOC];
     }
 
-    if (self.UIusepolicy) {
-        self.UIusepolicy.on =  [Settings boolForKey:@"usepolicy"
-                                              inMOC:CoreData.sharedInstance.mainMOC];
-        self.UIusepolicy.enabled = !locked;
-    }
-
-    if (self.UIpolicymode) {
-        if (self.UIusepolicy) {
-            self.UIpolicymode.enabled = !locked && self.UIusepolicy.on;
-        }
-        self.UIpolicymode.selectedSegmentIndex = [Settings intForKey:@"policymode"
-                                                               inMOC:CoreData.sharedInstance.mainMOC];
-    }
-    if (self.UIserverCER) {
-        if (self.UIusepolicy && self.UIpolicymode) {
-            self.UIserverCERCell.userInteractionEnabled = !locked && self.UIusepolicy.on && self.UIpolicymode.selectedSegmentIndex != 0;
-            self.UIserverCERCell.accessoryType = (!locked && self.UIusepolicy.on && self.UIpolicymode.selectedSegmentIndex != 0) ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
-            ;
-        }
-        self.UIserverCER.text = [Settings stringForKey:@"servercer"
-                                                 inMOC:CoreData.sharedInstance.mainMOC];
-    }
-    if (self.UIallowinvalidcerts) {
-        if (self.UIusepolicy) {
-            self.UIallowinvalidcerts.enabled = !locked && self.UIusepolicy.on;
-        }
-        self.UIallowinvalidcerts.on = [Settings boolForKey:@"allowinvalidcerts"
-                                                     inMOC:CoreData.sharedInstance.mainMOC];
-    }
     if (self.UIallowUntrustedCertificates) {
         self.UIallowUntrustedCertificates.enabled = !locked;
         self.UIallowUntrustedCertificates.on = [Settings boolForKey:@"allowinvalidcerts"
                                                               inMOC:CoreData.sharedInstance.mainMOC];
-    }
-    if (self.UIvalidatedomainname) {
-        if (self.UIusepolicy) {
-            self.UIvalidatedomainname.enabled = !locked && self.UIusepolicy.on;
-        }
-        self.UIvalidatedomainname.on =  [Settings boolForKey:@"validatedomainname"
-                                                       inMOC:CoreData.sharedInstance.mainMOC];
-    }
-    if (self.UIvalidatecertificatechain) {
-        if (self.UIusepolicy) {
-            self.UIvalidatecertificatechain.enabled = !locked && self.UIusepolicy.on;
-        }
-        self.UIvalidatecertificatechain.on = [Settings boolForKey:@"validatecertificatechain"
-                                                            inMOC:CoreData.sharedInstance.mainMOC];
     }
 
     if (self.UItrackerid) {
@@ -683,17 +615,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             } else if (![self isRowVisible:modeIndexPath] && !locked) {
                 [self insertRowsAtIndexPaths:@[modeIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             }
-        }
-
-        if ([self isSectionVisible:1] && !self.privileged) {
-            [self deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
-        } else if (![self isSectionVisible:1] && self.privileged) {
-            [self insertSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
-        }
-    } else {
-        // hide SSLsecuritypolicy
-        if ([self isSectionVisible:1]) {
-            [self deleteSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationAutomatic];
         }
     }
 

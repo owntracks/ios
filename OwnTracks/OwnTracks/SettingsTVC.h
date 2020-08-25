@@ -10,5 +10,4 @@
 #import "ABStaticTableViewController.h"
 
 @interface SettingsTVC : ABStaticTableViewController <UIDocumentInteractionControllerDelegate, UITextFieldDelegate>
-@property (nonatomic) BOOL privileged;
 @end

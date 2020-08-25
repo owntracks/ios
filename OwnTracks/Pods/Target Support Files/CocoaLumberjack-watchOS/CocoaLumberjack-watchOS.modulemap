@@ -1,5 +1,5 @@
 framework module CocoaLumberjack {
-  umbrella header "CocoaLumberjack-umbrella.h"
+  umbrella header "CocoaLumberjack-watchOS-umbrella.h"
 
   export *
   module * { export * }

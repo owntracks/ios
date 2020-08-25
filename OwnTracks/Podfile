@@ -11,5 +11,5 @@ end
 
 target 'OwnTracksWrist WatchKit Extension' do
 platform :watchos, '6.1'
-pod 'mqttc/Min', :path => '../../mqttc'
+pod 'mqttc/MinL', :path => '../../mqttc'
 end
