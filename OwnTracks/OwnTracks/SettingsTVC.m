@@ -494,7 +494,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if (self.self.UIlocked) {
         self.self.UIlocked.on = [Settings boolForKey:@"locked"
                                                inMOC:CoreData.sharedInstance.mainMOC];
-        self.self.UIlocked.enabled = !locked;
+        self.self.UIlocked.enabled = false;
     }
     if (self.self.UIsub) {
         self.self.UIsub.on = [Settings boolForKey:@"sub_preference"
