@@ -124,10 +124,8 @@
     [UIAlertController alertControllerWithTitle:parameters[@"title"]
                                         message:parameters[@"message"]
                                  preferredStyle:UIAlertControllerStyleAlert];
-#if !TARGET_OS_MACCATALYST
     NSNumber *interval = parameters[@"interval"];
     if (!interval || interval.floatValue == 0.0) {
-#endif
         UIAlertAction *ok = [UIAlertAction
                              actionWithTitle:NSLocalizedString(@"Continue",
                                                                @"Continue button title")
@@ -135,16 +133,12 @@
                              style:UIAlertActionStyleDefault
                              handler:^(UIAlertAction * action) {}];
         [ac addAction:ok];
-#if !TARGET_OS_MACCATALYST
     }
-#endif
     [self presentViewController:ac animated:TRUE completion:nil];
 
-#if !TARGET_OS_MACCATALYST
     if (interval && interval.floatValue > 0.0) {
         [self performSelector:@selector(dismiss) withObject:nil afterDelay:interval.floatValue];
     }
-#endif
 }
 
 - (void)dismiss {
