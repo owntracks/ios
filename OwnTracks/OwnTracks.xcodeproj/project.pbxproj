@@ -233,6 +233,7 @@
 		8411B909189FEC070019D2D6 /* StatusTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusTVC.m; sourceTree = "<group>"; };
 		8411B90A189FEC070019D2D6 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		8411B90B189FEC070019D2D6 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		84155E7724FB9A4000F4E06B /* OwnTracks-Info-Mac.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "OwnTracks-Info-Mac.plist"; sourceTree = "<group>"; };
 		84195B201ABCBC9400A9FA97 /* Model 7.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.5.xcdatamodel"; sourceTree = "<group>"; };
 		841D1A231C8AF70900DC5765 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		841D1A251C8AF72000DC5765 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -555,6 +556,7 @@
 		8411B834189FDB140019D2D6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				84155E7724FB9A4000F4E06B /* OwnTracks-Info-Mac.plist */,
 				841D1A221C8AF70900DC5765 /* Localizable.strings */,
 				8411B8AE189FEB790019D2D6 /* Location.gpx */,
 				8411B862189FDD300019D2D6 /* OwnTracks.entitlements */,
