@@ -221,14 +221,12 @@ static OwnTracking *theInstance = nil;
                         maximum:[Settings theMaximumHistoryInMOC:[CoreData sharedInstance].mainMOC]];
         [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
 
-#if !TARGET_OS_MACCATALYST
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         [delegate.navigationController alert:NSLocalizedString(@"Friend",
                                                                @"Alert message header for friend's messages")
                                      message:notificationMessage
                                 dismissAfter:2.0
          ];
-#endif
     }
 }
 
