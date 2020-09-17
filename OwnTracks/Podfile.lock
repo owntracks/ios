@@ -4,7 +4,7 @@ PODS:
     - CocoaLumberjack/Core (= 3.6.2)
   - CocoaLumberjack/Core (3.6.2)
   - libsodium (1.0.12)
-  - mqttc/MinL (13.3.1):
+  - mqttc/MinL (13.3.2):
     - CocoaLumberjack
 
 DEPENDENCIES:
@@ -28,7 +28,7 @@ SPEC CHECKSUMS:
   ABStaticTableViewController: d8cfbdd596fbf58b515b13e49cc8ca8ca86c6e12
   CocoaLumberjack: bd155f2dd06c0e0b03f876f7a3ee55693122ec94
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
-  mqttc: a7b5f9bf3fe998248d3f6edcb3991c69665adc18
+  mqttc: 3f0e2330db1df24ef33dec46eb842320923751de
 
 PODFILE CHECKSUM: c59b26318152327fc5aea2a1796217c4b74c6939
 

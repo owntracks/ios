@@ -245,6 +245,7 @@ allowUntrustedCertificates:(BOOL)allowUntrustedCertificates
     session.userName = self.auth ? self.user : nil;
     session.password = self.auth ? self.pass : nil;
     session.keepAliveInterval = self.keepalive;
+    session.connackTimeoutInterval = self.keepalive;
     session.cleanSessionFlag = self.clean;
     session.topicAliasMaximum = @(10);
     session.sessionExpiryInterval = @(0xFFFFFFFF);
