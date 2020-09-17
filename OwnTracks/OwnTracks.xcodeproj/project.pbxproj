@@ -210,7 +210,6 @@
 		8411B849189FDB140019D2D6 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		8411B860189FDD200019D2D6 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		8411B862189FDD300019D2D6 /* OwnTracks.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OwnTracks.entitlements; sourceTree = "<group>"; };
-		8411B863189FDE0D0019D2D6 /* MQTTClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MQTTClient.framework; path = "../../MQTT-Client-Framework/MQTTClient/dist/MQTTClient.framework"; sourceTree = "<group>"; };
 		8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		8411B888189FE79B0019D2D6 /* CoreData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreData.h; path = ../CoreData.h; sourceTree = "<group>"; };
 		8411B889189FE79B0019D2D6 /* CoreData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CoreData.m; path = ../CoreData.m; sourceTree = "<group>"; };
@@ -510,7 +509,6 @@
 				8422AF671AF825C7008932A2 /* SystemConfiguration.framework */,
 				84AF468F1AB9571800E954E3 /* CoreLocation.framework */,
 				847F8B5719295C65003876D4 /* CoreMotion.framework */,
-				8411B863189FDE0D0019D2D6 /* MQTTClient.framework */,
 				8411B860189FDD200019D2D6 /* MapKit.framework */,
 				8411B82B189FDB140019D2D6 /* Foundation.framework */,
 				8411B82D189FDB140019D2D6 /* CoreGraphics.framework */,
