@@ -1248,10 +1248,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 friend.tid = [Settings stringForKey:@"trackerid_preference"
                                               inMOC:CoreData.sharedInstance.mainMOC];
 
-                Waypoint *waypoint = [[OwnTracking sharedInstance] addWaypointFor:friend
-                                                                         location:location
-                                                                          trigger:trigger
-                                                                          context:CoreData.sharedInstance.mainMOC];
+                OwnTracking *ownTracking = [OwnTracking sharedInstance];
+                Waypoint *waypoint = [ownTracking addWaypointFor:friend
+                                                        location:location
+                                                       createdAt:[NSDate date]
+                                                         trigger:trigger
+                                                         context:CoreData.sharedInstance.mainMOC];
                 if (waypoint) {
                     [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
 

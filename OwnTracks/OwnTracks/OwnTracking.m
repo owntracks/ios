@@ -121,9 +121,15 @@ static OwnTracking *theInstance = nil;
                                                     course:[dictionary[@"cog"] intValue]
                                                     speed:speed
                                                     timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]];
+                            NSDate *createdAt = location.timestamp;
+                            if ([dictionary valueForKey:@"created_at"] != nil) {
+                                createdAt = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]];
+                            }
                             Friend *friend = [Friend friendWithTopic:device inManagedObjectContext:context];
                             friend.tid = dictionary[@"tid"];
-                            [self addWaypointFor:friend location:location
+                            [self addWaypointFor:friend
+                                        location:location
+                                       createdAt:createdAt
                                          trigger:dictionary[@"t"]
                                          context:context];
                             [self limitWaypointsFor:friend
@@ -321,6 +327,7 @@ static OwnTracking *theInstance = nil;
 
 - (Waypoint *)addWaypointFor:(Friend *)friend
                     location:(CLLocation *)location
+                   createdAt:(NSDate *)createdAt
                      trigger:(NSString *)trigger
                      context:(NSManagedObjectContext *)context {
     Waypoint *waypoint = [NSEntityDescription insertNewObjectForEntityForName:@"Waypoint"
@@ -333,6 +340,7 @@ static OwnTracking *theInstance = nil;
     waypoint.lon = @(location.coordinate.longitude);
     waypoint.vac = @(location.verticalAccuracy);
     waypoint.tst = location.timestamp;
+    waypoint.createdAt = createdAt;
     double speed = location.speed;
     if (speed != -1) {
         speed = speed * 3600 / 1000;
@@ -384,6 +392,9 @@ static OwnTracking *theInstance = nil;
     [json setValue:waypoint.lat forKey:@"lat"];
     [json setValue:waypoint.lon forKey:@"lon"];
     [json setValue:@((int)(waypoint.tst).timeIntervalSince1970) forKey:@"tst"];
+    if ((int)(waypoint.tst).timeIntervalSince1970 != (int)(waypoint.createdAt).timeIntervalSince1970) {
+        [json setValue:@((int)(waypoint.createdAt).timeIntervalSince1970) forKey:@"created_at"];
+    }
 
     int acc = (waypoint.acc).intValue;
     if (acc >= 0) {

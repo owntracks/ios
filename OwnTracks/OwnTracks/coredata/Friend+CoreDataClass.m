@@ -175,7 +175,7 @@
         if (!newestWaypoint) {
             newestWaypoint = waypoint;
         } else {
-            if ([newestWaypoint.tst compare:waypoint.tst] == NSOrderedAscending) {
+            if ([newestWaypoint.effectiveTimestamp compare:waypoint.effectiveTimestamp] == NSOrderedAscending) {
                 newestWaypoint = waypoint;
             }
         }
@@ -237,7 +237,7 @@
         CLLocationCoordinate2D *coordinates = malloc(waypoints.count * sizeof(CLLocationCoordinate2D));
         if (coordinates) {
             int count = 0;
-            NSArray *sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tst" ascending:TRUE]];
+            NSArray *sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"effectiveTimestamp" ascending:TRUE]];
             for (Waypoint *waypoint in [waypoints sortedArrayUsingDescriptors:sortDescriptors]) {
                 coordinates[count++] = CLLocationCoordinate2DMake(
                                                                   (waypoint.lat).doubleValue,

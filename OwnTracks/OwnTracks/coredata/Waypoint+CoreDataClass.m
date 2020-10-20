@@ -70,6 +70,20 @@
                                           timeStyle:NSDateFormatterMediumStyle];
 }
 
+- (NSString *)createdAtText {
+    return [NSDateFormatter localizedStringFromDate:self.createdAt
+                                          dateStyle:NSDateFormatterShortStyle
+                                          timeStyle:NSDateFormatterMediumStyle];
+}
+
+- (NSDate *)effectiveTimestamp {
+    if (self.createdAt != nil &&
+        self.createdAt.timeIntervalSince1970 > self.tst.timeIntervalSince1970) {
+        return self.createdAt;
+    }
+    return self.tst;
+}
+
 - (NSString *)infoText {
     return [NSString stringWithFormat:@"%@%0.f%@ (%@%.0f%@) %0.f%@ %0.f%@",
             NSLocalizedString(@"✈︎", @"Short for altitude as in ✈︎1000m"),

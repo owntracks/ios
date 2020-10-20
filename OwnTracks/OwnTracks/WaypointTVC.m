@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UItimestamp;
 @property (weak, nonatomic) IBOutlet UITextField *UItopic;
 @property (weak, nonatomic) IBOutlet UITextField *UIinfo;
+@property (weak, nonatomic) IBOutlet UITextField *UIcreatedAt;
 
 @property (nonatomic) BOOL needsUpdate;
 @property (strong, nonatomic) CLRegion *oldRegion;
@@ -66,6 +67,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.UIcoordinate.text = (self.waypoint).coordinateText;
     
     self.UItimestamp.text = (self.waypoint).timestampText;
+    self.UIcreatedAt.text = (self.waypoint).createdAtText;
     self.UIinfo.text = (self.waypoint).infoText;
     self.UItopic.text = self.waypoint.belongsTo.topic;
     

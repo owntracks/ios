@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull shortCoordinateText;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull coordinateText;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull timestampText;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull createdAtText;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSDate * _Nonnull effectiveTimestamp;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull infoText;
 
 @end
