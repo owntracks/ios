@@ -13,7 +13,7 @@ CocoaLumberjack
 [![codebeat badge](https://codebeat.co/badges/840b714a-c8f3-4936-ada4-363473cd4e6b)](https://codebeat.co/projects/github-com-cocoalumberjack-cocoalumberjack-master)
 
 
-**CocoaLumberjack** is a fast & simple, yet powerful & flexible logging framework for Mac and iOS.
+**CocoaLumberjack** is a fast & simple, yet powerful & flexible logging framework for macOS, iOS, tvOS and watchOS.
 
 ### How to get started
 
@@ -23,7 +23,7 @@ Then use `DDOSLogger` for iOS 10 and later, or `DDTTYLogger` and `DDASLLogger` f
 #### CocoaPods
 
 ```ruby
-platform :ios, '8.0'
+platform :ios, '9.0'
 
 target 'SampleTarget' do
   use_frameworks!
@@ -35,7 +35,7 @@ For more details about how to use Swift with Lumberjack, see [this conversation]
 
 For Objective-C use the following:
 ```ruby
-platform :ios, '8.0'
+platform :ios, '9.0'
 
 target 'SampleTarget' do
     pod 'CocoaLumberjack'
@@ -60,8 +60,10 @@ As of CocoaLumberjack 3.6.0, you can use the Swift Package Manager as integratio
 If you want to use the Swift Package Manager as integration method, either use Xcode to add the package dependency or add the following dependency to your Package.swift:
 
 ```swift
-.package(url: "https://github.com/CocoaLumberjack/CocoaLumberjack.git", from: "3.6.0"),
+.package(url: "https://github.com/CocoaLumberjack/CocoaLumberjack.git", from: "3.7.0"),
 ```
+
+Note that you may need to add both products, `CocoaLumberjack` and `CocoaLumberjackSwift` to your target since SPM sometimes fails to detect that `CocoaLumerjackSwift` depends on `CocoaLumberjack`.
 
 #### Install manually
 
@@ -109,6 +111,17 @@ DDLogInfo(@"Info");
 DDLogWarn(@"Warn");
 DDLogError(@"Error");
 ```
+
+
+### [swift-log](https://github.com/apple/swift-log) backend
+
+CocoaLumberjack also ships with a backend implementation for [swift-log](https://github.com/apple/swift-log).
+Simply add CocoaLumberjack as dependency to your SPM target (see above) and also add the `CocoaLumberjackSwiftLogBackend` product as dependency to your target.
+
+You can then use `DDLogHandler` as backend for swift-log, which will forward all messages to CocoaLumberjack's `DDLog`. You will still configure the loggers and log formatters you want via `DDLog`, but writing log messages will be done using `Logger` from swift-log.
+
+In your own log formatters, you can make use of the `swiftLogInfo` property on `DDLogMessage` to retrieve the details of a message that is logged via swift-log.
+
 
 #### More information
 
@@ -167,15 +180,17 @@ Configure your logging however you want. Change log levels per file (perfect for
 
 ### Requirements
 The current version of Lumberjack requires:
-- Xcode 11 or later
-- Swift 5.0 or later
-- iOS 8 or later
+- Xcode 12 or later
+- Swift 5.3 or later
+- iOS 9 or later
 - macOS 10.10 or later
 - watchOS 3 or later
 - tvOS 9 or later
 
 #### Backwards compatibility
+- for Xcode 11 and Swift up to 5.2, use the 3.6.2 version
 - for Xcode 10 and Swift 4.2, use the 3.5.2 version
+- for iOS 8, use the 3.6.1 version
 - for iOS 6, iOS 7, OS X 10.8, OS X 10.9 and Xcode 9, use the 3.4.2 version
 - for iOS 5 and OS X 10.7, use the 3.3 version
 - for Xcode 8 and Swift 3, use the 3.2 version
