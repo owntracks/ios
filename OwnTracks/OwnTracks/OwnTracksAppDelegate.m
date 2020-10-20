@@ -694,7 +694,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                            @"lat": @(location.coordinate.latitude),
                                            @"lon": @(location.coordinate.longitude),
                                            @"tst": @(floor((location.timestamp).timeIntervalSince1970)),
-                                           @"acc": @(location.horizontalAccuracy),
+                                           @"acc": @((int)location.horizontalAccuracy),
                                            @"tid": myself.effectiveTid,
                                            @"event": enter ? @"enter" : @"leave",
                                            @"t": [region isKindOfClass:[CLBeaconRegion class]] ? @"b" : @"c"
@@ -787,7 +787,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                        @"major": beacon.major,
                                        @"minor": beacon.minor,
                                        @"prox": @(beacon.proximity),
-                                       @"acc": @(beacon.accuracy),
+                                       @"acc": @((int)beacon.accuracy),
                                        @"rssi": @(beacon.rssi)
                                        }];
         if (myRegion) {
