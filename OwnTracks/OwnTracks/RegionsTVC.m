@@ -65,16 +65,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     if ([segue.identifier isEqualToString:@"newRegion:"]) {
         Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] inManagedObjectContext:CoreData.sharedInstance.mainMOC];
         CLLocation *location = [LocationManager sharedInstance].location;
-        Region *newRegion = [[OwnTracking sharedInstance] addRegionFor:friend
-                                                                  name:[NSString stringWithFormat:@"Here-%d",
-                                                                        (int)[NSDate date].timeIntervalSince1970]
-                                                                  uuid:nil
-                                                                 major:0
-                                                                 minor:0
-                                                                radius:0
-                                                                   lat:location.coordinate.latitude
-                                                                   lon:location.coordinate.longitude
-                                                               context:CoreData.sharedInstance.mainMOC];
+        Region *newRegion =
+        [[OwnTracking sharedInstance] addRegionFor:friend
+                                              name:[NSString stringWithFormat:@"Here-%d",
+                                                    (int)round([NSDate date].timeIntervalSince1970)]
+                                              uuid:nil
+                                             major:0
+                                             minor:0
+                                            radius:0
+                                               lat:location.coordinate.latitude
+                                               lon:location.coordinate.longitude
+                                           context:CoreData.sharedInstance.mainMOC];
         [self.tableView reloadData];
         if ([segue.destinationViewController respondsToSelector:@selector(setEditRegion:)]) {
             [segue.destinationViewController performSelector:@selector(setEditRegion:) withObject:newRegion];

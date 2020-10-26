@@ -108,7 +108,13 @@ didChangeAuthorizationStatus:CLLocationManager.authorizationStatus];
             NSMutableDictionary *md = [[NSMutableDictionary alloc] init];
             md[@"_type"] = @"location";
             md[@"tid"] = [self effectiveTid];
-            md[@"tst"] = @((int)l.timestamp.timeIntervalSince1970);
+            md[@"tst"] = @((int)round(l.timestamp.timeIntervalSince1970));
+            if ((int)round(l.timeIntervalSince1970) !=
+                (int)round([NSDate date].timeIntervalSince1970)) {
+                [json setValue:@((int)round([NSDate date].timeIntervalSince1970))
+                        forKey:@"created_at"];
+            }
+
             md[@"lat"] = @(l.coordinate.latitude);
             md[@"lon"] = @(l.coordinate.longitude);
             md[@"acc"] = @((int)l.horizontalAccuracy);

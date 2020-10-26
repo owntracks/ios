@@ -297,15 +297,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                   minor ? [NSString stringWithFormat:@":%d", minor] : @""
                                   ];
 
-                [Settings waypointsFromDictionary:@{@"_type":@"waypoints",
-                                                    @"waypoints":@[@{@"_type":@"waypoint",
-                                                                     @"desc":desc,
-                                                                     @"tst":@((int)([NSDate date].timeIntervalSince1970)),
-                                                                     @"lat":@([LocationManager sharedInstance].location.coordinate.latitude),
-                                                                     @"lon":@([LocationManager sharedInstance].location.coordinate.longitude),
-                                                                     @"rad":@(-1)
-                                                                     }]
-                                                    } inMOC:CoreData.sharedInstance.mainMOC];
+                [Settings waypointsFromDictionary:
+                 @{@"_type":@"waypoints",
+                   @"waypoints":@[@{@"_type":@"waypoint",
+                                    @"desc":desc,
+                                    @"tst":@((int)round(([NSDate date].timeIntervalSince1970))),
+                                    @"lat":@([LocationManager sharedInstance].location.coordinate.latitude),
+                                    @"lon":@([LocationManager sharedInstance].location.coordinate.longitude),
+                                    @"rad":@(-1)
+                   }]
+                 } inMOC:CoreData.sharedInstance.mainMOC];
                 [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
                 self.processingMessage = NSLocalizedString(@"Beacon QR successfully processed",
                                                            @"Display after processing beacon QR code");
@@ -693,12 +694,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                            @"_type": @"transition",
                                            @"lat": @(location.coordinate.latitude),
                                            @"lon": @(location.coordinate.longitude),
-                                           @"tst": @(floor((location.timestamp).timeIntervalSince1970)),
+                                           @"tst": @((int)round(location.timestamp.timeIntervalSince1970)),
                                            @"acc": @((int)location.horizontalAccuracy),
                                            @"tid": myself.effectiveTid,
                                            @"event": enter ? @"enter" : @"leave",
                                            @"t": [region isKindOfClass:[CLBeaconRegion class]] ? @"b" : @"c"
                                            } mutableCopy];
+
+            if ((int)round(location.timestamp.timeIntervalSince1970) != (int)round([NSDate date].timeIntervalSince1970)) {
+                [json setValue:@((int)round([NSDate date].timeIntervalSince1970))
+                        forKey:@"created_at"];
+            }
 
             for (Region *anyRegion in myself.hasRegions) {
                 if ([region.identifier isEqualToString:anyRegion.CLregion.identifier]) {
@@ -782,7 +788,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                      @{
                                        @"_type": @"beacon",
                                        @"tid": myself.effectiveTid,
-                                       @"tst": @(floor(([LocationManager sharedInstance].location.timestamp).timeIntervalSince1970)),
+                                       @"tst": @((int)round([LocationManager sharedInstance].location.timestamp.timeIntervalSince1970)),
                                        @"uuid": (beacon.UUID).UUIDString,
                                        @"major": beacon.major,
                                        @"minor": beacon.minor,
@@ -1129,9 +1135,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
              NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
              [json addEntriesFromDictionary:@{
                                               @"_type": @"steps",
-                                              @"tst": @(floor([NSDate date].timeIntervalSince1970)),
-                                              @"from": @(floor(fromDate.timeIntervalSince1970)),
-                                              @"to": @(floor(toDate.timeIntervalSince1970)),
+                                              @"tst": @((int)round([NSDate date].timeIntervalSince1970)),
+                                              @"from": @((int)round(fromDate.timeIntervalSince1970)),
+                                              @"to": @((int)round(toDate.timeIntervalSince1970)),
                                               }];
              if (pedometerData) {
                  json[@"steps"] = pedometerData.numberOfSteps;
@@ -1249,9 +1255,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                               inMOC:CoreData.sharedInstance.mainMOC];
 
                 OwnTracking *ownTracking = [OwnTracking sharedInstance];
+                NSDate *createdAt = location.timestamp;
+                if ((int)round(location.timestamp.timeIntervalSince1970) <
+                    (int)round([NSDate date].timeIntervalSince1970)) {
+                    createdAt = [NSDate date];
+                }
                 Waypoint *waypoint = [ownTracking addWaypointFor:friend
                                                         location:location
-                                                       createdAt:[NSDate date]
+                                                       createdAt:createdAt
                                                          trigger:trigger
                                                          context:CoreData.sharedInstance.mainMOC];
                 if (waypoint) {
@@ -1379,7 +1390,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         self.connection.subscriptionQos = subscriptionQos;
 
         NSMutableDictionary *json = [NSMutableDictionary dictionaryWithDictionary:@{
-            @"tst": @((int)[NSDate date].timeIntervalSince1970),
+            @"tst": @((int)round([NSDate date].timeIntervalSince1970)),
             @"_type": @"lwt"
         }];
         

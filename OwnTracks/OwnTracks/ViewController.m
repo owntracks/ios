@@ -730,7 +730,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
         Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] inManagedObjectContext:CoreData.sharedInstance.mainMOC];
         [[OwnTracking sharedInstance] addRegionFor:friend
                                               name:[NSString stringWithFormat:@"Center-%d",
-                                                    (int)[NSDate date].timeIntervalSince1970]
+                                                    (int)round([NSDate date].timeIntervalSince1970)]
                                               uuid:nil
                                              major:0
                                              minor:0

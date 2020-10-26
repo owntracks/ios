@@ -391,9 +391,11 @@ static OwnTracking *theInstance = nil;
 
     [json setValue:waypoint.lat forKey:@"lat"];
     [json setValue:waypoint.lon forKey:@"lon"];
-    [json setValue:@((int)(waypoint.tst).timeIntervalSince1970) forKey:@"tst"];
-    if ((int)(waypoint.tst).timeIntervalSince1970 != (int)(waypoint.createdAt).timeIntervalSince1970) {
-        [json setValue:@((int)(waypoint.createdAt).timeIntervalSince1970) forKey:@"created_at"];
+    [json setValue:@((int)round(waypoint.tst.timeIntervalSince1970))
+            forKey:@"tst"];
+    if ((int)round(waypoint.tst.timeIntervalSince1970) != (int)round(waypoint.createdAt.timeIntervalSince1970)) {
+        [json setValue:@((int)round(waypoint.createdAt.timeIntervalSince1970))
+                forKey:@"created_at"];
     }
 
     int acc = (waypoint.acc).intValue;
