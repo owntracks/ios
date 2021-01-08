@@ -258,6 +258,7 @@
 		843A57AA24A9A4D600A5441B /* IntentHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntentHandler.m; sourceTree = "<group>"; };
 		843A57AC24A9A4D700A5441B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		843B7B5A25A8689900B814D5 /* Model 14.0.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 14.0.0.xcdatamodel"; sourceTree = "<group>"; };
+		843B7B7F25A8859100B814D5 /* libcommonCrypto.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcommonCrypto.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/usr/lib/system/libcommonCrypto.tbd; sourceTree = DEVELOPER_DIR; };
 		843B91731C8A14BF00DBD306 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Storyboard.storyboard; sourceTree = "<group>"; };
 		845299DA1DF9FD6200A4DC21 /* Model 9.5.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.5.0.xcdatamodel"; sourceTree = "<group>"; };
 		845299DF1DFA004000A4DC21 /* Friend+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Friend+CoreDataClass.h"; sourceTree = "<group>"; };
@@ -496,6 +497,7 @@
 		8411B82A189FDB140019D2D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				843B7B7F25A8859100B814D5 /* libcommonCrypto.tbd */,
 				8488CFDE25A45CC3000AFEE2 /* Security.framework */,
 				849B359924A7578000BEC1BB /* Intents.framework */,
 				849B3C10242F9F190052EE6D /* Network.framework */,

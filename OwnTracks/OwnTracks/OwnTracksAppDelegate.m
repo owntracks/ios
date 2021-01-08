@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 03.02.14.
-//  Copyright © 2014-2020  OwnTracks. All rights reserved.
+//  Copyright © 2014-2021  OwnTracks. All rights reserved.
 //
 
 #import "OwnTracksAppDelegate.h"
@@ -717,8 +717,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 if ([region.identifier isEqualToString:anyRegion.CLregion.identifier]) {
                     anyRegion.name = anyRegion.name;
                     [json setValue:region.identifier forKey:@"desc"];
-                    [json setValue:anyRegion.andFillIdentifier forKey:@"identifier"];
-                    [json setValue:@(floor(anyRegion.andFillTst.timeIntervalSince1970)) forKey:@"wtst"];
+                    [json setValue:anyRegion.andFillIdentifier.UUIDString forKey:@"identifier"];
 
                     [self.connection sendData:[self jsonToData:json]
                                         topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/event"]

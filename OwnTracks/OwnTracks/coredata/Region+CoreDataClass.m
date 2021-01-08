@@ -3,12 +3,13 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 30.05.18.
-//  Copyright © 2018-2020 OwnTracks. All rights reserved.
+//  Copyright © 2018-2021 OwnTracks. All rights reserved.
 //
 //
 
 #import "Region+CoreDataClass.h"
 #import "Friend+CoreDataClass.h"
+#import <CommonCrypto/CommonHMAC.h>
 
 @implementation Region
 
@@ -16,6 +17,17 @@
     if (!self.identifier) {
         self.identifier = [NSUUID UUID];
     }
+    unsigned char digest[CC_SHA1_DIGEST_LENGTH];
+    NSData *stringBytes = [self.identifier.UUIDString dataUsingEncoding: NSUTF8StringEncoding];
+    unsigned char *sha1 = CC_SHA1([stringBytes bytes], (unsigned int)[stringBytes length], digest);
+    if (sha1) {
+    } else {
+    }
+    NSString *string = [[NSString alloc] init];
+    for (NSInteger i = 0; i < CC_SHA1_DIGEST_LENGTH; i++) {
+        string = [string stringByAppendingFormat:@"%02x", digest[i]];
+    }
+
     return self.identifier;
 }
 
