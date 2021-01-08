@@ -352,7 +352,8 @@ static OwnTracking *theInstance = nil;
     return waypoint;
 }
 
-- (Region *)addRegionFor:(Friend *)friend
+- (Region *)addRegionFor:(NSUUID *)identifier
+                  friend:(Friend *)friend
                     name:(NSString *)name
                     uuid:(NSString *)uuid
                    major:(unsigned int)major
@@ -365,6 +366,7 @@ static OwnTracking *theInstance = nil;
                                                    inManagedObjectContext:context];
     region.belongsTo = friend;
     region.tst = [NSDate date];
+    region.identifier = identifier;
     region.name = name;
     region.uuid = uuid;
     region.major = @(major);
@@ -497,6 +499,7 @@ static OwnTracking *theInstance = nil;
                            @"lon": region.lon,
                            @"rad": region.radius,
                            @"tst": @(floor(region.andFillTst.timeIntervalSince1970)),
+                           @"identifier": region.andFillIdentifier.UUIDString,
                            @"desc": [NSString stringWithFormat:@"%@%@%@%@",
                                      region.name,
                                      (region.uuid && region.uuid.length > 0) ?

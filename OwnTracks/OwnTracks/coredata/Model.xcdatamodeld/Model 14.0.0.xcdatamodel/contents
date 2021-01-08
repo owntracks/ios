@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20C69" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="Friend" representedClassName="Friend" syncable="YES">
+        <attribute name="cardImage" optional="YES" attributeType="Binary"/>
+        <attribute name="cardName" optional="YES" attributeType="String"/>
+        <attribute name="contactId" optional="YES" attributeType="String"/>
+        <attribute name="lastLocation" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="tid" optional="YES" attributeType="String"/>
+        <attribute name="topic" optional="YES" attributeType="String"/>
+        <relationship name="hasRegions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Region" inverseName="belongsTo" inverseEntity="Region"/>
+        <relationship name="hasWaypoints" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Waypoint" inverseName="belongsTo" inverseEntity="Waypoint"/>
+    </entity>
+    <entity name="History" representedClassName="History" syncable="YES">
+        <attribute name="group" optional="YES" attributeType="String"/>
+        <attribute name="seen" optional="YES" attributeType="Boolean" usesScalarValueType="NO"/>
+        <attribute name="text" optional="YES" attributeType="String"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+    </entity>
+    <entity name="Queue" representedClassName="Queue" syncable="YES">
+        <attribute name="data" optional="YES" attributeType="Binary"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="topic" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Region" representedClassName="Region" syncable="YES">
+        <attribute name="identifier" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO"/>
+        <attribute name="lon" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO"/>
+        <attribute name="major" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="minor" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="radius" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO"/>
+        <attribute name="tst" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="uuid" optional="YES" attributeType="String"/>
+        <relationship name="belongsTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Friend" inverseName="hasRegions" inverseEntity="Friend"/>
+    </entity>
+    <entity name="Setting" representedClassName="Setting" syncable="YES">
+        <attribute name="key" optional="YES" attributeType="String"/>
+        <attribute name="value" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="Waypoint" representedClassName="Waypoint" syncable="YES">
+        <attribute name="acc" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO"/>
+        <attribute name="alt" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO"/>
+        <attribute name="cog" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO"/>
+        <attribute name="createdAt" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="lat" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO"/>
+        <attribute name="lon" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO"/>
+        <attribute name="placemark" optional="YES" attributeType="String"/>
+        <attribute name="trigger" optional="YES" attributeType="String"/>
+        <attribute name="tst" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="vac" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO"/>
+        <attribute name="vel" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="NO"/>
+        <relationship name="belongsTo" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Friend" inverseName="hasWaypoints" inverseEntity="Friend"/>
+    </entity>
+    <elements>
+        <element name="Friend" positionX="0" positionY="0" width="128" height="165"/>
+        <element name="History" positionX="0" positionY="153" width="128" height="105"/>
+        <element name="Queue" positionX="9" positionY="153" width="128" height="90"/>
+        <element name="Region" positionX="18" positionY="153" width="128" height="179"/>
+        <element name="Setting" positionX="9" positionY="90" width="128" height="75"/>
+        <element name="Waypoint" positionX="9" positionY="144" width="128" height="223"/>
+    </elements>
+</model>

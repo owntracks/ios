@@ -295,12 +295,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if (waypoints) {
         for (NSDictionary *waypoint in waypoints) {
             if ([waypoint[@"_type"] isEqualToString:@"waypoint"]) {
-                DDLogVerbose(@"[Settings][setWaypoints] desc:%@ lon:%g lat:%g",
+                DDLogVerbose(@"[Settings][setWaypoints] identifier:%@ desc:%@ lon:%g lat:%g",
+                             waypoint[@"identifier"],
                              waypoint[@"desc"],
                              [waypoint[@"lon"] doubleValue],
                              [waypoint[@"lat"] doubleValue]
                              );
 
+                NSString *identifierString = waypoint[@"identifier"];
+                NSUUID *identifier;
+                if (identifierString) {
+                    identifier = [[NSUUID alloc] initWithUUIDString:identifierString];
+                } else {
+                    identifier = [NSUUID UUID];
+                }
                 NSArray *components = [waypoint[@"desc"] componentsSeparatedByString:@":"];
                 NSString *name = components.count >= 1 ? components[0] : nil;
                 NSString *uuid = components.count >= 2 ? components[1] : nil;
@@ -311,9 +319,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                         inManagedObjectContext:context];
 
                 for (Region *region in friend.hasRegions) {
-                    if ([region.name isEqualToString:name]) {
-                        DDLogVerbose(@"[Settings][setWaypoints] removeRegion desc:%@",
-                                     waypoint[@"desc"]
+                    if ([region.identifier.UUIDString isEqualToString:identifier.UUIDString]) {
+                        DDLogVerbose(@"[Settings][setWaypoints] removeRegion %@",
+                                     identifier.UUIDString
                                      );
 
                         [[OwnTracking sharedInstance] removeRegion:region context:context];
@@ -329,7 +337,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                     DDLogVerbose(@"[Settings][setWaypoints] addRegion desc:%@",
                                  waypoint[@"desc"]
                                  );
-                    [[OwnTracking sharedInstance] addRegionFor:friend
+                    [[OwnTracking sharedInstance] addRegionFor:identifier
+                                                        friend:friend
                                                           name:name
                                                           uuid:uuid
                                                          major:major

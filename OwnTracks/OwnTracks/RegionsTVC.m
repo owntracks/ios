@@ -66,7 +66,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] inManagedObjectContext:CoreData.sharedInstance.mainMOC];
         CLLocation *location = [LocationManager sharedInstance].location;
         Region *newRegion =
-        [[OwnTracking sharedInstance] addRegionFor:friend
+        [[OwnTracking sharedInstance] addRegionFor:[NSUUID UUID]
+                                            friend:friend
                                               name:[NSString stringWithFormat:@"Here-%d",
                                                     (int)round([NSDate date].timeIntervalSince1970)]
                                               uuid:nil

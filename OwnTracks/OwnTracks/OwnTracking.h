@@ -31,7 +31,8 @@ context:(NSManagedObjectContext *)context;
 
 - (void)limitWaypointsFor:(Friend *)friend toMaximum:(NSInteger)max;
 
-- (Region *)addRegionFor:(Friend *)friend
+- (Region *)addRegionFor:(NSUUID *)identifier
+friend:(Friend *)friend
 name:(NSString *)name
 uuid:(NSString *)uuid
 major:(unsigned int)major
@@ -40,6 +41,7 @@ radius:(double)radius
 lat:(double)lat
 lon:(double)lon
 context:(NSManagedObjectContext *)context;
+
 - (void)removeRegion:(Region *)region context:(NSManagedObjectContext *)context;
 
 - (NSDictionary *)waypointAsJSON:(Waypoint *)waypoint;

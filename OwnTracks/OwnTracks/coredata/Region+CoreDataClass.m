@@ -12,12 +12,20 @@
 
 @implementation Region
 
+- (NSUUID *)getAndFillIdentifier {
+    if (!self.identifier) {
+        self.identifier = [NSUUID UUID];
+    }
+    return self.identifier;
+}
+
 - (NSDate *)getAndFillTst {
     if (!self.tst) {
         self.tst = [NSDate date];
     }
     return self.tst;
 }
+
 
 - (CLLocationCoordinate2D)coordinate {
     CLLocationCoordinate2D coord = CLLocationCoordinate2DMake((self.lat).doubleValue,

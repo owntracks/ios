@@ -728,7 +728,8 @@ calloutAccessoryControlTapped:(UIControl *)control {
     if (sender.state == UIGestureRecognizerStateBegan) {
 
         Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] inManagedObjectContext:CoreData.sharedInstance.mainMOC];
-        [[OwnTracking sharedInstance] addRegionFor:friend
+        [[OwnTracking sharedInstance] addRegionFor:[NSUUID UUID]
+                                            friend:friend
                                               name:[NSString stringWithFormat:@"Center-%d",
                                                     (int)round([NSDate date].timeIntervalSince1970)]
                                               uuid:nil

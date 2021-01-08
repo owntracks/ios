@@ -2,8 +2,8 @@
 //  Region+CoreDataProperties.h
 //  OwnTracks
 //
-//  Created by Christoph Krey on 26.07.19.
-//  Copyright © 2019-2020 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 08.01.21.
+//  Copyright © 2021 OwnTracks. All rights reserved.
 //
 //
 
@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSNumber *radius;
 @property (nullable, nonatomic, copy) NSDate *tst;
 @property (nullable, nonatomic, copy) NSString *uuid;
+@property (nullable, nonatomic, copy) NSUUID *identifier;
 @property (nullable, nonatomic, retain) Friend *belongsTo;
 
 @end

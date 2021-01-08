@@ -128,16 +128,28 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                     launchHandler:^(__kindof BGTask * _Nonnull task) {
         DDLogVerbose(@"[OwnTracksAppDelegate] launchHandler %@",
                      task.identifier);
+        NSError *error;
+        BGAppRefreshTaskRequest *bgAppRefreshTaskRequest =
+        [[BGAppRefreshTaskRequest alloc] initWithIdentifier:TASK_IDENTIFIER];
+        bgAppRefreshTaskRequest.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:15 * 60];
+
+        BOOL success = [self.bgTaskScheduler submitTaskRequest:bgAppRefreshTaskRequest error:&error];
+        DDLogVerbose(@"[OwnTracksAppDelegate] submitTaskRequest %@ @ %@ %d, %@",
+                     bgAppRefreshTaskRequest.identifier,
+                     bgAppRefreshTaskRequest.earliestBeginDate,
+                     success,
+                     error);
+
         task.expirationHandler = ^{
             DDLogVerbose(@"[OwnTracksAppDelegate] bgTaskEspirationHandler");
             if (self.bgTask) {
                 [self.bgTask setTaskCompletedWithSuccess:FALSE];
                 self.bgTask = nil;
             }
-            [self performSelectorOnMainThread:@selector(doRefresh)
-                                   withObject:nil
-                                waitUntilDone:TRUE];
         };
+        [self performSelectorOnMainThread:@selector(doRefresh)
+                               withObject:nil
+                            waitUntilDone:TRUE];
         self.bgTask = task;
     }];
     DDLogVerbose(@"[OwnTracksAppDelegate] registerForTaskWithIdentifier %@ %d",
@@ -146,21 +158,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     NSError *error;
     BGAppRefreshTaskRequest *bgAppRefreshTaskRequest =
     [[BGAppRefreshTaskRequest alloc] initWithIdentifier:TASK_IDENTIFIER];
+    bgAppRefreshTaskRequest.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:15 * 60];
     success = [self.bgTaskScheduler submitTaskRequest:bgAppRefreshTaskRequest error:&error];
     DDLogVerbose(@"[OwnTracksAppDelegate] submitTaskRequest %@ @ %@ %d, %@",
                  bgAppRefreshTaskRequest.identifier,
                  bgAppRefreshTaskRequest.earliestBeginDate,
                  success,
                  error);
-
-    DDLogVerbose(@"[OwnTracksAppDelegate] getPendingTaskRequestsWithCompletionHandler:");
-    [self.bgTaskScheduler getPendingTaskRequestsWithCompletionHandler:^(NSArray<BGTaskRequest *> * _Nonnull taskRequests) {
-        for (BGTaskRequest *bgTaskRequest in taskRequests) {
-        DDLogVerbose(@"[OwnTracksAppDelegate] getPendingTaskRequestsWithCompletionHandler %@ @ %@",
-                     bgTaskRequest.identifier,
-                     bgTaskRequest.earliestBeginDate);
-        }
-    }];
 
     self.backgroundTask = UIBackgroundTaskInvalid;
 
@@ -210,14 +214,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
     LocationManager *locationManager = [LocationManager sharedInstance];
     locationManager.delegate = self;
+
+    NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
     locationManager.monitoring = [Settings intForKey:@"monitoring_preference"
-                                               inMOC:CoreData.sharedInstance.mainMOC];
+                                               inMOC:moc];
     locationManager.ranging = [Settings boolForKey:@"ranging_preference"
-                                             inMOC:CoreData.sharedInstance.mainMOC];
+                                             inMOC:moc];
     locationManager.minDist = [Settings doubleForKey:@"mindist_preference"
-                                               inMOC:CoreData.sharedInstance.mainMOC];
+                                               inMOC:moc];
     locationManager.minTime = [Settings doubleForKey:@"mintime_preference"
-                                               inMOC:CoreData.sharedInstance.mainMOC];
+                                               inMOC:moc];
     [locationManager start];
 
     return YES;
@@ -547,13 +553,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if ([LocationManager sharedInstance].monitoring == LocationMonitoringSignificant ||
         [LocationManager sharedInstance].monitoring == LocationMonitoringMove) {
         CLLocation *lastLocation = [LocationManager sharedInstance].location;
-        CLLocation *location = [[CLLocation alloc] initWithCoordinate:lastLocation.coordinate
-                                                             altitude:lastLocation.altitude
-                                                   horizontalAccuracy:lastLocation.horizontalAccuracy
-                                                     verticalAccuracy:lastLocation.verticalAccuracy
-                                                               course:lastLocation.course
-                                                                speed:lastLocation.speed
-                                                            timestamp:[NSDate date]];
+        CLLocation *location =
+        [[CLLocation alloc] initWithCoordinate:lastLocation.coordinate
+                                      altitude:lastLocation.altitude
+                            horizontalAccuracy:lastLocation.horizontalAccuracy
+                              verticalAccuracy:lastLocation.verticalAccuracy
+                                        course:lastLocation.course
+                                         speed:lastLocation.speed
+                                     timestamp:[NSDate date]];
         [self publishLocation:location trigger:@"p"];
     }
 }
@@ -710,6 +717,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 if ([region.identifier isEqualToString:anyRegion.CLregion.identifier]) {
                     anyRegion.name = anyRegion.name;
                     [json setValue:region.identifier forKey:@"desc"];
+                    [json setValue:anyRegion.andFillIdentifier forKey:@"identifier"];
                     [json setValue:@(floor(anyRegion.andFillTst.timeIntervalSince1970)) forKey:@"wtst"];
 
                     [self.connection sendData:[self jsonToData:json]
@@ -1153,12 +1161,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
              } else {
                  json[@"steps"] = @(-1);
              }
-             
+
+             NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
+             NSString *topic = [Settings theGeneralTopicInMOC:moc];
+             MQTTQosLevel qos = [Settings intForKey:@"qos_preference"
+                                              inMOC:moc];
              [self.connection sendData:[self jsonToData:json]
-                                 topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/step"]
+                                 topic:topic
                             topicAlias:@(6)
-                                   qos:[Settings intForKey:@"qos_preference"
-                                                     inMOC:CoreData.sharedInstance.mainMOC]
+                                   qos:qos
                                 retain:NO];
          });
      }];
@@ -1206,11 +1217,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [[OwnTracking sharedInstance] syncProcessing];
     [[LocationManager sharedInstance] resetRegions];
     [self.connection reset];
-    NSArray *friends = [Friend allFriendsInManagedObjectContext:CoreData.sharedInstance.mainMOC];
+
+    NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
+    NSArray *friends = [Friend allFriendsInManagedObjectContext:moc];
     for (Friend *friend in friends) {
-        [CoreData.sharedInstance.mainMOC deleteObject:friend];
+        [moc deleteObject:friend];
     }
-    [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
+    [CoreData.sharedInstance sync:moc];
 }
 
 - (void)reconnect {
@@ -1221,20 +1234,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (BOOL)publishLocation:(CLLocation *)location
                 trigger:(NSString *)trigger {
+    NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
+
     if (location &&
         CLLocationCoordinate2DIsValid(location.coordinate) &&
         location.coordinate.latitude != 0.0 &&
         location.coordinate.longitude != 0.0 &&
-        [Settings validIdsInMOC:CoreData.sharedInstance.mainMOC]) {
+        [Settings validIdsInMOC:moc]) {
 
-        int ignoreInaccurateLocations = [Settings intForKey:@"ignoreinaccuratelocations_preference"
-                                                      inMOC:CoreData.sharedInstance.mainMOC];
+        int ignoreInaccurateLocations =
+        [Settings intForKey:@"ignoreinaccuratelocations_preference"
+                      inMOC:moc];
         DDLogVerbose(@"[OwnTracksAppDelegate] location accuracy:%fm, ignoreIncacurationLocations:%dm",
                      location.horizontalAccuracy, ignoreInaccurateLocations);
 
         if (ignoreInaccurateLocations == 0 || location.horizontalAccuracy < ignoreInaccurateLocations) {
-            Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
-                              inManagedObjectContext:CoreData.sharedInstance.mainMOC];
+            Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:moc]
+                              inManagedObjectContext:moc];
             if (friend) {
                 for (Region *anyRegion in friend.hasRegions) {
                     if ([anyRegion.CLregion.identifier hasPrefix:@"+"]) {
@@ -1252,7 +1268,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 }
 
                 friend.tid = [Settings stringForKey:@"trackerid_preference"
-                                              inMOC:CoreData.sharedInstance.mainMOC];
+                                              inMOC:moc];
 
                 OwnTracking *ownTracking = [OwnTracking sharedInstance];
                 NSDate *createdAt = location.timestamp;
@@ -1264,27 +1280,27 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                                         location:location
                                                        createdAt:createdAt
                                                          trigger:trigger
-                                                         context:CoreData.sharedInstance.mainMOC];
+                                                         context:moc];
                 if (waypoint) {
-                    [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
+                    [CoreData.sharedInstance sync:moc];
 
                     NSMutableDictionary *json = [[[OwnTracking sharedInstance] waypointAsJSON:waypoint] mutableCopy];
                     if (json) {
                         NSData *data = [self jsonToData:json];
                         [self.connection sendData:data
-                                            topic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
+                                            topic:[Settings theGeneralTopicInMOC:moc]
                                        topicAlias:@(1)
                                               qos:[Settings intForKey:@"qos_preference"
-                                                                inMOC:CoreData.sharedInstance.mainMOC]
+                                                                inMOC:moc]
                                            retain:[Settings boolForKey:@"retain_preference"
-                                                                 inMOC:CoreData.sharedInstance.mainMOC]];
+                                                                 inMOC:moc]];
                     } else {
                         DDLogError(@"[OwnTracksAppDelegate] no JSON created from waypoint %@", waypoint);
                         return FALSE;
                     }
-                    [[OwnTracking sharedInstance] limitWaypointsFor:friend
-                                                          toMaximum:[Settings intForKey:@"positions_preference"
-                                                                                  inMOC:CoreData.sharedInstance.mainMOC]];
+                    [ownTracking limitWaypointsFor:friend
+                                         toMaximum:[Settings intForKey:@"positions_preference"
+                                                                 inMOC:moc]];
                 } else {
                     DDLogError(@"[OwnTracksAppDelegate] waypoint creation failed from friend %@, location %@", friend, location);
                     return FALSE;
@@ -1302,15 +1318,21 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)sendEmpty:(NSString *)topic {
+    NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
+    MQTTQosLevel qos = [Settings intForKey:@"qos_preference"
+                                     inMOC:moc];
     [self.connection sendData:nil
                         topic:topic
                    topicAlias:nil
-                          qos:[Settings intForKey:@"qos_preference"
-                                            inMOC:CoreData.sharedInstance.mainMOC]
+                          qos:qos
                        retain:YES];
 }
 
 - (void)requestLocationFromFriend:(Friend *)friend {
+    NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
+    MQTTQosLevel qos = [Settings intForKey:@"qos_preference"
+                                     inMOC:moc];
+
     NSMutableDictionary *json = [@{
                                    @"_type": @"cmd",
                                    @"action": @"reportLocation"
@@ -1318,20 +1340,22 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self.connection sendData:[self jsonToData:json]
                         topic:[friend.topic stringByAppendingString:@"/cmd"]
                    topicAlias:nil
-                          qos:[Settings intForKey:@"qos_preference"
-                                            inMOC:CoreData.sharedInstance.mainMOC]
+                          qos:qos
                        retain:NO];
 }
 
 - (void)sendRegion:(Region *)region {
-    if ([Settings validIdsInMOC:CoreData.sharedInstance.mainMOC]) {
+    NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
+
+    if ([Settings validIdsInMOC:moc]) {
+        MQTTQosLevel qos = [Settings intForKey:@"qos_preference"
+                                         inMOC:moc];
         NSMutableDictionary *json = [[[OwnTracking sharedInstance] regionAsJSON:region] mutableCopy];
         NSData *data = [self jsonToData:json];
         [self.connection sendData:data
-                            topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/waypoint"]
+                            topic:[[Settings theGeneralTopicInMOC:moc] stringByAppendingString:@"/waypoint"]
                        topicAlias:@(7)
-                              qos:[Settings intForKey:@"qos_preference"
-                                                inMOC:CoreData.sharedInstance.mainMOC]
+                              qos:qos
                            retain:NO];
     }
 }
@@ -1339,20 +1363,22 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 #pragma internal helpers
 
 - (void)connect {
-    BOOL usePassword = [Settings theMqttUsePasswordInMOC:CoreData.sharedInstance.mainMOC];
+    NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
+
+    BOOL usePassword = [Settings theMqttUsePasswordInMOC:moc];
     NSString *password = nil;
     if (usePassword) {
-        password = [Settings theMqttPassInMOC:CoreData.sharedInstance.mainMOC];
+        password = [Settings theMqttPassInMOC:moc];
     }
-    if ([Settings intForKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC] == CONNECTION_MODE_HTTP) {
+    if ([Settings intForKey:@"mode" inMOC:moc] == CONNECTION_MODE_HTTP) {
         self.connection.key = [Settings stringForKey:@"secret_preference"
-                                               inMOC:CoreData.sharedInstance.mainMOC];
+                                               inMOC:moc];
         [self.connection connectHTTP:[Settings stringForKey:@"url_preference"
-                                                      inMOC:CoreData.sharedInstance.mainMOC]
-                                auth:[Settings theMqttAuthInMOC:CoreData.sharedInstance.mainMOC]
-                                user:[Settings theMqttUserInMOC:CoreData.sharedInstance.mainMOC]
+                                                      inMOC:moc]
+                                auth:[Settings theMqttAuthInMOC:moc]
+                                user:[Settings theMqttUserInMOC:moc]
                                 pass:password
-                              device:[Settings theDeviceIdInMOC:CoreData.sharedInstance.mainMOC]];
+                              device:[Settings theDeviceIdInMOC:moc]];
 
     } else {
         NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
@@ -1361,14 +1387,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                                                        create:YES
                                                                         error:nil];
         NSArray *certificates = nil;
-        NSString *fileName = [Settings stringForKey:@"clientpkcs" inMOC:CoreData.sharedInstance.mainMOC];
+        NSString *fileName = [Settings stringForKey:@"clientpkcs" inMOC:moc];
         if (fileName && fileName.length) {
             DDLogVerbose(@"[OwnTracksAppDelegate] getting p12 filename:%@ passphrase:%@",
-                         fileName, [Settings stringForKey:@"passphrase" inMOC:CoreData.sharedInstance.mainMOC]);
+                         fileName, [Settings stringForKey:@"passphrase" inMOC:moc]);
             NSString *clientPKCSPath = [directoryURL.path stringByAppendingPathComponent:fileName];
             certificates = [MQTTTransport clientCertsFromP12:clientPKCSPath
                                                   passphrase:[Settings stringForKey:@"passphrase"
-                                                                              inMOC:CoreData.sharedInstance.mainMOC]];
+                                                                              inMOC:moc]];
             if (!certificates) {
                 [self.navigationController alert:NSLocalizedString(@"TLS Client Certificate",
                                                                    @"Heading for certificate error message")
@@ -1379,10 +1405,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         }
 
         MQTTQosLevel subscriptionQos =[Settings intForKey:@"subscriptionqos_preference"
-                                                    inMOC:CoreData.sharedInstance.mainMOC];
+                                                    inMOC:moc];
         NSArray *subscriptions = [[NSArray alloc] init];
-        if ([Settings boolForKey:@"sub_preference" inMOC:CoreData.sharedInstance.mainMOC]) {
-            subscriptions = [[Settings theSubscriptionsInMOC:CoreData.sharedInstance.mainMOC] componentsSeparatedByCharactersInSet:
+        if ([Settings boolForKey:@"sub_preference" inMOC:moc]) {
+            subscriptions = [[Settings theSubscriptionsInMOC:moc] componentsSeparatedByCharactersInSet:
                              [NSCharacterSet whitespaceCharacterSet]];
         }
 
@@ -1395,24 +1421,24 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         }];
         
         self.connection.key = [Settings stringForKey:@"secret_preference"
-                                               inMOC:CoreData.sharedInstance.mainMOC];
+                                               inMOC:moc];
 
-        [self.connection connectTo:[Settings theHostInMOC:CoreData.sharedInstance.mainMOC]
-                              port:[Settings intForKey:@"port_preference" inMOC:CoreData.sharedInstance.mainMOC]
-                                ws:[Settings boolForKey:@"ws_preference" inMOC:CoreData.sharedInstance.mainMOC]
-                               tls:[Settings boolForKey:@"tls_preference" inMOC:CoreData.sharedInstance.mainMOC]
-                   protocolVersion:[Settings intForKey:SETTINGS_PROTOCOL inMOC:CoreData.sharedInstance.mainMOC]
-                         keepalive:[Settings intForKey:@"keepalive_preference" inMOC:CoreData.sharedInstance.mainMOC]
-                             clean:[Settings intForKey:@"clean_preference" inMOC:CoreData.sharedInstance.mainMOC]
-                              auth:[Settings theMqttAuthInMOC:CoreData.sharedInstance.mainMOC]
-                              user:[Settings theMqttUserInMOC:CoreData.sharedInstance.mainMOC]
+        [self.connection connectTo:[Settings theHostInMOC:moc]
+                              port:[Settings intForKey:@"port_preference" inMOC:moc]
+                                ws:[Settings boolForKey:@"ws_preference" inMOC:moc]
+                               tls:[Settings boolForKey:@"tls_preference" inMOC:moc]
+                   protocolVersion:[Settings intForKey:SETTINGS_PROTOCOL inMOC:moc]
+                         keepalive:[Settings intForKey:@"keepalive_preference" inMOC:moc]
+                             clean:[Settings intForKey:@"clean_preference" inMOC:moc]
+                              auth:[Settings theMqttAuthInMOC:moc]
+                              user:[Settings theMqttUserInMOC:moc]
                               pass:password
-                         willTopic:[Settings theWillTopicInMOC:CoreData.sharedInstance.mainMOC]
+                         willTopic:[Settings theWillTopicInMOC:moc]
                               will:[self jsonToData:json]
-                           willQos:[Settings intForKey:@"willqos_preference" inMOC:CoreData.sharedInstance.mainMOC]
-                    willRetainFlag:[Settings boolForKey:@"willretain_preference" inMOC:CoreData.sharedInstance.mainMOC]
-                      withClientId:[Settings theClientIdInMOC:CoreData.sharedInstance.mainMOC]
-        allowUntrustedCertificates:[Settings boolForKey:@"allowinvalidcerts" inMOC:CoreData.sharedInstance.mainMOC]
+                           willQos:[Settings intForKey:@"willqos_preference" inMOC:moc]
+                    willRetainFlag:[Settings boolForKey:@"willretain_preference" inMOC:moc]
+                      withClientId:[Settings theClientIdInMOC:moc]
+        allowUntrustedCertificates:[Settings boolForKey:@"allowinvalidcerts" inMOC:moc]
                       certificates:certificates];
     }
 }
@@ -1553,9 +1579,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 break;
         }
         [LocationManager sharedInstance].monitoring = monitoring;
-        [Settings setInt:(int)[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"
-                   inMOC:CoreData.sharedInstance.mainMOC];
-        [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
+        NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
+
+        [Settings setInt:(int)[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference" inMOC:moc];
+        [CoreData.sharedInstance sync:moc];
 
         return YES;
 
