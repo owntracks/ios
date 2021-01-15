@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 31.01.14.
-//  Copyright © 2014-2020  Christoph Krey. All rights reserved.
+//  Copyright © 2014-2021  Christoph Krey. All rights reserved.
 //
 
 #import "Settings.h"
@@ -295,51 +295,49 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if (waypoints) {
         for (NSDictionary *waypoint in waypoints) {
             if ([waypoint[@"_type"] isEqualToString:@"waypoint"]) {
-                DDLogVerbose(@"[Settings][setWaypoints] identifier:%@ desc:%@ lon:%g lat:%g",
-                             waypoint[@"identifier"],
+                DDLogVerbose(@"[Settings][setWaypoints] rid:%@ desc:%@ lon:%@ lat:%@, tst:%@",
+                             waypoint[@"rid"],
                              waypoint[@"desc"],
-                             [waypoint[@"lon"] doubleValue],
-                             [waypoint[@"lat"] doubleValue]
+                             waypoint[@"lon"],
+                             waypoint[@"lat"],
+                             waypoint[@"tst"]
                              );
 
-                NSString *identifierString = waypoint[@"identifier"];
-                NSUUID *identifier;
-                if (identifierString) {
-                    identifier = [[NSUUID alloc] initWithUUIDString:identifierString];
-                } else {
-                    identifier = [NSUUID UUID];
-                }
                 NSArray *components = [waypoint[@"desc"] componentsSeparatedByString:@":"];
                 NSString *name = components.count >= 1 ? components[0] : nil;
                 NSString *uuid = components.count >= 2 ? components[1] : nil;
                 unsigned int major = components.count >= 3 ? [components[2] unsignedIntValue]: 0;
                 unsigned int minor = components.count >= 4 ? [components[3] unsignedIntValue]: 0;
-                
+
+                NSDate *tst = [NSDate dateWithTimeIntervalSince1970:
+                               [waypoint[@"tst"] doubleValue]];
+
+                NSString *rid = waypoint[@"rid"];
+                if (!rid) {
+                    rid = [Region ridFromTst:tst andName:name];
+                }
+
                 Friend *friend = [Friend friendWithTopic:[self theGeneralTopicInMOC:context]
                                         inManagedObjectContext:context];
 
                 for (Region *region in friend.hasRegions) {
-                    if ([region.identifier.UUIDString isEqualToString:identifier.UUIDString]) {
-                        DDLogVerbose(@"[Settings][setWaypoints] removeRegion %@",
-                                     identifier.UUIDString
-                                     );
-
+                    if ([region.getAndFillRid isEqualToString:rid]) {
+                        DDLogVerbose(@"[Settings][setWaypoints] removeRegion %@", rid);
                         [[OwnTracking sharedInstance] removeRegion:region context:context];
                         break;
                     }
                 }
 
-                CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
-                                                                               [waypoint[@"lat"] doubleValue],
-                                                                               [waypoint[@"lon"] doubleValue]
-                                                                               );
+                CLLocationCoordinate2D coordinate =
+                CLLocationCoordinate2DMake([waypoint[@"lat"] doubleValue],
+                                           [waypoint[@"lon"] doubleValue]);
                 if (CLLocationCoordinate2DIsValid(coordinate)) {
                     DDLogVerbose(@"[Settings][setWaypoints] addRegion desc:%@",
-                                 waypoint[@"desc"]
-                                 );
-                    [[OwnTracking sharedInstance] addRegionFor:identifier
+                                 waypoint[@"desc"]);
+                    [[OwnTracking sharedInstance] addRegionFor:rid
                                                         friend:friend
                                                           name:name
+                                                           tst:tst
                                                           uuid:uuid
                                                          major:major
                                                          minor:minor

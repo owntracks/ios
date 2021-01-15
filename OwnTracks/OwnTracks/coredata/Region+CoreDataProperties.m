@@ -23,7 +23,7 @@
 @dynamic radius;
 @dynamic tst;
 @dynamic uuid;
-@dynamic identifier;
+@dynamic rid;
 @dynamic belongsTo;
 
 @end

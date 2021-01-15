@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 17.08.13.
-//  Copyright © 2013-2020  Christoph Krey. All rights reserved.
+//  Copyright © 2013-2021  Christoph Krey. All rights reserved.
 //
 
 #import "ViewController.h"
@@ -728,10 +728,12 @@ calloutAccessoryControlTapped:(UIControl *)control {
     if (sender.state == UIGestureRecognizerStateBegan) {
 
         Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] inManagedObjectContext:CoreData.sharedInstance.mainMOC];
-        [[OwnTracking sharedInstance] addRegionFor:[NSUUID UUID]
+        NSString *rid = Region.newRid;
+        [[OwnTracking sharedInstance] addRegionFor:rid
                                             friend:friend
-                                              name:[NSString stringWithFormat:@"Center-%d",
-                                                    (int)round([NSDate date].timeIntervalSince1970)]
+                                              name:[NSString stringWithFormat:@"Center-%@",
+                                                    rid]
+                                               tst:[NSDate date]
                                               uuid:nil
                                              major:0
                                              minor:0

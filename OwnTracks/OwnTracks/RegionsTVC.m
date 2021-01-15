@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 29.09.13.
-//  Copyright © 2013-2020  Christoph Krey. All rights reserved.
+//  Copyright © 2013-2021  Christoph Krey. All rights reserved.
 //
 
 #import "RegionsTVC.h"
@@ -65,11 +65,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     if ([segue.identifier isEqualToString:@"newRegion:"]) {
         Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] inManagedObjectContext:CoreData.sharedInstance.mainMOC];
         CLLocation *location = [LocationManager sharedInstance].location;
+        NSString *rid = Region.newRid;
         Region *newRegion =
-        [[OwnTracking sharedInstance] addRegionFor:[NSUUID UUID]
+        [[OwnTracking sharedInstance] addRegionFor:rid
                                             friend:friend
-                                              name:[NSString stringWithFormat:@"Here-%d",
-                                                    (int)round([NSDate date].timeIntervalSince1970)]
+                                              name:[NSString stringWithFormat:@"Here-%@",
+                                                    rid]
+                                               tst:[NSDate date]
                                               uuid:nil
                                              major:0
                                              minor:0

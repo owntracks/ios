@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 28.06.15.
-//  Copyright © 2015-2020  OwnTracks. All rights reserved.
+//  Copyright © 2015-2021  OwnTracks. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -31,9 +31,10 @@ context:(NSManagedObjectContext *)context;
 
 - (void)limitWaypointsFor:(Friend *)friend toMaximum:(NSInteger)max;
 
-- (Region *)addRegionFor:(NSUUID *)identifier
+- (Region *)addRegionFor:(NSString *)rid
 friend:(Friend *)friend
 name:(NSString *)name
+tst:(NSDate *)tst
 uuid:(NSString *)uuid
 major:(unsigned int)major
 minor:(unsigned int)minor

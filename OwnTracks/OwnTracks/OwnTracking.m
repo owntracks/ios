@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 28.06.15.
-//  Copyright © 2015-2020  OwnTracks. All rights reserved.
+//  Copyright © 2015-2021  OwnTracks. All rights reserved.
 //
 
 #import "OwnTracking.h"
@@ -352,9 +352,10 @@ static OwnTracking *theInstance = nil;
     return waypoint;
 }
 
-- (Region *)addRegionFor:(NSUUID *)identifier
+- (Region *)addRegionFor:(NSString *)rid
                   friend:(Friend *)friend
                     name:(NSString *)name
+                     tst:(NSDate *)tst
                     uuid:(NSString *)uuid
                    major:(unsigned int)major
                    minor:(unsigned int)minor
@@ -365,8 +366,8 @@ static OwnTracking *theInstance = nil;
     Region *region = [NSEntityDescription insertNewObjectForEntityForName:@"Region"
                                                    inManagedObjectContext:context];
     region.belongsTo = friend;
-    region.tst = [NSDate date];
-    region.identifier = identifier;
+    region.tst = tst;
+    region.rid = rid;
     region.name = name;
     region.uuid = uuid;
     region.major = @(major);
@@ -477,17 +478,23 @@ static OwnTracking *theInstance = nil;
     }
 
     NSMutableArray <NSString *> *inRegions = [[NSMutableArray alloc] init];
+    NSMutableArray <NSString *> *inRids = [[NSMutableArray alloc] init];
     for (Region *region in waypoint.belongsTo.hasRegions) {
         if (![region.name hasPrefix:@"+"]) {
             if ([LocationManager sharedInstance].insideCircularRegions[region.name] ||
                 [LocationManager sharedInstance].insideBeaconRegions[region.name]) {
                 [inRegions addObject:region.name];
+                [inRids addObject:region.getAndFillRid];
             }
         }
     }
 
     if (inRegions.count > 0) {
         json[@"inregions"] = inRegions;
+    }
+
+    if (inRids.count > 0) {
+        json[@"inrids"] = inRids;
     }
 
     return json;
@@ -499,7 +506,7 @@ static OwnTracking *theInstance = nil;
                            @"lon": region.lon,
                            @"rad": region.radius,
                            @"tst": @(floor(region.andFillTst.timeIntervalSince1970)),
-                           @"identifier": region.andFillIdentifier.UUIDString,
+                           @"rid": region.andFillRid,
                            @"desc": [NSString stringWithFormat:@"%@%@%@%@",
                                      region.name,
                                      (region.uuid && region.uuid.length > 0) ?

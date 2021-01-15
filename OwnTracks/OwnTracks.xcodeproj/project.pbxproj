@@ -259,6 +259,7 @@
 		843A57AC24A9A4D700A5441B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		843B7B5A25A8689900B814D5 /* Model 14.0.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 14.0.0.xcdatamodel"; sourceTree = "<group>"; };
 		843B7B7F25A8859100B814D5 /* libcommonCrypto.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libcommonCrypto.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/usr/lib/system/libcommonCrypto.tbd; sourceTree = DEVELOPER_DIR; };
+		843B7BA525A8AF0100B814D5 /* Model 14.0.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 14.0.1.xcdatamodel"; sourceTree = "<group>"; };
 		843B91731C8A14BF00DBD306 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Storyboard.storyboard; sourceTree = "<group>"; };
 		845299DA1DF9FD6200A4DC21 /* Model 9.5.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.5.0.xcdatamodel"; sourceTree = "<group>"; };
 		845299DF1DFA004000A4DC21 /* Friend+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Friend+CoreDataClass.h"; sourceTree = "<group>"; };
@@ -1898,6 +1899,7 @@
 		8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				843B7BA525A8AF0100B814D5 /* Model 14.0.1.xcdatamodel */,
 				843B7B5A25A8689900B814D5 /* Model 14.0.0.xcdatamodel */,
 				84595203253DF78200807097 /* Model 13.4.0.xcdatamodel */,
 				84E4020923141F3E00F1D6E6 /* Model 12.0.7.xcdatamodel */,
@@ -1925,7 +1927,7 @@
 				84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */,
 				8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 843B7B5A25A8689900B814D5 /* Model 14.0.0.xcdatamodel */;
+			currentVersion = 843B7BA525A8AF0100B814D5 /* Model 14.0.1.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

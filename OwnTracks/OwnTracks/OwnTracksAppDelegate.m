@@ -717,7 +717,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 if ([region.identifier isEqualToString:anyRegion.CLregion.identifier]) {
                     anyRegion.name = anyRegion.name;
                     [json setValue:region.identifier forKey:@"desc"];
-                    [json setValue:anyRegion.andFillIdentifier.UUIDString forKey:@"identifier"];
+                    [json setValue:@(floor(anyRegion.tst.timeIntervalSince1970))
+                            forKey:@"wtst"];
+                    [json setValue:anyRegion.andFillRid forKey:@"rid"];
 
                     [self.connection sendData:[self jsonToData:json]
                                         topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/event"]

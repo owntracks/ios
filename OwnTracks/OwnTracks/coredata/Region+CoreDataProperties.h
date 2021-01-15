@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSNumber *radius;
 @property (nullable, nonatomic, copy) NSDate *tst;
 @property (nullable, nonatomic, copy) NSString *uuid;
-@property (nullable, nonatomic, copy) NSUUID *identifier;
+@property (nullable, nonatomic, copy) NSString *rid;
 @property (nullable, nonatomic, retain) Friend *belongsTo;
 
 @end

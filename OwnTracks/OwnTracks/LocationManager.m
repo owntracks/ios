@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 21.10.14.
-//  Copyright © 2014-2020  OwnTracks. All rights reserved.
+//  Copyright © 2014-2021  OwnTracks. All rights reserved.
 //
 
 #import "LocationManager.h"

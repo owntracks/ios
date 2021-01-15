@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 30.05.18.
-//  Copyright © 2018-2020 OwnTracks. All rights reserved.
+//  Copyright © 2018-2021 OwnTracks. All rights reserved.
 //
 //
 
@@ -22,7 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) CLRegion * _Nonnull CLregion;
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) MKCircle * _Nonnull circle;
 @property (NS_NONATOMIC_IOSONLY, getter=getAndFillTst, readonly, copy) NSDate * _Nonnull andFillTst;
-@property (NS_NONATOMIC_IOSONLY, getter=getAndFillIdentifier, readonly, copy) NSUUID * _Nonnull andFillIdentifier;
+@property (NS_NONATOMIC_IOSONLY, getter=getAndFillRid, readonly, copy) NSString * _Nonnull andFillRid;
+
++ (NSString *)ridFromTst:(NSDate *)tst andName:(NSString *)name;
++ (NSString *)newRid;
 
 @end
 

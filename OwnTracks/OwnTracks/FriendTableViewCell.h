@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 30.06.15.
-//  Copyright © 2015-2020  OwnTracks. All rights reserved.
+//  Copyright © 2015-2021  OwnTracks. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

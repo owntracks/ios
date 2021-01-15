@@ -2,8 +2,8 @@
 //  Queue+CoreDataProperties.h
 //  OwnTracks
 //
-//  Created by Christoph Krey on 26.07.19.
-//  Copyright © 2019-2020 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 08.01.21.
+//  Copyright © 2021 OwnTracks. All rights reserved.
 //
 //
 

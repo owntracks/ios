@@ -11,24 +11,50 @@
 #import "Friend+CoreDataClass.h"
 #import <CommonCrypto/CommonHMAC.h>
 
+@interface NSString (sha)
+- (NSString *)sha;
+- (NSString *)sha6;
+@end
+
+@implementation NSString (sha)
+- (NSString *)sha {
+    unsigned char digest[CC_SHA1_DIGEST_LENGTH];
+    NSData *stringBytes = [self dataUsingEncoding: NSUTF8StringEncoding];
+    (void)CC_SHA1([stringBytes bytes],
+                  (unsigned int)[stringBytes length],
+                  digest);
+    NSString *shaString = [[NSString alloc] init];
+    for (NSInteger i = 0; i < CC_SHA1_DIGEST_LENGTH; i++) {
+        shaString = [shaString stringByAppendingFormat:@"%02x",
+                     digest[i]];
+    }
+    return shaString;
+}
+
+- (NSString *)sha6 {
+    return [[self sha] substringToIndex:6];
+}
+@end
+
+
 @implementation Region
 
-- (NSUUID *)getAndFillIdentifier {
-    if (!self.identifier) {
-        self.identifier = [NSUUID UUID];
-    }
-    unsigned char digest[CC_SHA1_DIGEST_LENGTH];
-    NSData *stringBytes = [self.identifier.UUIDString dataUsingEncoding: NSUTF8StringEncoding];
-    unsigned char *sha1 = CC_SHA1([stringBytes bytes], (unsigned int)[stringBytes length], digest);
-    if (sha1) {
-    } else {
-    }
-    NSString *string = [[NSString alloc] init];
-    for (NSInteger i = 0; i < CC_SHA1_DIGEST_LENGTH; i++) {
-        string = [string stringByAppendingFormat:@"%02x", digest[i]];
-    }
++ (NSString *)ridFromTst:(NSDate *)tst andName:(NSString *)name {
+    NSString *string = [NSString stringWithFormat:@"%@-%.0f",
+                        name,
+                        tst.timeIntervalSince1970];
+    return string.sha6;
+}
 
-    return self.identifier;
++ (NSString *)newRid {
+    return [NSUUID UUID].UUIDString.sha6;
+}
+
+- (NSString *)getAndFillRid {
+    if (!self.rid) {
+        self.rid = [Region ridFromTst:self.tst andName:self.name];
+    }
+    return self.rid;
 }
 
 - (NSDate *)getAndFillTst {
