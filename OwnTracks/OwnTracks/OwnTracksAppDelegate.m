@@ -97,7 +97,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 @property (strong, nonatomic) NSUserActivity *sendNowActivity;
 
 #define BACKGROUND_DISCONNECT_AFTER 15.0
-#define BACKGROUND_HOLD_FOR 3.0
+#define BACKGROUND_HOLD_FOR 10.0
 @property (strong, nonatomic) NSTimer *disconnectTimer;
 @property (strong, nonatomic) NSTimer *holdTimer;
 @property (strong, nonatomic) NSTimer *bgTimer;
@@ -563,24 +563,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)doRefresh {
+    self.inRefresh = TRUE;
     [self background];
 
     [[LocationManager sharedInstance] wakeup];
     [self.connection connectToLast];
-
-    if ([LocationManager sharedInstance].monitoring == LocationMonitoringSignificant ||
-        [LocationManager sharedInstance].monitoring == LocationMonitoringMove) {
-        CLLocation *lastLocation = [LocationManager sharedInstance].location;
-        CLLocation *location =
-        [[CLLocation alloc] initWithCoordinate:lastLocation.coordinate
-                                      altitude:lastLocation.altitude
-                            horizontalAccuracy:lastLocation.horizontalAccuracy
-                              verticalAccuracy:lastLocation.verticalAccuracy
-                                        course:lastLocation.course
-                                         speed:lastLocation.speed
-                                     timestamp:[NSDate date]];
-        [self publishLocation:location trigger:@"p"];
-    }
 }
 
 - (void)background {
@@ -661,7 +648,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)newLocation:(CLLocation *)location {
     [self background];
-    [self publishLocation:location trigger:nil];
+    if (self.inRefresh) {
+        self.inRefresh = FALSE;
+        [self publishLocation:location trigger:@"p"];
+    } else {
+        [self publishLocation:location trigger:nil];
+    }
 }
 
 - (void)timerLocation:(CLLocation *)location {

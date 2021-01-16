@@ -34,6 +34,7 @@
 
 @property (strong, nonatomic) NSDate *configLoad;
 @property (strong, nonatomic) NSString *action;
+@property (nonatomic) BOOL inRefresh;
 
 - (BOOL)sendNow:(CLLocation *)location;
 - (void)dump;

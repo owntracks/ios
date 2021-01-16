@@ -177,6 +177,9 @@ static LocationManager *theInstance = nil;
         DDLogVerbose(@"requestStateForRegion %@", region.identifier);
         [self.manager requestStateForRegion:region];
     }
+    if (self.monitoring == LocationMonitoringSignificant) {
+        [self.manager  requestLocation];
+    }
     [self startBackgroundTimer];
 }
 
