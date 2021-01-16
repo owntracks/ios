@@ -319,8 +319,26 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 return TRUE;
             } else if ([url.path isEqualToString:@"/config"]) {
                 NSString *urlString = queryStrings[@"url"];
-                NSURL *urlFromString = [NSURL URLWithString:urlString];
-                return [self processNSURL:urlFromString];
+                NSString *base64String = queryStrings[@"inline"];
+                if (urlString) {
+                    NSURL *urlFromString = [NSURL URLWithString:urlString];
+                    return [self processNSURL:urlFromString];
+                } else if (base64String) {
+                    NSData *jsonData = [[NSData alloc] initWithBase64EncodedString:base64String options:0];
+                    if (jsonData) {
+                        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+                        if (dict && [dict isKindOfClass:NSDictionary.class]) {
+                            [self configFromDictionary:dict];
+                            self.processingMessage = NSLocalizedString(@"Inline Configuration successfully processed",
+                                                                       @"Display after processing inline config");
+                            return TRUE;
+                        } else {
+                            return FALSE;
+                        }
+                    } else {
+                        return FALSE;
+                    }
+                }
             } else {
                 return FALSE;
             }
