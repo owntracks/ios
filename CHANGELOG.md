@@ -1,6 +1,19 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 14.0.1 iOS/ipadOS/macOS
+* Release Date 2021-01-16
+
+** Bug fixes and small enhancements
+
+    [FIX] wait for new location in background refresh ´"t":"p"'
+    [NEW] support owntracks:///config?inline= inline url config processing
+    [NEW] Regions with "identifier" 
+    [FIX] cleanup "created_at"
+    [NEW] Add `created_at` timestamp if relevant #650
+    [FIX] always report integer value for "acc" accuracy
+    [FIX] OwnTracks on macOS too quickly creates location pins on map #649
+
 ## OwnTracks 13.1.4 iOS/ipadOS 13.1.7 macOS
 * Release Date 2019-11-19
 
