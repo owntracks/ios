@@ -291,10 +291,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 }
             }
             if ([url.path isEqualToString:@"/beacon"]) {
+                NSString *rid = queryStrings[@"rid"];
                 NSString *name = queryStrings[@"name"];
                 NSString *uuid = queryStrings[@"uuid"];
                 int major = [queryStrings[@"major"] intValue];
                 int minor = [queryStrings[@"minor"] intValue];
+
+                if (!rid) {
+                    rid = Region.newRid;
+                }
 
                 NSString *desc = [NSString stringWithFormat:@"%@:%@%@%@",
                                   name,
@@ -306,6 +311,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 [Settings waypointsFromDictionary:
                  @{@"_type":@"waypoints",
                    @"waypoints":@[@{@"_type":@"waypoint",
+                                    @"rid":rid,
                                     @"desc":desc,
                                     @"tst":@((int)round(([NSDate date].timeIntervalSince1970))),
                                     @"lat":@([LocationManager sharedInstance].location.coordinate.latitude),
@@ -333,13 +339,22 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                                                        @"Display after processing inline config");
                             return TRUE;
                         } else {
+                            self.processingMessage = NSLocalizedString(@"Inline Configuration incorrect",
+                                                                       @"Display for incorrect inline config");
                             return FALSE;
                         }
                     } else {
+                        self.processingMessage = NSLocalizedString(@"Inline Configuration incorrectly encoded",
+                                                                   @"Display for incorrectly encoded inline config");
                         return FALSE;
                     }
                 }
+                self.processingMessage = NSLocalizedString(@"Inline Configuration missing parameters",
+                                                           @"Display for config without parameters");
+                return FALSE;
             } else {
+                self.processingMessage = NSLocalizedString(@"unknown url path",
+                                                           @"Display for unknown url path");
                 return FALSE;
             }
         } else if ([url.scheme isEqualToString:@"file"]) {
