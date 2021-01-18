@@ -55,6 +55,10 @@
                forKeyPath:@"connectionBuffered"
                   options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                   context:nil];
+    [delegate addObserver:self
+               forKeyPath:@"processingMessage"
+                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                  context:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -72,6 +76,13 @@
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
+    if ([keyPath isEqualToString:@"processingMessage"]) {
+        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        if (delegate.processingMessage) {
+            [self alert:@"openURL" message:delegate.processingMessage];
+        }
+    }
+
     [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
 }
 
