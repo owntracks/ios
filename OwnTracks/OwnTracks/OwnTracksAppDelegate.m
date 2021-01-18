@@ -279,17 +279,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         if ([url.scheme isEqualToString:@"owntracks"]) {
             DDLogVerbose(@"[OwnTracksAppDelegate] URL path %@ query %@", url.path, url.query);
 
+            NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:TRUE];
+            NSArray<NSURLQueryItem *> *items = [components queryItems];
             NSMutableDictionary *queryStrings = [[NSMutableDictionary alloc] init];
-            for (NSString *parameter in [url.query componentsSeparatedByString:@"&"]) {
-                NSArray *pair = [parameter componentsSeparatedByString:@"="];
-                if (pair.count == 2) {
-                    NSString *key = pair[0];
-                    NSString *value = pair[1];
-                    value = [value stringByReplacingOccurrencesOfString:@"+" withString:@" "];
-                    value = [value stringByRemovingPercentEncoding];
-                    queryStrings[key] = value;
-                }
+            for (NSURLQueryItem *item in items) {
+                queryStrings[item.name] = item.value;
             }
+            
             if ([url.path isEqualToString:@"/beacon"]) {
                 NSString *rid = queryStrings[@"rid"];
                 NSString *name = queryStrings[@"name"];
