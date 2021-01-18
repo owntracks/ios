@@ -1,11 +1,16 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 14.0.1 iOS/ipadOS/macOS
-* Release Date 2021-01-16
+
+## OwnTracks 14.0.2 iOS/ipadOS/macOS
+* Release Date 2021-01-18
 
 ** Bug fixes and small enhancements
 
+    [FIX] url query parsing
+    [NEW] increase details for error messages on inline config
+    [NEW] add rid to /beacon url path
+    [FIX] show processingMessage on Mac
     [FIX] wait for new location in background refresh ´"t":"p"'
     [NEW] support owntracks:///config?inline= inline url config processing
     [NEW] Regions with "identifier" 
