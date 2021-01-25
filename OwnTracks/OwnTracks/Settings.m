@@ -418,7 +418,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             dict[@"willTopic"] =            [Settings stringOrZeroForKey:@"willtopic_preference" inMOC:context];
             dict[@"clientpkcs"] =           [Settings stringOrZeroForKey:@"clientpkcs" inMOC:context];
             dict[@"passphrase"] =           [Settings stringOrZeroForKey:@"passphrase" inMOC:context];
-            dict[@"servercer"] =            [Settings stringOrZeroForKey:@"servercer" inMOC:context];
             
             dict[@"subQos"] =               @([Settings intForKey:@"subscriptionqos_preference" inMOC:context]);
             dict[@"pubQos"] =               @([Settings intForKey:@"qos_preference" inMOC:context]);
@@ -426,16 +425,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             dict[@"mqttProtocolLevel"] =    @([Settings intForKey:SETTINGS_PROTOCOL inMOC:context]);
             dict[@"keepalive"] =            @([Settings intForKey:@"keepalive_preference" inMOC:context]);
             dict[@"willQos"] =              @([Settings intForKey:@"willqos_preference" inMOC:context]);
-            dict[@"policymode"] =           @([Settings intForKey:@"policymode" inMOC:context]);
 
             dict[@"pubRetain"] =            @([Settings boolForKey:@"retain_preference" inMOC:context]);
             dict[@"tls"] =                  @([Settings boolForKey:@"tls_preference" inMOC:context]);
             dict[@"ws"] =                   @([Settings boolForKey:@"ws_preference" inMOC:context]);
             dict[@"cleanSession"] =         @([Settings boolForKey:@"clean_preference" inMOC:context]);
             dict[@"willRetain"] =           @([Settings boolForKey:@"willretain_preference" inMOC:context]);
-            dict[@"usepolicy"] =            @([Settings boolForKey:@"usepolicy" inMOC:context]);
-            dict[@"validatecertificatechain"] =  @([Settings boolForKey:@"validatecertificatechain" inMOC:context]);
-            dict[@"validatedomainname"] =   @([Settings boolForKey:@"validatedomainname" inMOC:context]);
             break;
 
         case CONNECTION_MODE_HTTP:

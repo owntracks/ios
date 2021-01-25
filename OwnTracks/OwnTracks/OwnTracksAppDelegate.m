@@ -1185,11 +1185,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
              }
 
              NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
-             NSString *topic = [Settings theGeneralTopicInMOC:moc];
              MQTTQosLevel qos = [Settings intForKey:@"qos_preference"
                                               inMOC:moc];
              [self.connection sendData:[self jsonToData:json]
-                                 topic:topic
+                                 topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/step"]
                             topicAlias:@(6)
                                    qos:qos
                                 retain:NO];
