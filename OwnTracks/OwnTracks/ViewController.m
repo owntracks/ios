@@ -54,6 +54,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 #if TARGET_OS_MACCATALYST
     self.mapView.showsZoomControls = TRUE;
+    if (@available(macCatalyst 14.0, *)) {
+        self.mapView.showsPitchControl = TRUE;
+    } else {
+        // Fallback on earlier versions
+    }
 #endif
 
     DDLogInfo(@"[ViewController] viewDidLoad mapView region %g %g %g %g",
