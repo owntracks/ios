@@ -4,7 +4,9 @@ OwnTracks iOS App Release Notes
 ## OwnTracks 14.0.3 iOS/ipadOS/macOS
 * Release Date 2021-01-25
 
-** Bug fixes
+** Bug fixes and small enhancements
+
+    [NEW] add pitch control for map on MacOS
     [FIX] Steps reporting topic changed? closes #660
 
 ## OwnTracks 14.0.2 iOS/ipadOS/macOS
