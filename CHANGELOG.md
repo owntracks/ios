@@ -1,6 +1,13 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 14.0.4 iOS/ipadOS/macOS
+* Release Date 2021-01-27
+
+** Bug fix
+
+    [FIX] Version 14.0.2/3 crashes on MacOS Catalina 10.15 closes #661
+
 ## OwnTracks 14.0.3 iOS/ipadOS/macOS
 * Release Date 2021-01-25
 
