@@ -52,8 +52,36 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     // we don't show the scale as it would conflict with the new mode display
     self.mapView.showsScale = FALSE;
 
+    BOOL macCatalystApp = [[NSProcessInfo processInfo] isMacCatalystApp];
+    BOOL iOSAppOnMac = FALSE;
+    if (@available(macCatalyst 14.0, *)) {
+        iOSAppOnMac = [[NSProcessInfo processInfo] isiOSAppOnMac];
+    } else {
+        // Fallback on earlier versions
+    }
+    NSOperatingSystemVersion operatingSystemVersion = [[NSProcessInfo processInfo] operatingSystemVersion];
+    DDLogInfo(@"[ViewController] processInfo isMacCatalystApp:%d isIosAppOnMac:%d operatingSystemVersion %ld.%ld.%ld",
+              macCatalystApp,
+              iOSAppOnMac,
+              (long)operatingSystemVersion.majorVersion,
+              (long)       operatingSystemVersion.minorVersion,
+              (long)       operatingSystemVersion.patchVersion);
+
+
 #if TARGET_OS_MACCATALYST
     self.mapView.showsZoomControls = TRUE;
+
+    NSOperatingSystemVersion requiredOperatingSystemVersion;
+    requiredOperatingSystemVersion.majorVersion = 11;
+    requiredOperatingSystemVersion.minorVersion = 0;
+    requiredOperatingSystemVersion.patchVersion = 0;
+
+    if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:requiredOperatingSystemVersion]) {
+        self.mapView.showsCompass = TRUE;
+    } else {
+        self.mapView.showsCompass = FALSE;
+    }
+
     if (@available(macCatalyst 14.0, *)) {
         self.mapView.showsPitchControl = TRUE;
     } else {
