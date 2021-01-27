@@ -62,6 +62,7 @@
 		849B1E061FE911FD0016EF1A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 849B1E081FE911FD0016EF1A /* MainInterface.storyboard */; };
 		84A046C41D81FE8000796C56 /* IdPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A046C31D81FE8000796C56 /* IdPicker.m */; };
 		84A488E21F7BBFD900ADCF98 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84A488E11F7BBFD900ADCF98 /* Media.xcassets */; };
+		84AE8ADC25C165D700C0B0EE /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AE8ADB25C165D600C0B0EE /* MapKit.framework */; };
 		84AFD3DC2434380700F1E922 /* OwnTracksWrist WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 84AFD3DB2434380700F1E922 /* OwnTracksWrist WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84AFD3E22434380700F1E922 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84AFD3E02434380700F1E922 /* Interface.storyboard */; };
 		84AFD3E42434380A00F1E922 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84AFD3E32434380A00F1E922 /* Assets.xcassets */; };
@@ -311,6 +312,7 @@
 		84A046C31D81FE8000796C56 /* IdPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdPicker.m; sourceTree = "<group>"; };
 		84A173691B428E5C00CCB7D0 /* Model 8.2.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.1.xcdatamodel"; sourceTree = "<group>"; };
 		84A488E11F7BBFD900ADCF98 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		84AE8ADB25C165D600C0B0EE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/iOSSupport/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		84AF468F1AB9571800E954E3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		84AFD3D82434380700F1E922 /* OwnTracksWrist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OwnTracksWrist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AFD3DB2434380700F1E922 /* OwnTracksWrist WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "OwnTracksWrist WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -391,6 +393,7 @@
 			files = (
 				84929F0B20AAC0D000227D00 /* WebKit.framework in Frameworks */,
 				8488CFDF25A45CC3000AFEE2 /* Security.framework in Frameworks */,
+				84AE8ADC25C165D700C0B0EE /* MapKit.framework in Frameworks */,
 				84B0CDAD239E2EFA00CE9305 /* BackgroundTasks.framework in Frameworks */,
 				841D3525209C74E70084FCD0 /* Contacts.framework in Frameworks */,
 				841D3523209C5DDF0084FCD0 /* UserNotifications.framework in Frameworks */,
@@ -498,6 +501,7 @@
 		8411B82A189FDB140019D2D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84AE8ADB25C165D600C0B0EE /* MapKit.framework */,
 				843B7B7F25A8859100B814D5 /* libcommonCrypto.tbd */,
 				8488CFDE25A45CC3000AFEE2 /* Security.framework */,
 				849B359924A7578000BEC1BB /* Intents.framework */,
@@ -1438,6 +1442,7 @@
 				"INFOPLIST_FILE[sdk=*]" = "OwnTracks/OwnTracks-Info.plist";
 				"INFOPLIST_FILE[sdk=macosx*]" = "OwnTracks/OwnTracks-Info-Mac.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1456,7 +1461,7 @@
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/OwnTracks/include";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1487,6 +1492,7 @@
 				"INFOPLIST_FILE[sdk=*]" = "OwnTracks/OwnTracks-Info.plist";
 				"INFOPLIST_FILE[sdk=macosx*]" = "OwnTracks/OwnTracks-Info-Mac.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1504,7 +1510,7 @@
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,6";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/OwnTracks/include";
 				WRAPPER_EXTENSION = app;
 			};
