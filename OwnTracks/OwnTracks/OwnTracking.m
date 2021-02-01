@@ -387,47 +387,55 @@ static OwnTracking *theInstance = nil;
 
 - (NSDictionary *)waypointAsJSON:(Waypoint *)waypoint {
     NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-    [json setValue:@"location" forKey:@"_type"];
+    json[@"_type"] = @"location";
     if (waypoint.trigger) {
-        [json setValue:waypoint.trigger forKey:@"t"];
+        json[@"t"] = waypoint.trigger;
     }
 
-    [json setValue:waypoint.lat forKey:@"lat"];
-    [json setValue:waypoint.lon forKey:@"lon"];
-    [json setValue:@((int)round(waypoint.tst.timeIntervalSince1970))
-            forKey:@"tst"];
-    if ((int)round(waypoint.tst.timeIntervalSince1970) != (int)round(waypoint.createdAt.timeIntervalSince1970)) {
-        [json setValue:@((int)round(waypoint.createdAt.timeIntervalSince1970))
-                forKey:@"created_at"];
+    json[@"lat"] = [NSDecimalNumber decimalNumberWithString:
+                    [NSString stringWithFormat:@"%.6f", waypoint.lat.doubleValue]];
+
+    json[@"lon"] = [NSDecimalNumber decimalNumberWithString:
+                    [NSString stringWithFormat:@"%.6f", waypoint.lon.doubleValue]];
+
+    json[@"tst"] = [NSDecimalNumber decimalNumberWithString:
+                           [NSString stringWithFormat:@"%.0f", waypoint.tst.timeIntervalSince1970]];
+
+    if (fabs(waypoint.tst.timeIntervalSince1970 -
+             waypoint.createdAt.timeIntervalSince1970) > 1.0) {
+        json[@"created_at"] = [NSDecimalNumber decimalNumberWithString:
+                               [NSString stringWithFormat:@"%.0f",
+                                waypoint.createdAt.timeIntervalSince1970]];
     }
 
-    int acc = (waypoint.acc).intValue;
-    if (acc >= 0) {
-        [json setValue:@(acc) forKey:@"acc"];
+    if (waypoint.acc.doubleValue >= 0.0) {
+        json[@"acc"] = [NSDecimalNumber decimalNumberWithString:
+                        [NSString stringWithFormat:@"%.f", waypoint.acc.doubleValue]];
     }
 
     if ([Settings boolForKey:@"extendeddata_preference" inMOC:waypoint.managedObjectContext]) {
-        int alt = (waypoint.alt).intValue;
-        [json setValue:@(alt) forKey:@"alt"];
+        json[@"alt"] = [NSDecimalNumber decimalNumberWithString:
+                        [NSString stringWithFormat:@"%.f", waypoint.alt.doubleValue]];
 
-        int vac = (waypoint.vac).intValue;
-        if (vac >= 0) {
-            [json setValue:@(vac) forKey:@"vac"];
+        if (waypoint.vac.doubleValue >= 0.0) {
+            json[@"vac"] = [NSDecimalNumber decimalNumberWithString:
+                            [NSString stringWithFormat:@"%.f", waypoint.vac.doubleValue]];
         }
 
-        int vel = (waypoint.vel).intValue;
-        if (vel >= 0) {
-            [json setValue:@(vel) forKey:@"vel"];
+        if (waypoint.vel.doubleValue >= 0.0) {
+            json[@"vel"] = [NSDecimalNumber decimalNumberWithString:
+                            [NSString stringWithFormat:@"%.f", waypoint.vel.doubleValue]];
         }
 
-        int cog = (waypoint.cog).intValue;
-        if (cog >= 0) {
-            [json setValue:@(cog) forKey:@"cog"];
+        if (waypoint.cog.doubleValue >= 0.0) {
+            json[@"cog"] = [NSDecimalNumber decimalNumberWithString:
+                            [NSString stringWithFormat:@"%.f", waypoint.cog.doubleValue]];
         }
 
         CMAltitudeData *altitude = [LocationManager sharedInstance].altitude;
         if (altitude) {
-            [json setValue:altitude.pressure forKey:@"p"];
+            json[@"p"] = [NSDecimalNumber decimalNumberWithString:
+                          [NSString stringWithFormat:@"%.3f", altitude.pressure.doubleValue]];
         }
 
         switch ([ConnType connectionType:[Settings theHostInMOC:waypoint.managedObjectContext]]) {
@@ -501,19 +509,28 @@ static OwnTracking *theInstance = nil;
 }
 
 - (NSDictionary *)regionAsJSON:(Region *)region {
-    NSDictionary *json = @{@"_type": @"waypoint",
-                           @"lat": region.lat,
-                           @"lon": region.lon,
-                           @"rad": region.radius,
-                           @"tst": @(floor(region.andFillTst.timeIntervalSince1970)),
-                           @"rid": region.andFillRid,
-                           @"desc": [NSString stringWithFormat:@"%@%@%@%@",
-                                     region.name,
-                                     (region.uuid && region.uuid.length > 0) ?
-                                     [NSString stringWithFormat: @":%@", region.uuid] : @"",
-                                     (region.major).unsignedIntValue ? [NSString stringWithFormat: @":%@", region.major] : @"",
-                                     (region.minor).unsignedIntValue? [NSString stringWithFormat: @":%@", region.minor] : @""]
-                           };
+    NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
+    json[@"_type"] = @"waypoint";
+
+    json[@"lat"] = [NSDecimalNumber decimalNumberWithString:
+                    [NSString stringWithFormat:@"%.6f", region.lat.doubleValue]];
+
+    json[@"lon"] = [NSDecimalNumber decimalNumberWithString:
+                    [NSString stringWithFormat:@"%.6f", region.lon.doubleValue]];
+
+    json[@"rad"] = [NSDecimalNumber decimalNumberWithString:
+                    [NSString stringWithFormat:@"%.0f", region.radius.doubleValue]];
+
+    json[@"tst"] = [NSDecimalNumber decimalNumberWithString:
+                           [NSString stringWithFormat:@"%.0f", region.andFillTst.timeIntervalSince1970]];
+
+    json[@"rid"] = region.andFillRid;
+    json[@"desc"] = [NSString stringWithFormat:@"%@%@%@%@",
+                     region.name,
+                     (region.uuid && region.uuid.length > 0) ?
+                     [NSString stringWithFormat: @":%@", region.uuid] : @"",
+                     (region.major).unsignedIntValue ? [NSString stringWithFormat: @":%@", region.major] : @"",
+                     (region.minor).unsignedIntValue? [NSString stringWithFormat: @":%@", region.minor] : @""];
     return json;
 }
 @end

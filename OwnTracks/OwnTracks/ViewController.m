@@ -56,7 +56,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
     self.mapView.showsZoomControls = TRUE;
     self.mapView.showsCompass = TRUE;
-    self.mapView.showsPitchControl = TRUE;
+    if (@available(macCatalyst 14.0, *)) {
+        self.mapView.showsPitchControl = TRUE;
+    } else {
+        // Fallback on earlier versions
+    }
 
 #endif
 

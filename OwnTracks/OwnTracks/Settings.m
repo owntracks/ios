@@ -376,7 +376,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 + (NSDictionary *)toDictionaryInMOC:(NSManagedObjectContext *)context {
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithDictionary:@{@"_type": @"configuration"}];
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    dict[@"_type"] =                        @"configuration";
     dict[@"mode"] =                         @([Settings intForKey:@"mode" inMOC:context]);
     dict[@"ranging"] =                      @([Settings boolForKey:@"ranging_preference" inMOC:context]);
     dict[@"locked"] =                       @([Settings boolForKey:@"locked" inMOC:context]);
