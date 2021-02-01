@@ -17,6 +17,7 @@
 #import "Settings.h"
 #import "OwnTracking.h"
 #import "ConnType.h"
+#import "NSNumber+decimals.h"
 
 #import "OwnTracksSendNowIntent.h"
 #import "OwnTracksChangeMonitoringIntent.h"
@@ -721,18 +722,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
             json[@"_type"] = @"transition";
 
-            json[@"lat"] = [NSDecimalNumber decimalNumberWithString:
-                            [NSString stringWithFormat:@"%.6f", location.coordinate.latitude]];
+            json[@"lat"] = [NSNumber doubleValueWithSixDecimals:location.coordinate.latitude];
 
-            json[@"lon"] = [NSDecimalNumber decimalNumberWithString:
-                            [NSString stringWithFormat:@"%.6f", location.coordinate.longitude]];
+            json[@"lon"] = [NSNumber doubleValueWithSixDecimals:location.coordinate.longitude];
 
-            json[@"tst"] = [NSDecimalNumber decimalNumberWithString:
-                                   [NSString stringWithFormat:@"%.0f", location.timestamp.timeIntervalSince1970]];
+            json[@"tst"] = [NSNumber doubleValueWithZeroDecimals:location.timestamp.timeIntervalSince1970];
 
             if (location.horizontalAccuracy >= 0.0) {
-                json[@"acc"] = [NSDecimalNumber decimalNumberWithString:
-                                [NSString stringWithFormat:@"%.f", location.horizontalAccuracy]];
+                json[@"acc"] = [NSNumber doubleValueWithZeroDecimals:location.horizontalAccuracy];
             }
             json[@"tid"] = myself.effectiveTid;
             json[@"event"] = enter ? @"enter" : @"leave";
@@ -740,18 +737,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
             if (fabs(location.timestamp.timeIntervalSince1970 -
                      [NSDate date].timeIntervalSince1970) > 1.0) {
-                json[@"created_at"] = [NSDecimalNumber decimalNumberWithString:
-                                       [NSString stringWithFormat:@"%.0f",
-                                        [NSDate date].timeIntervalSince1970]];
+                json[@"created_at"] = [NSNumber doubleValueWithZeroDecimals:[NSDate date].timeIntervalSince1970];
             }
 
             for (Region *anyRegion in myself.hasRegions) {
                 if ([region.identifier isEqualToString:anyRegion.CLregion.identifier]) {
                     anyRegion.name = anyRegion.name;
                     json[@"desc"] = region.identifier;
-                    json[@"wtst"] = [NSDecimalNumber decimalNumberWithString:
-                                     [NSString stringWithFormat:@"%.0f",
-                                      anyRegion.tst.timeIntervalSince1970]];
+                    json[@"wtst"] = [NSNumber doubleValueWithZeroDecimals:anyRegion.tst.timeIntervalSince1970];
                     json[@"rid"] = anyRegion.andFillRid;
 
                     [self.connection sendData:[self jsonToData:json]
@@ -829,16 +822,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
         json[@"_type"] = @"beacon";
         json[@"tid"] = myself.effectiveTid;
-        json[@"tst"] = [NSDecimalNumber decimalNumberWithString:
-                        [NSString stringWithFormat:@"%.0f",
-                         [LocationManager sharedInstance].location.timestamp.timeIntervalSince1970]];
+        json[@"tst"] = [NSNumber doubleValueWithZeroDecimals:[LocationManager sharedInstance].location.timestamp.timeIntervalSince1970];
 
         json[@"uuid"] = (beacon.UUID).UUIDString;
         json[@"major"] = beacon.major;
         json[@"minor"] = beacon.minor;
         json[@"prox"] = @(beacon.proximity);
-        json[@"acc"] = [NSDecimalNumber decimalNumberWithString:
-                        [NSString stringWithFormat:@"%.f", beacon.accuracy]];
+        json[@"acc"] = [NSNumber doubleValueWithZeroDecimals:beacon.accuracy];
         json[@"rssi"] = @(beacon.rssi);
         if (myRegion) {
             json[@"desc"] = myRegion.name;
@@ -1176,15 +1166,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
              
              NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
              json[@"_type"] = @"location";
-             json[@"tst"] = [NSDecimalNumber decimalNumberWithString:
-                             [NSString stringWithFormat:@"%.0f",
-                              [NSDate date].timeIntervalSince1970]];
-             json[@"from"] = [NSDecimalNumber decimalNumberWithString:
-                              [NSString stringWithFormat:@"%.0f",
-                               fromDate.timeIntervalSince1970]];
-             json[@"to"] = [NSDecimalNumber decimalNumberWithString:
-                            [NSString stringWithFormat:@"%.0f",
-                             toDate.timeIntervalSince1970]];
+             json[@"tst"] = [NSNumber doubleValueWithZeroDecimals:[NSDate date].timeIntervalSince1970];
+             json[@"from"] = [NSNumber doubleValueWithZeroDecimals:fromDate.timeIntervalSince1970];
+             json[@"to"] = [NSNumber doubleValueWithZeroDecimals:toDate.timeIntervalSince1970];
 
              if (pedometerData) {
                  json[@"steps"] = pedometerData.numberOfSteps;
@@ -1195,9 +1179,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                      json[@"floorsdown"] = pedometerData.floorsDescended;
                  }
                  if (pedometerData.distance) {
-                     json[@"distance"] = [NSDecimalNumber decimalNumberWithString:
-                                          [NSString stringWithFormat:@"%.0f",
-                                           pedometerData.distance.doubleValue]];
+                     json[@"distance"] = pedometerData.distance.zeroDecimals;
                  }
              } else {
                  json[@"steps"] = @(-1);
@@ -1441,9 +1423,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
         NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
         json[@"_type"] = @"lwt";
-        json[@"tst"] = [NSDecimalNumber decimalNumberWithString:
-                        [NSString stringWithFormat:@"%.0f",
-                         [NSDate date].timeIntervalSince1970]];
+        json[@"tst"] = [NSNumber doubleValueWithZeroDecimals:[NSDate date].timeIntervalSince1970];
 
         self.connection.key = [Settings stringForKey:@"secret_preference"
                                                inMOC:moc];
@@ -1470,7 +1450,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (NSData *)jsonToData:(NSDictionary *)jsonObject {
     NSData *data;
-
     if ([NSJSONSerialization isValidJSONObject:jsonObject]) {
         NSError *error;
         data = [NSJSONSerialization dataWithJSONObject:jsonObject
@@ -1482,63 +1461,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                        error.userInfo,
                        [jsonObject description]);
         }
-#if 0
-
-        // *****
-        // This is a hack because I don't see another chance to modify NSNumber
-        // formatting in NSJSONSerialization
-        // *****
-        NSNumber *lat = [jsonObject valueForKey:@"lat"];
-        NSNumber *lon = [jsonObject valueForKey:@"lon"];
-        NSNumber *pressure = [jsonObject valueForKey:@"p"];
-        NSString *jsonString = [[NSString alloc] initWithData:data
-                                                     encoding:NSUTF8StringEncoding];
-        if (lat) {
-            NSString *latString = [NSString stringWithFormat:@"\"lat\":%.6f", lat.doubleValue];
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@{@"lat": lat}
-                                                               options:0
-                                                                 error:nil];
-            NSString *jsonSubString = [[NSString alloc] initWithData:jsonData
-            encoding:NSUTF8StringEncoding];
-            jsonSubString = [jsonSubString substringWithRange:NSMakeRange(1, jsonSubString.length - 2)];
-
-            jsonString = [jsonString stringByReplacingOccurrencesOfString:jsonSubString
-                                                               withString:latString];
-        }
-        
-        if (lon) {
-            NSString *lonString = [NSString stringWithFormat:@"\"lon\":%.6f", lon.doubleValue];
-            NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@{@"lon": lon}
-                                                               options:0
-                                                                 error:nil];
-            NSString *jsonSubString = [[NSString alloc] initWithData:jsonData
-            encoding:NSUTF8StringEncoding];
-            jsonSubString = [jsonSubString substringWithRange:NSMakeRange(1, jsonSubString.length - 2)];
-
-            jsonString = [jsonString stringByReplacingOccurrencesOfString:jsonSubString
-                                                               withString:lonString];
-        }
-
-        if (pressure) {
-            NSString *pressureString = [NSString stringWithFormat:@"\"p\":%.3f", pressure.doubleValue];
-            NSData *jsonData =
-            [NSJSONSerialization dataWithJSONObject:@{@"p": pressure}
-                                            options:0
-                                              error:nil];
-            NSString *jsonSubString =
-            [[NSString alloc] initWithData:jsonData
-                                  encoding:NSUTF8StringEncoding];
-            jsonSubString =
-            [jsonSubString substringWithRange:NSMakeRange(1, jsonSubString.length - 2)];
-
-            jsonString =
-            [jsonString stringByReplacingOccurrencesOfString:jsonSubString
-                                                  withString:pressureString];
-        }
-
-        data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
-        // *****
-#endif
     } else {
         DDLogError(@"[OwnTracksAppDelegate] isValidJSONObject failed %@", [jsonObject description]);
     }

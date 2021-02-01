@@ -13,6 +13,7 @@
 #import "History+CoreDataClass.h"
 #import "CoreData.h"
 #import "ConnType.h"
+#import "NSNumber+decimals.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <UserNotifications/UserNotifications.h>
 #import <UserNotifications/UNUserNotificationCenter.h>
@@ -392,50 +393,38 @@ static OwnTracking *theInstance = nil;
         json[@"t"] = waypoint.trigger;
     }
 
-    json[@"lat"] = [NSDecimalNumber decimalNumberWithString:
-                    [NSString stringWithFormat:@"%.6f", waypoint.lat.doubleValue]];
+    json[@"lat"] = waypoint.lat.sixDecimals;
 
-    json[@"lon"] = [NSDecimalNumber decimalNumberWithString:
-                    [NSString stringWithFormat:@"%.6f", waypoint.lon.doubleValue]];
+    json[@"lon"] = waypoint.lon.sixDecimals;
 
-    json[@"tst"] = [NSDecimalNumber decimalNumberWithString:
-                           [NSString stringWithFormat:@"%.0f", waypoint.tst.timeIntervalSince1970]];
+    json[@"tst"] = [NSNumber doubleValueWithZeroDecimals:waypoint.tst.timeIntervalSince1970];
 
     if (fabs(waypoint.tst.timeIntervalSince1970 -
              waypoint.createdAt.timeIntervalSince1970) > 1.0) {
-        json[@"created_at"] = [NSDecimalNumber decimalNumberWithString:
-                               [NSString stringWithFormat:@"%.0f",
-                                waypoint.createdAt.timeIntervalSince1970]];
+        json[@"created_at"] = [NSNumber doubleValueWithZeroDecimals:waypoint.createdAt.timeIntervalSince1970];
     }
 
     if (waypoint.acc.doubleValue >= 0.0) {
-        json[@"acc"] = [NSDecimalNumber decimalNumberWithString:
-                        [NSString stringWithFormat:@"%.f", waypoint.acc.doubleValue]];
+        json[@"acc"] =  waypoint.acc.zeroDecimals;
     }
 
     if ([Settings boolForKey:@"extendeddata_preference" inMOC:waypoint.managedObjectContext]) {
-        json[@"alt"] = [NSDecimalNumber decimalNumberWithString:
-                        [NSString stringWithFormat:@"%.f", waypoint.alt.doubleValue]];
-
+        json[@"alt"] = waypoint.alt.zeroDecimals;
         if (waypoint.vac.doubleValue >= 0.0) {
-            json[@"vac"] = [NSDecimalNumber decimalNumberWithString:
-                            [NSString stringWithFormat:@"%.f", waypoint.vac.doubleValue]];
+            json[@"vac"] = waypoint.vac.zeroDecimals;
         }
 
         if (waypoint.vel.doubleValue >= 0.0) {
-            json[@"vel"] = [NSDecimalNumber decimalNumberWithString:
-                            [NSString stringWithFormat:@"%.f", waypoint.vel.doubleValue]];
+            json[@"vel"] = waypoint.vel.zeroDecimals;
         }
 
         if (waypoint.cog.doubleValue >= 0.0) {
-            json[@"cog"] = [NSDecimalNumber decimalNumberWithString:
-                            [NSString stringWithFormat:@"%.f", waypoint.cog.doubleValue]];
+            json[@"cog"] = waypoint.cog.zeroDecimals;
         }
 
         CMAltitudeData *altitude = [LocationManager sharedInstance].altitude;
         if (altitude) {
-            json[@"p"] = [NSDecimalNumber decimalNumberWithString:
-                          [NSString stringWithFormat:@"%.3f", altitude.pressure.doubleValue]];
+            json[@"p"] = altitude.pressure.threeDecimals;
         }
 
         switch ([ConnType connectionType:[Settings theHostInMOC:waypoint.managedObjectContext]]) {
@@ -512,18 +501,11 @@ static OwnTracking *theInstance = nil;
     NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
     json[@"_type"] = @"waypoint";
 
-    json[@"lat"] = [NSDecimalNumber decimalNumberWithString:
-                    [NSString stringWithFormat:@"%.6f", region.lat.doubleValue]];
+    json[@"lat"] = region.lat.sixDecimals;
+    json[@"lon"] = region.lon.sixDecimals;
+    json[@"rad"] = region.radius.zeroDecimals;
 
-    json[@"lon"] = [NSDecimalNumber decimalNumberWithString:
-                    [NSString stringWithFormat:@"%.6f", region.lon.doubleValue]];
-
-    json[@"rad"] = [NSDecimalNumber decimalNumberWithString:
-                    [NSString stringWithFormat:@"%.0f", region.radius.doubleValue]];
-
-    json[@"tst"] = [NSDecimalNumber decimalNumberWithString:
-                           [NSString stringWithFormat:@"%.0f", region.andFillTst.timeIntervalSince1970]];
-
+    json[@"tst"] = [NSNumber doubleValueWithZeroDecimals:region.andFillTst.timeIntervalSince1970];
     json[@"rid"] = region.andFillRid;
     json[@"desc"] = [NSString stringWithFormat:@"%@%@%@%@",
                      region.name,
