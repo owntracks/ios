@@ -1368,22 +1368,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                        retain:YES];
 }
 
-- (void)requestLocationFromFriend:(Friend *)friend {
-    NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
-    MQTTQosLevel qos = [Settings intForKey:@"qos_preference"
-                                     inMOC:moc];
-
-    NSMutableDictionary *json = [@{
-                                   @"_type": @"cmd",
-                                   @"action": @"reportLocation"
-                                   } mutableCopy];
-    [self.connection sendData:[self jsonToData:json]
-                        topic:[friend.topic stringByAppendingString:@"/cmd"]
-                   topicAlias:nil
-                          qos:qos
-                       retain:NO];
-}
-
 - (void)sendRegion:(Region *)region {
     NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
 

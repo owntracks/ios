@@ -39,7 +39,6 @@
 - (BOOL)sendNow:(CLLocation *)location;
 - (void)dump;
 - (void)waypoints;
-- (void)requestLocationFromFriend:(Friend *)friend;
 - (void)sendRegion:(Region *)region;
 - (void)sendEmpty:(NSString *)topic;
 - (void)reconnect;
