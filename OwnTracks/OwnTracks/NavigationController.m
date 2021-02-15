@@ -80,6 +80,7 @@
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         if (delegate.processingMessage) {
             [self alert:@"openURL" message:delegate.processingMessage];
+            delegate.processingMessage = nil;
         }
     }
 
