@@ -126,6 +126,7 @@
     }
 
     UILabel *label = [[UILabel alloc] init];
+    label.textAlignment = NSTextAlignmentCenter;
     label.text = nonHiddenRows[row];
     return label;
 }
