@@ -59,7 +59,6 @@
 		84929F0B20AAC0D000227D00 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84929F0A20AAC0CF00227D00 /* WebKit.framework */; };
 		84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A2B1B3755AF00810C3A /* TabBarController.m */; };
 		849B1E061FE911FD0016EF1A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 849B1E081FE911FD0016EF1A /* MainInterface.storyboard */; };
-		84A046C41D81FE8000796C56 /* IdPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A046C31D81FE8000796C56 /* IdPicker.m */; };
 		84A488E21F7BBFD900ADCF98 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84A488E11F7BBFD900ADCF98 /* Media.xcassets */; };
 		84AFD3DC2434380700F1E922 /* OwnTracksWrist WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 84AFD3DB2434380700F1E922 /* OwnTracksWrist WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84AFD3E22434380700F1E922 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84AFD3E02434380700F1E922 /* Interface.storyboard */; };
@@ -317,8 +316,6 @@
 		849B3C0F242F9EFC0052EE6D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.2.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
 		849B3C10242F9F190052EE6D /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.2.sdk/System/Library/Frameworks/Network.framework; sourceTree = DEVELOPER_DIR; };
 		849D457B18CDACDF00201BF3 /* MQTT.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MQTT.plist; sourceTree = "<group>"; };
-		84A046C21D81FE8000796C56 /* IdPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdPicker.h; sourceTree = "<group>"; };
-		84A046C31D81FE8000796C56 /* IdPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdPicker.m; sourceTree = "<group>"; };
 		84A173691B428E5C00CCB7D0 /* Model 8.2.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.1.xcdatamodel"; sourceTree = "<group>"; };
 		84A488E11F7BBFD900ADCF98 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		84AE8ADB25C165D600C0B0EE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/iOSSupport/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -714,8 +711,6 @@
 			children = (
 				84DDEAC51BD9F37900B01879 /* SettingsTVC.h */,
 				84DDEAC61BD9F37900B01879 /* SettingsTVC.m */,
-				84A046C21D81FE8000796C56 /* IdPicker.h */,
-				84A046C31D81FE8000796C56 /* IdPicker.m */,
 				8411B908189FEC070019D2D6 /* StatusTVC.h */,
 				8411B909189FEC070019D2D6 /* StatusTVC.m */,
 				845AA1B21B44245100945856 /* CertificatesTVC.h */,
@@ -1225,7 +1220,6 @@
 				84AFD40B2434486200F1E922 /* OwnTracking.m in Sources */,
 				8411B891189FE9CE0019D2D6 /* Settings.m in Sources */,
 				845299E71DFA004000A4DC21 /* Friend+CoreDataClass.m in Sources */,
-				84A046C41D81FE8000796C56 /* IdPicker.m in Sources */,
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,
 				84E40205231413D400F1D6E6 /* History+CoreDataProperties.m in Sources */,
 				84E8A18D1BB94782002518AA /* Region+CoreDataProperties.m in Sources */,

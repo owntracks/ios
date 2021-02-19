@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="e04-OU-xZ4">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -16,11 +18,11 @@
                         <viewControllerLayoutGuide type="bottom" id="LmO-0X-4Sg"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ffw-DX-wWE">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eED-yn-0ps">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="754"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="676"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="EiO-on-q7c" appends="YES" id="k6b-KH-2BJ"/>
@@ -93,24 +95,23 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="mode" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zrE-4x-uNc" customClass="IdPicker">
-                                                    <rect key="frame" x="71.5" y="13.5" width="181.5" height="17"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="17" id="cYm-G3-TIf"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7W2-Mn-fUG">
+                                                    <rect key="frame" x="71.5" y="6.5" width="169.5" height="32"/>
+                                                    <segments>
+                                                        <segment title="MQTT"/>
+                                                        <segment title="HTTP"/>
+                                                    </segments>
                                                     <connections>
-                                                        <action selector="modeChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="BMK-oS-bjP"/>
+                                                        <action selector="modeSwitchChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="HJY-OH-vCI"/>
                                                     </connections>
-                                                </textField>
+                                                </segmentedControl>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="3ad-LO-zcn" firstAttribute="leading" secondItem="GUj-99-7gn" secondAttribute="leading" constant="20" symbolic="YES" id="7tW-9T-heX"/>
                                                 <constraint firstAttribute="centerY" secondItem="3ad-LO-zcn" secondAttribute="centerY" id="BSo-YE-JyK"/>
-                                                <constraint firstItem="zrE-4x-uNc" firstAttribute="leading" secondItem="3ad-LO-zcn" secondAttribute="trailing" constant="8" symbolic="YES" id="gyC-25-oof"/>
-                                                <constraint firstAttribute="trailing" secondItem="zrE-4x-uNc" secondAttribute="trailing" constant="8" id="t3S-Mj-fcN"/>
-                                                <constraint firstItem="zrE-4x-uNc" firstAttribute="centerY" secondItem="GUj-99-7gn" secondAttribute="centerY" id="tl6-8s-a3L"/>
+                                                <constraint firstItem="7W2-Mn-fUG" firstAttribute="leading" secondItem="3ad-LO-zcn" secondAttribute="trailing" constant="8" symbolic="YES" id="Dmm-81-mN9"/>
+                                                <constraint firstAttribute="trailing" secondItem="7W2-Mn-fUG" secondAttribute="trailing" constant="20" symbolic="YES" id="HRs-C0-4C1"/>
+                                                <constraint firstItem="7W2-Mn-fUG" firstAttribute="centerY" secondItem="GUj-99-7gn" secondAttribute="centerY" id="dhc-sh-Smm"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -1441,7 +1442,7 @@
                         <outlet property="UIlocatorInterval" destination="oBs-Zn-P4m" id="nSr-EY-45T"/>
                         <outlet property="UIlocked" destination="4ax-HA-qtg" id="60f-uY-1b3"/>
                         <outlet property="UImaxHistory" destination="yny-2e-dpz" id="obf-PG-Kl9"/>
-                        <outlet property="UImode" destination="zrE-4x-uNc" id="K50-dN-c4I"/>
+                        <outlet property="UImodeSwitch" destination="7W2-Mn-fUG" id="uaQ-ND-n48"/>
                         <outlet property="UImonitoring" destination="LEn-Jc-PvC" id="0Kk-d4-lOg"/>
                         <outlet property="UIpositions" destination="lTh-wG-5YG" id="k8v-n7-Sl3"/>
                         <outlet property="UIproto" destination="pn1-hA-OmO" id="Uz2-cH-yn6"/>
@@ -1468,7 +1469,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3426" y="1788"/>
+            <point key="canvasLocation" x="3424.6376811594205" y="1787.9464285714284"/>
         </scene>
         <!--Tab Bar-->
         <scene sceneID="khr-I5-27q">
@@ -1970,12 +1971,11 @@ xyz</string>
                     <tabBarItem key="tabBarItem" title="Map" image="OnwTracks" id="HCO-pB-vNN"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="aK3-EO-u98">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="jt2-SX-awB">
-                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </toolbar>
@@ -2601,7 +2601,7 @@ libsodium (libsodium.org)
                     <tabBarItem key="tabBarItem" title="Friends" image="Friends" id="msF-bI-hEJ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HAz-7E-YjW">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -2900,7 +2900,7 @@ libsodium (libsodium.org)
                     <tabBarItem key="tabBarItem" title="Regions" image="Regions" id="HB5-wo-JZx"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qvG-MG-aSJ">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -2985,7 +2985,7 @@ libsodium (libsodium.org)
                     <tabBarItem key="tabBarItem" tag="98" systemItem="featured" id="Qfz-gP-JfE"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Fvv-Yh-dmW">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -3064,7 +3064,7 @@ libsodium (libsodium.org)
                 <navigationController id="TPg-fQ-Bo1" customClass="NavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="97" systemItem="history" id="atB-MR-YSl"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ufd-Tv-UVd">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -3084,11 +3084,11 @@ libsodium (libsodium.org)
                         <viewControllerLayoutGuide type="bottom" id="vov-c0-Ba4"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="T55-Np-1JM">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="C3P-Jq-Oc6">
-                                <rect key="frame" x="20" y="8" width="374" height="860"/>
+                                <rect key="frame" x="20" y="8" width="374" height="792"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Artwork" translatesAutoresizingMaskIntoConstraints="NO" id="NX5-9d-GWE">
                                         <rect key="frame" x="0.0" y="0.0" width="374" height="64"/>
@@ -3106,7 +3106,7 @@ libsodium (libsodium.org)
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="280" placeholderIntrinsicHeight="224" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v2D-6q-oH5">
-                                        <rect key="frame" x="0.0" y="123" width="374" height="699"/>
+                                        <rect key="frame" x="0.0" y="123" width="374" height="631"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <string key="text">You need to setup your own OwnTracks server and edit your configuration for full privacy protection.
 
@@ -3117,7 +3117,7 @@ Detailed info on http://owntracks.org/booklet</string>
                                         <dataDetectorType key="dataDetectorTypes" link="YES"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abx-Rq-K54">
-                                        <rect key="frame" x="0.0" y="830" width="374" height="30"/>
+                                        <rect key="frame" x="0.0" y="762" width="374" height="30"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Continue">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

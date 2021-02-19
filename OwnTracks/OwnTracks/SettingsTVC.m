@@ -14,7 +14,6 @@
 #import "Friend+CoreDataClass.h"
 #import "CoreData.h"
 #import "OwnTracking.h"
-#import "IdPicker.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface SettingsTVC ()
@@ -41,7 +40,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *UIpublish;
 @property (weak, nonatomic) IBOutlet UITextField *UIsecret;
 @property (weak, nonatomic) IBOutlet UITextField *UIurl;
-@property (weak, nonatomic) IBOutlet IdPicker *UImode;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *UImodeSwitch;
 @property (weak, nonatomic) IBOutlet UITextField *UIignoreStaleLocations;
 @property (weak, nonatomic) IBOutlet UITextField *UIignoreInaccurateLocations;
 @property (weak, nonatomic) IBOutlet UISwitch *UIranging;
@@ -83,7 +82,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
-    self.UImode.delegate = self;
     self.UIHost.delegate = self;
     self.UIPort.delegate = self;
     self.UIproto.delegate = self;
@@ -96,10 +94,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.UIDeviceID.delegate = self;
     self.UIpassphrase.delegate = self;
     self.UIurl.delegate = self;
-
-    self.UImode.array = @[@{@"identifier":@(CONNECTION_MODE_MQTT), @"name": @"MQTT"},
-                          @{@"identifier":@(CONNECTION_MODE_HTTP), @"name": @"HTTP"}
-                          ];
 
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate addObserver:self
@@ -247,14 +241,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                   inMOC:CoreData.sharedInstance.mainMOC];
 
     // important to save UImode last. Otherwise parameters not valid in the old mode may get persisted
-    if (self.UImode) {
-        switch ((self.UImode).arrayId) {
-            case CONNECTION_MODE_HTTP:
+    if (self.UImodeSwitch) {
+        switch (self.UImodeSwitch.selectedSegmentIndex) {
+            case 1:
                 [Settings setInt:CONNECTION_MODE_HTTP
                           forKey:@"mode"
                            inMOC:CoreData.sharedInstance.mainMOC];
                 break;
-            case CONNECTION_MODE_MQTT:
+            case 0:
             default:
                 [Settings setInt:CONNECTION_MODE_MQTT
                           forKey:@"mode"
@@ -394,12 +388,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                               inMOC:CoreData.sharedInstance.mainMOC];
         self.UIsecret.enabled = !locked;
     }
-    if (self.UImode) {
+    if (self.UImodeSwitch) {
         int mode = [Settings intForKey:@"mode"
                                  inMOC:CoreData.sharedInstance.mainMOC];
         DDLogVerbose(@"[Settings] mode is %d", mode);
-        self.UImode.arrayId = mode;
-        self.UImode.enabled = !locked;
+        switch (mode) {
+            case CONNECTION_MODE_HTTP:
+                self.UImodeSwitch.selectedSegmentIndex =1;
+                break;
+            case CONNECTION_MODE_MQTT:
+            default:
+                self.UImodeSwitch.selectedSegmentIndex = 0;
+                break;
+        }
+        self.UImodeSwitch.enabled = !locked;
     }
     if (self.UIPort) {
         self.UIPort.text = [Settings stringForKey:@"port_preference"
@@ -533,7 +535,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     }
 
 //    if (!self.UIusepolicy) {
-    if (self.UImode) {
+    if (self.UImodeSwitch) {
 
         int mode = [Settings intForKey:@"mode"
                                  inMOC:CoreData.sharedInstance.mainMOC];
@@ -608,7 +610,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         }
 
         // hide mode row if locked
-        if (self.UImode) {
+        if (self.UImodeSwitch) {
             NSIndexPath *modeIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
             if ([self isRowVisible:modeIndexPath] && locked) {
                 [self deleteRowsAtIndexPaths:@[modeIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -769,7 +771,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self.UIsecret resignFirstResponder];
     [self.UItrackerid resignFirstResponder];
     [self.UIDeviceID resignFirstResponder];
-    [self.UImode resignFirstResponder];
     [self.UIclientId resignFirstResponder];
     [self.UIpubTopicBase resignFirstResponder];
     [self.UIsubTopic resignFirstResponder];
@@ -817,6 +818,41 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         [self updated];
     }
 }
+
+- (IBAction)modeSwitchChanged:(UISegmentedControl *)sender {
+    UIAlertController *ac = [UIAlertController
+                             alertControllerWithTitle:NSLocalizedString(@"Mode change",
+                                                                        @"Alert header for mode change warning")
+                             message:NSLocalizedString(@"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before.",
+                                                       @"Alert content for mode change warning")
+                             preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancel = [UIAlertAction
+                             actionWithTitle:NSLocalizedString(@"Cancel",
+                                                               @"Cancel button title")
+                             
+                             style:UIAlertActionStyleCancel
+                             handler:^(UIAlertAction *action){
+        [self updated];
+    }];
+    UIAlertAction *ok = [UIAlertAction
+                         actionWithTitle:NSLocalizedString(@"Continue",
+                                                           @"Continue button title")
+                         
+                         style:UIAlertActionStyleDestructive
+                         handler:^(UIAlertAction *action) {
+        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegate terminateSession];
+        [self updateValues];
+        [self updated];
+        [delegate reconnect];
+    }];
+    
+    [ac addAction:cancel];
+    [ac addAction:ok];
+    [self presentViewController:ac animated:TRUE completion:nil];
+}
+
 
 #define INVALIDTRACKERID NSLocalizedString(@"TrackerID invalid", @"Alert header regarding TrackerID input")
 
@@ -899,7 +935,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
                              [self updated];
                              [delegate reconnect];
-                             [self.UImode resignFirstResponder];
                          }];
 
     [ac addAction:cancel];
