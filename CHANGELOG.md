@@ -1,6 +1,16 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 14.1.0 iOS/ipadOS/macOS
+* Release Date unknown
+
+** Bug fix
+
+    [FIX] replace UIPickerView by UISegmented Control for mode #664
+    [FIX] UIPickerView hides part of the text in iOS 14 #664
+    [FIX] display processing message only once
+    [FIX] decimals in JSON
+
 ## OwnTracks 14.0.4 iOS/ipadOS/macOS
 * Release Date 2021-01-27
 
