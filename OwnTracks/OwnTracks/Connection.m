@@ -16,6 +16,7 @@
 #import "sodium.h"
 #import "LocationManager.h"
 #import "Settings.h"
+#import "OwnTracksAppDelegate.h"
 
 #import <mqttc/MQTTNWTransport.h>
 
@@ -388,6 +389,13 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     }
 }
 
+- (void)HTTPerror:(NSString *)message {
+    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+
+    [delegate.navigationController alert:@"HTTP"
+                                 message:message];
+}
+
 - (void)sendHTTP:(NSString *)topic data:(NSData *)data {
     NSString *postLength = [NSString stringWithFormat:@"%ld",(unsigned long)data.length];
     DDLogVerbose(@"[Connection] sendtHTTP %@(%@):%@",
@@ -485,11 +493,39 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
                          self.state = state_starting;
                          return;
                      }];
-                     
                  } else {
                      self.lastErrorCode = [NSError errorWithDomain:@"HTTP Response"
                                                               code:httpResponse.statusCode userInfo:nil];
                      self.state = state_error;
+
+                     if (httpResponse.statusCode >= 400 && httpResponse.statusCode <= 499) {
+                         NSString *message = [NSString stringWithFormat:@"Status Code %ld\n%@\n%@",
+                                              (long)httpResponse.statusCode,
+                                              response.URL,
+                                              [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]
+                                              ];
+
+                         [self performSelectorOnMainThread:@selector(HTTPerror:)
+                                                withObject:message
+                                             waitUntilDone:FALSE];
+
+                         [CoreData.sharedInstance.queuedMOC performBlock:^{
+                             NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
+                             request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]];
+
+                             NSArray *matches = [CoreData.sharedInstance.queuedMOC executeFetchRequest:request error:nil];
+                             if (matches) {
+                                 [self.delegate totalBuffered: self count:matches.count];
+                                 if (matches.count) {
+                                     Queue *queue = matches.firstObject;
+                                     [CoreData.sharedInstance.queuedMOC deleteObject:queue];
+                                     [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
+                                 }
+                             }
+
+                             return;
+                         }];
+                     }
                      [self startReconnectTimer:myRunLoop];
                  }
              } else {
