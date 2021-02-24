@@ -10,6 +10,7 @@ OwnTracks iOS App Release Notes
     [FIX] UIPickerView hides part of the text in iOS 14 #664
     [FIX] display processing message only once
     [FIX] decimals in JSON
+    [FIX] App crashes on swipe-out-friend #666
 
 ## OwnTracks 14.0.4 iOS/ipadOS/macOS
 * Release Date 2021-01-27
