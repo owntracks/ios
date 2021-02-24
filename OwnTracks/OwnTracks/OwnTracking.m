@@ -64,102 +64,104 @@ static OwnTracking *theInstance = nil;
         }
         [context performBlock:^{
             NSError *error;
-            DDLogVerbose(@"performBlock %@ %@", topic, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+            DDLogVerbose(@"performBlock %@ %@",
+                         topic,
+                         [[NSString alloc] initWithData:data
+                                               encoding:NSUTF8StringEncoding]);
 
+            NSDictionary *dictionary = [[NSDictionary alloc] init];
             id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
             if (json && [json isKindOfClass:[NSDictionary class]]) {
-                NSDictionary *dictionary = json;
-                NSArray *topicComponents = [topic componentsSeparatedByString:@"/"];
-                NSArray *baseComponents = [[Settings theGeneralTopicInMOC:context]
-                                           componentsSeparatedByString:@"/"];
-
-                NSString *device = @"";
-                BOOL ownDevice = true;
-
-                for (int i = 0; i < baseComponents.count; i++) {
-                    if (i > 0) {
-                        device = [device stringByAppendingString:@"/"];
-                    }
-                    if (i < topicComponents.count) {
-                        device = [device stringByAppendingString:topicComponents[i]];
-                        if (![baseComponents[i] isEqualToString:topicComponents [i]]) {
-                            ownDevice = false;
-                        }
-                    } else {
+                dictionary = json;
+            }
+            NSArray *topicComponents = [topic componentsSeparatedByString:@"/"];
+            NSArray *baseComponents = [[Settings theGeneralTopicInMOC:context]
+                                       componentsSeparatedByString:@"/"];
+            
+            NSString *device = @"";
+            BOOL ownDevice = true;
+            
+            for (int i = 0; i < baseComponents.count; i++) {
+                if (i > 0) {
+                    device = [device stringByAppendingString:@"/"];
+                }
+                if (i < topicComponents.count) {
+                    device = [device stringByAppendingString:topicComponents[i]];
+                    if (![baseComponents[i] isEqualToString:topicComponents [i]]) {
                         ownDevice = false;
                     }
+                } else {
+                    ownDevice = false;
                 }
-
-                if (ownDevice) {
-                    if ([dictionary[@"_type"] isEqualToString:@"card"]) {
-                        [context performBlock:^{
-                            Friend *friend = [Friend friendWithTopic:device
-                                              inManagedObjectContext:context];
-                            [self processFace:friend dictionary:dictionary];
-                        }];
+            }
+            
+            if (ownDevice) {
+                if ([dictionary[@"_type"] isEqualToString:@"card"]) {
+                    [context performBlock:^{
+                        Friend *friend = [Friend friendWithTopic:device
+                                          inManagedObjectContext:context];
+                        [self processFace:friend dictionary:dictionary];
+                    }];
+                } else {
+                    DDLogInfo(@"unhandled record type %@", dictionary[@"_type"]);
+                }
+            } else /* not own device */ {
+                if (data.length) {
+                    
+                    if ([dictionary[@"_type"] isEqualToString:@"location"]) {
+                        CLLocationCoordinate2D coordinate =
+                        CLLocationCoordinate2DMake(
+                                                   [dictionary[@"lat"] doubleValue],
+                                                   [dictionary[@"lon"] doubleValue]
+                                                   );
+                        
+                        int speed = [dictionary[@"vel"] intValue];
+                        if (speed != -1) {
+                            speed = speed * 1000 / 3600;
+                        }
+                        CLLocation *location = [[CLLocation alloc]
+                                                initWithCoordinate:coordinate
+                                                altitude:[dictionary[@"alt"] intValue]
+                                                horizontalAccuracy:[dictionary[@"acc"] doubleValue]
+                                                verticalAccuracy:[dictionary[@"vac"] intValue]
+                                                course:[dictionary[@"cog"] intValue]
+                                                speed:speed
+                                                timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]];
+                        NSDate *createdAt = location.timestamp;
+                        if ([dictionary valueForKey:@"created_at"] != nil) {
+                            createdAt = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]];
+                        }
+                        Friend *friend = [Friend friendWithTopic:device inManagedObjectContext:context];
+                        friend.tid = dictionary[@"tid"];
+                        [self addWaypointFor:friend
+                                    location:location
+                                   createdAt:createdAt
+                                     trigger:dictionary[@"t"]
+                                     context:context];
+                        [self limitWaypointsFor:friend
+                                      toMaximum:[Settings intForKey:@"positions_preference" inMOC:context]];
+                    } else if ([dictionary[@"_type"] isEqualToString:@"transition"]) {
+                        [self performSelectorOnMainThread:@selector(processTransitionMessage:)
+                                               withObject:dictionary
+                                            waitUntilDone:NO];
+                        
+                    } else if ([dictionary[@"_type"] isEqualToString:@"card"]) {
+                        Friend *friend = [Friend friendWithTopic:device
+                                          inManagedObjectContext:context];
+                        [self processFace:friend dictionary:dictionary];
+                        
+                    } else if ([dictionary[@"_type"] isEqualToString:@"lwt"]) {
+                        // ignore
+                        
                     } else {
-                        DDLogInfo(@"unhandled record type %@", dictionary[@"_type"]);
+                        DDLogInfo(@"unknown record type %@", dictionary[@"_type"]);
                     }
-                } else /* not own device */ {
-                    if (data.length) {
-
-                        if ([dictionary[@"_type"] isEqualToString:@"location"]) {
-                            CLLocationCoordinate2D coordinate =
-                            CLLocationCoordinate2DMake(
-                                                       [dictionary[@"lat"] doubleValue],
-                                                       [dictionary[@"lon"] doubleValue]
-                                                       );
-
-                            int speed = [dictionary[@"vel"] intValue];
-                            if (speed != -1) {
-                                speed = speed * 1000 / 3600;
-                            }
-                            CLLocation *location = [[CLLocation alloc]
-                                                    initWithCoordinate:coordinate
-                                                    altitude:[dictionary[@"alt"] intValue]
-                                                    horizontalAccuracy:[dictionary[@"acc"] doubleValue]
-                                                    verticalAccuracy:[dictionary[@"vac"] intValue]
-                                                    course:[dictionary[@"cog"] intValue]
-                                                    speed:speed
-                                                    timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]];
-                            NSDate *createdAt = location.timestamp;
-                            if ([dictionary valueForKey:@"created_at"] != nil) {
-                                createdAt = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]];
-                            }
-                            Friend *friend = [Friend friendWithTopic:device inManagedObjectContext:context];
-                            friend.tid = dictionary[@"tid"];
-                            [self addWaypointFor:friend
-                                        location:location
-                                       createdAt:createdAt
-                                         trigger:dictionary[@"t"]
-                                         context:context];
-                            [self limitWaypointsFor:friend
-                                          toMaximum:[Settings intForKey:@"positions_preference" inMOC:context]];
-                        } else if ([dictionary[@"_type"] isEqualToString:@"transition"]) {
-                            [self performSelectorOnMainThread:@selector(processTransitionMessage:)
-                                                   withObject:dictionary
-                                                waitUntilDone:NO];
-
-                        } else if ([dictionary[@"_type"] isEqualToString:@"card"]) {
-                            Friend *friend = [Friend friendWithTopic:device
-                                              inManagedObjectContext:context];
-                            [self processFace:friend dictionary:dictionary];
-
-                        } else if ([dictionary[@"_type"] isEqualToString:@"lwt"]) {
-                            // ignore
-                            
-                        } else {
-                            DDLogInfo(@"unknown record type %@", dictionary[@"_type"]);
-                        }
-                    } else /* data.length == 0 -> delete friend */ {
-                        Friend *friend = [Friend existsFriendWithTopic:device inManagedObjectContext:context];
-                        if (friend) {
-                            [context deleteObject:friend];
-                        }
+                } else /* data.length == 0 -> delete friend */ {
+                    Friend *friend = [Friend existsFriendWithTopic:device inManagedObjectContext:context];
+                    if (friend) {
+                        [context deleteObject:friend];
                     }
                 }
-            } else {
-                DDLogError(@"illegal json %@, %@ %@)", error.localizedDescription, error.userInfo, data.description);
             }
 
             @synchronized (self.inQueue) {
