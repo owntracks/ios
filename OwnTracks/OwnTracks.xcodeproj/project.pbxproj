@@ -54,6 +54,9 @@
 		8470352923D5E6B10041AAFB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8470352823D5E6B10041AAFB /* SystemConfiguration.framework */; };
 		8474443A1DA4BC9600975BE4 /* ConnType.m in Sources */ = {isa = PBXBuildFile; fileRef = 847444391DA4BC9600975BE4 /* ConnType.m */; };
 		8479EEB718E4529900923B24 /* MQTT.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* MQTT.plist */; };
+		847F31B625EFB8600018C0A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 847F31B425EFB8600018C0A6 /* InfoPlist.strings */; };
+		847F31B925EFB8600018C0A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 847F31B725EFB8600018C0A6 /* InfoPlist.strings */; };
+		847F31BC25EFB8600018C0A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 847F31BA25EFB8600018C0A6 /* InfoPlist.strings */; };
 		847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847F8B5719295C65003876D4 /* CoreMotion.framework */; };
 		8488CFDF25A45CC3000AFEE2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8488CFDE25A45CC3000AFEE2 /* Security.framework */; };
 		84929F0B20AAC0D000227D00 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84929F0A20AAC0CF00227D00 /* WebKit.framework */; };
@@ -293,6 +296,11 @@
 		847444381DA4BC9600975BE4 /* ConnType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnType.h; sourceTree = "<group>"; };
 		847444391DA4BC9600975BE4 /* ConnType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnType.m; sourceTree = "<group>"; };
 		8474B15319A8CB7D00427427 /* Model 7.3.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.1.xcdatamodel"; sourceTree = "<group>"; };
+		847F31B525EFB8600018C0A6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		847F31B825EFB8600018C0A6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		847F31BB25EFB8600018C0A6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		847F31BD25EFB8600018C0A6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/Launch Screen.strings"; sourceTree = "<group>"; };
+		847F31BE25EFB8600018C0A6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Interface.strings; sourceTree = "<group>"; };
 		847F8B5719295C65003876D4 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		84856A8B1BD6201800621533 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		848794B119A6234B00DF56EB /* Model 7.3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.xcdatamodel"; sourceTree = "<group>"; };
@@ -648,6 +656,7 @@
 				843A57A924A9A4D600A5441B /* IntentHandler.h */,
 				843A57AA24A9A4D600A5441B /* IntentHandler.m */,
 				843A57AC24A9A4D700A5441B /* Info.plist */,
+				847F31B725EFB8600018C0A6 /* InfoPlist.strings */,
 			);
 			path = OwnTracksIntents;
 			sourceTree = "<group>";
@@ -742,6 +751,7 @@
 				84AFD3F62434380A00F1E922 /* NotificationController.m */,
 				84AFD3F82434380B00F1E922 /* Assets.xcassets */,
 				84AFD3FA2434380B00F1E922 /* Info.plist */,
+				847F31B425EFB8600018C0A6 /* InfoPlist.strings */,
 				84AFD3FB2434380B00F1E922 /* PushNotificationPayload.apns */,
 			);
 			path = "OwnTracksWrist WatchKit Extension";
@@ -765,6 +775,7 @@
 			children = (
 				841D1A2E1C8AFF8000DC5765 /* Localizable.strings */,
 				84D307321ACD644500FACB9E /* Info.plist */,
+				847F31BA25EFB8600018C0A6 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1023,6 +1034,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				847F31B925EFB8600018C0A6 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1047,6 +1059,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84AFD3F92434380B00F1E922 /* Assets.xcassets in Resources */,
+				847F31B625EFB8600018C0A6 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1055,6 +1068,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				849B1E061FE911FD0016EF1A /* MainInterface.storyboard in Resources */,
+				847F31BC25EFB8600018C0A6 /* InfoPlist.strings in Resources */,
 				84A488E21F7BBFD900ADCF98 /* Media.xcassets in Resources */,
 				841D1A301C8AFF8000DC5765 /* Localizable.strings in Resources */,
 			);
@@ -1350,8 +1364,33 @@
 			isa = PBXVariantGroup;
 			children = (
 				84664E9F1CC8B8E0002123EC /* Base */,
+				847F31BD25EFB8600018C0A6 /* de */,
 			);
 			name = "Launch Screen.xib";
+			sourceTree = "<group>";
+		};
+		847F31B425EFB8600018C0A6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				847F31B525EFB8600018C0A6 /* de */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		847F31B725EFB8600018C0A6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				847F31B825EFB8600018C0A6 /* de */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		847F31BA25EFB8600018C0A6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				847F31BB25EFB8600018C0A6 /* de */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		849B1E081FE911FD0016EF1A /* MainInterface.storyboard */ = {
@@ -1369,6 +1408,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				84AFD3E12434380700F1E922 /* Base */,
+				847F31BE25EFB8600018C0A6 /* de */,
 			);
 			name = Interface.storyboard;
 			sourceTree = "<group>";

@@ -1,2 +1,33 @@
-/* Localized versions of Info.plist keys */
+/* Bundle display name */
+"CFBundleDisplayName" = "OwnTracks";
+
+/* Bundle name */
+"CFBundleName" = "OwnTracks";
+
+/* Privacy - Location Always and When In Use Usage Description */
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Your location is used to share and record it on a server of your choice";
+
+/* Privacy - Location Always Usage Description */
+"NSLocationAlwaysUsageDescription" = "Your location is used to share and record it on a server of your choice";
+
+/* Privacy - Location Usage Description */
+"NSLocationUsageDescription" = "Your location is used to share and record it on a server of your choice";
+
+/* Privacy - Location When In Use Usage Description */
+"NSLocationWhenInUseUsageDescription" = "Your location is used to share and record it on a server of your choice";
+
+/* Privacy - Motion Usage Description */
+"NSMotionUsageDescription" = "OwnTracks delivers your step count, floors climbed and distance walked on request";
+
+/* (No Comment) */
+"OwnTracks CER File" = "OwnTracks CER File";
+
+/* (No Comment) */
+"OwnTracks Configuration File" = "OwnTracks Configuration File";
+
+/* (No Comment) */
+"OwnTracks PKCS12 File" = "OwnTracks PKCS12 File";
+
+/* (No Comment) */
+"OwnTracks Waypoints File" = "OwnTracks Waypoints File";
 
