@@ -1,33 +1,14 @@
-/* Bundle display name */
-"CFBundleDisplayName" = "OwnTracks";
+/* 
+  InfoPlist.strings
+  OwnTracks
 
-/* Bundle name */
-"CFBundleName" = "OwnTracks";
+  Created by Christoph Krey on 03.03.21.
+  Copyright © 2021 OwnTracks. All rights reserved.
+*/
 
-/* Privacy - Location Always and When In Use Usage Description */
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "Your location is used to share and record it on a server of your choice";
-
-/* Privacy - Location Always Usage Description */
-"NSLocationAlwaysUsageDescription" = "Your location is used to share and record it on a server of your choice";
-
-/* Privacy - Location Usage Description */
-"NSLocationUsageDescription" = "Your location is used to share and record it on a server of your choice";
-
-/* Privacy - Location When In Use Usage Description */
-"NSLocationWhenInUseUsageDescription" = "Your location is used to share and record it on a server of your choice";
-
-/* Privacy - Motion Usage Description */
-"NSMotionUsageDescription" = "OwnTracks delivers your step count, floors climbed and distance walked on request";
-
-/* (No Comment) */
-"OwnTracks CER File" = "OwnTracks CER File";
-
-/* (No Comment) */
-"OwnTracks Configuration File" = "OwnTracks Configuration File";
-
-/* (No Comment) */
-"OwnTracks PKCS12 File" = "OwnTracks PKCS12 File";
-
-/* (No Comment) */
-"OwnTracks Waypoints File" = "OwnTracks Waypoints File";
-
+NSContactsUsageDescription = "Wenn Sie OwnTracks erlauben auf Ihre Kontakte zuzugreifen können sie Ihre Geräte Kontakten zuordnen.\nOwnTracks zeigt dann den Namen und das Bild des Kontakts an Stelle der Geräte ID.\nKeine Information aus Ihrem Adressbuch wird auf irgendeinen Server hochgeladen.";
+NSLocationAlwaysAndWhenInUseUsageDescription = "Ihre Position wird verwendet um sie auf einem Server Ihrer Wahl zu teilen und aufzuzeichnen";
+NSLocationAlwaysUsageDescription = "Ihre Position wird verwendet um sie auf einem Server Ihrer Wahl zu teilen und aufzuzeichnen";
+NSLocationUsageDescription = "Ihre Position wird verwendet um sie auf einem Server Ihrer Wahl zu teilen und aufzuzeichnen";
+NSLocationWhenInUseUsageDescription = "Ihre Position wird verwendet um sie auf einem Server Ihrer Wahl zu teilen und aufzuzeichnen";
+NSMotionUsageDescription = "OwnTracks überträgt die Anzahl Ihrer Schritte, die Anzahl erklommener Etagen und die zurückgelegte Strecke auf Nachfrage";

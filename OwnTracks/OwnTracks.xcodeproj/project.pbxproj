@@ -12,6 +12,7 @@
 		84001C141C78982800413E5B /* Queue+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84001C111C78982800413E5B /* Queue+CoreDataProperties.m */; };
 		8400D9731D83825E00DEA134 /* HTTP.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8400D9721D83825E00DEA134 /* HTTP.plist */; };
 		8404876B1C5386DD00569C79 /* FeaturedContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8404876A1C5386DD00569C79 /* FeaturedContentVC.m */; };
+		8408CA4425F00FB400354FF3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84F9622525F008EC007A391A /* InfoPlist.strings */; };
 		8411B82C189FDB140019D2D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82B189FDB140019D2D6 /* Foundation.framework */; };
 		8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82D189FDB140019D2D6 /* CoreGraphics.framework */; };
 		8411B830189FDB140019D2D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82F189FDB140019D2D6 /* UIKit.framework */; };
@@ -89,7 +90,6 @@
 		84DE749824A9E1C600C0DA68 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84DE749B24A9E1C600C0DA68 /* Intents.intentdefinition */; };
 		84DE749924A9E1C600C0DA68 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84DE749B24A9E1C600C0DA68 /* Intents.intentdefinition */; };
 		84E2C4511EC34B3B00BC02CE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841D1A221C8AF70900DC5765 /* Localizable.strings */; };
-		84E2C4531EC34B4600BC02CE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8411B836189FDB140019D2D6 /* InfoPlist.strings */; };
 		84E2C4541EC34B5600BC02CE /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84664EA01CC8B8E0002123EC /* Launch Screen.xib */; };
 		84E40204231413D400F1D6E6 /* History+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E40202231413D400F1D6E6 /* History+CoreDataClass.m */; };
 		84E40205231413D400F1D6E6 /* History+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E40203231413D400F1D6E6 /* History+CoreDataProperties.m */; };
@@ -210,7 +210,6 @@
 		8411B82D189FDB140019D2D6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		8411B82F189FDB140019D2D6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8411B831189FDB140019D2D6 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		8411B835189FDB140019D2D6 /* OwnTracks-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "OwnTracks-Info.plist"; sourceTree = "<group>"; };
 		8411B839189FDB140019D2D6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8411B83B189FDB140019D2D6 /* OwnTracks-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OwnTracks-Prefix.pch"; sourceTree = "<group>"; };
 		8411B83C189FDB140019D2D6 /* OwnTracksAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OwnTracksAppDelegate.h; sourceTree = "<group>"; };
@@ -241,12 +240,10 @@
 		8411B909189FEC070019D2D6 /* StatusTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusTVC.m; sourceTree = "<group>"; };
 		8411B90A189FEC070019D2D6 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		8411B90B189FEC070019D2D6 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		84155E7724FB9A4000F4E06B /* OwnTracks-Info-Mac.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "OwnTracks-Info-Mac.plist"; sourceTree = "<group>"; };
 		84195B201ABCBC9400A9FA97 /* Model 7.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.5.xcdatamodel"; sourceTree = "<group>"; };
 		841D1A231C8AF70900DC5765 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		841D1A251C8AF72000DC5765 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		841D1A261C8AF7C600DC5765 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		841D1A281C8AF7E900DC5765 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		841D1A2F1C8AFF8000DC5765 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		841D1A311C8AFF8400DC5765 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		841D1A321C8AFF8600DC5765 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -299,7 +296,6 @@
 		847F31B525EFB8600018C0A6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		847F31B825EFB8600018C0A6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		847F31BB25EFB8600018C0A6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		847F31BD25EFB8600018C0A6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = "de.lproj/Launch Screen.strings"; sourceTree = "<group>"; };
 		847F31BE25EFB8600018C0A6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Interface.strings; sourceTree = "<group>"; };
 		847F8B5719295C65003876D4 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		84856A8B1BD6201800621533 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -393,12 +389,14 @@
 		84F0AFE31C830C1D00C9F69F /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		84F0AFE51C830C2C00C9F69F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.0.xcdatamodel"; sourceTree = "<group>"; };
+		84F961E725F004A2007A391A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/OwnTracks-Info.plist"; sourceTree = "<group>"; };
+		84F961F325F004C1007A391A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/OwnTracks-Info-Mac.plist"; sourceTree = "<group>"; };
+		84F9622425F008EC007A391A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		84F9622D25F008F2007A391A /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		84F9622E25F008F3007A391A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84FA6C1722EAFF8800AC7D63 /* Model 12.0.6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 12.0.6.xcdatamodel"; sourceTree = "<group>"; };
 		84FD93052353950100CCEC3B /* OwnTracksEditTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OwnTracksEditTVC.h; sourceTree = "<group>"; };
 		84FD93062353950100CCEC3B /* OwnTracksEditTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwnTracksEditTVC.m; sourceTree = "<group>"; };
-		84FF829A238E50210037CBDD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		84FF829B238E50250037CBDD /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		84FF829C238E50280037CBDD /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		9C3DF3C2ED7AF9C874F3D94E /* Pods_OwnTracks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OwnTracks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B02AA73B94390F0B0324248E /* Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig"; path = "Target Support Files/Pods-OwnTracksWrist WatchKit Extension/Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		C283194A306A01945F9F950E /* Pods_OwnTracksWrist_WatchKit_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OwnTracksWrist_WatchKit_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -592,12 +590,12 @@
 		8411B834189FDB140019D2D6 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				84155E7724FB9A4000F4E06B /* OwnTracks-Info-Mac.plist */,
+				84F961F425F004C1007A391A /* OwnTracks-Info-Mac.plist */,
 				841D1A221C8AF70900DC5765 /* Localizable.strings */,
 				8411B8AE189FEB790019D2D6 /* Location.gpx */,
 				8411B862189FDD300019D2D6 /* OwnTracks.entitlements */,
-				8411B835189FDB140019D2D6 /* OwnTracks-Info.plist */,
-				8411B836189FDB140019D2D6 /* InfoPlist.strings */,
+				84F961E825F004A2007A391A /* OwnTracks-Info.plist */,
+				84F9622525F008EC007A391A /* InfoPlist.strings */,
 				8411B839189FDB140019D2D6 /* main.m */,
 				8411B83B189FDB140019D2D6 /* OwnTracks-Prefix.pch */,
 				84DE749B24A9E1C600C0DA68 /* Intents.intentdefinition */,
@@ -1016,7 +1014,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84E2C4531EC34B4600BC02CE /* InfoPlist.strings in Resources */,
 				8479EEB718E4529900923B24 /* MQTT.plist in Resources */,
 				8400D9731D83825E00DEA134 /* HTTP.plist in Resources */,
 				843B91721C8A14BF00DBD306 /* Storyboard.storyboard in Resources */,
@@ -1026,6 +1023,7 @@
 				84E2C4511EC34B3B00BC02CE /* Localizable.strings in Resources */,
 				845AA1BC1B4846AF00945856 /* OwnTracks-64.png in Resources */,
 				84E2C4541EC34B5600BC02CE /* Launch Screen.xib in Resources */,
+				8408CA4425F00FB400354FF3 /* InfoPlist.strings in Resources */,
 				8411B8E1189FEB790019D2D6 /* Location.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1316,17 +1314,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		8411B836189FDB140019D2D6 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				841D1A281C8AF7E900DC5765 /* Base */,
-				84FF829A238E50210037CBDD /* en */,
-				84FF829B238E50250037CBDD /* de */,
-				84FF829C238E50280037CBDD /* pl */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 		841D1A221C8AF70900DC5765 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1364,7 +1351,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				84664E9F1CC8B8E0002123EC /* Base */,
-				847F31BD25EFB8600018C0A6 /* de */,
 			);
 			name = "Launch Screen.xib";
 			sourceTree = "<group>";
@@ -1422,6 +1408,32 @@
 				84DE74A124A9E1D200C0DA68 /* pl */,
 			);
 			name = Intents.intentdefinition;
+			sourceTree = "<group>";
+		};
+		84F961E825F004A2007A391A /* OwnTracks-Info.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84F961E725F004A2007A391A /* Base */,
+			);
+			name = "OwnTracks-Info.plist";
+			sourceTree = "<group>";
+		};
+		84F961F425F004C1007A391A /* OwnTracks-Info-Mac.plist */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84F961F325F004C1007A391A /* Base */,
+			);
+			name = "OwnTracks-Info-Mac.plist";
+			sourceTree = "<group>";
+		};
+		84F9622525F008EC007A391A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84F9622425F008EC007A391A /* en */,
+				84F9622D25F008F2007A391A /* de */,
+				84F9622E25F008F3007A391A /* pl */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1550,9 +1562,9 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
-				INFOPLIST_FILE = "OwnTracks/OwnTracks-Info.plist";
-				"INFOPLIST_FILE[sdk=*]" = "OwnTracks/OwnTracks-Info.plist";
-				"INFOPLIST_FILE[sdk=macosx*]" = "OwnTracks/OwnTracks-Info-Mac.plist";
+				INFOPLIST_FILE = "OwnTracks/Base.lproj/OwnTracks-Info.plist";
+				"INFOPLIST_FILE[sdk=*]" = "OwnTracks/Base.lproj/OwnTracks-Info.plist";
+				"INFOPLIST_FILE[sdk=macosx*]" = "OwnTracks/Base.lproj/OwnTracks-Info-Mac.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1600,9 +1612,9 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
-				INFOPLIST_FILE = "OwnTracks/OwnTracks-Info.plist";
-				"INFOPLIST_FILE[sdk=*]" = "OwnTracks/OwnTracks-Info.plist";
-				"INFOPLIST_FILE[sdk=macosx*]" = "OwnTracks/OwnTracks-Info-Mac.plist";
+				INFOPLIST_FILE = "OwnTracks/Base.lproj/OwnTracks-Info.plist";
+				"INFOPLIST_FILE[sdk=*]" = "OwnTracks/Base.lproj/OwnTracks-Info.plist";
+				"INFOPLIST_FILE[sdk=macosx*]" = "OwnTracks/Base.lproj/OwnTracks-Info-Mac.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -1,2 +1,14 @@
-/* Localized versions of Info.plist keys */
+/* 
+  InfoPlist.strings
+  OwnTracks
 
+  Created by Christoph Krey on 03.03.21.
+  Copyright © 2021 OwnTracks. All rights reserved.
+*/
+
+NSContactsUsageDescription = "If you allow OwnTracks to access your contacts, you can link your devices to contacts.\nOwnTracks will then display the contact name and image instead of the device Id.\nNo information of your address book will be uploaded to any server.";
+NSLocationAlwaysAndWhenInUseUsageDescription = "Your location is used to share and record it on a server of your choice";
+NSLocationAlwaysUsageDescription = "Your location is used to share and record it on a server of your choice";
+NSLocationUsageDescription = "Your location is used to share and record it on a server of your choice";
+NSLocationWhenInUseUsageDescription = "Your location is used to share and record it on a server of your choice";
+NSMotionUsageDescription = "OwnTracks delivers your step count, floors climbed and distance walked on request";
