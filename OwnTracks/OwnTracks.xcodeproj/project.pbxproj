@@ -13,6 +13,7 @@
 		8400D9731D83825E00DEA134 /* HTTP.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8400D9721D83825E00DEA134 /* HTTP.plist */; };
 		8404876B1C5386DD00569C79 /* FeaturedContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8404876A1C5386DD00569C79 /* FeaturedContentVC.m */; };
 		8408CA4425F00FB400354FF3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84F9622525F008EC007A391A /* InfoPlist.strings */; };
+		8408CA9425F01C7600354FF3 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8408CA9325F01C7500354FF3 /* Launch Screen.xib */; };
 		8411B82C189FDB140019D2D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82B189FDB140019D2D6 /* Foundation.framework */; };
 		8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82D189FDB140019D2D6 /* CoreGraphics.framework */; };
 		8411B830189FDB140019D2D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82F189FDB140019D2D6 /* UIKit.framework */; };
@@ -90,7 +91,6 @@
 		84DE749824A9E1C600C0DA68 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84DE749B24A9E1C600C0DA68 /* Intents.intentdefinition */; };
 		84DE749924A9E1C600C0DA68 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84DE749B24A9E1C600C0DA68 /* Intents.intentdefinition */; };
 		84E2C4511EC34B3B00BC02CE /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841D1A221C8AF70900DC5765 /* Localizable.strings */; };
-		84E2C4541EC34B5600BC02CE /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84664EA01CC8B8E0002123EC /* Launch Screen.xib */; };
 		84E40204231413D400F1D6E6 /* History+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E40202231413D400F1D6E6 /* History+CoreDataClass.m */; };
 		84E40205231413D400F1D6E6 /* History+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E40203231413D400F1D6E6 /* History+CoreDataProperties.m */; };
 		84E402082314140400F1D6E6 /* HistoryTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E402072314140400F1D6E6 /* HistoryTVC.m */; };
@@ -204,6 +204,7 @@
 		8400D9741D84946E00DEA134 /* Model 9.1.7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.1.7.xcdatamodel"; sourceTree = "<group>"; };
 		840487691C5386DD00569C79 /* FeaturedContentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeaturedContentVC.h; sourceTree = "<group>"; };
 		8404876A1C5386DD00569C79 /* FeaturedContentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeaturedContentVC.m; sourceTree = "<group>"; };
+		8408CA9325F01C7500354FF3 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		840BBDD318E4274200DC113C /* Model 6.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 6.2.xcdatamodel"; sourceTree = "<group>"; };
 		8411B828189FDB140019D2D6 /* OwnTracks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OwnTracks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8411B82B189FDB140019D2D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -280,7 +281,6 @@
 		845AA1BA1B4846AF00945856 /* OwnTracks-320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-320.png"; sourceTree = "<group>"; };
 		84664E9B1CC83A38002123EC /* NSBundle+privateLocalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSBundle+privateLocalization.h"; sourceTree = "<group>"; };
 		84664E9C1CC83A38002123EC /* NSBundle+privateLocalization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+privateLocalization.m"; sourceTree = "<group>"; };
-		84664E9F1CC8B8E0002123EC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = "Base.lproj/Launch Screen.xib"; sourceTree = "<group>"; };
 		846FFA1B1B4023BE001482A6 /* Model 8.2.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.0.xcdatamodel"; sourceTree = "<group>"; };
 		846FFA431B402A1F001482A6 /* OwnTracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OwnTracking.h; sourceTree = "<group>"; };
 		846FFA4D1B40C13C001482A6 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
@@ -679,8 +679,8 @@
 				84A1737C1B428F3E00CCB7D0 /* Settings */,
 				843B91741C8A14BF00DBD306 /* Storyboard.storyboard */,
 				8404876C1C53872700569C79 /* FeaturedContent */,
-				84664EA01CC8B8E0002123EC /* Launch Screen.xib */,
 				8411B842189FDB140019D2D6 /* Images.xcassets */,
+				8408CA9325F01C7500354FF3 /* Launch Screen.xib */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -1019,10 +1019,10 @@
 				843B91721C8A14BF00DBD306 /* Storyboard.storyboard in Resources */,
 				84CC5A521FEC71850010314C /* OwnTracks-29.png in Resources */,
 				845AA1BD1B4846AF00945856 /* OwnTracks-320.png in Resources */,
+				8408CA9425F01C7600354FF3 /* Launch Screen.xib in Resources */,
 				8411B843189FDB140019D2D6 /* Images.xcassets in Resources */,
 				84E2C4511EC34B3B00BC02CE /* Localizable.strings in Resources */,
 				845AA1BC1B4846AF00945856 /* OwnTracks-64.png in Resources */,
-				84E2C4541EC34B5600BC02CE /* Launch Screen.xib in Resources */,
 				8408CA4425F00FB400354FF3 /* InfoPlist.strings in Resources */,
 				8411B8E1189FEB790019D2D6 /* Location.gpx in Resources */,
 			);
@@ -1345,14 +1345,6 @@
 				84CC5A501FEAE3A40010314C /* en */,
 			);
 			name = Storyboard.storyboard;
-			sourceTree = "<group>";
-		};
-		84664EA01CC8B8E0002123EC /* Launch Screen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				84664E9F1CC8B8E0002123EC /* Base */,
-			);
-			name = "Launch Screen.xib";
 			sourceTree = "<group>";
 		};
 		847F31B425EFB8600018C0A6 /* InfoPlist.strings */ = {
