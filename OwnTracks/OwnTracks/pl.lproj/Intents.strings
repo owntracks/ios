@@ -1,43 +1,66 @@
+/* (No Comment) */
 "5EuzDa" = "manual";
 
+/* (No Comment) */
 "B33bKe" = "quiet";
 
+/* (No Comment) */
 "EJYIEL" = "Send current location";
 
+/* (No Comment) */
 "EqYRFW" = "move";
 
+/* (No Comment) */
 "FYfTj6" = "Change Monitoring Mode";
 
+/* (No Comment) */
 "GJDEib-5EuzDa" = "Just to confirm, you wanted ‘manual’?";
 
+/* (No Comment) */
 "GJDEib-B33bKe" = "Just to confirm, you wanted ‘quiet’?";
 
+/* (No Comment) */
 "GJDEib-EqYRFW" = "Just to confirm, you wanted ‘move’?";
 
+/* (No Comment) */
 "GJDEib-l7Rl2N" = "Just to confirm, you wanted ‘significant’?";
 
+/* (No Comment) */
 "JylJeF" = "Change Monitoring Mode";
 
-"MfQBKX" = "Enum";
-
-"P5jx7T-5EuzDa" = "There are ${count} options matching ‘manual’.";
-
-"P5jx7T-B33bKe" = "There are ${count} options matching ‘quiet’.";
-
-"P5jx7T-EqYRFW" = "There are ${count} options matching ‘move’.";
-
-"P5jx7T-l7Rl2N" = "There are ${count} options matching ‘significant’.";
-
-"PKS8bh" = "Monitoring";
-
+/* (No Comment) */
 "l7Rl2N" = "significant";
 
+/* (No Comment) */
+"MfQBKX" = "Enum";
+
+/* (No Comment) */
 "nBDHVu" = "Which one?";
 
-"u3pDrc" = "Send Now";
-
-"vuIozC" = "Change Monitoring";
-
+/* (No Comment) */
 "Ogyrko" = "Change your monitoring mode";
 
+/* (No Comment) */
+"P5jx7T-5EuzDa" = "There are ${count} options matching ‘manual’.";
+
+/* (No Comment) */
+"P5jx7T-B33bKe" = "There are ${count} options matching ‘quiet’.";
+
+/* (No Comment) */
+"P5jx7T-EqYRFW" = "There are ${count} options matching ‘move’.";
+
+/* (No Comment) */
+"P5jx7T-l7Rl2N" = "There are ${count} options matching ‘significant’.";
+
+/* (No Comment) */
+"PKS8bh" = "Monitoring";
+
+/* (No Comment) */
+"u3pDrc" = "Send Now";
+
+/* (No Comment) */
+"vuIozC" = "Change Monitoring";
+
+/* (No Comment) */
 "WvwXPJ" = "Send your location immediately";
+
