@@ -109,7 +109,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                 NSLocalizedString(@"m", @"Short for meters")
                                 ];
     } else {
-        self.UILocation.text =NSLocalizedString( @"No location available",  @"No location available indication");
+        self.UILocation.text =NSLocalizedString( @"No location recorded",  @"No location recorded indication");
     }
 
     if (self.UIparameters) {

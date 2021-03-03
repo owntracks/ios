@@ -25,11 +25,17 @@
 /* Location Manager error message */
 "App use of location services is unclear" = "Użycie usług lokalizacji przez aplikację jest niejasne";
 
+/* Display after processing beacon QR code */
+"Beacon QR successfully processed" = "Beacon QR successfully processed";
+
 /* Cancel button title */
 "Cancel" = "Anuluj";
 
 /* Location Manager error message */
 "Circular region monitoring not available" = "Monitorowanie okręgu niedostępne";
+
+/* Clipboard */
+"Clipboard" = "Clipboard";
 
 /* description connection closed state */
 "closed" = "zamknięte";
@@ -49,9 +55,6 @@
 /* content of an alert message regarding circular region */
 "created at center of map" = "utworzono na środku mapy";
 
-/* Done */
-"Done" = "Gotowe";
-
 /* reverseGeocodeLocation text */
 "due to rate limit or off-line" = "z powodu ograniczenia danych lub off-line";
 
@@ -64,23 +67,32 @@
 /* Display when file processing fails */
 "Error processing file" = "Błąd przetwarzania pliku";
 
+/* Export */
+"Export" = "Export";
+
 /* Display when file processing succeeds (filename follows) */
 "File" = "Plik";
 
 /* Display after trying to open a file */
 "file open error" = "błąd otwarcia pliku";
 
+/* Fly */
+"Fly" = "Fly";
+
 /* Alert message header for friend's messages */
 "Friend" = "Znajomy";
 
-/* Alert message header for notification messages */
-"Notification" = "Notification";
-
-/* kABAuthorizationStatusDenied */
+/* CNAuthorizationStatusDenied */
 "has been denied by user.\nIf you allow OwnTracks to access your contacts, you can link your devices to contacts.\nOwnTracks will then display the contact name and image instead of the device Id.\nNo information of your address book will be uploaded to any server.\nGo to Settings/Privacy/Contacts to change" = "has been denied by user.\nIf you allow OwnTracks to access your contacts, you can link your devices to contacts.\nOwnTracks will then display the contact name and image instead of the device Id.\nNo information of your address book will be uploaded to any server.\nGo to Settings/Privacy/Contacts to change";
 
-/* kABAuthorizationStatusRestricted */
+/* CNAuthorizationStatusRestricted */
 "has been restricted, possibly due to restrictions such as parental controls." = "zostało ograniczone, prawdopodobnie przez blokady takie jak kontrola rodzicielska.";
+
+/* Hyb */
+"Hyb" = "Hyb";
+
+/* HybFly */
+"HybFly" = "HybFly";
 
 /* Location Manager error message */
 "iBeacon ranging not available" = "Obszarowanie iBeacon niedostępne";
@@ -91,11 +103,23 @@
 /* description connection idle state */
 "idle" = "bezczynność";
 
+/* Warning displayed if location is inaccurate or old */
+"Inaccurate or old location information" = "Inaccurate or old location information";
+
 /* certificate error message */
 "incorrect file or passphrase" = "nieprawidłowy plik lub hasło";
 
-/* certificate file error message */
-"invalid certificate file" = "nieprawidłowy plik certyfikatu";
+/* Display for incorrect inline config */
+"Inline Configuration incorrect" = "Inline Configuration incorrect";
+
+/* Display for incorrectly encoded inline config */
+"Inline Configuration incorrectly encoded" = "Inline Configuration incorrectly encoded";
+
+/* Display for config without parameters */
+"Inline Configuration missing parameters" = "Inline Configuration missing parameters";
+
+/* Display after processing inline config */
+"Inline Configuration successfully processed" = "Inline Configuration successfully processed";
 
 /* Short for kilometers per hour as in 120km/h */
 "km/h" = "km/h";
@@ -105,6 +129,9 @@
 
 /* Header of an alert message regarding a location */
 "Location" = "Lokalizacja";
+
+/* Location copied to clipboard */
+"Location copied to clipboard" = "Location copied to clipboard";
 
 /* Location Manager error message */
 "Location services are not enabled" = "Usługi lokalizacji nie są włączone";
@@ -118,11 +145,11 @@
 /* Short for meters */
 "m" = "m";
 
+/* content of an alert message regarging missing Mac Catalyst Export */
+"Mac Catalyst does not support export yet" = "Mac Catalyst does not support export yet";
+
 /* Manual */
 "Manual" = "Ręczny";
-
-/* Header of an alert message regarding monitoring mode */
-"Mode" = "Tryb";
 
 /* Alert header for mode change warning */
 "Mode change" = "Zmiana trybu";
@@ -130,8 +157,8 @@
 /* Move */
 "Move" = "Poruszania";
 
-/* displayed if a name is not known */
-"name unknown" = "nazwa nieznana";
+/* Mute */
+"Mute" = "Mute";
 
 /* dummy for missing content */
 "no content available" = "brak treści";
@@ -139,11 +166,14 @@
 /* No location available indication */
 "No location available" = "Lokalizacja niedostępna";
 
+/* No location recorded indication */
+"No location recorded" = "No location recorded";
+
 /* Display after trying to process a file */
 "no url specified" = "URL nieznany";
 
-/* OK button title */
-"OK" = "OK";
+/* Alert message header for notification messages */
+"Notification" = "Notification";
 
 /* temporary display while opening URL */
 "opening URL" = "otwieranie URL";
@@ -157,8 +187,8 @@
 /* Alert content regarding protocol input */
 "Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1 or 5 for MQTT V5" = "Protokół może przyjąć wartość 3 dla MQTT V3.1 lub 4 dla MQTT V3.1.1 lub 5 dla MQTT V5";
 
-/* Export */
-"Export" = "Export";
+/* content of an alert message regarding user publish */
+"publish queued on user request" = "publish queued on user request";
 
 /* Quiet */
 "Quiet" = "Cichy";
@@ -166,11 +196,11 @@
 /* Header of an alert message regarding circular region */
 "Region" = "Obszar";
 
-/* content of an alert message regarding publish request */
-"requested from friend" = "prośba od znajomego";
-
 /* temporary display while resolving address */
 "resolving..." = "rozwiązywanie...";
+
+/* Sat */
+"Sat" = "Sat";
 
 /* Settings screen title */
 "Settings" = "Ustawienia";
@@ -181,14 +211,17 @@
 /* Location Manager error message */
 "Significant location change monitoring not available" = "Monitorowanie znaczących zmian lokalizacji niedostępne";
 
+/* Std */
+"Std" = "Std";
+
 /* Display when file processing succeeds */
 "successfully processed" = "przetworzono poprawnie";
 
+/* Table is empty */
+"Table is empty" = "Table is empty";
+
 /* Heading for certificate error message */
 "TLS Client Certificate" = "Certyfikat Klienta TLS";
-
-/* Heading for security policy error message */
-"TLS Security Policy" = "Polityka Bezpieczeństwa TLS";
 
 /* Warning displayed if necessary settings are missing */
 "To publish your location userID and deviceID must be set" = "Aby opublikować lokalizację, ID użytkownika i ID urządzenia muszą być ustawione";
@@ -202,14 +235,14 @@
 /* Alert content regarding TrackerID input */
 "TrackerID may contain alphanumeric characters only" = "TrackerID może zawierać tylko litery lub cyfry";
 
-/* Display after entering an unknown path in url */
-"unknown path in url" = "nieznana ścieżka w url";
-
 /* Display after entering an unknown scheme in url */
 "unknown scheme in url" = "nieznany protokół w url";
 
 /* description connection unknown state */
 "unknown state" = "stan nieznany";
+
+/* Display for unknown url path */
+"unknown url path" = "nieznana ścieżka w url";
 
 /* webView didFailLoadWithError display */
 "webView didFailLoadWithError" = "webView didFailLoadWithError";
@@ -229,17 +262,3 @@
 /* Short for altitude as in ✈︎1000m */
 "✈︎" = "✈︎";
 
-/* Clipboard */
-"Clipboard" = "Clipboard";
-
-/* Location copied to clipboard */
-"Location copied to clipboard" = "Location copied to clipboard";
-
-/* content of an alert message regarging missing Mac Catalyst Export */
-"Mac Catalyst does not support export yet" = "Mac Catalyst does not support export yet";
-
-/* Warning displayed if not location available */
-"No location available" = "No location available";
-
-/* Warning displayed if location is inaccurate or old */
-"Inaccurate or old location information" = "Inaccurate or old location information";
