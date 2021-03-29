@@ -217,11 +217,17 @@
 /* Header of an alert message regarding missing setup */
 "Setup" = "Setup";
 
+/* MQTT Description Text */
+"Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Możesz skonfigurować własny serwer OwnTracks dla pełnej ochrony prywatności. Więcej informacji tutaj: https://owntracks.org/booklet";
+
 /* Significant */
 "Significant" = "Znaczący";
 
 /* Location Manager error message */
 "Significant location change monitoring not available" = "Monitorowanie znaczących zmian lokalizacji niedostępne";
+
+/* HTTP Description Text */
+"Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Podobnie do trybu MQTT, jednak transmisja danych używa protokołu HTTP, zamiast MQTT.";
 
 /* Std */
 "Std" = "Std";
@@ -258,6 +264,9 @@
 
 /* webView didFailLoadWithError display */
 "webView didFailLoadWithError" = "webView didFailLoadWithError";
+
+/* Please Note Text */
+"When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "Podczas przełączania trybów, wszystkie dane OwnTracks zostaną usunięte z powodów prywatności.";
 
 /* You cannot use background fetch */
 "You cannot use background fetch" = "Nie możesz użyć pobrania w tle";

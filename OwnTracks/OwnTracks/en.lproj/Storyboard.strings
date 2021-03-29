@@ -230,9 +230,6 @@
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "Urx-Dz-nZk"; */
 "Urx-Dz-nZk.text" = "Subtitle";
 
-/* Class = "UITextView"; text = "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet"; ObjectID = "VOr-0S-3k6"; */
-"VOr-0S-3k6.text" = "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet";
-
 /* Class = "UILabel"; text = "TLS"; ObjectID = "VQE-Wz-JiS"; */
 "VQE-Wz-JiS.text" = "TLS";
 
@@ -401,9 +398,6 @@
 /* Class = "UILabel"; text = "Websockets"; ObjectID = "qg7-Fn-2Qr"; Note = "Don't translate, technical term"; */
 "qg7-Fn-2Qr.text" = "Websockets";
 
-/* Class = "UITextView"; text = "Similar to MQTT mode, except data transmission uses HTTP, not MQTT."; ObjectID = "rKh-bU-tSn"; */
-"rKh-bU-tSn.text" = "Similar to MQTT mode, except data transmission uses HTTP, not MQTT.";
-
 /* Class = "UIButton"; normalTitle = "Publish Waypoints"; ObjectID = "rMe-Is-0BE"; */
 "rMe-Is-0BE.normalTitle" = "Publish Waypoints";
 
@@ -418,9 +412,6 @@
 
 /* Class = "UITextView"; text = "<status>"; ObjectID = "src-OY-ZUR"; Note = "Don't translate. Placeholder"; */
 "src-OY-ZUR.text" = "<status>";
-
-/* Class = "UITextView"; text = "When switching between  modes, all OwnTracks data will be deleted for privacy reasons."; ObjectID = "su4-a5-GZU"; */
-"su4-a5-GZU.text" = "When switching between  modes, all OwnTracks data will be deleted for privacy reasons.";
 
 /* Class = "UITextField"; placeholder = "subTopic"; ObjectID = "suj-kA-G3U"; */
 "suj-kA-G3U.placeholder" = "subTopic";

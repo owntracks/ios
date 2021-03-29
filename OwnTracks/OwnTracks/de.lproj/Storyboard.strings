@@ -340,9 +340,6 @@
 /* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "RfS-uy-gRR"; Note = "Placeholder. Don't translate."; */
 "RfS-uy-gRR.placeholder" = "<Coordinates>";
 
-/* Class = "UITextView"; text = "Similar to MQTT mode, except data transmission uses HTTP, not MQTT."; ObjectID = "rKh-bU-tSn"; */
-"rKh-bU-tSn.text" = "Ähnlich wie MQTT Modus, aber die Datenübertragung nutzt HTTP, nicht MQTT.";
-
 /* Class = "UIButton"; normalTitle = "Publish Waypoints"; ObjectID = "rMe-Is-0BE"; */
 "rMe-Is-0BE.normalTitle" = "Sende Regionen";
 
@@ -360,9 +357,6 @@
 
 /* Class = "UITextView"; text = "<status>"; ObjectID = "src-OY-ZUR"; Note = "Don't translate. Placeholder"; */
 "src-OY-ZUR.text" = "state";
-
-/* Class = "UITextView"; text = "When switching between  modes, all OwnTracks data will be deleted for privacy reasons."; ObjectID = "su4-a5-GZU"; */
-"su4-a5-GZU.text" = "Wenn der Modus gewechselt wird löscht OwnTracks alle bisher gespeicherten Daten aus Datenschutzgründen.";
 
 /* Class = "UITextField"; placeholder = "subTopic"; ObjectID = "suj-kA-G3U"; */
 "suj-kA-G3U.placeholder" = "subTopic";
@@ -408,9 +402,6 @@
 
 /* Class = "UITableViewSection"; headerTitle = "MQTT Mode"; ObjectID = "vi2-IZ-KJt"; */
 "vi2-IZ-KJt.headerTitle" = "MQTT Modus";
-
-/* Class = "UITextView"; text = "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet"; ObjectID = "VOr-0S-3k6"; */
-"VOr-0S-3k6.text" = "Konfigurieren Sie Ihren OwnTracks Server für vollständigen Datenschutz. Mehr Information hier: https://owntracks.org/booklet";
 
 /* Class = "UILabel"; text = "TLS"; ObjectID = "VQE-Wz-JiS"; */
 "VQE-Wz-JiS.text" = "TLS";

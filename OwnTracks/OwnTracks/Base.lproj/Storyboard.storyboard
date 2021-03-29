@@ -2619,7 +2619,7 @@
         <!--Modes-->
         <scene sceneID="KBF-7Y-bKi">
             <objects>
-                <tableViewController id="nQd-fE-AS1" sceneMemberID="viewController">
+                <tableViewController id="nQd-fE-AS1" customClass="ModesTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="mjj-EE-yiz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2634,7 +2634,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="113"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VOr-0S-3k6">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="VOr-0S-3k6">
                                                     <rect key="frame" x="20" y="20" width="374" height="73"/>
                                                     <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -2661,7 +2661,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="Similar to MQTT mode, except data transmission uses HTTP, not MQTT." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rKh-bU-tSn">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rKh-bU-tSn">
                                                     <rect key="frame" x="20" y="20" width="374" height="60"/>
                                                     <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -2688,7 +2688,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="114"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="When switching between  modes, all OwnTracks data will be deleted for privacy reasons." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="su4-a5-GZU">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="su4-a5-GZU">
                                                     <rect key="frame" x="20" y="20" width="374" height="74"/>
                                                     <color key="textColor" systemColor="labelColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -2713,6 +2713,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Modes" id="nJk-gq-XUi"/>
+                    <connections>
+                        <outlet property="httpDescription" destination="rKh-bU-tSn" id="KkB-MB-MXh"/>
+                        <outlet property="mqttDescription" destination="VOr-0S-3k6" id="EOv-h9-sTb"/>
+                        <outlet property="pleaseNote" destination="su4-a5-GZU" id="Hxb-5y-RXR"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5M7-fK-0Wh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
