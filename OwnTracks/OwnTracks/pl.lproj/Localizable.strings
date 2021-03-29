@@ -91,9 +91,6 @@
 /* Alert message header for friend's messages */
 "Friend" = "Znajomy";
 
-/* CNAuthorizationStatusDenied */
-"has been denied by user.\nIf you allow OwnTracks to access your contacts, you can link your devices to contacts.\nOwnTracks will then display the contact name and image instead of the device Id.\nNo information of your address book will be uploaded to any server.\nGo to Settings/Privacy/Contacts to change" = "has been denied by user.\nIf you allow OwnTracks to access your contacts, you can link your devices to contacts.\nOwnTracks will then display the contact name and image instead of the device Id.\nNo information of your address book will be uploaded to any server.\nGo to Settings/Privacy/Contacts to change";
-
 /* CNAuthorizationStatusRestricted */
 "has been restricted, possibly due to restrictions such as parental controls." = "zostało ograniczone, prawdopodobnie przez blokady takie jak kontrola rodzicielska.";
 
@@ -147,9 +144,6 @@
 
 /* indicates a locked configuration */
 "locked" = "zablokowane";
-
-/* Text explaining the Setup */
-"Login_Text_1" = "Możesz też skonfigurować własny serwer OwnTracks dla zachowania pełnej prywatności.\n\nSzczegółowe informacje tutaj: https://owntracks.org/booklet";
 
 /* Short for meters */
 "m" = "m";

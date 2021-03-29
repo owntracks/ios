@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="16096" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17701" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch44"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="16012"/>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17500"/>
     </dependencies>
     <scenes>
         <!--Interface Controller-->
@@ -16,7 +17,7 @@
                                 <action selector="changeTracking:" destination="AgC-eL-Hgc" id="bLg-xJ-bQ7"/>
                             </connections>
                         </switch>
-                        <textField width="1" height="26" alignment="left" placeholder="location" enabled="NO" id="80y-II-rH2"/>
+                        <textField width="1" height="26" alignment="left" placeholder="Location" enabled="NO" id="80y-II-rH2"/>
                         <textField width="1" height="27" alignment="left" placeholder="connection" enabled="NO" id="2GB-Wj-YGS"/>
                         <button width="1" alignment="left" title="Settings" id="ctT-RJ-OR3">
                             <connections>

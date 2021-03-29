@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ABStaticTableViewController.h"
 
-@interface StatusTVC : UITableViewController
+@interface StatusTVC : ABStaticTableViewController
 
 @end

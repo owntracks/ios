@@ -11,248 +11,248 @@
 "✈︎" = "✈︎";
 
 /* name of an unknown or hidden region */
-"a region" = "a region";
+"a region" = "Eine Region";
 
 /* reverseGeocodeLocation error */
 "Address resolver failed" = "Address resolver failed";
 
 /* Headline in addressbook related error messages */
-"Addressbook Access" = "Addressbook Access";
+"Addressbook Access" = "Zugriff auf das Adressbuch";
 
 /* Location Manager error message */
-"App is not allowed to use location services" = "App is not allowed to use location services";
+"App is not allowed to use location services" = "Die App darf Ortungsdienste nicht nutzen";
 
 /* Location Manager error message */
-"App is not allowed to use location services in background" = "App is not allowed to use location services in background";
+"App is not allowed to use location services in background" = "Die App ist nicht berechtigt Ordnungsdienste im Hintergrund zu nutzen";
 
 /* Location Manager error message */
-"App is not allowed to use location services yet" = "App is not allowed to use location services yet";
+"App is not allowed to use location services yet" = "Die App ist noch nicht berechtigt Ortungsdienste zu nutzen";
 
 /* Location Manager error message */
-"App use of location services is restricted" = "App use of location services is restricted";
+"App use of location services is restricted" = "Die App darf Ortungsdienste nur eingeschränkt nutzen";
 
 /* Location Manager error message */
-"App use of location services is unclear" = "App use of location services is unclear";
+"App use of location services is unclear" = "Die Berechtigung zur Nutzung von Ortnungsdiensten ist unklar";
 
 /* Display after processing beacon QR code */
-"Beacon QR successfully processed" = "Beacon QR successfully processed";
+"Beacon QR successfully processed" = "Beacon QR erfolgreich verarbeitet";
 
 /* Cancel button title */
-"Cancel" = "Cancel";
+"Cancel" = "Abbrechen";
 
 /* Location Manager error message */
-"Circular region monitoring not available" = "Circular region monitoring not available";
+"Circular region monitoring not available" = "Überwachung kreisförmiger Regionen nicht verfügbar";
 
 /* Clipboard */
-"Clipboard" = "Clipboard";
+"Clipboard" = "Zwischenablage";
 
 /* description connection closed state */
-"closed" = "closed";
+"closed" = "beendet";
 
 /* description connection closing state */
-"closing" = "closing";
+"closing" = "wird beendet";
 
 /* description connection connected state */
-"connected" = "connected";
+"connected" = "verbunden";
 
 /* description connection connected state */
-"connecting" = "connecting";
+"connecting" = "verbinden...";
 
 /* Continue button title */
-"Continue" = "Continue";
+"Continue" = "Weiter";
 
 /* content of an alert message regarding circular region */
-"created at center of map" = "created at center of map";
+"created at center of map" = "im Kartenmittelpunkt erstellt";
 
 /* reverseGeocodeLocation text */
-"due to rate limit or off-line" = "due to rate limit or off-line";
+"due to rate limit or off-line" = "wegen Limitüberschreitung oder weil Off-Line";
 
 /* Display when entering region (region name follows) */
-"Entering" = "Entering";
+"Entering" = "Betritt";
 
 /* description connection error state */
-"error" = "error";
+"error" = "Fehler";
 
 /* Display when file processing fails */
-"Error processing file" = "Error processing file";
+"Error processing file" = "Fehler beim verarbeiten der Datei";
 
 /* Export */
 "Export" = "Export";
 
 /* Display when file processing succeeds (filename follows) */
-"File" = "File";
+"File" = "Datei";
 
 /* Display after trying to open a file */
-"file open error" = "file open error";
+"file open error" = "Fehler beim Öffnen der Datei";
 
 /* Fly */
-"Fly" = "Fly";
+"Fly" = "Luft";
 
 /* Alert message header for friend's messages */
-"Friend" = "Friend";
+"Friend" = "Freund";
 
 /* CNAuthorizationStatusRestricted */
-"has been restricted, possibly due to restrictions such as parental controls." = "has been restricted, possibly due to restrictions such as parental controls.";
+"has been restricted, possibly due to restrictions such as parental controls." = "wurde eingeschränkt, wahrscheinlich wegen elterlicher Kontrolle.";
 
 /* Hyb */
 "Hyb" = "Hyb";
 
 /* HybFly */
-"HybFly" = "HybFly";
+"HybFly" = "HybLuft";
 
 /* Location Manager error message */
-"iBeacon ranging not available" = "iBeacon ranging not available";
+"iBeacon ranging not available" = "iBeacon ranging ist nicht verfügbar";
 
 /* Location Manager error message */
-"iBeacon region monitoring not available" = "iBeacon region monitoring not available";
+"iBeacon region monitoring not available" = "Überwachung von iBeacon Regionen nicht verfügbar";
 
 /* description connection idle state */
-"idle" = "idle";
+"idle" = "Leerlauf";
 
 /* Warning displayed if location is inaccurate or old */
-"Inaccurate or old location information" = "Inaccurate or old location information";
+"Inaccurate or old location information" = "Ungenaue oder veraltete Positionsangabe";
 
 /* certificate error message */
-"incorrect file or passphrase" = "incorrect file or passphrase";
+"incorrect file or passphrase" = "Falsche Datei oder geheimer Schlüssel";
 
 /* Display for incorrect inline config */
-"Inline Configuration incorrect" = "Inline Configuration incorrect";
+"Inline Configuration incorrect" = "Inline Configuration ist fehlerhaft";
 
 /* Display for incorrectly encoded inline config */
-"Inline Configuration incorrectly encoded" = "Inline Configuration incorrectly encoded";
+"Inline Configuration incorrectly encoded" = "Inline Configuration falsch codiert";
 
 /* Display for config without parameters */
-"Inline Configuration missing parameters" = "Inline Configuration missing parameters";
+"Inline Configuration missing parameters" = "Inline Configuration hat fehlende Parameter";
 
 /* Display after processing inline config */
-"Inline Configuration successfully processed" = "Inline Configuration successfully processed";
+"Inline Configuration successfully processed" = "Inline Configuration erfolgreich verarbeitet";
 
 /* Short for kilometers per hour as in 120km/h */
 "km/h" = "km/h";
 
 /* Display when leaving region (region name follows) */
-"Leaving" = "Leaving";
+"Leaving" = "Verlässt";
 
 /* Header of an alert message regarding a location */
-"Location" = "Location";
+"Location" = "Position";
 
 /* Location copied to clipboard */
-"Location copied to clipboard" = "Location copied to clipboard";
+"Location copied to clipboard" = "Position wurde in die Zwischenablage kopiert";
 
 /* Location Manager error message */
-"Location services are not enabled" = "Location services are not enabled";
+"Location services are not enabled" = "Ortungsdienste sind nicht eingeschaltet";
 
 /* indicates a locked configuration */
-"locked" = "locked";
+"locked" = "gesperrt";
 
 /* Short for meters */
 "m" = "m";
 
 /* content of an alert message regarging missing Mac Catalyst Export */
-"Mac Catalyst does not support export yet" = "Mac Catalyst does not support export yet";
+"Mac Catalyst does not support export yet" = "Mac Catalyst unterstützt noch keinen Export";
 
 /* Manual */
-"Manual" = "Manual";
+"Manual" = "Manuell";
 
 /* Alert header for mode change warning */
-"Mode change" = "Mode change";
+"Mode change" = "Moduswechsel";
 
 /* Move */
-"Move" = "Move";
+"Move" = "Bewegung";
 
 /* Mute */
-"Mute" = "Mute";
+"Mute" = "Einfach";
 
 /* dummy for missing content */
-"no content available" = "no content available";
+"no content available" = "kein Inhalt verfügbar";
 
 /* No location available indication */
-"No location available" = "No location available";
+"No location available" = "Position nicht verfügbar";
 
 /* No location recorded indication */
-"No location recorded" = "No location recorded";
+"No location recorded" = "Keine Position verfügbar\\n";
 
 /* Display after trying to process a file */
-"no url specified" = "no url specified";
+"no url specified" = "keine URL angegeben";
 
 /* Alert message header for notification messages */
-"Notification" = "Notification";
+"Notification" = "Benachrichtigung";
 
 /* temporary display while opening URL */
-"opening URL" = "opening URL";
+"opening URL" = "URL wird geöffnet";
 
 /* Alert content for mode change warning */
-"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before.";
+"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Bitte beachten Sie, dass gespeicherte Regionen und Positionen auf diesem Gerät gelöscht werden. Bitte sichern Sie diese vorher.";
 
 /* Alert header regarding protocol input */
-"Protocol invalid" = "Protocol invalid";
+"Protocol invalid" = "Ungültiges Protokoll";
 
 /* Alert content regarding protocol input */
-"Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1 or 5 for MQTT V5" = "Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1 or 5 for MQTT V5";
+"Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1 or 5 for MQTT V5" = "Protokoll kann sein: 3 für MQTT V3.1 oder 4 für MQTT V3.1.1 oder 5 für MQTT V5";
 
 /* content of an alert message regarding user publish */
-"publish queued on user request" = "publish queued on user request";
+"publish queued on user request" = "Veröffentlichung auf Nutzerwunsch vorbereitet";
 
 /* Quiet */
-"Quiet" = "Quiet";
+"Quiet" = "Still";
 
 /* Header of an alert message regarding circular region */
 "Region" = "Region";
 
 /* temporary display while resolving address */
-"resolving..." = "resolving...";
+"resolving..." = "Adressauflösung...";
 
 /* Sat */
 "Sat" = "Sat";
 
 /* Settings screen title */
-"Settings" = "Settings";
+"Settings" = "Einstellungen";
 
 /* Significant */
-"Significant" = "Significant";
+"Significant" = "Wesentlich";
 
 /* Location Manager error message */
-"Significant location change monitoring not available" = "Significant location change monitoring not available";
+"Significant location change monitoring not available" = "Monitoring für wesentliche Positionsänderungen nicht verfügbar";
 
 /* Std */
 "Std" = "Std";
 
 /* Display when file processing succeeds */
-"successfully processed" = "successfully processed";
+"successfully processed" = "erfolgreich verarbeitet";
 
 /* Table is empty */
-"Table is empty" = "Table is empty";
+"Table is empty" = "Tabelle ist leer";
 
 /* Heading for certificate error message */
 "TLS Client Certificate" = "TLS Client Certificate";
 
 /* Warning displayed if necessary settings are missing */
-"To publish your location userID and deviceID must be set" = "To publish your location userID and deviceID must be set";
+"To publish your location userID and deviceID must be set" = "Ihre userID und deviceID müssen gesetzt sein um Ihre Position zu senden";
 
 /* Alert header regarding TrackerID input */
-"TrackerID invalid" = "TrackerID invalid";
+"TrackerID invalid" = "TrackerID ungültig";
 
 /* Alert content regarding TrackerID input */
-"TrackerID may be empty or up to 2 characters long" = "TrackerID may be empty or up to 2 characters long";
+"TrackerID may be empty or up to 2 characters long" = "TrackerID kann leer oder bis zu 2 Zeichen lang sein";
 
 /* Alert content regarding TrackerID input */
-"TrackerID may contain alphanumeric characters only" = "TrackerID may contain alphanumeric characters only";
+"TrackerID may contain alphanumeric characters only" = "TrackerID darf nur Buchstaben oder Ziffern enthalten";
 
 /* Display after entering an unknown scheme in url */
-"unknown scheme in url" = "unknown scheme in url";
+"unknown scheme in url" = "unbekanntes Schema in URL";
 
 /* description connection unknown state */
-"unknown state" = "unknown state";
+"unknown state" = "unbekannter Status";
 
 /* Display for unknown url path */
-"unknown url path" = "unknown url path";
+"unknown url path" = "unbekannter URL Pfad";
 
 /* webView didFailLoadWithError display */
 "webView didFailLoadWithError" = "webView didFailLoadWithError";
 
 /* You cannot use background fetch */
-"You cannot use background fetch" = "You cannot use background fetch";
+"You cannot use background fetch" = "Sie können keinen Background Fetch nutzen";
 
 /* You did disable background fetch */
-"You did disable background fetch" = "You did disable background fetch";
+"You did disable background fetch" = "Sie haben Background Fetch deaktiviert";
 

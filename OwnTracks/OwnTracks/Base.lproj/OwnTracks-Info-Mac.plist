@@ -195,7 +195,7 @@ No information of your address book will be uploaded to any server.</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.owntracks.otrc</string>
 			<key>UTTypeReferenceURL</key>
-			<string>http://www.owntracks.org</string>
+			<string>https://www.owntracks.org</string>
 			<key>UTTypeSize320IconFile</key>
 			<string>OwnTracks-320</string>
 			<key>UTTypeSize64IconFile</key>
@@ -225,7 +225,7 @@ No information of your address book will be uploaded to any server.</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.owntracks.otrw</string>
 			<key>UTTypeReferenceURL</key>
-			<string>http://www.owntracks.org</string>
+			<string>https://www.owntracks.org</string>
 			<key>UTTypeSize320IconFile</key>
 			<string>OwnTracks-320</string>
 			<key>UTTypeSize64IconFile</key>
@@ -254,7 +254,7 @@ No information of your address book will be uploaded to any server.</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.owntracks.otrp</string>
 			<key>UTTypeReferenceURL</key>
-			<string>http://www.owntracks.org</string>
+			<string>https://www.owntracks.org</string>
 			<key>UTTypeSize320IconFile</key>
 			<string>OwnTracks-320</string>
 			<key>UTTypeSize64IconFile</key>
@@ -282,7 +282,7 @@ No information of your address book will be uploaded to any server.</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.owntracks.otre</string>
 			<key>UTTypeReferenceURL</key>
-			<string>http://www.owntracks.org</string>
+			<string>https://www.owntracks.org</string>
 			<key>UTTypeSize320IconFile</key>
 			<string>OwnTracks-320</string>
 			<key>UTTypeSize64IconFile</key>
@@ -314,7 +314,7 @@ No information of your address book will be uploaded to any server.</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.owntracks.otrc</string>
 			<key>UTTypeReferenceURL</key>
-			<string>http://www.owntracks.org</string>
+			<string>https://www.owntracks.org</string>
 			<key>UTTypeSize320IconFile</key>
 			<string>OwnTracks-320</string>
 			<key>UTTypeSize64IconFile</key>
@@ -344,7 +344,7 @@ No information of your address book will be uploaded to any server.</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.owntracks.otrw</string>
 			<key>UTTypeReferenceURL</key>
-			<string>http://www.owntracks.org</string>
+			<string>https://www.owntracks.org</string>
 			<key>UTTypeSize320IconFile</key>
 			<string>OwnTracks-320</string>
 			<key>UTTypeSize64IconFile</key>
@@ -373,7 +373,7 @@ No information of your address book will be uploaded to any server.</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.owntracks.otrp</string>
 			<key>UTTypeReferenceURL</key>
-			<string>http://www.owntracks.org</string>
+			<string>https://www.owntracks.org</string>
 			<key>UTTypeSize320IconFile</key>
 			<string>OwnTracks-320</string>
 			<key>UTTypeSize64IconFile</key>
@@ -401,7 +401,7 @@ No information of your address book will be uploaded to any server.</string>
 			<key>UTTypeIdentifier</key>
 			<string>org.owntracks.otre</string>
 			<key>UTTypeReferenceURL</key>
-			<string>http://www.owntracks.org</string>
+			<string>https://www.owntracks.org</string>
 			<key>UTTypeSize320IconFile</key>
 			<string>OwnTracks-320</string>
 			<key>UTTypeSize64IconFile</key>

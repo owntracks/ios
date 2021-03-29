@@ -14,6 +14,8 @@
 @interface TabBarController ()
 @property (strong, nonatomic) UIViewController *featuredVC;
 @property (strong, nonatomic) UIViewController *historyVC;
+@property (strong, nonatomic) UIViewController *regionVC;
+@property (strong, nonatomic) UIViewController *friendsVC;
 @property (nonatomic) BOOL warning;
 @end
 
@@ -23,6 +25,12 @@
     [super viewDidLoad];
 
     for (UIViewController *vc in self.viewControllers) {
+        if (vc.tabBarItem.tag == 95) {
+            self.friendsVC = vc;
+        }
+        if (vc.tabBarItem.tag == 96) {
+            self.regionVC = vc;
+        }
         if (vc.tabBarItem.tag == 97) {
             self.historyVC = vc;
         }
@@ -58,14 +66,15 @@
 }
 
 - (void)adjust {
+    NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.viewControllers];
+
     if (self.featuredVC) {
-        NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.viewControllers];
-        
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
 
         if (delegate.action) {
             if (![viewControllers containsObject:self.featuredVC]) {
-                [viewControllers insertObject:self.featuredVC atIndex:viewControllers.count];
+                [viewControllers insertObject:self.featuredVC
+                                      atIndex:viewControllers.count];
                 self.featuredVC.tabBarItem.badgeValue = NSLocalizedString(@"!",
                                                                           @"New featured content indicator");
             }
@@ -74,18 +83,17 @@
                 [viewControllers removeObject:self.featuredVC];
             }
         }
-        [self setViewControllers:viewControllers animated:TRUE];
     }
 
     if (self.historyVC) {
-        NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.viewControllers];
-
         if ([Settings theMaximumHistoryInMOC:[CoreData sharedInstance].mainMOC]) {
             if (![viewControllers containsObject:self.historyVC]) {
                 if ([viewControllers containsObject:self.featuredVC]) {
-                    [viewControllers insertObject:self.historyVC atIndex:viewControllers.count - 1];
+                    [viewControllers insertObject:self.historyVC
+                                          atIndex:viewControllers.count - 1];
                 } else {
-                    [viewControllers insertObject:self.historyVC atIndex:viewControllers.count];
+                    [viewControllers insertObject:self.historyVC
+                                          atIndex:viewControllers.count];
                 }
             }
         } else {
@@ -93,9 +101,8 @@
                 [viewControllers removeObject:self.historyVC];
             }
         }
-        [self setViewControllers:viewControllers animated:TRUE];
     }
-
+    [self setViewControllers:viewControllers animated:TRUE];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

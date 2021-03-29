@@ -70,12 +70,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     
     const NSDictionary<NSNumber *, NSString *> *states;
     states = @{
-               @(state_starting):   NSLocalizedString(@"idle",          @"description connection idle state"),
-               @(state_connecting): NSLocalizedString(@"connecting",    @"description connection connected state"),
-               @(state_error):      NSLocalizedString(@"error",         @"description connection error state"),
-               @(state_connected):  NSLocalizedString(@"connected",     @"description connection connected state"),
-               @(state_closing):    NSLocalizedString(@"closing",       @"description connection closing state"),
-               @(state_closed):     NSLocalizedString(@"closed",        @"description connection closed state")
+               @(state_starting):   NSLocalizedString(@"idle",
+                                                      @"description connection idle state"),
+               @(state_connecting): NSLocalizedString(@"connecting",
+                                                      @"description connection connected state"),
+               @(state_error):      NSLocalizedString(@"error",
+                                                      @"description connection error state"),
+               @(state_connected):  NSLocalizedString(@"connected",
+                                                      @"description connection connected state"),
+               @(state_closing):    NSLocalizedString(@"closing",
+                                                      @"description connection closing state"),
+               @(state_closed):     NSLocalizedString(@"closed",
+                                                      @"description connection closed state")
                };
     
     NSString *stateName = [NSString stringWithFormat:@"%@ (%@)",

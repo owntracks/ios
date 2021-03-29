@@ -1,66 +1,63 @@
 /* (No Comment) */
-"5EuzDa" = "manual";
+"5EuzDa" = "manuell";
 
 /* (No Comment) */
-"B33bKe" = "quiet";
+"B33bKe" = "still";
 
 /* (No Comment) */
-"EJYIEL" = "Send current location";
+"EJYIEL" = "Sende momentane Position";
 
 /* (No Comment) */
-"EqYRFW" = "move";
+"EqYRFW" = "bewegt";
 
 /* (No Comment) */
-"FYfTj6" = "Change Monitoring Mode";
+"FYfTj6" = "Ändere Monitoring Modus";
 
 /* (No Comment) */
-"GJDEib-5EuzDa" = "Just to confirm, you wanted ‘manual’?";
+"GJDEib-5EuzDa" = "Um sicher zu gehen, Sie wollten ‘manuell’?";
 
 /* (No Comment) */
-"GJDEib-B33bKe" = "Just to confirm, you wanted ‘quiet’?";
+"GJDEib-B33bKe" = "Um sicher zu gehen, Sie wollten ‘still’?";
 
 /* (No Comment) */
-"GJDEib-EqYRFW" = "Just to confirm, you wanted ‘move’?";
+"GJDEib-EqYRFW" = "Um sicher zu gehen, Sie wollten ‘bewegt’?";
 
 /* (No Comment) */
-"GJDEib-l7Rl2N" = "Just to confirm, you wanted ‘significant’?";
+"GJDEib-l7Rl2N" = "Um sicher zu gehen, Sie wollten ‘wesentlich’?";
 
 /* (No Comment) */
-"JylJeF" = "Change Monitoring Mode";
+"JylJeF" = "Ändere Monitoring Modus";
 
 /* (No Comment) */
-"l7Rl2N" = "significant";
+"l7Rl2N" = "wesentlich";
 
 /* (No Comment) */
-"MfQBKX" = "Enum";
+"MfQBKX" = "Monitoring Modus";
 
 /* (No Comment) */
-"nBDHVu" = "Which one?";
+"Ogyrko" = "Ändern Sie Ihren Monitoring Modus";
 
 /* (No Comment) */
-"Ogyrko" = "Change your monitoring mode";
+"P5jx7T-5EuzDa" = "Es gibt ${count} Optionen wie ‘manuell’.";
 
 /* (No Comment) */
-"P5jx7T-5EuzDa" = "There are ${count} options matching ‘manual’.";
+"P5jx7T-B33bKe" = "Es gibt ${count} Optionen wie ‘still’.";
 
 /* (No Comment) */
-"P5jx7T-B33bKe" = "There are ${count} options matching ‘quiet’.";
+"P5jx7T-EqYRFW" = "Es gibt ${count} Optionen wie ‘bewegt’.";
 
 /* (No Comment) */
-"P5jx7T-EqYRFW" = "There are ${count} options matching ‘move’.";
-
-/* (No Comment) */
-"P5jx7T-l7Rl2N" = "There are ${count} options matching ‘significant’.";
+"P5jx7T-l7Rl2N" = "Es gibt ${count} Optionen wie ‘wesentlich’.";
 
 /* (No Comment) */
 "PKS8bh" = "Monitoring";
 
 /* (No Comment) */
-"u3pDrc" = "Send Now";
+"u3pDrc" = "Jetzt senden";
 
 /* (No Comment) */
-"vuIozC" = "Change Monitoring";
+"vuIozC" = "Monitoring ändern";
 
 /* (No Comment) */
-"WvwXPJ" = "Send your location immediately";
+"WvwXPJ" = "Senden Sie Ihre Position sofort";
 
