@@ -16,7 +16,6 @@
 @property (strong, nonatomic) UIViewController *historyVC;
 @property (strong, nonatomic) UIViewController *regionVC;
 @property (strong, nonatomic) UIViewController *friendsVC;
-@property (nonatomic) BOOL warning;
 @end
 
 @implementation TabBarController
@@ -45,14 +44,15 @@
                   options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                   context:nil];
 
-    [[NSNotificationCenter defaultCenter] addObserverForName:@"reload"
-                                                      object:nil
-                                                       queue:[NSOperationQueue mainQueue]
-                                                  usingBlock:^(NSNotification *note){
-                                                      [self performSelectorOnMainThread:@selector(adjust)
-                                                                             withObject:nil
-                                                                          waitUntilDone:NO];
-                                                  }];
+    [[NSNotificationCenter defaultCenter]
+     addObserverForName:@"reload"
+     object:nil
+     queue:[NSOperationQueue mainQueue]
+     usingBlock:^(NSNotification *note){
+        [self performSelectorOnMainThread:@selector(adjust)
+                               withObject:nil
+                            waitUntilDone:NO];
+    }];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -61,7 +61,9 @@
                        context:(void *)context {
     
     if ([keyPath isEqualToString:@"action"]) {
-        [self performSelectorOnMainThread:@selector(adjust) withObject:nil waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(adjust)
+                               withObject:nil
+                            waitUntilDone:NO];
     }
 }
 
@@ -104,15 +106,5 @@
     }
     [self setViewControllers:viewControllers animated:TRUE];
 }
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    if (!self.warning &&
-        ![Setting existsSettingWithKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC]) {
-        self.warning = TRUE;
-        [self performSegueWithIdentifier:@"login" sender:nil];
-    }
-}
-
 
 @end

@@ -4,7 +4,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -1643,7 +1642,6 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="ZI8-3E-DIo" kind="modal" identifier="login" id="wom-jf-qJf"/>
                         <segue destination="HEo-wr-wj3" kind="relationship" relationship="viewControllers" id="Nni-Ga-qRj"/>
                         <segue destination="v5R-yR-9TY" kind="relationship" relationship="viewControllers" id="Jhc-sN-0Bg"/>
                         <segue destination="gCm-FQ-VzQ" kind="relationship" relationship="viewControllers" id="xbH-k7-yqP"/>
@@ -3280,77 +3278,6 @@ libsodium (libsodium.org)
             </objects>
             <point key="canvasLocation" x="371" y="1522"/>
         </scene>
-        <!--LoginVC-->
-        <scene sceneID="s3U-XY-13W">
-            <objects>
-                <viewController id="ZI8-3E-DIo" customClass="LoginVC" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="TFk-6K-4fa"/>
-                        <viewControllerLayoutGuide type="bottom" id="vov-c0-Ba4"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="T55-Np-1JM">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="C3P-Jq-Oc6">
-                                <rect key="frame" x="20" y="8" width="374" height="792"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Artwork" translatesAutoresizingMaskIntoConstraints="NO" id="NX5-9d-GWE">
-                                        <rect key="frame" x="0.0" y="0.0" width="374" height="64"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="64" id="POg-bQ-Il7"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OwnTracks" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="45H-aU-ltr">
-                                        <rect key="frame" x="0.0" y="72" width="374" height="43"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="43" id="YvG-jg-nB8"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
-                                        <color key="textColor" name="primaryTintColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="280" placeholderIntrinsicHeight="224" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v2D-6q-oH5">
-                                        <rect key="frame" x="0.0" y="123" width="374" height="631"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <string key="text">You need to setup your own OwnTracks server and edit your configuration for full privacy protection.
-
-Detailed info on http://owntracks.org/booklet</string>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                                    </textView>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abx-Rq-K54">
-                                        <rect key="frame" x="0.0" y="762" width="374" height="30"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Continue">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="continuePressed:" destination="ZI8-3E-DIo" eventType="touchUpInside" id="F8z-Tk-Zkt"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
-                        </subviews>
-                        <color key="backgroundColor" name="primaryColor"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="C3P-Jq-Oc6" secondAttribute="trailing" constant="20" symbolic="YES" id="8tx-VL-c6v"/>
-                            <constraint firstItem="C3P-Jq-Oc6" firstAttribute="top" secondItem="TFk-6K-4fa" secondAttribute="bottom" constant="8" symbolic="YES" id="V4n-b9-NuI"/>
-                            <constraint firstItem="vov-c0-Ba4" firstAttribute="top" secondItem="C3P-Jq-Oc6" secondAttribute="bottom" constant="8" symbolic="YES" id="V8f-9P-uXl"/>
-                            <constraint firstItem="C3P-Jq-Oc6" firstAttribute="leading" secondItem="T55-Np-1JM" secondAttribute="leading" constant="20" symbolic="YES" id="ggf-0r-nPo"/>
-                        </constraints>
-                    </view>
-                    <toolbarItems/>
-                    <connections>
-                        <outlet property="UItext1" destination="v2D-6q-oH5" id="reI-Am-ep6"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Wdg-GW-kIp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-424" y="-38.680659670164921"/>
-        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Utn-3t-RCv"/>
@@ -3358,17 +3285,10 @@ Detailed info on http://owntracks.org/booklet</string>
         <segue reference="KLh-ve-vhU"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="Artwork" width="512" height="512"/>
         <image name="Friends" width="33" height="33"/>
         <image name="Info" width="25" height="25"/>
         <image name="OnwTracks" width="30" height="30"/>
         <image name="Regions" width="33" height="33"/>
-        <namedColor name="primaryColor">
-            <color red="0.24705882352941178" green="0.44705882352941179" blue="0.70980392156862748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="primaryTintColor">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <systemColor name="groupTableViewBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

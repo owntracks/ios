@@ -404,7 +404,8 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
                                                                @"Location Manager error message")
          ];
     }
-    
+
+#if 0
     if (![CLLocationManager significantLocationChangeMonitoringAvailable]) {
         [delegate.navigationController alert:@"LocationManager"
                                      message:NSLocalizedString(@"Significant location change monitoring not available",
@@ -436,7 +437,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     if (![CLLocationManager headingAvailable]) {
         // [delegate.navigationController alert:where message:@"Heading not available"];
     }
-    
+#endif
 }
 
 - (void)locationManager:(CLLocationManager *)manager

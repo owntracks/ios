@@ -446,9 +446,6 @@
 /* Class = "UILabel"; text = "willRetain"; ObjectID = "udF-FX-N41"; Note = "Don't translate, technical term"; */
 "udF-FX-N41.text" = "willRetain";
 
-/* Class = "UITextView"; text = "You need to setup your own OwnTracks server and edit your configuration for full privacy protection.\n\nDetailed info on http://owntracks.org/booklet"; ObjectID = "v2D-6q-oH5"; */
-"v2D-6q-oH5.text" = "You need to setup your own OwnTracks server and edit your configuration for full privacy protection.\n\nDetailed info on http://owntracks.org/booklet";
-
 /* Class = "UILabel"; text = "ignoreStaleLocations"; ObjectID = "vHW-Iv-6Q1"; Note = "Don't translate, technical term"; */
 "vHW-Iv-6Q1.text" = "ignoreStaleLocations";
 

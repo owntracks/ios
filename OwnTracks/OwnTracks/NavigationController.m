@@ -12,12 +12,14 @@
 
 @interface NavigationController ()
 @property (strong, nonatomic) UIProgressView *progressView;
+@property (strong, nonatomic) NSMutableArray *queuedAlerts;
 @end
 
 @implementation NavigationController
 - (void)viewDidLoad {
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     delegate.navigationController = self;
+    self.queuedAlerts = [[NSMutableArray alloc] init];
 
     self.progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
     [self.view addSubview:self.progressView];
@@ -132,6 +134,11 @@
     // in MACCATALYST the UIAlert does not dismiss when told so.
     // This means we cannot dismiss it after a few seconds
 
+    if (self.presentedViewController) {
+        [self.queuedAlerts addObject:parameters];
+        return;
+    }
+
     UIAlertController *ac =
     [UIAlertController alertControllerWithTitle:parameters[@"title"]
                                         message:parameters[@"message"]
@@ -143,7 +150,13 @@
                                                                @"Continue button title")
 
                              style:UIAlertActionStyleDefault
-                             handler:^(UIAlertAction * action) {}];
+                             handler:^(UIAlertAction * action) {
+            if (self.queuedAlerts.count > 0) {
+                NSDictionary *parameters = self.queuedAlerts.firstObject;
+                [self.queuedAlerts removeObjectAtIndex:0];
+                [self alert:parameters];
+            }
+        }];
         [ac addAction:ok];
     }
     [self presentViewController:ac animated:TRUE completion:nil];

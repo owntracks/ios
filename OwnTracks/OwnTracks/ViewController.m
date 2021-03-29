@@ -37,6 +37,7 @@
 @property (strong, nonatomic) UISegmentedControl *modes;
 @property (strong, nonatomic) UISegmentedControl *mapMode;
 @property (strong, nonatomic) MKUserTrackingButton *trackingButton;
+@property (nonatomic) BOOL warning;
 @end
 
 
@@ -45,7 +46,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    self.warning = FALSE;
     self.mapView.delegate = self;
     self.mapView.mapType = MKMapTypeStandard;
     self.mapView.showsUserLocation = TRUE;
@@ -292,6 +294,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     }
     while (!self.frcRegions) {
         //
+    }
+    
+    if (!self.warning &&
+        ![Setting existsSettingWithKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC]) {
+        self.warning = TRUE;
+        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegate.navigationController alert:
+         NSLocalizedString(@"Setup",
+                           @"Header of an alert message regarding missing setup")
+                                     message:
+         NSLocalizedString(@"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet",
+                           @"Text explaining the Setup")];
     }
 }
 

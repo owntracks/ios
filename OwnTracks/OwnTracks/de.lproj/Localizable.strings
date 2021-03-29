@@ -145,8 +145,12 @@
 /* indicates a locked configuration */
 "locked" = "gesperrt";
 
+/* Header of an alert message regarding missing setup */
+"Setup" = "Setup";
+
 /* Text explaining the Setup */
-"Login_Text_1" = "You need to setup your own OwnTracks server and edit your configuration for full privacy protection.\n\nDetailed info on https://owntracks.org/booklet";
+"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Konfigurieren Sie Ihren OwnTracks Server für vollständigen Datenschutz. Mehr Information hier: https://owntracks.org/booklet";
+
 
 /* Short for meters */
 "m" = "m";
