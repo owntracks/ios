@@ -1,0 +1,15 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "OwnTracksWrist WatchKit Extension";
+
+/* Bundle name */
+"CFBundleName" = "OwnTracksWrist WatchKit Extension";
+
+/* Privacy - Location Always and When In Use Usage Description */
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "OwnWatch monitoruje Twoją lokalizację i wysyła ją na serwer który wybierzesz.";
+
+/* Privacy - Location Always Usage Description */
+"NSLocationAlwaysUsageDescription" = "OwnWatch monitoruje Twoją lokalizację i wysyła ją na serwer który wybierzesz.";
+
+/* Privacy - Location When In Use Usage Description */
+"NSLocationWhenInUseUsageDescription" = "OwnWatch monitoruje Twoją lokalizację i wysyła ją na serwer który wybierzesz.";
+

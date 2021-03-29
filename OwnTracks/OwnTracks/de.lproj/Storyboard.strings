@@ -55,9 +55,6 @@
 /* Class = "UITableViewSection"; headerTitle = "Info"; ObjectID = "9tZ-tQ-x72"; */
 "9tZ-tQ-x72.headerTitle" = "Info";
 
-/* Class = "UILabel"; text = "OwnTracks"; ObjectID = "45H-aU-ltr"; */
-"45H-aU-ltr.text" = "OwnTracks";
-
 /* Class = "UIButton"; normalTitle = "Export Waypoints"; ObjectID = "54d-E6-cWX"; */
 "54d-E6-cWX.normalTitle" = "Regionen exportieren";
 
@@ -72,9 +69,6 @@
 
 /* Class = "UILabel"; text = "Host"; ObjectID = "a19-FN-Mwf"; Note = "Don't translate, technical term"; */
 "a19-FN-Mwf.text" = "Host";
-
-/* Class = "UIButton"; normalTitle = "Continue"; ObjectID = "abx-Rq-K54"; */
-"abx-Rq-K54.normalTitle" = "Weiter";
 
 /* Class = "UITableViewSection"; headerTitle = "HTTP Mode"; ObjectID = "Ac4-3H-YRL"; */
 "Ac4-3H-YRL.headerTitle" = "HTTP Modus";
@@ -343,8 +337,8 @@
 /* Class = "UILabel"; text = "effective tid"; ObjectID = "rdL-4M-Ugx"; Note = "Don't translate, technical term"; */
 "rdL-4M-Ugx.text" = "effektiver tid";
 
-/* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "RfS-uy-gRR"; */
-"RfS-uy-gRR.placeholder" = "coordinates";
+/* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "RfS-uy-gRR"; Note = "Placeholder. Don't translate."; */
+"RfS-uy-gRR.placeholder" = "<Coordinates>";
 
 /* Class = "UITextView"; text = "Similar to MQTT mode, except data transmission uses HTTP, not MQTT."; ObjectID = "rKh-bU-tSn"; */
 "rKh-bU-tSn.text" = "Ähnlich wie MQTT Modus, aber die Datenübertragung nutzt HTTP, nicht MQTT.";

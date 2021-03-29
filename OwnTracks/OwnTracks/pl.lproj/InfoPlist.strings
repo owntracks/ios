@@ -1,7 +1,36 @@
-/* 
-  InfoPlist.strings
-  OwnTracks
+/* Bundle display name */
+"CFBundleDisplayName" = "OwnTracks";
 
-  Created by Christoph Krey on 03.03.21.
-  Copyright © 2021 OwnTracks. All rights reserved.
-*/
+/* Bundle name */
+"CFBundleName" = "OwnTracks";
+
+/* Privacy - Contacts Usage Description */
+"NSContactsUsageDescription" = "Jeśli pozwolisz aplikacji Owntracks na dostęp do kontaktów, będziesz mógł powiązać swoje urządzenia z kontaktami.\\nOwnTracks wyświetli wtedy nazwę kontaktu i obraz profilowy zamiast identyfikatora urządzenia.\\nInformacje z Twojej książki adresowej nie zostaną wysłane na żaden serwer.";
+
+/* Privacy - Location Always and When In Use Usage Description */
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Twoja lokalizacja jest udostępniana i zapisywana na serwerze który wybierzesz";
+
+/* Privacy - Location Always Usage Description */
+"NSLocationAlwaysUsageDescription" = "Twoja lokalizacja jest udostępniana i zapisywana na serwerze który wybierzesz";
+
+/* Privacy - Location Usage Description */
+"NSLocationUsageDescription" = "Twoja lokalizacja jest udostępniana i zapisywana na serwerze który wybierzesz";
+
+/* Privacy - Location When In Use Usage Description */
+"NSLocationWhenInUseUsageDescription" = "Twoja lokalizacja jest udostępniana i zapisywana na serwerze który wybierzesz";
+
+/* Privacy - Motion Usage Description */
+"NSMotionUsageDescription" = "OwnTracks dostarcza Twoją liczbę kroków, liczbę pięter i przebyty dystans na życzenie";
+
+/* (No Comment) */
+"OwnTracks CER File" = "OwnTracks CER File";
+
+/* (No Comment) */
+"OwnTracks Configuration File" = "OwnTracks Configuration File";
+
+/* (No Comment) */
+"OwnTracks PKCS12 File" = "OwnTracks PKCS12 File";
+
+/* (No Comment) */
+"OwnTracks Waypoints File" = "OwnTracks Waypoints File";
+

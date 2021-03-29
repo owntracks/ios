@@ -19,7 +19,7 @@
                BlueprintIdentifier = "84D6B40925C8161D00B2AC07"
                BuildableName = "OwnTracksTests.xctest"
                BlueprintName = "OwnTracksTests"
-               ReferencedContainer = "container:OwnTracks.xcodeproj">
+               ReferencedContainer = "container:CF Bundle.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

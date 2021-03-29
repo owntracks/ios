@@ -29,9 +29,6 @@
 /* Class = "UILabel"; text = "Mode"; ObjectID = "3ad-LO-zcn"; Note = "Don't translate, technical term"; */
 "3ad-LO-zcn.text" = "Mode";
 
-/* Class = "UILabel"; text = "OwnTracks"; ObjectID = "45H-aU-ltr"; */
-"45H-aU-ltr.text" = "OwnTracks";
-
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "4OY-Dm-bnz"; */
 "4OY-Dm-bnz.placeholder" = "Password";
 
@@ -167,8 +164,8 @@
 /* Class = "UITextField"; placeholder = "Meters"; ObjectID = "M0H-SF-pCO"; */
 "M0H-SF-pCO.placeholder" = "Meters";
 
-/* Class = "UITextView"; text = "Uses the following http://cocoapods.org\n\nCocoaLumberjack\nABStaticTableViewController\nlibsodium (libsodium.org)\n\n"; ObjectID = "Moe-Di-frm"; */
-"Moe-Di-frm.text" = "Uses the following http://cocoapods.org\n\nCocoaLumberjack\nABStaticTableViewController\nlibsodium (libsodium.org)\n\n";
+/* Class = "UITextView"; text = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, libsodium (libsodium.org)\n\n"; ObjectID = "Moe-Di-frm"; */
+"Moe-Di-frm.text" = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, libsodium (libsodium.org)\n\n";
 
 /* Class = "UITableViewSection"; headerTitle = "Expert Mode"; ObjectID = "NRQ-7X-SLM"; */
 "NRQ-7X-SLM.headerTitle" = "Expert Mode";
@@ -206,7 +203,7 @@
 /* Class = "UIButton"; normalTitle = "Settings"; ObjectID = "R0X-4j-vxu"; */
 "R0X-4j-vxu.normalTitle" = "Settings";
 
-/* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "RfS-uy-gRR"; */
+/* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "RfS-uy-gRR"; Note = "Placeholder. Don't translate."; */
 "RfS-uy-gRR.placeholder" = "<Coordinates>";
 
 /* Class = "UILabel"; text = "Status"; ObjectID = "Rxv-hL-MC1"; Note = "Placeholder. Do not translate!"; */
@@ -271,9 +268,6 @@
 
 /* Class = "UILabel"; text = "Allow Untrusted Certificates"; ObjectID = "aVN-vG-YjO"; Note = "Don't translate, technical term"; */
 "aVN-vG-YjO.text" = "Allow Untrusted Certificates";
-
-/* Class = "UIButton"; normalTitle = "Continue"; ObjectID = "abx-Rq-K54"; */
-"abx-Rq-K54.normalTitle" = "Continue";
 
 /* Class = "UILabel"; text = "Street\n1\n2\n3\n4"; ObjectID = "apt-Il-Ih4"; Note = "Don't Translate, Placeholder"; */
 "apt-Il-Ih4.text" = "Street\n1\n2\n3\n4";

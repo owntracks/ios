@@ -17,7 +17,7 @@
                BlueprintIdentifier = "84AFD3DA2434380700F1E922"
                BuildableName = "OwnTracksWrist WatchKit App.app"
                BlueprintName = "OwnTracksWrist WatchKit App"
-               ReferencedContainer = "container:OwnTracks.xcodeproj">
+               ReferencedContainer = "container:CF Bundle.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "84AFD3D72434380700F1E922"
                BuildableName = "OwnTracksWrist.app"
                BlueprintName = "OwnTracksWrist"
-               ReferencedContainer = "container:OwnTracks.xcodeproj">
+               ReferencedContainer = "container:CF Bundle.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -63,7 +63,7 @@
             BlueprintIdentifier = "84AFD3DA2434380700F1E922"
             BuildableName = "OwnTracksWrist WatchKit App.app"
             BlueprintName = "OwnTracksWrist WatchKit App"
-            ReferencedContainer = "container:OwnTracks.xcodeproj">
+            ReferencedContainer = "container:CF Bundle.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -82,7 +82,7 @@
             BlueprintIdentifier = "84AFD3DA2434380700F1E922"
             BuildableName = "OwnTracksWrist WatchKit App.app"
             BlueprintName = "OwnTracksWrist WatchKit App"
-            ReferencedContainer = "container:OwnTracks.xcodeproj">
+            ReferencedContainer = "container:CF Bundle.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -91,6 +91,9 @@
 /* Alert message header for friend's messages */
 "Friend" = "Freund";
 
+/* CNAuthorizationStatusDenied */
+"has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change" = "wurde verweigert. Wenn Sie OwnTracks Zugriff auf Ihr Adressbuch geben, können Sie Geräte Kontakten zuordnen. OwnTracks zeigt dann an Stelle der Gerätekennung den Namen und das Bild des Kontaktes an. Keinerlei Informationen aus Ihrem Adressbuch werden auf irgendeinen Server übertragen. Ändern können Sie unter Einstellungen/Datenschutz/Contacts to change";
+
 /* CNAuthorizationStatusRestricted */
 "has been restricted, possibly due to restrictions such as parental controls." = "wurde eingeschränkt, wahrscheinlich wegen elterlicher Kontrolle.";
 
@@ -144,13 +147,6 @@
 
 /* indicates a locked configuration */
 "locked" = "gesperrt";
-
-/* Header of an alert message regarding missing setup */
-"Setup" = "Setup";
-
-/* Text explaining the Setup */
-"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Konfigurieren Sie Ihren OwnTracks Server für vollständigen Datenschutz. Mehr Information hier: https://owntracks.org/booklet";
-
 
 /* Short for meters */
 "m" = "m";
@@ -218,6 +214,9 @@
 /* Settings screen title */
 "Settings" = "Einstellungen";
 
+/* Header of an alert message regarding missing setup */
+"Setup" = "Setup";
+
 /* Significant */
 "Significant" = "Wesentlich";
 
@@ -265,4 +264,7 @@
 
 /* You did disable background fetch */
 "You did disable background fetch" = "Sie haben Background Fetch deaktiviert";
+
+/* Text explaining the Setup */
+"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Konfigurieren Sie Ihren OwnTracks Server für vollständigen Datenschutz. Mehr Information hier: https://owntracks.org/booklet";
 

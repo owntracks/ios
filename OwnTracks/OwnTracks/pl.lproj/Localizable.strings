@@ -91,6 +91,9 @@
 /* Alert message header for friend's messages */
 "Friend" = "Znajomy";
 
+/* CNAuthorizationStatusDenied */
+"has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change" = "has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change";
+
 /* CNAuthorizationStatusRestricted */
 "has been restricted, possibly due to restrictions such as parental controls." = "zostało ograniczone, prawdopodobnie przez blokady takie jak kontrola rodzicielska.";
 
@@ -144,12 +147,6 @@
 
 /* indicates a locked configuration */
 "locked" = "zablokowane";
-
-/* Header of an alert message regarding missing setup */
-"Setup" = "Setup";
-
-/* Text explaining the Setup */
-"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Możesz skonfigurować własny serwer OwnTracks dla pełnej ochrony prywatności. Więcej informacji tutaj: https://owntracks.org/booklet";
 
 /* Short for meters */
 "m" = "m";
@@ -211,8 +208,14 @@
 /* Sat */
 "Sat" = "Sat";
 
+/* User Activity (Siri) Send location now */
+"Send location now" = "Send location now";
+
 /* Settings screen title */
 "Settings" = "Ustawienia";
+
+/* Header of an alert message regarding missing setup */
+"Setup" = "Setup";
 
 /* Significant */
 "Significant" = "Znaczący";
@@ -262,6 +265,6 @@
 /* You did disable background fetch */
 "You did disable background fetch" = "Wyłączyłeś pobieranie w tle";
 
-/* User Activity (Siri) Send location now */
-"Send location now" = "Send location now";
+/* Text explaining the Setup */
+"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Możesz skonfigurować własny serwer OwnTracks dla pełnej ochrony prywatności. Więcej informacji tutaj: https://owntracks.org/booklet";
 

@@ -291,6 +291,13 @@
 		847444381DA4BC9600975BE4 /* ConnType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnType.h; sourceTree = "<group>"; };
 		847444391DA4BC9600975BE4 /* ConnType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnType.m; sourceTree = "<group>"; };
 		8474B15319A8CB7D00427427 /* Model 7.3.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.1.xcdatamodel"; sourceTree = "<group>"; };
+		847D5C7426121ED400B6DCD5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		847D5C7526121ED600B6DCD5 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		847D5C7626121F4200B6DCD5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		847D5C7F2612227C00B6DCD5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Storyboard.strings; sourceTree = "<group>"; };
+		847D5C80261224CF00B6DCD5 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		847D5C81261224CF00B6DCD5 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		847D5C82261224CF00B6DCD5 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Interface.strings; sourceTree = "<group>"; };
 		847F31B525EFB8600018C0A6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		847F31B825EFB8600018C0A6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		847F31BB25EFB8600018C0A6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -299,7 +306,6 @@
 		84856A8B1BD6201800621533 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		848794B119A6234B00DF56EB /* Model 7.3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.xcdatamodel"; sourceTree = "<group>"; };
 		8488CFDE25A45CC3000AFEE2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		8489EDBC2611D5D000A8B2DF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Storyboard.strings; sourceTree = "<group>"; };
 		8489EDCE2611D97A00A8B2DF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Storyboard.strings; sourceTree = "<group>"; };
 		8489EDD02611D9EF00A8B2DF /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Storyboard.strings; sourceTree = "<group>"; };
 		84929F0A20AAC0CF00227D00 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -387,7 +393,6 @@
 		84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.0.xcdatamodel"; sourceTree = "<group>"; };
 		84F961E725F004A2007A391A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/OwnTracks-Info.plist"; sourceTree = "<group>"; };
 		84F961F325F004C1007A391A /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Base; path = "Base.lproj/OwnTracks-Info-Mac.plist"; sourceTree = "<group>"; };
-		84F9622425F008EC007A391A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84F9622D25F008F2007A391A /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84F9622E25F008F3007A391A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84FA6C1722EAFF8800AC7D63 /* Model 12.0.6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 12.0.6.xcdatamodel"; sourceTree = "<group>"; };
@@ -1334,9 +1339,9 @@
 			isa = PBXVariantGroup;
 			children = (
 				843B91731C8A14BF00DBD306 /* Base */,
-				8489EDBC2611D5D000A8B2DF /* en */,
 				8489EDCE2611D97A00A8B2DF /* de */,
 				8489EDD02611D9EF00A8B2DF /* pl */,
+				847D5C7F2612227C00B6DCD5 /* en */,
 			);
 			name = Storyboard.storyboard;
 			sourceTree = "<group>";
@@ -1345,6 +1350,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				847F31B525EFB8600018C0A6 /* de */,
+				847D5C7426121ED400B6DCD5 /* en */,
+				847D5C7526121ED600B6DCD5 /* pl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1353,6 +1360,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				847F31B825EFB8600018C0A6 /* de */,
+				847D5C81261224CF00B6DCD5 /* pl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1361,6 +1369,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				847F31BB25EFB8600018C0A6 /* de */,
+				847D5C80261224CF00B6DCD5 /* pl */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1381,6 +1390,7 @@
 			children = (
 				84AFD3E12434380700F1E922 /* Base */,
 				847F31BE25EFB8600018C0A6 /* de */,
+				847D5C82261224CF00B6DCD5 /* pl */,
 			);
 			name = Interface.storyboard;
 			sourceTree = "<group>";
@@ -1415,9 +1425,9 @@
 		84F9622525F008EC007A391A /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				84F9622425F008EC007A391A /* en */,
 				84F9622D25F008F2007A391A /* de */,
 				84F9622E25F008F3007A391A /* pl */,
+				847D5C7626121F4200B6DCD5 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

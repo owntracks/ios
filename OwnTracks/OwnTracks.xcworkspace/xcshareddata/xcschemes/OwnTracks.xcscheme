@@ -17,7 +17,7 @@
                BlueprintIdentifier = "8411B827189FDB140019D2D6"
                BuildableName = "OwnTracks.app"
                BlueprintName = "OwnTracks"
-               ReferencedContainer = "container:OwnTracks.xcodeproj">
+               ReferencedContainer = "container:CF Bundle.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -28,10 +28,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8411B847189FDB140019D2D6"
+               BlueprintIdentifier = "84D6B40925C8161D00B2AC07"
                BuildableName = "OwnTracksTests.xctest"
                BlueprintName = "OwnTracksTests"
-               ReferencedContainer = "container:OwnTracks.xcodeproj">
+               ReferencedContainer = "container:CF Bundle.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -46,10 +46,10 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8411B847189FDB140019D2D6"
+               BlueprintIdentifier = "84D6B40925C8161D00B2AC07"
                BuildableName = "OwnTracksTests.xctest"
                BlueprintName = "OwnTracksTests"
-               ReferencedContainer = "container:OwnTracks.xcodeproj">
+               ReferencedContainer = "container:CF Bundle.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,7 +71,7 @@
             BlueprintIdentifier = "8411B827189FDB140019D2D6"
             BuildableName = "OwnTracks.app"
             BlueprintName = "OwnTracks"
-            ReferencedContainer = "container:OwnTracks.xcodeproj">
+            ReferencedContainer = "container:CF Bundle.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -95,7 +95,7 @@
             BlueprintIdentifier = "8411B827189FDB140019D2D6"
             BuildableName = "OwnTracks.app"
             BlueprintName = "OwnTracks"
-            ReferencedContainer = "container:OwnTracks.xcodeproj">
+            ReferencedContainer = "container:CF Bundle.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

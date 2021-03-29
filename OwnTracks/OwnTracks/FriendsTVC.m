@@ -89,7 +89,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 [UIAlertController
                  alertControllerWithTitle:NSLocalizedString(@"Addressbook Access",
                                                             @"Headline in addressbook related error messages")
-                 message:NSLocalizedString(@"has been denied by user.\nIf you allow OwnTracks to access your contacts, you can link your devices to contacts.\nOwnTracks will then display the contact name and image instead of the device Id.\nNo information of your address book will be uploaded to any server.\nGo to Settings/Privacy/Contacts to change",
+                 message:NSLocalizedString(@"has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change",
                                            @"CNAuthorizationStatusDenied")
                  preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *ok = [UIAlertAction

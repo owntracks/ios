@@ -2190,6 +2190,9 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <attributedString key="userComments">
+                                                        <fragment content="Placeholder. Don't translate."/>
+                                                    </attributedString>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -2759,11 +2762,7 @@
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Moe-Di-frm">
                                                     <rect key="frame" x="20" y="0.0" width="374" height="371"/>
-                                                    <string key="text">Uses the following http://cocoapods.org
-
-CocoaLumberjack
-ABStaticTableViewController
-libsodium (libsodium.org)
+                                                    <string key="text">Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, libsodium (libsodium.org)
 
 </string>
                                                     <color key="textColor" systemColor="labelColor"/>
