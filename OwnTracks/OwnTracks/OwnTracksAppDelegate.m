@@ -1208,7 +1208,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.sendNowActivity =
     [[NSUserActivity alloc]
      initWithActivityType:@"org.mqttitude.MQTTitude.sendNow"];
-    self.sendNowActivity.title = @"Send location now";
+    self.sendNowActivity.title = NSLocalizedString(@"Send location now", @"User Activity (Siri) Send location now");
     self.sendNowActivity.eligibleForSearch = true;
     self.sendNowActivity.eligibleForPrediction = true;
     [self.sendNowActivity becomeCurrent];

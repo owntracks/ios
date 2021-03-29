@@ -145,6 +145,9 @@
 /* indicates a locked configuration */
 "locked" = "gesperrt";
 
+/* Text explaining the Setup */
+"Login_Text_1" = "You need to setup your own OwnTracks server and edit your configuration for full privacy protection.\n\nDetailed info on https://owntracks.org/booklet";
+
 /* Short for meters */
 "m" = "m";
 
@@ -204,6 +207,9 @@
 
 /* Sat */
 "Sat" = "Sat";
+
+/* User Activity (Siri) Send location now */
+"Send location now" = "Sende Position sofort";
 
 /* Settings screen title */
 "Settings" = "Einstellungen";
