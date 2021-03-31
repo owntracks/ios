@@ -1,11 +1,15 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 14.1.0 iOS/ipadOS/macOS
-* Release Date unknown
+## OwnTracks 14.2.0 iOS/ipadOS/macOS
+* Release Date 2012-03-31
 
-** Bug fix
+** Bug fix and Completed Translations to German and Polish
 
+    [NEW] translations with POEdit
+    [FIX] multiple alert messages
+    [FIX]  App crashes on swipe-out-friend #666
+    [NEW] Consider informing user and/or dropping HTTP POSTs on 4xx errors closes #665
     [FIX] replace UIPickerView by UISegmented Control for mode #664
     [FIX] UIPickerView hides part of the text in iOS 14 #664
     [FIX] display processing message only once
