@@ -1165,7 +1165,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
          dispatch_async(dispatch_get_main_queue(), ^{
              
              NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
-             json[@"_type"] = @"location";
+             json[@"_type"] = @"steps";
              json[@"tst"] = [NSNumber doubleValueWithZeroDecimals:[NSDate date].timeIntervalSince1970];
              json[@"from"] = [NSNumber doubleValueWithZeroDecimals:fromDate.timeIntervalSince1970];
              json[@"to"] = [NSNumber doubleValueWithZeroDecimals:toDate.timeIntervalSince1970];
