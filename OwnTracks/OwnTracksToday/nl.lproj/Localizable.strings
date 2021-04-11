@@ -1,0 +1,21 @@
+/* error message on Today */
+"cannot resolve address" = "kan adres niet resolven";
+
+/* short for day on Today */
+"d" = "d";
+
+/* short for hour on Today */
+"h" = "h";
+
+/* short for kilometer on Today */
+"km" = "km";
+
+/* short for minute on Today */
+"min" = "min";
+
+/* temporary message on Today */
+"resolving address..." = "adres resolven ...";
+
+/* short for second on Today */
+"sec" = "sec";
+

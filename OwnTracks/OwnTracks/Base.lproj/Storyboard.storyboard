@@ -97,9 +97,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <attributedString key="userComments">
-                                                        <fragment content="Don't translate, technical term"/>
-                                                    </attributedString>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7W2-Mn-fUG">
                                                     <rect key="frame" x="71.5" y="6.5" width="169.5" height="32"/>
@@ -271,6 +268,9 @@
                                                     <rect key="frame" x="96" y="13" width="204" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                    <attributedString key="userComments">
+                                                        <fragment content="Placeholder. Do not translate"/>
+                                                    </attributedString>
                                                     <connections>
                                                         <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="dwQ-E8-OvP"/>
                                                     </connections>
@@ -312,9 +312,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <attributedString key="userComments">
-                                                        <fragment content="Don't translate, technical term"/>
-                                                    </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="host" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tQs-PK-sbV">
                                                     <rect key="frame" x="64" y="13" width="236" height="18.5"/>
@@ -349,9 +346,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <attributedString key="userComments">
-                                                        <fragment content="Don't translate, technical term"/>
-                                                    </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="port" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZW3-WS-Wb7">
                                                     <rect key="frame" x="61" y="13.5" width="80" height="17"/>
@@ -424,18 +418,22 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
+                                                    <attributedString key="userComments">
+                                                        <fragment content="Technical termin. Do not translate"/>
+                                                    </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="proto" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pn1-hA-OmO">
                                                     <rect key="frame" x="70" y="13.5" width="76" height="17"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="n4Q-IZ-KuE"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="n4Q-IZ-KuE">
+                                                            <attributedString key="userComments">
+                                                                <fragment content="Technical termin. Do not translate"/>
+                                                            </attributedString>
+                                                        </constraint>
                                                         <constraint firstAttribute="height" constant="17" id="tt7-r0-fEb"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
-                                                    <attributedString key="userComments">
-                                                        <fragment content="Don't translate, technical term"/>
-                                                    </attributedString>
                                                     <connections>
                                                         <action selector="protocolChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="XJo-ot-WNn"/>
                                                     </connections>
@@ -474,17 +472,11 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <attributedString key="userComments">
-                                                        <fragment content="Don't translate, technical term"/>
-                                                    </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="userid" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Oiq-Kb-qLx">
                                                     <rect key="frame" x="80" y="13" width="220" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                                                    <attributedString key="userComments">
-                                                        <fragment content="Don't translate, technical term"/>
-                                                    </attributedString>
                                                     <connections>
                                                         <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="LxS-wF-6Xu"/>
                                                     </connections>
@@ -511,9 +503,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <attributedString key="userComments">
-                                                        <fragment content="Don't translate, technical term"/>
-                                                    </attributedString>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="33v-yr-JsC">
                                                     <rect key="frame" x="251" y="6.5" width="51" height="31"/>
@@ -547,9 +536,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <attributedString key="userComments">
-                                                        <fragment content="Don't translate, technical term"/>
-                                                    </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4OY-Dm-bnz">
                                                     <rect key="frame" x="102" y="13.5" width="141" height="17"/>
@@ -593,17 +579,11 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <attributedString key="userComments">
-                                                        <fragment content="Don't translate, technical term"/>
-                                                    </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="secret" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2FK-gv-e75">
                                                     <rect key="frame" x="194" y="13.5" width="106" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
-                                                    <attributedString key="userComments">
-                                                        <fragment content="Don't translate, technical term"/>
-                                                    </attributedString>
                                                     <connections>
                                                         <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="rL4-SY-cAn"/>
                                                     </connections>
@@ -630,17 +610,11 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
-                                                    <attributedString key="userComments">
-                                                        <fragment content="Don't translate, technical term"/>
-                                                    </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="url" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="pD2-Zj-Toq">
                                                     <rect key="frame" x="60" y="13" width="240" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                                                    <attributedString key="userComments">
-                                                        <fragment content="Don't translate, technical term"/>
-                                                    </attributedString>
                                                     <connections>
                                                         <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="TP6-wN-9GZ"/>
                                                     </connections>
@@ -679,6 +653,9 @@
                                                     <rect key="frame" x="84" y="13" width="216" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                    <attributedString key="userComments">
+                                                        <fragment content="Placeholder. Do not translate"/>
+                                                    </attributedString>
                                                     <connections>
                                                         <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="iau-TW-u1a"/>
                                                     </connections>
@@ -728,6 +705,9 @@
                                                     <rect key="frame" x="96" y="13" width="204" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                    <attributedString key="userComments">
+                                                        <fragment content="Placeholder. Do not translate"/>
+                                                    </attributedString>
                                                     <connections>
                                                         <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="n5v-pL-ube"/>
                                                     </connections>
@@ -777,6 +757,9 @@
                                                     <rect key="frame" x="135" y="13" width="165" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                    <attributedString key="userComments">
+                                                        <fragment content="Placeholder. Do not translate"/>
+                                                    </attributedString>
                                                     <connections>
                                                         <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="nfK-bP-m1i"/>
                                                     </connections>
@@ -827,7 +810,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <attributedString key="userComments">
-                                                        <fragment content="Don't translate, technical term"/>
+                                                        <fragment content="Placeholder. Do not translate"/>
                                                     </attributedString>
                                                     <connections>
                                                         <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="NFA-3y-5Qb"/>
@@ -1085,6 +1068,9 @@
                                                     <rect key="frame" x="87" y="13" width="213" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
+                                                    <attributedString key="userComments">
+                                                        <fragment content="Placeholder. Do not translate"/>
+                                                    </attributedString>
                                                     <connections>
                                                         <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="0H8-a6-Fy8"/>
                                                     </connections>
@@ -1153,6 +1139,9 @@
                                                     <rect key="frame" x="88.5" y="13" width="211.5" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
+                                                    <attributedString key="userComments">
+                                                        <fragment content="Placeholder. Do not translate"/>
+                                                    </attributedString>
                                                     <connections>
                                                         <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="F7M-6L-odf"/>
                                                     </connections>
@@ -1187,6 +1176,9 @@
                                                     <rect key="frame" x="83.5" y="13" width="216.5" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
+                                                    <attributedString key="userComments">
+                                                        <fragment content="Placeholder. Do not translate"/>
+                                                    </attributedString>
                                                     <connections>
                                                         <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="dNI-i9-9Q6"/>
                                                     </connections>
@@ -1217,7 +1209,7 @@
                                                         <fragment content="Don't translate, technical term"/>
                                                     </attributedString>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Meters" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LEn-Jc-PvC">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LEn-Jc-PvC">
                                                     <rect key="frame" x="110" y="13" width="190" height="18.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
@@ -2334,6 +2326,9 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <attributedString key="userComments">
+                                                        <fragment content="Placeholder, do not translate"/>
+                                                    </attributedString>
                                                 </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ePs-kX-VDJ">
                                                     <rect key="frame" x="289" y="7" width="105" height="30"/>

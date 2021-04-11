@@ -1,0 +1,279 @@
+/* New featured content indicator */
+"!" = "!​";
+
+/* Short for degrees celsius as in 20° */
+"°" = "​";
+
+/* Short for deviation plus/minus */
+"±" = "​";
+
+/* Short for altitude as in ✈︎1000m */
+"✈︎" = "​";
+
+/* name of an unknown or hidden region */
+"a region" = "een regio";
+
+/* reverseGeocodeLocation error */
+"Address resolver failed" = "Adres resolver mislukt";
+
+/* Headline in addressbook related error messages */
+"Addressbook Access" = "Toegang tot adresboek";
+
+/* Location Manager error message */
+"App is not allowed to use location services" = "App mag geen locatiediensten gebruiken";
+
+/* Location Manager error message */
+"App is not allowed to use location services in background" = "De app mag geen locatiediensten op de achtergrond gebruiken";
+
+/* Location Manager error message */
+"App is not allowed to use location services yet" = "App mag nog geen locatiediensten gebruiken";
+
+/* Location Manager error message */
+"App use of location services is restricted" = "App-gebruik van locatieservices is beperkt";
+
+/* Location Manager error message */
+"App use of location services is unclear" = "App-gebruik van locatiediensten is onduidelijk";
+
+/* Display after processing beacon QR code */
+"Beacon QR successfully processed" = "Beacon QR succesvol verwerkt";
+
+/* Cancel button title */
+"Cancel" = "Annuleer";
+
+/* Location Manager error message */
+"Circular region monitoring not available" = "Circulaire regiobewaking niet beschikbaar";
+
+/* Clipboard */
+"Clipboard" = "Klembord";
+
+/* description connection closed state */
+"closed" = "gesloten";
+
+/* description connection closing state */
+"closing" = "sluitend";
+
+/* description connection connected state */
+"connected" = "verbonden";
+
+/* description connection connected state */
+"connecting" = "verbinden";
+
+/* Continue button title */
+"Continue" = "Doorgaan";
+
+/* content of an alert message regarding circular region */
+"created at center of map" = "gemaakt in het midden van de kaart";
+
+/* reverseGeocodeLocation text */
+"due to rate limit or off-line" = "vanwege tarieflimiet of offline";
+
+/* Display when entering region (region name follows) */
+"Entering" = "Binnenkomen";
+
+/* description connection error state */
+"error" = "fout";
+
+/* Display when file processing fails */
+"Error processing file" = "Fout bij het verwerken van bestand";
+
+/* Export */
+"Export" = "Exporteren";
+
+/* Display when file processing succeeds (filename follows) */
+"File" = "Bestand";
+
+/* Display after trying to open a file */
+"file open error" = "fout openen bestand";
+
+/* Fly */
+"Fly" = "Vlieg";
+
+/* Alert message header for friend's messages */
+"Friend" = "Vriend";
+
+/* CNAuthorizationStatusDenied */
+"has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change" = "is geweigerd door de gebruiker. Als u OwnTracks toegang geeft tot uw contacten, kunt u uw apparaten aan contacten koppelen. OwnTracks geeft dan de naam en afbeelding van de contactpersoon weer in plaats van de apparaat-ID. Er wordt geen informatie uit uw adresboek geüpload naar een server. Ga naar Instellingen / Privacy / Contacten om te wijzigen";
+
+/* CNAuthorizationStatusRestricted */
+"has been restricted, possibly due to restrictions such as parental controls." = "is beperkt, mogelijk vanwege beperkingen zoals ouderlijk toezicht.";
+
+/* Hyb */
+"Hyb" = "Hyb";
+
+/* HybFly */
+"HybFly" = "HybVlieg";
+
+/* Location Manager error message */
+"iBeacon ranging not available" = "iBeacon variërend niet beschikbaar";
+
+/* Location Manager error message */
+"iBeacon region monitoring not available" = "iBeacon-regiobewaking niet beschikbaar";
+
+/* description connection idle state */
+"idle" = "inactief";
+
+/* Warning displayed if location is inaccurate or old */
+"Inaccurate or old location information" = "Onnauwkeurige of oude locatiegegevens";
+
+/* certificate error message */
+"incorrect file or passphrase" = "onjuist bestand of wachtwoordzin";
+
+/* Display for incorrect inline config */
+"Inline Configuration incorrect" = "Inline configuratie onjuist";
+
+/* Display for incorrectly encoded inline config */
+"Inline Configuration incorrectly encoded" = "Inline-configuratie onjuist gecodeerd";
+
+/* Display for config without parameters */
+"Inline Configuration missing parameters" = "Inline configuratie ontbrekende parameters";
+
+/* Display after processing inline config */
+"Inline Configuration successfully processed" = "Inline-configuratie is succesvol verwerkt";
+
+/* Short for kilometers per hour as in 120km/h */
+"km/h" = "km/u";
+
+/* Display when leaving region (region name follows) */
+"Leaving" = "Vertrekken";
+
+/* Header of an alert message regarding a location */
+"Location" = "Locatie";
+
+/* Location copied to clipboard */
+"Location copied to clipboard" = "Locatie gekopieerd naar klembord";
+
+/* Location Manager error message */
+"Location services are not enabled" = "Locatieservices zijn niet ingeschakeld";
+
+/* indicates a locked configuration */
+"locked" = "op slot";
+
+/* Short for meters */
+"m" = "m";
+
+/* content of an alert message regarging missing Mac Catalyst Export */
+"Mac Catalyst does not support export yet" = "Mac Catalyst ondersteunt nog geen export";
+
+/* Manual */
+"Manual" = "Handleiding";
+
+/* Alert header for mode change warning */
+"Mode change" = "Modus veranderen";
+
+/* Move */
+"Move" = "Actie";
+
+/* Mute */
+"Mute" = "Dempen";
+
+/* dummy for missing content */
+"no content available" = "geen inhoud beschikbaar";
+
+/* No location available indication */
+"No location available" = "Geen locatie beschikbaar";
+
+/* No location recorded indication */
+"No location recorded" = "Geen locatie geregistreerd";
+
+/* Display after trying to process a file */
+"no url specified" = "geen url opgegeven";
+
+/* Alert message header for notification messages */
+"Notification" = "Notificatie";
+
+/* temporary display while opening URL */
+"opening URL" = "openings-URL";
+
+/* Alert content for mode change warning */
+"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Houd er rekening mee dat uw opgeslagen waypoints en locaties om privacyredenen op dit apparaat worden verwijderd. Maak alstublieft eerst een back-up.";
+
+/* Alert header regarding protocol input */
+"Protocol invalid" = "Protocol ongeldig";
+
+/* Alert content regarding protocol input */
+"Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1 or 5 for MQTT V5" = "Protocol kan 3 zijn voor MQTT V3.1 of 4 voor MQTT V3.1.1 of 5 voor MQTT V5";
+
+/* content of an alert message regarding user publish */
+"publish queued on user request" = "publiceren in wachtrij op verzoek van de gebruiker";
+
+/* Quiet */
+"Quiet" = "Rustig";
+
+/* Header of an alert message regarding circular region */
+"Region" = "Regio";
+
+/* temporary display while resolving address */
+"resolving..." = "oplossen ...";
+
+/* Sat */
+"Sat" = "Za";
+
+/* User Activity (Siri) Send location now */
+"Send location now" = "Verstuur nu locatie";
+
+/* Settings screen title */
+"Settings" = "Instellingen";
+
+/* Header of an alert message regarding missing setup */
+"Setup" = "Instellingen";
+
+/* MQTT Description Text */
+"Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Stel uw eigen OwnTracks-server in voor volledige privacybescherming. Meer informatie op https://owntracks.org/booklet";
+
+/* Significant */
+"Significant" = "Significant";
+
+/* Location Manager error message */
+"Significant location change monitoring not available" = "Bewaking van significante locatiewijzigingen niet beschikbaar";
+
+/* HTTP Description Text */
+"Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Vergelijkbaar met de MQTT-modus, behalve dat gegevensoverdracht HTTP gebruikt, niet MQTT.";
+
+/* Std */
+"Std" = "Std";
+
+/* Display when file processing succeeds */
+"successfully processed" = "succesvol verwerkt";
+
+/* Table is empty */
+"Table is empty" = "Tabel is leeg";
+
+/* Heading for certificate error message */
+"TLS Client Certificate" = "TLS-clientcertificaat";
+
+/* Warning displayed if necessary settings are missing */
+"To publish your location userID and deviceID must be set" = "Om uw locatie te publiceren, moeten gebruikers-ID en apparaat-ID zijn ingesteld";
+
+/* Alert header regarding TrackerID input */
+"TrackerID invalid" = "TrackerID ongeldig";
+
+/* Alert content regarding TrackerID input */
+"TrackerID may be empty or up to 2 characters long" = "TrackerID mag leeg zijn of mag maximaal 2 tekens lang zijn";
+
+/* Alert content regarding TrackerID input */
+"TrackerID may contain alphanumeric characters only" = "TrackerID mag alleen alfanumerieke tekens bevatten";
+
+/* Display after entering an unknown scheme in url */
+"unknown scheme in url" = "onbekend schema in url";
+
+/* description connection unknown state */
+"unknown state" = "onbekende staat";
+
+/* Display for unknown url path */
+"unknown url path" = "onbekend url-pad";
+
+/* webView didFailLoadWithError display */
+"webView didFailLoadWithError" = "webView didFailLoadWithError";
+
+/* Please Note Text */
+"When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "Bij het wisselen tussen modi worden alle OwnTracks-gegevens om privacyredenen verwijderd.";
+
+/* You cannot use background fetch */
+"You cannot use background fetch" = "U kunt niet op de achtergrond ophalen";
+
+/* You did disable background fetch */
+"You did disable background fetch" = "Je hebt het ophalen van de achtergrond uitgeschakeld";
+
+/* Text explaining the Setup */
+"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "U moet uw eigen OwnTracks-server instellen en uw configuratie bewerken voor volledige privacybescherming. Gedetailleerde informatie op https://owntracks.org/booklet";
+

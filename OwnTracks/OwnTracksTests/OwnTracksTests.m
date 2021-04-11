@@ -62,12 +62,11 @@
                                       error:nil];
     NSString *jsonString = [[NSString alloc] initWithData:jsonData
                                                  encoding:NSUTF8StringEncoding];
-    NSLog(@"json %@",jsonString);
+    NSLog(@"jsonString %@",jsonString);
     NSDictionary *dictFromData = [NSJSONSerialization JSONObjectWithData:jsonData
                                                                  options:0
                                                                    error:nil];
     NSLog(@"dictFromData %@", dictFromData);
-
     XCTAssert(TRUE);
 }
 
