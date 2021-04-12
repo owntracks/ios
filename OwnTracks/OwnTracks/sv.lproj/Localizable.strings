@@ -11,13 +11,13 @@
 "✈︎" = "✈︎";
 
 /* name of an unknown or hidden region */
-"a region" = "en region";
+"a region" = "ett område";
 
 /* reverseGeocodeLocation error */
-"Address resolver failed" = "Adressupplösaren misslyckades";
+"Address resolver failed" = "Adressupplysningen misslyckades";
 
 /* Headline in addressbook related error messages */
-"Addressbook Access" = "Adressboksåtkomst";
+"Addressbook Access" = "Åtkomst till adressboken";
 
 /* Location Manager error message */
 "App is not allowed to use location services" = "Appen får inte använda platstjänster";
@@ -29,19 +29,19 @@
 "App is not allowed to use location services yet" = "Appen får inte använda platstjänster än";
 
 /* Location Manager error message */
-"App use of location services is restricted" = "Appanvändning av platstjänster är begränsad";
+"App use of location services is restricted" = "Användning av platstjänster i appen är begränsad";
 
 /* Location Manager error message */
-"App use of location services is unclear" = "Appanvändning av platstjänster är oklar";
+"App use of location services is unclear" = "Användning av platstjänster i appen är oklar";
 
 /* Display after processing beacon QR code */
-"Beacon QR successfully processed" = "Beacon QR har bearbetats";
+"Beacon QR successfully processed" = "Fyr-QR har bearbetats";
 
 /* Cancel button title */
 "Cancel" = "Avbryt";
 
 /* Location Manager error message */
-"Circular region monitoring not available" = "Övervakning av cirkulär region inte tillgänglig";
+"Circular region monitoring not available" = "Övervakning av område inte tillgänglig";
 
 /* Clipboard */
 "Clipboard" = "Urklipp";
@@ -59,7 +59,7 @@
 "connecting" = "ansluter";
 
 /* Continue button title */
-"Continue" = "Fortsätta";
+"Continue" = "Fortsätt";
 
 /* content of an alert message regarding circular region */
 "created at center of map" = "skapas mitt på kartan";
@@ -68,13 +68,13 @@
 "due to rate limit or off-line" = "på grund av satsgräns eller off-line";
 
 /* Display when entering region (region name follows) */
-"Entering" = "Kommer in";
+"Entering" = "Beträder";
 
 /* description connection error state */
 "error" = "fel";
 
 /* Display when file processing fails */
-"Error processing file" = "Fel vid bearbetning av filen";
+"Error processing file" = "Fel vid bearbetning av fil";
 
 /* Export */
 "Export" = "Exportera";
@@ -95,7 +95,7 @@
 "has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change" = "har nekats av användaren. Om du tillåter OwnTracks att komma åt dina kontakter kan du länka dina enheter till kontakter. OwnTracks visar sedan kontaktnamnet och bilden istället för enhets-ID. Ingen information om din adressbok laddas upp till någon server. Gå till Inställningar / Sekretess / Kontakter för att ändra";
 
 /* CNAuthorizationStatusRestricted */
-"has been restricted, possibly due to restrictions such as parental controls." = "har begränsats, möjligen på grund av begränsningar som föräldrakontroll.";
+"has been restricted, possibly due to restrictions such as parental controls." = "har begränsats, möjligen på grund av begränsningar så som föräldrakontroll.";
 
 /* Hyb */
 "Hyb" = "Hyb";
@@ -104,13 +104,13 @@
 "HybFly" = "HybFly";
 
 /* Location Manager error message */
-"iBeacon ranging not available" = "iBeacon-intervallet är inte tillgängligt";
+"iBeacon ranging not available" = "iBeacon mätning är inte tillgängligt";
 
 /* Location Manager error message */
-"iBeacon region monitoring not available" = "iBeacon-regionövervakning inte tillgänglig";
+"iBeacon region monitoring not available" = "iBeacon områdesövervakning inte tillgänglig";
 
 /* description connection idle state */
-"idle" = "på tomgång";
+"idle" = "inaktiv";
 
 /* Warning displayed if location is inaccurate or old */
 "Inaccurate or old location information" = "Felaktig eller gammal platsinformation";
@@ -119,10 +119,10 @@
 "incorrect file or passphrase" = "felaktig fil eller lösenfras";
 
 /* Display for incorrect inline config */
-"Inline Configuration incorrect" = "Inline-konfiguration felaktig";
+"Inline Configuration incorrect" = "Felaktig inline-konfiguration";
 
 /* Display for incorrectly encoded inline config */
-"Inline Configuration incorrectly encoded" = "Inbyggd konfiguration felaktigt kodad";
+"Inline Configuration incorrectly encoded" = "Inline-konfiguration felaktigt kodad";
 
 /* Display for config without parameters */
 "Inline Configuration missing parameters" = "Inline-konfiguration saknar parametrar";
@@ -131,16 +131,16 @@
 "Inline Configuration successfully processed" = "Inline-konfiguration har bearbetats";
 
 /* Short for kilometers per hour as in 120km/h */
-"km/h" = "km / h";
+"km/h" = "km/h";
 
 /* Display when leaving region (region name follows) */
-"Leaving" = "Lämna";
+"Leaving" = "Lämnar";
 
 /* Header of an alert message regarding a location */
 "Location" = "Plats";
 
 /* Location copied to clipboard */
-"Location copied to clipboard" = "Platsen kopierades till Urklipp";
+"Location copied to clipboard" = "Platsen kopierades till urklipp";
 
 /* Location Manager error message */
 "Location services are not enabled" = "Platstjänster är inte aktiverade";
@@ -179,13 +179,13 @@
 "no url specified" = "ingen webbadress specificerad";
 
 /* Alert message header for notification messages */
-"Notification" = "Underrättelse";
+"Notification" = "Meddelande";
 
 /* temporary display while opening URL */
-"opening URL" = "öppnings-URL";
+"opening URL" = "öppnar URL";
 
 /* Alert content for mode change warning */
-"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Tänk på att dina lagrade waypoints och platser kommer att raderas på den här enheten av sekretessskäl. Vänligen säkerhetskopiera innan.";
+"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Tänk på att dina lagrade vägpunkter och platser kommer att raderas på den här enheten av sekretesskäl. Vänligen säkerhetskopiera de innan.";
 
 /* Alert header regarding protocol input */
 "Protocol invalid" = "Protokollet ogiltigt";
@@ -194,7 +194,7 @@
 "Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1 or 5 for MQTT V5" = "Protokoll kan vara 3 för MQTT V3.1 eller 4 för MQTT V3.1.1 eller 5 för MQTT V5";
 
 /* content of an alert message regarding user publish */
-"publish queued on user request" = "publicera i kö på användarens begäran";
+"publish queued on user request" = "publicering ställt i kö på användarens begäran";
 
 /* Quiet */
 "Quiet" = "Tyst";
@@ -203,10 +203,10 @@
 "Region" = "Område";
 
 /* temporary display while resolving address */
-"resolving..." = "löser ...";
+"resolving..." = "bestämmer ...";
 
 /* Sat */
-"Sat" = "Lör";
+"Sat" = "Sat";
 
 /* User Activity (Siri) Send location now */
 "Send location now" = "Skicka plats nu";
@@ -215,16 +215,16 @@
 "Settings" = "inställningar";
 
 /* Header of an alert message regarding missing setup */
-"Setup" = "Uppstart";
+"Setup" = "Setup";
 
 /* MQTT Description Text */
-"Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Ställ in din egen OwnTracks-server för fullständigt integritetsskydd. Mer information på https://owntracks.org/booklet";
+"Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Kör din egen OwnTracks-server för fullständigt integritetsskydd. Mer info under https://owntracks.org/booklet";
 
 /* Significant */
 "Significant" = "Signifikant";
 
 /* Location Manager error message */
-"Significant location change monitoring not available" = "Betydande platsövervakning inte tillgänglig";
+"Significant location change monitoring not available" = "Övervakning av signifikant platsändring inte tillgänglig";
 
 /* HTTP Description Text */
 "Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Liknar MQTT-läge, förutom att dataöverföring använder HTTP, inte MQTT.";
@@ -242,7 +242,7 @@
 "TLS Client Certificate" = "TLS-klientcertifikat";
 
 /* Warning displayed if necessary settings are missing */
-"To publish your location userID and deviceID must be set" = "För att publicera din plats måste användar-ID och enhets-ID vara inställt";
+"To publish your location userID and deviceID must be set" = "Användar-ID och enhets-ID måste vara inställda för att publicera din plats";
 
 /* Alert header regarding TrackerID input */
 "TrackerID invalid" = "TrackerID ogiltigt";
@@ -266,7 +266,7 @@
 "webView didFailLoadWithError" = "webView didFailLoadWithError";
 
 /* Please Note Text */
-"When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "När du växlar mellan lägen raderas alla OwnTracks-data av sekretessskäl.";
+"When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "Av sekretesskäl raderas all OwnTracks-data när du växlar mellan lägen.";
 
 /* You cannot use background fetch */
 "You cannot use background fetch" = "Du kan inte använda bakgrundshämtning";
@@ -275,5 +275,5 @@
 "You did disable background fetch" = "Du inaktiverade bakgrundshämtningen";
 
 /* Text explaining the Setup */
-"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Du måste konfigurera din egen OwnTracks-server och redigera din konfiguration för fullständigt integritetsskydd. Detaljerad information på https://owntracks.org/booklet";
+"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "För fullständigt integritetsskydd måste du konfigurera din egen OwnTracks-server och redigera konfigurationen. Detaljerad information på https://owntracks.org/booklet";
 

@@ -1,5 +1,5 @@
 /* error message on Today */
-"cannot resolve address" = "kan inte lösa adressen";
+"cannot resolve address" = "kan inte bestämma adressen";
 
 /* short for day on Today */
 "d" = "d";
@@ -14,7 +14,7 @@
 "min" = "min";
 
 /* temporary message on Today */
-"resolving address..." = "löser adress ...";
+"resolving address..." = "bestämmer adress ...";
 
 /* short for second on Today */
 "sec" = "sek";

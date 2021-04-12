@@ -5,32 +5,32 @@
 "CFBundleName" = "OwnTracks";
 
 /* Privacy - Contacts Usage Description */
-"NSContactsUsageDescription" = "Om du tillåter OwnTracks att komma åt dina kontakter kan du länka dina enheter till kontakter. OwnTracks visar sedan kontaktnamnet och bilden istället för enhets-ID. Ingen information om din adressbok laddas upp till någon server.";
+"NSContactsUsageDescription" = "Om du tillåter OwnTracks att komma åt dina kontakter kan du länka dina enheter till kontakter. OwnTracks visar sedan kontaktnamnet och bilden istället för enhets-ID. Ingen information från din adressbok laddas upp till någon server.";
 
 /* Privacy - Location Always and When In Use Usage Description */
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "Din plats används för att dela och spela in den på en server du väljer";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Din plats används för att dela och spara den på en server du väljer";
 
 /* Privacy - Location Always Usage Description */
-"NSLocationAlwaysUsageDescription" = "Din plats används för att dela och spela in den på en server du väljer";
+"NSLocationAlwaysUsageDescription" = "Din plats används för att dela och spara den på en server du väljer";
 
 /* Privacy - Location Usage Description */
-"NSLocationUsageDescription" = "Din plats används för att dela och spela in den på en server du väljer";
+"NSLocationUsageDescription" = "Din plats används för att dela och spara den på en server du väljer";
 
 /* Privacy - Location When In Use Usage Description */
-"NSLocationWhenInUseUsageDescription" = "Din plats används för att dela och spela in den på en server du väljer";
+"NSLocationWhenInUseUsageDescription" = "Din plats används för att dela och spara den på en server du väljer";
 
 /* Privacy - Motion Usage Description */
-"NSMotionUsageDescription" = "OwnTracks levererar din stegräkning, klättrade golv och gångavstånd på begäran";
+"NSMotionUsageDescription" = "På begäran levererar OwnTracks din stegräkning, antal trappor och distansen";
 
 /* (No Comment) */
 "OwnTracks CER File" = "OwnTracks CER-fil";
 
 /* (No Comment) */
-"OwnTracks Configuration File" = "OwnTracks-konfigurationsfil";
+"OwnTracks Configuration File" = "OwnTracks konfigurationsfil";
 
 /* (No Comment) */
 "OwnTracks PKCS12 File" = "OwnTracks PKCS12-fil";
 
 /* (No Comment) */
-"OwnTracks Waypoints File" = "OwnTracks Waypoints-fil";
+"OwnTracks Waypoints File" = "OwnTracks vägpunkts-fil";
 
