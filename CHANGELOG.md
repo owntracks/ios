@@ -1,6 +1,15 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 14.2.1 iOS/ipadOS/macOS
+* Release Date 2012-04-12
+
+** New languages Dutch and Swedish, bug fix
+
+    [NEW] Swedish
+    [NEW] Dutch
+    [FIX] send 'location' as '_type'  for 'steps' #674
+
 ## OwnTracks 14.2.0 iOS/ipadOS/macOS
 * Release Date 2012-03-31
 
