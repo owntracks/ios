@@ -1,8 +1,8 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 14.2.1 iOS/ipadOS/macOS
-* Release Date 2012-04-12
+## OwnTracks 14.2.1/2 iOS/ipadOS/macOS
+* Release Date 2012-04-20
 
 ** New languages Dutch and Swedish, bug fix
 
