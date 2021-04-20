@@ -227,7 +227,7 @@
 "jqJ-cr-0tT.placeholder" = "Meters";
 
 /* Class = "UITextField"; placeholder = "client certificate file"; ObjectID = "JSF-BR-9Nb"; Note = "Don't translate, technical term"; */
-"JSF-BR-9Nb.placeholder" = "clientcertificaatbestand";
+"JSF-BR-9Nb.placeholder" = "client certificaat bestand";
 
 /* Class = "UILabel"; text = "sub"; ObjectID = "Jw3-DE-n5i"; Note = "Don't translate, technical term"; */
 "Jw3-DE-n5i.text" = "sub";
@@ -266,7 +266,7 @@
 "M0H-SF-pCO.placeholder" = "Meters";
 
 /* Class = "UILabel"; text = "Created At"; ObjectID = "mhI-D6-Y0f"; */
-"mhI-D6-Y0f.text" = "Gemaakt bij";
+"mhI-D6-Y0f.text" = "Gemaakt op";
 
 /* Class = "UITabBarItem"; title = "Friends"; ObjectID = "msF-bI-hEJ"; */
 "msF-bI-hEJ.title" = "Vrienden";

@@ -68,7 +68,7 @@
 "due to rate limit or off-line" = "vanwege tarieflimiet of offline";
 
 /* Display when entering region (region name follows) */
-"Entering" = "Binnenkomen";
+"Entering" = "Betreden";
 
 /* description connection error state */
 "error" = "fout";
@@ -155,7 +155,7 @@
 "Mac Catalyst does not support export yet" = "Mac Catalyst ondersteunt nog geen export";
 
 /* Manual */
-"Manual" = "Handleiding";
+"Manual" = "Handmatig";
 
 /* Alert header for mode change warning */
 "Mode change" = "Modus veranderen";
@@ -164,7 +164,7 @@
 "Move" = "Actie";
 
 /* Mute */
-"Mute" = "Dempen";
+"Mute" = "Stil";
 
 /* dummy for missing content */
 "no content available" = "geen inhoud beschikbaar";
@@ -203,10 +203,10 @@
 "Region" = "Regio";
 
 /* temporary display while resolving address */
-"resolving..." = "oplossen ...";
+"resolving..." = "opzoeken...";
 
 /* Sat */
-"Sat" = "Za";
+"Sat" = "Sat";
 
 /* User Activity (Siri) Send location now */
 "Send location now" = "Verstuur nu locatie";
