@@ -10,6 +10,7 @@
 #import "Friend+CoreDataClass.h"
 #import "Waypoint+CoreDataClass.h"
 #import "OwnTracksAppDelegate.h"
+#import "LocationManager.h"
 #import "PersonTVC.h"
 #import "Settings.h"
 #import "CoreData.h"
@@ -18,6 +19,7 @@
 
 @interface WaypointTVC ()
 @property (weak, nonatomic) IBOutlet UITextField *UIcoordinate;
+@property (weak, nonatomic) IBOutlet UITextField *UIdistance;
 @property (weak, nonatomic) IBOutlet UILabel *UIplace;
 @property (weak, nonatomic) IBOutlet UITextField *UItimestamp;
 @property (weak, nonatomic) IBOutlet UITextField *UItopic;
@@ -65,6 +67,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)setup {
     self.UIcoordinate.text = (self.waypoint).coordinateText;
+    CLLocationDistance distance = [self.waypoint getDistanceFrom:[LocationManager sharedInstance].location];
+    self.UIdistance.text = [Waypoint distanceText:distance];
     
     self.UItimestamp.text = (self.waypoint).timestampText;
     self.UIcreatedAt.text = (self.waypoint).createdAtText;

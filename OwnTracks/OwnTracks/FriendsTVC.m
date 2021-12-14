@@ -414,7 +414,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         friendAnnotationView.speed = -1;
         friendAnnotationView.course = -1;
     }
-    
+
     NSDateComponents *dateComponents = [[NSCalendar currentCalendar]
                                         components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay
                                         fromDate:[NSDate date]];

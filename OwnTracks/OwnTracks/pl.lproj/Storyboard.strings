@@ -238,8 +238,11 @@
 /* Class = "UILabel"; text = "effective willTopic"; ObjectID = "jwg-hb-6ed"; Note = "Don't translate, technical term"; */
 "jwg-hb-6ed.text" = "rzeczywisty willTopic";
 
-/* Class = "UITextField"; placeholder = "Coordinates"; ObjectID = "jwK-F1-3iE"; */
-"jwK-F1-3iE.placeholder" = "współrzędna";
+/* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "jwK-F1-3iE"; Note = "Don't Translate. Placeholder"; */
+"jwK-F1-3iE.placeholder" = "<Coordinates>";
+
+/* Class = "UITextField"; placeholder = "<Distance>"; ObjectID = "gkb-3O-jAy"; Note = "Don't Translate. Placeholder"; */
+"gkb-3O-jAy.placeholder" = "<Distance";
 
 /* Class = "UITextField"; placeholder = "longitude"; ObjectID = "JZL-1C-khg"; */
 "JZL-1C-khg.placeholder" = "długość geogr.";
@@ -447,6 +450,9 @@
 
 /* Class = "UILabel"; text = "Coordinates"; ObjectID = "Yx0-Kk-yOQ"; */
 "Yx0-Kk-yOQ.text" = "Współrzędne";
+
+/* Class = "UILabel"; text = "Distance"; ObjectID = "SCe-XW-vBZ"; */
+"SCe-XW-vBZ.text" = "Distance";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "z87-2B-BRC"; */
 "z87-2B-BRC.text" = "Tytuł";

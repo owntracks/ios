@@ -251,6 +251,9 @@
 /* Class = "UILabel"; text = "Coordinates"; ObjectID = "Yx0-Kk-yOQ"; */
 "Yx0-Kk-yOQ.text" = "Coordinates";
 
+/* Class = "UILabel"; text = "Distance"; ObjectID = "SCe-XW-vBZ"; */
+"SCe-XW-vBZ.text" = "Distance";
+
 /* Class = "UITextField"; placeholder = "seconds"; ObjectID = "ZT5-mN-Tt5"; */
 "ZT5-mN-Tt5.placeholder" = "seconds";
 
@@ -359,8 +362,11 @@
 /* Class = "UITextField"; placeholder = "Meters"; ObjectID = "jqJ-cr-0tT"; Note = "Don't translate, technical term"; */
 "jqJ-cr-0tT.placeholder" = "Meters";
 
-/* Class = "UITextField"; placeholder = "Coordinates"; ObjectID = "jwK-F1-3iE"; */
-"jwK-F1-3iE.placeholder" = "Coordinates";
+/* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "jwK-F1-3iE"; Note = "Don't Translate. Placeholder"; */
+"jwK-F1-3iE.placeholder" = "<Coordinates>";
+
+/* Class = "UITextField"; placeholder = "<Distance>"; ObjectID = "gkb-3O-jAy"; Note = "Don't Translate. Placeholder"; */
+"gkb-3O-jAy.placeholder" = "<Distance";
 
 /* Class = "UILabel"; text = "effective willTopic"; ObjectID = "jwg-hb-6ed"; Note = "Don't translate, technical term"; */
 "jwg-hb-6ed.text" = "effective willTopic";

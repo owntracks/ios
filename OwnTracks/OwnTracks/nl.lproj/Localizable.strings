@@ -133,6 +133,9 @@
 /* Short for kilometers per hour as in 120km/h */
 "km/h" = "km/u";
 
+/* Short for kilometers as in 120km */
+"km" = "km";
+
 /* Display when leaving region (region name follows) */
 "Leaving" = "Vertrekken";
 

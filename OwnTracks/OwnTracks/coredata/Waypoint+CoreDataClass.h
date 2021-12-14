@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Waypoint : NSManagedObject
 
 - (void) getReverseGeoCode;
+- (CLLocationDistance) getDistanceFrom:(CLLocation *)location;
++ (NSString *)distanceText:(CLLocationDistance)distance;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull shortCoordinateText;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull coordinateText;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull timestampText;

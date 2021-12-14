@@ -46,6 +46,12 @@
     }
 }
 
+- (CLLocationDistance)getDistanceFrom:(CLLocation *)fromLocation {
+    CLLocation *location = [[CLLocation alloc] initWithLatitude:(self.lat).doubleValue
+                                                      longitude:(self.lon).doubleValue];
+    return [location distanceFromLocation:fromLocation];
+}
+
 - (NSString *)shortCoordinateText {
     return [NSString stringWithFormat:@"%g,%g",
             (self.lat).doubleValue,
@@ -97,6 +103,20 @@
             (self.cog).doubleValue,
             NSLocalizedString(@"°", @"Short for degrees celsius as in 20°")
             ];
+}
+
++ (NSString *)distanceText:(CLLocationDistance)distance {
+    if (distance > 1000.0) {
+        return [NSString stringWithFormat:@"%0.f%@",
+                distance / 1000.0,
+                NSLocalizedString(@"km", @"Short for kilometers as in 120km")
+        ];
+    } else {
+        return [NSString stringWithFormat:@"%0.f%@",
+                distance,
+                NSLocalizedString(@"m", @"Short for meters")
+        ];
+    }
 }
 
 @end
