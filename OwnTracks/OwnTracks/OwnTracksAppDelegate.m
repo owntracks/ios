@@ -234,7 +234,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
        willPresentNotification:(UNNotification *)notification
          withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
     DDLogVerbose(@"[OwnTracksAppDelegate] willPresentNotification");
-    completionHandler(UNNotificationPresentationOptionAlert);
+    if (@available(iOS 14.0, *)) {
+        completionHandler(UNNotificationPresentationOptionBanner |
+                          UNNotificationPresentationOptionSound);
+    } else {
+        completionHandler(UNNotificationPresentationOptionAlert |
+                          UNNotificationPresentationOptionSound);
+    }
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -695,6 +702,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
             UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
             content.body = notificationMessage;
+            content.sound = [UNNotificationSound defaultSound];
             UNTimeIntervalNotificationTrigger* trigger = [UNTimeIntervalNotificationTrigger
                                                           triggerWithTimeInterval:1.0
                                                           repeats:NO];
@@ -1040,6 +1048,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if (notificationMessage) {
         UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
         content.body = notificationMessage;
+        content.sound = [UNNotificationSound defaultSound];
         UNTimeIntervalNotificationTrigger* trigger = [UNTimeIntervalNotificationTrigger
                                                       triggerWithTimeInterval:1.0
                                                       repeats:NO];

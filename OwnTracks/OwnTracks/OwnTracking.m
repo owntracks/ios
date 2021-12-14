@@ -208,6 +208,7 @@ static OwnTracking *theInstance = nil;
 
         UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
         content.body = notificationMessage;
+        content.sound = [UNNotificationSound defaultSound];
         content.userInfo = @{@"notify": @"friend"};
         UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger
                                                       triggerWithTimeInterval:1.0
