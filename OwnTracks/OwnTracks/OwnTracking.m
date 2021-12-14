@@ -119,6 +119,15 @@ static OwnTracking *theInstance = nil;
                         if (speed != -1) {
                             speed = speed * 1000 / 3600;
                         }
+
+                        NSNumber *batteryLevel = [NSNumber numberWithFloat:-1.0];
+                        if ([dictionary valueForKey:@"batt"] != nil) {
+                            int batt = [dictionary[@"batt"] intValue];
+                            if (batt >= 0) {
+                                batteryLevel = [NSNumber numberWithFloat:batt / 100.0];
+                            }
+                        }
+
                         CLLocation *location = [[CLLocation alloc]
                                                 initWithCoordinate:coordinate
                                                 altitude:[dictionary[@"alt"] intValue]
@@ -137,6 +146,7 @@ static OwnTracking *theInstance = nil;
                                     location:location
                                    createdAt:createdAt
                                      trigger:dictionary[@"t"]
+                                     battery:batteryLevel
                                      context:context];
                         [self limitWaypointsFor:friend
                                       toMaximum:[Settings intForKey:@"positions_preference" inMOC:context]];
@@ -333,6 +343,7 @@ static OwnTracking *theInstance = nil;
                     location:(CLLocation *)location
                    createdAt:(NSDate *)createdAt
                      trigger:(NSString *)trigger
+                     battery:(NSNumber *)battery
                      context:(NSManagedObjectContext *)context {
     Waypoint *waypoint = [NSEntityDescription insertNewObjectForEntityForName:@"Waypoint"
                                                        inManagedObjectContext:context];
@@ -345,6 +356,7 @@ static OwnTracking *theInstance = nil;
     waypoint.vac = @(location.verticalAccuracy);
     waypoint.tst = location.timestamp;
     waypoint.createdAt = createdAt;
+    waypoint.batt = battery;
     double speed = location.speed;
     if (speed != -1) {
         speed = speed * 3600 / 1000;
@@ -466,10 +478,9 @@ static OwnTracking *theInstance = nil;
         [json setValue:(waypoint.belongsTo).effectiveTid forKeyPath:@"tid"];
     }
 
-    float batteryLevel = [UIDevice currentDevice].batteryLevel;
-    if (batteryLevel != -1) {
-        int batteryLevelInt = batteryLevel * 100;
-        [json setValue:@(batteryLevelInt) forKey:@"batt"];
+    if (waypoint.batt.doubleValue >= 0.0) {
+        int batteryLevelInt = waypoint.batt.doubleValue * 100;
+        json[@"batt"] = @(batteryLevelInt);
     }
 
     UIDeviceBatteryState batteryState = [UIDevice currentDevice].batteryState;

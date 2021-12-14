@@ -27,6 +27,7 @@
 location:(CLLocation *)location
 createdAt:(NSDate *)createdAt
 trigger:(NSString *)trigger
+battery:(NSNumber *)battery
 context:(NSManagedObjectContext *)context;
 
 - (void)limitWaypointsFor:(Friend *)friend toMaximum:(NSInteger)max;

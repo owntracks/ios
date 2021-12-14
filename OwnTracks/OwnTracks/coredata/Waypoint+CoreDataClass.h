@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull createdAtText;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSDate * _Nonnull effectiveTimestamp;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull infoText;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull batteryLevelText;
 
 @end
 

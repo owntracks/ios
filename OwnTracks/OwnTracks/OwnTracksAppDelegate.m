@@ -1307,10 +1307,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                     [NSDate date].timeIntervalSince1970) > 1.0) {
                     createdAt = [NSDate date];
                 }
+
+                NSNumber *batteryLevel = [NSNumber numberWithFloat:[UIDevice currentDevice].batteryLevel];
+
                 Waypoint *waypoint = [ownTracking addWaypointFor:friend
                                                         location:location
                                                        createdAt:createdAt
                                                          trigger:trigger
+                                                         battery:batteryLevel
                                                          context:moc];
                 if (waypoint) {
                     [CoreData.sharedInstance sync:moc];

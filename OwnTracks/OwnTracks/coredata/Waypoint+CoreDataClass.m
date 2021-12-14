@@ -119,4 +119,17 @@
     }
 }
 
+- (NSString *)batteryLevelText {
+    NSLog(@"self.batt %@", self.batt);
+    if (self.batt && self.batt.doubleValue >= 0.0) {
+        NSString *text = [NSString stringWithFormat:@"%0.f%%",
+                          (self.batt).doubleValue * 100.0
+                          ];
+        return text;
+    } else {
+        return @" ";
+    }
+}
+
+
 @end

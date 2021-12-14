@@ -250,6 +250,7 @@
 		841D3522209C5DDF0084FCD0 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		841D3524209C74E60084FCD0 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		841D3526209DA1960084FCD0 /* Model 9.8.7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.8.7.xcdatamodel"; sourceTree = "<group>"; };
+		841EDC1F2768FA4F009AC46F /* Model 15.0.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 15.0.1.xcdatamodel"; sourceTree = "<group>"; };
 		8422AF671AF825C7008932A2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		842CA4CE1B3C76D000B7FF1C /* Model 8.1.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.5.xcdatamodel"; sourceTree = "<group>"; };
 		842E6ECB20BEE893001928FA /* Model 9.9.3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.9.3.xcdatamodel"; sourceTree = "<group>"; };
@@ -2135,6 +2136,7 @@
 		8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				841EDC1F2768FA4F009AC46F /* Model 15.0.1.xcdatamodel */,
 				843B7BA525A8AF0100B814D5 /* Model 14.0.1.xcdatamodel */,
 				843B7B5A25A8689900B814D5 /* Model 14.0.0.xcdatamodel */,
 				84595203253DF78200807097 /* Model 13.4.0.xcdatamodel */,
@@ -2163,7 +2165,7 @@
 				84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */,
 				8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 843B7BA525A8AF0100B814D5 /* Model 14.0.1.xcdatamodel */;
+			currentVersion = 841EDC1F2768FA4F009AC46F /* Model 15.0.1.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
