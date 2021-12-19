@@ -1288,8 +1288,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                         if ((anyRegion.radius).doubleValue > 0) {
                             anyRegion.lat = @(location.coordinate.latitude);
                             anyRegion.lon = @(location.coordinate.longitude);
+                            double time = [anyRegion.CLregion.identifier substringFromIndex:1].doubleValue;
+                            if (time == HUGE_VAL || time == -HUGE_VAL || time == 0.0) {
+                                time = 30.0;
+                            }
                             if (location.speed >= 0.0) {
-                                anyRegion.radius = @(MAX(location.speed * 30.0, 50.0));
+                                anyRegion.radius = @(MAX(location.speed * time, 50.0));
                             } else {
                                 anyRegion.radius = @(50.0);
                             }
