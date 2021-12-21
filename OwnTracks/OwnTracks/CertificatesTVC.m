@@ -19,11 +19,12 @@
     if (!_contents) {
         
         NSError *error;
-        NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
-                                                                     inDomain:NSUserDomainMask
-                                                            appropriateForURL:nil
-                                                                       create:YES
-                                                                        error:&error];
+        NSURL *directoryURL = [[NSFileManager defaultManager]
+                               URLForDirectory:NSDocumentDirectory
+                               inDomain:NSUserDomainMask
+                               appropriateForURL:nil
+                               create:YES
+                               error:&error];
         self.path = directoryURL.path;
         NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.path error:&error];
         _contents = [[NSMutableArray alloc] init];

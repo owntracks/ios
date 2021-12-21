@@ -2633,11 +2633,17 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="TLS" id="NS8-pg-IlP">
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="ZeY-6x-f77">
+                            <connections>
+                                <action selector="trashPressed:" destination="N8y-lP-Jsi" id="6HN-Is-jv2"/>
+                            </connections>
+                        </barButtonItem>
                         <attributedString key="userComments">
                             <fragment content="Don't translate, technical term"/>
                         </attributedString>
                     </navigationItem>
                     <connections>
+                        <outlet property="UITLSTrash" destination="ZeY-6x-f77" id="40i-fw-dIE"/>
                         <outlet property="UIallowUntrustedCertificates" destination="ziU-bT-6kO" id="SDx-UG-AWh"/>
                         <outlet property="UIclientPKCS" destination="JSF-BR-9Nb" id="MrO-Jc-40p"/>
                         <outlet property="UIclientPKCSCell" destination="6UU-2x-vMj" id="0ri-oB-PUE"/>

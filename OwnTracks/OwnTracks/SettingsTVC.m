@@ -20,6 +20,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *UITLSCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *UIclientPKCSCell;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *UITLSTrash;
 @property (weak, nonatomic) IBOutlet UITextField *UIclientPKCS;
 @property (weak, nonatomic) IBOutlet UISwitch *UIallowUntrustedCertificates;
 @property (weak, nonatomic) IBOutlet UITextField *UIpassphrase;
@@ -626,6 +627,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         }
     }
 
+    if (self.UITLSTrash) {
+        self.UITLSTrash.enabled = !locked;
+    }
+
     if ([self.tabBarController isKindOfClass:[TabBarController class]]) {
         TabBarController *tbc = (TabBarController *)self.tabBarController;
         [tbc adjust];
@@ -945,6 +950,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 - (IBAction)changed:(id)sender {
     [self updateValues];
     [self updated];
+}
+
+- (IBAction)trashPressed:(UIBarButtonItem *)sender {
+    if (self.UIclientPKCS) {
+        self.UIclientPKCS.text = @"";
+    }
+
+    if (self.UIpassphrase) {
+        self.UIpassphrase.text = @"";
+    }
+    [self updateValues];
 }
 
 - (void)reconnect {
