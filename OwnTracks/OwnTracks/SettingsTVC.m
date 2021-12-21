@@ -120,126 +120,208 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)updateValues {
-    if (self.UIDeviceID) [Settings setString:self.UIDeviceID.text
-                                      forKey:@"deviceid_preference"
-                                       inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIclientPKCS) [Settings setString:self.UIclientPKCS.text
-                                        forKey:@"clientpkcs"
-                                         inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIpassphrase) [Settings setString:self.UIpassphrase.text
-                                        forKey:@"passphrase"
-                                         inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIallowUntrustedCertificates) [Settings setBool:self.UIallowUntrustedCertificates.on
-                                                      forKey:@"allowinvalidcerts"
-                                                       inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UItrackerid) [Settings setString:self.UItrackerid.text
-                                       forKey:@"trackerid_preference"
-                                        inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIHost) [Settings setString:self.UIHost.text
-                                  forKey:@"host_preference"
-                                   inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIwillTopic) [Settings setString:self.UIwillTopic.text
-                                       forKey:@"willtopic_preference"
-                                        inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIclientId) [Settings setString:self.UIclientId.text
-                                      forKey:@"clientid_preference"
-                                       inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIpubTopicBase) [Settings setString:self.UIpubTopicBase.text
-                                          forKey:@"topic_preference"
-                                           inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIsubTopic) [Settings setString:self.UIsubTopic.text
-                                      forKey:@"subscription_preference"
-                                       inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIUserID) [Settings setString:self.UIUserID.text
-                                    forKey:@"user_preference"
-                                     inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIPassword) [Settings setString:self.UIPassword.text
-                                      forKey:@"pass_preference"
-                                       inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIUsePassword) [Settings setBool:self.UIUsePassword.on
-                                      forKey:@"usepassword_preference"
-                                       inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIsecret) [Settings setString:self.UIsecret.text
-                                    forKey:@"secret_preference"
-                                     inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIPort) [Settings setString:self.UIPort.text
-                                  forKey:@"port_preference"
-                                   inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIignoreStaleLocations) [Settings setString:self.UIignoreStaleLocations.text
-                                                  forKey:@"ignorestalelocations_preference"
-                                                   inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIlocatorDisplacement) [Settings setString:self.UIlocatorDisplacement.text
-                                                 forKey:@"mindist_preference"
-                                                  inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIlocatorInterval) [Settings setString:self.UIlocatorInterval.text
-                                             forKey:@"mintime_preference"
-                                              inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIpositions) [Settings setString:self.UIpositions.text
-                                       forKey:@"positions_preference"
-                                        inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UImaxHistory) [Settings setString:self.UImaxHistory.text
-                                       forKey:@"maxhistory_preference"
-                                        inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIsubQos) [Settings setString:self.UIsubQos.text
-                                    forKey:@"subscriptionqos_preference"
-                                     inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIpubQos) [Settings setString:self.UIpubQos.text
-                                    forKey:@"qos_preference"
-                                     inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIwillQos) [Settings setString:self.UIwillQos.text
-                                     forKey:@"willqos_preference"
-                                      inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIkeepAlive) [Settings setString:self.UIkeepAlive.text
-                                       forKey:@"keepalive_preference"
-                                        inMOC:CoreData.sharedInstance.mainMOC];
+    if (self.UIDeviceID)
+        [Settings setString:self.UIDeviceID.text
+                     forKey:@"deviceid_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIclientPKCS)
+        [Settings setString:self.UIclientPKCS.text
+                     forKey:@"clientpkcs"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIpassphrase)
+        [Settings setString:self.UIpassphrase.text
+                     forKey:@"passphrase"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIallowUntrustedCertificates)
+        [Settings setBool:self.UIallowUntrustedCertificates.on
+                   forKey:@"allowinvalidcerts"
+                    inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UItrackerid)
+        [Settings setString:self.UItrackerid.text
+                     forKey:@"trackerid_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIHost)
+        [Settings setString:self.UIHost.text
+                     forKey:@"host_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIwillTopic)
+        [Settings setString:self.UIwillTopic.text
+                     forKey:@"willtopic_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIclientId)
+        [Settings setString:self.UIclientId.text
+                     forKey:@"clientid_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIpubTopicBase)
+        [Settings setString:self.UIpubTopicBase.text
+                     forKey:@"topic_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIsubTopic)
+        [Settings setString:self.UIsubTopic.text
+                     forKey:@"subscription_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIUserID)
+        [Settings setString:self.UIUserID.text
+                     forKey:@"user_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIPassword)
+        [Settings setString:self.UIPassword.text
+                     forKey:@"pass_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIUsePassword)
+        [Settings setBool:self.UIUsePassword.on
+                   forKey:@"usepassword_preference"
+                    inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIsecret)
+        [Settings setString:self.UIsecret.text
+                     forKey:@"secret_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIPort)
+        [Settings setString:self.UIPort.text
+                     forKey:@"port_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIignoreStaleLocations)
+        [Settings setString:self.UIignoreStaleLocations.text
+                     forKey:@"ignorestalelocations_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIlocatorDisplacement) {
+        [Settings setString:self.UIlocatorDisplacement.text
+                     forKey:@"mindist_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+        [LocationManager sharedInstance].minDist =
+        [Settings doubleForKey:@"mindist_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
+    }
+    if (self.UIlocatorInterval) {
+        [Settings setString:self.UIlocatorInterval.text
+                     forKey:@"mintime_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+        [LocationManager sharedInstance].minTime =
+        [Settings doubleForKey:@"mintime_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
+    }
+
+    if (self.UIpositions)
+        [Settings setString:self.UIpositions.text
+                     forKey:@"positions_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UImaxHistory)
+        [Settings setString:self.UImaxHistory.text
+                     forKey:@"maxhistory_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIsubQos)
+        [Settings setString:self.UIsubQos.text
+                     forKey:@"subscriptionqos_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIpubQos)
+        [Settings setString:self.UIpubQos.text
+                     forKey:@"qos_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIwillQos)
+        [Settings setString:self.UIwillQos.text
+                     forKey:@"willqos_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIkeepAlive)
+        [Settings setString:self.UIkeepAlive.text
+                     forKey:@"keepalive_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
     if (self.UImonitoring) {
         [LocationManager sharedInstance].monitoring = (self.UImonitoring.text).intValue;
         [Settings setString:self.UImonitoring.text
                      forKey:@"monitoring_preference"
                       inMOC:CoreData.sharedInstance.mainMOC];
     }
-    if (self.UIignoreInaccurateLocations) [Settings setString:self.UIignoreInaccurateLocations.text
-                                                       forKey:@"ignoreinaccuratelocations_preference"
-                                                        inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UITLS) [Settings setBool:self.UITLS.on
-                               forKey:@"tls_preference"
-                                inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIWS) [Settings setBool:self.UIWS.on
-                              forKey:@"ws_preference"
-                               inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIAuth) [Settings setBool:self.UIAuth.on
-                                forKey:@"auth_preference"
-                                 inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIranging) [Settings setBool:self.UIranging.on
-                                   forKey:@"ranging_preference"
-                                    inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIextendedData) [Settings setBool:self.UIextendedData.on
-                                        forKey:@"extendeddata_preference"
-                                         inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIlocked) [Settings setBool:self.UIlocked.on
-                                  forKey:@"locked"
-                                   inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIsub) [Settings setBool:self.UIsub.on
-                               forKey:@"sub_preference"
-                                inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIcmd) [Settings setBool:self.UIcmd.on
-                               forKey:@"cmd_preference"
-                                inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIpubRetain) [Settings setBool:self.UIpubRetain.on
-                                     forKey:@"retain_preference"
-                                      inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIwillRetain) [Settings setBool:self.UIwillRetain.on
-                                      forKey:@"willretain_preference"
-                                       inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIcleanSession) [Settings setBool:self.UIcleanSession.on
-                                        forKey:@"clean_preference"
-                                         inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIallowRemoteLocation) [Settings setBool:self.UIallowRemoteLocation.on
-                                               forKey:@"allowremotelocation_preference"
-                                                inMOC:CoreData.sharedInstance.mainMOC];
-    if (self.UIurl) [Settings setString:self.UIurl.text
-                                 forKey:@"url_preference"
-                                  inMOC:CoreData.sharedInstance.mainMOC];
+    if (self.UIignoreInaccurateLocations)
+        [Settings setString:self.UIignoreInaccurateLocations.text
+                     forKey:@"ignoreinaccuratelocations_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UITLS)
+        [Settings setBool:self.UITLS.on
+                   forKey:@"tls_preference"
+                    inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIWS)
+        [Settings setBool:self.UIWS.on
+                   forKey:@"ws_preference"
+                    inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIAuth)
+        [Settings setBool:self.UIAuth.on
+                   forKey:@"auth_preference"
+                    inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIranging)
+        [Settings setBool:self.UIranging.on
+                   forKey:@"ranging_preference"
+                    inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIextendedData)
+        [Settings setBool:self.UIextendedData.on
+                   forKey:@"extendeddata_preference"
+                    inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIlocked)
+        [Settings setBool:self.UIlocked.on
+                   forKey:@"locked"
+                    inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIsub)
+        [Settings setBool:self.UIsub.on
+                   forKey:@"sub_preference"
+                    inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIcmd)
+        [Settings setBool:self.UIcmd.on
+                   forKey:@"cmd_preference"
+                    inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIpubRetain)
+        [Settings setBool:self.UIpubRetain.on
+                   forKey:@"retain_preference"
+                    inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIwillRetain)
+        [Settings setBool:self.UIwillRetain.on
+                   forKey:@"willretain_preference"
+                    inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIcleanSession)
+        [Settings setBool:self.UIcleanSession.on
+                   forKey:@"clean_preference"
+                    inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIallowRemoteLocation)
+        [Settings setBool:self.UIallowRemoteLocation.on
+                   forKey:@"allowremotelocation_preference"
+                    inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIurl)
+        [Settings setString:self.UIurl.text
+                     forKey:@"url_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
 
     // important to save UImode last. Otherwise parameters not valid in the old mode may get persisted
     if (self.UImodeSwitch) {
@@ -287,17 +369,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                   @""];
 
     if (self.UIDeviceID) {
-        self.UIDeviceID.text =  [Settings stringForKey:@"deviceid_preference"
-                                                 inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIDeviceID.text =
+        [Settings stringForKey:@"deviceid_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIDeviceID.enabled = !locked;
     }
     if (self.UIeffectiveDeviceId) {
-        self.UIeffectiveDeviceId.text = [Settings theDeviceIdInMOC:CoreData.sharedInstance.mainMOC];
+        self.UIeffectiveDeviceId.text =
+        [Settings theDeviceIdInMOC:CoreData.sharedInstance.mainMOC];
     }
 
     if (self.UIclientPKCS) {
-        self.UIclientPKCS.text = [Settings stringForKey:@"clientpkcs"
-                                                  inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIclientPKCS.text =
+        [Settings stringForKey:@"clientpkcs"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIclientPKCS.enabled = !locked;
         self.UIclientPKCSCell.userInteractionEnabled = !locked;
         self.UIclientPKCSCell.accessoryType = !locked ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
@@ -307,91 +392,109 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         if (self.UIclientPKCS) {
             self.UIpassphrase.enabled = !locked && (self.UIclientPKCS.text.length > 0);
         }
-        self.UIpassphrase.text = [Settings stringForKey:@"passphrase"
-                                                  inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIpassphrase.text =
+        [Settings stringForKey:@"passphrase"
+                         inMOC:CoreData.sharedInstance.mainMOC];
     }
 
     if (self.UIallowUntrustedCertificates) {
         self.UIallowUntrustedCertificates.enabled = !locked;
-        self.UIallowUntrustedCertificates.on = [Settings boolForKey:@"allowinvalidcerts"
-                                                              inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIallowUntrustedCertificates.on =
+        [Settings boolForKey:@"allowinvalidcerts"
+                       inMOC:CoreData.sharedInstance.mainMOC];
     }
 
     if (self.UItrackerid) {
-        self.UItrackerid.text = [Settings stringForKey:@"trackerid_preference"
-                                                 inMOC:CoreData.sharedInstance.mainMOC];
+        self.UItrackerid.text =
+        [Settings stringForKey:@"trackerid_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UItrackerid.enabled = !locked;
     }
     if (self.UIeffectiveTid) {
-        self.UIeffectiveTid.text = [Friend effectiveTid:[Settings stringForKey:@"trackerid_preference"
-                                                                         inMOC:CoreData.sharedInstance.mainMOC]
-                                                 device:[Settings theDeviceIdInMOC:CoreData.sharedInstance.mainMOC]];
+        self.UIeffectiveTid.text =
+        [Friend effectiveTid:[Settings stringForKey:@"trackerid_preference"
+                                              inMOC:CoreData.sharedInstance.mainMOC]
+                      device:[Settings theDeviceIdInMOC:CoreData.sharedInstance.mainMOC]];
     }
 
     if (self.UIHost) {
-        self.UIHost.text = [Settings stringForKey:@"host_preference"
-                                            inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIHost.text =
+        [Settings stringForKey:@"host_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIHost.enabled = !locked;
     }
     if (self.UIwillTopic) {
-        self.UIwillTopic.text = [Settings stringForKey:@"willtopic_preference"
-                                                 inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIwillTopic.text =
+        [Settings stringForKey:@"willtopic_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIwillTopic.enabled = !locked;
     }
     if (self.UIeffectiveWillTopic) {
-        self.UIeffectiveWillTopic.text = [Settings theWillTopicInMOC:CoreData.sharedInstance.mainMOC];
+        self.UIeffectiveWillTopic.text =
+        [Settings theWillTopicInMOC:CoreData.sharedInstance.mainMOC];
     }
 
     if (self.UIclientId) {
-        self.UIclientId.text = [Settings stringForKey:@"clientid_preference"
-                                                inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIclientId.text =
+        [Settings stringForKey:@"clientid_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIclientId.enabled = !locked;
     }
     if (self.UIeffectiveClientId) {
-        self.UIeffectiveClientId.text = [Settings theClientIdInMOC:CoreData.sharedInstance.mainMOC];
+        self.UIeffectiveClientId.text =
+        [Settings theClientIdInMOC:CoreData.sharedInstance.mainMOC];
     }
 
     if (self.UIpubTopicBase) {
-        self.UIpubTopicBase.text = [Settings stringForKey:@"topic_preference"
-                                                    inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIpubTopicBase.text =
+        [Settings stringForKey:@"topic_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIpubTopicBase.enabled = !locked;
     }
     if (self.UIeffectivePubTopic) {
-        self.UIeffectivePubTopic.text = [Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC];
+        self.UIeffectivePubTopic.text =
+        [Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC];
     }
 
     if (self.UIsubTopic) {
-        self.UIsubTopic.text = [Settings stringForKey:@"subscription_preference"
-                                                inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIsubTopic.text =
+        [Settings stringForKey:@"subscription_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIsubTopic.enabled = !locked;
     }
     if (self.UIeffectiveSubTopic) {
-        self.UIeffectiveSubTopic.text = [Settings theSubscriptionsInMOC:CoreData.sharedInstance.mainMOC];
+        self.UIeffectiveSubTopic.text =
+        [Settings theSubscriptionsInMOC:CoreData.sharedInstance.mainMOC];
     }
 
     if (self.UIUserID) {
-        self.UIUserID.text = [Settings stringForKey:@"user_preference"
-                                              inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIUserID.text =
+        [Settings stringForKey:@"user_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIUserID.enabled = !locked;
     }
     if (self.UIPassword) {
-        self.UIPassword.text = [Settings stringForKey:@"pass_preference"
-                                                inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIPassword.text =
+        [Settings stringForKey:@"pass_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIPassword.enabled = !locked;
     }
     if (self.UIUsePassword) {
-        self.UIUsePassword.on = [Settings boolForKey:@"usepassword_preference"
-                                               inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIUsePassword.on =
+        [Settings boolForKey:@"usepassword_preference"
+                       inMOC:CoreData.sharedInstance.mainMOC];
         self.UIUsePassword.enabled = !locked;
     }
     if (self.UIsecret) {
-        self.UIsecret.text = [Settings stringForKey:@"secret_preference"
-                                              inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIsecret.text =
+        [Settings stringForKey:@"secret_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIsecret.enabled = !locked;
     }
     if (self.UImodeSwitch) {
-        int mode = [Settings intForKey:@"mode"
-                                 inMOC:CoreData.sharedInstance.mainMOC];
+        int mode =
+        [Settings intForKey:@"mode"
+                      inMOC:CoreData.sharedInstance.mainMOC];
         DDLogVerbose(@"[Settings] mode is %d", mode);
         switch (mode) {
             case CONNECTION_MODE_HTTP:
@@ -405,143 +508,173 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         self.UImodeSwitch.enabled = !locked;
     }
     if (self.UIPort) {
-        self.UIPort.text = [Settings stringForKey:@"port_preference"
-                                            inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIPort.text =
+        [Settings stringForKey:@"port_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIPort.enabled = !locked;
     }
     if (self.UIproto) {
-        self.UIproto.text = [NSString stringWithFormat:@"%d", [Settings intForKey:SETTINGS_PROTOCOL
-                                                                            inMOC:CoreData.sharedInstance.mainMOC]];
+        self.UIproto.text = [NSString stringWithFormat:@"%d",
+                             [Settings intForKey:SETTINGS_PROTOCOL
+                                           inMOC:CoreData.sharedInstance.mainMOC]];
         self.UIproto.enabled = !locked;
     }
     if (self.UIignoreStaleLocations) {
-        self.UIignoreStaleLocations.text = [Settings stringForKey:@"ignorestalelocations_preference"
-                                                            inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIignoreStaleLocations.text =
+        [Settings stringForKey:@"ignorestalelocations_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIignoreStaleLocations.enabled = !locked;
     }
     if (self.UIkeepAlive) {
-        self.UIkeepAlive.text = [Settings stringForKey:@"keepalive_preference"
-                                                 inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIkeepAlive.text =
+        [Settings stringForKey:@"keepalive_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIkeepAlive.enabled = !locked;
     }
     if (self.UIpubQos) {
-        self.UIpubQos.text = [Settings stringForKey:@"qos_preference"
-                                              inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIpubQos.text =
+        [Settings stringForKey:@"qos_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIpubQos.enabled = !locked;
     }
     if (self.UIsubQos) {
-        self.UIsubQos.text = [Settings stringForKey:@"subscriptionqos_preference"
-                                              inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIsubQos.text =
+        [Settings stringForKey:@"subscriptionqos_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIsubQos.enabled = !locked;
     }
     if (self.UIwillQos) {
-        self.UIwillQos.text = [Settings stringForKey:@"willqos_preference"
-                                               inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIwillQos.text =
+        [Settings stringForKey:@"willqos_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIwillQos.enabled = !locked;
     }
     if (self.UIpositions) {
-        self.UIpositions.text = [Settings stringForKey:@"positions_preference"
-                                                 inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIpositions.text =
+        [Settings stringForKey:@"positions_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIpositions.enabled = !locked;
     }
     if (self.UImaxHistory) {
-        self.UImaxHistory.text = [Settings stringForKey:@"maxhistory_preference"
-                                                 inMOC:CoreData.sharedInstance.mainMOC];
+        self.UImaxHistory.text =
+        [Settings stringForKey:@"maxhistory_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UImaxHistory.enabled = !locked;
     }
     if (self.UIlocatorInterval) {
-        self.UIlocatorInterval.text = [Settings stringForKey:@"mintime_preference"
-                                                       inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIlocatorInterval.text =
+        [Settings stringForKey:@"mintime_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIlocatorInterval.enabled = !locked;
     }
     if (self.UIlocatorDisplacement) {
-        self.UIlocatorDisplacement.text = [Settings stringForKey:@"mindist_preference"
-                                                           inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIlocatorDisplacement.text =
+        [Settings stringForKey:@"mindist_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIlocatorDisplacement.enabled = !locked;
     }
     if (self.UImonitoring) {
-        self.UImonitoring.text = [Settings stringForKey:@"monitoring_preference"
-                                                  inMOC:CoreData.sharedInstance.mainMOC];
+        self.UImonitoring.text =
+        [Settings stringForKey:@"monitoring_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UImonitoring.enabled = !locked;
     }
     if (self.UIignoreInaccurateLocations) {
-        self.UIignoreInaccurateLocations.text = [Settings stringForKey:@"ignoreinaccuratelocations_preference"
-                                                                 inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIignoreInaccurateLocations.text =
+        [Settings stringForKey:@"ignoreinaccuratelocations_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIignoreInaccurateLocations.enabled = !locked;
     }
     if (self.UITLS) {
-        self.UITLS.on = [Settings boolForKey:@"tls_preference"
-                                       inMOC:CoreData.sharedInstance.mainMOC];
+        self.UITLS.on =
+        [Settings boolForKey:@"tls_preference"
+                       inMOC:CoreData.sharedInstance.mainMOC];
         self.UITLS.enabled = !locked;
     }
     if (self.UIWS) {
-        self.UIWS.on = [Settings boolForKey:@"ws_preference"
-                                      inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIWS.on =
+        [Settings boolForKey:@"ws_preference"
+                       inMOC:CoreData.sharedInstance.mainMOC];
         self.UIWS.enabled = !locked;
     }
     if (self.UIAuth) {
-        self.UIAuth.on = [Settings boolForKey:@"auth_preference"
-                                        inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIAuth.on =
+        [Settings boolForKey:@"auth_preference"
+                       inMOC:CoreData.sharedInstance.mainMOC];
         self.UIAuth.enabled = !locked;
     }
     if (self.UIranging) {
-        self.UIranging.on = [Settings boolForKey:@"ranging_preference"
-                                           inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIranging.on =
+        [Settings boolForKey:@"ranging_preference"
+                       inMOC:CoreData.sharedInstance.mainMOC];
         self.UIranging.enabled = !locked;
     }
     if (self.UIextendedData) {
-        self.UIextendedData.on = [Settings boolForKey:@"extendeddata_preference"
-                                                inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIextendedData.on =
+        [Settings boolForKey:@"extendeddata_preference"
+                       inMOC:CoreData.sharedInstance.mainMOC];
         self.UIextendedData.enabled = !locked;
     }
     if (self.self.UIlocked) {
-        self.self.UIlocked.on = [Settings boolForKey:@"locked"
-                                               inMOC:CoreData.sharedInstance.mainMOC];
+        self.self.UIlocked.on =
+        [Settings boolForKey:@"locked"
+                       inMOC:CoreData.sharedInstance.mainMOC];
         self.self.UIlocked.enabled = false;
     }
     if (self.self.UIsub) {
-        self.self.UIsub.on = [Settings boolForKey:@"sub_preference"
-                                            inMOC:CoreData.sharedInstance.mainMOC];
+        self.self.UIsub.on =
+        [Settings boolForKey:@"sub_preference"
+                       inMOC:CoreData.sharedInstance.mainMOC];
         self.self.UIsub.enabled = !locked;
     }
     if (self.UIcmd) {
-        self.UIcmd.on = [Settings boolForKey:@"cmd_preference"
-                                       inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIcmd.on =
+        [Settings boolForKey:@"cmd_preference"
+                       inMOC:CoreData.sharedInstance.mainMOC];
         self.UIcmd.enabled = !locked;
     }
     if (self.self.UIpubRetain) {
-        self.self.UIpubRetain.on = [Settings boolForKey:@"retain_preference"
-                                                  inMOC:CoreData.sharedInstance.mainMOC];
+        self.self.UIpubRetain.on =
+        [Settings boolForKey:@"retain_preference"
+                       inMOC:CoreData.sharedInstance.mainMOC];
         self.self.UIpubRetain.enabled = !locked;
     }
     if (self.UIwillRetain) {
-        self.UIwillRetain.on = [Settings boolForKey:@"willretain_preference"
-                                              inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIwillRetain.on =
+        [Settings boolForKey:@"willretain_preference"
+                       inMOC:CoreData.sharedInstance.mainMOC];
         self.UIwillRetain.enabled = !locked;
     }
     if (self.UIcleanSession) {
-        self.UIcleanSession.on = [Settings boolForKey:@"clean_preference"
-                                                inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIcleanSession.on =
+        [Settings boolForKey:@"clean_preference"
+                       inMOC:CoreData.sharedInstance.mainMOC];
         self.UIcleanSession.enabled = !locked;
     }
     if (self.UIallowRemoteLocation) {
-        self.UIallowRemoteLocation.on = [Settings boolForKey:@"allowremotelocation_preference"
-                                                       inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIallowRemoteLocation.on =
+        [Settings boolForKey:@"allowremotelocation_preference"
+                       inMOC:CoreData.sharedInstance.mainMOC];
         self.UIallowRemoteLocation.enabled = !locked;
     }
     if (self.UIurl) {
-        self.UIurl.text = [Settings stringForKey:@"url_preference"
-                                           inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIurl.text =
+        [Settings stringForKey:@"url_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
         self.UIurl.enabled = !locked;
     }
 
-//    if (!self.UIusepolicy) {
+    //    if (!self.UIusepolicy) {
     if (self.UImodeSwitch) {
 
-        int mode = [Settings intForKey:@"mode"
-                                 inMOC:CoreData.sharedInstance.mainMOC];
+        int mode =
+        [Settings intForKey:@"mode"
+                      inMOC:CoreData.sharedInstance.mainMOC];
 
-        NSArray <NSIndexPath *> *publishPaths = @[[NSIndexPath indexPathForRow:3 inSection:0]];
+        NSArray <NSIndexPath *> *publishPaths = @[
+            [NSIndexPath indexPathForRow:3 inSection:0]
+        ];
+        
         for (NSIndexPath *indexPath in publishPaths) {
             if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_MQTT && mode != CONNECTION_MODE_HTTP)) {
                 [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -550,10 +683,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             }
         }
 
-        NSArray <NSIndexPath *> *privatePaths = @[[NSIndexPath indexPathForRow:5 inSection:0],
-                                                  [NSIndexPath indexPathForRow:6 inSection:0],
-                                                  [NSIndexPath indexPathForRow:7 inSection:0]
-                                                  ];
+        NSArray <NSIndexPath *> *privatePaths = @[
+            [NSIndexPath indexPathForRow:5 inSection:0],
+            [NSIndexPath indexPathForRow:6 inSection:0],
+            [NSIndexPath indexPathForRow:7 inSection:0]
+        ];
+
         for (NSIndexPath *indexPath in privatePaths) {
             if ([self isRowVisible:indexPath] && mode != CONNECTION_MODE_MQTT) {
                 [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -578,8 +713,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             }
         }
 
-        NSArray <NSIndexPath *> *secretPaths = @[[NSIndexPath indexPathForRow:11 inSection:0]
-                                                 ];
+        NSArray <NSIndexPath *> *secretPaths = @[
+            [NSIndexPath indexPathForRow:11 inSection:0]
+        ];
         for (NSIndexPath *indexPath in secretPaths) {
             if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_MQTT && mode != CONNECTION_MODE_HTTP)) {
                 [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -588,10 +724,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             }
         }
 
-        NSArray <NSIndexPath *> *authPaths = @[[NSIndexPath indexPathForRow:8 inSection:0],
-                                               [NSIndexPath indexPathForRow:9 inSection:0],
-                                               [NSIndexPath indexPathForRow:10 inSection:0]
-                                               ];
+        NSArray <NSIndexPath *> *authPaths = @[
+            [NSIndexPath indexPathForRow:8 inSection:0],
+            [NSIndexPath indexPathForRow:9 inSection:0],
+            [NSIndexPath indexPathForRow:10 inSection:0]
+        ];
+
         for (NSIndexPath *indexPath in authPaths) {
             if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_MQTT && mode != CONNECTION_MODE_HTTP)) {
                 [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -600,8 +738,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             }
         }
 
-        NSArray <NSIndexPath *> *httpPaths = @[[NSIndexPath indexPathForRow:12 inSection:0]
-                                               ];
+        NSArray <NSIndexPath *> *httpPaths = @[
+            [NSIndexPath indexPathForRow:12 inSection:0]
+        ];
+
         for (NSIndexPath *indexPath in httpPaths) {
             if ([self isRowVisible:indexPath] && mode != CONNECTION_MODE_HTTP) {
                 [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -809,10 +949,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                                                    @"Continue button title")
                                  style:UIAlertActionStyleDefault
                                  handler:^(UIAlertAction *action) {
-                                     sender.text = [NSString stringWithFormat:@"%d",
-                                                    [Settings intForKey:SETTINGS_PROTOCOL
-                                                                  inMOC:CoreData.sharedInstance.mainMOC]];
-                                 }];
+                sender.text = [NSString stringWithFormat:@"%d",
+                               [Settings intForKey:SETTINGS_PROTOCOL
+                                             inMOC:CoreData.sharedInstance.mainMOC]];
+            }];
 
             [ac addAction:ok];
             [self presentViewController:ac animated:TRUE completion:nil];
@@ -875,9 +1015,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                                                @"Continue button title")
                              style:UIAlertActionStyleDefault
                              handler:^(UIAlertAction *action) {
-                                 sender.text = [Settings stringForKey:@"trackerid_preference"
-                                                                inMOC:CoreData.sharedInstance.mainMOC];
-                             }];
+            sender.text = [Settings stringForKey:@"trackerid_preference"
+                                           inMOC:CoreData.sharedInstance.mainMOC];
+        }];
 
         [ac addAction:ok];
         [self presentViewController:ac animated:TRUE completion:nil];
@@ -896,9 +1036,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                                                    @"Continue button title")
                                  style:UIAlertActionStyleDefault
                                  handler:^(UIAlertAction *action) {
-                                     sender.text = [Settings stringForKey:@"trackerid_preference"
-                                                                    inMOC:CoreData.sharedInstance.mainMOC];
-                                 }];
+                sender.text = [Settings stringForKey:@"trackerid_preference"
+                                               inMOC:CoreData.sharedInstance.mainMOC];
+            }];
 
             [ac addAction:ok];
             [self presentViewController:ac animated:TRUE completion:nil];
@@ -926,21 +1066,21 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
                              style:UIAlertActionStyleCancel
                              handler:^(UIAlertAction *action){
-                                 [self updated];
-                             }];
+        [self updated];
+    }];
     UIAlertAction *ok = [UIAlertAction
                          actionWithTitle:NSLocalizedString(@"Continue",
                                                            @"Continue button title")
 
                          style:UIAlertActionStyleDestructive
                          handler:^(UIAlertAction *action) {
-                             OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-                             [delegate terminateSession];
-                             [self updateValues];
+        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [delegate terminateSession];
+        [self updateValues];
 
-                             [self updated];
-                             [delegate reconnect];
-                         }];
+        [self updated];
+        [delegate reconnect];
+    }];
 
     [ac addAction:cancel];
     [ac addAction:ok];

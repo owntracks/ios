@@ -151,22 +151,33 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             if (object) [self setString:object forKey:@"willqos_preference" inMOC:context];
             
             object = dictionary[@"locatorDisplacement"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                         forKey:@"mindist_preference"
-                                  inMOC:context];
+            if (object) {
+                [self setString:[NSString stringWithFormat:@"%@", object]
+                             forKey:@"mindist_preference"
+                                      inMOC:context];
+                [LocationManager sharedInstance].minDist =
+                [Settings doubleForKey:@"mindist_preference"
+                              inMOC:context];
+            }
             
             object = dictionary[@"locatorInterval"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                 forKey:@"mintime_preference"
-                                  inMOC:context];
+            if (object) {
+                [self setString:[NSString stringWithFormat:@"%@", object]
+                                    forKey:@"mintime_preference"
+                                     inMOC:context];
+                [LocationManager sharedInstance].minTime =
+                [Settings doubleForKey:@"mintime_preference"
+                              inMOC:context];
+            }
             
             object = dictionary[@"monitoring"];
             if (object) {
                 [self setString:[NSString stringWithFormat:@"%@", object]
                          forKey:@"monitoring_preference"
                           inMOC:context];
-                [LocationManager sharedInstance].monitoring = [Settings intForKey:@"monitoring_preference"
-                                                                            inMOC:context];
+                [LocationManager sharedInstance].monitoring =
+                [Settings intForKey:@"monitoring_preference"
+                              inMOC:context];
             }
             
             object = dictionary[@"ranging"];
