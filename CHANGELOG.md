@@ -1,8 +1,19 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 15.0.1 iOS/ipadOS/macOS
+* Release Date 2021-12-20
+
+** Small enhancements and bug fixes
+    [NEW]   Region Monitoring +follow flexible duration #675
+    [NEW] Feature request: Add the battery property to the friend view (Android #1015) #681
+    [NEW] add distance to Friend Screen
+    [NEW] Notification sound when friend leaving or entering region #690
+
+    [FIX] Dark Mode Navigation and Tab Bars
+
 ## OwnTracks 14.2.1/2 iOS/ipadOS/macOS
-* Release Date 2012-04-20
+* Release Date 2021-04-20
 
 ** New languages Dutch and Swedish, bug fix
 
@@ -11,7 +22,7 @@ OwnTracks iOS App Release Notes
     [FIX] send 'location' as '_type'  for 'steps' #674
 
 ## OwnTracks 14.2.0 iOS/ipadOS/macOS
-* Release Date 2012-03-31
+* Release Date 2021-03-31
 
 ** Bug fix and Completed Translations to German and Polish
 

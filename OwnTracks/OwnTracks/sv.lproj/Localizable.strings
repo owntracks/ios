@@ -145,6 +145,9 @@
 /* Location copied to clipboard */
 "Location copied to clipboard" = "Platsen kopierades till urklipp";
 
+/* Topic copied to clipboard */
+"Topic copied to clipboard" = "Topic kopierades till urklipp";
+
 /* Location Manager error message */
 "Location services are not enabled" = "Platstjänster är inte aktiverade";
 

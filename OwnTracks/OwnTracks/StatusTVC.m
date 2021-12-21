@@ -145,19 +145,21 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 - (NSIndexPath *)tableView:(UITableView *)tableView
   willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0 && indexPath.row == 0) {
-        if ([LocationManager sharedInstance].location) {
+        CLLocation *location = [LocationManager sharedInstance].location;
+        if (location) {
             NSString *locationString = [NSString stringWithFormat:@"%g,%g",
-                                        [LocationManager sharedInstance].location.coordinate.latitude,
-                                        [LocationManager sharedInstance].location.coordinate.longitude
+                                        location.coordinate.latitude,
+                                        location.coordinate.longitude
                                         ];
             UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
             [generalPasteboard setString:locationString];
             OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-            [delegate.navigationController alert:NSLocalizedString(@"Clipboard",
-                                                                   @"Clipboard")
-                                         message:NSLocalizedString(@"Location copied to clipboard",
-                                                                   @"Location copied to clipboard")
-                                    dismissAfter:1
+            [delegate.navigationController
+             alert:NSLocalizedString(@"Clipboard",
+                                     @"Clipboard")
+             message:NSLocalizedString(@"Location copied to clipboard",
+                                       @"Location copied to clipboard")
+             dismissAfter:1
              ];
         }
     }

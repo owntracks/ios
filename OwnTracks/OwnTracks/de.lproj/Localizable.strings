@@ -145,6 +145,9 @@
 /* Location copied to clipboard */
 "Location copied to clipboard" = "Position wurde in die Zwischenablage kopiert";
 
+/* Topic copied to clipboard */
+"Topic copied to clipboard" = "Topic wurde in die Zwischenablage kopiert";
+
 /* Location Manager error message */
 "Location services are not enabled" = "Ortungsdienste sind nicht eingeschaltet";
 

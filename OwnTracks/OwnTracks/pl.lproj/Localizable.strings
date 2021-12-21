@@ -145,6 +145,9 @@
 /* Location copied to clipboard */
 "Location copied to clipboard" = "Location copied to clipboard";
 
+/* Topic copied to clipboard */
+"Topic copied to clipboard" = "Topic copied to clipboard";
+
 /* Location Manager error message */
 "Location services are not enabled" = "Usługi lokalizacji nie są włączone";
 

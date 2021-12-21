@@ -145,6 +145,9 @@
 /* Location copied to clipboard */
 "Location copied to clipboard" = "Locatie gekopieerd naar klembord";
 
+/* Topic copied to clipboard */
+"Topic copied to clipboard" = "Topic gekopieerd naar klembord";
+
 /* Location Manager error message */
 "Location services are not enabled" = "Locatieservices zijn niet ingeschakeld";
 
