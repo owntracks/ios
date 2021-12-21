@@ -374,6 +374,18 @@
 		84B0CDAC239E2EFA00CE9305 /* BackgroundTasks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BackgroundTasks.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/BackgroundTasks.framework; sourceTree = DEVELOPER_DIR; };
 		84B739781A65629200B103F4 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		84B739791A65629200B103F4 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
+		84BE758C2771EAD9006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Storyboard.strings; sourceTree = "<group>"; };
+		84BE758D2771EADA006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Intents.strings; sourceTree = "<group>"; };
+		84BE758E2771EADA006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/MainInterface.strings; sourceTree = "<group>"; };
+		84BE758F2771EADD006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Interface.strings; sourceTree = "<group>"; };
+		84BE75902771EADE006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = tr; path = "tr.lproj/OwnTracks-Info-Mac.plist"; sourceTree = "<group>"; };
+		84BE75912771EADF006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		84BE75922771EADF006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = tr; path = "tr.lproj/OwnTracks-Info.plist"; sourceTree = "<group>"; };
+		84BE75932771EAE0006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		84BE75942771EAE0006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		84BE75952771EAE2006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		84BE75962771EBA2006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		84BE75972771EBA2006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84C38C14193F88C200F56D04 /* Model 7.2.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.2.2.xcdatamodel"; sourceTree = "<group>"; };
 		84C756A61A89F706003BC8A8 /* Model 7.4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.4.xcdatamodel"; sourceTree = "<group>"; };
 		84CC5A511FEC71840010314C /* OwnTracks-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-29.png"; sourceTree = "<group>"; };
@@ -1020,6 +1032,7 @@
 				pl,
 				nl,
 				sv,
+				tr,
 			);
 			mainGroup = 8411B81F189FDB140019D2D6;
 			productRefGroup = 8411B829189FDB140019D2D6 /* Products */;
@@ -1341,6 +1354,7 @@
 				849B1E021FE9114C0016EF1A /* pl */,
 				84B03516261D9506000F2ECA /* nl */,
 				84B03520261D95F2000F2ECA /* sv */,
+				84BE75912771EADF006CBDCF /* tr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1354,6 +1368,7 @@
 				849B1E041FE9114D0016EF1A /* pl */,
 				84B0350F261D9506000F2ECA /* nl */,
 				84B03519261D95F2000F2ECA /* sv */,
+				84BE75942771EAE0006CBDCF /* tr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1367,6 +1382,7 @@
 				847D5C7F2612227C00B6DCD5 /* en */,
 				84B03517261D9506000F2ECA /* nl */,
 				84B03521261D95F2000F2ECA /* sv */,
+				84BE758C2771EAD9006CBDCF /* tr */,
 			);
 			name = Storyboard.storyboard;
 			sourceTree = "<group>";
@@ -1379,6 +1395,7 @@
 				847D5C7526121ED600B6DCD5 /* pl */,
 				84B03514261D9506000F2ECA /* nl */,
 				84B0351D261D95F2000F2ECA /* sv */,
+				84BE75952771EAE2006CBDCF /* tr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1390,6 +1407,7 @@
 				847D5C81261224CF00B6DCD5 /* pl */,
 				84B03512261D9506000F2ECA /* nl */,
 				84B0351B261D95F2000F2ECA /* sv */,
+				84BE75962771EBA2006CBDCF /* tr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1401,6 +1419,7 @@
 				847D5C80261224CF00B6DCD5 /* pl */,
 				84B03510261D9506000F2ECA /* nl */,
 				84B0351A261D95F2000F2ECA /* sv */,
+				84BE75972771EBA2006CBDCF /* tr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1414,6 +1433,7 @@
 				849B1E0E1FE912330016EF1A /* pl */,
 				84B03511261D9506000F2ECA /* nl */,
 				84B0351E261D95F2000F2ECA /* sv */,
+				84BE758E2771EADA006CBDCF /* tr */,
 			);
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";
@@ -1426,6 +1446,7 @@
 				847D5C82261224CF00B6DCD5 /* pl */,
 				84B03518261D9506000F2ECA /* nl */,
 				84B03522261D95F2000F2ECA /* sv */,
+				84BE758F2771EADD006CBDCF /* tr */,
 			);
 			name = Interface.storyboard;
 			sourceTree = "<group>";
@@ -1439,6 +1460,7 @@
 				84DE74A124A9E1D200C0DA68 /* pl */,
 				84B03515261D9506000F2ECA /* nl */,
 				84B0351F261D95F2000F2ECA /* sv */,
+				84BE758D2771EADA006CBDCF /* tr */,
 			);
 			name = Intents.intentdefinition;
 			sourceTree = "<group>";
@@ -1447,6 +1469,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				84F961E725F004A2007A391A /* Base */,
+				84BE75922771EADF006CBDCF /* tr */,
 			);
 			name = "OwnTracks-Info.plist";
 			sourceTree = "<group>";
@@ -1455,6 +1478,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				84F961F325F004C1007A391A /* Base */,
+				84BE75902771EADE006CBDCF /* tr */,
 			);
 			name = "OwnTracks-Info-Mac.plist";
 			sourceTree = "<group>";
@@ -1467,6 +1491,7 @@
 				847D5C7626121F4200B6DCD5 /* en */,
 				84B03513261D9506000F2ECA /* nl */,
 				84B0351C261D95F2000F2ECA /* sv */,
+				84BE75932771EAE0006CBDCF /* tr */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

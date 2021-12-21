@@ -130,11 +130,11 @@
 /* Display after processing inline config */
 "Inline Configuration successfully processed" = "Inline Configuration erfolgreich verarbeitet";
 
-/* Short for kilometers per hour as in 120km/h */
-"km/h" = "km/h";
-
 /* Short for kilometers as in 120km */
 "km" = "km";
+
+/* Short for kilometers per hour as in 120km/h */
+"km/h" = "km/h";
 
 /* Display when leaving region (region name follows) */
 "Leaving" = "Verlässt";
@@ -144,9 +144,6 @@
 
 /* Location copied to clipboard */
 "Location copied to clipboard" = "Position wurde in die Zwischenablage kopiert";
-
-/* Topic copied to clipboard */
-"Topic copied to clipboard" = "Topic wurde in die Zwischenablage kopiert";
 
 /* Location Manager error message */
 "Location services are not enabled" = "Ortungsdienste sind nicht eingeschaltet";
@@ -179,7 +176,7 @@
 "No location available" = "Position nicht verfügbar";
 
 /* No location recorded indication */
-"No location recorded" = "Keine Position verfügbar\\n";
+"No location recorded" = "Keine Position verfügbar\n";
 
 /* Display after trying to process a file */
 "no url specified" = "keine URL angegeben";
@@ -223,11 +220,17 @@
 /* Header of an alert message regarding missing setup */
 "Setup" = "Setup";
 
+/* MQTT Description Text */
+"Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Konfigurieren Sie Ihren OwnTracks Server für vollständigen Datenschutz. Mehr Information hier: https://owntracks.org/booklet";
+
 /* Significant */
 "Significant" = "Wesentlich";
 
 /* Location Manager error message */
 "Significant location change monitoring not available" = "Monitoring für wesentliche Positionsänderungen nicht verfügbar";
+
+/* HTTP Description Text */
+"Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Ähnlich wie MQTT Modus, aber die Datenübertragung nutzt HTTP, nicht MQTT.";
 
 /* Std */
 "Std" = "Std";
@@ -243,6 +246,9 @@
 
 /* Warning displayed if necessary settings are missing */
 "To publish your location userID and deviceID must be set" = "Ihre userID und deviceID müssen gesetzt sein um Ihre Position zu senden";
+
+/* Topic copied to clipboard */
+"Topic copied to clipboard" = "Topic wurde in die Zwischenablage kopiert";
 
 /* Alert header regarding TrackerID input */
 "TrackerID invalid" = "TrackerID ungültig";
@@ -265,6 +271,9 @@
 /* webView didFailLoadWithError display */
 "webView didFailLoadWithError" = "webView didFailLoadWithError";
 
+/* Please Note Text */
+"When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "Wenn der Modus gewechselt wird löscht OwnTracks alle bisher gespeicherten Daten aus Datenschutzgründen.";
+
 /* You cannot use background fetch */
 "You cannot use background fetch" = "Sie können keinen Background Fetch nutzen";
 
@@ -274,11 +283,3 @@
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Konfigurieren Sie Ihren OwnTracks Server für vollständigen Datenschutz. Mehr Information hier: https://owntracks.org/booklet";
 
-/* MQTT Description Text */
-"Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Konfigurieren Sie Ihren OwnTracks Server für vollständigen Datenschutz. Mehr Information hier: https://owntracks.org/booklet";
-
-/* HTTP Description Text */
-"Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Ähnlich wie MQTT Modus, aber die Datenübertragung nutzt HTTP, nicht MQTT.";
-/* Please Note Text */
-
-"When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "Wenn der Modus gewechselt wird löscht OwnTracks alle bisher gespeicherten Daten aus Datenschutzgründen.";

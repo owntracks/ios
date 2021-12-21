@@ -1,0 +1,36 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "OwnTracks";
+
+/* Bundle name */
+"CFBundleName" = "OwnTracks";
+
+/* Privacy - Contacts Usage Description */
+"NSContactsUsageDescription" = "OwnTracks'in kişilerinize erişmesine izin verirseniz, cihazlarınızı kişilere bağlayabilirsiniz. OwnTracks, cihaz kimliği yerine kişi adını ve resmini gösterecektir. Adres defterinize ait hiçbir bilgi herhangi bir sunucuya yüklenmeyecektir.";
+
+/* Privacy - Location Always and When In Use Usage Description */
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Konumunuz, onu seçtiğiniz bir sunucuya paylaşmak ve kaydetmek için kullanılır";
+
+/* Privacy - Location Always Usage Description */
+"NSLocationAlwaysUsageDescription" = "Konumunuz, onu seçtiğiniz bir sunucuya paylaşmak ve kaydetmek için kullanılır";
+
+/* Privacy - Location Usage Description */
+"NSLocationUsageDescription" = "Konumunuz, onu seçtiğiniz bir sunucuya paylaşmak ve kaydetmek için kullanılır";
+
+/* Privacy - Location When In Use Usage Description */
+"NSLocationWhenInUseUsageDescription" = "Konumunuz, onu seçtiğiniz bir sunucuya paylaşmak ve kaydetmek için kullanılır";
+
+/* Privacy - Motion Usage Description */
+"NSMotionUsageDescription" = "OwnTracks, istek üzerine adım sayınızı, çıkılan katları ve yürünen mesafeyi verir";
+
+/* (No Comment) */
+"OwnTracks CER File" = "OwnTracks CER Dosyası";
+
+/* (No Comment) */
+"OwnTracks Configuration File" = "OwnTracks Yapılandırma Dosyası";
+
+/* (No Comment) */
+"OwnTracks PKCS12 File" = "OwnTracks PKCS12 Dosyası";
+
+/* (No Comment) */
+"OwnTracks Waypoints File" = "OwnTracks Yol Noktaları Dosyası";
+

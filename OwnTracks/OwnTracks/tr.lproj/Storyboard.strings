@@ -1,41 +1,41 @@
 /* Class = "UITextField"; placeholder = "Radius"; ObjectID = "0WN-ST-XQq"; Note = "Don't translate. Technical Term"; */
-"0WN-ST-XQq.placeholder" = "radius";
+"0WN-ST-XQq.placeholder" = "Yarıçap";
 
 /* Class = "UILabel"; text = "Parameters"; ObjectID = "1Lf-oi-0xo"; */
-"1Lf-oi-0xo.text" = "Parameter";
+"1Lf-oi-0xo.text" = "Parametreler";
 
 /* Class = "UILabel"; text = "Street\n1\n2\n3\n4"; ObjectID = "1PK-JM-nD2"; */
-"1PK-JM-nD2.text" = "Strasse\n1\n2\n3\n4";
+"1PK-JM-nD2.text" = "Sokak\n1\n2\n3\n4";
 
 /* Class = "UILabel"; text = "maxHistory"; ObjectID = "2F5-PF-efV"; Note = "Don't translate, technical term"; */
 "2F5-PF-efV.text" = "maxHistory";
 
 /* Class = "UITextField"; placeholder = "secret"; ObjectID = "2FK-gv-e75"; */
-"2FK-gv-e75.placeholder" = "secret";
+"2FK-gv-e75.placeholder" = "gizli";
 
 /* Class = "UILabel"; text = "Mode"; ObjectID = "3ad-LO-zcn"; */
-"3ad-LO-zcn.text" = "Modus";
+"3ad-LO-zcn.text" = "Mode";
 
 /* Class = "UILabel"; text = "pubRetain"; ObjectID = "3Hs-lP-khD"; Note = "Don't translate, technical term"; */
 "3Hs-lP-khD.text" = "pubRetain";
 
 /* Class = "UINavigationItem"; title = "Friends"; ObjectID = "03k-Ca-PSS"; */
-"03k-Ca-PSS.title" = "Freunde";
+"03k-Ca-PSS.title" = "Arkadaşlar";
 
 /* Class = "UILabel"; text = "locked"; ObjectID = "3K5-oQ-oxQ"; Note = "Don't translate, technical term"; */
 "3K5-oQ-oxQ.text" = "locked";
 
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "4OY-Dm-bnz"; */
-"4OY-Dm-bnz.placeholder" = "password";
+"4OY-Dm-bnz.placeholder" = "Şifre";
 
 /* Class = "UITextField"; placeholder = "days"; ObjectID = "5Nq-by-zFb"; */
-"5Nq-by-zFb.placeholder" = "Tage";
+"5Nq-by-zFb.placeholder" = "günler";
 
 /* Class = "UILabel"; text = "11:30 PM"; ObjectID = "6AN-cF-srI"; Note = "Don't translate. Placeholder"; */
-"6AN-cF-srI.text" = "11:30 PM";
+"6AN-cF-srI.text" = "23:30";
 
 /* Class = "UITableViewSection"; headerTitle = "Client Certificate"; ObjectID = "6aR-4g-W4D"; */
-"6aR-4g-W4D.headerTitle" = "Client Certificate";
+"6aR-4g-W4D.headerTitle" = "İstemci Sertifikası";
 
 /* Class = "UILabel"; text = "Filename"; ObjectID = "7ie-NC-EFG"; Note = "Don't translate, technical term"; */
 "7ie-NC-EFG.text" = "Filename";
@@ -47,271 +47,268 @@
 "7W2-Mn-fUG.segmentTitles[1]" = "HTTP";
 
 /* Class = "UITableViewSection"; headerTitle = "Circular Region"; ObjectID = "7xg-sB-qXa"; */
-"7xg-sB-qXa.headerTitle" = "Kreisförmige Region";
+"7xg-sB-qXa.headerTitle" = "Dairesel Bölge";
 
 /* Class = "UINavigationItem"; title = "Waypoint"; ObjectID = "8DB-l4-Dop"; */
-"8DB-l4-Dop.title" = "Position";
+"8DB-l4-Dop.title" = "Ara nokta";
 
 /* Class = "UINavigationItem"; title = "History"; ObjectID = "9IF-HL-6Bf"; */
-"9IF-HL-6Bf.title" = "Verlauf";
+"9IF-HL-6Bf.title" = "Geçmiş";
 
 /* Class = "UITableViewSection"; headerTitle = "Info"; ObjectID = "9tZ-tQ-x72"; */
-"9tZ-tQ-x72.headerTitle" = "Info";
+"9tZ-tQ-x72.headerTitle" = "Bilgi";
 
 /* Class = "UIButton"; normalTitle = "Export Waypoints"; ObjectID = "54d-E6-cWX"; */
-"54d-E6-cWX.normalTitle" = "Regionen exportieren";
+"54d-E6-cWX.normalTitle" = "Ara Noktaları Dışa Aktar";
 
 /* Class = "UITextField"; placeholder = "willTopic"; ObjectID = "79P-sU-en0"; Note = "Placeholder. Do not translate"; */
 "79P-sU-en0.placeholder" = "willTopic";
 
 /* Class = "UILabel"; text = "keepAlive"; ObjectID = "222-vu-d4y"; Note = "Don't translate, technical term"; */
-"222-vu-d4y.text" = "keepAlive";
+"222-vu-d4y.text" = "hayatta kal";
 
 /* Class = "UITableViewSection"; headerTitle = "Please note"; ObjectID = "a09-rn-TZE"; */
-"a09-rn-TZE.headerTitle" = "Bitte beachten Sie";
+"a09-rn-TZE.headerTitle" = "lütfen aklınızda bulundurun";
 
 /* Class = "UILabel"; text = "Host"; ObjectID = "a19-FN-Mwf"; */
-"a19-FN-Mwf.text" = "Host";
+"a19-FN-Mwf.text" = "Ev sahibi";
 
 /* Class = "UITableViewSection"; headerTitle = "HTTP Mode"; ObjectID = "Ac4-3H-YRL"; */
-"Ac4-3H-YRL.headerTitle" = "HTTP Modus";
+"Ac4-3H-YRL.headerTitle" = "HTTP Modu";
 
 /* Class = "UINavigationItem"; title = "Featured"; ObjectID = "AdM-qz-URl"; */
-"AdM-qz-URl.title" = "Feature";
+"AdM-qz-URl.title" = "Öne çıkan";
 
 /* Class = "UILabel"; text = "Street\n1\n2\n3\n4"; ObjectID = "apt-Il-Ih4"; Note = "Don't Translate, Placeholder"; */
-"apt-Il-Ih4.text" = "Strasse\n1\n2\n3\n4";
+"apt-Il-Ih4.text" = "sokak\n1\n2\n3\n4";
 
 /* Class = "UILabel"; text = "Allow Untrusted Certificates"; ObjectID = "aVN-vG-YjO"; Note = "Don't translate, technical term"; */
-"aVN-vG-YjO.text" = "Erlaube unbestätigte Zertifikate";
+"aVN-vG-YjO.text" = "Güvenilmeyen Sertifikalara İzin Ver";
 
 /* Class = "UINavigationItem"; title = "Credits and License"; ObjectID = "BPo-EV-Jgg"; */
-"BPo-EV-Jgg.title" = "Danksagung und Lizenzen";
+"BPo-EV-Jgg.title" = "Krediler ve Lisans";
 
 /* Class = "UILabel"; text = "Passphrase"; ObjectID = "BTX-XN-kzE"; Note = "Don't translate, technical term"; */
-"BTX-XN-kzE.text" = "Passphrase";
+"BTX-XN-kzE.text" = "Parola";
 
 /* Class = "UILabel"; text = "Password"; ObjectID = "C1o-h4-z6h"; */
-"C1o-h4-z6h.text" = "Password";
+"C1o-h4-z6h.text" = "Parola";
 
 /* Class = "UITextField"; placeholder = "qos"; ObjectID = "cBn-p7-eqG"; Note = "Placeholder. Do not translate"; */
 "cBn-p7-eqG.placeholder" = "qos";
 
 /* Class = "UILabel"; text = "Minor"; ObjectID = "crJ-Yr-XNh"; */
-"crJ-Yr-XNh.text" = "Minor";
+"crJ-Yr-XNh.text" = "Minör";
 
 /* Class = "UILabel"; text = "cmd"; ObjectID = "cTs-Rr-JTs"; Note = "Don't translate, technical term"; */
 "cTs-Rr-JTs.text" = "cmd";
 
 /* Class = "UILabel"; text = "Latitude"; ObjectID = "Cuh-Tm-IcV"; */
-"Cuh-Tm-IcV.text" = "Latitude";
+"Cuh-Tm-IcV.text" = "Enlem";
 
 /* Class = "UILabel"; text = "extendedData"; ObjectID = "cxz-nO-ptK"; Note = "Don't translate, technical term"; */
 "cxz-nO-ptK.text" = "extendedData";
 
 /* Class = "UILabel"; text = "Topic"; ObjectID = "Dgw-5m-uvy"; */
-"Dgw-5m-uvy.text" = "Topic";
+"Dgw-5m-uvy.text" = "Konu";
 
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "dhG-pz-V9R"; */
-"dhG-pz-V9R.title" = "Item";
+"dhG-pz-V9R.title" = "Öğe";
 
 /* Class = "UITableViewSection"; headerTitle = "Beacon Region"; ObjectID = "dPT-PC-ShQ"; */
-"dPT-PC-ShQ.headerTitle" = "Beacon Region";
+"dPT-PC-ShQ.headerTitle" = "İşaret Bölgesi";
 
 /* Class = "UITextField"; placeholder = "trackerid"; ObjectID = "dUg-TH-IQ0"; Note = "Don't translate, technical term"; */
-"dUg-TH-IQ0.placeholder" = "trackerid";
+"dUg-TH-IQ0.placeholder" = "izci kimliği";
 
 /* Class = "UITextView"; text = "Copyright © 2013-2021 by Christoph Krey, https://owntracks.org"; ObjectID = "dZg-CC-7yD"; */
-"dZg-CC-7yD.text" = "Copyright © 2013-2021 by Christoph Krey, https://owntracks.org";
+"dZg-CC-7yD.text" = "Telif hakkı © 2013-2021, Christoph Krey, https://owntracks.org";
 
 /* Class = "UILabel"; text = "ranging"; ObjectID = "DZx-uw-XhQ"; Note = "Don't translate, technical term"; */
-"DZx-uw-XhQ.text" = "ranging";
+"DZx-uw-XhQ.text" = "değişen";
 
 /* Class = "UITextField"; placeholder = "deviceid"; ObjectID = "e0q-hc-0z2"; Note = "Placeholder. Do not translate"; */
-"e0q-hc-0z2.placeholder" = "deviceid";
+"e0q-hc-0z2.placeholder" = "aygıt kimliği";
 
 /* Class = "UITabBarController"; title = "Tab Bar"; ObjectID = "e04-OU-xZ4"; */
-"e04-OU-xZ4.title" = "Tab Bar";
+"e04-OU-xZ4.title" = "Sekme Çubuğu";
 
 /* Class = "UIButton"; normalTitle = "Documentation"; ObjectID = "ePs-kX-VDJ"; */
-"ePs-kX-VDJ.normalTitle" = "Dokumentation";
+"ePs-kX-VDJ.normalTitle" = "Dokümantasyon";
 
 /* Class = "UIBarButtonItem"; title = "±2000m"; ObjectID = "ere-0U-4rD"; Note = "Placeholder. Do not transalate"; */
-"ere-0U-4rD.title" = "Accuracy";
+"ere-0U-4rD.title" = "± 2000 m";
 
 /* Class = "UILabel"; text = "Port"; ObjectID = "EWI-7o-7Jo"; */
-"EWI-7o-7Jo.text" = "Port";
+"EWI-7o-7Jo.text" = "Liman";
 
 /* Class = "UILabel"; text = "clientId"; ObjectID = "fHY-ry-yB3"; Note = "Don't translate, technical term"; */
-"fHY-ry-yB3.text" = "clientId";
+"fHY-ry-yB3.text" = "Müşteri Kimliği";
 
 /* Class = "UIButton"; normalTitle = "Talk to us"; ObjectID = "Fng-qL-diO"; */
-"Fng-qL-diO.normalTitle" = "Sprechen Sie mit uns";
+"Fng-qL-diO.normalTitle" = "Bizimle konuş";
 
 /* Class = "UITextField"; placeholder = "uuid"; ObjectID = "fPO-vc-4UX"; */
 "fPO-vc-4UX.placeholder" = "uuid";
 
 /* Class = "UILabel"; text = "Credits and Licence"; ObjectID = "FYQ-ba-bf8"; */
-"FYQ-ba-bf8.text" = "Danksagung und Lizenzen";
+"FYQ-ba-bf8.text" = "Krediler ve Lisans";
 
 /* Class = "UILabel"; text = "Version"; ObjectID = "g84-aA-XOI"; */
-"g84-aA-XOI.text" = "Version";
+"g84-aA-XOI.text" = "Versiyon";
 
 /* Class = "UITextField"; placeholder = "qos"; ObjectID = "giY-cI-jfy"; Note = "Placeholder. Do not translate"; */
 "giY-cI-jfy.placeholder" = "qos";
 
 /* Class = "UITableViewSection"; headerTitle = "OwnTracks -Your location companion"; ObjectID = "Gjb-Ud-8a8"; */
-"Gjb-Ud-8a8.headerTitle" = "OwnTracks -Your location companion";
+"Gjb-Ud-8a8.headerTitle" = "OwnTracks - Konum arkadaşınız";
 
 /* Class = "UILabel"; text = "pubTopicBase"; ObjectID = "gkR-ph-8W7"; Note = "Don't translate, technical term"; */
 "gkR-ph-8W7.text" = "pubTopicBase";
 
 /* Class = "UINavigationItem"; title = "Regions"; ObjectID = "GM9-KK-8vY"; */
-"GM9-KK-8vY.title" = "Regionen";
+"GM9-KK-8vY.title" = "Bölgeler";
 
 /* Class = "UILabel"; text = "locatorDisplacement"; ObjectID = "gtX-x4-Vwl"; Note = "Don't translate, technical term"; */
-"gtX-x4-Vwl.text" = "locatorDisplacement";
+"gtX-x4-Vwl.text" = "yer değiştirme";
 
 /* Class = "UINavigationItem"; title = "Certificates"; ObjectID = "GWL-01-fh1"; Note = "Don't translate, technical term"; */
-"GWL-01-fh1.title" = "Certificates";
-
-/* Class = "UILabel"; text = "Batterylevel"; ObjectID = "gXA-0p-FKt"; */
-"gXA-0p-FKt.text" = "Ladestand";
+"GWL-01-fh1.title" = "Sertifikalar";
 
 /* Class = "UILabel"; text = "effective pubTopic"; ObjectID = "H7d-L2-cbZ"; Note = "Don't translate, technical term"; */
-"H7d-L2-cbZ.text" = "effectives pubTopic";
+"H7d-L2-cbZ.text" = "etkili yayın";
 
 /* Class = "UITabBarItem"; title = "Regions"; ObjectID = "HB5-wo-JZx"; */
-"HB5-wo-JZx.title" = "Regionen";
+"HB5-wo-JZx.title" = "Bölgeler";
 
 /* Class = "UIButton"; normalTitle = "Navigate"; ObjectID = "hcc-3n-8aC"; */
-"hcc-3n-8aC.normalTitle" = "Routenführung";
+"hcc-3n-8aC.normalTitle" = "Gezinme";
 
 /* Class = "UITabBarItem"; title = "Map"; ObjectID = "HCO-pB-vNN"; */
-"HCO-pB-vNN.title" = "Karte";
+"HCO-pB-vNN.title" = "Harita";
 
 /* Class = "UILabel"; text = "effective deviceId"; ObjectID = "hE7-sf-UPA"; Note = "Don't translate, technical term"; */
-"hE7-sf-UPA.text" = "effective deviceId";
+"hE7-sf-UPA.text" = "etkili cihaz kimliği";
 
 /* Class = "UINavigationItem"; title = "Region"; ObjectID = "Hfg-cd-JM1"; */
-"Hfg-cd-JM1.title" = "Region";
+"Hfg-cd-JM1.title" = "Bölge";
 
 /* Class = "UINavigationItem"; title = "Status Info"; ObjectID = "hFq-9F-EAc"; */
-"hFq-9F-EAc.title" = "Status Information";
+"hFq-9F-EAc.title" = "Durum Bilgisi";
 
 /* Class = "UILabel"; text = "Info"; ObjectID = "hLa-Yd-Jmn"; */
-"hLa-Yd-Jmn.text" = "Information";
+"hLa-Yd-Jmn.text" = "Bilgi";
 
 /* Class = "UITextField"; placeholder = "pubTopicBase"; ObjectID = "hNb-lH-EGK"; Note = "Placeholder. Do not translate"; */
 "hNb-lH-EGK.placeholder" = "pubTopicBase";
 
 /* Class = "UILabel"; text = "effective clientId"; ObjectID = "hQX-dc-Yix"; Note = "Don't translate, technical term"; */
-"hQX-dc-Yix.text" = "effektive clientId";
+"hQX-dc-Yix.text" = "etkili müşteri kimliği";
 
 /* Class = "UITextView"; text = "<Parameters>"; ObjectID = "HQZ-wy-aC5"; Note = "Don't translate. Placeholder!"; */
-"HQZ-wy-aC5.text" = "param";
+"HQZ-wy-aC5.text" = "<Parametreler>";
 
 /* Class = "UITextField"; placeholder = "timestamp"; ObjectID = "HVH-Pt-DXp"; */
-"HVH-Pt-DXp.placeholder" = "timestamp";
+"HVH-Pt-DXp.placeholder" = "zaman damgası";
 
 /* Class = "UILabel"; text = "locatorInterval"; ObjectID = "hY6-k2-neH"; Note = "Don't translate, technical term"; */
 "hY6-k2-neH.text" = "locatorInterval";
 
 /* Class = "UITextField"; placeholder = "info"; ObjectID = "Ikm-SR-MCD"; */
-"Ikm-SR-MCD.placeholder" = "info";
+"Ikm-SR-MCD.placeholder" = "bilgi";
 
 /* Class = "UITextField"; placeholder = "clientId"; ObjectID = "IsX-6T-YbC"; Note = "Placeholder. Do not translate"; */
-"IsX-6T-YbC.placeholder" = "clientId";
+"IsX-6T-YbC.placeholder" = "Müşteri Kimliği";
 
 /* Class = "UILabel"; text = "willTopic"; ObjectID = "iuh-ye-xuh"; Note = "Don't translate, technical term"; */
 "iuh-ye-xuh.text" = "willTopic";
 
 /* Class = "UINavigationItem"; title = "Settings"; ObjectID = "jaH-UC-XYI"; */
-"jaH-UC-XYI.title" = "Einstellungen";
+"jaH-UC-XYI.title" = "Ayarlar";
 
 /* Class = "UILabel"; text = "subQos"; ObjectID = "jH3-JK-ef6"; Note = "Don't translate, technical term"; */
 "jH3-JK-ef6.text" = "subQos";
 
 /* Class = "UITextField"; placeholder = "Meters"; ObjectID = "jqJ-cr-0tT"; Note = "Don't translate, technical term"; */
-"jqJ-cr-0tT.placeholder" = "Meter";
+"jqJ-cr-0tT.placeholder" = "Metre";
 
 /* Class = "UITextField"; placeholder = "client certificate file"; ObjectID = "JSF-BR-9Nb"; Note = "Don't translate, technical term"; */
-"JSF-BR-9Nb.placeholder" = "client certificate file";
+"JSF-BR-9Nb.placeholder" = "istemci sertifika dosyası";
 
 /* Class = "UILabel"; text = "sub"; ObjectID = "Jw3-DE-n5i"; Note = "Don't translate, technical term"; */
-"Jw3-DE-n5i.text" = "sub";
+"Jw3-DE-n5i.text" = "alt";
 
 /* Class = "UILabel"; text = "effective willTopic"; ObjectID = "jwg-hb-6ed"; Note = "Don't translate, technical term"; */
-"jwg-hb-6ed.text" = "effektives willTopic";
+"jwg-hb-6ed.text" = "etkili irade";
 
 /* Class = "UITextField"; placeholder = "longitude"; ObjectID = "JZL-1C-khg"; */
-"JZL-1C-khg.placeholder" = "longitude";
+"JZL-1C-khg.placeholder" = "boylam";
 
 /* Class = "UILabel"; text = "Name"; ObjectID = "K3J-wU-omB"; Note = "Don't Translate. Placeholder"; */
-"K3J-wU-omB.text" = "Name";
+"K3J-wU-omB.text" = "İsim Soyisim";
 
 /* Class = "UITextField"; placeholder = "passphrase"; ObjectID = "KhB-Z4-umi"; Note = "Don't translate, technical term"; */
-"KhB-Z4-umi.placeholder" = "passphrase";
+"KhB-Z4-umi.placeholder" = "parola";
 
 /* Class = "UINavigationItem"; title = "Persons"; ObjectID = "KOf-PY-JcB"; */
-"KOf-PY-JcB.title" = "Kontakte";
+"KOf-PY-JcB.title" = "Kişiler";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "Kvr-J3-4fw"; */
-"Kvr-J3-4fw.text" = "Title";
+"Kvr-J3-4fw.text" = "Başlık";
 
 /* Class = "UITextField"; placeholder = "latitude"; ObjectID = "Lmo-Kp-uCi"; */
-"Lmo-Kp-uCi.placeholder" = "latitude";
+"Lmo-Kp-uCi.placeholder" = "enlem";
 
 /* Class = "UILabel"; text = "Secret encryption key"; ObjectID = "lQx-Zr-z69"; */
-"lQx-Zr-z69.text" = "Secret encryption key";
+"lQx-Zr-z69.text" = "Gizli şifreleme anahtarı";
 
 /* Class = "UITextField"; placeholder = "number"; ObjectID = "lTh-wG-5YG"; */
-"lTh-wG-5YG.placeholder" = "number";
+"lTh-wG-5YG.placeholder" = "numara";
 
 /* Class = "UITextField"; placeholder = "Meters"; ObjectID = "M0H-SF-pCO"; */
-"M0H-SF-pCO.placeholder" = "Meter";
+"M0H-SF-pCO.placeholder" = "Metre";
 
 /* Class = "UILabel"; text = "Created At"; ObjectID = "mhI-D6-Y0f"; */
-"mhI-D6-Y0f.text" = "Created At";
+"mhI-D6-Y0f.text" = "Oluşturulma Tarihi";
 
 /* Class = "UITextView"; text = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, libsodium (libsodium.org)\n\n"; ObjectID = "Moe-Di-frm"; */
-"Moe-Di-frm.text" = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, libsodium (libsodium.org)";
+"Moe-Di-frm.text" = "Aşağıdaki cocoapod'ları kullanır (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, libsodium (libsodium.org)\n\n";
 
 /* Class = "UITabBarItem"; title = "Friends"; ObjectID = "msF-bI-hEJ"; */
-"msF-bI-hEJ.title" = "Freunde";
+"msF-bI-hEJ.title" = "Arkadaşlar";
 
 /* Class = "UINavigationItem"; title = "Modes"; ObjectID = "nJk-gq-XUi"; */
-"nJk-gq-XUi.title" = "Modes";
+"nJk-gq-XUi.title" = "Modları";
 
 /* Class = "UILabel"; text = "positions"; ObjectID = "NkN-Ib-izC"; Note = "Don't translate, technical term"; */
-"NkN-Ib-izC.text" = "positions";
+"NkN-Ib-izC.text" = "pozisyonlar";
 
 /* Class = "UITableViewSection"; headerTitle = "Expert Mode"; ObjectID = "NRQ-7X-SLM"; */
-"NRQ-7X-SLM.headerTitle" = "Expert Mode";
+"NRQ-7X-SLM.headerTitle" = "Uzman Modu";
 
 /* Class = "UINavigationItem"; title = "TLS"; ObjectID = "NS8-pg-IlP"; Note = "Don't translate, technical term"; */
 "NS8-pg-IlP.title" = "TLS";
 
 /* Class = "UITextField"; placeholder = "timestamp"; ObjectID = "nwd-8O-YcR"; */
-"nwd-8O-YcR.placeholder" = "timestamp";
+"nwd-8O-YcR.placeholder" = "zaman damgası";
 
 /* Class = "UILabel"; text = "Proto"; ObjectID = "NZB-F6-F8c"; */
 "NZB-F6-F8c.text" = "Proto";
 
 /* Class = "UITextField"; placeholder = "Seconds"; ObjectID = "oBs-Zn-P4m"; */
-"oBs-Zn-P4m.placeholder" = "Sekunden";
+"oBs-Zn-P4m.placeholder" = "Saniye";
 
 /* Class = "UINavigationItem"; title = "Map"; ObjectID = "OeB-EW-2jx"; */
-"OeB-EW-2jx.title" = "Karte";
+"OeB-EW-2jx.title" = "Harita";
 
 /* Class = "UILabel"; text = "Longitude"; ObjectID = "OgN-Bg-AeZ"; */
-"OgN-Bg-AeZ.text" = "Longitude";
+"OgN-Bg-AeZ.text" = "Boylam";
 
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "OIH-xB-QZe"; */
-"OIH-xB-QZe.text" = "Subtitle";
+"OIH-xB-QZe.text" = "Alt yazı";
 
 /* Class = "UITextField"; placeholder = "userid"; ObjectID = "Oiq-Kb-qLx"; */
-"Oiq-Kb-qLx.placeholder" = "userid";
+"Oiq-Kb-qLx.placeholder" = "Kullanıcı kimliği";
 
 /* Class = "UITextField"; placeholder = "qos"; ObjectID = "PBp-Kc-CwF"; Note = "Placeholder. Do not translate"; */
 "PBp-Kc-CwF.placeholder" = "qos";
@@ -326,88 +323,85 @@
 "pn1-hA-OmO.placeholder" = "proto";
 
 /* Class = "UILabel"; text = "Radius for Region (m)"; ObjectID = "Q3S-EG-XKZ"; */
-"Q3S-EG-XKZ.text" = "Radius für Region (m)";
+"Q3S-EG-XKZ.text" = "Bölge için Yarıçap (m)";
 
 /* Class = "UILabel"; text = "Websockets"; ObjectID = "qg7-Fn-2Qr"; Note = "Don't translate, technical term"; */
-"qg7-Fn-2Qr.text" = "Websockets";
+"qg7-Fn-2Qr.text" = "Web soketleri";
 
 /* Class = "UILabel"; text = "UUID"; ObjectID = "Qpu-nC-kBF"; */
 "Qpu-nC-kBF.text" = "UUID";
 
 /* Class = "UIButton"; normalTitle = "Settings"; ObjectID = "R0X-4j-vxu"; */
-"R0X-4j-vxu.normalTitle" = "Einstellungen";
+"R0X-4j-vxu.normalTitle" = "Ayarlar";
 
 /* Class = "UILabel"; text = "effective tid"; ObjectID = "rdL-4M-Ugx"; Note = "Don't translate, technical term"; */
-"rdL-4M-Ugx.text" = "effektiver tid";
+"rdL-4M-Ugx.text" = "etkili haber";
 
 /* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "RfS-uy-gRR"; Note = "Placeholder. Don't translate."; */
-"RfS-uy-gRR.placeholder" = "<Coordinates>";
+"RfS-uy-gRR.placeholder" = "<Koordinatlar>";
 
 /* Class = "UIButton"; normalTitle = "Publish Waypoints"; ObjectID = "rMe-Is-0BE"; */
-"rMe-Is-0BE.normalTitle" = "Sende Regionen";
+"rMe-Is-0BE.normalTitle" = "Yol İşaretlerini Yayınlayın";
 
 /* Class = "UILabel"; text = "Status"; ObjectID = "Rxv-hL-MC1"; Note = "Placeholder. Do not translate!"; */
-"Rxv-hL-MC1.text" = "Status";
+"Rxv-hL-MC1.text" = "Durum";
 
 /* Class = "UITextField"; placeholder = "name"; ObjectID = "s1I-Ff-fYw"; */
-"s1I-Ff-fYw.placeholder" = "name";
+"s1I-Ff-fYw.placeholder" = "isim";
 
 /* Class = "UILabel"; text = "TrackerID"; ObjectID = "SaB-mS-8Nw"; Note = "Don't translate, technical term"; */
 "SaB-mS-8Nw.text" = "TrackerID";
 
 /* Class = "UILabel"; text = "UserID"; ObjectID = "SAr-Vi-xHD"; */
-"SAr-Vi-xHD.text" = "UserID";
-
-/* Class = "UILabel"; text = "Distance"; ObjectID = "SCe-XW-vBZ"; */
-"SCe-XW-vBZ.text" = "Entfernung";
+"SAr-Vi-xHD.text" = "Kullanıcı kimliği";
 
 /* Class = "UITextView"; text = "<status>"; ObjectID = "src-OY-ZUR"; Note = "Don't translate. Placeholder"; */
-"src-OY-ZUR.text" = "state";
+"src-OY-ZUR.text" = "<durum>";
 
 /* Class = "UITextField"; placeholder = "subTopic"; ObjectID = "suj-kA-G3U"; Note = "Placeholder. Do not translate"; */
 "suj-kA-G3U.placeholder" = "subTopic";
 
 /* Class = "UILabel"; text = "Major"; ObjectID = "sZM-l3-N2o"; */
-"sZM-l3-N2o.text" = "Major";
+"sZM-l3-N2o.text" = "Majör";
 
 /* Class = "UILabel"; text = "willQos"; ObjectID = "t48-sP-9SU"; Note = "Don't translate, technical term"; */
 "t48-sP-9SU.text" = "willQos";
 
 /* Class = "UITextField"; placeholder = "minor"; ObjectID = "Tc6-JR-qOB"; */
-"Tc6-JR-qOB.placeholder" = "minor";
+"Tc6-JR-qOB.placeholder" = "minör";
 
 /* Class = "UITableViewSection"; headerTitle = "Connection"; ObjectID = "TPY-zx-JfY"; */
-"TPY-zx-JfY.headerTitle" = "Connection";
+"TPY-zx-JfY.headerTitle" = "Bağ";
 
 /* Class = "UITextField"; placeholder = "host"; ObjectID = "tQs-PK-sbV"; Note = "Don't translate, technical term"; */
-"tQs-PK-sbV.placeholder" = "host";
+"tQs-PK-sbV.placeholder" = "ev sahibi";
 
 /* Class = "UITableViewSection"; headerTitle = "Location"; ObjectID = "uci-TJ-YaO"; */
-"uci-TJ-YaO.headerTitle" = "Location";
+"uci-TJ-YaO.headerTitle" = "yer";
 
 /* Class = "UILabel"; text = "willRetain"; ObjectID = "udF-FX-N41"; Note = "Don't translate, technical term"; */
-"udF-FX-N41.text" = "willRetain";
+"udF-FX-N41.text" = "WillRetain";
 
 /* Class = "UILabel"; text = "DeviceID"; ObjectID = "uJc-pU-O6W"; Note = "Don't translate, technical term"; */
-"uJc-pU-O6W.text" = "DeviceID";
+"uJc-pU-O6W.text" = "Cihaz Kimliği";
 
 /* Class = "UILabel"; text = "Authentication"; ObjectID = "UjS-PQ-pwa"; */
-"UjS-PQ-pwa.text" = "Authentication";
+"UjS-PQ-pwa.text" = "Doğrulama";
 
 /* Class = "UITextField"; placeholder = "major"; ObjectID = "UqU-7l-HX1"; */
-"UqU-7l-HX1.placeholder" = "major";
+"UqU-7l-HX1.placeholder" = "majör";
 
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "Urx-Dz-nZk"; */
-"Urx-Dz-nZk.text" = "Subtitle";
+"Urx-Dz-nZk.text" = "Alt yazı";
 
 /* Class = "UILabel"; text = "monitoring"; ObjectID = "vhk-Yh-d0n"; Note = "Don't translate, technical term"; */
-"vhk-Yh-d0n.text" = "monitoring";
+"vhk-Yh-d0n.text" = "izleme";
 
 /* Class = "UILabel"; text = "ignoreStaleLocations"; ObjectID = "vHW-Iv-6Q1"; Note = "Don't translate, technical term"; */
 "vHW-Iv-6Q1.text" = "ignoreStaleLocations";
 
 /* Class = "UITableViewSection"; headerTitle = "MQTT Mode"; ObjectID = "vi2-IZ-KJt"; */
-"vi2-IZ-KJt.headerTitle" = "MQTT Modus";
+"vi2-IZ-KJt.headerTitle" = "MQTT Modu";
 
 /* Class = "UILabel"; text = "TLS"; ObjectID = "VQE-Wz-JiS"; Note = "Technical termin. Do not translate"; */
 "VQE-Wz-JiS.text" = "TLS";
@@ -416,7 +410,7 @@
 "VqT-ix-RdG.text" = "allowRemoteLocation";
 
 /* Class = "UILabel"; text = "effective subTopic"; ObjectID = "vUl-tT-Aw3"; Note = "Don't translate, technical term"; */
-"vUl-tT-Aw3.text" = "effektiver subTopic";
+"vUl-tT-Aw3.text" = "etkili alt konu";
 
 /* Class = "UILabel"; text = "cleanSession"; ObjectID = "VYy-2S-U3O"; Note = "Don't translate, technical term"; */
 "VYy-2S-U3O.text" = "cleanSession";
@@ -425,41 +419,41 @@
 "w8s-ld-3gB.text" = "subTopic";
 
 /* Class = "UITextField"; placeholder = "topic"; ObjectID = "wKK-9Q-BMU"; */
-"wKK-9Q-BMU.placeholder" = "topic";
+"wKK-9Q-BMU.placeholder" = "konu";
 
 /* Class = "UILabel"; text = "Name"; ObjectID = "WPX-rf-Obi"; */
-"WPX-rf-Obi.text" = "Name";
+"WPX-rf-Obi.text" = "İsim Soyisim";
 
 /* Class = "UILabel"; text = "Timestamp"; ObjectID = "x2d-ex-SAA"; */
-"x2d-ex-SAA.text" = "Timestamp";
+"x2d-ex-SAA.text" = "Zaman damgası";
 
 /* Class = "UILabel"; text = "pubQos"; ObjectID = "x67-7L-vnt"; Note = "Don't translate, technical term"; */
 "x67-7L-vnt.text" = "pubQos";
 
 /* Class = "UILabel"; text = "Coordinates"; ObjectID = "Ym9-bx-HAr"; */
-"Ym9-bx-HAr.text" = "Koordinaten";
+"Ym9-bx-HAr.text" = "Koordinatlar";
 
 /* Class = "UILabel"; text = "ignoreInaccurateLocations"; ObjectID = "yni-yE-tcr"; Note = "Don't translate, technical term"; */
-"yni-yE-tcr.text" = "ignoreInaccurateLocations";
+"yni-yE-tcr.text" = "IgnoreInaccurateLocations";
 
 /* Class = "UITextField"; placeholder = "number"; ObjectID = "yny-2e-dpz"; */
-"yny-2e-dpz.placeholder" = "number";
+"yny-2e-dpz.placeholder" = "numara";
 
 /* Class = "UIButton"; normalTitle = "Publish Settings"; ObjectID = "YQ6-jA-Rsh"; */
-"YQ6-jA-Rsh.normalTitle" = "Sende Einstellungen";
+"YQ6-jA-Rsh.normalTitle" = "Yayın Ayarları";
 
 /* Class = "UIButton"; normalTitle = "Export Settings"; ObjectID = "ysB-cv-35Y"; */
-"ysB-cv-35Y.normalTitle" = "Exportiere Einstellungen";
+"ysB-cv-35Y.normalTitle" = "Dışa Aktarma Ayarları";
 
 /* Class = "UILabel"; text = "Coordinates"; ObjectID = "Yx0-Kk-yOQ"; */
-"Yx0-Kk-yOQ.text" = "Koordinaten";
+"Yx0-Kk-yOQ.text" = "Koordinatlar";
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "z87-2B-BRC"; */
-"z87-2B-BRC.text" = "Title";
+"z87-2B-BRC.text" = "Başlık";
 
 /* Class = "UITextField"; placeholder = "seconds"; ObjectID = "ZT5-mN-Tt5"; */
-"ZT5-mN-Tt5.placeholder" = "Sekunden";
+"ZT5-mN-Tt5.placeholder" = "saniye";
 
 /* Class = "UITextField"; placeholder = "port"; ObjectID = "ZW3-WS-Wb7"; Note = "Don't translate, technical term"; */
-"ZW3-WS-Wb7.placeholder" = "port";
+"ZW3-WS-Wb7.placeholder" = "Liman";
 
