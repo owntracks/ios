@@ -1,11 +1,15 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 15.0.1 iOS/ipadOS/macOS
-* Release Date 2021-12-20
+## OwnTracks 15.0.2 iOS/ipadOS/macOS
+* Release Date 2021-12-21
 
-** Small enhancements and bug fixes
-    [NEW]   Region Monitoring +follow flexible duration #675
+** Turkish translation, small enhancements, and bug fixes
+    [NEW] App does now adjust `locatorInterval` changes immediately, no need to kill and restart. #634
+    [NEW] How to remove a client certificate? #648
+    [NEW] Turkish translation #671
+    [NEW] Copy Topic to clipboard on click/tap? #692
+    [NEW] Region Monitoring +follow flexible duration #675
     [NEW] Feature request: Add the battery property to the friend view (Android #1015) #681
     [NEW] add distance to Friend Screen
     [NEW] Notification sound when friend leaving or entering region #690

@@ -68,7 +68,6 @@
 		84AFD3DC2434380700F1E922 /* OwnTracksWrist WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 84AFD3DB2434380700F1E922 /* OwnTracksWrist WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84AFD3E22434380700F1E922 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84AFD3E02434380700F1E922 /* Interface.storyboard */; };
 		84AFD3E42434380A00F1E922 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84AFD3E32434380A00F1E922 /* Assets.xcassets */; };
-		84AFD3EB2434380A00F1E922 /* OwnTracksWrist WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 84AFD3EA2434380A00F1E922 /* OwnTracksWrist WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84AFD3F12434380A00F1E922 /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AFD3F02434380A00F1E922 /* InterfaceController.m */; };
 		84AFD3F42434380A00F1E922 /* ExtensionDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AFD3F32434380A00F1E922 /* ExtensionDelegate.m */; };
 		84AFD3F72434380A00F1E922 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AFD3F62434380A00F1E922 /* NotificationController.m */; };
@@ -78,6 +77,7 @@
 		84B0CDAD239E2EFA00CE9305 /* BackgroundTasks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B0CDAC239E2EFA00CE9305 /* BackgroundTasks.framework */; };
 		84B7397A1A65629200B103F4 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B739791A65629200B103F4 /* LocationManager.m */; };
 		84BD03AA25D5301F0077B9B8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AE8ADB25C165D600C0B0EE /* MapKit.framework */; };
+		84BE759827720BD2006CBDCF /* OwnTracksWrist WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 84AFD3EA2434380A00F1E922 /* OwnTracksWrist WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84CC5A521FEC71850010314C /* OwnTracks-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CC5A511FEC71840010314C /* OwnTracks-29.png */; };
 		84D3072F1ACD644500FACB9E /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D3072E1ACD644500FACB9E /* NotificationCenter.framework */; };
 		84D307351ACD644500FACB9E /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D307341ACD644500FACB9E /* TodayViewController.m */; };
@@ -123,7 +123,7 @@
 			remoteGlobalIDString = 84AFD3DA2434380700F1E922;
 			remoteInfo = "OwnTracksWrist WatchKit App";
 		};
-		84AFD3EC2434380A00F1E922 /* PBXContainerItemProxy */ = {
+		84BE759927720BD2006CBDCF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8411B820189FDB140019D2D6 /* Project object */;
 			proxyType = 1;
@@ -180,13 +180,13 @@
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		84AFD4012434380B00F1E922 /* Embed App Extensions */ = {
+		84BE759B27720BD2006CBDCF /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				84AFD3EB2434380A00F1E922 /* OwnTracksWrist WatchKit Extension.appex in Embed App Extensions */,
+				84BE759827720BD2006CBDCF /* OwnTracksWrist WatchKit Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -893,13 +893,13 @@
 			buildConfigurationList = 84AFD4052434380B00F1E922 /* Build configuration list for PBXNativeTarget "OwnTracksWrist WatchKit App" */;
 			buildPhases = (
 				84AFD3D92434380700F1E922 /* Resources */,
-				84AFD4012434380B00F1E922 /* Embed App Extensions */,
 				AD2C0D3CEF1C8C5DB3FD59D9 /* Frameworks */,
+				84BE759B27720BD2006CBDCF /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				84AFD3ED2434380A00F1E922 /* PBXTargetDependency */,
+				84BE759A27720BD2006CBDCF /* PBXTargetDependency */,
 			);
 			name = "OwnTracksWrist WatchKit App";
 			productName = "OwnTracksWrist WatchKit App";
@@ -1326,10 +1326,10 @@
 			target = 84AFD3DA2434380700F1E922 /* OwnTracksWrist WatchKit App */;
 			targetProxy = 84AFD3DD2434380700F1E922 /* PBXContainerItemProxy */;
 		};
-		84AFD3ED2434380A00F1E922 /* PBXTargetDependency */ = {
+		84BE759A27720BD2006CBDCF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 84AFD3E92434380A00F1E922 /* OwnTracksWrist WatchKit Extension */;
-			targetProxy = 84AFD3EC2434380A00F1E922 /* PBXContainerItemProxy */;
+			targetProxy = 84BE759927720BD2006CBDCF /* PBXContainerItemProxy */;
 		};
 		84D307391ACD644500FACB9E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

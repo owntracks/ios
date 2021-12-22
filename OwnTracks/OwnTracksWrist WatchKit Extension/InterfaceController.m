@@ -68,6 +68,7 @@ didChangeAuthorizationStatus:CLLocationManager.authorizationStatus];
         [self.locationManager requestAlwaysAuthorization];
     }
     // Configure interface objects here.
+
 }
 
 - (void)willActivate {
@@ -109,9 +110,9 @@ didChangeAuthorizationStatus:CLLocationManager.authorizationStatus];
             md[@"_type"] = @"location";
             md[@"tid"] = [self effectiveTid];
             md[@"tst"] = @((int)round(l.timestamp.timeIntervalSince1970));
-            if ((int)round(l.timeIntervalSince1970) !=
+            if ((int)round(l.timestamp.timeIntervalSince1970) !=
                 (int)round([NSDate date].timeIntervalSince1970)) {
-                [json setValue:@((int)round([NSDate date].timeIntervalSince1970))
+                [md setValue:@((int)round([NSDate date].timeIntervalSince1970))
                         forKey:@"created_at"];
             }
 
@@ -354,10 +355,10 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
                 NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
                 NSLog(@"NSHTTPURLResponse %@", httpResponse);
                 if (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299) {
-                    [self.connection setText:[NSString stringWithFormat:@"HTTP success %d", httpResponse.statusCode]];
+                    [self.connection setText:[NSString stringWithFormat:@"HTTP success %ld", (long)httpResponse.statusCode]];
                     [self.connection setTextColor:[UIColor greenColor]];
                 } else {
-                    [self.connection setText:[NSString stringWithFormat:@"HTTP code %d", httpResponse.statusCode]];
+                    [self.connection setText:[NSString stringWithFormat:@"HTTP code %ld", (long)httpResponse.statusCode]];
                     [self.connection setTextColor:[UIColor orangeColor]];
                 }
             } else {
@@ -373,7 +374,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
 }
 
 - (void)handleEvent:(MQTTSession *)session event:(MQTTSessionEvent)eventCode error:(NSError *)error {
-    NSLog(@"handleEvent %d %@", eventCode, error);
+    NSLog(@"handleEvent %ld %@", (long)eventCode, error);
     switch (eventCode) {
 
         case MQTTSessionEventConnected:

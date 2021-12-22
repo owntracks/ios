@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1240"
+   LastUpgradeVersion = "1320"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -17,7 +17,7 @@
                BlueprintIdentifier = "84AFD3DA2434380700F1E922"
                BuildableName = "OwnTracksWrist WatchKit App.app"
                BlueprintName = "OwnTracksWrist WatchKit App"
-               ReferencedContainer = "container:CF Bundle.xcodeproj">
+               ReferencedContainer = "container:OwnTracks.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "84AFD3D72434380700F1E922"
                BuildableName = "OwnTracksWrist.app"
                BlueprintName = "OwnTracksWrist"
-               ReferencedContainer = "container:CF Bundle.xcodeproj">
+               ReferencedContainer = "container:OwnTracks.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -53,18 +53,19 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES"
-      notificationPayloadFile = "OwnTracksWrist WatchKit Extension/PushNotificationPayload.apns">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      allowLocationSimulation = "YES">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/OwnTracksWrist WatchKit App">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "84AFD3DA2434380700F1E922"
             BuildableName = "OwnTracksWrist WatchKit App.app"
             BlueprintName = "OwnTracksWrist WatchKit App"
-            ReferencedContainer = "container:CF Bundle.xcodeproj">
+            ReferencedContainer = "container:OwnTracks.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -72,16 +73,27 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "2"
+         BundleIdentifier = "com.apple.Carousel"
+         RemotePath = "/OwnTracksWrist WatchKit App">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "84AFD3DA2434380700F1E922"
             BuildableName = "OwnTracksWrist WatchKit App.app"
             BlueprintName = "OwnTracksWrist WatchKit App"
-            ReferencedContainer = "container:CF Bundle.xcodeproj">
+            ReferencedContainer = "container:OwnTracks.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </RemoteRunnable>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "84AFD3DA2434380700F1E922"
+            BuildableName = "OwnTracksWrist WatchKit App.app"
+            BlueprintName = "OwnTracksWrist WatchKit App"
+            ReferencedContainer = "container:OwnTracks.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
