@@ -178,7 +178,7 @@ static LocationManager *theInstance = nil;
         [self.manager requestStateForRegion:region];
     }
     if (self.monitoring == LocationMonitoringSignificant) {
-        [self.manager  requestLocation];
+        [self.manager requestLocation];
     }
     [self startBackgroundTimer];
 }
