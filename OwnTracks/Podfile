@@ -4,12 +4,12 @@ use_frameworks!
 target 'OwnTracks' do
 platform :ios, '13.1'
 pod 'CocoaLumberjack'
-pod 'ABStaticTableViewController', :path => '../../ABStaticTableViewController'
-pod 'mqttc/MinL', :path => '../../mqttc'
+pod 'ABStaticTableViewController', :path => '~/ABStaticTableViewController'
+pod 'mqttc/MinL', :path => '~/mqttc'
 pod 'libsodium', '~> 1.0'
 end
 
 target 'OwnTracksWrist WatchKit Extension' do
 platform :watchos, '6.1'
-pod 'mqttc/MinL', :path => '../../mqttc'
+pod 'mqttc/MinL', :path => '~/mqttc'
 end

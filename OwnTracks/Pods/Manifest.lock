@@ -1,17 +1,17 @@
 PODS:
   - ABStaticTableViewController (1.1.1)
-  - CocoaLumberjack (3.7.2):
-    - CocoaLumberjack/Core (= 3.7.2)
-  - CocoaLumberjack/Core (3.7.2)
+  - CocoaLumberjack (3.7.4):
+    - CocoaLumberjack/Core (= 3.7.4)
+  - CocoaLumberjack/Core (3.7.4)
   - libsodium (1.0.12)
   - mqttc/MinL (14.0.1):
     - CocoaLumberjack
 
 DEPENDENCIES:
-  - ABStaticTableViewController (from `../../ABStaticTableViewController`)
+  - ABStaticTableViewController (from `~/ABStaticTableViewController`)
   - CocoaLumberjack
   - libsodium (~> 1.0)
-  - mqttc/MinL (from `../../mqttc`)
+  - mqttc/MinL (from `~/mqttc`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -20,16 +20,16 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   ABStaticTableViewController:
-    :path: "../../ABStaticTableViewController"
+    :path: "~/ABStaticTableViewController"
   mqttc:
-    :path: "../../mqttc"
+    :path: "~/mqttc"
 
 SPEC CHECKSUMS:
   ABStaticTableViewController: d8cfbdd596fbf58b515b13e49cc8ca8ca86c6e12
-  CocoaLumberjack: b7e05132ff94f6ae4dfa9d5bce9141893a21d9da
+  CocoaLumberjack: 543c79c114dadc3b1aba95641d8738b06b05b646
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
   mqttc: b9a739726c2c7f154d801193b2c2a9a63df59ccb
 
-PODFILE CHECKSUM: c59b26318152327fc5aea2a1796217c4b74c6939
+PODFILE CHECKSUM: e4cc06102203e0e0a161ba580d6c6b9e3beaf5de
 
 COCOAPODS: 1.10.0.rc.1
