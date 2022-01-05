@@ -1,8 +1,8 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 15.0.2 iOS/ipadOS/macOS
-* Release Date 2021-12-21
+## OwnTracks 16.0.1 iOS/ipadOS/macOS
+* Release Date 2022-01-05
 
 ** Turkish translation, small enhancements, and bug fixes
     [NEW] App does now adjust `locatorInterval` changes immediately, no need to kill and restart. #634
@@ -13,6 +13,8 @@ OwnTracks iOS App Release Notes
     [NEW] Feature request: Add the battery property to the friend view (Android #1015) #681
     [NEW] add distance to Friend Screen
     [NEW] Notification sound when friend leaving or entering region #690
+    [NEW] Change tracking mode enter/leave region #683
+    [NEW] Feature Request: Publish current monitoring mode on location updates #694
 
     [FIX] Dark Mode Navigation and Tab Bars
 
