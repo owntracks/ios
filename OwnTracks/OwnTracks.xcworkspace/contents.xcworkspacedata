@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../../elgolfo1.gpx">
+   </FileRef>
+   <FileRef
       location = "group:/Users/ckrey/ios/OwnTracks/OwnTracks.xcodeproj">
    </FileRef>
    <FileRef

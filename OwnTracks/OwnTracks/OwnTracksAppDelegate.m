@@ -118,9 +118,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelVerbose];
 #endif
     [DDLog addLogger:[DDOSLogger sharedInstance] withLevel:DDLogLevelWarning];
-
+    
     [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
-
+    
 #define TASK_IDENTIFIER @"updateSituation"
     self.bgTaskScheduler = [BGTaskScheduler sharedScheduler];
     BOOL success = [self.bgTaskScheduler
@@ -133,14 +133,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         BGAppRefreshTaskRequest *bgAppRefreshTaskRequest =
         [[BGAppRefreshTaskRequest alloc] initWithIdentifier:TASK_IDENTIFIER];
         bgAppRefreshTaskRequest.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:15 * 60];
-
+        
         BOOL success = [self.bgTaskScheduler submitTaskRequest:bgAppRefreshTaskRequest error:&error];
         DDLogVerbose(@"[OwnTracksAppDelegate] submitTaskRequest %@ @ %@ %d, %@",
                      bgAppRefreshTaskRequest.identifier,
                      bgAppRefreshTaskRequest.earliestBeginDate,
                      success,
                      error);
-
+        
         task.expirationHandler = ^{
             DDLogVerbose(@"[OwnTracksAppDelegate] bgTaskEspirationHandler");
             if (self.bgTask) {
@@ -155,7 +155,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     }];
     DDLogVerbose(@"[OwnTracksAppDelegate] registerForTaskWithIdentifier %@ %d",
                  TASK_IDENTIFIER, success);
-
+    
     NSError *error;
     BGAppRefreshTaskRequest *bgAppRefreshTaskRequest =
     [[BGAppRefreshTaskRequest alloc] initWithIdentifier:TASK_IDENTIFIER];
@@ -166,9 +166,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                  bgAppRefreshTaskRequest.earliestBeginDate,
                  success,
                  error);
-
+    
     self.backgroundTask = UIBackgroundTaskInvalid;
-
+    
     UIBackgroundRefreshStatus status = [UIApplication sharedApplication].backgroundRefreshStatus;
     switch (status) {
         case UIBackgroundRefreshStatusAvailable:
@@ -187,7 +187,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                                                  @"You cannot use background fetch");
             break;
     }
-
+    
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     UNAuthorizationOptions options =
     UNAuthorizationOptionSound |
@@ -202,20 +202,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
+    
     DDLogVerbose(@"[OwnTracksAppDelegate] didFinishLaunchingWithOptions");
-
+    
     self.connection = [[Connection alloc] init];
     self.connection.delegate = self;
     [self.connection start];
-
+    
     [self connect];
-
+    
     [[UIDevice currentDevice] setBatteryMonitoringEnabled:TRUE];
-
+    
     LocationManager *locationManager = [LocationManager sharedInstance];
     locationManager.delegate = self;
-
+    
     NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
     locationManager.monitoring = [Settings intForKey:@"monitoring_preference"
                                                inMOC:moc];
@@ -226,7 +226,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     locationManager.minTime = [Settings doubleForKey:@"mintime_preference"
                                                inMOC:moc];
     [locationManager start];
-
+    
     return YES;
 }
 
@@ -241,7 +241,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         completionHandler(UNNotificationPresentationOptionAlert |
                           UNNotificationPresentationOptionSound);
     }
-
+    
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -273,20 +273,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     DDLogVerbose(@"[OwnTracksAppDelegate] applicationWillTerminate");
     [self background];
     [self.connection disconnect];
-
+    
 }
 
 -(BOOL)application:(UIApplication *)app
            openURL:(NSURL *)url
            options:(NSDictionary<NSString *,id> *)options {
     DDLogVerbose(@"[OwnTracksAppDelegate] openURL %@ options %@", url, options);
-
+    
     if (url) {
         DDLogVerbose(@"[OwnTracksAppDelegate] URL scheme %@", url.scheme);
-
+        
         if ([url.scheme isEqualToString:@"owntracks"]) {
             DDLogVerbose(@"[OwnTracksAppDelegate] URL path %@ query %@", url.path, url.query);
-
+            
             NSURLComponents *components = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:TRUE];
             NSArray<NSURLQueryItem *> *items = [components queryItems];
             NSMutableDictionary *queryStrings = [[NSMutableDictionary alloc] init];
@@ -300,18 +300,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                 NSString *uuid = queryStrings[@"uuid"];
                 int major = [queryStrings[@"major"] intValue];
                 int minor = [queryStrings[@"minor"] intValue];
-
+                
                 if (!rid) {
                     rid = Region.newRid;
                 }
-
+                
                 NSString *desc = [NSString stringWithFormat:@"%@:%@%@%@",
                                   name,
                                   uuid,
                                   major ? [NSString stringWithFormat:@":%d", major] : @"",
                                   minor ? [NSString stringWithFormat:@":%d", minor] : @""
                 ];
-
+                
                 [Settings waypointsFromDictionary:
                  @{@"_type":@"waypoints",
                    @"waypoints":@[@{@"_type":@"waypoint",
@@ -385,10 +385,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     NSURLSessionDataTask *dataTask =
     [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:
      ^(NSData *data, NSURLResponse *response, NSError *error) {
-
+        
         DDLogVerbose(@"[OwnTracksAppDelegate] dataTaskWithRequest %@ %@ %@", data, response, error);
         if (!error) {
-
+            
             if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
                 NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
                 DDLogVerbose(@"[OwnTracksAppDelegate] NSHTTPURLResponse %@", httpResponse);
@@ -410,8 +410,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
                                                                              options:0
                                                                                error:nil];
-
-
+                        
+                        
                         [self performSelectorOnMainThread:@selector(waypointsFromDictionary:)
                                                withObject:json
                                             waitUntilDone:TRUE];
@@ -496,9 +496,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                   url];
         return FALSE;
     }
-
+    
     DDLogVerbose(@"[OwnTracksAppDelegate] URL pathExtension %@", url.pathExtension);
-
+    
     NSError *error;
     NSString *extension = url.pathExtension;
     if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
@@ -524,14 +524,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                     code:2
                                 userInfo:@{@"extension":extension ? extension : @"(null)"}];
     }
-
+    
     [input close];
-
+    
     // MAC CATALYST opens files in place
 #if !TARGET_OS_MACCATALYST
     [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
 #endif
-
+    
     if (error) {
         self.processingMessage = [NSString stringWithFormat:@"%@ %@: %@ %@",
                                   NSLocalizedString(@"Error processing file",
@@ -553,7 +553,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     DDLogVerbose(@"[OwnTracksAppDelegate] applicationDidBecomeActive");
-
+    
     [self.connection connectToLast];
     
     if (self.disconnectTimer && self.disconnectTimer.isValid) {
@@ -561,22 +561,22 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                      self.disconnectTimer.fireDate);
         [self.disconnectTimer invalidate];
     }
-
+    
     if (self.backgroundFetchCheckMessage) {
         [self.navigationController alert:@"Background Fetch" message:self.backgroundFetchCheckMessage];
         self.backgroundFetchCheckMessage = nil;
     }
-
+    
     if (self.processingMessage) {
         [self.navigationController alert:@"openURL" message:self.processingMessage];
         self.processingMessage = nil;
         [self reconnect];
     }
-
+    
     if (![Settings validIdsInMOC:CoreData.sharedInstance.mainMOC]) {
         NSString *message = NSLocalizedString(@"To publish your location userID and deviceID must be set",
                                               @"Warning displayed if necessary settings are missing");
-
+        
         [self.navigationController alert:@"Settings" message:message];
     }
 }
@@ -584,12 +584,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 - (void)doRefresh {
     self.inRefresh = TRUE;
     [self background];
-
+    
     [[LocationManager sharedInstance] wakeup];
     [self.connection connectToLast];
 }
 
 - (void)background {
+    NSTimeInterval backgroundTimeRemaining = [UIApplication sharedApplication].backgroundTimeRemaining;
+    DDLogVerbose(@"[OwnTracksAppDelegate] background backgroundTimeRemaining: %@",
+                 backgroundTimeRemaining > 24 * 3600 ? @"∞": @(floor(backgroundTimeRemaining)).stringValue);
+    
     [self startBackgroundTimer];
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground &&
         self.backgroundTask == UIBackgroundTaskInvalid) {
@@ -608,49 +612,50 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 - (void)startBackgroundTimer {
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground &&
         [LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
-            if (self.disconnectTimer && self.disconnectTimer.isValid) {
-                DDLogVerbose(@"[OwnTracksAppDelegate] disconnectTimer.isValid %@",
-                             self.disconnectTimer.fireDate);
-            } else {
-                self.disconnectTimer = [NSTimer timerWithTimeInterval:BACKGROUND_DISCONNECT_AFTER
-                                                               target:self
-                                                             selector:@selector(disconnectInBackground)
-                                                             userInfo:Nil
-                                                              repeats:FALSE];
-                NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
-                [runLoop addTimer:self.disconnectTimer forMode:NSDefaultRunLoopMode];
-                DDLogVerbose(@"[OwnTracksAppDelegate] disconnectTimer %@",
-                             self.disconnectTimer.fireDate);
-
-                if (self.holdTimer) {
-                    if (self.holdTimer.isValid) {
-                        [self.holdTimer invalidate];
-                    }
-                    self.holdTimer = nil;
+        if (self.disconnectTimer && self.disconnectTimer.isValid) {
+            DDLogVerbose(@"[OwnTracksAppDelegate] disconnectTimer.isValid %@",
+                         self.disconnectTimer.fireDate);
+        } else {
+            self.disconnectTimer = [NSTimer timerWithTimeInterval:BACKGROUND_DISCONNECT_AFTER
+                                                           target:self
+                                                         selector:@selector(disconnectInBackground)
+                                                         userInfo:Nil
+                                                          repeats:FALSE];
+            NSRunLoop *runLoop = [NSRunLoop currentRunLoop];
+            [runLoop addTimer:self.disconnectTimer forMode:NSDefaultRunLoopMode];
+            DDLogVerbose(@"[OwnTracksAppDelegate] disconnectTimer %@",
+                         self.disconnectTimer.fireDate);
+            
+            if (self.holdTimer) {
+                if (self.holdTimer.isValid) {
+                    [self.holdTimer invalidate];
                 }
-                self.holdTimer = [NSTimer scheduledTimerWithTimeInterval:BACKGROUND_HOLD_FOR
-                                                                 repeats:FALSE
-                                                                   block:^(NSTimer * _Nonnull timer) {
-                    DDLogVerbose(@"[OwnTracksAppDelegate] holdTimer");
-                    if (self.bgTimer) {
-                        if (self.bgTimer.isValid) {
-                            [self.bgTimer invalidate];
-                        }
-                        self.bgTimer = nil;
-                    }
-                    self.bgTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
-                                                                   repeats:TRUE block:^(NSTimer * _Nonnull timer) {
-                        DDLogVerbose(@"[OwnTracksAppDelegate] bgTimer %@ %@",
-                                     self.connectionState,
-                                     self.connectionBuffered);
-                        if (!self.connectionBuffered || !self.connectionBuffered.intValue) {
-                            if (self.connectionState.intValue == state_connected) {
-                                [self disconnectInBackground];
-                            }
-                        }
-                    }];
-                }];
+                self.holdTimer = nil;
             }
+            self.holdTimer = [NSTimer scheduledTimerWithTimeInterval:BACKGROUND_HOLD_FOR
+                                                             repeats:FALSE
+                                                               block:^(NSTimer * _Nonnull timer) {
+                DDLogVerbose(@"[OwnTracksAppDelegate] holdTimer");
+                if (self.bgTimer) {
+                    if (self.bgTimer.isValid) {
+                        [self.bgTimer invalidate];
+                    }
+                    self.bgTimer = nil;
+                }
+                self.bgTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+                                                               repeats:TRUE
+                                                                 block:^(NSTimer * _Nonnull timer) {
+                    DDLogVerbose(@"[OwnTracksAppDelegate] bgTimer %@ %@",
+                                 self.connectionState,
+                                 self.connectionBuffered);
+                    if (!self.connectionBuffered || !self.connectionBuffered.intValue) {
+                        if (self.connectionState.intValue == state_connected) {
+                            [self disconnectInBackground];
+                        }
+                    }
+                }];
+            }];
+        }
     }
 }
 
@@ -690,8 +695,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
     if ([LocationManager sharedInstance].monitoring != LocationMonitoringQuiet &&
         [Settings validIdsInMOC:moc]) {
-
+        
         if (![region.identifier hasPrefix:@"+"]) {
+            NSArray <NSString *> *components = [region.identifier componentsSeparatedByString:@"|"];
             NSString *notificationMessage = [NSString stringWithFormat:@"%@ %@",
                                              (enter ?
                                               NSLocalizedString(@"Entering",
@@ -699,8 +705,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                               NSLocalizedString(@"Leaving",
                                                                 @"Display when leaving region (region name follows)")
                                               ),
-                                             region.identifier];
-
+                                             components[0]];
+            
             UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
             content.body = notificationMessage;
             content.sound = [UNNotificationSound defaultSound];
@@ -709,53 +715,53 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                                           repeats:NO];
             NSString *notificationIdentifier = [NSString stringWithFormat:@"region%f",
                                                 [NSDate date].timeIntervalSince1970];
-
+            
             UNNotificationRequest* request = [UNNotificationRequest requestWithIdentifier:notificationIdentifier
                                                                                   content:content
                                                                                   trigger:trigger];
             UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
             [center addNotificationRequest:request withCompletionHandler:nil];
-
+            
             [History historyInGroup:@"Region"
                            withText:notificationMessage
                                  at:nil
                               inMOC:moc
                             maximum:[Settings theMaximumHistoryInMOC:moc]];
             [CoreData.sharedInstance sync:moc];
-
+            
             Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopicInMOC:moc]
                                     inManagedObjectContext:moc];
-
+            
             CLLocation *location = [LocationManager sharedInstance].location;
-
+            
             NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
             json[@"_type"] = @"transition";
-
+            
             json[@"lat"] = [NSNumber doubleValueWithSixDecimals:location.coordinate.latitude];
-
+            
             json[@"lon"] = [NSNumber doubleValueWithSixDecimals:location.coordinate.longitude];
-
+            
             json[@"tst"] = [NSNumber doubleValueWithZeroDecimals:location.timestamp.timeIntervalSince1970];
-
+            
             if (location.horizontalAccuracy >= 0.0) {
                 json[@"acc"] = [NSNumber doubleValueWithZeroDecimals:location.horizontalAccuracy];
             }
             json[@"tid"] = myself.effectiveTid;
             json[@"event"] = enter ? @"enter" : @"leave";
             json[@"t"] =  [region isKindOfClass:[CLBeaconRegion class]] ? @"b" : @"c";
-
+            
             if (fabs(location.timestamp.timeIntervalSince1970 -
                      [NSDate date].timeIntervalSince1970) > 1.0) {
                 json[@"created_at"] = [NSNumber doubleValueWithZeroDecimals:[NSDate date].timeIntervalSince1970];
             }
-
+            
             for (Region *anyRegion in myself.hasRegions) {
                 if ([region.identifier isEqualToString:anyRegion.CLregion.identifier]) {
                     anyRegion.name = anyRegion.name;
-                    json[@"desc"] = region.identifier;
+                    json[@"desc"] = components[0];
                     json[@"wtst"] = [NSNumber doubleValueWithZeroDecimals:anyRegion.tst.timeIntervalSince1970];
                     json[@"rid"] = anyRegion.andFillRid;
-
+                    
                     [self.connection sendData:[self jsonToData:json]
                                         topic:[[Settings theGeneralTopicInMOC:moc] stringByAppendingString:@"/event"]
                                    topicAlias:@(2)
@@ -769,7 +775,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                             [self sendRegion:anyRegion];
                         }
                     }
-
+                    
                     NSArray <NSString *> *components = [region.identifier componentsSeparatedByString:@"|"];
                     if (components.count == 3) {
                         LocationMonitoring newMonitoring;
@@ -786,14 +792,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                     }
                 }
             }
-
+            
             if ([region isKindOfClass:[CLBeaconRegion class]]) {
                 [self publishLocation:[LocationManager sharedInstance].location trigger:@"b"];
             } else {
                 [self publishLocation:[LocationManager sharedInstance].location trigger:@"c"];
             }
         } else {
-            [self publishLocation:[LocationManager sharedInstance].location trigger:@"C"];
+            if ([LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
+                [self publishLocation:[LocationManager sharedInstance].location trigger:@"C"];
+            }
         }
     }
 }
@@ -802,7 +810,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     DDLogVerbose(@"[OwnTracksAppDelegate] regionState %@ i:%d", region.identifier, inside);
     Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
                             inManagedObjectContext:CoreData.sharedInstance.mainMOC];
-
+    
     for (Region *anyRegion in myself.hasRegions) {
         if ([region.identifier isEqualToString:anyRegion.CLregion.identifier]) {
             anyRegion.name = anyRegion.name;
@@ -816,7 +824,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     if ([Settings validIdsInMOC:CoreData.sharedInstance.mainMOC]) {
         Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]
                                 inManagedObjectContext:CoreData.sharedInstance.mainMOC];
-
+        
         Region *myRegion;
         for (Region *anyRegion in myself.hasRegions) {
             if ([beaconConstraint.UUID.UUIDString isEqualToString:anyRegion.uuid]) {
@@ -841,12 +849,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                 }
             }
         }
-
+        
         NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
         json[@"_type"] = @"beacon";
         json[@"tid"] = myself.effectiveTid;
         json[@"tst"] = [NSNumber doubleValueWithZeroDecimals:[LocationManager sharedInstance].location.timestamp.timeIntervalSince1970];
-
+        
         json[@"uuid"] = (beacon.UUID).UUIDString;
         json[@"major"] = beacon.major;
         json[@"minor"] = beacon.minor;
@@ -870,7 +878,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 - (void)showState:(Connection *)connection
             state:(NSInteger)state {
     DDLogVerbose(@"[OwnTracksAppDelegate] showState: %ld", (long)state);
-
+    
     self.connectionState = @(state);
     [self performSelectorOnMainThread:@selector(checkState:) withObject:@(state) waitUntilDone:NO];
 }
@@ -881,12 +889,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
      **
      ** If the background task is ended, occasionally the disconnect message is not received well before the server senses the tcp disconnect
      **/
-
+    
     NSTimeInterval backgroundTimeRemaining = [UIApplication sharedApplication].backgroundTimeRemaining;
     DDLogVerbose(@"[OwnTracksAppDelegate] checkState: %@, backgroundTimeRemaining: %@",
                  state,
                  backgroundTimeRemaining > 24 * 3600 ? @"∞": @(floor(backgroundTimeRemaining)).stringValue);
-
+    
     if (state.intValue == state_starting) {
         if (self.backgroundTask) {
             if (self.bgTimer) {
@@ -907,7 +915,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                 }
                 self.disconnectTimer = nil;
             }
-
+            
             DDLogInfo(@"[OwnTracksAppDelegate] endBackGroundTask %lu",
                       (unsigned long)self.backgroundTask);
             [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
@@ -925,7 +933,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
               onTopic:(NSString *)topic
              retained:(BOOL)retained {
     DDLogVerbose(@"[OwnTracksAppDelegate] handleMessage");
-
+    
     [CoreData.sharedInstance.queuedMOC performBlock:^{
         (void)[[OwnTracking sharedInstance] processMessage:topic
                                                       data:data
@@ -933,10 +941,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                                    context:CoreData.sharedInstance.queuedMOC];
         NSArray *baseComponents = [[Settings theGeneralTopicInMOC:CoreData.sharedInstance.queuedMOC] componentsSeparatedByString:@"/"];
         NSArray *topicComponents = [topic componentsSeparatedByString:@"/"];
-
+        
         NSString *device = @"";
         BOOL ownDevice = true;
-
+        
         for (int i = 0; i < baseComponents.count; i++) {
             if (i > 0) {
                 device = [device stringByAppendingString:@"/"];
@@ -950,11 +958,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                 ownDevice = false;
             }
         }
-
+        
         DDLogVerbose(@"[OwnTracksAppDelegate] device %@ owndevice %d", device, ownDevice);
-
+        
         if (ownDevice) {
-
+            
             NSError *error;
             id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
             if (json && [json isKindOfClass:[NSDictionary class]]) {
@@ -969,7 +977,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                         ) {
                             if ([@"dump" saveEqual:dictionary[@"action"]]) {
                                 [self dump];
-
+                                
                             } else if ([@"reportLocation" saveEqual:dictionary[@"action"]]) {
                                 if ([LocationManager sharedInstance].monitoring == LocationMonitoringSignificant ||
                                     [LocationManager sharedInstance].monitoring == LocationMonitoringMove ||
@@ -979,31 +987,31 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                                            withObject:nil
                                                         waitUntilDone:NO];
                                 }
-
+                                
                             } else if ([@"reportSteps" saveEqual:dictionary[@"action"]]) {
                                 [self stepsFrom:[NSNumber saveCopy:dictionary[@"from"]]
                                              to:[NSNumber saveCopy:dictionary[@"to"]]];
-
+                                
                             } else if ([@"waypoints" saveEqual:dictionary[@"action"]]) {
                                 [self performSelectorOnMainThread:@selector(waypoints)
                                                        withObject:nil
                                                     waitUntilDone:NO];
-
+                                
                             } else if ([@"action" saveEqual:dictionary[@"action"]]) {
                                 [self performSelectorOnMainThread:@selector(performAction:)
                                                        withObject:dictionary
                                                     waitUntilDone:NO];
-
+                                
                             } else if ([@"setWaypoints" saveEqual:dictionary[@"action"]]) {
                                 [self performSelectorOnMainThread:@selector(performSetWaypoints:)
                                                        withObject:dictionary
                                                     waitUntilDone:NO];
-
+                                
                             } else if ([@"setConfiguration" saveEqual:dictionary[@"action"]]) {
                                 [self performSelectorOnMainThread:@selector(performSetConfiguration:)
                                                        withObject:dictionary
                                                     waitUntilDone:NO];
-
+                                
                             } else {
                                 DDLogWarn(@"[OwnTracksAppDelegate] unknown action %@", dictionary[@"action"]);
                             }
@@ -1015,7 +1023,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         }
         [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
     }];
-
+    
     return true;
 }
 
@@ -1049,7 +1057,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     NSString *url = [NSString saveCopy:dictionary[@"url"] ];
     NSString *notificationMessage = [NSString saveCopy:dictionary[@"notification"]];
     NSNumber *external = [NSNumber saveCopy:dictionary[@"extern"]];
-
+    
     [Settings setString:content
                  forKey:SETTINGS_ACTION
                   inMOC:CoreData.sharedInstance.mainMOC];
@@ -1059,7 +1067,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [Settings setBool:external.boolValue
                forKey:SETTINGS_ACTIONEXTERN
                 inMOC:CoreData.sharedInstance.mainMOC];
-
+    
     if (notificationMessage) {
         UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
         content.body = notificationMessage;
@@ -1070,27 +1078,27 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         NSString *notificationIdentifier = [NSString stringWithFormat:@"action%f",
                                             [NSDate date].timeIntervalSince1970];
         DDLogVerbose(@"[OwnTracksAppDelegate] notificationIdentifier:%@", notificationIdentifier);
-
+        
         UNNotificationRequest* request = [UNNotificationRequest         requestWithIdentifier:notificationIdentifier
                                                                                       content:content
                                                                                       trigger:trigger];
         UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
         [center addNotificationRequest:request withCompletionHandler:nil];
-
+        
         [History historyInGroup:@"Notification"
                        withText:notificationMessage
                              at:nil
                           inMOC:[CoreData sharedInstance].mainMOC
                         maximum:[Settings theMaximumHistoryInMOC:[CoreData sharedInstance].mainMOC]];
         [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
-
+        
         [self.navigationController alert:NSLocalizedString(@"Notification",
                                                            @"Alert message header for notification messages")
                                  message:notificationMessage
                             dismissAfter:2.0
         ];
     }
-
+    
     if (content || url) {
         if (url && ![url isEqualToString:self.action]) {
             self.action = url;
@@ -1162,17 +1170,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         components.hour = 0;
         components.minute = 0;
         components.second = 0;
-
+        
         fromDate = [[NSCalendar currentCalendar] dateFromComponents:components];
     }
-
+    
     DDLogInfo(@"[OwnTracksAppDelegate] isStepCountingAvailable %d",
               [CMPedometer isStepCountingAvailable]);
     DDLogInfo(@"[OwnTracksAppDelegate] isFloorCountingAvailable %d",
               [CMPedometer isFloorCountingAvailable]);
     DDLogInfo(@"[OwnTracksAppDelegate] isDistanceAvailable %d",
               [CMPedometer isDistanceAvailable]);
-
+    
     if (!self.pedometer) {
         self.pedometer = [[CMPedometer alloc] init];
     }
@@ -1187,13 +1195,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                      [pedometerData.distance longValue],
                      error.localizedDescription);
         dispatch_async(dispatch_get_main_queue(), ^{
-
+            
             NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
             json[@"_type"] = @"steps";
             json[@"tst"] = [NSNumber doubleValueWithZeroDecimals:[NSDate date].timeIntervalSince1970];
             json[@"from"] = [NSNumber doubleValueWithZeroDecimals:fromDate.timeIntervalSince1970];
             json[@"to"] = [NSNumber doubleValueWithZeroDecimals:toDate.timeIntervalSince1970];
-
+            
             if (pedometerData) {
                 json[@"steps"] = pedometerData.numberOfSteps;
                 if (pedometerData.floorsAscended) {
@@ -1208,7 +1216,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
             } else {
                 json[@"steps"] = @(-1);
             }
-
+            
             NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
             MQTTQosLevel qos = [Settings intForKey:@"qos_preference"
                                              inMOC:moc];
@@ -1225,7 +1233,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (BOOL)sendNow:(CLLocation *)location {
     DDLogVerbose(@"[OwnTracksAppDelegate] sendNow %@", location);
-
+    
     if (self.sendNowActivity) {
         [self.sendNowActivity invalidate];
     }
@@ -1236,7 +1244,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     self.sendNowActivity.eligibleForSearch = true;
     self.sendNowActivity.eligibleForPrediction = true;
     [self.sendNowActivity becomeCurrent];
-
+    
     OwnTracksSendNowIntent *intent = [[OwnTracksSendNowIntent alloc] init];
     INInteraction *interaction = [[INInteraction alloc] initWithIntent:intent response:nil];
     [interaction donateInteractionWithCompletion:^(NSError * _Nullable error) {
@@ -1258,12 +1266,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)terminateSession {
     DDLogInfo(@"[OwnTracksAppDelegate] terminateSession");
-
+    
     [self connectionOff];
     [[OwnTracking sharedInstance] syncProcessing];
     [[LocationManager sharedInstance] resetRegions];
     [self.connection reset];
-
+    
     NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
     NSArray *friends = [Friend allFriendsInManagedObjectContext:moc];
     for (Friend *friend in friends) {
@@ -1281,19 +1289,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 - (BOOL)publishLocation:(CLLocation *)location
                 trigger:(NSString *)trigger {
     NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
-
+    
     if (location &&
         CLLocationCoordinate2DIsValid(location.coordinate) &&
         location.coordinate.latitude != 0.0 &&
         location.coordinate.longitude != 0.0 &&
         [Settings validIdsInMOC:moc]) {
-
+        
         int ignoreInaccurateLocations =
         [Settings intForKey:@"ignoreinaccuratelocations_preference"
                       inMOC:moc];
         DDLogVerbose(@"[OwnTracksAppDelegate] location accuracy:%fm, ignoreIncacurationLocations:%dm",
                      location.horizontalAccuracy, ignoreInaccurateLocations);
-
+        
         if (ignoreInaccurateLocations == 0 || location.horizontalAccuracy < ignoreInaccurateLocations) {
             Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:moc]
                               inManagedObjectContext:moc];
@@ -1316,19 +1324,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                         }
                     }
                 }
-
+                
                 friend.tid = [Settings stringForKey:@"trackerid_preference"
                                               inMOC:moc];
-
+                
                 OwnTracking *ownTracking = [OwnTracking sharedInstance];
                 NSDate *createdAt = location.timestamp;
                 if (fabs(location.timestamp.timeIntervalSince1970 -
                          [NSDate date].timeIntervalSince1970) > 1.0) {
                     createdAt = [NSDate date];
                 }
-
+                
                 NSNumber *batteryLevel = [NSNumber numberWithFloat:[UIDevice currentDevice].batteryLevel];
-
+                
                 Waypoint *waypoint = [ownTracking addWaypointFor:friend
                                                         location:location
                                                        createdAt:createdAt
@@ -1337,7 +1345,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                                          context:moc];
                 if (waypoint) {
                     [CoreData.sharedInstance sync:moc];
-
+                    
                     NSDictionary *json = [[OwnTracking sharedInstance] waypointAsJSON:waypoint];
                     if (json) {
                         NSData *data = [self jsonToData:json];
@@ -1384,7 +1392,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)sendRegion:(Region *)region {
     NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
-
+    
     if ([Settings validIdsInMOC:moc]) {
         MQTTQosLevel qos = [Settings intForKey:@"qos_preference"
                                          inMOC:moc];
@@ -1402,7 +1410,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (void)connect {
     NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
-
+    
     BOOL usePassword = [Settings theMqttUsePasswordInMOC:moc];
     NSString *password = nil;
     if (usePassword) {
@@ -1417,7 +1425,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                 user:[Settings theMqttUserInMOC:moc]
                                 pass:password
                               device:[Settings theDeviceIdInMOC:moc]];
-
+        
     } else {
         NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
                                                                      inDomain:NSUserDomainMask
@@ -1441,7 +1449,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                 ];
             }
         }
-
+        
         MQTTQosLevel subscriptionQos =[Settings intForKey:@"subscriptionqos_preference"
                                                     inMOC:moc];
         NSArray *subscriptions = [[NSArray alloc] init];
@@ -1449,17 +1457,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
             subscriptions = [[Settings theSubscriptionsInMOC:moc] componentsSeparatedByCharactersInSet:
                              [NSCharacterSet whitespaceCharacterSet]];
         }
-
+        
         self.connection.subscriptions = subscriptions;
         self.connection.subscriptionQos = subscriptionQos;
-
+        
         NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
         json[@"_type"] = @"lwt";
         json[@"tst"] = [NSNumber doubleValueWithZeroDecimals:[NSDate date].timeIntervalSince1970];
-
+        
         self.connection.key = [Settings stringForKey:@"secret_preference"
                                                inMOC:moc];
-
+        
         [self.connection connectTo:[Settings theHostInMOC:moc]
                               port:[Settings intForKey:@"port_preference" inMOC:moc]
                                 ws:[Settings boolForKey:@"ws_preference" inMOC:moc]
@@ -1503,7 +1511,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 continueUserActivity:(nonnull NSUserActivity *)userActivity
  restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
     DDLogInfo(@"application continueUserActivity:%@", userActivity);
-
+    
     if ([userActivity.activityType isEqualToString:@"org.mqttitude.MQTTitude.sendNow"]) {
         if ([self sendNow:[LocationManager sharedInstance].location]) {
             [self.navigationController alert:
@@ -1522,7 +1530,7 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
              NSLocalizedString(@"publish queued on user request",
                                @"content of an alert message regarding user publish")];
         }
-
+        
         return YES;
     } else if ([userActivity.activityType isEqualToString:@"OwnTracksSendNowIntent"]) {
         if ([self sendNow:[LocationManager sharedInstance].location]) {
@@ -1542,7 +1550,7 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
              NSLocalizedString(@"publish queued on user request",
                                @"content of an alert message regarding user publish")];
         }
-
+        
         return YES;
     } else if ([userActivity.activityType isEqualToString:@"OwnTracksChangeMonitoringIntent"]) {
         OwnTracksChangeMonitoringIntent *intent = (OwnTracksChangeMonitoringIntent *)userActivity.interaction.intent;
@@ -1568,9 +1576,9 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
         [Settings setInt:(int)[LocationManager sharedInstance].monitoring
                   forKey:@"monitoring_preference" inMOC:moc];
         [CoreData.sharedInstance sync:moc];
-
+        
         return YES;
-
+        
     }
     return NO;
 }
