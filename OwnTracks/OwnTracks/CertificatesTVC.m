@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 01.07.15.
-//  Copyright © 2015-2021  OwnTracks. All rights reserved.
+//  Copyright © 2015-2022  OwnTracks. All rights reserved.
 //
 
 #import "CertificatesTVC.h"

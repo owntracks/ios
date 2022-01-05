@@ -4,7 +4,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 23.01.16.
-//  Copyright © 2016-2021  OwnTracks. All rights reserved.
+//  Copyright © 2016-2022  OwnTracks. All rights reserved.
 //
 
 #import "FeaturedContentVC.h"
