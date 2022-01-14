@@ -1,7 +1,7 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 16.1.1 iOS/ipadOS/macOS
+## OwnTracks 16.1.2 iOS/ipadOS/macOS
 * Release Date 2022-01-14
 
 ** Turkish translation, small enhancements, and bug fixes
