@@ -57,7 +57,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
     self.title = self.waypoint.belongsTo.nameOrTopic;
     
-    [self.waypoint getReverseGeoCode];
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"noRevgeo"] > 0) {
+        [self.waypoint getReverseGeoCode];
+    } else {
+        self.waypoint.placemark = self.waypoint.defaultPlacemark;
+        self.waypoint.belongsTo.topic = self.waypoint.belongsTo.topic;
+        [CoreData.sharedInstance sync:self.waypoint.managedObjectContext];
+    }
+
     [self setup];
 }
 

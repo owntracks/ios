@@ -50,22 +50,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.warning = FALSE;
     self.mapView.delegate = self;
     self.mapView.mapType = MKMapTypeStandard;
-    self.mapView.showsUserLocation = TRUE;
     // we don't show the scale as it would conflict with the new mode display
     self.mapView.showsScale = FALSE;
-
 #if TARGET_OS_MACCATALYST
-
-    self.mapView.showsZoomControls = TRUE;
-    self.mapView.showsCompass = TRUE;
-    if (@available(macCatalyst 14.0, *)) {
-        self.mapView.showsPitchControl = TRUE;
-    } else {
-        // Fallback on earlier versions
-    }
-
+        self.mapView.showsCompass = TRUE;
 #endif
-
     DDLogInfo(@"[ViewController] viewDidLoad mapView region %g %g %g %g",
               self.mapView.region.center.latitude,
               self.mapView.region.center.longitude,
@@ -105,27 +94,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
     [NSLayoutConstraint activateConstraints:@[top, leading]];
     [self updateMoveButton];
-
-    self.trackingButton = [MKUserTrackingButton userTrackingButtonWithMapView:self.mapView];
-    self.trackingButton.translatesAutoresizingMaskIntoConstraints = false;
-    [self.view addSubview:self.trackingButton];
-
-    NSLayoutConstraint *topTracking = [NSLayoutConstraint
-                                       constraintWithItem:self.trackingButton
-                                       attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
-                                       toItem:self.modes
-                                       attribute:NSLayoutAttributeBottom
-                                       multiplier:1
-                                       constant:8];
-    NSLayoutConstraint *leadingTracking = [NSLayoutConstraint
-                                           constraintWithItem:self.trackingButton
-                                           attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
-                                           toItem:self.mapView
-                                           attribute:NSLayoutAttributeLeading
-                                           multiplier:1
-                                           constant:10];
-
-    [NSLayoutConstraint activateConstraints:@[topTracking, leadingTracking]];
 
     self.mapMode = [[UISegmentedControl alloc]
                   initWithItems:@[NSLocalizedString(@"Std", @"Std"),
@@ -188,6 +156,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                 withObject:nil
                              waitUntilDone:NO];
      }];
+    
+    [self noMap];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -286,6 +256,140 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self updateMoveButton];
 }
 
+- (NSInteger)noMap {
+    NSInteger noMap =
+    [[NSUserDefaults standardUserDefaults] integerForKey:@"noMap"];
+    
+    if (noMap > 0) {
+        self.mapView.showsUserLocation = TRUE;
+        self.mapView.zoomEnabled = TRUE;
+        self.mapView.scrollEnabled = TRUE;
+        self.mapView.pitchEnabled = TRUE;
+        self.mapView.rotateEnabled = TRUE;
+#if TARGET_OS_MACCATALYST
+        self.mapView.showsZoomControls = TRUE;
+        if (@available(macCatalyst 14.0, *)) {
+            self.mapView.showsPitchControl = TRUE;
+        } else {
+            // Fallback on earlier versions
+        }
+#endif
+        if (!self.trackingButton) {
+            self.trackingButton = [MKUserTrackingButton userTrackingButtonWithMapView:self.mapView];
+            self.trackingButton.translatesAutoresizingMaskIntoConstraints = false;
+            [self.view addSubview:self.trackingButton];
+            
+            NSLayoutConstraint *topTracking = [NSLayoutConstraint
+                                               constraintWithItem:self.trackingButton
+                                               attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
+                                               toItem:self.modes
+                                               attribute:NSLayoutAttributeBottom
+                                               multiplier:1
+                                               constant:8];
+            NSLayoutConstraint *leadingTracking = [NSLayoutConstraint
+                                                   constraintWithItem:self.trackingButton
+                                                   attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
+                                                   toItem:self.mapView
+                                                   attribute:NSLayoutAttributeLeading
+                                                   multiplier:1
+                                                   constant:10];
+            
+            [NSLayoutConstraint activateConstraints:@[topTracking, leadingTracking]];
+        }
+    } else {
+        self.mapView.showsUserLocation = FALSE;
+        self.mapView.zoomEnabled = FALSE;
+        self.mapView.scrollEnabled = FALSE;
+        self.mapView.pitchEnabled = FALSE;
+        self.mapView.rotateEnabled = FALSE;
+#if TARGET_OS_MACCATALYST
+        self.mapView.showsZoomControls = FALSE;
+        if (@available(macCatalyst 14.0, *)) {
+            self.mapView.showsPitchControl = FALSE;
+        } else {
+            // Fallback on earlier versions
+        }
+#endif
+        if (self.trackingButton) {
+            [self.trackingButton removeFromSuperview];
+            self.trackingButton = nil;
+        }
+    }
+
+
+    return noMap;
+}
+- (IBAction)askForMap:(UIBarButtonItem *)sender {
+    UIAlertController *ac =
+    [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Map Interaction",
+                                                                  @"Title map interaction")
+                                        message:NSLocalizedString(@"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests",
+                                                                  @"Message map interaction")
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *yes = [UIAlertAction
+                          actionWithTitle:NSLocalizedString(@"Yes",
+                                                            @"Yes button title")
+                          
+                          style:UIAlertActionStyleDefault
+                          handler:^(UIAlertAction * action) {
+        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"noMap"];
+        [self noMap];
+        [self askForRevgeo:nil];
+    }];
+    UIAlertAction *no = [UIAlertAction
+                         actionWithTitle:NSLocalizedString(@"No",
+                                                           @"No button title")
+                         
+                         style:UIAlertActionStyleDestructive
+                         handler:^(UIAlertAction * action) {
+        [[NSUserDefaults standardUserDefaults] setInteger:-1 forKey:@"noMap"];
+        [self noMap];
+        [self askForRevgeo:nil];
+    }];
+    
+    [ac addAction:yes];
+    [ac addAction:no];
+    if (self.presentedViewController) {
+        [self performSelector:@selector(askForMap:) withObject:sender afterDelay:1];
+    } else {
+        [self presentViewController:ac animated:TRUE completion:nil];
+    }
+}
+
+- (IBAction)askForRevgeo:(UIBarButtonItem *)sender {
+    UIAlertController *ac =
+    [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Reverse Geocoding Address Resolution",
+                                                                  @"Title Revgeo")
+                                        message:NSLocalizedString(@"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests",
+                                                                  @"Message Revgeo")
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *yes = [UIAlertAction
+                          actionWithTitle:NSLocalizedString(@"Yes",
+                                                            @"Yes button title")
+                          
+                          style:UIAlertActionStyleDefault
+                          handler:^(UIAlertAction * action) {
+        [[NSUserDefaults standardUserDefaults] setInteger:1 forKey:@"noRevgeo"];
+    }];
+    UIAlertAction *no = [UIAlertAction
+                         actionWithTitle:NSLocalizedString(@"No",
+                                                           @"No button title")
+                         
+                         style:UIAlertActionStyleDestructive
+                         handler:^(UIAlertAction * action) {
+        [[NSUserDefaults standardUserDefaults] setInteger:-1 forKey:@"noRevgeo"];
+    }];
+    
+    [ac addAction:yes];
+    [ac addAction:no];
+    if (self.presentedViewController) {
+        [self performSelector:@selector(askForMap:) withObject:sender afterDelay:1];
+    } else {
+        [self presentViewController:ac animated:TRUE completion:nil];
+    }
+}
+
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
@@ -307,13 +411,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
          NSLocalizedString(@"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet",
                            @"Text explaining the Setup")];
     }
+    
+    if (self.noMap == 0) {
+        [self askForMap:nil];
+    }
 }
 
 - (void)setCenter:(id<MKAnnotation>)annotation {
-    CLLocationCoordinate2D coordinate = annotation.coordinate;
-    if (CLLocationCoordinate2DIsValid(coordinate)) {
-        [self.mapView setVisibleMapRect:[self centeredRect:coordinate] animated:YES];
-        self.mapView.userTrackingMode = MKUserTrackingModeNone;
+    if (self.noMap > 0) {
+        CLLocationCoordinate2D coordinate = annotation.coordinate;
+        if (CLLocationCoordinate2DIsValid(coordinate)) {
+            [self.mapView setVisibleMapRect:[self centeredRect:coordinate] animated:YES];
+            self.mapView.userTrackingMode = MKUserTrackingModeNone;
+        }
     }
 }
 

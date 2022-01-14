@@ -398,14 +398,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 
     Waypoint *waypoint = friend.newestWaypoint;
     if (waypoint) {
-        [friendTableViewCell deferredReverseGeoCode:waypoint];
-
         if (waypoint.placemark) {
             friendTableViewCell.address.text = waypoint.placemark;
         } else {
             DDLogVerbose(@"[FriendsTVC] configureCell resolving %@", waypoint);
             friendTableViewCell.address.text = NSLocalizedString(@"resolving...",
                                                                  @"temporary display while resolving address");
+            [friendTableViewCell deferredReverseGeoCode:waypoint];
         }
         friendAnnotationView.speed = (waypoint.vel).doubleValue;
         friendAnnotationView.course = (waypoint.cog).doubleValue;

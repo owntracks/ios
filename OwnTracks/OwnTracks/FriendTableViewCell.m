@@ -7,6 +7,7 @@
 //
 
 #import "FriendTableViewCell.h"
+#import "CoreData.h"
 
 @implementation FriendTableViewCell
 
@@ -29,7 +30,13 @@
 - (void)reverseGeoCode:(Waypoint *)waypoint {
     if (waypoint) {
         if (!waypoint.isDeleted) {
-            [waypoint getReverseGeoCode];
+            if ([[NSUserDefaults standardUserDefaults] integerForKey:@"noRevgeo"] > 0) {
+                [waypoint getReverseGeoCode];
+            } else {
+                waypoint.placemark = waypoint.defaultPlacemark;
+                waypoint.belongsTo.topic = waypoint.belongsTo.topic;
+                [CoreData.sharedInstance sync:waypoint.managedObjectContext];
+            }
         }
     }
 }

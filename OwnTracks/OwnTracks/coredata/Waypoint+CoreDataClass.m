@@ -131,5 +131,10 @@
     }
 }
 
+- (NSString *)defaultPlacemark {
+    return [NSString stringWithFormat:@"%@\n%@",
+            NSLocalizedString(@"Address resolver disabled", @"Address resolver disabled"),
+            self.coordinateText];
+}
 
 @end

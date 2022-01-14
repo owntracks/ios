@@ -277,3 +277,23 @@
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Tam gizlilik koruması için kendi OwnTracks sunucunuzu kurmanız ve yapılandırmanızı düzenlemeniz gerekir. Https://owntracks.org/booklet hakkında ayrıntılı bilgi";
 
+/* Title map interaction */
+"Map Interaction" = "Map Interaction";
+
+/* Message map interaction */
+"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests";
+
+/* Address resolver disabled */
+"Address resolver disabled" = "Address resolver disabled";
+
+/* Title Revgeo */
+"Reverse Geocoding Address Resolution" = "Reverse Geocoding Address Resolution";
+
+/* Message Revgeo */
+"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests";
+
+/* Yes button title */
+"Yes" = "Yes";
+
+/* No button title */
+"No" = "No";

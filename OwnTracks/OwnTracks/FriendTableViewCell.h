@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "Waypoint+CoreDataClass.h"
+#import "Friend+CoreDataClass.h"
 
 @interface FriendTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *image;
