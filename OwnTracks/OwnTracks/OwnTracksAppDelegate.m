@@ -785,6 +785,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                             newMonitoring = components[2].integerValue;
                         }
                         LocationManager.sharedInstance.monitoring = newMonitoring;
+                        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
                         [Settings setInt:(int)[LocationManager sharedInstance].monitoring
                                   forKey:@"monitoring_preference" inMOC:moc];
                         [CoreData.sharedInstance sync:moc];
@@ -1367,6 +1368,44 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                     DDLogError(@"[OwnTracksAppDelegate] waypoint creation failed from friend %@, location %@", friend, location);
                     return FALSE;
                 }
+                
+                if ([UIDevice currentDevice].isBatteryMonitoringEnabled) {
+                    UIDeviceBatteryState batteryState = [UIDevice currentDevice].batteryState;
+                    float batteryLevel = [UIDevice currentDevice].batteryLevel;
+                    if ([LocationManager sharedInstance].monitoring == LocationMonitoringMove) {
+                        int downgrade = [Settings intForKey:@"downgrade_preference"
+                                                      inMOC:moc];
+
+                        if (batteryState != UIDeviceBatteryStateFull && batteryState != UIDeviceBatteryStateCharging && batteryLevel < downgrade / 100.0) {
+                            // Move Mode, but battery is not full, not charging and less than downgrade%
+                            [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"downgraded"];
+                            LocationManager.sharedInstance.monitoring = LocationMonitoringSignificant;
+                            [Settings setInt:(int)[LocationManager sharedInstance].monitoring
+                                      forKey:@"monitoring_preference" inMOC:moc];
+                            [CoreData.sharedInstance sync:moc];
+                            [self background];
+                        } else {
+                            // Move Mode, battery is full, charging or has more than downgrade%
+                        }
+                    } else {
+                        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"downgraded"]) {
+                            if (batteryState == UIDeviceBatteryStateFull || batteryState == UIDeviceBatteryStateCharging) {
+                                // not Move Mode, previously downgraded and battery is charging or full
+                                [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+                                LocationManager.sharedInstance.monitoring = LocationMonitoringMove;
+                                [Settings setInt:(int)[LocationManager sharedInstance].monitoring
+                                          forKey:@"monitoring_preference" inMOC:moc];
+                                [CoreData.sharedInstance sync:moc];
+                                [self background];
+                            } else {
+                                // not Move Mode, previously downgraded but battery is not charging nor full
+                            }
+                        } else {
+                            // not Move Mode, but not previously downgraded
+                        }
+                    }
+                }
+
             } else {
                 DDLogError(@"[OwnTracksAppDelegate] no friend found");
                 return FALSE;
@@ -1572,6 +1611,7 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
                 break;
         }
         [LocationManager sharedInstance].monitoring = monitoring;
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
         NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
         [Settings setInt:(int)[LocationManager sharedInstance].monitoring
                   forKey:@"monitoring_preference" inMOC:moc];

@@ -34,5 +34,7 @@
 	<true/>
 	<key>maxhistory_preference</key>
 	<integer>0</integer>
+	<key>downgrade_preference</key>
+	<integer>0</integer>
 </dict>
 </plist>

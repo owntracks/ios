@@ -172,6 +172,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             
             object = dictionary[@"monitoring"];
             if (object) {
+                [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
                 [self setString:[NSString stringWithFormat:@"%@", object]
                          forKey:@"monitoring_preference"
                           inMOC:context];
@@ -179,6 +180,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 [Settings intForKey:@"monitoring_preference"
                               inMOC:context];
             }
+
+            object = dictionary[@"downgrade"];
+            if (object) [self setString:object forKey:@"downgrade_preference" inMOC:context];
             
             object = dictionary[@"ranging"];
             if (object) [self setString:object forKey:@"ranging_preference" inMOC:context];
@@ -394,10 +398,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     dict[@"locked"] =                       @([Settings boolForKey:@"locked" inMOC:context]);
     dict[@"tid"] =                          [Settings stringOrZeroForKey:@"trackerid_preference" inMOC:context];
     dict[@"monitoring"] =                   @([Settings intForKey:@"monitoring_preference" inMOC:context]);
+    dict[@"downgrade"] =                    @([Settings intForKey:@"downgrade_preference" inMOC:context]);
     dict[@"waypoints"] =                    [Settings waypointsToArrayInMOC:context];
     dict[@"sub"] =                          @([Settings boolForKey:@"sub_preference" inMOC:context]);
     dict[@"positions"] =                    @([Settings intForKey:@"positions_preference" inMOC:context]);
-    dict[@"maxHistory"] =                    @([Settings intForKey:@"maxhistory_preference" inMOC:context]);
+    dict[@"maxHistory"] =                   @([Settings intForKey:@"maxhistory_preference" inMOC:context]);
     dict[@"locatorDisplacement"] =          @([Settings intForKey:@"mindist_preference" inMOC:context]);
     dict[@"locatorInterval"] =              @([Settings intForKey:@"mintime_preference" inMOC:context]);
     dict[@"extendedData"] =                 @([Settings boolForKey:@"extendeddata_preference" inMOC:context]);
@@ -482,6 +487,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         [key isEqualToString:@"sub_preference"] ||
         [key isEqualToString:@"extendedData_preference"] ||
         [key isEqualToString:@"monitoring_preference"] ||
+        [key isEqualToString:@"downgrade_preference"] ||
         [key isEqualToString:@"trackerid_preference"] ||
         [key isEqualToString:@"ranging_preference"]) {
         return true;

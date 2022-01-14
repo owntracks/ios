@@ -197,6 +197,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     }
     if (monitoring != [LocationManager sharedInstance].monitoring) {
         [LocationManager sharedInstance].monitoring = monitoring;
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
         [Settings setInt:(int)[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"
                    inMOC:CoreData.sharedInstance.mainMOC];
         [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
@@ -228,6 +229,25 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             self.modes.selectedSegmentIndex = 0;
             break;
     }
+
+    for (NSInteger index = 0; index < self.modes.numberOfSegments; index++) {
+        NSString *title = [self.modes titleForSegmentAtIndex:index];
+        if ([title hasSuffix:@"!"]) {
+            title = [title substringToIndex:title.length-1];
+        }
+        [self.modes setTitle:title forSegmentAtIndex:index];
+
+    }
+    
+    NSInteger index = self.modes.selectedSegmentIndex;
+    NSString *title = [self.modes titleForSegmentAtIndex:index];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"downgraded"]) {
+        if (![title hasSuffix:@"!"]) {
+            title = [title stringByAppendingString:@"!"];
+        }
+    }
+    [self.modes setTitle:title forSegmentAtIndex:index];
+
 }
 
 - (void)updateAccuracyButton {
@@ -245,8 +265,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                      location.horizontalAccuracy,
                                      NSLocalizedString(@"m", @"Short for meters")
                                      ];
+        self.actionButton.enabled = TRUE;
     } else {
         self.accuracyButton.title = @"-";
+        self.actionButton.enabled = FALSE;
     }
 }
 

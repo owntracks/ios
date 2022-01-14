@@ -71,6 +71,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIclientId;
 @property (weak, nonatomic) IBOutlet UILabel *UIeffectiveTid;
 @property (weak, nonatomic) IBOutlet UILabel *UIeffectiveDeviceId;
+@property (weak, nonatomic) IBOutlet UITextField *UIdowngrade;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
 
@@ -95,6 +96,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.UIDeviceID.delegate = self;
     self.UIpassphrase.delegate = self;
     self.UIurl.delegate = self;
+    self.UImonitoring.delegate = self;
+    self.UIdowngrade.delegate = self;
 
     OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [delegate addObserver:self
@@ -249,10 +252,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
     if (self.UImonitoring) {
         [LocationManager sharedInstance].monitoring = (self.UImonitoring.text).intValue;
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
         [Settings setString:self.UImonitoring.text
                      forKey:@"monitoring_preference"
                       inMOC:CoreData.sharedInstance.mainMOC];
     }
+    
+    if (self.UIdowngrade) {
+        [Settings setString:self.UIdowngrade.text
+                     forKey:@"downgrade_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+    }
+
     if (self.UIignoreInaccurateLocations)
         [Settings setString:self.UIignoreInaccurateLocations.text
                      forKey:@"ignoreinaccuratelocations_preference"
@@ -579,6 +590,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                          inMOC:CoreData.sharedInstance.mainMOC];
         self.UImonitoring.enabled = !locked;
     }
+    
+    if (self.UIdowngrade) {
+        self.UIdowngrade.text =
+        [Settings stringForKey:@"downgrade_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIdowngrade.enabled = !locked;
+    }
+
     if (self.UIignoreInaccurateLocations) {
         self.UIignoreInaccurateLocations.text =
         [Settings stringForKey:@"ignoreinaccuratelocations_preference"
@@ -921,6 +940,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self.UIsubTopic resignFirstResponder];
     [self.UIwillTopic resignFirstResponder];
     [self.UImonitoring resignFirstResponder];
+    [self.UIdowngrade resignFirstResponder];
     [self.UIwillQos resignFirstResponder];
     [self.UIpubQos resignFirstResponder];
     [self.UIsubQos resignFirstResponder];
