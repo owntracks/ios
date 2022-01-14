@@ -17,6 +17,7 @@ OwnTracks iOS App Release Notes
     [NEW] Feature Request: Publish current monitoring mode on location updates #694
     [NEW] Change tracking mode enter/leave region #683
     [NEW] Ask for permission to use Apple's reverse geocoder and map #696
+    [NEW] Change to move mode automatically when phone is charged. #436
 
     [FIX] Dark Mode Navigation and Tab Bars
 
