@@ -195,6 +195,15 @@ static OwnTracking *theInstance = nil;
         NSString *tid = dictionary[@"tid"];
         NSDate *tst = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]];
         NSString *event = dictionary[@"event"];
+        NSString *eventVerb = [event stringByAppendingString:@"s"];
+        if ([event isEqualToString:@"enter"]) {
+            eventVerb = NSLocalizedString(@"enters",
+                                          @"friend enters region verb");
+        } else if ([event isEqualToString:@"leave"]) {
+            eventVerb = NSLocalizedString(@"leaves",
+                                          @"friend leaves region verb");
+        }
+        
         NSString *desc = dictionary[@"desc"];
         if (!desc) {
             desc = NSLocalizedString(@"a region",
@@ -206,9 +215,9 @@ static OwnTracking *theInstance = nil;
                                dateStyle:NSDateFormatterShortStyle
                                timeStyle:NSDateFormatterShortStyle];
 
-        NSString *notificationMessage = [NSString stringWithFormat:@"%@ %@s %@ @ %@",
+        NSString *notificationMessage = [NSString stringWithFormat:@"%@ %@ %@ @ %@",
                                          tid,
-                                         event,
+                                         eventVerb,
                                          desc,
                                          shortTime];
 

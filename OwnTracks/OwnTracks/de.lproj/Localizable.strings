@@ -70,6 +70,9 @@
 /* Display when entering region (region name follows) */
 "Entering" = "Betritt";
 
+/* friend enters region verb */
+"enters" = "betritt";
+
 /* description connection error state */
 "error" = "Fehler";
 
@@ -138,6 +141,9 @@
 
 /* Display when leaving region (region name follows) */
 "Leaving" = "Verlässt";
+
+/* friend leaves region verb */
+"leaves" = "verlässt";
 
 /* Header of an alert message regarding a location */
 "Location" = "Position";
