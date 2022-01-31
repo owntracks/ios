@@ -2,7 +2,7 @@ OwnTracks iOS App Release Notes
 ===================================
 
 ## OwnTracks 16.1.2 iOS/ipadOS/macOS
-* Release Date 2022-01-14
+* Release Date 2022-01-30
 
 ** Turkish translation, small enhancements, and bug fixes
     [NEW] App does now adjust `locatorInterval` changes immediately, no need to kill and restart. #634
@@ -17,6 +17,10 @@ OwnTracks iOS App Release Notes
     [NEW] Feature Request: Publish current monitoring mode on location updates #694
     [NEW] Change tracking mode enter/leave region #683
     [NEW] Ask for permission to use Apple's reverse geocoder and map #696
+    [NEW] Change to move mode automatically when phone is charged. #436
+    [NEW] Notification message "Friend enters/leaves Region" cannot be translated #672
+    [NEW] History Sections cannot be translated (Notification/Friend/Region) #673
+    [NEW] Automatic switch on battery
     [NEW] Change to move mode automatically when phone is charged. #436
 
     [FIX] Dark Mode Navigation and Tab Bars
