@@ -238,9 +238,9 @@ static OwnTracking *theInstance = nil;
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         [center addNotificationRequest:request withCompletionHandler:nil];
 
-        NSString *shortNotificationMessage = [NSString stringWithFormat:@"%@ %@s %@",
+        NSString *shortNotificationMessage = [NSString stringWithFormat:@"%@ %@ %@",
                                          tid,
-                                         event,
+                                         eventVerb,
                                          desc];
 
         [History historyInGroup:NSLocalizedString(@"Friend",

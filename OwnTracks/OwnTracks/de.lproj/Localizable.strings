@@ -13,6 +13,9 @@
 /* name of an unknown or hidden region */
 "a region" = "Eine Region";
 
+/* Address resolver disabled */
+"Address resolver disabled" = "Adressenauflösung ist deaktiviert";
+
 /* reverseGeocodeLocation error */
 "Address resolver failed" = "Address resolver failed";
 
@@ -63,6 +66,12 @@
 
 /* content of an alert message regarding circular region */
 "created at center of map" = "im Kartenmittelpunkt erstellt";
+
+/* Message map interaction */
+"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Möchten Sie die Karte interaktiv nutzen? Wenn Sie sich für Ja entscheiden kann der Dienstleister Ihre Anfragen analysieren.";
+
+/* Message Revgeo */
+"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Möchten Sie Adressen auflösen? Wenn Sie sich für Ja entscheiden kann der Dienstleister Ihre Anfragen analysieren.";
 
 /* reverseGeocodeLocation text */
 "due to rate limit or off-line" = "wegen Limitüberschreitung oder weil Off-Line";
@@ -139,11 +148,11 @@
 /* Short for kilometers per hour as in 120km/h */
 "km/h" = "km/h";
 
-/* Display when leaving region (region name follows) */
-"Leaving" = "Verlässt";
-
 /* friend leaves region verb */
 "leaves" = "verlässt";
+
+/* Display when leaving region (region name follows) */
+"Leaving" = "Verlässt";
 
 /* Header of an alert message regarding a location */
 "Location" = "Position";
@@ -166,6 +175,9 @@
 /* Manual */
 "Manual" = "Manuell";
 
+/* Title map interaction */
+"Map Interaction" = "Karten Interaktion";
+
 /* Alert header for mode change warning */
 "Mode change" = "Moduswechsel";
 
@@ -174,6 +186,9 @@
 
 /* Mute */
 "Mute" = "Einfach";
+
+/* No button title */
+"No" = "Nein";
 
 /* dummy for missing content */
 "no content available" = "kein Inhalt verfügbar";
@@ -213,6 +228,9 @@
 
 /* temporary display while resolving address */
 "resolving..." = "Adressauflösung...";
+
+/* Title Revgeo */
+"Reverse Geocoding Address Resolution" = "Umgekehrte Adressauflösung";
 
 /* Sat */
 "Sat" = "Sat";
@@ -280,6 +298,9 @@
 /* Please Note Text */
 "When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "Wenn der Modus gewechselt wird löscht OwnTracks alle bisher gespeicherten Daten aus Datenschutzgründen.";
 
+/* Yes button title */
+"Yes" = "Ja";
+
 /* You cannot use background fetch */
 "You cannot use background fetch" = "Sie können keinen Background Fetch nutzen";
 
@@ -289,23 +310,3 @@
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Konfigurieren Sie Ihren OwnTracks Server für vollständigen Datenschutz. Mehr Information hier: https://owntracks.org/booklet";
 
-/* Title map interaction */
-"Map Interaction" = "Map Interaction";
-
-/* Message map interaction */
-"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests";
-
-/* Address resolver disabled */
-"Address resolver disabled" = "Address resolver disabled";
-
-/* Title Revgeo */
-"Reverse Geocoding Address Resolution" = "Reverse Geocoding Address Resolution";
-
-/* Message Revgeo */
-"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests";
-
-/* Yes button title */
-"Yes" = "Yes";
-
-/* No button title */
-"No" = "No";
