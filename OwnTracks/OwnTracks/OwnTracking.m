@@ -234,7 +234,8 @@ static OwnTracking *theInstance = nil;
                                          event,
                                          desc];
 
-        [History historyInGroup:@"Friend"
+        [History historyInGroup:NSLocalizedString(@"Friend",
+                                                  @"Alert message header for friend's messages")
                        withText:shortNotificationMessage
                              at:tst
                           inMOC:[CoreData sharedInstance].mainMOC

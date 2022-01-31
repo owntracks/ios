@@ -722,7 +722,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
             UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
             [center addNotificationRequest:request withCompletionHandler:nil];
             
-            [History historyInGroup:@"Region"
+            [History historyInGroup:NSLocalizedString(@"Region",
+                                                      @"Header of an alert message regarding circular region")
                            withText:notificationMessage
                                  at:nil
                               inMOC:moc
@@ -1086,7 +1087,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
         [center addNotificationRequest:request withCompletionHandler:nil];
         
-        [History historyInGroup:@"Notification"
+        [History historyInGroup:NSLocalizedString(@"Notification",
+                                                  @"Alert message header for notification messages")
                        withText:notificationMessage
                              at:nil
                           inMOC:[CoreData sharedInstance].mainMOC
