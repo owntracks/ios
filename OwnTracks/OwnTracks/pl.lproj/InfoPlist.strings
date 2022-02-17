@@ -5,7 +5,7 @@
 "CFBundleName" = "OwnTracks";
 
 /* Privacy - Contacts Usage Description */
-"NSContactsUsageDescription" = "Jeśli pozwolisz aplikacji Owntracks na dostęp do kontaktów, będziesz mógł powiązać swoje urządzenia z kontaktami.\\nOwnTracks wyświetli wtedy nazwę kontaktu i obraz profilowy zamiast identyfikatora urządzenia.\\nInformacje z Twojej książki adresowej nie zostaną wysłane na żaden serwer.";
+"NSContactsUsageDescription" = "Jeśli pozwolisz aplikacji Owntracks na dostęp do kontaktów, będziesz mógł powiązać swoje urządzenia z kontaktami.\nOwnTracks wyświetli wtedy nazwę kontaktu i obraz profilowy zamiast identyfikatora urządzenia.\nInformacje z Twojej książki adresowej nie zostaną wysłane na żaden serwer.";
 
 /* Privacy - Location Always and When In Use Usage Description */
 "NSLocationAlwaysAndWhenInUseUsageDescription" = "Twoja lokalizacja jest udostępniana i zapisywana na serwerze który wybierzesz";

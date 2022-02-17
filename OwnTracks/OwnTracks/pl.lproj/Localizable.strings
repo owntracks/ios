@@ -71,7 +71,7 @@
 "Entering" = "Wejście do";
 
 /* friend enters region verb */
-"enters" = "enters";
+"enters" = "wchodzi do";
 
 /* description connection error state */
 "error" = "błąd";
@@ -133,26 +133,23 @@
 /* Display after processing inline config */
 "Inline Configuration successfully processed" = "Inline Configuration successfully processed";
 
-/* Short for kilometers per hour as in 120km/h */
-"km/h" = "km/h";
-
 /* Short for kilometers as in 120km */
 "km" = "km";
 
-/* Display when leaving region (region name follows) */
-"Leaving" = "Opuszczanie";
+/* Short for kilometers per hour as in 120km/h */
+"km/h" = "km/h";
 
 /* friend leaves region verb */
-"leaves" = "leaves";
+"leaves" = "opuszcza";
+
+/* Display when leaving region (region name follows) */
+"Leaving" = "Opuszczanie";
 
 /* Header of an alert message regarding a location */
 "Location" = "Lokalizacja";
 
 /* Location copied to clipboard */
 "Location copied to clipboard" = "Location copied to clipboard";
-
-/* Topic copied to clipboard */
-"Topic copied to clipboard" = "Topic copied to clipboard";
 
 /* Location Manager error message */
 "Location services are not enabled" = "Usługi lokalizacji nie są włączone";
@@ -256,6 +253,9 @@
 /* Warning displayed if necessary settings are missing */
 "To publish your location userID and deviceID must be set" = "Aby opublikować lokalizację, ID użytkownika i ID urządzenia muszą być ustawione";
 
+/* Topic copied to clipboard */
+"Topic copied to clipboard" = "Temat skopiowany do schowka";
+
 /* Alert header regarding TrackerID input */
 "TrackerID invalid" = "Nieprawidłowy TrackerID";
 
@@ -280,6 +280,9 @@
 /* Please Note Text */
 "When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "Podczas przełączania trybów, wszystkie dane OwnTracks zostaną usunięte z powodów prywatności.";
 
+/* Yes button title */
+"Yes" = "Tak";
+
 /* You cannot use background fetch */
 "You cannot use background fetch" = "Nie możesz użyć pobrania w tle";
 
@@ -289,23 +292,3 @@
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Możesz skonfigurować własny serwer OwnTracks dla pełnej ochrony prywatności. Więcej informacji tutaj: https://owntracks.org/booklet";
 
-/* Title map interaction */
-"Map Interaction" = "Map Interaction";
-
-/* Message map interaction */
-"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests";
-
-/* Address resolver disabled */
-"Address resolver disabled" = "Address resolver disabled";
-
-/* Title Revgeo */
-"Reverse Geocoding Address Resolution" = "Reverse Geocoding Address Resolution";
-
-/* Message Revgeo */
-"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests";
-
-/* Yes button title */
-"Yes" = "Yes";
-
-/* No button title */
-"No" = "No";

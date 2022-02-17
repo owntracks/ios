@@ -13,6 +13,9 @@
 /* name of an unknown or hidden region */
 "a region" = "ett område";
 
+/* Address resolver disabled */
+"Address resolver disabled" = "Upplösning av adress avstängd";
+
 /* reverseGeocodeLocation error */
 "Address resolver failed" = "Adressupplysningen misslyckades";
 
@@ -64,6 +67,12 @@
 /* content of an alert message regarding circular region */
 "created at center of map" = "skapas mitt på kartan";
 
+/* Message map interaction */
+"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Tillåter du interaktioner med kartan? Om du svarar ja kan karttjänsten analysera förfrågningar.";
+
+/* Message Revgeo */
+"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Vill du upplösa adresser? Om du svarar ja kan adressupplösningstjänsten analysera dina förfrågningar.";
+
 /* reverseGeocodeLocation text */
 "due to rate limit or off-line" = "på grund av satsgräns eller off-line";
 
@@ -71,7 +80,7 @@
 "Entering" = "Beträder";
 
 /* friend enters region verb */
-"enters" = "enters";
+"enters" = "beträder";
 
 /* description connection error state */
 "error" = "fel";
@@ -133,26 +142,23 @@
 /* Display after processing inline config */
 "Inline Configuration successfully processed" = "Inline-konfiguration har bearbetats";
 
-/* Short for kilometers per hour as in 120km/h */
-"km/h" = "km/h";
-
 /* Short for kilometers as in 120km */
 "km" = "km";
 
-/* Display when leaving region (region name follows) */
-"Leaving" = "Lämnar";
+/* Short for kilometers per hour as in 120km/h */
+"km/h" = "km/h";
 
 /* friend leaves region verb */
-"leaves" = "leaves";
+"leaves" = "lämnar";
+
+/* Display when leaving region (region name follows) */
+"Leaving" = "Lämnar";
 
 /* Header of an alert message regarding a location */
 "Location" = "Plats";
 
 /* Location copied to clipboard */
 "Location copied to clipboard" = "Platsen kopierades till urklipp";
-
-/* Topic copied to clipboard */
-"Topic copied to clipboard" = "Topic kopierades till urklipp";
 
 /* Location Manager error message */
 "Location services are not enabled" = "Platstjänster är inte aktiverade";
@@ -169,6 +175,9 @@
 /* Manual */
 "Manual" = "Manuell";
 
+/* Title map interaction */
+"Map Interaction" = "Interaktion med kartan";
+
 /* Alert header for mode change warning */
 "Mode change" = "Lägesändring";
 
@@ -177,6 +186,9 @@
 
 /* Mute */
 "Mute" = "Stum";
+
+/* No button title */
+"No" = "Nej";
 
 /* dummy for missing content */
 "no content available" = "inget innehåll tillgängligt";
@@ -217,6 +229,9 @@
 /* temporary display while resolving address */
 "resolving..." = "bestämmer ...";
 
+/* Title Revgeo */
+"Reverse Geocoding Address Resolution" = "Omvänd adressupplösning";
+
 /* Sat */
 "Sat" = "Sat";
 
@@ -256,6 +271,9 @@
 /* Warning displayed if necessary settings are missing */
 "To publish your location userID and deviceID must be set" = "Användar-ID och enhets-ID måste vara inställda för att publicera din plats";
 
+/* Topic copied to clipboard */
+"Topic copied to clipboard" = "Ämne kopierat från urklipp";
+
 /* Alert header regarding TrackerID input */
 "TrackerID invalid" = "TrackerID ogiltigt";
 
@@ -280,6 +298,9 @@
 /* Please Note Text */
 "When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "Av sekretesskäl raderas all OwnTracks-data när du växlar mellan lägen.";
 
+/* Yes button title */
+"Yes" = "Ja";
+
 /* You cannot use background fetch */
 "You cannot use background fetch" = "Du kan inte använda bakgrundshämtning";
 
@@ -289,23 +310,3 @@
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "För fullständigt integritetsskydd måste du konfigurera din egen OwnTracks-server och redigera konfigurationen. Detaljerad information på https://owntracks.org/booklet";
 
-/* Title map interaction */
-"Map Interaction" = "Map Interaction";
-
-/* Message map interaction */
-"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests";
-
-/* Address resolver disabled */
-"Address resolver disabled" = "Address resolver disabled";
-
-/* Title Revgeo */
-"Reverse Geocoding Address Resolution" = "Reverse Geocoding Address Resolution";
-
-/* Message Revgeo */
-"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests";
-
-/* Yes button title */
-"Yes" = "Yes";
-
-/* No button title */
-"No" = "No";
