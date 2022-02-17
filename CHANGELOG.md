@@ -1,8 +1,8 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 16.1.2 iOS/ipadOS/macOS
-* Release Date 2022-01-30
+## OwnTracks 16.1.3 iOS/ipadOS/macOS
+* Release Date 2022-02-17
 
 ** Turkish translation, small enhancements, and bug fixes
     [NEW] App does now adjust `locatorInterval` changes immediately, no need to kill and restart. #634
