@@ -5,6 +5,7 @@ OwnTracks iOS App Release Notes
 * Release Date 2022-02-17
 
 ** Turkish translation, small enhancements, and bug fixes
+
     [NEW] App does now adjust `locatorInterval` changes immediately, no need to kill and restart. #634
     [NEW] How to remove a client certificate? #648
     [NEW] Turkish translation #671
