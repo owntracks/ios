@@ -1014,6 +1014,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                                        withObject:dictionary
                                                     waitUntilDone:NO];
                                 
+                            } else if ([@"response" saveEqual:dictionary[@"action"]]) {
+                                [self performSelectorOnMainThread:@selector(performResponse:)
+                                                       withObject:dictionary
+                                                    waitUntilDone:NO];
+                                
                             } else {
                                 DDLogWarn(@"[OwnTracksAppDelegate] unknown action %@", dictionary[@"action"]);
                             }
@@ -1113,6 +1118,28 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     } else {
         self.action = nil;
     }
+}
+
+- (void)performResponse:(NSDictionary *)dictionary {
+    NSString *label = [NSString saveCopy:dictionary[@"label"]];
+    NSString *url = [NSString saveCopy:dictionary[@"url"] ];
+    NSString *uuid = [NSString saveCopy:dictionary[@"uuid"]];
+    NSString *from = [NSString saveCopy:dictionary[@"from"]];
+    NSString *to = [NSString saveCopy:dictionary[@"to"]];
+    NSNumber *status = [NSNumber saveCopy:dictionary[@"status"]];
+    NSNumber *identifier = [NSNumber saveCopy:dictionary[@"identifier"]];
+
+    UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
+    [generalPasteboard setString:url];
+
+    [self.navigationController alert:NSLocalizedString(@"Response",
+                                                       @"Alert message header for Request Response")
+                             message:[NSString stringWithFormat:@"URL copied to Clipboard %d\n%@",
+                                      status.intValue,
+                                      url]
+                        dismissAfter:0.0
+    ];
+
 }
 
 - (void)performSetConfiguration:(NSDictionary *)dictionary {

@@ -133,6 +133,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>OwnTracks uses your camera on request to create a Card</string>
 	<key>NSContactsUsageDescription</key>
 	<string>If you allow OwnTracks to access your contacts, you can link your devices to contacts.
 OwnTracks will then display the contact name and image instead of the device Id.
