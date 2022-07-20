@@ -64,12 +64,15 @@
           editedImage.size.height,
           editedImage.scale);
     
-    CGFloat scale = 192.0 / editedImage.size.width;
+    CGFloat scale = 192.0 / MIN(editedImage.size.width, editedImage.size.height);
     CGSize size = CGSizeApplyAffineTransform(editedImage.size,
                                              CGAffineTransformMakeScale(scale, scale));
     
-    UIGraphicsBeginImageContextWithOptions(size, FALSE, 1.0);
-    [editedImage drawInRect:CGRectMake(0.0, 0.0, 192.0, 192.0)];
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(192.0, 192.0), FALSE, 1.0);
+    [editedImage drawInRect:CGRectMake((192.0 - size.width) / 2,
+                                       (192.0 - size.height) / 2,
+                                       size.width, size.height)
+    ];
     UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
