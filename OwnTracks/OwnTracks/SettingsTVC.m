@@ -509,7 +509,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         DDLogVerbose(@"[Settings] mode is %d", mode);
         switch (mode) {
             case CONNECTION_MODE_HTTP:
-                self.UImodeSwitch.selectedSegmentIndex =1;
+                self.UImodeSwitch.selectedSegmentIndex = 1;
                 break;
             case CONNECTION_MODE_MQTT:
             default:
@@ -703,9 +703,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         }
 
         NSArray <NSIndexPath *> *privatePaths = @[
-            [NSIndexPath indexPathForRow:5 inSection:0],
             [NSIndexPath indexPathForRow:6 inSection:0],
-            [NSIndexPath indexPathForRow:7 inSection:0]
+            [NSIndexPath indexPathForRow:7 inSection:0],
+            [NSIndexPath indexPathForRow:8 inSection:0]
         ];
 
         for (NSIndexPath *indexPath in privatePaths) {
@@ -733,7 +733,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         }
 
         NSArray <NSIndexPath *> *secretPaths = @[
-            [NSIndexPath indexPathForRow:11 inSection:0]
+            [NSIndexPath indexPathForRow:12 inSection:0]
         ];
         for (NSIndexPath *indexPath in secretPaths) {
             if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_MQTT && mode != CONNECTION_MODE_HTTP)) {
@@ -744,9 +744,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         }
 
         NSArray <NSIndexPath *> *authPaths = @[
-            [NSIndexPath indexPathForRow:8 inSection:0],
             [NSIndexPath indexPathForRow:9 inSection:0],
-            [NSIndexPath indexPathForRow:10 inSection:0]
+            [NSIndexPath indexPathForRow:10 inSection:0],
+            [NSIndexPath indexPathForRow:11 inSection:0]
         ];
 
         for (NSIndexPath *indexPath in authPaths) {
@@ -758,7 +758,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         }
 
         NSArray <NSIndexPath *> *httpPaths = @[
-            [NSIndexPath indexPathForRow:12 inSection:0]
+            [NSIndexPath indexPathForRow:13 inSection:0]
         ];
 
         for (NSIndexPath *indexPath in httpPaths) {
