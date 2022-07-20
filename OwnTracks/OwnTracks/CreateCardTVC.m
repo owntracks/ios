@@ -63,10 +63,17 @@
           editedImage.size.width,
           editedImage.size.height,
           editedImage.scale);
-
-    self.cardImage.image = [UIImage imageWithCGImage:editedImage.CGImage
-                                               scale:editedImage.size.width / 192.0
-                                         orientation:UIImageOrientationUp];
+    
+    CGFloat scale = 192.0 / editedImage.size.width;
+    CGSize size = CGSizeApplyAffineTransform(editedImage.size,
+                                             CGAffineTransformMakeScale(scale, scale));
+    
+    UIGraphicsBeginImageContextWithOptions(size, FALSE, 1.0);
+    [editedImage drawInRect:CGRectMake(0.0, 0.0, 192.0, 192.0)];
+    UIImage *scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    self.cardImage.image = scaledImage;
 
     NSLog(@"cardImage %f, %f, %f",
           self.cardImage.image.size.width,
@@ -126,14 +133,14 @@
     
     myself.cardName = self.name.text;
     myself.cardImage = UIImagePNGRepresentation(self.cardImage.image);
-    
+    NSString *b64String = [png base64EncodedStringWithOptions:0];
+
     NSDictionary *json = @{
         @"_type": @"card",
-        @"face": [png base64EncodedStringWithOptions:0],
+        @"face": b64String,
         @"name": self.name.text,
-        @"tid": myself.tid
     };
-    
+
     OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [ad.connection sendData:[NSJSONSerialization dataWithJSONObject:json
                                                             options:NSJSONWritingSortedKeys
