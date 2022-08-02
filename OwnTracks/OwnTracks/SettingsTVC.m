@@ -72,6 +72,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *UIeffectiveTid;
 @property (weak, nonatomic) IBOutlet UILabel *UIeffectiveDeviceId;
 @property (weak, nonatomic) IBOutlet UITextField *UIdowngrade;
+@property (weak, nonatomic) IBOutlet UIButton *createCardButton;
+@property (weak, nonatomic) IBOutlet UIButton *sharesButton;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
 
@@ -369,8 +371,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)updated {
-    BOOL locked = [Settings boolForKey:@"locked"
-                                 inMOC:CoreData.sharedInstance.mainMOC];
+    BOOL locked = [Settings theLockedInMOC:CoreData.sharedInstance.mainMOC];
     self.title = [NSString stringWithFormat:@"%@%@",
                   NSLocalizedString(@"Settings",
                                     @"Settings screen title"),
@@ -378,6 +379,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                   [NSString stringWithFormat:@" (%@)", NSLocalizedString(@"locked",
                                                                          @"indicates a locked configuration")] :
                   @""];
+
+    self.createCardButton.enabled = !locked;
+    self.sharesButton.enabled = !locked;
 
     if (self.UIDeviceID) {
         self.UIDeviceID.text =
@@ -636,8 +640,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     }
     if (self.self.UIlocked) {
         self.self.UIlocked.on =
-        [Settings boolForKey:@"locked"
-                       inMOC:CoreData.sharedInstance.mainMOC];
+        [Settings theLockedInMOC:CoreData.sharedInstance.mainMOC];
         self.self.UIlocked.enabled = false;
     }
     if (self.self.UIsub) {

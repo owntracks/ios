@@ -43,97 +43,100 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
     [[NSNotificationCenter defaultCenter] addObserverForName:@"reload"
                                                       object:nil
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock:^(NSNotification *note){
-                                                      self.fetchedResultsController = nil;
-                                                  }];
-
-    CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
-    switch (status) {
-        case CNAuthorizationStatusRestricted: {
-            if (![[NSUserDefaults standardUserDefaults]
-                  boolForKey:@"contactsAuthorization"]) {
-
-                DDLogVerbose(@"CNAuthorizationStatus: CNAuthorizationStatusRestricted");
-                UIAlertController *ac =
-                [UIAlertController
-                 alertControllerWithTitle:NSLocalizedString(@"Addressbook Access",
-                                                            @"Headline in addressbook related error messages")
-                 message:NSLocalizedString(@"has been restricted, possibly due to restrictions such as parental controls.",
-                                           @"CNAuthorizationStatusRestricted")
-                 preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *ok = [UIAlertAction
-                                     actionWithTitle:NSLocalizedString(@"Continue",
-                                                                       @"Continue button title")
-
-                                     style:UIAlertActionStyleDefault
-                                     handler:nil];
-                [ac addAction:ok];
-                [self presentViewController:ac animated:TRUE completion:nil];
-                [[NSUserDefaults standardUserDefaults]
-                 setBool:TRUE
-                 forKey:@"contactsAuthorization"];
+        self.fetchedResultsController = nil;
+    }];
+    
+    BOOL locked = [Settings theLockedInMOC:CoreData.sharedInstance.mainMOC];
+    if (!locked) {
+        CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
+        switch (status) {
+            case CNAuthorizationStatusRestricted: {
+                if (![[NSUserDefaults standardUserDefaults]
+                      boolForKey:@"contactsAuthorization"]) {
+                    
+                    DDLogVerbose(@"CNAuthorizationStatus: CNAuthorizationStatusRestricted");
+                    UIAlertController *ac =
+                    [UIAlertController
+                     alertControllerWithTitle:NSLocalizedString(@"Addressbook Access",
+                                                                @"Headline in addressbook related error messages")
+                     message:NSLocalizedString(@"has been restricted, possibly due to restrictions such as parental controls.",
+                                               @"CNAuthorizationStatusRestricted")
+                     preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *ok = [UIAlertAction
+                                         actionWithTitle:NSLocalizedString(@"Continue",
+                                                                           @"Continue button title")
+                                         
+                                         style:UIAlertActionStyleDefault
+                                         handler:nil];
+                    [ac addAction:ok];
+                    [self presentViewController:ac animated:TRUE completion:nil];
+                    [[NSUserDefaults standardUserDefaults]
+                     setBool:TRUE
+                     forKey:@"contactsAuthorization"];
+                }
+                break;
             }
-            break;
-        }
-            
-        case CNAuthorizationStatusDenied: {
-            if (![[NSUserDefaults standardUserDefaults]
-                  boolForKey:@"contactsAuthorization"]) {
-
-                DDLogVerbose(@"CNAuthorizationStatus: CNAuthorizationStatusDenied");
-                UIAlertController *ac =
-                [UIAlertController
-                 alertControllerWithTitle:NSLocalizedString(@"Addressbook Access",
-                                                            @"Headline in addressbook related error messages")
-                 message:NSLocalizedString(@"has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change",
-                                           @"CNAuthorizationStatusDenied")
-                 preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *ok = [UIAlertAction
-                                     actionWithTitle:NSLocalizedString(@"Continue",
-                                                                       @"Continue button title")
-
-                                     style:UIAlertActionStyleDefault
-                                     handler:nil];
-                [ac addAction:ok];
-                [self presentViewController:ac animated:TRUE completion:nil];
-                [[NSUserDefaults standardUserDefaults]
-                 setBool:TRUE
-                 forKey:@"contactsAuthorization"];
+                
+            case CNAuthorizationStatusDenied: {
+                if (![[NSUserDefaults standardUserDefaults]
+                      boolForKey:@"contactsAuthorization"]) {
+                    
+                    DDLogVerbose(@"CNAuthorizationStatus: CNAuthorizationStatusDenied");
+                    UIAlertController *ac =
+                    [UIAlertController
+                     alertControllerWithTitle:NSLocalizedString(@"Addressbook Access",
+                                                                @"Headline in addressbook related error messages")
+                     message:NSLocalizedString(@"has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change",
+                                               @"CNAuthorizationStatusDenied")
+                     preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *ok = [UIAlertAction
+                                         actionWithTitle:NSLocalizedString(@"Continue",
+                                                                           @"Continue button title")
+                                         
+                                         style:UIAlertActionStyleDefault
+                                         handler:nil];
+                    [ac addAction:ok];
+                    [self presentViewController:ac animated:TRUE completion:nil];
+                    [[NSUserDefaults standardUserDefaults]
+                     setBool:TRUE
+                     forKey:@"contactsAuthorization"];
+                }
+                break;
             }
-            break;
+                
+            case CNAuthorizationStatusAuthorized:
+                DDLogVerbose(@"CNAuthorizationStatus: CNAuthorizationStatusAuthorized");
+                break;
+                
+            case CNAuthorizationStatusNotDetermined:
+            default:
+                [[NSUserDefaults standardUserDefaults]
+                 setBool:FALSE
+                 forKey:@"contactsAuthorization"];
+                
+                DDLogVerbose(@"CNAuthorizationStatus: CNAuthorizationStatusNotDetermined");
+                CNContactStore *contactStore = [[CNContactStore alloc] init];
+                [contactStore requestAccessForEntityType:CNEntityTypeContacts
+                                       completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                    if (granted) {
+                        DDLogVerbose(@"requestAccessForEntityType granted");
+                    } else {
+                        DDLogVerbose(@"requestAccessForEntityType denied %@", error);
+                    }
+                }];
+                break;
         }
-            
-        case CNAuthorizationStatusAuthorized:
-            DDLogVerbose(@"CNAuthorizationStatus: CNAuthorizationStatusAuthorized");
-            break;
-
-        case CNAuthorizationStatusNotDetermined:
-        default:
-            [[NSUserDefaults standardUserDefaults]
-             setBool:FALSE
-             forKey:@"contactsAuthorization"];
-
-            DDLogVerbose(@"CNAuthorizationStatus: CNAuthorizationStatusNotDetermined");
-            CNContactStore *contactStore = [[CNContactStore alloc] init];
-            [contactStore requestAccessForEntityType:CNEntityTypeContacts
-                                   completionHandler:^(BOOL granted, NSError * _Nullable error) {
-                                       if (granted) {
-                                           DDLogVerbose(@"requestAccessForEntityType granted");
-                                       } else {
-                                           DDLogVerbose(@"requestAccessForEntityType denied %@", error);
-                                       }
-                                   }];
-            break;
     }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-
+    
     while (!self.fetchedResultsController) {
         //
     }
@@ -168,7 +171,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     
     if (indexPath) {
         Friend *friend = [self.fetchedResultsController objectAtIndexPath:indexPath];
-
+        
         if ([segue.identifier isEqualToString:@"showWaypointFromFriends"]) {
             if ([segue.destinationViewController respondsToSelector:@selector(setWaypoint:)]) {
                 Waypoint *waypoint = friend.newestWaypoint;
@@ -177,7 +180,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 }
             }
         }
-
+        
     }
 }
 
@@ -186,7 +189,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     
     UITabBarController *tbc;
     UINavigationController *nc;
-
+    
     if (self.splitViewController) {
         UISplitViewController *svc = self.splitViewController;
         nc = svc.viewControllers[1];
@@ -197,7 +200,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     }
     
     UIViewController *vc = nc.topViewController;
-
+    
     if ([vc respondsToSelector:@selector(setCenter:)]) {
         [vc performSelector:@selector(setCenter:) withObject:friend];
         if (tbc) {
@@ -265,7 +268,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
                                               inManagedObjectContext:CoreData.sharedInstance.mainMOC];
     fetchRequest.entity = entity;
     fetchRequest.fetchBatchSize = 20;
-
+    
     double ignoreStaleLocations = [Settings doubleForKey:@"ignorestalelocations_preference"
                                                    inMOC:CoreData.sharedInstance.mainMOC];
     if (ignoreStaleLocations) {
@@ -273,7 +276,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         fetchRequest.predicate = [NSPredicate predicateWithFormat:@"lastLocation > %@",
                                   [NSDate dateWithTimeIntervalSinceNow:stale]];
     }
-
+    
     NSSortDescriptor *sortDescriptor1 = [NSSortDescriptor sortDescriptorWithKey:@"topic" ascending:YES];
     NSArray *sortDescriptors = @[sortDescriptor1];
     fetchRequest.sortDescriptors = sortDescriptors;
@@ -314,13 +317,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)didChangeSection:(NSDictionary *)d {
     NSNumber *type = d[@"type"];
     NSNumber *sectionIndex = d[@"sectionIndex"];
-
+    
     switch(type.intValue) {
         case NSFetchedResultsChangeInsert:
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex.intValue]
                           withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
-
+            
         case NSFetchedResultsChangeDelete:
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex.intValue]
                           withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -350,28 +353,28 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     NSNumber *type = d[@"type"];
     NSIndexPath *indexPath = d[@"indexPath"];
     NSIndexPath *newIndexPath = d[@"newIndexPath"];
-
+    
     switch(type.intValue) {
         case NSFetchedResultsChangeInsert:
             [self.tableView insertRowsAtIndexPaths:@[newIndexPath]
-                             withRowAnimation:UITableViewRowAnimationAutomatic];
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
-
+            
         case NSFetchedResultsChangeDelete:
             [self.tableView deleteRowsAtIndexPaths:@[indexPath]
-                             withRowAnimation:UITableViewRowAnimationAutomatic];
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
-
+            
         case NSFetchedResultsChangeUpdate:
             [self.tableView reloadRowsAtIndexPaths:@[indexPath]
-                             withRowAnimation:UITableViewRowAnimationAutomatic];
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
-
+            
         case NSFetchedResultsChangeMove:
             [self.tableView deleteRowsAtIndexPaths:@[indexPath]
-                             withRowAnimation:UITableViewRowAnimationAutomatic];
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
             [self.tableView insertRowsAtIndexPaths:@[newIndexPath]
-                             withRowAnimation:UITableViewRowAnimationAutomatic];
+                                  withRowAnimation:UITableViewRowAnimationAutomatic];
             break;
     }
 }
@@ -388,14 +391,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     FriendTableViewCell *friendTableViewCell = (FriendTableViewCell *)cell;
     
     Friend *friend = [self.fetchedResultsController objectAtIndexPath:indexPath];
-
+    
     friendTableViewCell.name.text = friend.name ? friend.name : friend.tid;
     
     FriendAnnotationV *friendAnnotationView = [[FriendAnnotationV alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     friendAnnotationView.personImage = friend.image ? [UIImage imageWithData:friend.image] : nil;
     friendAnnotationView.me = [friend.topic isEqualToString:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC]];
     friendAnnotationView.tid = friend.effectiveTid;
-
+    
     Waypoint *waypoint = friend.newestWaypoint;
     if (waypoint) {
         if (waypoint.placemark) {
@@ -413,7 +416,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
         friendAnnotationView.speed = -1;
         friendAnnotationView.course = -1;
     }
-
+    
     NSDateComponents *dateComponents = [[NSCalendar currentCalendar]
                                         components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay
                                         fromDate:[NSDate date]];
@@ -427,7 +430,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
                                                                             dateStyle:NSDateFormatterShortStyle
                                                                             timeStyle:NSDateFormatterNoStyle];
     }
-
+    
     friendTableViewCell.image.image = [friendAnnotationView getImage];
 }
 

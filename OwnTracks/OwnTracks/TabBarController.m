@@ -68,6 +68,7 @@
 }
 
 - (void)adjust {
+    
     NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.viewControllers];
 
     if (self.featuredVC) {
@@ -104,6 +105,35 @@
             }
         }
     }
+    
+    if (self.regionVC) {
+        if (![Settings theLockedInMOC:CoreData.sharedInstance.mainMOC]) {
+            if (![viewControllers containsObject:self.regionVC]) {
+                if ([viewControllers containsObject:self.featuredVC]) {
+                    if ([viewControllers containsObject:self.historyVC]) {
+                        [viewControllers insertObject:self.regionVC
+                                              atIndex:viewControllers.count - 2];
+                    } else {
+                        [viewControllers insertObject:self.regionVC
+                                              atIndex:viewControllers.count - 1];
+                    }
+                } else {
+                    if ([viewControllers containsObject:self.historyVC]) {
+                        [viewControllers insertObject:self.regionVC
+                                              atIndex:viewControllers.count - 1];
+                    } else {
+                        [viewControllers insertObject:self.regionVC
+                                              atIndex:viewControllers.count];
+                    }
+                }
+            }
+        } else {
+            if ([viewControllers containsObject:self.regionVC]) {
+                [viewControllers removeObject:self.regionVC];
+            }
+        }
+    }
+
     [self setViewControllers:viewControllers animated:TRUE];
 }
 

@@ -37,6 +37,7 @@
 @property (strong, nonatomic) UISegmentedControl *modes;
 @property (strong, nonatomic) UISegmentedControl *mapMode;
 @property (strong, nonatomic) MKUserTrackingButton *trackingButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *askForMapButton;
 @property (nonatomic) BOOL warning;
 @end
 
@@ -214,6 +215,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)updateMoveButton {
+    BOOL locked = [Settings theLockedInMOC:CoreData.sharedInstance.mainMOC];
+    self.modes.enabled = !locked;
+
     switch ([LocationManager sharedInstance].monitoring) {
         case LocationMonitoringMove:
             self.modes.selectedSegmentIndex = 3;
@@ -279,6 +283,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (NSInteger)noMap {
+    BOOL locked = [Settings theLockedInMOC:CoreData.sharedInstance.mainMOC];
+    self.askForMapButton.enabled = !locked;
+
+
     NSInteger noMap =
     [[NSUserDefaults standardUserDefaults] integerForKey:@"noMap"];
     
@@ -879,6 +887,10 @@ calloutAccessoryControlTapped:(UIControl *)control {
 }
 
 - (IBAction)longPress:(UILongPressGestureRecognizer *)sender {
+    if ([Settings theLockedInMOC:CoreData.sharedInstance.mainMOC]) {
+        return;
+    }
+
     if (sender.state == UIGestureRecognizerStateBegan) {
 
         Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] inManagedObjectContext:CoreData.sharedInstance.mainMOC];

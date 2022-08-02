@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIinfo;
 @property (weak, nonatomic) IBOutlet UITextField *UIcreatedAt;
 @property (weak, nonatomic) IBOutlet UITextField *UIbatterylevel;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *bookmarkButton;
 
 @property (nonatomic) BOOL needsUpdate;
 @property (strong, nonatomic) CLRegion *oldRegion;
@@ -46,9 +47,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    BOOL locked = [Settings theLockedInMOC:CoreData.sharedInstance.mainMOC];
 
     CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
-    if (status != CNAuthorizationStatusAuthorized) {
+    if (locked || status != CNAuthorizationStatusAuthorized) {
         [self.navigationItem setRightBarButtonItem:nil];
     }
 

@@ -84,16 +84,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"viewCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"shareCell" forIndexPath:indexPath];
     Share *share = [[Shares sharedInstance] shareAtIndex:indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ [%@] (%@)",
-                           share.label,
-                           share.uuid,
-                           share.url];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@",
+                           share.label];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateStyle = NSDateFormatterMediumStyle;
-    formatter.timeStyle = NSDateFormatterMediumStyle;
+    formatter.dateStyle = NSDateFormatterShortStyle;
+    formatter.timeStyle = NSDateFormatterShortStyle;
 
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@",
                                  [formatter stringFromDate:share.from],

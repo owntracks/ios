@@ -19,6 +19,7 @@
         self.uuid = dictionary[@"uuid"];
         self.url = dictionary[@"url"];
         NSISO8601DateFormatter *formatter = [[NSISO8601DateFormatter alloc] init];
+        formatter.formatOptions ^= NSISO8601DateFormatWithTimeZone;
         self.from = [formatter dateFromString:dictionary[@"from"]];
         self.to = [formatter dateFromString:dictionary[@"to"]];
     }
@@ -26,13 +27,17 @@
 }
 
 - (NSDictionary *)asDictionary {
+    NSISO8601DateFormatter *formatter = [[NSISO8601DateFormatter alloc] init];
+    formatter.formatOptions = NSISO8601DateFormatWithInternetDateTime ^
+    NSISO8601DateFormatWithTimeZone;
+    formatter.timeZone = [NSTimeZone timeZoneWithName:@"GMT"];
+    
     NSMutableDictionary *dictionary = [@{
         @"label": self.label,
-        @"from":  [NSISO8601DateFormatter stringFromDate:self.from
-                                                timeZone:[NSTimeZone timeZoneWithName:@"GMT"] formatOptions:NSISO8601DateFormatWithInternetDateTime],
-        @"to": [NSISO8601DateFormatter stringFromDate:self.to
-                                             timeZone:[NSTimeZone timeZoneWithName:@"GMT"] formatOptions:NSISO8601DateFormatWithInternetDateTime]
+        @"from":  [formatter stringFromDate:self.from],
+        @"to": [formatter stringFromDate:self.to]
     } mutableCopy];
+    
     if (self.uuid) {
         dictionary[@"uuid"] = self.uuid;
     }

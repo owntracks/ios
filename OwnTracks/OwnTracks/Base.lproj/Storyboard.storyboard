@@ -67,6 +67,7 @@
                     <connections>
                         <outlet property="accuracyButton" destination="ere-0U-4rD" id="Ps2-J6-grs"/>
                         <outlet property="actionButton" destination="U2v-aw-iXO" id="Upc-3E-YYj"/>
+                        <outlet property="askForMapButton" destination="pRh-Nl-A5i" id="d9Z-7m-2oe"/>
                         <outlet property="mapView" destination="eED-yn-0ps" id="ySD-3E-pwJ"/>
                         <segue destination="m9c-8c-Xj9" kind="push" identifier="showWaypointFromMap" id="Hb0-uO-VBI"/>
                     </connections>
@@ -1696,6 +1697,8 @@
                         <outlet property="UIwillQos" destination="giY-cI-jfy" id="uFA-fi-5f5"/>
                         <outlet property="UIwillRetain" destination="10Y-wF-cUi" id="zYj-Ym-nCh"/>
                         <outlet property="UIwillTopic" destination="79P-sU-en0" id="kbF-aE-6pF"/>
+                        <outlet property="createCardButton" destination="7rX-Bq-DGb" id="V9S-zi-hVj"/>
+                        <outlet property="sharesButton" destination="tiK-11-lia" id="Rxn-5u-N9i"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jvv-T5-fxv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2274,6 +2277,7 @@
                         <outlet property="UIplace" destination="1PK-JM-nD2" id="nt4-r6-yA8"/>
                         <outlet property="UItimestamp" destination="HVH-Pt-DXp" id="CTa-w1-7qb"/>
                         <outlet property="UItopic" destination="wKK-9Q-BMU" id="XP9-gS-sUT"/>
+                        <outlet property="bookmarkButton" destination="xf3-Ji-uzj" id="ieN-V5-Yz2"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Fr-2m-Gbc" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3119,7 +3123,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="viewCell" textLabel="5df-yk-myT" detailTextLabel="rx4-uC-NeB" style="IBUITableViewCellStyleSubtitle" id="fwi-yP-OE1">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="shareCell" textLabel="5df-yk-myT" detailTextLabel="rx4-uC-NeB" style="IBUITableViewCellStyleValue1" id="fwi-yP-OE1">
                                 <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fwi-yP-OE1" id="PPn-nC-e29">
@@ -3127,16 +3131,16 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5df-yk-myT">
-                                            <rect key="frame" x="20" y="6" width="25" height="14.5"/>
+                                            <rect key="frame" x="20" y="15" width="25" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rx4-uC-NeB">
-                                            <rect key="frame" x="20" y="22.5" width="40.5" height="13.5"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rx4-uC-NeB">
+                                            <rect key="frame" x="350" y="15" width="44" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -3723,8 +3727,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Utn-3t-RCv"/>
-        <segue reference="ft5-77-rU8"/>
-        <segue reference="KLh-ve-vhU"/>
+        <segue reference="wKo-Y7-i7P"/>
+        <segue reference="Hb0-uO-VBI"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Friends" width="33" height="33"/>
