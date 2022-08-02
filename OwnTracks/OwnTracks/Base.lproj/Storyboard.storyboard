@@ -273,11 +273,11 @@
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tiK-11-lia">
                                                     <rect key="frame" x="164" y="7" width="136" height="30"/>
-                                                    <state key="normal" title="Create View">
+                                                    <state key="normal" title="Shares (experimental)">
                                                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <connections>
-                                                        <segue destination="YAo-IX-Jfw" kind="push" id="ywU-09-6VE"/>
+                                                        <segue destination="pGQ-8d-I18" kind="push" id="34d-vZ-OFk"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -2996,10 +2996,10 @@
             </objects>
             <point key="canvasLocation" x="5066.666666666667" y="1601.7857142857142"/>
         </scene>
-        <!--Create View-->
+        <!--Create Share-->
         <scene sceneID="SiL-yz-wjq">
             <objects>
-                <tableViewController id="YAo-IX-Jfw" customClass="CreateViewTVC" sceneMemberID="viewController">
+                <tableViewController id="YAo-IX-Jfw" customClass="CreateShareTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="6SQ-8U-7zK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3093,7 +3093,7 @@
                             <outlet property="delegate" destination="YAo-IX-Jfw" id="yCX-yl-msc"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Create View" id="SR5-Yo-l2L">
+                    <navigationItem key="navigationItem" title="Create Share" id="SR5-Yo-l2L">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="hqr-Ep-K4Y">
                             <connections>
                                 <action selector="savePressed:" destination="YAo-IX-Jfw" id="Woq-sG-ZOD"/>
@@ -3108,7 +3108,58 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bFM-T8-564" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5773.913043478261" y="1704.9107142857142"/>
+            <point key="canvasLocation" x="6542" y="1566"/>
+        </scene>
+        <!--Shares-->
+        <scene sceneID="9sn-aP-NDB">
+            <objects>
+                <tableViewController id="pGQ-8d-I18" customClass="SharesTVC" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="7sv-ds-I27">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="viewCell" textLabel="5df-yk-myT" detailTextLabel="rx4-uC-NeB" style="IBUITableViewCellStyleSubtitle" id="fwi-yP-OE1">
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fwi-yP-OE1" id="PPn-nC-e29">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5df-yk-myT">
+                                            <rect key="frame" x="20" y="6" width="25" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rx4-uC-NeB">
+                                            <rect key="frame" x="20" y="22.5" width="40.5" height="13.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="pGQ-8d-I18" id="A8e-ek-D3O"/>
+                            <outlet property="delegate" destination="pGQ-8d-I18" id="nC5-Na-yh9"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Shares" id="7Qj-vi-EaF">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Spe-B0-DkS">
+                            <connections>
+                                <segue destination="YAo-IX-Jfw" kind="push" id="ssC-L9-Kds"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oXm-aC-IC3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5809" y="1566"/>
         </scene>
         <!--Credits and License-->
         <scene sceneID="frz-UA-kzP">

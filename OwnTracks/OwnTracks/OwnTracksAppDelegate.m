@@ -16,6 +16,7 @@
 #import "History+CoreDataClass.h"
 #import "Settings.h"
 #import "OwnTracking.h"
+#import "Shares.h"
 #import "ConnType.h"
 #import "NSNumber+decimals.h"
 
@@ -1121,25 +1122,29 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (void)performResponse:(NSDictionary *)dictionary {
-    NSString *label = [NSString saveCopy:dictionary[@"label"]];
-    NSString *url = [NSString saveCopy:dictionary[@"url"] ];
-    NSString *uuid = [NSString saveCopy:dictionary[@"uuid"]];
-    NSString *from = [NSString saveCopy:dictionary[@"from"]];
-    NSString *to = [NSString saveCopy:dictionary[@"to"]];
-    NSNumber *status = [NSNumber saveCopy:dictionary[@"status"]];
-    NSNumber *identifier = [NSNumber saveCopy:dictionary[@"identifier"]];
+    NSString *request = [NSString saveCopy:dictionary[@"request"]];
+    if ([request isEqualToString:@"share"]) {
+        NSNumber *status = [NSNumber saveCopy:dictionary[@"status"]];
+        if (status.integerValue == 200) {
+            Share *share = [[Share alloc] initFromDictionary:dictionary[@"share"]];
+            [[Shares sharedInstance] addShare:share];
 
-    UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
-    [generalPasteboard setString:url];
+            UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
+            [generalPasteboard setString:share.url];
 
-    [self.navigationController alert:NSLocalizedString(@"Response",
-                                                       @"Alert message header for Request Response")
-                             message:[NSString stringWithFormat:@"URL copied to Clipboard %d\n%@",
-                                      status.intValue,
-                                      url]
-                        dismissAfter:0.0
-    ];
-
+            [self.navigationController alert:NSLocalizedString(@"Response",
+                                                               @"Alert message header for Request Response")
+                                     message:[NSString stringWithFormat:@"URL copied to Clipboard %ld %@\n",
+                                              (long)status.integerValue,
+                                              share.url]
+                                dismissAfter:0.0
+            ];
+        }
+    } else if ([request isEqual:@"shares"]) {
+        [Shares sharedInstance].response = [dictionary mutableCopy];
+    } else {
+        
+    }
 }
 
 - (void)performSetConfiguration:(NSDictionary *)dictionary {

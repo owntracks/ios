@@ -80,7 +80,9 @@
 		84BD03AA25D5301F0077B9B8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AE8ADB25C165D600C0B0EE /* MapKit.framework */; };
 		84BE759827720BD2006CBDCF /* OwnTracksWrist WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 84AFD3EA2434380A00F1E922 /* OwnTracksWrist WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84C7C02C2885B18E0088A544 /* CreateCardTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C02B2885B18E0088A544 /* CreateCardTVC.m */; };
-		84C7C02F2885B1B00088A544 /* CreateViewTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C02E2885B1B00088A544 /* CreateViewTVC.m */; };
+		84C7C02F2885B1B00088A544 /* CreateShareTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C02E2885B1B00088A544 /* CreateShareTVC.m */; };
+		84C7C032289821280088A544 /* SharesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C031289821280088A544 /* SharesTVC.m */; };
+		84C7C0352898FAF90088A544 /* Shares.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C0342898FAF90088A544 /* Shares.m */; };
 		84CC5A521FEC71850010314C /* OwnTracks-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CC5A511FEC71840010314C /* OwnTracks-29.png */; };
 		84D3072F1ACD644500FACB9E /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D3072E1ACD644500FACB9E /* NotificationCenter.framework */; };
 		84D307351ACD644500FACB9E /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D307341ACD644500FACB9E /* TodayViewController.m */; };
@@ -394,8 +396,12 @@
 		84C756A61A89F706003BC8A8 /* Model 7.4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.4.xcdatamodel"; sourceTree = "<group>"; };
 		84C7C02A2885B18E0088A544 /* CreateCardTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateCardTVC.h; sourceTree = "<group>"; };
 		84C7C02B2885B18E0088A544 /* CreateCardTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateCardTVC.m; sourceTree = "<group>"; };
-		84C7C02D2885B1B00088A544 /* CreateViewTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateViewTVC.h; sourceTree = "<group>"; };
-		84C7C02E2885B1B00088A544 /* CreateViewTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateViewTVC.m; sourceTree = "<group>"; };
+		84C7C02D2885B1B00088A544 /* CreateShareTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateShareTVC.h; sourceTree = "<group>"; };
+		84C7C02E2885B1B00088A544 /* CreateShareTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateShareTVC.m; sourceTree = "<group>"; };
+		84C7C030289821280088A544 /* SharesTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharesTVC.h; sourceTree = "<group>"; };
+		84C7C031289821280088A544 /* SharesTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SharesTVC.m; sourceTree = "<group>"; };
+		84C7C0332898FAF90088A544 /* Shares.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shares.h; sourceTree = "<group>"; };
+		84C7C0342898FAF90088A544 /* Shares.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Shares.m; sourceTree = "<group>"; };
 		84CC5A511FEC71840010314C /* OwnTracks-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-29.png"; sourceTree = "<group>"; };
 		84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OwnTracksToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D3072E1ACD644500FACB9E /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -623,6 +629,8 @@
 				8400D9721D83825E00DEA134 /* HTTP.plist */,
 				8411B88F189FE9CE0019D2D6 /* Settings.h */,
 				8411B890189FE9CE0019D2D6 /* Settings.m */,
+				84C7C0332898FAF90088A544 /* Shares.h */,
+				84C7C0342898FAF90088A544 /* Shares.m */,
 				84664E9B1CC83A38002123EC /* NSBundle+privateLocalization.h */,
 				84664E9C1CC83A38002123EC /* NSBundle+privateLocalization.m */,
 				84D6B47B25C844A500B2AC07 /* NSNumber+decimals.h */,
@@ -771,8 +779,10 @@
 				845AA1B31B44245100945856 /* CertificatesTVC.m */,
 				84C7C02A2885B18E0088A544 /* CreateCardTVC.h */,
 				84C7C02B2885B18E0088A544 /* CreateCardTVC.m */,
-				84C7C02D2885B1B00088A544 /* CreateViewTVC.h */,
-				84C7C02E2885B1B00088A544 /* CreateViewTVC.m */,
+				84C7C030289821280088A544 /* SharesTVC.h */,
+				84C7C031289821280088A544 /* SharesTVC.m */,
+				84C7C02D2885B1B00088A544 /* CreateShareTVC.h */,
+				84C7C02E2885B1B00088A544 /* CreateShareTVC.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1247,7 +1257,7 @@
 				84C7C02C2885B18E0088A544 /* CreateCardTVC.m in Sources */,
 				8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */,
 				84E402082314140400F1D6E6 /* HistoryTVC.m in Sources */,
-				84C7C02F2885B1B00088A544 /* CreateViewTVC.m in Sources */,
+				84C7C02F2885B1B00088A544 /* CreateShareTVC.m in Sources */,
 				846FFA581B419687001482A6 /* RegionTVC.m in Sources */,
 				8411B912189FEC070019D2D6 /* ViewController.m in Sources */,
 				84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */,
@@ -1273,6 +1283,7 @@
 				842E6ED520BEF031001928FA /* Setting+CoreDataClass.m in Sources */,
 				8411B83E189FDB140019D2D6 /* OwnTracksAppDelegate.m in Sources */,
 				84DDEAC71BD9F37900B01879 /* SettingsTVC.m in Sources */,
+				84C7C032289821280088A544 /* SharesTVC.m in Sources */,
 				845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */,
 				84B7397A1A65629200B103F4 /* LocationManager.m in Sources */,
 				847D5C8C2612554B00B6DCD5 /* ModesTVC.m in Sources */,
@@ -1282,6 +1293,7 @@
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,
 				84E40205231413D400F1D6E6 /* History+CoreDataProperties.m in Sources */,
 				84E8A18D1BB94782002518AA /* Region+CoreDataProperties.m in Sources */,
+				84C7C0352898FAF90088A544 /* Shares.m in Sources */,
 				8404876B1C5386DD00569C79 /* FeaturedContentVC.m in Sources */,
 				842E6ECE20BEE96F001928FA /* Region+CoreDataClass.m in Sources */,
 			);
