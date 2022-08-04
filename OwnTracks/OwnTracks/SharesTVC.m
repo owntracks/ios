@@ -44,7 +44,7 @@
     Shares *shares = [Shares sharedInstance];
     [shares addObserver:self
              forKeyPath:@"timestamp"
-                options:NSKeyValueObservingOptionNew
+                options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                 context:nil];
 }
 
