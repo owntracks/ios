@@ -43,6 +43,9 @@
 /* Class = "UILabel"; text = "Filename"; ObjectID = "7ie-NC-EFG"; Note = "Don't translate, technical term"; */
 "7ie-NC-EFG.text" = "Nazwa pliku";
 
+/* Class = "UINavigationItem"; title = "Sharing"; ObjectID = "7Qj-vi-EaF"; */
+"7Qj-vi-EaF.title" = "Akcje";
+
 /* Class = "UIButton"; normalTitle = "Create Card"; ObjectID = "7rX-Bq-DGb"; */
 "7rX-Bq-DGb.normalTitle" = "Utwórz kartę";
 
@@ -130,6 +133,9 @@
 /* Class = "UITextField"; placeholder = "trackerid"; ObjectID = "dUg-TH-IQ0"; Note = "Don't translate, technical term"; */
 "dUg-TH-IQ0.placeholder" = "trackerid";
 
+/* Class = "UITextView"; text = "Copyright © 2013-2022 by Christoph Krey, https://owntracks.org"; ObjectID = "dZg-CC-7yD"; */
+"dZg-CC-7yD.text" = "Copyright © 2013-2021 by Christoph Krey, https://owntracks.org\n";
+
 /* Class = "UILabel"; text = "ranging"; ObjectID = "DZx-uw-XhQ"; Note = "Don't translate, technical term"; */
 "DZx-uw-XhQ.text" = "nośny";
 
@@ -169,6 +175,9 @@
 /* Class = "UITableViewSection"; headerTitle = "OwnTracks -Your location companion"; ObjectID = "Gjb-Ud-8a8"; */
 "Gjb-Ud-8a8.headerTitle" = "OwnTracks - Twój asystent lokalizacji";
 
+/* Class = "UITextField"; placeholder = "<Distance>"; ObjectID = "gkb-3O-jAy"; Note = "Placeholder. Don't translate."; */
+"gkb-3O-jAy.placeholder" = "<Odległość";
+
 /* Class = "UILabel"; text = "pubTopicBase"; ObjectID = "gkR-ph-8W7"; Note = "Don't translate, technical term"; */
 "gkR-ph-8W7.text" = "pubTopicBase";
 
@@ -177,6 +186,9 @@
 
 /* Class = "UILabel"; text = "locatorDisplacement"; ObjectID = "gtX-x4-Vwl"; Note = "Don't translate, technical term"; */
 "gtX-x4-Vwl.text" = "locatorDisplacement";
+
+/* Class = "UITextField"; text = "New Sharing"; ObjectID = "guB-Ga-J3e"; */
+"guB-Ga-J3e.text" = "Nowe udostępnianie";
 
 /* Class = "UINavigationItem"; title = "Certificates"; ObjectID = "GWL-01-fh1"; Note = "Don't translate, technical term"; */
 "GWL-01-fh1.title" = "Certyfikaty";
@@ -262,6 +274,9 @@
 /* Class = "UILabel"; text = "effective willTopic"; ObjectID = "jwg-hb-6ed"; Note = "Don't translate, technical term"; */
 "jwg-hb-6ed.text" = "rzeczywisty willTopic";
 
+/* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "jwK-F1-3iE"; Note = "Placeholder. Don't translate."; */
+"jwK-F1-3iE.placeholder" = "współrzędne";
+
 /* Class = "UITextField"; placeholder = "longitude"; ObjectID = "JZL-1C-khg"; */
 "JZL-1C-khg.placeholder" = "długość geogr.";
 
@@ -276,6 +291,9 @@
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "Kvr-J3-4fw"; */
 "Kvr-J3-4fw.text" = "Tytuł";
+
+/* Class = "UITextField"; placeholder = "mode"; ObjectID = "LEn-Jc-PvC"; Note = "Placeholder. Do not translate"; */
+"LEn-Jc-PvC.placeholder" = "Metry";
 
 /* Class = "UITextField"; placeholder = "latitude"; ObjectID = "Lmo-Kp-uCi"; */
 "Lmo-Kp-uCi.placeholder" = "szerokość geogr.";
@@ -403,6 +421,9 @@
 /* Class = "UILabel"; text = "Distance"; ObjectID = "SCe-XW-vBZ"; */
 "SCe-XW-vBZ.text" = "Odległość";
 
+/* Class = "UINavigationItem"; title = "Create Sharing"; ObjectID = "SR5-Yo-l2L"; */
+"SR5-Yo-l2L.title" = "Utwórz udostępnij";
+
 /* Class = "UITextView"; text = "<status>"; ObjectID = "src-OY-ZUR"; Note = "Don't translate. Placeholder"; */
 "src-OY-ZUR.text" = "stan";
 
@@ -420,6 +441,9 @@
 
 /* Class = "UITextField"; placeholder = "minor"; ObjectID = "Tc6-JR-qOB"; */
 "Tc6-JR-qOB.placeholder" = "minor";
+
+/* Class = "UIButton"; normalTitle = "Sharing"; ObjectID = "tiK-11-lia"; */
+"tiK-11-lia.normalTitle" = "Akcje";
 
 /* Class = "UITableViewSection"; headerTitle = "Connection"; ObjectID = "TPY-zx-JfY"; */
 "TPY-zx-JfY.headerTitle" = "Połączenie";
