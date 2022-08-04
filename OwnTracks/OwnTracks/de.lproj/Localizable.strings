@@ -229,6 +229,9 @@
 /* temporary display while resolving address */
 "resolving..." = "Adressauflösung...";
 
+/* Alert message header for Request Response */
+"Response" = "Antwort";
+
 /* Title Revgeo */
 "Reverse Geocoding Address Resolution" = "Umgekehrte Adressauflösung";
 
@@ -291,6 +294,9 @@
 
 /* Display for unknown url path */
 "unknown url path" = "unbekannter URL Pfad";
+
+/* URL copied to Clipboard */
+"URL copied to Clipboard" = "URL in die Zwischenablage kopiert";
 
 /* webView didFailLoadWithError display */
 "webView didFailLoadWithError" = "webView didFailLoadWithError";

@@ -28,6 +28,9 @@
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "4OY-Dm-bnz"; */
 "4OY-Dm-bnz.placeholder" = "Şifre";
 
+/* Class = "UILabel"; text = "Title"; ObjectID = "5df-yk-myT"; */
+"5df-yk-myT.text" = "Başlık";
+
 /* Class = "UITextField"; placeholder = "days"; ObjectID = "5Nq-by-zFb"; */
 "5Nq-by-zFb.placeholder" = "günler";
 
@@ -39,6 +42,9 @@
 
 /* Class = "UILabel"; text = "Filename"; ObjectID = "7ie-NC-EFG"; Note = "Don't translate, technical term"; */
 "7ie-NC-EFG.text" = "Filename";
+
+/* Class = "UIButton"; normalTitle = "Create Card"; ObjectID = "7rX-Bq-DGb"; */
+"7rX-Bq-DGb.normalTitle" = "Kart Oluştur";
 
 /* Class = "UISegmentedControl"; 7W2-Mn-fUG.segmentTitles[0] = "MQTT"; ObjectID = "7W2-Mn-fUG"; Note = "Don't translate, technical term"; */
 "7W2-Mn-fUG.segmentTitles[0]" = "MQTT";
@@ -66,6 +72,9 @@
 
 /* Class = "UILabel"; text = "keepAlive"; ObjectID = "222-vu-d4y"; Note = "Don't translate, technical term"; */
 "222-vu-d4y.text" = "hayatta kal";
+
+/* Class = "UITextField"; placeholder = "<batterylevel>"; ObjectID = "572-Up-z9B"; Note = "Placeholder. Do not translate"; */
+"572-Up-z9B.placeholder" = "<pil seviyesi>";
 
 /* Class = "UITableViewSection"; headerTitle = "Please note"; ObjectID = "a09-rn-TZE"; */
 "a09-rn-TZE.headerTitle" = "lütfen aklınızda bulundurun";
@@ -121,9 +130,6 @@
 /* Class = "UITextField"; placeholder = "trackerid"; ObjectID = "dUg-TH-IQ0"; Note = "Don't translate, technical term"; */
 "dUg-TH-IQ0.placeholder" = "izci kimliği";
 
-/* Class = "UITextView"; text = "Copyright © 2013-2022 by Christoph Krey, https://owntracks.org"; ObjectID = "dZg-CC-7yD"; */
-"dZg-CC-7yD.text" = "Telif hakkı © 2013-2022, Christoph Krey, https://owntracks.org";
-
 /* Class = "UILabel"; text = "ranging"; ObjectID = "DZx-uw-XhQ"; Note = "Don't translate, technical term"; */
 "DZx-uw-XhQ.text" = "değişen";
 
@@ -175,6 +181,9 @@
 /* Class = "UINavigationItem"; title = "Certificates"; ObjectID = "GWL-01-fh1"; Note = "Don't translate, technical term"; */
 "GWL-01-fh1.title" = "Sertifikalar";
 
+/* Class = "UILabel"; text = "Batterylevel"; ObjectID = "gXA-0p-FKt"; */
+"gXA-0p-FKt.text" = "Pil seviyesi";
+
 /* Class = "UILabel"; text = "effective pubTopic"; ObjectID = "H7d-L2-cbZ"; Note = "Don't translate, technical term"; */
 "H7d-L2-cbZ.text" = "etkili yayın";
 
@@ -186,6 +195,9 @@
 
 /* Class = "UITabBarItem"; title = "Map"; ObjectID = "HCO-pB-vNN"; */
 "HCO-pB-vNN.title" = "Harita";
+
+/* Class = "UITextField"; placeholder = "<Version>"; ObjectID = "hdf-7C-N25"; Note = "Placeholder, do not translate"; */
+"hdf-7C-N25.placeholder" = "<Sürüm>";
 
 /* Class = "UILabel"; text = "effective deviceId"; ObjectID = "hE7-sf-UPA"; Note = "Don't translate, technical term"; */
 "hE7-sf-UPA.text" = "etkili cihaz kimliği";
@@ -214,8 +226,17 @@
 /* Class = "UILabel"; text = "locatorInterval"; ObjectID = "hY6-k2-neH"; Note = "Don't translate, technical term"; */
 "hY6-k2-neH.text" = "locatorInterval";
 
+/* Class = "UILabel"; text = "Label"; ObjectID = "I19-GX-iMA"; */
+"I19-GX-iMA.text" = "Etiket";
+
 /* Class = "UITextField"; placeholder = "info"; ObjectID = "Ikm-SR-MCD"; */
 "Ikm-SR-MCD.placeholder" = "bilgi";
+
+/* Class = "UIButton"; configuration.title = "Select from Photo Library"; ObjectID = "IL1-c9-0c1"; */
+"IL1-c9-0c1.configuration.title" = "Fotoğraf Kitaplığından Seçin";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "IL1-c9-0c1"; */
+"IL1-c9-0c1.normalTitle" = "Buton";
 
 /* Class = "UITextField"; placeholder = "clientId"; ObjectID = "IsX-6T-YbC"; Note = "Placeholder. Do not translate"; */
 "IsX-6T-YbC.placeholder" = "Müşteri Kimliği";
@@ -295,6 +316,9 @@
 /* Class = "UILabel"; text = "Proto"; ObjectID = "NZB-F6-F8c"; */
 "NZB-F6-F8c.text" = "Proto";
 
+/* Class = "UILabel"; text = "Name"; ObjectID = "o8t-NB-IV6"; */
+"o8t-NB-IV6.text" = "İsim";
+
 /* Class = "UITextField"; placeholder = "Seconds"; ObjectID = "oBs-Zn-P4m"; */
 "oBs-Zn-P4m.placeholder" = "Saniye";
 
@@ -322,6 +346,12 @@
 /* Class = "UITextField"; placeholder = "proto"; ObjectID = "pn1-hA-OmO"; */
 "pn1-hA-OmO.placeholder" = "proto";
 
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "pRh-Nl-A5i"; */
+"pRh-Nl-A5i.title" = "Öğe";
+
+/* Class = "UILabel"; text = "To"; ObjectID = "pud-EK-OTL"; */
+"pud-EK-OTL.text" = "İle";
+
 /* Class = "UILabel"; text = "Radius for Region (m)"; ObjectID = "Q3S-EG-XKZ"; */
 "Q3S-EG-XKZ.text" = "Bölge için Yarıçap (m)";
 
@@ -340,8 +370,20 @@
 /* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "RfS-uy-gRR"; Note = "Placeholder. Don't translate."; */
 "RfS-uy-gRR.placeholder" = "<Koordinatlar>";
 
+/* Class = "UINavigationItem"; title = "Create Card"; ObjectID = "rJ2-2y-TWr"; */
+"rJ2-2y-TWr.title" = "Kart Oluştur";
+
 /* Class = "UIButton"; normalTitle = "Publish Waypoints"; ObjectID = "rMe-Is-0BE"; */
 "rMe-Is-0BE.normalTitle" = "Yol İşaretlerini Yayınlayın";
+
+/* Class = "UIButton"; configuration.title = "Use Camera"; ObjectID = "Rvi-2b-Hb0"; */
+"Rvi-2b-Hb0.configuration.title" = "Kamerayı Kullan";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Rvi-2b-Hb0"; */
+"Rvi-2b-Hb0.normalTitle" = "Buton";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "rx4-uC-NeB"; */
+"rx4-uC-NeB.text" = "Alt yazı";
 
 /* Class = "UILabel"; text = "Status"; ObjectID = "Rxv-hL-MC1"; Note = "Placeholder. Do not translate!"; */
 "Rxv-hL-MC1.text" = "Durum";
@@ -355,11 +397,20 @@
 /* Class = "UILabel"; text = "UserID"; ObjectID = "SAr-Vi-xHD"; */
 "SAr-Vi-xHD.text" = "Kullanıcı kimliği";
 
+/* Class = "UILabel"; text = "downgrade"; ObjectID = "Sbl-15-Idv"; Note = "Don't translate, technical term"; */
+"Sbl-15-Idv.text" = "eski sürüme geçmek";
+
+/* Class = "UILabel"; text = "Distance"; ObjectID = "SCe-XW-vBZ"; */
+"SCe-XW-vBZ.text" = "Mesafe";
+
 /* Class = "UITextView"; text = "<status>"; ObjectID = "src-OY-ZUR"; Note = "Don't translate. Placeholder"; */
 "src-OY-ZUR.text" = "<durum>";
 
 /* Class = "UITextField"; placeholder = "subTopic"; ObjectID = "suj-kA-G3U"; Note = "Placeholder. Do not translate"; */
 "suj-kA-G3U.placeholder" = "subTopic";
+
+/* Class = "UILabel"; text = "From"; ObjectID = "SZe-bR-3x5"; */
+"SZe-bR-3x5.text" = "İtibaren";
 
 /* Class = "UILabel"; text = "Major"; ObjectID = "sZM-l3-N2o"; */
 "sZM-l3-N2o.text" = "Majör";
@@ -429,6 +480,9 @@
 
 /* Class = "UILabel"; text = "pubQos"; ObjectID = "x67-7L-vnt"; Note = "Don't translate, technical term"; */
 "x67-7L-vnt.text" = "pubQos";
+
+/* Class = "UITextField"; placeholder = "downgrade%"; ObjectID = "XkO-CT-wUS"; Note = "Placeholder. Do not translate"; */
+"XkO-CT-wUS.placeholder" = "sürüm düşürme%";
 
 /* Class = "UILabel"; text = "Coordinates"; ObjectID = "Ym9-bx-HAr"; */
 "Ym9-bx-HAr.text" = "Koordinatlar";

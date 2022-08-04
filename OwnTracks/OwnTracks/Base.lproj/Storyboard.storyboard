@@ -274,7 +274,7 @@
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tiK-11-lia">
                                                     <rect key="frame" x="164" y="7" width="136" height="30"/>
-                                                    <state key="normal" title="Shares (experimental)">
+                                                    <state key="normal" title="Sharing">
                                                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <connections>
@@ -3000,7 +3000,7 @@
             </objects>
             <point key="canvasLocation" x="5066.666666666667" y="1601.7857142857142"/>
         </scene>
-        <!--Create Share-->
+        <!--Create Sharing-->
         <scene sceneID="SiL-yz-wjq">
             <objects>
                 <tableViewController id="YAo-IX-Jfw" customClass="CreateShareTVC" sceneMemberID="viewController">
@@ -3024,7 +3024,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="New Share" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="guB-Ga-J3e">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="New Sharing" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="guB-Ga-J3e">
                                                     <rect key="frame" x="70" y="5" width="324" height="34"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -3097,7 +3097,7 @@
                             <outlet property="delegate" destination="YAo-IX-Jfw" id="yCX-yl-msc"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Create Share" id="SR5-Yo-l2L">
+                    <navigationItem key="navigationItem" title="Create Sharing" id="SR5-Yo-l2L">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="hqr-Ep-K4Y">
                             <connections>
                                 <segue destination="k48-Tx-gaZ" kind="unwind" unwindAction="shareSaved:" id="65h-xH-fVb"/>
@@ -3115,7 +3115,7 @@
             </objects>
             <point key="canvasLocation" x="6542" y="1566"/>
         </scene>
-        <!--Shares-->
+        <!--Sharing-->
         <scene sceneID="9sn-aP-NDB">
             <objects>
                 <tableViewController id="pGQ-8d-I18" customClass="SharesTVC" sceneMemberID="viewController">
@@ -3154,7 +3154,7 @@
                             <outlet property="delegate" destination="pGQ-8d-I18" id="nC5-Na-yh9"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Shares" id="7Qj-vi-EaF">
+                    <navigationItem key="navigationItem" title="Sharing" id="7Qj-vi-EaF">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Spe-B0-DkS">
                             <connections>
                                 <segue destination="YAo-IX-Jfw" kind="push" id="ssC-L9-Kds"/>
@@ -3727,7 +3727,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Utn-3t-RCv"/>
+        <segue reference="auv-et-UoY"/>
         <segue reference="wKo-Y7-i7P"/>
         <segue reference="Hb0-uO-VBI"/>
     </inferredMetricsTieBreakers>

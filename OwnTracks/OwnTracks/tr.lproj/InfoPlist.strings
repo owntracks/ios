@@ -4,6 +4,9 @@
 /* Bundle name */
 "CFBundleName" = "OwnTracks";
 
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "OwnTracks, bir Kart oluşturmak için istek üzerine kameranızı kullanır";
+
 /* Privacy - Contacts Usage Description */
 "NSContactsUsageDescription" = "OwnTracks'in kişilerinize erişmesine izin verirseniz, cihazlarınızı kişilere bağlayabilirsiniz. OwnTracks, cihaz kimliği yerine kişi adını ve resmini gösterecektir. Adres defterinize ait hiçbir bilgi herhangi bir sunucuya yüklenmeyecektir.";
 

@@ -23,10 +23,13 @@
 "03k-Ca-PSS.title" = "Znajomi";
 
 /* Class = "UILabel"; text = "locked"; ObjectID = "3K5-oQ-oxQ"; Note = "Don't translate, technical term"; */
-"3K5-oQ-oxQ.text" = "zablokowane";
+"3K5-oQ-oxQ.text" = "zablokowany";
 
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "4OY-Dm-bnz"; */
 "4OY-Dm-bnz.placeholder" = "hasło";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "5df-yk-myT"; */
+"5df-yk-myT.text" = "Tytuł";
 
 /* Class = "UITextField"; placeholder = "days"; ObjectID = "5Nq-by-zFb"; */
 "5Nq-by-zFb.placeholder" = "dni";
@@ -39,6 +42,9 @@
 
 /* Class = "UILabel"; text = "Filename"; ObjectID = "7ie-NC-EFG"; Note = "Don't translate, technical term"; */
 "7ie-NC-EFG.text" = "Nazwa pliku";
+
+/* Class = "UIButton"; normalTitle = "Create Card"; ObjectID = "7rX-Bq-DGb"; */
+"7rX-Bq-DGb.normalTitle" = "Utwórz kartę";
 
 /* Class = "UISegmentedControl"; 7W2-Mn-fUG.segmentTitles[0] = "MQTT"; ObjectID = "7W2-Mn-fUG"; Note = "Don't translate, technical term"; */
 "7W2-Mn-fUG.segmentTitles[0]" = "MQTT";
@@ -66,6 +72,9 @@
 
 /* Class = "UILabel"; text = "keepAlive"; ObjectID = "222-vu-d4y"; Note = "Don't translate, technical term"; */
 "222-vu-d4y.text" = "keepAlive";
+
+/* Class = "UITextField"; placeholder = "<batterylevel>"; ObjectID = "572-Up-z9B"; Note = "Placeholder. Do not translate"; */
+"572-Up-z9B.placeholder" = "<poziom baterii>";
 
 /* Class = "UITableViewSection"; headerTitle = "Please note"; ObjectID = "a09-rn-TZE"; */
 "a09-rn-TZE.headerTitle" = "Uwaga";
@@ -122,7 +131,7 @@
 "dUg-TH-IQ0.placeholder" = "trackerid";
 
 /* Class = "UILabel"; text = "ranging"; ObjectID = "DZx-uw-XhQ"; Note = "Don't translate, technical term"; */
-"DZx-uw-XhQ.text" = "obszar";
+"DZx-uw-XhQ.text" = "nośny";
 
 /* Class = "UITextField"; placeholder = "deviceid"; ObjectID = "e0q-hc-0z2"; Note = "Placeholder. Do not translate"; */
 "e0q-hc-0z2.placeholder" = "deviceid";
@@ -172,6 +181,9 @@
 /* Class = "UINavigationItem"; title = "Certificates"; ObjectID = "GWL-01-fh1"; Note = "Don't translate, technical term"; */
 "GWL-01-fh1.title" = "Certyfikaty";
 
+/* Class = "UILabel"; text = "Batterylevel"; ObjectID = "gXA-0p-FKt"; */
+"gXA-0p-FKt.text" = "Poziom baterii";
+
 /* Class = "UILabel"; text = "effective pubTopic"; ObjectID = "H7d-L2-cbZ"; Note = "Don't translate, technical term"; */
 "H7d-L2-cbZ.text" = "efektywny pubTopic";
 
@@ -183,6 +195,9 @@
 
 /* Class = "UITabBarItem"; title = "Map"; ObjectID = "HCO-pB-vNN"; */
 "HCO-pB-vNN.title" = "Mapa";
+
+/* Class = "UITextField"; placeholder = "<Version>"; ObjectID = "hdf-7C-N25"; Note = "Placeholder, do not translate"; */
+"hdf-7C-N25.placeholder" = "<Wersja>";
 
 /* Class = "UILabel"; text = "effective deviceId"; ObjectID = "hE7-sf-UPA"; Note = "Don't translate, technical term"; */
 "hE7-sf-UPA.text" = "rzeczywisty deviceId";
@@ -211,8 +226,17 @@
 /* Class = "UILabel"; text = "locatorInterval"; ObjectID = "hY6-k2-neH"; Note = "Don't translate, technical term"; */
 "hY6-k2-neH.text" = "locatorInterval";
 
+/* Class = "UILabel"; text = "Label"; ObjectID = "I19-GX-iMA"; */
+"I19-GX-iMA.text" = "Etykieta";
+
 /* Class = "UITextField"; placeholder = "info"; ObjectID = "Ikm-SR-MCD"; */
 "Ikm-SR-MCD.placeholder" = "info";
+
+/* Class = "UIButton"; configuration.title = "Select from Photo Library"; ObjectID = "IL1-c9-0c1"; */
+"IL1-c9-0c1.configuration.title" = "Wybierz z biblioteki zdjęć";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "IL1-c9-0c1"; */
+"IL1-c9-0c1.normalTitle" = "Przycisk";
 
 /* Class = "UITextField"; placeholder = "clientId"; ObjectID = "IsX-6T-YbC"; Note = "Placeholder. Do not translate"; */
 "IsX-6T-YbC.placeholder" = "clientId";
@@ -278,7 +302,7 @@
 "nJk-gq-XUi.title" = "Tryby";
 
 /* Class = "UILabel"; text = "positions"; ObjectID = "NkN-Ib-izC"; Note = "Don't translate, technical term"; */
-"NkN-Ib-izC.text" = "pozycje";
+"NkN-Ib-izC.text" = "stanowiska";
 
 /* Class = "UITableViewSection"; headerTitle = "Expert Mode"; ObjectID = "NRQ-7X-SLM"; */
 "NRQ-7X-SLM.headerTitle" = "Tryb Eksperta";
@@ -291,6 +315,9 @@
 
 /* Class = "UILabel"; text = "Proto"; ObjectID = "NZB-F6-F8c"; */
 "NZB-F6-F8c.text" = "Proto";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "o8t-NB-IV6"; */
+"o8t-NB-IV6.text" = "Nazwa";
 
 /* Class = "UITextField"; placeholder = "Seconds"; ObjectID = "oBs-Zn-P4m"; */
 "oBs-Zn-P4m.placeholder" = "sekundy";
@@ -319,6 +346,12 @@
 /* Class = "UITextField"; placeholder = "proto"; ObjectID = "pn1-hA-OmO"; */
 "pn1-hA-OmO.placeholder" = "proto";
 
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "pRh-Nl-A5i"; */
+"pRh-Nl-A5i.title" = "Przedmiot";
+
+/* Class = "UILabel"; text = "To"; ObjectID = "pud-EK-OTL"; */
+"pud-EK-OTL.text" = "Do";
+
 /* Class = "UILabel"; text = "Radius for Region (m)"; ObjectID = "Q3S-EG-XKZ"; */
 "Q3S-EG-XKZ.text" = "Promień obszaru (m)";
 
@@ -337,8 +370,20 @@
 /* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "RfS-uy-gRR"; Note = "Placeholder. Don't translate."; */
 "RfS-uy-gRR.placeholder" = "<Coordinates>";
 
+/* Class = "UINavigationItem"; title = "Create Card"; ObjectID = "rJ2-2y-TWr"; */
+"rJ2-2y-TWr.title" = "Utwórz kartę";
+
 /* Class = "UIButton"; normalTitle = "Publish Waypoints"; ObjectID = "rMe-Is-0BE"; */
 "rMe-Is-0BE.normalTitle" = "Publikuj Punkty";
+
+/* Class = "UIButton"; configuration.title = "Use Camera"; ObjectID = "Rvi-2b-Hb0"; */
+"Rvi-2b-Hb0.configuration.title" = "Użyj aparatu";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Rvi-2b-Hb0"; */
+"Rvi-2b-Hb0.normalTitle" = "Przycisk";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "rx4-uC-NeB"; */
+"rx4-uC-NeB.text" = "Podtytuł";
 
 /* Class = "UILabel"; text = "Status"; ObjectID = "Rxv-hL-MC1"; Note = "Placeholder. Do not translate!"; */
 "Rxv-hL-MC1.text" = "Status";
@@ -352,6 +397,9 @@
 /* Class = "UILabel"; text = "UserID"; ObjectID = "SAr-Vi-xHD"; */
 "SAr-Vi-xHD.text" = "UserID";
 
+/* Class = "UILabel"; text = "downgrade"; ObjectID = "Sbl-15-Idv"; Note = "Don't translate, technical term"; */
+"Sbl-15-Idv.text" = "nachylenie";
+
 /* Class = "UILabel"; text = "Distance"; ObjectID = "SCe-XW-vBZ"; */
 "SCe-XW-vBZ.text" = "Odległość";
 
@@ -360,6 +408,9 @@
 
 /* Class = "UITextField"; placeholder = "subTopic"; ObjectID = "suj-kA-G3U"; Note = "Placeholder. Do not translate"; */
 "suj-kA-G3U.placeholder" = "subTopic";
+
+/* Class = "UILabel"; text = "From"; ObjectID = "SZe-bR-3x5"; */
+"SZe-bR-3x5.text" = "Z";
 
 /* Class = "UILabel"; text = "Major"; ObjectID = "sZM-l3-N2o"; */
 "sZM-l3-N2o.text" = "Major";
@@ -429,6 +480,9 @@
 
 /* Class = "UILabel"; text = "pubQos"; ObjectID = "x67-7L-vnt"; Note = "Don't translate, technical term"; */
 "x67-7L-vnt.text" = "pubQos";
+
+/* Class = "UITextField"; placeholder = "downgrade%"; ObjectID = "XkO-CT-wUS"; Note = "Placeholder. Do not translate"; */
+"XkO-CT-wUS.placeholder" = "nachylenie%";
 
 /* Class = "UILabel"; text = "Coordinates"; ObjectID = "Ym9-bx-HAr"; */
 "Ym9-bx-HAr.text" = "Współrzędne";

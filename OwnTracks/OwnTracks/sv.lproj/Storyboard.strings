@@ -28,6 +28,9 @@
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "4OY-Dm-bnz"; */
 "4OY-Dm-bnz.placeholder" = "Lösenord";
 
+/* Class = "UILabel"; text = "Title"; ObjectID = "5df-yk-myT"; */
+"5df-yk-myT.text" = "Titel";
+
 /* Class = "UITextField"; placeholder = "days"; ObjectID = "5Nq-by-zFb"; */
 "5Nq-by-zFb.placeholder" = "dagar";
 
@@ -39,6 +42,9 @@
 
 /* Class = "UILabel"; text = "Filename"; ObjectID = "7ie-NC-EFG"; Note = "Don't translate, technical term"; */
 "7ie-NC-EFG.text" = "Filnamn";
+
+/* Class = "UIButton"; normalTitle = "Create Card"; ObjectID = "7rX-Bq-DGb"; */
+"7rX-Bq-DGb.normalTitle" = "Skapa kort";
 
 /* Class = "UISegmentedControl"; 7W2-Mn-fUG.segmentTitles[0] = "MQTT"; ObjectID = "7W2-Mn-fUG"; Note = "Don't translate, technical term"; */
 "7W2-Mn-fUG.segmentTitles[0]" = "MQTT";
@@ -220,8 +226,17 @@
 /* Class = "UILabel"; text = "locatorInterval"; ObjectID = "hY6-k2-neH"; Note = "Don't translate, technical term"; */
 "hY6-k2-neH.text" = "locatorInterval";
 
+/* Class = "UILabel"; text = "Label"; ObjectID = "I19-GX-iMA"; */
+"I19-GX-iMA.text" = "Märka";
+
 /* Class = "UITextField"; placeholder = "info"; ObjectID = "Ikm-SR-MCD"; */
 "Ikm-SR-MCD.placeholder" = "info";
+
+/* Class = "UIButton"; configuration.title = "Select from Photo Library"; ObjectID = "IL1-c9-0c1"; */
+"IL1-c9-0c1.configuration.title" = "Välj från fotobibliotek";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "IL1-c9-0c1"; */
+"IL1-c9-0c1.normalTitle" = "Knapp";
 
 /* Class = "UITextField"; placeholder = "clientId"; ObjectID = "IsX-6T-YbC"; Note = "Placeholder. Do not translate"; */
 "IsX-6T-YbC.placeholder" = "klient id";
@@ -301,6 +316,9 @@
 /* Class = "UILabel"; text = "Proto"; ObjectID = "NZB-F6-F8c"; */
 "NZB-F6-F8c.text" = "Proto";
 
+/* Class = "UILabel"; text = "Name"; ObjectID = "o8t-NB-IV6"; */
+"o8t-NB-IV6.text" = "namn";
+
 /* Class = "UITextField"; placeholder = "Seconds"; ObjectID = "oBs-Zn-P4m"; */
 "oBs-Zn-P4m.placeholder" = "Sekunder";
 
@@ -331,6 +349,9 @@
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "pRh-Nl-A5i"; */
 "pRh-Nl-A5i.title" = "Föremål";
 
+/* Class = "UILabel"; text = "To"; ObjectID = "pud-EK-OTL"; */
+"pud-EK-OTL.text" = "Till";
+
 /* Class = "UILabel"; text = "Radius for Region (m)"; ObjectID = "Q3S-EG-XKZ"; */
 "Q3S-EG-XKZ.text" = "Radie för område (m)";
 
@@ -349,8 +370,20 @@
 /* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "RfS-uy-gRR"; Note = "Placeholder. Don't translate."; */
 "RfS-uy-gRR.placeholder" = "<Koordinater>";
 
+/* Class = "UINavigationItem"; title = "Create Card"; ObjectID = "rJ2-2y-TWr"; */
+"rJ2-2y-TWr.title" = "Skapa kort";
+
 /* Class = "UIButton"; normalTitle = "Publish Waypoints"; ObjectID = "rMe-Is-0BE"; */
 "rMe-Is-0BE.normalTitle" = "Publicera vägpunkter";
+
+/* Class = "UIButton"; configuration.title = "Use Camera"; ObjectID = "Rvi-2b-Hb0"; */
+"Rvi-2b-Hb0.configuration.title" = "Använd kamera";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Rvi-2b-Hb0"; */
+"Rvi-2b-Hb0.normalTitle" = "Knapp";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "rx4-uC-NeB"; */
+"rx4-uC-NeB.text" = "Texta";
 
 /* Class = "UILabel"; text = "Status"; ObjectID = "Rxv-hL-MC1"; Note = "Placeholder. Do not translate!"; */
 "Rxv-hL-MC1.text" = "Status";
@@ -375,6 +408,9 @@
 
 /* Class = "UITextField"; placeholder = "subTopic"; ObjectID = "suj-kA-G3U"; Note = "Placeholder. Do not translate"; */
 "suj-kA-G3U.placeholder" = "underRubrik";
+
+/* Class = "UILabel"; text = "From"; ObjectID = "SZe-bR-3x5"; */
+"SZe-bR-3x5.text" = "Från";
 
 /* Class = "UILabel"; text = "Major"; ObjectID = "sZM-l3-N2o"; */
 "sZM-l3-N2o.text" = "Större";

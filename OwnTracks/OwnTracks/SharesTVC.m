@@ -170,7 +170,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         [delegate.navigationController alert:NSLocalizedString(@"Response",
                                                                @"Alert message header for Request Response")
-                                     message:[NSString stringWithFormat:@"URL copied to Clipboard %@\n",
+                                     message:[NSString stringWithFormat:@"%@ %@\n",
+                                              NSLocalizedString(@"URL copied to Clipboard",
+                                                                @"URL copied to Clipboard"),
                                               share.url]
                                 dismissAfter:0.0
         ];

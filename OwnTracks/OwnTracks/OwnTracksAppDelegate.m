@@ -1134,7 +1134,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
             [self.navigationController alert:NSLocalizedString(@"Response",
                                                                @"Alert message header for Request Response")
-                                     message:[NSString stringWithFormat:@"URL copied to Clipboard %ld %@\n",
+                                     message:[NSString stringWithFormat:@"%@ %ld %@\n",
+                                              NSLocalizedString(@"URL copied to Clipboard",
+                                                                @"URL copied to Clipboard"),
                                               (long)status.integerValue,
                                               share.url]
                                 dismissAfter:0.0

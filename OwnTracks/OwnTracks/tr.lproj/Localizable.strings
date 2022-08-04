@@ -13,6 +13,9 @@
 /* name of an unknown or hidden region */
 "a region" = "bölge";
 
+/* Address resolver disabled */
+"Address resolver disabled" = "Adres çözümleyici devre dışı";
+
 /* reverseGeocodeLocation error */
 "Address resolver failed" = "Adres çözücü başarısız oldu";
 
@@ -64,6 +67,12 @@
 /* content of an alert message regarding circular region */
 "created at center of map" = "haritanın merkezinde oluşturuldu";
 
+/* Message map interaction */
+"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Haritanın etkileşime izin vermesini istiyor musunuz? Evet'i seçerseniz, harita sağlayıcı döşeme isteklerinizi analiz edebilir";
+
+/* Message Revgeo */
+"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Adresleri çözmek istiyor musunuz? Evet'i seçerseniz, coğrafi kodlama sağlayıcısı isteklerinizi analiz edebilir";
+
 /* reverseGeocodeLocation text */
 "due to rate limit or off-line" = "hız sınırı veya çevrimdışı olması nedeniyle";
 
@@ -71,7 +80,7 @@
 "Entering" = "Giriş";
 
 /* friend enters region verb */
-"enters" = "enters";
+"enters" = "girer";
 
 /* description connection error state */
 "error" = "hata";
@@ -133,14 +142,17 @@
 /* Display after processing inline config */
 "Inline Configuration successfully processed" = "Satır İçi Yapılandırma başarıyla işlendi";
 
+/* Short for kilometers as in 120km */
+"km" = "km";
+
 /* Short for kilometers per hour as in 120km/h */
 "km/h" = "km / s";
 
+/* friend leaves region verb */
+"leaves" = "yapraklar";
+
 /* Display when leaving region (region name follows) */
 "Leaving" = "Ayrılma";
-
-/* friend leaves region verb */
-"leaves" = "leaves";
 
 /* Header of an alert message regarding a location */
 "Location" = "yer";
@@ -163,6 +175,9 @@
 /* Manual */
 "Manual" = "Manuel";
 
+/* Title map interaction */
+"Map Interaction" = "Harita Etkileşimi";
+
 /* Alert header for mode change warning */
 "Mode change" = "Mod değişikliği";
 
@@ -171,6 +186,9 @@
 
 /* Mute */
 "Mute" = "Sessiz";
+
+/* No button title */
+"No" = "Numara";
 
 /* dummy for missing content */
 "no content available" = "içerik yok";
@@ -211,6 +229,12 @@
 /* temporary display while resolving address */
 "resolving..." = "çözülüyor ...";
 
+/* Alert message header for Request Response */
+"Response" = "Tepki";
+
+/* Title Revgeo */
+"Reverse Geocoding Address Resolution" = "Ters Geocoding Adres Çözünürlüğü";
+
 /* Sat */
 "Sat" = "Oturdu";
 
@@ -250,6 +274,9 @@
 /* Warning displayed if necessary settings are missing */
 "To publish your location userID and deviceID must be set" = "Konumunuzu yayınlamak için kullanıcı kimliği ve cihaz kimliği ayarlanmalıdır";
 
+/* Topic copied to clipboard */
+"Topic copied to clipboard" = "Konu panoya kopyalandı";
+
 /* Alert header regarding TrackerID input */
 "TrackerID invalid" = "TrackerID geçersiz";
 
@@ -268,11 +295,17 @@
 /* Display for unknown url path */
 "unknown url path" = "bilinmeyen url yolu";
 
+/* URL copied to Clipboard */
+"URL copied to Clipboard" = "URL Panoya kopyalandı";
+
 /* webView didFailLoadWithError display */
 "webView didFailLoadWithError" = "webView didFailLoadWithError";
 
 /* Please Note Text */
 "When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "Modlar arasında geçiş yaparken, gizlilik nedeniyle tüm OwnTracks verileri silinecektir.";
+
+/* Yes button title */
+"Yes" = "Evet";
 
 /* You cannot use background fetch */
 "You cannot use background fetch" = "Arka planda getirmeyi kullanamazsınız";
@@ -283,23 +316,3 @@
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Tam gizlilik koruması için kendi OwnTracks sunucunuzu kurmanız ve yapılandırmanızı düzenlemeniz gerekir. Https://owntracks.org/booklet hakkında ayrıntılı bilgi";
 
-/* Title map interaction */
-"Map Interaction" = "Map Interaction";
-
-/* Message map interaction */
-"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests";
-
-/* Address resolver disabled */
-"Address resolver disabled" = "Address resolver disabled";
-
-/* Title Revgeo */
-"Reverse Geocoding Address Resolution" = "Reverse Geocoding Address Resolution";
-
-/* Message Revgeo */
-"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests";
-
-/* Yes button title */
-"Yes" = "Yes";
-
-/* No button title */
-"No" = "No";
