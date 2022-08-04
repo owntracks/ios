@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initFromDictionary:(nullable NSDictionary *)dictionary;
 - (NSDictionary *)asDictionary;
+- (NSComparisonResult)compare:(Share *)share;
 @end
 
 @interface Shares : NSObject

@@ -9,6 +9,7 @@
 #import "SharesTVC.h"
 #import "Shares.h"
 #import "OwnTracksAppDelegate.h"
+#import "CreateShareTVC.h"
 
 @interface SharesTVC ()
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
@@ -68,6 +69,18 @@
 
 - (void)update {
     [self.tableView reloadData];
+}
+
+- (IBAction)shareSaved:(UIStoryboardSegue *)segue {
+    if ([segue.sourceViewController isKindOfClass:[CreateShareTVC class]]) {
+        CreateShareTVC *createShareTVC = (CreateShareTVC *)segue.sourceViewController;
+        Share *share = [[Share alloc] init];
+        share.label = createShareTVC.label.text;
+        share.from = createShareTVC.from.date;
+        share.to = createShareTVC.to.date;
+        
+        [[Shares sharedInstance] requestShare:share];
+    }
 }
 
 #pragma mark - Table view data source

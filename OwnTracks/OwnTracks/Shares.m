@@ -46,6 +46,11 @@
     }
     return dictionary;
 }
+
+- (NSComparisonResult)compare:(Share *)share {
+    return [self.from compare:share.from];
+}
+
 @end
 
 @interface Shares()
@@ -74,12 +79,15 @@ static Shares *theInstance = nil;
     _response = response;
     self.array = [[NSMutableArray alloc] init];
     NSArray *array = [response objectForKey:@"shares"];
-    if (array) {
+    if (array && [array isKindOfClass:[NSArray class]]) {
         for (NSDictionary *dictionary in array) {
-            Share *share = [[Share alloc] initFromDictionary:dictionary];
-            [self.array addObject:share];
+            if ([dictionary isKindOfClass:[NSDictionary class]]) {
+                Share *share = [[Share alloc] initFromDictionary:dictionary];
+                [self.array addObject:share];
+            }
         }
     }
+    self.array = [[self.array sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
     self.timestamp = [NSDate date];
 }
 
@@ -116,6 +124,7 @@ static Shares *theInstance = nil;
 
 - (void)addShare:(Share *)share {
     [self.array addObject:share];
+    self.array = [[self.array sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
     self.timestamp = [NSDate date];
 }
 

@@ -11,6 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CreateShareTVC : UITableViewController
+@property (weak, nonatomic) IBOutlet UITextField *label;
+@property (weak, nonatomic) IBOutlet UIDatePicker *from;
+@property (weak, nonatomic) IBOutlet UIDatePicker *to;
 
 @end
 

@@ -3024,7 +3024,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="guB-Ga-J3e">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="New Share" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="guB-Ga-J3e">
                                                     <rect key="frame" x="70" y="5" width="324" height="34"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -3100,7 +3100,7 @@
                     <navigationItem key="navigationItem" title="Create Share" id="SR5-Yo-l2L">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="hqr-Ep-K4Y">
                             <connections>
-                                <action selector="savePressed:" destination="YAo-IX-Jfw" id="Woq-sG-ZOD"/>
+                                <segue destination="k48-Tx-gaZ" kind="unwind" unwindAction="shareSaved:" id="65h-xH-fVb"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -3111,6 +3111,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bFM-T8-564" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="k48-Tx-gaZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="6542" y="1566"/>
         </scene>

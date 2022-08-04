@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "OwnTracksEditTVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SharesTVC : UITableViewController
+@interface SharesTVC : OwnTracksEditTVC
 
 @end
 

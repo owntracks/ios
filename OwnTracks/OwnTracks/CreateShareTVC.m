@@ -10,9 +10,6 @@
 #import "Shares.h"
 
 @interface CreateShareTVC ()
-@property (weak, nonatomic) IBOutlet UITextField *label;
-@property (weak, nonatomic) IBOutlet UIDatePicker *from;
-@property (weak, nonatomic) IBOutlet UIDatePicker *to;
 
 @end
 
@@ -30,22 +27,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    self.label.text = @"my share";
     self.from.date = [NSDate now];
     self.to.date = [self.from.date dateByAddingTimeInterval:3600.0];
-}
-
-- (IBAction)savePressed:(UIBarButtonItem *)sender {
-    NSLog(@"save %@, %@, %@",
-          self.label.text,
-          self.from.description,
-          self.to.description);
-    
-    Share *share = [[Share alloc] init];
-    share.label = self.label.text;
-    share.from = self.from.date;
-    share.to = self.to.date;
-    
-    [[Shares sharedInstance] requestShare:share];
 }
 @end
