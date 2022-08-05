@@ -1,8 +1,8 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 16.2.0 iOS/ipadOS/macOS
-* Release Date 2022-08-04
+## OwnTracks 16.2.1 iOS/ipadOS/macOS
+* Release Date 2022-08-05
 
 ** Sharing with non-OwnTracks users, Card editing
 

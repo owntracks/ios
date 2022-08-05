@@ -27,7 +27,13 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    self.emptyText = NSLocalizedString(@"No or empty sharing list received from Backend",
+                                       @"No or empty sharing list received from Backend");
     self.refreshControl = [[UIRefreshControl alloc] init];
+    self.refreshControl.attributedTitle =
+    [[NSAttributedString alloc]
+     initWithString: NSLocalizedString(@"Fetching sharing list from Backend",
+                                       @"Fetching sharing list from Backend")];
     [self.refreshControl addTarget:self
                             action:@selector(refresh)
                   forControlEvents:UIControlEventValueChanged];
@@ -36,6 +42,7 @@
 }
 
 - (void)refresh {
+    [self.refreshControl beginRefreshing];
     [[Shares sharedInstance] refresh];
 }
 
@@ -61,13 +68,13 @@
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
-    [self.refreshControl endRefreshing];
     [self performSelectorOnMainThread:@selector(update)
                            withObject:nil
                         waitUntilDone:NO];
 }
 
 - (void)update {
+    [self.refreshControl endRefreshing];
     [self.tableView reloadData];
 }
 
@@ -92,6 +99,13 @@
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section {
     Shares *shares = [Shares sharedInstance];
+    
+    if (shares.count == 0) {
+        [self empty];
+    } else {
+        [self nonempty];
+    }
+    
     return shares.count;
 }
 

@@ -147,6 +147,8 @@ No information of your address book will be uploaded to any server.</string>
 	<string>Your location is used to share and record it on a server of your choice</string>
 	<key>NSMotionUsageDescription</key>
 	<string>OwnTracks delivers your step count, floors climbed and distance walked on request</string>
+	<key>NSCameraUsageDescription</key>
+	<string>OwnTracks uses your camera on request to create a Card</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>NSUserActivityTypeBrowsingWeb</string>

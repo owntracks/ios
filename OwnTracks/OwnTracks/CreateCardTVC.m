@@ -14,8 +14,6 @@
 
 @interface CreateCardTVC ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
-@property (weak, nonatomic) IBOutlet UITextField *name;
-@property (weak, nonatomic) IBOutlet UIImageView *cardImage;
 
 @end
 
@@ -121,37 +119,4 @@
     }];
 }
 
-- (IBAction)savePressed:(UIBarButtonItem *)sender {
-    NSLog(@"image %f, %f, %f",
-          self.cardImage.image.size.width,
-          self.cardImage.image.size.height,
-          self.cardImage.image.scale);
-    
-    NSData *png = UIImagePNGRepresentation(self.cardImage.image);
-    NSManagedObjectContext *moc = [CoreData sharedInstance].mainMOC;
-    NSString *topic = [Settings theGeneralTopicInMOC:moc];
-    Friend *myself = [Friend existsFriendWithTopic:topic
-                            inManagedObjectContext:moc];
-    
-    
-    myself.cardName = self.name.text;
-    myself.cardImage = UIImagePNGRepresentation(self.cardImage.image);
-    NSString *b64String = [png base64EncodedStringWithOptions:0];
-
-    NSDictionary *json = @{
-        @"_type": @"card",
-        @"face": b64String,
-        @"name": self.name.text,
-    };
-
-    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [ad.connection sendData:[NSJSONSerialization dataWithJSONObject:json
-                                                            options:NSJSONWritingSortedKeys
-                                                              error:nil]
-                        topic:[[Settings theGeneralTopicInMOC:moc] stringByAppendingString:@"/info"]
-                   topicAlias:@(0)
-                          qos:[Settings intForKey:@"qos_preference"
-                                            inMOC:moc]
-                       retain:YES];
-}
 @end

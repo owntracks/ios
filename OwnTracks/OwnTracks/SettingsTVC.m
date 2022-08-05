@@ -927,6 +927,53 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     }
 }
 
+- (IBAction)setCard:(UIStoryboardSegue *)segue {
+    if ([segue.sourceViewController respondsToSelector:@selector(cardImage)] &&
+        [segue.sourceViewController respondsToSelector:@selector(name)]) {
+        UITextField *name = [segue.sourceViewController performSelector:@selector(name)];
+        UIImageView *cardImage = [segue.sourceViewController performSelector:@selector(cardImage)];
+
+    NSLog(@"image %f, %f, %f",
+          cardImage.image.size.width,
+          cardImage.image.size.height,
+          cardImage.image.scale);
+    
+    NSData *png = UIImagePNGRepresentation(cardImage.image);
+    NSManagedObjectContext *moc = [CoreData sharedInstance].mainMOC;
+    NSString *topic = [Settings theGeneralTopicInMOC:moc];
+    Friend *myself = [Friend existsFriendWithTopic:topic
+                            inManagedObjectContext:moc];
+    
+    
+    myself.cardName = name.text;
+    myself.cardImage = UIImagePNGRepresentation(cardImage.image);
+    NSString *b64String = [png base64EncodedStringWithOptions:0];
+
+    NSDictionary *json = @{
+        @"_type": @"card",
+        @"face": b64String,
+        @"name": name.text,
+    };
+
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad.connection sendData:[NSJSONSerialization dataWithJSONObject:json
+                                                            options:NSJSONWritingSortedKeys
+                                                              error:nil]
+                        topic:[[Settings theGeneralTopicInMOC:moc] stringByAppendingString:@"/info"]
+                   topicAlias:@(0)
+                          qos:[Settings intForKey:@"qos_preference"
+                                            inMOC:moc]
+                       retain:YES];
+        
+        [ad.navigationController alert:
+         NSLocalizedString(@"Card",
+                           @"Header of an alert message regarding a card")
+                               message:
+         NSLocalizedString(@"set and sent to backend",
+                           @"content of an alert message regarding card")];
+    }
+}
+
 - (IBAction)touchedOutsideText:(UITapGestureRecognizer *)sender {
     [self.UIHost resignFirstResponder];
     [self.UIPort resignFirstResponder];

@@ -247,9 +247,6 @@
 /* Class = "UIButton"; configuration.title = "Select from Photo Library"; ObjectID = "IL1-c9-0c1"; */
 "IL1-c9-0c1.configuration.title" = "Fotoğraf Kitaplığından Seçin";
 
-/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "IL1-c9-0c1"; */
-"IL1-c9-0c1.normalTitle" = "Buton";
-
 /* Class = "UITextField"; placeholder = "clientId"; ObjectID = "IsX-6T-YbC"; Note = "Placeholder. Do not translate"; */
 "IsX-6T-YbC.placeholder" = "Müşteri Kimliği";
 
@@ -396,9 +393,6 @@
 
 /* Class = "UIButton"; configuration.title = "Use Camera"; ObjectID = "Rvi-2b-Hb0"; */
 "Rvi-2b-Hb0.configuration.title" = "Kamerayı Kullan";
-
-/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Rvi-2b-Hb0"; */
-"Rvi-2b-Hb0.normalTitle" = "Buton";
 
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "rx4-uC-NeB"; */
 "rx4-uC-NeB.text" = "Alt yazı";

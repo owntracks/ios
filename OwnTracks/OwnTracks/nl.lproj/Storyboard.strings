@@ -247,9 +247,6 @@
 /* Class = "UIButton"; configuration.title = "Select from Photo Library"; ObjectID = "IL1-c9-0c1"; */
 "IL1-c9-0c1.configuration.title" = "Kies uit fotobibliotheek";
 
-/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "IL1-c9-0c1"; */
-"IL1-c9-0c1.normalTitle" = "Knop";
-
 /* Class = "UITextField"; placeholder = "clientId"; ObjectID = "IsX-6T-YbC"; Note = "Placeholder. Do not translate"; */
 "IsX-6T-YbC.placeholder" = "clientId";
 
@@ -396,9 +393,6 @@
 
 /* Class = "UIButton"; configuration.title = "Use Camera"; ObjectID = "Rvi-2b-Hb0"; */
 "Rvi-2b-Hb0.configuration.title" = "Camera gebruiken";
-
-/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Rvi-2b-Hb0"; */
-"Rvi-2b-Hb0.normalTitle" = "Knop";
 
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "rx4-uC-NeB"; */
 "rx4-uC-NeB.text" = "Ondertitel";

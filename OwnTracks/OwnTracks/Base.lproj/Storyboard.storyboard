@@ -2922,15 +2922,15 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="192" id="O5x-SW-9bA">
-                                        <rect key="frame" x="0.0" y="88" width="414" height="192"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="232" id="O5x-SW-9bA">
+                                        <rect key="frame" x="0.0" y="88" width="414" height="232"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O5x-SW-9bA" id="nQf-d8-1i9">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="192"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="232"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kso-L5-Uzn">
-                                                    <rect key="frame" x="111" y="0.0" width="192" height="192"/>
+                                                    <rect key="frame" x="111" y="20" width="192" height="192"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="192" id="D30-hZ-Suv"/>
                                                         <constraint firstAttribute="width" constant="192" id="y6d-9I-g1w"/>
@@ -2940,11 +2940,13 @@
                                             <constraints>
                                                 <constraint firstItem="Kso-L5-Uzn" firstAttribute="centerY" secondItem="nQf-d8-1i9" secondAttribute="centerY" id="EdK-qb-kD2"/>
                                                 <constraint firstItem="Kso-L5-Uzn" firstAttribute="centerX" secondItem="nQf-d8-1i9" secondAttribute="centerX" id="avB-55-hSb"/>
+                                                <constraint firstItem="Kso-L5-Uzn" firstAttribute="top" secondItem="nQf-d8-1i9" secondAttribute="top" constant="20" symbolic="YES" id="o7m-t5-uqM"/>
+                                                <constraint firstAttribute="bottom" secondItem="Kso-L5-Uzn" secondAttribute="bottom" constant="20" symbolic="YES" id="vjo-qW-mDn"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="hYC-CP-T4N">
-                                        <rect key="frame" x="0.0" y="280" width="414" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="320" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hYC-CP-T4N" id="eUB-jj-4jz">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -2952,16 +2954,16 @@
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rvi-2b-Hb0">
                                                     <rect key="frame" x="20" y="6.5" width="104" height="31"/>
-                                                    <state key="normal" title="Button"/>
+                                                    <state key="normal" title="Use Camera"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="Use Camera"/>
                                                     <connections>
                                                         <action selector="takePhotoPressed:" destination="YO7-40-MnA" eventType="touchUpInside" id="EVo-yo-kNK"/>
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IL1-c9-0c1">
-                                                    <rect key="frame" x="205" y="6.5" width="189" height="31"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" title="Select from Photo Library"/>
+                                                    <rect key="frame" x="219" y="7" width="175" height="30"/>
+                                                    <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
+                                                    <state key="normal" title="Select from Photo Library"/>
                                                     <connections>
                                                         <action selector="selectPressed:" destination="YO7-40-MnA" eventType="touchUpInside" id="E4t-Kg-Io8"/>
                                                     </connections>
@@ -2986,7 +2988,7 @@
                     <navigationItem key="navigationItem" title="Create Card" id="rJ2-2y-TWr">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="4iQ-gp-JXI">
                             <connections>
-                                <action selector="savePressed:" destination="YO7-40-MnA" id="ji5-iX-9Ad"/>
+                                <segue destination="3c1-46-ZSi" kind="unwind" unwindAction="setCard:" id="m6X-WM-jsu"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -2997,6 +2999,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ytq-rm-KnB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="3c1-46-ZSi" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5066.666666666667" y="1601.7857142857142"/>
         </scene>

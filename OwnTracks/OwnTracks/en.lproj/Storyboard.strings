@@ -143,11 +143,8 @@
 /* Class = "UILabel"; text = "Label"; ObjectID = "I19-GX-iMA"; */
 "I19-GX-iMA.text" = "Label";
 
-/* Class = "UIButton"; configuration.title = "Select from Photo Library"; ObjectID = "IL1-c9-0c1"; */
-"IL1-c9-0c1.configuration.title" = "Select from Photo Library";
-
-/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "IL1-c9-0c1"; */
-"IL1-c9-0c1.normalTitle" = "Button";
+/* Class = "UIButton"; normalTitle = "Select from Photo Library"; ObjectID = "IL1-c9-0c1"; */
+"IL1-c9-0c1.normalTitle" = "Select from Photo Library";
 
 /* Class = "UITextField"; placeholder = "info"; ObjectID = "Ikm-SR-MCD"; */
 "Ikm-SR-MCD.placeholder" = "info";
@@ -230,8 +227,8 @@
 /* Class = "UIButton"; configuration.title = "Use Camera"; ObjectID = "Rvi-2b-Hb0"; */
 "Rvi-2b-Hb0.configuration.title" = "Use Camera";
 
-/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Rvi-2b-Hb0"; */
-"Rvi-2b-Hb0.normalTitle" = "Button";
+/* Class = "UIButton"; normalTitle = "Use Camera"; ObjectID = "Rvi-2b-Hb0"; */
+"Rvi-2b-Hb0.normalTitle" = "Use Camera";
 
 /* Class = "UILabel"; text = "Status"; ObjectID = "Rxv-hL-MC1"; Note = "Placeholder. Do not translate!"; */
 "Rxv-hL-MC1.text" = "Status";
