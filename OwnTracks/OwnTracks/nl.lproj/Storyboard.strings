@@ -43,7 +43,7 @@
 /* Class = "UILabel"; text = "Filename"; ObjectID = "7ie-NC-EFG"; Note = "Don't translate, technical term"; */
 "7ie-NC-EFG.text" = "Bestandsnaam";
 
-/* Class = "UINavigationItem"; title = "Sharing"; ObjectID = "7Qj-vi-EaF"; */
+/* Class = "UINavigationItem"; title = "Sharings"; ObjectID = "7Qj-vi-EaF"; */
 "7Qj-vi-EaF.title" = "Aandelen";
 
 /* Class = "UIButton"; normalTitle = "Create Card"; ObjectID = "7rX-Bq-DGb"; */
@@ -187,9 +187,6 @@
 /* Class = "UILabel"; text = "locatorDisplacement"; ObjectID = "gtX-x4-Vwl"; Note = "Don't translate, technical term"; */
 "gtX-x4-Vwl.text" = "locatorDisplacement\n";
 
-/* Class = "UITextField"; text = "New Sharing"; ObjectID = "guB-Ga-J3e"; */
-"guB-Ga-J3e.text" = "Nieuw aandeel";
-
 /* Class = "UINavigationItem"; title = "Certificates"; ObjectID = "GWL-01-fh1"; Note = "Don't translate, technical term"; */
 "GWL-01-fh1.title" = "Certificaten";
 
@@ -244,8 +241,8 @@
 /* Class = "UITextField"; placeholder = "info"; ObjectID = "Ikm-SR-MCD"; */
 "Ikm-SR-MCD.placeholder" = "info";
 
-/* Class = "UIButton"; configuration.title = "Select from Photo Library"; ObjectID = "IL1-c9-0c1"; */
-"IL1-c9-0c1.configuration.title" = "Kies uit fotobibliotheek";
+/* Class = "UIButton"; normalTitle = "Select from Photo Library"; ObjectID = "IL1-c9-0c1"; */
+"IL1-c9-0c1.normalTitle" = "Kies uit fotobibliotheek";
 
 /* Class = "UITextField"; placeholder = "clientId"; ObjectID = "IsX-6T-YbC"; Note = "Placeholder. Do not translate"; */
 "IsX-6T-YbC.placeholder" = "clientId";
@@ -394,6 +391,9 @@
 /* Class = "UIButton"; configuration.title = "Use Camera"; ObjectID = "Rvi-2b-Hb0"; */
 "Rvi-2b-Hb0.configuration.title" = "Camera gebruiken";
 
+/* Class = "UIButton"; normalTitle = "Use Camera"; ObjectID = "Rvi-2b-Hb0"; */
+"Rvi-2b-Hb0.normalTitle" = "Camera gebruiken";
+
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "rx4-uC-NeB"; */
 "rx4-uC-NeB.text" = "Ondertitel";
 
@@ -436,7 +436,7 @@
 /* Class = "UITextField"; placeholder = "minor"; ObjectID = "Tc6-JR-qOB"; */
 "Tc6-JR-qOB.placeholder" = "minor";
 
-/* Class = "UIButton"; normalTitle = "Sharing"; ObjectID = "tiK-11-lia"; */
+/* Class = "UIButton"; normalTitle = "Sharings"; ObjectID = "tiK-11-lia"; */
 "tiK-11-lia.normalTitle" = "Aandelen";
 
 /* Class = "UITableViewSection"; headerTitle = "Connection"; ObjectID = "TPY-zx-JfY"; */

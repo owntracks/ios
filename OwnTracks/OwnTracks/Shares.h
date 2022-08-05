@@ -24,6 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Shares : NSObject
 @property (strong, nonatomic, nullable) NSMutableDictionary *response;
 @property (strong, nonatomic) NSDate *timestamp;
+@property (strong, nonatomic) NSString *message;
+@property (strong, nonatomic) NSNumber *activity;
+
 + (Shares *)sharedInstance;
 - (void)refresh;
 - (NSInteger)count;

@@ -53,8 +53,8 @@
 /* Class = "UITextField"; placeholder = "willTopic"; ObjectID = "79P-sU-en0"; Note = "Placeholder. Do not translate"; */
 "79P-sU-en0.placeholder" = "willTopic";
 
-/* Class = "UINavigationItem"; title = "Sharing"; ObjectID = "7Qj-vi-EaF"; */
-"7Qj-vi-EaF.title" = "Sharing";
+/* Class = "UINavigationItem"; title = "Sharings"; ObjectID = "7Qj-vi-EaF"; */
+"7Qj-vi-EaF.title" = "Sharings";
 
 /* Class = "UISegmentedControl"; 7W2-Mn-fUG.segmentTitles[0] = "MQTT"; ObjectID = "7W2-Mn-fUG"; Note = "Don't translate, technical term"; */
 "7W2-Mn-fUG.segmentTitles[0]" = "MQTT";
@@ -172,6 +172,9 @@
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "Kvr-J3-4fw"; */
 "Kvr-J3-4fw.text" = "Title";
+
+/* Class = "UILabel"; text = "Activity"; ObjectID = "L2M-p0-CtV"; */
+"L2M-p0-CtV.text" = "Activity";
 
 /* Class = "UITextField"; placeholder = "mode"; ObjectID = "LEn-Jc-PvC"; Note = "Placeholder. Do not translate"; */
 "LEn-Jc-PvC.placeholder" = "mode";
@@ -368,8 +371,8 @@
 /* Class = "UILabel"; text = "locatorDisplacement"; ObjectID = "gtX-x4-Vwl"; Note = "Don't translate, technical term"; */
 "gtX-x4-Vwl.text" = "locatorDisplacement";
 
-/* Class = "UITextField"; text = "New Sharing"; ObjectID = "guB-Ga-J3e"; */
-"guB-Ga-J3e.text" = "New Sharing";
+/* Class = "UITextField"; placeholder = "Name for new sharing"; ObjectID = "guB-Ga-J3e"; */
+"guB-Ga-J3e.placeholder" = "Name for new sharing";
 
 /* Class = "UILabel"; text = "effective deviceId"; ObjectID = "hE7-sf-UPA"; Note = "Don't translate, technical term"; */
 "hE7-sf-UPA.text" = "effective deviceId";
@@ -485,8 +488,8 @@
 /* Class = "UITextField"; placeholder = "host"; ObjectID = "tQs-PK-sbV"; Note = "Don't translate, technical term"; */
 "tQs-PK-sbV.placeholder" = "host";
 
-/* Class = "UIButton"; normalTitle = "Sharing"; ObjectID = "tiK-11-lia"; */
-"tiK-11-lia.normalTitle" = "Sharing";
+/* Class = "UIButton"; normalTitle = "Sharings"; ObjectID = "tiK-11-lia"; */
+"tiK-11-lia.normalTitle" = "Sharings";
 
 /* Class = "UILabel"; text = "DeviceID"; ObjectID = "uJc-pU-O6W"; Note = "Don't translate, technical term"; */
 "uJc-pU-O6W.text" = "DeviceID";

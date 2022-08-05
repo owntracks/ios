@@ -43,7 +43,7 @@
 /* Class = "UILabel"; text = "Filename"; ObjectID = "7ie-NC-EFG"; Note = "Don't translate, technical term"; */
 "7ie-NC-EFG.text" = "Nazwa pliku";
 
-/* Class = "UINavigationItem"; title = "Sharing"; ObjectID = "7Qj-vi-EaF"; */
+/* Class = "UINavigationItem"; title = "Sharings"; ObjectID = "7Qj-vi-EaF"; */
 "7Qj-vi-EaF.title" = "Akcje";
 
 /* Class = "UIButton"; normalTitle = "Create Card"; ObjectID = "7rX-Bq-DGb"; */
@@ -187,8 +187,8 @@
 /* Class = "UILabel"; text = "locatorDisplacement"; ObjectID = "gtX-x4-Vwl"; Note = "Don't translate, technical term"; */
 "gtX-x4-Vwl.text" = "locatorDisplacement";
 
-/* Class = "UITextField"; text = "New Sharing"; ObjectID = "guB-Ga-J3e"; */
-"guB-Ga-J3e.text" = "Nowe udostępnianie";
+/* Class = "UITextField"; placeholder = "Name for new sharing"; ObjectID = "guB-Ga-J3e"; */
+"guB-Ga-J3e.placeholder" = "Nazwa nowego udostępniania";
 
 /* Class = "UINavigationItem"; title = "Certificates"; ObjectID = "GWL-01-fh1"; Note = "Don't translate, technical term"; */
 "GWL-01-fh1.title" = "Certyfikaty";
@@ -244,8 +244,8 @@
 /* Class = "UITextField"; placeholder = "info"; ObjectID = "Ikm-SR-MCD"; */
 "Ikm-SR-MCD.placeholder" = "info";
 
-/* Class = "UIButton"; configuration.title = "Select from Photo Library"; ObjectID = "IL1-c9-0c1"; */
-"IL1-c9-0c1.configuration.title" = "Wybierz z biblioteki zdjęć";
+/* Class = "UIButton"; normalTitle = "Select from Photo Library"; ObjectID = "IL1-c9-0c1"; */
+"IL1-c9-0c1.normalTitle" = "Wybierz z biblioteki zdjęć";
 
 /* Class = "UITextField"; placeholder = "clientId"; ObjectID = "IsX-6T-YbC"; Note = "Placeholder. Do not translate"; */
 "IsX-6T-YbC.placeholder" = "clientId";
@@ -288,6 +288,9 @@
 
 /* Class = "UILabel"; text = "Title"; ObjectID = "Kvr-J3-4fw"; */
 "Kvr-J3-4fw.text" = "Tytuł";
+
+/* Class = "UILabel"; text = "Activity"; ObjectID = "L2M-p0-CtV"; */
+"L2M-p0-CtV.text" = "Działalność";
 
 /* Class = "UITextField"; placeholder = "mode"; ObjectID = "LEn-Jc-PvC"; Note = "Placeholder. Do not translate"; */
 "LEn-Jc-PvC.placeholder" = "Metry";
@@ -394,6 +397,9 @@
 /* Class = "UIButton"; configuration.title = "Use Camera"; ObjectID = "Rvi-2b-Hb0"; */
 "Rvi-2b-Hb0.configuration.title" = "Użyj aparatu";
 
+/* Class = "UIButton"; normalTitle = "Use Camera"; ObjectID = "Rvi-2b-Hb0"; */
+"Rvi-2b-Hb0.normalTitle" = "Użyj aparatu";
+
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "rx4-uC-NeB"; */
 "rx4-uC-NeB.text" = "Podtytuł";
 
@@ -436,7 +442,7 @@
 /* Class = "UITextField"; placeholder = "minor"; ObjectID = "Tc6-JR-qOB"; */
 "Tc6-JR-qOB.placeholder" = "minor";
 
-/* Class = "UIButton"; normalTitle = "Sharing"; ObjectID = "tiK-11-lia"; */
+/* Class = "UIButton"; normalTitle = "Sharings"; ObjectID = "tiK-11-lia"; */
 "tiK-11-lia.normalTitle" = "Akcje";
 
 /* Class = "UITableViewSection"; headerTitle = "Connection"; ObjectID = "TPY-zx-JfY"; */

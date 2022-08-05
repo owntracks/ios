@@ -55,6 +55,8 @@
 
 @interface Shares()
 @property (strong, nonatomic) NSMutableArray <Share *> *array;
+@property (strong, nonatomic) NSTimer *shareTimer;
+@property (strong, nonatomic) NSTimer *sharesTimer;
 @end
 
 @implementation Shares
@@ -89,6 +91,9 @@ static Shares *theInstance = nil;
     }
     self.array = [[self.array sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
     self.timestamp = [NSDate date];
+    [self.sharesTimer invalidate];
+    self.activity = @(FALSE);
+    self.message = NSLocalizedString(@"Sharings list received", @"Sharings list received");
 }
 
 - (NSInteger)count{
@@ -120,12 +125,26 @@ static Shares *theInstance = nil;
                  topicAlias:@(0)
                         qos:MQTTQosLevelAtMostOnce
                      retain:NO];
+    self.activity = @(TRUE);
+    self.message = NSLocalizedString(@"Requesting sharings list", @"Requesting sharings list");
+    if (self.sharesTimer && self.sharesTimer.isValid) {
+        [self.sharesTimer invalidate];
+    }
+    self.sharesTimer = [NSTimer scheduledTimerWithTimeInterval:10.0
+                                                       repeats:FALSE
+                                                         block:^(NSTimer * _Nonnull timer) {
+        self.activity = @(FALSE);
+        self.message = NSLocalizedString(@"Sharings list request timed out", @"Sharings list request timed out");
+    }];
 }
 
 - (void)addShare:(Share *)share {
     [self.array addObject:share];
     self.array = [[self.array sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
     self.timestamp = [NSDate date];
+    [self.shareTimer invalidate];
+    self.activity = @(FALSE);
+    self.message = NSLocalizedString(@"Sharing created", @"Sharing created");
 }
 
 - (void)requestShare:(Share *)share {
@@ -146,6 +165,17 @@ static Shares *theInstance = nil;
                  topicAlias:@(0)
                         qos:MQTTQosLevelAtMostOnce
                      retain:NO];
+    self.activity = @(TRUE);
+    self.message = NSLocalizedString(@"Requesting Sharing", @"Requesting Sharing");
+    if (self.shareTimer && self.shareTimer.isValid) {
+        [self.shareTimer invalidate];
+    }
+    self.shareTimer = [NSTimer scheduledTimerWithTimeInterval:10.0
+                                                      repeats:FALSE
+                                                        block:^(NSTimer * _Nonnull timer) {
+        self.activity = @(FALSE);
+        self.message = NSLocalizedString(@"Sharing request timed out", @"Sharing request timed out");
+    }];
 }
 
 - (BOOL)removeShareAtIndex:(NSInteger)index {
@@ -172,6 +202,8 @@ static Shares *theInstance = nil;
                      topicAlias:@(0)
                             qos:MQTTQosLevelAtMostOnce
                          retain:NO];
+        self.activity = @(FALSE);
+        self.message = NSLocalizedString(@"Sharing deleted", @"Sharing deleted");
     }
     
     [self.array removeObjectAtIndex:index];

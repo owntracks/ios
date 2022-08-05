@@ -43,6 +43,9 @@
 /* Cancel button title */
 "Cancel" = "İptal etmek";
 
+/* Header of an alert message regarding a card */
+"Card" = "kart";
+
 /* Location Manager error message */
 "Circular region monitoring not available" = "Dairesel bölge izleme mevcut değil";
 
@@ -90,6 +93,12 @@
 
 /* Export */
 "Export" = "İhracat";
+
+/* Fetching sharing list from backend */
+"Fetching sharing list from backend" = "Arka uçtan paylaşım listesi getiriliyor";
+
+/* Fetching sharings list from Backend */
+"Fetching sharings list from Backend" = "Arka uçtan paylaşım listesi getiriliyor";
 
 /* Display when file processing succeeds (filename follows) */
 "File" = "Dosya";
@@ -199,6 +208,9 @@
 /* No location recorded indication */
 "No location recorded" = "Konum kaydedilmedi";
 
+/* No or empty sharings list received from Backend */
+"No or empty sharings list received from Backend" = "Arka Uçtan alınan paylaşım listesi yok veya boş";
+
 /* Display after trying to process a file */
 "no url specified" = "URL belirtilmedi";
 
@@ -226,6 +238,12 @@
 /* Header of an alert message regarding circular region */
 "Region" = "Bölge";
 
+/* Requesting Sharing */
+"Requesting Sharing" = "Paylaşım Talep Etme";
+
+/* Requesting sharings list */
+"Requesting sharings list" = "Paylaşım listesi isteniyor";
+
 /* temporary display while resolving address */
 "resolving..." = "çözülüyor ...";
 
@@ -241,6 +259,9 @@
 /* User Activity (Siri) Send location now */
 "Send location now" = "Şimdi konumu gönder";
 
+/* content of an alert message regarding card */
+"set and sent to backend" = "ayarlandı ve arka uca gönderildi";
+
 /* Settings screen title */
 "Settings" = "Ayarlar";
 
@@ -250,6 +271,24 @@
 /* MQTT Description Text */
 "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Tam gizlilik koruması için kendi OwnTracks sunucunuzu kurun. Https://owntracks.org/booklet hakkında daha fazla bilgi";
 
+/* Sharing created */
+"Sharing created" = "Paylaşım oluşturuldu";
+
+/* Sharing deleted */
+"Sharing deleted" = "Paylaşım silindi";
+
+/* Sharing request timed out */
+"Sharing request timed out" = "Paylaşım isteği zaman aşımına uğradı";
+
+/* Sharings List Header */
+"Sharings" = "Paylaşımlar";
+
+/* Sharings list received */
+"Sharings list received" = "Paylaşım listesi alındı";
+
+/* Sharings list request timed out */
+"Sharings list request timed out" = "Paylaşım listesi isteği zaman aşımına uğradı";
+
 /* Significant */
 "Significant" = "Önemli";
 
@@ -258,6 +297,9 @@
 
 /* HTTP Description Text */
 "Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Veri iletiminin MQTT'yi değil HTTP kullanması dışında MQTT moduna benzer.";
+
+/* Sharings Status Header */
+"Status" = "Durum";
 
 /* Std */
 "Std" = "Std";
@@ -316,14 +358,3 @@
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Tam gizlilik koruması için kendi OwnTracks sunucunuzu kurmanız ve yapılandırmanızı düzenlemeniz gerekir. Https://owntracks.org/booklet hakkında ayrıntılı bilgi";
 
-/* No or empty sharing list received from backend */
-"No or empty sharing list received from backend" = "No or empty sharing list received from backend";
-
-/* Fetching sharing list from backend */
-"Fetching sharing list from backend" = "Fetching sharing list from backend";
-
-/* Header of an alert message regarding a card */
-"Card" = "Card";
-
-/* content of an alert message regarding card */
-"set and sent to backend" = "set and sent to backend";

@@ -1,19 +1,20 @@
 //
-//  CreateViewTVC.m
+//  CreateSharingTVC.m
 //  OwnTracks
 //
 //  Created by Christoph Krey on 18.07.22.
 //  Copyright © 2022 OwnTracks. All rights reserved.
 //
 
-#import "CreateShareTVC.h"
+#import "CreateSharingTVC.h"
 #import "Shares.h"
 
-@interface CreateShareTVC ()
+@interface CreateSharingTVC ()
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 
 @end
 
-@implementation CreateShareTVC
+@implementation CreateSharingTVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,5 +30,20 @@
     [super viewDidAppear:animated];
     self.from.date = [NSDate now];
     self.to.date = [self.from.date dateByAddingTimeInterval:3600.0];
+    self.saveButton.enabled = FALSE;
+    self.label.delegate = self;
 }
+
+- (IBAction)labelChanged:(UITextField *)sender {
+    if (self.label.text.length > 0) {
+        self.saveButton.enabled = TRUE;
+    } else {
+        self.saveButton.enabled = FALSE;
+    }
+}
+
+- (IBAction)tappedOutsideText:(UITapGestureRecognizer *)sender {
+    [self.label resignFirstResponder];
+}
+
 @end

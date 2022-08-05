@@ -43,6 +43,9 @@
 /* Cancel button title */
 "Cancel" = "Avbryt";
 
+/* Header of an alert message regarding a card */
+"Card" = "Kort";
+
 /* Location Manager error message */
 "Circular region monitoring not available" = "Övervakning av område inte tillgänglig";
 
@@ -90,6 +93,12 @@
 
 /* Export */
 "Export" = "Exportera";
+
+/* Fetching sharing list from backend */
+"Fetching sharing list from backend" = "Hämtar delningslista från backend";
+
+/* Fetching sharings list from Backend */
+"Fetching sharings list from Backend" = "Hämtar delningslista från Backend";
 
 /* Display when file processing succeeds (filename follows) */
 "File" = "Fil";
@@ -199,6 +208,9 @@
 /* No location recorded indication */
 "No location recorded" = "Ingen plats har registrerats";
 
+/* No or empty sharings list received from Backend */
+"No or empty sharings list received from Backend" = "Ingen eller tom delningslista mottagen från Backend";
+
 /* Display after trying to process a file */
 "no url specified" = "ingen webbadress specificerad";
 
@@ -226,6 +238,12 @@
 /* Header of an alert message regarding circular region */
 "Region" = "Område";
 
+/* Requesting Sharing */
+"Requesting Sharing" = "Begär delning";
+
+/* Requesting sharings list */
+"Requesting sharings list" = "Begär delningslista";
+
 /* temporary display while resolving address */
 "resolving..." = "bestämmer ...";
 
@@ -241,6 +259,9 @@
 /* User Activity (Siri) Send location now */
 "Send location now" = "Skicka plats nu";
 
+/* content of an alert message regarding card */
+"set and sent to backend" = "ställ in och skickas till backend";
+
 /* Settings screen title */
 "Settings" = "inställningar";
 
@@ -250,6 +271,24 @@
 /* MQTT Description Text */
 "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Kör din egen OwnTracks-server för fullständigt integritetsskydd. Mer info under https://owntracks.org/booklet";
 
+/* Sharing created */
+"Sharing created" = "Delning skapad";
+
+/* Sharing deleted */
+"Sharing deleted" = "Delning raderad";
+
+/* Sharing request timed out */
+"Sharing request timed out" = "Delningsbegäran tog timeout";
+
+/* Sharings List Header */
+"Sharings" = "Delningar";
+
+/* Sharings list received */
+"Sharings list received" = "Delningslista mottagen";
+
+/* Sharings list request timed out */
+"Sharings list request timed out" = "Begäran om delningslista tog timeout";
+
 /* Significant */
 "Significant" = "Signifikant";
 
@@ -258,6 +297,9 @@
 
 /* HTTP Description Text */
 "Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Liknar MQTT-läge, förutom att dataöverföring använder HTTP, inte MQTT.";
+
+/* Sharings Status Header */
+"Status" = "Status";
 
 /* Std */
 "Std" = "Std";
@@ -316,14 +358,3 @@
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "För fullständigt integritetsskydd måste du konfigurera din egen OwnTracks-server och redigera konfigurationen. Detaljerad information på https://owntracks.org/booklet";
 
-/* No or empty sharing list received from backend */
-"No or empty sharing list received from backend" = "No or empty sharing list received from backend";
-
-/* Fetching sharing list from backend */
-"Fetching sharing list from backend" = "Fetching sharing list from backend";
-
-/* Header of an alert message regarding a card */
-"Card" = "Card";
-
-/* content of an alert message regarding card */
-"set and sent to backend" = "set and sent to backend";

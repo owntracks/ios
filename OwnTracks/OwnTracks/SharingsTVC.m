@@ -1,21 +1,22 @@
 //
-//  SharesTVC.m
+//  SharingsTVC.m
 //  OwnTracks
 //
 //  Created by Christoph Krey on 01.08.22.
 //  Copyright © 2022 OwnTracks. All rights reserved.
 //
 
-#import "SharesTVC.h"
+#import "SharingsTVC.h"
 #import "Shares.h"
 #import "OwnTracksAppDelegate.h"
-#import "CreateShareTVC.h"
+#import "CreateSharingTVC.h"
+#import "StatusCell.h"
 
-@interface SharesTVC ()
+@interface SharingsTVC ()
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
-@implementation SharesTVC
+@implementation SharingsTVC
 @dynamic refreshControl;
 
 - (void)viewDidLoad {
@@ -27,13 +28,13 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.emptyText = NSLocalizedString(@"No or empty sharing list received from Backend",
-                                       @"No or empty sharing list received from Backend");
+    self.emptyText = NSLocalizedString(@"No or empty sharings list received from Backend",
+                                       @"No or empty sharings list received from Backend");
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.attributedTitle =
     [[NSAttributedString alloc]
-     initWithString: NSLocalizedString(@"Fetching sharing list from Backend",
-                                       @"Fetching sharing list from Backend")];
+     initWithString: NSLocalizedString(@"Fetching sharings list from Backend",
+                                       @"Fetching sharings list from Backend")];
     [self.refreshControl addTarget:self
                             action:@selector(refresh)
                   forControlEvents:UIControlEventValueChanged];
@@ -41,8 +42,11 @@
     [self.tableView addSubview:self.refreshControl];
 }
 
+- (IBAction)refreshPressed:(UIBarButtonItem *)sender {
+    [[Shares sharedInstance] refresh];
+}
+
 - (void)refresh {
-    [self.refreshControl beginRefreshing];
     [[Shares sharedInstance] refresh];
 }
 
@@ -54,10 +58,17 @@
              forKeyPath:@"timestamp"
                 options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                 context:nil];
+    [shares addObserver:self
+             forKeyPath:@"message"
+                options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                context:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     Shares *shares = [Shares sharedInstance];
+    [shares removeObserver:self
+                forKeyPath:@"message"
+                   context:nil];
     [shares removeObserver:self
                 forKeyPath:@"timestamp"
                    context:nil];
@@ -79,8 +90,8 @@
 }
 
 - (IBAction)shareSaved:(UIStoryboardSegue *)segue {
-    if ([segue.sourceViewController isKindOfClass:[CreateShareTVC class]]) {
-        CreateShareTVC *createShareTVC = (CreateShareTVC *)segue.sourceViewController;
+    if ([segue.sourceViewController isKindOfClass:[CreateSharingTVC class]]) {
+        CreateSharingTVC *createShareTVC = (CreateSharingTVC *)segue.sourceViewController;
         Share *share = [[Share alloc] init];
         share.label = createShareTVC.label.text;
         share.from = createShareTVC.from.date;
@@ -93,42 +104,64 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section {
     Shares *shares = [Shares sharedInstance];
-    
     if (shares.count == 0) {
         [self empty];
     } else {
         [self nonempty];
     }
-    
-    return shares.count;
+
+    if (section == 0) {
+        return shares.count;
+    } else {
+        return 1;
+    }
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"shareCell" forIndexPath:indexPath];
-    Share *share = [[Shares sharedInstance] shareAtIndex:indexPath.row];
-    cell.textLabel.text = [NSString stringWithFormat:@"%@",
-                           share.label];
-    
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateStyle = NSDateFormatterShortStyle;
-    formatter.timeStyle = NSDateFormatterShortStyle;
+    if (indexPath.section == 0) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"shareCell" forIndexPath:indexPath];
 
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@",
-                                 [formatter stringFromDate:share.from],
-                                 [formatter stringFromDate:share.to]];
-    return cell;
+        Share *share = [[Shares sharedInstance] shareAtIndex:indexPath.row];
+        cell.textLabel.text = [NSString stringWithFormat:@"%@",
+                               share.label];
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateStyle = NSDateFormatterShortStyle;
+        formatter.timeStyle = NSDateFormatterShortStyle;
+        
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@",
+                                     [formatter stringFromDate:share.from],
+                                     [formatter stringFromDate:share.to]];
+        return cell;
+
+    } else {
+        StatusCell *statusCell = [tableView dequeueReusableCellWithIdentifier:@"statusCell" forIndexPath:indexPath];
+
+        if ([[Shares sharedInstance].activity boolValue]) {
+            [statusCell.activity startAnimating];
+        } else {
+            [statusCell.activity stopAnimating];
+        }
+        statusCell.label.text = [Shares sharedInstance].message;
+        return statusCell;
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView
 canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+    if (indexPath.section == 0) {
+        return YES;
+    } else {
+        return NO;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -166,9 +199,13 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (NSIndexPath *)tableView:(UITableView *)tableView
   willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Share *share = [[Shares sharedInstance] shareAtIndex:indexPath.row];
-    if (share.uuid) {
-        return indexPath;
+    if (indexPath.section == 0) {
+        Share *share = [[Shares sharedInstance] shareAtIndex:indexPath.row];
+        if (share.uuid) {
+            return indexPath;
+        } else {
+            return nil;
+        }
     } else {
         return nil;
     }
@@ -192,4 +229,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         ];
     }
 }
+
+- (NSString *)tableView:(UITableView *)tableView
+titleForHeaderInSection:(NSInteger)section {
+    if (section == 0) {
+        return NSLocalizedString(@"Sharings", @"Sharings List Header");
+    } else {
+        return NSLocalizedString(@"Status", @"Sharings Status Header");
+    }
+}
+
 @end

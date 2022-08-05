@@ -316,14 +316,3 @@
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "U moet uw eigen OwnTracks-server instellen en uw configuratie bewerken voor volledige privacybescherming. Gedetailleerde informatie op https://owntracks.org/booklet";
 
-/* No or empty sharing list received from backend */
-"No or empty sharing list received from backend" = "No or empty sharing list received from backend";
-
-/* Fetching sharing list from backend */
-"Fetching sharing list from backend" = "Fetching sharing list from backend";
-
-/* Header of an alert message regarding a card */
-"Card" = "Card";
-
-/* content of an alert message regarding card */
-"set and sent to backend" = "set and sent to backend";
