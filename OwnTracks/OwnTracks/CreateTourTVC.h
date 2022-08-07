@@ -1,5 +1,5 @@
 //
-//  CreateSharingTVC.h
+//  CreateTourTVC.h
 //  OwnTracks
 //
 //  Created by Christoph Krey on 18.07.22.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface CreateSharingTVC : UITableViewController <UITextFieldDelegate>
+@interface CreateTourTVC : UITableViewController <UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *label;
 @property (weak, nonatomic) IBOutlet UIDatePicker *from;
 @property (weak, nonatomic) IBOutlet UIDatePicker *to;

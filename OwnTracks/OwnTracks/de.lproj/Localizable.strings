@@ -95,10 +95,7 @@
 "Export" = "Export";
 
 /* Fetching sharing list from backend */
-"Fetching sharing list from backend" = "Hole Freigabenliste";
-
-/* Fetching sharings list from Backend */
-"Fetching sharings list from Backend" = "Hole Freigabenliste";
+"Fetching tour list from backend" = "Tourenliste Anfrage läuft";
 
 /* Display when file processing succeeds (filename follows) */
 "File" = "Datei";
@@ -208,8 +205,8 @@
 /* No location recorded indication */
 "No location recorded" = "Keine Position verfügbar\n";
 
-/* No or empty sharings list received from Backend */
-"No or empty sharings list received from Backend" = "Keine oder leere Freigabenliste empfangen";
+/* No or empty tour list received from backend */
+"No or empty tour list received from backend" = "Tourenliste nicht vorhanden oder leer";
 
 /* Display after trying to process a file */
 "no url specified" = "keine URL angegeben";
@@ -238,11 +235,11 @@
 /* Header of an alert message regarding circular region */
 "Region" = "Region";
 
-/* Requesting Sharing */
-"Requesting Sharing" = "Freigabe angefragt";
+/* Requesting tour */
+"Requesting tour" = "Tour angefragt";
 
-/* Requesting sharings list */
-"Requesting sharings list" = "Freigabenliste angefragt";
+/* Requesting tour list */
+"Requesting tour list" = "Tourenliste angefragt";
 
 /* temporary display while resolving address */
 "resolving..." = "Adressauflösung...";
@@ -271,24 +268,6 @@
 /* MQTT Description Text */
 "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Konfigurieren Sie Ihren OwnTracks Server für vollständigen Datenschutz. Mehr Information hier: https://owntracks.org/booklet";
 
-/* Sharing created */
-"Sharing created" = "Freigabe erstellt";
-
-/* Sharing deleted */
-"Sharing deleted" = "Freigabe gelöscht";
-
-/* Sharing request timed out */
-"Sharing request timed out" = "Anfrage Freigabe abgelaufen";
-
-/* Sharings List Header */
-"Sharings" = "Freigaben";
-
-/* Sharings list received */
-"Sharings list received" = "Freigabenliste empfangen";
-
-/* Sharings list request timed out */
-"Sharings list request timed out" = "Anfrage Freigabenliste abgelaufen";
-
 /* Significant */
 "Significant" = "Wesentlich";
 
@@ -297,9 +276,6 @@
 
 /* HTTP Description Text */
 "Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Ähnlich wie MQTT Modus, aber die Datenübertragung nutzt HTTP, nicht MQTT.";
-
-/* Sharings Status Header */
-"Status" = "Status";
 
 /* Std */
 "Std" = "Std";
@@ -318,6 +294,30 @@
 
 /* Topic copied to clipboard */
 "Topic copied to clipboard" = "Topic wurde in die Zwischenablage kopiert";
+
+/* Tour created */
+"Tour created" = "Tour angelegt";
+
+/* Tour deleted */
+"Tour deleted" = "Tour gelöscht";
+
+/* Tour list received */
+"Tour list received" = "Tourenliste empfangen";
+
+/* Tour list request timed out */
+"Tour list request timed out" = "Tourenliste Anfrage ohne Antwort";
+
+/* Tour request timed out */
+"Tour request timed out" = "Tour Anfrage ohne Antwort";
+
+/* Tours list header */
+"Tours" = "Touren";
+
+/* Tours status header */
+"Tours status" = "Touren Status";
+
+/* Tours status header */
+"Tours Status" = "Status Touren";
 
 /* Alert header regarding TrackerID input */
 "TrackerID invalid" = "TrackerID ungültig";

@@ -1,20 +1,20 @@
 //
-//  CreateSharingTVC.m
+//  CreateTourTVC.m
 //  OwnTracks
 //
 //  Created by Christoph Krey on 18.07.22.
 //  Copyright © 2022 OwnTracks. All rights reserved.
 //
 
-#import "CreateSharingTVC.h"
-#import "Shares.h"
+#import "CreateTourTVC.h"
+#import "Tours.h"
 
-@interface CreateSharingTVC ()
+@interface CreateTourTVC ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 
 @end
 
-@implementation CreateSharingTVC
+@implementation CreateTourTVC
 
 - (void)viewDidLoad {
     [super viewDidLoad];

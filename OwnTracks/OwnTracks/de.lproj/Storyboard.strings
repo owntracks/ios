@@ -43,8 +43,8 @@
 /* Class = "UILabel"; text = "Filename"; ObjectID = "7ie-NC-EFG"; Note = "Don't translate, technical term"; */
 "7ie-NC-EFG.text" = "Filename";
 
-/* Class = "UINavigationItem"; title = "Sharings"; ObjectID = "7Qj-vi-EaF"; */
-"7Qj-vi-EaF.title" = "Freigaben";
+/* Class = "UINavigationItem"; title = "Tours"; ObjectID = "7Qj-vi-EaF"; */
+"7Qj-vi-EaF.title" = "Touren";
 
 /* Class = "UIButton"; normalTitle = "Create Card"; ObjectID = "7rX-Bq-DGb"; */
 "7rX-Bq-DGb.normalTitle" = "Erstelle Visitenkarte";
@@ -187,8 +187,8 @@
 /* Class = "UILabel"; text = "locatorDisplacement"; ObjectID = "gtX-x4-Vwl"; Note = "Don't translate, technical term"; */
 "gtX-x4-Vwl.text" = "locatorDisplacement";
 
-/* Class = "UITextField"; placeholder = "Name for new sharing"; ObjectID = "guB-Ga-J3e"; */
-"guB-Ga-J3e.placeholder" = "Name für neue Freigabe";
+/* Class = "UITextField"; placeholder = "Name for new tour"; ObjectID = "guB-Ga-J3e"; */
+"guB-Ga-J3e.placeholder" = "Name für neue Tour";
 
 /* Class = "UINavigationItem"; title = "Certificates"; ObjectID = "GWL-01-fh1"; Note = "Don't translate, technical term"; */
 "GWL-01-fh1.title" = "Certificates";
@@ -421,8 +421,8 @@
 /* Class = "UILabel"; text = "Distance"; ObjectID = "SCe-XW-vBZ"; */
 "SCe-XW-vBZ.text" = "Entfernung";
 
-/* Class = "UINavigationItem"; title = "Create Sharing"; ObjectID = "SR5-Yo-l2L"; */
-"SR5-Yo-l2L.title" = "Erstelle Freigabe";
+/* Class = "UINavigationItem"; title = "Create Tour"; ObjectID = "SR5-Yo-l2L"; */
+"SR5-Yo-l2L.title" = "Erstelle Tour";
 
 /* Class = "UITextView"; text = "<status>"; ObjectID = "src-OY-ZUR"; Note = "Don't translate. Placeholder"; */
 "src-OY-ZUR.text" = "state";
@@ -442,8 +442,8 @@
 /* Class = "UITextField"; placeholder = "minor"; ObjectID = "Tc6-JR-qOB"; */
 "Tc6-JR-qOB.placeholder" = "minor";
 
-/* Class = "UIButton"; normalTitle = "Sharings"; ObjectID = "tiK-11-lia"; */
-"tiK-11-lia.normalTitle" = "Freigaben";
+/* Class = "UIButton"; normalTitle = "Tours"; ObjectID = "tiK-11-lia"; */
+"tiK-11-lia.normalTitle" = "Touren";
 
 /* Class = "UITableViewSection"; headerTitle = "Connection"; ObjectID = "TPY-zx-JfY"; */
 "TPY-zx-JfY.headerTitle" = "Connection";

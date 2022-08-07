@@ -38,12 +38,12 @@
         }
     }
 
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate addObserver:self
-               forKeyPath:@"action"
-                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                  context:nil];
-
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad addObserver:self
+         forKeyPath:@"action"
+            options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+            context:nil];
+    
     [[NSNotificationCenter defaultCenter]
      addObserverForName:@"reload"
      object:nil
@@ -72,9 +72,9 @@
     NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.viewControllers];
 
     if (self.featuredVC) {
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
 
-        if (delegate.action) {
+        if (ad.action) {
             if (![viewControllers containsObject:self.featuredVC]) {
                 [viewControllers insertObject:self.featuredVC
                                       atIndex:viewControllers.count];

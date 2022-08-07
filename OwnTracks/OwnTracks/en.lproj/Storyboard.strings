@@ -53,8 +53,8 @@
 /* Class = "UITextField"; placeholder = "willTopic"; ObjectID = "79P-sU-en0"; Note = "Placeholder. Do not translate"; */
 "79P-sU-en0.placeholder" = "willTopic";
 
-/* Class = "UINavigationItem"; title = "Sharings"; ObjectID = "7Qj-vi-EaF"; */
-"7Qj-vi-EaF.title" = "Sharings";
+/* Class = "UINavigationItem"; title = "Tours"; ObjectID = "7Qj-vi-EaF"; */
+"7Qj-vi-EaF.title" = "Tours";
 
 /* Class = "UISegmentedControl"; 7W2-Mn-fUG.segmentTitles[0] = "MQTT"; ObjectID = "7W2-Mn-fUG"; Note = "Don't translate, technical term"; */
 "7W2-Mn-fUG.segmentTitles[0]" = "MQTT";
@@ -242,8 +242,8 @@
 /* Class = "UILabel"; text = "Distance"; ObjectID = "SCe-XW-vBZ"; */
 "SCe-XW-vBZ.text" = "Distance";
 
-/* Class = "UINavigationItem"; title = "Create Sharing"; ObjectID = "SR5-Yo-l2L"; */
-"SR5-Yo-l2L.title" = "Create Sharing";
+/* Class = "UINavigationItem"; title = "Create Tour"; ObjectID = "SR5-Yo-l2L"; */
+"SR5-Yo-l2L.title" = "Create Tour";
 
 /* Class = "UILabel"; text = "From"; ObjectID = "SZe-bR-3x5"; */
 "SZe-bR-3x5.text" = "From";
@@ -371,8 +371,8 @@
 /* Class = "UILabel"; text = "locatorDisplacement"; ObjectID = "gtX-x4-Vwl"; Note = "Don't translate, technical term"; */
 "gtX-x4-Vwl.text" = "locatorDisplacement";
 
-/* Class = "UITextField"; placeholder = "Name for new sharing"; ObjectID = "guB-Ga-J3e"; */
-"guB-Ga-J3e.placeholder" = "Name for new sharing";
+/* Class = "UITextField"; placeholder = "Name for new tour"; ObjectID = "guB-Ga-J3e"; */
+"guB-Ga-J3e.placeholder" = "Name for new tour";
 
 /* Class = "UILabel"; text = "effective deviceId"; ObjectID = "hE7-sf-UPA"; Note = "Don't translate, technical term"; */
 "hE7-sf-UPA.text" = "effective deviceId";
@@ -488,8 +488,8 @@
 /* Class = "UITextField"; placeholder = "host"; ObjectID = "tQs-PK-sbV"; Note = "Don't translate, technical term"; */
 "tQs-PK-sbV.placeholder" = "host";
 
-/* Class = "UIButton"; normalTitle = "Sharings"; ObjectID = "tiK-11-lia"; */
-"tiK-11-lia.normalTitle" = "Sharings";
+/* Class = "UIButton"; normalTitle = "Tours"; ObjectID = "tiK-11-lia"; */
+"tiK-11-lia.normalTitle" = "Tours";
 
 /* Class = "UILabel"; text = "DeviceID"; ObjectID = "uJc-pU-O6W"; Note = "Don't translate, technical term"; */
 "uJc-pU-O6W.text" = "DeviceID";

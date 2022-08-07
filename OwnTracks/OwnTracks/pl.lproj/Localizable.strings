@@ -94,12 +94,6 @@
 /* Export */
 "Export" = "Export";
 
-/* Fetching sharing list from backend */
-"Fetching sharing list from backend" = "Pobieranie listy udostępniania z zaplecza";
-
-/* Fetching sharings list from Backend */
-"Fetching sharings list from Backend" = "Pobieranie listy udostępnień z Backend";
-
 /* Display when file processing succeeds (filename follows) */
 "File" = "Plik";
 
@@ -208,9 +202,6 @@
 /* No location recorded indication */
 "No location recorded" = "No location recorded";
 
-/* No or empty sharings list received from Backend */
-"No or empty sharings list received from Backend" = "Brak lub pusta lista udostępnień otrzymana z Backend";
-
 /* Display after trying to process a file */
 "no url specified" = "URL nieznany";
 
@@ -237,12 +228,6 @@
 
 /* Header of an alert message regarding circular region */
 "Region" = "Obszar";
-
-/* Requesting Sharing */
-"Requesting Sharing" = "Prośba o udostępnienie";
-
-/* Requesting sharings list */
-"Requesting sharings list" = "Prośba o udostępnienie listy";
 
 /* temporary display while resolving address */
 "resolving..." = "rozwiązywanie...";
@@ -271,24 +256,6 @@
 /* MQTT Description Text */
 "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Możesz skonfigurować własny serwer OwnTracks dla pełnej ochrony prywatności. Więcej informacji tutaj: https://owntracks.org/booklet";
 
-/* Sharing created */
-"Sharing created" = "Utworzono udostępnianie";
-
-/* Sharing deleted */
-"Sharing deleted" = "Udostępnianie usunięte";
-
-/* Sharing request timed out */
-"Sharing request timed out" = "Upłynął limit czasu żądania udostępniania";
-
-/* Sharings List Header */
-"Sharings" = "Udostępnianie";
-
-/* Sharings list received */
-"Sharings list received" = "Otrzymano listę udostępnień";
-
-/* Sharings list request timed out */
-"Sharings list request timed out" = "Upłynął limit czasu żądania listy udostępniania";
-
 /* Significant */
 "Significant" = "Znaczący";
 
@@ -297,9 +264,6 @@
 
 /* HTTP Description Text */
 "Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Podobnie do trybu MQTT, jednak transmisja danych używa protokołu HTTP, zamiast MQTT.";
-
-/* Sharings Status Header */
-"Status" = "Status";
 
 /* Std */
 "Std" = "Std";

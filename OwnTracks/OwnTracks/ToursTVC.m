@@ -1,22 +1,22 @@
 //
-//  SharingsTVC.m
+//  ToursTVC.m
 //  OwnTracks
 //
 //  Created by Christoph Krey on 01.08.22.
 //  Copyright © 2022 OwnTracks. All rights reserved.
 //
 
-#import "SharingsTVC.h"
-#import "Shares.h"
+#import "ToursTVC.h"
+#import "Tours.h"
 #import "OwnTracksAppDelegate.h"
-#import "CreateSharingTVC.h"
-#import "StatusCell.h"
+#import "CreateTourTVC.h"
+#import "ToursStatusCell.h"
 
-@interface SharingsTVC ()
+@interface ToursTVC ()
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @end
 
-@implementation SharingsTVC
+@implementation ToursTVC
 @dynamic refreshControl;
 
 - (void)viewDidLoad {
@@ -28,13 +28,13 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.emptyText = NSLocalizedString(@"No or empty sharings list received from Backend",
-                                       @"No or empty sharings list received from Backend");
+    self.emptyText = NSLocalizedString(@"No or empty tour list received from backend",
+                                       @"No or empty tour list received from backend");
     self.refreshControl = [[UIRefreshControl alloc] init];
     self.refreshControl.attributedTitle =
     [[NSAttributedString alloc]
-     initWithString: NSLocalizedString(@"Fetching sharings list from Backend",
-                                       @"Fetching sharings list from Backend")];
+     initWithString: NSLocalizedString(@"Fetching tour list from backend",
+                                       @"Fetching tour list from backend")];
     [self.refreshControl addTarget:self
                             action:@selector(refresh)
                   forControlEvents:UIControlEventValueChanged];
@@ -43,33 +43,33 @@
 }
 
 - (IBAction)refreshPressed:(UIBarButtonItem *)sender {
-    [[Shares sharedInstance] refresh];
+    [[Tours sharedInstance] refresh];
 }
 
 - (void)refresh {
-    [[Shares sharedInstance] refresh];
+    [[Tours sharedInstance] refresh];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    Shares *shares = [Shares sharedInstance];
-    [shares addObserver:self
+    Tours *tours = [Tours sharedInstance];
+    [tours addObserver:self
              forKeyPath:@"timestamp"
                 options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                 context:nil];
-    [shares addObserver:self
+    [tours addObserver:self
              forKeyPath:@"message"
                 options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                 context:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    Shares *shares = [Shares sharedInstance];
-    [shares removeObserver:self
+    Tours *tours = [Tours sharedInstance];
+    [tours removeObserver:self
                 forKeyPath:@"message"
                    context:nil];
-    [shares removeObserver:self
+    [tours removeObserver:self
                 forKeyPath:@"timestamp"
                    context:nil];
     [super viewWillDisappear:animated];
@@ -89,15 +89,15 @@
     [self.tableView reloadData];
 }
 
-- (IBAction)shareSaved:(UIStoryboardSegue *)segue {
-    if ([segue.sourceViewController isKindOfClass:[CreateSharingTVC class]]) {
-        CreateSharingTVC *createShareTVC = (CreateSharingTVC *)segue.sourceViewController;
-        Share *share = [[Share alloc] init];
-        share.label = createShareTVC.label.text;
-        share.from = createShareTVC.from.date;
-        share.to = createShareTVC.to.date;
+- (IBAction)tourSaved:(UIStoryboardSegue *)segue {
+    if ([segue.sourceViewController isKindOfClass:[CreateTourTVC class]]) {
+        CreateTourTVC *createTourTVC = (CreateTourTVC *)segue.sourceViewController;
+        Tour *tour = [[Tour alloc] init];
+        tour.label = createTourTVC.label.text;
+        tour.from = createTourTVC.from.date;
+        tour.to = createTourTVC.to.date;
         
-        [[Shares sharedInstance] requestShare:share];
+        [[Tours sharedInstance] requestTour:tour];
     }
 }
 
@@ -109,15 +109,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section {
-    Shares *shares = [Shares sharedInstance];
-    if (shares.count == 0) {
+    Tours *tours = [Tours sharedInstance];
+    if (tours.count == 0) {
         [self empty];
     } else {
         [self nonempty];
     }
 
     if (section == 0) {
-        return shares.count;
+        return tours.count;
     } else {
         return 1;
     }
@@ -127,30 +127,30 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"shareCell" forIndexPath:indexPath];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TourCell" forIndexPath:indexPath];
 
-        Share *share = [[Shares sharedInstance] shareAtIndex:indexPath.row];
+        Tour *tour = [[Tours sharedInstance] tourAtIndex:indexPath.row];
         cell.textLabel.text = [NSString stringWithFormat:@"%@",
-                               share.label];
+                               tour.label];
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         formatter.dateStyle = NSDateFormatterShortStyle;
         formatter.timeStyle = NSDateFormatterShortStyle;
         
         cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@",
-                                     [formatter stringFromDate:share.from],
-                                     [formatter stringFromDate:share.to]];
+                                     [formatter stringFromDate:tour.from],
+                                     [formatter stringFromDate:tour.to]];
         return cell;
 
     } else {
-        StatusCell *statusCell = [tableView dequeueReusableCellWithIdentifier:@"statusCell" forIndexPath:indexPath];
+        ToursStatusCell *statusCell = [tableView dequeueReusableCellWithIdentifier:@"ToursStatusCell" forIndexPath:indexPath];
 
-        if ([[Shares sharedInstance].activity boolValue]) {
+        if ([[Tours sharedInstance].activity boolValue]) {
             [statusCell.activity startAnimating];
         } else {
             [statusCell.activity stopAnimating];
         }
-        statusCell.label.text = [Shares sharedInstance].message;
+        statusCell.label.text = [Tours sharedInstance].message;
         return statusCell;
     }
 }
@@ -166,7 +166,7 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [[Shares sharedInstance] removeShareAtIndex:indexPath.row];
+        [[Tours sharedInstance] removeTourAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -200,8 +200,8 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath {
 - (NSIndexPath *)tableView:(UITableView *)tableView
   willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        Share *share = [[Shares sharedInstance] shareAtIndex:indexPath.row];
-        if (share.uuid) {
+        Tour *tour = [[Tours sharedInstance] tourAtIndex:indexPath.row];
+        if (tour.uuid) {
             return indexPath;
         } else {
             return nil;
@@ -213,19 +213,21 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Share *share = [[Shares sharedInstance] shareAtIndex:indexPath.row];
-    if (share.uuid) {
+    Tour *tour = [[Tours sharedInstance] tourAtIndex:indexPath.row];
+    if (tour.uuid) {
         UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
-        [generalPasteboard setString:share.url];
+        [generalPasteboard setString:tour.url];
 
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [delegate.navigationController alert:NSLocalizedString(@"Response",
-                                                               @"Alert message header for Request Response")
-                                     message:[NSString stringWithFormat:@"%@ %@\n",
-                                              NSLocalizedString(@"URL copied to Clipboard",
-                                                                @"URL copied to Clipboard"),
-                                              share.url]
-                                dismissAfter:0.0
+        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [ad.navigationController alert:
+             NSLocalizedString(@"Response",
+                               @"Alert message header for Request Response")
+                               message:
+             [NSString stringWithFormat:@"%@ %@\n",
+              NSLocalizedString(@"URL copied to Clipboard",
+                                @"URL copied to Clipboard"),
+              tour.url]
+                          dismissAfter:0.0
         ];
     }
 }
@@ -233,9 +235,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 - (NSString *)tableView:(UITableView *)tableView
 titleForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        return NSLocalizedString(@"Sharings", @"Sharings List Header");
+        return NSLocalizedString(@"Tours", @"Tour list header");
     } else {
-        return NSLocalizedString(@"Status", @"Sharings Status Header");
+        return NSLocalizedString(@"Tours status", @"Tours status header");
     }
 }
 

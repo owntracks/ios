@@ -73,7 +73,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *UIeffectiveDeviceId;
 @property (weak, nonatomic) IBOutlet UITextField *UIdowngrade;
 @property (weak, nonatomic) IBOutlet UIButton *createCardButton;
-@property (weak, nonatomic) IBOutlet UIButton *sharesButton;
+@property (weak, nonatomic) IBOutlet UIButton *toursButton;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
 
@@ -101,11 +101,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.UImonitoring.delegate = self;
     self.UIdowngrade.delegate = self;
 
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate addObserver:self
-               forKeyPath:@"configLoad"
-                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                  context:nil];
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad addObserver:self
+         forKeyPath:@"configLoad"
+            options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+            context:nil];
     [self updated];
 }
 
@@ -115,10 +115,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate removeObserver:self
-                  forKeyPath:@"configLoad"
-                     context:nil];
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad removeObserver:self
+            forKeyPath:@"configLoad"
+               context:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"reload" object:nil];
     [self reconnect];
     [super viewWillDisappear:animated];
@@ -381,7 +381,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                   @""];
 
     self.createCardButton.enabled = !locked;
-    self.sharesButton.enabled = !locked;
+    self.toursButton.enabled = !locked;
 
     if (self.UIDeviceID) {
         self.UIDeviceID.text =
@@ -801,14 +801,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (IBAction)publishSettingsPressed:(UIButton *)sender {
     [self updateValues];
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate dump];
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad dump];
 }
 
 - (IBAction)publishWaypointsPressed:(UIButton *)sender {
     [self updateValues];
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate waypoints];
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad waypoints];
 }
 
 - (IBAction)exportPressed:(UIButton *)sender {
@@ -1056,11 +1056,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                          
                          style:UIAlertActionStyleDestructive
                          handler:^(UIAlertAction *action) {
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [delegate terminateSession];
+        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [ad terminateSession];
         [self updateValues];
         [self updated];
-        [delegate reconnect];
+        [ad reconnect];
     }];
     
     [ac addAction:cancel];
@@ -1144,12 +1144,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
                          style:UIAlertActionStyleDestructive
                          handler:^(UIAlertAction *action) {
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [delegate terminateSession];
+        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [ad terminateSession];
         [self updateValues];
 
         [self updated];
-        [delegate reconnect];
+        [ad reconnect];
     }];
 
     [ac addAction:cancel];
@@ -1174,11 +1174,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)reconnect {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate connectionOff];
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad connectionOff];
     [[OwnTracking sharedInstance] syncProcessing];
     [self updateValues];
-    [delegate reconnect];
+    [ad reconnect];
 }
 
 @end

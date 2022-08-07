@@ -274,7 +274,7 @@
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tiK-11-lia">
                                                     <rect key="frame" x="164" y="7" width="136" height="30"/>
-                                                    <state key="normal" title="Sharings">
+                                                    <state key="normal" title="Tours">
                                                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <connections>
@@ -1698,7 +1698,7 @@
                         <outlet property="UIwillRetain" destination="10Y-wF-cUi" id="zYj-Ym-nCh"/>
                         <outlet property="UIwillTopic" destination="79P-sU-en0" id="kbF-aE-6pF"/>
                         <outlet property="createCardButton" destination="7rX-Bq-DGb" id="V9S-zi-hVj"/>
-                        <outlet property="sharesButton" destination="tiK-11-lia" id="Rxn-5u-N9i"/>
+                        <outlet property="toursButton" destination="tiK-11-lia" id="Rxn-5u-N9i"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jvv-T5-fxv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3003,10 +3003,10 @@
             </objects>
             <point key="canvasLocation" x="5066.666666666667" y="1601.7857142857142"/>
         </scene>
-        <!--Create Sharing-->
+        <!--Create Tour-->
         <scene sceneID="SiL-yz-wjq">
             <objects>
-                <tableViewController id="YAo-IX-Jfw" customClass="CreateSharingTVC" sceneMemberID="viewController">
+                <tableViewController id="YAo-IX-Jfw" customClass="CreateTourTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="6SQ-8U-7zK">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -3027,7 +3027,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name for new sharing" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="guB-Ga-J3e">
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name for new tour" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="guB-Ga-J3e">
                                                     <rect key="frame" x="70" y="5" width="324" height="34"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -3104,17 +3104,17 @@
                             <outletCollection property="gestureRecognizers" destination="I60-zN-Eo9" appends="YES" id="lif-YO-Ah4"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Create Sharing" id="SR5-Yo-l2L">
+                    <navigationItem key="navigationItem" title="Create Tour" id="SR5-Yo-l2L">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="hqr-Ep-K4Y">
                             <connections>
-                                <segue destination="k48-Tx-gaZ" kind="unwind" unwindAction="shareSaved:" id="65h-xH-fVb"/>
+                                <segue destination="k48-Tx-gaZ" kind="unwind" unwindAction="tourSaved:" id="Voe-cd-odf"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="from" destination="0f5-gd-MxE" id="ndb-kH-eBz"/>
                         <outlet property="label" destination="guB-Ga-J3e" id="rwd-Mk-x0E"/>
-                        <outlet property="saveButton" destination="hqr-Ep-K4Y" id="fin-XH-7YL"/>
+                        <outlet property="saveButton" destination="hqr-Ep-K4Y" id="sS8-7g-R87"/>
                         <outlet property="to" destination="sGk-1E-zg5" id="atZ-To-QTE"/>
                     </connections>
                 </tableViewController>
@@ -3128,16 +3128,16 @@
             </objects>
             <point key="canvasLocation" x="6542" y="1566"/>
         </scene>
-        <!--Sharings-->
+        <!--Tours-->
         <scene sceneID="9sn-aP-NDB">
             <objects>
-                <tableViewController id="pGQ-8d-I18" customClass="SharingsTVC" sceneMemberID="viewController">
+                <tableViewController id="pGQ-8d-I18" customClass="ToursTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="7sv-ds-I27">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="shareCell" textLabel="5df-yk-myT" detailTextLabel="rx4-uC-NeB" style="IBUITableViewCellStyleValue1" id="fwi-yP-OE1">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TourCell" textLabel="5df-yk-myT" detailTextLabel="rx4-uC-NeB" style="IBUITableViewCellStyleSubtitle" id="fwi-yP-OE1">
                                 <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fwi-yP-OE1" id="PPn-nC-e29">
@@ -3145,45 +3145,44 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5df-yk-myT">
-                                            <rect key="frame" x="20" y="15" width="25" height="14.5"/>
+                                            <rect key="frame" x="20" y="6" width="25" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rx4-uC-NeB">
-                                            <rect key="frame" x="350" y="15" width="44" height="14.5"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rx4-uC-NeB">
+                                            <rect key="frame" x="20" y="22.5" width="40.5" height="13.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="statusCell" id="fvo-Ck-wOb" customClass="StatusCell">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ToursStatusCell" id="fvo-Ck-wOb" customClass="ToursStatusCell">
                                 <rect key="frame" x="0.0" y="88" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fvo-Ck-wOb" id="CTR-bG-sfN">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="9n4-Ol-UYc">
-                                            <rect key="frame" x="20" y="12" width="20" height="20"/>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="9n4-Ol-UYc">
+                                            <rect key="frame" x="84.5" y="12" width="20" height="20"/>
                                         </activityIndicatorView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L2M-p0-CtV">
-                                            <rect key="frame" x="48" y="11.5" width="346" height="21"/>
+                                            <rect key="frame" x="20" y="11.5" width="56.5" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="L2M-p0-CtV" firstAttribute="leading" secondItem="9n4-Ol-UYc" secondAttribute="trailing" constant="8" symbolic="YES" id="4aQ-dP-7WO"/>
-                                        <constraint firstItem="9n4-Ol-UYc" firstAttribute="leading" secondItem="CTR-bG-sfN" secondAttribute="leading" constant="20" symbolic="YES" id="Ynq-oy-D2n"/>
+                                        <constraint firstItem="9n4-Ol-UYc" firstAttribute="leading" secondItem="L2M-p0-CtV" secondAttribute="trailing" constant="8" symbolic="YES" id="EHw-AK-BLb"/>
+                                        <constraint firstItem="L2M-p0-CtV" firstAttribute="leading" secondItem="CTR-bG-sfN" secondAttribute="leading" constant="20" symbolic="YES" id="VaS-e3-KjS"/>
                                         <constraint firstItem="L2M-p0-CtV" firstAttribute="centerY" secondItem="CTR-bG-sfN" secondAttribute="centerY" id="ZeK-PZ-HLQ"/>
                                         <constraint firstItem="9n4-Ol-UYc" firstAttribute="centerY" secondItem="CTR-bG-sfN" secondAttribute="centerY" id="iUR-AG-p7K"/>
-                                        <constraint firstAttribute="trailing" secondItem="L2M-p0-CtV" secondAttribute="trailing" constant="20" symbolic="YES" id="lVV-gf-6bJ"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -3197,7 +3196,7 @@
                             <outlet property="delegate" destination="pGQ-8d-I18" id="nC5-Na-yh9"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Sharings" id="7Qj-vi-EaF">
+                    <navigationItem key="navigationItem" title="Tours" id="7Qj-vi-EaF">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="Spe-B0-DkS">
                                 <connections>

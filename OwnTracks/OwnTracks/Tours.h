@@ -1,5 +1,5 @@
 //
-//  Shares.h
+//  Tours.h
 //  OwnTracks
 //
 //  Created by Christoph Krey on 02.08.22.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
-@interface Share: NSObject
+@interface Tour: NSObject
 @property (strong, nonatomic) NSString *label;
 @property (strong, nonatomic) NSString *uuid;
 @property (strong, nonatomic) NSString *url;
@@ -18,22 +18,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initFromDictionary:(nullable NSDictionary *)dictionary;
 - (NSDictionary *)asDictionary;
-- (NSComparisonResult)compare:(Share *)share;
+- (NSComparisonResult)compare:(Tour *)tour;
 @end
 
-@interface Shares : NSObject
+@interface Tours : NSObject
 @property (strong, nonatomic, nullable) NSMutableDictionary *response;
 @property (strong, nonatomic) NSDate *timestamp;
 @property (strong, nonatomic) NSString *message;
 @property (strong, nonatomic) NSNumber *activity;
 
-+ (Shares *)sharedInstance;
++ (Tours *)sharedInstance;
 - (void)refresh;
 - (NSInteger)count;
-- (nullable Share *)shareAtIndex:(NSInteger)index;
-- (void)requestShare:(nonnull Share *)share;
-- (void)addShare:(nonnull Share *)share;
-- (BOOL)removeShareAtIndex:(NSInteger)index;
+- (nullable Tour *)tourAtIndex:(NSInteger)index;
+- (void)requestTour:(nonnull Tour *)tour;
+- (void)addTour:(nonnull Tour *)tour;
+- (BOOL)removeTourAtIndex:(NSInteger)index;
+- (BOOL)processResponse:(NSDictionary *)dictionary;
 
 @end
 

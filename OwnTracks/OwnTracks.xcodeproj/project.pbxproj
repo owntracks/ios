@@ -65,7 +65,7 @@
 		84929F0B20AAC0D000227D00 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84929F0A20AAC0CF00227D00 /* WebKit.framework */; };
 		84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A2B1B3755AF00810C3A /* TabBarController.m */; };
 		849B1E061FE911FD0016EF1A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 849B1E081FE911FD0016EF1A /* MainInterface.storyboard */; };
-		849CE153289CF2FF004B32BF /* StatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 849CE152289CF2FF004B32BF /* StatusCell.m */; };
+		849CE153289CF2FF004B32BF /* ToursStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 849CE152289CF2FF004B32BF /* ToursStatusCell.m */; };
 		84A488E21F7BBFD900ADCF98 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84A488E11F7BBFD900ADCF98 /* Media.xcassets */; };
 		84AFD3DC2434380700F1E922 /* OwnTracksWrist WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 84AFD3DB2434380700F1E922 /* OwnTracksWrist WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84AFD3E22434380700F1E922 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84AFD3E02434380700F1E922 /* Interface.storyboard */; };
@@ -81,9 +81,9 @@
 		84BD03AA25D5301F0077B9B8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AE8ADB25C165D600C0B0EE /* MapKit.framework */; };
 		84BE759827720BD2006CBDCF /* OwnTracksWrist WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 84AFD3EA2434380A00F1E922 /* OwnTracksWrist WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84C7C02C2885B18E0088A544 /* CreateCardTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C02B2885B18E0088A544 /* CreateCardTVC.m */; };
-		84C7C02F2885B1B00088A544 /* CreateSharingTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C02E2885B1B00088A544 /* CreateSharingTVC.m */; };
-		84C7C032289821280088A544 /* SharingsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C031289821280088A544 /* SharingsTVC.m */; };
-		84C7C0352898FAF90088A544 /* Shares.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C0342898FAF90088A544 /* Shares.m */; };
+		84C7C02F2885B1B00088A544 /* CreateTourTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C02E2885B1B00088A544 /* CreateTourTVC.m */; };
+		84C7C032289821280088A544 /* ToursTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C031289821280088A544 /* ToursTVC.m */; };
+		84C7C0352898FAF90088A544 /* Tours.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C0342898FAF90088A544 /* Tours.m */; };
 		84CC5A521FEC71850010314C /* OwnTracks-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CC5A511FEC71840010314C /* OwnTracks-29.png */; };
 		84D3072F1ACD644500FACB9E /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D3072E1ACD644500FACB9E /* NotificationCenter.framework */; };
 		84D307351ACD644500FACB9E /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D307341ACD644500FACB9E /* TodayViewController.m */; };
@@ -332,14 +332,14 @@
 		849B359924A7578000BEC1BB /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Intents.framework; sourceTree = DEVELOPER_DIR; };
 		849B3C0F242F9EFC0052EE6D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.2.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
 		849B3C10242F9F190052EE6D /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.2.sdk/System/Library/Frameworks/Network.framework; sourceTree = DEVELOPER_DIR; };
-		849CE151289CF2FF004B32BF /* StatusCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StatusCell.h; sourceTree = "<group>"; };
-		849CE152289CF2FF004B32BF /* StatusCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StatusCell.m; sourceTree = "<group>"; };
-		849CE155289D0CDF004B32BF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Storyboard.strings; sourceTree = "<group>"; };
-		849CE157289D0D10004B32BF /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Storyboard.strings; sourceTree = "<group>"; };
-		849CE159289D0D16004B32BF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Storyboard.strings; sourceTree = "<group>"; };
-		849CE15B289D0D4A004B32BF /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Storyboard.strings; sourceTree = "<group>"; };
-		849CE15D289D0D75004B32BF /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Storyboard.strings; sourceTree = "<group>"; };
-		849CE15F289D0DA7004B32BF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Storyboard.strings; sourceTree = "<group>"; };
+		849CE151289CF2FF004B32BF /* ToursStatusCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToursStatusCell.h; sourceTree = "<group>"; };
+		849CE152289CF2FF004B32BF /* ToursStatusCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToursStatusCell.m; sourceTree = "<group>"; };
+		849CE165289FB836004B32BF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Storyboard.strings; sourceTree = "<group>"; };
+		849CE167289FB86C004B32BF /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Storyboard.strings; sourceTree = "<group>"; };
+		849CE169289FB878004B32BF /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Storyboard.strings; sourceTree = "<group>"; };
+		849CE16B289FB8AB004B32BF /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Storyboard.strings; sourceTree = "<group>"; };
+		849CE16D289FB9D5004B32BF /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Storyboard.strings; sourceTree = "<group>"; };
+		849CE16F289FBA06004B32BF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Storyboard.strings; sourceTree = "<group>"; };
 		849D457B18CDACDF00201BF3 /* MQTT.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MQTT.plist; sourceTree = "<group>"; };
 		84A173691B428E5C00CCB7D0 /* Model 8.2.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.1.xcdatamodel"; sourceTree = "<group>"; };
 		84A488E11F7BBFD900ADCF98 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
@@ -399,12 +399,12 @@
 		84C756A61A89F706003BC8A8 /* Model 7.4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.4.xcdatamodel"; sourceTree = "<group>"; };
 		84C7C02A2885B18E0088A544 /* CreateCardTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateCardTVC.h; sourceTree = "<group>"; };
 		84C7C02B2885B18E0088A544 /* CreateCardTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateCardTVC.m; sourceTree = "<group>"; };
-		84C7C02D2885B1B00088A544 /* CreateSharingTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateSharingTVC.h; sourceTree = "<group>"; };
-		84C7C02E2885B1B00088A544 /* CreateSharingTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateSharingTVC.m; sourceTree = "<group>"; };
-		84C7C030289821280088A544 /* SharingsTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharingsTVC.h; sourceTree = "<group>"; };
-		84C7C031289821280088A544 /* SharingsTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SharingsTVC.m; sourceTree = "<group>"; };
-		84C7C0332898FAF90088A544 /* Shares.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Shares.h; sourceTree = "<group>"; };
-		84C7C0342898FAF90088A544 /* Shares.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Shares.m; sourceTree = "<group>"; };
+		84C7C02D2885B1B00088A544 /* CreateTourTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateTourTVC.h; sourceTree = "<group>"; };
+		84C7C02E2885B1B00088A544 /* CreateTourTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateTourTVC.m; sourceTree = "<group>"; };
+		84C7C030289821280088A544 /* ToursTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToursTVC.h; sourceTree = "<group>"; };
+		84C7C031289821280088A544 /* ToursTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToursTVC.m; sourceTree = "<group>"; };
+		84C7C0332898FAF90088A544 /* Tours.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tours.h; sourceTree = "<group>"; };
+		84C7C0342898FAF90088A544 /* Tours.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tours.m; sourceTree = "<group>"; };
 		84CC5A511FEC71840010314C /* OwnTracks-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-29.png"; sourceTree = "<group>"; };
 		84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OwnTracksToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D3072E1ACD644500FACB9E /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -632,8 +632,8 @@
 				8400D9721D83825E00DEA134 /* HTTP.plist */,
 				8411B88F189FE9CE0019D2D6 /* Settings.h */,
 				8411B890189FE9CE0019D2D6 /* Settings.m */,
-				84C7C0332898FAF90088A544 /* Shares.h */,
-				84C7C0342898FAF90088A544 /* Shares.m */,
+				84C7C0332898FAF90088A544 /* Tours.h */,
+				84C7C0342898FAF90088A544 /* Tours.m */,
 				84664E9B1CC83A38002123EC /* NSBundle+privateLocalization.h */,
 				84664E9C1CC83A38002123EC /* NSBundle+privateLocalization.m */,
 				84D6B47B25C844A500B2AC07 /* NSNumber+decimals.h */,
@@ -782,12 +782,12 @@
 				845AA1B31B44245100945856 /* CertificatesTVC.m */,
 				84C7C02A2885B18E0088A544 /* CreateCardTVC.h */,
 				84C7C02B2885B18E0088A544 /* CreateCardTVC.m */,
-				84C7C030289821280088A544 /* SharingsTVC.h */,
-				84C7C031289821280088A544 /* SharingsTVC.m */,
-				849CE151289CF2FF004B32BF /* StatusCell.h */,
-				849CE152289CF2FF004B32BF /* StatusCell.m */,
-				84C7C02D2885B1B00088A544 /* CreateSharingTVC.h */,
-				84C7C02E2885B1B00088A544 /* CreateSharingTVC.m */,
+				84C7C030289821280088A544 /* ToursTVC.h */,
+				84C7C031289821280088A544 /* ToursTVC.m */,
+				849CE151289CF2FF004B32BF /* ToursStatusCell.h */,
+				849CE152289CF2FF004B32BF /* ToursStatusCell.m */,
+				84C7C02D2885B1B00088A544 /* CreateTourTVC.h */,
+				84C7C02E2885B1B00088A544 /* CreateTourTVC.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1262,7 +1262,7 @@
 				84C7C02C2885B18E0088A544 /* CreateCardTVC.m in Sources */,
 				8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */,
 				84E402082314140400F1D6E6 /* HistoryTVC.m in Sources */,
-				84C7C02F2885B1B00088A544 /* CreateSharingTVC.m in Sources */,
+				84C7C02F2885B1B00088A544 /* CreateTourTVC.m in Sources */,
 				846FFA581B419687001482A6 /* RegionTVC.m in Sources */,
 				8411B912189FEC070019D2D6 /* ViewController.m in Sources */,
 				84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */,
@@ -1288,7 +1288,7 @@
 				842E6ED520BEF031001928FA /* Setting+CoreDataClass.m in Sources */,
 				8411B83E189FDB140019D2D6 /* OwnTracksAppDelegate.m in Sources */,
 				84DDEAC71BD9F37900B01879 /* SettingsTVC.m in Sources */,
-				84C7C032289821280088A544 /* SharingsTVC.m in Sources */,
+				84C7C032289821280088A544 /* ToursTVC.m in Sources */,
 				845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */,
 				84B7397A1A65629200B103F4 /* LocationManager.m in Sources */,
 				847D5C8C2612554B00B6DCD5 /* ModesTVC.m in Sources */,
@@ -1298,8 +1298,8 @@
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,
 				84E40205231413D400F1D6E6 /* History+CoreDataProperties.m in Sources */,
 				84E8A18D1BB94782002518AA /* Region+CoreDataProperties.m in Sources */,
-				84C7C0352898FAF90088A544 /* Shares.m in Sources */,
-				849CE153289CF2FF004B32BF /* StatusCell.m in Sources */,
+				84C7C0352898FAF90088A544 /* Tours.m in Sources */,
+				849CE153289CF2FF004B32BF /* ToursStatusCell.m in Sources */,
 				8404876B1C5386DD00569C79 /* FeaturedContentVC.m in Sources */,
 				842E6ECE20BEE96F001928FA /* Region+CoreDataClass.m in Sources */,
 			);
@@ -1411,12 +1411,12 @@
 			isa = PBXVariantGroup;
 			children = (
 				843B91731C8A14BF00DBD306 /* Base */,
-				849CE155289D0CDF004B32BF /* en */,
-				849CE157289D0D10004B32BF /* nl */,
-				849CE159289D0D16004B32BF /* de */,
-				849CE15B289D0D4A004B32BF /* pl */,
-				849CE15D289D0D75004B32BF /* sv */,
-				849CE15F289D0DA7004B32BF /* tr */,
+				849CE165289FB836004B32BF /* en */,
+				849CE167289FB86C004B32BF /* nl */,
+				849CE169289FB878004B32BF /* de */,
+				849CE16B289FB8AB004B32BF /* pl */,
+				849CE16D289FB9D5004B32BF /* sv */,
+				849CE16F289FBA06004B32BF /* tr */,
 			);
 			name = Storyboard.storyboard;
 			sourceTree = "<group>";
@@ -1647,7 +1647,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16.2.2;
+				CURRENT_PROJECT_VERSION = 16.2.3;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = C652JFWU23;
 				ENABLE_BITCODE = YES;
@@ -1670,7 +1670,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OwnTracks",
 				);
-				MARKETING_VERSION = 16.2.2;
+				MARKETING_VERSION = 16.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude;
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = maccatalyst.org.mqttitude.MQTTitude;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1698,7 +1698,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16.2.2;
+				CURRENT_PROJECT_VERSION = 16.2.3;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = C652JFWU23;
 				ENABLE_BITCODE = YES;
@@ -1721,7 +1721,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OwnTracks",
 				);
-				MARKETING_VERSION = 16.2.2;
+				MARKETING_VERSION = 16.2.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude;
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = maccatalyst.org.mqttitude.MQTTitude;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1750,6 +1750,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 16.2.3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = C652JFWU23;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1762,7 +1763,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 16.2.2;
+				MARKETING_VERSION = 16.2.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude.OwnTracksIntents;
@@ -1788,6 +1789,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 16.2.3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = C652JFWU23;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1800,7 +1802,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 16.2.2;
+				MARKETING_VERSION = 16.2.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude.OwnTracksIntents;
@@ -1821,12 +1823,12 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16.2.2;
+				CURRENT_PROJECT_VERSION = 16.2.3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = C652JFWU23;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MARKETING_VERSION = 16.2.2;
+				MARKETING_VERSION = 16.2.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.owntracks.OwnTracksWrist;
@@ -1845,12 +1847,12 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 16.2.2;
+				CURRENT_PROJECT_VERSION = 16.2.3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = C652JFWU23;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				MARKETING_VERSION = 16.2.2;
+				MARKETING_VERSION = 16.2.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.owntracks.OwnTracksWrist;
@@ -1869,14 +1871,14 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16.2.2;
+				CURRENT_PROJECT_VERSION = 16.2.3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = C652JFWU23;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				IBSC_MODULE = OwnTracksWrist_WatchKit_Extension;
 				INFOPLIST_FILE = "OwnTracksWrist WatchKit App/Info.plist";
-				MARKETING_VERSION = 16.2.2;
+				MARKETING_VERSION = 16.2.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.owntracks.OwnTracksWrist.watchkitapp;
@@ -1900,14 +1902,14 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 16.2.2;
+				CURRENT_PROJECT_VERSION = 16.2.3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = C652JFWU23;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				IBSC_MODULE = OwnTracksWrist_WatchKit_Extension;
 				INFOPLIST_FILE = "OwnTracksWrist WatchKit App/Info.plist";
-				MARKETING_VERSION = 16.2.2;
+				MARKETING_VERSION = 16.2.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.owntracks.OwnTracksWrist.watchkitapp;
@@ -1931,7 +1933,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 16.2.2;
+				CURRENT_PROJECT_VERSION = 16.2.3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = C652JFWU23;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1942,7 +1944,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 16.2.2;
+				MARKETING_VERSION = 16.2.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.owntracks.OwnTracksWrist.watchkitapp.watchkitextension;
@@ -1967,7 +1969,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 16.2.2;
+				CURRENT_PROJECT_VERSION = 16.2.3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = C652JFWU23;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1978,7 +1980,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 16.2.2;
+				MARKETING_VERSION = 16.2.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.owntracks.OwnTracksWrist.watchkitapp.watchkitextension;
@@ -1999,7 +2001,7 @@
 				CODE_SIGN_ENTITLEMENTS = OwnTracksToday/OwnTracksToday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 16.2.2;
+				CURRENT_PROJECT_VERSION = 16.2.3;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -2010,7 +2012,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 16.2.2;
+				MARKETING_VERSION = 16.2.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.mqttitude.MQTTitude.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2030,7 +2032,7 @@
 				CODE_SIGN_ENTITLEMENTS = OwnTracksToday/OwnTracksToday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 16.2.2;
+				CURRENT_PROJECT_VERSION = 16.2.3;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = OwnTracksToday/Info.plist;
@@ -2040,7 +2042,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 16.2.2;
+				MARKETING_VERSION = 16.2.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.mqttitude.MQTTitude.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

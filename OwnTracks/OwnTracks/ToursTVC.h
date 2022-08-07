@@ -1,5 +1,5 @@
 //
-//  SharingsTVC.h
+//  ToursTVC.h
 //  OwnTracks
 //
 //  Created by Christoph Krey on 01.08.22.
@@ -10,7 +10,7 @@
 #import "OwnTracksEditTVC.h"
 
 NS_ASSUME_NONNULL_BEGIN
-@interface SharingsTVC : OwnTracksEditTVC
+@interface ToursTVC : OwnTracksEditTVC
 
 @end
 

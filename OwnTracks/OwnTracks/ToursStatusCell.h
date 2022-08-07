@@ -1,5 +1,5 @@
 //
-//  StatusCell.h
+//  ToursStatusCell.h
 //  OwnTracks
 //
 //  Created by Christoph Krey on 05.08.22.
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface StatusCell : UITableViewCell
+@interface ToursStatusCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property (weak, nonatomic) IBOutlet UILabel *label;
 

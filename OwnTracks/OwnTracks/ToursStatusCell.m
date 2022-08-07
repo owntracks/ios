@@ -1,14 +1,14 @@
 //
-//  StatusCell.m
+//  ToursStatusCell.m
 //  OwnTracks
 //
 //  Created by Christoph Krey on 05.08.22.
 //  Copyright © 2022 OwnTracks. All rights reserved.
 //
 
-#import "StatusCell.h"
+#import "ToursStatusCell.h"
 
-@implementation StatusCell
+@implementation ToursStatusCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

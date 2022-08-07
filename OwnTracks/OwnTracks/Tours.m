@@ -1,17 +1,17 @@
 //
-//  Shares.m
+//  Tours.m
 //  OwnTracks
 //
 //  Created by Christoph Krey on 02.08.22.
 //  Copyright © 2022 OwnTracks. All rights reserved.
 //
 
-#import "Shares.h"
+#import "Tours.h"
 #import "CoreData.h"
 #import "Settings.h"
 #import "OwnTracksAppDelegate.h"
 
-@implementation Share
+@implementation Tour
 - (instancetype)initFromDictionary:(NSDictionary *)dictionary {
     self = [self init];
     if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
@@ -47,24 +47,24 @@
     return dictionary;
 }
 
-- (NSComparisonResult)compare:(Share *)share {
-    return [self.from compare:share.from];
+- (NSComparisonResult)compare:(Tour *)tour {
+    return [self.from compare:tour.from];
 }
 
 @end
 
-@interface Shares()
-@property (strong, nonatomic) NSMutableArray <Share *> *array;
-@property (strong, nonatomic) NSTimer *shareTimer;
-@property (strong, nonatomic) NSTimer *sharesTimer;
+@interface Tours()
+@property (strong, nonatomic) NSMutableArray <Tour *> *array;
+@property (strong, nonatomic) NSTimer *tourTimer;
+@property (strong, nonatomic) NSTimer *toursTimer;
 @end
 
-@implementation Shares
-static Shares *theInstance = nil;
+@implementation Tours
+static Tours *theInstance = nil;
 
-+ (Shares *)sharedInstance {
++ (Tours *)sharedInstance {
     if (theInstance == nil) {
-        theInstance = [[Shares alloc] init];
+        theInstance = [[Tours alloc] init];
     }
     return theInstance;
 }
@@ -80,27 +80,27 @@ static Shares *theInstance = nil;
 - (void)setResponse:(NSMutableDictionary *)response {
     _response = response;
     self.array = [[NSMutableArray alloc] init];
-    NSArray *array = [response objectForKey:@"shares"];
+    NSArray *array = [response objectForKey:@"tours"];
     if (array && [array isKindOfClass:[NSArray class]]) {
         for (NSDictionary *dictionary in array) {
             if ([dictionary isKindOfClass:[NSDictionary class]]) {
-                Share *share = [[Share alloc] initFromDictionary:dictionary];
-                [self.array addObject:share];
+                Tour *tour = [[Tour alloc] initFromDictionary:dictionary];
+                [self.array addObject:tour];
             }
         }
     }
     self.array = [[self.array sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
     self.timestamp = [NSDate date];
-    [self.sharesTimer invalidate];
+    [self.toursTimer invalidate];
     self.activity = @(FALSE);
-    self.message = NSLocalizedString(@"Sharings list received", @"Sharings list received");
+    self.message = NSLocalizedString(@"Tour list received", @"Tour list received");
 }
 
 - (NSInteger)count{
     return self.array.count;
 }
 
-- (Share *)shareAtIndex:(NSInteger)index {
+- (Tour *)tourAtIndex:(NSInteger)index {
     if (index < self.array.count) {
         return self.array[index];
     } else {
@@ -114,7 +114,7 @@ static Shares *theInstance = nil;
     
     NSDictionary *json = @{
         @"_type": @"request",
-        @"request": @"shares",
+        @"request": @"tours",
     };
     
     OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
@@ -126,35 +126,35 @@ static Shares *theInstance = nil;
                         qos:MQTTQosLevelAtMostOnce
                      retain:NO];
     self.activity = @(TRUE);
-    self.message = NSLocalizedString(@"Requesting sharings list", @"Requesting sharings list");
-    if (self.sharesTimer && self.sharesTimer.isValid) {
-        [self.sharesTimer invalidate];
+    self.message = NSLocalizedString(@"Requesting tour list", @"Requesting tour list");
+    if (self.toursTimer && self.toursTimer.isValid) {
+        [self.toursTimer invalidate];
     }
-    self.sharesTimer = [NSTimer scheduledTimerWithTimeInterval:10.0
+    self.toursTimer = [NSTimer scheduledTimerWithTimeInterval:10.0
                                                        repeats:FALSE
                                                          block:^(NSTimer * _Nonnull timer) {
         self.activity = @(FALSE);
-        self.message = NSLocalizedString(@"Sharings list request timed out", @"Sharings list request timed out");
+        self.message = NSLocalizedString(@"Tour list request timed out", @"Tour list request timed out");
     }];
 }
 
-- (void)addShare:(Share *)share {
-    [self.array addObject:share];
+- (void)addTour:(Tour *)tour {
+    [self.array addObject:tour];
     self.array = [[self.array sortedArrayUsingSelector:@selector(compare:)] mutableCopy];
     self.timestamp = [NSDate date];
-    [self.shareTimer invalidate];
+    [self.tourTimer invalidate];
     self.activity = @(FALSE);
-    self.message = NSLocalizedString(@"Sharing created", @"Sharing created");
+    self.message = NSLocalizedString(@"Tour created", @"Tour created");
 }
 
-- (void)requestShare:(Share *)share {
+- (void)requestTour:(Tour *)tour {
     NSManagedObjectContext *moc = [CoreData sharedInstance].mainMOC;
     NSString *topic = [Settings theGeneralTopicInMOC:moc];
     
     NSDictionary *json = @{
         @"_type": @"request",
-        @"request": @"share",
-        @"share": share.asDictionary
+        @"request": @"tour",
+        @"tour": tour.asDictionary
     };
     
     OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
@@ -166,32 +166,32 @@ static Shares *theInstance = nil;
                         qos:MQTTQosLevelAtMostOnce
                      retain:NO];
     self.activity = @(TRUE);
-    self.message = NSLocalizedString(@"Requesting Sharing", @"Requesting Sharing");
-    if (self.shareTimer && self.shareTimer.isValid) {
-        [self.shareTimer invalidate];
+    self.message = NSLocalizedString(@"Requesting tour", @"Requesting tour");
+    if (self.tourTimer && self.tourTimer.isValid) {
+        [self.tourTimer invalidate];
     }
-    self.shareTimer = [NSTimer scheduledTimerWithTimeInterval:10.0
+    self.tourTimer = [NSTimer scheduledTimerWithTimeInterval:10.0
                                                       repeats:FALSE
                                                         block:^(NSTimer * _Nonnull timer) {
         self.activity = @(FALSE);
-        self.message = NSLocalizedString(@"Sharing request timed out", @"Sharing request timed out");
+        self.message = NSLocalizedString(@"Tour request timed out", @"Tour request timed out");
     }];
 }
 
-- (BOOL)removeShareAtIndex:(NSInteger)index {
-    Share *share = [self shareAtIndex:index];
-    if (!share) {
+- (BOOL)removeTourAtIndex:(NSInteger)index {
+    Tour *tour = [self tourAtIndex:index];
+    if (!tour) {
         return FALSE;
     }
     
-    if (share.uuid) {
+    if (tour.uuid) {
         NSManagedObjectContext *moc = [CoreData sharedInstance].mainMOC;
         NSString *topic = [Settings theGeneralTopicInMOC:moc];
         
         NSDictionary *json = @{
             @"_type": @"request",
-            @"request": @"unshare",
-            @"uuid": share.uuid,
+            @"request": @"untour",
+            @"uuid": tour.uuid,
         };
         
         OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
@@ -203,11 +203,45 @@ static Shares *theInstance = nil;
                             qos:MQTTQosLevelAtMostOnce
                          retain:NO];
         self.activity = @(FALSE);
-        self.message = NSLocalizedString(@"Sharing deleted", @"Sharing deleted");
+        self.message = NSLocalizedString(@"Tour deleted", @"Tour deleted");
     }
     
     [self.array removeObjectAtIndex:index];
     self.timestamp = [NSDate date];
     return TRUE;
+}
+
+- (BOOL)processResponse:(NSDictionary *)dictionary {
+    NSString *request = dictionary[@"request"];
+    if ([request isEqualToString:@"tour"]) {
+        NSNumber *status = dictionary[@"status"];
+        if (status.integerValue == 200) {
+            Tour *share = [[Tour alloc] initFromDictionary:dictionary[@"tour"]];
+            [[Tours sharedInstance] addTour:share];
+
+            UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
+            [generalPasteboard setString:share.url];
+
+            OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+
+            [ad.navigationController alert:
+                 NSLocalizedString(@"Response",
+                                   @"Alert message header for Request Response")
+                                   message:
+                 [NSString stringWithFormat:@"%@ %ld %@\n",
+                  NSLocalizedString(@"URL copied to Clipboard",
+                                    @"URL copied to Clipboard"),
+                  (long)status.integerValue,
+                  share.url]
+                              dismissAfter:0.0
+            ];
+        }
+        return TRUE;
+    } else if ([request isEqual:@"tours"]) {
+        self.response = [dictionary mutableCopy];
+        return TRUE;
+    } else {
+        return FALSE;
+    }
 }
 @end

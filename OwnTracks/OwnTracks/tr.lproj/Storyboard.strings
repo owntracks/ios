@@ -43,7 +43,7 @@
 /* Class = "UILabel"; text = "Filename"; ObjectID = "7ie-NC-EFG"; Note = "Don't translate, technical term"; */
 "7ie-NC-EFG.text" = "Filename";
 
-/* Class = "UINavigationItem"; title = "Sharings"; ObjectID = "7Qj-vi-EaF"; */
+/* Class = "UINavigationItem"; title = "Tours"; ObjectID = "7Qj-vi-EaF"; */
 "7Qj-vi-EaF.title" = "Hisseler";
 
 /* Class = "UIButton"; normalTitle = "Create Card"; ObjectID = "7rX-Bq-DGb"; */
@@ -187,7 +187,7 @@
 /* Class = "UILabel"; text = "locatorDisplacement"; ObjectID = "gtX-x4-Vwl"; Note = "Don't translate, technical term"; */
 "gtX-x4-Vwl.text" = "yer değiştirme";
 
-/* Class = "UITextField"; placeholder = "Name for new sharing"; ObjectID = "guB-Ga-J3e"; */
+/* Class = "UITextField"; placeholder = "Name for new tour"; ObjectID = "guB-Ga-J3e"; */
 "guB-Ga-J3e.placeholder" = "Yeni paylaşımın adı";
 
 /* Class = "UINavigationItem"; title = "Certificates"; ObjectID = "GWL-01-fh1"; Note = "Don't translate, technical term"; */
@@ -421,7 +421,7 @@
 /* Class = "UILabel"; text = "Distance"; ObjectID = "SCe-XW-vBZ"; */
 "SCe-XW-vBZ.text" = "Mesafe";
 
-/* Class = "UINavigationItem"; title = "Create Sharing"; ObjectID = "SR5-Yo-l2L"; */
+/* Class = "UINavigationItem"; title = "Create Tour"; ObjectID = "SR5-Yo-l2L"; */
 "SR5-Yo-l2L.title" = "Paylaşım Oluştur";
 
 /* Class = "UITextView"; text = "<status>"; ObjectID = "src-OY-ZUR"; Note = "Don't translate. Placeholder"; */
@@ -442,7 +442,7 @@
 /* Class = "UITextField"; placeholder = "minor"; ObjectID = "Tc6-JR-qOB"; */
 "Tc6-JR-qOB.placeholder" = "minör";
 
-/* Class = "UIButton"; normalTitle = "Sharings"; ObjectID = "tiK-11-lia"; */
+/* Class = "UIButton"; normalTitle = "Tours"; ObjectID = "tiK-11-lia"; */
 "tiK-11-lia.normalTitle" = "Paylaşımlar";
 
 /* Class = "UITableViewSection"; headerTitle = "Connection"; ObjectID = "TPY-zx-JfY"; */

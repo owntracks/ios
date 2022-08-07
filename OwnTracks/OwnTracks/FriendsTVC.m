@@ -244,9 +244,9 @@ commitEditingStyle:(UITableViewCellEditingStyle)editingStyle
 forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSManagedObjectContext *context = (self.fetchedResultsController).managedObjectContext;
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         Friend *friend = [self.fetchedResultsController objectAtIndexPath:indexPath];
-        [delegate sendEmpty:friend.topic];
+        [ad sendEmpty:friend.topic];
         [context deleteObject:friend];
         
         NSError *error = nil;

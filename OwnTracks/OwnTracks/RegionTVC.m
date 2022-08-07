@@ -68,8 +68,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         self.editRegion.major = @((self.UImajor.text).intValue);
         self.editRegion.minor = @((self.UIminor.text).intValue);
         
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [delegate sendRegion:self.editRegion];
+        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [ad sendRegion:self.editRegion];
         if (self.oldRegion) {
             DDLogVerbose(@"stopMonitoringForRegion %@", self.oldRegion.identifier);
             [[LocationManager sharedInstance] stopRegion:self.oldRegion];
