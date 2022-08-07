@@ -1,13 +1,13 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 16.2.2 iOS/ipadOS/macOS
-* Release Date 2022-08-05
+## OwnTracks 16.2.3 iOS/ipadOS/macOS
+* Release Date 2022-08-07
 
 ** Sharing with non-OwnTracks users, Card editing
 
     [NEW] lock all changes to configuration with by 'locked' setting #707
-    [NEW] create/list/delete shares/views in collaboration with ot-recorder
+    [NEW] create/list/delete tours in collaboration with ot-recorder
     [NEW] Edit card info and photo
 
 ## OwnTracks 16.1.3 iOS/ipadOS/macOS
