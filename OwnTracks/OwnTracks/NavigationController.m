@@ -108,6 +108,20 @@
 
 - (void)alert:(NSString *)title
       message:(NSString *)message
+          url:(NSString *)url {
+    [self performSelectorOnMainThread:@selector(alert:)
+                           withObject:@{
+                               @"title": title,
+                               @"message": message,
+                               @"url": url,
+                               @"interval": [NSNumber numberWithFloat:0.0]
+                           }
+                        waitUntilDone:NO];
+
+}
+
+- (void)alert:(NSString *)title
+      message:(NSString *)message
  dismissAfter:(NSTimeInterval)interval {
     [self performSelectorOnMainThread:@selector(alert:)
                            withObject:@{
@@ -137,7 +151,7 @@
                              actionWithTitle:NSLocalizedString(@"Continue",
                                                                @"Continue button title")
 
-                             style:UIAlertActionStyleDefault
+                             style:UIAlertActionStyleCancel
                              handler:^(UIAlertAction * action) {
             if (self.queuedAlerts.count > 0) {
                 NSDictionary *parameters = self.queuedAlerts.firstObject;
@@ -146,6 +160,26 @@
             }
         }];
         [ac addAction:ok];
+        if (parameters[@"url"]) {
+            UIAlertAction *open = [UIAlertAction
+                                   actionWithTitle:NSLocalizedString(@"Open",
+                                                                     @"Open button title")
+                                   
+                                   style:UIAlertActionStyleDefault
+                                   handler:^(UIAlertAction * action) {
+                NSURL *url = [NSURL URLWithString:parameters[@"url"]];
+                [[UIApplication sharedApplication] openURL:url
+                                                   options:@{}
+                                         completionHandler:^(BOOL success) {
+                    if (self.queuedAlerts.count > 0) {
+                        NSDictionary *parameters = self.queuedAlerts.firstObject;
+                        [self.queuedAlerts removeObjectAtIndex:0];
+                        [self alert:parameters];
+                    }
+                }];
+            }];
+            [ac addAction:open];
+        }
     }
     [self presentViewController:ac animated:TRUE completion:nil];
 

@@ -220,16 +220,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
         OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         [ad.navigationController alert:
-             NSLocalizedString(@"Response",
-                               @"Alert message header for Request Response")
+             NSLocalizedString(@"Copied",
+                               @"Alert message header for copy")
                                message:
              [NSString stringWithFormat:@"%@ %@\n",
               NSLocalizedString(@"URL copied to Clipboard",
                                 @"URL copied to Clipboard"),
               tour.url]
-                          dismissAfter:0.0
+                                   url:tour.url
         ];
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
 }
 
 - (NSString *)tableView:(UITableView *)tableView

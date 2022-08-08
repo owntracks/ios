@@ -216,11 +216,11 @@ static Tours *theInstance = nil;
     if ([request isEqualToString:@"tour"]) {
         NSNumber *status = dictionary[@"status"];
         if (status.integerValue == 200) {
-            Tour *share = [[Tour alloc] initFromDictionary:dictionary[@"tour"]];
-            [[Tours sharedInstance] addTour:share];
+            Tour *tour = [[Tour alloc] initFromDictionary:dictionary[@"tour"]];
+            [[Tours sharedInstance] addTour:tour];
 
             UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
-            [generalPasteboard setString:share.url];
+            [generalPasteboard setString:tour.url];
 
             OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
 
@@ -232,8 +232,8 @@ static Tours *theInstance = nil;
                   NSLocalizedString(@"URL copied to Clipboard",
                                     @"URL copied to Clipboard"),
                   (long)status.integerValue,
-                  share.url]
-                              dismissAfter:0.0
+                  tour.url]
+                                       url:tour.url
             ];
         }
         return TRUE;
