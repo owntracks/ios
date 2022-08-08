@@ -686,32 +686,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         self.UIurl.enabled = !locked;
     }
 
-    //    if (!self.UIusepolicy) {
     if (self.UImodeSwitch) {
 
         int mode =
         [Settings intForKey:@"mode"
                       inMOC:CoreData.sharedInstance.mainMOC];
 
-        NSArray <NSIndexPath *> *publishPaths = @[
-            [NSIndexPath indexPathForRow:3 inSection:0]
-        ];
-        
-        for (NSIndexPath *indexPath in publishPaths) {
-            if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_MQTT && mode != CONNECTION_MODE_HTTP)) {
-                [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if (![self isRowVisible:indexPath] && (mode == CONNECTION_MODE_MQTT || mode == CONNECTION_MODE_HTTP)) {
-                [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-        }
-
-        NSArray <NSIndexPath *> *privatePaths = @[
+        // hide MQTT related rows if not MQTT mode
+        NSArray <NSIndexPath *> *mqttPaths = @[
             [NSIndexPath indexPathForRow:6 inSection:0],
             [NSIndexPath indexPathForRow:7 inSection:0],
             [NSIndexPath indexPathForRow:8 inSection:0]
         ];
 
-        for (NSIndexPath *indexPath in privatePaths) {
+        for (NSIndexPath *indexPath in mqttPaths) {
             if ([self isRowVisible:indexPath] && mode != CONNECTION_MODE_MQTT) {
                 [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             } else if (![self isRowVisible:indexPath] && mode == CONNECTION_MODE_MQTT) {
@@ -735,31 +723,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             }
         }
 
-        NSArray <NSIndexPath *> *secretPaths = @[
-            [NSIndexPath indexPathForRow:12 inSection:0]
-        ];
-        for (NSIndexPath *indexPath in secretPaths) {
-            if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_MQTT && mode != CONNECTION_MODE_HTTP)) {
-                [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if (![self isRowVisible:indexPath] && (mode == CONNECTION_MODE_MQTT || mode == CONNECTION_MODE_HTTP)) {
-                [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-        }
-
-        NSArray <NSIndexPath *> *authPaths = @[
-            [NSIndexPath indexPathForRow:9 inSection:0],
-            [NSIndexPath indexPathForRow:10 inSection:0],
-            [NSIndexPath indexPathForRow:11 inSection:0]
-        ];
-
-        for (NSIndexPath *indexPath in authPaths) {
-            if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_MQTT && mode != CONNECTION_MODE_HTTP)) {
-                [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if (![self isRowVisible:indexPath] && (mode == CONNECTION_MODE_MQTT || mode == CONNECTION_MODE_HTTP)) {
-                [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-        }
-
+        // hide HTTP related rows if not in HTTP mode
         NSArray <NSIndexPath *> *httpPaths = @[
             [NSIndexPath indexPathForRow:13 inSection:0]
         ];
