@@ -693,26 +693,8 @@ didFailRangingBeaconsForConstraint:(CLBeaconIdentityConstraint *)beaconConstrain
                  visit.arrivalDate,
                  visit.departureDate);
     
-    //    CLLocation *location;
-    //    if (visit.departureDate && ![visit.departureDate isEqualToDate:[NSDate distantFuture]]) {
-    //        location = [[CLLocation alloc] initWithCoordinate:visit.coordinate
-    //                                                 altitude:-1.0
-    //                                       horizontalAccuracy:visit.horizontalAccuracy
-    //                                         verticalAccuracy:-1.0
-    //                                                timestamp:visit.departureDate];
-    //    } else if (visit.arrivalDate && ![visit.arrivalDate isEqualToDate:[NSDate distantPast]]) {
-    //        location = [[CLLocation alloc] initWithCoordinate:visit.coordinate
-    //                                                 altitude:-1.0
-    //                                       horizontalAccuracy:visit.horizontalAccuracy
-    //                                         verticalAccuracy:-1.0
-    //                                                timestamp:visit.arrivalDate];
-    //    }
-    //
-    //    if (location) {
-    //        [self.delegate visitLocation:location];
-    //    }
-    if (self.manager.location) {
-        [self.delegate newLocation:self.manager.location];
+    if (manager.location) {
+        [self.delegate visitLocation:manager.location];
     }
 }
 
