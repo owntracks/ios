@@ -1,6 +1,14 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 16.3.0 iOS/ipadOS/macOS
+* Release Date 2022-09-08
+
+** Danish (Dansk) Translation and bug fixes
+
+    [NEW] Danish Translation
+    [FIX] mark positions triggered by "visits" correctly
+
 ## OwnTracks 16.2.5 iOS/ipadOS/macOS
 * Release Date 2022-08-08
 
