@@ -1,0 +1,39 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "OwnTracks";
+
+/* Bundle name */
+"CFBundleName" = "OwnTracks";
+
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "OwnTracks bruger dit kamera når anmodet om at oprette et kort";
+
+/* Privacy - Contacts Usage Description */
+"NSContactsUsageDescription" = "Hvis du tillader at OwnTracks tilgår dine kontakter, kan du linke dine enheder til kontakter. Derefter vil OwnTracks vise kontaktnavn og -billede i stedet for device id. Ingen information fra din addressebog vil blive sendt til servere.";
+
+/* Privacy - Location Always and When In Use Usage Description */
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Din position er brugt til at dele og gemme på en server som du vælger";
+
+/* Privacy - Location Always Usage Description */
+"NSLocationAlwaysUsageDescription" = "Din position er brugt til at dele og gemme på en server som du vælger";
+
+/* Privacy - Location Usage Description */
+"NSLocationUsageDescription" = "Din position er brugt til at dele og gemme på en server som du vælger";
+
+/* Privacy - Location When In Use Usage Description */
+"NSLocationWhenInUseUsageDescription" = "Din position er brugt til at dele og gemme på en server som du vælger";
+
+/* Privacy - Motion Usage Description */
+"NSMotionUsageDescription" = "OwnTracks leverer dit antal skridt, etager bestiget og tilbagelagt distance ved anmodning";
+
+/* (No Comment) */
+"OwnTracks CER File" = "OwnTracks CER-fil";
+
+/* (No Comment) */
+"OwnTracks Configuration File" = "OwnTracks Konfigurationsfil";
+
+/* (No Comment) */
+"OwnTracks PKCS12 File" = "OwnTracks PKCS12 Fil";
+
+/* (No Comment) */
+"OwnTracks Waypoints File" = "OwnTracks rutepunkter-fil";
+
