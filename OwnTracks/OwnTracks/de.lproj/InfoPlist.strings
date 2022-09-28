@@ -4,6 +4,9 @@
 /* Bundle name */
 "CFBundleName" = "OwnTracks";
 
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "OwnTracks nutzt die Kamera um eine Visitenkarte zu erstellen";
+
 /* Privacy - Contacts Usage Description */
 "NSContactsUsageDescription" = "Wenn Sie OwnTracks Zugriff auf Ihr Adressbuch geben, können Sie Geräte Kontakten zuordnen. OwnTracks zeigt dann an Stelle der Gerätekennung den Namen und das Bild des Kontaktes an. Keinerlei Informationen aus Ihrem Adressbuch werden auf irgendeinen Server übertragen.";
 

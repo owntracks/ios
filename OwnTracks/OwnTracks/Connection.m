@@ -390,10 +390,10 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 }
 
 - (void)HTTPerror:(NSString *)message {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-
-    [delegate.navigationController alert:@"HTTP"
-                                 message:message];
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    [ad.navigationController alert:@"HTTP"
+                           message:message];
 }
 
 - (void)sendHTTP:(NSString *)topic data:(NSData *)data {

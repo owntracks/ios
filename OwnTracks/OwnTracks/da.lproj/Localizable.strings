@@ -1,0 +1,360 @@
+/* New featured content indicator */
+"!" = "!";
+
+/* Short for degrees celsius as in 20° */
+"°" = "°";
+
+/* Short for deviation plus/minus */
+"±" = "±";
+
+/* Short for altitude as in ✈︎1000m */
+"✈︎" = "✈︎";
+
+/* name of an unknown or hidden region */
+"a region" = "en region";
+
+/* Address resolver disabled */
+"Address resolver disabled" = "Adressebestemmer slået fra";
+
+/* reverseGeocodeLocation error */
+"Address resolver failed" = "Adressebestemmer fejlede";
+
+/* Headline in addressbook related error messages */
+"Addressbook Access" = "Adgang til Adressebog";
+
+/* Location Manager error message */
+"App is not allowed to use location services" = "App er ikke tilladt at bruge lokationstjenester";
+
+/* Location Manager error message */
+"App is not allowed to use location services in background" = "App er ikke tilladt at bruge lokationstjenester i baggrunden";
+
+/* Location Manager error message */
+"App is not allowed to use location services yet" = "App er ikke tilladt at bruge lokationstjenester endnu";
+
+/* Location Manager error message */
+"App use of location services is restricted" = "Apps brug af lokationstjenester er begrænset";
+
+/* Location Manager error message */
+"App use of location services is unclear" = "Apps brug af lokationstjenester er usikker";
+
+/* Display after processing beacon QR code */
+"Beacon QR successfully processed" = "Beacon QR succesfuldt indlæst";
+
+/* Cancel button title */
+"Cancel" = "Fortryd";
+
+/* Header of an alert message regarding a card */
+"Card" = "Kort";
+
+/* Location Manager error message */
+"Circular region monitoring not available" = "Cirkulær regionsovervågning ikke tilgængelig";
+
+/* Clipboard */
+"Clipboard" = "Udklipsholder";
+
+/* description connection closed state */
+"closed" = "lukket";
+
+/* description connection closing state */
+"closing" = "lukker";
+
+/* description connection connected state */
+"connected" = "forbundet";
+
+/* description connection connected state */
+"connecting" = "forbinder";
+
+/* Continue button title */
+"Continue" = "Fortsæt";
+
+/* content of an alert message regarding circular region */
+"created at center of map" = "oprettet i midten af kortet";
+
+/* Message map interaction */
+"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Vil du tillade interaktion på kortet? Hvis du vælger ja, kan kortudbyderen muligvis analysere dine anmodninger";
+
+/* Message Revgeo */
+"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Vil du bestemme adresser? Hvis du vælger ja, kan geokoderen muligvis analysere dine anmodninger";
+
+/* reverseGeocodeLocation text */
+"due to rate limit or off-line" = "grundet hastighedsbegrænsning eller offline";
+
+/* Display when entering region (region name follows) */
+"Entering" = "Bevæger sig ind i";
+
+/* friend enters region verb */
+"enters" = "bevæger sig ind i";
+
+/* description connection error state */
+"error" = "fejl";
+
+/* Display when file processing fails */
+"Error processing file" = "Fejl under indslæsning af fil";
+
+/* Export */
+"Export" = "Eksportér";
+
+/* Fetching sharing list from backend */
+"Fetching tour list from backend" = "Henter tur-liste fra serveren";
+
+/* Display when file processing succeeds (filename follows) */
+"File" = "Fil";
+
+/* Display after trying to open a file */
+"file open error" = "fejl ved åbning af fil";
+
+/* Fly */
+"Fly" = "Fly";
+
+/* Alert message header for friend's messages */
+"Friend" = "Ven";
+
+/* CNAuthorizationStatusDenied */
+"has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change" = "er blevet nægtet af bruger. Hvis du tillader at OwnTracks tilgår dine kontakter, kan du linke dine enheder til kontakter. Derefter vil OwnTracks vise kontaktnavn og -billede i stedet for device id. Ingen information fra din addressebog vil blive sendt til servere. Gå til Indstillinger/Privatlivs/Kontakter for at ændre";
+
+/* CNAuthorizationStatusRestricted */
+"has been restricted, possibly due to restrictions such as parental controls." = "er blevet begrænset, mulgivis på grund af begrænsninger som forældrekontrol.";
+
+/* Hyb */
+"Hyb" = "Hyb";
+
+/* HybFly */
+"HybFly" = "HybFly";
+
+/* Location Manager error message */
+"iBeacon ranging not available" = "iBeacon-måling er ikke tilgængelig";
+
+/* Location Manager error message */
+"iBeacon region monitoring not available" = "iBeacon-regionsovervågning er ikke tilgængelig";
+
+/* description connection idle state */
+"idle" = "ledig";
+
+/* Warning displayed if location is inaccurate or old */
+"Inaccurate or old location information" = "Upræcis eller forældet positionsdata";
+
+/* certificate error message */
+"incorrect file or passphrase" = "forkert fil eller passphrase";
+
+/* Display for incorrect inline config */
+"Inline Configuration incorrect" = "Inline Konfiguration ugyldig";
+
+/* Display for incorrectly encoded inline config */
+"Inline Configuration incorrectly encoded" = "Inline Konfiguration ugyldigt kodet";
+
+/* Display for config without parameters */
+"Inline Configuration missing parameters" = "Inline Konfiguration mangler parametre";
+
+/* Display after processing inline config */
+"Inline Configuration successfully processed" = "Inline Konfiguration succesfuldt indlæst";
+
+/* Short for kilometers as in 120km */
+"km" = "km";
+
+/* Short for kilometers per hour as in 120km/h */
+"km/h" = "kom/h";
+
+/* friend leaves region verb */
+"leaves" = "forlader";
+
+/* Display when leaving region (region name follows) */
+"Leaving" = "Forlader";
+
+/* Header of an alert message regarding a location */
+"Location" = "Position";
+
+/* Location copied to clipboard */
+"Location copied to clipboard" = "Position kopieret til udklipsholder";
+
+/* Location Manager error message */
+"Location services are not enabled" = "Lokationstjenester er ikke slået til";
+
+/* indicates a locked configuration */
+"locked" = "låst";
+
+/* Short for meters */
+"m" = "m";
+
+/* content of an alert message regarging missing Mac Catalyst Export */
+"Mac Catalyst does not support export yet" = "Mac Catalyst understøtter ikke eksport endnu";
+
+/* Manual */
+"Manual" = "Manuel";
+
+/* Title map interaction */
+"Map Interaction" = "Kortinteraktion";
+
+/* Alert header for mode change warning */
+"Mode change" = "Tilstandsændring";
+
+/* Move */
+"Move" = "Bevægelse";
+
+/* Mute */
+"Mute" = "Mute";
+
+/* No button title */
+"No" = "Nej";
+
+/* dummy for missing content */
+"no content available" = "intet indhold tilgængeligt";
+
+/* No location available indication */
+"No location available" = "Ingen placering tilgængelig";
+
+/* No location recorded indication */
+"No location recorded" = "Ingen placering gemt";
+
+/* No or empty tour list received from backend */
+"No or empty tour list received from backend" = "Ingen eller tom liste modtaget fra serveren";
+
+/* Display after trying to process a file */
+"no url specified" = "ingen URL specificeret";
+
+/* Alert message header for notification messages */
+"Notification" = "Notifikation";
+
+/* temporary display while opening URL */
+"opening URL" = "åbner URL";
+
+/* Alert content for mode change warning */
+"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Vær venligst opmærksom på at dine gemte rutepunkter og positioner will blive slettet på denne enhed for dit privatlivs skyld. Lav en backup først.";
+
+/* Alert header regarding protocol input */
+"Protocol invalid" = "Protokol ugyldig";
+
+/* Alert content regarding protocol input */
+"Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1 or 5 for MQTT V5" = "Protkoll kan være 3 for MQTT V3.1 eller 4 for MQTT V3.1.1 eller 5 for MQTT V5";
+
+/* content of an alert message regarding user publish */
+"publish queued on user request" = "offentliggørelse sat i gang efter brugeranmodning";
+
+/* Quiet */
+"Quiet" = "Stille";
+
+/* Header of an alert message regarding circular region */
+"Region" = "Region";
+
+/* Requesting tour */
+"Requesting tour" = "Anmoder tur";
+
+/* Requesting tour list */
+"Requesting tour list" = "Anmoder liste over ture";
+
+/* temporary display while resolving address */
+"resolving..." = "bestemmer...";
+
+/* Alert message header for Request Response */
+"Response" = "Respons";
+
+/* Title Revgeo */
+"Reverse Geocoding Address Resolution" = "Omvent Geokoder Adressebestemmelse";
+
+/* Sat */
+"Sat" = "Sat";
+
+/* User Activity (Siri) Send location now */
+"Send location now" = "Send position nu";
+
+/* content of an alert message regarding card */
+"set and sent to backend" = "vælg og send til serveren";
+
+/* Settings screen title */
+"Settings" = "Indstillinger";
+
+/* Header of an alert message regarding missing setup */
+"Setup" = "Opsætning";
+
+/* MQTT Description Text */
+"Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Opsæt din egen OwnTracks server for fuld privatlivsbeskyttelse. Mere Info på https://owntracks.org/booklet";
+
+/* Significant */
+"Significant" = "Betydelig";
+
+/* Location Manager error message */
+"Significant location change monitoring not available" = "Betydelig ændring overvågningstilstand er ikke tilgængelig";
+
+/* HTTP Description Text */
+"Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Ligner MQTT-tilstanden, bortset fra at data overføres med HTTP, ikke MQTT.";
+
+/* Std */
+"Std" = "Std";
+
+/* Display when file processing succeeds */
+"successfully processed" = "succesfuldt indlæst";
+
+/* Table is empty */
+"Table is empty" = "Tabel er tom";
+
+/* Heading for certificate error message */
+"TLS Client Certificate" = "TLS Klientcertifikat";
+
+/* Warning displayed if necessary settings are missing */
+"To publish your location userID and deviceID must be set" = "For at offentliggøre din position skal UserID og DeviceID være defineret";
+
+/* Topic copied to clipboard */
+"Topic copied to clipboard" = "Emne kopieret til udklipsholder";
+
+/* Tour created */
+"Tour created" = "Tur oprettet";
+
+/* Tour deleted */
+"Tour deleted" = "Tur slettet";
+
+/* Tour list received */
+"Tour list received" = "Tur-liste modtaget";
+
+/* Tour list request timed out */
+"Tour list request timed out" = "Tur-liste-anmodning tog for lang tid";
+
+/* Tour request timed out */
+"Tour request timed out" = "Tur-anmodning tog for lang tid";
+
+/* Tours list header */
+"Tours" = "Ture";
+
+/* Tours status header */
+"Tours status" = "Ture-status";
+
+/* Tours status header */
+"Tours Status" = "Ture-Status";
+
+/* Alert header regarding TrackerID input */
+"TrackerID invalid" = "TrackerID ugyldigt";
+
+/* Alert content regarding TrackerID input */
+"TrackerID may be empty or up to 2 characters long" = "TrackerID kan være tomt eller op til to tegn langt";
+
+/* Alert content regarding TrackerID input */
+"TrackerID may contain alphanumeric characters only" = "TrackerID kan kun indeholde alfanumeriske tegn";
+
+/* Display after entering an unknown scheme in url */
+"unknown scheme in url" = "ukendt skema i url";
+
+/* description connection unknown state */
+"unknown state" = "ukendt tilstand";
+
+/* Display for unknown url path */
+"unknown url path" = "ukendt url-sti";
+
+/* URL copied to Clipboard */
+"URL copied to Clipboard" = "URL kopieret til udklipsholder";
+
+/* webView didFailLoadWithError display */
+"webView didFailLoadWithError" = "webView didFailLoadWithError";
+
+/* Please Note Text */
+"When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "Når der skiftes mellem tilstande, slettes alt OwnTracks data for privatliv.";
+
+/* Yes button title */
+"Yes" = "Yes";
+
+/* You cannot use background fetch */
+"You cannot use background fetch" = "Du kan ikke bruge baggrundsfetch";
+
+/* You did disable background fetch */
+"You did disable background fetch" = "Du slog baggrundsfetch fra";
+
+/* Text explaining the Setup */
+"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Du skal opsætte din egen OwnTracks server og redigere din konfiguration for fuld privatlivsbeskyttelse. Detaljeret info på https://owntracks.org/booklet";
+

@@ -43,6 +43,9 @@
 /* Cancel button title */
 "Cancel" = "Avbryt";
 
+/* Header of an alert message regarding a card */
+"Card" = "Kort";
+
 /* Location Manager error message */
 "Circular region monitoring not available" = "Övervakning av område inte tillgänglig";
 
@@ -229,6 +232,9 @@
 /* temporary display while resolving address */
 "resolving..." = "bestämmer ...";
 
+/* Alert message header for Request Response */
+"Response" = "Svar";
+
 /* Title Revgeo */
 "Reverse Geocoding Address Resolution" = "Omvänd adressupplösning";
 
@@ -237,6 +243,9 @@
 
 /* User Activity (Siri) Send location now */
 "Send location now" = "Skicka plats nu";
+
+/* content of an alert message regarding card */
+"set and sent to backend" = "ställ in och skickas till backend";
 
 /* Settings screen title */
 "Settings" = "inställningar";
@@ -292,6 +301,9 @@
 /* Display for unknown url path */
 "unknown url path" = "okänd webbadress";
 
+/* URL copied to Clipboard */
+"URL copied to Clipboard" = "URL kopierad till Urklipp";
+
 /* webView didFailLoadWithError display */
 "webView didFailLoadWithError" = "webView didFailLoadWithError";
 
@@ -310,3 +322,5 @@
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "För fullständigt integritetsskydd måste du konfigurera din egen OwnTracks-server och redigera konfigurationen. Detaljerad information på https://owntracks.org/booklet";
 
+/* Alert message header for copy */
+"Copied" = "Copied";

@@ -17,8 +17,8 @@
 
 @implementation NavigationController
 - (void)viewDidLoad {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    delegate.navigationController = self;
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    ad.navigationController = self;
     self.queuedAlerts = [[NSMutableArray alloc] init];
 
     self.progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
@@ -36,28 +36,28 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate addObserver:self
-               forKeyPath:@"connectionState"
-                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                  context:nil];
-    [delegate addObserver:self
-               forKeyPath:@"connectionBuffered"
-                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                  context:nil];
-    [delegate addObserver:self
-               forKeyPath:@"processingMessage"
-                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                  context:nil];
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad addObserver:self
+         forKeyPath:@"connectionState"
+            options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+            context:nil];
+    [ad addObserver:self
+         forKeyPath:@"connectionBuffered"
+            options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+            context:nil];
+    [ad addObserver:self
+         forKeyPath:@"processingMessage"
+            options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+            context:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate removeObserver:self
-                  forKeyPath:@"connectionState"];
-    [delegate removeObserver:self
-                  forKeyPath:@"connectionBuffered"];
-
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad removeObserver:self
+            forKeyPath:@"connectionState"];
+    [ad removeObserver:self
+            forKeyPath:@"connectionBuffered"];
+    
     [super viewWillDisappear:animated];
 }
 
@@ -67,10 +67,10 @@
                         change:(NSDictionary *)change
                        context:(void *)context {
     if ([keyPath isEqualToString:@"processingMessage"]) {
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        if (delegate.processingMessage) {
-            [self alert:@"openURL" message:delegate.processingMessage];
-            delegate.processingMessage = nil;
+        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        if (ad.processingMessage) {
+            [self alert:@"openURL" message:ad.processingMessage];
+            ad.processingMessage = nil;
         }
     }
 
@@ -78,8 +78,8 @@
 }
 
 - (void)updateUI {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    switch ((delegate.connectionState).intValue) {
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    switch ((ad.connectionState).intValue) {
         case state_connected:
             self.progressView.progressTintColor = [UIColor colorNamed:@"connectedColor"];
                 self.progressView.progress = 0.0;
@@ -104,6 +104,20 @@
 - (void)alert:(NSString *)title
       message:(NSString *)message {
     [self alert:title message:message dismissAfter:0];
+}
+
+- (void)alert:(NSString *)title
+      message:(NSString *)message
+          url:(NSString *)url {
+    [self performSelectorOnMainThread:@selector(alert:)
+                           withObject:@{
+                               @"title": title,
+                               @"message": message,
+                               @"url": url,
+                               @"interval": [NSNumber numberWithFloat:0.0]
+                           }
+                        waitUntilDone:NO];
+
 }
 
 - (void)alert:(NSString *)title
@@ -137,7 +151,7 @@
                              actionWithTitle:NSLocalizedString(@"Continue",
                                                                @"Continue button title")
 
-                             style:UIAlertActionStyleDefault
+                             style:UIAlertActionStyleCancel
                              handler:^(UIAlertAction * action) {
             if (self.queuedAlerts.count > 0) {
                 NSDictionary *parameters = self.queuedAlerts.firstObject;
@@ -146,6 +160,26 @@
             }
         }];
         [ac addAction:ok];
+        if (parameters[@"url"]) {
+            UIAlertAction *open = [UIAlertAction
+                                   actionWithTitle:NSLocalizedString(@"Open",
+                                                                     @"Open button title")
+                                   
+                                   style:UIAlertActionStyleDefault
+                                   handler:^(UIAlertAction * action) {
+                NSURL *url = [NSURL URLWithString:parameters[@"url"]];
+                [[UIApplication sharedApplication] openURL:url
+                                                   options:@{}
+                                         completionHandler:^(BOOL success) {
+                    if (self.queuedAlerts.count > 0) {
+                        NSDictionary *parameters = self.queuedAlerts.firstObject;
+                        [self.queuedAlerts removeObjectAtIndex:0];
+                        [self alert:parameters];
+                    }
+                }];
+            }];
+            [ac addAction:open];
+        }
     }
     [self presentViewController:ac animated:TRUE completion:nil];
 

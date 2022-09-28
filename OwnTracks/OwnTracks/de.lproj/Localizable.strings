@@ -43,6 +43,9 @@
 /* Cancel button title */
 "Cancel" = "Abbrechen";
 
+/* Header of an alert message regarding a card */
+"Card" = "Visitenkarte";
+
 /* Location Manager error message */
 "Circular region monitoring not available" = "Überwachung kreisförmiger Regionen nicht verfügbar";
 
@@ -90,6 +93,9 @@
 
 /* Export */
 "Export" = "Export";
+
+/* Fetching sharing list from backend */
+"Fetching tour list from backend" = "Tourenliste Anfrage läuft";
 
 /* Display when file processing succeeds (filename follows) */
 "File" = "Datei";
@@ -199,6 +205,9 @@
 /* No location recorded indication */
 "No location recorded" = "Keine Position verfügbar\n";
 
+/* No or empty tour list received from backend */
+"No or empty tour list received from backend" = "Tourenliste nicht vorhanden oder leer";
+
 /* Display after trying to process a file */
 "no url specified" = "keine URL angegeben";
 
@@ -226,8 +235,17 @@
 /* Header of an alert message regarding circular region */
 "Region" = "Region";
 
+/* Requesting tour */
+"Requesting tour" = "Tour angefragt";
+
+/* Requesting tour list */
+"Requesting tour list" = "Tourenliste angefragt";
+
 /* temporary display while resolving address */
 "resolving..." = "Adressauflösung...";
+
+/* Alert message header for Request Response */
+"Response" = "Antwort";
 
 /* Title Revgeo */
 "Reverse Geocoding Address Resolution" = "Umgekehrte Adressauflösung";
@@ -237,6 +255,9 @@
 
 /* User Activity (Siri) Send location now */
 "Send location now" = "Sende Position sofort";
+
+/* content of an alert message regarding card */
+"set and sent to backend" = "gesetzt und gesendet";
 
 /* Settings screen title */
 "Settings" = "Einstellungen";
@@ -274,6 +295,30 @@
 /* Topic copied to clipboard */
 "Topic copied to clipboard" = "Topic wurde in die Zwischenablage kopiert";
 
+/* Tour created */
+"Tour created" = "Tour angelegt";
+
+/* Tour deleted */
+"Tour deleted" = "Tour gelöscht";
+
+/* Tour list received */
+"Tour list received" = "Tourenliste empfangen";
+
+/* Tour list request timed out */
+"Tour list request timed out" = "Tourenliste Anfrage ohne Antwort";
+
+/* Tour request timed out */
+"Tour request timed out" = "Tour Anfrage ohne Antwort";
+
+/* Tours list header */
+"Tours" = "Touren";
+
+/* Tours status header */
+"Tours status" = "Touren Status";
+
+/* Tours status header */
+"Tours Status" = "Status Touren";
+
 /* Alert header regarding TrackerID input */
 "TrackerID invalid" = "TrackerID ungültig";
 
@@ -291,6 +336,9 @@
 
 /* Display for unknown url path */
 "unknown url path" = "unbekannter URL Pfad";
+
+/* URL copied to Clipboard */
+"URL copied to Clipboard" = "URL in die Zwischenablage kopiert";
 
 /* webView didFailLoadWithError display */
 "webView didFailLoadWithError" = "webView didFailLoadWithError";
@@ -310,3 +358,5 @@
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Konfigurieren Sie Ihren OwnTracks Server für vollständigen Datenschutz. Mehr Information hier: https://owntracks.org/booklet";
 
+/* Alert message header for copy */
+"Copied" = "Kopiert";

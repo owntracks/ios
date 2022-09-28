@@ -16,6 +16,7 @@
 #import "History+CoreDataClass.h"
 #import "Settings.h"
 #import "OwnTracking.h"
+#import "Tours.h"
 #import "ConnType.h"
 #import "NSNumber+decimals.h"
 
@@ -428,29 +429,36 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                                               attributes:nil];
                     } else {
                         [self.navigationController alert:@"processNSURL"
-                                                 message:[NSString stringWithFormat:@"OOPS %@ %@",
-                                                          [NSError errorWithDomain:@"OwnTracks"
-                                                                              code:2
-                                                                          userInfo:@{@"extension":extension ? extension : @"(null)"}],
-                                                          url]];
+                                                 message:
+                         [NSString stringWithFormat:@"OOPS %@ %@",
+                          [NSError errorWithDomain:@"OwnTracks"
+                                              code:2
+                                          userInfo:@{@"extension":extension ? extension : @"(null)"}],
+                          url]];
                     }
                 } else {
                     [self.navigationController alert:@"processNSURL"
-                                             message:[NSString stringWithFormat:@"httpResponse.statusCode %ld %@",
-                                                      (long)httpResponse.statusCode,
-                                                      url]];
+                                             message:
+                     [NSString stringWithFormat:@"httpResponse.statusCode %ld %@",
+                      (long)httpResponse.statusCode,
+                      url]
+                    ];
                 }
             } else {
                 [self.navigationController alert:@"processNSURL"
-                                         message:[NSString stringWithFormat:@"response %@ %@",
+                                         message:
+                 [NSString stringWithFormat:@"response %@ %@",
                                                   response,
-                                                  url]];
+                                                  url]
+                ];
             }
         } else {
             [self.navigationController alert:@"processNSURL"
-                                     message:[NSString stringWithFormat:@"dataTaskWithRequest %@ %@",
-                                              error,
-                                              url]];
+                                     message:
+             [NSString stringWithFormat:@"dataTaskWithRequest %@ %@",
+              error,
+              url]
+            ];
         }
     }];
     [dataTask resume];
@@ -462,9 +470,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
     if (error) {
         [self.navigationController alert:@"processNSURL"
-                                 message:[NSString stringWithFormat:@"configFromDictionary %@ %@",
-                                          error,
-                                          json]];
+                                 message:
+         [NSString stringWithFormat:@"configFromDictionary %@ %@",
+          error,
+          json]
+        ];
     }
 }
 
@@ -473,9 +483,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
     if (error) {
         [self.navigationController alert:@"processNSURL"
-                                 message:[NSString stringWithFormat:@"waypointsFromDictionary %@ %@",
-                                          error,
-                                          json]];
+                                 message:
+         [NSString stringWithFormat:@"waypointsFromDictionary %@ %@",
+          error,
+          json]
+        ];
     }
 }
 
@@ -563,12 +575,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     }
     
     if (self.backgroundFetchCheckMessage) {
-        [self.navigationController alert:@"Background Fetch" message:self.backgroundFetchCheckMessage];
+        [self.navigationController alert:@"Background Fetch"
+                                 message:self.backgroundFetchCheckMessage];
         self.backgroundFetchCheckMessage = nil;
     }
     
     if (self.processingMessage) {
-        [self.navigationController alert:@"openURL" message:self.processingMessage];
+        [self.navigationController alert:@"openURL"
+                                 message:self.processingMessage];
         self.processingMessage = nil;
         [self reconnect];
     }
@@ -577,7 +591,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         NSString *message = NSLocalizedString(@"To publish your location userID and deviceID must be set",
                                               @"Warning displayed if necessary settings are missing");
         
-        [self.navigationController alert:@"Settings" message:message];
+        [self.navigationController alert:@"Settings"
+                                 message:message];
     }
 }
 
@@ -1014,6 +1029,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                                        withObject:dictionary
                                                     waitUntilDone:NO];
                                 
+                            } else if ([@"response" saveEqual:dictionary[@"action"]]) {
+                                [self performSelectorOnMainThread:@selector(performResponse:)
+                                                       withObject:dictionary
+                                                    waitUntilDone:NO];
+                                
                             } else {
                                 DDLogWarn(@"[OwnTracksAppDelegate] unknown action %@", dictionary[@"action"]);
                             }
@@ -1095,8 +1115,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                         maximum:[Settings theMaximumHistoryInMOC:[CoreData sharedInstance].mainMOC]];
         [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
         
-        [self.navigationController alert:NSLocalizedString(@"Notification",
-                                                           @"Alert message header for notification messages")
+        [self.navigationController alert:
+             NSLocalizedString(@"Notification",
+                               @"Alert message header for notification messages")
                                  message:notificationMessage
                             dismissAfter:2.0
         ];
@@ -1112,6 +1133,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         }
     } else {
         self.action = nil;
+    }
+}
+
+- (void)performResponse:(NSDictionary *)dictionary {
+    if ([[Tours sharedInstance] processResponse:dictionary]) {
+    } else {
     }
 }
 
@@ -1483,10 +1510,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                                   passphrase:[Settings stringForKey:@"passphrase"
                                                                               inMOC:moc]];
             if (!certificates) {
-                [self.navigationController alert:NSLocalizedString(@"TLS Client Certificate",
-                                                                   @"Heading for certificate error message")
-                                         message:NSLocalizedString(@"incorrect file or passphrase",
-                                                                   @"certificate error message")
+                [self.navigationController alert:
+                     NSLocalizedString(@"TLS Client Certificate",
+                                       @"Heading for certificate error message")
+                                         message:
+                     NSLocalizedString(@"incorrect file or passphrase",
+                                       @"certificate error message")
                 ];
             }
         }

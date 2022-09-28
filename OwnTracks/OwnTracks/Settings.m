@@ -779,6 +779,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     return [self boolForKey:@"usepassword_preference" inMOC:context];
 }
 
++ (BOOL)theLockedInMOC:(NSManagedObjectContext *)context {
+    return [self boolForKey:@"locked" inMOC:context];
+}
+
 + (BOOL)theMqttAuthInMOC:(NSManagedObjectContext *)context {
     return [self boolForKey:@"auth_preference" inMOC:context];
 }

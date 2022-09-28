@@ -28,15 +28,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate addObserver:self
-               forKeyPath:@"connectionState"
-                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                  context:nil];
-    [delegate addObserver:self
-               forKeyPath:@"connectionBuffered"
-                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                  context:nil];
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad addObserver:self
+         forKeyPath:@"connectionState"
+            options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+            context:nil];
+    [ad addObserver:self
+         forKeyPath:@"connectionBuffered"
+            options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+            context:nil];
     [[LocationManager sharedInstance] addObserver:self
                                        forKeyPath:@"location"
                                           options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
@@ -44,13 +44,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate removeObserver:self
-                  forKeyPath:@"connectionState"
-                     context:nil];
-    [delegate removeObserver:self
-                  forKeyPath:@"connectionBuffered"
-                     context:nil];
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad removeObserver:self
+            forKeyPath:@"connectionState"
+               context:nil];
+    [ad removeObserver:self
+            forKeyPath:@"connectionBuffered"
+               context:nil];
     [[LocationManager sharedInstance] removeObserver:self
                                           forKeyPath:@"location"
                                              context:nil];
@@ -66,7 +66,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)updatedStatus {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     
     const NSDictionary<NSNumber *, NSString *> *states;
     states = @{
@@ -86,24 +86,24 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     
     NSString *stateName = [NSString stringWithFormat:@"%@ (%@)",
                            NSLocalizedString(@"unknown state", @"description connection unknown state"),
-                           delegate.connectionState];
-    if (delegate.connectionState) {
-        stateName = states[delegate.connectionState];
+                           ad.connectionState];
+    if (ad.connectionState) {
+        stateName = states[ad.connectionState];
         if (!stateName) {
-            stateName = delegate.connectionState.description;
+            stateName = ad.connectionState.description;
         }
     }
     
     self.UIstatusField.text = [NSString stringWithFormat:@"%@ %@ %@ %@ %@",
                                stateName,
-                               delegate.connection.lastErrorCode ?
-                               delegate.connection.lastErrorCode.domain : @"",
-                               delegate.connection.lastErrorCode ?
-                               [NSString stringWithFormat:@"%ld", delegate.connection.lastErrorCode.code] : @"",
-                               delegate.connection.lastErrorCode ?
-                               delegate.connection.lastErrorCode.localizedDescription : @"",
-                               delegate.connection.lastErrorCode ?
-                               delegate.connection.lastErrorCode.userInfo : @""
+                               ad.connection.lastErrorCode ?
+                               ad.connection.lastErrorCode.domain : @"",
+                               ad.connection.lastErrorCode ?
+                               [NSString stringWithFormat:@"%ld", ad.connection.lastErrorCode.code] : @"",
+                               ad.connection.lastErrorCode ?
+                               ad.connection.lastErrorCode.localizedDescription : @"",
+                               ad.connection.lastErrorCode ?
+                               ad.connection.lastErrorCode.userInfo : @""
                                ];
     
     if ([LocationManager sharedInstance].location) {
@@ -119,7 +119,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     }
 
     if (self.UIparameters) {
-        self.UIparameters.text = (delegate.connection).parameters;
+        self.UIparameters.text = (ad.connection).parameters;
     }
     
     self.UIVersion.text = [NSString stringWithFormat:@"%@/%@",
@@ -153,14 +153,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                         ];
             UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
             [generalPasteboard setString:locationString];
-            OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-            [delegate.navigationController
-             alert:NSLocalizedString(@"Clipboard",
-                                     @"Clipboard")
-             message:NSLocalizedString(@"Location copied to clipboard",
-                                       @"Location copied to clipboard")
-             dismissAfter:1
-             ];
+            OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+            [ad.navigationController alert:NSLocalizedString(@"Clipboard",
+                                                             @"Clipboard")
+                                   message:NSLocalizedString(@"Location copied to clipboard",
+                                                             @"Location copied to clipboard")
+                              dismissAfter:1
+            ];
         }
     }
     return nil;

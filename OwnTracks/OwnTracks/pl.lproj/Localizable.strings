@@ -13,6 +13,9 @@
 /* name of an unknown or hidden region */
 "a region" = "obszar";
 
+/* Address resolver disabled */
+"Address resolver disabled" = "Rozpoznawanie adresów wyłączone";
+
 /* reverseGeocodeLocation error */
 "Address resolver failed" = "Rozpoznanie adresu nieudane";
 
@@ -40,6 +43,9 @@
 /* Cancel button title */
 "Cancel" = "Anuluj";
 
+/* Header of an alert message regarding a card */
+"Card" = "Karta";
+
 /* Location Manager error message */
 "Circular region monitoring not available" = "Monitorowanie okręgu niedostępne";
 
@@ -63,6 +69,12 @@
 
 /* content of an alert message regarding circular region */
 "created at center of map" = "utworzono na środku mapy";
+
+/* Message map interaction */
+"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Czy chcesz, aby mapa umożliwiała interakcję? Wybierając opcję Tak, dostawca mapy może analizować żądania dotyczące wycinków mapy";
+
+/* Message Revgeo */
+"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Czy chcesz rozwiązywać adresy? Wybierając opcję Tak, dostawca usług geokodowania może analizować Twoje żądania";
 
 /* reverseGeocodeLocation text */
 "due to rate limit or off-line" = "z powodu ograniczenia danych lub off-line";
@@ -166,6 +178,9 @@
 /* Manual */
 "Manual" = "Ręczny";
 
+/* Title map interaction */
+"Map Interaction" = "Interakcja z mapą";
+
 /* Alert header for mode change warning */
 "Mode change" = "Zmiana trybu";
 
@@ -174,6 +189,9 @@
 
 /* Mute */
 "Mute" = "Mute";
+
+/* No button title */
+"No" = "Nie";
 
 /* dummy for missing content */
 "no content available" = "brak treści";
@@ -214,11 +232,20 @@
 /* temporary display while resolving address */
 "resolving..." = "rozwiązywanie...";
 
+/* Alert message header for Request Response */
+"Response" = "Odpowiedź";
+
+/* Title Revgeo */
+"Reverse Geocoding Address Resolution" = "Rozdzielczość adresu odwrotnego geokodowania";
+
 /* Sat */
 "Sat" = "Sat";
 
 /* User Activity (Siri) Send location now */
 "Send location now" = "Send location now";
+
+/* content of an alert message regarding card */
+"set and sent to backend" = "ustawić i wysłać do zaplecza";
 
 /* Settings screen title */
 "Settings" = "Ustawienia";
@@ -274,6 +301,9 @@
 /* Display for unknown url path */
 "unknown url path" = "nieznana ścieżka w url";
 
+/* URL copied to Clipboard */
+"URL copied to Clipboard" = "URL skopiowany do schowka";
+
 /* webView didFailLoadWithError display */
 "webView didFailLoadWithError" = "webView didFailLoadWithError";
 
@@ -292,3 +322,5 @@
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Możesz skonfigurować własny serwer OwnTracks dla pełnej ochrony prywatności. Więcej informacji tutaj: https://owntracks.org/booklet";
 
+/* Alert message header for copy */
+"Copied" = "Copied";

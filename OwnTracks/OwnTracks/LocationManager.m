@@ -36,8 +36,8 @@
 @implementation PendingRegionEvent
 
 + (PendingRegionEvent *)holdDown:(CLRegion *)region
-                             for:(NSTimeInterval)interval
-                              to:(id)to {
+for:(NSTimeInterval)interval
+to:(id)to {
     PendingRegionEvent *p = [[PendingRegionEvent alloc] init];
     p.region = region;
     p.holdDownTimer = [NSTimer timerWithTimeInterval:interval
@@ -67,7 +67,7 @@ static LocationManager *theInstance = nil;
     
     self.manager = [[CLLocationManager alloc] init];
     self.manager.delegate = self;
-
+    
     self.altimeter = [[CMAltimeter alloc] init];
     
     self.insideBeaconRegions = [[NSMutableDictionary alloc] init];
@@ -83,33 +83,33 @@ static LocationManager *theInstance = nil;
      object:nil
      queue:nil
      usingBlock:^(NSNotification *note){
-         DDLogVerbose(@"[LocationManager] UIApplicationWillEnterForegroundNotification");
-         //
-     }];
+        DDLogVerbose(@"[LocationManager] UIApplicationWillEnterForegroundNotification");
+        //
+    }];
     [[NSNotificationCenter defaultCenter]
      addObserverForName:UIApplicationDidBecomeActiveNotification
      object:nil
      queue:nil
      usingBlock:^(NSNotification *note){
-         DDLogVerbose(@"[LocationManager] UIApplicationDidBecomeActiveNotification");
-         [self wakeup];
-     }];
+        DDLogVerbose(@"[LocationManager] UIApplicationDidBecomeActiveNotification");
+        [self wakeup];
+    }];
     [[NSNotificationCenter defaultCenter]
      addObserverForName:UIApplicationWillResignActiveNotification
      object:nil
      queue:nil
      usingBlock:^(NSNotification *note){
-         DDLogVerbose(@"[LocationManager] UIApplicationWillResignActiveNotification");
-         [self sleep];
-     }];
+        DDLogVerbose(@"[LocationManager] UIApplicationWillResignActiveNotification");
+        [self sleep];
+    }];
     [[NSNotificationCenter defaultCenter]
      addObserverForName:UIApplicationWillTerminateNotification
      object:nil
      queue:nil
      usingBlock:^(NSNotification *note){
-         DDLogVerbose(@"[LocationManager] UIApplicationWillTerminateNotification");
-         [self stop];
-     }];
+        DDLogVerbose(@"[LocationManager] UIApplicationWillTerminateNotification");
+        [self stop];
+    }];
     
     self.sharedUserDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
     [self.sharedUserDefaults addObserver:self forKeyPath:@"monitoring"
@@ -118,7 +118,7 @@ static LocationManager *theInstance = nil;
     [self.sharedUserDefaults addObserver:self forKeyPath:@"sendNow"
                                  options:NSKeyValueObservingOptionNew
                                  context:nil];
-
+    
     return self;
 }
 
@@ -133,30 +133,30 @@ static LocationManager *theInstance = nil;
             self.monitoring = monitoring;
         }
     } else if ([keyPath isEqualToString:@"sendNow"]) {
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [delegate sendNow:self.location];
+        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [ad sendNow:self.location];
     }
 }
 
 - (void)start {
     DDLogVerbose(@"start");
     [self authorize];
-
+    
     CMAuthorizationStatus status = [CMAltimeter authorizationStatus];
     BOOL available = [CMAltimeter isRelativeAltitudeAvailable];
     DDLogVerbose(@"CMAltimeter status=%ld, available=%d",
                  (long)status,
                  available);
-
+    
     if (available &&
         (status == CMAuthorizationStatusNotDetermined ||
          status == CMAuthorizationStatusAuthorized)) {
         DDLogVerbose(@"startRelativeAltitudeUpdatesToQueue");
         [self.altimeter startRelativeAltitudeUpdatesToQueue:[NSOperationQueue mainQueue]
                                                 withHandler:^(CMAltitudeData *altitudeData, NSError *error) {
-                                                    DDLogVerbose(@"altitudeData %@", altitudeData);
-                                                    self.altitude = altitudeData;
-                                                }];
+            DDLogVerbose(@"altitudeData %@", altitudeData);
+            self.altitude = altitudeData;
+        }];
     }
 }
 
@@ -203,7 +203,7 @@ static LocationManager *theInstance = nil;
 
 - (void)stop {
     DDLogVerbose(@"stop");
-
+    
     if ([CMAltimeter isRelativeAltitudeAvailable]) {
         DDLogVerbose(@"stopRelativeAltitudeUpdates");
         [self.altimeter stopRelativeAltitudeUpdates];
@@ -280,11 +280,11 @@ static LocationManager *theInstance = nil;
     _monitoring = monitoring;
     self.manager.pausesLocationUpdatesAutomatically = NO;
     self.manager.allowsBackgroundLocationUpdates = TRUE;
-
+    
     [self.manager stopUpdatingLocation];
     [self.manager stopMonitoringVisits];
     [self.manager stopMonitoringSignificantLocationChanges];
-
+    
     switch (monitoring) {
         case LocationMonitoringMove:
             self.manager.distanceFilter = self.minDist > 0 ? self.minDist : kCLDistanceFilterNone;
@@ -361,77 +361,87 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
 }
 
 - (void)showError {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
     switch (status) {
         case kCLAuthorizationStatusAuthorizedAlways:
             break;
         case kCLAuthorizationStatusAuthorizedWhenInUse:
-            [delegate.navigationController alert:@"LocationManager"
-                                         message:NSLocalizedString(@"App is not allowed to use location services in background",
-                                                                   @"Location Manager error message")
-             ];
+            [ad.navigationController alert:@"LocationManager"
+                                   message:
+                 NSLocalizedString(@"App is not allowed to use location services in background",
+                                   @"Location Manager error message")
+            ];
             break;
         case kCLAuthorizationStatusNotDetermined:
-            [delegate.navigationController alert:@"LocationManager"
-                                         message:NSLocalizedString(@"App is not allowed to use location services yet",
-                                                                   @"Location Manager error message")
-             ];
+            [ad.navigationController alert:@"LocationManager"
+                                   message:
+                 NSLocalizedString(@"App is not allowed to use location services yet",
+                                   @"Location Manager error message")
+            ];
             break;
         case kCLAuthorizationStatusDenied:
-            [delegate.navigationController alert:@"LocationManager"
-                                         message:NSLocalizedString(@"App is not allowed to use location services",
-                                                                   @"Location Manager error message")
-             ];
+            [ad.navigationController alert:@"LocationManager"
+                                   message:
+                 NSLocalizedString(@"App is not allowed to use location services",
+                                   @"Location Manager error message")
+            ];
             break;
         case kCLAuthorizationStatusRestricted:
-            [delegate.navigationController alert:@"LocationManager"
-                                         message:NSLocalizedString(@"App use of location services is restricted",
-                                                                   @"Location Manager error message")
-             ];
+            [ad.navigationController alert:@"LocationManager"
+                                   message:
+                 NSLocalizedString(@"App use of location services is restricted",
+                                   @"Location Manager error message")
+            ];
             break;
         default:
-            [delegate.navigationController alert:@"LocationManager"
-                                         message:NSLocalizedString(@"App use of location services is unclear",
-                                                                   @"Location Manager error message")
-             ];
+            [ad.navigationController alert:@"LocationManager"
+                                   message:
+                 NSLocalizedString(@"App use of location services is unclear",
+                                   @"Location Manager error message")
+            ];
             break;
     }
     
     if (![CLLocationManager locationServicesEnabled]) {
-        [delegate.navigationController alert:@"LocationManager"
-                                     message:NSLocalizedString(@"Location services are not enabled",
-                                                               @"Location Manager error message")
-         ];
+        [ad.navigationController alert:@"LocationManager"
+                               message:
+             NSLocalizedString(@"Location services are not enabled",
+                               @"Location Manager error message")
+        ];
     }
-
+    
 #if 0
     if (![CLLocationManager significantLocationChangeMonitoringAvailable]) {
         [delegate.navigationController alert:@"LocationManager"
-                                     message:NSLocalizedString(@"Significant location change monitoring not available",
-                                                               @"Location Manager error message")
-         ];
+                                     message:
+             NSLocalizedString(@"Significant location change monitoring not available",
+                               @"Location Manager error message")
+        ];
     }
     
     if (![CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
         [delegate.navigationController alert:@"LocationManager"
-                                     message:NSLocalizedString(@"Circular region monitoring not available",
-                                                               @"Location Manager error message")
-         ];
+                                     message:
+             NSLocalizedString(@"Circular region monitoring not available",
+                               @"Location Manager error message")
+        ];
     }
     
     if (![CLLocationManager isMonitoringAvailableForClass:[CLBeaconRegion class]]) {
         [delegate.navigationController alert:@"LocationManager"
-                                     message:NSLocalizedString(@"iBeacon region monitoring not available",
-                                                               @"Location Manager error message")
-         ];
+                                     message:
+             NSLocalizedString(@"iBeacon region monitoring not available",
+                               @"Location Manager error message")
+        ];
     }
     
     if (![CLLocationManager isRangingAvailable]) {
         [delegate.navigationController alert:@"LocationManager"
-                                     message:NSLocalizedString(@"iBeacon ranging not available",
-                                                               @"Location Manager error message")
-         ];
+                                     message:
+             NSLocalizedString(@"iBeacon ranging not available",
+                               @"Location Manager error message")
+        ];
     }
     
     if (![CLLocationManager headingAvailable]) {
@@ -509,7 +519,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
                 [[CLBeaconIdentityConstraint alloc] initWithUUID:beaconRegion.UUID];
             }
             [self.manager stopRangingBeaconsSatisfyingConstraint:beaconIdentityConstraint];
-
+            
         }
     }
     
@@ -598,7 +608,7 @@ didFailRangingBeaconsForConstraint:(CLBeaconIdentityConstraint *)beaconConstrain
                   error:(NSError *)error {
     DDLogVerbose(@"[LocationManager] didFailRangingBeaconsForConstraint %@ %@ %@",
                  beaconConstraint, error.localizedDescription, error.userInfo);
-
+    
 }
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -614,7 +624,7 @@ didFailRangingBeaconsForConstraint:(CLBeaconIdentityConstraint *)beaconConstrain
                 uuid_t beaconUUID;
                 [rangedBeacon.UUID getUUIDBytes:rangedBeaconUUID];
                 [beacon.UUID getUUIDBytes:beaconUUID];
-
+                
                 if (uuid_compare(rangedBeaconUUID, beaconUUID) == 0 &&
                     (rangedBeacon.major).intValue == (beacon.major).intValue &&
                     (rangedBeacon.minor).intValue == (beacon.minor).intValue) {
@@ -636,7 +646,7 @@ didFailRangingBeaconsForConstraint:(CLBeaconIdentityConstraint *)beaconConstrain
             }
         }
     }
-
+    
 }
 
 /*
@@ -683,26 +693,8 @@ didFailRangingBeaconsForConstraint:(CLBeaconIdentityConstraint *)beaconConstrain
                  visit.arrivalDate,
                  visit.departureDate);
     
-    //    CLLocation *location;
-    //    if (visit.departureDate && ![visit.departureDate isEqualToDate:[NSDate distantFuture]]) {
-    //        location = [[CLLocation alloc] initWithCoordinate:visit.coordinate
-    //                                                 altitude:-1.0
-    //                                       horizontalAccuracy:visit.horizontalAccuracy
-    //                                         verticalAccuracy:-1.0
-    //                                                timestamp:visit.departureDate];
-    //    } else if (visit.arrivalDate && ![visit.arrivalDate isEqualToDate:[NSDate distantPast]]) {
-    //        location = [[CLLocation alloc] initWithCoordinate:visit.coordinate
-    //                                                 altitude:-1.0
-    //                                       horizontalAccuracy:visit.horizontalAccuracy
-    //                                         verticalAccuracy:-1.0
-    //                                                timestamp:visit.arrivalDate];
-    //    }
-    //
-    //    if (location) {
-    //        [self.delegate visitLocation:location];
-    //    }
-    if (self.manager.location) {
-        [self.delegate newLocation:self.manager.location];
+    if (manager.location) {
+        [self.delegate visitLocation:manager.location];
     }
 }
 

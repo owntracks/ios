@@ -2,16 +2,19 @@
 "!" = "!​";
 
 /* Short for degrees celsius as in 20° */
-"°" = "​";
+"°" = "°";
 
 /* Short for deviation plus/minus */
-"±" = "​";
+"±" = "±";
 
 /* Short for altitude as in ✈︎1000m */
 "✈︎" = "​";
 
 /* name of an unknown or hidden region */
 "a region" = "een regio";
+
+/* Address resolver disabled */
+"Address resolver disabled" = "Adresoplosser uitgeschakeld";
 
 /* reverseGeocodeLocation error */
 "Address resolver failed" = "Adres resolver mislukt";
@@ -64,6 +67,12 @@
 /* content of an alert message regarding circular region */
 "created at center of map" = "gemaakt in het midden van de kaart";
 
+/* Message map interaction */
+"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Wil je dat de kaart interactie mogelijk maakt? Als u ja kiest, kan de kaartaanbieder uw tegelverzoeken analyseren";
+
+/* Message Revgeo */
+"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Wilt u adressen oplossen? Als u ja kiest, kan de geocoderingsprovider uw verzoeken analyseren";
+
 /* reverseGeocodeLocation text */
 "due to rate limit or off-line" = "vanwege tarieflimiet of offline";
 
@@ -71,7 +80,7 @@
 "Entering" = "Betreden";
 
 /* friend enters region verb */
-"enters" = "enters";
+"enters" = "komt binnen";
 
 /* description connection error state */
 "error" = "fout";
@@ -133,26 +142,23 @@
 /* Display after processing inline config */
 "Inline Configuration successfully processed" = "Inline-configuratie is succesvol verwerkt";
 
-/* Short for kilometers per hour as in 120km/h */
-"km/h" = "km/u";
-
 /* Short for kilometers as in 120km */
 "km" = "km";
 
-/* Display when leaving region (region name follows) */
-"Leaving" = "Vertrekken";
+/* Short for kilometers per hour as in 120km/h */
+"km/h" = "km/u";
 
 /* friend leaves region verb */
-"leaves" = "leaves";
+"leaves" = "bladeren";
+
+/* Display when leaving region (region name follows) */
+"Leaving" = "Vertrekken";
 
 /* Header of an alert message regarding a location */
 "Location" = "Locatie";
 
 /* Location copied to clipboard */
 "Location copied to clipboard" = "Locatie gekopieerd naar klembord";
-
-/* Topic copied to clipboard */
-"Topic copied to clipboard" = "Topic gekopieerd naar klembord";
 
 /* Location Manager error message */
 "Location services are not enabled" = "Locatieservices zijn niet ingeschakeld";
@@ -169,6 +175,9 @@
 /* Manual */
 "Manual" = "Handmatig";
 
+/* Title map interaction */
+"Map Interaction" = "Kaart interactie";
+
 /* Alert header for mode change warning */
 "Mode change" = "Modus veranderen";
 
@@ -177,6 +186,9 @@
 
 /* Mute */
 "Mute" = "Stil";
+
+/* No button title */
+"No" = "Nee";
 
 /* dummy for missing content */
 "no content available" = "geen inhoud beschikbaar";
@@ -217,6 +229,12 @@
 /* temporary display while resolving address */
 "resolving..." = "opzoeken...";
 
+/* Alert message header for Request Response */
+"Response" = "Antwoord";
+
+/* Title Revgeo */
+"Reverse Geocoding Address Resolution" = "Resolutie van omgekeerde geocodering:";
+
 /* Sat */
 "Sat" = "Sat";
 
@@ -256,6 +274,9 @@
 /* Warning displayed if necessary settings are missing */
 "To publish your location userID and deviceID must be set" = "Om uw locatie te publiceren, moeten gebruikers-ID en apparaat-ID zijn ingesteld";
 
+/* Topic copied to clipboard */
+"Topic copied to clipboard" = "Onderwerp gekopieerd naar klembord";
+
 /* Alert header regarding TrackerID input */
 "TrackerID invalid" = "TrackerID ongeldig";
 
@@ -274,11 +295,17 @@
 /* Display for unknown url path */
 "unknown url path" = "onbekend url-pad";
 
+/* URL copied to Clipboard */
+"URL copied to Clipboard" = "URL gekopieerd naar klembord";
+
 /* webView didFailLoadWithError display */
 "webView didFailLoadWithError" = "webView didFailLoadWithError";
 
 /* Please Note Text */
 "When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "Bij het wisselen tussen modi worden alle OwnTracks-gegevens om privacyredenen verwijderd.";
+
+/* Yes button title */
+"Yes" = "Ja";
 
 /* You cannot use background fetch */
 "You cannot use background fetch" = "U kunt niet op de achtergrond ophalen";
@@ -289,23 +316,5 @@
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "U moet uw eigen OwnTracks-server instellen en uw configuratie bewerken voor volledige privacybescherming. Gedetailleerde informatie op https://owntracks.org/booklet";
 
-/* Title map interaction */
-"Map Interaction" = "Map Interaction";
-
-/* Message map interaction */
-"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests";
-
-/* Address resolver disabled */
-"Address resolver disabled" = "Address resolver disabled";
-
-/* Title Revgeo */
-"Reverse Geocoding Address Resolution" = "Reverse Geocoding Address Resolution";
-
-/* Message Revgeo */
-"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests";
-
-/* Yes button title */
-"Yes" = "Yes";
-
-/* No button title */
-"No" = "No";
+/* Alert message header for copy */
+"Copied" = "Copied";

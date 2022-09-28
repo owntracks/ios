@@ -26,11 +26,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate addObserver:self
-               forKeyPath:@"action"
-                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                  context:nil];
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad addObserver:self
+         forKeyPath:@"action"
+            options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+            context:nil];
     self.UIhtml.UIDelegate = self;
     self.UIhtml.navigationDelegate = self;
 }

@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIinfo;
 @property (weak, nonatomic) IBOutlet UITextField *UIcreatedAt;
 @property (weak, nonatomic) IBOutlet UITextField *UIbatterylevel;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *bookmarkButton;
 
 @property (nonatomic) BOOL needsUpdate;
 @property (strong, nonatomic) CLRegion *oldRegion;
@@ -46,9 +47,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    BOOL locked = [Settings theLockedInMOC:CoreData.sharedInstance.mainMOC];
 
     CNAuthorizationStatus status = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
-    if (status != CNAuthorizationStatusAuthorized) {
+    if (locked || status != CNAuthorizationStatusAuthorized) {
         [self.navigationItem setRightBarButtonItem:nil];
     }
 
@@ -116,23 +119,22 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         NSString *locationString = (self.waypoint).shortCoordinateText;
         UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
         [generalPasteboard setString:locationString];
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [delegate.navigationController alert:NSLocalizedString(@"Clipboard",
-                                                               @"Clipboard")
-                                     message:NSLocalizedString(@"Location copied to clipboard",
-                                                               @"Location copied to clipboard")
-                                dismissAfter:1
+        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [ad.navigationController alert:NSLocalizedString(@"Clipboard",
+                                                         @"Clipboard")
+                               message:NSLocalizedString(@"Location copied to clipboard",
+                                                         @"Location copied to clipboard")
+                          dismissAfter:1
         ];
     } else if (indexPath.section == 1 && indexPath.row == 6) {
         UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
         [generalPasteboard setString:(self.waypoint).belongsTo.topic];
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [delegate.navigationController
-         alert:NSLocalizedString(@"Clipboard",
-                                 @"Clipboard")
-         message:NSLocalizedString(@"Topic copied to clipboard",
-                                   @"Topic copied to clipboard")
-         dismissAfter:1
+        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [ad.navigationController alert:NSLocalizedString(@"Clipboard",
+                                                         @"Clipboard")
+                               message:NSLocalizedString(@"Topic copied to clipboard",
+                                                         @"Topic copied to clipboard")
+                          dismissAfter:1
         ];
     }
 

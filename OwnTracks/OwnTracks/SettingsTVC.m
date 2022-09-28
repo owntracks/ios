@@ -72,6 +72,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *UIeffectiveTid;
 @property (weak, nonatomic) IBOutlet UILabel *UIeffectiveDeviceId;
 @property (weak, nonatomic) IBOutlet UITextField *UIdowngrade;
+@property (weak, nonatomic) IBOutlet UIButton *createCardButton;
+@property (weak, nonatomic) IBOutlet UIButton *toursButton;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
 
@@ -99,11 +101,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.UImonitoring.delegate = self;
     self.UIdowngrade.delegate = self;
 
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate addObserver:self
-               forKeyPath:@"configLoad"
-                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                  context:nil];
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad addObserver:self
+         forKeyPath:@"configLoad"
+            options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+            context:nil];
     [self updated];
 }
 
@@ -113,10 +115,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate removeObserver:self
-                  forKeyPath:@"configLoad"
-                     context:nil];
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad removeObserver:self
+            forKeyPath:@"configLoad"
+               context:nil];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"reload" object:nil];
     [self reconnect];
     [super viewWillDisappear:animated];
@@ -369,8 +371,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)updated {
-    BOOL locked = [Settings boolForKey:@"locked"
-                                 inMOC:CoreData.sharedInstance.mainMOC];
+    BOOL locked = [Settings theLockedInMOC:CoreData.sharedInstance.mainMOC];
     self.title = [NSString stringWithFormat:@"%@%@",
                   NSLocalizedString(@"Settings",
                                     @"Settings screen title"),
@@ -378,6 +379,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                   [NSString stringWithFormat:@" (%@)", NSLocalizedString(@"locked",
                                                                          @"indicates a locked configuration")] :
                   @""];
+
+    self.createCardButton.enabled = !locked;
+    self.toursButton.enabled = !locked;
 
     if (self.UIDeviceID) {
         self.UIDeviceID.text =
@@ -509,7 +513,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         DDLogVerbose(@"[Settings] mode is %d", mode);
         switch (mode) {
             case CONNECTION_MODE_HTTP:
-                self.UImodeSwitch.selectedSegmentIndex =1;
+                self.UImodeSwitch.selectedSegmentIndex = 1;
                 break;
             case CONNECTION_MODE_MQTT:
             default:
@@ -636,8 +640,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     }
     if (self.self.UIlocked) {
         self.self.UIlocked.on =
-        [Settings boolForKey:@"locked"
-                       inMOC:CoreData.sharedInstance.mainMOC];
+        [Settings theLockedInMOC:CoreData.sharedInstance.mainMOC];
         self.self.UIlocked.enabled = false;
     }
     if (self.self.UIsub) {
@@ -683,32 +686,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         self.UIurl.enabled = !locked;
     }
 
-    //    if (!self.UIusepolicy) {
     if (self.UImodeSwitch) {
 
         int mode =
         [Settings intForKey:@"mode"
                       inMOC:CoreData.sharedInstance.mainMOC];
 
-        NSArray <NSIndexPath *> *publishPaths = @[
-            [NSIndexPath indexPathForRow:3 inSection:0]
-        ];
-        
-        for (NSIndexPath *indexPath in publishPaths) {
-            if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_MQTT && mode != CONNECTION_MODE_HTTP)) {
-                [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if (![self isRowVisible:indexPath] && (mode == CONNECTION_MODE_MQTT || mode == CONNECTION_MODE_HTTP)) {
-                [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-        }
-
-        NSArray <NSIndexPath *> *privatePaths = @[
-            [NSIndexPath indexPathForRow:5 inSection:0],
+        // hide MQTT related rows if not MQTT mode
+        NSArray <NSIndexPath *> *mqttPaths = @[
             [NSIndexPath indexPathForRow:6 inSection:0],
-            [NSIndexPath indexPathForRow:7 inSection:0]
+            [NSIndexPath indexPathForRow:7 inSection:0],
+            [NSIndexPath indexPathForRow:8 inSection:0]
         ];
 
-        for (NSIndexPath *indexPath in privatePaths) {
+        for (NSIndexPath *indexPath in mqttPaths) {
             if ([self isRowVisible:indexPath] && mode != CONNECTION_MODE_MQTT) {
                 [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             } else if (![self isRowVisible:indexPath] && mode == CONNECTION_MODE_MQTT) {
@@ -732,33 +723,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             }
         }
 
-        NSArray <NSIndexPath *> *secretPaths = @[
-            [NSIndexPath indexPathForRow:11 inSection:0]
-        ];
-        for (NSIndexPath *indexPath in secretPaths) {
-            if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_MQTT && mode != CONNECTION_MODE_HTTP)) {
-                [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if (![self isRowVisible:indexPath] && (mode == CONNECTION_MODE_MQTT || mode == CONNECTION_MODE_HTTP)) {
-                [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-        }
-
-        NSArray <NSIndexPath *> *authPaths = @[
-            [NSIndexPath indexPathForRow:8 inSection:0],
-            [NSIndexPath indexPathForRow:9 inSection:0],
-            [NSIndexPath indexPathForRow:10 inSection:0]
-        ];
-
-        for (NSIndexPath *indexPath in authPaths) {
-            if ([self isRowVisible:indexPath] && (mode != CONNECTION_MODE_MQTT && mode != CONNECTION_MODE_HTTP)) {
-                [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if (![self isRowVisible:indexPath] && (mode == CONNECTION_MODE_MQTT || mode == CONNECTION_MODE_HTTP)) {
-                [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-        }
-
+        // hide HTTP related rows if not in HTTP mode
         NSArray <NSIndexPath *> *httpPaths = @[
-            [NSIndexPath indexPathForRow:12 inSection:0]
+            [NSIndexPath indexPathForRow:13 inSection:0]
         ];
 
         for (NSIndexPath *indexPath in httpPaths) {
@@ -798,14 +765,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (IBAction)publishSettingsPressed:(UIButton *)sender {
     [self updateValues];
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate dump];
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad dump];
 }
 
 - (IBAction)publishWaypointsPressed:(UIButton *)sender {
     [self updateValues];
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate waypoints];
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad waypoints];
 }
 
 - (IBAction)exportPressed:(UIButton *)sender {
@@ -924,6 +891,53 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     }
 }
 
+- (IBAction)setCard:(UIStoryboardSegue *)segue {
+    if ([segue.sourceViewController respondsToSelector:@selector(cardImage)] &&
+        [segue.sourceViewController respondsToSelector:@selector(name)]) {
+        UITextField *name = [segue.sourceViewController performSelector:@selector(name)];
+        UIImageView *cardImage = [segue.sourceViewController performSelector:@selector(cardImage)];
+
+    NSLog(@"image %f, %f, %f",
+          cardImage.image.size.width,
+          cardImage.image.size.height,
+          cardImage.image.scale);
+    
+    NSData *png = UIImagePNGRepresentation(cardImage.image);
+    NSManagedObjectContext *moc = [CoreData sharedInstance].mainMOC;
+    NSString *topic = [Settings theGeneralTopicInMOC:moc];
+    Friend *myself = [Friend existsFriendWithTopic:topic
+                            inManagedObjectContext:moc];
+    
+    
+    myself.cardName = name.text;
+    myself.cardImage = UIImagePNGRepresentation(cardImage.image);
+    NSString *b64String = [png base64EncodedStringWithOptions:0];
+
+    NSDictionary *json = @{
+        @"_type": @"card",
+        @"face": b64String,
+        @"name": name.text,
+    };
+
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad.connection sendData:[NSJSONSerialization dataWithJSONObject:json
+                                                            options:NSJSONWritingSortedKeys
+                                                              error:nil]
+                        topic:[[Settings theGeneralTopicInMOC:moc] stringByAppendingString:@"/info"]
+                   topicAlias:@(0)
+                          qos:[Settings intForKey:@"qos_preference"
+                                            inMOC:moc]
+                       retain:YES];
+        
+        [ad.navigationController alert:
+         NSLocalizedString(@"Card",
+                           @"Header of an alert message regarding a card")
+                               message:
+         NSLocalizedString(@"set and sent to backend",
+                           @"content of an alert message regarding card")];
+    }
+}
+
 - (IBAction)touchedOutsideText:(UITapGestureRecognizer *)sender {
     [self.UIHost resignFirstResponder];
     [self.UIPort resignFirstResponder];
@@ -1006,11 +1020,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                          
                          style:UIAlertActionStyleDestructive
                          handler:^(UIAlertAction *action) {
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [delegate terminateSession];
+        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [ad terminateSession];
         [self updateValues];
         [self updated];
-        [delegate reconnect];
+        [ad reconnect];
     }];
     
     [ac addAction:cancel];
@@ -1094,12 +1108,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
                          style:UIAlertActionStyleDestructive
                          handler:^(UIAlertAction *action) {
-        OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [delegate terminateSession];
+        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [ad terminateSession];
         [self updateValues];
 
         [self updated];
-        [delegate reconnect];
+        [ad reconnect];
     }];
 
     [ac addAction:cancel];
@@ -1124,11 +1138,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)reconnect {
-    OwnTracksAppDelegate *delegate = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    [delegate connectionOff];
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad connectionOff];
     [[OwnTracking sharedInstance] syncProcessing];
     [self updateValues];
-    [delegate reconnect];
+    [ad reconnect];
 }
 
 @end

@@ -1,0 +1,9 @@
+/* Class = "UILabel"; text = "1 - 3 / 6"; ObjectID = "B1p-y7-Qo8"; Note = "Placeholder. Don't translate"; */
+"B1p-y7-Qo8.text" = "1 - 3 / 6";
+
+/* Class = "UIButton"; normalTitle = "Forward"; ObjectID = "bed-eO-POB"; */
+"bed-eO-POB.normalTitle" = "Videre";
+
+/* Class = "UIButton"; normalTitle = "Backward"; ObjectID = "wOM-J5-pkE"; */
+"wOM-J5-pkE.normalTitle" = "Bagud";
+
