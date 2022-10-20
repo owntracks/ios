@@ -134,7 +134,7 @@ static LocationManager *theInstance = nil;
         }
     } else if ([keyPath isEqualToString:@"sendNow"]) {
         OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [ad sendNow:self.location];
+        [ad sendNow:self.location withPOI:nil];
     }
 }
 

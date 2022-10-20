@@ -2,8 +2,8 @@
 //  Waypoint+CoreDataProperties.h
 //  OwnTracks
 //
-//  Created by Christoph Krey on 14.12.21.
-//  Copyright © 2021-2022 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 08.10.22.
+//  Copyright © 2022 OwnTracks. All rights reserved.
 //
 //
 
@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable, nonatomic, copy) NSNumber *acc;
 @property (nullable, nonatomic, copy) NSNumber *alt;
+@property (nullable, nonatomic, copy) NSNumber *batt;
 @property (nullable, nonatomic, copy) NSNumber *cog;
 @property (nullable, nonatomic, copy) NSDate *createdAt;
 @property (nullable, nonatomic, copy) NSNumber *lat;
@@ -27,7 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSDate *tst;
 @property (nullable, nonatomic, copy) NSNumber *vac;
 @property (nullable, nonatomic, copy) NSNumber *vel;
-@property (nullable, nonatomic, copy) NSNumber *batt;
+@property (nullable, nonatomic, copy) NSString *poi;
+@property (nullable, nonatomic, copy) NSString *tag;
 @property (nullable, nonatomic, retain) Friend *belongsTo;
 
 @end

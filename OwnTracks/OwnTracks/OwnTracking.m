@@ -146,6 +146,8 @@ static OwnTracking *theInstance = nil;
                                     location:location
                                    createdAt:createdAt
                                      trigger:dictionary[@"t"]
+                                         poi:nil
+                                         tag:nil
                                      battery:batteryLevel
                                      context:context];
                         [self limitWaypointsFor:friend
@@ -354,12 +356,16 @@ static OwnTracking *theInstance = nil;
                     location:(CLLocation *)location
                    createdAt:(NSDate *)createdAt
                      trigger:(NSString *)trigger
+                     poi:(NSString *)poi
+                     tag:(NSString *)tag
                      battery:(NSNumber *)battery
                      context:(NSManagedObjectContext *)context {
     Waypoint *waypoint = [NSEntityDescription insertNewObjectForEntityForName:@"Waypoint"
                                                        inManagedObjectContext:context];
     waypoint.belongsTo = friend;
     waypoint.trigger = trigger;
+    waypoint.poi = poi;
+    waypoint.tag = tag;
     waypoint.acc = @(location.horizontalAccuracy);
     waypoint.alt = @(location.altitude);
     waypoint.lat = @(location.coordinate.latitude);
@@ -521,6 +527,14 @@ static OwnTracking *theInstance = nil;
 
     if (inRids.count > 0) {
         json[@"inrids"] = inRids;
+    }
+    
+    if (waypoint.poi) {
+        json[@"poi"] = waypoint.poi;
+    }
+    
+    if (waypoint.tag) {
+        json[@"tag"] = waypoint.tag;
     }
 
     return json;

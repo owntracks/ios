@@ -23,7 +23,7 @@
 
 @interface OwnTracksAppDelegate : UIResponder <UIApplicationDelegate, ConnectionDelegate, LocationManagerDelegate, UNUserNotificationCenterDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) UIWindow  *window;
 @property (weak, nonatomic) NavigationController *navigationController;
 
 @property (strong, nonatomic) NSString *processingMessage;
@@ -36,11 +36,11 @@
 @property (strong, nonatomic) NSString *action;
 @property (nonatomic) BOOL inRefresh;
 
-- (BOOL)sendNow:(CLLocation *)location;
+- (BOOL)sendNow:(CLLocation *)location withPOI:(nullable NSString *)poi;
 - (void)dump;
 - (void)waypoints;
-- (void)sendRegion:(Region *)region;
-- (void)sendEmpty:(NSString *)topic;
+- (void)sendRegion:(nonnull Region *)region;
+- (void)sendEmpty:(nonnull NSString *)topic;
 - (void)reconnect;
 - (void)connectionOff;
 - (void)terminateSession;

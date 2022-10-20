@@ -324,3 +324,24 @@
 
 /* Alert message header for copy */
 "Copied" = "Copied";
+
+/* Send location now button */
+"Send location now" = "Send location now";
+
+/* Set POI button */
+"Set POI" = "Set POI";
+
+/* Set tag button */
+"Set tag" = "Set tag";
+
+/* Set POI title */
+"Set POI" = "Set POI";
+
+/* Set Tag title */
+"Set Tag" = "Set Tag";
+
+/* Send button title*/
+"Send" = "Send";
+
+/* Remove button title*/
+"Remove" = "Remove";
