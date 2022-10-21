@@ -2911,6 +2911,9 @@
                                                     <rect key="frame" x="73" y="5" width="321" height="34"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="editingChanged:" destination="YO7-40-MnA" eventType="editingChanged" id="8dd-bM-IcJ"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
