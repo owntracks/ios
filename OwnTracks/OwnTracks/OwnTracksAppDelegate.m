@@ -178,8 +178,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         case UIBackgroundRefreshStatusDenied:
             DDLogWarn(@"[OwnTracksAppDelegate] UIBackgroundRefreshStatusDenied");
 #if !TARGET_OS_MACCATALYST
-            self.backgroundFetchCheckMessage = NSLocalizedString(@"You did disable background fetch",
-                                                                 @"You did disable background fetch");
+            self.backgroundFetchCheckMessage = NSLocalizedString(@"You disabled background fetch",
+                                                                 @"You disabled background fetch");
 #endif
             break;
         case UIBackgroundRefreshStatusRestricted:

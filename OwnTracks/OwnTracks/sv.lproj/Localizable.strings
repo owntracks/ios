@@ -316,8 +316,8 @@
 /* You cannot use background fetch */
 "You cannot use background fetch" = "Du kan inte använda bakgrundshämtning";
 
-/* You did disable background fetch */
-"You did disable background fetch" = "Du inaktiverade bakgrundshämtningen";
+/* You disabled background fetch */
+"You disabled background fetch" = "Du inaktiverade bakgrundshämtningen";
 
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "För fullständigt integritetsskydd måste du konfigurera din egen OwnTracks-server och redigera konfigurationen. Detaljerad information på https://owntracks.org/booklet";

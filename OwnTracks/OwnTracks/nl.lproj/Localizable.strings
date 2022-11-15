@@ -310,8 +310,8 @@
 /* You cannot use background fetch */
 "You cannot use background fetch" = "U kunt niet op de achtergrond ophalen";
 
-/* You did disable background fetch */
-"You did disable background fetch" = "Je hebt het ophalen van de achtergrond uitgeschakeld";
+/* You disabled background fetch */
+"You disabled background fetch" = "Je hebt het ophalen van de achtergrond uitgeschakeld";
 
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "U moet uw eigen OwnTracks-server instellen en uw configuratie bewerken voor volledige privacybescherming. Gedetailleerde informatie op https://owntracks.org/booklet";

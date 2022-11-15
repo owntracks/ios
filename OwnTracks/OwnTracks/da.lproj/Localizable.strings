@@ -352,8 +352,8 @@
 /* You cannot use background fetch */
 "You cannot use background fetch" = "Du kan ikke bruge baggrundsfetch";
 
-/* You did disable background fetch */
-"You did disable background fetch" = "Du slog baggrundsfetch fra";
+/* You disabled background fetch */
+"You disabled background fetch" = "Du slog baggrundsfetch fra";
 
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Du skal opsætte din egen OwnTracks server og redigere din konfiguration for fuld privatlivsbeskyttelse. Detaljeret info på https://owntracks.org/booklet";
