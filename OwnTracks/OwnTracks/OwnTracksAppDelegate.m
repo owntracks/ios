@@ -7,7 +7,6 @@
 //
 
 #import "OwnTracksAppDelegate.h"
-#import <Intents/Intents.h>
 #import <UserNotifications/UserNotifications.h>
 #import <BackgroundTasks/BackgroundTasks.h>
 
@@ -1274,12 +1273,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     self.sendNowActivity.eligibleForSearch = true;
     self.sendNowActivity.eligibleForPrediction = true;
     [self.sendNowActivity becomeCurrent];
-    
-    OwnTracksSendNowIntent *intent = [[OwnTracksSendNowIntent alloc] init];
-    INInteraction *interaction = [[INInteraction alloc] initWithIntent:intent response:nil];
-    [interaction donateInteractionWithCompletion:^(NSError * _Nullable error) {
-        DDLogVerbose(@"[OwnTracksAppDelegate] donateInteractionWithCompletion %@", error);
-    }];
     return [self publishLocation:location trigger:@"u" withPOI:poi];
 }
 
@@ -1369,7 +1362,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                 NSNumber *batteryLevel = [NSNumber numberWithFloat:[UIDevice currentDevice].batteryLevel];
                 
                 NSString *tag = [[NSUserDefaults standardUserDefaults] stringForKey:@"tag"];
-
                 
                 Waypoint *waypoint = [ownTracking addWaypointFor:friend
                                                         location:location

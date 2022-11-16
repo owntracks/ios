@@ -1,9 +1,8 @@
 //
 //  Waypoint+CoreDataProperties.m
-//  OwnTracks
+//  
 //
-//  Created by Christoph Krey on 08.10.22.
-//  Copyright © 2022 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 15.11.22.
 //
 //
 
@@ -23,12 +22,12 @@
 @dynamic lat;
 @dynamic lon;
 @dynamic placemark;
+@dynamic poi;
+@dynamic tag;
 @dynamic trigger;
 @dynamic tst;
 @dynamic vac;
 @dynamic vel;
-@dynamic poi;
-@dynamic tag;
 @dynamic belongsTo;
 
 @end

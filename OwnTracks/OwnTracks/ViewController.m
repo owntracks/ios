@@ -237,14 +237,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                    inMOC:CoreData.sharedInstance.mainMOC];
         [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
         [self updateMoveButton];
-
-        OwnTracksChangeMonitoringIntent *intent = [[OwnTracksChangeMonitoringIntent alloc] init];
-        intent.monitoring = intentMonitoring;
-        INInteraction *interaction = [[INInteraction alloc] initWithIntent:intent response:nil];
-        [interaction donateInteractionWithCompletion:^(NSError * _Nullable error) {
-            DDLogVerbose(@"[ViewController] donateInteractionWithCompletion %@", error);
-        }];
-
     }
 }
 
@@ -1037,7 +1029,11 @@ calloutAccessoryControlTapped:(UIControl *)control {
                                                                            @"Send button title")
                                                    style:UIAlertActionStyleDefault
                                                  handler:^(UIAlertAction * _Nonnull action) {
-        [[NSUserDefaults standardUserDefaults] setObject:ac.textFields[0].text forKey:@"tag"];
+        if (!ac.textFields[0].text.length) {
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"tag"];
+        } else {
+            [[NSUserDefaults standardUserDefaults] setObject:ac.textFields[0].text forKey:@"tag"];
+        }
         [self sendNow:nil];
     }];
     UIAlertAction *remove = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove",

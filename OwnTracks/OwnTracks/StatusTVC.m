@@ -129,9 +129,23 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
     [self.tableView setNeedsDisplay];
 }
-
-- (IBAction)talkPressed:(UIButton *)sender {
+- (IBAction)webPressed:(UIButton *)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://owntracks.org"]
+                                       options:@{}
+                             completionHandler:nil];
+}
+- (IBAction)githubPressed:(UIButton *)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://github.com/owntracks/talk"]
+                                       options:@{}
+                             completionHandler:nil];
+}
+- (IBAction)twitterPressed:(UIButton *)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://twitter.com/owntracks"]
+                                       options:@{}
+                             completionHandler:nil];
+}
+- (IBAction)mastodonPressed:(UIButton *)sender {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://fosstodon.org/@owntracks"]
                                        options:@{}
                              completionHandler:nil];
 }

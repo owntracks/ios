@@ -10,8 +10,10 @@
 #import "OwnTracksSendNowIntent.h"
 #import "OwnTracksChangeMonitoringIntent.h"
 #import "OwnTracksEnum.h"
+#import "OwnTracksTagIntent.h"
+#import "OwnTracksPOIIntent.h"
 
-@interface IntentHandler () <OwnTracksSendNowIntentHandling, OwnTracksChangeMonitoringIntentHandling>
+@interface IntentHandler () <OwnTracksSendNowIntentHandling, OwnTracksChangeMonitoringIntentHandling, OwnTracksTagIntentHandling, OwnTracksPOIIntentHandling>
 
 @end
 
@@ -24,16 +26,19 @@
     return self;
 }
 
-- (void)handleSendNow:(nonnull OwnTracksSendNowIntent *)intent completion:(nonnull void (^)(OwnTracksSendNowIntentResponse * _Nonnull))completion {
+- (void)handleSendNow:(nonnull OwnTracksSendNowIntent *)intent
+           completion:(nonnull void (^)(OwnTracksSendNowIntentResponse * _Nonnull))completion {
     NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
     [shared setObject:[NSDate date] forKey:@"sendNow"];
     [shared synchronize];
 
-    OwnTracksSendNowIntentResponse *response = [[OwnTracksSendNowIntentResponse alloc] initWithCode:OwnTracksSendNowIntentResponseCodeSuccess userActivity:nil];
+    NSUserActivity *userActivity = [[NSUserActivity alloc] initWithActivityType:@"org.mqttitude.MQTTitude.sendNow"];
+    OwnTracksSendNowIntentResponse *response = [[OwnTracksSendNowIntentResponse alloc] initWithCode:OwnTracksSendNowIntentResponseCodeSuccess userActivity:userActivity];
     completion(response);
 }
 
-- (void)handleChangeMonitoring:(nonnull OwnTracksChangeMonitoringIntent *)intent completion:(nonnull void (^)(OwnTracksChangeMonitoringIntentResponse * _Nonnull))completion {
+- (void)handleChangeMonitoring:(nonnull OwnTracksChangeMonitoringIntent *)intent
+                    completion:(nonnull void (^)(OwnTracksChangeMonitoringIntentResponse * _Nonnull))completion {
     NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
     NSInteger monitoring = [shared integerForKey:@"monitoring"];
     switch (intent.monitoring) {
@@ -59,7 +64,8 @@
     completion(response);
 }
 
-- (void)resolveMonitoringForChangeMonitoring:(nonnull OwnTracksChangeMonitoringIntent *)intent withCompletion:(nonnull void (^)(OwnTracksEnumResolutionResult * _Nonnull))completion {
+- (void)resolveMonitoringForChangeMonitoring:(nonnull OwnTracksChangeMonitoringIntent *)intent
+                              withCompletion:(nonnull void (^)(OwnTracksEnumResolutionResult * _Nonnull))completion {
     if (intent.monitoring == OwnTracksEnumQuiet ||
         intent.monitoring == OwnTracksEnumManual ||
         intent.monitoring == OwnTracksEnumSignificant ||
@@ -70,6 +76,39 @@
         OwnTracksEnumResolutionResult *result = [OwnTracksEnumResolutionResult confirmationRequiredWithEnumToConfirm:intent.monitoring];
         completion(result);
     }
+}
+
+- (void)handleTag:(OwnTracksTagIntent *)intent
+       completion:(void (^)(OwnTracksTagIntentResponse * _Nonnull))completion {
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+    [shared setObject:intent.tag forKey:@"tag"];
+    [shared synchronize];
+
+    NSUserActivity *userActivity = [[NSUserActivity alloc] initWithActivityType:@"org.mqttitude.MQTTitude.sendNow"];
+    OwnTracksTagIntentResponse *response = [[OwnTracksTagIntentResponse alloc] initWithCode:OwnTracksTagIntentResponseCodeSuccess userActivity:userActivity];
+    completion(response);
+}
+
+- (void)resolveTagForTag:(OwnTracksTagIntent *)intent withCompletion:(void (^)(INStringResolutionResult * _Nonnull))completion {
+    INStringResolutionResult *result = [INStringResolutionResult successWithResolvedString:intent.tag];
+    completion(result);
+}
+
+- (void)handlePOI:(OwnTracksPOIIntent *)intent
+       completion:(void (^)(OwnTracksPOIIntentResponse * _Nonnull))completion {
+
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+    [shared setObject:intent.POI forKey:@"POI"];
+    [shared synchronize];
+
+    NSUserActivity *userActivity = [[NSUserActivity alloc] initWithActivityType:@"org.mqttitude.MQTTitude.sendNow"];
+    OwnTracksPOIIntentResponse *response = [[OwnTracksPOIIntentResponse alloc] initWithCode:OwnTracksPOIIntentResponseCodeSuccess userActivity:userActivity];
+    completion(response);
+}
+
+- (void)resolvePOIForPOI:(OwnTracksPOIIntent *)intent withCompletion:(void (^)(INStringResolutionResult * _Nonnull))completion {
+    INStringResolutionResult *result = [INStringResolutionResult successWithResolvedString:intent.POI];
+    completion(result);
 }
 
 @end

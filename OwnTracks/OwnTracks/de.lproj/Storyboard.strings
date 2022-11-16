@@ -157,8 +157,8 @@
 /* Class = "UILabel"; text = "clientId"; ObjectID = "fHY-ry-yB3"; Note = "Don't translate, technical term"; */
 "fHY-ry-yB3.text" = "clientId";
 
-/* Class = "UIButton"; normalTitle = "Talk to us"; ObjectID = "Fng-qL-diO"; */
-"Fng-qL-diO.normalTitle" = "Sprechen Sie mit uns";
+/* Class = "UIButton"; normalTitle = "Web"; ObjectID = "Fng-qL-diO"; */
+"Fng-qL-diO.normalTitle" = "Web";
 
 /* Class = "UITextField"; placeholder = "uuid"; ObjectID = "fPO-vc-4UX"; */
 "fPO-vc-4UX.placeholder" = "uuid";

@@ -110,8 +110,8 @@
 /* Class = "UILabel"; text = "Credits and Licence"; ObjectID = "FYQ-ba-bf8"; */
 "FYQ-ba-bf8.text" = "Credits and Licence";
 
-/* Class = "UIButton"; normalTitle = "Talk to us"; ObjectID = "Fng-qL-diO"; */
-"Fng-qL-diO.normalTitle" = "Talk to us";
+/* Class = "UIButton"; normalTitle = "Web"; ObjectID = "Fng-qL-diO"; */
+"Fng-qL-diO.normalTitle" = "Web";
 
 /* Class = "UINavigationItem"; title = "Regions"; ObjectID = "GM9-KK-8vY"; */
 "GM9-KK-8vY.title" = "Regions";
