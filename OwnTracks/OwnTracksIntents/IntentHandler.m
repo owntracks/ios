@@ -28,38 +28,12 @@
 
 - (void)handleSendNow:(nonnull OwnTracksSendNowIntent *)intent
            completion:(nonnull void (^)(OwnTracksSendNowIntentResponse * _Nonnull))completion {
-    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
-    [shared setObject:[NSDate date] forKey:@"sendNow"];
-    [shared synchronize];
-
-    NSUserActivity *userActivity = [[NSUserActivity alloc] initWithActivityType:@"org.mqttitude.MQTTitude.sendNow"];
-    OwnTracksSendNowIntentResponse *response = [[OwnTracksSendNowIntentResponse alloc] initWithCode:OwnTracksSendNowIntentResponseCodeSuccess userActivity:userActivity];
+    OwnTracksSendNowIntentResponse *response = [[OwnTracksSendNowIntentResponse alloc] initWithCode:OwnTracksSendNowIntentResponseCodeSuccess userActivity:nil];
     completion(response);
 }
 
 - (void)handleChangeMonitoring:(nonnull OwnTracksChangeMonitoringIntent *)intent
                     completion:(nonnull void (^)(OwnTracksChangeMonitoringIntentResponse * _Nonnull))completion {
-    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
-    NSInteger monitoring = [shared integerForKey:@"monitoring"];
-    switch (intent.monitoring) {
-        case OwnTracksEnumQuiet:
-            monitoring = -1;
-            break;
-        case OwnTracksEnumManual:
-            monitoring = 0;
-            break;
-        case OwnTracksEnumSignificant:
-            monitoring = 1;
-            break;
-        case OwnTracksEnumMove:
-            monitoring = 2;
-            break;
-        default:
-            break;
-    }
-    [shared setInteger:monitoring forKey:@"monitoring"];
-    [shared synchronize];
-
     OwnTracksChangeMonitoringIntentResponse *response = [[OwnTracksChangeMonitoringIntentResponse alloc] initWithCode:OwnTracksChangeMonitoringIntentResponseCodeSuccess userActivity:nil];
     completion(response);
 }
@@ -80,12 +54,7 @@
 
 - (void)handleTag:(OwnTracksTagIntent *)intent
        completion:(void (^)(OwnTracksTagIntentResponse * _Nonnull))completion {
-    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
-    [shared setObject:intent.tag forKey:@"tag"];
-    [shared synchronize];
-
-    NSUserActivity *userActivity = [[NSUserActivity alloc] initWithActivityType:@"org.mqttitude.MQTTitude.sendNow"];
-    OwnTracksTagIntentResponse *response = [[OwnTracksTagIntentResponse alloc] initWithCode:OwnTracksTagIntentResponseCodeSuccess userActivity:userActivity];
+    OwnTracksTagIntentResponse *response = [[OwnTracksTagIntentResponse alloc] initWithCode:OwnTracksTagIntentResponseCodeSuccess userActivity:nil];
     completion(response);
 }
 
@@ -96,13 +65,7 @@
 
 - (void)handlePOI:(OwnTracksPOIIntent *)intent
        completion:(void (^)(OwnTracksPOIIntentResponse * _Nonnull))completion {
-
-    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
-    [shared setObject:intent.POI forKey:@"POI"];
-    [shared synchronize];
-
-    NSUserActivity *userActivity = [[NSUserActivity alloc] initWithActivityType:@"org.mqttitude.MQTTitude.sendNow"];
-    OwnTracksPOIIntentResponse *response = [[OwnTracksPOIIntentResponse alloc] initWithCode:OwnTracksPOIIntentResponseCodeSuccess userActivity:userActivity];
+    OwnTracksPOIIntentResponse *response = [[OwnTracksPOIIntentResponse alloc] initWithCode:OwnTracksPOIIntentResponseCodeSuccess userActivity:nil];
     completion(response);
 }
 

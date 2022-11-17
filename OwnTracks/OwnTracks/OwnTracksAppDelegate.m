@@ -21,6 +21,8 @@
 
 #import "OwnTracksSendNowIntent.h"
 #import "OwnTracksChangeMonitoringIntent.h"
+#import "OwnTracksTagIntent.h"
+#import "OwnTracksPOIIntent.h"
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
@@ -1578,29 +1580,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 - (BOOL)application:(UIApplication *)application
 continueUserActivity:(nonnull NSUserActivity *)userActivity
  restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
-    DDLogInfo(@"application continueUserActivity:%@", userActivity);
+    DDLogInfo(@"application continueUserActivity:%@", userActivity.activityType);
     
-    if ([userActivity.activityType isEqualToString:@"org.mqttitude.MQTTitude.sendNow"]) {
-        if ([self sendNow:[LocationManager sharedInstance].location withPOI:nil]) {
-            [self.navigationController alert:
-                 NSLocalizedString(@"Location",
-                                   @"Header of an alert message regarding a location")
-                                     message:
-                 NSLocalizedString(@"publish queued on user request",
-                                   @"content of an alert message regarding user publish")
-                                dismissAfter:1
-            ];
-        } else {
-            [self.navigationController alert:
-             NSLocalizedString(@"Location",
-                               @"Header of an alert message regarding a location")
-                                     message:
-             NSLocalizedString(@"publish queued on user request",
-                               @"content of an alert message regarding user publish")];
-        }
-        
-        return YES;
-    } else if ([userActivity.activityType isEqualToString:@"OwnTracksSendNowIntent"]) {
+    if ([userActivity.activityType isEqualToString:@"org.mqttitude.MQTTitude.sendNow"] ||
+        [userActivity.activityType isEqualToString:@"OwnTracksSendNowIntent"]) {
         if ([self sendNow:[LocationManager sharedInstance].location withPOI:nil]) {
             [self.navigationController alert:
                  NSLocalizedString(@"Location",
@@ -1647,7 +1630,37 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
         [CoreData.sharedInstance sync:moc];
         
         return YES;
+    } else if ([userActivity.activityType isEqualToString:@"OwnTracksTagIntent"]) {
+        OwnTracksTagIntent *intent = (OwnTracksTagIntent *)userActivity.interaction.intent;
+        NSString *tag = intent.tag;
+        if (tag && tag.length) {
+            [[NSUserDefaults standardUserDefaults] setObject:tag forKey:@"tag"];
+        } else {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"tag"];
+        }
         
+        return YES;
+    } else if ([userActivity.activityType isEqualToString:@"OwnTracksPOIIntent"]) {
+        OwnTracksPOIIntent *intent = (OwnTracksPOIIntent *)userActivity.interaction.intent;
+        NSString *poi = intent.POI;
+        if ([self sendNow:[LocationManager sharedInstance].location withPOI:poi]) {
+            [self.navigationController alert:
+                 NSLocalizedString(@"Location",
+                                   @"Header of an alert message regarding a location")
+                                     message:
+                 NSLocalizedString(@"publish queued on user request",
+                                   @"content of an alert message regarding user publish")
+                                dismissAfter:1
+            ];
+        } else {
+            [self.navigationController alert:
+             NSLocalizedString(@"Location",
+                               @"Header of an alert message regarding a location")
+                                     message:
+             NSLocalizedString(@"publish queued on user request",
+                               @"content of an alert message regarding user publish")];
+        }
+        return YES;
     }
     return NO;
 }

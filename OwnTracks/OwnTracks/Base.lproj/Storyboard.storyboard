@@ -3073,13 +3073,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I19-GX-iMA">
-                                                    <rect key="frame" x="20" y="11.5" width="42" height="21"/>
+                                                    <rect key="frame" x="20" y="11.5" width="41.5" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name for new tour" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="guB-Ga-J3e">
-                                                    <rect key="frame" x="70" y="5" width="285" height="34"/>
+                                                    <rect key="frame" x="69.5" y="5" width="285.5" height="34"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
@@ -3104,19 +3104,23 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZe-bR-3x5">
-                                                    <rect key="frame" x="20" y="11.5" width="40" height="21"/>
+                                                    <rect key="frame" x="20" y="11.5" width="50" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="D2H-0M-Nqh"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <datePicker contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="0f5-gd-MxE">
-                                                    <rect key="frame" x="74" y="4.5" width="320" height="34.5"/>
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="0f5-gd-MxE">
+                                                    <rect key="frame" x="78" y="4.5" width="277" height="34.5"/>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="SZe-bR-3x5" firstAttribute="leading" secondItem="3xG-yP-vtI" secondAttribute="leading" constant="20" symbolic="YES" id="0gK-cE-k1l"/>
-                                                <constraint firstAttribute="trailing" secondItem="0f5-gd-MxE" secondAttribute="trailing" constant="20" symbolic="YES" id="AHC-uc-dp6"/>
-                                                <constraint firstItem="0f5-gd-MxE" firstAttribute="centerY" secondItem="3xG-yP-vtI" secondAttribute="centerY" id="qOw-fm-oML"/>
+                                                <constraint firstAttribute="trailing" secondItem="0f5-gd-MxE" secondAttribute="trailing" constant="20" symbolic="YES" id="DAY-QB-YXl"/>
+                                                <constraint firstItem="0f5-gd-MxE" firstAttribute="centerY" secondItem="3xG-yP-vtI" secondAttribute="centerY" id="L3G-gV-ecp"/>
+                                                <constraint firstItem="0f5-gd-MxE" firstAttribute="leading" secondItem="SZe-bR-3x5" secondAttribute="trailing" constant="8" symbolic="YES" id="WeN-5S-FWU"/>
                                                 <constraint firstItem="SZe-bR-3x5" firstAttribute="centerY" secondItem="3xG-yP-vtI" secondAttribute="centerY" id="zA8-mh-sdX"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -3129,20 +3133,24 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pud-EK-OTL">
-                                                    <rect key="frame" x="20" y="11.5" width="19" height="21"/>
+                                                    <rect key="frame" x="20" y="11.5" width="50" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="zWH-mV-Wcm"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <datePicker contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="sGk-1E-zg5">
-                                                    <rect key="frame" x="74" y="4.5" width="320" height="34.5"/>
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="sGk-1E-zg5">
+                                                    <rect key="frame" x="78" y="4.5" width="277" height="34.5"/>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="sGk-1E-zg5" secondAttribute="trailing" constant="20" symbolic="YES" id="8PU-5n-dKn"/>
                                                 <constraint firstItem="pud-EK-OTL" firstAttribute="leading" secondItem="FCN-Ol-RRN" secondAttribute="leading" constant="20" symbolic="YES" id="Des-FG-ofz"/>
+                                                <constraint firstAttribute="trailing" secondItem="sGk-1E-zg5" secondAttribute="trailing" constant="20" symbolic="YES" id="U9a-0j-606"/>
+                                                <constraint firstItem="sGk-1E-zg5" firstAttribute="centerY" secondItem="FCN-Ol-RRN" secondAttribute="centerY" id="cHo-Zw-oxj"/>
+                                                <constraint firstItem="sGk-1E-zg5" firstAttribute="leading" secondItem="pud-EK-OTL" secondAttribute="trailing" constant="8" symbolic="YES" id="dWe-gA-Iom"/>
                                                 <constraint firstItem="pud-EK-OTL" firstAttribute="centerY" secondItem="FCN-Ol-RRN" secondAttribute="centerY" id="fid-aX-39b"/>
-                                                <constraint firstItem="sGk-1E-zg5" firstAttribute="centerY" secondItem="FCN-Ol-RRN" secondAttribute="centerY" id="nRS-A5-lhH"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -3177,7 +3185,7 @@
                 </tapGestureRecognizer>
                 <exit id="k48-Tx-gaZ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="6542" y="1566"/>
+            <point key="canvasLocation" x="6541.6000000000004" y="1565.6671664167918"/>
         </scene>
         <!--Tours-->
         <scene sceneID="9sn-aP-NDB">

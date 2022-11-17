@@ -115,15 +115,6 @@ static LocationManager *theInstance = nil;
     [self.sharedUserDefaults addObserver:self forKeyPath:@"monitoring"
                                  options:NSKeyValueObservingOptionNew
                                  context:nil];
-    [self.sharedUserDefaults addObserver:self forKeyPath:@"sendNow"
-                                 options:NSKeyValueObservingOptionNew
-                                 context:nil];
-    [self.sharedUserDefaults addObserver:self forKeyPath:@"tag"
-                                 options:NSKeyValueObservingOptionNew
-                                 context:nil];
-    [self.sharedUserDefaults addObserver:self forKeyPath:@"POI"
-                                 options:NSKeyValueObservingOptionNew
-                                 context:nil];
 
     return self;
 }
@@ -137,28 +128,6 @@ static LocationManager *theInstance = nil;
         NSInteger monitoring = [shared integerForKey:@"monitoring"];
         if (monitoring != self.monitoring) {
             self.monitoring = monitoring;
-        }
-    } else if ([keyPath isEqualToString:@"sendNow"]) {
-        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [ad sendNow:self.location withPOI:nil];
-    } else if ([keyPath isEqualToString:@"tag"]) {
-        NSUserDefaults *shared = object;
-        NSString *tag = [shared objectForKey:@"tag"];
-        if (!tag || !tag.length) {
-            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"tag"];
-        } else {
-            [[NSUserDefaults standardUserDefaults] setObject:tag forKey:@"tag"];
-        }
-        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [ad sendNow:self.location withPOI:nil];
-    } else if ([keyPath isEqualToString:@"POI"]) {
-        NSUserDefaults *shared = object;
-        NSString *poi = [shared objectForKey:@"POI"];
-        if (poi && poi.length) {
-            OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-            [ad sendNow:self.location withPOI:poi];
-            [shared setObject:nil forKey:@"POI"];
-            [shared synchronize];
         }
     }
 }
