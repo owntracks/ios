@@ -1,8 +1,9 @@
 //
 //  Waypoint+CoreDataProperties.h
-//  
+//  OwnTracks
 //
-//  Created by Christoph Krey on 15.11.22.
+//  Created by Christoph Krey on 17.11.22.
+//  Copyright © 2022 OwnTracks. All rights reserved.
 //
 //
 
