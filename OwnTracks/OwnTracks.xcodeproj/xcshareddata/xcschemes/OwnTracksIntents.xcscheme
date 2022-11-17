@@ -18,7 +18,7 @@
                BlueprintIdentifier = "843A57A624A9A4D600A5441B"
                BuildableName = "OwnTracksIntents.appex"
                BlueprintName = "OwnTracksIntents"
-               ReferencedContainer = "container:CF Bundle.xcodeproj">
+               ReferencedContainer = "container:OwnTracks.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -32,7 +32,7 @@
                BlueprintIdentifier = "8411B827189FDB140019D2D6"
                BuildableName = "OwnTracks.app"
                BlueprintName = "OwnTracks"
-               ReferencedContainer = "container:CF Bundle.xcodeproj">
+               ReferencedContainer = "container:OwnTracks.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -64,7 +64,7 @@
             BlueprintIdentifier = "8411B827189FDB140019D2D6"
             BuildableName = "OwnTracks.app"
             BlueprintName = "OwnTracks"
-            ReferencedContainer = "container:CF Bundle.xcodeproj">
+            ReferencedContainer = "container:OwnTracks.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -83,7 +83,7 @@
             BlueprintIdentifier = "8411B827189FDB140019D2D6"
             BuildableName = "OwnTracks.app"
             BlueprintName = "OwnTracks"
-            ReferencedContainer = "container:CF Bundle.xcodeproj">
+            ReferencedContainer = "container:OwnTracks.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
