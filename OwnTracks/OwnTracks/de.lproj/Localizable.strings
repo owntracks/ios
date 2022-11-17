@@ -46,6 +46,9 @@
 /* Header of an alert message regarding a card */
 "Card" = "Visitenkarte";
 
+/* Choose action title */
+"Choose action" = "Wählen Sie";
+
 /* Location Manager error message */
 "Circular region monitoring not available" = "Überwachung kreisförmiger Regionen nicht verfügbar";
 
@@ -66,6 +69,9 @@
 
 /* Continue button title */
 "Continue" = "Weiter";
+
+/* Alert message header for copy */
+"Copied" = "Kopiert";
 
 /* content of an alert message regarding circular region */
 "created at center of map" = "im Kartenmittelpunkt erstellt";
@@ -214,6 +220,9 @@
 /* Alert message header for notification messages */
 "Notification" = "Benachrichtigung";
 
+/* Open button title */
+"Open" = "Öffnen";
+
 /* temporary display while opening URL */
 "opening URL" = "URL wird geöffnet";
 
@@ -235,6 +244,9 @@
 /* Header of an alert message regarding circular region */
 "Region" = "Region";
 
+/* Remove button title */
+"Remove" = "Entfernen";
+
 /* Requesting tour */
 "Requesting tour" = "Tour angefragt";
 
@@ -253,11 +265,23 @@
 /* Sat */
 "Sat" = "Sat";
 
-/* User Activity (Siri) Send location now */
+/* Send button title */
+"Send" = "Senden";
+
+/* Send location now button */
 "Send location now" = "Sende Position sofort";
 
 /* content of an alert message regarding card */
 "set and sent to backend" = "gesetzt und gesendet";
+
+/* Set POI buttonSet POI title */
+"Set POI" = "Sehenswürdigkeit benennen";
+
+/* Set tag button */
+"Set tag" = "Markierung setzen";
+
+/* Set Tag title */
+"Set Tag" = "Markierung setzen";
 
 /* Settings screen title */
 "Settings" = "Einstellungen";
@@ -353,31 +377,8 @@
 "You cannot use background fetch" = "Sie können keinen Background Fetch nutzen";
 
 /* You disabled background fetch */
-"You disabled background fetch" = "Sie haben Background Fetch deaktiviert";
+"You disabled background fetch" = "Sie haben Background Fetch ausgeschaltet";
 
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Konfigurieren Sie Ihren OwnTracks Server für vollständigen Datenschutz. Mehr Information hier: https://owntracks.org/booklet";
 
-/* Alert message header for copy */
-"Copied" = "Kopiert";
-
-/* Send location now button */
-"Send location now" = "Send location now";
-
-/* Set POI button */
-"Set POI" = "Set POI";
-
-/* Set tag button */
-"Set tag" = "Set tag";
-
-/* Set POI title */
-"Set POI" = "Set POI";
-
-/* Set Tag title */
-"Set Tag" = "Set Tag";
-
-/* Send button title*/
-"Send" = "Send";
-
-/* Remove button title*/
-"Remove" = "Remove";
