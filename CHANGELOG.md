@@ -1,6 +1,16 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 16.3.1 iOS/ipadOS/macOS
+* Release Date 2022-11-17
+
+** Tags, POI Marker  and bug fixes
+    [NEW] add scale to map view #721
+    [NEW] tag and POI #705
+    [NEW] Cleanup the info screen (a bit like android) #726
+    [FIX] English Translation "You did disable background fetch" closes #727
+    [FIX] Crash when saving card with no image #723
+
 ## OwnTracks 16.3.0 iOS/ipadOS/macOS
 * Release Date 2022-09-08
 
