@@ -88,7 +88,7 @@
 			<key>INIntentConfigurable</key>
 			<true/>
 			<key>INIntentDefaultImageName</key>
-			<string>OnwTracks</string>
+			<string>OwnTracks</string>
 			<key>INIntentDescription</key>
 			<string>Send your location immediately</string>
 			<key>INIntentDescriptionID</key>
@@ -152,7 +152,7 @@
 			<key>INIntentConfigurable</key>
 			<true/>
 			<key>INIntentDefaultImageName</key>
-			<string>OnwTracks</string>
+			<string>OwnTracks</string>
 			<key>INIntentDescription</key>
 			<string>Change your monitoring mode</string>
 			<key>INIntentDescriptionID</key>
@@ -281,6 +281,8 @@
 			<string>OwnTracks</string>
 			<key>INIntentConfigurable</key>
 			<true/>
+			<key>INIntentDefaultImageName</key>
+			<string>OwnTracks</string>
 			<key>INIntentDescription</key>
 			<string>Set a tag for all subseqent locations</string>
 			<key>INIntentDescriptionID</key>
@@ -400,35 +402,37 @@
 			<string>OwnTracks</string>
 			<key>INIntentConfigurable</key>
 			<true/>
+			<key>INIntentDefaultImageName</key>
+			<string>OwnTracks</string>
 			<key>INIntentDescription</key>
-			<string>Mark your next position</string>
+			<string>Mark your next Position</string>
 			<key>INIntentDescriptionID</key>
-			<string>rXaejP</string>
+			<string>1p9eFA</string>
 			<key>INIntentInput</key>
-			<string>POI</string>
+			<string>Name</string>
 			<key>INIntentKeyParameter</key>
-			<string>POI</string>
+			<string>Name</string>
 			<key>INIntentLastParameterTag</key>
 			<integer>1</integer>
 			<key>INIntentManagedParameterCombinations</key>
 			<dict>
-				<key>POI</key>
+				<key>Name</key>
 				<dict>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
 					<key>INIntentParameterCombinationTitle</key>
 					<string>Name of the Point of Interest</string>
 					<key>INIntentParameterCombinationTitleID</key>
-					<string>EAC4Vw</string>
+					<string>QISlRY</string>
 					<key>INIntentParameterCombinationUpdatesLinked</key>
 					<true/>
 				</dict>
 			</dict>
 			<key>INIntentName</key>
-			<string>POI</string>
+			<string>PointOfInterest</string>
 			<key>INIntentParameterCombinations</key>
 			<dict>
-				<key>POI</key>
+				<key>Name</key>
 				<dict>
 					<key>INIntentParameterCombinationIsLinked</key>
 					<true/>
@@ -437,7 +441,7 @@
 					<key>INIntentParameterCombinationTitle</key>
 					<string>Name of the Point of Interest</string>
 					<key>INIntentParameterCombinationTitleID</key>
-					<string>JnwMci</string>
+					<string>wcOPCR</string>
 				</dict>
 			</dict>
 			<key>INIntentParameters</key>
@@ -446,9 +450,9 @@
 					<key>INIntentParameterConfigurable</key>
 					<true/>
 					<key>INIntentParameterDisplayName</key>
-					<string>POI</string>
+					<string>Name</string>
 					<key>INIntentParameterDisplayNameID</key>
-					<string>TX6RtT</string>
+					<string>KwS9So</string>
 					<key>INIntentParameterDisplayPriority</key>
 					<integer>1</integer>
 					<key>INIntentParameterMetadata</key>
@@ -456,10 +460,10 @@
 						<key>INIntentParameterMetadataCapitalization</key>
 						<string>Sentences</string>
 						<key>INIntentParameterMetadataDefaultValueID</key>
-						<string>gWT8Dr</string>
+						<string>TFjAC5</string>
 					</dict>
 					<key>INIntentParameterName</key>
-					<string>POI</string>
+					<string>Name</string>
 					<key>INIntentParameterPromptDialogs</key>
 					<array>
 						<dict>
@@ -472,9 +476,9 @@
 							<key>INIntentParameterPromptDialogCustom</key>
 							<true/>
 							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Name the Point of Interest</string>
+							<string>Name of the Point of Interest</string>
 							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>BxY3mq</string>
+							<string>rpbQ0I</string>
 							<key>INIntentParameterPromptDialogType</key>
 							<string>Primary</string>
 						</dict>
@@ -504,9 +508,9 @@
 				</array>
 			</dict>
 			<key>INIntentTitle</key>
-			<string>POI</string>
+			<string>Point Of Interest</string>
 			<key>INIntentTitleID</key>
-			<string>JK4zd0</string>
+			<string>A8tk7h</string>
 			<key>INIntentType</key>
 			<string>Custom</string>
 			<key>INIntentVerb</key>

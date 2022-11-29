@@ -22,7 +22,7 @@
 #import "OwnTracksSendNowIntent.h"
 #import "OwnTracksChangeMonitoringIntent.h"
 #import "OwnTracksTagIntent.h"
-#import "OwnTracksPOIIntent.h"
+#import "OwnTracksPointOfInterestIntent.h"
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
@@ -1640,10 +1640,10 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
         }
         
         return YES;
-    } else if ([userActivity.activityType isEqualToString:@"OwnTracksPOIIntent"]) {
-        OwnTracksPOIIntent *intent = (OwnTracksPOIIntent *)userActivity.interaction.intent;
-        NSString *poi = intent.POI;
-        if ([self sendNow:[LocationManager sharedInstance].location withPOI:poi]) {
+    } else if ([userActivity.activityType isEqualToString:@"OwnTracksPointOfInterestIntent"]) {
+        OwnTracksPointOfInterestIntent *intent = (OwnTracksPointOfInterestIntent *)userActivity.interaction.intent;
+        NSString *name = intent.Name;
+        if ([self sendNow:[LocationManager sharedInstance].location withPOI:name]) {
             [self.navigationController alert:
                  NSLocalizedString(@"Location",
                                    @"Header of an alert message regarding a location")

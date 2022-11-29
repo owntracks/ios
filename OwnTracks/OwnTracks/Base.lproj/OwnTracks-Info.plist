@@ -152,7 +152,7 @@ No information of your address book will be uploaded to any server.</string>
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>OwnTracksChangeMonitoringIntent</string>
-		<string>OwnTracksPOIIntent</string>
+		<string>OwnTracksPointOfInterestIntent</string>
 		<string>OwnTracksSendNowIntent</string>
 		<string>OwnTracksTagIntent</string>
 		<string>org.mqttitude.MQTTitude.sendNow</string>

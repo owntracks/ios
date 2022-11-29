@@ -1,99 +1,66 @@
-/* (No Comment) */
-"5EuzDa" = "manuell";
+"1p9eFA" = "Mark your next Position";
 
-/* (No Comment) */
-"9QQuvB" = "Setzen Sie eine Markierung für alle folgenden Positionen";
+"5EuzDa" = "manual";
 
-/* (No Comment) */
-"B33bKe" = "still";
+"9QQuvB" = "Set a tag for all subseqent locations";
 
-/* (No Comment) */
-"BxY3mq" = "Benennen Sie die Sehenswürdigkeit";
+"A8tk7h" = "Point Of Interest";
 
-/* (No Comment) */
-"d8xyQf" = "Markierung für alle folgenden Positionen";
+"B33bKe" = "quiet";
 
-/* (No Comment) */
-"EAC4Vw" = "Name der Sehenswürdigkeit";
+"EJYIEL" = "Send current location";
 
-/* (No Comment) */
-"EJYIEL" = "Sende momentane Position";
+"EqYRFW" = "move";
 
-/* (No Comment) */
-"EqYRFW" = "bewegt";
+"FYfTj6" = "Change Monitoring Mode";
 
-/* (No Comment) */
-"FYfTj6" = "Ändere Monitoring Modus";
+"GJDEib-5EuzDa" = "Just to confirm, you wanted ‘manual’?";
 
-/* (No Comment) */
-"g3MVqx" = "Sehenswürdigkeit";
+"GJDEib-B33bKe" = "Just to confirm, you wanted ‘quiet’?";
 
-/* (No Comment) */
-"GJDEib-5EuzDa" = "Um sicher zu gehen, Sie wollten ‘manuell’?";
+"GJDEib-EqYRFW" = "Just to confirm, you wanted ‘move’?";
 
-/* (No Comment) */
-"GJDEib-B33bKe" = "Um sicher zu gehen, Sie wollten ‘still’?";
+"GJDEib-l7Rl2N" = "Just to confirm, you wanted ‘significant’?";
 
-/* (No Comment) */
-"GJDEib-EqYRFW" = "Um sicher zu gehen, Sie wollten ‘bewegt’?";
+"JYqwqK" = "Tag";
 
-/* (No Comment) */
-"GJDEib-l7Rl2N" = "Um sicher zu gehen, Sie wollten ‘wesentlich’?";
+"JylJeF" = "Change Monitoring Mode";
 
-/* (No Comment) */
-"JK4zd0" = "Sehenswürdigkeit";
+"KwS9So" = "Name";
 
-/* (No Comment) */
-"JnwMci" = "Name der Sehenswürdigkeit";
+"MfQBKX" = "Monitoring Mode";
 
-/* (No Comment) */
-"JylJeF" = "Ändere Monitoring Modus";
+"Ogyrko" = "Change your monitoring mode";
 
-/* (No Comment) */
-"JYqwqK" = "Markierung";
+"P5jx7T-5EuzDa" = "There are ${count} options matching ‘manual’.";
 
-/* (No Comment) */
-"l7Rl2N" = "wesentlich";
+"P5jx7T-B33bKe" = "There are ${count} options matching ‘quiet’.";
 
-/* (No Comment) */
-"MfQBKX" = "Monitoring Modus";
+"P5jx7T-EqYRFW" = "There are ${count} options matching ‘move’.";
 
-/* (No Comment) */
-"Ogyrko" = "Ändern Sie Ihren Monitoring Modus";
+"P5jx7T-l7Rl2N" = "There are ${count} options matching ‘significant’.";
 
-/* (No Comment) */
-"P5jx7T-5EuzDa" = "Es gibt ${count} Optionen wie ‘manuell’.";
-
-/* (No Comment) */
-"P5jx7T-B33bKe" = "Es gibt ${count} Optionen wie ‘still’.";
-
-/* (No Comment) */
-"P5jx7T-EqYRFW" = "Es gibt ${count} Optionen wie ‘bewegt’.";
-
-/* (No Comment) */
-"P5jx7T-l7Rl2N" = "Es gibt ${count} Optionen wie ‘wesentlich’.";
-
-/* (No Comment) */
 "PKS8bh" = "Monitoring";
 
-/* (No Comment) */
-"Qdfnga" = "Markierung";
+"QISlRY" = "Name of the Point of Interest";
 
-/* (No Comment) */
-"rXaejP" = "Markieren Sie die nächste Position";
+"Qdfnga" = "Tag";
 
-/* (No Comment) */
-"SW8Qnb" = "Markierung für alle folgenden Positionen";
+"SW8Qnb" = "Tag to be applied to all subsequent positions";
 
-/* (No Comment) */
-"TX6RtT" = "Sehenswürdigkeit";
+"WvwXPJ" = "Send your location immediately";
 
-/* (No Comment) */
-"u3pDrc" = "Jetzt senden";
+"d8xyQf" = "Tag to be applied to all subsequent positions";
 
-/* (No Comment) */
-"vuIozC" = "Monitoring ändern";
+"g3MVqx" = "Tag";
 
-/* (No Comment) */
-"WvwXPJ" = "Senden Sie Ihre Position sofort";
+"l7Rl2N" = "significant";
+
+"rpbQ0I" = "Name of the Point of Interest";
+
+"u3pDrc" = "Send Now";
+
+"vuIozC" = "Change Monitoring";
+
+"wcOPCR" = "Name of the Point of Interest";
 

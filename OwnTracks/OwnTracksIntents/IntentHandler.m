@@ -11,9 +11,9 @@
 #import "OwnTracksChangeMonitoringIntent.h"
 #import "OwnTracksEnum.h"
 #import "OwnTracksTagIntent.h"
-#import "OwnTracksPOIIntent.h"
+#import "OwnTracksPointOfInterestIntent.h"
 
-@interface IntentHandler () <OwnTracksSendNowIntentHandling, OwnTracksChangeMonitoringIntentHandling, OwnTracksTagIntentHandling, OwnTracksPOIIntentHandling>
+@interface IntentHandler () <OwnTracksSendNowIntentHandling, OwnTracksChangeMonitoringIntentHandling, OwnTracksTagIntentHandling, OwnTracksPointOfInterestIntentHandling>
 
 @end
 
@@ -63,14 +63,13 @@
     completion(result);
 }
 
-- (void)handlePOI:(OwnTracksPOIIntent *)intent
-       completion:(void (^)(OwnTracksPOIIntentResponse * _Nonnull))completion {
-    OwnTracksPOIIntentResponse *response = [[OwnTracksPOIIntentResponse alloc] initWithCode:OwnTracksPOIIntentResponseCodeSuccess userActivity:nil];
+- (void)handlePointOfInterest:(OwnTracksPointOfInterestIntent *)intent completion:(void (^)(OwnTracksPointOfInterestIntentResponse * _Nonnull))completion {
+    OwnTracksPointOfInterestIntentResponse *response = [[OwnTracksPointOfInterestIntentResponse alloc] initWithCode:OwnTracksPointOfInterestIntentResponseCodeSuccess userActivity:nil];
     completion(response);
 }
 
-- (void)resolvePOIForPOI:(OwnTracksPOIIntent *)intent withCompletion:(void (^)(INStringResolutionResult * _Nonnull))completion {
-    INStringResolutionResult *result = [INStringResolutionResult successWithResolvedString:intent.POI];
+- (void)resolveNameForPointOfInterest:(OwnTracksPointOfInterestIntent *)intent withCompletion:(void (^)(INStringResolutionResult * _Nonnull))completion {
+    INStringResolutionResult *result = [INStringResolutionResult successWithResolvedString:intent.Name];
     completion(result);
 }
 

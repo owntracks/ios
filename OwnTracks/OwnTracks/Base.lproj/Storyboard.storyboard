@@ -2288,7 +2288,7 @@
         <scene sceneID="Fwy-Au-VqF">
             <objects>
                 <navigationController hidesBottomBarWhenPushed="YES" id="HEo-wr-wj3" customClass="NavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Map" image="OnwTracks" id="HCO-pB-vNN"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="OwnTracks" id="HCO-pB-vNN"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aK3-EO-u98">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -3842,7 +3842,7 @@
     <resources>
         <image name="Friends" width="33" height="33"/>
         <image name="Info" width="25" height="25"/>
-        <image name="OnwTracks" width="30" height="30"/>
+        <image name="OwnTracks" width="30" height="30"/>
         <image name="Regions" width="33" height="33"/>
         <image name="map" catalog="system" width="128" height="112"/>
         <systemColor name="labelColor">
