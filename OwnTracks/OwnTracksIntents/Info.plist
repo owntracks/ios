@@ -34,7 +34,6 @@
 				<string>OwnTracksPointOfInterestIntent</string>
 				<string>OwnTracksSendNowIntent</string>
 				<string>OwnTracksTagIntent</string>
-				<string>OwntracksPOIIntent</string>
 			</array>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>

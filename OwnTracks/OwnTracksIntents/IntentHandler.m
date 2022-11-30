@@ -69,7 +69,7 @@
 }
 
 - (void)resolveNameForPointOfInterest:(OwnTracksPointOfInterestIntent *)intent withCompletion:(void (^)(INStringResolutionResult * _Nonnull))completion {
-    INStringResolutionResult *result = [INStringResolutionResult successWithResolvedString:intent.Name];
+    INStringResolutionResult *result = [INStringResolutionResult successWithResolvedString:intent.name];
     completion(result);
 }
 

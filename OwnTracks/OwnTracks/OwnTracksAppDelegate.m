@@ -1642,7 +1642,7 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
         return YES;
     } else if ([userActivity.activityType isEqualToString:@"OwnTracksPointOfInterestIntent"]) {
         OwnTracksPointOfInterestIntent *intent = (OwnTracksPointOfInterestIntent *)userActivity.interaction.intent;
-        NSString *name = intent.Name;
+        NSString *name = intent.name;
         if ([self sendNow:[LocationManager sharedInstance].location withPOI:name]) {
             [self.navigationController alert:
                  NSLocalizedString(@"Location",
