@@ -1,63 +1,66 @@
-/* (No Comment) */
-"5EuzDa" = "manuel";
+"1p9eFA" = "Mark your next Position";
 
-/* (No Comment) */
-"B33bKe" = "stille";
+"5EuzDa" = "manual";
 
-/* (No Comment) */
-"EJYIEL" = "Send nuværende position";
+"9QQuvB" = "Set a tag for all subseqent locations";
 
-/* (No Comment) */
-"EqYRFW" = "bevægelse";
+"A8tk7h" = "Point Of Interest";
 
-/* (No Comment) */
-"FYfTj6" = "Skit overvågningstilstand";
+"B33bKe" = "quiet";
 
-/* (No Comment) */
-"GJDEib-5EuzDa" = "Lige for at være sikker, du gik efter 'manuel'?";
+"EJYIEL" = "Send current location";
 
-/* (No Comment) */
-"GJDEib-B33bKe" = "Lige for at være sikker, du gik efter 'stille'?";
+"EqYRFW" = "move";
 
-/* (No Comment) */
-"GJDEib-EqYRFW" = "Lige for at være sikker, du gik efter 'bevægelse'?";
+"FYfTj6" = "Change Monitoring Mode";
 
-/* (No Comment) */
-"GJDEib-l7Rl2N" = "Lige for at være sikker, du gik efter 'betydelig'?";
+"GJDEib-5EuzDa" = "Just to confirm, you wanted ‘manual’?";
 
-/* (No Comment) */
-"JylJeF" = "Skit overvågningstilstand";
+"GJDEib-B33bKe" = "Just to confirm, you wanted ‘quiet’?";
 
-/* (No Comment) */
-"l7Rl2N" = "betydelig";
+"GJDEib-EqYRFW" = "Just to confirm, you wanted ‘move’?";
 
-/* (No Comment) */
-"MfQBKX" = "Overvågningstilstand";
+"GJDEib-l7Rl2N" = "Just to confirm, you wanted ‘significant’?";
 
-/* (No Comment) */
-"Ogyrko" = "Skit din overvågningstilstand";
+"JYqwqK" = "Tag";
 
-/* (No Comment) */
-"P5jx7T-5EuzDa" = "Der er ${count} muligheder som matcher 'manuel'.";
+"JylJeF" = "Change Monitoring Mode";
 
-/* (No Comment) */
-"P5jx7T-B33bKe" = "Der er ${count} muligheder som matcher 'stille'.";
+"KwS9So" = "Name";
 
-/* (No Comment) */
-"P5jx7T-EqYRFW" = "Der er ${count} muligheder som matcher 'bevægelse'.";
+"MfQBKX" = "Monitoring Mode";
 
-/* (No Comment) */
-"P5jx7T-l7Rl2N" = "Der er ${count} muligheder som matcher 'betydelig'.";
+"Ogyrko" = "Change your monitoring mode";
 
-/* (No Comment) */
-"PKS8bh" = "Overvågning";
+"P5jx7T-5EuzDa" = "There are ${count} options matching ‘manual’.";
 
-/* (No Comment) */
-"u3pDrc" = "Send Nu";
+"P5jx7T-B33bKe" = "There are ${count} options matching ‘quiet’.";
 
-/* (No Comment) */
-"vuIozC" = "Skift Overvågning";
+"P5jx7T-EqYRFW" = "There are ${count} options matching ‘move’.";
 
-/* (No Comment) */
-"WvwXPJ" = "Send din position med det samme";
+"P5jx7T-l7Rl2N" = "There are ${count} options matching ‘significant’.";
+
+"PKS8bh" = "Monitoring";
+
+"QISlRY" = "Name of the Point of Interest";
+
+"Qdfnga" = "Tag";
+
+"SW8Qnb" = "Tag to be applied to all subsequent positions";
+
+"WvwXPJ" = "Send your location immediately";
+
+"d8xyQf" = "Tag to be applied to all subsequent positions";
+
+"g3MVqx" = "Tag";
+
+"l7Rl2N" = "significant";
+
+"rpbQ0I" = "Name of the Point of Interest";
+
+"u3pDrc" = "Send Now";
+
+"vuIozC" = "Change Monitoring";
+
+"wcOPCR" = "Name of the Point of Interest";
 

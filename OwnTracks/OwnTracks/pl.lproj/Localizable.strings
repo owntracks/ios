@@ -316,11 +316,32 @@
 /* You cannot use background fetch */
 "You cannot use background fetch" = "Nie możesz użyć pobrania w tle";
 
-/* You did disable background fetch */
-"You did disable background fetch" = "Wyłączyłeś pobieranie w tle";
+/* You disabled background fetch */
+"You disabled background fetch" = "Wyłączyłeś pobieranie w tle";
 
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Możesz skonfigurować własny serwer OwnTracks dla pełnej ochrony prywatności. Więcej informacji tutaj: https://owntracks.org/booklet";
 
 /* Alert message header for copy */
 "Copied" = "Copied";
+
+/* Send location now button */
+"Send location now" = "Send location now";
+
+/* Set POI button */
+"Set POI" = "Set POI";
+
+/* Set tag button */
+"Set tag" = "Set tag";
+
+/* Set POI title */
+"Set POI" = "Set POI";
+
+/* Set Tag title */
+"Set Tag" = "Set Tag";
+
+/* Send button title*/
+"Send" = "Send";
+
+/* Remove button title*/
+"Remove" = "Remove";

@@ -29,6 +29,12 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+- (void)adjustSaveButton {
+    self.saveButton.enabled = (self.name.text != nil &&
+                               self.name.text.length > 0 &&
+                               self.cardImage.image != nil);
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     NSManagedObjectContext *moc = [CoreData sharedInstance].mainMOC;
@@ -41,6 +47,10 @@
     if (!self.cardImage.image) {
         self.cardImage.image = myself.image ? [UIImage imageWithData:myself.image] : nil;
     }
+    [self adjustSaveButton];
+}
+- (IBAction)editingChanged:(UITextField *)sender {
+    [self adjustSaveButton];
 }
 
 #pragma UIImagePickerControllerDelegate
@@ -75,6 +85,7 @@
     UIGraphicsEndImageContext();
     
     self.cardImage.image = scaledImage;
+    [self adjustSaveButton];
 
     NSLog(@"cardImage %f, %f, %f",
           self.cardImage.image.size.width,

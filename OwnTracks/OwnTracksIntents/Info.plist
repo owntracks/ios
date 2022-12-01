@@ -31,7 +31,9 @@
 			<key>IntentsSupported</key>
 			<array>
 				<string>OwnTracksChangeMonitoringIntent</string>
+				<string>OwnTracksPointOfInterestIntent</string>
 				<string>OwnTracksSendNowIntent</string>
+				<string>OwnTracksTagIntent</string>
 			</array>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>

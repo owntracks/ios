@@ -316,11 +316,32 @@
 /* You cannot use background fetch */
 "You cannot use background fetch" = "Arka planda getirmeyi kullanamazsınız";
 
-/* You did disable background fetch */
-"You did disable background fetch" = "Arka planda getirmeyi devre dışı bıraktınız";
+/* You disabled background fetch */
+"You disabled background fetch" = "Arka planda getirmeyi devre dışı bıraktınız";
 
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Tam gizlilik koruması için kendi OwnTracks sunucunuzu kurmanız ve yapılandırmanızı düzenlemeniz gerekir. Https://owntracks.org/booklet hakkında ayrıntılı bilgi";
 
 /* Alert message header for copy */
 "Copied" = "Copied";
+
+/* Send location now button */
+"Send location now" = "Send location now";
+
+/* Set POI button */
+"Set POI" = "Set POI";
+
+/* Set tag button */
+"Set tag" = "Set tag";
+
+/* Set POI title */
+"Set POI" = "Set POI";
+
+/* Set Tag title */
+"Set Tag" = "Set Tag";
+
+/* Send button title*/
+"Send" = "Send";
+
+/* Remove button title*/
+"Remove" = "Remove";

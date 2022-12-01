@@ -40,6 +40,9 @@
 /* Class = "UITableViewSection"; headerTitle = "Client Certificate"; ObjectID = "6aR-4g-W4D"; */
 "6aR-4g-W4D.headerTitle" = "Client Certificate";
 
+/* Class = "UIButton"; normalTitle = "Github"; ObjectID = "6ms-eE-0jF"; */
+"6ms-eE-0jF.normalTitle" = "Github";
+
 /* Class = "UILabel"; text = "Filename"; ObjectID = "7ie-NC-EFG"; Note = "Don't translate, technical term"; */
 "7ie-NC-EFG.text" = "Filename";
 
@@ -154,10 +157,13 @@
 /* Class = "UILabel"; text = "Port"; ObjectID = "EWI-7o-7Jo"; */
 "EWI-7o-7Jo.text" = "Port";
 
+/* Class = "UIButton"; normalTitle = "Twitter"; ObjectID = "fB7-lh-AFx"; */
+"fB7-lh-AFx.normalTitle" = "Twitter";
+
 /* Class = "UILabel"; text = "clientId"; ObjectID = "fHY-ry-yB3"; Note = "Don't translate, technical term"; */
 "fHY-ry-yB3.text" = "clientId";
 
-/* Class = "UIButton"; normalTitle = "Talk to us"; ObjectID = "Fng-qL-diO"; */
+/* Class = "UIButton"; normalTitle = "Web"; ObjectID = "Fng-qL-diO"; */
 "Fng-qL-diO.normalTitle" = "Sprechen Sie mit uns";
 
 /* Class = "UITextField"; placeholder = "uuid"; ObjectID = "fPO-vc-4UX"; */
@@ -507,6 +513,9 @@
 
 /* Class = "UITextField"; placeholder = "downgrade%"; ObjectID = "XkO-CT-wUS"; Note = "Placeholder. Do not translate"; */
 "XkO-CT-wUS.placeholder" = "zurückstufen bei %";
+
+/* Class = "UIButton"; normalTitle = "Mastodon"; ObjectID = "YlH-Kr-wOD"; */
+"YlH-Kr-wOD.normalTitle" = "Mastodon";
 
 /* Class = "UILabel"; text = "Coordinates"; ObjectID = "Ym9-bx-HAr"; */
 "Ym9-bx-HAr.text" = "Koordinaten";

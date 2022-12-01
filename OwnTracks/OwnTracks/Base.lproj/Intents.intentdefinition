@@ -73,11 +73,11 @@
 	<key>INIntentDefinitionNamespace</key>
 	<string>4aUnQr</string>
 	<key>INIntentDefinitionSystemVersion</key>
-	<string>20D91</string>
+	<string>22A400</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
-	<string>12D4e</string>
+	<string>14B47b</string>
 	<key>INIntentDefinitionToolsVersion</key>
-	<string>12.4</string>
+	<string>14.1</string>
 	<key>INIntents</key>
 	<array>
 		<dict>
@@ -88,7 +88,7 @@
 			<key>INIntentConfigurable</key>
 			<true/>
 			<key>INIntentDefaultImageName</key>
-			<string>OnwTracks</string>
+			<string>OwnTracks</string>
 			<key>INIntentDescription</key>
 			<string>Send your location immediately</string>
 			<key>INIntentDescriptionID</key>
@@ -112,7 +112,7 @@
 					<key>INIntentParameterCombinationIsPrimary</key>
 					<true/>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
-					<true/>
+					<false/>
 					<key>INIntentParameterCombinationTitle</key>
 					<string>Send current location</string>
 					<key>INIntentParameterCombinationTitleID</key>
@@ -152,11 +152,15 @@
 			<key>INIntentConfigurable</key>
 			<true/>
 			<key>INIntentDefaultImageName</key>
-			<string>OnwTracks</string>
+			<string>OwnTracks</string>
 			<key>INIntentDescription</key>
 			<string>Change your monitoring mode</string>
 			<key>INIntentDescriptionID</key>
 			<string>Ogyrko</string>
+			<key>INIntentInput</key>
+			<string>monitoring</string>
+			<key>INIntentKeyParameter</key>
+			<string>monitoring</string>
 			<key>INIntentLastParameterTag</key>
 			<integer>2</integer>
 			<key>INIntentManagedParameterCombinations</key>
@@ -182,7 +186,7 @@
 					<key>INIntentParameterCombinationIsLinked</key>
 					<true/>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
-					<true/>
+					<false/>
 					<key>INIntentParameterCombinationTitle</key>
 					<string>Change Monitoring Mode</string>
 					<key>INIntentParameterCombinationTitleID</key>
@@ -265,6 +269,248 @@
 			<string>Change Monitoring</string>
 			<key>INIntentTitleID</key>
 			<string>vuIozC</string>
+			<key>INIntentType</key>
+			<string>Custom</string>
+			<key>INIntentVerb</key>
+			<string>Do</string>
+		</dict>
+		<dict>
+			<key>INIntentCategory</key>
+			<string>generic</string>
+			<key>INIntentClassPrefix</key>
+			<string>OwnTracks</string>
+			<key>INIntentConfigurable</key>
+			<true/>
+			<key>INIntentDefaultImageName</key>
+			<string>OwnTracks</string>
+			<key>INIntentDescription</key>
+			<string>Set a tag for all subseqent locations</string>
+			<key>INIntentDescriptionID</key>
+			<string>9QQuvB</string>
+			<key>INIntentInput</key>
+			<string>tag</string>
+			<key>INIntentKeyParameter</key>
+			<string>tag</string>
+			<key>INIntentLastParameterTag</key>
+			<integer>1</integer>
+			<key>INIntentManagedParameterCombinations</key>
+			<dict>
+				<key>tag</key>
+				<dict>
+					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
+					<true/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Tag to be applied to all subsequent positions</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>SW8Qnb</string>
+					<key>INIntentParameterCombinationUpdatesLinked</key>
+					<true/>
+				</dict>
+			</dict>
+			<key>INIntentName</key>
+			<string>Tag</string>
+			<key>INIntentParameterCombinations</key>
+			<dict>
+				<key>tag</key>
+				<dict>
+					<key>INIntentParameterCombinationIsLinked</key>
+					<true/>
+					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
+					<false/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Tag to be applied to all subsequent positions</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>d8xyQf</string>
+				</dict>
+			</dict>
+			<key>INIntentParameters</key>
+			<array>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
+					<string>Tag</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>Qdfnga</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>1</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataCapitalization</key>
+						<string>Sentences</string>
+						<key>INIntentParameterMetadataDefaultValueID</key>
+						<string>gRmDTU</string>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>tag</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>Tag</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>g3MVqx</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+					</array>
+					<key>INIntentParameterSupportsResolution</key>
+					<true/>
+					<key>INIntentParameterTag</key>
+					<integer>1</integer>
+					<key>INIntentParameterType</key>
+					<string>String</string>
+				</dict>
+			</array>
+			<key>INIntentResponse</key>
+			<dict>
+				<key>INIntentResponseCodes</key>
+				<array>
+					<dict>
+						<key>INIntentResponseCodeName</key>
+						<string>success</string>
+						<key>INIntentResponseCodeSuccess</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>INIntentResponseCodeName</key>
+						<string>failure</string>
+					</dict>
+				</array>
+			</dict>
+			<key>INIntentTitle</key>
+			<string>Tag</string>
+			<key>INIntentTitleID</key>
+			<string>JYqwqK</string>
+			<key>INIntentType</key>
+			<string>Custom</string>
+			<key>INIntentVerb</key>
+			<string>Do</string>
+		</dict>
+		<dict>
+			<key>INIntentCategory</key>
+			<string>generic</string>
+			<key>INIntentClassPrefix</key>
+			<string>OwnTracks</string>
+			<key>INIntentConfigurable</key>
+			<true/>
+			<key>INIntentDefaultImageName</key>
+			<string>OwnTracks</string>
+			<key>INIntentDescription</key>
+			<string>Mark your next Position</string>
+			<key>INIntentDescriptionID</key>
+			<string>1p9eFA</string>
+			<key>INIntentInput</key>
+			<string>name</string>
+			<key>INIntentKeyParameter</key>
+			<string>name</string>
+			<key>INIntentLastParameterTag</key>
+			<integer>1</integer>
+			<key>INIntentManagedParameterCombinations</key>
+			<dict>
+				<key>name</key>
+				<dict>
+					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
+					<true/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Name of the Point of Interest</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>QISlRY</string>
+					<key>INIntentParameterCombinationUpdatesLinked</key>
+					<true/>
+				</dict>
+			</dict>
+			<key>INIntentName</key>
+			<string>PointOfInterest</string>
+			<key>INIntentParameterCombinations</key>
+			<dict>
+				<key>name</key>
+				<dict>
+					<key>INIntentParameterCombinationIsLinked</key>
+					<true/>
+					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
+					<false/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Name of the Point of Interest</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>wcOPCR</string>
+				</dict>
+			</dict>
+			<key>INIntentParameters</key>
+			<array>
+				<dict>
+					<key>INIntentParameterConfigurable</key>
+					<true/>
+					<key>INIntentParameterDisplayName</key>
+					<string>Name</string>
+					<key>INIntentParameterDisplayNameID</key>
+					<string>KwS9So</string>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>1</integer>
+					<key>INIntentParameterMetadata</key>
+					<dict>
+						<key>INIntentParameterMetadataCapitalization</key>
+						<string>Sentences</string>
+						<key>INIntentParameterMetadataDefaultValueID</key>
+						<string>TFjAC5</string>
+					</dict>
+					<key>INIntentParameterName</key>
+					<string>name</string>
+					<key>INIntentParameterPromptDialogs</key>
+					<array>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Configuration</string>
+						</dict>
+						<dict>
+							<key>INIntentParameterPromptDialogCustom</key>
+							<true/>
+							<key>INIntentParameterPromptDialogFormatString</key>
+							<string>Name of the Point of Interest</string>
+							<key>INIntentParameterPromptDialogFormatStringID</key>
+							<string>rpbQ0I</string>
+							<key>INIntentParameterPromptDialogType</key>
+							<string>Primary</string>
+						</dict>
+					</array>
+					<key>INIntentParameterSupportsResolution</key>
+					<true/>
+					<key>INIntentParameterTag</key>
+					<integer>1</integer>
+					<key>INIntentParameterType</key>
+					<string>String</string>
+				</dict>
+			</array>
+			<key>INIntentResponse</key>
+			<dict>
+				<key>INIntentResponseCodes</key>
+				<array>
+					<dict>
+						<key>INIntentResponseCodeName</key>
+						<string>success</string>
+						<key>INIntentResponseCodeSuccess</key>
+						<true/>
+					</dict>
+					<dict>
+						<key>INIntentResponseCodeName</key>
+						<string>failure</string>
+					</dict>
+				</array>
+			</dict>
+			<key>INIntentTitle</key>
+			<string>Point Of Interest</string>
+			<key>INIntentTitleID</key>
+			<string>A8tk7h</string>
 			<key>INIntentType</key>
 			<string>Custom</string>
 			<key>INIntentVerb</key>

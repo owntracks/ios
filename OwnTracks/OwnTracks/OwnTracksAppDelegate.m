@@ -7,7 +7,6 @@
 //
 
 #import "OwnTracksAppDelegate.h"
-#import <Intents/Intents.h>
 #import <UserNotifications/UserNotifications.h>
 #import <BackgroundTasks/BackgroundTasks.h>
 
@@ -22,6 +21,8 @@
 
 #import "OwnTracksSendNowIntent.h"
 #import "OwnTracksChangeMonitoringIntent.h"
+#import "OwnTracksTagIntent.h"
+#import "OwnTracksPointOfInterestIntent.h"
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
@@ -178,8 +179,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         case UIBackgroundRefreshStatusDenied:
             DDLogWarn(@"[OwnTracksAppDelegate] UIBackgroundRefreshStatusDenied");
 #if !TARGET_OS_MACCATALYST
-            self.backgroundFetchCheckMessage = NSLocalizedString(@"You did disable background fetch",
-                                                                 @"You did disable background fetch");
+            self.backgroundFetchCheckMessage = NSLocalizedString(@"You disabled background fetch",
+                                                                 @"You disabled background fetch");
 #endif
             break;
         case UIBackgroundRefreshStatusRestricted:
@@ -689,20 +690,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [self background];
     if (self.inRefresh) {
         self.inRefresh = FALSE;
-        [self publishLocation:location trigger:@"p"];
+        [self publishLocation:location trigger:@"p" withPOI:nil];
     } else {
-        [self publishLocation:location trigger:nil];
+        [self publishLocation:location trigger:nil withPOI:nil];
     }
 }
 
 - (void)timerLocation:(CLLocation *)location {
     [self background];
-    [self publishLocation:location trigger:@"t"];
+    [self publishLocation:location trigger:@"t" withPOI:nil];
 }
 
 - (void)visitLocation:(CLLocation *)location {
     [self background];
-    [self publishLocation:location trigger:@"v"];
+    [self publishLocation:location trigger:@"v" withPOI:nil];
 }
 
 - (void)regionEvent:(CLRegion *)region enter:(BOOL)enter {
@@ -811,13 +812,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
             }
             
             if ([region isKindOfClass:[CLBeaconRegion class]]) {
-                [self publishLocation:[LocationManager sharedInstance].location trigger:@"b"];
+                [self publishLocation:[LocationManager sharedInstance].location trigger:@"b" withPOI:nil];
             } else {
-                [self publishLocation:[LocationManager sharedInstance].location trigger:@"c"];
+                [self publishLocation:[LocationManager sharedInstance].location trigger:@"c" withPOI:nil];
             }
         } else {
             if ([LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
-                [self publishLocation:[LocationManager sharedInstance].location trigger:@"C"];
+                [self publishLocation:[LocationManager sharedInstance].location trigger:@"C" withPOI:nil];
             }
         }
     }
@@ -1261,7 +1262,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 #pragma actions
 
-- (BOOL)sendNow:(CLLocation *)location {
+- (BOOL)sendNow:(CLLocation *)location withPOI:(NSString *)poi {
     DDLogVerbose(@"[OwnTracksAppDelegate] sendNow %@", location);
     
     if (self.sendNowActivity) {
@@ -1274,19 +1275,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     self.sendNowActivity.eligibleForSearch = true;
     self.sendNowActivity.eligibleForPrediction = true;
     [self.sendNowActivity becomeCurrent];
-    
-    OwnTracksSendNowIntent *intent = [[OwnTracksSendNowIntent alloc] init];
-    INInteraction *interaction = [[INInteraction alloc] initWithIntent:intent response:nil];
-    [interaction donateInteractionWithCompletion:^(NSError * _Nullable error) {
-        DDLogVerbose(@"[OwnTracksAppDelegate] donateInteractionWithCompletion %@", error);
-    }];
-    return [self publishLocation:location trigger:@"u"];
+    return [self publishLocation:location trigger:@"u" withPOI:poi];
 }
 
 - (void)reportLocation {
     DDLogVerbose(@"[OwnTracksAppDelegate] reportLocation");
     CLLocation *location = [LocationManager sharedInstance].location;
-    [self publishLocation:location trigger:@"r"];
+    [self publishLocation:location trigger:@"r" withPOI:nil];
 }
 
 - (void)connectionOff {
@@ -1317,7 +1312,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (BOOL)publishLocation:(CLLocation *)location
-                trigger:(NSString *)trigger {
+                trigger:(NSString *)trigger
+                withPOI:(NSString *)poi {
     NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
     
     if (location &&
@@ -1367,10 +1363,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                 
                 NSNumber *batteryLevel = [NSNumber numberWithFloat:[UIDevice currentDevice].batteryLevel];
                 
+                NSString *tag = [[NSUserDefaults standardUserDefaults] stringForKey:@"tag"];
+                
                 Waypoint *waypoint = [ownTracking addWaypointFor:friend
                                                         location:location
                                                        createdAt:createdAt
                                                          trigger:trigger
+                                                         poi:poi
+                                                         tag:tag
                                                          battery:batteryLevel
                                                          context:moc];
                 if (waypoint) {
@@ -1580,30 +1580,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 - (BOOL)application:(UIApplication *)application
 continueUserActivity:(nonnull NSUserActivity *)userActivity
  restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
-    DDLogInfo(@"application continueUserActivity:%@", userActivity);
+    DDLogInfo(@"application continueUserActivity:%@", userActivity.activityType);
     
-    if ([userActivity.activityType isEqualToString:@"org.mqttitude.MQTTitude.sendNow"]) {
-        if ([self sendNow:[LocationManager sharedInstance].location]) {
-            [self.navigationController alert:
-                 NSLocalizedString(@"Location",
-                                   @"Header of an alert message regarding a location")
-                                     message:
-                 NSLocalizedString(@"publish queued on user request",
-                                   @"content of an alert message regarding user publish")
-                                dismissAfter:1
-            ];
-        } else {
-            [self.navigationController alert:
-             NSLocalizedString(@"Location",
-                               @"Header of an alert message regarding a location")
-                                     message:
-             NSLocalizedString(@"publish queued on user request",
-                               @"content of an alert message regarding user publish")];
-        }
-        
-        return YES;
-    } else if ([userActivity.activityType isEqualToString:@"OwnTracksSendNowIntent"]) {
-        if ([self sendNow:[LocationManager sharedInstance].location]) {
+    if ([userActivity.activityType isEqualToString:@"org.mqttitude.MQTTitude.sendNow"] ||
+        [userActivity.activityType isEqualToString:@"OwnTracksSendNowIntent"]) {
+        if ([self sendNow:[LocationManager sharedInstance].location withPOI:nil]) {
             [self.navigationController alert:
                  NSLocalizedString(@"Location",
                                    @"Header of an alert message regarding a location")
@@ -1649,7 +1630,37 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
         [CoreData.sharedInstance sync:moc];
         
         return YES;
+    } else if ([userActivity.activityType isEqualToString:@"OwnTracksTagIntent"]) {
+        OwnTracksTagIntent *intent = (OwnTracksTagIntent *)userActivity.interaction.intent;
+        NSString *tag = intent.tag;
+        if (tag && tag.length) {
+            [[NSUserDefaults standardUserDefaults] setObject:tag forKey:@"tag"];
+        } else {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"tag"];
+        }
         
+        return YES;
+    } else if ([userActivity.activityType isEqualToString:@"OwnTracksPointOfInterestIntent"]) {
+        OwnTracksPointOfInterestIntent *intent = (OwnTracksPointOfInterestIntent *)userActivity.interaction.intent;
+        NSString *name = intent.name;
+        if ([self sendNow:[LocationManager sharedInstance].location withPOI:name]) {
+            [self.navigationController alert:
+                 NSLocalizedString(@"Location",
+                                   @"Header of an alert message regarding a location")
+                                     message:
+                 NSLocalizedString(@"publish queued on user request",
+                                   @"content of an alert message regarding user publish")
+                                dismissAfter:1
+            ];
+        } else {
+            [self.navigationController alert:
+             NSLocalizedString(@"Location",
+                               @"Header of an alert message regarding a location")
+                                     message:
+             NSLocalizedString(@"publish queued on user request",
+                               @"content of an alert message regarding user publish")];
+        }
+        return YES;
     }
     return NO;
 }

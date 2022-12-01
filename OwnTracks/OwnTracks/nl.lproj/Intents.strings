@@ -1,63 +1,66 @@
-/* (No Comment) */
-"5EuzDa" = "handleiding";
+"1p9eFA" = "Mark your next Position";
 
-/* (No Comment) */
-"B33bKe" = "stil";
+"5EuzDa" = "manual";
 
-/* (No Comment) */
-"EJYIEL" = "Verstuur huidige locatie";
+"9QQuvB" = "Set a tag for all subseqent locations";
 
-/* (No Comment) */
-"EqYRFW" = "verplaats";
+"A8tk7h" = "Point Of Interest";
 
-/* (No Comment) */
-"FYfTj6" = "Wijzig Monitoring Mode";
+"B33bKe" = "quiet";
 
-/* (No Comment) */
-"GJDEib-5EuzDa" = "Wijzigen naar 'handmatige mode'?";
+"EJYIEL" = "Send current location";
 
-/* (No Comment) */
-"GJDEib-B33bKe" = "Wijzigen naar 'uitgeschakelde mode'?";
+"EqYRFW" = "move";
 
-/* (No Comment) */
-"GJDEib-EqYRFW" = "Wijzigen naar 'verplaats mode'?";
+"FYfTj6" = "Change Monitoring Mode";
 
-/* (No Comment) */
-"GJDEib-l7Rl2N" = "Wijzigen naar 'significante mode'?";
+"GJDEib-5EuzDa" = "Just to confirm, you wanted ‘manual’?";
 
-/* (No Comment) */
-"JylJeF" = "Wijzig Monitoring Mode";
+"GJDEib-B33bKe" = "Just to confirm, you wanted ‘quiet’?";
 
-/* (No Comment) */
-"l7Rl2N" = "significant";
+"GJDEib-EqYRFW" = "Just to confirm, you wanted ‘move’?";
 
-/* (No Comment) */
-"MfQBKX" = "Monitoring mode";
+"GJDEib-l7Rl2N" = "Just to confirm, you wanted ‘significant’?";
 
-/* (No Comment) */
-"Ogyrko" = "Wijzig je monitoring mode";
+"JYqwqK" = "Tag";
 
-/* (No Comment) */
-"P5jx7T-5EuzDa" = "Er komen ${count} opties overeen met 'handmatige mode'.";
+"JylJeF" = "Change Monitoring Mode";
 
-/* (No Comment) */
-"P5jx7T-B33bKe" = "Er komen ${count} opties overeen met 'uitgeschakelde mode'.";
+"KwS9So" = "Name";
 
-/* (No Comment) */
-"P5jx7T-EqYRFW" = "Er komen ${count} opties overeen met 'verplaats mode'.";
+"MfQBKX" = "Monitoring Mode";
 
-/* (No Comment) */
-"P5jx7T-l7Rl2N" = "Er komen ${count} opties overeen met 'significante mode'.";
+"Ogyrko" = "Change your monitoring mode";
 
-/* (No Comment) */
+"P5jx7T-5EuzDa" = "There are ${count} options matching ‘manual’.";
+
+"P5jx7T-B33bKe" = "There are ${count} options matching ‘quiet’.";
+
+"P5jx7T-EqYRFW" = "There are ${count} options matching ‘move’.";
+
+"P5jx7T-l7Rl2N" = "There are ${count} options matching ‘significant’.";
+
 "PKS8bh" = "Monitoring";
 
-/* (No Comment) */
-"u3pDrc" = "Verstuur nu";
+"QISlRY" = "Name of the Point of Interest";
 
-/* (No Comment) */
-"vuIozC" = "Wijzig Monitoring";
+"Qdfnga" = "Tag";
 
-/* (No Comment) */
-"WvwXPJ" = "Verstuur je lokatie direct";
+"SW8Qnb" = "Tag to be applied to all subsequent positions";
+
+"WvwXPJ" = "Send your location immediately";
+
+"d8xyQf" = "Tag to be applied to all subsequent positions";
+
+"g3MVqx" = "Tag";
+
+"l7Rl2N" = "significant";
+
+"rpbQ0I" = "Name of the Point of Interest";
+
+"u3pDrc" = "Send Now";
+
+"vuIozC" = "Change Monitoring";
+
+"wcOPCR" = "Name of the Point of Interest";
 

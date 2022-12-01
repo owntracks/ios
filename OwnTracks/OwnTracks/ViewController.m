@@ -37,6 +37,7 @@
 @property (strong, nonatomic) UISegmentedControl *modes;
 @property (strong, nonatomic) UISegmentedControl *mapMode;
 @property (strong, nonatomic) MKUserTrackingButton *trackingButton;
+@property (strong, nonatomic) MKScaleView *scaleView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *askForMapButton;
 @property (nonatomic) BOOL warning;
 @end
@@ -51,89 +52,24 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.warning = FALSE;
     self.mapView.delegate = self;
     self.mapView.mapType = MKMapTypeStandard;
-    // we don't show the scale as it would conflict with the new mode display
+    
     self.mapView.showsScale = FALSE;
+    
 #if TARGET_OS_MACCATALYST
-        self.mapView.showsCompass = TRUE;
+    self.mapView.showsCompass = TRUE;
 #endif
+    
     DDLogInfo(@"[ViewController] viewDidLoad mapView region %g %g %g %g",
               self.mapView.region.center.latitude,
               self.mapView.region.center.longitude,
               self.mapView.region.span.latitudeDelta,
               self.mapView.region.span.longitudeDelta);
-
-    self.modes = [[UISegmentedControl alloc]
-                  initWithItems:@[NSLocalizedString(@"Quiet", @"Quiet"),
-                                  NSLocalizedString(@"Manual", @"Manual"),
-                                  NSLocalizedString(@"Significant", @"Significant"),
-                                  NSLocalizedString(@"Move", @"Move")
-                                  ]];
-    self.modes.apportionsSegmentWidthsByContent = YES;
-    self.modes.translatesAutoresizingMaskIntoConstraints = false;
-    self.modes.backgroundColor = [UIColor colorNamed:@"modesColor"];
-    [self.modes addTarget:self
-                   action:@selector(modesChanged:)
-         forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:self.modes];
-
-    NSLayoutConstraint *top = [NSLayoutConstraint
-                               constraintWithItem:self.modes
-                               attribute:NSLayoutAttributeTop
-                               relatedBy:NSLayoutRelationEqual
-                               toItem:self.mapView
-                               attribute:NSLayoutAttributeTopMargin
-                               multiplier:1
-                               constant:10];
-    NSLayoutConstraint *leading = [NSLayoutConstraint
-                                   constraintWithItem:self.modes
-                                   attribute:NSLayoutAttributeLeading
-                                   relatedBy:NSLayoutRelationEqual
-                                   toItem:self.mapView
-                                   attribute:NSLayoutAttributeLeading
-                                   multiplier:1
-                                   constant:10];
-
-    [NSLayoutConstraint activateConstraints:@[top, leading]];
+    
+    [self setupModes];
     [self updateMoveButton];
-
-    self.mapMode = [[UISegmentedControl alloc]
-                  initWithItems:@[NSLocalizedString(@"Std", @"Std"),
-                                  NSLocalizedString(@"Sat", @"Sat"),
-                                  NSLocalizedString(@"Hyb", @"Hyb"),
-                                  NSLocalizedString(@"Fly", @"Fly"),
-                                  NSLocalizedString(@"HybFly", @"HybFly"),
-                                  NSLocalizedString(@"Mute", @"Mute")
-                                  ]];
-    self.mapMode.apportionsSegmentWidthsByContent = YES;
-    self.mapMode.translatesAutoresizingMaskIntoConstraints = false;
-    self.mapMode.backgroundColor = [UIColor colorNamed:@"modesColor"];
-    [self.mapMode addTarget:self
-                   action:@selector(mapModeChanged:)
-         forControlEvents:UIControlEventValueChanged];
-    [self.view addSubview:self.mapMode];
-
-    NSLayoutConstraint *bottomMapMode = [NSLayoutConstraint
-                               constraintWithItem:self.mapMode
-                               attribute:NSLayoutAttributeBottom
-                               relatedBy:NSLayoutRelationEqual
-                               toItem:self.mapView
-                               attribute:NSLayoutAttributeBottomMargin
-                               multiplier:1
-                               constant:-25];
-    NSLayoutConstraint *leadingMapMode = [NSLayoutConstraint
-                                   constraintWithItem:self.mapMode
-                                   attribute:NSLayoutAttributeLeading
-                                   relatedBy:NSLayoutRelationEqual
-                                   toItem:self.mapView
-                                   attribute:NSLayoutAttributeLeading
-                                   multiplier:1
-                                   constant:10];
-
-    [NSLayoutConstraint activateConstraints:@[bottomMapMode, leadingMapMode]];
-    self.mapMode.selectedSegmentIndex =
-    [[NSUserDefaults standardUserDefaults] integerForKey:@"mapMode"];
-    [self mapModeChanged:self.mapMode];
-
+    [self setupMapMode];
+    [self setupScaleView];
+    
     [[LocationManager sharedInstance] addObserver:self
                                        forKeyPath:@"monitoring"
                                           options:NSKeyValueObservingOptionNew
@@ -159,6 +95,104 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
      }];
     
     [self noMap];
+}
+
+- (void)setupModes {
+    self.modes = [[UISegmentedControl alloc]
+                  initWithItems:@[NSLocalizedString(@"Quiet", @"Quiet"),
+                                  NSLocalizedString(@"Manual", @"Manual"),
+                                  NSLocalizedString(@"Significant", @"Significant"),
+                                  NSLocalizedString(@"Move", @"Move")
+                                  ]];
+    self.modes.apportionsSegmentWidthsByContent = YES;
+    self.modes.translatesAutoresizingMaskIntoConstraints = false;
+    self.modes.backgroundColor = [UIColor colorNamed:@"modesColor"];
+    [self.modes addTarget:self
+                   action:@selector(modesChanged:)
+         forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:self.modes];
+
+    NSLayoutConstraint *topModes = [NSLayoutConstraint
+                               constraintWithItem:self.modes
+                               attribute:NSLayoutAttributeTop
+                               relatedBy:NSLayoutRelationEqual
+                               toItem:self.mapView
+                               attribute:NSLayoutAttributeTop
+                               multiplier:1
+                               constant:10];
+    NSLayoutConstraint *leadingModes = [NSLayoutConstraint
+                                   constraintWithItem:self.modes
+                                   attribute:NSLayoutAttributeLeading
+                                   relatedBy:NSLayoutRelationEqual
+                                   toItem:self.mapView
+                                   attribute:NSLayoutAttributeLeading
+                                   multiplier:1
+                                   constant:10];
+    
+    [NSLayoutConstraint activateConstraints:@[topModes, leadingModes]];
+}
+
+- (void)setupMapMode {
+    self.mapMode = [[UISegmentedControl alloc]
+                  initWithItems:@[NSLocalizedString(@"Std", @"Std"),
+                                  NSLocalizedString(@"Sat", @"Sat"),
+                                  NSLocalizedString(@"Hyb", @"Hyb"),
+                                  NSLocalizedString(@"Fly", @"Fly"),
+                                  NSLocalizedString(@"HybFly", @"HybFly"),
+                                  NSLocalizedString(@"Mute", @"Mute")
+                                  ]];
+    self.mapMode.apportionsSegmentWidthsByContent = YES;
+    self.mapMode.translatesAutoresizingMaskIntoConstraints = false;
+    self.mapMode.backgroundColor = [UIColor colorNamed:@"modesColor"];
+    [self.mapMode addTarget:self
+                   action:@selector(mapModeChanged:)
+         forControlEvents:UIControlEventValueChanged];
+    [self.view addSubview:self.mapMode];
+    self.mapMode.selectedSegmentIndex =
+    [[NSUserDefaults standardUserDefaults] integerForKey:@"mapMode"];
+    [self mapModeChanged:self.mapMode];
+
+    NSLayoutConstraint *bottomMapMode = [NSLayoutConstraint
+                               constraintWithItem:self.mapMode
+                               attribute:NSLayoutAttributeBottom
+                               relatedBy:NSLayoutRelationEqual
+                               toItem:self.mapView
+                               attribute:NSLayoutAttributeBottomMargin
+                               multiplier:1
+                               constant:-30];
+    NSLayoutConstraint *leadingMapMode = [NSLayoutConstraint
+                                   constraintWithItem:self.mapMode
+                                   attribute:NSLayoutAttributeLeading
+                                   relatedBy:NSLayoutRelationEqual
+                                   toItem:self.mapView
+                                   attribute:NSLayoutAttributeLeading
+                                   multiplier:1
+                                   constant:10];
+
+    [NSLayoutConstraint activateConstraints:@[bottomMapMode, leadingMapMode]];
+}
+
+- (void)setupScaleView {
+    self.scaleView = [MKScaleView scaleViewWithMapView:self.mapView];
+    self.scaleView.translatesAutoresizingMaskIntoConstraints = false;
+    [self.view addSubview:self.scaleView];
+    
+    NSLayoutConstraint *bottomScale = [NSLayoutConstraint constraintWithItem:self.scaleView
+                                                                   attribute:NSLayoutAttributeBottom
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.mapView
+                                                                   attribute:NSLayoutAttributeBottomMargin
+                                                                  multiplier:1
+                                                                    constant:-10];
+    NSLayoutConstraint *leadingScale = [NSLayoutConstraint constraintWithItem:self.scaleView
+                                                                    attribute:NSLayoutAttributeCenterXWithinMargins
+                                                                    relatedBy:NSLayoutRelationEqual
+                                                                       toItem:self.mapView
+                                                                    attribute:NSLayoutAttributeCenterXWithinMargins
+                                                                   multiplier:1
+                                                                     constant:0];
+    
+    [NSLayoutConstraint activateConstraints:@[bottomScale, leadingScale]];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -203,14 +237,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                    inMOC:CoreData.sharedInstance.mainMOC];
         [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
         [self updateMoveButton];
-
-        OwnTracksChangeMonitoringIntent *intent = [[OwnTracksChangeMonitoringIntent alloc] init];
-        intent.monitoring = intentMonitoring;
-        INInteraction *interaction = [[INInteraction alloc] initWithIntent:intent response:nil];
-        [interaction donateInteractionWithCompletion:^(NSError * _Nullable error) {
-            DDLogVerbose(@"[ViewController] donateInteractionWithCompletion %@", error);
-        }];
-
     }
 }
 
@@ -310,15 +336,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             [self.view addSubview:self.trackingButton];
             
             NSLayoutConstraint *topTracking = [NSLayoutConstraint
-                                               constraintWithItem:self.trackingButton
-                                               attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual
-                                               toItem:self.modes
-                                               attribute:NSLayoutAttributeBottom
-                                               multiplier:1
-                                               constant:8];
+                                                  constraintWithItem:self.trackingButton
+                                                  attribute:NSLayoutAttributeTop
+                                                  relatedBy:NSLayoutRelationEqual
+                                                  toItem:self.modes
+                                                  attribute:NSLayoutAttributeBottom
+                                                  multiplier:1
+                                                  constant:8];
             NSLayoutConstraint *leadingTracking = [NSLayoutConstraint
                                                    constraintWithItem:self.trackingButton
-                                                   attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual
+                                                   attribute:NSLayoutAttributeLeading
+                                                   relatedBy:NSLayoutRelationEqual
                                                    toItem:self.mapView
                                                    attribute:NSLayoutAttributeLeading
                                                    multiplier:1
@@ -825,6 +853,48 @@ calloutAccessoryControlTapped:(UIControl *)control {
 }
 
 - (IBAction)actionPressed:(UIBarButtonItem *)sender {
+    UIAlertController *ac = [UIAlertController
+                             alertControllerWithTitle:NSLocalizedString(@"Choose action", @"Choose action title")
+                             message:nil
+                             preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *sendNow = [UIAlertAction actionWithTitle:NSLocalizedString(@"Send location now",
+                                                                              @"Send location now button")
+                                                      style:UIAlertActionStyleDefault
+                                                    handler:^(UIAlertAction * _Nonnull action) {
+        [self sendNow:nil];
+    }];
+    UIAlertAction *setPoi = [UIAlertAction actionWithTitle:NSLocalizedString(@"Set POI",
+                                                                             @"Set POI button")
+                                                     style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * _Nonnull action) {
+        [self setPOI:nil];
+
+    }];
+    UIAlertAction *setTag = [UIAlertAction actionWithTitle:NSLocalizedString(@"Set tag",
+                                                                             @"Set tag button")
+                                                     style:UIAlertActionStyleDefault
+                                                   handler:^(UIAlertAction * _Nonnull action) {
+        [self setTag:nil];
+        
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel",
+                                                                             @"Cancel button title")
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction * _Nonnull action) {
+        //
+    }];
+    [ac addAction:sendNow];
+    [ac addAction:setPoi];
+    [ac addAction:setTag];
+    [ac addAction:cancel];
+    [self presentViewController:ac
+                       animated:TRUE
+                     completion:^{
+        //
+    }];
+}
+
+- (void)sendNow:(nullable NSString *)poi {
     OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     BOOL validIds = [Settings validIdsInMOC:CoreData.sharedInstance.mainMOC];
     int ignoreInaccurateLocations = [Settings intForKey:@"ignoreinaccuratelocations_preference"
@@ -868,7 +938,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
         return;
     }
 
-    if ([ad sendNow:location]) {
+    if ([ad sendNow:location withPOI:poi]) {
         [ad.navigationController alert:
          NSLocalizedString(@"Location",
                            @"Header of an alert message regarding a location")
@@ -920,6 +990,77 @@ calloutAccessoryControlTapped:(UIControl *)control {
                           dismissAfter:1
         ];
     }
+}
+- (IBAction)setPOI:(UIBarButtonItem *)sender {
+    UIAlertController *ac = [UIAlertController
+                             alertControllerWithTitle:NSLocalizedString(@"Set POI", @"Set POI title")
+                             message:nil
+                             preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *send = [UIAlertAction actionWithTitle:NSLocalizedString(@"Send",
+                                                                           @"Send button title")
+                                                   style:UIAlertActionStyleDefault
+                                                 handler:^(UIAlertAction * _Nonnull action) {
+        [self sendNow:ac.textFields[0].text];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel",
+                                                                             @"Cancel button title")
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction * _Nonnull action) {
+        //
+    }];
+    [ac addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.text = @"POI";
+    }];
+    [ac addAction:send];
+    [ac addAction:cancel];
+    [self presentViewController:ac
+                       animated:TRUE
+                     completion:^{
+        //
+    }];
+}
+
+- (IBAction)setTag:(UIBarButtonItem *)sender {
+    UIAlertController *ac = [UIAlertController
+                             alertControllerWithTitle:NSLocalizedString(@"Set Tag", @"Set Tag title")
+                             message:nil
+                             preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *send = [UIAlertAction actionWithTitle:NSLocalizedString(@"Send",
+                                                                           @"Send button title")
+                                                   style:UIAlertActionStyleDefault
+                                                 handler:^(UIAlertAction * _Nonnull action) {
+        if (!ac.textFields[0].text.length) {
+            [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"tag"];
+        } else {
+            [[NSUserDefaults standardUserDefaults] setObject:ac.textFields[0].text forKey:@"tag"];
+        }
+        [self sendNow:nil];
+    }];
+    UIAlertAction *remove = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove",
+                                                                             @"Remove button title")
+                                                   style:UIAlertActionStyleDefault
+                                                 handler:^(UIAlertAction * _Nonnull action) {
+        [[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"tag"];
+
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel",
+                                                                             @"Cancel button title")
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction * _Nonnull action) {
+        //
+    }];
+    [ac addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"tag"];
+    }];
+    [ac addAction:send];
+    [ac addAction:remove];
+    [ac addAction:cancel];
+    [self presentViewController:ac
+                       animated:TRUE
+                     completion:^{
+        //
+    }];
+
 }
 
 @end

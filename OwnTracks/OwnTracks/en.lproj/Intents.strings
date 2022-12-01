@@ -1,4 +1,10 @@
+"1p9eFA" = "Mark your next Position";
+
 "5EuzDa" = "manual";
+
+"9QQuvB" = "Set a tag for all subseqent locations";
+
+"A8tk7h" = "Point Of Interest";
 
 "B33bKe" = "quiet";
 
@@ -16,9 +22,15 @@
 
 "GJDEib-l7Rl2N" = "Just to confirm, you wanted ‘significant’?";
 
+"JYqwqK" = "Tag";
+
 "JylJeF" = "Change Monitoring Mode";
 
+"KwS9So" = "Name";
+
 "MfQBKX" = "Monitoring Mode";
+
+"Ogyrko" = "Change your monitoring mode";
 
 "P5jx7T-5EuzDa" = "There are ${count} options matching ‘manual’.";
 
@@ -30,14 +42,25 @@
 
 "PKS8bh" = "Monitoring";
 
+"QISlRY" = "Name of the Point of Interest";
+
+"Qdfnga" = "Tag";
+
+"SW8Qnb" = "Tag to be applied to all subsequent positions";
+
+"WvwXPJ" = "Send your location immediately";
+
+"d8xyQf" = "Tag to be applied to all subsequent positions";
+
+"g3MVqx" = "Tag";
+
 "l7Rl2N" = "significant";
 
-"nBDHVu" = "Which one?";
+"rpbQ0I" = "Name of the Point of Interest";
 
 "u3pDrc" = "Send Now";
 
 "vuIozC" = "Change Monitoring";
 
-"Ogyrko" = "Change your monitoring mode";
+"wcOPCR" = "Name of the Point of Interest";
 
-"WvwXPJ" = "Send your location immediately";

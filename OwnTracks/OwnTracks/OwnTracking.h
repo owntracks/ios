@@ -27,6 +27,8 @@
 location:(CLLocation *)location
 createdAt:(NSDate *)createdAt
 trigger:(NSString *)trigger
+poi:(NSString *)poi
+tag:(NSString *)tag
 battery:(NSNumber *)battery
 context:(NSManagedObjectContext *)context;
 
