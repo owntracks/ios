@@ -339,3 +339,15 @@
 
 /* Remove button title*/
 "Remove" = "Remove";
+
+/* Shortcut Switch to Move Monitoring Monitoring Mode */
+"Switch to Move Monitoring Mode" = "Switch to Move Monitoring Mode";
+
+/* Shortcut Switch to Significant Changes Monitoring Mode */
+"Switch to Significant Changes Monitoring Mode" = "Switch to Significant Changes Monitoring Mode";
+
+/* Shortcut Switch to Manual Monitoring Mode */
+"Switch to Manual Monitoring Mode" = "Switch to Manual Monitoring Mode";
+
+/* Shortcut Switch to Quiet Monitoring Mode */
+"Switch to Quiet Monitoring Mode" = "Switch to Quiet Monitoring Mode";

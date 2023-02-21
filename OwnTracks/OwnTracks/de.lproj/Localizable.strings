@@ -382,3 +382,14 @@
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Konfigurieren Sie Ihren OwnTracks Server für vollständigen Datenschutz. Mehr Information hier: https://owntracks.org/booklet";
 
+/* Shortcut Switch to Move Monitoring Monitoring Mode */
+"Switch to Move Monitoring Mode" = "Monitoring auf Bewegung ändern";
+
+/* Shortcut Switch to Significant Changes Monitoring Mode */
+"Switch to Significant Changes Monitoring Mode" = "Monitoring auf Wesentlich ändern";
+
+/* Shortcut Switch to Manual Monitoring Mode */
+"Switch to Manual Monitoring Mode" = "Monitoring auf Manuell ändern";
+
+/* Shortcut Switch to Quiet Monitoring Mode */
+"Switch to Quiet Monitoring Mode" = "Monitoring auf Still ändern";

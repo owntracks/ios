@@ -109,6 +109,45 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 @implementation OwnTracksAppDelegate
 
+- (void)setShortcutItems {
+    UIApplication *application = [UIApplication sharedApplication];
+    UIApplicationShortcutItem *move =
+    [[UIApplicationShortcutItem alloc]
+     initWithType:@"org.mqttitude.MQTTitude.movemode"
+     localizedTitle:NSLocalizedString(@"Switch to Move Monitoring Mode",
+                                      @"Shortcut Switch to Move Monitoring Mode")
+     localizedSubtitle:nil
+     icon:[UIApplicationShortcutIcon iconWithSystemImageName:@"forward.fill"]
+     userInfo:nil];
+    UIApplicationShortcutItem *significant =
+    [[UIApplicationShortcutItem alloc]
+     initWithType:@"org.mqttitude.MQTTitude.significantmode"
+     localizedTitle:NSLocalizedString(@"Switch to Significant Changes Monitoring Mode",
+                                      @"Shortcut Switch to Significant Changes Monitoring Mode")
+     localizedSubtitle:nil
+     icon:[UIApplicationShortcutIcon iconWithSystemImageName:@"play.fill"]
+     userInfo:nil];
+    UIApplicationShortcutItem *manual =
+    [[UIApplicationShortcutItem alloc]
+     initWithType:@"org.mqttitude.MQTTitude.manualmode"
+     localizedTitle:NSLocalizedString(@"Switch to Manual Monitoring Mode",
+                                      @"Shortcut Switch to Manual Monitoring Mode")
+     localizedSubtitle:nil
+     icon:[UIApplicationShortcutIcon iconWithSystemImageName:@"pause.fill"]
+     userInfo:nil];
+    UIApplicationShortcutItem *quiet =
+    [[UIApplicationShortcutItem alloc]
+     initWithType:@"org.mqttitude.MQTTitude.quietmode"
+     localizedTitle:NSLocalizedString(@"Switch to Quiet Monitoring Mode",
+                                      @"Shortcut Switch to Quiet Monitoring Mode")
+     localizedSubtitle:nil
+     icon:[UIApplicationShortcutIcon iconWithSystemImageName:@"stop.fill"]
+     userInfo:nil];
+
+    application.shortcutItems = @[quiet, manual, significant, move];
+}
+    
+
 #pragma ApplicationDelegate
 
 - (void)buildMenuWithBuilder:(id<UIMenuBuilder>)builder  API_AVAILABLE(ios(13.0)){
@@ -122,6 +161,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     [DDLog addLogger:[DDOSLogger sharedInstance] withLevel:DDLogLevelWarning];
     
     [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
+    
+    [self setShortcutItems];
     
 #define TASK_IDENTIFIER @"updateSituation"
     self.bgTaskScheduler = [BGTaskScheduler sharedScheduler];
@@ -678,6 +719,50 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 - (void)disconnectInBackground {
     DDLogVerbose(@"[OwnTracksAppDelegate] disconnectInBackground");
     [self.connection disconnect];
+}
+
+- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
+    DDLogVerbose(@"[OwnTracksAppDelegate] performActionForShortcutItem %@", shortcutItem.type);
+    if ([shortcutItem.type isEqualToString:@"org.mqttitude.MQTTitude.movemode"]) {
+        LocationMonitoring monitoring = LocationMonitoringMove;
+        [LocationManager sharedInstance].monitoring = monitoring;
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+        NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
+        [Settings setInt:(int)[LocationManager sharedInstance].monitoring
+                  forKey:@"monitoring_preference" inMOC:moc];
+        [CoreData.sharedInstance sync:moc];
+        completionHandler(TRUE);
+    } else if ([shortcutItem.type isEqualToString:@"org.mqttitude.MQTTitude.significantmode"]) {
+        LocationMonitoring monitoring = LocationMonitoringSignificant;
+        [LocationManager sharedInstance].monitoring = monitoring;
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+        NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
+        [Settings setInt:(int)[LocationManager sharedInstance].monitoring
+                  forKey:@"monitoring_preference" inMOC:moc];
+        [CoreData.sharedInstance sync:moc];
+        completionHandler(TRUE);
+    } else if ([shortcutItem.type isEqualToString:@"org.mqttitude.MQTTitude.manualmode"]) {
+        LocationMonitoring monitoring = LocationMonitoringManual;
+        [LocationManager sharedInstance].monitoring = monitoring;
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+        NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
+        [Settings setInt:(int)[LocationManager sharedInstance].monitoring
+                  forKey:@"monitoring_preference" inMOC:moc];
+        [CoreData.sharedInstance sync:moc];
+        completionHandler(TRUE);
+    } else if ([shortcutItem.type isEqualToString:@"org.mqttitude.MQTTitude.quietmode"]) {
+        LocationMonitoring monitoring = LocationMonitoringQuiet;
+        [LocationManager sharedInstance].monitoring = monitoring;
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+        NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
+        [Settings setInt:(int)[LocationManager sharedInstance].monitoring
+                  forKey:@"monitoring_preference" inMOC:moc];
+        [CoreData.sharedInstance sync:moc];
+        completionHandler(TRUE);
+
+    } else {
+        completionHandler(FALSE);
+    }
 }
 
 /*
