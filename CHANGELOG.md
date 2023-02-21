@@ -1,6 +1,13 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 16.4.0 iOS/ipadOS/macOS
+* Release Date 2023-02-21
+
+** Homescreen quick actions and bug fixes
+
+    [NEW] Homescreen quick actions for monitoring change #737
+
 ## OwnTracks 16.3.2 iOS/ipadOS/macOS
 * Release Date 2022-12-01
 
