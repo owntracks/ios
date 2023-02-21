@@ -84,8 +84,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             object = dictionary[@"mode"];
             if (object) {
                 [self setString:object forKey:@"mode" inMOC:context];
-                if ([object respondsToSelector:@selector(intValue)]) {
-                    importMode = (int)[object performSelector:@selector(intValue)];
+                if ([object isKindOfClass:[NSNumber class]]) {
+                    NSNumber *number = (NSNumber *)object;
+                    importMode = number.intValue;
+                } else if ([object isKindOfClass:[NSString class]]) {
+                    NSString *string = (NSString *)object;
+                    importMode = string.intValue;
                 }
             }
 

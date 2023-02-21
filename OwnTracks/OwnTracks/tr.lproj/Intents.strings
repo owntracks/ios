@@ -1,66 +1,72 @@
-"1p9eFA" = "Mark your next Position";
+/* (No Comment) */
+"5EuzDa" = "Manuel";
 
-"5EuzDa" = "manual";
+/* (No Comment) */
+"B33bKe" = "sessiz";
 
-"9QQuvB" = "Set a tag for all subseqent locations";
+/* (No Comment) */
+"EJYIEL" = "Mevcut konumu gönder";
 
-"A8tk7h" = "Point Of Interest";
+/* (No Comment) */
+"EqYRFW" = "hareket";
 
-"B33bKe" = "quiet";
+/* (No Comment) */
+"FYfTj6" = "İzleme Modunu Değiştirin";
 
-"EJYIEL" = "Send current location";
+/* (No Comment) */
+"g3MVqx" = "Etiket";
 
-"EqYRFW" = "move";
+/* (No Comment) */
+"GJDEib-5EuzDa" = "Doğrulamak için, \"manuel\" mi istediniz?";
 
-"FYfTj6" = "Change Monitoring Mode";
+/* (No Comment) */
+"GJDEib-B33bKe" = "Doğrulamak için \"sessiz\" mi istediniz?";
 
-"GJDEib-5EuzDa" = "Just to confirm, you wanted ‘manual’?";
+/* (No Comment) */
+"GJDEib-EqYRFW" = "Doğrulamak için \"hareket\" mi istedin?";
 
-"GJDEib-B33bKe" = "Just to confirm, you wanted ‘quiet’?";
+/* (No Comment) */
+"GJDEib-l7Rl2N" = "Doğrulamak için, \"önemli\" mi istiyorsunuz?";
 
-"GJDEib-EqYRFW" = "Just to confirm, you wanted ‘move’?";
+/* (No Comment) */
+"JylJeF" = "İzleme Modunu Değiştirin";
 
-"GJDEib-l7Rl2N" = "Just to confirm, you wanted ‘significant’?";
+/* (No Comment) */
+"JYqwqK" = "Etiket";
 
-"JYqwqK" = "Tag";
+/* (No Comment) */
+"l7Rl2N" = "önemli";
 
-"JylJeF" = "Change Monitoring Mode";
+/* (No Comment) */
+"MfQBKX" = "İzleme Modu";
 
-"KwS9So" = "Name";
+/* (No Comment) */
+"Ogyrko" = "İzleme modunuzu değiştirin";
 
-"MfQBKX" = "Monitoring Mode";
+/* (No Comment) */
+"P5jx7T-5EuzDa" = "\"Manuel\" ile eşleşen $ {count} seçeneği var.";
 
-"Ogyrko" = "Change your monitoring mode";
+/* (No Comment) */
+"P5jx7T-B33bKe" = "\"Sessiz\" ile eşleşen $ {count} seçenek var.";
 
-"P5jx7T-5EuzDa" = "There are ${count} options matching ‘manual’.";
+/* (No Comment) */
+"P5jx7T-EqYRFW" = "\"Hareket\" ile eşleşen $ {count} seçenek var.";
 
-"P5jx7T-B33bKe" = "There are ${count} options matching ‘quiet’.";
+/* (No Comment) */
+"P5jx7T-l7Rl2N" = "\"Önemli\" ile eşleşen $ {count} seçenek var.";
 
-"P5jx7T-EqYRFW" = "There are ${count} options matching ‘move’.";
+/* (No Comment) */
+"PKS8bh" = "İzleme";
 
-"P5jx7T-l7Rl2N" = "There are ${count} options matching ‘significant’.";
+/* (No Comment) */
+"Qdfnga" = "Etiket";
 
-"PKS8bh" = "Monitoring";
+/* (No Comment) */
+"u3pDrc" = "Şimdi gönder";
 
-"QISlRY" = "Name of the Point of Interest";
+/* (No Comment) */
+"vuIozC" = "Değişiklik İzleme";
 
-"Qdfnga" = "Tag";
-
-"SW8Qnb" = "Tag to be applied to all subsequent positions";
-
-"WvwXPJ" = "Send your location immediately";
-
-"d8xyQf" = "Tag to be applied to all subsequent positions";
-
-"g3MVqx" = "Tag";
-
-"l7Rl2N" = "significant";
-
-"rpbQ0I" = "Name of the Point of Interest";
-
-"u3pDrc" = "Send Now";
-
-"vuIozC" = "Change Monitoring";
-
-"wcOPCR" = "Name of the Point of Interest";
+/* (No Comment) */
+"WvwXPJ" = "Hemen konumunuzu gönderin";
 

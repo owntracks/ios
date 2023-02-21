@@ -46,6 +46,9 @@
 /* Header of an alert message regarding a card */
 "Card" = "kart";
 
+/* Choose action title */
+"Choose action" = "Eylem seçin";
+
 /* Location Manager error message */
 "Circular region monitoring not available" = "Dairesel bölge izleme mevcut değil";
 
@@ -66,6 +69,9 @@
 
 /* Continue button title */
 "Continue" = "Devam et";
+
+/* Alert message header for copy */
+"Copied" = "Kopyalandı";
 
 /* content of an alert message regarding circular region */
 "created at center of map" = "haritanın merkezinde oluşturuldu";
@@ -208,6 +214,9 @@
 /* Alert message header for notification messages */
 "Notification" = "Bildirim";
 
+/* Open button title */
+"Open" = "Aç";
+
 /* temporary display while opening URL */
 "opening URL" = "açılış URL'si";
 
@@ -229,6 +238,9 @@
 /* Header of an alert message regarding circular region */
 "Region" = "Bölge";
 
+/* Remove button title */
+"Remove" = "Kaldır";
+
 /* temporary display while resolving address */
 "resolving..." = "çözülüyor ...";
 
@@ -241,11 +253,20 @@
 /* Sat */
 "Sat" = "Oturdu";
 
-/* User Activity (Siri) Send location now */
+/* Send button title */
+"Send" = "Gönder";
+
+/* Send location now button */
 "Send location now" = "Şimdi konumu gönder";
 
 /* content of an alert message regarding card */
 "set and sent to backend" = "ayarlandı ve arka uca gönderildi";
+
+/* Set tag button */
+"Set tag" = "Etiketi ayarla";
+
+/* Set Tag title */
+"Set Tag" = "Etiketi Ayarla";
 
 /* Settings screen title */
 "Settings" = "Ayarlar";
@@ -283,6 +304,21 @@
 /* Topic copied to clipboard */
 "Topic copied to clipboard" = "Konu panoya kopyalandı";
 
+/* Tour created */
+"Tour created" = "Tur oluşturuldu";
+
+/* Tour deleted */
+"Tour deleted" = "Tur silindi";
+
+/* Tours list header */
+"Tours" = "Turlar";
+
+/* Tours status header */
+"Tours status" = "Tur durumu";
+
+/* Tours status header */
+"Tours Status" = "Tur Durumu";
+
 /* Alert header regarding TrackerID input */
 "TrackerID invalid" = "TrackerID geçersiz";
 
@@ -316,44 +352,6 @@
 /* You cannot use background fetch */
 "You cannot use background fetch" = "Arka planda getirmeyi kullanamazsınız";
 
-/* You disabled background fetch */
-"You disabled background fetch" = "Arka planda getirmeyi devre dışı bıraktınız";
-
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Tam gizlilik koruması için kendi OwnTracks sunucunuzu kurmanız ve yapılandırmanızı düzenlemeniz gerekir. Https://owntracks.org/booklet hakkında ayrıntılı bilgi";
 
-/* Alert message header for copy */
-"Copied" = "Copied";
-
-/* Send location now button */
-"Send location now" = "Send location now";
-
-/* Set POI button */
-"Set POI" = "Set POI";
-
-/* Set tag button */
-"Set tag" = "Set tag";
-
-/* Set POI title */
-"Set POI" = "Set POI";
-
-/* Set Tag title */
-"Set Tag" = "Set Tag";
-
-/* Send button title*/
-"Send" = "Send";
-
-/* Remove button title*/
-"Remove" = "Remove";
-
-/* Shortcut Switch to Move Monitoring Monitoring Mode */
-"Switch to Move Monitoring Mode" = "Switch to Move Monitoring Mode";
-
-/* Shortcut Switch to Significant Changes Monitoring Mode */
-"Switch to Significant Changes Monitoring Mode" = "Switch to Significant Changes Monitoring Mode";
-
-/* Shortcut Switch to Manual Monitoring Mode */
-"Switch to Manual Monitoring Mode" = "Switch to Manual Monitoring Mode";
-
-/* Shortcut Switch to Quiet Monitoring Mode */
-"Switch to Quiet Monitoring Mode" = "Switch to Quiet Monitoring Mode";
