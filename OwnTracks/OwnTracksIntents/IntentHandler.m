@@ -34,8 +34,30 @@
 
 - (void)handleChangeMonitoring:(nonnull OwnTracksChangeMonitoringIntent *)intent
                     completion:(nonnull void (^)(OwnTracksChangeMonitoringIntentResponse * _Nonnull))completion {
-    OwnTracksChangeMonitoringIntentResponse *response = [[OwnTracksChangeMonitoringIntentResponse alloc] initWithCode:OwnTracksChangeMonitoringIntentResponseCodeSuccess userActivity:nil];
-    completion(response);
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+     NSInteger monitoring = [shared integerForKey:@"monitoring"];
+     switch (intent.monitoring) {
+         case OwnTracksEnumQuiet:
+             monitoring = -1;
+             break;
+         case OwnTracksEnumManual:
+             monitoring = 0;
+             break;
+         case OwnTracksEnumSignificant:
+             monitoring = 1;
+             break;
+         case OwnTracksEnumMove:
+             monitoring = 2;
+             break;
+         default:
+             break;
+     }
+     [shared setInteger:monitoring forKey:@"monitoring"];
+     [shared synchronize];
+
+     OwnTracksChangeMonitoringIntentResponse *response = [[OwnTracksChangeMonitoringIntentResponse alloc] initWithCode:OwnTracksChangeMonitoringIntentResponseCodeSuccess userActivity:nil];
+     completion(response);
+
 }
 
 - (void)resolveMonitoringForChangeMonitoring:(nonnull OwnTracksChangeMonitoringIntent *)intent

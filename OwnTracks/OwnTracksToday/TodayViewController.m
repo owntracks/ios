@@ -93,17 +93,22 @@
 
     switch (self.monitoring) {
         case 0:
-            [self.button setImage:[UIImage imageNamed:@"Manual"] forState:UIControlStateNormal];
+            [self.button setImage:[UIImage systemImageNamed:@"pause.fill"]
+                         forState:UIControlStateNormal];
+
             break;
         case 1:
-            [self.button setImage:[UIImage imageNamed:@"Significant"] forState:UIControlStateNormal];
+            [self.button setImage:[UIImage systemImageNamed:@"play.fill"]
+                         forState:UIControlStateNormal];
             break;
         case 2:
-            [self.button setImage:[UIImage imageNamed:@"Move"] forState:UIControlStateNormal];
+            [self.button setImage:[UIImage systemImageNamed:@"forward.fill"]
+                         forState:UIControlStateNormal];
             break;
         case -1:
         default:
-            [self.button setImage:[UIImage imageNamed:@"Quiet"] forState:UIControlStateNormal];
+            [self.button setImage:[UIImage systemImageNamed:@"stop.fill"]
+                         forState:UIControlStateNormal];
             break;
     }
 }
