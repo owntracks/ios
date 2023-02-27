@@ -1,13 +1,14 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 16.4.0 iOS/ipadOS/macOS
-* Release Date 2023-02-24
+## OwnTracks 16.4.1 iOS/ipadOS/macOS
+* Release Date 2023-02-27
 
 ** Homescreen quick actions and bug fixes
 
     [NEW] Homescreen quick actions for monitoring change #737
     [FIX] Shortcuts no longer switching mode when phone is locked #740
+    [FIX] Shortcuts in background mode #740
 
 ## OwnTracks 16.3.2 iOS/ipadOS/macOS
 * Release Date 2022-12-01
