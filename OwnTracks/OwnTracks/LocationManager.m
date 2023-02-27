@@ -8,6 +8,7 @@
 
 #import "LocationManager.h"
 #import "OwnTracksAppDelegate.h"
+#import "CoreData.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface LocationManager()
@@ -115,6 +116,15 @@ static LocationManager *theInstance = nil;
     [self.sharedUserDefaults addObserver:self forKeyPath:@"monitoring"
                                  options:NSKeyValueObservingOptionNew
                                  context:nil];
+    [self.sharedUserDefaults addObserver:self forKeyPath:@"sendNow"
+                                 options:NSKeyValueObservingOptionNew
+                                 context:nil];
+    [self.sharedUserDefaults addObserver:self forKeyPath:@"poi"
+                                 options:NSKeyValueObservingOptionNew
+                                 context:nil];
+    [self.sharedUserDefaults addObserver:self forKeyPath:@"tag"
+                                 options:NSKeyValueObservingOptionNew
+                                 context:nil];
 
     return self;
 }
@@ -128,6 +138,28 @@ static LocationManager *theInstance = nil;
         NSInteger monitoring = [shared integerForKey:@"monitoring"];
         if (monitoring != self.monitoring) {
             self.monitoring = monitoring;
+            [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+            NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
+            [Settings setInt:(int)[LocationManager sharedInstance].monitoring
+                      forKey:@"monitoring_preference" inMOC:moc];
+            [CoreData.sharedInstance sync:moc];
+
+        }
+    } else if ([keyPath isEqualToString:@"sendNow"]) {
+        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [ad sendNow:self.location withPOI:nil];
+    } else if ([keyPath isEqualToString:@"poi"]) {
+        NSUserDefaults *shared = object;
+        NSString *poi = [shared stringForKey:@"poi"];
+        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [ad sendNow:self.location withPOI:poi];
+    } else if ([keyPath isEqualToString:@"tag"]) {
+        NSUserDefaults *shared = object;
+        NSString *tag = [shared stringForKey:@"tag"];
+        if (tag && tag.length) {
+            [[NSUserDefaults standardUserDefaults] setObject:tag forKey:@"tag"];
+        } else {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"tag"];
         }
     }
 }

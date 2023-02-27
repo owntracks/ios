@@ -28,6 +28,10 @@
 
 - (void)handleSendNow:(nonnull OwnTracksSendNowIntent *)intent
            completion:(nonnull void (^)(OwnTracksSendNowIntentResponse * _Nonnull))completion {
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+     [shared setObject:[NSDate date] forKey:@"sendNow"];
+     [shared synchronize];
+    
     OwnTracksSendNowIntentResponse *response = [[OwnTracksSendNowIntentResponse alloc] initWithCode:OwnTracksSendNowIntentResponseCodeSuccess userActivity:nil];
     completion(response);
 }
@@ -76,6 +80,10 @@
 
 - (void)handleTag:(OwnTracksTagIntent *)intent
        completion:(void (^)(OwnTracksTagIntentResponse * _Nonnull))completion {
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+     [shared setObject:intent.tag forKey:@"tag"];
+     [shared synchronize];
+
     OwnTracksTagIntentResponse *response = [[OwnTracksTagIntentResponse alloc] initWithCode:OwnTracksTagIntentResponseCodeSuccess userActivity:nil];
     completion(response);
 }
@@ -86,6 +94,10 @@
 }
 
 - (void)handlePointOfInterest:(OwnTracksPointOfInterestIntent *)intent completion:(void (^)(OwnTracksPointOfInterestIntentResponse * _Nonnull))completion {
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+    [shared setObject:intent.name forKey:@"poi"];
+    [shared synchronize];
+
     OwnTracksPointOfInterestIntentResponse *response = [[OwnTracksPointOfInterestIntentResponse alloc] initWithCode:OwnTracksPointOfInterestIntentResponseCodeSuccess userActivity:nil];
     completion(response);
 }

@@ -487,9 +487,7 @@ static OwnTracking *theInstance = nil;
                 break;
         }
 
-        json[@"m"] = [NSNumber numberWithInt:
-                      [Settings intForKey:@"monitoring_preference"
-                                    inMOC:waypoint.managedObjectContext]];
+        json[@"m"] = [NSNumber numberWithInt:(int)[LocationManager sharedInstance].monitoring];
     }
 
     NSString *tid = [Settings stringForKey:@"trackerid_preference" inMOC:waypoint.managedObjectContext];

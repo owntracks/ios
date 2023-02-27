@@ -112,7 +112,7 @@
 					<key>INIntentParameterCombinationIsPrimary</key>
 					<true/>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
-					<false/>
+					<true/>
 					<key>INIntentParameterCombinationTitle</key>
 					<string>Send current location</string>
 					<key>INIntentParameterCombinationTitleID</key>
@@ -316,7 +316,7 @@
 					<key>INIntentParameterCombinationIsLinked</key>
 					<true/>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
-					<false/>
+					<true/>
 					<key>INIntentParameterCombinationTitle</key>
 					<string>Tag to be applied to all subsequent positions</string>
 					<key>INIntentParameterCombinationTitleID</key>
@@ -437,7 +437,7 @@
 					<key>INIntentParameterCombinationIsLinked</key>
 					<true/>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
-					<false/>
+					<true/>
 					<key>INIntentParameterCombinationTitle</key>
 					<string>Name of the Point of Interest</string>
 					<key>INIntentParameterCombinationTitleID</key>
