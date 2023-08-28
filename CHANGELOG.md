@@ -6,6 +6,7 @@ OwnTracks iOS App Release Notes
 
 ** Remote command extensions and bug fixes
 
+    [NEW] add clearWaypoints command #745
     [FIX] reconnect after config load via URL #743
 
 ## OwnTracks 16.4.1 iOS/ipadOS/macOS

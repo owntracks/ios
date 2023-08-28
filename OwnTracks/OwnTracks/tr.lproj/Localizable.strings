@@ -100,6 +100,9 @@
 /* Export */
 "Export" = "İhracat";
 
+/* Fetching sharing list from backend */
+"Fetching tour list from backend" = "Fetching tour list from backend";
+
 /* Display when file processing succeeds (filename follows) */
 "File" = "Dosya";
 
@@ -208,6 +211,9 @@
 /* No location recorded indication */
 "No location recorded" = "Konum kaydedilmedi";
 
+/* No or empty tour list received from backend */
+"No or empty tour list received from backend" = "No or empty tour list received from backend";
+
 /* Display after trying to process a file */
 "no url specified" = "URL belirtilmedi";
 
@@ -241,6 +247,12 @@
 /* Remove button title */
 "Remove" = "Kaldır";
 
+/* Requesting tour */
+"Requesting tour" = "Requesting tour";
+
+/* Requesting tour list */
+"Requesting tour list" = "Requesting tour list";
+
 /* temporary display while resolving address */
 "resolving..." = "çözülüyor ...";
 
@@ -261,6 +273,9 @@
 
 /* content of an alert message regarding card */
 "set and sent to backend" = "ayarlandı ve arka uca gönderildi";
+
+/* Set POI buttonSet POI title */
+"Set POI" = "Set POI";
 
 /* Set tag button */
 "Set tag" = "Etiketi ayarla";
@@ -292,6 +307,18 @@
 /* Display when file processing succeeds */
 "successfully processed" = "başarıyla işlendi";
 
+/* Shortcut Switch to Manual Monitoring Mode */
+"Switch to Manual Monitoring Mode" = "Switch to Manual Monitoring Mode";
+
+/* Shortcut Switch to Move Monitoring Monitoring Mode */
+"Switch to Move Monitoring Mode" = "Switch to Move Monitoring Mode";
+
+/* Shortcut Switch to Quiet Monitoring Mode */
+"Switch to Quiet Monitoring Mode" = "Switch to Quiet Monitoring Mode";
+
+/* Shortcut Switch to Significant Changes Monitoring Mode */
+"Switch to Significant Changes Monitoring Mode" = "Switch to Significant Changes Monitoring Mode";
+
 /* Table is empty */
 "Table is empty" = "Masa boş";
 
@@ -309,6 +336,15 @@
 
 /* Tour deleted */
 "Tour deleted" = "Tur silindi";
+
+/* Tour list received */
+"Tour list received" = "Tour list received";
+
+/* Tour list request timed out */
+"Tour list request timed out" = "Tour list request timed out";
+
+/* Tour request timed out */
+"Tour request timed out" = "Tour request timed out";
 
 /* Tours list header */
 "Tours" = "Turlar";
@@ -351,6 +387,9 @@
 
 /* You cannot use background fetch */
 "You cannot use background fetch" = "Arka planda getirmeyi kullanamazsınız";
+
+/* You disabled background fetch */
+"You disabled background fetch" = "You disabled background fetch";
 
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Tam gizlilik koruması için kendi OwnTracks sunucunuzu kurmanız ve yapılandırmanızı düzenlemeniz gerekir. Https://owntracks.org/booklet hakkında ayrıntılı bilgi";
