@@ -1114,6 +1114,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                                        withObject:dictionary
                                                     waitUntilDone:NO];
                                 
+                            } else if ([@"clearWaypoints" saveEqual:dictionary[@"action"]]) {
+                                [self performSelectorOnMainThread:@selector(performClearWaypoints:)
+                                                       withObject:dictionary
+                                                    waitUntilDone:NO];
+                                
                             } else if ([@"setConfiguration" saveEqual:dictionary[@"action"]]) {
                                 [self performSelectorOnMainThread:@selector(performSetConfiguration:)
                                                        withObject:dictionary
@@ -1256,6 +1261,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         [Settings waypointsFromDictionary:payload
                                     inMOC:CoreData.sharedInstance.mainMOC];
     }
+}
+
+- (void)performClearWaypoints:(NSDictionary *)dictionary {
+    [Settings clearWaypoints:CoreData.sharedInstance.mainMOC];
 }
 
 - (void)waypoints {

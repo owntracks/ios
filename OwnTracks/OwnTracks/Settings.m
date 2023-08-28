@@ -377,6 +377,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     }
 }
 
++ (NSError *)clearWaypoints:(NSManagedObjectContext *)context {
+    Friend *friend = [Friend friendWithTopic:[self theGeneralTopicInMOC:context]
+                            inManagedObjectContext:context];
+
+    for (Region *region in friend.hasRegions) {
+            DDLogVerbose(@"[Settings][clearWaypoints] removeRegion %@", region.rid);
+            [[OwnTracking sharedInstance] removeRegion:region context:context];
+    }
+    return nil;
+}
+
 + (NSArray *)waypointsToArrayInMOC:(NSManagedObjectContext *)context {
     NSMutableArray *waypoints = [[NSMutableArray alloc] init];
     Friend *friend = [Friend existsFriendWithTopic:[self theGeneralTopicInMOC:context]
