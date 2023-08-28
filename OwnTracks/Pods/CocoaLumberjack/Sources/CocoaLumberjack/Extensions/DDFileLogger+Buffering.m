@@ -1,6 +1,6 @@
 // Software License Agreement (BSD License)
 //
-// Copyright (c) 2010-2022, Deusty, LLC
+// Copyright (c) 2010-2023, Deusty, LLC
 // All rights reserved.
 //
 // Redistribution and use of this software in source and binary forms,
@@ -41,7 +41,7 @@ static inline NSUInteger p_DDGetDefaultBufferSizeBytesMax(const BOOL max) {
     return max ? kDDMaxBufferSize : kDDDefaultBufferSize;
 }
 
-static NSUInteger DDGetMaxBufferSizeBytes() {
+static NSUInteger DDGetMaxBufferSizeBytes(void) {
     static NSUInteger maxBufferSize = 0;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -50,7 +50,7 @@ static NSUInteger DDGetMaxBufferSizeBytes() {
     return maxBufferSize;
 }
 
-static NSUInteger DDGetDefaultBufferSizeBytes() {
+static NSUInteger DDGetDefaultBufferSizeBytes(void) {
     static NSUInteger defaultBufferSize = 0;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
