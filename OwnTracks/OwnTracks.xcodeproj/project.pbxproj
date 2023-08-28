@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		401D4FB765B605110DD665D0 /* Pods_OwnTracks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C3DF3C2ED7AF9C874F3D94E /* Pods_OwnTracks.framework */; };
-		62A88DB29B36DC548BEF37AB /* Pods_OwnTracksWrist_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C283194A306A01945F9F950E /* Pods_OwnTracksWrist_WatchKit_Extension.framework */; };
+		27FA3D1413BBD4C33C5626F0 /* Pods_OwnTracksWrist_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EEC3513F3BC8B367087003F /* Pods_OwnTracksWrist_WatchKit_Extension.framework */; };
+		73E486C3060A00AFA424FB27 /* Pods_OwnTracks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8900A3EAFD109D20F95E6DD8 /* Pods_OwnTracks.framework */; };
 		84001C141C78982800413E5B /* Queue+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84001C111C78982800413E5B /* Queue+CoreDataProperties.m */; };
 		8400D9731D83825E00DEA134 /* HTTP.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8400D9721D83825E00DEA134 /* HTTP.plist */; };
 		8404876B1C5386DD00569C79 /* FeaturedContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8404876A1C5386DD00569C79 /* FeaturedContentVC.m */; };
@@ -200,8 +200,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		15FF6BD0AF2704254CD29247 /* Pods-OwnTracksWrist WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracksWrist WatchKit Extension.release.xcconfig"; path = "Target Support Files/Pods-OwnTracksWrist WatchKit Extension/Pods-OwnTracksWrist WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
-		5D243A9C2ABA0DFB819AEDD7 /* Pods-OwnTracks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracks.release.xcconfig"; path = "Target Support Files/Pods-OwnTracks/Pods-OwnTracks.release.xcconfig"; sourceTree = "<group>"; };
+		3BB208567F97092FB552528E /* Pods-OwnTracksWrist WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracksWrist WatchKit Extension.release.xcconfig"; path = "Target Support Files/Pods-OwnTracksWrist WatchKit Extension/Pods-OwnTracksWrist WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
+		4EEC3513F3BC8B367087003F /* Pods_OwnTracksWrist_WatchKit_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OwnTracksWrist_WatchKit_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		794B1518CFE4BFD07F305FFB /* Pods-OwnTracks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracks.debug.xcconfig"; path = "Target Support Files/Pods-OwnTracks/Pods-OwnTracks.debug.xcconfig"; sourceTree = "<group>"; };
 		84001C0D1C78729200413E5B /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		84001C0F1C78976100413E5B /* Model 9.0.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.0.2.xcdatamodel"; sourceTree = "<group>"; };
 		84001C101C78982800413E5B /* Queue+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Queue+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -461,10 +462,9 @@
 		84FAEA7125F01DA100DCD479 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		84FD93052353950100CCEC3B /* OwnTracksEditTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OwnTracksEditTVC.h; sourceTree = "<group>"; };
 		84FD93062353950100CCEC3B /* OwnTracksEditTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwnTracksEditTVC.m; sourceTree = "<group>"; };
-		9C3DF3C2ED7AF9C874F3D94E /* Pods_OwnTracks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OwnTracks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B02AA73B94390F0B0324248E /* Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig"; path = "Target Support Files/Pods-OwnTracksWrist WatchKit Extension/Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
-		C283194A306A01945F9F950E /* Pods_OwnTracksWrist_WatchKit_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OwnTracksWrist_WatchKit_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		C288B60EF41BF53EF4538454 /* Pods-OwnTracks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracks.debug.xcconfig"; path = "Target Support Files/Pods-OwnTracks/Pods-OwnTracks.debug.xcconfig"; sourceTree = "<group>"; };
+		8900A3EAFD109D20F95E6DD8 /* Pods_OwnTracks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OwnTracks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9DBE9F76099A512C36F126BC /* Pods-OwnTracks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracks.release.xcconfig"; path = "Target Support Files/Pods-OwnTracks/Pods-OwnTracks.release.xcconfig"; sourceTree = "<group>"; };
+		BA827F68D1E69AEA6BCC7251 /* Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig"; path = "Target Support Files/Pods-OwnTracksWrist WatchKit Extension/Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -486,7 +486,7 @@
 				8411B832189FDB140019D2D6 /* CoreData.framework in Frameworks */,
 				8411B830189FDB140019D2D6 /* UIKit.framework in Frameworks */,
 				8411B82C189FDB140019D2D6 /* Foundation.framework in Frameworks */,
-				401D4FB765B605110DD665D0 /* Pods_OwnTracks.framework in Frameworks */,
+				73E486C3060A00AFA424FB27 /* Pods_OwnTracks.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,7 +501,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62A88DB29B36DC548BEF37AB /* Pods_OwnTracksWrist_WatchKit_Extension.framework in Frameworks */,
+				27FA3D1413BBD4C33C5626F0 /* Pods_OwnTracksWrist_WatchKit_Extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,10 +541,10 @@
 		4148677DEE4BDFE13E9AF63F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				C288B60EF41BF53EF4538454 /* Pods-OwnTracks.debug.xcconfig */,
-				5D243A9C2ABA0DFB819AEDD7 /* Pods-OwnTracks.release.xcconfig */,
-				B02AA73B94390F0B0324248E /* Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig */,
-				15FF6BD0AF2704254CD29247 /* Pods-OwnTracksWrist WatchKit Extension.release.xcconfig */,
+				794B1518CFE4BFD07F305FFB /* Pods-OwnTracks.debug.xcconfig */,
+				9DBE9F76099A512C36F126BC /* Pods-OwnTracks.release.xcconfig */,
+				BA827F68D1E69AEA6BCC7251 /* Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig */,
+				3BB208567F97092FB552528E /* Pods-OwnTracksWrist WatchKit Extension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -616,8 +616,8 @@
 				8411B831189FDB140019D2D6 /* CoreData.framework */,
 				8411B849189FDB140019D2D6 /* XCTest.framework */,
 				84D3072E1ACD644500FACB9E /* NotificationCenter.framework */,
-				9C3DF3C2ED7AF9C874F3D94E /* Pods_OwnTracks.framework */,
-				C283194A306A01945F9F950E /* Pods_OwnTracksWrist_WatchKit_Extension.framework */,
+				8900A3EAFD109D20F95E6DD8 /* Pods_OwnTracks.framework */,
+				4EEC3513F3BC8B367087003F /* Pods_OwnTracksWrist_WatchKit_Extension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -869,14 +869,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8411B85A189FDB140019D2D6 /* Build configuration list for PBXNativeTarget "OwnTracks" */;
 			buildPhases = (
-				6509AA35C473A385BF25F051 /* [CP] Check Pods Manifest.lock */,
+				601E55213B519673A2446482 /* [CP] Check Pods Manifest.lock */,
 				8411B824189FDB140019D2D6 /* Sources */,
 				8411B825189FDB140019D2D6 /* Frameworks */,
 				8411B826189FDB140019D2D6 /* Resources */,
 				844E826B1AB8061500516D1A /* Embed Foundation Extensions */,
 				8466B31E2397F58500537795 /* ShellScript */,
 				84100AD923AE8D8800FC2361 /* Embed Watch Content */,
-				97225DA7FC30FF4C07320B98 /* [CP] Embed Pods Frameworks */,
+				E1F1C1838DEABD333F5AC82C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -947,11 +947,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84AFD4042434380B00F1E922 /* Build configuration list for PBXNativeTarget "OwnTracksWrist WatchKit Extension" */;
 			buildPhases = (
-				928EED14375DF0510A1C456E /* [CP] Check Pods Manifest.lock */,
+				D8E8F71F497B0D8CF7CF9BAB /* [CP] Check Pods Manifest.lock */,
 				84AFD3E62434380A00F1E922 /* Sources */,
 				84AFD3E72434380A00F1E922 /* Frameworks */,
 				84AFD3E82434380A00F1E922 /* Resources */,
-				71D23C131101BC04F4D830AE /* [CP] Embed Pods Frameworks */,
+				8704A4B3653B7E95BDFDF8BA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1162,7 +1162,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6509AA35C473A385BF25F051 /* [CP] Check Pods Manifest.lock */ = {
+		601E55213B519673A2446482 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1184,23 +1184,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		71D23C131101BC04F4D830AE /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OwnTracksWrist WatchKit Extension/Pods-OwnTracksWrist WatchKit Extension-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-OwnTracksWrist WatchKit Extension/Pods-OwnTracksWrist WatchKit Extension-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OwnTracksWrist WatchKit Extension/Pods-OwnTracksWrist WatchKit Extension-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8466B31E2397F58500537795 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1217,10 +1200,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "
-";
+			shellScript = "\n";
 		};
-		928EED14375DF0510A1C456E /* [CP] Check Pods Manifest.lock */ = {
+		8704A4B3653B7E95BDFDF8BA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OwnTracksWrist WatchKit Extension/Pods-OwnTracksWrist WatchKit Extension-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-OwnTracksWrist WatchKit Extension/Pods-OwnTracksWrist WatchKit Extension-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-OwnTracksWrist WatchKit Extension/Pods-OwnTracksWrist WatchKit Extension-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D8E8F71F497B0D8CF7CF9BAB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1242,7 +1241,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		97225DA7FC30FF4C07320B98 /* [CP] Embed Pods Frameworks */ = {
+		E1F1C1838DEABD333F5AC82C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1655,7 +1654,7 @@
 		};
 		8411B85B189FDB140019D2D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C288B60EF41BF53EF4538454 /* Pods-OwnTracks.debug.xcconfig */;
+			baseConfigurationReference = 794B1518CFE4BFD07F305FFB /* Pods-OwnTracks.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1708,7 +1707,7 @@
 		};
 		8411B85C189FDB140019D2D6 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5D243A9C2ABA0DFB819AEDD7 /* Pods-OwnTracks.release.xcconfig */;
+			baseConfigurationReference = 9DBE9F76099A512C36F126BC /* Pods-OwnTracks.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1945,7 +1944,7 @@
 		};
 		84AFD4022434380B00F1E922 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B02AA73B94390F0B0324248E /* Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig */;
+			baseConfigurationReference = BA827F68D1E69AEA6BCC7251 /* Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1980,7 +1979,7 @@
 		};
 		84AFD4032434380B00F1E922 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 15FF6BD0AF2704254CD29247 /* Pods-OwnTracksWrist WatchKit Extension.release.xcconfig */;
+			baseConfigurationReference = 3BB208567F97092FB552528E /* Pods-OwnTracksWrist WatchKit Extension.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CLANG_ANALYZER_NONNULL = YES;
