@@ -449,6 +449,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                                withObject:json
                                             waitUntilDone:TRUE];
                         self.configLoad = [NSDate date];
+                        [self performSelectorOnMainThread:@selector(reconnect)
+                                               withObject:nil
+                                            waitUntilDone:TRUE];
                     } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
                         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
                                                                              options:0
@@ -560,6 +563,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         error = [Settings fromStream:input inMOC:CoreData.sharedInstance.mainMOC];
         [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
         self.configLoad = [NSDate date];
+        [self reconnect];
     } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
         error = [Settings waypointsFromStream:input inMOC:CoreData.sharedInstance.mainMOC];
         [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
