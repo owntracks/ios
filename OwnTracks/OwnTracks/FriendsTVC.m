@@ -434,4 +434,21 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     friendTableViewCell.image.image = [friendAnnotationView getImage];
 }
 
+- (IBAction)trashPressed:(UIBarButtonItem *)sender {
+    NSManagedObjectContext *context = [CoreData sharedInstance].mainMOC;
+    Friend *me = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:context]
+                  inManagedObjectContext:context];
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    NSArray *friends = [Friend allFriendsInManagedObjectContext:context];
+
+    for (Friend *friend in friends) {
+        if (![me.topic isEqualToString:friend.topic]) {
+            DDLogVerbose(@"[FriendsTVC][trashPressed] friend %@", friend.description);
+            [ad sendEmpty:friend.topic];
+            [context deleteObject:friend];
+        }
+    }
+    [[CoreData sharedInstance] sync:context];
+}
+
 @end

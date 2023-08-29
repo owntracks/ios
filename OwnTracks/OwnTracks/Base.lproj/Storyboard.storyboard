@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="e04-OU-xZ4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="e04-OU-xZ4">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eED-yn-0ps">
-                                <rect key="frame" x="0.0" y="44" width="375" height="525"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="505"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="EiO-on-q7c" appends="YES" id="k6b-KH-2BJ"/>
@@ -1833,6 +1833,11 @@
                                 <segue destination="G87-RS-wz7" kind="push" id="ft5-77-rU8"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="trash" id="YbZ-pq-TFQ">
+                            <connections>
+                                <action selector="trashPressed:" destination="0f4-YU-UXj" id="zXO-LB-dOl"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uQ4-mZ-NmU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2291,7 +2296,7 @@
                     <tabBarItem key="tabBarItem" title="Map" image="OwnTracks" id="HCO-pB-vNN"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aK3-EO-u98">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -3113,7 +3118,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="0f5-gd-MxE">
-                                                    <rect key="frame" x="78" y="4.5" width="277" height="34.5"/>
+                                                    <rect key="frame" x="78" y="4" width="277" height="36"/>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
@@ -3142,7 +3147,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="sGk-1E-zg5">
-                                                    <rect key="frame" x="78" y="4.5" width="277" height="34.5"/>
+                                                    <rect key="frame" x="78" y="4" width="277" height="36"/>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
@@ -3356,7 +3361,7 @@
                     <tabBarItem key="tabBarItem" tag="95" title="Friends" image="Friends" id="msF-bI-hEJ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HAz-7E-YjW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -3658,7 +3663,7 @@
                     <tabBarItem key="tabBarItem" tag="96" title="Regions" image="Regions" id="HB5-wo-JZx"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qvG-MG-aSJ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -3743,7 +3748,7 @@
                     <tabBarItem key="tabBarItem" tag="98" systemItem="featured" id="Qfz-gP-JfE"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Fvv-Yh-dmW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -3822,7 +3827,7 @@
                 <navigationController id="TPg-fQ-Bo1" customClass="NavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="97" systemItem="history" id="atB-MR-YSl"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ufd-Tv-UVd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -3836,8 +3841,8 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="auv-et-UoY"/>
-        <segue reference="K8i-ip-FO0"/>
-        <segue reference="Hb0-uO-VBI"/>
+        <segue reference="ft5-77-rU8"/>
+        <segue reference="KLh-ve-vhU"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Friends" width="33" height="33"/>
