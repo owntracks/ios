@@ -1,13 +1,14 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 16.4.2 iOS/ipadOS/macOS
-* Release Date 2023-08-28
+## OwnTracks 16.4.3 iOS/ipadOS/macOS
+* Release Date 2023-09-26
 
 ** Remote command extensions and bug fixes
 
     [NEW] add clearWaypoints command #745
     [FIX] reconnect after config load via URL #743
+    [FIX] crash on MQTT negative PUBACK
 
 ## OwnTracks 16.4.1 iOS/ipadOS/macOS
 * Release Date 2023-02-27
