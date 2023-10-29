@@ -139,11 +139,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                        options:@{}
                              completionHandler:nil];
 }
-- (IBAction)twitterPressed:(UIButton *)sender {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://twitter.com/owntracks"]
-                                       options:@{}
-                             completionHandler:nil];
-}
 - (IBAction)mastodonPressed:(UIButton *)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://fosstodon.org/@owntracks"]
                                        options:@{}

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="e04-OU-xZ4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="e04-OU-xZ4">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -2437,7 +2437,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g84-aA-XOI">
-                                                    <rect key="frame" x="20" y="11.5" width="57" height="21"/>
+                                                    <rect key="frame" x="20" y="12" width="57" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -2483,71 +2483,59 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fng-qL-diO">
-                                                    <rect key="frame" x="20" y="7" width="78" height="30"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="64" translatesAutoresizingMaskIntoConstraints="NO" id="cD5-Iq-Ei4">
+                                                    <rect key="frame" x="20" y="7" width="335" height="30"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fng-qL-diO">
+                                                            <rect key="frame" x="0.0" y="0.0" width="69" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="aMI-oC-Fm5"/>
+                                                            </constraints>
+                                                            <state key="normal" title="Web">
+                                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="webPressed:" destination="G87-RS-wz7" eventType="touchUpInside" id="euf-ZA-4xy"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ms-eE-0jF">
+                                                            <rect key="frame" x="133" y="0.0" width="69" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="NRe-US-23s"/>
+                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="Q4p-tX-sPt"/>
+                                                            </constraints>
+                                                            <state key="normal" title="Github">
+                                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="githubPressed:" destination="G87-RS-wz7" eventType="touchUpInside" id="PcZ-Ls-pXr"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YlH-Kr-wOD">
+                                                            <rect key="frame" x="266" y="0.0" width="69" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="Z9I-Rs-USb"/>
+                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="nh1-8R-YjA"/>
+                                                            </constraints>
+                                                            <state key="normal" title="Mastodon">
+                                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="mastodonPressed:" destination="G87-RS-wz7" eventType="touchUpInside" id="lcG-LE-Dpa"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="aMI-oC-Fm5"/>
+                                                        <constraint firstItem="YlH-Kr-wOD" firstAttribute="width" secondItem="Fng-qL-diO" secondAttribute="width" id="hsa-Ny-gaX"/>
+                                                        <constraint firstItem="6ms-eE-0jF" firstAttribute="width" secondItem="Fng-qL-diO" secondAttribute="width" id="iel-f1-Zxm"/>
                                                     </constraints>
-                                                    <state key="normal" title="Web">
-                                                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="webPressed:" destination="G87-RS-wz7" eventType="touchUpInside" id="euf-ZA-4xy"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ms-eE-0jF">
-                                                    <rect key="frame" x="106" y="7" width="77.5" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="NRe-US-23s"/>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="Q4p-tX-sPt"/>
-                                                    </constraints>
-                                                    <state key="normal" title="Github">
-                                                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="githubPressed:" destination="G87-RS-wz7" eventType="touchUpInside" id="PcZ-Ls-pXr"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fB7-lh-AFx">
-                                                    <rect key="frame" x="191.5" y="7" width="78" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="1SP-GL-Ggd"/>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="fMh-hZ-G9e"/>
-                                                    </constraints>
-                                                    <state key="normal" title="Twitter">
-                                                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="twitterPressed:" destination="G87-RS-wz7" eventType="touchUpInside" id="8QR-WI-TS3"/>
-                                                    </connections>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YlH-Kr-wOD">
-                                                    <rect key="frame" x="277.5" y="7" width="77.5" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="Z9I-Rs-USb"/>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="nh1-8R-YjA"/>
-                                                    </constraints>
-                                                    <state key="normal" title="Mastodon">
-                                                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="mastodonPressed:" destination="G87-RS-wz7" eventType="touchUpInside" id="lcG-LE-Dpa"/>
-                                                    </connections>
-                                                </button>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Fng-qL-diO" firstAttribute="leading" secondItem="QvO-F9-3jQ" secondAttribute="leading" constant="20" symbolic="YES" id="0Sp-dc-C6N"/>
-                                                <constraint firstItem="6ms-eE-0jF" firstAttribute="leading" secondItem="Fng-qL-diO" secondAttribute="trailing" constant="8" symbolic="YES" id="AHa-Re-A08"/>
-                                                <constraint firstItem="YlH-Kr-wOD" firstAttribute="centerY" secondItem="QvO-F9-3jQ" secondAttribute="centerY" id="DsS-qw-UuU"/>
-                                                <constraint firstItem="YlH-Kr-wOD" firstAttribute="width" secondItem="Fng-qL-diO" secondAttribute="width" id="IB0-bc-Yog"/>
-                                                <constraint firstItem="6ms-eE-0jF" firstAttribute="centerY" secondItem="QvO-F9-3jQ" secondAttribute="centerY" id="JTQ-PO-qWg"/>
-                                                <constraint firstItem="fB7-lh-AFx" firstAttribute="leading" secondItem="6ms-eE-0jF" secondAttribute="trailing" constant="8" symbolic="YES" id="N4Z-Is-DoK"/>
-                                                <constraint firstItem="fB7-lh-AFx" firstAttribute="width" secondItem="Fng-qL-diO" secondAttribute="width" id="Sot-fL-Djn"/>
-                                                <constraint firstAttribute="centerY" secondItem="Fng-qL-diO" secondAttribute="centerY" id="WIh-Me-lpN"/>
-                                                <constraint firstItem="6ms-eE-0jF" firstAttribute="width" secondItem="Fng-qL-diO" secondAttribute="width" id="YIo-R9-vMD"/>
-                                                <constraint firstItem="YlH-Kr-wOD" firstAttribute="leading" secondItem="fB7-lh-AFx" secondAttribute="trailing" constant="8" symbolic="YES" id="v4w-sK-FMf"/>
-                                                <constraint firstItem="fB7-lh-AFx" firstAttribute="centerY" secondItem="QvO-F9-3jQ" secondAttribute="centerY" id="xzf-x4-fDy"/>
-                                                <constraint firstAttribute="trailing" secondItem="YlH-Kr-wOD" secondAttribute="trailing" constant="20" symbolic="YES" id="yv4-E8-vkv"/>
+                                                <constraint firstAttribute="trailing" secondItem="cD5-Iq-Ei4" secondAttribute="trailing" constant="20" symbolic="YES" id="1aT-bf-2g6"/>
+                                                <constraint firstItem="cD5-Iq-Ei4" firstAttribute="leading" secondItem="QvO-F9-3jQ" secondAttribute="leading" constant="20" symbolic="YES" id="4Xi-3G-US8"/>
+                                                <constraint firstAttribute="bottom" secondItem="cD5-Iq-Ei4" secondAttribute="bottom" constant="7" id="hW6-oz-bYi"/>
+                                                <constraint firstItem="cD5-Iq-Ei4" firstAttribute="top" secondItem="QvO-F9-3jQ" secondAttribute="top" constant="7" id="rhf-W6-6cc"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -2590,7 +2578,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Coordinates" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ym9-bx-HAr">
-                                                    <rect key="frame" x="20" y="11.5" width="93" height="21"/>
+                                                    <rect key="frame" x="20" y="11.5" width="92.5" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="o5a-Pu-4DD"/>
                                                     </constraints>
@@ -2599,7 +2587,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="&lt;Coordinates&gt;" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RfS-uy-gRR">
-                                                    <rect key="frame" x="121" y="7" width="234" height="30"/>
+                                                    <rect key="frame" x="120.5" y="7" width="234.5" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="odX-1R-x4G"/>
                                                     </constraints>
