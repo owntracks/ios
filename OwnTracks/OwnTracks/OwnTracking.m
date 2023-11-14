@@ -14,6 +14,7 @@
 #import "CoreData.h"
 #import "ConnType.h"
 #import "NSNumber+decimals.h"
+#import "Validation.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 #import <UserNotifications/UserNotifications.h>
 #import <UserNotifications/UNUserNotificationCenter.h>
@@ -21,7 +22,7 @@
 #define MAXQUEUE 999
 
 @implementation OwnTracking
-static const DDLogLevel ddLogLevel = DDLogLevelInfo;
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 static OwnTracking *theInstance = nil;
 
 + (OwnTracking *)sharedInstance {
@@ -63,17 +64,18 @@ static OwnTracking *theInstance = nil;
             self.inQueue = @((self.inQueue).unsignedLongValue + 1);
         }
         [context performBlock:^{
-            NSError *error;
             DDLogVerbose(@"performBlock %@ %@",
                          topic,
                          [[NSString alloc] initWithData:data
                                                encoding:NSUTF8StringEncoding]);
 
             NSDictionary *dictionary = [[NSDictionary alloc] init];
-            id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-            if (json && [json isKindOfClass:[NSDictionary class]]) {
+            id json = [[Validation sharedInstance] validateData:data]; 
+            if (json &&
+                [json isKindOfClass:[NSDictionary class]]) {
                 dictionary = json;
             }
+            
             NSArray *topicComponents = [topic componentsSeparatedByString:@"/"];
             NSArray *baseComponents = [[Settings theGeneralTopicInMOC:context]
                                        componentsSeparatedByString:@"/"];
@@ -103,7 +105,7 @@ static OwnTracking *theInstance = nil;
                         [self processFace:friend dictionary:dictionary];
                     }];
                 } else {
-                    DDLogInfo(@"unhandled record type %@", dictionary[@"_type"]);
+                    DDLogInfo(@"unhandled record type for own device _type:%@", dictionary[@"_type"]);
                 }
             } else /* not own device */ {
                 if (data.length) {

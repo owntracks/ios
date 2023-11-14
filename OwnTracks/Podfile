@@ -6,7 +6,9 @@ platform :ios, '13.1'
 pod 'CocoaLumberjack'
 pod 'ABStaticTableViewController', :path => '~/ABStaticTableViewController'
 pod 'mqttc/MinL', :path => '~/mqttc'
-pod 'libsodium', '~> 1.0'
+#pod 'libsodium', '~> 1.0'
+pod 'libsodium'
+pod 'DSJSONSchemaValidation'
 end
 
 target 'OwnTracksWrist WatchKit Extension' do

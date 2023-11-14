@@ -74,6 +74,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIdowngrade;
 @property (weak, nonatomic) IBOutlet UIButton *createCardButton;
 @property (weak, nonatomic) IBOutlet UIButton *toursButton;
+@property (weak, nonatomic) IBOutlet UIButton *logsButton;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
 
@@ -694,9 +695,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
         // hide MQTT related rows if not MQTT mode
         NSArray <NSIndexPath *> *mqttPaths = @[
-            [NSIndexPath indexPathForRow:6 inSection:0],
             [NSIndexPath indexPathForRow:7 inSection:0],
-            [NSIndexPath indexPathForRow:8 inSection:0]
+            [NSIndexPath indexPathForRow:8 inSection:0],
+            [NSIndexPath indexPathForRow:9 inSection:0]
         ];
 
         for (NSIndexPath *indexPath in mqttPaths) {
@@ -725,7 +726,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
         // hide HTTP related rows if not in HTTP mode
         NSArray <NSIndexPath *> *httpPaths = @[
-            [NSIndexPath indexPathForRow:13 inSection:0]
+            [NSIndexPath indexPathForRow:14 inSection:0]
         ];
 
         for (NSIndexPath *indexPath in httpPaths) {
@@ -792,6 +793,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self presentViewController:ac animated:TRUE completion:nil];
     return;
 #else
+#if 0
     [self updateValues];
     NSError *error;
 
@@ -806,6 +808,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [[NSFileManager defaultManager] createFileAtPath:fileURL.path
                                             contents:[Settings toDataInMOC:CoreData.sharedInstance.mainMOC]
                                           attributes:nil];
+#else
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    DDLogInfo(@"sortedLogFilePaths %@", ad.fl.logFileManager.sortedLogFilePaths);
+    DDLogInfo(@"sortedLogFileInfos %@", ad.fl.logFileManager.sortedLogFileInfos);
+    DDLogInfo(@"sortedLogFileNames %@", ad.fl.logFileManager.sortedLogFileNames);
+    DDLogInfo(@"maximumNumberOfLogFiles %lu", (unsigned long)ad.fl.logFileManager.maximumNumberOfLogFiles);
+    DDLogInfo(@"logFilesDiskQuota %llu", ad.fl.logFileManager.logFilesDiskQuota);
+    DDLogInfo(@"logsDirectory %@", ad.fl.logFileManager.logsDirectory);
+    DDLogInfo(@"sortedLogFileNames %@", ad.fl.logFileManager.sortedLogFileNames);
+
+    NSURL *fileURL =
+    [NSURL fileURLWithPath:ad.fl.logFileManager.sortedLogFilePaths.firstObject];
+#endif
 
     self.dic = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
     self.dic.delegate = self;

@@ -16,7 +16,7 @@
 @end
 
 @implementation CoreData
-static const DDLogLevel ddLogLevel = DDLogLevelInfo;
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 + (CoreData *)sharedInstance {
     static dispatch_once_t once = 0;
@@ -77,7 +77,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                                             URL:persistentStoreURLOld
                                                         options:options
                                                           error:&error]) {
-        DDLogError(@"[MQTTPersistence] managedObjectContext save old: %@", error);
+        DDLogInfo(@"[MQTTPersistence] managedObjectContext save old: %@", error);
         if (error) {
             if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
                                                           configuration:nil

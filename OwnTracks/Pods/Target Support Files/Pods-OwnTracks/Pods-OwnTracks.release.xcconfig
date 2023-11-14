@@ -1,10 +1,10 @@
 CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ABStaticTableViewController" "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/libsodium" "${PODS_CONFIGURATION_BUILD_DIR}/mqttc-iOS"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ABStaticTableViewController" "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack-iOS" "${PODS_CONFIGURATION_BUILD_DIR}/DSJSONSchemaValidation" "${PODS_CONFIGURATION_BUILD_DIR}/libsodium" "${PODS_CONFIGURATION_BUILD_DIR}/mqttc-iOS"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1 LUMBERJACK=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ABStaticTableViewController/ABStaticTableViewController.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack-iOS/CocoaLumberjack.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/libsodium/libsodium.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/mqttc-iOS/mqttc.framework/Headers" "$(PODS_ROOT)/libsodium/src/libsodium/include/sodium" "$(PODS_ROOT)/libsodium/src/libsodium/include"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ABStaticTableViewController/ABStaticTableViewController.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack-iOS/CocoaLumberjack.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/DSJSONSchemaValidation/DSJSONSchemaValidation.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/libsodium/libsodium.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/mqttc-iOS/mqttc.framework/Headers" "$(PODS_ROOT)/libsodium/src/libsodium/include/sodium" "$(PODS_ROOT)/libsodium/src/libsodium/include"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
 OTHER_CFLAGS = $(inherited) -DNATIVE_LITTLE_ENDIAN=1 -DHAVE_MADVISE -DHAVE_MMAP -DHAVE_MPROTECT -DHAVE_POSIX_MEMALIGN -DHAVE_WEAK_SYMBOLS
-OTHER_LDFLAGS = $(inherited) -framework "ABStaticTableViewController" -framework "CocoaLumberjack" -framework "libsodium" -framework "mqttc"
+OTHER_LDFLAGS = $(inherited) -framework "ABStaticTableViewController" -framework "CocoaLumberjack" -framework "DSJSONSchemaValidation" -framework "libsodium" -framework "mqttc"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.

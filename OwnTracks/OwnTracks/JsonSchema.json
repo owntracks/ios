@@ -1,0 +1,59 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://owntracks.org/JsonSchema",
+    "title": "OwnTracks JSON Schema",
+    "description": "A definition of our messages",
+    "type": "object",
+    "properties": {
+        "_type": {
+            "description": "The type of the message",
+            "type": "string",
+            "enum": [ "beacon", "card", "cmd", "configuration", "location", "lwt", "steps", "transition", "waypoint", "waypoints" ]
+        },
+        "face": {
+            "description": "Base64 encoded PNG image that is displayed instead of the Tracker ID",
+            "type": "string",
+            "contentEncoding": "base64",
+            "contentMediaType": "image/png"
+        },
+        "lat": {
+            "description": "Latitude",
+            "type": "number"
+        },
+        "lon": {
+            "description": "Longitude",
+            "type": "number"
+        },
+        "tst": {
+            "description": "UNIX epoch timestamp in seconds of the location fix",
+            "type": "integer"
+        },
+        "name": {
+            "description": "Name to identify a user",
+            "type": "string"
+        }
+    },
+    "AllOf": [
+        {
+            "if" : {
+                "properties" : {
+                    "_type" : { "const" : "location" }
+                }
+            },
+            "then" : {
+                "required" : [ "lat", "lon", "tst" ]
+            }
+        },
+        {
+            "if" : {
+                "properties" : {
+                    "_type" : { "const" : "card" }
+                }
+            },
+            "then" : {
+                "required" : [ "face", "name" ]
+            }
+        },
+    ],
+    "required": [ "_type" ]
+}

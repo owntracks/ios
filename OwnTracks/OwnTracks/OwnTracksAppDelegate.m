@@ -18,14 +18,14 @@
 #import "Tours.h"
 #import "ConnType.h"
 #import "NSNumber+decimals.h"
+#import "Validation.h"
 
 #import "OwnTracksSendNowIntent.h"
 #import "OwnTracksChangeMonitoringIntent.h"
 #import "OwnTracksTagIntent.h"
 #import "OwnTracksPointOfInterestIntent.h"
 
-#import <CocoaLumberjack/CocoaLumberjack.h>
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 @interface NSString (safe)
 - (BOOL)saveEqual:(NSString *)aString;
@@ -105,6 +105,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 @property (strong, nonatomic) NSTimer *holdTimer;
 @property (strong, nonatomic) NSTimer *bgTimer;
 
+
+
 @end
 
 @implementation OwnTracksAppDelegate
@@ -156,9 +158,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 #ifdef DEBUG
-    [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelVerbose];
+    [DDLog addLogger:[DDOSLogger sharedInstance] withLevel:DDLogLevelVerbose];
 #endif
     [DDLog addLogger:[DDOSLogger sharedInstance] withLevel:DDLogLevelWarning];
+    
+    self.fl = [[DDFileLogger alloc] init];
+    [DDLog addLogger:self.fl withLevel:DDLogLevelVerbose];
     
     [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
     
@@ -379,8 +384,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                 } else if (base64String) {
                     NSData *jsonData = [[NSData alloc] initWithBase64EncodedString:base64String options:0];
                     if (jsonData) {
-                        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
-                        if (dict && [dict isKindOfClass:NSDictionary.class]) {
+                        NSDictionary *dict = nil;
+                        id json = [[Validation sharedInstance] validateData:jsonData];
+                        if (json &&
+                            [json isKindOfClass:[NSDictionary class]]) {
+                            dict = json;
+                        }
+                        if (dict) {
                             [self configFromDictionary:dict];
                             self.processingMessage = NSLocalizedString(@"Inline Configuration successfully processed",
                                                                        @"Display after processing inline config");
@@ -439,28 +449,36 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                     NSError *error;
                     NSString *extension = url.pathExtension;
                     if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
-                        [self performSelectorOnMainThread:@selector(terminateSession)
-                                               withObject:nil
-                                            waitUntilDone:TRUE];
-                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
-                                                                             options:0
-                                                                               error:nil];
-                        [self performSelectorOnMainThread:@selector(configFromDictionary:)
-                                               withObject:json
-                                            waitUntilDone:TRUE];
-                        self.configLoad = [NSDate date];
-                        [self performSelectorOnMainThread:@selector(reconnect)
-                                               withObject:nil
-                                            waitUntilDone:TRUE];
+                        NSDictionary *dict = nil;
+                        id json = [[Validation sharedInstance] validateData:data];
+                        if (json &&
+                            [json isKindOfClass:[NSDictionary class]]) {
+                            dict = json;
+                        }
+                        if (dict) {
+                            [self performSelectorOnMainThread:@selector(terminateSession)
+                                                   withObject:nil
+                                                waitUntilDone:TRUE];
+                            [self performSelectorOnMainThread:@selector(configFromDictionary:)
+                                                   withObject:dict
+                                                waitUntilDone:TRUE];
+                            self.configLoad = [NSDate date];
+                            [self performSelectorOnMainThread:@selector(reconnect)
+                                                   withObject:nil
+                                                waitUntilDone:TRUE];
+                        }
                     } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
-                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
-                                                                             options:0
-                                                                               error:nil];
-                        
-                        
-                        [self performSelectorOnMainThread:@selector(waypointsFromDictionary:)
-                                               withObject:json
-                                            waitUntilDone:TRUE];
+                        NSDictionary *dict = nil;
+                        id json = [[Validation sharedInstance] validateData:data];
+                        if (json &&
+                            [json isKindOfClass:[NSDictionary class]]) {
+                            dict = json;
+                        }
+                        if (dict) {
+                            [self performSelectorOnMainThread:@selector(waypointsFromDictionary:)
+                                                   withObject:dict
+                                                waitUntilDone:TRUE];
+                        }
                     } else if ([extension isEqualToString:@"otrp"] || [extension isEqualToString:@"otre"]) {
                         NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
                                                                                      inDomain:NSUserDomainMask
@@ -1071,9 +1089,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         if (ownDevice) {
             
             NSError *error;
-            id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-            if (json && [json isKindOfClass:[NSDictionary class]]) {
-                NSDictionary *dictionary = json;
+            NSDictionary *dictionary = nil;
+            id json = [[Validation sharedInstance] validateData:data];
+            if (json &&
+                [json isKindOfClass:[NSDictionary class]]) {
+                dictionary = json;
+            }
+
+            if (dictionary) {
                 if ([@"cmd" saveEqual:dictionary[@"_type"]]) {
                     if (
 #ifdef DEBUG

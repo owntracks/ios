@@ -21,6 +21,8 @@
 
 #import "NavigationController.h"
 
+#import <CocoaLumberjack/CocoaLumberjack.h>
+
 @interface OwnTracksAppDelegate : UIResponder <UIApplicationDelegate, ConnectionDelegate, LocationManagerDelegate, UNUserNotificationCenterDelegate>
 
 @property (strong, nonatomic) UIWindow * _Nullable window;
@@ -35,6 +37,9 @@
 @property (strong, nonatomic) NSDate * _Nullable configLoad;
 @property (strong, nonatomic) NSString * _Nullable action;
 @property (nonatomic) BOOL inRefresh;
+
+@property (strong, nonatomic) DDFileLogger * _Nullable fl;
+
 
 - (BOOL)sendNow:(CLLocation *_Nonnull)location withPOI:(nullable NSString *)poi;
 - (void)dump;

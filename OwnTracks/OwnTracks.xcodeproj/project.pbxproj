@@ -62,8 +62,13 @@
 		847F31BC25EFB8600018C0A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 847F31BA25EFB8600018C0A6 /* InfoPlist.strings */; };
 		847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847F8B5719295C65003876D4 /* CoreMotion.framework */; };
 		8488CFDF25A45CC3000AFEE2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8488CFDE25A45CC3000AFEE2 /* Security.framework */; };
+		8492603F2B0235D700F6DC13 /* JsonSchema.json in Resources */ = {isa = PBXBuildFile; fileRef = 8492603E2B0235D700F6DC13 /* JsonSchema.json */; };
+		849260422B0247C200F6DC13 /* Validation.m in Sources */ = {isa = PBXBuildFile; fileRef = 849260412B0247C200F6DC13 /* Validation.m */; };
+		849260442B0373E300F6DC13 /* EncryptedSchema.json in Resources */ = {isa = PBXBuildFile; fileRef = 849260432B0373E300F6DC13 /* EncryptedSchema.json */; };
+		849260462B037B0000F6DC13 /* ArraySchema.json in Resources */ = {isa = PBXBuildFile; fileRef = 849260452B037B0000F6DC13 /* ArraySchema.json */; };
 		84929F0B20AAC0D000227D00 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84929F0A20AAC0CF00227D00 /* WebKit.framework */; };
 		84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A2B1B3755AF00810C3A /* TabBarController.m */; };
+		8495CFE42B039941007F7C90 /* LogsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495CFE32B039941007F7C90 /* LogsTVC.m */; };
 		849B1E061FE911FD0016EF1A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 849B1E081FE911FD0016EF1A /* MainInterface.storyboard */; };
 		849CE153289CF2FF004B32BF /* ToursStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 849CE152289CF2FF004B32BF /* ToursStatusCell.m */; };
 		84A488E21F7BBFD900ADCF98 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84A488E11F7BBFD900ADCF98 /* Media.xcassets */; };
@@ -326,6 +331,11 @@
 		848806FD28C9E7A500F7DFFD /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Interface.strings; sourceTree = "<group>"; };
 		848806FE28C9E7A500F7DFFD /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8488CFDE25A45CC3000AFEE2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
+		8492603E2B0235D700F6DC13 /* JsonSchema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = JsonSchema.json; sourceTree = "<group>"; };
+		849260402B0247C200F6DC13 /* Validation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Validation.h; path = coredata/Validation.h; sourceTree = "<group>"; };
+		849260412B0247C200F6DC13 /* Validation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Validation.m; path = coredata/Validation.m; sourceTree = "<group>"; };
+		849260432B0373E300F6DC13 /* EncryptedSchema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = EncryptedSchema.json; sourceTree = "<group>"; };
+		849260452B037B0000F6DC13 /* ArraySchema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ArraySchema.json; sourceTree = "<group>"; };
 		84929F0A20AAC0CF00227D00 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		84930A221B36B8FB00810C3A /* Model 8.1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.1.xcdatamodel"; sourceTree = "<group>"; };
 		84930A261B36C21B00810C3A /* Model 8.1.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.2.xcdatamodel"; sourceTree = "<group>"; };
@@ -333,6 +343,8 @@
 		84930A2B1B3755AF00810C3A /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		84930A2D1B376DDF00810C3A /* Model 8.1.3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.3.xcdatamodel"; sourceTree = "<group>"; };
 		84930A311B37729000810C3A /* Model 8.1.4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.4.xcdatamodel"; sourceTree = "<group>"; };
+		8495CFE22B039941007F7C90 /* LogsTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogsTVC.h; sourceTree = "<group>"; };
+		8495CFE32B039941007F7C90 /* LogsTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogsTVC.m; sourceTree = "<group>"; };
 		849ABA0028F21D140078AE41 /* Model 16.3.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 16.3.0.xcdatamodel"; sourceTree = "<group>"; };
 		849B1E021FE9114C0016EF1A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		849B1E041FE9114D0016EF1A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -633,6 +645,8 @@
 				847444391DA4BC9600975BE4 /* ConnType.m */,
 				846FFA431B402A1F001482A6 /* OwnTracking.h */,
 				84AFD40A2434486200F1E922 /* OwnTracking.m */,
+				849260402B0247C200F6DC13 /* Validation.h */,
+				849260412B0247C200F6DC13 /* Validation.m */,
 				84B739781A65629200B103F4 /* LocationManager.h */,
 				84B739791A65629200B103F4 /* LocationManager.m */,
 				8411B88C189FE9940019D2D6 /* Connection.h */,
@@ -666,6 +680,9 @@
 				8411B839189FDB140019D2D6 /* main.m */,
 				8411B83B189FDB140019D2D6 /* OwnTracks-Prefix.pch */,
 				84DE749B24A9E1C600C0DA68 /* Intents.intentdefinition */,
+				8492603E2B0235D700F6DC13 /* JsonSchema.json */,
+				849260452B037B0000F6DC13 /* ArraySchema.json */,
+				849260432B0373E300F6DC13 /* EncryptedSchema.json */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -797,6 +814,8 @@
 				849CE152289CF2FF004B32BF /* ToursStatusCell.m */,
 				84C7C02D2885B1B00088A544 /* CreateTourTVC.h */,
 				84C7C02E2885B1B00088A544 /* CreateTourTVC.m */,
+				8495CFE22B039941007F7C90 /* LogsTVC.h */,
+				8495CFE32B039941007F7C90 /* LogsTVC.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -1006,7 +1025,7 @@
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = OwnTracks;
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				ORGANIZATIONNAME = OwnTracks;
 				TargetAttributes = {
 					8411B827189FDB140019D2D6 = {
@@ -1097,8 +1116,11 @@
 				8400D9731D83825E00DEA134 /* HTTP.plist in Resources */,
 				843B91721C8A14BF00DBD306 /* Storyboard.storyboard in Resources */,
 				84CC5A521FEC71850010314C /* OwnTracks-29.png in Resources */,
+				849260462B037B0000F6DC13 /* ArraySchema.json in Resources */,
+				8492603F2B0235D700F6DC13 /* JsonSchema.json in Resources */,
 				845AA1BD1B4846AF00945856 /* OwnTracks-320.png in Resources */,
 				84FAEA7225F01DA100DCD479 /* Launch Screen.storyboard in Resources */,
+				849260442B0373E300F6DC13 /* EncryptedSchema.json in Resources */,
 				8411B843189FDB140019D2D6 /* Images.xcassets in Resources */,
 				84E2C4511EC34B3B00BC02CE /* Localizable.strings in Resources */,
 				845AA1BC1B4846AF00945856 /* OwnTracks-64.png in Resources */,
@@ -1301,8 +1323,10 @@
 				84C7C032289821280088A544 /* ToursTVC.m in Sources */,
 				845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */,
 				84B7397A1A65629200B103F4 /* LocationManager.m in Sources */,
+				849260422B0247C200F6DC13 /* Validation.m in Sources */,
 				847D5C8C2612554B00B6DCD5 /* ModesTVC.m in Sources */,
 				84AFD40B2434486200F1E922 /* OwnTracking.m in Sources */,
+				8495CFE42B039941007F7C90 /* LogsTVC.m in Sources */,
 				8411B891189FE9CE0019D2D6 /* Settings.m in Sources */,
 				845299E71DFA004000A4DC21 /* Friend+CoreDataClass.m in Sources */,
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,
@@ -1584,6 +1608,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1638,6 +1663,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

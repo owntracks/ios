@@ -17,6 +17,7 @@
 #import "LocationManager.h"
 #import "Settings.h"
 #import "OwnTracksAppDelegate.h"
+#import "Validation.h"
 
 #import <mqttc/MQTTNWTransport.h>
 
@@ -67,7 +68,7 @@
 #define RECONNECT_TIMER_MAX 64.0
 
 @implementation Connection
-DDLogLevel ddLogLevel = DDLogLevelInfo;
+DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (instancetype)init {
     self = [super init];
@@ -79,7 +80,7 @@ DDLogLevel ddLogLevel = DDLogLevelInfo;
         DDLogInfo(@"[Connection] sodium_init succeeded");
     }
 
-    [MQTTLog setLogLevel:DDLogLevelInfo];
+    [MQTTLog setLogLevel:DDLogLevelWarning];
 
     self.state = state_starting;
     self.subscriptions = [[NSArray alloc] init];
@@ -474,7 +475,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
                          }
 
                          if (incomingData) {
-                             id json = [NSJSONSerialization JSONObjectWithData:incomingData options:0 error:nil];
+                             id json = [[Validation sharedInstance] validateData:incomingData];
                              if (json && [json isKindOfClass:[NSArray class]]) {
                                  for (id element in json) {
                                      if ([element isKindOfClass:[NSDictionary class]]) {
@@ -607,7 +608,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 
 - (void)connected:(MQTTSession *)session sessionPresent:(BOOL)sessionPresent {
 
-    DDLogWarn(@"[Connection] %@ connected sessionPresent %d",
+    DDLogInfo(@"[Connection] %@ connected sessionPresent %d",
               self.clientId, sessionPresent);
 
     self.lastErrorCode = nil;
@@ -787,7 +788,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
             }
             [self.session connectWithConnectHandler:nil];
         } else {
-            DDLogWarn(@"[Connection] %@ not starting (%ld), can't connect",
+            DDLogInfo(@"[Connection] %@ not starting (%ld), can't connect",
                       self.clientId, (long)self.state);
         }
     }
@@ -894,18 +895,11 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 - (NSData *)decrypt:(NSData *)data {
     NSString *b64String;
     
-    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    if (json && [json isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *dictionary = json;
-        if ([dictionary[@"_type"] isEqualToString:@"encrypted"]) {
-            b64String = dictionary[@"data"];
-        } else {
-            return data;
-        }
-    } else {
+    id json = [[Validation sharedInstance] validateEncryptedData:data];
+    if (!json) {
         return data;
     }
-
+    b64String = json[@"data"];
     NSData *onTheWire = [[NSData alloc] initWithBase64EncodedString:b64String
                                                             options:0];
     NSData *nonce = [onTheWire subdataWithRange:NSMakeRange(0, crypto_secretbox_NONCEBYTES)];
