@@ -793,7 +793,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self presentViewController:ac animated:TRUE completion:nil];
     return;
 #else
-#if 0
     [self updateValues];
     NSError *error;
 
@@ -808,19 +807,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [[NSFileManager defaultManager] createFileAtPath:fileURL.path
                                             contents:[Settings toDataInMOC:CoreData.sharedInstance.mainMOC]
                                           attributes:nil];
-#else
-    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    DDLogInfo(@"sortedLogFilePaths %@", ad.fl.logFileManager.sortedLogFilePaths);
-    DDLogInfo(@"sortedLogFileInfos %@", ad.fl.logFileManager.sortedLogFileInfos);
-    DDLogInfo(@"sortedLogFileNames %@", ad.fl.logFileManager.sortedLogFileNames);
-    DDLogInfo(@"maximumNumberOfLogFiles %lu", (unsigned long)ad.fl.logFileManager.maximumNumberOfLogFiles);
-    DDLogInfo(@"logFilesDiskQuota %llu", ad.fl.logFileManager.logFilesDiskQuota);
-    DDLogInfo(@"logsDirectory %@", ad.fl.logFileManager.logsDirectory);
-    DDLogInfo(@"sortedLogFileNames %@", ad.fl.logFileManager.sortedLogFileNames);
-
-    NSURL *fileURL =
-    [NSURL fileURLWithPath:ad.fl.logFileManager.sortedLogFilePaths.firstObject];
-#endif
 
     self.dic = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
     self.dic.delegate = self;

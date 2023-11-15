@@ -16,7 +16,7 @@
 @end
 
 @implementation CoreData
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 + (CoreData *)sharedInstance {
     static dispatch_once_t once = 0;
@@ -55,11 +55,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 - (NSPersistentStoreCoordinator *)createPersistentStoreCoordinator {
     NSURL *persistentStoreURLOld = [self.applicationDocumentsDirectory
                                  URLByAppendingPathComponent:@"OwnTracks/StoreContent/persistentStore"];
-    DDLogInfo(@"[MQTTPersistence] Persistent store old: %@", persistentStoreURLOld.path);
+    DDLogDebug(@"[MQTTPersistence] Persistent store old: %@", persistentStoreURLOld.path);
 
     NSURL *persistentStoreURLNew = [self.applicationDocumentsDirectory
                                  URLByAppendingPathComponent:@"OwnTracks"];
-    DDLogInfo(@"[MQTTPersistence] Persistent store new: %@", persistentStoreURLNew.path);
+    DDLogDebug(@"[MQTTPersistence] Persistent store new: %@", persistentStoreURLNew.path);
 
     NSError *error = nil;
     NSPersistentStoreCoordinator *persistentStoreCoordinator =
@@ -77,7 +77,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
                                                             URL:persistentStoreURLOld
                                                         options:options
                                                           error:&error]) {
-        DDLogInfo(@"[MQTTPersistence] managedObjectContext save old: %@", error);
+        DDLogDebug(@"[MQTTPersistence] managedObjectContext save old: %@", error);
         if (error) {
             if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType
                                                           configuration:nil

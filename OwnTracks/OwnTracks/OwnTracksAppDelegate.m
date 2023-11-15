@@ -220,7 +220,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     UIBackgroundRefreshStatus status = [UIApplication sharedApplication].backgroundRefreshStatus;
     switch (status) {
         case UIBackgroundRefreshStatusAvailable:
-            DDLogVerbose(@"[OwnTracksAppDelegate] UIBackgroundRefreshStatusAvailable");
+            DDLogInfo(@"[OwnTracksAppDelegate] UIBackgroundRefreshStatusAvailable");
             break;
         case UIBackgroundRefreshStatusDenied:
             DDLogWarn(@"[OwnTracksAppDelegate] UIBackgroundRefreshStatusDenied");
@@ -243,7 +243,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     UNAuthorizationOptionBadge;
     [center requestAuthorizationWithOptions:options
                           completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        DDLogVerbose(@"[OwnTracksAppDelegate] requestAuthorizationWithOptions granted:%d error:%@", granted, error);
+        DDLogInfo(@"[OwnTracksAppDelegate] UNUserNotificationCenter requestAuthorizationWithOptions granted:%d error:%@", granted, error);
     }];
     center.delegate = self;
     return YES;
@@ -251,7 +251,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    DDLogVerbose(@"[OwnTracksAppDelegate] didFinishLaunchingWithOptions");
+    DDLogVerbose(@"[OwnTracksAppDelegate] didFinishLaunchingWithOptions %@", launchOptions);
     
     self.connection = [[Connection alloc] init];
     self.connection.delegate = self;
@@ -281,7 +281,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center
        willPresentNotification:(UNNotification *)notification
          withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
-    DDLogVerbose(@"[OwnTracksAppDelegate] willPresentNotification");
     if (@available(iOS 14.0, *)) {
         completionHandler(UNNotificationPresentationOptionBanner |
                           UNNotificationPresentationOptionSound);
@@ -293,7 +292,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    DDLogVerbose(@"[OwnTracksAppDelegate] applicationWillResignActive");
+    DDLogInfo(@"[OwnTracksAppDelegate] applicationWillResignActive");
     //    #if !TARGET_OS_MACCATALYST
     //            if ([LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
     //                [self.connection disconnect];
@@ -304,7 +303,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    DDLogVerbose(@"[OwnTracksAppDelegate] applicationDidEnterBackground");
+    DDLogInfo(@"[OwnTracksAppDelegate] applicationDidEnterBackground");
 #if !TARGET_OS_MACCATALYST
     [self background];
 #if !TARGET_OS_MACCATALYST
@@ -318,7 +317,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    DDLogVerbose(@"[OwnTracksAppDelegate] applicationWillTerminate");
+    DDLogInfo(@"[OwnTracksAppDelegate] applicationWillTerminate");
     [self background];
     [self.connection disconnect];
     
@@ -327,7 +326,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 -(BOOL)application:(UIApplication *)app
            openURL:(NSURL *)url
            options:(NSDictionary<NSString *,id> *)options {
-    DDLogVerbose(@"[OwnTracksAppDelegate] openURL %@ options %@", url, options);
+    DDLogInfo(@"[OwnTracksAppDelegate] openURL %@ options %@", url, options);
     
     if (url) {
         DDLogVerbose(@"[OwnTracksAppDelegate] URL scheme %@", url.scheme);
@@ -374,6 +373,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
                 self.processingMessage = NSLocalizedString(@"Beacon QR successfully processed",
                                                            @"Display after processing beacon QR code");
+                DDLogInfo(@"[OwnTracksAppDelegate] openURL ok %@", self.processingMessage);
                 return TRUE;
             } else if ([url.path isEqualToString:@"/config"]) {
                 NSString *urlString = queryStrings[@"url"];
@@ -394,24 +394,29 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                             [self configFromDictionary:dict];
                             self.processingMessage = NSLocalizedString(@"Inline Configuration successfully processed",
                                                                        @"Display after processing inline config");
+                            DDLogInfo(@"[OwnTracksAppDelegate] openURL ok %@", self.processingMessage);
                             return TRUE;
                         } else {
                             self.processingMessage = NSLocalizedString(@"Inline Configuration incorrect",
                                                                        @"Display for incorrect inline config");
+                            DDLogInfo(@"[OwnTracksAppDelegate] openURL problem %@", self.processingMessage);
                             return FALSE;
                         }
                     } else {
                         self.processingMessage = NSLocalizedString(@"Inline Configuration incorrectly encoded",
                                                                    @"Display for incorrectly encoded inline config");
+                        DDLogInfo(@"[OwnTracksAppDelegate] openURL problem %@", self.processingMessage);
                         return FALSE;
                     }
                 }
                 self.processingMessage = NSLocalizedString(@"Inline Configuration missing parameters",
                                                            @"Display for config without parameters");
+                DDLogInfo(@"[OwnTracksAppDelegate] openURL problem %@", self.processingMessage);
                 return FALSE;
             } else {
                 self.processingMessage = NSLocalizedString(@"unknown url path",
                                                            @"Display for unknown url path");
+                DDLogInfo(@"[OwnTracksAppDelegate] openURL problem %@", self.processingMessage);
                 return FALSE;
             }
         } else if ([url.scheme isEqualToString:@"file"]) {
@@ -424,15 +429,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                       NSLocalizedString(@"unknown scheme in url",
                                                         @"Display after entering an unknown scheme in url"),
                                       url.scheme];
+            DDLogInfo(@"[OwnTracksAppDelegate] openURL problem %@", self.processingMessage);
             return FALSE;
         }
     }
     self.processingMessage = NSLocalizedString(@"no url specified",
                                                @"Display after trying to process a file");
+    DDLogInfo(@"[OwnTracksAppDelegate] openURL problem %@", self.processingMessage);
     return FALSE;
 }
 
 - (BOOL)processNSURL:(NSURL *)url {
+    DDLogInfo(@"[OwnTracksAppDelegate] processNSURL %@", url);
+
     self.processingMessage = nil;
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSessionDataTask *dataTask =
@@ -444,8 +453,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             
             if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
                 NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-                DDLogVerbose(@"[OwnTracksAppDelegate] NSHTTPURLResponse %@", httpResponse);
+                DDLogInfo(@"[OwnTracksAppDelegate] NSHTTPURLResponse %@", httpResponse);
                 if (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299) {
+                    DDLogInfo(@"[OwnTracksAppDelegate] URL pathExtension %@", url.pathExtension);
                     NSError *error;
                     NSString *extension = url.pathExtension;
                     if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
@@ -555,11 +565,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (BOOL)processFile:(NSURL *)url {
+    DDLogInfo(@"[OwnTracksAppDelegate] processFile %@", url);
     NSInputStream *input = [NSInputStream inputStreamWithURL:url];
     if (input.streamError) {
         self.processingMessage = [NSString stringWithFormat:@"inputStreamWithURL %@ %@",
                                   input.streamError,
                                   url];
+        DDLogInfo(@"[OwnTracksAppDelegate] processFile problem %@", self.processingMessage);
         return FALSE;
     }
     [input open];
@@ -569,10 +581,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                                     @"Display after trying to open a file"),
                                   input.streamError,
                                   url];
+        DDLogInfo(@"[OwnTracksAppDelegate] processFile problem %@", self.processingMessage);
         return FALSE;
     }
     
-    DDLogVerbose(@"[OwnTracksAppDelegate] URL pathExtension %@", url.pathExtension);
+    DDLogInfo(@"[OwnTracksAppDelegate] URL pathExtension %@", url.pathExtension);
     
     NSError *error;
     NSString *extension = url.pathExtension;
@@ -615,6 +628,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                   url.lastPathComponent,
                                   error.localizedDescription,
                                   error.userInfo];
+        DDLogInfo(@"[OwnTracksAppDelegate] processFile problem %@", self.processingMessage);
         return FALSE;
     }
     self.processingMessage = [NSString stringWithFormat:@"%@ %@ %@",
@@ -624,11 +638,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                               NSLocalizedString(@"successfully processed",
                                                 @"Display when file processing succeeds")
     ];
+    DDLogInfo(@"[OwnTracksAppDelegate] processFile ok %@", self.processingMessage);
     return TRUE;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    DDLogVerbose(@"[OwnTracksAppDelegate] applicationDidBecomeActive");
+    DDLogInfo(@"[OwnTracksAppDelegate] applicationDidBecomeActive");
     
     [self.connection connectToLast];
     
@@ -661,6 +676,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)doRefresh {
+    DDLogInfo(@"[OwnTracksAppDelegate] doRefresh");
     self.inRefresh = TRUE;
     [self background];
     
@@ -739,12 +755,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)disconnectInBackground {
-    DDLogVerbose(@"[OwnTracksAppDelegate] disconnectInBackground");
+    DDLogInfo(@"[OwnTracksAppDelegate] disconnectInBackground");
     [self.connection disconnect];
 }
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
-    DDLogVerbose(@"[OwnTracksAppDelegate] performActionForShortcutItem %@", shortcutItem.type);
+    DDLogInfo(@"[OwnTracksAppDelegate] performActionForShortcutItem %@", shortcutItem.type);
     if ([shortcutItem.type isEqualToString:@"org.mqttitude.MQTTitude.movemode"]) {
         LocationMonitoring monitoring = LocationMonitoringMove;
         [LocationManager sharedInstance].monitoring = monitoring;
@@ -1041,7 +1057,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 self.disconnectTimer = nil;
             }
             
-            DDLogInfo(@"[OwnTracksAppDelegate] endBackGroundTask %lu",
+            DDLogVerbose(@"[OwnTracksAppDelegate] endBackGroundTask %lu",
                       (unsigned long)self.backgroundTask);
             [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
             self.backgroundTask = UIBackgroundTaskInvalid;
@@ -1168,7 +1184,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)messageDelivered:(Connection *)connection msgID:(UInt16)msgID {
-    DDLogVerbose(@"[OwnTracksAppDelegate] messageDelivered msgID=%u", msgID);
+    // noop
 }
 
 - (void)totalBuffered:(Connection *)connection count:(NSUInteger)count {
@@ -1384,7 +1400,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 #pragma actions
 
 - (BOOL)sendNow:(CLLocation *)location withPOI:(NSString *)poi {
-    DDLogVerbose(@"[OwnTracksAppDelegate] sendNow %@", location);
+    DDLogInfo(@"[OwnTracksAppDelegate] sendNow %@ withPOI %@", location, poi);
     
     if (self.sendNowActivity) {
         [self.sendNowActivity invalidate];
@@ -1400,13 +1416,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)reportLocation {
-    DDLogVerbose(@"[OwnTracksAppDelegate] reportLocation");
+    DDLogInfo(@"[OwnTracksAppDelegate] reportLocation");
     CLLocation *location = [LocationManager sharedInstance].location;
     [self publishLocation:location trigger:@"r" withPOI:nil];
 }
 
 - (void)connectionOff {
-    DDLogVerbose(@"[OwnTracksAppDelegate] connectionOff");
+    DDLogInfo(@"[OwnTracksAppDelegate] connectionOff");
     [self.connection disconnect];
 }
 
@@ -1569,6 +1585,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)sendEmpty:(NSString *)topic {
+    DDLogInfo(@"[OwnTracksAppDelegate] sendEmpty");
     NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
     MQTTQosLevel qos = [Settings intForKey:@"qos_preference"
                                      inMOC:moc];
@@ -1580,6 +1597,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)sendRegion:(Region *)region {
+    DDLogInfo(@"[OwnTracksAppDelegate] sendRegion %@", region);
     NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
     
     if ([Settings validIdsInMOC:moc]) {

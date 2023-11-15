@@ -22,7 +22,7 @@
 #define MAXQUEUE 999
 
 @implementation OwnTracking
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 static OwnTracking *theInstance = nil;
 
 + (OwnTracking *)sharedInstance {
@@ -37,19 +37,23 @@ static OwnTracking *theInstance = nil;
     self.inQueue = @(0);
 
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
-                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          [self performSelectorOnMainThread:@selector(share) withObject:nil waitUntilDone:NO];
-                                                      }];
+                                                      object:nil 
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+        [self performSelectorOnMainThread:@selector(share) withObject:nil waitUntilDone:NO];
+    }];
     [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
-                                                      object:nil queue:nil usingBlock:^(NSNotification *note){
-                                                          [self performSelectorOnMainThread:@selector(share) withObject:nil waitUntilDone:NO];
-                                                      }];
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *note){
+        [self performSelectorOnMainThread:@selector(share) withObject:nil waitUntilDone:NO];
+    }];
     return self;
 }
 
 - (void)syncProcessing {
     while ((self.inQueue).unsignedLongValue > 0) {
-        DDLogVerbose(@"syncProcessing %lu", [self.inQueue unsignedLongValue]);
+        DDLogVerbose(@"[OwnTracking] syncProcessing %lu", [self.inQueue unsignedLongValue]);
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     };
 }
@@ -64,7 +68,7 @@ static OwnTracking *theInstance = nil;
             self.inQueue = @((self.inQueue).unsignedLongValue + 1);
         }
         [context performBlock:^{
-            DDLogVerbose(@"performBlock %@ %@",
+            DDLogVerbose(@"[OwnTracking] performBlock %@ %@",
                          topic,
                          [[NSString alloc] initWithData:data
                                                encoding:NSUTF8StringEncoding]);
@@ -103,9 +107,10 @@ static OwnTracking *theInstance = nil;
                         Friend *friend = [Friend friendWithTopic:device
                                           inManagedObjectContext:context];
                         [self processFace:friend dictionary:dictionary];
+                        DDLogInfo(@"[OwnTracking] processed card for own device");
                     }];
                 } else {
-                    DDLogInfo(@"unhandled record type for own device _type:%@", dictionary[@"_type"]);
+                    DDLogVerbose(@"[OwnTracking] unhandled record type for own device _type:%@", dictionary[@"_type"]);
                 }
             } else /* not own device */ {
                 if (data.length) {
@@ -154,6 +159,10 @@ static OwnTracking *theInstance = nil;
                                      context:context];
                         [self limitWaypointsFor:friend
                                       toMaximum:[Settings intForKey:@"positions_preference" inMOC:context]];
+                        DDLogInfo(@"[OwnTracking] processed location for friend %@",
+                                  friend.topic);
+
+
                     } else if ([dictionary[@"_type"] isEqualToString:@"transition"]) {
                         [self performSelectorOnMainThread:@selector(processTransitionMessage:)
                                                withObject:dictionary
@@ -163,18 +172,23 @@ static OwnTracking *theInstance = nil;
                         Friend *friend = [Friend friendWithTopic:device
                                           inManagedObjectContext:context];
                         [self processFace:friend dictionary:dictionary];
-                        
+                        DDLogInfo(@"[OwnTracking] processed card for friend friend %@",
+                                  friend.topic);
                     } else if ([dictionary[@"_type"] isEqualToString:@"lwt"]) {
+                        DDLogInfo(@"[OwnTracking] received lwt for friend %@",
+                                  device);
                         // ignore
                         
                     } else {
-                        DDLogInfo(@"unknown record type %@", dictionary[@"_type"]);
+                        DDLogVerbose(@"[OwnTracking] unknown record type %@", dictionary[@"_type"]);
                     }
                 } else /* data.length == 0 -> delete friend */ {
                     Friend *friend = [Friend existsFriendWithTopic:device inManagedObjectContext:context];
                     if (friend) {
                         [context deleteObject:friend];
                     }
+                    DDLogInfo(@"[OwnTracking] deleted friend %@",
+                              device);
                 }
             }
 
@@ -236,9 +250,10 @@ static OwnTracking *theInstance = nil;
         UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger
                                                       triggerWithTimeInterval:1.0
                                                       repeats:NO];
-        UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:notificationIdentifier
-                                                                              content:content
-                                                                              trigger:trigger];
+        UNNotificationRequest *request = 
+        [UNNotificationRequest requestWithIdentifier:notificationIdentifier
+                                             content:content
+                                             trigger:trigger];
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         [center addNotificationRequest:request withCompletionHandler:nil];
 
@@ -262,6 +277,8 @@ static OwnTracking *theInstance = nil;
                                message:notificationMessage
                           dismissAfter:2.0
         ];
+        DDLogInfo(@"[OwnTracking] processed transition for friend %@",
+                  notificationMessage);
     }
 }
 
@@ -286,7 +303,7 @@ static OwnTracking *theInstance = nil;
 - (void)limitWaypointsFor:(Friend *)friend
                 toMaximum:(NSInteger)max {
     while (friend.hasWaypoints.count > max) {
-        DDLogVerbose(@"%@ hasWaypoints.count %lu", friend.topic, (unsigned long)friend.hasWaypoints.count);
+        DDLogVerbose(@"[OwnTracking] %@ hasWaypoints.count %lu", friend.topic, (unsigned long)friend.hasWaypoints.count);
         Waypoint *oldestWaypoint = nil;
         for (Waypoint *waypoint in friend.hasWaypoints) {
             if (!oldestWaypoint || (!waypoint.isDeleted && [oldestWaypoint.tst compare:waypoint.tst] == NSOrderedDescending)) {
@@ -344,12 +361,12 @@ static OwnTracking *theInstance = nil;
                     aFriend[@"topic"] = friend.topic;
                     sharedFriends[name] = aFriend;
                 } else {
-                    DDLogError(@"friend or location incomplete");
+                    DDLogError(@"[OwnTracking] friend or location incomplete");
                 }
             }
         }
     }
-    DDLogVerbose(@"sharedFriends %@", [sharedFriends allKeys]);
+    DDLogVerbose(@"[OwnTracking] sharedFriends %@", [sharedFriends allKeys]);
     NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
     [shared setValue:sharedFriends forKey:@"sharedFriends"];
 }

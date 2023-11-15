@@ -165,29 +165,29 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)start {
-    DDLogVerbose(@"start");
+    DDLogVerbose(@"[LocationManager] start");
     [self authorize];
     
     CMAuthorizationStatus status = [CMAltimeter authorizationStatus];
     BOOL available = [CMAltimeter isRelativeAltitudeAvailable];
-    DDLogVerbose(@"CMAltimeter status=%ld, available=%d",
+    DDLogVerbose(@"[LocationManager] CMAltimeter status=%ld, available=%d",
                  (long)status,
                  available);
     
     if (available &&
         (status == CMAuthorizationStatusNotDetermined ||
          status == CMAuthorizationStatusAuthorized)) {
-        DDLogVerbose(@"startRelativeAltitudeUpdatesToQueue");
+        DDLogVerbose(@"[LocationManager] startRelativeAltitudeUpdatesToQueue");
         [self.altimeter startRelativeAltitudeUpdatesToQueue:[NSOperationQueue mainQueue]
                                                 withHandler:^(CMAltitudeData *altitudeData, NSError *error) {
-            DDLogVerbose(@"altitudeData %@", altitudeData);
+            DDLogVerbose(@"[LocationManager] altitudeData %@", altitudeData);
             self.altitude = altitudeData;
         }];
     }
 }
 
 - (void)wakeup {
-    DDLogVerbose(@"wakeup");
+    DDLogVerbose(@"[LocationManager] wakeup");
     [self authorize];
     if (self.monitoring == LocationMonitoringMove) {
         [self.activityTimer invalidate];
@@ -200,7 +200,7 @@ static LocationManager *theInstance = nil;
                                      forMode:NSRunLoopCommonModes];
     }
     for (CLRegion *region in self.manager.monitoredRegions) {
-        DDLogVerbose(@"requestStateForRegion %@", region.identifier);
+        DDLogVerbose(@"[LocationManager] requestStateForRegion %@", region.identifier);
         [self.manager requestStateForRegion:region];
     }
     if (self.monitoring == LocationMonitoringSignificant) {
@@ -211,14 +211,14 @@ static LocationManager *theInstance = nil;
 
 - (void)authorize {
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
-    DDLogVerbose(@"authorizationStatus=%d", status);
+    DDLogVerbose(@"[LocationManager] authorizationStatus=%d", status);
     if (status == kCLAuthorizationStatusNotDetermined) {
         [self.manager requestAlwaysAuthorization];
     }
 }
 
 - (void)sleep {
-    DDLogVerbose(@"sleep");
+    DDLogVerbose(@"[LocationManager] sleep");
     for (CLBeaconIdentityConstraint *beaconIdentityConstraint in self.manager.rangedBeaconConstraints) {
         [self.manager stopRangingBeaconsSatisfyingConstraint:beaconIdentityConstraint];
     }
@@ -228,10 +228,10 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)stop {
-    DDLogVerbose(@"stop");
+    DDLogVerbose(@"[LocationManager] stop");
     
     if ([CMAltimeter isRelativeAltitudeAvailable]) {
-        DDLogVerbose(@"stopRelativeAltitudeUpdates");
+        DDLogVerbose(@"[LocationManager] stopRelativeAltitudeUpdates");
         [self.altimeter stopRelativeAltitudeUpdates];
     }
 }
@@ -279,7 +279,7 @@ static LocationManager *theInstance = nil;
     if (self.manager.location) {
         _lastUsedLocation = self.manager.location;
     } else {
-        DDLogVerbose(@"location == nil");
+        DDLogVerbose(@"[LocationManager] location == nil");
     }
     return self.lastUsedLocation;
 }
@@ -295,7 +295,7 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)setMonitoring:(LocationMonitoring)monitoring {
-    DDLogVerbose(@"monitoring=%ld", (long)monitoring);
+    DDLogInfo(@"[LocationManager] set monitoring=%ld", (long)monitoring);
     if (monitoring != LocationMonitoringMove &&
         monitoring != LocationMonitoringManual &&
         monitoring != LocationMonitoringQuiet &&
@@ -343,12 +343,12 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)setRanging:(BOOL)ranging {
-    DDLogVerbose(@"ranging=%d", ranging);
+    DDLogVerbose(@"[LocationManager] set ranging=%d", ranging);
     _ranging = ranging;
     
     if (!ranging) {
         for (CLBeaconIdentityConstraint *beaconIdentityConstraint in self.manager.rangedBeaconConstraints) {
-            DDLogVerbose(@"stopRangingBeaconsSatisfyingConstraint %@",
+            DDLogVerbose(@"[LocationManager] stopRangingBeaconsSatisfyingConstraint %@",
                          [NSString stringWithFormat:@"%@:%@:%@",
                           beaconIdentityConstraint.UUID.UUIDString,
                           beaconIdentityConstraint.major,
@@ -357,20 +357,19 @@ static LocationManager *theInstance = nil;
         }
     }
     for (CLRegion *region in self.manager.monitoredRegions) {
-        DDLogVerbose(@"requestStateForRegion %@", region.identifier);
+        DDLogVerbose(@"[LocationManager] requestStateForRegion %@", region.identifier);
         [self.manager requestStateForRegion:region];
     }
 }
 
 - (void)activityTimer:(NSTimer *)timer {
-    DDLogVerbose(@"activityTimer");
+    DDLogInfo(@"[LocationManager] activityTimer fired after %f", self.minTime);
     if (self.manager.location) {
         [self.delegate timerLocation:self.manager.location];
     } else {
-        DDLogWarn(@"activityTimer found no location");
+        DDLogWarn(@"[LocationManager] activityTimer found no location");
     }
 }
-
 
 /*
  *
@@ -380,7 +379,7 @@ static LocationManager *theInstance = nil;
 
 - (void)locationManager:(CLLocationManager *)manager
 didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    DDLogVerbose(@"didChangeAuthorizationStatus to %d", status);
+    DDLogInfo(@"[LocationManager] didChangeAuthorizationStatus to %d", status);
     if (status != kCLAuthorizationStatusAuthorizedAlways) {
         [self showError];
     }
@@ -398,6 +397,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
                  NSLocalizedString(@"App is not allowed to use location services in background",
                                    @"Location Manager error message")
             ];
+            DDLogInfo(@"[LocationManager] %@", @"App is not allowed to use location services in background");
             break;
         case kCLAuthorizationStatusNotDetermined:
             [ad.navigationController alert:@"LocationManager"
@@ -405,6 +405,8 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
                  NSLocalizedString(@"App is not allowed to use location services yet",
                                    @"Location Manager error message")
             ];
+            DDLogInfo(@"[LocationManager] %@", @"App is not allowed to use location services yet");
+
             break;
         case kCLAuthorizationStatusDenied:
             [ad.navigationController alert:@"LocationManager"
@@ -412,6 +414,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
                  NSLocalizedString(@"App is not allowed to use location services",
                                    @"Location Manager error message")
             ];
+            DDLogInfo(@"[LocationManager] %@", @"App is not allowed to use location services");
             break;
         case kCLAuthorizationStatusRestricted:
             [ad.navigationController alert:@"LocationManager"
@@ -419,6 +422,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
                  NSLocalizedString(@"App use of location services is restricted",
                                    @"Location Manager error message")
             ];
+            DDLogInfo(@"[LocationManager] %@", @"App use of location services is restricted");
             break;
         default:
             [ad.navigationController alert:@"LocationManager"
@@ -426,6 +430,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
                  NSLocalizedString(@"App use of location services is unclear",
                                    @"Location Manager error message")
             ];
+            DDLogInfo(@"[LocationManager] %@", @"App use of location services is unclear");
             break;
     }
     
@@ -435,6 +440,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
              NSLocalizedString(@"Location services are not enabled",
                                @"Location Manager error message")
         ];
+        DDLogInfo(@"[LocationManager] %@", @"Location services are not enabled");
     }
     
 #if 0
@@ -444,6 +450,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
              NSLocalizedString(@"Significant location change monitoring not available",
                                @"Location Manager error message")
         ];
+        DDLogInfo(@"[LocationManager] %@", @"Significant location change monitoring not available");
     }
     
     if (![CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
@@ -452,6 +459,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
              NSLocalizedString(@"Circular region monitoring not available",
                                @"Location Manager error message")
         ];
+        DDLogInfo(@"[LocationManager] %@", @"Circular region monitoring not available");
     }
     
     if (![CLLocationManager isMonitoringAvailableForClass:[CLBeaconRegion class]]) {
@@ -460,6 +468,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
              NSLocalizedString(@"iBeacon region monitoring not available",
                                @"Location Manager error message")
         ];
+        DDLogInfo(@"[LocationManager] %@", @"iBeacon region monitoring not available");
     }
     
     if (![CLLocationManager isRangingAvailable]) {
@@ -468,10 +477,12 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
              NSLocalizedString(@"iBeacon ranging not available",
                                @"Location Manager error message")
         ];
+        DDLogInfo(@"[LocationManager] %@", @"iBeacon ranging not available");
     }
     
     if (![CLLocationManager headingAvailable]) {
         // [delegate.navigationController alert:where message:@"Heading not available"];
+        DDLogInfo(@"[LocationManager] %@", @"Heading not available");
     }
 #endif
 }
@@ -481,7 +492,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     DDLogVerbose(@"[LocationManager] didUpdateLocations");
     
     for (CLLocation *location in locations) {
-        DDLogVerbose(@"[LocationManager] Location: %@", location);
+        DDLogInfo(@"[LocationManager] Location: %@", location);
         if ([location.timestamp compare:self.lastUsedLocation.timestamp] != NSOrderedAscending ) {
             self.lastUsedLocation = location;
             [self.delegate newLocation:location];
@@ -561,7 +572,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
 
 - (void)locationManager:(CLLocationManager *)manager
          didEnterRegion:(CLRegion *)region {
-    DDLogVerbose(@"[LocationManager] didEnterRegion %@", region);
+    DDLogInfo(@"[LocationManager] didEnterRegion %@", region);
     
     if (![self removeHoldDown:region]) {
         [self locationManager:manager didDetermineState:CLRegionStateInside forRegion:region];
@@ -571,7 +582,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
 
 - (void)locationManager:(CLLocationManager *)manager
           didExitRegion:(CLRegion *)region {
-    DDLogVerbose(@"[LocationManager] didExitRegion %@", region);
+    DDLogInfo(@"[LocationManager] didExitRegion %@", region);
     
     if ([region.identifier hasPrefix:@"-"]) {
         [self removeHoldDown:region];
@@ -583,7 +594,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
 }
 
 - (BOOL)removeHoldDown:(CLRegion *)region {
-    DDLogVerbose(@"[LocationManager] removeHoldDown %@ [%lu]", region.identifier, (unsigned long)self.pendingRegionEvents.count);
+    DDLogInfo(@"[LocationManager] removeHoldDown %@ [%lu]", region.identifier, (unsigned long)self.pendingRegionEvents.count);
     
     for (PendingRegionEvent *p in self.pendingRegionEvents) {
         if (p.region == region) {
@@ -598,7 +609,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
 }
 
 - (void)holdDownExpired:(NSTimer *)timer {
-    DDLogVerbose(@"[LocationManager] holdDownExpired %@", timer.userInfo);
+    DDLogInfo(@"[LocationManager] holdDownExpired %@", timer.userInfo);
     if ([timer.userInfo isKindOfClass:[PendingRegionEvent class]]) {
         PendingRegionEvent *p = (PendingRegionEvent *)timer.userInfo;
         DDLogVerbose(@"[LocationManager] holdDownExpired %@", p.region.identifier);
@@ -613,9 +624,9 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
 }
 
 - (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
-    DDLogVerbose(@"[LocationManager] monitoringDidFailForRegion %@ %@ %@", region, error.localizedDescription, error.userInfo);
+    DDLogError(@"[LocationManager] monitoringDidFailForRegion %@ %@ %@", region, error.localizedDescription, error.userInfo);
     for (CLRegion *monitoredRegion in manager.monitoredRegions) {
-        DDLogVerbose(@"[LocationManager] monitoredRegion: %@", monitoredRegion);
+        DDLogError(@"[LocationManager] monitoredRegion: %@", monitoredRegion);
     }
     
     if ((error.domain != kCLErrorDomain || error.code != 5) && [manager.monitoredRegions containsObject:region]) {
@@ -632,7 +643,7 @@ didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
 - (void)locationManager:(CLLocationManager *)manager
 didFailRangingBeaconsForConstraint:(CLBeaconIdentityConstraint *)beaconConstraint
                   error:(NSError *)error {
-    DDLogVerbose(@"[LocationManager] didFailRangingBeaconsForConstraint %@ %@ %@",
+    DDLogError(@"[LocationManager] didFailRangingBeaconsForConstraint %@ %@ %@",
                  beaconConstraint, error.localizedDescription, error.userInfo);
     
 }
@@ -640,7 +651,7 @@ didFailRangingBeaconsForConstraint:(CLBeaconIdentityConstraint *)beaconConstrain
 - (void)locationManager:(CLLocationManager *)manager
         didRangeBeacons:(NSArray<CLBeacon *> *)beacons
    satisfyingConstraint:(CLBeaconIdentityConstraint *)beaconConstraint {
-    DDLogVerbose(@"[LocationManager] didRangeBeacons %@ satisfyingContraint %@",
+    DDLogInfo(@"[LocationManager] didRangeBeacons %@ satisfyingContraint %@",
                  beacons, beaconConstraint);
     for (CLBeacon *beacon in beacons) {
         if (beacon.proximity != CLProximityUnknown) {
@@ -712,7 +723,7 @@ didFailRangingBeaconsForConstraint:(CLBeaconIdentityConstraint *)beaconConstrain
  *
  */
 - (void)locationManager:(CLLocationManager *)manager didVisit:(CLVisit *)visit {
-    DDLogVerbose(@"[LocationManager] didVisit %g,%g ±%gm a=%@ d=%@",
+    DDLogInfo(@"[LocationManager] didVisit %g,%g ±%gm a=%@ d=%@",
                  visit.coordinate.latitude,
                  visit.coordinate.longitude,
                  visit.horizontalAccuracy,
@@ -726,8 +737,7 @@ didFailRangingBeaconsForConstraint:(CLBeaconIdentityConstraint *)beaconConstrain
 
 
 - (void)startBackgroundTimer {
-    DDLogVerbose(@"[LocationManager] startBackgroundTimer");
-    
+    DDLogInfo(@"[LocationManager] startBackgroundTimer");
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
         if (!self.backgroundTimer || !self.backgroundTimer.isValid) {
             self.backgroundTimer = [NSTimer scheduledTimerWithTimeInterval:BACKGROUND_STOP_AFTER
@@ -739,7 +749,7 @@ didFailRangingBeaconsForConstraint:(CLBeaconIdentityConstraint *)beaconConstrain
 }
 
 - (void)stopInBackground {
-    DDLogVerbose(@"[LocationManager] stopInBackground");
+    DDLogInfo(@"[LocationManager] stopInBackground");
     self.backgroundTimer = nil;
     [self sleep];
 }

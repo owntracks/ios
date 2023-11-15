@@ -35,6 +35,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)viewDidAppear:(BOOL)animated {
     self.actionButton.enabled = FALSE;
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    DDLogVerbose(@"[LogsTVC] #logs:%lu max#:%lu]",
+                 (unsigned long)ad.fl.logFileManager.sortedLogFileInfos.count,
+                 (unsigned long)ad.fl.logFileManager.maximumNumberOfLogFiles);
 }
 
 #pragma mark - Table view data source
