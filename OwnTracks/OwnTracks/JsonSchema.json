@@ -10,6 +10,11 @@
             "type": "string",
             "enum": [ "beacon", "card", "cmd", "configuration", "location", "lwt", "steps", "transition", "waypoint", "waypoints" ]
         },
+        "action": {
+            "description": "Action to be performed by the device",
+            "type": "string",
+            "enum": [ "action", "clearWaypoints", "dump", "reportLocation", "reportSteps", "setConfiguration", "setWaypoints", "waypoints" ]
+        },
         "face": {
             "description": "Base64 encoded PNG image that is displayed instead of the Tracker ID",
             "type": "string",
@@ -31,14 +36,25 @@
         "name": {
             "description": "Name to identify a user",
             "type": "string"
+        },
+        "content" : {
+            "type" : "string",
+            "contentMediaType": "text/html"
+        },
+        "url" : {
+            "type" : "string"
+        },
+        "notification" : {
+            "type" : "string"
         }
     },
-    "AllOf": [
+    "allOf": [
         {
             "if" : {
                 "properties" : {
                     "_type" : { "const" : "location" }
-                }
+                },
+                "required": [ "_type" ]
             },
             "then" : {
                 "required" : [ "lat", "lon", "tst" ]
@@ -48,12 +64,44 @@
             "if" : {
                 "properties" : {
                     "_type" : { "const" : "card" }
-                }
+                },
+                "required": [ "_type" ]
             },
             "then" : {
                 "required" : [ "face", "name" ]
             }
         },
-    ],
-    "required": [ "_type" ]
+        {
+            "if" : {
+                "properties" : {
+                    "_type" : { "const" : "cmd" }
+                },
+                "required": [ "_type" ]
+            },
+            "then" : {
+                "required" : [ "action" ]
+            }
+        },
+        {
+            "if" : {
+                "properties" : {
+                    "action" : { "const" : "action" }
+                },
+                "required": [ "action" ]
+            },
+            "then" : {
+                "oneOf": [
+                    {
+                        "required" : [ "content" ]
+                    },
+                    {
+                        "required" : [ "url" ]
+                    },
+                    {
+                        "required" : [ "notification" ]
+                    }
+                ]
+            }
+        }
+    ]
 }

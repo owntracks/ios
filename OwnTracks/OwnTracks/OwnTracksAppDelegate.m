@@ -1041,7 +1041,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 self.disconnectTimer = nil;
             }
             
-            DDLogInfo(@"[OwnTracksAppDelegate] endBackGroundTask %lu",
+            DDLogVerbose(@"[OwnTracksAppDelegate] endBackGroundTask %lu",
                       (unsigned long)self.backgroundTask);
             [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
             self.backgroundTask = UIBackgroundTaskInvalid;
