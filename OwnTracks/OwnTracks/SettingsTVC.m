@@ -777,22 +777,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (IBAction)exportPressed:(UIButton *)sender {
-#if TARGET_OS_MACCATALYST
-    UIAlertController *ac = [UIAlertController
-                             alertControllerWithTitle:NSLocalizedString(@"Export", @"Export")
-                             message:NSLocalizedString(@"Mac Catalyst does not support export yet",
-                                                       @"content of an alert message regarging missing Mac Catalyst Export")
-                             preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *ok = [UIAlertAction
-                         actionWithTitle:NSLocalizedString(@"Continue",
-                                                           @"Continue button title")
-                         
-                         style:UIAlertActionStyleDefault
-                         handler:nil];
-    [ac addAction:ok];
-    [self presentViewController:ac animated:TRUE completion:nil];
-    return;
-#else
     [self updateValues];
     NSError *error;
 
@@ -808,6 +792,31 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                             contents:[Settings toDataInMOC:CoreData.sharedInstance.mainMOC]
                                           attributes:nil];
 
+
+#if TARGET_OS_MACCATALYST
+    if (@available(macCatalyst 14.0, *)) {
+        UIDocumentPickerViewController *dpvc = 
+        [[UIDocumentPickerViewController alloc] initForExportingURLs:@[fileURL] asCopy:TRUE];
+        dpvc.shouldShowFileExtensions = TRUE;
+        [self presentViewController:dpvc animated:TRUE completion:^{
+            //
+        }];
+    } else {
+        UIAlertController *ac = [UIAlertController
+                                 alertControllerWithTitle:NSLocalizedString(@"Export", @"Export")
+                                 message:NSLocalizedString(@"Mac Catalyst does not support export yet",
+                                                           @"content of an alert message regarging missing Mac Catalyst Export")
+                                 preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ok = [UIAlertAction
+                             actionWithTitle:NSLocalizedString(@"Continue",
+                                                               @"Continue button title")
+                             
+                             style:UIAlertActionStyleDefault
+                             handler:nil];
+        [ac addAction:ok];
+        [self presentViewController:ac animated:TRUE completion:nil];
+    }
+#else
     self.dic = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
     self.dic.delegate = self;
 
@@ -816,22 +825,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (IBAction)exportWaypointsPressed:(UIButton *)sender {
-#if TARGET_OS_MACCATALYST
-    UIAlertController *ac = [UIAlertController
-                             alertControllerWithTitle:NSLocalizedString(@"Export", @"Export")
-                             message:NSLocalizedString(@"Mac Catalyst does not support export yet",
-                                                       @"content of an alert message regarging missing Mac Catalyst Export")
-                             preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *ok = [UIAlertAction
-                         actionWithTitle:NSLocalizedString(@"Continue",
-                                                           @"Continue button title")
-
-                         style:UIAlertActionStyleDefault
-                         handler:nil];
-    [ac addAction:ok];
-    [self presentViewController:ac animated:TRUE completion:nil];
-    return;
-#else
     [self updateValues];
     NSError *error;
 
@@ -847,6 +840,31 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                             contents:[Settings waypointsToDataInMOC:CoreData.sharedInstance.mainMOC]
                                           attributes:nil];
 
+
+#if TARGET_OS_MACCATALYST
+    if (@available(macCatalyst 14.0, *)) {
+        UIDocumentPickerViewController *dpvc =
+        [[UIDocumentPickerViewController alloc] initForExportingURLs:@[fileURL] asCopy:TRUE];
+        dpvc.shouldShowFileExtensions = TRUE;
+        [self presentViewController:dpvc animated:TRUE completion:^{
+            //
+        }];
+    } else {
+        UIAlertController *ac = [UIAlertController
+                                 alertControllerWithTitle:NSLocalizedString(@"Export", @"Export")
+                                 message:NSLocalizedString(@"Mac Catalyst does not support export yet",
+                                                           @"content of an alert message regarging missing Mac Catalyst Export")
+                                 preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ok = [UIAlertAction
+                             actionWithTitle:NSLocalizedString(@"Continue",
+                                                               @"Continue button title")
+                             
+                             style:UIAlertActionStyleDefault
+                             handler:nil];
+        [ac addAction:ok];
+        [self presentViewController:ac animated:TRUE completion:nil];
+    }
+#else
     self.dic = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
     self.dic.delegate = self;
 
