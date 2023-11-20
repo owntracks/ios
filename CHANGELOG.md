@@ -1,6 +1,14 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 17.0.1 iOS/ipadOS/macOS
+* Release Date 2023-11-20
+
+** JSON Schema Validation and Accessible Logs
+
+    [NEW] Accessible Logs and JSON Schema Validation
+    [NEW] remove Twitter button
+
 ## OwnTracks 16.4.3 iOS/ipadOS/macOS
 * Release Date 2023-09-26
 
