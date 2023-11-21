@@ -29,20 +29,16 @@
         NSArray *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:self.path error:&error];
         _contents = [[NSMutableArray alloc] init];
         for (NSString *file in contents) {
-            if (([self.fileNameIdentifier isEqualToString:@"clientpkcs"] &&
-                 [file.pathExtension isEqualToString:@"otrp"]) ||
-                ([self.fileNameIdentifier isEqualToString:@"servercer"] &&
-                 [file.pathExtension isEqualToString:@"otre"])) {
-                    NSString *path = [self.path stringByAppendingPathComponent:file];
-                    BOOL directory;
-                    if ([[NSFileManager defaultManager] fileExistsAtPath:path
-                                                             isDirectory:&directory] &&
-                        !directory) {
-                        [_contents addObject:file];
-                    }
+            if ([file.pathExtension isEqualToString:@"otrp"]) {
+                NSString *path = [self.path stringByAppendingPathComponent:file];
+                BOOL directory;
+                if ([[NSFileManager defaultManager] fileExistsAtPath:path
+                                                         isDirectory:&directory] &&
+                    !directory) {
+                    [_contents addObject:file];
+                }
             }
         }
-
     }
     return _contents;
 }
@@ -64,17 +60,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"certificate" forIndexPath:indexPath];
-    cell.accessoryType = UITableViewCellAccessoryNone;
     
     NSString *file = self.contents[indexPath.row];
     cell.textLabel.text = file;
     
-    NSArray *fileNames = [self.selectedFileNames componentsSeparatedByString:@" "];
-    for (NSString *name in fileNames) {
-        if ([name isEqualToString:file]) {
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            break;
-        }
+    if ([self.selectedFileName isEqualToString:file]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
     return cell;
 }
@@ -87,19 +80,8 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSString *fileToDelete = self.contents[indexPath.row];
         
-        NSMutableArray *fileNames = [[self.selectedFileNames componentsSeparatedByString:@" "] mutableCopy];
-        for (NSString *name in fileNames) {
-            if ([name isEqualToString:fileToDelete]) {
-                [fileNames removeObject:fileToDelete];
-                break;
-            }
-        }
-        self.selectedFileNames = @"";
-        if (fileNames.count > 0) {
-            self.selectedFileNames = fileNames[0];
-            for (int i = 1; i < fileNames.count; i++) {
-                self.selectedFileNames = [self.selectedFileNames stringByAppendingFormat:@" %@", fileNames[i]];
-            }
+        if ([self.selectedFileName isEqualToString:fileToDelete]) {
+            self.selectedFileName = @"";
         }
         
         NSString *pathToDelete = [self.path stringByAppendingPathComponent:fileToDelete];
@@ -118,36 +100,13 @@
   willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *file = self.contents[indexPath.row];
 
-    NSString *found = nil;
-    NSMutableArray *fileNames = [[NSMutableArray alloc] init];
-    if (self.selectedFileNames && self.selectedFileNames.length) {
-        fileNames = [[self.selectedFileNames componentsSeparatedByString:@" "] mutableCopy];
-    }
-    for (NSString *name in fileNames) {
-        if ([name isEqualToString:file]) {
-            found = name;
-            break;
-        }
-    }
-
-    if (found) {
-        [fileNames removeObject:found];
+    if ([self.selectedFileName isEqualToString:file]) {
+        self.selectedFileName = @"";
     } else {
-        [fileNames addObject:file];
+        self.selectedFileName = file;
     }
-
-    self.selectedFileNames = @"";
-    if (fileNames.count > 0) {
-        self.selectedFileNames = fileNames[0];
-        if (self.multiple.boolValue) {
-            for (int i = 1; i < fileNames.count; i++) {
-                self.selectedFileNames = [self.selectedFileNames stringByAppendingFormat:@" %@", fileNames[i]];
-            }
-        }
-    }
-
     [tableView reloadData];
-    return indexPath;
+    return nil;
 }
 
 

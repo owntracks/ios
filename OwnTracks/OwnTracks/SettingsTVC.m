@@ -873,38 +873,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.destinationViewController respondsToSelector:@selector(setSelectedFileNames:)] &&
-        [segue.destinationViewController respondsToSelector:@selector(setMultiple:)] &&
-        [segue.destinationViewController respondsToSelector:@selector(setFileNameIdentifier:)]) {
+    if ([segue.destinationViewController respondsToSelector:@selector(setSelectedFileName:)]) {
         if ([segue.identifier isEqualToString:@"setClientPKCS"]) {
-            [segue.destinationViewController performSelector:@selector(setSelectedFileNames:)
+            [segue.destinationViewController performSelector:@selector(setSelectedFileName:)
                                                   withObject:[Settings stringForKey:@"clientpkcs"
                                                                               inMOC:CoreData.sharedInstance.mainMOC]];
-            [segue.destinationViewController performSelector:@selector(setFileNameIdentifier:)
-                                                  withObject:@"clientpkcs"];
-            [segue.destinationViewController performSelector:@selector(setMultiple:)
-                                                  withObject:[NSNumber numberWithBool:FALSE]];
-
-        }
-        if ([segue.identifier isEqualToString:@"setServerCER"]) {
-            [segue.destinationViewController performSelector:@selector(setSelectedFileNames:)
-                                                  withObject:[Settings stringForKey:@"servercer"
-                                                                              inMOC:CoreData.sharedInstance.mainMOC]];
-            [segue.destinationViewController performSelector:@selector(setFileNameIdentifier:)
-                                                  withObject:@"servercer"];
-            [segue.destinationViewController performSelector:@selector(setMultiple:)
-                                                  withObject:[NSNumber numberWithBool:TRUE]];
         }
     }
 }
 
 - (IBAction)setNames:(UIStoryboardSegue *)segue {
-    if ([segue.sourceViewController respondsToSelector:@selector(selectedFileNames)] &&
-        [segue.sourceViewController respondsToSelector:@selector(fileNameIdentifier)]) {
-        NSString *names = [segue.sourceViewController performSelector:@selector(selectedFileNames)];
-        NSString *identifier = [segue.sourceViewController performSelector:@selector(fileNameIdentifier)];
+    if ([segue.sourceViewController respondsToSelector:@selector(selectedFileName)]) {
+        NSString *name = [segue.sourceViewController performSelector:@selector(selectedFileName)];
 
-        [Settings setString:names forKey:identifier
+        [Settings setString:name forKey:@"clientpkcs"
                       inMOC:CoreData.sharedInstance.mainMOC];
         [self updated];
     }

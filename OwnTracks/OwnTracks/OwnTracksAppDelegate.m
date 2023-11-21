@@ -1641,14 +1641,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                                                         error:nil];
         NSArray *certificates = nil;
         NSString *fileName = [Settings stringForKey:@"clientpkcs" inMOC:moc];
+        NSString *passPhrase = [Settings stringForKey:@"passphrase" inMOC:moc];
         if (fileName && fileName.length) {
-            DDLogVerbose(@"[OwnTracksAppDelegate] getting p12 filename:%@ passphrase:%@",
-                         fileName, [Settings stringForKey:@"passphrase" inMOC:moc]);
+            DDLogInfo(@"[OwnTracksAppDelegate] getting p12 filename:%@ passphrase:%@",
+                         fileName, passPhrase);
             NSString *clientPKCSPath = [directoryURL.path stringByAppendingPathComponent:fileName];
             certificates = [MQTTTransport clientCertsFromP12:clientPKCSPath
-                                                  passphrase:[Settings stringForKey:@"passphrase"
-                                                                              inMOC:moc]];
+                                                  passphrase:passPhrase];
             if (!certificates) {
+                DDLogWarn(@"[OwnTracksAppDelegate] TLS Client Certificate incorrect file or passphrase");
                 [self.navigationController alert:
                      NSLocalizedString(@"TLS Client Certificate",
                                        @"Heading for certificate error message")
