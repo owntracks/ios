@@ -163,6 +163,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [DDLog addLogger:[DDOSLogger sharedInstance] withLevel:DDLogLevelWarning];
     
     self.fl = [[DDFileLogger alloc] init];
+    NSISO8601DateFormatter *isoFormatter = [[NSISO8601DateFormatter alloc] init];
+    [isoFormatter setFormatOptions:
+     NSISO8601DateFormatWithFullDate |
+     NSISO8601DateFormatWithFullTime |
+     NSISO8601DateFormatWithFractionalSeconds];
+    self.fl.logFormatter = [[DDLogFileFormatterDefault alloc]
+                            initWithDateFormatter:(NSDateFormatter *)isoFormatter];
     [DDLog addLogger:self.fl withLevel:DDLogLevelVerbose];
     
     [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
