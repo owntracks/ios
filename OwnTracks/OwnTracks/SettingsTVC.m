@@ -695,9 +695,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
         // hide MQTT related rows if not MQTT mode
         NSArray <NSIndexPath *> *mqttPaths = @[
+            [NSIndexPath indexPathForRow:6 inSection:0],
             [NSIndexPath indexPathForRow:7 inSection:0],
-            [NSIndexPath indexPathForRow:8 inSection:0],
-            [NSIndexPath indexPathForRow:9 inSection:0]
+            [NSIndexPath indexPathForRow:8 inSection:0]
         ];
 
         for (NSIndexPath *indexPath in mqttPaths) {
@@ -726,7 +726,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
         // hide HTTP related rows if not in HTTP mode
         NSArray <NSIndexPath *> *httpPaths = @[
-            [NSIndexPath indexPathForRow:14 inSection:0]
+            [NSIndexPath indexPathForRow:13 inSection:0]
         ];
 
         for (NSIndexPath *indexPath in httpPaths) {

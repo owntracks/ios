@@ -156,7 +156,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.dic = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
     self.dic.delegate = self;
 
-    [self.dic presentOptionsMenuFromRect:self.tableView.frame inView:self.tableView animated:TRUE];
+    [self.dic presentOptionsMenuFromRect:self.navigationController.navigationBar.frame inView:self.tableView animated:TRUE];
 #endif
 }
 

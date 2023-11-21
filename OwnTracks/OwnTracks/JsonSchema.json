@@ -8,12 +8,33 @@
         "_type": {
             "description": "The type of the message",
             "type": "string",
-            "enum": [ "beacon", "card", "cmd", "configuration", "location", "lwt", "steps", "transition", "waypoint", "waypoints" ]
+            "enum": [
+                "beacon",
+                "card",
+                "cmd",
+                "configuration",
+                "location",
+                "lwt",
+                "steps",
+                "transition",
+                "waypoint",
+                "waypoints"
+            ]
         },
         "action": {
             "description": "Action to be performed by the device",
             "type": "string",
-            "enum": [ "action", "clearWaypoints", "dump", "reportLocation", "reportSteps", "setConfiguration", "setWaypoints", "waypoints" ]
+            "enum": [ 
+                "action",
+                "clearWaypoints",
+                "dump", 
+                "reportLocation",
+                "reportSteps",
+                "response",
+                "setConfiguration",
+                "setWaypoints",
+                "waypoints"
+            ]
         },
         "face": {
             "description": "Base64 encoded PNG image that is displayed instead of the Tracker ID",
@@ -23,17 +44,17 @@
         },
         "lat": {
             "description": "Latitude",
-            "type": "number"
-        },
-        "lon": {
-            "description": "Longitude",
-            "type": "number"
-        },
-        "tst": {
-            "description": "UNIX epoch timestamp in seconds of the location fix",
-            "type": "integer"
-        },
-        "name": {
+                "type": "number"
+            },
+            "lon": {
+                "description": "Longitude",
+                "type": "number"
+            },
+            "tst": {
+                "description": "UNIX epoch timestamp in seconds of the location fix",
+                "type": "integer"
+            },
+            "name": {
             "description": "Name to identify a user",
             "type": "string"
         },
