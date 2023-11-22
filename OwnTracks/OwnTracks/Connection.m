@@ -167,7 +167,7 @@ allowUntrustedCertificates:(BOOL)allowUntrustedCertificates
     DDLogInfo(@"[Connection] %@ connectTo: %@:%@@%@:%ld v%d %@ %@ (%ld) c%d / %@ %@ q%ld r%d as %@ %d %@",
                  self.clientId,
                  auth ? user : @"",
-                 auth ? pass : @"",
+                 auth ? @"<passwd>" : @"",
                  host,
                  (long)port,
                  protocolVersion,
@@ -433,7 +433,17 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     NSString *contentType = [NSString stringWithFormat:@"application/json"];
     [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
     
-    DDLogInfo(@"[Connection] NSMutableURLRequest %@", request);
+    DDLogInfo(@"[Connection] NSMutableURLRequest %@://%@%@%@%@ (%@)",
+              request.URL.scheme,
+              request.URL.user ? request.URL.password ?
+              [NSString stringWithFormat:@"%@:<password>@", request.URL.user] :
+              [NSString stringWithFormat:@"%@@", request.URL.user] :
+              @"",
+              request.URL.host,
+              request.URL.port ? [NSString stringWithFormat:@":%@", request.URL.port] : @"",
+              request.URL.path,
+              request.allHTTPHeaderFields
+              );
     
     self.state = state_connecting;
     self.lastErrorCode = nil;
@@ -501,17 +511,15 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
                      self.state = state_error;
 
                      if (httpResponse.statusCode >= 400 && httpResponse.statusCode <= 499) {
-                         NSString *message = [NSString stringWithFormat:@"Status Code %ld\n%@\n%@",
+                         NSString *message = [NSString stringWithFormat:@"Status Code %ld\n%@",
                                               (long)httpResponse.statusCode,
-                                              response.URL,
                                               [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]
                                               ];
+                         DDLogWarn(@"[Connection] HTTP Response %@", message);
 
                          [self performSelectorOnMainThread:@selector(HTTPerror:)
                                                 withObject:message
                                              waitUntilDone:FALSE];
-                         DDLogWarn(@"[Connection] HTTP %@",message);
-
                          [CoreData.sharedInstance.queuedMOC performBlock:^{
                              NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
                              request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]];
