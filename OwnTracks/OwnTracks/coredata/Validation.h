@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface Validation : NSObject
 + (Validation *)sharedInstance;
 - (id)validateData:(NSData *)data;
+- (id)validateArrayData:(NSData *)data;
 - (id)validateEncryptedData:(NSData *)data;
 - (BOOL)validateJson:(id)json;
 

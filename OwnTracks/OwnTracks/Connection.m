@@ -486,7 +486,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
                          }
 
                          if (incomingData) {
-                             id json = [[Validation sharedInstance] validateData:incomingData];
+                             id json = [[Validation sharedInstance] validateArrayData:incomingData];
                              if (json && [json isKindOfClass:[NSArray class]]) {
                                  for (id element in json) {
                                      if ([element isKindOfClass:[NSDictionary class]]) {
