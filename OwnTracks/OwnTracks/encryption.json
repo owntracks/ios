@@ -1,6 +1,6 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://owntracks.org/EncryptedSchema",
+    "$id": "https://owntracks.org/schemas/encryption.json",
     "title": "OwnTracks JSON schema for encrypted messages",
     "description": "Definition of encrypted messages",
     "type": "object",
@@ -16,7 +16,7 @@
             "pattern": "^[-A-Za-z0-9+/]*={0,3}$",
             "contentEncoding": "base64"
         }
-
+        
     },
     "required": [ "_type", "data"]
 }

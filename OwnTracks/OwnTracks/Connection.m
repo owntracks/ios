@@ -486,7 +486,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
                          }
 
                          if (incomingData) {
-                             id json = [[Validation sharedInstance] validateArrayData:incomingData];
+                             id json = [[Validation sharedInstance] validateMessagesData:incomingData];
                              if (json && [json isKindOfClass:[NSArray class]]) {
                                  for (id element in json) {
                                      if ([element isKindOfClass:[NSDictionary class]]) {
@@ -904,7 +904,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 - (NSData *)decrypt:(NSData *)data {
     NSString *b64String;
     
-    id json = [[Validation sharedInstance] validateEncryptedData:data];
+    id json = [[Validation sharedInstance] validateEncryptionData:data];
     if (!json) {
         return data;
     }

@@ -392,7 +392,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                     NSData *jsonData = [[NSData alloc] initWithBase64EncodedString:base64String options:0];
                     if (jsonData) {
                         NSDictionary *dict = nil;
-                        id json = [[Validation sharedInstance] validateData:jsonData];
+                        id json = [[Validation sharedInstance] validateMessageData:jsonData];
                         if (json &&
                             [json isKindOfClass:[NSDictionary class]]) {
                             dict = json;
@@ -467,7 +467,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                     NSString *extension = url.pathExtension;
                     if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
                         NSDictionary *dict = nil;
-                        id json = [[Validation sharedInstance] validateData:data];
+                        id json = [[Validation sharedInstance] validateMessageData:data];
                         if (json &&
                             [json isKindOfClass:[NSDictionary class]]) {
                             dict = json;
@@ -486,7 +486,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                         }
                     } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
                         NSDictionary *dict = nil;
-                        id json = [[Validation sharedInstance] validateData:data];
+                        id json = [[Validation sharedInstance] validateMessageData:data];
                         if (json &&
                             [json isKindOfClass:[NSDictionary class]]) {
                             dict = json;
@@ -1113,7 +1113,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             
             NSError *error;
             NSDictionary *dictionary = nil;
-            id json = [[Validation sharedInstance] validateData:data];
+            id json = [[Validation sharedInstance] validateMessageData:data];
             if (json &&
                 [json isKindOfClass:[NSDictionary class]]) {
                 dictionary = json;

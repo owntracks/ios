@@ -74,7 +74,7 @@ static OwnTracking *theInstance = nil;
                                                encoding:NSUTF8StringEncoding]);
 
             NSDictionary *dictionary = [[NSDictionary alloc] init];
-            id json = [[Validation sharedInstance] validateData:data]; 
+            id json = [[Validation sharedInstance] validateMessageData:data]; 
             if (json &&
                 [json isKindOfClass:[NSDictionary class]]) {
                 dictionary = json;

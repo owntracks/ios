@@ -62,10 +62,10 @@
 		847F31BC25EFB8600018C0A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 847F31BA25EFB8600018C0A6 /* InfoPlist.strings */; };
 		847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847F8B5719295C65003876D4 /* CoreMotion.framework */; };
 		8488CFDF25A45CC3000AFEE2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8488CFDE25A45CC3000AFEE2 /* Security.framework */; };
-		8492603F2B0235D700F6DC13 /* JsonSchema.json in Resources */ = {isa = PBXBuildFile; fileRef = 8492603E2B0235D700F6DC13 /* JsonSchema.json */; };
+		8492603F2B0235D700F6DC13 /* message.json in Resources */ = {isa = PBXBuildFile; fileRef = 8492603E2B0235D700F6DC13 /* message.json */; };
 		849260422B0247C200F6DC13 /* Validation.m in Sources */ = {isa = PBXBuildFile; fileRef = 849260412B0247C200F6DC13 /* Validation.m */; };
-		849260442B0373E300F6DC13 /* EncryptedSchema.json in Resources */ = {isa = PBXBuildFile; fileRef = 849260432B0373E300F6DC13 /* EncryptedSchema.json */; };
-		849260462B037B0000F6DC13 /* ArraySchema.json in Resources */ = {isa = PBXBuildFile; fileRef = 849260452B037B0000F6DC13 /* ArraySchema.json */; };
+		849260442B0373E300F6DC13 /* encryption.json in Resources */ = {isa = PBXBuildFile; fileRef = 849260432B0373E300F6DC13 /* encryption.json */; };
+		849260462B037B0000F6DC13 /* messages.json in Resources */ = {isa = PBXBuildFile; fileRef = 849260452B037B0000F6DC13 /* messages.json */; };
 		84929F0B20AAC0D000227D00 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84929F0A20AAC0CF00227D00 /* WebKit.framework */; };
 		84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A2B1B3755AF00810C3A /* TabBarController.m */; };
 		8495CFE42B039941007F7C90 /* LogsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495CFE32B039941007F7C90 /* LogsTVC.m */; };
@@ -331,11 +331,11 @@
 		848806FD28C9E7A500F7DFFD /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Interface.strings; sourceTree = "<group>"; };
 		848806FE28C9E7A500F7DFFD /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8488CFDE25A45CC3000AFEE2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
-		8492603E2B0235D700F6DC13 /* JsonSchema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = JsonSchema.json; sourceTree = "<group>"; };
+		8492603E2B0235D700F6DC13 /* message.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = message.json; sourceTree = "<group>"; };
 		849260402B0247C200F6DC13 /* Validation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Validation.h; path = coredata/Validation.h; sourceTree = "<group>"; };
 		849260412B0247C200F6DC13 /* Validation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Validation.m; path = coredata/Validation.m; sourceTree = "<group>"; };
-		849260432B0373E300F6DC13 /* EncryptedSchema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = EncryptedSchema.json; sourceTree = "<group>"; };
-		849260452B037B0000F6DC13 /* ArraySchema.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ArraySchema.json; sourceTree = "<group>"; };
+		849260432B0373E300F6DC13 /* encryption.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = encryption.json; sourceTree = "<group>"; };
+		849260452B037B0000F6DC13 /* messages.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = messages.json; sourceTree = "<group>"; };
 		84929F0A20AAC0CF00227D00 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		84930A221B36B8FB00810C3A /* Model 8.1.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.1.xcdatamodel"; sourceTree = "<group>"; };
 		84930A261B36C21B00810C3A /* Model 8.1.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.2.xcdatamodel"; sourceTree = "<group>"; };
@@ -680,9 +680,9 @@
 				8411B839189FDB140019D2D6 /* main.m */,
 				8411B83B189FDB140019D2D6 /* OwnTracks-Prefix.pch */,
 				84DE749B24A9E1C600C0DA68 /* Intents.intentdefinition */,
-				8492603E2B0235D700F6DC13 /* JsonSchema.json */,
-				849260452B037B0000F6DC13 /* ArraySchema.json */,
-				849260432B0373E300F6DC13 /* EncryptedSchema.json */,
+				8492603E2B0235D700F6DC13 /* message.json */,
+				849260452B037B0000F6DC13 /* messages.json */,
+				849260432B0373E300F6DC13 /* encryption.json */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1116,11 +1116,11 @@
 				8400D9731D83825E00DEA134 /* HTTP.plist in Resources */,
 				843B91721C8A14BF00DBD306 /* Storyboard.storyboard in Resources */,
 				84CC5A521FEC71850010314C /* OwnTracks-29.png in Resources */,
-				849260462B037B0000F6DC13 /* ArraySchema.json in Resources */,
-				8492603F2B0235D700F6DC13 /* JsonSchema.json in Resources */,
+				849260462B037B0000F6DC13 /* messages.json in Resources */,
+				8492603F2B0235D700F6DC13 /* message.json in Resources */,
 				845AA1BD1B4846AF00945856 /* OwnTracks-320.png in Resources */,
 				84FAEA7225F01DA100DCD479 /* Launch Screen.storyboard in Resources */,
-				849260442B0373E300F6DC13 /* EncryptedSchema.json in Resources */,
+				849260442B0373E300F6DC13 /* encryption.json in Resources */,
 				8411B843189FDB140019D2D6 /* Images.xcassets in Resources */,
 				84E2C4511EC34B3B00BC02CE /* Localizable.strings in Resources */,
 				845AA1BC1B4846AF00945856 /* OwnTracks-64.png in Resources */,

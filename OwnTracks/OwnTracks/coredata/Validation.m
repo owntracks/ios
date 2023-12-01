@@ -14,9 +14,9 @@
 static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 static Validation *theInstance = nil;
 
-static DSJSONSchema *normalSchema = nil;
-static DSJSONSchema *arraySchema = nil;
-static DSJSONSchema *encryptedSchema = nil;
+static DSJSONSchema *messageSchema = nil;
+static DSJSONSchema *messagesSchema = nil;
+static DSJSONSchema *encryptionSchema = nil;
 
 + (Validation *)sharedInstance {
     if (theInstance == nil) {
@@ -27,64 +27,67 @@ static DSJSONSchema *encryptedSchema = nil;
 
 - (instancetype)init {
     self = [super init];
-    NSURL *normalSchemaURL = [[NSBundle mainBundle] URLForResource:@"JsonSchema"
-                                                     withExtension:@"json"];
-    NSData *normalSchemaData = [NSData dataWithContentsOfURL:normalSchemaURL];
-    NSError *normalSchemaError = nil;
-    normalSchema = [DSJSONSchema schemaWithData:normalSchemaData
-                                        baseURI:nil
-                               referenceStorage:nil
-                                  specification:[DSJSONSchemaSpecification draft7]
-                                        options:nil
-                                          error:&normalSchemaError];
-    if (!normalSchema) {
-        DDLogError(@"Validation schema creation error: %@",
-                   normalSchemaError);
+    NSURL *messageSchemaURL = [[NSBundle mainBundle] URLForResource:@"message"
+                                                      withExtension:@"json"];
+    NSURL *messageSchemaBaseURL = [NSURL URLWithString:@"https://owntracks.org/schemas/message.json"];
+    NSData *messageSchemaData = [NSData dataWithContentsOfURL:messageSchemaURL];
+    NSError *messageSchemaError = nil;
+    messageSchema = [DSJSONSchema schemaWithData:messageSchemaData
+                                         baseURI:messageSchemaBaseURL
+                                referenceStorage:nil
+                                   specification:[DSJSONSchemaSpecification draft7]
+                                         options:nil
+                                           error:&messageSchemaError];
+    if (!messageSchema) {
+        DDLogError(@"Validation message schema creation error: %@",
+                   messageSchemaError);
     }
     
-    NSURL *arraySchemaURL = [[NSBundle mainBundle] URLForResource:@"ArraySchema"
-                                                    withExtension:@"json"];
-    NSData *arraySchemaData = [NSData dataWithContentsOfURL:arraySchemaURL];
-    NSError *arraySchemaError = nil;
-    arraySchema = [DSJSONSchema schemaWithData:arraySchemaData
-                                       baseURI:nil
-                              referenceStorage:[DSJSONSchemaStorage storageWithSchema:normalSchema]
-                                 specification:[DSJSONSchemaSpecification draft7]
-                                       options:nil
-                                         error:&arraySchemaError];
-    if (!arraySchema) {
-        DDLogError(@"Validation schema creation error: %@",
-                   arraySchemaError);
+    NSURL *messagesSchemaURL = [[NSBundle mainBundle] URLForResource:@"messages"
+                                                       withExtension:@"json"];
+    NSURL *messagesSchemaBaseURL = [NSURL URLWithString:@"https://owntracks.org/schemas/messages.json"];
+    NSData *messagesSchemaData = [NSData dataWithContentsOfURL:messagesSchemaURL];
+    NSError *messagesSchemaError = nil;
+    messagesSchema = [DSJSONSchema schemaWithData:messagesSchemaData
+                                          baseURI:messagesSchemaBaseURL
+                                 referenceStorage:[DSJSONSchemaStorage storageWithSchema:messageSchema]
+                                    specification:[DSJSONSchemaSpecification draft7]
+                                          options:nil
+                                            error:&messagesSchemaError];
+    if (!messagesSchema) {
+        DDLogError(@"Validation messages schema creation error: %@",
+                   messagesSchemaError);
     }
     
-    NSURL *encryptedSchemaURL = [[NSBundle mainBundle] URLForResource:@"EncryptedSchema"
-                                                        withExtension:@"json"];
-    NSData *encryptedSchemaData = [NSData dataWithContentsOfURL:encryptedSchemaURL];
-    NSError *encryptedSchemaError = nil;
-    encryptedSchema = [DSJSONSchema schemaWithData:encryptedSchemaData
-                                           baseURI:nil
-                                  referenceStorage:nil
-                                     specification:[DSJSONSchemaSpecification draft7]
-                                           options:nil
-                                             error:&encryptedSchemaError];
-    if (!encryptedSchema) {
-        DDLogError(@"Validation encrypted schema creation error: %@",
-                   encryptedSchemaError);
+    NSURL *encryptionSchemaURL = [[NSBundle mainBundle] URLForResource:@"encryption"
+                                                         withExtension:@"json"];
+    NSURL *encryptionSchemaBaseURL = [NSURL URLWithString:@"https://owntracks.org/schemas/encryption.json"];
+    NSData *encryptionSchemaData = [NSData dataWithContentsOfURL:encryptionSchemaURL];
+    NSError *encryptionSchemaError = nil;
+    encryptionSchema = [DSJSONSchema schemaWithData:encryptionSchemaData
+                                            baseURI:encryptionSchemaBaseURL
+                                   referenceStorage:nil
+                                      specification:[DSJSONSchemaSpecification draft7]
+                                            options:nil
+                                              error:&encryptionSchemaError];
+    if (!encryptionSchema) {
+        DDLogError(@"Validation encryption schema creation error: %@",
+                   encryptionSchemaError);
     }
     
     return self;
 }
 
-- (id)validateData:(NSData *)data {
-    return [self validateData:data againstSchema:normalSchema];
+- (id)validateMessageData:(NSData *)data {
+    return [self validateData:data againstSchema:messageSchema];
 }
 
-- (id)validateArrayData:(NSData *)data {
-    return [self validateData:data againstSchema:arraySchema];
+- (id)validateMessagesData:(NSData *)data {
+    return [self validateData:data againstSchema:messagesSchema];
 }
 
-- (id)validateEncryptedData:(NSData *)data {
-    return [self validateData:data againstSchema:encryptedSchema];
+- (id)validateEncryptionData:(NSData *)data {
+    return [self validateData:data againstSchema:encryptionSchema];
 }
 
 - (id)validateData:(NSData *)data againstSchema:(DSJSONSchema *)schema {
@@ -97,7 +100,7 @@ static DSJSONSchema *encryptedSchema = nil;
                                                    options:0
                                                      error:nil];
             if (json) {
-                NSData *jsonData = 
+                NSData *jsonData =
                 [NSJSONSerialization dataWithJSONObject:json
                                                 options:NSJSONWritingSortedKeys | NSJSONWritingPrettyPrinted
                                                   error:nil];
@@ -105,25 +108,31 @@ static DSJSONSchema *encryptedSchema = nil;
                            [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
             }
         } else {
-            DDLogError(@"Validation error: %@",
-                       validationError);
+            json = [NSJSONSerialization JSONObjectWithData:data
+                                                   options:0
+                                                     error:nil];
+            NSData *jsonData =
+            [NSJSONSerialization dataWithJSONObject:json
+                                            options:NSJSONWritingSortedKeys | NSJSONWritingPrettyPrinted
+                                              error:nil];
+            DDLogError(@"Validation error: %@ with %@",
+                       validationError,
+                       [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
         }
+    } else {
+        json = [NSJSONSerialization JSONObjectWithData:data
+                                               options:0
+                                                 error:nil];
+        NSData *jsonData =
+        [NSJSONSerialization dataWithJSONObject:json
+                                        options:NSJSONWritingSortedKeys | NSJSONWritingPrettyPrinted
+                                          error:nil];
+        DDLogVerbose(@"Not validated: %@",
+                     [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
+        
     }
+    
     return json;
-}
-
-- (BOOL)validateJson:(id)json {
-    BOOL success = TRUE;
-    if (normalSchema) {
-        NSError *validationError = nil;
-        success = [normalSchema validateObject:json
-                                     withError:&validationError];
-        if (!success) {
-            DDLogError(@"Validation error: %@",
-                       validationError);
-        }
-    }
-    return success;
 }
 
 @end

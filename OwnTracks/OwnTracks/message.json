@@ -1,0 +1,608 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://owntracks.org/schemas/message.json",
+    "title": "OwnTracks JSON Schema",
+    "description": "A definition of our messages",
+    "$comment": "TODO: configuration message elements and structure",
+    "$comment": "TODO: waypoints structure",
+    "type": "object",
+    "properties": {
+        "_type": { "$ref": "#/$defs/_type" },
+        "action": { "$ref": "#/$defs/action" },
+        "content": { "$ref": "#/$defs/content" },
+        "distance": { "$ref": "#/$defs/distance" },
+        "face": { "$ref": "#/$defs/face" },
+        "floorsdown": { "$ref": "#/$defs/floorsdown" },
+        "floorsup": { "$ref": "#/$defs/floorsup" },
+        "from": { "$ref": "#/$defs/from" },
+        "lat": { "$ref": "#/$defs/lat" },
+        "lon": { "$ref": "#/$defs/lon" },
+        "name": { "$ref": "#/$defs/name" },
+        "notification": { "$ref": "#/$defs/notification" },
+        "ntours": { "$ref": "#/$defs/ntours" },
+        "request": { "$ref": "#/$defs/request" },
+        "steps": { "$ref": "#/$defs/steps" },
+        "to": { "$ref": "#/$defs/to" },
+        "tours": { "$ref": "#/$defs/tours" },
+        "tst": { "$ref": "#/$defs/tst" },
+        "uuid": { "$ref": "#/$defs/uuid" },
+        "url": { "$ref": "#/$defs/url" }
+    },
+    "required": [ "_type" ],
+    "allOf": [
+        {
+            "if": {
+                "properties": {
+                    "_type": { "const": "location" }
+                },
+                "required": [ "_type" ]
+            }, "then": {
+                "required": [ "lat", "lon", "tst" ]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "_type": { "const": "lwt" }
+                },
+                "required": [ "_type" ]
+            }, "then": {
+                "$comment": "UNIX epoch timestamp at which the app first connected",
+                "required": [ "tst" ]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "_type": { "const": "steps" }
+                },
+                "required": [ "_type" ]
+            }, "then": {
+                "$comment": "UNIX epoch timestamp of the request",
+                "$comment": "optional distance, floorsup, floorsdown",
+                "required": [ "from", "steps", "to", "tst" ]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "_type": { "const": "transition" }
+                },
+                "required": [ "_type" ]
+            }, "then": {
+                "required": [ "acc", "event", "lat", "lon", "tst", "wtst" ]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "_type": { "const": "card" }
+                },
+                "required": [ "_type" ]
+            }, "then": {
+                "required": [ "face", "name" ]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "_type": { "const": "cmd" }
+                },
+                "required": [ "_type" ]
+            }, "then": {
+                "required": [ "action" ]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "action": { "const": "response" }
+                },
+                "required": [ "response" ]
+            }, "then": {
+                "required": [ "request" ]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "action": { "const": "action" }
+                },
+                "required": [ "action" ]
+            }, "then": {
+                "oneOf": [
+                    {
+                        "required": [ "content" ]
+                    },
+                    {
+                        "required": [ "url" ]
+                    },
+                    {
+                        "required": [ "notification" ]
+                    }
+                ]
+            }
+        },
+        {
+            "if": {
+                "properties": {
+                    "request": { "const": "untour" }
+                },
+                "required": [ "request" ]
+            }, "then": {
+                "required": [ "uuid" ]
+            }
+        },
+        {"$comment": "I don't know how to implement this: in the response to a tours request, the need to be tours and ntours"},
+        {
+            "dontknowif": {
+                "properties": {
+                    "action": { "const": "response" }
+                },
+                "properties": {
+                    "request": { "const": "tours" }
+                },
+                "required": [ "action" ],
+                "required": [ "request" ]
+            }, "dontnowthen": {
+                "required": [ "tours", "ntours" ]
+            }
+        }
+    ],
+    "$defs": {
+        "_type": {
+            "description": "The type of the message",
+            "type": "string",
+            "enum": [
+                "beacon",
+                "card",
+                "cmd",
+                "configuration",
+                "location",
+                "lwt",
+                "request",
+                "steps",
+                "transition",
+                "waypoint",
+                "waypoints"
+            ]
+        },
+        "action": {
+            "description": "Action to be performed by the device",
+            "type": "string",
+            "enum": [ 
+                "action",
+                "clearWaypoints",
+                "dump", 
+                "reportLocation",
+                "reportSteps",
+                "response",
+                "setConfiguration",
+                "setWaypoints",
+                "waypoints"
+            ]
+        },
+        "request": {
+            "description": "Request asked for in _type request",
+            "type": "string",
+            "enum": [ 
+                "tour",
+                "tours",
+                "untour"
+            ]
+        },
+        "tours": {
+            "description": "Array or tours in a tours response might be empty",
+            "type": "array",
+            "minimum": 0
+        },
+        "ntours": {
+            "description": "Number of tours in tours response",
+            "type": "integer",
+            "minimum": 0
+        },
+        "face": {
+            "description": "Base64 encoded PNG image that is displayed instead of the Tracker ID",
+            "type": "string",
+            "contentEncoding": "base64",
+            "contentMediaType": "image/png"
+        },
+        "lat": {
+            "description": "Latitude",
+            "type": "number",
+            "units": "degree"
+        },
+        "lon": {
+            "description": "Longitude",
+            "type": "number",
+            "units": "degree"
+        },
+        "cog": {
+            "description": "Course over ground",
+            "type": "number",
+            "units": "degree"
+        },
+        "acc": {
+            "description": "Accuracy of the reported location",
+            "type": "integer",
+            "units": "m"
+        },
+        "vac": {
+            "description": "Vertical accuracy of the alt element",
+            "type": "integer",
+            "units": "m"
+        },
+        "vel": {
+            "description": "Velocity",
+            "type": "integer",
+            "units": "km/h"
+        },
+        "rad": {
+            "description": "Radius around the latitude and longitude coordinates. Setting the radius to a negative value (e.g. -1) on iOS, the app will update the location coordinates of the waypoint on each enter/leave event. This update will be transmitted to the broker when the share option is on and will be reflected on your map screen. You may use this to keep track of moveable items as luggage or your car.",
+            "type": "integer",
+            "units": "m"
+        },
+        "alt": {
+            "description": "Altitude measured above sea level",
+            "type": "integer",
+            "units": "m"
+        },
+        "batt": {
+            "description": "Device battery level",
+            "type": "integer",
+            "units": "%"
+        },
+        "bs": {
+            "description": "Battery Status 0=unknown, 1=unplugged, 2=charging, 3=full",
+            "type": "integer",
+            "enum": [ 0, 1, 2, 3 ]
+        },
+        "rssi": {
+            "description": "Received signal strength of the beacon",
+            "type": "integer",
+            "units": "decibel"
+        },
+        "prox": {
+            "description": "Relative distance to the beacon 0 Proximity of the beacon could not be determined 1 Beacon is in the immediate vicinity 2 Beacon is relatively close to the user 3 Beacon is far away",
+            "type": "integer",
+            "enum": [ 0, 1, 2, 3 ]
+        },
+        "batt": {
+            "description": "Device battery level",
+            "type": "integer",
+            "units": "%"
+        },
+        "bs": {
+            "description": "Battery Status 0=unknown, 1=unplugged, 2=charging, 3=full",
+            "type": "integer",
+            "enum": [ 0, 1, 2, 3 ]
+        },
+        "m": {
+            "description": "Identifies the monitoring mode at which the message is constructed (significant=1, move=2)",
+            "type": "integer"
+        },
+        "conn": {
+            "description": "conn Internet connectivity status (route to host) when the message is created w phone is connected to a WiFi connection o phone is offline m mobile data",
+            "type": "string",
+            "enum": [ "w", "o", "m" ]
+        },
+        "tst": {
+            "$comment": "tst has different meanings in location, lwt, waypoint",
+            "description": "UNIX epoch timestamp in seconds of the location fix",
+            "type": "integer",
+            "units": "s"
+        },
+        "created_at": {
+            "description": "UNIX epoch timestamp in seconds of the time at which the message is constructed",
+            "type": "integer",
+            "units": "s"
+        },
+        "name": {
+            "$comment": "Different meaning in face or location-queclink message",
+            "description": "Name to identify a user / Name of the device",
+            "type": "string"
+        },
+        "desc": {
+            "description": "Name of the waypoint",
+            "type": "string"
+        },
+        "tid": {
+            "description": "Tracker ID used to display the initials of a user required for http mode",
+            "type": "string"
+        },
+        "rid": {
+            "description": "Region ID",
+            "type": "string"
+        },
+        "event": {
+            "description": "Event that triggered the transition",
+            "type": "string",
+            "enum": [
+                "enter",
+                "leave"
+            ]
+        },
+        "content": {
+            "type": "string",
+            "contentMediaType": "text/html"
+        },
+        "url": {
+            "type": "string"
+        },
+        "poi": {
+            "description": "Point of interest name",
+            "type": "string"
+        },
+        "tag": {
+            "description": "Name of the tag",
+            "type": "string"
+        },
+        "topic": {
+            "description": "(only in HTTP payloads) contains the original publish topic",
+            "type": "string"
+        },
+        "SSID": {
+            "description": "The unique name of the WLAN",
+            "type": "string"
+        },
+        "BSSID": {
+            "description": "Identifies the access point",
+            "type": "string"
+        },
+        "inregions": {
+            "description": "inregions contains a list of regions the device is currently in. Might be empty.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "inrids": {
+            "description": "inregions contains a list of region IDs the device is currently in. Might be empty.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "p": {
+            "description": "Barometric pressure",
+            "type": "number",
+            "units": "kPa"
+        },
+        "t": {
+            "$comment": "how to format this list? enum? different meanings in transition and location",
+            "description": "Trigger for the location report. p ping issued randomly by background task (iOS,Android) c circular region enter/leave event (iOS,Android) b beacon region enter/leave event (iOS) r response to a reportLocation cmd message (iOS,Android) u manual publish requested by the user (iOS,Android) t timer based publish in move move (iOS) v updated by Settings/Privacy/Locations Services/System Services/Frequent Locations monitoring (iOS) f First publish after reboot m Manually requested locations (e.g. by publishing to /cmd) t Time for location published because device is moving.  T Time for location published because of time passed while device is stationary (maxInterval) k Transitioning from move to stationary (park) v Transitioning from stationary to move (mo-v-e) l Last known position when device lost GPS fix L Last known position before gracefull shutdown, o Corner M Mileage ! Tow or fake tow or sensor without ignition a motionless (aka park) i ignition on I ignition off e external power off E external power ON 1 Devices powered up 2 Battery stop charging 3 Battery start charging 9 Battery power low h harsh behavior s speed alarm ",
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 1
+        },
+        "notification": {
+            "type": "string"
+        },
+        "dist": {
+            "description": "Distance travelled since the last location report",
+            "type": "integer",
+            "units": "m"
+        },
+        "trip": {
+            "description": "Distance travelled since the last reboot",
+            "type": "integer",
+            "units": "m"
+        },
+        "odometer": {
+            "description": "Total distance of the device",
+            "type": "number",
+            "units": "km"
+        },
+        "hmc": {
+            "description": "Total hours of operation",
+            "type": "number",
+            "units": "s"
+        },
+        "ubatt": {
+            "description": "Voltage of the battery",
+            "type": "number",
+            "units": "V"
+        },
+        "uext": {
+            "description": "Voltage of the external power source",
+            "type": "number",
+            "units": "V"
+        },
+        "vin": {
+            "description": "Vehicle Identification Number of the vehicle",
+            "type": "string"
+        },
+        "imei": {
+            "description": "International Mobile Station Equipment Identity of the device",
+            "type": "string"
+        },
+        "don": {
+            "description": "Duration since ignition on",
+            "type": "number",
+            "units": "s"
+        },
+        "doff": {
+            "description": "Duration since ignition off",
+            "type": "number",
+            "units": "s"
+        },
+        "aiv": {
+            "description": "Analog input voltage",
+            "type": "number",
+            "units": "V"
+        },
+        "rpm": {
+            "description": "Rounds per minute",
+            "type": "number"
+        },
+        "fcon": {
+            "description": "Fuel consumption",
+            "type": "number",
+            "units": "L/100km"
+        },
+        "flvl": {
+            "description": "Fuel level",
+            "type": "number",
+            "units": "%"
+        },
+        "anum": {
+            "description": "Number of analog inputs",
+            "type": "integer"
+        },
+        "adid-xx": {
+            "description": "Id of analog input xx",
+            "type": "string"
+        },
+        "adty-xx": {
+            "description": "type of analog input xx",
+            "type": "string"
+        },
+        "adda-xx": {
+            "description": "data of analog input xx",
+            "type": "string"
+        },
+        "temp_c-xx": {
+            "description": "Number of analog inputs",
+            "type": "number",
+            "units": "C"
+        },
+        "can": {
+            "description": "CAN data",
+            "type": "string"
+        },
+        "din1": {
+            "description": "Status of digital input 1",
+            "type": "boolean"
+        },
+        "din2": {
+            "description": "Status of digital input 2",
+            "type": "boolean"
+        },
+        "dout1": {
+            "description": "Status of digital output 1",
+            "type": "boolean"
+        },
+        "dout2": {
+            "description": "Status of digital output 2",
+            "type": "boolean"
+        },
+        "ign": {
+            "description": "Ignition status",
+            "type": "boolean"
+        },
+        "motion": {
+            "description": "Motion status",
+            "type": "boolean"
+        },
+        "tow": {
+            "description": "Status of tow sensor",
+            "type": "boolean"
+        },
+        "fake": {
+            "description": "Status of status of fake tow sensor",
+            "type": "boolean"
+        },
+        "sens": {
+            "description": "Status of motion sensor",
+            "type": "boolean"
+        },
+        "sent": {
+            "description": "Status of motion sensor",
+            "type": "boolean"
+        },
+        "mcc": {
+            "description": "Mobile country code",
+            "type": "integer"
+        },
+        "mnc": {
+            "description": "Mobile network code",
+            "type": "integer"
+        },
+        "lac": {
+            "description": "Location area code",
+            "type": "string"
+        },
+        "cid": {
+            "description": "Cell id",
+            "type": "string"
+        },
+        "nmds": {
+            "description": "Status of none movement detection",
+            "type": "boolean"
+        },
+        "rti": {
+            "description": "queclink record id and type",
+            "type": "integer"
+        },
+        "rty": {
+            "description": "queclink record type",
+            "type": "integer"
+        },
+        "ridRID": {
+            "$comment": "rid is duplicate for regionid of a region/waypoint",
+            "description": "queclink record id",
+            "type": "integer"
+        },
+        "mst": {
+            "description": "queclink motion status",
+            "type": "integer"
+        },
+        "count": {
+            "description": "queclink counter of message",
+            "type": "string"
+        },
+        "raw_line": {
+            "description": "queclink raw message data",
+            "type": "string"
+        },
+        "counter": {
+            "description": "queclink counter of ignored positions",
+            "type": "integer"
+        },
+        "ignored": {
+            "description": "queclink indicates counter positions have been ignored",
+            "type": "boolean"
+        },
+        "uuid": {
+            "$comment": "do we have to differentiate between the two meanings?",
+            "description": "UUID of the BLE Beacon or UUID of the tour",
+            "type": "string",
+            "format": "uuid"
+        },
+        "major": {
+            "description": "Major number of the BLE Beacon",
+            "type": "integer"
+        },
+        "minor": {
+            "description": "Major number of the BLE Beacon",
+            "type": "integer"
+        },
+        "steps": {
+            "description": "Steps walked with the device in the specfied time period. steps is -1 if device does not support step counting or specified time period is invalid",
+            "type": "integer"
+        },
+        "from": {
+            "description": "Effective start of time period",
+            "type": "integer",
+            "units": "s"
+        },
+        "to": {
+            "description": "Effective end of time period",
+            "type": "integer",
+            "units": "s"
+        },
+        "distance": {
+            "description": "Distance walked with the device in the specified time period",
+            "type": "integer",
+            "units": "s"
+        },
+        "floorsdown": {
+            "description": "Floors descended with the device in the specified time period",
+            "type": "integer"
+        },
+        "floorsup": {
+            "description": "Floors climbed with the device in the specified time period",
+            "type": "integer"
+        }
+    }
+}
