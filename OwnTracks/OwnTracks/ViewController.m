@@ -44,7 +44,7 @@
 
 
 @implementation ViewController
-static const DDLogLevel ddLogLevel = DDLogLevelInfo;
+static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 - (void)viewDidLoad {
     [super viewDidLoad];

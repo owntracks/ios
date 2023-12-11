@@ -1,6 +1,20 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 17.0.3 iOS/ipadOS/macOS
+* Release Date 2023-12-11
+
+** JSON Schema Validation and Accessible Logs
+
+    [NEW] Accessible Logs and JSON Schema Validation
+    [NEW] ISO timestamps in log
+    [NEW] Export functionality for Mac Catalyst
+    [FIX] move "Logs" button to status view
+    [FIX] missing "response" cmd (for tours)
+    [FIX] position of share menu on iPad
+    [FIX] cleanup client certificate selection
+    [FIX] use UTF-8 for .strings files consistently
+
 ## OwnTracks 16.4.3 iOS/ipadOS/macOS
 * Release Date 2023-09-26
 

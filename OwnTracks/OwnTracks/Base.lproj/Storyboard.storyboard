@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -2405,23 +2406,44 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0X-4j-vxu">
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="xPg-64-2bK">
                                                     <rect key="frame" x="20" y="7" width="335" height="30"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0X-4j-vxu">
+                                                            <rect key="frame" x="0.0" y="0.0" width="163.5" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="GWb-rR-c25"/>
+                                                            </constraints>
+                                                            <state key="normal" title="Settings">
+                                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </state>
+                                                            <connections>
+                                                                <segue destination="nAk-La-kdM" kind="push" id="uiv-zM-N1a"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b91-ur-Ooi">
+                                                            <rect key="frame" x="171.5" y="0.0" width="163.5" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="6d0-pr-yIB"/>
+                                                            </constraints>
+                                                            <state key="normal" title="Logs">
+                                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </state>
+                                                            <connections>
+                                                                <segue destination="pyP-9X-XNY" kind="push" id="LX4-zO-Dsc"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="GWb-rR-c25"/>
+                                                        <constraint firstItem="b91-ur-Ooi" firstAttribute="width" secondItem="R0X-4j-vxu" secondAttribute="width" id="Vg5-Jl-qUd"/>
                                                     </constraints>
-                                                    <state key="normal" title="Settings">
-                                                        <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <segue destination="nAk-La-kdM" kind="push" id="uiv-zM-N1a"/>
-                                                    </connections>
-                                                </button>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="R0X-4j-vxu" firstAttribute="leading" secondItem="UDB-uU-uxQ" secondAttribute="leading" constant="20" symbolic="YES" id="8t8-RL-xd1"/>
-                                                <constraint firstAttribute="centerY" secondItem="R0X-4j-vxu" secondAttribute="centerY" id="VLB-Nw-xTK"/>
-                                                <constraint firstAttribute="trailing" secondItem="R0X-4j-vxu" secondAttribute="trailing" constant="20" symbolic="YES" id="vVh-oC-9pq"/>
+                                                <constraint firstAttribute="trailing" secondItem="xPg-64-2bK" secondAttribute="trailing" constant="20" symbolic="YES" id="ARi-va-4QW"/>
+                                                <constraint firstItem="xPg-64-2bK" firstAttribute="leading" secondItem="UDB-uU-uxQ" secondAttribute="leading" constant="20" symbolic="YES" id="PTR-bt-yrw"/>
+                                                <constraint firstAttribute="bottom" secondItem="xPg-64-2bK" secondAttribute="bottom" constant="7" id="hLj-cN-TDC"/>
+                                                <constraint firstItem="xPg-64-2bK" firstAttribute="top" secondItem="UDB-uU-uxQ" secondAttribute="top" constant="7" id="mhj-Oe-3F4"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -2483,11 +2505,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="64" translatesAutoresizingMaskIntoConstraints="NO" id="cD5-Iq-Ei4">
+                                                <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="cD5-Iq-Ei4">
                                                     <rect key="frame" x="20" y="7" width="335" height="30"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fng-qL-diO">
-                                                            <rect key="frame" x="0.0" y="0.0" width="69" height="30"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="106.5" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="aMI-oC-Fm5"/>
                                                             </constraints>
@@ -2499,7 +2521,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ms-eE-0jF">
-                                                            <rect key="frame" x="133" y="0.0" width="69" height="30"/>
+                                                            <rect key="frame" x="114.5" y="0.0" width="106" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="NRe-US-23s"/>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="Q4p-tX-sPt"/>
@@ -2512,7 +2534,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YlH-Kr-wOD">
-                                                            <rect key="frame" x="266" y="0.0" width="69" height="30"/>
+                                                            <rect key="frame" x="228.5" y="0.0" width="106.5" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="Z9I-Rs-USb"/>
                                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="nh1-8R-YjA"/>
@@ -3046,6 +3068,60 @@
                 <exit id="3c1-46-ZSi" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="5066.666666666667" y="1601.7857142857142"/>
+        </scene>
+        <!--Logs-->
+        <scene sceneID="SDv-YO-gQV">
+            <objects>
+                <tableViewController id="pyP-9X-XNY" customClass="LogsTVC" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="jOd-0J-7oQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogCell" textLabel="THV-Ij-ayz" detailTextLabel="pOi-JI-Qg7" style="IBUITableViewCellStyleSubtitle" id="Qjw-M7-9Wk">
+                                <rect key="frame" x="0.0" y="50" width="375" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qjw-M7-9Wk" id="KXy-AR-6kc">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="THV-Ij-ayz">
+                                            <rect key="frame" x="16" y="6" width="25" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pOi-JI-Qg7">
+                                            <rect key="frame" x="16" y="22.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="pyP-9X-XNY" id="8h3-qH-sBg"/>
+                            <outlet property="delegate" destination="pyP-9X-XNY" id="Thb-ht-rht"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Logs" id="p61-Zk-kOq">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="Rzs-wJ-YhA">
+                            <connections>
+                                <action selector="actionPressed:" destination="pyP-9X-XNY" id="mFl-xX-pGW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="actionButton" destination="Rzs-wJ-YhA" id="6gN-IY-tnm"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fCZ-ov-sFB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5807" y="2237"/>
         </scene>
         <!--Create Tour-->
         <scene sceneID="SiL-yz-wjq">
@@ -3829,7 +3905,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="auv-et-UoY"/>
-        <segue reference="ft5-77-rU8"/>
+        <segue reference="aMd-Tc-ju9"/>
         <segue reference="KLh-ve-vhU"/>
     </inferredMetricsTieBreakers>
     <resources>

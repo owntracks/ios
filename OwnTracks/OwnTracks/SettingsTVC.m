@@ -74,6 +74,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIdowngrade;
 @property (weak, nonatomic) IBOutlet UIButton *createCardButton;
 @property (weak, nonatomic) IBOutlet UIButton *toursButton;
+@property (weak, nonatomic) IBOutlet UIButton *logsButton;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
 
@@ -776,22 +777,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (IBAction)exportPressed:(UIButton *)sender {
-#if TARGET_OS_MACCATALYST
-    UIAlertController *ac = [UIAlertController
-                             alertControllerWithTitle:NSLocalizedString(@"Export", @"Export")
-                             message:NSLocalizedString(@"Mac Catalyst does not support export yet",
-                                                       @"content of an alert message regarging missing Mac Catalyst Export")
-                             preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *ok = [UIAlertAction
-                         actionWithTitle:NSLocalizedString(@"Continue",
-                                                           @"Continue button title")
-                         
-                         style:UIAlertActionStyleDefault
-                         handler:nil];
-    [ac addAction:ok];
-    [self presentViewController:ac animated:TRUE completion:nil];
-    return;
-#else
     [self updateValues];
     NSError *error;
 
@@ -807,6 +792,31 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                             contents:[Settings toDataInMOC:CoreData.sharedInstance.mainMOC]
                                           attributes:nil];
 
+
+#if TARGET_OS_MACCATALYST
+    if (@available(macCatalyst 14.0, *)) {
+        UIDocumentPickerViewController *dpvc = 
+        [[UIDocumentPickerViewController alloc] initForExportingURLs:@[fileURL] asCopy:TRUE];
+        dpvc.shouldShowFileExtensions = TRUE;
+        [self presentViewController:dpvc animated:TRUE completion:^{
+            //
+        }];
+    } else {
+        UIAlertController *ac = [UIAlertController
+                                 alertControllerWithTitle:NSLocalizedString(@"Export", @"Export")
+                                 message:NSLocalizedString(@"Mac Catalyst does not support export yet",
+                                                           @"content of an alert message regarging missing Mac Catalyst Export")
+                                 preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ok = [UIAlertAction
+                             actionWithTitle:NSLocalizedString(@"Continue",
+                                                               @"Continue button title")
+                             
+                             style:UIAlertActionStyleDefault
+                             handler:nil];
+        [ac addAction:ok];
+        [self presentViewController:ac animated:TRUE completion:nil];
+    }
+#else
     self.dic = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
     self.dic.delegate = self;
 
@@ -815,22 +825,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (IBAction)exportWaypointsPressed:(UIButton *)sender {
-#if TARGET_OS_MACCATALYST
-    UIAlertController *ac = [UIAlertController
-                             alertControllerWithTitle:NSLocalizedString(@"Export", @"Export")
-                             message:NSLocalizedString(@"Mac Catalyst does not support export yet",
-                                                       @"content of an alert message regarging missing Mac Catalyst Export")
-                             preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *ok = [UIAlertAction
-                         actionWithTitle:NSLocalizedString(@"Continue",
-                                                           @"Continue button title")
-
-                         style:UIAlertActionStyleDefault
-                         handler:nil];
-    [ac addAction:ok];
-    [self presentViewController:ac animated:TRUE completion:nil];
-    return;
-#else
     [self updateValues];
     NSError *error;
 
@@ -846,6 +840,31 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                             contents:[Settings waypointsToDataInMOC:CoreData.sharedInstance.mainMOC]
                                           attributes:nil];
 
+
+#if TARGET_OS_MACCATALYST
+    if (@available(macCatalyst 14.0, *)) {
+        UIDocumentPickerViewController *dpvc =
+        [[UIDocumentPickerViewController alloc] initForExportingURLs:@[fileURL] asCopy:TRUE];
+        dpvc.shouldShowFileExtensions = TRUE;
+        [self presentViewController:dpvc animated:TRUE completion:^{
+            //
+        }];
+    } else {
+        UIAlertController *ac = [UIAlertController
+                                 alertControllerWithTitle:NSLocalizedString(@"Export", @"Export")
+                                 message:NSLocalizedString(@"Mac Catalyst does not support export yet",
+                                                           @"content of an alert message regarging missing Mac Catalyst Export")
+                                 preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *ok = [UIAlertAction
+                             actionWithTitle:NSLocalizedString(@"Continue",
+                                                               @"Continue button title")
+                             
+                             style:UIAlertActionStyleDefault
+                             handler:nil];
+        [ac addAction:ok];
+        [self presentViewController:ac animated:TRUE completion:nil];
+    }
+#else
     self.dic = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
     self.dic.delegate = self;
 
@@ -854,38 +873,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.destinationViewController respondsToSelector:@selector(setSelectedFileNames:)] &&
-        [segue.destinationViewController respondsToSelector:@selector(setMultiple:)] &&
-        [segue.destinationViewController respondsToSelector:@selector(setFileNameIdentifier:)]) {
+    if ([segue.destinationViewController respondsToSelector:@selector(setSelectedFileName:)]) {
         if ([segue.identifier isEqualToString:@"setClientPKCS"]) {
-            [segue.destinationViewController performSelector:@selector(setSelectedFileNames:)
+            [segue.destinationViewController performSelector:@selector(setSelectedFileName:)
                                                   withObject:[Settings stringForKey:@"clientpkcs"
                                                                               inMOC:CoreData.sharedInstance.mainMOC]];
-            [segue.destinationViewController performSelector:@selector(setFileNameIdentifier:)
-                                                  withObject:@"clientpkcs"];
-            [segue.destinationViewController performSelector:@selector(setMultiple:)
-                                                  withObject:[NSNumber numberWithBool:FALSE]];
-
-        }
-        if ([segue.identifier isEqualToString:@"setServerCER"]) {
-            [segue.destinationViewController performSelector:@selector(setSelectedFileNames:)
-                                                  withObject:[Settings stringForKey:@"servercer"
-                                                                              inMOC:CoreData.sharedInstance.mainMOC]];
-            [segue.destinationViewController performSelector:@selector(setFileNameIdentifier:)
-                                                  withObject:@"servercer"];
-            [segue.destinationViewController performSelector:@selector(setMultiple:)
-                                                  withObject:[NSNumber numberWithBool:TRUE]];
         }
     }
 }
 
 - (IBAction)setNames:(UIStoryboardSegue *)segue {
-    if ([segue.sourceViewController respondsToSelector:@selector(selectedFileNames)] &&
-        [segue.sourceViewController respondsToSelector:@selector(fileNameIdentifier)]) {
-        NSString *names = [segue.sourceViewController performSelector:@selector(selectedFileNames)];
-        NSString *identifier = [segue.sourceViewController performSelector:@selector(fileNameIdentifier)];
+    if ([segue.sourceViewController respondsToSelector:@selector(selectedFileName)]) {
+        NSString *name = [segue.sourceViewController performSelector:@selector(selectedFileName)];
 
-        [Settings setString:names forKey:identifier
+        [Settings setString:name forKey:@"clientpkcs"
                       inMOC:CoreData.sharedInstance.mainMOC];
         [self updated];
     }

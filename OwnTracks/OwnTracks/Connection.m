@@ -17,6 +17,7 @@
 #import "LocationManager.h"
 #import "Settings.h"
 #import "OwnTracksAppDelegate.h"
+#import "Validation.h"
 
 #import <mqttc/MQTTNWTransport.h>
 
@@ -143,7 +144,7 @@ DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)idle {
-    DDLogVerbose(@"[Connection] %@ idle", self.clientId);
+    DDLogInfo(@"[Connection] idle");
 }
 
 - (void)connectTo:(NSString *)host
@@ -163,10 +164,10 @@ DDLogLevel ddLogLevel = DDLogLevelInfo;
      withClientId:(NSString *)clientId
 allowUntrustedCertificates:(BOOL)allowUntrustedCertificates
      certificates:(NSArray *)certificates {
-    DDLogVerbose(@"[Connection] %@ connectTo: %@:%@@%@:%ld v%d %@ %@ (%ld) c%d / %@ %@ q%ld r%d as %@ %d %@",
+    DDLogInfo(@"[Connection] %@ connectTo: %@:%@@%@:%ld v%d %@ %@ (%ld) c%d / %@ %@ q%ld r%d as %@ %d %@",
                  self.clientId,
                  auth ? user : @"",
-                 auth ? pass : @"",
+                 auth ? @"<passwd>" : @"",
                  host,
                  (long)port,
                  protocolVersion,
@@ -227,7 +228,7 @@ allowUntrustedCertificates:(BOOL)allowUntrustedCertificates
 }
 
 - (MQTTSession *)newMQTTSession {
-    DDLogVerbose(@"[Connection] %@ new session", self.clientId);
+    DDLogInfo(@"[Connection] new session");
     MQTTSession *session;
     MQTTTransport *mqttTransport;
 
@@ -323,12 +324,12 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
         topicAlias:(NSNumber *)topicAlias
                qos:(NSInteger)qos
             retain:(BOOL)retainFlag {
-    DDLogVerbose(@"[Connection] %@ sendData:%@ %@ q%ld r%d",
-                 self.clientId,
-                 topic,
-                 [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding],
-                 (long)qos,
-                 retainFlag);
+    DDLogInfo(@"[Connection] sendData(%ld):%@ %@ q%ld r%d",
+              data.length,
+              topic,
+              [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding],
+              (long)qos,
+              retainFlag);
 
     if (self.url) {
         [CoreData.sharedInstance.queuedMOC performBlock:^{
@@ -384,7 +385,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
                                     userProperties:nil
                                        contentType:nil
                                     publishHandler:nil];
-        DDLogVerbose(@"%@ sendData m%u", self.clientId, msgId);
+        DDLogInfo(@"[Connection] sendData mid=%u", msgId);
         return msgId;
     }
 }
@@ -398,7 +399,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 
 - (void)sendHTTP:(NSString *)topic data:(NSData *)data {
     NSString *postLength = [NSString stringWithFormat:@"%ld",(unsigned long)data.length];
-    DDLogVerbose(@"[Connection] sendtHTTP %@(%@):%@",
+    DDLogInfo(@"[Connection] sendtHTTP %@(%@):%@",
                  topic, postLength, [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
 
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
@@ -432,7 +433,17 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     NSString *contentType = [NSString stringWithFormat:@"application/json"];
     [request setValue:contentType forHTTPHeaderField: @"Content-Type"];
     
-    DDLogVerbose(@"[Connection] NSMutableURLRequest %@", request);
+    DDLogInfo(@"[Connection] NSMutableURLRequest %@://%@%@%@%@ (%@)",
+              request.URL.scheme,
+              request.URL.user ? request.URL.password ?
+              [NSString stringWithFormat:@"%@:<password>@", request.URL.user] :
+              [NSString stringWithFormat:@"%@@", request.URL.user] :
+              @"",
+              request.URL.host,
+              request.URL.port ? [NSString stringWithFormat:@":%@", request.URL.port] : @"",
+              request.URL.path,
+              request.allHTTPHeaderFields
+              );
     
     self.state = state_connecting;
     self.lastErrorCode = nil;
@@ -467,14 +478,15 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
                          }
                          
                          NSData *incomingData = data;
-                         DDLogVerbose(@"[Connection] incomingData %@",
-                                      [[NSString alloc] initWithData:incomingData encoding:NSUTF8StringEncoding]);
+                         DDLogInfo(@"[Connection] HTTP %ld incomingData %@",
+                                   (long)httpResponse.statusCode,
+                                   [[NSString alloc] initWithData:incomingData encoding:NSUTF8StringEncoding]);
                          if (self.key && self.key.length) {
                              incomingData = [self decrypt:incomingData];
                          }
 
                          if (incomingData) {
-                             id json = [NSJSONSerialization JSONObjectWithData:incomingData options:0 error:nil];
+                             id json = [[Validation sharedInstance] validateMessagesData:incomingData];
                              if (json && [json isKindOfClass:[NSArray class]]) {
                                  for (id element in json) {
                                      if ([element isKindOfClass:[NSDictionary class]]) {
@@ -499,16 +511,15 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
                      self.state = state_error;
 
                      if (httpResponse.statusCode >= 400 && httpResponse.statusCode <= 499) {
-                         NSString *message = [NSString stringWithFormat:@"Status Code %ld\n%@\n%@",
+                         NSString *message = [NSString stringWithFormat:@"Status Code %ld\n%@",
                                               (long)httpResponse.statusCode,
-                                              response.URL,
                                               [[NSString alloc] initWithData:request.HTTPBody encoding:NSUTF8StringEncoding]
                                               ];
+                         DDLogWarn(@"[Connection] HTTP Response %@", message);
 
                          [self performSelectorOnMainThread:@selector(HTTPerror:)
                                                 withObject:message
                                              waitUntilDone:FALSE];
-
                          [CoreData.sharedInstance.queuedMOC performBlock:^{
                              NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
                              request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]];
@@ -544,7 +555,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 }
 
 - (void)oneMessage:(NSDictionary *)message {
-    DDLogVerbose(@"[Connection] oneMessage %@", message.description);
+    DDLogInfo(@"[Connection] oneMessage %@", message.description);
 
     if (message && [message isKindOfClass:[NSDictionary class]]) {
         NSString *topic = @"owntracks/http/??";
@@ -556,7 +567,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
                 topic = [NSString stringWithFormat:@"owntracks/http/%@", message[@"tid"]];
             }
         }
-        DDLogVerbose(@"[Connection] oneMessage topic %@", topic);
+        DDLogInfo(@"[Connection] oneMessage topic %@", topic);
         
         [self.delegate handleMessage:self
                                 data:[NSJSONSerialization dataWithJSONObject:message options:0 error:nil]
@@ -566,7 +577,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 }
 
 - (void)disconnect {
-    DDLogInfo(@"[Connection] %@ disconnect:", self.clientId);
+    DDLogInfo(@"[Connection] disconnect");
     if (!self.url) {
         self.intendedDisconnect = TRUE;
         self.state = state_closing;
@@ -607,8 +618,8 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 
 - (void)connected:(MQTTSession *)session sessionPresent:(BOOL)sessionPresent {
 
-    DDLogWarn(@"[Connection] %@ connected sessionPresent %d",
-              self.clientId, sessionPresent);
+    DDLogInfo(@"[Connection] connected sessionPresent %d",
+              sessionPresent);
 
     self.lastErrorCode = nil;
     self.state = state_connected;
@@ -619,15 +630,20 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     if (self.clean || !self.reconnectFlag) {
         for (NSString *topicFilter in self.subscriptions) {
             if (topicFilter.length) {
-                [self.session subscribeToTopicV5:topicFilter
-                                         atLevel:self.subscriptionQos
-                                         noLocal:self.protocolVersion >= MQTTProtocolVersion50 ?
-                                           TRUE : FALSE
-                               retainAsPublished:FALSE
-                                  retainHandling:MQTTSendRetained
-                          subscriptionIdentifier:0
-                                  userProperties:nil
-                                subscribeHandler:nil];
+                DDLogInfo(@"[Connection] subscribe %@ qos=%d",
+                          topicFilter, self.subscriptionQos);
+
+                UInt16 mid = [self.session subscribeToTopicV5:topicFilter
+                                                      atLevel:self.subscriptionQos
+                                                      noLocal:self.protocolVersion >= MQTTProtocolVersion50 ?
+                                                        TRUE : FALSE
+                                            retainAsPublished:FALSE
+                                               retainHandling:MQTTSendRetained
+                                       subscriptionIdentifier:0
+                                               userProperties:nil
+                                             subscribeHandler:nil];
+                DDLogInfo(@"[Connection] subscription mid=%d",
+                          mid);
             }
         }
         self.reconnectFlag = TRUE;
@@ -635,8 +651,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 }
 
 - (void)handleEvent:(MQTTSession *)session event:(MQTTSessionEvent)eventCode error:(NSError *)error {
-    DDLogInfo(@"[Connection] %@ MQTT eventCode: %@ (%ld) %@",
-                 self.clientId,
+    DDLogInfo(@"[Connection] %@ MQTT eventCode: (%ld) %@",
                  @{@(MQTTSessionEventConnected): @"connected",
                    @(MQTTSessionEventConnectionRefused): @"connection refused",
                    @(MQTTSessionEventConnectionClosed): @"connection closed",
@@ -693,8 +708,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
             reasonString:(NSString *)reasonString
           userProperties:(NSArray<NSDictionary<NSString *,NSString *> *> *)userProperties
              reasonCodes:(NSArray<NSNumber *> *)reasonCodes {
-    DDLogInfo(@"[Connection] %@ subAckReceived mid=%u rc=%@ up=%@",
-              session.clientId,
+    DDLogInfo(@"[Connection] subAckReceived mid=%u rc=%@ up=%@",
               msgID,
               reasonCodes,
               userProperties);
@@ -706,8 +720,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
               reasonString:(NSString *)reasonString
             userProperties:(NSArray<NSDictionary<NSString *,NSString *> *> *)userProperties
                reasonCodes:(NSArray<NSNumber *> *)reasonCodes {
-    DDLogInfo(@"[Connection] %@ unsubAckReceived mid=%u rs=%@ rc=%@ up=%@",
-              session.clientId,
+    DDLogInfo(@"[Connection] unsubAckReceived mid=%u rs=%@ rc=%@ up=%@",
               msgID,
               reasonString,
               reasonCodes,
@@ -727,11 +740,8 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
            correlationData:(NSData *)correlationData
             userProperties:(NSArray<NSDictionary<NSString *,NSString *> *> *)userProperties
                contentType:(NSString *)contentType {
-    DDLogVerbose(@"[Connection] %@ messageDelivered mid=%u",
-                 session.clientId,
-                 msgID);
+    DDLogInfo(@"[Connection] messageDelivered mid=%u", msgID);
     [self.delegate messageDelivered:self msgID:msgID];
-
 }
 
 - (BOOL)newMessageWithFeedbackV5:(MQTTSession *)session
@@ -753,22 +763,24 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
         data = [self decrypt:data];
     }
 
-    DDLogVerbose(@"[Connection] %@ received topic=%@ dataString=%@",
-                 session.clientId,
-                 topic,
-                 [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+#define LEN2PRINT 2048
+    NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    DDLogInfo(@"[Connection] received topic=%@ dataString(%lu)=%@",
+              topic,
+              (unsigned long)dataString.length,
+              dataString.length <= LEN2PRINT ?
+              dataString :
+              [NSString stringWithFormat:@"%@...", [dataString substringToIndex:LEN2PRINT]]);
     return [self.delegate handleMessage:self
                                    data:data
                                 onTopic:topic
                                retained:retained];
-
 }
 
 - (void)buffered:(MQTTSession *)session
        flowingIn:(NSUInteger)flowingIn
       flowingOut:(NSUInteger)flowingOut {
-    DDLogVerbose(@"[Connection] %@ buffered i%lu o%lu",
-                 self.clientId,
+    DDLogVerbose(@"[Connection] buffered i%lu o%lu",
                  (unsigned long)flowingIn,
                  (unsigned long)flowingOut);
     self.inCount = flowingIn;
@@ -787,8 +799,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
             }
             [self.session connectWithConnectHandler:nil];
         } else {
-            DDLogWarn(@"[Connection] %@ not starting (%ld), can't connect",
-                      self.clientId, (long)self.state);
+            DDLogInfo(@"[Connection] not starting (%ld), can't connect", (long)self.state);
         }
     }
 }
@@ -812,8 +823,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 
 - (void)setState:(NSInteger)state {
     _state = state;
-    DDLogVerbose(@"[Connection] %@ state %@ (%ld)",
-                 self.clientId,
+    DDLogInfo(@"[Connection] state %@ (%ld)",
                  @{@(state_starting): @"starting",
                    @(state_connecting): @"connecting",
                    @(state_error): @"error",
@@ -826,7 +836,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 }
 
 - (void)reconnect {
-    DDLogInfo(@"[Connection] %@ reconnect", self.clientId);
+    DDLogInfo(@"[Connection] reconnect");
 
     if (self.reconnectTimer) {
         if (self.reconnectTimer.isValid) {
@@ -845,7 +855,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 }
 
 - (void)connectToLast {
-    DDLogInfo(@"[Connection] %@ connectToLast", self.clientId);
+    DDLogInfo(@"[Connection] connectToLast");
     
     self.reconnectTime = RECONNECT_TIMER;
     
@@ -853,7 +863,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 }
 
 - (void)startReconnectTimer:(NSRunLoop *)runLoop {
-    DDLogInfo(@"[Connection] %@ setTimer %f", self.clientId, self.reconnectTime);
+    DDLogInfo(@"[Connection] set reconnectTimer %f", self.reconnectTime);
     self.reconnectTimer = [NSTimer timerWithTimeInterval:self.reconnectTime
                                                   target:self
                                                 selector:@selector(reconnect)
@@ -894,18 +904,11 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 - (NSData *)decrypt:(NSData *)data {
     NSString *b64String;
     
-    id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    if (json && [json isKindOfClass:[NSDictionary class]]) {
-        NSDictionary *dictionary = json;
-        if ([dictionary[@"_type"] isEqualToString:@"encrypted"]) {
-            b64String = dictionary[@"data"];
-        } else {
-            return data;
-        }
-    } else {
+    id json = [[Validation sharedInstance] validateEncryptionData:data];
+    if (!json) {
         return data;
     }
-
+    b64String = json[@"data"];
     NSData *onTheWire = [[NSData alloc] initWithBase64EncodedString:b64String
                                                             options:0];
     NSData *nonce = [onTheWire subdataWithRange:NSMakeRange(0, crypto_secretbox_NONCEBYTES)];

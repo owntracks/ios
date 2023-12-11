@@ -18,14 +18,14 @@
 #import "Tours.h"
 #import "ConnType.h"
 #import "NSNumber+decimals.h"
+#import "Validation.h"
 
 #import "OwnTracksSendNowIntent.h"
 #import "OwnTracksChangeMonitoringIntent.h"
 #import "OwnTracksTagIntent.h"
 #import "OwnTracksPointOfInterestIntent.h"
 
-#import <CocoaLumberjack/CocoaLumberjack.h>
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 @interface NSString (safe)
 - (BOOL)saveEqual:(NSString *)aString;
@@ -105,6 +105,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 @property (strong, nonatomic) NSTimer *holdTimer;
 @property (strong, nonatomic) NSTimer *bgTimer;
 
+
+
 @end
 
 @implementation OwnTracksAppDelegate
@@ -156,9 +158,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 #ifdef DEBUG
-    [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelVerbose];
+    [DDLog addLogger:[DDOSLogger sharedInstance] withLevel:DDLogLevelVerbose];
 #endif
     [DDLog addLogger:[DDOSLogger sharedInstance] withLevel:DDLogLevelWarning];
+    
+    self.fl = [[DDFileLogger alloc] init];
+    NSISO8601DateFormatter *isoFormatter = [[NSISO8601DateFormatter alloc] init];
+    [isoFormatter setFormatOptions:
+     NSISO8601DateFormatWithFullDate |
+     NSISO8601DateFormatWithFullTime |
+     NSISO8601DateFormatWithFractionalSeconds];
+    self.fl.logFormatter = [[DDLogFileFormatterDefault alloc]
+                            initWithDateFormatter:(NSDateFormatter *)isoFormatter];
+    [DDLog addLogger:self.fl withLevel:DDLogLevelVerbose];
     
     [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
     
@@ -215,7 +227,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     UIBackgroundRefreshStatus status = [UIApplication sharedApplication].backgroundRefreshStatus;
     switch (status) {
         case UIBackgroundRefreshStatusAvailable:
-            DDLogVerbose(@"[OwnTracksAppDelegate] UIBackgroundRefreshStatusAvailable");
+            DDLogInfo(@"[OwnTracksAppDelegate] UIBackgroundRefreshStatusAvailable");
             break;
         case UIBackgroundRefreshStatusDenied:
             DDLogWarn(@"[OwnTracksAppDelegate] UIBackgroundRefreshStatusDenied");
@@ -238,7 +250,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
     UNAuthorizationOptionBadge;
     [center requestAuthorizationWithOptions:options
                           completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        DDLogVerbose(@"[OwnTracksAppDelegate] requestAuthorizationWithOptions granted:%d error:%@", granted, error);
+        DDLogInfo(@"[OwnTracksAppDelegate] UNUserNotificationCenter requestAuthorizationWithOptions granted:%d error:%@", granted, error);
     }];
     center.delegate = self;
     return YES;
@@ -246,7 +258,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    DDLogVerbose(@"[OwnTracksAppDelegate] didFinishLaunchingWithOptions");
+    DDLogVerbose(@"[OwnTracksAppDelegate] didFinishLaunchingWithOptions %@", launchOptions);
     
     self.connection = [[Connection alloc] init];
     self.connection.delegate = self;
@@ -276,7 +288,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center
        willPresentNotification:(UNNotification *)notification
          withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
-    DDLogVerbose(@"[OwnTracksAppDelegate] willPresentNotification");
     if (@available(iOS 14.0, *)) {
         completionHandler(UNNotificationPresentationOptionBanner |
                           UNNotificationPresentationOptionSound);
@@ -288,7 +299,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    DDLogVerbose(@"[OwnTracksAppDelegate] applicationWillResignActive");
+    DDLogInfo(@"[OwnTracksAppDelegate] applicationWillResignActive");
     //    #if !TARGET_OS_MACCATALYST
     //            if ([LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
     //                [self.connection disconnect];
@@ -299,7 +310,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    DDLogVerbose(@"[OwnTracksAppDelegate] applicationDidEnterBackground");
+    DDLogInfo(@"[OwnTracksAppDelegate] applicationDidEnterBackground");
 #if !TARGET_OS_MACCATALYST
     [self background];
 #if !TARGET_OS_MACCATALYST
@@ -313,7 +324,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    DDLogVerbose(@"[OwnTracksAppDelegate] applicationWillTerminate");
+    DDLogInfo(@"[OwnTracksAppDelegate] applicationWillTerminate");
     [self background];
     [self.connection disconnect];
     
@@ -322,7 +333,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 -(BOOL)application:(UIApplication *)app
            openURL:(NSURL *)url
            options:(NSDictionary<NSString *,id> *)options {
-    DDLogVerbose(@"[OwnTracksAppDelegate] openURL %@ options %@", url, options);
+    DDLogInfo(@"[OwnTracksAppDelegate] openURL %@ options %@", url, options);
     
     if (url) {
         DDLogVerbose(@"[OwnTracksAppDelegate] URL scheme %@", url.scheme);
@@ -369,6 +380,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                 [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
                 self.processingMessage = NSLocalizedString(@"Beacon QR successfully processed",
                                                            @"Display after processing beacon QR code");
+                DDLogInfo(@"[OwnTracksAppDelegate] openURL ok %@", self.processingMessage);
                 return TRUE;
             } else if ([url.path isEqualToString:@"/config"]) {
                 NSString *urlString = queryStrings[@"url"];
@@ -379,29 +391,39 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                 } else if (base64String) {
                     NSData *jsonData = [[NSData alloc] initWithBase64EncodedString:base64String options:0];
                     if (jsonData) {
-                        NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
-                        if (dict && [dict isKindOfClass:NSDictionary.class]) {
+                        NSDictionary *dict = nil;
+                        id json = [[Validation sharedInstance] validateMessageData:jsonData];
+                        if (json &&
+                            [json isKindOfClass:[NSDictionary class]]) {
+                            dict = json;
+                        }
+                        if (dict) {
                             [self configFromDictionary:dict];
                             self.processingMessage = NSLocalizedString(@"Inline Configuration successfully processed",
                                                                        @"Display after processing inline config");
+                            DDLogInfo(@"[OwnTracksAppDelegate] openURL ok %@", self.processingMessage);
                             return TRUE;
                         } else {
                             self.processingMessage = NSLocalizedString(@"Inline Configuration incorrect",
                                                                        @"Display for incorrect inline config");
+                            DDLogInfo(@"[OwnTracksAppDelegate] openURL problem %@", self.processingMessage);
                             return FALSE;
                         }
                     } else {
                         self.processingMessage = NSLocalizedString(@"Inline Configuration incorrectly encoded",
                                                                    @"Display for incorrectly encoded inline config");
+                        DDLogInfo(@"[OwnTracksAppDelegate] openURL problem %@", self.processingMessage);
                         return FALSE;
                     }
                 }
                 self.processingMessage = NSLocalizedString(@"Inline Configuration missing parameters",
                                                            @"Display for config without parameters");
+                DDLogInfo(@"[OwnTracksAppDelegate] openURL problem %@", self.processingMessage);
                 return FALSE;
             } else {
                 self.processingMessage = NSLocalizedString(@"unknown url path",
                                                            @"Display for unknown url path");
+                DDLogInfo(@"[OwnTracksAppDelegate] openURL problem %@", self.processingMessage);
                 return FALSE;
             }
         } else if ([url.scheme isEqualToString:@"file"]) {
@@ -414,15 +436,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                       NSLocalizedString(@"unknown scheme in url",
                                                         @"Display after entering an unknown scheme in url"),
                                       url.scheme];
+            DDLogInfo(@"[OwnTracksAppDelegate] openURL problem %@", self.processingMessage);
             return FALSE;
         }
     }
     self.processingMessage = NSLocalizedString(@"no url specified",
                                                @"Display after trying to process a file");
+    DDLogInfo(@"[OwnTracksAppDelegate] openURL problem %@", self.processingMessage);
     return FALSE;
 }
 
 - (BOOL)processNSURL:(NSURL *)url {
+    DDLogInfo(@"[OwnTracksAppDelegate] processNSURL %@", url);
+
     self.processingMessage = nil;
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSessionDataTask *dataTask =
@@ -434,33 +460,42 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
             
             if ([response isKindOfClass:[NSHTTPURLResponse class]]) {
                 NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-                DDLogVerbose(@"[OwnTracksAppDelegate] NSHTTPURLResponse %@", httpResponse);
+                DDLogInfo(@"[OwnTracksAppDelegate] NSHTTPURLResponse %@", httpResponse);
                 if (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299) {
+                    DDLogInfo(@"[OwnTracksAppDelegate] URL pathExtension %@", url.pathExtension);
                     NSError *error;
                     NSString *extension = url.pathExtension;
                     if ([extension isEqualToString:@"otrc"] || [extension isEqualToString:@"mqtc"]) {
-                        [self performSelectorOnMainThread:@selector(terminateSession)
-                                               withObject:nil
-                                            waitUntilDone:TRUE];
-                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
-                                                                             options:0
-                                                                               error:nil];
-                        [self performSelectorOnMainThread:@selector(configFromDictionary:)
-                                               withObject:json
-                                            waitUntilDone:TRUE];
-                        self.configLoad = [NSDate date];
-                        [self performSelectorOnMainThread:@selector(reconnect)
-                                               withObject:nil
-                                            waitUntilDone:TRUE];
+                        NSDictionary *dict = nil;
+                        id json = [[Validation sharedInstance] validateMessageData:data];
+                        if (json &&
+                            [json isKindOfClass:[NSDictionary class]]) {
+                            dict = json;
+                        }
+                        if (dict) {
+                            [self performSelectorOnMainThread:@selector(terminateSession)
+                                                   withObject:nil
+                                                waitUntilDone:TRUE];
+                            [self performSelectorOnMainThread:@selector(configFromDictionary:)
+                                                   withObject:dict
+                                                waitUntilDone:TRUE];
+                            self.configLoad = [NSDate date];
+                            [self performSelectorOnMainThread:@selector(reconnect)
+                                                   withObject:nil
+                                                waitUntilDone:TRUE];
+                        }
                     } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
-                        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
-                                                                             options:0
-                                                                               error:nil];
-                        
-                        
-                        [self performSelectorOnMainThread:@selector(waypointsFromDictionary:)
-                                               withObject:json
-                                            waitUntilDone:TRUE];
+                        NSDictionary *dict = nil;
+                        id json = [[Validation sharedInstance] validateMessageData:data];
+                        if (json &&
+                            [json isKindOfClass:[NSDictionary class]]) {
+                            dict = json;
+                        }
+                        if (dict) {
+                            [self performSelectorOnMainThread:@selector(waypointsFromDictionary:)
+                                                   withObject:dict
+                                                waitUntilDone:TRUE];
+                        }
                     } else if ([extension isEqualToString:@"otrp"] || [extension isEqualToString:@"otre"]) {
                         NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
                                                                                      inDomain:NSUserDomainMask
@@ -537,11 +572,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (BOOL)processFile:(NSURL *)url {
+    DDLogInfo(@"[OwnTracksAppDelegate] processFile %@", url);
     NSInputStream *input = [NSInputStream inputStreamWithURL:url];
     if (input.streamError) {
         self.processingMessage = [NSString stringWithFormat:@"inputStreamWithURL %@ %@",
                                   input.streamError,
                                   url];
+        DDLogInfo(@"[OwnTracksAppDelegate] processFile problem %@", self.processingMessage);
         return FALSE;
     }
     [input open];
@@ -551,10 +588,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                                     @"Display after trying to open a file"),
                                   input.streamError,
                                   url];
+        DDLogInfo(@"[OwnTracksAppDelegate] processFile problem %@", self.processingMessage);
         return FALSE;
     }
     
-    DDLogVerbose(@"[OwnTracksAppDelegate] URL pathExtension %@", url.pathExtension);
+    DDLogInfo(@"[OwnTracksAppDelegate] URL pathExtension %@", url.pathExtension);
     
     NSError *error;
     NSString *extension = url.pathExtension;
@@ -597,6 +635,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                   url.lastPathComponent,
                                   error.localizedDescription,
                                   error.userInfo];
+        DDLogInfo(@"[OwnTracksAppDelegate] processFile problem %@", self.processingMessage);
         return FALSE;
     }
     self.processingMessage = [NSString stringWithFormat:@"%@ %@ %@",
@@ -606,11 +645,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                               NSLocalizedString(@"successfully processed",
                                                 @"Display when file processing succeeds")
     ];
+    DDLogInfo(@"[OwnTracksAppDelegate] processFile ok %@", self.processingMessage);
     return TRUE;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    DDLogVerbose(@"[OwnTracksAppDelegate] applicationDidBecomeActive");
+    DDLogInfo(@"[OwnTracksAppDelegate] applicationDidBecomeActive");
     
     [self.connection connectToLast];
     
@@ -643,6 +683,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (void)doRefresh {
+    DDLogInfo(@"[OwnTracksAppDelegate] doRefresh");
     self.inRefresh = TRUE;
     [self background];
     
@@ -721,12 +762,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (void)disconnectInBackground {
-    DDLogVerbose(@"[OwnTracksAppDelegate] disconnectInBackground");
+    DDLogInfo(@"[OwnTracksAppDelegate] disconnectInBackground");
     [self.connection disconnect];
 }
 
 - (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
-    DDLogVerbose(@"[OwnTracksAppDelegate] performActionForShortcutItem %@", shortcutItem.type);
+    DDLogInfo(@"[OwnTracksAppDelegate] performActionForShortcutItem %@", shortcutItem.type);
     if ([shortcutItem.type isEqualToString:@"org.mqttitude.MQTTitude.movemode"]) {
         LocationMonitoring monitoring = LocationMonitoringMove;
         [LocationManager sharedInstance].monitoring = monitoring;
@@ -1023,7 +1064,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                 self.disconnectTimer = nil;
             }
             
-            DDLogInfo(@"[OwnTracksAppDelegate] endBackGroundTask %lu",
+            DDLogVerbose(@"[OwnTracksAppDelegate] endBackGroundTask %lu",
                       (unsigned long)self.backgroundTask);
             [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
             self.backgroundTask = UIBackgroundTaskInvalid;
@@ -1071,9 +1112,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
         if (ownDevice) {
             
             NSError *error;
-            id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
-            if (json && [json isKindOfClass:[NSDictionary class]]) {
-                NSDictionary *dictionary = json;
+            NSDictionary *dictionary = nil;
+            id json = [[Validation sharedInstance] validateMessageData:data];
+            if (json &&
+                [json isKindOfClass:[NSDictionary class]]) {
+                dictionary = json;
+            }
+
+            if (dictionary) {
                 if ([@"cmd" saveEqual:dictionary[@"_type"]]) {
                     if (
 #ifdef DEBUG
@@ -1145,7 +1191,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (void)messageDelivered:(Connection *)connection msgID:(UInt16)msgID {
-    DDLogVerbose(@"[OwnTracksAppDelegate] messageDelivered msgID=%u", msgID);
+    // noop
 }
 
 - (void)totalBuffered:(Connection *)connection count:(NSUInteger)count {
@@ -1361,7 +1407,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 #pragma actions
 
 - (BOOL)sendNow:(CLLocation *)location withPOI:(NSString *)poi {
-    DDLogVerbose(@"[OwnTracksAppDelegate] sendNow %@", location);
+    DDLogInfo(@"[OwnTracksAppDelegate] sendNow %@ withPOI %@", location, poi);
     
     if (self.sendNowActivity) {
         [self.sendNowActivity invalidate];
@@ -1377,13 +1423,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (void)reportLocation {
-    DDLogVerbose(@"[OwnTracksAppDelegate] reportLocation");
+    DDLogInfo(@"[OwnTracksAppDelegate] reportLocation");
     CLLocation *location = [LocationManager sharedInstance].location;
     [self publishLocation:location trigger:@"r" withPOI:nil];
 }
 
 - (void)connectionOff {
-    DDLogVerbose(@"[OwnTracksAppDelegate] connectionOff");
+    DDLogInfo(@"[OwnTracksAppDelegate] connectionOff");
     [self.connection disconnect];
 }
 
@@ -1546,6 +1592,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (void)sendEmpty:(NSString *)topic {
+    DDLogInfo(@"[OwnTracksAppDelegate] sendEmpty");
     NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
     MQTTQosLevel qos = [Settings intForKey:@"qos_preference"
                                      inMOC:moc];
@@ -1557,6 +1604,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 }
 
 - (void)sendRegion:(Region *)region {
+    DDLogInfo(@"[OwnTracksAppDelegate] sendRegion %@", region);
     NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
     
     if ([Settings validIdsInMOC:moc]) {
@@ -1600,14 +1648,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
                                                                         error:nil];
         NSArray *certificates = nil;
         NSString *fileName = [Settings stringForKey:@"clientpkcs" inMOC:moc];
+        NSString *passPhrase = [Settings stringForKey:@"passphrase" inMOC:moc];
         if (fileName && fileName.length) {
-            DDLogVerbose(@"[OwnTracksAppDelegate] getting p12 filename:%@ passphrase:%@",
-                         fileName, [Settings stringForKey:@"passphrase" inMOC:moc]);
+            DDLogInfo(@"[OwnTracksAppDelegate] getting p12 filename:%@ passphrase:%@",
+                         fileName, passPhrase);
             NSString *clientPKCSPath = [directoryURL.path stringByAppendingPathComponent:fileName];
             certificates = [MQTTTransport clientCertsFromP12:clientPKCSPath
-                                                  passphrase:[Settings stringForKey:@"passphrase"
-                                                                              inMOC:moc]];
+                                                  passphrase:passPhrase];
             if (!certificates) {
+                DDLogWarn(@"[OwnTracksAppDelegate] TLS Client Certificate incorrect file or passphrase");
                 [self.navigationController alert:
                      NSLocalizedString(@"TLS Client Certificate",
                                        @"Heading for certificate error message")

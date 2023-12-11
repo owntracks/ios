@@ -1,0 +1,6 @@
+framework module DSJSONSchemaValidation {
+  umbrella header "DSJSONSchemaValidation-umbrella.h"
+
+  export *
+  module * { export * }
+}

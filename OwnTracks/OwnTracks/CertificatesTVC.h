@@ -9,7 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface CertificatesTVC : UITableViewController
-@property (strong, nonatomic) NSString *selectedFileNames;
-@property (strong, nonatomic) NSString *fileNameIdentifier;
-@property (strong, nonatomic) NSNumber *multiple;
+@property (strong, nonatomic) NSString *selectedFileName;
 @end
