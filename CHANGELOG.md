@@ -1,6 +1,13 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 17.0.4 iOS/ipadOS/macOS
+* Release Date 2023-12-14
+
+** Bug fixes
+
+    [FIX] crash when receiving illegal json closes #755
+
 ## OwnTracks 17.0.3 iOS/ipadOS/macOS
 * Release Date 2023-12-11
 
