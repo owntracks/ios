@@ -905,10 +905,16 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     NSString *b64String;
     
     id json = [[Validation sharedInstance] validateEncryptionData:data];
-    if (!json) {
+    if (json && [json isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *dictionary = json;
+        if ([dictionary[@"_type"] isEqualToString:@"encrypted"]) {
+            b64String = dictionary[@"data"];
+        } else {
+            return data;
+        }
+    } else {
         return data;
     }
-    b64String = json[@"data"];
     NSData *onTheWire = [[NSData alloc] initWithBase64EncodedString:b64String
                                                             options:0];
     NSData *nonce = [onTheWire subdataWithRange:NSMakeRange(0, crypto_secretbox_NONCEBYTES)];

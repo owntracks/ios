@@ -172,6 +172,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                             initWithDateFormatter:(NSDateFormatter *)isoFormatter];
     [DDLog addLogger:self.fl withLevel:DDLogLevelVerbose];
     
+    DDLogInfo(@"[OwnTracksAppDelegate] OwnTracks starting %@/%@",
+               [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"],
+               [NSLocale currentLocale].localeIdentifier);
+    
     [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
     
     [self setShortcutItems];
