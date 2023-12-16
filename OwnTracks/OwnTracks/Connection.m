@@ -909,6 +909,9 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
         NSDictionary *dictionary = json;
         if ([dictionary[@"_type"] isEqualToString:@"encrypted"]) {
             b64String = dictionary[@"data"];
+            if (!b64String) {
+                return data;
+            }
         } else {
             return data;
         }
@@ -917,6 +920,10 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     }
     NSData *onTheWire = [[NSData alloc] initWithBase64EncodedString:b64String
                                                             options:0];
+    if (!onTheWire) {
+        return data;
+    }
+    
     NSData *nonce = [onTheWire subdataWithRange:NSMakeRange(0, crypto_secretbox_NONCEBYTES)];
     NSData *ciphertext = [onTheWire subdataWithRange:NSMakeRange(crypto_secretbox_NONCEBYTES,
                                                                  onTheWire.length - crypto_secretbox_NONCEBYTES)];

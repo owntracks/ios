@@ -1,6 +1,14 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 17.0.5 iOS/ipadOS/macOS
+* Release Date 2023-12-16
+
+** Bug fixes avoiding crash in some environments
+
+    [FIX] process both encrypted and non-encrypted messages avoiding crash #755
+    [FIX] Credit Texts
+
 ## OwnTracks 17.0.4 iOS/ipadOS/macOS
 * Release Date 2023-12-14
 
