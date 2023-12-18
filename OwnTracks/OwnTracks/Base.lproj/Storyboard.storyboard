@@ -2259,6 +2259,72 @@
                                             <constraint firstItem="wKK-9Q-BMU" firstAttribute="leading" secondItem="Dgw-5m-uvy" secondAttribute="trailing" constant="8" symbolic="YES" id="1aJ-Qh-Ih5"/>
                                         </constraints>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="ml6-e5-8bU">
+                                        <rect key="frame" x="0.0" y="568" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ml6-e5-8bU" id="54W-dM-PHn">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="POI" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fup-3w-dk7">
+                                                    <rect key="frame" x="20" y="12" width="27.5" height="20.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20.5" id="jwj-d4-Soo"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="rG9-Ai-rOW">
+                                                    <rect key="frame" x="55.5" y="12.5" width="299.5" height="19"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="rG9-Ai-rOW" secondAttribute="centerY" id="3DV-MA-xyz"/>
+                                                <constraint firstAttribute="trailing" secondItem="rG9-Ai-rOW" secondAttribute="trailing" constant="20" symbolic="YES" id="47Y-bQ-1j1"/>
+                                                <constraint firstItem="Fup-3w-dk7" firstAttribute="leading" secondItem="54W-dM-PHn" secondAttribute="leading" constant="20" symbolic="YES" id="JJJ-Tw-Bee"/>
+                                                <constraint firstAttribute="centerY" secondItem="Fup-3w-dk7" secondAttribute="centerY" id="sRd-Sh-JeA"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <constraints>
+                                            <constraint firstItem="rG9-Ai-rOW" firstAttribute="leading" secondItem="Fup-3w-dk7" secondAttribute="trailing" constant="8" symbolic="YES" id="NS9-S9-G8s"/>
+                                        </constraints>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="EUa-hX-c0D">
+                                        <rect key="frame" x="0.0" y="612" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EUa-hX-c0D" id="DTy-E0-ypZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Tag" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ch2-SH-JfC">
+                                                    <rect key="frame" x="20" y="12" width="27.5" height="20.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20.5" id="Kur-Gn-g5T"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="XJq-dU-nec">
+                                                    <rect key="frame" x="55.5" y="12.5" width="299.5" height="19"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="XJq-dU-nec" secondAttribute="trailing" constant="20" symbolic="YES" id="374-XR-oZ9"/>
+                                                <constraint firstAttribute="centerY" secondItem="ch2-SH-JfC" secondAttribute="centerY" id="Sp8-A4-7Pn"/>
+                                                <constraint firstAttribute="centerY" secondItem="XJq-dU-nec" secondAttribute="centerY" id="WtP-pX-zcK"/>
+                                                <constraint firstItem="ch2-SH-JfC" firstAttribute="leading" secondItem="DTy-E0-ypZ" secondAttribute="leading" constant="20" symbolic="YES" id="uJn-bD-iUh"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <constraints>
+                                            <constraint firstItem="XJq-dU-nec" firstAttribute="leading" secondItem="ch2-SH-JfC" secondAttribute="trailing" constant="8" symbolic="YES" id="y0b-KR-WUy"/>
+                                        </constraints>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -2281,6 +2347,8 @@
                         <outlet property="UIdistance" destination="gkb-3O-jAy" id="Nnc-RG-6Ce"/>
                         <outlet property="UIinfo" destination="Ikm-SR-MCD" id="RK4-H5-UBA"/>
                         <outlet property="UIplace" destination="1PK-JM-nD2" id="nt4-r6-yA8"/>
+                        <outlet property="UIpoi" destination="rG9-Ai-rOW" id="NPm-zV-eWv"/>
+                        <outlet property="UItag" destination="XJq-dU-nec" id="Is1-Pc-gKc"/>
                         <outlet property="UItimestamp" destination="HVH-Pt-DXp" id="CTa-w1-7qb"/>
                         <outlet property="UItopic" destination="wKK-9Q-BMU" id="XP9-gS-sUT"/>
                         <outlet property="bookmarkButton" destination="xf3-Ji-uzj" id="ieN-V5-Yz2"/>

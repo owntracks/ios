@@ -30,6 +30,7 @@
 
 @property (strong, nonatomic) NSFetchedResultsController *frcFriends;
 @property (strong, nonatomic) NSFetchedResultsController *frcRegions;
+@property (strong, nonatomic) NSFetchedResultsController *frcWaypoints;
 @property (nonatomic) BOOL suspendAutomaticTrackingOfChangesInManagedObjectContext;
 @property (strong, nonatomic) MKUserTrackingBarButtonItem *userTracker;
 
@@ -305,6 +306,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 - (void)reloaded {
     self.frcFriends = nil;
     self.frcRegions = nil;
+    self.frcWaypoints = nil;
     [self updateMoveButton];
 }
 
@@ -457,6 +459,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
     while (!self.frcRegions) {
         //
     }
+    while (!self.frcWaypoints) {
+        //
+    }
     
     if (!self.warning &&
         ![Setting existsSettingWithKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC]) {
@@ -549,6 +554,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelWarning;
 
 #define REUSE_ID_BEACON @"Annotation_beacon"
 #define REUSE_ID_PICTURE @"Annotation_picture"
+#define REUSE_ID_POI @"Annotation_poi"
 #define REUSE_ID_OTHER @"Annotation_other"
 
 // This is a hack because the FriendAnnotationView did not erase it's callout after being dragged
@@ -586,9 +592,8 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         } else {
             friendAnnotationV = [[FriendAnnotationV alloc] initWithAnnotation:friend reuseIdentifier:REUSE_ID_PICTURE];
         }
-        UIButton *refreshButton = [UIButton buttonWithType:UIButtonTypeSystem];
-        [refreshButton setImage:[UIImage imageNamed:@"Refresh"] forState:UIControlStateNormal];
-        [refreshButton sizeToFit];
+        friendAnnotationV.displayPriority = MKFeatureDisplayPriorityRequired;
+        friendAnnotationV.zPriority = MKFeatureDisplayPriorityDefaultHigh;
         friendAnnotationV.canShowCallout = YES;
         friendAnnotationV.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 
@@ -607,27 +612,71 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         Region *region = (Region *)annotation;
         if ([region.CLregion isKindOfClass:[CLBeaconRegion class]]) {
             MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_BEACON];
+#if TRUE
+            MKMarkerAnnotationView *mAV;
+            if (!annotationView) {
+                mAV = [[MKMarkerAnnotationView alloc] initWithAnnotation:region reuseIdentifier:REUSE_ID_BEACON];
+            } else {
+                mAV = (MKMarkerAnnotationView *)annotationView;
+            }
+            mAV.displayPriority = MKFeatureDisplayPriorityRequired;
+            if ([[LocationManager sharedInstance] insideBeaconRegion:region.name]) {
+                mAV.markerTintColor = [UIColor colorNamed:@"beaconHotColor"];
+                mAV.glyphImage = [UIImage imageNamed:@"iBeaconHot"];
+            } else {
+                mAV.markerTintColor = [UIColor colorNamed:@"beaconColdColor"];
+                mAV.glyphImage = [UIImage imageNamed:@"iBeaconCold"];
+            }
+            annotationView = mAV;
+#else
             if (!annotationView) {
                 annotationView = [[MKAnnotationView alloc] initWithAnnotation:region reuseIdentifier:REUSE_ID_BEACON];
             }
-            annotationView.draggable = true;
-            annotationView.canShowCallout = YES;
-
             if ([[LocationManager sharedInstance] insideBeaconRegion:region.name]) {
                 annotationView.image = [UIImage imageNamed:@"iBeaconHot"];
             } else {
                 annotationView.image = [UIImage imageNamed:@"iBeaconCold"];
             }
+#endif
+            annotationView.draggable = true;
+            annotationView.canShowCallout = YES;
+            [annotationView setNeedsDisplay];
+            return annotationView;
+        } else if ([annotation isKindOfClass:[Waypoint class]]) {
+            Waypoint *waypoint = (Waypoint *)annotation;
+            MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_POI];
+            MKMarkerAnnotationView *mAV;
+            if (!annotationView) {
+                mAV = [[MKMarkerAnnotationView alloc] initWithAnnotation:waypoint reuseIdentifier:REUSE_ID_POI];
+            } else {
+                mAV = (MKMarkerAnnotationView *)annotationView;
+            }
+            mAV.displayPriority = MKFeatureDisplayPriorityRequired;
+            annotationView = mAV;
             [annotationView setNeedsDisplay];
             return annotationView;
         } else {
             MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_OTHER];
+#if TRUE
+            MKMarkerAnnotationView *mAV;
             if (!annotationView) {
-                MKPinAnnotationView *pAV;
-                pAV = [[MKPinAnnotationView alloc] initWithAnnotation:region reuseIdentifier:REUSE_ID_OTHER];
-                pAV.pinTintColor = [UIColor colorNamed:@"pinColor"];
-                annotationView = pAV;
+                mAV = [[MKMarkerAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:REUSE_ID_OTHER];
+            } else {
+                mAV = (MKMarkerAnnotationView *)annotationView;
             }
+            mAV.displayPriority = MKFeatureDisplayPriorityRequired;
+            mAV.markerTintColor = [UIColor colorNamed:@"pinColor"];
+            annotationView = mAV;
+#else
+            MKPinAnnotationView *pAV;
+            if (!annotationView) {
+                pAV = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:REUSE_ID_OTHER];
+            } else {
+                pAV = (MKPinAnnotationView *)annotationView;
+            }
+            pAV.pinTintColor = [UIColor colorNamed:@"pinColor"];
+            annotationView = pAV;
+#endif
             annotationView.draggable = true;
             annotationView.canShowCallout = YES;
             [annotationView setNeedsDisplay];
@@ -747,6 +796,23 @@ calloutAccessoryControlTapped:(UIControl *)control {
     return _frcRegions;
 }
 
+- (NSFetchedResultsController *)frcWaypoints {
+    if (!_frcWaypoints) {
+        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Waypoint"];
+        request.predicate = [NSPredicate predicateWithFormat:@"poi <> NULL"];
+
+        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tst" ascending:TRUE]];
+        _frcWaypoints = [[NSFetchedResultsController alloc] initWithFetchRequest:request
+                                                            managedObjectContext:CoreData.sharedInstance.mainMOC
+                                                              sectionNameKeyPath:nil
+                                                                       cacheName:nil];
+        _frcWaypoints.delegate = self;
+        [self performFetch:_frcWaypoints];
+        [self.mapView addAnnotations:_frcWaypoints.fetchedObjects];
+    }
+    return _frcWaypoints;
+}
+
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {
     //
@@ -827,6 +893,24 @@ calloutAccessoryControlTapped:(UIControl *)control {
                 [self.mapView removeAnnotation:region];
                 [self.mapView addAnnotation:region];
                 [self.mapView addOverlay:region];
+
+                break;
+        }
+    } else if ([anObject isKindOfClass:[Waypoint class]]) {
+        Waypoint *waypoint = (Waypoint *)anObject;
+        switch(type.intValue) {
+            case NSFetchedResultsChangeInsert:
+                [self.mapView addAnnotation:waypoint];
+                break;
+
+            case NSFetchedResultsChangeDelete:
+                [self.mapView removeAnnotation:waypoint];
+                break;
+
+            case NSFetchedResultsChangeUpdate:
+            case NSFetchedResultsChangeMove:
+                [self.mapView removeAnnotation:waypoint];
+                [self.mapView addAnnotation:waypoint];
 
                 break;
         }

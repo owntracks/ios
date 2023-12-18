@@ -210,7 +210,7 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)authorize {
-    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    CLAuthorizationStatus status = self.manager.authorizationStatus;
     DDLogVerbose(@"[LocationManager] authorizationStatus=%d", status);
     if (status == kCLAuthorizationStatusNotDetermined) {
         [self.manager requestAlwaysAuthorization];
@@ -377,17 +377,17 @@ static LocationManager *theInstance = nil;
  *
  */
 
-- (void)locationManager:(CLLocationManager *)manager
-didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    DDLogInfo(@"[LocationManager] didChangeAuthorizationStatus to %d", status);
-    if (status != kCLAuthorizationStatusAuthorizedAlways) {
+- (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager {
+    DDLogInfo(@"[LocationManager] didChangeAuthorizationStatus to %d",
+              manager.authorizationStatus);
+    if (manager.authorizationStatus != kCLAuthorizationStatusAuthorizedAlways) {
         [self showError];
     }
 }
 
 - (void)showError {
     OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    CLAuthorizationStatus status = self.manager.authorizationStatus;
     switch (status) {
         case kCLAuthorizationStatusAuthorizedAlways:
             break;

@@ -1,6 +1,14 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 17.1.0 iOS/ipadOS/macOS
+* Release Date 2023-12-??
+
+** UI Improvements
+
+    [NEW] Show POIs
+    [NEW] Show Regions as Markers instead of deprecated Pins
+
 ## OwnTracks 17.0.5 iOS/ipadOS/macOS
 * Release Date 2023-12-16
 

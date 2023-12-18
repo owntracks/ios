@@ -153,8 +153,8 @@ static OwnTracking *theInstance = nil;
                                     location:location
                                    createdAt:createdAt
                                      trigger:dictionary[@"t"]
-                                         poi:nil
-                                         tag:nil
+                                         poi:dictionary[@"poi"]
+                                         tag:dictionary[@"tag"]
                                      battery:batteryLevel
                                      context:context];
                         [self limitWaypointsFor:friend

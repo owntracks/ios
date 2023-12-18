@@ -296,7 +296,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         completionHandler(UNNotificationPresentationOptionBanner |
                           UNNotificationPresentationOptionSound);
     } else {
-        completionHandler(UNNotificationPresentationOptionAlert |
+        completionHandler(UNNotificationPresentationOptionList |
+                          UNNotificationPresentationOptionBanner |
                           UNNotificationPresentationOptionSound);
     }
     

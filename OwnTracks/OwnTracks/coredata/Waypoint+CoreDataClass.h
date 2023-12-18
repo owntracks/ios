@@ -8,13 +8,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 #import <CoreData/CoreData.h>
 
 @class Friend;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface Waypoint : NSManagedObject
+@interface Waypoint : NSManagedObject <MKAnnotation>
 
 - (void) getReverseGeoCode;
 - (CLLocationDistance) getDistanceFrom:(CLLocation *)location;

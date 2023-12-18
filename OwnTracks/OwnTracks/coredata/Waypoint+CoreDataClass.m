@@ -137,4 +137,22 @@
             self.coordinateText];
 }
 
+#pragma MKAnnotation
+
+- (void)setCoordinate:(CLLocationCoordinate2D)newCoordinate {
+    //
+}
+
+- (CLLocationCoordinate2D)coordinate {
+    return CLLocationCoordinate2DMake((self.lat).doubleValue, (self.lon).doubleValue);
+}
+
+- (NSString *)title {
+    return self.poi ? self.poi : self.placemark ? self.placemark : self.shortCoordinateText;
+}
+
+- (NSString *)subtitle {
+    return self.poi ? self.placemark : nil;
+}
+
 @end
