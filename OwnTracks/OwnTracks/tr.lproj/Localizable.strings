@@ -211,6 +211,9 @@
 /* No location recorded indication */
 "No location recorded" = "Konum kaydedilmedi";
 
+/* Display after trying to process a file *//* No pressure available */
+"No pressure available" = "No pressure available";
+
 /* No or empty tour list received from backend */
 "No or empty tour list received from backend" = "No or empty tour list received from backend";
 

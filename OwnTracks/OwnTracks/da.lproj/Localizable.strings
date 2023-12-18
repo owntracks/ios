@@ -205,6 +205,9 @@
 /* No location recorded indication */
 "No location recorded" = "Ingen placering gemt";
 
+/* Display after trying to process a file *//* No pressure available */
+"No pressure available" = "No pressure available";
+
 /* No or empty tour list received from backend */
 "No or empty tour list received from backend" = "Ingen eller tom liste modtaget fra serveren";
 

@@ -185,7 +185,9 @@
 /* No location recorded indication */
 "No location recorded" = "No location recorded";
 
-/* Display after trying to process a file */
+/* Display after trying to process a file *//* No pressure available */
+"No pressure available" = "No pressure available";
+
 "no url specified" = "no url specified";
 
 /* Alert message header for notification messages */

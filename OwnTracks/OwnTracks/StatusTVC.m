@@ -16,6 +16,7 @@
 
 @interface StatusTVC ()
 @property (weak, nonatomic) IBOutlet UITextField *UILocation;
+@property (weak, nonatomic) IBOutlet UITextField *UIpressure;
 @property (weak, nonatomic) IBOutlet UITextView *UIparameters;
 @property (weak, nonatomic) IBOutlet UITextView *UIstatusField;
 @property (weak, nonatomic) IBOutlet UITextField *UIVersion;
@@ -116,6 +117,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                 ];
     } else {
         self.UILocation.text =NSLocalizedString( @"No location recorded",  @"No location recorded indication");
+    }
+
+    if ([LocationManager sharedInstance].altitude) {
+        self.UIpressure.text = [NSString stringWithFormat:@"%.3f kPA",
+                                [LocationManager sharedInstance].altitude.pressure.floatValue];
+    } else {
+        self.UILocation.text =NSLocalizedString( @"No pressure available",  @"No pressure available");
     }
 
     if (self.UIparameters) {

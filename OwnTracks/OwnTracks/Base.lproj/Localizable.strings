@@ -184,6 +184,9 @@
 /* No location recorded indication */
 "No location recorded" = "No location recorded";
 
+/* No pressure available */
+"No pressure available" = "No pressure available";
+
 /* Display after trying to process a file */
 "no url specified" = "no url specified";
 

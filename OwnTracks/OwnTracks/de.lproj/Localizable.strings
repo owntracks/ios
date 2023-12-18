@@ -211,6 +211,9 @@
 /* No location recorded indication */
 "No location recorded" = "Keine Position verfügbar\n";
 
+/* Display after trying to process a file *//* No pressure available */
+"No pressure available" = "No pressure available";
+
 /* No or empty tour list received from backend */
 "No or empty tour list received from backend" = "Tourenliste nicht vorhanden oder leer";
 

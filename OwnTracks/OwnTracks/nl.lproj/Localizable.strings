@@ -199,6 +199,9 @@
 /* No location recorded indication */
 "No location recorded" = "Geen locatie geregistreerd";
 
+/* Display after trying to process a file *//* No pressure available */
+"No pressure available" = "No pressure available";
+
 /* Display after trying to process a file */
 "no url specified" = "geen url opgegeven";
 
