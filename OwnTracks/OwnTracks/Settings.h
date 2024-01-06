@@ -58,8 +58,6 @@ typedef NS_ENUM(int, ConnectionMode) {
 
 + (int)theMaximumHistoryInMOC:(NSManagedObjectContext *)context;
 
-+ (BOOL)validKey:(NSString *)key inMode:(ConnectionMode)mode;
-
 + (BOOL)validIdsInMOC:(NSManagedObjectContext *)context;
 
 + (Settings *)sharedInstance;

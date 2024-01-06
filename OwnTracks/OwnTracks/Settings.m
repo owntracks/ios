@@ -412,10 +412,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     dict[@"ranging"] =                      @([Settings boolForKey:@"ranging_preference" inMOC:context]);
     dict[@"locked"] =                       @([Settings boolForKey:@"locked" inMOC:context]);
     dict[@"tid"] =                          [Settings stringOrZeroForKey:@"trackerid_preference" inMOC:context];
+    dict[@"pubTopicBase"] =                 [Settings stringOrZeroForKey:@"topic_preference" inMOC:context];
     dict[@"monitoring"] =                   @([Settings intForKey:@"monitoring_preference" inMOC:context]);
     dict[@"downgrade"] =                    @([Settings intForKey:@"downgrade_preference" inMOC:context]);
     dict[@"waypoints"] =                    [Settings waypointsToArrayInMOC:context];
-    dict[@"sub"] =                          @([Settings boolForKey:@"sub_preference" inMOC:context]);
     dict[@"positions"] =                    @([Settings intForKey:@"positions_preference" inMOC:context]);
     dict[@"maxHistory"] =                   @([Settings intForKey:@"maxhistory_preference" inMOC:context]);
     dict[@"locatorDisplacement"] =          @([Settings intForKey:@"mindist_preference" inMOC:context]);
@@ -443,8 +443,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     switch ([Settings intForKey:@"mode" inMOC:context]) {
         case CONNECTION_MODE_MQTT:
             dict[@"clientId"] =             [Settings stringOrZeroForKey:@"clientid_preference" inMOC:context];
+            dict[@"sub"] =                  @([Settings boolForKey:@"sub_preference" inMOC:context]);
             dict[@"subTopic"] =             [Settings stringOrZeroForKey:@"subscription_preference" inMOC:context];
-            dict[@"pubTopicBase"] =         [Settings stringOrZeroForKey:@"topic_preference" inMOC:context];
             dict[@"host"] =                 [Settings stringOrZeroForKey:@"host_preference" inMOC:context];
             dict[@"url"] =                  [Settings stringOrZeroForKey:@"url_preference" inMOC:context];
             dict[@"willTopic"] =            [Settings stringOrZeroForKey:@"willtopic_preference" inMOC:context];
