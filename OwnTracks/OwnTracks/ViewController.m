@@ -45,7 +45,7 @@
 
 
 @implementation ViewController
-static const DDLogLevel ddLogLevel = DDLogLevelWarning;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -608,6 +608,19 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 
         return friendAnnotationV;
 
+    } else if ([annotation isKindOfClass:[Waypoint class]]) {
+        Waypoint *waypoint = (Waypoint *)annotation;
+        MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_POI];
+        MKMarkerAnnotationView *mAV;
+        if (!annotationView) {
+            mAV = [[MKMarkerAnnotationView alloc] initWithAnnotation:waypoint reuseIdentifier:REUSE_ID_POI];
+        } else {
+            mAV = (MKMarkerAnnotationView *)annotationView;
+        }
+        mAV.displayPriority = MKFeatureDisplayPriorityRequired;
+        annotationView = mAV;
+        [annotationView setNeedsDisplay];
+        return annotationView;
     } else if ([annotation isKindOfClass:[Region class]]) {
         Region *region = (Region *)annotation;
         if ([region.CLregion isKindOfClass:[CLBeaconRegion class]]) {
@@ -642,19 +655,6 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             annotationView.canShowCallout = YES;
             [annotationView setNeedsDisplay];
             return annotationView;
-        } else if ([annotation isKindOfClass:[Waypoint class]]) {
-            Waypoint *waypoint = (Waypoint *)annotation;
-            MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_POI];
-            MKMarkerAnnotationView *mAV;
-            if (!annotationView) {
-                mAV = [[MKMarkerAnnotationView alloc] initWithAnnotation:waypoint reuseIdentifier:REUSE_ID_POI];
-            } else {
-                mAV = (MKMarkerAnnotationView *)annotationView;
-            }
-            mAV.displayPriority = MKFeatureDisplayPriorityRequired;
-            annotationView = mAV;
-            [annotationView setNeedsDisplay];
-            return annotationView;
         } else {
             MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_OTHER];
 #if TRUE
@@ -681,7 +681,6 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             annotationView.canShowCallout = YES;
             [annotationView setNeedsDisplay];
             return annotationView;
-
         }
     }
     return nil;
@@ -1047,7 +1046,6 @@ calloutAccessoryControlTapped:(UIControl *)control {
     }
 
     if (sender.state == UIGestureRecognizerStateBegan) {
-
         Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] inManagedObjectContext:CoreData.sharedInstance.mainMOC];
         NSString *rid = Region.newRid;
         [[OwnTracking sharedInstance] addRegionFor:rid
@@ -1075,6 +1073,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
         ];
     }
 }
+
 - (IBAction)setPOI:(UIBarButtonItem *)sender {
     UIAlertController *ac = [UIAlertController
                              alertControllerWithTitle:NSLocalizedString(@"Set POI", @"Set POI title")

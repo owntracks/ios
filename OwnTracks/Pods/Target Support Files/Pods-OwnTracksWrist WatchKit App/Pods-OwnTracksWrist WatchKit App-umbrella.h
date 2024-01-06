@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_OwnTracksWrist_WatchKit_ExtensionVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_OwnTracksWrist_WatchKit_ExtensionVersionString[];
+FOUNDATION_EXPORT double Pods_OwnTracksWrist_WatchKit_AppVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_OwnTracksWrist_WatchKit_AppVersionString[];
 

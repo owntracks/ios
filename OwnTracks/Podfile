@@ -2,7 +2,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
 target 'OwnTracks' do
-platform :ios, '13.1'
+platform :ios, '15.0'
 pod 'CocoaLumberjack'
 pod 'ABStaticTableViewController', :path => '~/ABStaticTableViewController'
 pod 'mqttc/MinL', :path => '~/mqttc'
@@ -11,7 +11,7 @@ pod 'libsodium'
 pod 'DSJSONSchemaValidation'
 end
 
-target 'OwnTracksWrist WatchKit Extension' do
-platform :watchos, '6.1'
+target 'OwnTracksWrist WatchKit App' do
+platform :watchos, '10.0'
 pod 'mqttc/MinL', :path => '~/mqttc'
 end

@@ -1834,11 +1834,6 @@
                                 <segue destination="G87-RS-wz7" kind="push" id="ft5-77-rU8"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="trash" hidden="YES" id="YbZ-pq-TFQ">
-                            <connections>
-                                <action selector="trashPressed:" destination="0f4-YU-UXj" id="zXO-LB-dOl"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uQ4-mZ-NmU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -4014,8 +4009,8 @@ DSJSONSchemaValidation
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="auv-et-UoY"/>
-        <segue reference="aMd-Tc-ju9"/>
-        <segue reference="KLh-ve-vhU"/>
+        <segue reference="bll-jZ-B1N"/>
+        <segue reference="Hb0-uO-VBI"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Friends" width="33" height="33"/>

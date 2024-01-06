@@ -1,9 +1,0 @@
-/* Privacy - Location Always and When In Use Usage Description */
-"NSLocationAlwaysAndWhenInUseUsageDescription" = "OwnWatch monitors your location and sends it to a server of your choice";
-
-/* Privacy - Location Always Usage Description */
-"NSLocationAlwaysUsageDescription" = "OwnWatch monitors your location and sends it to a server of your choice";
-
-/* Privacy - Location When In Use Usage Description */
-"NSLocationWhenInUseUsageDescription" = "OwnWatch monitors your location and sends it to a server of your choice";
-
