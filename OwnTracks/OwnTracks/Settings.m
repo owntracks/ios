@@ -495,37 +495,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     return myData;
 }
 
-+ (BOOL)validKey:(NSString *)key
-          inMode:(ConnectionMode)mode {
-    if ([key isEqualToString:@"mode"] ||
-        [key isEqualToString:@"locked"] ||
-        [key isEqualToString:@"sub_preference"] ||
-        [key isEqualToString:@"extendedData_preference"] ||
-        [key isEqualToString:@"monitoring_preference"] ||
-        [key isEqualToString:@"downgrade_preference"] ||
-        [key isEqualToString:@"trackerid_preference"] ||
-        [key isEqualToString:@"ranging_preference"]) {
-        return true;
-    }
-
-    switch (mode) {
-        default:
-            return true;
-    }
-}
-
 + (void)setString:(NSObject *)object
            forKey:(NSString *)key
             inMOC:(NSManagedObjectContext *)context {
-    if ([self validKey:key inMode:[self intForKey:@"mode" inMOC:context]]) {
-        if (object && ![object isKindOfClass:[NSNull class]]) {
-            Setting *setting = [Setting settingWithKey:key inMOC:context];
-            setting.value = [NSString stringWithFormat:@"%@", object];
-        } else {
-            Setting *setting = [Setting existsSettingWithKey:key inMOC:context];
-            if (setting) {
-                [context deleteObject:setting];
-            }
+    if (object && ![object isKindOfClass:[NSNull class]]) {
+        Setting *setting = [Setting settingWithKey:key inMOC:context];
+        setting.value = [NSString stringWithFormat:@"%@", object];
+    } else {
+        Setting *setting = [Setting existsSettingWithKey:key inMOC:context];
+        if (setting) {
+            [context deleteObject:setting];
         }
     }
 }
@@ -561,31 +540,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 + (NSString *)stringForKey:(NSString *)key
                      inMOC:(NSManagedObjectContext *)context {
-    NSString *value = nil;
-
-    int mode = [self stringForKeyRaw:@"mode" inMOC:context].intValue;
-    id object;
-    if (![self validKey:key inMode:mode]) {
-        switch (mode) {
-            case CONNECTION_MODE_HTTP:
-                object = ([SettingsDefaults theDefaults].httpDefaults)[key];
-                break;
-            case CONNECTION_MODE_MQTT:
-            default:
-                object = ([SettingsDefaults theDefaults].mqttDefaults)[key];
-                break;
-        }
-        if (object) {
-            if ([object isKindOfClass:[NSString class]]) {
-                value = (NSString *)object;
-            } else if ([object isKindOfClass:[NSNumber class]]) {
-                value = ((NSNumber *)object).stringValue;
-            }
-        }
-    } else {
-        value = [self stringForKeyRaw:key inMOC:context];
-    }
-    return value;
+    return [Settings stringForKeyRaw:key inMOC:context];
 }
 
 + (NSString *)stringForKeyRaw:(NSString *)key
