@@ -11,7 +11,3 @@ pod 'libsodium'
 pod 'DSJSONSchemaValidation'
 end
 
-target 'OwnTracksWrist WatchKit App' do
-platform :watchos, '10.0'
-pod 'mqttc/MinL', :path => '~/mqttc'
-end
