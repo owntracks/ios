@@ -696,17 +696,21 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         
     } else if ([overlay isKindOfClass:[Region class]]) {
         Region *region = (Region *)overlay;
-        MKCircleRenderer *renderer = [[MKCircleRenderer alloc] initWithCircle:region.circle];
-        if ([region.name hasPrefix:@"+"]) {
-            renderer.fillColor = [UIColor colorNamed:@"followColor"];
-        } else {
-            if ([[LocationManager sharedInstance] insideCircularRegion:region.name]) {
-                renderer.fillColor = [UIColor colorNamed:@"insideColor"];
+        if (region.CLregion && [region.CLregion isKindOfClass:[CLCircularRegion class]]) {
+            MKCircleRenderer *renderer = [[MKCircleRenderer alloc] initWithCircle:region.circle];
+            if ([region.name hasPrefix:@"+"]) {
+                renderer.fillColor = [UIColor colorNamed:@"followColor"];
             } else {
-                renderer.fillColor = [UIColor colorNamed:@"outsideColor"];
+                if ([[LocationManager sharedInstance] insideCircularRegion:region.name]) {
+                    renderer.fillColor = [UIColor colorNamed:@"insideColor"];
+                } else {
+                    renderer.fillColor = [UIColor colorNamed:@"outsideColor"];
+                }
             }
+            return renderer;
+        } else {
+            return nil;
         }
-        return renderer;
     } else {
         return nil;
     }
@@ -984,8 +988,8 @@ calloutAccessoryControlTapped:(UIControl *)control {
                                                       inMOC:CoreData.sharedInstance.mainMOC];
     CLLocation *location = self.mapView.userLocation.location;
 
-    DDLogVerbose(@"[ViewController] sendNow %dm %d %@",
-                 ignoreInaccurateLocations, validIds, location);
+    DDLogVerbose(@"[ViewController] sendNow %dm %d %@ %@",
+                 ignoreInaccurateLocations, validIds, location, poi);
 
     if (!validIds) {
         NSString *message = NSLocalizedString(@"To publish your location userID and deviceID must be set",
@@ -1092,7 +1096,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
         //
     }];
     [ac addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.text = @"POI";
+        textField.text = nil;
     }];
     [ac addAction:send];
     [ac addAction:cancel];

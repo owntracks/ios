@@ -546,11 +546,11 @@ static OwnTracking *theInstance = nil;
         json[@"inrids"] = inRids;
     }
     
-    if (waypoint.poi) {
+    if (waypoint.poi && waypoint.poi.length > 0) {
         json[@"poi"] = waypoint.poi;
     }
     
-    if (waypoint.tag) {
+    if (waypoint.tag && waypoint.tag.length > 0) {
         json[@"tag"] = waypoint.tag;
     }
 
