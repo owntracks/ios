@@ -65,7 +65,8 @@ allowUntrustedCertificates:(BOOL)allowUntrustedCertificates
                auth:(BOOL)auth
                user:(NSString * _Nullable)user
                pass:(NSString * _Nullable)pass
-             device:(NSString * _Nonnull)device;
+             device:(NSString * _Nonnull)device
+        httpHeaders:(NSString *_Nullable)httpHeaders;
 
 - (void)connectToLast;
 

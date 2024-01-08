@@ -1636,6 +1636,37 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="a3j-A9-iA0">
+                                        <rect key="frame" x="0.0" y="1790" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a3j-A9-iA0" id="I2y-pm-t4r">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="HTTP Headers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p6D-3d-Jq2">
+                                                    <rect key="frame" x="20" y="11.5" width="112" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="httpHeaders" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="mca-nZ-Fzz">
+                                                    <rect key="frame" x="140" y="13" width="160" height="18.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                    <connections>
+                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="j9K-sB-E3i"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="p6D-3d-Jq2" firstAttribute="leading" secondItem="I2y-pm-t4r" secondAttribute="leading" constant="20" symbolic="YES" id="1EG-Ev-xKy"/>
+                                                <constraint firstAttribute="centerY" secondItem="p6D-3d-Jq2" secondAttribute="centerY" id="7DE-vk-5Df"/>
+                                                <constraint firstAttribute="trailing" secondItem="mca-nZ-Fzz" secondAttribute="trailing" constant="20" symbolic="YES" id="Mc4-G7-F6k"/>
+                                                <constraint firstAttribute="centerY" secondItem="mca-nZ-Fzz" secondAttribute="centerY" id="mkP-z0-3Vp"/>
+                                                <constraint firstItem="mca-nZ-Fzz" firstAttribute="leading" secondItem="p6D-3d-Jq2" secondAttribute="trailing" constant="8" symbolic="YES" id="pJM-KJ-LnE"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -1673,6 +1704,7 @@
                         <outlet property="UIexport" destination="ysB-cv-35Y" id="QKh-Bs-pnD"/>
                         <outlet property="UIexportWaypoints" destination="54d-E6-cWX" id="gei-cN-ztK"/>
                         <outlet property="UIextendedData" destination="XU4-4O-JeR" id="bzq-zN-cKk"/>
+                        <outlet property="UIhttpHeaders" destination="mca-nZ-Fzz" id="XjV-MO-dU1"/>
                         <outlet property="UIignoreInaccurateLocations" destination="jqJ-cr-0tT" id="OUY-kE-sDL"/>
                         <outlet property="UIignoreStaleLocations" destination="5Nq-by-zFb" id="hkh-vF-ZZR"/>
                         <outlet property="UIkeepAlive" destination="ZT5-mN-Tt5" id="PaT-pR-bh6"/>
@@ -1709,7 +1741,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3424.6376811594205" y="1787.9464285714284"/>
+            <point key="canvasLocation" x="3424" y="1787.4062968515743"/>
         </scene>
         <!--Tab Bar-->
         <scene sceneID="khr-I5-27q">

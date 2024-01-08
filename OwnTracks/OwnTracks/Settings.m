@@ -120,6 +120,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             object = dictionary[@"url"];
             if (object) [self setString:object forKey:@"url_preference" inMOC:context];
 
+            object = dictionary[@"httpHeaders"];
+            if (object) [self setString:object forKey:@"httpheaders_preference" inMOC:context];
+
             object = dictionary[@"username"];
             if (object) [self setString:object forKey:@"user_preference" inMOC:context];
 
@@ -445,7 +448,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             dict[@"sub"] =                  @([Settings boolForKey:@"sub_preference" inMOC:context]);
             dict[@"subTopic"] =             [Settings stringOrZeroForKey:@"subscription_preference" inMOC:context];
             dict[@"host"] =                 [Settings stringOrZeroForKey:@"host_preference" inMOC:context];
-            dict[@"url"] =                  [Settings stringOrZeroForKey:@"url_preference" inMOC:context];
             dict[@"willTopic"] =            [Settings stringOrZeroForKey:@"willtopic_preference" inMOC:context];
             dict[@"clientpkcs"] =           [Settings stringOrZeroForKey:@"clientpkcs" inMOC:context];
             dict[@"passphrase"] =           [Settings stringOrZeroForKey:@"passphrase" inMOC:context];
@@ -467,6 +469,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
         case CONNECTION_MODE_HTTP:
             dict[@"url"] =                  [Settings stringOrZeroForKey:@"url_preference" inMOC:context];
+            dict[@"httpHeaders"] =          [Settings stringOrZeroForKey:@"httpheaders_preference" inMOC:context];
             break;
 
         default:

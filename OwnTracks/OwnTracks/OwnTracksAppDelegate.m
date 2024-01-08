@@ -1643,8 +1643,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                 auth:[Settings theMqttAuthInMOC:moc]
                                 user:[Settings theMqttUserInMOC:moc]
                                 pass:password
-                              device:[Settings theDeviceIdInMOC:moc]];
-        
+                              device:[Settings theDeviceIdInMOC:moc]
+                         httpHeaders:[Settings stringForKey:@"httpheaders_preference"
+                                                      inMOC:moc]];
     } else {
         NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
                                                                      inDomain:NSUserDomainMask
