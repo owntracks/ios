@@ -434,7 +434,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     dict[@"deviceId"] =             [Settings stringOrZeroForKey:@"deviceid_preference" inMOC:context];
     dict[@"cmd"] =                  @([Settings boolForKey:@"cmd_preference" inMOC:context]);
     dict[@"allowRemoteLocation"] =  @([Settings boolForKey:@"allowremotelocation_preference" inMOC:context]);
-    dict[@"allowinvalidcerts"] =    @([Settings boolForKey:@"allowinvalidcerts" inMOC:context]);
     dict[@"auth"] =                 @([Settings boolForKey:@"auth_preference" inMOC:context]);
     dict[@"usePassword"] =          @([Settings boolForKey:@"usepassword_preference" inMOC:context]);
     dict[@"username"] =             [Settings stringOrZeroForKey:@"user_preference" inMOC:context];
@@ -460,6 +459,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
             dict[@"pubRetain"] =            @([Settings boolForKey:@"retain_preference" inMOC:context]);
             dict[@"tls"] =                  @([Settings boolForKey:@"tls_preference" inMOC:context]);
+            dict[@"allowinvalidcerts"] =    @([Settings boolForKey:@"allowinvalidcerts" inMOC:context]);
             dict[@"ws"] =                   @([Settings boolForKey:@"ws_preference" inMOC:context]);
             dict[@"cleanSession"] =         @([Settings boolForKey:@"clean_preference" inMOC:context]);
             dict[@"willRetain"] =           @([Settings boolForKey:@"willretain_preference" inMOC:context]);
