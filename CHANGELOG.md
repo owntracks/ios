@@ -4,10 +4,15 @@ OwnTracks iOS App Release Notes
 ## OwnTracks 17.1.0 iOS/ipadOS/macOS
 * Release Date 2023-12-??
 
-** UI Improvements
+** UI Improvements, Custom HTTP Headers and Bug Fixes
 
     [NEW] Show POIs
     [NEW] Show Regions as Markers instead of deprecated Pins
+    [NEW] httpHeaders added #761
+    [FIX] allowInvaidCerts setting only in MQTT mode
+    [FIX] default POI to empty string (not transmitted) closes #763
+    [NEW] hide all MQTT related parameters in HTTP mode on settings screen #759
+    [NEW] add pressure reading to status view
 
 ## OwnTracks 17.0.5 iOS/ipadOS/macOS
 * Release Date 2023-12-16
