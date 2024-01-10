@@ -18,6 +18,7 @@
 #import "Waypoint+CoreDataClass.h"
 #import "LocationManager.h"
 #import "OwnTracking.h"
+#import "NSNumber+metrics.h"
 
 #import "OwnTracksChangeMonitoringIntent.h"
 
@@ -291,10 +292,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         CLLocationCoordinate2DIsValid(location.coordinate) &&
         (location.coordinate.latitude != 0.0 &&
          location.coordinate.longitude != 0.0)) {
-        self.accuracyButton.title = [NSString stringWithFormat:@"%@%.0f%@",
-                                     NSLocalizedString(@"±", @"Short for deviation plus/minus"),
-                                     location.horizontalAccuracy,
-                                     NSLocalizedString(@"m", @"Short for meters")
+        self.accuracyButton.title = [NSString stringWithFormat:@"±%@",
+                                     [NSLocale currentLocale].usesMetricSystem ?
+                                     @(location.horizontalAccuracy).meterString :
+                                         @(location.horizontalAccuracy).feetString
                                      ];
         self.actionButton.enabled = TRUE;
     } else {

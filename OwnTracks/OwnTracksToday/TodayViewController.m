@@ -9,6 +9,7 @@
 #import "TodayViewController.h"
 #import <NotificationCenter/NotificationCenter.h>
 #import <CoreLocation/CoreLocation.h>
+#import "NSNumber+metrics.h"
 
 @interface TodayViewController () <NCWidgetProviding>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -136,11 +137,10 @@
         default:
         case 0: {
             double distance = [friend[@"distance"] doubleValue];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.f%@",
-                                         distance / 1000.0,
-                                         NSLocalizedString(@"km",
-                                                           @"short for kilometer on Today")
-                                         ];
+            cell.detailTextLabel.text =
+            [NSLocale currentLocale].usesMetricSystem ?
+            @(distance).kilometerString :
+            @(distance).mileString;
             break;
         }
         case 1: {

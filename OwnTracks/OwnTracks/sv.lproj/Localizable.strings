@@ -4,12 +4,6 @@
 /* Short for degrees celsius as in 20° */
 "°" = "°";
 
-/* Short for deviation plus/minus */
-"±" = "±";
-
-/* Short for altitude as in ✈︎1000m */
-"✈︎" = "✈︎";
-
 /* name of an unknown or hidden region */
 "a region" = "ett område";
 
@@ -145,12 +139,6 @@
 /* Display after processing inline config */
 "Inline Configuration successfully processed" = "Inline-konfiguration har bearbetats";
 
-/* Short for kilometers as in 120km */
-"km" = "km";
-
-/* Short for kilometers per hour as in 120km/h */
-"km/h" = "km/h";
-
 /* friend leaves region verb */
 "leaves" = "lämnar";
 
@@ -168,9 +156,6 @@
 
 /* indicates a locked configuration */
 "locked" = "låst";
-
-/* Short for meters */
-"m" = "m";
 
 /* content of an alert message regarging missing Mac Catalyst Export */
 "Mac Catalyst does not support export yet" = "Mac Catalyst stöder inte export ännu";

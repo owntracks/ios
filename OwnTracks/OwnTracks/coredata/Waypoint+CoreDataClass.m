@@ -12,6 +12,7 @@
 #import <MapKit/MapKit.h>
 #import <Contacts/Contacts.h>
 #import "CoreData.h"
+#import "NSNumber+metrics.h"
 
 @implementation Waypoint
 
@@ -60,12 +61,11 @@
 }
 
 - (NSString *)coordinateText {
-    return [NSString stringWithFormat:@"%g,%g (%@%.0f%@)",
+    return [NSString stringWithFormat:@"%g,%g (±%@)",
             (self.lat).doubleValue,
             (self.lon).doubleValue,
-            NSLocalizedString(@"±", @"Short for deviation plus/minus"),
-            (self.acc).doubleValue,
-            NSLocalizedString(@"m", @"Short for meters")
+            [NSLocale currentLocale].usesMetricSystem ?
+            (self.acc).meterString : (self.acc).feetString
             ];
 }
 
@@ -91,31 +91,31 @@
 }
 
 - (NSString *)infoText {
-    return [NSString stringWithFormat:@"%@%0.f%@ (%@%.0f%@) %0.f%@ %0.f%@",
-            NSLocalizedString(@"✈︎", @"Short for altitude as in ✈︎1000m"),
-            (self.alt).doubleValue,
-            NSLocalizedString(@"m", @"Short for meters"),
-            NSLocalizedString(@"±", @"Short for deviation plus/minus"),
-            (self.vac).doubleValue,
-            NSLocalizedString(@"m", @"Short for meters"),
-            (self.vel).doubleValue,
-            NSLocalizedString(@"km/h", @"Short for kilometers per hour as in 120km/h"),
+    return [NSString stringWithFormat:@"✈︎%@ (±%@) %@ %0.f%@",
+            [NSLocale currentLocale].usesMetricSystem ?
+            (self.alt).meterString : (self.alt).feetString,
+            [NSLocale currentLocale].usesMetricSystem ?
+            (self.vac).meterString : (self.vac).feetString,
+            [NSLocale currentLocale].usesMetricSystem ?
+            (self.vel).kilometerperhourString : (self.vel).milesperhourString,
             (self.cog).doubleValue,
             NSLocalizedString(@"°", @"Short for degrees celsius as in 20°")
             ];
 }
 
 + (NSString *)distanceText:(CLLocationDistance)distance {
-    if (distance > 1000.0) {
-        return [NSString stringWithFormat:@"%0.f%@",
-                distance / 1000.0,
-                NSLocalizedString(@"km", @"Short for kilometers as in 120km")
-        ];
+    if ([NSLocale currentLocale].usesMetricSystem) {
+        if (distance * METER2KILOMETER > 1.0) {
+            return @(distance).kilometerString;
+        } else {
+            return @(distance).meterString;
+        }
     } else {
-        return [NSString stringWithFormat:@"%0.f%@",
-                distance,
-                NSLocalizedString(@"m", @"Short for meters")
-        ];
+        if (distance * METER2MILE > 1.0) {
+            return @(distance).mileString;
+        } else {
+            return @(distance).yardString;
+        }
     }
 }
 

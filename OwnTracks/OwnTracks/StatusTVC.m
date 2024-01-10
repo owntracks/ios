@@ -12,6 +12,7 @@
 #import "Settings.h"
 #import "SettingsTVC.h"
 #import "CoreData.h"
+#import "NSNumber+metrics.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface StatusTVC ()
@@ -108,12 +109,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                ];
     
     if ([LocationManager sharedInstance].location) {
-        self.UILocation.text = [NSString stringWithFormat:@"%g,%g (%@%.0f%@)",
-                                [LocationManager sharedInstance].location.coordinate.latitude,
-                                [LocationManager sharedInstance].location.coordinate.longitude,
-                                NSLocalizedString(@"±", @"Short for deviation plus/minus"),
-                                [LocationManager sharedInstance].location.horizontalAccuracy,
-                                NSLocalizedString(@"m", @"Short for meters")
+        CLLocation *l = [LocationManager sharedInstance].location;
+        self.UILocation.text = [NSString stringWithFormat:@"%g,%g (±%@)",
+                                l.coordinate.latitude,
+                                l.coordinate.longitude,
+                                [NSLocale currentLocale].usesMetricSystem ?
+                                @(l.horizontalAccuracy).meterString :
+                                    @(l.horizontalAccuracy).feetString
                                 ];
     } else {
         self.UILocation.text =NSLocalizedString( @"No location recorded",  @"No location recorded indication");
