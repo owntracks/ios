@@ -262,9 +262,6 @@
 /* You disabled background fetch */
 "You disabled background fetch" = "You disabled background fetch";
 
-/* Short for degrees celsius as in 20° */
-"°" = "°";
-
 /* User Activity (Siri) Send location now */
 "Send location now" = "Send location now";
 

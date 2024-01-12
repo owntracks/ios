@@ -67,8 +67,6 @@
 		84929F0B20AAC0D000227D00 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84929F0A20AAC0CF00227D00 /* WebKit.framework */; };
 		84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A2B1B3755AF00810C3A /* TabBarController.m */; };
 		8495CFE42B039941007F7C90 /* LogsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495CFE32B039941007F7C90 /* LogsTVC.m */; };
-		8499B8A82B4F19A400F6E605 /* NSNumber+metrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 8499B8A72B4F19A400F6E605 /* NSNumber+metrics.m */; };
-		8499B8AC2B4F26C500F6E605 /* NSNumber+metrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 8499B8A72B4F19A400F6E605 /* NSNumber+metrics.m */; };
 		849B1E061FE911FD0016EF1A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 849B1E081FE911FD0016EF1A /* MainInterface.storyboard */; };
 		849CE153289CF2FF004B32BF /* ToursStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 849CE152289CF2FF004B32BF /* ToursStatusCell.m */; };
 		84A488E21F7BBFD900ADCF98 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84A488E11F7BBFD900ADCF98 /* Media.xcassets */; };
@@ -286,8 +284,6 @@
 		84930A311B37729000810C3A /* Model 8.1.4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.4.xcdatamodel"; sourceTree = "<group>"; };
 		8495CFE22B039941007F7C90 /* LogsTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LogsTVC.h; sourceTree = "<group>"; };
 		8495CFE32B039941007F7C90 /* LogsTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogsTVC.m; sourceTree = "<group>"; };
-		8499B8A62B4F19A400F6E605 /* NSNumber+metrics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSNumber+metrics.h"; sourceTree = "<group>"; };
-		8499B8A72B4F19A400F6E605 /* NSNumber+metrics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+metrics.m"; sourceTree = "<group>"; };
 		849ABA0028F21D140078AE41 /* Model 16.3.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 16.3.0.xcdatamodel"; sourceTree = "<group>"; };
 		849B1E021FE9114C0016EF1A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		849B1E041FE9114D0016EF1A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -558,8 +554,6 @@
 				84664E9C1CC83A38002123EC /* NSBundle+privateLocalization.m */,
 				84D6B47B25C844A500B2AC07 /* NSNumber+decimals.h */,
 				84D6B47C25C844A500B2AC07 /* NSNumber+decimals.m */,
-				8499B8A62B4F19A400F6E605 /* NSNumber+metrics.h */,
-				8499B8A72B4F19A400F6E605 /* NSNumber+metrics.m */,
 				846FFA491B40A301001482A6 /* UI */,
 				8411B834189FDB140019D2D6 /* Supporting Files */,
 			);
@@ -1040,7 +1034,6 @@
 				84664E9D1CC83A38002123EC /* NSBundle+privateLocalization.m in Sources */,
 				8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */,
 				846FFA5E1B420938001482A6 /* FriendTableViewCell.m in Sources */,
-				8499B8A82B4F19A400F6E605 /* NSNumber+metrics.m in Sources */,
 				84001C141C78982800413E5B /* Queue+CoreDataProperties.m in Sources */,
 				8411B87F189FE35C0019D2D6 /* Model.xcdatamodeld in Sources */,
 				84E8A1891BB94782002518AA /* Setting+CoreDataProperties.m in Sources */,
@@ -1092,7 +1085,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				84D307351ACD644500FACB9E /* TodayViewController.m in Sources */,
-				8499B8AC2B4F26C500F6E605 /* NSNumber+metrics.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

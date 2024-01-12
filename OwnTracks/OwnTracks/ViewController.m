@@ -18,7 +18,6 @@
 #import "Waypoint+CoreDataClass.h"
 #import "LocationManager.h"
 #import "OwnTracking.h"
-#import "NSNumber+metrics.h"
 
 #import "OwnTracksChangeMonitoringIntent.h"
 
@@ -292,11 +291,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         CLLocationCoordinate2DIsValid(location.coordinate) &&
         (location.coordinate.latitude != 0.0 &&
          location.coordinate.longitude != 0.0)) {
+        NSMeasurement *m = [[NSMeasurement alloc] initWithDoubleValue:location.horizontalAccuracy
+                                                                 unit:[NSUnitLength meters]];
+        NSMeasurementFormatter *mf = [[NSMeasurementFormatter alloc] init];
+        mf.unitOptions = NSMeasurementFormatterUnitOptionsNaturalScale;
+        mf.numberFormatter.maximumFractionDigits = 0;
         self.accuracyButton.title = [NSString stringWithFormat:@"±%@",
-                                     [NSLocale currentLocale].usesMetricSystem ?
-                                     @(location.horizontalAccuracy).meterString :
-                                         @(location.horizontalAccuracy).feetString
-                                     ];
+                                     [mf stringFromMeasurement:m]];
         self.actionButton.enabled = TRUE;
     } else {
         self.accuracyButton.title = @"-";

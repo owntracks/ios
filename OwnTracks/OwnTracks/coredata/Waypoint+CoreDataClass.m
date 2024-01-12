@@ -12,7 +12,6 @@
 #import <MapKit/MapKit.h>
 #import <Contacts/Contacts.h>
 #import "CoreData.h"
-#import "NSNumber+metrics.h"
 
 @implementation Waypoint
 
@@ -60,15 +59,32 @@
             ];
 }
 
-- (NSString *)coordinateText {
-    return [NSString stringWithFormat:@"%g,%g (±%@)",
-            (self.lat).doubleValue,
-            (self.lon).doubleValue,
-            [NSLocale currentLocale].usesMetricSystem ?
-            (self.acc).meterString : (self.acc).feetString
-            ];
-}
++ (NSString *)CLLocationCoordinateText:(CLLocation *)location {
+    if (location && CLLocationCoordinate2DIsValid(location.coordinate)) {
+        NSMeasurement *m = [[NSMeasurement alloc] initWithDoubleValue:location.horizontalAccuracy
+                                                                 unit:[NSUnitLength meters]];
+        NSMeasurementFormatter *mf = [[NSMeasurementFormatter alloc] init];
+        mf.unitOptions = NSMeasurementFormatterUnitOptionsNaturalScale;
+        mf.numberFormatter.maximumFractionDigits = 0;
+        
+        return [NSString stringWithFormat:@"%g,%g (±%@)",
+                location.coordinate.latitude,
+                location.coordinate.longitude,
+                location.horizontalAccuracy >= 0.0 ? [mf stringFromMeasurement:m] : @"-"];
+    } else {
+        return @"-";
+    }
 
+}
+- (NSString *)coordinateText {
+    CLLocation *location = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake((self.lat).doubleValue,
+                                                                                             (self.lon).doubleValue)
+                                                         altitude:(self.alt).doubleValue
+                                               horizontalAccuracy:(self.acc).doubleValue
+                                                 verticalAccuracy:(self.vac).doubleValue
+                                                        timestamp:self.tst];
+    return [Waypoint CLLocationCoordinateText:location];
+}
 
 - (NSString *)timestampText {
     return [NSDateFormatter localizedStringFromDate:self.tst
@@ -91,32 +107,35 @@
 }
 
 - (NSString *)infoText {
-    return [NSString stringWithFormat:@"✈︎%@ (±%@) %@ %0.f%@",
-            [NSLocale currentLocale].usesMetricSystem ?
-            (self.alt).meterString : (self.alt).feetString,
-            [NSLocale currentLocale].usesMetricSystem ?
-            (self.vac).meterString : (self.vac).feetString,
-            [NSLocale currentLocale].usesMetricSystem ?
-            (self.vel).kilometerperhourString : (self.vel).milesperhourString,
-            (self.cog).doubleValue,
-            NSLocalizedString(@"°", @"Short for degrees celsius as in 20°")
+    NSMeasurement *mAlt = [[NSMeasurement alloc] initWithDoubleValue:(self.alt).doubleValue
+                                                                unit:[NSUnitLength meters]];
+    NSMeasurement *mVac = [[NSMeasurement alloc] initWithDoubleValue:(self.vac).doubleValue
+                                                                unit:[NSUnitLength meters]];
+    NSMeasurement *mVel = [[NSMeasurement alloc] initWithDoubleValue:(self.vel).doubleValue
+                                                                unit:[NSUnitSpeed kilometersPerHour]];
+    NSMeasurement *mCog = [[NSMeasurement alloc] initWithDoubleValue:(self.cog).doubleValue
+                                                                unit:[NSUnitAngle degrees]];
+
+    NSMeasurementFormatter *mf = [[NSMeasurementFormatter alloc] init];
+    mf.unitOptions = NSMeasurementFormatterUnitOptionsNaturalScale;
+    mf.numberFormatter.maximumFractionDigits = 0;
+
+    return [NSString stringWithFormat:@"✈︎%@ (±%@) %@ %@",
+            (self.vac).doubleValue > 0.0 ? [mf stringFromMeasurement:mAlt] : @"-",
+            (self.vac).doubleValue > 0.0 ? [mf stringFromMeasurement:mVac] : @"-",
+            (self.vel).doubleValue >= 0.0 ? [mf stringFromMeasurement:mVel] : @"-",
+            (self.cog).doubleValue >= 0.0 ? [mf stringFromMeasurement:mCog] : @"-"
             ];
 }
 
 + (NSString *)distanceText:(CLLocationDistance)distance {
-    if ([NSLocale currentLocale].usesMetricSystem) {
-        if (distance * METER2KILOMETER > 1.0) {
-            return @(distance).kilometerString;
-        } else {
-            return @(distance).meterString;
-        }
-    } else {
-        if (distance * METER2MILE > 1.0) {
-            return @(distance).mileString;
-        } else {
-            return @(distance).yardString;
-        }
-    }
+    NSMeasurement *m = [[NSMeasurement alloc] initWithDoubleValue:distance
+                                                             unit:[NSUnitLength meters]];
+    NSMeasurementFormatter *mf = [[NSMeasurementFormatter alloc] init];
+    mf.unitOptions = NSMeasurementFormatterUnitOptionsNaturalScale;
+    mf.numberFormatter.maximumFractionDigits = 0;
+
+    return [mf stringFromMeasurement:m];
 }
 
 - (NSString *)batteryLevelText {

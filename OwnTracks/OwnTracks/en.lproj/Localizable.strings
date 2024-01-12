@@ -261,9 +261,6 @@
 /* You disabled background fetch */
 "You disabled background fetch" = "You disabled background fetch";
 
-/* Short for degrees celsius as in 20° */
-"°" = "°";
-
 /* MQTT Description Text */
 "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet";
 

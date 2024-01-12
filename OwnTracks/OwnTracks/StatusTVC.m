@@ -12,7 +12,7 @@
 #import "Settings.h"
 #import "SettingsTVC.h"
 #import "CoreData.h"
-#import "NSNumber+metrics.h"
+#import "Waypoint+CoreDataClass.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface StatusTVC ()
@@ -109,23 +109,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                ];
     
     if ([LocationManager sharedInstance].location) {
-        CLLocation *l = [LocationManager sharedInstance].location;
-        self.UILocation.text = [NSString stringWithFormat:@"%g,%g (±%@)",
-                                l.coordinate.latitude,
-                                l.coordinate.longitude,
-                                [NSLocale currentLocale].usesMetricSystem ?
-                                @(l.horizontalAccuracy).meterString :
-                                    @(l.horizontalAccuracy).feetString
-                                ];
+        self.UILocation.text = [Waypoint CLLocationCoordinateText:[LocationManager sharedInstance].location];
     } else {
         self.UILocation.text =NSLocalizedString( @"No location recorded",  @"No location recorded indication");
     }
 
     if ([LocationManager sharedInstance].altitude) {
-        self.UIpressure.text = [NSString stringWithFormat:@"%.3f kPA",
-                                [LocationManager sharedInstance].altitude.pressure.floatValue];
+        NSMeasurement *m = [[NSMeasurement alloc] initWithDoubleValue:[LocationManager sharedInstance].altitude.pressure.doubleValue
+                                                                 unit:[NSUnitPressure kilopascals]];
+        NSMeasurementFormatter *mf = [[NSMeasurementFormatter alloc] init];
+        mf.unitOptions = NSMeasurementFormatterUnitOptionsNaturalScale;
+        mf.numberFormatter.maximumFractionDigits = 3;
+        self.UIpressure.text = [mf stringFromMeasurement:m];
     } else {
-        self.UILocation.text =NSLocalizedString( @"No pressure available",  @"No pressure available");
+        self.UIpressure.text =NSLocalizedString( @"No pressure available",  @"No pressure available");
     }
 
     if (self.UIparameters) {

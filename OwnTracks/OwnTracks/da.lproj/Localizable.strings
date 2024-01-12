@@ -1,9 +1,6 @@
 /* New featured content indicator */
 "!" = "!";
 
-/* Short for degrees celsius as in 20° */
-"°" = "°";
-
 /* name of an unknown or hidden region */
 "a region" = "en region";
 
