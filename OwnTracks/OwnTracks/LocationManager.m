@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 21.10.14.
-//  Copyright © 2014-2022  OwnTracks. All rights reserved.
+//  Copyright © 2014-2024  OwnTracks. All rights reserved.
 //
 
 #import "LocationManager.h"
@@ -723,7 +723,7 @@ didFailRangingBeaconsForConstraint:(CLBeaconIdentityConstraint *)beaconConstrain
  *
  */
 - (void)locationManager:(CLLocationManager *)manager didVisit:(CLVisit *)visit {
-    DDLogInfo(@"[LocationManager] didVisit %g,%g ±%gm a=%@ d=%@",
+    DDLogInfo(@"[LocationManager] didVisit %g,%g ha=%g a=%@ d=%@",
                  visit.coordinate.latitude,
                  visit.coordinate.longitude,
                  visit.horizontalAccuracy,

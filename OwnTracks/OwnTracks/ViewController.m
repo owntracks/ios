@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 17.08.13.
-//  Copyright © 2013-2022  Christoph Krey. All rights reserved.
+//  Copyright © 2013-2024  Christoph Krey. All rights reserved.
 //
 
 #import "ViewController.h"
@@ -283,26 +283,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)updateAccuracyButton {
     CLLocation *location = self.mapView.userLocation.location;
-
-    DDLogVerbose(@"[ViewController] updateAccuracyButton %@",
-                 location);
-
-    if (location &&
-        CLLocationCoordinate2DIsValid(location.coordinate) &&
-        (location.coordinate.latitude != 0.0 &&
-         location.coordinate.longitude != 0.0)) {
-        NSMeasurement *m = [[NSMeasurement alloc] initWithDoubleValue:location.horizontalAccuracy
-                                                                 unit:[NSUnitLength meters]];
-        NSMeasurementFormatter *mf = [[NSMeasurementFormatter alloc] init];
-        mf.unitOptions = NSMeasurementFormatterUnitOptionsNaturalScale;
-        mf.numberFormatter.maximumFractionDigits = 0;
-        self.accuracyButton.title = [NSString stringWithFormat:@"±%@",
-                                     [mf stringFromMeasurement:m]];
-        self.actionButton.enabled = TRUE;
-    } else {
-        self.accuracyButton.title = @"-";
-        self.actionButton.enabled = FALSE;
-    }
+    self.accuracyButton.title = [Waypoint CLLocationAccuracyText:location];
+    self.actionButton.enabled = ![self.accuracyButton.title isEqualToString:@"-"];
 }
 
 - (void)reloaded {

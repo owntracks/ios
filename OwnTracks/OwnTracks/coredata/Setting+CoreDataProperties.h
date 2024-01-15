@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 26.07.19.
-//  Copyright © 2019-2022 OwnTracks. All rights reserved.
+//  Copyright © 2019-2024 OwnTracks. All rights reserved.
 //
 //
 

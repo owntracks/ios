@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 13.11.23.
-//  Copyright © 2023 OwnTracks. All rights reserved.
+//  Copyright © 2023-2024 OwnTracks. All rights reserved.
 //
 
 #import "Validation.h"

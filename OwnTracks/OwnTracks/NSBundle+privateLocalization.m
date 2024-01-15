@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 21.04.16.
-//  Copyright © 2016-2022  OwnTracks. All rights reserved.
+//  Copyright © 2016-2024  OwnTracks. All rights reserved.
 //
 //  The MIT License (MIT)
 //

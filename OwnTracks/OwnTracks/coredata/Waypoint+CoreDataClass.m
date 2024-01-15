@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 30.05.18.
-//  Copyright © 2018-2022 OwnTracks. All rights reserved.
+//  Copyright © 2018-2024 OwnTracks. All rights reserved.
 //
 //
 
@@ -59,6 +59,23 @@
             ];
 }
 
++ (NSString *)CLLocationAccuracyText:(CLLocation *)location {
+    if (location && 
+        CLLocationCoordinate2DIsValid(location.coordinate) &&
+        location.horizontalAccuracy >= 0.0) {
+        NSMeasurement *m = [[NSMeasurement alloc] initWithDoubleValue:location.horizontalAccuracy
+                                                                 unit:[NSUnitLength meters]];
+        NSMeasurementFormatter *mf = [[NSMeasurementFormatter alloc] init];
+        mf.unitOptions = NSMeasurementFormatterUnitOptionsNaturalScale;
+        mf.numberFormatter.maximumFractionDigits = 0;
+        
+        return [NSString stringWithFormat:@"±%@",
+                [mf stringFromMeasurement:m]];
+    } else {
+        return @"-";
+    }
+}
+
 + (NSString *)CLLocationCoordinateText:(CLLocation *)location {
     if (location && CLLocationCoordinate2DIsValid(location.coordinate)) {
         NSMeasurement *m = [[NSMeasurement alloc] initWithDoubleValue:location.horizontalAccuracy
@@ -67,15 +84,15 @@
         mf.unitOptions = NSMeasurementFormatterUnitOptionsNaturalScale;
         mf.numberFormatter.maximumFractionDigits = 0;
         
-        return [NSString stringWithFormat:@"%g,%g (±%@)",
+        return [NSString stringWithFormat:@"%g,%g (%@)",
                 location.coordinate.latitude,
                 location.coordinate.longitude,
-                location.horizontalAccuracy >= 0.0 ? [mf stringFromMeasurement:m] : @"-"];
+                [Waypoint CLLocationAccuracyText:location]];
     } else {
         return @"-";
     }
-
 }
+
 - (NSString *)coordinateText {
     CLLocation *location = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake((self.lat).doubleValue,
                                                                                              (self.lon).doubleValue)
@@ -120,11 +137,21 @@
     mf.unitOptions = NSMeasurementFormatterUnitOptionsNaturalScale;
     mf.numberFormatter.maximumFractionDigits = 0;
 
-    return [NSString stringWithFormat:@"✈︎%@ (±%@) %@ %@",
-            (self.vac).doubleValue > 0.0 ? [mf stringFromMeasurement:mAlt] : @"-",
-            (self.vac).doubleValue > 0.0 ? [mf stringFromMeasurement:mVac] : @"-",
-            (self.vel).doubleValue >= 0.0 ? [mf stringFromMeasurement:mVel] : @"-",
-            (self.cog).doubleValue >= 0.0 ? [mf stringFromMeasurement:mCog] : @"-"
+    return [NSString stringWithFormat:@"%@ (%@) %@ %@",
+            (self.vac).doubleValue > 0.0 ?
+            [NSString stringWithFormat:@"✈︎%@",
+             [mf stringFromMeasurement:mAlt]] :
+                @"-",
+            (self.vac).doubleValue > 0.0 ?
+            [NSString stringWithFormat:@"±%@",
+             [mf stringFromMeasurement:mVac]] :
+                @"-",
+            (self.vel).doubleValue >= 0.0 ? 
+            [mf stringFromMeasurement:mVel] :
+                @"-",
+            (self.cog).doubleValue >= 0.0 ?
+            [mf stringFromMeasurement:mCog] :
+                @"-"
             ];
 }
 
