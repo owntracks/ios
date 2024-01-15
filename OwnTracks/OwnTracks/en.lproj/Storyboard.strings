@@ -329,8 +329,8 @@
 /* Class = "UITextField"; placeholder = "trackerid"; ObjectID = "dUg-TH-IQ0"; Note = "Don't translate, technical term"; */
 "dUg-TH-IQ0.placeholder" = "trackerid";
 
-/* Class = "UITextView"; text = "Copyright © 2013-2022 by Christoph Krey, https://owntracks.org"; ObjectID = "dZg-CC-7yD"; */
-"dZg-CC-7yD.text" = "Copyright © 2013-2022 by Christoph Krey, https://owntracks.org";
+/* Class = "UITextView"; text = "Copyright © 2013-2024 by Christoph Krey, https://owntracks.org"; ObjectID = "dZg-CC-7yD"; */
+"dZg-CC-7yD.text" = "Copyright © 2013-2024 by Christoph Krey, https://owntracks.org";
 
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "dhG-pz-V9R"; */
 "dhG-pz-V9R.title" = "Item";
@@ -343,9 +343,6 @@
 
 /* Class = "UIButton"; normalTitle = "Documentation"; ObjectID = "ePs-kX-VDJ"; */
 "ePs-kX-VDJ.normalTitle" = "Documentation";
-
-/* Class = "UIBarButtonItem"; title = "±2000m"; ObjectID = "ere-0U-4rD"; Note = "Placeholder. Do not transalate"; */
-"ere-0U-4rD.title" = "±2000m";
 
 /* Class = "UILabel"; text = "clientId"; ObjectID = "fHY-ry-yB3"; Note = "Don't translate, technical term"; */
 "fHY-ry-yB3.text" = "clientId";

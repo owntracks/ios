@@ -1,6 +1,0 @@
-framework module mqttc {
-  umbrella header "mqttc-iOS-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -36,5 +36,7 @@
 	<integer>0</integer>
 	<key>downgrade_preference</key>
 	<integer>0</integer>
+	<key>httpheaders_preference</key>
+	<string></string>
 </dict>
 </plist>

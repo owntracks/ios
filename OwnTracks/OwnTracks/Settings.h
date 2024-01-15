@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 31.01.14.
-//  Copyright © 2014-2022  Christoph Krey. All rights reserved.
+//  Copyright © 2014-2024  Christoph Krey. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -57,8 +57,6 @@ typedef NS_ENUM(int, ConnectionMode) {
 + (BOOL)theLockedInMOC:(NSManagedObjectContext *)context;
 
 + (int)theMaximumHistoryInMOC:(NSManagedObjectContext *)context;
-
-+ (BOOL)validKey:(NSString *)key inMode:(ConnectionMode)mode;
 
 + (BOOL)validIdsInMOC:(NSManagedObjectContext *)context;
 

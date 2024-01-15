@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 21.10.14.
-//  Copyright © 2014-2022  OwnTracks. All rights reserved.
+//  Copyright © 2014-2024  OwnTracks. All rights reserved.
 //
 
 #import "LocationManager.h"
@@ -210,7 +210,7 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)authorize {
-    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    CLAuthorizationStatus status = self.manager.authorizationStatus;
     DDLogVerbose(@"[LocationManager] authorizationStatus=%d", status);
     if (status == kCLAuthorizationStatusNotDetermined) {
         [self.manager requestAlwaysAuthorization];
@@ -377,17 +377,17 @@ static LocationManager *theInstance = nil;
  *
  */
 
-- (void)locationManager:(CLLocationManager *)manager
-didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    DDLogInfo(@"[LocationManager] didChangeAuthorizationStatus to %d", status);
-    if (status != kCLAuthorizationStatusAuthorizedAlways) {
+- (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager {
+    DDLogInfo(@"[LocationManager] didChangeAuthorizationStatus to %d",
+              manager.authorizationStatus);
+    if (manager.authorizationStatus != kCLAuthorizationStatusAuthorizedAlways) {
         [self showError];
     }
 }
 
 - (void)showError {
     OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    CLAuthorizationStatus status = self.manager.authorizationStatus;
     switch (status) {
         case kCLAuthorizationStatusAuthorizedAlways:
             break;
@@ -723,7 +723,7 @@ didFailRangingBeaconsForConstraint:(CLBeaconIdentityConstraint *)beaconConstrain
  *
  */
 - (void)locationManager:(CLLocationManager *)manager didVisit:(CLVisit *)visit {
-    DDLogInfo(@"[LocationManager] didVisit %g,%g ±%gm a=%@ d=%@",
+    DDLogInfo(@"[LocationManager] didVisit %g,%g ha=%g a=%@ d=%@",
                  visit.coordinate.latitude,
                  visit.coordinate.longitude,
                  visit.horizontalAccuracy,

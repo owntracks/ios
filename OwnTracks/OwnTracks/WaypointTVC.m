@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 01.10.13.
-//  Copyright © 2013-2022  Christoph Krey. All rights reserved.
+//  Copyright © 2013-2024  Christoph Krey. All rights reserved.
 //
 
 #import "WaypointTVC.h"
@@ -27,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIcreatedAt;
 @property (weak, nonatomic) IBOutlet UITextField *UIbatterylevel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *bookmarkButton;
+@property (weak, nonatomic) IBOutlet UITextField *UIpoi;
+@property (weak, nonatomic) IBOutlet UITextField *UItag;
 
 @property (nonatomic) BOOL needsUpdate;
 @property (strong, nonatomic) CLRegion *oldRegion;
@@ -86,7 +88,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.UIinfo.text = (self.waypoint).infoText;
     self.UIbatterylevel.text = (self.waypoint).batteryLevelText;
     self.UItopic.text = self.waypoint.belongsTo.topic;
-    
+    self.UIpoi.text = self.waypoint.poi;
+    self.UItag.text = self.waypoint.tag;
+
     [self.waypoint addObserver:self
                     forKeyPath:@"placemark"
                        options:NSKeyValueObservingOptionNew context:nil];

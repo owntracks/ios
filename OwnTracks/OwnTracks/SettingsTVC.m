@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 11.09.13.
-//  Copyright © 2013-2022  Christoph Krey. All rights reserved.
+//  Copyright © 2013-2024  Christoph Krey. All rights reserved.
 //
 
 #import "SettingsTVC.h"
@@ -41,6 +41,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *UIpublish;
 @property (weak, nonatomic) IBOutlet UITextField *UIsecret;
 @property (weak, nonatomic) IBOutlet UITextField *UIurl;
+@property (weak, nonatomic) IBOutlet UITextField *UIhttpHeaders;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *UImodeSwitch;
 @property (weak, nonatomic) IBOutlet UITextField *UIignoreStaleLocations;
 @property (weak, nonatomic) IBOutlet UITextField *UIignoreInaccurateLocations;
@@ -99,6 +100,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.UIDeviceID.delegate = self;
     self.UIpassphrase.delegate = self;
     self.UIurl.delegate = self;
+    self.UIhttpHeaders.delegate = self;
     self.UImonitoring.delegate = self;
     self.UIdowngrade.delegate = self;
 
@@ -335,6 +337,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if (self.UIurl)
         [Settings setString:self.UIurl.text
                      forKey:@"url_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIhttpHeaders)
+        [Settings setString:self.UIhttpHeaders.text
+                     forKey:@"httpheaders_preference"
                       inMOC:CoreData.sharedInstance.mainMOC];
 
     // important to save UImode last. Otherwise parameters not valid in the old mode may get persisted
@@ -687,6 +694,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         self.UIurl.enabled = !locked;
     }
 
+    if (self.UIhttpHeaders) {
+        self.UIhttpHeaders.text =
+        [Settings stringForKey:@"httpheaders_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIhttpHeaders.enabled = !locked;
+    }
+
     if (self.UImodeSwitch) {
 
         int mode =
@@ -695,9 +709,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
         // hide MQTT related rows if not MQTT mode
         NSArray <NSIndexPath *> *mqttPaths = @[
-            [NSIndexPath indexPathForRow:6 inSection:0],
-            [NSIndexPath indexPathForRow:7 inSection:0],
-            [NSIndexPath indexPathForRow:8 inSection:0]
+            [NSIndexPath indexPathForRow:6 inSection:0], // host
+            [NSIndexPath indexPathForRow:7 inSection:0], // port / websockets
+            [NSIndexPath indexPathForRow:8 inSection:0], // protocol / tls
+            [NSIndexPath indexPathForRow:0 inSection:1], // subTopic
+            [NSIndexPath indexPathForRow:1 inSection:1], // clientId
+            [NSIndexPath indexPathForRow:3 inSection:1], // willTopic
+            [NSIndexPath indexPathForRow:10 inSection:1], // subQos
+            [NSIndexPath indexPathForRow:11 inSection:1], // keepAlive
+            [NSIndexPath indexPathForRow:12 inSection:1], // pubQos
+            [NSIndexPath indexPathForRow:13 inSection:1], // willQos
+            [NSIndexPath indexPathForRow:19 inSection:1], // sub
+            [NSIndexPath indexPathForRow:21 inSection:1], // pubRetain
+            [NSIndexPath indexPathForRow:22 inSection:1], // willRetain
+            [NSIndexPath indexPathForRow:23 inSection:1] // cleanSession
         ];
 
         for (NSIndexPath *indexPath in mqttPaths) {
@@ -726,7 +751,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
         // hide HTTP related rows if not in HTTP mode
         NSArray <NSIndexPath *> *httpPaths = @[
-            [NSIndexPath indexPathForRow:13 inSection:0]
+            [NSIndexPath indexPathForRow:13 inSection:0], // url
+            [NSIndexPath indexPathForRow:25 inSection:1] // httpHeaders
         ];
 
         for (NSIndexPath *indexPath in httpPaths) {

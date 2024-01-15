@@ -3,7 +3,7 @@
 //  OwnTracksToday
 //
 //  Created by Christoph Krey on 02.04.15.
-//  Copyright © 2015-2022  OwnTracks. All rights reserved.
+//  Copyright © 2015-2024  OwnTracks. All rights reserved.
 //
 
 #import "TodayViewController.h"
@@ -136,41 +136,25 @@
         default:
         case 0: {
             double distance = [friend[@"distance"] doubleValue];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.f%@",
-                                         distance / 1000.0,
-                                         NSLocalizedString(@"km",
-                                                           @"short for kilometer on Today")
-                                         ];
+            NSMeasurement *m = [[NSMeasurement alloc] initWithDoubleValue:distance
+                                                                     unit:[NSUnitLength meters]];
+            NSMeasurementFormatter *mf = [[NSMeasurementFormatter alloc] init];
+            mf.unitOptions = NSMeasurementFormatterUnitOptionsNaturalScale;
+            mf.numberFormatter.maximumFractionDigits = 0;
+
+            cell.detailTextLabel.text = [mf stringFromMeasurement:m];
             break;
         }
         case 1: {
             NSDate *timestamp = friend[@"timestamp"];
             NSTimeInterval interval = -[timestamp timeIntervalSinceNow];
-            if (interval < 60) {
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.f%@",
-                                             interval,
-                                             NSLocalizedString(@"sec",
-                                                               @"short for second on Today")
-                                            ];
-            } else if (interval < 3600) {
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.f%@",
-                                             interval / 60,
-                                             NSLocalizedString(@"min",
-                                                               @"short for minute on Today")
-                                             ];
-            } else if (interval < 24 * 3600) {
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.f%@",
-                                             interval / 3600,
-                                             NSLocalizedString(@"h",
-                                                               @"short for hour on Today")
-                                             ];
-            } else {
-                cell.detailTextLabel.text = [NSString stringWithFormat:@"%0.f%@",
-                                             interval / (24 * 3600),
-                                             NSLocalizedString(@"d",
-                                                               @"short for day on Today")
-                                             ];
-            }
+            NSMeasurement *m = [[NSMeasurement alloc] initWithDoubleValue:interval
+                                                                     unit:[NSUnitDuration seconds]];
+            NSMeasurementFormatter *mf = [[NSMeasurementFormatter alloc] init];
+            mf.unitOptions = NSMeasurementFormatterUnitOptionsNaturalScale;
+            mf.numberFormatter.maximumFractionDigits = 0;
+
+            cell.detailTextLabel.text = [mf stringFromMeasurement:m];
             break;
         }
         case 2: {

@@ -124,12 +124,6 @@
 /* Display after processing inline config */
 "Inline Configuration successfully processed" = "Inline Configuration successfully processed";
 
-/* Short for kilometers per hour as in 120km/h */
-"km/h" = "km/h";
-
-/* Short for kilometers as in 120km */
-"km" = "km";
-
 /* Display when leaving region (region name follows) */
 "Leaving" = "Leaving";
 
@@ -157,10 +151,6 @@
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet";
 
-
-/* Short for meters */
-"m" = "m";
-
 /* content of an alert message regarging missing Mac Catalyst Export */
 "Mac Catalyst does not support export yet" = "Mac Catalyst does not support export yet";
 
@@ -185,7 +175,9 @@
 /* No location recorded indication */
 "No location recorded" = "No location recorded";
 
-/* Display after trying to process a file */
+/* Display after trying to process a file *//* No pressure available */
+"No pressure available" = "No pressure available";
+
 "no url specified" = "no url specified";
 
 /* Alert message header for notification messages */
@@ -268,15 +260,6 @@
 
 /* You disabled background fetch */
 "You disabled background fetch" = "You disabled background fetch";
-
-/* Short for degrees celsius as in 20° */
-"°" = "°";
-
-/* Short for deviation plus/minus */
-"±" = "±";
-
-/* Short for altitude as in ✈︎1000m */
-"✈︎" = "✈︎";
 
 /* MQTT Description Text */
 "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet";

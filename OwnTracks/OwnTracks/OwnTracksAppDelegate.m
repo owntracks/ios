@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 03.02.14.
-//  Copyright © 2014-2022  OwnTracks. All rights reserved.
+//  Copyright © 2014-2024  OwnTracks. All rights reserved.
 //
 
 #import "OwnTracksAppDelegate.h"
@@ -296,7 +296,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         completionHandler(UNNotificationPresentationOptionBanner |
                           UNNotificationPresentationOptionSound);
     } else {
-        completionHandler(UNNotificationPresentationOptionAlert |
+        completionHandler(UNNotificationPresentationOptionList |
+                          UNNotificationPresentationOptionBanner |
                           UNNotificationPresentationOptionSound);
     }
     
@@ -1642,8 +1643,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                 auth:[Settings theMqttAuthInMOC:moc]
                                 user:[Settings theMqttUserInMOC:moc]
                                 pass:password
-                              device:[Settings theDeviceIdInMOC:moc]];
-        
+                              device:[Settings theDeviceIdInMOC:moc]
+                         httpHeaders:[Settings stringForKey:@"httpheaders_preference"
+                                                      inMOC:moc]];
     } else {
         NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
                                                                      inDomain:NSUserDomainMask

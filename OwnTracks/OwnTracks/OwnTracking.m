@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 28.06.15.
-//  Copyright © 2015-2022  OwnTracks. All rights reserved.
+//  Copyright © 2015-2024  OwnTracks. All rights reserved.
 //
 
 #import "OwnTracking.h"
@@ -153,8 +153,8 @@ static OwnTracking *theInstance = nil;
                                     location:location
                                    createdAt:createdAt
                                      trigger:dictionary[@"t"]
-                                         poi:nil
-                                         tag:nil
+                                         poi:dictionary[@"poi"]
+                                         tag:dictionary[@"tag"]
                                      battery:batteryLevel
                                      context:context];
                         [self limitWaypointsFor:friend
@@ -546,11 +546,11 @@ static OwnTracking *theInstance = nil;
         json[@"inrids"] = inRids;
     }
     
-    if (waypoint.poi) {
+    if (waypoint.poi && waypoint.poi.length > 0) {
         json[@"poi"] = waypoint.poi;
     }
     
-    if (waypoint.tag) {
+    if (waypoint.tag && waypoint.tag.length > 0) {
         json[@"tag"] = waypoint.tag;
     }
 

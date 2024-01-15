@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 25.08.13.
-//  Copyright © 2013-2022  Christoph Krey. All rights reserved.
+//  Copyright © 2013-2024  Christoph Krey. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -65,7 +65,8 @@ allowUntrustedCertificates:(BOOL)allowUntrustedCertificates
                auth:(BOOL)auth
                user:(NSString * _Nullable)user
                pass:(NSString * _Nullable)pass
-             device:(NSString * _Nonnull)device;
+             device:(NSString * _Nonnull)device
+        httpHeaders:(NSString *_Nullable)httpHeaders;
 
 - (void)connectToLast;
 

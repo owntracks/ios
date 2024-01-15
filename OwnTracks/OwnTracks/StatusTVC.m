@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 11.09.13.
-//  Copyright © 2013-2022  Christoph Krey. All rights reserved.
+//  Copyright © 2013-2024  Christoph Krey. All rights reserved.
 //
 
 #import "StatusTVC.h"
@@ -12,10 +12,12 @@
 #import "Settings.h"
 #import "SettingsTVC.h"
 #import "CoreData.h"
+#import "Waypoint+CoreDataClass.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
 @interface StatusTVC ()
 @property (weak, nonatomic) IBOutlet UITextField *UILocation;
+@property (weak, nonatomic) IBOutlet UITextField *UIpressure;
 @property (weak, nonatomic) IBOutlet UITextView *UIparameters;
 @property (weak, nonatomic) IBOutlet UITextView *UIstatusField;
 @property (weak, nonatomic) IBOutlet UITextField *UIVersion;
@@ -107,15 +109,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                ];
     
     if ([LocationManager sharedInstance].location) {
-        self.UILocation.text = [NSString stringWithFormat:@"%g,%g (%@%.0f%@)",
-                                [LocationManager sharedInstance].location.coordinate.latitude,
-                                [LocationManager sharedInstance].location.coordinate.longitude,
-                                NSLocalizedString(@"±", @"Short for deviation plus/minus"),
-                                [LocationManager sharedInstance].location.horizontalAccuracy,
-                                NSLocalizedString(@"m", @"Short for meters")
-                                ];
+        self.UILocation.text = [Waypoint CLLocationCoordinateText:[LocationManager sharedInstance].location];
     } else {
         self.UILocation.text =NSLocalizedString( @"No location recorded",  @"No location recorded indication");
+    }
+
+    if ([LocationManager sharedInstance].altitude) {
+        NSMeasurement *m = [[NSMeasurement alloc] initWithDoubleValue:[LocationManager sharedInstance].altitude.pressure.doubleValue
+                                                                 unit:[NSUnitPressure kilopascals]];
+        NSMeasurementFormatter *mf = [[NSMeasurementFormatter alloc] init];
+        mf.unitOptions = NSMeasurementFormatterUnitOptionsNaturalScale;
+        mf.numberFormatter.maximumFractionDigits = 3;
+        self.UIpressure.text = [mf stringFromMeasurement:m];
+    } else {
+        self.UIpressure.text =NSLocalizedString( @"No pressure available",  @"No pressure available");
     }
 
     if (self.UIparameters) {

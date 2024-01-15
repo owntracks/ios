@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 25.08.13.
-//  Copyright © 2013-2022  Christoph Krey. All rights reserved.
+//  Copyright © 2013-2024  Christoph Krey. All rights reserved.
 //
 
 #import "Connection.h"
@@ -33,6 +33,7 @@
 @property (strong, nonatomic) MQTTSession *session;
 
 @property (strong, nonatomic) NSString *url;
+@property (strong, nonatomic) NSMutableArray <NSDictionary <NSString *, NSString *> *> *httpHeaders;
 
 @property (strong, nonatomic) NSString *host;
 @property (nonatomic) UInt32 port;
@@ -298,12 +299,24 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
                auth:(BOOL)auth
                user:(NSString *)user
                pass:(NSString *)pass
-             device:(NSString *)device {
+             device:(NSString *)device
+        httpHeaders:(NSString * _Nullable)httpHeaders{
     self.url = url;
     self.auth = auth;
     self.user = user;
     self.pass = pass;
     self.device = device;
+    self.httpHeaders = [[NSMutableArray alloc] init];
+    NSArray <NSString *> *httpHeaderLines = [httpHeaders componentsSeparatedByString:@"\\n"];
+    for (NSString *httpHeaderLine in httpHeaderLines) {
+        NSRange range = [httpHeaderLine rangeOfString:@":"];
+        if (range.location != NSNotFound) {
+            NSString *key = [[httpHeaderLine substringToIndex:range.location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            NSString * value = [[httpHeaderLine substringFromIndex:range.location + range.length] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            [self.httpHeaders addObject:@{@"key": key, @"value": value}];
+        }
+    }
+    DDLogInfo(@"[Connection] httpHeaders %@ %@", self.httpHeaders, httpHeaders);
     self.reconnectTime = RECONNECT_TIMER;
     self.reconnectFlag = FALSE;
     self.state = state_starting;
@@ -425,6 +438,15 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     }
     [request setValue:device forHTTPHeaderField:@"X-Limit-D"];
     
+    for (NSDictionary *httpHeader in self.httpHeaders) {
+        NSString *key = [httpHeader objectForKey:@"key"];
+        NSString *value = [httpHeader objectForKey:@"value"];
+        if (key && [key isKindOfClass:[NSString class]] &&
+            value && [value isKindOfClass:[NSString class]]) {
+            [request setValue:value forHTTPHeaderField:key];
+        }
+    }
+
     request.URL = [NSURL URLWithString:self.url];
     request.HTTPMethod = @"POST";
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
