@@ -72,14 +72,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         if ([dictionary[@"_type"] isEqualToString:@"configuration"]) {
             NSObject *object;
 
-            // Language replacements
-            for (NSString *key in dictionary.allKeys) {
-                if ([key rangeOfString:@"pl"].location == 0) {
-                    object = dictionary[key];
-                    if (object) [self setString:object forKey:key inMOC:context];
-                }
-            }
-
             ConnectionMode importMode = CONNECTION_MODE_MQTT;
             object = dictionary[@"mode"];
             if (object) {
@@ -426,13 +418,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     dict[@"extendedData"] =                 @([Settings boolForKey:@"extendeddata_preference" inMOC:context]);
     dict[@"ignoreStaleLocations"] =         @([Settings doubleForKey:@"ignorestalelocations_preference" inMOC:context]);
     dict[@"ignoreInaccurateLocations"] =    @([Settings intForKey:@"ignoreinaccuratelocations_preference" inMOC:context]);
-
-    for (Setting *setting in [Setting allSettingsInMOC:context]) {
-        NSString *key = setting.key;
-        if ([key rangeOfString:@"pl"].location == 0) {
-            dict[key] = setting.value;
-        }
-    }
 
     dict[@"deviceId"] =             [Settings stringOrZeroForKey:@"deviceid_preference" inMOC:context];
     dict[@"cmd"] =                  @([Settings boolForKey:@"cmd_preference" inMOC:context]);
