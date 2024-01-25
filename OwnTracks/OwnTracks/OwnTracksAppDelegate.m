@@ -172,9 +172,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                             initWithDateFormatter:(NSDateFormatter *)isoFormatter];
     [DDLog addLogger:self.fl withLevel:DDLogLevelVerbose];
     
-    DDLogInfo(@"[OwnTracksAppDelegate] OwnTracks starting %@/%@",
+    DDLogInfo(@"[OwnTracksAppDelegate] OwnTracks starting %@/%@ %@",
                [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"],
-               [NSLocale currentLocale].localeIdentifier);
+               [NSLocale currentLocale].localeIdentifier,
+              launchOptions);
     
     [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
     
@@ -257,6 +258,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         DDLogInfo(@"[OwnTracksAppDelegate] UNUserNotificationCenter requestAuthorizationWithOptions granted:%d error:%@", granted, error);
     }];
     center.delegate = self;
+    
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
     return YES;
 }
 
@@ -301,6 +304,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                           UNNotificationPresentationOptionSound);
     }
     
+}
+
+- (void)application:(UIApplication *)application
+didReceiveRemoteNotification:(NSDictionary *)userInfo
+fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    DDLogInfo(@"[OwnTracksAppDelegate] didReceiveRemoteNotification starting");
+
+    [self performSelectorOnMainThread:@selector(doRefresh)
+                           withObject:nil
+                        waitUntilDone:TRUE];
+    DDLogInfo(@"[OwnTracksAppDelegate] didReceiveRemoteNotification finished");
+    completionHandler(UIBackgroundFetchResultNewData);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -771,7 +786,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self.connection disconnect];
 }
 
-- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
+- (void)application:(UIApplication *)application 
+performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
     DDLogInfo(@"[OwnTracksAppDelegate] performActionForShortcutItem %@", shortcutItem.type);
     if ([shortcutItem.type isEqualToString:@"org.mqttitude.MQTTitude.movemode"]) {
         LocationMonitoring monitoring = LocationMonitoringMove;
@@ -1817,6 +1833,26 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
     }
     return NO;
 }
+
+#pragma Remote Notifications
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
+    NSString *deviceHexString = [[NSString alloc] init];
+    for (int i = 0; i < deviceToken.length; i++) {
+        unsigned char c;
+        [deviceToken getBytes:&c range:NSMakeRange(i, 1)];
+        deviceHexString = [deviceHexString stringByAppendingFormat:@"%02X", c];
+    }
+    DDLogInfo(@"[OwnTracksAppDelegate] didRegisterForRemoteNotificationsWithDeviceToken: %@",
+               deviceHexString);
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    DDLogError(@"[OwnTracksAppDelegate] didFailToRegisterForRemoteNotificationsWithError: %@",
+               error.localizedDescription);
+
+}
+
 
 @end
 

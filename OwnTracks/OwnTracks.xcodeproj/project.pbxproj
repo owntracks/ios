@@ -44,6 +44,7 @@
 		843B91721C8A14BF00DBD306 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843B91741C8A14BF00DBD306 /* Storyboard.storyboard */; };
 		845273D324A8736000C44340 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 849B359924A7578000BEC1BB /* Intents.framework */; };
 		845299E71DFA004000A4DC21 /* Friend+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 845299E01DFA004000A4DC21 /* Friend+CoreDataClass.m */; };
+		8456D0A52B55749E003A45D4 /* OwnTracksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8456D0A42B55749E003A45D4 /* OwnTracksTests.m */; };
 		845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845AA1B31B44245100945856 /* CertificatesTVC.m */; };
 		845AA1BC1B4846AF00945856 /* OwnTracks-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1B91B4846AF00945856 /* OwnTracks-64.png */; };
 		845AA1BD1B4846AF00945856 /* OwnTracks-320.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1BA1B4846AF00945856 /* OwnTracks-320.png */; };
@@ -83,9 +84,7 @@
 		84D307351ACD644500FACB9E /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D307341ACD644500FACB9E /* TodayViewController.m */; };
 		84D3073A1ACD644500FACB9E /* OwnTracksToday.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84D307681ACDA62100FACB9E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AF468F1AB9571800E954E3 /* CoreLocation.framework */; };
-		84D6B40D25C8161E00B2AC07 /* OwnTracksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B40C25C8161E00B2AC07 /* OwnTracksTests.m */; };
 		84D6B47D25C844A500B2AC07 /* NSNumber+decimals.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B47C25C844A500B2AC07 /* NSNumber+decimals.m */; };
-		84D6B47E25C844A500B2AC07 /* NSNumber+decimals.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B47C25C844A500B2AC07 /* NSNumber+decimals.m */; };
 		84DDEAC71BD9F37900B01879 /* SettingsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DDEAC61BD9F37900B01879 /* SettingsTVC.m */; };
 		84DE749824A9E1C600C0DA68 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84DE749B24A9E1C600C0DA68 /* Intents.intentdefinition */; };
 		84DE749924A9E1C600C0DA68 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84DE749B24A9E1C600C0DA68 /* Intents.intentdefinition */; };
@@ -109,19 +108,19 @@
 			remoteGlobalIDString = 843A57A624A9A4D600A5441B;
 			remoteInfo = OwnTracksIntents;
 		};
+		8456D0A62B55749E003A45D4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8411B820189FDB140019D2D6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8411B827189FDB140019D2D6;
+			remoteInfo = OwnTracks;
+		};
 		84D307381ACD644500FACB9E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8411B820189FDB140019D2D6 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 84D3072C1ACD644500FACB9E;
 			remoteInfo = OwnTracksToday;
-		};
-		84D6B40F25C8161E00B2AC07 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8411B820189FDB140019D2D6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8411B827189FDB140019D2D6;
-			remoteInfo = OwnTracks;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -232,6 +231,8 @@
 		845299DA1DF9FD6200A4DC21 /* Model 9.5.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.5.0.xcdatamodel"; sourceTree = "<group>"; };
 		845299DF1DFA004000A4DC21 /* Friend+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Friend+CoreDataClass.h"; sourceTree = "<group>"; };
 		845299E01DFA004000A4DC21 /* Friend+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Friend+CoreDataClass.m"; sourceTree = "<group>"; };
+		8456D0A22B55749E003A45D4 /* OwnTracksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OwnTracksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8456D0A42B55749E003A45D4 /* OwnTracksTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwnTracksTests.m; sourceTree = "<group>"; };
 		84595203253DF78200807097 /* Model 13.4.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 13.4.0.xcdatamodel"; sourceTree = "<group>"; };
 		845AA1B21B44245100945856 /* CertificatesTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificatesTVC.h; sourceTree = "<group>"; };
 		845AA1B31B44245100945856 /* CertificatesTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificatesTVC.m; sourceTree = "<group>"; };
@@ -346,9 +347,6 @@
 		84D307331ACD644500FACB9E /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
 		84D307341ACD644500FACB9E /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
 		84D307661ACD8F4300FACB9E /* OwnTracksToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OwnTracksToday.entitlements; sourceTree = "<group>"; };
-		84D6B40A25C8161D00B2AC07 /* OwnTracksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OwnTracksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		84D6B40C25C8161E00B2AC07 /* OwnTracksTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwnTracksTests.m; sourceTree = "<group>"; };
-		84D6B40E25C8161E00B2AC07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84D6B47B25C844A500B2AC07 /* NSNumber+decimals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSNumber+decimals.h"; sourceTree = "<group>"; };
 		84D6B47C25C844A500B2AC07 /* NSNumber+decimals.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+decimals.m"; sourceTree = "<group>"; };
 		84D7516F1B35B1C600B06A0C /* Model 8.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.xcdatamodel"; sourceTree = "<group>"; };
@@ -427,19 +425,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8456D09F2B55749E003A45D4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		84D3072A1ACD644500FACB9E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				84D307681ACDA62100FACB9E /* CoreLocation.framework in Frameworks */,
 				84D3072F1ACD644500FACB9E /* NotificationCenter.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		84D6B40725C8161D00B2AC07 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -474,7 +472,7 @@
 				8411B833189FDB140019D2D6 /* OwnTracks */,
 				84D307301ACD644500FACB9E /* OwnTracksToday */,
 				843A57A824A9A4D600A5441B /* OwnTracksIntents */,
-				84D6B40B25C8161D00B2AC07 /* OwnTracksTests */,
+				8456D0A32B55749E003A45D4 /* OwnTracksTests */,
 				8411B82A189FDB140019D2D6 /* Frameworks */,
 				8411B829189FDB140019D2D6 /* Products */,
 				4148677DEE4BDFE13E9AF63F /* Pods */,
@@ -487,7 +485,7 @@
 				8411B828189FDB140019D2D6 /* OwnTracks.app */,
 				84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */,
 				843A57A724A9A4D600A5441B /* OwnTracksIntents.appex */,
-				84D6B40A25C8161D00B2AC07 /* OwnTracksTests.xctest */,
+				8456D0A22B55749E003A45D4 /* OwnTracksTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -636,6 +634,14 @@
 			path = OwnTracksIntents;
 			sourceTree = "<group>";
 		};
+		8456D0A32B55749E003A45D4 /* OwnTracksTests */ = {
+			isa = PBXGroup;
+			children = (
+				8456D0A42B55749E003A45D4 /* OwnTracksTests.m */,
+			);
+			path = OwnTracksTests;
+			sourceTree = "<group>";
+		};
 		846FFA491B40A301001482A6 /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -736,15 +742,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		84D6B40B25C8161D00B2AC07 /* OwnTracksTests */ = {
-			isa = PBXGroup;
-			children = (
-				84D6B40C25C8161E00B2AC07 /* OwnTracksTests.m */,
-				84D6B40E25C8161E00B2AC07 /* Info.plist */,
-			);
-			path = OwnTracksTests;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -789,6 +786,24 @@
 			productReference = 843A57A724A9A4D600A5441B /* OwnTracksIntents.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		8456D0A12B55749E003A45D4 /* OwnTracksTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8456D0A82B55749E003A45D4 /* Build configuration list for PBXNativeTarget "OwnTracksTests" */;
+			buildPhases = (
+				8456D09E2B55749E003A45D4 /* Sources */,
+				8456D09F2B55749E003A45D4 /* Frameworks */,
+				8456D0A02B55749E003A45D4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8456D0A72B55749E003A45D4 /* PBXTargetDependency */,
+			);
+			name = OwnTracksTests;
+			productName = OwnTracksTests;
+			productReference = 8456D0A22B55749E003A45D4 /* OwnTracksTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		84D3072C1ACD644500FACB9E /* OwnTracksToday */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84D3073D1ACD644600FACB9E /* Build configuration list for PBXNativeTarget "OwnTracksToday" */;
@@ -805,24 +820,6 @@
 			productName = OwnTracksToday;
 			productReference = 84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */;
 			productType = "com.apple.product-type.app-extension";
-		};
-		84D6B40925C8161D00B2AC07 /* OwnTracksTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 84D6B41325C8161E00B2AC07 /* Build configuration list for PBXNativeTarget "OwnTracksTests" */;
-			buildPhases = (
-				84D6B40625C8161D00B2AC07 /* Sources */,
-				84D6B40725C8161D00B2AC07 /* Frameworks */,
-				84D6B40825C8161D00B2AC07 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				84D6B41025C8161E00B2AC07 /* PBXTargetDependency */,
-			);
-			name = OwnTracksTests;
-			productName = OwnTracksTests;
-			productReference = 84D6B40A25C8161D00B2AC07 /* OwnTracksTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -862,6 +859,10 @@
 					843A57A624A9A4D600A5441B = {
 						CreatedOnToolsVersion = 11.5;
 					};
+					8456D0A12B55749E003A45D4 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 8411B827189FDB140019D2D6;
+					};
 					84D3072C1ACD644500FACB9E = {
 						CreatedOnToolsVersion = 6.2;
 						SystemCapabilities = {
@@ -869,10 +870,6 @@
 								enabled = 1;
 							};
 						};
-					};
-					84D6B40925C8161D00B2AC07 = {
-						CreatedOnToolsVersion = 12.4;
-						TestTargetID = 8411B827189FDB140019D2D6;
 					};
 				};
 			};
@@ -898,7 +895,7 @@
 				8411B827189FDB140019D2D6 /* OwnTracks */,
 				84D3072C1ACD644500FACB9E /* OwnTracksToday */,
 				843A57A624A9A4D600A5441B /* OwnTracksIntents */,
-				84D6B40925C8161D00B2AC07 /* OwnTracksTests */,
+				8456D0A12B55749E003A45D4 /* OwnTracksTests */,
 			);
 		};
 /* End PBXProject section */
@@ -934,6 +931,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8456D0A02B55749E003A45D4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		84D3072B1ACD644500FACB9E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -942,13 +946,6 @@
 				847F31BC25EFB8600018C0A6 /* InfoPlist.strings in Resources */,
 				84A488E21F7BBFD900ADCF98 /* Media.xcassets in Resources */,
 				841D1A301C8AFF8000DC5765 /* Localizable.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		84D6B40825C8161D00B2AC07 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1080,20 +1077,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8456D09E2B55749E003A45D4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8456D0A52B55749E003A45D4 /* OwnTracksTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		84D307291ACD644500FACB9E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				84D307351ACD644500FACB9E /* TodayViewController.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		84D6B40625C8161D00B2AC07 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				84D6B40D25C8161E00B2AC07 /* OwnTracksTests.m in Sources */,
-				84D6B47E25C844A500B2AC07 /* NSNumber+decimals.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1106,16 +1102,16 @@
 			target = 843A57A624A9A4D600A5441B /* OwnTracksIntents */;
 			targetProxy = 8452741424A8EF0B00C44340 /* PBXContainerItemProxy */;
 		};
+		8456D0A72B55749E003A45D4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8411B827189FDB140019D2D6 /* OwnTracks */;
+			targetProxy = 8456D0A62B55749E003A45D4 /* PBXContainerItemProxy */;
+		};
 		84D307391ACD644500FACB9E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
 			target = 84D3072C1ACD644500FACB9E /* OwnTracksToday */;
 			targetProxy = 84D307381ACD644500FACB9E /* PBXContainerItemProxy */;
-		};
-		84D6B41025C8161E00B2AC07 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8411B827189FDB140019D2D6 /* OwnTracks */;
-			targetProxy = 84D6B40F25C8161E00B2AC07 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1537,6 +1533,77 @@
 			};
 			name = Release;
 		};
+		8456D0A92B55749E003A45D4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = C652JFWU23;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.1;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.OwnTracksTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OwnTracks.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/OwnTracks";
+			};
+			name = Debug;
+		};
+		8456D0AA2B55749E003A45D4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = C652JFWU23;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.1;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.OwnTracksTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OwnTracks.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/OwnTracks";
+			};
+			name = Release;
+		};
 		84D3073B1ACD644600FACB9E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1604,69 +1671,6 @@
 			};
 			name = Release;
 		};
-		84D6B41125C8161E00B2AC07 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = C652JFWU23;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = OwnTracksTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.OwnTracksTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OwnTracks.app/OwnTracks";
-			};
-			name = Debug;
-		};
-		84D6B41225C8161E00B2AC07 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = C652JFWU23;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = OwnTracksTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.OwnTracksTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OwnTracks.app/OwnTracks";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1697,20 +1701,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		8456D0A82B55749E003A45D4 /* Build configuration list for PBXNativeTarget "OwnTracksTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8456D0A92B55749E003A45D4 /* Debug */,
+				8456D0AA2B55749E003A45D4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		84D3073D1ACD644600FACB9E /* Build configuration list for PBXNativeTarget "OwnTracksToday" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				84D3073B1ACD644600FACB9E /* Debug */,
 				84D3073C1ACD644600FACB9E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		84D6B41325C8161E00B2AC07 /* Build configuration list for PBXNativeTarget "OwnTracksTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				84D6B41125C8161E00B2AC07 /* Debug */,
-				84D6B41225C8161E00B2AC07 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

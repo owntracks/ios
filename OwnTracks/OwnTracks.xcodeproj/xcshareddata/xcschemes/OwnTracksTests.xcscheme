@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1510"
-   version = "1.3">
+   LastUpgradeVersion = "1520"
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -10,16 +10,18 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldAutocreateTestPlan = "YES">
       <Testables>
          <TestableReference
-            skipped = "NO">
+            skipped = "NO"
+            parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "84D6B40925C8161D00B2AC07"
+               BlueprintIdentifier = "8456D0A12B55749E003A45D4"
                BuildableName = "OwnTracksTests.xctest"
                BlueprintName = "OwnTracksTests"
-               ReferencedContainer = "container:CF Bundle.xcodeproj">
+               ReferencedContainer = "container:OwnTracks.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

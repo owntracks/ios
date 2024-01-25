@@ -166,6 +166,7 @@ No information of your address book will be uploaded to any server.</string>
 	<array>
 		<string>fetch</string>
 		<string>location</string>
+		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
@@ -424,5 +425,7 @@ No information of your address book will be uploaded to any server.</string>
 			</dict>
 		</dict>
 	</array>
+	<key>aps-environment</key>
+	<string>development</string>
 </dict>
 </plist>
