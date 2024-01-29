@@ -15,6 +15,9 @@
 @class Friend;
 
 NS_ASSUME_NONNULL_BEGIN
+@interface CLRegion (follow)
+- (BOOL)isFollow;
+@end
 
 @interface Region : NSManagedObject <MKAnnotation, MKOverlay>
 
@@ -26,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)ridFromTst:(NSDate *)tst andName:(NSString *)name;
 + (NSString *)newRid;
+
 
 @end
 

@@ -27,6 +27,9 @@
 
 static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
+// experimental code for APNS
+#define APNS FALSE
+
 @interface NSString (safe)
 - (BOOL)saveEqual:(NSString *)aString;
 + (NSString *)saveCopy:(NSString *)aString;
@@ -259,7 +262,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     }];
     center.delegate = self;
     
+#if APNS
     [[UIApplication sharedApplication] registerForRemoteNotifications];
+#endif
+    
     return YES;
 }
 
@@ -306,6 +312,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     
 }
 
+#if APNS
 - (void)application:(UIApplication *)application
 didReceiveRemoteNotification:(NSDictionary *)userInfo
 fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
@@ -317,6 +324,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     DDLogInfo(@"[OwnTracksAppDelegate] didReceiveRemoteNotification finished");
     completionHandler(UIBackgroundFetchResultNewData);
 }
+#endif
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     DDLogInfo(@"[OwnTracksAppDelegate] applicationWillResignActive");
@@ -863,7 +871,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     if ([LocationManager sharedInstance].monitoring != LocationMonitoringQuiet &&
         [Settings validIdsInMOC:moc]) {
         
-        if (![region.identifier hasPrefix:@"+"]) {
+        if (!region.isFollow) {
             NSArray <NSString *> *components = [region.identifier componentsSeparatedByString:@"|"];
             NSString *notificationMessage = [NSString stringWithFormat:@"%@ %@",
                                              (enter ?
@@ -1498,7 +1506,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                               inManagedObjectContext:moc];
             if (friend) {
                 for (Region *anyRegion in friend.hasRegions) {
-                    if ([anyRegion.CLregion.identifier hasPrefix:@"+"]) {
+                    if (anyRegion.CLregion.isFollow) {
                         if ((anyRegion.radius).doubleValue > 0) {
                             anyRegion.lat = @(location.coordinate.latitude);
                             anyRegion.lon = @(location.coordinate.longitude);
@@ -1834,6 +1842,7 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
     return NO;
 }
 
+#if APNS
 #pragma Remote Notifications
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
@@ -1853,6 +1862,7 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
 
 }
 
+#endif
 
 @end
 

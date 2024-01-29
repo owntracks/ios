@@ -640,6 +640,9 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             [annotationView setNeedsDisplay];
             return annotationView;
         } else {
+            if (region.CLregion.isFollow) {
+                return nil;
+            }
             MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_OTHER];
 #if TRUE
             MKMarkerAnnotationView *mAV;
@@ -682,7 +685,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         Region *region = (Region *)overlay;
         if (region.CLregion && [region.CLregion isKindOfClass:[CLCircularRegion class]]) {
             MKCircleRenderer *renderer = [[MKCircleRenderer alloc] initWithCircle:region.circle];
-            if ([region.name hasPrefix:@"+"]) {
+            if (region.CLregion.isFollow) {
                 renderer.fillColor = [UIColor colorNamed:@"followColor"];
             } else {
                 if ([[LocationManager sharedInstance] insideCircularRegion:region.name]) {

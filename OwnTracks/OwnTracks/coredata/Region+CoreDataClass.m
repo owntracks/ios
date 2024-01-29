@@ -36,6 +36,11 @@
 }
 @end
 
+@implementation CLRegion (follow)
+- (BOOL)isFollow {
+    return [self.identifier hasPrefix:@"+"];
+}
+@end
 
 @implementation Region
 
