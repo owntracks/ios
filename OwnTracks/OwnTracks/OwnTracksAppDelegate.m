@@ -426,7 +426,17 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
                             dict = json;
                         }
                         if (dict) {
-                            [self configFromDictionary:dict];
+                            [self performSelectorOnMainThread:@selector(terminateSession)
+                                                   withObject:nil
+                                                waitUntilDone:TRUE];
+                            [self performSelectorOnMainThread:@selector(configFromDictionary:)
+                                                   withObject:dict
+                                                waitUntilDone:TRUE];
+                            self.configLoad = [NSDate date];
+                            [self performSelectorOnMainThread:@selector(reconnect)
+                                                   withObject:nil
+                                                waitUntilDone:TRUE];
+
                             self.processingMessage = NSLocalizedString(@"Inline Configuration successfully processed",
                                                                        @"Display after processing inline config");
                             DDLogInfo(@"[OwnTracksAppDelegate] openURL ok %@", self.processingMessage);
