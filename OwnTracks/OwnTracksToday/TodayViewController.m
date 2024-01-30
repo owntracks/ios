@@ -147,14 +147,9 @@
         }
         case 1: {
             NSDate *timestamp = friend[@"timestamp"];
-            NSTimeInterval interval = -[timestamp timeIntervalSinceNow];
-            NSMeasurement *m = [[NSMeasurement alloc] initWithDoubleValue:interval
-                                                                     unit:[NSUnitDuration seconds]];
-            NSMeasurementFormatter *mf = [[NSMeasurementFormatter alloc] init];
-            mf.unitOptions = NSMeasurementFormatterUnitOptionsNaturalScale;
-            mf.numberFormatter.maximumFractionDigits = 0;
-
-            cell.detailTextLabel.text = [mf stringFromMeasurement:m];
+            NSRelativeDateTimeFormatter *r = [[NSRelativeDateTimeFormatter alloc] init];
+            cell.detailTextLabel.text = [r localizedStringForDate:timestamp
+                                                   relativeToDate:[NSDate date]];
             break;
         }
         case 2: {

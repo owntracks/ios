@@ -1,6 +1,14 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 17.1.3 iOS/ipadOS/macOS
+* Release Date 2024-01-30
+
+** UI Improvements and Bug Fixes
+
+    [FIX] reconnect after config load from URL inline #770
+    [NEW] hide Pin Marker for '+follow'  regions
+
 ## OwnTracks 17.1.1 iOS/ipadOS/macOS
 * Release Date 2024-01-15
 
