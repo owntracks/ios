@@ -7,6 +7,7 @@ OwnTracks iOS App Release Notes
 ** UI Improvements and Bug Fixes
 
     [FIX] reconnect after config load from URL inline #770
+    [FIX] use NSReletiveDateTimeFormatter for timestamp age display
     [NEW] hide Pin Marker for '+follow'  regions
 
 ## OwnTracks 17.1.1 iOS/ipadOS/macOS
