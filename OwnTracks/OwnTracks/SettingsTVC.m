@@ -1113,41 +1113,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self updated];
 }
 
-- (IBAction)modeChanged:(UITextField *)sender {
-    UIAlertController *ac = [UIAlertController
-                             alertControllerWithTitle:NSLocalizedString(@"Mode change",
-                                                                        @"Alert header for mode change warning")
-                             message:NSLocalizedString(@"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before.",
-                                                       @"Alert content for mode change warning")
-                             preferredStyle:UIAlertControllerStyleAlert];
-
-    UIAlertAction *cancel = [UIAlertAction
-                             actionWithTitle:NSLocalizedString(@"Cancel",
-                                                               @"Cancel button title")
-
-                             style:UIAlertActionStyleCancel
-                             handler:^(UIAlertAction *action){
-        [self updated];
-    }];
-    UIAlertAction *ok = [UIAlertAction
-                         actionWithTitle:NSLocalizedString(@"Continue",
-                                                           @"Continue button title")
-
-                         style:UIAlertActionStyleDestructive
-                         handler:^(UIAlertAction *action) {
-        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [ad terminateSession];
-        [self updateValues];
-
-        [self updated];
-        [ad reconnect];
-    }];
-
-    [ac addAction:cancel];
-    [ac addAction:ok];
-    [self presentViewController:ac animated:TRUE completion:nil];
-}
-
 - (IBAction)changed:(id)sender {
     [self updateValues];
     [self updated];
