@@ -78,12 +78,6 @@
 
 + (NSString *)CLLocationCoordinateText:(CLLocation *)location {
     if (location && CLLocationCoordinate2DIsValid(location.coordinate)) {
-        NSMeasurement *m = [[NSMeasurement alloc] initWithDoubleValue:location.horizontalAccuracy
-                                                                 unit:[NSUnitLength meters]];
-        NSMeasurementFormatter *mf = [[NSMeasurementFormatter alloc] init];
-        mf.unitOptions = NSMeasurementFormatterUnitOptionsNaturalScale;
-        mf.numberFormatter.maximumFractionDigits = 0;
-        
         return [NSString stringWithFormat:@"%g,%g (%@)",
                 location.coordinate.latitude,
                 location.coordinate.longitude,
