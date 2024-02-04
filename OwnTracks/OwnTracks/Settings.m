@@ -115,6 +115,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             object = dictionary[@"httpHeaders"];
             if (object) [self setString:object forKey:@"httpheaders_preference" inMOC:context];
 
+            object = dictionary[@"encryptionKey"];
+            if (object) [self setString:object forKey:@"secret_preference" inMOC:context];
+
             object = dictionary[@"username"];
             if (object) [self setString:object forKey:@"user_preference" inMOC:context];
 
@@ -424,6 +427,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     dict[@"allowRemoteLocation"] =  @([Settings boolForKey:@"allowremotelocation_preference" inMOC:context]);
     dict[@"auth"] =                 @([Settings boolForKey:@"auth_preference" inMOC:context]);
     dict[@"usePassword"] =          @([Settings boolForKey:@"usepassword_preference" inMOC:context]);
+    dict[@"encryptionKey"] =        [Settings stringOrZeroForKey:@"secret_preference" inMOC:context];
     dict[@"username"] =             [Settings stringOrZeroForKey:@"user_preference" inMOC:context];
     dict[@"password"] =             [Settings stringOrZeroForKey:@"pass_preference" inMOC:context];
 
