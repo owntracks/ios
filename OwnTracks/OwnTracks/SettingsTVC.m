@@ -122,6 +122,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
          forKeyPath:@"configLoad"
             options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
             context:nil];
+    
+    LocationManager *lm = [LocationManager sharedInstance];
+    [lm addObserver:self
+         forKeyPath:@"monitoring"
+            options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+            context:nil];
+
     [self updated];
     
     self.warningShown = FALSE;
@@ -137,6 +144,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [ad removeObserver:self
             forKeyPath:@"configLoad"
                context:nil];
+    LocationManager *lm = [LocationManager sharedInstance];
+    [lm removeObserver:self
+            forKeyPath:@"monitoring"
+               context:nil];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"reload" object:nil];
     [self reconnect];
     [super viewWillDisappear:animated];
@@ -389,6 +401,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     DDLogVerbose(@"observeValueForKeyPath %@", keyPath);
 
     if ([keyPath isEqualToString:@"configLoad"]) {
+        [self performSelectorOnMainThread:@selector(updated) withObject:nil waitUntilDone:NO];
+    }
+    if ([keyPath isEqualToString:@"monitoring"]) {
         [self performSelectorOnMainThread:@selector(updated) withObject:nil waitUntilDone:NO];
     }
 }
