@@ -73,17 +73,33 @@
 - (void)testTimeZone {
     NSDate *d = [NSDate date];
     NSTimeZone *t = [NSTimeZone systemTimeZone];
+    NSTimeZone *mexico = [NSTimeZone timeZoneWithName:@"America/Mexico_City"];
+    
+    NSLog(@"knownTimeZoneNames %@", [NSTimeZone knownTimeZoneNames]);
+
     NSLog(@"NSDate %@", d);
-    NSLog(@"NSTimezone %@ %@, %@ %ld", t, t.name, t.description, (long)t.secondsFromGMT);
+    NSLog(@"NSTimezone %@, %@, %@, %ld",
+          t.name,
+          t.description,
+          [t abbreviationForDate:d],
+          (long)[t secondsFromGMTForDate:d]);
+    NSLog(@"NSTimezone America/Mexico_City %@, %@, %@, %ld",
+          mexico.name,
+          mexico.description,
+          [mexico abbreviationForDate:d],
+          (long)[mexico secondsFromGMTForDate:d]);
+
     
     NSDateFormatter *f = [[NSDateFormatter alloc] init];
     f.timeZone = t;
     NSISO8601DateFormatter *i = [[NSISO8601DateFormatter alloc] init];
     i.timeZone = t;
+    NSISO8601DateFormatter *m = [[NSISO8601DateFormatter alloc] init];
+    m.timeZone = mexico;
 
     f.dateStyle = NSDateFormatterFullStyle;
     f.timeStyle = NSDateFormatterFullStyle;
-NSLog(@"NDateFormatter %@", [f stringFromDate:d]);
+    NSLog(@"NDateFormatter %@", [f stringFromDate:d]);
     f.dateStyle = NSDateFormatterLongStyle;
     f.timeStyle = NSDateFormatterLongStyle;
     NSLog(@"NDateFormatter %@", [f stringFromDate:d]);
@@ -92,6 +108,7 @@ NSLog(@"NDateFormatter %@", [f stringFromDate:d]);
     NSLog(@"NDateFormatter %@", [f stringFromDate:d]);
 
     NSLog(@"NSISO8601DateFormatter %@", [i stringFromDate:d]);
+    NSLog(@"NSISO8601DateFormatter America/Mexico_City %@", [m stringFromDate:d]);
 
 }
 
