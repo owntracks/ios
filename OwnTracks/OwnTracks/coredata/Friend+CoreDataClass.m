@@ -36,6 +36,13 @@
     return friend;
 }
 
++ (void)deleteAllFriendsInManagedObjectContext:(NSManagedObjectContext *)context {
+    NSArray *friends = [Friend allFriendsInManagedObjectContext:context];
+    for (Friend *friend in friends) {
+        [context deleteObject:friend];
+    }
+}
+
 + (NSArray *)allFriendsInManagedObjectContext:(NSManagedObjectContext *)context {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Friend"];
     request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"topic" ascending:YES]];

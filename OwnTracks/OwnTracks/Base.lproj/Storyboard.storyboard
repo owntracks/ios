@@ -317,7 +317,7 @@
                                                         <fragment content="Placeholder. Do not translate"/>
                                                     </attributedString>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="dwQ-E8-OvP"/>
+                                                        <action selector="deviceIdChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="ffA-tf-1HE"/>
                                                     </connections>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="effective deviceId" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hE7-sf-UPA">
@@ -366,7 +366,7 @@
                                                         <fragment content="Don't translate, technical term"/>
                                                     </attributedString>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="5wx-0j-iJX"/>
+                                                        <action selector="hostChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="xJc-MI-UJU"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -403,7 +403,7 @@
                                                         <fragment content="Don't translate, technical term"/>
                                                     </attributedString>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="8Se-P8-Doh"/>
+                                                        <action selector="portChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="WHY-ng-IE0"/>
                                                     </connections>
                                                 </textField>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BuY-gY-cfZ">
@@ -413,7 +413,7 @@
                                                         <constraint firstAttribute="height" constant="31" id="Pjk-OG-JBJ"/>
                                                     </constraints>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="valueChanged" id="WhT-Nd-sgy"/>
+                                                        <action selector="wsChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="HZP-jH-sc9"/>
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Websockets" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qg7-Fn-2Qr">
@@ -449,7 +449,7 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Fv-Fd-pIm">
                                                     <rect key="frame" x="192.5" y="6.5" width="51" height="31"/>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="valueChanged" id="Ner-o7-Tio"/>
+                                                        <action selector="tlsChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="MMO-9k-LNI"/>
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Proto" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NZB-F6-F8c">
@@ -523,7 +523,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="LxS-wF-6Xu"/>
+                                                        <action selector="useridChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="O2f-l0-j0J"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -556,7 +556,7 @@
                                                         <constraint firstAttribute="width" constant="49" id="gws-wc-Sip"/>
                                                     </constraints>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="valueChanged" id="hQX-uT-cR7"/>
+                                                        <action selector="authChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="Lh6-Pg-Vqa"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -587,7 +587,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="rgm-Oe-NnR"/>
+                                                        <action selector="passwordChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="f4G-zk-Dcs"/>
                                                     </connections>
                                                 </textField>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ADu-tQ-Uzn">
@@ -597,7 +597,7 @@
                                                         <constraint firstAttribute="height" constant="31" id="Jhh-sx-Ymw"/>
                                                     </constraints>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="valueChanged" id="v81-Vm-smM"/>
+                                                        <action selector="usePasswordChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="A9E-c1-gjZ"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -630,7 +630,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="rL4-SY-cAn"/>
+                                                        <action selector="secretChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="xrj-WW-lrf"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -661,7 +661,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="TP6-wN-9GZ"/>
+                                                        <action selector="urlChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="Qzw-89-bDl"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -702,7 +702,7 @@
                                                         <fragment content="Placeholder. Do not translate"/>
                                                     </attributedString>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="n5v-pL-ube"/>
+                                                        <action selector="subTopicChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="e6s-ol-dzj"/>
                                                     </connections>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="effective subTopic" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vUl-tT-Aw3">
@@ -754,7 +754,7 @@
                                                         <fragment content="Placeholder. Do not translate"/>
                                                     </attributedString>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="iau-TW-u1a"/>
+                                                        <action selector="clientIdChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="acZ-Nf-MSi"/>
                                                     </connections>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="effective clientId" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hQX-dc-Yix">
@@ -806,7 +806,7 @@
                                                         <fragment content="Placeholder. Do not translate"/>
                                                     </attributedString>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="nfK-bP-m1i"/>
+                                                        <action selector="pubTopicChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="tDg-Jg-VN3"/>
                                                     </connections>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="effective pubTopic" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H7d-L2-cbZ">
@@ -858,7 +858,7 @@
                                                         <fragment content="Placeholder. Do not translate"/>
                                                     </attributedString>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="NFA-3y-5Qb"/>
+                                                        <action selector="willTopicChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="GQV-C6-4rQ"/>
                                                     </connections>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="effective willTopic" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jwg-hb-6ed">
@@ -907,7 +907,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="Be4-Gw-sSp"/>
+                                                        <action selector="ignoreStaleLocationsChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="pZ1-9M-93l"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -944,7 +944,7 @@
                                                         <fragment content="Don't translate, technical term"/>
                                                     </attributedString>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="LZo-mc-Xcs"/>
+                                                        <action selector="ignoreInaccurateLocationsChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="KUV-Yw-qDm"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -978,7 +978,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="axd-RF-Igr"/>
+                                                        <action selector="locatorDisplacementChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="OK0-bQ-upZ"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -1012,7 +1012,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="DBr-qi-bk7"/>
+                                                        <action selector="locatorIntervalChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="oc6-VT-u7E"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -1046,7 +1046,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="E5n-E4-TeZ"/>
+                                                        <action selector="positionsChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="kiA-OL-mau"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -1080,7 +1080,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="Q1F-K8-aKg"/>
+                                                        <action selector="maxHistoryChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="Alf-zJ-knT"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -1117,7 +1117,7 @@
                                                         <fragment content="Placeholder. Do not translate"/>
                                                     </attributedString>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="0H8-a6-Fy8"/>
+                                                        <action selector="subQosChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="T33-Dc-rdL"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -1151,7 +1151,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="wfB-su-T16"/>
+                                                        <action selector="keepAliveChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="rc9-Ez-If7"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -1188,7 +1188,7 @@
                                                         <fragment content="Placeholder. Do not translate"/>
                                                     </attributedString>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="F7M-6L-odf"/>
+                                                        <action selector="pubQosChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="QTb-n5-cK1"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -1225,7 +1225,7 @@
                                                         <fragment content="Placeholder. Do not translate"/>
                                                     </attributedString>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="dNI-i9-9Q6"/>
+                                                        <action selector="willQosChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="jTp-U8-xnC"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -1262,7 +1262,7 @@
                                                         <fragment content="Placeholder. Do not translate"/>
                                                     </attributedString>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="smx-0T-no1"/>
+                                                        <action selector="monitoringChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="RzC-AO-e52"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -1299,7 +1299,7 @@
                                                         <fragment content="Placeholder. Do not translate"/>
                                                     </attributedString>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="x1v-NG-pcQ"/>
+                                                        <action selector="downgradeChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="auI-Q6-DDF"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -1335,7 +1335,7 @@
                                                         <constraint firstAttribute="width" constant="49" id="dBT-DZ-Prm"/>
                                                     </constraints>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="valueChanged" id="GsU-96-c3u"/>
+                                                        <action selector="rangingChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="RTg-w6-miK"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -1371,7 +1371,7 @@
                                                         <constraint firstAttribute="height" constant="31" id="yAF-ID-3JQ"/>
                                                     </constraints>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="valueChanged" id="MIa-eg-AC1"/>
+                                                        <action selector="extendedDataChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="akv-a4-Ejl"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -1407,7 +1407,7 @@
                                                         <constraint firstAttribute="height" constant="31" id="Xep-G1-0bt"/>
                                                     </constraints>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="valueChanged" id="iIa-lK-Fzn"/>
+                                                        <action selector="lockedChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="dPM-oc-nVm"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -1443,7 +1443,7 @@
                                                         <constraint firstAttribute="height" constant="31" id="IYs-E2-oXf"/>
                                                     </constraints>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="valueChanged" id="GI5-ma-owb"/>
+                                                        <action selector="subChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="d4P-Xu-Fqr"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -1479,7 +1479,7 @@
                                                         <constraint firstAttribute="width" constant="49" id="PAb-Wy-SYa"/>
                                                     </constraints>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="valueChanged" id="CyS-l6-RrE"/>
+                                                        <action selector="cmdChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="3wi-He-FAd"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -1515,7 +1515,7 @@
                                                         <constraint firstAttribute="width" constant="49" id="sLl-mE-pUR"/>
                                                     </constraints>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="valueChanged" id="3w2-eT-PMJ"/>
+                                                        <action selector="pubRetainChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="TMt-Vj-x3b"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -1551,7 +1551,7 @@
                                                         <constraint firstAttribute="width" constant="49" id="bZC-GJ-57h"/>
                                                     </constraints>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="valueChanged" id="0Ie-wS-Ogw"/>
+                                                        <action selector="willRetainChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="v8M-aW-Atv"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -1587,7 +1587,7 @@
                                                         <constraint firstAttribute="width" constant="49" id="qxU-Yv-zvB"/>
                                                     </constraints>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="valueChanged" id="y4X-Z0-sxZ"/>
+                                                        <action selector="cleanSessionChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="UoE-tN-sfW"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -1623,7 +1623,7 @@
                                                         <constraint firstAttribute="height" constant="31" id="nz6-15-q4y"/>
                                                     </constraints>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="valueChanged" id="vBL-kb-0Ku"/>
+                                                        <action selector="allowRemoteLocationChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="mfc-xT-LzF"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -1654,7 +1654,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
-                                                        <action selector="changed:" destination="nAk-La-kdM" eventType="editingChanged" id="j9K-sB-E3i"/>
+                                                        <action selector="httpHeadersChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="nEj-Fe-vFl"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -1860,13 +1860,7 @@
                             <outlet property="delegate" destination="0f4-YU-UXj" id="do4-gj-FkQ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Friends" id="03k-Ca-PSS">
-                        <barButtonItem key="leftBarButtonItem" image="Info" id="7fs-ON-nkE">
-                            <connections>
-                                <segue destination="G87-RS-wz7" kind="push" id="ft5-77-rU8"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Friends" id="03k-Ca-PSS"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uQ4-mZ-NmU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1920,11 +1914,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Regions" id="GM9-KK-8vY">
-                        <barButtonItem key="leftBarButtonItem" image="Info" id="WMn-u3-sD7">
-                            <connections>
-                                <segue destination="G87-RS-wz7" kind="push" id="bll-jZ-B1N"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="GEj-Lw-poE">
                             <connections>
                                 <segue destination="qjh-5o-Yio" kind="push" identifier="newRegion:" id="auv-et-UoY"/>
@@ -2817,7 +2806,7 @@
                                                         <fragment content="Don't translate, technical term"/>
                                                     </attributedString>
                                                     <connections>
-                                                        <action selector="changed:" destination="N8y-lP-Jsi" eventType="valueChanged" id="BP2-7Q-3Ye"/>
+                                                        <action selector="clientPKCSChanged:" destination="N8y-lP-Jsi" eventType="valueChanged" id="w7G-yn-JqT"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -2858,7 +2847,7 @@
                                                         <fragment content="Don't translate, technical term"/>
                                                     </attributedString>
                                                     <connections>
-                                                        <action selector="changed:" destination="N8y-lP-Jsi" eventType="valueChanged" id="fyW-gm-L7y"/>
+                                                        <action selector="passphraseChanged:" destination="N8y-lP-Jsi" eventType="valueChanged" id="rYP-JP-sVV"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -2890,7 +2879,7 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ziU-bT-6kO">
                                                     <rect key="frame" x="306" y="6.5" width="51" height="31"/>
                                                     <connections>
-                                                        <action selector="changed:" destination="N8y-lP-Jsi" eventType="valueChanged" id="FVB-qA-UyP"/>
+                                                        <action selector="allowUntrustedCertificatesChanged:" destination="N8y-lP-Jsi" eventType="valueChanged" id="j0i-AQ-RqX"/>
                                                     </connections>
                                                 </switch>
                                             </subviews>
@@ -3905,18 +3894,11 @@ DSJSONSchemaValidation
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Featured" id="AdM-qz-URl">
-                        <leftBarButtonItems>
-                            <barButtonItem image="Info" id="NsL-Ir-7lz">
-                                <connections>
-                                    <segue destination="G87-RS-wz7" kind="push" id="aMd-Tc-ju9"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="rewind" id="UD1-xe-bEw">
-                                <connections>
-                                    <action selector="backwardPressed:" destination="nKt-ru-oV7" id="arV-X2-lpk"/>
-                                </connections>
-                            </barButtonItem>
-                        </leftBarButtonItems>
+                        <barButtonItem key="leftBarButtonItem" systemItem="rewind" id="UD1-xe-bEw">
+                            <connections>
+                                <action selector="backwardPressed:" destination="nKt-ru-oV7" id="arV-X2-lpk"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="refresh" id="d9X-er-53D">
                                 <connections>
@@ -4005,11 +3987,6 @@ DSJSONSchemaValidation
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="History" id="9IF-HL-6Bf">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="Info" id="dhG-pz-V9R">
-                            <connections>
-                                <segue destination="G87-RS-wz7" kind="push" id="K8i-ip-FO0"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="trash" id="8rI-81-cYD">
                             <connections>
                                 <action selector="trashPressed:" destination="KhF-fd-fTi" id="mTF-6r-A0K"/>
@@ -4041,8 +4018,7 @@ DSJSONSchemaValidation
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="auv-et-UoY"/>
-        <segue reference="bll-jZ-B1N"/>
-        <segue reference="Hb0-uO-VBI"/>
+        <segue reference="KLh-ve-vhU"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Friends" width="33" height="33"/>

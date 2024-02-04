@@ -78,6 +78,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *logsButton;
 
 @property (strong, nonatomic) UIDocumentInteractionController *dic;
+@property (nonatomic) BOOL warningShown;
 
 @end
 
@@ -101,7 +102,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.UIpassphrase.delegate = self;
     self.UIurl.delegate = self;
     self.UIhttpHeaders.delegate = self;
+    self.UIlocatorDisplacement.delegate = self;
+    self.UIsubTopic.delegate = self;
+    self.UIpubTopicBase.delegate = self;
+    self.UIwillTopic.delegate = self;
+    self.UIlocatorInterval.delegate = self;
+    self.UIpositions.delegate = self;
+    self.UImaxHistory.delegate = self;
+    self.UIsubQos.delegate = self;
+    self.UIkeepAlive.delegate = self;
+    self.UIpubQos.delegate = self;
+    self.UIwillQos.delegate = self;
     self.UImonitoring.delegate = self;
+    self.UIclientId.delegate = self;
     self.UIdowngrade.delegate = self;
 
     OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
@@ -110,6 +123,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
             context:nil];
     [self updated];
+    
+    self.warningShown = FALSE;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -1025,38 +1040,52 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     }
 }
 
-- (IBAction)modeSwitchChanged:(UISegmentedControl *)sender {
-    UIAlertController *ac = [UIAlertController
-                             alertControllerWithTitle:NSLocalizedString(@"Mode change",
-                                                                        @"Alert header for mode change warning")
-                             message:NSLocalizedString(@"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before.",
-                                                       @"Alert content for mode change warning")
-                             preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *cancel = [UIAlertAction
-                             actionWithTitle:NSLocalizedString(@"Cancel",
-                                                               @"Cancel button title")
+- (void)changeWarning {
+    if (!self.warningShown) {
+        UIAlertController *ac = [UIAlertController
+                                 alertControllerWithTitle:NSLocalizedString(@"Mode change",
+                                                                            @"Alert header for mode change warning")
+                                 message:NSLocalizedString(@"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before.",
+                                                           @"Alert content for mode change warning")
+                                 preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *cancel = [UIAlertAction
+                                 actionWithTitle:NSLocalizedString(@"Cancel",
+                                                                   @"Cancel button title")
+                                 
+                                 style:UIAlertActionStyleCancel
+                                 handler:^(UIAlertAction *action){
+            [self updated];
+            self.warningShown = FALSE;
+        }];
+        UIAlertAction *ok = [UIAlertAction
+                             actionWithTitle:NSLocalizedString(@"Continue",
+                                                               @"Continue button title")
                              
-                             style:UIAlertActionStyleCancel
-                             handler:^(UIAlertAction *action){
-        [self updated];
-    }];
-    UIAlertAction *ok = [UIAlertAction
-                         actionWithTitle:NSLocalizedString(@"Continue",
-                                                           @"Continue button title")
-                         
-                         style:UIAlertActionStyleDestructive
-                         handler:^(UIAlertAction *action) {
+                             style:UIAlertActionStyleDestructive
+                             handler:^(UIAlertAction *action) {
+            OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+            [ad terminateSession];
+            [self updateValues];
+            [self updated];
+            [ad reconnect];
+            self.warningShown = TRUE;
+        }];
+        
+        [ac addAction:cancel];
+        [ac addAction:ok];
+        [self presentViewController:ac animated:TRUE completion:nil];
+    } else {
         OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         [ad terminateSession];
         [self updateValues];
         [self updated];
         [ad reconnect];
-    }];
-    
-    [ac addAction:cancel];
-    [ac addAction:ok];
-    [self presentViewController:ac animated:TRUE completion:nil];
+    }
+}
+
+- (IBAction)modeSwitchChanged:(UISegmentedControl *)sender {
+    [self changeWarning];
 }
 
 
@@ -1112,8 +1141,150 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self updateValues];
     [self updated];
 }
-
-- (IBAction)changed:(id)sender {
+- (IBAction)deviceIdChanged:(UITextField *)sender {
+    [self changeWarning];
+}
+- (IBAction)hostChanged:(UITextField *)sender {
+    [self changeWarning];
+}
+- (IBAction)portChanged:(UITextField *)sender {
+    [self changeWarning];
+}
+- (IBAction)wsChanged:(UISwitch *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)tlsChanged:(UISwitch *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)useridChanged:(UITextField *)sender {
+    [self changeWarning];
+}
+- (IBAction)authChanged:(UISwitch *)sender {
+    [self changeWarning];
+}
+- (IBAction)passwordChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)usePasswordChanged:(UISwitch *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)secretChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)urlChanged:(UITextField *)sender {
+    [self changeWarning];
+}
+- (IBAction)subTopicChanged:(UITextField *)sender {
+    [self changeWarning];
+}
+- (IBAction)clientIdChanged:(UITextField *)sender {
+    [self changeWarning];
+}
+- (IBAction)pubTopicChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)willTopicChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)ignoreStaleLocationsChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)ignoreInaccurateLocationsChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)locatorDisplacementChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)locatorIntervalChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)positionsChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)maxHistoryChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)subQosChanged:(UITextField *)sender {
+    [self changeWarning];
+}
+- (IBAction)keepAliveChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)pubQosChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)willQosChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)monitoringChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)downgradeChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)rangingChanged:(UISwitch *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)extendedDataChanged:(UISwitch *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)lockedChanged:(UISwitch *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)subChanged:(UISwitch *)sender {
+    [self changeWarning];
+}
+- (IBAction)cmdChanged:(UISwitch *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)pubRetainChanged:(UISwitch *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)willRetainChanged:(UISwitch *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)cleanSessionChanged:(UISwitch *)sender {
+    [self changeWarning];
+}
+- (IBAction)allowRemoteLocationChanged:(UISwitch *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)httpHeadersChanged:(UITextField *)sender {
+    [self changeWarning];
+}
+- (IBAction)clientPKCSChanged:(UITextField *)sender {
+    [self changeWarning];
+}
+- (IBAction)passphraseChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)allowUntrustedCertificatesChanged:(UISwitch *)sender {
     [self updateValues];
     [self updated];
 }

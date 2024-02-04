@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)nameOfPerson:(NSString *)contactId;
 + (NSData *)imageDataOfPerson:(NSString *)contactId;
 
++ (void)deleteAllFriendsInManagedObjectContext:(NSManagedObjectContext *)context;
 + (NSArray *)allFriendsInManagedObjectContext:(NSManagedObjectContext *)context;
 + (NSArray *)allNonStaleFriendsInManagedObjectContext:(NSManagedObjectContext *)context;
 

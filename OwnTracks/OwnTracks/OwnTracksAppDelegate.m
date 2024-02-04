@@ -1479,13 +1479,8 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     [[OwnTracking sharedInstance] syncProcessing];
     [[LocationManager sharedInstance] resetRegions];
     [self.connection reset];
-    
-    NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
-    NSArray *friends = [Friend allFriendsInManagedObjectContext:moc];
-    for (Friend *friend in friends) {
-        [moc deleteObject:friend];
-    }
-    [CoreData.sharedInstance sync:moc];
+    [Friend deleteAllFriendsInManagedObjectContext:CoreData.sharedInstance.mainMOC];
+    [[CoreData sharedInstance] sync:CoreData.sharedInstance.mainMOC];
 }
 
 - (void)reconnect {

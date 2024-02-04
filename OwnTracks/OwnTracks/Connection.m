@@ -618,22 +618,25 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 
 - (void)reset {
     DDLogInfo(@"[Connection] reset");
+    [self performSelectorOnMainThread:@selector(resetQueue)
+                           withObject:nil
+                        waitUntilDone:TRUE];
+}
+
+- (void)resetQueue {
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
     
-    [CoreData.sharedInstance.queuedMOC performBlockAndWait:^{
-        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
-        
-        NSError *error = nil;
-        NSArray *matches = [CoreData.sharedInstance.queuedMOC executeFetchRequest:request error:&error];
-        if (matches) {
-            if (matches.count) {
-                for (NSManagedObject *object in matches) {
-                    [CoreData.sharedInstance.queuedMOC deleteObject:object];
-                }
-                [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
+    NSError *error = nil;
+    NSArray *matches = [CoreData.sharedInstance.mainMOC executeFetchRequest:request error:&error];
+    if (matches) {
+        if (matches.count) {
+            for (NSManagedObject *object in matches) {
+                [CoreData.sharedInstance.mainMOC deleteObject:object];
             }
+            [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
         }
-        [self.delegate totalBuffered:self count:0];
-    }];
+    }
+    [self.delegate totalBuffered:self count:0];
 }
 
 #pragma mark - MQTT Callback methods
