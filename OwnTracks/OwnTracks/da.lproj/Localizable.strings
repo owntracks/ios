@@ -166,8 +166,8 @@
 /* Title map interaction */
 "Map Interaction" = "Kortinteraktion";
 
-/* Alert header for mode change warning */
-"Mode change" = "Tilstandsændring";
+/* Alert header for connection change warning */
+"Connection change" = "Tilstandsændring";
 
 /* Move */
 "Move" = "Bevægelse";
@@ -202,7 +202,7 @@
 /* temporary display while opening URL */
 "opening URL" = "åbner URL";
 
-/* Alert content for mode change warning */
+/* Alert content for connection change warning */
 "Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Vær venligst opmærksom på at dine gemte rutepunkter og positioner will blive slettet på denne enhed for dit privatlivs skyld. Lav en backup først.";
 
 /* Alert header regarding protocol input */

@@ -172,8 +172,8 @@
 /* Title map interaction */
 "Map Interaction" = "Harita Etkileşimi";
 
-/* Alert header for mode change warning */
-"Mode change" = "Mod değişikliği";
+/* Alert header for connection change warning */
+"Connection change" = "Mod değişikliği";
 
 /* Move */
 "Move" = "Hareket";
@@ -211,7 +211,7 @@
 /* temporary display while opening URL */
 "opening URL" = "açılış URL'si";
 
-/* Alert content for mode change warning */
+/* Alert content for connection change warning */
 "Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Lütfen saklanan yol noktalarınızın ve konumlarınızın gizlilik nedeniyle bu cihazda silineceğini unutmayın. Lütfen daha önce yedekleyin.";
 
 /* Alert header regarding protocol input */

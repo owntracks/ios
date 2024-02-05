@@ -163,8 +163,8 @@
 /* Title map interaction */
 "Map Interaction" = "Interaktion med kartan";
 
-/* Alert header for mode change warning */
-"Mode change" = "Lägesändring";
+/* Alert header for connection change warning */
+"Connection change" = "Lägesändring";
 
 /* Move */
 "Move" = "Flytta";
@@ -196,7 +196,7 @@
 /* temporary display while opening URL */
 "opening URL" = "öppnar URL";
 
-/* Alert content for mode change warning */
+/* Alert content for connection change warning */
 "Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Tänk på att dina lagrade vägpunkter och platser kommer att raderas på den här enheten av sekretesskäl. Vänligen säkerhetskopiera de innan.";
 
 /* Alert header regarding protocol input */

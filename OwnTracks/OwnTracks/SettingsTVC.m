@@ -1058,10 +1058,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 - (void)changeWarning {
     if (!self.warningShown) {
         UIAlertController *ac = [UIAlertController
-                                 alertControllerWithTitle:NSLocalizedString(@"Mode change",
-                                                                            @"Alert header for mode change warning")
+                                 alertControllerWithTitle:NSLocalizedString(@"Connection change",
+                                                                            @"Alert header for connection change warning")
                                  message:NSLocalizedString(@"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before.",
-                                                           @"Alert content for mode change warning")
+                                                           @"Alert content for connection change warning")
                                  preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *cancel = [UIAlertAction

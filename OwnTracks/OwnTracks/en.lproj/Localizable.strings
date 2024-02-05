@@ -157,8 +157,8 @@
 /* Manual */
 "Manual" = "Manual";
 
-/* Alert header for mode change warning */
-"Mode change" = "Mode change";
+/* Alert header for connection change warning */
+"Connection change" = "Connection change";
 
 /* Move */
 "Move" = "Move";
@@ -186,7 +186,7 @@
 /* temporary display while opening URL */
 "opening URL" = "opening URL";
 
-/* Alert content for mode change warning */
+/* Alert content for connection change warning */
 "Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before.";
 
 /* Alert header regarding protocol input */

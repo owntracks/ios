@@ -172,8 +172,8 @@
 /* Title map interaction */
 "Map Interaction" = "Karten Interaktion";
 
-/* Alert header for mode change warning */
-"Mode change" = "Moduswechsel";
+/* Alert header for connection change warning */
+"Connection change" = "Verbindungswechsel";
 
 /* Move */
 "Move" = "Bewegung";
@@ -211,7 +211,7 @@
 /* temporary display while opening URL */
 "opening URL" = "URL wird geöffnet";
 
-/* Alert content for mode change warning */
+/* Alert content for connection change warning */
 "Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Bitte beachten Sie, dass gespeicherte Regionen und Positionen auf diesem Gerät gelöscht werden. Bitte sichern Sie diese vorher.";
 
 /* Alert header regarding protocol input */
