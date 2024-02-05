@@ -1,6 +1,15 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 17.2.1 iOS/ipadOS/macOS
+* Release Date 2024-02-05
+
+** UI Improvements and Bug Fixes
+
+    [NEW] Fully reset configuration when changing mode and/or host/port #771
+    [FIX] "Change Monitoring Mode" doesn't work if the app is on the settings page #768
+    [FIX] Make encryptionKey for payload encryption configurable over .otrc  #774
+
 ## OwnTracks 17.1.3 iOS/ipadOS/macOS
 * Release Date 2024-01-30
 
