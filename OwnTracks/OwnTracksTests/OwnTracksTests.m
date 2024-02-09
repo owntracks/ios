@@ -8,6 +8,23 @@
 
 #import <XCTest/XCTest.h>
 #import "NSNumber+decimals.h"
+#import "Validation.h"
+#import <CoreLocation/CoreLocation.h>
+
+@interface NSObject (safeIntValue)
+- (int)safeIntValue;
+@end
+
+@implementation NSObject (safeIntValue)
+- (int)safeIntValue{
+    int i = 0;
+    if (self && [self respondsToSelector:@selector(intValue)]) {
+        i = [self performSelector:@selector(intValue)];
+    }
+    return i;
+}
+
+@end
 
 @interface OwnTracksTests : XCTestCase
 
@@ -130,6 +147,156 @@
                      relativeToDate:[NSDate date]]);
 }
 
+- (void)testIncomingJSONnil {
+    [self incomingJSON:nil];
+}
+
+- (void)testIncomingJSONzeroLength {
+    [self incomingJSON:@""];
+
+}
+
+- (void)testIncomingJSONempty {
+    [self incomingJSON:@"{}"];
+}
+
+- (void)testIncomingJSONarray {
+    [self incomingJSON:@"[]"];
+}
+
+- (void)testIncomingJSONnull {
+    [self incomingJSON:@"null"];
+}
+
+- (void)testIncomingJSONvalid {
+    [self incomingJSON:@"{\"_type\":\"location\",\"tst\":1707470410,\"lat\":51.4,\"lon\":8.3,\"vel\":100,\"batt\":75}"];
+}
+
+- (void)testIncomingJSONwithNullBatt {
+    [self incomingJSON:@"{\"_type\":\"location\",\"tst\":1707470410,\"lat\":51.4,\"lon\":8.3,\"vel\":100,\"batt\":null}"];
+}
+
+- (void)testIncomingJSONwithStringBatt {
+    [self incomingJSON:@"{\"_type\":\"location\",\"tst\":1707470410,\"lat\":51.4,\"lon\":8.3,\"vel\":100,\"batt\":\"75\"}"];
+}
+
+- (void)testIncomingJSONwithObjectBatt {
+    [self incomingJSON:@"{\"_type\":\"location\",\"tst\":1707470410,\"lat\":51.4,\"lon\":8.3,\"vel\":100,\"batt\":{\"description\":\"the battery is empty\"}}"];
+}
+
+- (void)testIncomingJSONwithArrayBatt {
+    [self incomingJSON:@"{\"_type\":\"location\",\"tst\":1707470410,\"lat\":51.4,\"lon\":8.3,\"vel\":100,\"batt\":[]}"];
+}
+
+- (void)testIncomingJSONwithNullVel {
+    [self incomingJSON:@"{\"_type\":\"location\",\"tst\":1707470410,\"lat\":51.4,\"lon\":8.3,\"vel\":null,\"batt\":75}"];
+}
+
+- (void)testIncomingJSONwithNullLat {
+    [self incomingJSON:@"{\"_type\":\"location\",\"tst\":1707470410,\"lat\":null,\"lon\":8.3,\"vel\":100,\"batt\":75}"];
+}
+
+- (void)testIncomingJSONwithNullLon {
+    [self incomingJSON:@"{\"_type\":\"location\",\"tst\":1707470410,\"lat\":51.4,\"lon\":null,\"vel\":100,\"batt\":75}"];
+}
+
+- (void)testIncomingJSONwithNullTst {
+    [self incomingJSON:@"{\"_type\":\"location\",\"tst\":null,\"lat\":51.4,\"lon\":8.3,\"vel\":100,\"batt\":75}"];
+}
+
+- (void)testIncomingJSONwithNullType {
+    [self incomingJSON:@"{\"_type\":null,\"tst\":1707470410,\"lat\":51.4,\"lon\":8.3,\"vel\":100,\"batt\":75}"];
+}
+
+- (void)testIntValue {
+    NSNumber *n = [NSNumber numberWithInt:3];
+    NSString *s = @"3";
+    NSNull *zero = [NSNull null];
+    NSDictionary *d = [NSDictionary dictionary];
+    NSArray *a = [NSArray array];
+    id nix = nil;
+    
+    int i;
+    id o;
+    i = -1;
+    o = n;
+    i = [o safeIntValue];
+    XCTAssertEqual(i, 3);
+
+    i = -1;
+    o = s;
+    i = [o safeIntValue];
+    XCTAssertEqual(i, 3);
+
+    i = -1;
+    o = zero;
+    i = [o safeIntValue];
+    XCTAssertEqual(i, 0);
+
+    i = -1;
+    o = d;
+    i = [o safeIntValue];
+    XCTAssertEqual(i, 0);
+
+    i = -1;
+    o = a;
+    i = [o safeIntValue];
+    XCTAssertEqual(i, 0);
+
+    i = -1;
+    o = nix;
+    i = [o safeIntValue];
+    XCTAssertEqual(i, 0); // note this is not -1
+}
+
+- (void)incomingJSON:(NSString *)jsonString {
+    NSData *data = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *dictionary;
+    id json = [[Validation sharedInstance] validateMessageData:data];
+    if (json && [json isKindOfClass:[NSDictionary class]]) {
+        dictionary = json;
+    }
+            
+    if (dictionary) {
+        NSString *type = dictionary[@"_type"];
+                          
+        if (type && [type isKindOfClass:[NSString class]] && [type isEqualToString:@"location"]) {
+            NSNumber *lat = dictionary[@"lat"];
+            NSNumber *lon = dictionary[@"lon"];
+
+            if (lat && [lat isKindOfClass:[NSNumber class]] &&
+                lon && [lon isKindOfClass:[NSNumber class]]) {
+                CLLocationCoordinate2D coordinate =
+                CLLocationCoordinate2DMake(
+                                           [lat doubleValue],
+                                           [lon doubleValue]
+                                           );
+            }
+            
+            NSNumber *vel = dictionary[@"vel"];
+            int speed = -1;
+            if (vel && [vel isKindOfClass:[NSNumber class]]) {
+                speed = [vel intValue];
+                if (speed != -1) {
+                    speed = speed * 1000 / 3600;
+                }
+            }
+            
+            NSNumber *batt = dictionary[@"batt"];
+            NSNumber *batteryLevel = [NSNumber numberWithFloat:-1.0];
+            if (batt && [batt isKindOfClass:[NSNumber class]]) {
+                int iBatt = [batt intValue];
+                if (iBatt >= 0) {
+                    batteryLevel = [NSNumber numberWithFloat:iBatt / 100.0];
+                }
+            }
+        } else {
+            XCTAssert(TRUE);
+        }
+    } else {
+        XCTAssert(TRUE);
+    }
+}
 
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
