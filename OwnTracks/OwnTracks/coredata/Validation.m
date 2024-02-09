@@ -92,29 +92,31 @@ static DSJSONSchema *encryptionSchema = nil;
 
 - (id)validateData:(NSData *)data againstSchema:(DSJSONSchema *)schema {
     id json = nil;
-    if (schema) {
-        NSError *validationError = nil;
-        if ([schema validateObjectWithData:data
-                                     error:&validationError]) {
-            json = [NSJSONSerialization JSONObjectWithData:data
-                                                   options:0
-                                                     error:nil];
-            DDLogDebug(@"Validation JSON: %@",
-                       [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+    if (data && [data isKindOfClass:[NSData class]]) {
+        if (schema) {
+            NSError *validationError = nil;
+            if ([schema validateObjectWithData:data
+                                         error:&validationError]) {
+                json = [NSJSONSerialization JSONObjectWithData:data
+                                                       options:0
+                                                         error:nil];
+                DDLogDebug(@"Validation JSON: %@",
+                           [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+            } else {
+                json = [NSJSONSerialization JSONObjectWithData:data
+                                                       options:0
+                                                         error:nil];
+                DDLogError(@"Validation error: %@ with %@",
+                           validationError,
+                           [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+            }
         } else {
             json = [NSJSONSerialization JSONObjectWithData:data
                                                    options:0
                                                      error:nil];
-            DDLogError(@"Validation error: %@ with %@",
-                       validationError,
-                       [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+            DDLogVerbose(@"Not validated: %@",
+                         [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
         }
-    } else {
-        json = [NSJSONSerialization JSONObjectWithData:data
-                                               options:0
-                                                 error:nil];
-        DDLogVerbose(@"Not validated: %@",
-                     [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
     }
     
     return json;

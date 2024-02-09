@@ -12,9 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Validation : NSObject
 + (Validation *)sharedInstance;
-- (id)validateMessageData:(NSData *)data;
-- (id)validateMessagesData:(NSData *)data;
-- (id)validateEncryptionData:(NSData *)data;
+- (id)validateMessageData:(nonnull NSData  *)data;
+- (id)validateMessagesData:(nonnull NSData *)data;
+- (id)validateEncryptionData:(nonnull NSData *)data;
 
 @end
 
