@@ -292,68 +292,102 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 + (void)setWaypoints:(NSArray *)waypoints
                inMOC:(NSManagedObjectContext *)context {
-    if (waypoints) {
-        for (NSDictionary *waypoint in waypoints) {
-            if ([waypoint[@"_type"] isEqualToString:@"waypoint"]) {
-                DDLogVerbose(@"[Settings][setWaypoints] rid:%@ desc:%@ lon:%@ lat:%@, tst:%@",
-                             waypoint[@"rid"],
-                             waypoint[@"desc"],
-                             waypoint[@"lon"],
-                             waypoint[@"lat"],
-                             waypoint[@"tst"]
-                             );
+    if (!waypoints || ![waypoints isKindOfClass:[NSArray class]]) {
+        DDLogError(@"[Settings][setWaypoints] invalid waypoints array");
+        return;
+    }
+    
+    for (NSDictionary *waypoint in waypoints) {
+        if (![waypoint isKindOfClass:[NSDictionary class]]) {
+            DDLogError(@"[Settings][setWaypoints] waypoints array does contain non dictionary");
+            continue;
+        }
+        
+        NSString *type = waypoint[@"_type"];
+        if (!type || ![type isKindOfClass:[NSString class]] || ![type isEqualToString:@"waypoint"]) {
+            DDLogError(@"[Settings][setWaypoints] waypoint does not contain _type waypoint");
+            continue;
+        }
+        
+        NSString *desc = waypoint[@"desc"];
+        if (!desc || ![desc isKindOfClass:[NSString class]]) {
+            DDLogError(@"[Settings][setWaypoints] waypoint does not contain valid desc");
+            continue;
+        }
 
-                NSArray *components = [waypoint[@"desc"] componentsSeparatedByString:@":"];
-                NSString *name = components.count >= 1 ? components[0] : nil;
-                NSString *uuid = components.count >= 2 ? components[1] : nil;
-                unsigned int major = components.count >= 3 ? [components[2] unsignedIntValue]: 0;
-                unsigned int minor = components.count >= 4 ? [components[3] unsignedIntValue]: 0;
-
-                NSDate *tst = [NSDate dateWithTimeIntervalSince1970:
-                               [waypoint[@"tst"] doubleValue]];
-
-                NSString *rid = waypoint[@"rid"];
-                if (!rid) {
-                    rid = [Region ridFromTst:tst andName:name];
-                }
-
-                Friend *friend = [Friend friendWithTopic:[self theGeneralTopicInMOC:context]
-                                        inManagedObjectContext:context];
-
-                for (Region *region in friend.hasRegions) {
-                    if ([region.getAndFillRid isEqualToString:rid]) {
-                        DDLogVerbose(@"[Settings][setWaypoints] removeRegion %@", rid);
-                        [[OwnTracking sharedInstance] removeRegion:region context:context];
-                        break;
-                    }
-                }
-
-                CLLocationCoordinate2D coordinate =
-                CLLocationCoordinate2DMake([waypoint[@"lat"] doubleValue],
-                                           [waypoint[@"lon"] doubleValue]);
-                if (CLLocationCoordinate2DIsValid(coordinate)) {
-                    DDLogVerbose(@"[Settings][setWaypoints] addRegion desc:%@",
-                                 waypoint[@"desc"]);
-                    [[OwnTracking sharedInstance] addRegionFor:rid
-                                                        friend:friend
-                                                          name:name
-                                                           tst:tst
-                                                          uuid:uuid
-                                                         major:major
-                                                         minor:minor
-                                                        radius:[waypoint[@"rad"] doubleValue]
-                                                           lat:[waypoint[@"lat"] doubleValue]
-                                                           lon:[waypoint[@"lon"] doubleValue]];
-//                } else {
-//                    for (Region *region in friend.hasRegions) {
-//                        if ([region.name isEqualToString:name]) {
-//                            [[OwnTracking sharedInstance] removeRegion:region context:context];
-//                            break;
-//                        }
-//                    }
-                }
+        NSArray *components = [desc componentsSeparatedByString:@":"];
+        NSString *name = components.count >= 1 ? components[0] : nil;
+        NSString *uuid = components.count >= 2 ? components[1] : nil;
+        unsigned int major = components.count >= 3 ? [components[2] unsignedIntValue]: 0;
+        unsigned int minor = components.count >= 4 ? [components[3] unsignedIntValue]: 0;
+        
+        NSNumber *tstNumber = waypoint[@"tst"];
+        if (!tstNumber || ![tstNumber isKindOfClass:[NSNumber class]]) {
+            DDLogError(@"[Settings][setWaypoints] waypoint does not contain valid tst");
+            continue;
+        }
+        
+        NSDate *tst = [NSDate dateWithTimeIntervalSince1970:
+                       [tstNumber doubleValue]];
+                        
+        NSString *rid = waypoint[@"rid"];
+        if (!rid || ![rid isKindOfClass:[NSString class]]) {
+            rid = [Region ridFromTst:tst andName:name];
+        }
+                        
+        Friend *friend = [Friend friendWithTopic:[self theGeneralTopicInMOC:context]
+                          inManagedObjectContext:context];
+                        
+        for (Region *region in friend.hasRegions) {
+            if ([region.getAndFillRid isEqualToString:rid]) {
+                DDLogVerbose(@"[Settings][setWaypoints] removeRegion %@", rid);
+                [[OwnTracking sharedInstance] removeRegion:region context:context];
+                break;
             }
         }
+                        
+        NSNumber *lat = waypoint[@"lat"];
+        if (!lat || ![lat isKindOfClass:[NSNumber class]]) {
+            DDLogError(@"[Settings][setWaypoints] json does not contain valid lat: not processed");
+            return;
+        }
+        CLLocationDegrees latDegrees = lat.doubleValue;
+
+        NSNumber *lon = waypoint[@"lon"];
+        if (!lon || ![lon isKindOfClass:[NSNumber class]]) {
+            DDLogError(@"[Settings][setWaypoints] json does not contain valid lon: not processed");
+            return;
+        }
+        CLLocationDegrees lonDegrees = lon.doubleValue;
+        
+        if (lat.doubleValue == 0 && lon.doubleValue == 0.0) {
+            DDLogError(@"[Settings][setWaypoints] coord is 0.0,0.0: not processed");
+            return;
+        }
+
+        CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(latDegrees, lonDegrees);
+        if (!CLLocationCoordinate2DIsValid(coord)) {
+            DDLogError(@"[Settings][setWaypoints] coord is no valid: not processed");
+            return;
+        }
+
+        NSNumber *rad = waypoint[@"rad"];
+        if (!rad || ![rad isKindOfClass:[NSNumber class]]) {
+            DDLogError(@"[Settings][setWaypoints] json does not contain valid rad: not processed");
+            return;
+        }
+        CLLocationDistance radDistance = rad.doubleValue;
+
+        [[OwnTracking sharedInstance] addRegionFor:rid
+                                            friend:friend
+                                              name:name
+                                               tst:tst
+                                              uuid:uuid
+                                             major:major
+                                             minor:minor
+                                            radius:radDistance
+                                               lat:latDegrees
+                                               lon:lonDegrees];
     }
 }
 

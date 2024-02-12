@@ -201,7 +201,7 @@ static OwnTracking *theInstance = nil;
         }
         CLLocationDegrees lonDegrees = lon.doubleValue;
         
-        if (lat.doubleValue == 0 && lon.doubleValue == 0) {
+        if (lat.doubleValue == 0 && lon.doubleValue == 0.0) {
             DDLogError(@"[OwnTracking processLocation] coord is 0.0,0.0: not processed");
             return;
         }
