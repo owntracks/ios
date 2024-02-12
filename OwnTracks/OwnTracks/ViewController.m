@@ -1049,8 +1049,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
                                              minor:0
                                             radius:0
                                                lat:self.mapView.centerCoordinate.latitude
-                                               lon:self.mapView.centerCoordinate.longitude
-                                           context:CoreData.sharedInstance.mainMOC];
+                                               lon:self.mapView.centerCoordinate.longitude];
         [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
 
         OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;

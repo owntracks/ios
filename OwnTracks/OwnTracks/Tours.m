@@ -10,20 +10,69 @@
 #import "CoreData.h"
 #import "Settings.h"
 #import "OwnTracksAppDelegate.h"
+#import <CocoaLumberjack/CocoaLumberjack.h>
+
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 @implementation Tour
 - (instancetype)initFromDictionary:(NSDictionary *)dictionary {
     self = [self init];
     if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
-        self.label = dictionary[@"label"];
-        self.uuid = dictionary[@"uuid"];
-        self.url = dictionary[@"url"];
+        NSString *label = dictionary[@"label"];
+        if (label && [label isKindOfClass:[NSString class]]){
+            self.label = label;
+        } else {
+            DDLogError(@"[Tours] initFromDictionary invalid label");
+            return nil;
+        }
+
+        NSString *uuidString = dictionary[@"uuid"];
+        if (label && [label isKindOfClass:[NSString class]]){
+            self.uuid = uuidString;
+        } else {
+            DDLogError(@"[Tours] initFromDictionary invalid uuid");
+            return nil;
+        }
+
+        NSString *urlString = dictionary[@"url"];
+        if (label && [label isKindOfClass:[NSString class]]){
+            self.url = urlString;
+        } else {
+            DDLogError(@"[Tours] initFromDictionary invalid url");
+            return nil;
+        }
+
         NSISO8601DateFormatter *formatter = [[NSISO8601DateFormatter alloc] init];
         formatter.formatOptions ^= NSISO8601DateFormatWithTimeZone;
-        self.from = [formatter dateFromString:dictionary[@"from"]];
-        self.to = [formatter dateFromString:dictionary[@"to"]];
+        NSString *fromString = dictionary[@"from"];
+        if (fromString && [fromString isKindOfClass:[NSString class]]) {
+            self.from = [formatter dateFromString:fromString];
+            if (!self.from) {
+                DDLogError(@"[Tours] initFromDictionary invalid from dateformat");
+                return nil;
+            }
+        } else {
+            DDLogError(@"[Tours] initFromDictionary invalid from");
+            return nil;
+        }
+        
+        NSString *toString = dictionary[@"to"];
+        if (fromString && [fromString isKindOfClass:[NSString class]]) {
+            self.to = [formatter dateFromString:toString];
+            if (!self.to) {
+                DDLogError(@"[Tours] initFromDictionary invalid to dateformat");
+                return nil;
+            }
+        } else {
+            DDLogError(@"[Tours] initFromDictionary invalid to");
+            return nil;
+        }
+
+        return self;
+    } else {
+        DDLogError(@"[Tours] initFromDictionary invalid dictionary");
+        return nil;
     }
-    return self;
 }
 
 - (NSDictionary *)asDictionary {
@@ -212,35 +261,66 @@ static Tours *theInstance = nil;
 }
 
 - (BOOL)processResponse:(NSDictionary *)dictionary {
-    NSString *request = dictionary[@"request"];
-    if ([request isEqualToString:@"tour"]) {
-        NSNumber *status = dictionary[@"status"];
-        if (status.integerValue == 200) {
-            Tour *tour = [[Tour alloc] initFromDictionary:dictionary[@"tour"]];
-            [[Tours sharedInstance] addTour:tour];
+    if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
+        NSString *request = dictionary[@"request"];
+        if (request && [request isKindOfClass:[NSString class]]) {
+            if ([request isEqualToString:@"tour"]) {
+                NSNumber *status = dictionary[@"status"];
+                if (status && [status isKindOfClass:[NSNumber class]]) {
+                    if (status.integerValue == 200) {
+                        NSDictionary *tourDictionary = dictionary[@"tour"];
+                        if (tourDictionary && [tourDictionary isKindOfClass:[NSDictionary class]]) {
+                            Tour *tour = [[Tour alloc] initFromDictionary:dictionary[@"tour"]];
+                            if (tour) {
+                                [[Tours sharedInstance] addTour:tour];
+                                
+                                UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
+                                [generalPasteboard setString:tour.url];
+                                
+                                OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+                                
+                                [ad.navigationController alert:
+                                     NSLocalizedString(@"Response",
+                                                       @"Alert message header for Request Response")
+                                                       message:
+                                     [NSString stringWithFormat:@"%@ %ld %@\n",
+                                      NSLocalizedString(@"URL copied to Clipboard",
+                                                        @"URL copied to Clipboard"),
+                                      (long)status.integerValue,
+                                      tour.url]
+                                                           url:tour.url
+                                ];
+                            } else {
+                                DDLogError(@"[Tours] processResponse invalid tour");
+                                return FALSE;
+                            }
+                        } else {
+                            DDLogError(@"[Tours] processResponse invalid tour dictionary");
+                            return FALSE;
+                        }
+                    } else {
+                        DDLogError(@"[Tours] processResponse response status not 200 %@", status);
+                        return FALSE;
+                    }
+                    return TRUE;
+                } else {
+                    DDLogError(@"[Tours] processResponse request not tour or tours %@", request);
+                    return FALSE;
 
-            UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
-            [generalPasteboard setString:tour.url];
-
-            OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-
-            [ad.navigationController alert:
-                 NSLocalizedString(@"Response",
-                                   @"Alert message header for Request Response")
-                                   message:
-                 [NSString stringWithFormat:@"%@ %ld %@\n",
-                  NSLocalizedString(@"URL copied to Clipboard",
-                                    @"URL copied to Clipboard"),
-                  (long)status.integerValue,
-                  tour.url]
-                                       url:tour.url
-            ];
+                }
+            } else if ([request isEqual:@"tours"]) {
+                self.response = [dictionary mutableCopy];
+                return TRUE;
+            } else {
+                DDLogError(@"[Tours] processResponse request not tour or tours %@", request);
+                return FALSE;
+            }
+        } else {
+            DDLogError(@"[Tours] processResponse request invalid");
+            return FALSE;
         }
-        return TRUE;
-    } else if ([request isEqual:@"tours"]) {
-        self.response = [dictionary mutableCopy];
-        return TRUE;
     } else {
+        DDLogError(@"[Tours] processResponse invalid dictionary");
         return FALSE;
     }
 }

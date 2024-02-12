@@ -30,65 +30,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 // experimental code for APNS
 #define APNS FALSE
 
-@interface NSString (safe)
-- (BOOL)saveEqual:(NSString *)aString;
-+ (NSString *)saveCopy:(NSString *)aString;
-@end
-
-@implementation NSString (safe)
-
-- (BOOL)saveEqual:(NSString *)aString {
-    if (aString) {
-        if ([aString isKindOfClass:[NSString class]]) {
-            return [self isEqualToString:aString];
-        }
-    }
-    return false;
-}
-
-+ (NSString *)saveCopy:(NSString *)aString {
-    if (aString) {
-        if ([aString isKindOfClass:[NSString class]]) {
-            return aString;
-        }
-    }
-    return nil;
-}
-
-@end
-
-@interface NSNumber (safe)
-+ (NSNumber *)saveCopy:(NSNumber *)aNumber;
-@end
-
-@implementation NSNumber (safe)
-
-+ (NSNumber *)saveCopy:(NSNumber *)aNumber {
-    if (aNumber) {
-        if ([aNumber isKindOfClass:[NSNumber class]]) {
-            return aNumber;
-        }
-    }
-    return nil;
-}
-
-@end@interface NSDictionary (safe)
-+ (NSDictionary *)saveCopy:(NSDictionary *)aDictionary;
-@end
-
-@implementation NSDictionary (safe)
-
-+ (NSDictionary *)saveCopy:(NSDictionary *)aDictionary {
-    if (aDictionary) {
-        if ([aDictionary isKindOfClass:[NSDictionary class]]) {
-            return aDictionary;
-        }
-    }
-    return nil;
-}
-
-@end
-
 @interface OwnTracksAppDelegate()
 
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
@@ -148,10 +89,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
      localizedSubtitle:nil
      icon:[UIApplicationShortcutIcon iconWithSystemImageName:@"stop.fill"]
      userInfo:nil];
-
+    
     application.shortcutItems = @[quiet, manual, significant, move];
 }
-    
+
 
 #pragma ApplicationDelegate
 
@@ -176,8 +117,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [DDLog addLogger:self.fl withLevel:DDLogLevelVerbose];
     
     DDLogInfo(@"[OwnTracksAppDelegate] OwnTracks starting %@/%@ %@",
-               [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"],
-               [NSLocale currentLocale].localeIdentifier,
+              [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"],
+              [NSLocale currentLocale].localeIdentifier,
               launchOptions);
     
     [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
@@ -317,7 +258,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 didReceiveRemoteNotification:(NSDictionary *)userInfo
 fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     DDLogInfo(@"[OwnTracksAppDelegate] didReceiveRemoteNotification starting");
-
+    
     [self performSelectorOnMainThread:@selector(doRefresh)
                            withObject:nil
                         waitUntilDone:TRUE];
@@ -436,7 +377,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
                             [self performSelectorOnMainThread:@selector(reconnect)
                                                    withObject:nil
                                                 waitUntilDone:TRUE];
-
+                            
                             self.processingMessage = NSLocalizedString(@"Inline Configuration successfully processed",
                                                                        @"Display after processing inline config");
                             DDLogInfo(@"[OwnTracksAppDelegate] openURL ok %@", self.processingMessage);
@@ -486,7 +427,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 
 - (BOOL)processNSURL:(NSURL *)url {
     DDLogInfo(@"[OwnTracksAppDelegate] processNSURL %@", url);
-
+    
     self.processingMessage = nil;
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     NSURLSessionDataTask *dataTask =
@@ -557,25 +498,25 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
                 } else {
                     [self.navigationController alert:@"processNSURL"
                                              message:
-                     [NSString stringWithFormat:@"httpResponse.statusCode %ld %@",
-                      (long)httpResponse.statusCode,
-                      url]
+                         [NSString stringWithFormat:@"httpResponse.statusCode %ld %@",
+                          (long)httpResponse.statusCode,
+                          url]
                     ];
                 }
             } else {
                 [self.navigationController alert:@"processNSURL"
                                          message:
-                 [NSString stringWithFormat:@"response %@ %@",
-                                                  response,
-                                                  url]
+                     [NSString stringWithFormat:@"response %@ %@",
+                      response,
+                      url]
                 ];
             }
         } else {
             [self.navigationController alert:@"processNSURL"
                                      message:
-             [NSString stringWithFormat:@"dataTaskWithRequest %@ %@",
-              error,
-              url]
+                 [NSString stringWithFormat:@"dataTaskWithRequest %@ %@",
+                  error,
+                  url]
             ];
         }
     }];
@@ -589,9 +530,9 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     if (error) {
         [self.navigationController alert:@"processNSURL"
                                  message:
-         [NSString stringWithFormat:@"configFromDictionary %@ %@",
-          error,
-          json]
+             [NSString stringWithFormat:@"configFromDictionary %@ %@",
+              error,
+              json]
         ];
     }
 }
@@ -602,9 +543,9 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     if (error) {
         [self.navigationController alert:@"processNSURL"
                                  message:
-         [NSString stringWithFormat:@"waypointsFromDictionary %@ %@",
-          error,
-          json]
+             [NSString stringWithFormat:@"waypointsFromDictionary %@ %@",
+              error,
+              json]
         ];
     }
 }
@@ -804,7 +745,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [self.connection disconnect];
 }
 
-- (void)application:(UIApplication *)application 
+- (void)application:(UIApplication *)application
 performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler {
     DDLogInfo(@"[OwnTracksAppDelegate] performActionForShortcutItem %@", shortcutItem.type);
     if ([shortcutItem.type isEqualToString:@"org.mqttitude.MQTTitude.movemode"]) {
@@ -843,7 +784,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                   forKey:@"monitoring_preference" inMOC:moc];
         [CoreData.sharedInstance sync:moc];
         completionHandler(TRUE);
-
+        
     } else {
         completionHandler(FALSE);
     }
@@ -1104,7 +1045,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
             }
             
             DDLogVerbose(@"[OwnTracksAppDelegate] endBackGroundTask %lu",
-                      (unsigned long)self.backgroundTask);
+                         (unsigned long)self.backgroundTask);
             [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
             self.backgroundTask = UIBackgroundTaskInvalid;
         }
@@ -1150,77 +1091,90 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
         
         if (ownDevice) {
             
-            NSError *error;
             NSDictionary *dictionary = nil;
             id json = [[Validation sharedInstance] validateMessageData:data];
-            if (json &&
-                [json isKindOfClass:[NSDictionary class]]) {
+            if (json && [json isKindOfClass:[NSDictionary class]]) {
                 dictionary = json;
             }
-
+            
             if (dictionary) {
-                if ([@"cmd" saveEqual:dictionary[@"_type"]]) {
-                    if (
-#ifdef DEBUG
-                        true /* dirty work around not being able to set simulator .otrc */
-#else
-                        [Settings boolForKey:@"cmd_preference" inMOC:CoreData.sharedInstance.queuedMOC]
-#endif
-                        ) {
-                            if ([@"dump" saveEqual:dictionary[@"action"]]) {
-                                [self dump];
-                                
-                            } else if ([@"reportLocation" saveEqual:dictionary[@"action"]]) {
-                                if ([LocationManager sharedInstance].monitoring == LocationMonitoringSignificant ||
-                                    [LocationManager sharedInstance].monitoring == LocationMonitoringMove ||
-                                    [Settings boolForKey:@"allowremotelocation_preference"
-                                                   inMOC:CoreData.sharedInstance.queuedMOC]) {
-                                    [self performSelectorOnMainThread:@selector(reportLocation)
+                NSString *type = dictionary[@"_type"];
+                if (type && [type isKindOfClass:[NSString class]]) {
+                    if ([type isEqualToString:@"cmd"]) {
+                        if ([Settings boolForKey:@"cmd_preference"
+                                           inMOC:CoreData.sharedInstance.queuedMOC]) {
+                            NSString *action = dictionary[@"action"];
+                            if (action && [action isKindOfClass:[NSString class]]) {
+                                if ([action isEqualToString:@"dump"]) {
+                                    [self dump];
+                                    
+                                } else if ([action isEqualToString:@"reportLocation"]) {
+                                    if ([LocationManager sharedInstance].monitoring == LocationMonitoringSignificant ||
+                                        [LocationManager sharedInstance].monitoring == LocationMonitoringMove ||
+                                        [Settings boolForKey:@"allowremotelocation_preference"
+                                                       inMOC:CoreData.sharedInstance.queuedMOC]) {
+                                        [self performSelectorOnMainThread:@selector(reportLocation)
+                                                               withObject:nil
+                                                            waitUntilDone:NO];
+                                    }
+                                    
+                                } else if ([action isEqualToString:@"reportSteps"]) {
+                                    NSNumber *from = dictionary[@"from"];
+                                    NSNumber *to = dictionary[@"to"];
+                                    if ((!from || [from isKindOfClass:[NSNumber class]]) &&
+                                        (!to || [to isKindOfClass:[NSNumber class]])) {
+                                        [self stepsFrom:from to:to];
+                                    } else {
+                                        DDLogWarn(@"[OwnTracksAppDelegate] from and to must be numbers");
+                                    }
+                                    
+                                } else if ([action isEqualToString:@"waypoints"]) {
+                                    [self performSelectorOnMainThread:@selector(waypoints)
                                                            withObject:nil
                                                         waitUntilDone:NO];
+                                    
+                                } else if ([action isEqualToString:@"action"]) {
+                                    [self performSelectorOnMainThread:@selector(performAction:)
+                                                           withObject:dictionary
+                                                        waitUntilDone:NO];
+                                    
+                                } else if ([action isEqualToString:@"setWaypoints"]) {
+                                    [self performSelectorOnMainThread:@selector(performSetWaypoints:)
+                                                           withObject:dictionary
+                                                        waitUntilDone:NO];
+                                    
+                                } else if ([action isEqualToString:@"clearWaypoints"]) {
+                                    [self performSelectorOnMainThread:@selector(performClearWaypoints:)
+                                                           withObject:dictionary
+                                                        waitUntilDone:NO];
+                                    
+                                } else if ([action isEqualToString:@"setConfiguration"]) {
+                                    [self performSelectorOnMainThread:@selector(performSetConfiguration:)
+                                                           withObject:dictionary
+                                                        waitUntilDone:NO];
+                                    
+                                } else if ([action isEqualToString:@"response"]) {
+                                    [self performSelectorOnMainThread:@selector(performResponse:)
+                                                           withObject:dictionary
+                                                        waitUntilDone:NO];
+                                    
+                                } else {
+                                    DDLogWarn(@"[OwnTracksAppDelegate] unknown action %@", dictionary[@"action"]);
                                 }
-                                
-                            } else if ([@"reportSteps" saveEqual:dictionary[@"action"]]) {
-                                [self stepsFrom:[NSNumber saveCopy:dictionary[@"from"]]
-                                             to:[NSNumber saveCopy:dictionary[@"to"]]];
-                                
-                            } else if ([@"waypoints" saveEqual:dictionary[@"action"]]) {
-                                [self performSelectorOnMainThread:@selector(waypoints)
-                                                       withObject:nil
-                                                    waitUntilDone:NO];
-                                
-                            } else if ([@"action" saveEqual:dictionary[@"action"]]) {
-                                [self performSelectorOnMainThread:@selector(performAction:)
-                                                       withObject:dictionary
-                                                    waitUntilDone:NO];
-                                
-                            } else if ([@"setWaypoints" saveEqual:dictionary[@"action"]]) {
-                                [self performSelectorOnMainThread:@selector(performSetWaypoints:)
-                                                       withObject:dictionary
-                                                    waitUntilDone:NO];
-                                
-                            } else if ([@"clearWaypoints" saveEqual:dictionary[@"action"]]) {
-                                [self performSelectorOnMainThread:@selector(performClearWaypoints:)
-                                                       withObject:dictionary
-                                                    waitUntilDone:NO];
-                                
-                            } else if ([@"setConfiguration" saveEqual:dictionary[@"action"]]) {
-                                [self performSelectorOnMainThread:@selector(performSetConfiguration:)
-                                                       withObject:dictionary
-                                                    waitUntilDone:NO];
-                                
-                            } else if ([@"response" saveEqual:dictionary[@"action"]]) {
-                                [self performSelectorOnMainThread:@selector(performResponse:)
-                                                       withObject:dictionary
-                                                    waitUntilDone:NO];
-                                
                             } else {
-                                DDLogWarn(@"[OwnTracksAppDelegate] unknown action %@", dictionary[@"action"]);
+                                DDLogWarn(@"[OwnTracksAppDelegate] remote cmd not allowed");
                             }
+                        } else {
+                            DDLogWarn(@"[OwnTracksAppDelegate] unknown _type (%@) in JSON", type);
                         }
+                    } else {
+                        DDLogWarn(@"[OwnTracksAppDelegate] no _type in JSON");
+                    }
+                } else {
+                    DDLogWarn(@"[OwnTracksAppDelegate] JSON is not an object");
                 }
             } else {
-                DDLogWarn(@"[OwnTracksAppDelegate] illegal json %@ %@ %@", error.localizedDescription, error.userInfo, data.description);
+                DDLogWarn(@"[OwnTracksAppDelegate] illegal JSON %@ received", data.description);
             }
         }
         [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
@@ -1255,10 +1209,30 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
 }
 
 - (void)performAction:(NSDictionary *)dictionary {
-    NSString *content = [NSString saveCopy:dictionary[@"content"]];
-    NSString *url = [NSString saveCopy:dictionary[@"url"] ];
-    NSString *notificationMessage = [NSString saveCopy:dictionary[@"notification"]];
-    NSNumber *external = [NSNumber saveCopy:dictionary[@"extern"]];
+    NSString *content = dictionary[@"content"];
+    if (content && ![content isKindOfClass:[NSString class]]) {
+        DDLogWarn(@"[OwnTracksAppDelegate performAction] content is not a string");
+        content = nil;
+    }
+    
+    NSString *url = dictionary[@"url"];
+    if (url && ![url isKindOfClass:[NSString class]]) {
+        DDLogWarn(@"[OwnTracksAppDelegate performAction] url is not a string");
+        url = nil;
+    }
+
+    NSString *notificationMessage = dictionary[@"notification"];
+    if (notificationMessage && ![notificationMessage isKindOfClass:[NSString class]]) {
+        DDLogWarn(@"[OwnTracksAppDelegate performAction] notification is not a string");
+        notificationMessage = nil;
+    }
+
+    NSNumber *external = dictionary[@"extern"];
+    if (external && ![external isKindOfClass:[NSNumber class]]) {
+        DDLogWarn(@"[OwnTracksAppDelegate performAction] external is not a number");
+        external = nil;
+    }
+
     
     [Settings setString:content
                  forKey:SETTINGS_ACTION
@@ -1323,28 +1297,24 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
 }
 
 - (void)performSetConfiguration:(NSDictionary *)dictionary {
-    NSDictionary *payload = [NSDictionary saveCopy:dictionary[@"payload"]];
-    NSDictionary *configuration = [NSDictionary saveCopy:dictionary[@"configuration"]];
+    NSDictionary *configuration = dictionary[@"configuration"];
     if (configuration && [configuration isKindOfClass:[NSDictionary class]]) {
         [Settings fromDictionary:configuration
                            inMOC:CoreData.sharedInstance.mainMOC];
-    } else if (payload && [payload isKindOfClass:[NSDictionary class]]) {
-        [Settings fromDictionary:payload
-                           inMOC:CoreData.sharedInstance.mainMOC];
+    } else {
+        DDLogWarn(@"[OwnTracksAppDelegate performSetConfiguration] no valid configuration");
     }
     self.configLoad = [NSDate date];
     [self reconnect];
 }
 
 - (void)performSetWaypoints:(NSDictionary *)dictionary {
-    NSDictionary *payload = [NSDictionary saveCopy:dictionary[@"payload"]];
-    NSDictionary *waypoints = [NSDictionary saveCopy:dictionary[@"waypoints"]];
+    NSDictionary *waypoints = dictionary[@"waypoints"];
     if (waypoints && [waypoints isKindOfClass:[NSDictionary class]]) {
         [Settings waypointsFromDictionary:waypoints
                                     inMOC:CoreData.sharedInstance.mainMOC];
-    } else if (payload && [payload isKindOfClass:[NSDictionary class]]) {
-        [Settings waypointsFromDictionary:payload
-                                    inMOC:CoreData.sharedInstance.mainMOC];
+    } else {
+        DDLogWarn(@"[OwnTracksAppDelegate performSetWaypoints] no valid waypoints");
     }
 }
 
@@ -1547,10 +1517,9 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                                                         location:location
                                                        createdAt:createdAt
                                                          trigger:trigger
-                                                         poi:poi
-                                                         tag:tag
-                                                         battery:batteryLevel
-                                                         context:moc];
+                                                             poi:poi
+                                                             tag:tag
+                                                         battery:batteryLevel];
                 if (waypoint) {
                     [CoreData.sharedInstance sync:moc];
                     
@@ -1582,7 +1551,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                     if ([LocationManager sharedInstance].monitoring == LocationMonitoringMove) {
                         int downgrade = [Settings intForKey:@"downgrade_preference"
                                                       inMOC:moc];
-
+                        
                         if (batteryState != UIDeviceBatteryStateFull && batteryState != UIDeviceBatteryStateCharging && batteryLevel < downgrade / 100.0) {
                             // Move Mode, but battery is not full, not charging and less than downgrade%
                             [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"downgraded"];
@@ -1612,7 +1581,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                         }
                     }
                 }
-
+                
             } else {
                 DDLogError(@"[OwnTracksAppDelegate] no friend found");
                 return FALSE;
@@ -1686,7 +1655,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
         NSString *passPhrase = [Settings stringForKey:@"passphrase" inMOC:moc];
         if (fileName && fileName.length) {
             DDLogInfo(@"[OwnTracksAppDelegate] getting p12 filename:%@ passphrase:%@",
-                         fileName, passPhrase);
+                      fileName, passPhrase);
             NSString *clientPKCSPath = [directoryURL.path stringByAppendingPathComponent:fileName];
             certificates = [MQTTTransport clientCertsFromP12:clientPKCSPath
                                                   passphrase:passPhrase];
@@ -1858,13 +1827,13 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
         deviceHexString = [deviceHexString stringByAppendingFormat:@"%02X", c];
     }
     DDLogInfo(@"[OwnTracksAppDelegate] didRegisterForRemoteNotificationsWithDeviceToken: %@",
-               deviceHexString);
+              deviceHexString);
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
     DDLogError(@"[OwnTracksAppDelegate] didFailToRegisterForRemoteNotificationsWithError: %@",
                error.localizedDescription);
-
+    
 }
 
 #endif

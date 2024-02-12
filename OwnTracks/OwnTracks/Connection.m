@@ -932,9 +932,14 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     id json = [[Validation sharedInstance] validateEncryptionData:data];
     if (json && [json isKindOfClass:[NSDictionary class]]) {
         NSDictionary *dictionary = json;
-        if ([dictionary[@"_type"] isEqualToString:@"encrypted"]) {
-            b64String = dictionary[@"data"];
-            if (!b64String) {
+        NSString *type = dictionary[@"_type"];
+        if (type && [type isKindOfClass:[NSString class]]) {
+            if ([type isEqualToString:@"encrypted"]) {
+                b64String = dictionary[@"data"];
+                if (!b64String) {
+                    return data;
+                }
+            } else {
                 return data;
             }
         } else {

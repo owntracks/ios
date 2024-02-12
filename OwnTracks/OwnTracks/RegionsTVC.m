@@ -77,8 +77,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                              minor:0
                                             radius:0
                                                lat:location.coordinate.latitude
-                                               lon:location.coordinate.longitude
-                                           context:CoreData.sharedInstance.mainMOC];
+                                               lon:location.coordinate.longitude];
         [self.tableView reloadData];
         if ([segue.destinationViewController respondsToSelector:@selector(setEditRegion:)]) {
             [segue.destinationViewController performSelector:@selector(setEditRegion:) withObject:newRegion];

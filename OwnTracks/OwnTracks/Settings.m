@@ -64,25 +64,26 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 + (NSError *)fromDictionary:(NSDictionary *)dictionary
                       inMOC:(NSManagedObjectContext *)context {
-    if (dictionary) {
+    if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
         for (NSString *key in dictionary.allKeys) {
-            DDLogVerbose(@"Configuration %@:%@", key, dictionary[key]);
+            NSObject *object = dictionary[key];
+            DDLogInfo(@"Configuration %@:%@ (%@)", key, object, object.class);
         }
         
-        if ([dictionary[@"_type"] isEqualToString:@"configuration"]) {
+        NSString *type = dictionary[@"_type"];
+        if (type && [type isKindOfClass:[NSString class]] && [type isEqualToString:@"configuration"]) {
             NSObject *object;
 
             ConnectionMode importMode = CONNECTION_MODE_MQTT;
-            object = dictionary[@"mode"];
-            if (object) {
+            NSNumber *mode = dictionary[@"mode"];
+            if (mode && [mode isKindOfClass:[NSNumber class]]) {
                 [self setString:object forKey:@"mode" inMOC:context];
-                if ([object isKindOfClass:[NSNumber class]]) {
-                    NSNumber *number = (NSNumber *)object;
-                    importMode = number.intValue;
-                } else if ([object isKindOfClass:[NSString class]]) {
-                    NSString *string = (NSString *)object;
-                    importMode = string.intValue;
-                }
+                importMode = mode.intValue;
+            } else {
+                DDLogError(@"[Settings] fromDictionary invalid mode");
+                return [NSError errorWithDomain:@"OwnTracks Settings"
+                                           code:1
+                                       userInfo:@{@"mode": [NSString stringWithFormat:@"%@", dictionary[@"mode"]]}];
             }
 
             object = dictionary[@"deviceId"];
@@ -264,13 +265,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             [self setWaypoints:waypoints inMOC:context];
             
         } else {
+            DDLogError(@"[Settings] fromDictionary invalid _type");
             return [NSError errorWithDomain:@"OwnTracks Settings"
                                        code:1
                                    userInfo:@{@"_type": [NSString stringWithFormat:@"%@", dictionary[@"_type"]]}];
         }
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"reload" object:nil];
+    } else {
+        DDLogError(@"[Settings] fromDictionary invalid dictionary");
+        return [NSError errorWithDomain:@"OwnTracks Settings"
+                                   code:2
+                               userInfo:@{}];
     }
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"reload" object:nil];
     return nil;
 }
 
@@ -360,8 +367,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                                          minor:minor
                                                         radius:[waypoint[@"rad"] doubleValue]
                                                            lat:[waypoint[@"lat"] doubleValue]
-                                                           lon:[waypoint[@"lon"] doubleValue]
-                                                       context:context];
+                                                           lon:[waypoint[@"lon"] doubleValue]];
 //                } else {
 //                    for (Region *region in friend.hasRegions) {
 //                        if ([region.name isEqualToString:name]) {

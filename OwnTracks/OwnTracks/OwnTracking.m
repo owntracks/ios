@@ -73,10 +73,9 @@ static OwnTracking *theInstance = nil;
                          [[NSString alloc] initWithData:data
                                                encoding:NSUTF8StringEncoding]);
 
-            NSDictionary *dictionary = [[NSDictionary alloc] init];
-            id json = [[Validation sharedInstance] validateMessageData:data]; 
-            if (json &&
-                [json isKindOfClass:[NSDictionary class]]) {
+            NSDictionary *dictionary = nil;
+            id json = [[Validation sharedInstance] validateMessageData:data];
+            if (json && [json isKindOfClass:[NSDictionary class]]) {
                 dictionary = json;
             }
             
@@ -102,96 +101,68 @@ static OwnTracking *theInstance = nil;
             }
             
             if (ownDevice) {
-                if ([dictionary[@"_type"] isEqualToString:@"card"]) {
-                    [context performBlock:^{
-                        Friend *friend = [Friend friendWithTopic:device
-                                          inManagedObjectContext:context];
-                        [self processFace:friend dictionary:dictionary];
-                        DDLogInfo(@"[OwnTracking] processed card for own device");
-                    }];
+                if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
+                    NSString *type = dictionary[@"_type"];
+                    if (type && [type isKindOfClass:[NSString class]]) {
+                        if ([type isEqualToString:@"card"]) {
+                            [context performBlock:^{
+                                Friend *friend = [Friend friendWithTopic:device
+                                                  inManagedObjectContext:context];
+                                [self processFace:friend dictionary:dictionary];
+                                DDLogInfo(@"[OwnTracking] processed card for own device");
+                            }];
+                        } else {
+                            DDLogInfo(@"[OwnTracking] unhandled record type for own device _type:%@", dictionary[@"_type"]);
+                        }
+                    } else {
+                        DDLogError(@"[OwnTracking] JSON object without _type as String received for own device");
+                    }
                 } else {
-                    DDLogVerbose(@"[OwnTracking] unhandled record type for own device _type:%@", dictionary[@"_type"]);
+                    DDLogError(@"[OwnTracking] no JSON dictionary received for own device");
                 }
             } else /* not own device */ {
-                if (data.length) {
-                    
-                    if ([dictionary[@"_type"] isEqualToString:@"location"]) {
-                        CLLocationCoordinate2D coordinate =
-                        CLLocationCoordinate2DMake(
-                                                   [dictionary[@"lat"] doubleValue],
-                                                   [dictionary[@"lon"] doubleValue]
-                                                   );
-                        
-                        int speed = [dictionary[@"vel"] intValue];
-                        if (speed != -1) {
-                            speed = speed * 1000 / 3600;
-                        }
-
-                        NSNumber *batteryLevel = [NSNumber numberWithFloat:-1.0];
-                        if ([dictionary valueForKey:@"batt"] != nil) {
-                            int batt = [dictionary[@"batt"] intValue];
-                            if (batt >= 0) {
-                                batteryLevel = [NSNumber numberWithFloat:batt / 100.0];
-                            }
-                        }
-
-                        CLLocation *location = [[CLLocation alloc]
-                                                initWithCoordinate:coordinate
-                                                altitude:[dictionary[@"alt"] intValue]
-                                                horizontalAccuracy:[dictionary[@"acc"] doubleValue]
-                                                verticalAccuracy:[dictionary[@"vac"] intValue]
-                                                course:[dictionary[@"cog"] intValue]
-                                                speed:speed
-                                                timestamp:[NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]]];
-                        NSDate *createdAt = location.timestamp;
-                        if ([dictionary valueForKey:@"created_at"] != nil) {
-                            createdAt = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]];
-                        }
-                        Friend *friend = [Friend friendWithTopic:device inManagedObjectContext:context];
-                        friend.tid = dictionary[@"tid"];
-                        [self addWaypointFor:friend
-                                    location:location
-                                   createdAt:createdAt
-                                     trigger:dictionary[@"t"]
-                                         poi:dictionary[@"poi"]
-                                         tag:dictionary[@"tag"]
-                                     battery:batteryLevel
-                                     context:context];
-                        [self limitWaypointsFor:friend
-                                      toMaximum:[Settings intForKey:@"positions_preference" inMOC:context]];
-                        DDLogInfo(@"[OwnTracking] processed location for friend %@",
-                                  friend.topic);
-
-
-                    } else if ([dictionary[@"_type"] isEqualToString:@"transition"]) {
-                        [self performSelectorOnMainThread:@selector(processTransitionMessage:)
-                                               withObject:dictionary
-                                            waitUntilDone:NO];
-                        
-                    } else if ([dictionary[@"_type"] isEqualToString:@"card"]) {
-                        Friend *friend = [Friend friendWithTopic:device
-                                          inManagedObjectContext:context];
-                        [self processFace:friend dictionary:dictionary];
-                        DDLogInfo(@"[OwnTracking] processed card for friend friend %@",
-                                  friend.topic);
-                    } else if ([dictionary[@"_type"] isEqualToString:@"lwt"]) {
-                        DDLogInfo(@"[OwnTracking] received lwt for friend %@",
-                                  device);
-                        // ignore
-                        
-                    } else {
-                        DDLogVerbose(@"[OwnTracking] unknown record type %@", dictionary[@"_type"]);
-                    }
-                } else /* data.length == 0 -> delete friend */ {
+                if (data && data.length == 0) { // data.length == 0 -> delete friend
                     Friend *friend = [Friend existsFriendWithTopic:device inManagedObjectContext:context];
                     if (friend) {
                         [context deleteObject:friend];
                     }
                     DDLogInfo(@"[OwnTracking] deleted friend %@",
                               device);
+                } else {
+                    if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
+                        NSString *type = dictionary[@"_type"];
+                        if (type && [type isKindOfClass:[NSString class]]) {
+                            if ([type isEqualToString:@"location"]) {
+                                Friend *friend = [Friend friendWithTopic:device inManagedObjectContext:context];
+                                [self processLocation:friend dictionary:dictionary];
+                                
+                            } else if ([type isEqualToString:@"transition"]) {
+                                [self performSelectorOnMainThread:@selector(processTransitionMessage:)
+                                                       withObject:dictionary
+                                                    waitUntilDone:NO];
+                                
+                            } else if ([type isEqualToString:@"card"]) {
+                                Friend *friend = [Friend friendWithTopic:device
+                                                  inManagedObjectContext:context];
+                                [self processFace:friend dictionary:dictionary];
+                                
+                            } else if ([type isEqualToString:@"lwt"]) {
+                                DDLogInfo(@"[OwnTracking] received lwt for friend %@",
+                                          device);
+                                // ignore
+                                
+                            } else {
+                                DDLogVerbose(@"[OwnTracking] unhandled record type for other device _type:%@", type);
+                            }
+                        } else {
+                            DDLogError(@"[OwnTracking] JSON object without _type as String received for other device");
+                        }
+                    } else {
+                        DDLogError(@"[OwnTracking] no JSON dictionary received for other device");
+                    }
                 }
             }
-
+            
             @synchronized (self.inQueue) {
                 self.inQueue = @((self.inQueue).unsignedLongValue - 1);
             }
@@ -207,96 +178,306 @@ static OwnTracking *theInstance = nil;
     }
 }
 
-- (void)processTransitionMessage:(NSDictionary *)dictionary {
-    NSString *type = dictionary[@"t"];
-    if (!type || ![type isEqualToString:@"b"]) {
-        NSString *tid = dictionary[@"tid"];
-        NSDate *tst = [NSDate dateWithTimeIntervalSince1970:[dictionary[@"tst"] doubleValue]];
-        NSString *event = dictionary[@"event"];
-        NSString *eventVerb = [event stringByAppendingString:@"s"];
-        if ([event isEqualToString:@"enter"]) {
-            eventVerb = NSLocalizedString(@"enters",
-                                          @"friend enters region verb");
-        } else if ([event isEqualToString:@"leave"]) {
-            eventVerb = NSLocalizedString(@"leaves",
-                                          @"friend leaves region verb");
+- (void)processLocation:(Friend *)friend dictionary:(NSDictionary *)dictionary {
+    if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
+        NSNumber *tst = dictionary[@"tst"];
+        if (!tst || ![tst isKindOfClass:[NSNumber class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does not contain valid tst: not processed");
+            return;
+        }
+        NSDate *timestamp = [NSDate dateWithTimeIntervalSince1970:tst.doubleValue];
+
+        NSNumber *lat = dictionary[@"lat"];
+        if (!lat || ![lat isKindOfClass:[NSNumber class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does not contain valid lat: not processed");
+            return;
+        }
+        CLLocationDegrees latDegrees = lat.doubleValue;
+
+        NSNumber *lon = dictionary[@"lon"];
+        if (!lon || ![lon isKindOfClass:[NSNumber class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does not contain valid lon: not processed");
+            return;
+        }
+        CLLocationDegrees lonDegrees = lon.doubleValue;
+        
+        if (lat.doubleValue == 0 && lon.doubleValue == 0) {
+            DDLogError(@"[OwnTracking processLocation] coord is 0.0,0.0: not processed");
+            return;
+        }
+
+        CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(latDegrees, lonDegrees);
+        if (!CLLocationCoordinate2DIsValid(coord)) {
+            DDLogError(@"[OwnTracking processLocation] coord is no valid: not processed");
+            return;
         }
         
-        NSString *desc = dictionary[@"desc"];
-        if (!desc) {
-            desc = NSLocalizedString(@"a region",
-                                     @"name of an unknown or hidden region");
+        NSNumber *vel = dictionary[@"vel"];
+        if (vel && ![vel isKindOfClass:[NSNumber class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does contain invalid vel: not processed");
+            return;
+        }
+        CLLocationSpeed speed = -1;
+        if (vel) {
+            speed = vel.intValue;
+            if (speed != -1) {
+                speed = speed * 1000 / 3600;
+            }
+        }
+        
+        NSNumber *batt = dictionary[@"batt"];
+        if (batt && ![batt isKindOfClass:[NSNumber class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does contain invalid batt: not processed");
+            return;
+        }
+        NSNumber *batteryLevel = [NSNumber numberWithFloat:-1.0];
+        if (batt) {
+            int iBatt = batt.intValue;
+            if (iBatt >= 0) {
+                batteryLevel = [NSNumber numberWithFloat:iBatt / 100.0];
+            }
+        }
+        
+        NSNumber *alt = dictionary[@"alt"];
+        if (alt && ![alt isKindOfClass:[NSNumber class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does contain invalid alt: not processed");
+            return;
+        }
+        CLLocationDistance altDistance = 0;
+        if (alt) {
+            altDistance = alt.intValue;
         }
 
-        NSString *shortTime = [NSDateFormatter
-                               localizedStringFromDate:tst
-                               dateStyle:NSDateFormatterShortStyle
-                               timeStyle:NSDateFormatterShortStyle];
+        NSNumber *acc = dictionary[@"acc"];
+        if (acc && ![acc isKindOfClass:[NSNumber class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does contain invalid acc: not processed");
+            return;
+        }
+        CLLocationAccuracy accAccuracy = -1;
+        if (acc) {
+            accAccuracy = acc.doubleValue;
+        }
 
-        NSString *notificationMessage = [NSString stringWithFormat:@"%@ %@ %@ @ %@",
-                                         tid,
-                                         eventVerb,
-                                         desc,
-                                         shortTime];
+        NSNumber *vac = dictionary[@"vac"];
+        if (vac && ![vac isKindOfClass:[NSNumber class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does contain invalid vac: not processed");
+            return;
+        }
+        CLLocationAccuracy vacAccuracy = -1;
+        if (vac) {
+            vacAccuracy = vac.intValue;
+        }
 
-        NSString *notificationIdentifier = [NSString stringWithFormat:@"transition%@%f",
-                                            tid,
-                                            tst.timeIntervalSince1970];
+        NSNumber *cog = dictionary[@"cog"];
+        if (cog && ![cog isKindOfClass:[NSNumber class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does contain invalid cog: not processed");
+            return;
+        }
+        CLLocationDirection cogDirection = -1;
+        if (cog) {
+            cogDirection = cog.doubleValue;
+        }
 
-        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-        content.body = notificationMessage;
-        content.sound = [UNNotificationSound defaultSound];
-        content.userInfo = @{@"notify": @"friend"};
-        UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger
-                                                      triggerWithTimeInterval:1.0
-                                                      repeats:NO];
-        UNNotificationRequest *request = 
-        [UNNotificationRequest requestWithIdentifier:notificationIdentifier
-                                             content:content
-                                             trigger:trigger];
-        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-        [center addNotificationRequest:request withCompletionHandler:nil];
+        
+        CLLocation *location = [[CLLocation alloc]
+                                initWithCoordinate:coord
+                                altitude:altDistance
+                                horizontalAccuracy:accAccuracy
+                                verticalAccuracy:vacAccuracy
+                                course:cogDirection
+                                speed:speed
+                                timestamp:timestamp];
+        
+        NSDate *createdAt = timestamp;
+        NSNumber *created_at = dictionary[@"created_at"];
+        if (created_at && ![created_at isKindOfClass:[NSNumber class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does not contain valid created_at: not processed");
+            return;
+        }
+        if (created_at) {
+            createdAt = [NSDate dateWithTimeIntervalSince1970:created_at.doubleValue];
+        }
+        
+        NSString *tid = dictionary[@"tid"];
+        if (tid && ![tid isKindOfClass:[NSString class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does not contain valid tid: not processed");
+            return;
+        }
+        friend.tid = tid;
+        
+        NSString *t = dictionary[@"t"];
+        if (t && ![t isKindOfClass:[NSString class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does not contain valid t: not processed");
+            return;
+        }
 
-        NSString *shortNotificationMessage = [NSString stringWithFormat:@"%@ %@ %@",
-                                         tid,
-                                         eventVerb,
-                                         desc];
+        NSString *poi = dictionary[@"poi"];
+        if (poi && ![poi isKindOfClass:[NSString class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does not contain valid poi: not processed");
+            return;
+        }
 
-        [History historyInGroup:NSLocalizedString(@"Friend",
-                                                  @"Alert message header for friend's messages")
-                       withText:shortNotificationMessage
-                             at:tst
-                          inMOC:[CoreData sharedInstance].mainMOC
-                        maximum:[Settings theMaximumHistoryInMOC:[CoreData sharedInstance].mainMOC]];
-        [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
+        NSString *tag = dictionary[@"tag"];
+        if (tag && ![tag isKindOfClass:[NSString class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does not contain valid tag: not processed");
+            return;
+        }
 
-        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [ad.navigationController alert:
-             NSLocalizedString(@"Friend",
-                               @"Alert message header for friend's messages")
-                               message:notificationMessage
-                          dismissAfter:2.0
-        ];
-        DDLogInfo(@"[OwnTracking] processed transition for friend %@",
-                  notificationMessage);
+        [self addWaypointFor:friend
+                    location:location
+                   createdAt:createdAt
+                     trigger:t
+                         poi:poi
+                         tag:tag
+                     battery:batteryLevel];
+        [self limitWaypointsFor:friend
+                      toMaximum:[Settings intForKey:@"positions_preference"
+                                              inMOC:friend.managedObjectContext]];
+        DDLogInfo(@"[OwnTracking] processed location for friend %@",
+                  friend.topic);
+    } else {
+        DDLogError(@"[OwnTracking processLocation] json is no dictionary");
+    }
+}
+
+// MUST run in main thread
+- (void)processTransitionMessage:(NSDictionary *)dictionary {
+    if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
+        NSNumber *tst = dictionary[@"tst"];
+        if (!tst || ![tst isKindOfClass:[NSNumber class]]) {
+            DDLogError(@"[OwnTracking processTransitionMessage] json does not contain valid tst: not processed");
+            return;
+        }
+        NSDate *timestamp = [NSDate dateWithTimeIntervalSince1970:tst.doubleValue];
+        
+        NSString *t = dictionary[@"t"];
+        if (t || ![t isKindOfClass:[NSString class]]) {
+            DDLogError(@"[OwnTracking processTransitionMessage] json does not contain valid t: not processed");
+            return;
+        }
+
+        NSString *tid = dictionary[@"tid"];
+        if (tid || ![tid isKindOfClass:[NSString class]]) {
+            DDLogError(@"[OwnTracking processTransitionMessage] json does not contain valid tid: not processed");
+            return;
+        }
+
+        NSString *event = dictionary[@"event"];
+        if (event || ![event isKindOfClass:[NSString class]]) {
+            DDLogError(@"[OwnTracking processTransitionMessage] json does not contain valid event: not processed");
+            return;
+        }
+
+        NSString *desc = dictionary[@"desc"];
+        if (desc || ![desc isKindOfClass:[NSString class]]) {
+            DDLogError(@"[OwnTracking processTransitionMessage] json does not contain valid desc: not processed");
+            return;
+        }
+
+        if (!t || ![t isEqualToString:@"b"]) {
+            NSString *eventVerb = [event stringByAppendingString:@"s"];
+            if ([event isEqualToString:@"enter"]) {
+                eventVerb = NSLocalizedString(@"enters",
+                                              @"friend enters region verb");
+            } else if ([event isEqualToString:@"leave"]) {
+                eventVerb = NSLocalizedString(@"leaves",
+                                              @"friend leaves region verb");
+            }
+            
+            if (!desc) {
+                desc = NSLocalizedString(@"a region",
+                                         @"name of an unknown or hidden region");
+            }
+            
+            NSString *shortTime = [NSDateFormatter
+                                   localizedStringFromDate:timestamp
+                                   dateStyle:NSDateFormatterShortStyle
+                                   timeStyle:NSDateFormatterShortStyle];
+            
+            NSString *notificationMessage = [NSString stringWithFormat:@"%@ %@ %@ @ %@",
+                                             tid,
+                                             eventVerb,
+                                             desc,
+                                             shortTime];
+            
+            NSString *notificationIdentifier = [NSString stringWithFormat:@"transition%@%f",
+                                                tid,
+                                                timestamp.timeIntervalSince1970];
+            
+            UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+            content.body = notificationMessage;
+            content.sound = [UNNotificationSound defaultSound];
+            content.userInfo = @{@"notify": @"friend"};
+            UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger
+                                                          triggerWithTimeInterval:1.0
+                                                          repeats:NO];
+            UNNotificationRequest *request =
+            [UNNotificationRequest requestWithIdentifier:notificationIdentifier
+                                                 content:content
+                                                 trigger:trigger];
+            UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+            [center addNotificationRequest:request withCompletionHandler:nil];
+            
+            NSString *shortNotificationMessage = [NSString stringWithFormat:@"%@ %@ %@",
+                                                  tid,
+                                                  eventVerb,
+                                                  desc];
+            
+            [History historyInGroup:NSLocalizedString(@"Friend",
+                                                      @"Alert message header for friend's messages")
+                           withText:shortNotificationMessage
+                                 at:timestamp
+                              inMOC:[CoreData sharedInstance].mainMOC
+                            maximum:[Settings theMaximumHistoryInMOC:[CoreData sharedInstance].mainMOC]];
+            [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
+            
+            OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+            [ad.navigationController alert:
+                 NSLocalizedString(@"Friend",
+                                   @"Alert message header for friend's messages")
+                                   message:notificationMessage
+                              dismissAfter:2.0
+            ];
+            DDLogInfo(@"[OwnTracking] processed transition for friend %@",
+                      notificationMessage);
+        }
+    } else {
+        DDLogError(@"[OwnTracking processTransitionMessage] json is no dictionary");
     }
 }
 
 - (void)processFace:(Friend *)friend dictionary:(NSDictionary *)dictionary {
     if (friend) {
-        id string = dictionary[@"name"];
-        if (string && [string isKindOfClass:[NSString class]]) {
-            friend.cardName = (NSString *)string;
+        if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
+            NSString *name = dictionary[@"name"];
+            if (name || ![name isKindOfClass:[NSString class]]) {
+                DDLogError(@"[OwnTracking processFace] json does not contain valid name: not processed");
+                return;
+            }
+            friend.cardName = name;
+
+            NSString *face = dictionary[@"face"];
+            if (face || ![face isKindOfClass:[NSString class]]) {
+                DDLogError(@"[OwnTracking processFace] json does not contain valid face: not processed");
+                return;
+            }
+
+            if (face) {
+                NSData *imageData = [[NSData alloc] initWithBase64EncodedString:face options:0];
+                friend.cardImage = imageData;
+                if (!imageData) {
+                    DDLogError(@"[OwnTracking processFace] face could not be base64 decoded");
+                }
+            } else {
+                friend.cardImage = nil;
+            }
+            DDLogInfo(@"[OwnTracking] processed card for friend friend %@",
+                      friend.topic);
         } else {
-            friend.cardName = nil;
+            DDLogError(@"[OwnTracking processFace] json is no dictionary");
         }
-        id imageString = dictionary[@"face"];
-        if (imageString && [imageString isKindOfClass:[NSString class]]) {
-            NSData *imageData = [[NSData alloc] initWithBase64EncodedString:imageString options:0];
-            friend.cardImage = imageData;
-        } else {
-            friend.cardImage = nil;
-        }
+    } else {
+        DDLogError(@"[OwnTracking processFace] no friend");
     }
 }
 
@@ -377,10 +558,9 @@ static OwnTracking *theInstance = nil;
                      trigger:(NSString *)trigger
                      poi:(NSString *)poi
                      tag:(NSString *)tag
-                     battery:(NSNumber *)battery
-                     context:(NSManagedObjectContext *)context {
+                     battery:(NSNumber *)battery {
     Waypoint *waypoint = [NSEntityDescription insertNewObjectForEntityForName:@"Waypoint"
-                                                       inManagedObjectContext:context];
+                                                       inManagedObjectContext:friend.managedObjectContext];
     waypoint.belongsTo = friend;
     waypoint.trigger = trigger;
     waypoint.poi = poi;
@@ -413,10 +593,9 @@ static OwnTracking *theInstance = nil;
                    minor:(unsigned int)minor
                   radius:(double)radius
                      lat:(double)lat
-                     lon:(double)lon
-                 context:(NSManagedObjectContext *)context {
+                     lon:(double)lon  {
     Region *region = [NSEntityDescription insertNewObjectForEntityForName:@"Region"
-                                                   inManagedObjectContext:context];
+                                                   inManagedObjectContext:friend.managedObjectContext];
     region.belongsTo = friend;
     region.tst = tst;
     region.rid = rid;

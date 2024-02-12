@@ -11,6 +11,14 @@
 #import "Validation.h"
 #import <CoreLocation/CoreLocation.h>
 
+@interface OwnTracksAppDelegate : UIResponder
+- (BOOL)handleMessage:(NSObject *)connection
+                 data:(NSData *)data
+              onTopic:(NSString *)topic
+             retained:(BOOL)retained;
+
+@end
+
 @interface NSObject (safeIntValue)
 - (int)safeIntValue;
 @end
@@ -19,7 +27,7 @@
 - (int)safeIntValue{
     int i = 0;
     if (self && [self respondsToSelector:@selector(intValue)]) {
-        i = [self performSelector:@selector(intValue)];
+        i = (int)[self performSelector:@selector(intValue)];
     }
     return i;
 }
@@ -153,7 +161,6 @@
 
 - (void)testIncomingJSONzeroLength {
     [self incomingJSON:@""];
-
 }
 
 - (void)testIncomingJSONempty {
@@ -174,6 +181,10 @@
 
 - (void)testIncomingJSONwithNullBatt {
     [self incomingJSON:@"{\"_type\":\"location\",\"tst\":1707470410,\"lat\":51.4,\"lon\":8.3,\"vel\":100,\"batt\":null}"];
+}
+
+- (void)testIncomingJSONwithTrueBatt {
+    [self incomingJSON:@"{\"_type\":\"location\",\"tst\":1707470410,\"lat\":51.4,\"lon\":8.3,\"vel\":100,\"batt\":true}"];
 }
 
 - (void)testIncomingJSONwithStringBatt {
@@ -206,47 +217,6 @@
 
 - (void)testIncomingJSONwithNullType {
     [self incomingJSON:@"{\"_type\":null,\"tst\":1707470410,\"lat\":51.4,\"lon\":8.3,\"vel\":100,\"batt\":75}"];
-}
-
-- (void)testIntValue {
-    NSNumber *n = [NSNumber numberWithInt:3];
-    NSString *s = @"3";
-    NSNull *zero = [NSNull null];
-    NSDictionary *d = [NSDictionary dictionary];
-    NSArray *a = [NSArray array];
-    id nix = nil;
-    
-    int i;
-    id o;
-    i = -1;
-    o = n;
-    i = [o safeIntValue];
-    XCTAssertEqual(i, 3);
-
-    i = -1;
-    o = s;
-    i = [o safeIntValue];
-    XCTAssertEqual(i, 3);
-
-    i = -1;
-    o = zero;
-    i = [o safeIntValue];
-    XCTAssertEqual(i, 0);
-
-    i = -1;
-    o = d;
-    i = [o safeIntValue];
-    XCTAssertEqual(i, 0);
-
-    i = -1;
-    o = a;
-    i = [o safeIntValue];
-    XCTAssertEqual(i, 0);
-
-    i = -1;
-    o = nix;
-    i = [o safeIntValue];
-    XCTAssertEqual(i, 0); // note this is not -1
 }
 
 - (void)incomingJSON:(NSString *)jsonString {
@@ -296,6 +266,58 @@
     } else {
         XCTAssert(TRUE);
     }
+}
+
+- (void)testIntValue {
+    NSNumber *n = [NSNumber numberWithInt:3];
+    NSString *s = @"3";
+    NSNull *zero = [NSNull null];
+    NSDictionary *d = [NSDictionary dictionary];
+    NSArray *a = [NSArray array];
+    id nix = nil;
+    
+    int i;
+    id o;
+    i = -1;
+    o = n;
+    i = [o safeIntValue];
+    XCTAssertEqual(i, 3);
+
+    i = -1;
+    o = s;
+    i = [o safeIntValue];
+    XCTAssertEqual(i, 3);
+
+    i = -1;
+    o = zero;
+    i = [o safeIntValue];
+    XCTAssertEqual(i, 0);
+
+    i = -1;
+    o = d;
+    i = [o safeIntValue];
+    XCTAssertEqual(i, 0);
+
+    i = -1;
+    o = a;
+    i = [o safeIntValue];
+    XCTAssertEqual(i, 0);
+
+    i = -1;
+    o = nix;
+    i = [o safeIntValue];
+    XCTAssertEqual(i, 0); // note this is not -1
+}
+
+- (void)testProcessing {
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad handleMessage:nil
+                 data:[@"{\"_type\":\"location\",\"tst\":1707470410,\"lat\":51.4,\"lon\":8.3,\"vel\":100,\"batt\":75}" dataUsingEncoding:NSUTF8StringEncoding]
+              onTopic:@"owntracks/owntrackstest/device"
+             retained:FALSE];
+    NSLog(@"waiting");
+    [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:20]];
+    NSLog(@"done");
 }
 
 - (void)testPerformanceExample {

@@ -1354,6 +1354,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = OwnTracks/OwnTracks.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1373,6 +1374,8 @@
 				INFOPLIST_FILE = "OwnTracks/Base.lproj/OwnTracks-Info.plist";
 				"INFOPLIST_FILE[sdk=*]" = "OwnTracks/Base.lproj/OwnTracks-Info.plist";
 				"INFOPLIST_FILE[sdk=macosx*]" = "OwnTracks/Base.lproj/OwnTracks-Info-Mac.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = OwnTracks;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1406,6 +1409,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = OwnTracks/OwnTracks.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -1425,6 +1429,8 @@
 				INFOPLIST_FILE = "OwnTracks/Base.lproj/OwnTracks-Info.plist";
 				"INFOPLIST_FILE[sdk=*]" = "OwnTracks/Base.lproj/OwnTracks-Info.plist";
 				"INFOPLIST_FILE[sdk=macosx*]" = "OwnTracks/Base.lproj/OwnTracks-Info-Mac.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = OwnTracks;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

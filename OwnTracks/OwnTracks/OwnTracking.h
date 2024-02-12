@@ -29,8 +29,7 @@ createdAt:(NSDate *)createdAt
 trigger:(NSString *)trigger
 poi:(NSString *)poi
 tag:(NSString *)tag
-battery:(NSNumber *)battery
-context:(NSManagedObjectContext *)context;
+battery:(NSNumber *)battery;
 
 - (void)limitWaypointsFor:(Friend *)friend toMaximum:(NSInteger)max;
 
@@ -43,8 +42,7 @@ major:(unsigned int)major
 minor:(unsigned int)minor
 radius:(double)radius
 lat:(double)lat
-lon:(double)lon
-context:(NSManagedObjectContext *)context;
+lon:(double)lon;
 
 - (void)removeRegion:(Region *)region context:(NSManagedObjectContext *)context;
 

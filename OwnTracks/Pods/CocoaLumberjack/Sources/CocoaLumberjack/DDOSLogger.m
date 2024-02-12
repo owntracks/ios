@@ -1,6 +1,6 @@
 // Software License Agreement (BSD License)
 //
-// Copyright (c) 2010-2023, Deusty, LLC
+// Copyright (c) 2010-2024, Deusty, LLC
 // All rights reserved.
 //
 // Redistribution and use of this software in source and binary forms,
@@ -94,9 +94,9 @@ static DDOSLogger *sharedInstance;
     }
 
     if (@available(iOS 10.0, macOS 10.12, tvOS 10.0, watchOS 3.0, *)) {
-        NSString * message = _logFormatter ? [_logFormatter formatLogMessage:logMessage] : logMessage->_message;
+        __auto_type message = _logFormatter ? [_logFormatter formatLogMessage:logMessage] : logMessage->_message;
         if (message != nil) {
-            const char *msg = [message UTF8String];
+            __auto_type msg = [message UTF8String];
             __auto_type logger = [self logger];
             switch (logMessage->_flag) {
                 case DDLogFlagError  :
