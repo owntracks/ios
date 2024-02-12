@@ -64,20 +64,10 @@
 	<string></string>
 	<key>passphrase</key>
 	<string></string>
-	<key>usepolicy</key>
-	<false/>
-	<key>policymode</key>
-	<integer>0</integer>
 	<key>sub_preference</key>
 	<true/>
 	<key>allowinvalidcerts</key>
 	<false/>
-	<key>validatedomainname</key>
-	<false/>
-	<key>validatecertificatechain</key>
-	<false/>
-	<key>servercer</key>
-	<string></string>
 	<key>maxhistory_preference</key>
 	<integer>0</integer>
 	<key>downgrade_preference</key>

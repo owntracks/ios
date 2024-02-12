@@ -89,7 +89,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             object = dictionary[@"deviceId"];
             if (object) {
                 if ([object isKindOfClass:[NSNull class]]) {
-                    [self setString:@"" forKey:@"deviceid_preference" inMOC:context];
+                    [self setString:nil forKey:@"deviceid_preference" inMOC:context];
                 } else if ([object isKindOfClass:[NSString class]]) {
                     [self setString:(NSString *)object forKey:@"deviceid_preference" inMOC:context];
                 }
@@ -240,27 +240,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             object = dictionary[@"passphrase"];
             if (object) [self setString:object forKey:@"passphrase" inMOC:context];
             
-            object = dictionary[@"servercer"];
-            if (object) [self setString:object forKey:@"servercer" inMOC:context];
-            
-            object = dictionary[@"policymode"];
-            if (object) [self setString:object forKey:@"policymode" inMOC:context];
-
-            object = dictionary[@"usepolicy"];
-            if (object) [self setString:object forKey:@"usepolicy" inMOC:context];
-            
             object = dictionary[@"allowinvalidcerts"];
             if (object) [self setString:object forKey:@"allowinvalidcerts" inMOC:context];
-            
-            object = dictionary[@"validatecertificatechain"];
-            if (object) [self setString:object forKey:@"validatecertificatechain" inMOC:context];
-            
-            object = dictionary[@"validatedomainname"];
-            if (object) [self setString:object forKey:@"validatedomainname" inMOC:context];
-            
-            object = dictionary[@"tid"];
-            if (object) [self setString:object forKey:@"trackerid_preference" inMOC:context];
-            
+                                                
             NSArray *waypoints = dictionary[@"waypoints"];
             [self setWaypoints:waypoints inMOC:context];
             
