@@ -87,14 +87,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             }
 
             object = dictionary[@"deviceId"];
-            if (object) {
-                if ([object isKindOfClass:[NSNull class]]) {
-                    [self setString:nil forKey:@"deviceid_preference" inMOC:context];
-                } else if ([object isKindOfClass:[NSString class]]) {
-                    [self setString:(NSString *)object forKey:@"deviceid_preference" inMOC:context];
-                }
-            }
-            
+            if (object) [self setString:(NSString *)object forKey:@"deviceid_preference" inMOC:context];
+
             object = dictionary[@"tid"];
             if (object) [self setString:object forKey:@"trackerid_preference" inMOC:context];
             
