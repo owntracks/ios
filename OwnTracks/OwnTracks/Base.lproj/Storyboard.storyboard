@@ -2494,7 +2494,7 @@
                                                     <rect key="frame" x="20" y="7" width="335" height="30"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0X-4j-vxu">
-                                                            <rect key="frame" x="0.0" y="0.0" width="163.5" height="30"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="106.5" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="GWb-rR-c25"/>
                                                             </constraints>
@@ -2506,7 +2506,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b91-ur-Ooi">
-                                                            <rect key="frame" x="171.5" y="0.0" width="163.5" height="30"/>
+                                                            <rect key="frame" x="114.5" y="0.0" width="106" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="6d0-pr-yIB"/>
                                                             </constraints>
@@ -2517,9 +2517,22 @@
                                                                 <segue destination="pyP-9X-XNY" kind="push" id="LX4-zO-Dsc"/>
                                                             </connections>
                                                         </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="evM-XZ-F0H" userLabel="Publish">
+                                                            <rect key="frame" x="228.5" y="0.0" width="106.5" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="MHS-3q-q8K"/>
+                                                            </constraints>
+                                                            <state key="normal" title="Publish">
+                                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="publishPressed:" destination="G87-RS-wz7" eventType="touchUpInside" id="i77-ZS-aAf"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="b91-ur-Ooi" firstAttribute="width" secondItem="R0X-4j-vxu" secondAttribute="width" id="Vg5-Jl-qUd"/>
+                                                        <constraint firstItem="evM-XZ-F0H" firstAttribute="width" secondItem="b91-ur-Ooi" secondAttribute="width" id="f6Z-1H-Ver"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>

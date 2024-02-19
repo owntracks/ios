@@ -43,6 +43,7 @@
 
 - (BOOL)sendNow:(CLLocation *_Nonnull)location withPOI:(nullable NSString *)poi;
 - (void)dump;
+- (void)status;
 - (void)waypoints;
 - (void)sendRegion:(nonnull Region *)region;
 - (void)sendEmpty:(nonnull NSString *)topic;

@@ -24,6 +24,12 @@
 @property (strong, nonatomic) NSMutableArray *rangedBeacons;
 @property (strong, nonatomic) NSTimer *backgroundTimer;
 @property (strong, nonatomic) NSUserDefaults *sharedUserDefaults;
+
+@property (nonatomic) CLAuthorizationStatus locationManagerAuthorizationStatus;
+@property (nonatomic) CMAuthorizationStatus altimeterAuthorizationStatus;
+@property (nonatomic) BOOL altimeterIsAbsoluteAltitudeAvailable;
+@property (nonatomic) BOOL altimeterIsRelativeAltitudeAvailable;
+
 @end
 
 @interface PendingRegionEvent : NSObject
@@ -168,15 +174,16 @@ static LocationManager *theInstance = nil;
     DDLogVerbose(@"[LocationManager] start");
     [self authorize];
     
-    CMAuthorizationStatus status = [CMAltimeter authorizationStatus];
-    BOOL available = [CMAltimeter isRelativeAltitudeAvailable];
+    self.altimeterAuthorizationStatus = [CMAltimeter authorizationStatus];
+    self.altimeterIsAbsoluteAltitudeAvailable = [CMAltimeter isAbsoluteAltitudeAvailable];
+    self.altimeterIsRelativeAltitudeAvailable = [CMAltimeter isRelativeAltitudeAvailable];
     DDLogVerbose(@"[LocationManager] CMAltimeter status=%ld, available=%d",
-                 (long)status,
-                 available);
+                 (long)self.altimeterAuthorizationStatus,
+                 self.altimeterIsRelativeAltitudeAvailable);
     
-    if (available &&
-        (status == CMAuthorizationStatusNotDetermined ||
-         status == CMAuthorizationStatusAuthorized)) {
+    if (self.altimeterIsRelativeAltitudeAvailable &&
+        (self.altimeterAuthorizationStatus == CMAuthorizationStatusNotDetermined ||
+         self.altimeterAuthorizationStatus == CMAuthorizationStatusAuthorized)) {
         DDLogVerbose(@"[LocationManager] startRelativeAltitudeUpdatesToQueue");
         [self.altimeter startRelativeAltitudeUpdatesToQueue:[NSOperationQueue mainQueue]
                                                 withHandler:^(CMAltitudeData *altitudeData, NSError *error) {
@@ -210,9 +217,10 @@ static LocationManager *theInstance = nil;
 }
 
 - (void)authorize {
-    CLAuthorizationStatus status = self.manager.authorizationStatus;
-    DDLogVerbose(@"[LocationManager] authorizationStatus=%d", status);
-    if (status == kCLAuthorizationStatusNotDetermined) {
+    self.locationManagerAuthorizationStatus = self.manager.authorizationStatus;
+    DDLogVerbose(@"[LocationManager] authorizationStatus=%d",
+                 self.locationManagerAuthorizationStatus);
+    if (self.locationManagerAuthorizationStatus == kCLAuthorizationStatusNotDetermined) {
         [self.manager requestAlwaysAuthorization];
     }
 }
@@ -380,6 +388,7 @@ static LocationManager *theInstance = nil;
 - (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager {
     DDLogInfo(@"[LocationManager] didChangeAuthorizationStatus to %d",
               manager.authorizationStatus);
+    self.locationManagerAuthorizationStatus = manager.authorizationStatus;
     if (manager.authorizationStatus != kCLAuthorizationStatusAuthorizedAlways) {
         [self showError];
     }

@@ -179,6 +179,7 @@
                 "response",
                 "setConfiguration",
                 "setWaypoints",
+                "status",
                 "waypoints"
             ]
         },

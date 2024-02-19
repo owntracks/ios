@@ -1108,6 +1108,9 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                                 if ([action isEqualToString:@"dump"]) {
                                     [self dump];
                                     
+                                } else if ([action isEqualToString:@"status"]) {
+                                    [self status];
+
                                 } else if ([action isEqualToString:@"reportLocation"]) {
                                     if ([LocationManager sharedInstance].monitoring == LocationMonitoringSignificant ||
                                         [LocationManager sharedInstance].monitoring == LocationMonitoringMove ||
@@ -1203,6 +1206,104 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     [self.connection sendData:[self jsonToData:json]
                         topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/dump"]
                    topicAlias:@(4)
+                          qos:[Settings intForKey:@"qos_preference"
+                                            inMOC:CoreData.sharedInstance.mainMOC]
+                       retain:NO];
+}
+
+- (void)status {
+    NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
+    json[@"_type"] = @"status";
+
+    NSMutableDictionary *iOS = [NSMutableDictionary dictionary];
+    
+    iOS[@"version"] = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
+    iOS[@"locale"] = [NSLocale currentLocale].localeIdentifier;
+
+    UIBackgroundRefreshStatus status = [UIApplication sharedApplication].backgroundRefreshStatus;
+    switch (status) {
+        case UIBackgroundRefreshStatusAvailable:
+            iOS[@"backgroundRefreshStatus"] = @"UIBackgroundRefreshStatusAvailable";
+            break;
+        case UIBackgroundRefreshStatusDenied:
+            iOS[@"backgroundRefreshStatus"] = @"UIBackgroundRefreshStatusDenied";
+            break;
+        case UIBackgroundRefreshStatusRestricted:
+            iOS[@"backgroundRefreshStatus"] = @"UIBackgroundRefreshStatusRestricted";
+            break;
+    }
+    
+    switch([LocationManager sharedInstance].locationManagerAuthorizationStatus) {
+        case kCLAuthorizationStatusNotDetermined:
+            iOS[@"locationManagerAuthorizationStatus"] = @"kCLAuthorizationStatusNotDetermined";
+            break;
+        case kCLAuthorizationStatusRestricted:
+            iOS[@"locationManagerAuthorizationStatus"] = @"kCLAuthorizationStatusRestricted";
+            break;
+        case kCLAuthorizationStatusDenied:
+            iOS[@"locationManagerAuthorizationStatus"] = @"kCLAuthorizationStatusDenied";
+            break;
+        case kCLAuthorizationStatusAuthorizedAlways:
+            iOS[@"locationManagerAuthorizationStatus"] = @"kCLAuthorizationStatusAuthorizedAlways";
+            break;
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+            iOS[@"locationManagerAuthorizationStatus"] = @"kCLAuthorizationStatusAuthorizedWhenInUse";
+            break;
+    }
+    
+    switch([LocationManager sharedInstance].altimeterAuthorizationStatus) {
+        case CMAuthorizationStatusDenied:
+            iOS[@"altimeterAuthorizationStatus"] = @"CMAuthorizationStatusDenied";
+            break;
+        case CMAuthorizationStatusAuthorized:
+            iOS[@"altimeterAuthorizationStatus"] = @"CMAuthorizationStatusAuthorized";
+            break;
+        case CMAuthorizationStatusRestricted:
+            iOS[@"altimeterAuthorizationStatus"] = @"CMAuthorizationStatusRestricted";
+            break;
+        case CMAuthorizationStatusNotDetermined:
+            iOS[@"altimeterAuthorizationStatus"] = @"CMAuthorizationStatusNotDetermined";
+            break;
+    }
+    iOS[@"altimeterIsAbsoluteAltitudeAvailable"] = [NSNumber numberWithBool:[LocationManager sharedInstance].altimeterIsAbsoluteAltitudeAvailable];
+    iOS[@"altimeterIsRelativeAltitudeAvailable"] = [NSNumber numberWithBool:[LocationManager sharedInstance].altimeterIsRelativeAltitudeAvailable];
+    
+    UIDevice *device = [UIDevice currentDevice];
+    //iOS[@"deviceName"] = device.name;
+    iOS[@"deviceSystemName"] = device.systemName;
+    iOS[@"deviceSystemVersion"] = device.systemVersion;
+    iOS[@"deviceModel"] = device.model;
+    //iOS[@"deviceLocalizedModel"] = device.localizedModel;
+    iOS[@"deviceIdentifierForVendor"] = device.identifierForVendor.UUIDString;
+    switch (device.userInterfaceIdiom) {
+        case UIUserInterfaceIdiomUnspecified:
+            iOS[@"deviceUserInterfaceIdiom"] = @"UIUserInterfaceIdiomUnspecified";
+            break;
+        case UIUserInterfaceIdiomPhone:
+            iOS[@"deviceUserInterfaceIdiom"] = @"UIUserInterfaceIdiomPhone";
+            break;
+        case UIUserInterfaceIdiomPad:
+            iOS[@"deviceUserInterfaceIdiom"] = @"UIUserInterfaceIdiomPad";
+            break;
+        case UIUserInterfaceIdiomTV:
+            iOS[@"deviceUserInterfaceIdiom"] = @"UIUserInterfaceIdiomTV";
+            break;
+        case UIUserInterfaceIdiomCarPlay:
+            iOS[@"deviceUserInterfaceIdiom"] = @"UIUserInterfaceIdiomCarPlay";
+            break;
+        case UIUserInterfaceIdiomMac:
+            iOS[@"deviceUserInterfaceIdiom"] = @"UIUserInterfaceIdiomMac";
+            break;
+        case UIUserInterfaceIdiomVision:
+            iOS[@"deviceUserInterfaceIdiom"] = @"UIUserInterfaceIdiomVision";
+            break;
+    }
+
+    json[@"iOS"] = iOS;
+    
+    [self.connection sendData:[self jsonToData:json]
+                        topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/status"]
+                   topicAlias:@(8)
                           qos:[Settings intForKey:@"qos_preference"
                                             inMOC:CoreData.sharedInstance.mainMOC]
                        retain:NO];

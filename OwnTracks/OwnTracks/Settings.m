@@ -480,6 +480,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         default:
             break;
     }
+    
     return dict;
 }
 

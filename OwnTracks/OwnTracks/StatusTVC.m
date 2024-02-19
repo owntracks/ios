@@ -122,7 +122,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         mf.numberFormatter.maximumFractionDigits = 3;
         self.UIpressure.text = [mf stringFromMeasurement:m];
     } else {
-        self.UIpressure.text =NSLocalizedString( @"No pressure available",  @"No pressure available");
+        self.UIpressure.text = NSLocalizedString( @"No pressure available",  @"No pressure available");
     }
 
     if (self.UIparameters) {
@@ -136,6 +136,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
     [self.tableView setNeedsDisplay];
 }
+
+- (IBAction)publishPressed:(UIButton *)sender {
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad status];
+}
+
 - (IBAction)webPressed:(UIButton *)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://owntracks.org"]
                                        options:@{}

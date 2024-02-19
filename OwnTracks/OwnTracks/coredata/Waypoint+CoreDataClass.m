@@ -167,7 +167,7 @@
                           ];
         return text;
     } else {
-        return @" ";
+        return @"-";
     }
 }
 
