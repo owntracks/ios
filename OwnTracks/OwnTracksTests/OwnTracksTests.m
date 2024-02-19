@@ -155,6 +155,17 @@
                      relativeToDate:[NSDate date]]);
 }
 
+- (void)testMeasurementPressure {
+    NSMeasurement *m = [[NSMeasurement alloc] initWithDoubleValue:100.1237
+                                                             unit:[NSUnitPressure kilopascals]];
+    NSMeasurementFormatter *mf = [[NSMeasurementFormatter alloc] init];
+    mf.unitOptions = NSMeasurementFormatterUnitOptionsNaturalScale;
+    mf.numberFormatter.maximumFractionDigits = 3;
+    NSString *stringFromMeasurement = [mf stringFromMeasurement:m];
+    NSLog(@"stringFromMeasurement <%@>", stringFromMeasurement);
+    XCTAssertNotNil(stringFromMeasurement);
+}
+
 - (void)testIncomingJSONnil {
     [self incomingJSON:nil];
 }

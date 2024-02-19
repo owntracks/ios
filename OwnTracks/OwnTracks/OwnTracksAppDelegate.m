@@ -1219,6 +1219,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     
     iOS[@"version"] = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
     iOS[@"locale"] = [NSLocale currentLocale].localeIdentifier;
+    iOS[@"localeUsesMetricSystem"] = [NSNumber numberWithBool:[NSLocale currentLocale].usesMetricSystem];
 
     UIBackgroundRefreshStatus status = [UIApplication sharedApplication].backgroundRefreshStatus;
     switch (status) {
