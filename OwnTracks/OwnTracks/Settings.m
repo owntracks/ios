@@ -119,9 +119,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             object = dictionary[@"password"];
             if (object) [self setString:object forKey:@"pass_preference" inMOC:context];
 
-            object = dictionary[@"willTopic"];
-            if (object) [self setString:object forKey:@"willtopic_preference" inMOC:context];
-        
             object = dictionary[@"subQos"];
             if (object) [self setString:object forKey:@"subscriptionqos_preference" inMOC:context];
             
@@ -143,10 +140,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             object = dictionary[@"keepalive"];
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
                                  forKey:@"keepalive_preference" inMOC:context];
-            
-            object = dictionary[@"willQos"];
-            if (object) [self setString:object forKey:@"willqos_preference" inMOC:context];
-            
+                        
             object = dictionary[@"locatorDisplacement"];
             if (object) {
                 [self setString:[NSString stringWithFormat:@"%@", object]
@@ -209,9 +203,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             if (object) [self setString:[NSString stringWithFormat:@"%@", object]
                                  forKey:@"clean_preference"
                                   inMOC:context];
-            
-            object = dictionary[@"willRetain"];
-            if (object) [self setString:object forKey:@"willretain_preference" inMOC:context];
             
             object = dictionary[@"positions"];
             if (object) [self setString:object forKey:@"positions_preference" inMOC:context];
@@ -453,7 +444,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             dict[@"sub"] =                  @([Settings boolForKey:@"sub_preference" inMOC:context]);
             dict[@"subTopic"] =             [Settings stringOrZeroForKey:@"subscription_preference" inMOC:context];
             dict[@"host"] =                 [Settings stringOrZeroForKey:@"host_preference" inMOC:context];
-            dict[@"willTopic"] =            [Settings stringOrZeroForKey:@"willtopic_preference" inMOC:context];
             dict[@"clientpkcs"] =           [Settings stringOrZeroForKey:@"clientpkcs" inMOC:context];
             dict[@"passphrase"] =           [Settings stringOrZeroForKey:@"passphrase" inMOC:context];
             
@@ -462,14 +452,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             dict[@"port"] =                 @([Settings intForKey:@"port_preference" inMOC:context]);
             dict[@"mqttProtocolLevel"] =    @([Settings intForKey:SETTINGS_PROTOCOL inMOC:context]);
             dict[@"keepalive"] =            @([Settings intForKey:@"keepalive_preference" inMOC:context]);
-            dict[@"willQos"] =              @([Settings intForKey:@"willqos_preference" inMOC:context]);
 
             dict[@"pubRetain"] =            @([Settings boolForKey:@"retain_preference" inMOC:context]);
             dict[@"tls"] =                  @([Settings boolForKey:@"tls_preference" inMOC:context]);
             dict[@"allowinvalidcerts"] =    @([Settings boolForKey:@"allowinvalidcerts" inMOC:context]);
             dict[@"ws"] =                   @([Settings boolForKey:@"ws_preference" inMOC:context]);
             dict[@"cleanSession"] =         @([Settings boolForKey:@"clean_preference" inMOC:context]);
-            dict[@"willRetain"] =           @([Settings boolForKey:@"willretain_preference" inMOC:context]);
             break;
 
         case CONNECTION_MODE_HTTP:
@@ -614,18 +602,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 + (NSString *)theWillTopicInMOC:(NSManagedObjectContext *)context {
-    NSString *topic = [self stringForKey:@"willtopic_preference" inMOC:context];
-    
-    if (!topic || [topic isEqualToString:@""]) {
-        topic = [self theGeneralTopicInMOC:context];
-    } else {
-        topic = [topic stringByReplacingOccurrencesOfString:@"%u"
-                                                 withString:[Settings theUserIdInMOC:context]];
-        topic = [topic stringByReplacingOccurrencesOfString:@"%d"
-                                                 withString:[Settings theDeviceIdInMOC:context]];
-    }
+    // willTopic is not the same as theGeneralTopic
+    return [Settings theGeneralTopicInMOC:context];
+}
 
-    return topic;
++ (MQTTQosLevel)theWillQosInMOC:(NSManagedObjectContext *)context {
+    // willQos is now the same as pubQos
+    return [Settings intForKey:@"qos_preference" inMOC:context];
+}
+
++ (BOOL)theWillRetainFlagInMOC:(NSManagedObjectContext *)context {
+    // willRetainFlag is now always false
+    return FALSE;
 }
 
 + (NSString *)theClientIdInMOC:(NSManagedObjectContext *)context {

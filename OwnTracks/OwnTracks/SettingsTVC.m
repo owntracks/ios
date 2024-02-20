@@ -50,12 +50,10 @@
 @property (weak, nonatomic) IBOutlet UISwitch *UIsub;
 @property (weak, nonatomic) IBOutlet UISwitch *UIcmd;
 @property (weak, nonatomic) IBOutlet UISwitch *UIpubRetain;
-@property (weak, nonatomic) IBOutlet UISwitch *UIwillRetain;
 @property (weak, nonatomic) IBOutlet UISwitch *UIallowRemoteLocation;
 @property (weak, nonatomic) IBOutlet UISwitch *UIcleanSession;
 @property (weak, nonatomic) IBOutlet UITextField *UIsubTopic;
 @property (weak, nonatomic) IBOutlet UITextField *UIpubTopicBase;
-@property (weak, nonatomic) IBOutlet UITextField *UIwillTopic;
 @property (weak, nonatomic) IBOutlet UITextField *UIlocatorDisplacement;
 @property (weak, nonatomic) IBOutlet UITextField *UIlocatorInterval;
 @property (weak, nonatomic) IBOutlet UITextField *UIpositions;
@@ -63,10 +61,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIsubQos;
 @property (weak, nonatomic) IBOutlet UITextField *UIkeepAlive;
 @property (weak, nonatomic) IBOutlet UITextField *UIpubQos;
-@property (weak, nonatomic) IBOutlet UITextField *UIwillQos;
 @property (weak, nonatomic) IBOutlet UITextField *UImonitoring;
 @property (weak, nonatomic) IBOutlet UILabel *UIeffectivePubTopic;
-@property (weak, nonatomic) IBOutlet UILabel *UIeffectiveWillTopic;
 @property (weak, nonatomic) IBOutlet UILabel *UIeffectiveSubTopic;
 @property (weak, nonatomic) IBOutlet UILabel *UIeffectiveClientId;
 @property (weak, nonatomic) IBOutlet UITextField *UIclientId;
@@ -105,14 +101,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.UIlocatorDisplacement.delegate = self;
     self.UIsubTopic.delegate = self;
     self.UIpubTopicBase.delegate = self;
-    self.UIwillTopic.delegate = self;
     self.UIlocatorInterval.delegate = self;
     self.UIpositions.delegate = self;
     self.UImaxHistory.delegate = self;
     self.UIsubQos.delegate = self;
     self.UIkeepAlive.delegate = self;
     self.UIpubQos.delegate = self;
-    self.UIwillQos.delegate = self;
     self.UImonitoring.delegate = self;
     self.UIclientId.delegate = self;
     self.UIdowngrade.delegate = self;
@@ -183,11 +177,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if (self.UIHost)
         [Settings setString:self.UIHost.text
                      forKey:@"host_preference"
-                      inMOC:CoreData.sharedInstance.mainMOC];
-
-    if (self.UIwillTopic)
-        [Settings setString:self.UIwillTopic.text
-                     forKey:@"willtopic_preference"
                       inMOC:CoreData.sharedInstance.mainMOC];
 
     if (self.UIclientId)
@@ -272,11 +261,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                      forKey:@"qos_preference"
                       inMOC:CoreData.sharedInstance.mainMOC];
 
-    if (self.UIwillQos)
-        [Settings setString:self.UIwillQos.text
-                     forKey:@"willqos_preference"
-                      inMOC:CoreData.sharedInstance.mainMOC];
-
     if (self.UIkeepAlive)
         [Settings setString:self.UIkeepAlive.text
                      forKey:@"keepalive_preference"
@@ -344,11 +328,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if (self.UIpubRetain)
         [Settings setBool:self.UIpubRetain.on
                    forKey:@"retain_preference"
-                    inMOC:CoreData.sharedInstance.mainMOC];
-
-    if (self.UIwillRetain)
-        [Settings setBool:self.UIwillRetain.on
-                   forKey:@"willretain_preference"
                     inMOC:CoreData.sharedInstance.mainMOC];
 
     if (self.UIcleanSession)
@@ -476,16 +455,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                          inMOC:CoreData.sharedInstance.mainMOC];
         self.UIHost.enabled = !locked;
     }
-    if (self.UIwillTopic) {
-        self.UIwillTopic.text =
-        [Settings stringForKey:@"willtopic_preference"
-                         inMOC:CoreData.sharedInstance.mainMOC];
-        self.UIwillTopic.enabled = !locked;
-    }
-    if (self.UIeffectiveWillTopic) {
-        self.UIeffectiveWillTopic.text =
-        [Settings theWillTopicInMOC:CoreData.sharedInstance.mainMOC];
-    }
 
     if (self.UIclientId) {
         self.UIclientId.text =
@@ -596,12 +565,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                          inMOC:CoreData.sharedInstance.mainMOC];
         self.UIsubQos.enabled = !locked;
     }
-    if (self.UIwillQos) {
-        self.UIwillQos.text =
-        [Settings stringForKey:@"willqos_preference"
-                         inMOC:CoreData.sharedInstance.mainMOC];
-        self.UIwillQos.enabled = !locked;
-    }
+
     if (self.UIpositions) {
         self.UIpositions.text =
         [Settings stringForKey:@"positions_preference"
@@ -699,12 +663,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                        inMOC:CoreData.sharedInstance.mainMOC];
         self.self.UIpubRetain.enabled = !locked;
     }
-    if (self.UIwillRetain) {
-        self.UIwillRetain.on =
-        [Settings boolForKey:@"willretain_preference"
-                       inMOC:CoreData.sharedInstance.mainMOC];
-        self.UIwillRetain.enabled = !locked;
-    }
+
     if (self.UIcleanSession) {
         self.UIcleanSession.on =
         [Settings boolForKey:@"clean_preference"
@@ -744,15 +703,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             [NSIndexPath indexPathForRow:8 inSection:0], // protocol / tls
             [NSIndexPath indexPathForRow:0 inSection:1], // subTopic
             [NSIndexPath indexPathForRow:1 inSection:1], // clientId
-            [NSIndexPath indexPathForRow:3 inSection:1], // willTopic
-            [NSIndexPath indexPathForRow:10 inSection:1], // subQos
-            [NSIndexPath indexPathForRow:11 inSection:1], // keepAlive
-            [NSIndexPath indexPathForRow:12 inSection:1], // pubQos
-            [NSIndexPath indexPathForRow:13 inSection:1], // willQos
-            [NSIndexPath indexPathForRow:19 inSection:1], // sub
-            [NSIndexPath indexPathForRow:21 inSection:1], // pubRetain
-            [NSIndexPath indexPathForRow:22 inSection:1], // willRetain
-            [NSIndexPath indexPathForRow:23 inSection:1] // cleanSession
+            [NSIndexPath indexPathForRow:9 inSection:1], // subQos
+            [NSIndexPath indexPathForRow:10 inSection:1], // keepAlive
+            [NSIndexPath indexPathForRow:11 inSection:1], // pubQos
+            [NSIndexPath indexPathForRow:17 inSection:1], // sub
+            [NSIndexPath indexPathForRow:19 inSection:1], // pubRetain
+            [NSIndexPath indexPathForRow:20 inSection:1] // cleanSession
         ];
 
         for (NSIndexPath *indexPath in mqttPaths) {
@@ -782,7 +738,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         // hide HTTP related rows if not in HTTP mode
         NSArray <NSIndexPath *> *httpPaths = @[
             [NSIndexPath indexPathForRow:13 inSection:0], // url
-            [NSIndexPath indexPathForRow:25 inSection:1] // httpHeaders
+            [NSIndexPath indexPathForRow:22 inSection:1] // httpHeaders
         ];
 
         for (NSIndexPath *indexPath in httpPaths) {
@@ -1009,10 +965,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self.UIclientId resignFirstResponder];
     [self.UIpubTopicBase resignFirstResponder];
     [self.UIsubTopic resignFirstResponder];
-    [self.UIwillTopic resignFirstResponder];
     [self.UImonitoring resignFirstResponder];
     [self.UIdowngrade resignFirstResponder];
-    [self.UIwillQos resignFirstResponder];
     [self.UIpubQos resignFirstResponder];
     [self.UIsubQos resignFirstResponder];
     [self.UIkeepAlive resignFirstResponder];

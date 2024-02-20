@@ -1803,8 +1803,8 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                               pass:password
                          willTopic:[Settings theWillTopicInMOC:moc]
                               will:[self jsonToData:json]
-                           willQos:[Settings intForKey:@"willqos_preference" inMOC:moc]
-                    willRetainFlag:[Settings boolForKey:@"willretain_preference" inMOC:moc]
+                           willQos:[Settings theWillQosInMOC:moc]
+                    willRetainFlag:[Settings theWillRetainFlagInMOC:moc]
                       withClientId:[Settings theClientIdInMOC:moc]
         allowUntrustedCertificates:[Settings boolForKey:@"allowinvalidcerts" inMOC:moc]
                       certificates:certificates];

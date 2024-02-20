@@ -40,12 +40,6 @@
 	<integer>60</integer>
 	<key>clean_preference</key>
 	<false/>
-	<key>willtopic_preference</key>
-	<string></string>
-	<key>willretain_preference</key>
-	<false/>
-	<key>willqos_preference</key>
-	<integer>1</integer>
 	<key>monitoring_preference</key>
 	<integer>1</integer>
 	<key>ranging_preference</key>
