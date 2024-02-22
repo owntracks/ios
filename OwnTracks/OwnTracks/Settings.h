@@ -22,25 +22,41 @@ typedef NS_ENUM(int, ConnectionMode) {
 
 @interface Settings : NSObject
 
-+ (NSError * _Nullable)fromStream:(NSInputStream * _Nonnull)input inMOC:(NSManagedObjectContext * _Nonnull)context;
-+ (NSError * _Nullable)fromDictionary:(NSDictionary * _Nonnull)dictionary inMOC:(NSManagedObjectContext * _Nonnull)context;
-+ (NSError * _Nullable)waypointsFromStream:(NSInputStream * _Nonnull)input inMOC:(NSManagedObjectContext * _Nonnull)context;
-+ (NSError * _Nullable)waypointsFromDictionary:(NSDictionary * _Nonnull)dictionary inMOC:(NSManagedObjectContext * _Nonnull)context;
++ (NSError * _Nullable)fromStream:(NSInputStream * _Nonnull)input
+                            inMOC:(NSManagedObjectContext * _Nonnull)context;
++ (NSError * _Nullable)fromDictionary:(NSDictionary * _Nonnull)dictionary
+                                inMOC:(NSManagedObjectContext * _Nonnull)context;
++ (NSError * _Nullable)waypointsFromStream:(NSInputStream * _Nonnull)input
+                                     inMOC:(NSManagedObjectContext * _Nonnull)context;
++ (NSError * _Nullable)waypointsFromDictionary:(NSDictionary * _Nonnull)dictionary
+                                         inMOC:(NSManagedObjectContext * _Nonnull)context;
 + (NSError * _Nullable)clearWaypoints:(NSManagedObjectContext * _Nonnull)context;
 + (NSData * _Nonnull)toDataInMOC:(NSManagedObjectContext * _Nonnull)context;
 + (NSData * _Nonnull)waypointsToDataInMOC:(NSManagedObjectContext * _Nonnull)context;
 + (NSDictionary * _Nonnull)waypointsToDictionaryInMOC:(NSManagedObjectContext * _Nonnull)context;
 + (NSDictionary * _Nonnull)toDictionaryInMOC:(NSManagedObjectContext * _Nonnull)context;
 
-+ (NSString * _Nullable)stringForKey:(NSString * _Nonnull)key inMOC:(NSManagedObjectContext * _Nonnull)context;
-+ (int)intForKey:(NSString * _Nonnull)key inMOC:(NSManagedObjectContext * _Nonnull)context;
-+ (double)doubleForKey:(NSString * _Nonnull)key inMOC:(NSManagedObjectContext * _Nonnull)context;
-+ (BOOL)boolForKey:(NSString * _Nonnull)key inMOC:(NSManagedObjectContext * _Nonnull)context;
++ (NSString * _Nullable)stringForKey:(NSString * _Nonnull)key 
+                               inMOC:(NSManagedObjectContext * _Nonnull)context;
++ (int)intForKey:(NSString * _Nonnull)key
+           inMOC:(NSManagedObjectContext * _Nonnull)context;
++ (double)doubleForKey:(NSString * _Nonnull)key
+                 inMOC:(NSManagedObjectContext * _Nonnull)context;
++ (BOOL)boolForKey:(NSString * _Nonnull)key
+             inMOC:(NSManagedObjectContext * _Nonnull)context;
 
-+ (void)setString:(NSObject  * _Nullable )object forKey:(NSString * _Nonnull)key inMOC:(NSManagedObjectContext * _Nonnull)context;
-+ (void)setInt:(int)i forKey:(NSString *_Nonnull)key inMOC:(NSManagedObjectContext *_Nonnull)context;
-+ (void)setDouble:(double)d forKey:(NSString *_Nonnull)key inMOC:(NSManagedObjectContext *_Nonnull)context;
-+ (void)setBool:(BOOL)b forKey:(NSString *_Nonnull)key inMOC:(NSManagedObjectContext *_Nonnull)context;
++ (void)setString:(NSObject  * _Nullable )object 
+           forKey:(NSString * _Nonnull)key
+            inMOC:(NSManagedObjectContext * _Nonnull)context;
++ (void)setInt:(int)i 
+        forKey:(NSString *_Nonnull)key
+         inMOC:(NSManagedObjectContext *_Nonnull)context;
++ (void)setDouble:(double)d 
+           forKey:(NSString *_Nonnull)key
+            inMOC:(NSManagedObjectContext *_Nonnull)context;
++ (void)setBool:(BOOL)b
+         forKey:(NSString *_Nonnull)key 
+          inMOC:(NSManagedObjectContext *_Nonnull)context;
 
 + (NSString * _Nonnull)theHostInMOC:(NSManagedObjectContext * _Nonnull)context;
 + (NSString * _Nonnull)theGeneralTopicInMOC:(NSManagedObjectContext * _Nonnull)context;

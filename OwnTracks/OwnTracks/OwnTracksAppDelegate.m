@@ -622,8 +622,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
                                                 @"Display when file processing succeeds (filename follows)"),
                               url.lastPathComponent,
                               NSLocalizedString(@"successfully processed",
-                                                @"Display when file processing succeeds")
-    ];
+                                                @"Display when file processing succeeds")];
     DDLogInfo(@"[OwnTracksAppDelegate] processFile ok %@", self.processingMessage);
     return TRUE;
 }
@@ -1401,8 +1400,11 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
 - (void)performSetConfiguration:(NSDictionary *)dictionary {
     NSDictionary *configuration = dictionary[@"configuration"];
     if (configuration && [configuration isKindOfClass:[NSDictionary class]]) {
-        [Settings fromDictionary:configuration
-                           inMOC:CoreData.sharedInstance.mainMOC];
+        NSError *error = [Settings fromDictionary:configuration
+                                            inMOC:CoreData.sharedInstance.mainMOC];
+        if (error) {
+            DDLogError(@"[OwnTracksAppDelegate performSetConfiguration] error %@", error);
+        }
     } else {
         DDLogWarn(@"[OwnTracksAppDelegate performSetConfiguration] no valid configuration");
     }

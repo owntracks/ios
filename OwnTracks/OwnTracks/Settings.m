@@ -74,16 +74,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         if (type && [type isKindOfClass:[NSString class]] && [type isEqualToString:@"configuration"]) {
             NSObject *object;
 
-            ConnectionMode importMode = CONNECTION_MODE_MQTT;
             NSNumber *mode = dictionary[@"mode"];
-            if (mode && [mode isKindOfClass:[NSNumber class]]) {
-                [self setString:object forKey:@"mode" inMOC:context];
-                importMode = mode.intValue;
-            } else {
-                DDLogError(@"[Settings] fromDictionary invalid mode");
-                return [NSError errorWithDomain:@"OwnTracks Settings"
-                                           code:1
-                                       userInfo:@{@"mode": [NSString stringWithFormat:@"%@", dictionary[@"mode"]]}];
+            if (mode) {
+                if ([mode isKindOfClass:[NSNumber class]] &&
+                (mode.intValue == CONNECTION_MODE_MQTT ||
+                 mode.intValue == CONNECTION_MODE_HTTP)) {
+                    [self setInt:mode.intValue forKey:@"mode" inMOC:context];
+                } else {
+                    DDLogError(@"[Settings] fromDictionary invalid mode");
+                    return [NSError errorWithDomain:@"OwnTracks Settings"
+                                               code:1
+                                           userInfo:@{@"mode": [NSString stringWithFormat:@"%@", dictionary[@"mode"]]}];
+                }
             }
 
             object = dictionary[@"deviceId"];
@@ -138,14 +140,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             if (object) [self setString:object forKey:@"ignoreinaccuratelocations_preference" inMOC:context];
 
             object = dictionary[@"keepalive"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                 forKey:@"keepalive_preference" inMOC:context];
+            if (object) [self setString:object forKey:@"keepalive_preference" inMOC:context];
                         
             object = dictionary[@"locatorDisplacement"];
             if (object) {
-                [self setString:[NSString stringWithFormat:@"%@", object]
-                             forKey:@"mindist_preference"
-                                      inMOC:context];
+                [self setString: object forKey:@"mindist_preference" inMOC:context];
                 [LocationManager sharedInstance].minDist =
                 [Settings doubleForKey:@"mindist_preference"
                               inMOC:context];
@@ -153,9 +152,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             
             object = dictionary[@"locatorInterval"];
             if (object) {
-                [self setString:[NSString stringWithFormat:@"%@", object]
-                                    forKey:@"mintime_preference"
-                                     inMOC:context];
+                [self setString:object forKey:@"mintime_preference" inMOC:context];
                 [LocationManager sharedInstance].minTime =
                 [Settings doubleForKey:@"mintime_preference"
                               inMOC:context];
@@ -164,9 +161,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             object = dictionary[@"monitoring"];
             if (object) {
                 [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
-                [self setString:[NSString stringWithFormat:@"%@", object]
-                         forKey:@"monitoring_preference"
-                          inMOC:context];
+                [self setString:object forKey:@"monitoring_preference" inMOC:context];
                 [LocationManager sharedInstance].monitoring =
                 [Settings intForKey:@"monitoring_preference"
                               inMOC:context];
@@ -200,9 +195,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             if (object) [self setString:object forKey:@"usepassword_preference" inMOC:context];
 
             object = dictionary[@"cleanSession"];
-            if (object) [self setString:[NSString stringWithFormat:@"%@", object]
-                                 forKey:@"clean_preference"
-                                  inMOC:context];
+            if (object) [self setString:object forKey:@"clean_preference" inMOC:context];
             
             object = dictionary[@"positions"];
             if (object) [self setString:object forKey:@"positions_preference" inMOC:context];
@@ -341,7 +334,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         NSNumber *lat = waypoint[@"lat"];
         if (lat && ![lat isKindOfClass:[NSNumber class]]) {
             DDLogError(@"[Settings][setWaypoints] json does not contain valid lat: not processed");
-            return;
+            continue;
         }
         latDegrees = lat.doubleValue;
 
@@ -349,21 +342,21 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         NSNumber *lon = waypoint[@"lon"];
         if (lon && ![lon isKindOfClass:[NSNumber class]]) {
             DDLogError(@"[Settings][setWaypoints] json does not contain valid lon: not processed");
-            return;
+            continue;
         }
         lonDegrees = lon.doubleValue;
         
         CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(latDegrees, lonDegrees);
         if (!CLLocationCoordinate2DIsValid(coord)) {
             DDLogError(@"[Settings][setWaypoints] coord is no valid: not processed");
-            return;
+            continue;
         }
 
         CLLocationDistance radDistance = 0.0;
         NSNumber *rad = waypoint[@"rad"];
         if (rad && ![rad isKindOfClass:[NSNumber class]]) {
             DDLogError(@"[Settings][setWaypoints] json does not contain valid rad: not processed");
-            return;
+            continue;
         }
         radDistance = rad.doubleValue;
 
@@ -573,7 +566,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     DDLogVerbose(@"boolForKey:%@ = %@", key, value);
     return value.boolValue;
 }
-
 
 + (NSString *)theGeneralTopicInMOC:(NSManagedObjectContext *)context {
     NSString *topic = [self stringForKey:@"topic_preference" inMOC:context];

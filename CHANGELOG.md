@@ -2,7 +2,7 @@ OwnTracks iOS App Release Notes
 ===================================
 
 ## OwnTracks 17.2.3 iOS/ipadOS/macOS
-* Release Date 2024-02-12
+* Release Date 2024-02-22
 
 ** UI Improvements and Bug Fixes
 
@@ -10,6 +10,18 @@ OwnTracks iOS App Release Notes
     [FIX] "Change Monitoring Mode" doesn't work if the app is on the settings page #768
     [FIX] Make encryptionKey for payload encryption configurable over .otrc  #774
     [FIX] Robustness of settings and configuration messages #775
+    [FIX] use defaults for imported regions/waypoints where possible
+    [NEW] use publish topic, qos for MQTT will. willRetainflag always false #780
+    [NEW] add test for NSMeasurement / NSUnitPressure
+    [NEW] status message #778
+    [FIX] OwnTracks crashes with _type:location containing batt:null #775
+    [FIX] robust waypoints processing
+    [FIX] clarify nullable parameters
+    [FIX] remove special handling for deviceid
+    [FIX] remove unused settings parameter re TLS
+    [FIX] robustness for incoming messages
+    [FIX] handle nil data in json validation
+    [NEW] json validity tests
 
 ## OwnTracks 17.1.3 iOS/ipadOS/macOS
 * Release Date 2024-01-30
