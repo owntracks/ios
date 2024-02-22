@@ -8,15 +8,7 @@ OwnTracks initially was __MQTTitude__.
 
 # Prepare to Compile and Run 
  ## CocoaPods
- There are two Pods used not available via [COCOAPODS](https://cocoapods.org).
- Clone these two repositories into your home directory:
- [ABStaticTableViewController](https://github.com/k06a/ABStaticTableViewController.git), and
- [mqttc/MinL](https://github.com/ckrey/mqttc.git).
-
-Then re-run `pod`:
-
-         % cd OwnTracks
-         % pod install
+OwnTracks uses [COCOAPODS](https://cocoapods.org).
 
  ## Xcode
  Staying in the `OwnTracks/` directory,

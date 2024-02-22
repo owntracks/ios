@@ -9,11 +9,11 @@ PODS:
     - CocoaLumberjack
 
 DEPENDENCIES:
-  - ABStaticTableViewController (from `~/ABStaticTableViewController`)
+  - ABStaticTableViewController (from `https://github.com/ckrey/ABStaticTableViewController.git`)
   - CocoaLumberjack
   - DSJSONSchemaValidation
   - libsodium
-  - mqttc/MinL (from `~/mqttc`)
+  - mqttc/MinL (from `https://github.com/ckrey/mqttc.git`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -23,9 +23,17 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   ABStaticTableViewController:
-    :path: "~/ABStaticTableViewController"
+    :git: https://github.com/ckrey/ABStaticTableViewController.git
   mqttc:
-    :path: "~/mqttc"
+    :git: https://github.com/ckrey/mqttc.git
+
+CHECKOUT OPTIONS:
+  ABStaticTableViewController:
+    :commit: be1027ed1acf2846fa2b2b7b13174f8a0353a211
+    :git: https://github.com/ckrey/ABStaticTableViewController.git
+  mqttc:
+    :commit: 72e8ad1a45f312d380bdfeb9a445eba3ebd2104c
+    :git: https://github.com/ckrey/mqttc.git
 
 SPEC CHECKSUMS:
   ABStaticTableViewController: d8cfbdd596fbf58b515b13e49cc8ca8ca86c6e12
@@ -34,6 +42,6 @@ SPEC CHECKSUMS:
   libsodium: 9a8faa5ef2fa0d2d57bd7f7d79bf8fb7c1a9f0ea
   mqttc: b9a739726c2c7f154d801193b2c2a9a63df59ccb
 
-PODFILE CHECKSUM: f4c4b03ab0e15061f54c97a5e2e8980b39ff986c
+PODFILE CHECKSUM: cf2982b3cd44f8ef5291e2ed9a9ef9cc8fa43baa
 
 COCOAPODS: 1.12.1
