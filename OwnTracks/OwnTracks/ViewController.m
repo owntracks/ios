@@ -609,7 +609,6 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         Region *region = (Region *)annotation;
         if ([region.CLregion isKindOfClass:[CLBeaconRegion class]]) {
             MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_BEACON];
-#if TRUE
             MKMarkerAnnotationView *mAV;
             if (!annotationView) {
                 mAV = [[MKMarkerAnnotationView alloc] initWithAnnotation:region reuseIdentifier:REUSE_ID_BEACON];
@@ -625,16 +624,6 @@ didChangeDragState:(MKAnnotationViewDragState)newState
                 mAV.glyphImage = [UIImage imageNamed:@"iBeaconCold"];
             }
             annotationView = mAV;
-#else
-            if (!annotationView) {
-                annotationView = [[MKAnnotationView alloc] initWithAnnotation:region reuseIdentifier:REUSE_ID_BEACON];
-            }
-            if ([[LocationManager sharedInstance] insideBeaconRegion:region.name]) {
-                annotationView.image = [UIImage imageNamed:@"iBeaconHot"];
-            } else {
-                annotationView.image = [UIImage imageNamed:@"iBeaconCold"];
-            }
-#endif
             annotationView.draggable = true;
             annotationView.canShowCallout = YES;
             [annotationView setNeedsDisplay];
@@ -644,7 +633,6 @@ didChangeDragState:(MKAnnotationViewDragState)newState
                 return nil;
             }
             MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_OTHER];
-#if TRUE
             MKMarkerAnnotationView *mAV;
             if (!annotationView) {
                 mAV = [[MKMarkerAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:REUSE_ID_OTHER];
@@ -654,16 +642,6 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             mAV.displayPriority = MKFeatureDisplayPriorityRequired;
             mAV.markerTintColor = [UIColor colorNamed:@"pinColor"];
             annotationView = mAV;
-#else
-            MKPinAnnotationView *pAV;
-            if (!annotationView) {
-                pAV = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:REUSE_ID_OTHER];
-            } else {
-                pAV = (MKPinAnnotationView *)annotationView;
-            }
-            pAV.pinTintColor = [UIColor colorNamed:@"pinColor"];
-            annotationView = pAV;
-#endif
             annotationView.draggable = true;
             annotationView.canShowCallout = YES;
             [annotationView setNeedsDisplay];
