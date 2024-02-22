@@ -337,37 +337,35 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             }
         }
                         
+        CLLocationDegrees latDegrees = 0.0;
         NSNumber *lat = waypoint[@"lat"];
-        if (!lat || ![lat isKindOfClass:[NSNumber class]]) {
+        if (lat && ![lat isKindOfClass:[NSNumber class]]) {
             DDLogError(@"[Settings][setWaypoints] json does not contain valid lat: not processed");
             return;
         }
-        CLLocationDegrees latDegrees = lat.doubleValue;
+        latDegrees = lat.doubleValue;
 
+        CLLocationDegrees lonDegrees = 0.0;
         NSNumber *lon = waypoint[@"lon"];
-        if (!lon || ![lon isKindOfClass:[NSNumber class]]) {
+        if (lon && ![lon isKindOfClass:[NSNumber class]]) {
             DDLogError(@"[Settings][setWaypoints] json does not contain valid lon: not processed");
             return;
         }
-        CLLocationDegrees lonDegrees = lon.doubleValue;
+        lonDegrees = lon.doubleValue;
         
-        if (lat.doubleValue == 0 && lon.doubleValue == 0.0) {
-            DDLogError(@"[Settings][setWaypoints] coord is 0.0,0.0: not processed");
-            return;
-        }
-
         CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(latDegrees, lonDegrees);
         if (!CLLocationCoordinate2DIsValid(coord)) {
             DDLogError(@"[Settings][setWaypoints] coord is no valid: not processed");
             return;
         }
 
+        CLLocationDistance radDistance = 0.0;
         NSNumber *rad = waypoint[@"rad"];
-        if (!rad || ![rad isKindOfClass:[NSNumber class]]) {
+        if (rad && ![rad isKindOfClass:[NSNumber class]]) {
             DDLogError(@"[Settings][setWaypoints] json does not contain valid rad: not processed");
             return;
         }
-        CLLocationDistance radDistance = rad.doubleValue;
+        radDistance = rad.doubleValue;
 
         [[OwnTracking sharedInstance] addRegionFor:rid
                                             friend:friend
