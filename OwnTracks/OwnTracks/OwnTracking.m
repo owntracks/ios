@@ -253,7 +253,7 @@ static OwnTracking *theInstance = nil;
             DDLogError(@"[OwnTracking processLocation] json does contain invalid acc: not processed");
             return;
         }
-        CLLocationAccuracy accAccuracy = -1;
+        CLLocationAccuracy accAccuracy = 0;
         if (acc) {
             accAccuracy = acc.doubleValue;
         }
@@ -263,7 +263,7 @@ static OwnTracking *theInstance = nil;
             DDLogError(@"[OwnTracking processLocation] json does contain invalid vac: not processed");
             return;
         }
-        CLLocationAccuracy vacAccuracy = -1;
+        CLLocationAccuracy vacAccuracy = 0;
         if (vac) {
             vacAccuracy = vac.intValue;
         }
@@ -273,7 +273,7 @@ static OwnTracking *theInstance = nil;
             DDLogError(@"[OwnTracking processLocation] json does contain invalid cog: not processed");
             return;
         }
-        CLLocationDirection cogDirection = -1;
+        CLLocationDirection cogDirection = 0;
         if (cog) {
             cogDirection = cog.doubleValue;
         }
@@ -323,13 +323,20 @@ static OwnTracking *theInstance = nil;
             return;
         }
 
-        [self addWaypointFor:friend
-                    location:location
-                   createdAt:createdAt
-                     trigger:t
-                         poi:poi
-                         tag:tag
-                     battery:batteryLevel];
+        Waypoint *waypoint = [self addWaypointFor:friend
+                                         location:location
+                                        createdAt:createdAt
+                                          trigger:t
+                                              poi:poi
+                                              tag:tag
+                                          battery:batteryLevel];
+        DDLogInfo(@"[OwnTracking processLocation] waypoint added %@ %@ %@ %@ %@",
+                  waypoint.coordinateText,
+                  waypoint.infoText,
+                  waypoint.timestampText,
+                  waypoint.createdAtText,
+                  waypoint.batteryLevelText);
+
         [self limitWaypointsFor:friend
                       toMaximum:[Settings intForKey:@"positions_preference"
                                               inMOC:friend.managedObjectContext]];
@@ -450,14 +457,14 @@ static OwnTracking *theInstance = nil;
     if (friend) {
         if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
             NSString *name = dictionary[@"name"];
-            if (name || ![name isKindOfClass:[NSString class]]) {
+            if (!name || ![name isKindOfClass:[NSString class]]) {
                 DDLogError(@"[OwnTracking processFace] json does not contain valid name: not processed");
                 return;
             }
             friend.cardName = name;
 
             NSString *face = dictionary[@"face"];
-            if (face || ![face isKindOfClass:[NSString class]]) {
+            if (!face || ![face isKindOfClass:[NSString class]]) {
                 DDLogError(@"[OwnTracking processFace] json does not contain valid face: not processed");
                 return;
             }

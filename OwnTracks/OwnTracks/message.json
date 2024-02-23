@@ -10,21 +10,13 @@
         "_type": { "$ref": "#/$defs/_type" },
         "action": { "$ref": "#/$defs/action" },
         "content": { "$ref": "#/$defs/content" },
-        "distance": { "$ref": "#/$defs/distance" },
-        "face": { "$ref": "#/$defs/face" },
-        "floorsdown": { "$ref": "#/$defs/floorsdown" },
-        "floorsup": { "$ref": "#/$defs/floorsup" },
-        "from": { "$ref": "#/$defs/from" },
         "lat": { "$ref": "#/$defs/lat" },
         "lon": { "$ref": "#/$defs/lon" },
-        "name": { "$ref": "#/$defs/name" },
+        "tst": { "$ref": "#/$defs/tst" },
         "notification": { "$ref": "#/$defs/notification" },
         "ntours": { "$ref": "#/$defs/ntours" },
         "request": { "$ref": "#/$defs/request" },
-        "steps": { "$ref": "#/$defs/steps" },
-        "to": { "$ref": "#/$defs/to" },
         "tours": { "$ref": "#/$defs/tours" },
-        "tst": { "$ref": "#/$defs/tst" },
         "uuid": { "$ref": "#/$defs/uuid" },
         "url": { "$ref": "#/$defs/url" }
     },
@@ -59,7 +51,14 @@
                 "required": [ "_type" ]
             }, "then": {
                 "$comment": "UNIX epoch timestamp of the request",
-                "$comment": "optional distance, floorsup, floorsdown",
+                "properties": {
+                    "distance": { "$ref": "#/$defs/distance" },
+                    "floorsdown": { "$ref": "#/$defs/floorsdown" },
+                    "floorsup": { "$ref": "#/$defs/floorsup" },
+                    "from": { "$ref": "#/$defs/from" },
+                    "steps": { "$ref": "#/$defs/steps" },
+                    "to": { "$ref": "#/$defs/to" }
+                },
                 "required": [ "from", "steps", "to", "tst" ]
             }
         },
@@ -80,6 +79,10 @@
                 },
                 "required": [ "_type" ]
             }, "then": {
+                "properties": {
+                    "face": { "$ref": "#/$defs/face" },
+                    "name": { "$ref": "#/$defs/name" }
+                },
                 "required": [ "face", "name" ]
             }
         },
@@ -161,6 +164,7 @@
                 "location",
                 "lwt",
                 "request",
+                "status",
                 "steps",
                 "transition",
                 "waypoint",

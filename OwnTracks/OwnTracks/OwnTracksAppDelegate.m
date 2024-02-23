@@ -1161,22 +1161,22 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                                                         waitUntilDone:NO];
                                     
                                 } else {
-                                    DDLogWarn(@"[OwnTracksAppDelegate] unknown action %@", dictionary[@"action"]);
+                                    DDLogWarn(@"[OwnTracksAppDelegate] unknown action %@", action);
                                 }
                             } else {
-                                DDLogWarn(@"[OwnTracksAppDelegate] remote cmd not allowed");
+                                DDLogWarn(@"[OwnTracksAppDelegate] no action in JSON");
                             }
                         } else {
-                            DDLogWarn(@"[OwnTracksAppDelegate] unknown _type (%@) in JSON", type);
+                            DDLogWarn(@"[OwnTracksAppDelegate] remote cmd not allowed");
                         }
                     } else {
-                        DDLogWarn(@"[OwnTracksAppDelegate] no _type in JSON");
+                        DDLogVerbose(@"[OwnTracksAppDelegate] unhandled _type (%@) in JSON", type);
                     }
                 } else {
-                    DDLogWarn(@"[OwnTracksAppDelegate] JSON is not an object");
+                    DDLogWarn(@"[OwnTracksAppDelegate] no _type in JSON");
                 }
             } else {
-                DDLogWarn(@"[OwnTracksAppDelegate] illegal JSON %@ received", data.description);
+                DDLogWarn(@"[OwnTracksAppDelegate] JSON is not an object");
             }
         }
         [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
