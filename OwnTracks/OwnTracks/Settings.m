@@ -230,7 +230,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                        code:1
                                    userInfo:@{@"_type": [NSString stringWithFormat:@"%@", dictionary[@"_type"]]}];
         }
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"reload" object:nil];
     } else {
         DDLogError(@"[Settings] fromDictionary invalid dictionary");
         return [NSError errorWithDomain:@"OwnTracks Settings"

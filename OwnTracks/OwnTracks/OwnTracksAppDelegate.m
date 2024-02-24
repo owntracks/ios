@@ -527,6 +527,8 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 - (void)configFromDictionary:(NSDictionary *)json {
     NSError *error = [Settings fromDictionary:json inMOC:CoreData.sharedInstance.mainMOC];
     [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"reload" object:nil];
+
     if (error) {
         [self.navigationController alert:@"processNSURL"
                                  message:
@@ -579,6 +581,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
         [self terminateSession];
         error = [Settings fromStream:input inMOC:CoreData.sharedInstance.mainMOC];
         [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"reload" object:nil];
         self.configLoad = [NSDate date];
         [self reconnect];
     } else if ([extension isEqualToString:@"otrw"] || [extension isEqualToString:@"mqtw"]) {
@@ -1402,12 +1405,15 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     if (configuration && [configuration isKindOfClass:[NSDictionary class]]) {
         NSError *error = [Settings fromDictionary:configuration
                                             inMOC:CoreData.sharedInstance.mainMOC];
+
         if (error) {
             DDLogError(@"[OwnTracksAppDelegate performSetConfiguration] error %@", error);
         }
     } else {
         DDLogWarn(@"[OwnTracksAppDelegate performSetConfiguration] no valid configuration");
     }
+    [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"reload" object:nil];
     self.configLoad = [NSDate date];
     [self reconnect];
 }

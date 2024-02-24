@@ -358,25 +358,25 @@ static OwnTracking *theInstance = nil;
         NSDate *timestamp = [NSDate dateWithTimeIntervalSince1970:tst.doubleValue];
         
         NSString *t = dictionary[@"t"];
-        if (t || ![t isKindOfClass:[NSString class]]) {
+        if (t && ![t isKindOfClass:[NSString class]]) {
             DDLogError(@"[OwnTracking processTransitionMessage] json does not contain valid t: not processed");
             return;
         }
 
         NSString *tid = dictionary[@"tid"];
-        if (tid || ![tid isKindOfClass:[NSString class]]) {
+        if (tid && ![tid isKindOfClass:[NSString class]]) {
             DDLogError(@"[OwnTracking processTransitionMessage] json does not contain valid tid: not processed");
             return;
         }
 
         NSString *event = dictionary[@"event"];
-        if (event || ![event isKindOfClass:[NSString class]]) {
+        if (event && ![event isKindOfClass:[NSString class]]) {
             DDLogError(@"[OwnTracking processTransitionMessage] json does not contain valid event: not processed");
             return;
         }
 
         NSString *desc = dictionary[@"desc"];
-        if (desc || ![desc isKindOfClass:[NSString class]]) {
+        if (desc && ![desc isKindOfClass:[NSString class]]) {
             DDLogError(@"[OwnTracking processTransitionMessage] json does not contain valid desc: not processed");
             return;
         }

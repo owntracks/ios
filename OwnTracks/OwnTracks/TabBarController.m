@@ -134,7 +134,7 @@
         }
     }
 
-    [self setViewControllers:viewControllers animated:TRUE];
+    [self setViewControllers:viewControllers animated:FALSE];
 }
 
 @end
