@@ -370,7 +370,7 @@ static OwnTracking *theInstance = nil;
         }
 
         NSString *event = dictionary[@"event"];
-        if (event && ![event isKindOfClass:[NSString class]]) {
+        if (!event || ![event isKindOfClass:[NSString class]]) {
             DDLogError(@"[OwnTracking processTransitionMessage] json does not contain valid event: not processed");
             return;
         }
