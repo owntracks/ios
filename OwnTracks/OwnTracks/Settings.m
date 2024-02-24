@@ -222,7 +222,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             if (object) [self setString:object forKey:@"allowinvalidcerts" inMOC:context];
                                                 
             NSArray *waypoints = dictionary[@"waypoints"];
-            [self setWaypoints:waypoints inMOC:context];
+            if (waypoints) [self setWaypoints:waypoints inMOC:context];
             
         } else {
             DDLogError(@"[Settings] fromDictionary invalid _type");
