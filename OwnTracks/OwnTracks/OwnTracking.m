@@ -457,14 +457,14 @@ static OwnTracking *theInstance = nil;
     if (friend) {
         if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
             NSString *name = dictionary[@"name"];
-            if (!name || ![name isKindOfClass:[NSString class]]) {
+            if (name && ![name isKindOfClass:[NSString class]]) {
                 DDLogError(@"[OwnTracking processFace] json does not contain valid name: not processed");
                 return;
             }
             friend.cardName = name;
 
             NSString *face = dictionary[@"face"];
-            if (!face || ![face isKindOfClass:[NSString class]]) {
+            if (face && ![face isKindOfClass:[NSString class]]) {
                 DDLogError(@"[OwnTracking processFace] json does not contain valid face: not processed");
                 return;
             }

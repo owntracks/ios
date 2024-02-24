@@ -82,8 +82,7 @@
                 "properties": {
                     "face": { "$ref": "#/$defs/face" },
                     "name": { "$ref": "#/$defs/name" }
-                },
-                "required": [ "face", "name" ]
+                }
             }
         },
         {
@@ -209,6 +208,7 @@
         "face": {
             "description": "Base64 encoded PNG image that is displayed instead of the Tracker ID",
             "type": "string",
+            "pattern": "^[-A-Za-z0-9+/]*={0,3}$",
             "contentEncoding": "base64",
             "contentMediaType": "image/png"
         },
