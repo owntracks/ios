@@ -201,7 +201,7 @@ static OwnTracking *theInstance = nil;
         }
         CLLocationDegrees lonDegrees = lon.doubleValue;
         
-        if (lat.doubleValue == 0 && lon.doubleValue == 0.0) {
+        if (lat.doubleValue == 0.0 && lon.doubleValue == 0.0) {
             DDLogError(@"[OwnTracking processLocation] coord is 0.0,0.0: not processed");
             return;
         }
@@ -220,7 +220,7 @@ static OwnTracking *theInstance = nil;
         CLLocationSpeed speed = -1;
         if (vel) {
             speed = vel.intValue;
-            if (speed != -1) {
+            if (speed >= 0.0) {
                 speed = speed * 1000 / 3600;
             }
         }
