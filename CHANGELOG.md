@@ -2,7 +2,7 @@ OwnTracks iOS App Release Notes
 ===================================
 
 ## OwnTracks 17.2.3 iOS/ipadOS/macOS
-* Release Date 2024-02-22
+* Release Date 2024-02-26
 
 ** UI Improvements and Bug Fixes
 
@@ -22,6 +22,15 @@ OwnTracks iOS App Release Notes
     [FIX] robustness for incoming messages
     [FIX] handle nil data in json validation
     [NEW] json validity tests
+    [FIX] speed validity test
+    [FIX] card message errors and defaults
+    [FIX] processTransitionMessage errors and defaults
+    [FIX] region tab disappeares but not re-appears when toggling locked setting fast
+    [FIX] avoid not necessary error messages if no waypoints in configuration
+    [FIX] error handling and defaults for incoming messages
+    [FIX] config changes
+    [FIX] include all pods in the project repo
+    [FIX] final Marker layouts
 
 ## OwnTracks 17.1.3 iOS/ipadOS/macOS
 * Release Date 2024-01-30
