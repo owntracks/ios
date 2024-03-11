@@ -1268,7 +1268,6 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
             iOS[@"altimeterAuthorizationStatus"] = @"CMAuthorizationStatusNotDetermined";
             break;
     }
-    iOS[@"altimeterIsAbsoluteAltitudeAvailable"] = [NSNumber numberWithBool:[LocationManager sharedInstance].altimeterIsAbsoluteAltitudeAvailable];
     iOS[@"altimeterIsRelativeAltitudeAvailable"] = [NSNumber numberWithBool:[LocationManager sharedInstance].altimeterIsRelativeAltitudeAvailable];
     
     UIDevice *device = [UIDevice currentDevice];

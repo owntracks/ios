@@ -59,6 +59,8 @@
 		847F31B925EFB8600018C0A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 847F31B725EFB8600018C0A6 /* InfoPlist.strings */; };
 		847F31BC25EFB8600018C0A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 847F31BA25EFB8600018C0A6 /* InfoPlist.strings */; };
 		847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847F8B5719295C65003876D4 /* CoreMotion.framework */; };
+		8483A9BA2B9E0BE400774E8B /* NSNumber+decimals.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B47C25C844A500B2AC07 /* NSNumber+decimals.m */; };
+		8483A9BC2B9E0C6E00774E8B /* OwnTracksPressureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8483A9BB2B9E0C6E00774E8B /* OwnTracksPressureTests.m */; };
 		8488CFDF25A45CC3000AFEE2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8488CFDE25A45CC3000AFEE2 /* Security.framework */; };
 		8492603F2B0235D700F6DC13 /* message.json in Resources */ = {isa = PBXBuildFile; fileRef = 8492603E2B0235D700F6DC13 /* message.json */; };
 		849260422B0247C200F6DC13 /* Validation.m in Sources */ = {isa = PBXBuildFile; fileRef = 849260412B0247C200F6DC13 /* Validation.m */; };
@@ -258,6 +260,7 @@
 		847F31B825EFB8600018C0A6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		847F31BB25EFB8600018C0A6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		847F8B5719295C65003876D4 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		8483A9BB2B9E0C6E00774E8B /* OwnTracksPressureTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwnTracksPressureTests.m; sourceTree = "<group>"; };
 		84856A8B1BD6201800621533 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		848794B119A6234B00DF56EB /* Model 7.3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.xcdatamodel"; sourceTree = "<group>"; };
 		848806F628C9E7A500F7DFFD /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Storyboard.strings; sourceTree = "<group>"; };
@@ -633,6 +636,7 @@
 			isa = PBXGroup;
 			children = (
 				8456D0A42B55749E003A45D4 /* OwnTracksTests.m */,
+				8483A9BB2B9E0C6E00774E8B /* OwnTracksPressureTests.m */,
 			);
 			path = OwnTracksTests;
 			sourceTree = "<group>";
@@ -1075,7 +1079,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8483A9BC2B9E0C6E00774E8B /* OwnTracksPressureTests.m in Sources */,
 				8456D0A52B55749E003A45D4 /* OwnTracksTests.m in Sources */,
+				8483A9BA2B9E0BE400774E8B /* NSNumber+decimals.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

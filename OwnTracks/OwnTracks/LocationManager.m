@@ -27,7 +27,6 @@
 
 @property (nonatomic) CLAuthorizationStatus locationManagerAuthorizationStatus;
 @property (nonatomic) CMAuthorizationStatus altimeterAuthorizationStatus;
-@property (nonatomic) BOOL altimeterIsAbsoluteAltitudeAvailable;
 @property (nonatomic) BOOL altimeterIsRelativeAltitudeAvailable;
 
 @end
@@ -175,7 +174,6 @@ static LocationManager *theInstance = nil;
     [self authorize];
     
     self.altimeterAuthorizationStatus = [CMAltimeter authorizationStatus];
-    self.altimeterIsAbsoluteAltitudeAvailable = [CMAltimeter isAbsoluteAltitudeAvailable];
     self.altimeterIsRelativeAltitudeAvailable = [CMAltimeter isRelativeAltitudeAvailable];
     DDLogVerbose(@"[LocationManager] CMAltimeter status=%ld, available=%d",
                  (long)self.altimeterAuthorizationStatus,

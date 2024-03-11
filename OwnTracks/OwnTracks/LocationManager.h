@@ -47,7 +47,6 @@ typedef NS_ENUM(NSInteger, LocationMonitoring) {
 @property (readonly, nonatomic) CLAuthorizationStatus locationManagerAuthorizationStatus;
 
 @property (readonly, nonatomic) CMAuthorizationStatus altimeterAuthorizationStatus;
-@property (readonly, nonatomic) BOOL altimeterIsAbsoluteAltitudeAvailable;
 @property (readonly, nonatomic) BOOL altimeterIsRelativeAltitudeAvailable;
 
 - (void)start;
