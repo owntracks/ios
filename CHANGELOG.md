@@ -1,8 +1,8 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 17.2.3 iOS/ipadOS/macOS
-* Release Date 2024-02-26
+## OwnTracks 17.2.4 iOS/ipadOS/macOS
+* Release Date 2024-03-12
 
 ** UI Improvements and Bug Fixes
 
@@ -31,6 +31,8 @@ OwnTracks iOS App Release Notes
     [FIX] config changes
     [FIX] include all pods in the project repo
     [FIX] final Marker layouts
+    [FIX] Launchscreen Attribute #783
+    [FIX] Remove AbsoluteAltitude for compatibility
 
 ## OwnTracks 17.1.3 iOS/ipadOS/macOS
 * Release Date 2024-01-30
