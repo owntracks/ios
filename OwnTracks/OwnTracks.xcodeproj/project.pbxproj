@@ -39,6 +39,9 @@
 		842E6ED520BEF031001928FA /* Setting+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E6ED020BEF031001928FA /* Setting+CoreDataClass.m */; };
 		842E6ED620BEF031001928FA /* Queue+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E6ED220BEF031001928FA /* Queue+CoreDataClass.m */; };
 		842E6ED720BEF031001928FA /* Waypoint+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E6ED420BEF031001928FA /* Waypoint+CoreDataClass.m */; };
+		8436DFD62BA9D72F00118AFF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8436DFD52BA9D72F00118AFF /* PrivacyInfo.xcprivacy */; };
+		8436DFDA2BA9DD4B00118AFF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8436DFD92BA9DD4B00118AFF /* PrivacyInfo.xcprivacy */; };
+		8436DFDC2BA9DD6100118AFF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8436DFDB2BA9DD6100118AFF /* PrivacyInfo.xcprivacy */; };
 		843A57AB24A9A4D600A5441B /* IntentHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 843A57AA24A9A4D600A5441B /* IntentHandler.m */; };
 		843A57AF24A9A4D700A5441B /* OwnTracksIntents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 843A57A724A9A4D600A5441B /* OwnTracksIntents.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		843B91721C8A14BF00DBD306 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843B91741C8A14BF00DBD306 /* Storyboard.storyboard */; };
@@ -220,6 +223,9 @@
 		842E6ED220BEF031001928FA /* Queue+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Queue+CoreDataClass.m"; sourceTree = "<group>"; };
 		842E6ED320BEF031001928FA /* Waypoint+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Waypoint+CoreDataClass.h"; sourceTree = "<group>"; };
 		842E6ED420BEF031001928FA /* Waypoint+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Waypoint+CoreDataClass.m"; sourceTree = "<group>"; };
+		8436DFD52BA9D72F00118AFF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		8436DFD92BA9DD4B00118AFF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		8436DFDB2BA9DD6100118AFF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		843817FB1C386A8700CE14EE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		843A57A724A9A4D600A5441B /* OwnTracksIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OwnTracksIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		843A57A924A9A4D600A5441B /* IntentHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntentHandler.h; sourceTree = "<group>"; };
@@ -572,6 +578,7 @@
 				8492603E2B0235D700F6DC13 /* message.json */,
 				849260452B037B0000F6DC13 /* messages.json */,
 				849260432B0373E300F6DC13 /* encryption.json */,
+				8436DFD52BA9D72F00118AFF /* PrivacyInfo.xcprivacy */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -628,6 +635,7 @@
 				843A57AA24A9A4D600A5441B /* IntentHandler.m */,
 				843A57AC24A9A4D700A5441B /* Info.plist */,
 				847F31B725EFB8600018C0A6 /* InfoPlist.strings */,
+				8436DFDB2BA9DD6100118AFF /* PrivacyInfo.xcprivacy */,
 			);
 			path = OwnTracksIntents;
 			sourceTree = "<group>";
@@ -727,6 +735,7 @@
 				849B1E081FE911FD0016EF1A /* MainInterface.storyboard */,
 				84D307311ACD644500FACB9E /* Supporting Files */,
 				84A488E11F7BBFD900ADCF98 /* Media.xcassets */,
+				8436DFD92BA9DD4B00118AFF /* PrivacyInfo.xcprivacy */,
 			);
 			path = OwnTracksToday;
 			sourceTree = "<group>";
@@ -910,6 +919,7 @@
 				84CC5A521FEC71850010314C /* OwnTracks-29.png in Resources */,
 				849260462B037B0000F6DC13 /* messages.json in Resources */,
 				8492603F2B0235D700F6DC13 /* message.json in Resources */,
+				8436DFD62BA9D72F00118AFF /* PrivacyInfo.xcprivacy in Resources */,
 				845AA1BD1B4846AF00945856 /* OwnTracks-320.png in Resources */,
 				84FAEA7225F01DA100DCD479 /* Launch Screen.storyboard in Resources */,
 				849260442B0373E300F6DC13 /* encryption.json in Resources */,
@@ -926,6 +936,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8436DFDC2BA9DD6100118AFF /* PrivacyInfo.xcprivacy in Resources */,
 				847F31B925EFB8600018C0A6 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -941,6 +952,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8436DFDA2BA9DD4B00118AFF /* PrivacyInfo.xcprivacy in Resources */,
 				849B1E061FE911FD0016EF1A /* MainInterface.storyboard in Resources */,
 				847F31BC25EFB8600018C0A6 /* InfoPlist.strings in Resources */,
 				84A488E21F7BBFD900ADCF98 /* Media.xcassets in Resources */,
