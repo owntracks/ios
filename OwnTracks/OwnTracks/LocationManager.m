@@ -319,17 +319,19 @@ static LocationManager *theInstance = nil;
     
     switch (monitoring) {
         case LocationMonitoringMove:
-            self.manager.distanceFilter = self.minDist > 0 ? self.minDist : kCLDistanceFilterNone;
+            self.manager.distanceFilter = kCLDistanceFilterNone;
             self.manager.desiredAccuracy = kCLLocationAccuracyBest;
             [self.activityTimer invalidate];
             
             [self.manager startUpdatingLocation];
-            self.activityTimer = [NSTimer timerWithTimeInterval:self.minTime
-                                                         target:self selector:@selector(activityTimer:)
-                                                       userInfo:Nil
-                                                        repeats:YES];
-            [[NSRunLoop currentRunLoop] addTimer:self.activityTimer
-                                         forMode:NSRunLoopCommonModes];
+            if (self.minTime > 0.0) {
+                self.activityTimer = [NSTimer timerWithTimeInterval:self.minTime
+                                                             target:self selector:@selector(activityTimer:)
+                                                           userInfo:Nil
+                                                            repeats:YES];
+                [[NSRunLoop currentRunLoop] addTimer:self.activityTimer
+                                             forMode:NSRunLoopCommonModes];
+            }
             break;
             
         case LocationMonitoringSignificant:
@@ -499,11 +501,25 @@ static LocationManager *theInstance = nil;
     DDLogVerbose(@"[LocationManager] didUpdateLocations");
     
     for (CLLocation *location in locations) {
-        DDLogInfo(@"[LocationManager] Location: %@", location);
-        if ([location.timestamp compare:self.lastUsedLocation.timestamp] != NSOrderedAscending ) {
-            self.lastUsedLocation = location;
-            [self.delegate newLocation:location];
+        DDLogInfo(@"[LocationManager] Location: %@ last: %@ Δs:%f/%f Δm:%f/%f",
+                  location,
+                  self.lastUsedLocation,
+                  self.lastUsedLocation ? [location.timestamp timeIntervalSinceDate:self.lastUsedLocation.timestamp] : 0,
+                  self.minTime,
+                  self.lastUsedLocation ? [location distanceFromLocation:self.lastUsedLocation] : 0,
+                  self.minDist
+                  );
+        if (self.lastUsedLocation &&
+            [location.timestamp timeIntervalSinceDate:self.lastUsedLocation.timestamp] <= 0) {
+            continue;
         }
+        if (self.lastUsedLocation && 
+            [location distanceFromLocation:self.lastUsedLocation] < self.minDist) {
+            continue;
+        }
+
+        self.lastUsedLocation = location;
+        [self.delegate newLocation:location];
     }
 }
 
