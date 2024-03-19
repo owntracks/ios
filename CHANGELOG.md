@@ -1,11 +1,12 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 17.2.4 iOS/ipadOS/macOS
-* Release Date 2024-03-12
+## OwnTracks 17.2.5 iOS/ipadOS/macOS
+* Release Date 2024-03-19
 
 ** UI Improvements and Bug Fixes
 
+    [FIX] timer triggered locations updates use fresh GPS fix #781
     [NEW] Fully reset configuration when changing mode and/or host/port #771
     [FIX] "Change Monitoring Mode" doesn't work if the app is on the settings page #768
     [FIX] Make encryptionKey for payload encryption configurable over .otrc  #774
