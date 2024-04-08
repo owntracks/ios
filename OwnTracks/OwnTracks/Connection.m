@@ -249,7 +249,8 @@ allowUntrustedCertificates:(BOOL)allowUntrustedCertificates
     session.password = self.auth ? self.pass : nil;
     session.keepAliveInterval = self.keepalive;
     session.connackTimeoutInterval = self.keepalive;
-    session.cleanSessionFlag = self.clean;
+    // at first connect, always clean session to avoid unsynced status with broker
+    session.cleanSessionFlag = TRUE;
     session.topicAliasMaximum = @(10);
     session.sessionExpiryInterval = @(0xFFFFFFFF);
 
@@ -823,6 +824,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
                 self.session = [self newMQTTSession];
             }
             [self.session connectWithConnectHandler:nil];
+            self.session.cleanSessionFlag = self.clean;
         } else {
             DDLogInfo(@"[Connection] not starting (%ld), can't connect", (long)self.state);
         }
