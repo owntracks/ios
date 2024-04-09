@@ -1037,7 +1037,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             [ad terminateSession];
             [self updateValues];
             [self updated];
-            [ad reconnect];
             self.warningShown = TRUE;
         }];
         
@@ -1049,7 +1048,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         [ad terminateSession];
         [self updateValues];
         [self updated];
-        [ad reconnect];
     }
 }
 

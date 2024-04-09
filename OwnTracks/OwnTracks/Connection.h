@@ -50,6 +50,7 @@ enum state {
   protocolVersion:(MQTTProtocolVersion)protocolVersion
         keepalive:(NSInteger)keepalive
             clean:(BOOL)clean
+            force:(BOOL)force
              auth:(BOOL)auth
              user:(NSString * _Nullable)user
              pass:(NSString * _Nullable)pass

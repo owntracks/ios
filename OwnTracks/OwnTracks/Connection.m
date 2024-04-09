@@ -155,6 +155,7 @@ DDLogLevel ddLogLevel = DDLogLevelInfo;
   protocolVersion:(MQTTProtocolVersion)protocolVersion
         keepalive:(NSInteger)keepalive
             clean:(BOOL)clean
+            force:(BOOL)force
              auth:(BOOL)auth
              user:(NSString *)user
              pass:(NSString *)pass
@@ -223,12 +224,12 @@ allowUntrustedCertificates:(BOOL)allowUntrustedCertificates
         self.allowUntrustedCertificates = allowUntrustedCertificates;
         self.certificates = certificates;
         
-        self.session = [self newMQTTSession];
+        self.session = [self newMQTTSession:force];
     }
     [self connectToInternal];
 }
 
-- (MQTTSession *)newMQTTSession {
+- (MQTTSession *)newMQTTSession:(BOOL)force {
     DDLogInfo(@"[Connection] new session");
     MQTTSession *session;
     MQTTTransport *mqttTransport;
@@ -249,8 +250,12 @@ allowUntrustedCertificates:(BOOL)allowUntrustedCertificates
     session.password = self.auth ? self.pass : nil;
     session.keepAliveInterval = self.keepalive;
     session.connackTimeoutInterval = self.keepalive;
-    // at first connect, always clean session to avoid unsynced status with broker
-    session.cleanSessionFlag = TRUE;
+    // at forced connect, clean session to avoid unsynced status with broker
+    if (force) {
+        session.cleanSessionFlag = TRUE;
+    } else {
+        session.cleanSessionFlag = self.clean;
+    }
     session.topicAliasMaximum = @(10);
     session.sessionExpiryInterval = @(0xFFFFFFFF);
 
@@ -821,9 +826,10 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
         if (self.state == state_starting) {
             self.state = state_connecting;
             if (!self.session) {
-                self.session = [self newMQTTSession];
+                self.session = [self newMQTTSession:FALSE];
             }
             [self.session connectWithConnectHandler:nil];
+            // reset cleanSession flag which might have forced to TRUE
             self.session.cleanSessionFlag = self.clean;
         } else {
             DDLogInfo(@"[Connection] not starting (%ld), can't connect", (long)self.state);

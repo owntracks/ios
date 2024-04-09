@@ -218,7 +218,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.connection.delegate = self;
     [self.connection start];
     
-    [self connect];
+    [self connectForcingCleanSession:FALSE];
     
     [[UIDevice currentDevice] setBatteryMonitoringEnabled:TRUE];
     
@@ -1565,7 +1565,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
 - (void)reconnect {
     DDLogInfo(@"[OwnTracksAppDelegate] reconnect");
     [self.connection disconnect];
-    [self connect];
+    [self connectForcingCleanSession:TRUE];
 }
 
 - (BOOL)publishLocation:(CLLocation *)location
@@ -1734,7 +1734,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
 
 #pragma internal helpers
 
-- (void)connect {
+- (void)connectForcingCleanSession:(BOOL)force {
     NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
     
     BOOL usePassword = [Settings theMqttUsePasswordInMOC:moc];
@@ -1805,6 +1805,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                    protocolVersion:[Settings intForKey:SETTINGS_PROTOCOL inMOC:moc]
                          keepalive:[Settings intForKey:@"keepalive_preference" inMOC:moc]
                              clean:[Settings intForKey:@"clean_preference" inMOC:moc]
+                             force:force
                               auth:[Settings theMqttAuthInMOC:moc]
                               user:[Settings theMqttUserInMOC:moc]
                               pass:password
