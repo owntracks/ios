@@ -23,6 +23,8 @@
 
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
+#define OSM TRUE
+
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *accuracyButton;
@@ -41,6 +43,11 @@
 @property (strong, nonatomic) MKScaleView *scaleView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *askForMapButton;
 @property (nonatomic) BOOL warning;
+#if OSM
+@property (strong, nonatomic) MKTileOverlayRenderer *osmRenderer;
+@property (strong, nonatomic) UITextField *osmCopyright;
+@property (strong, nonatomic) MKTileOverlay *osmOverlay;
+#endif
 @end
 
 
@@ -141,6 +148,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                   NSLocalizedString(@"Fly", @"Fly"),
                                   NSLocalizedString(@"HybFly", @"HybFly"),
                                   NSLocalizedString(@"Mute", @"Mute")
+#if OSM
+                                  , NSLocalizedString(@"OSM", @"OSM")
+#endif
                                   ]];
     self.mapMode.apportionsSegmentWidthsByContent = YES;
     self.mapMode.translatesAutoresizingMaskIntoConstraints = false;
@@ -149,9 +159,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                    action:@selector(mapModeChanged:)
          forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:self.mapMode];
-    self.mapMode.selectedSegmentIndex =
-    [[NSUserDefaults standardUserDefaults] integerForKey:@"mapMode"];
-    [self mapModeChanged:self.mapMode];
+    NSInteger selected = [[NSUserDefaults standardUserDefaults] integerForKey:@"mapMode"];
+    self.mapMode.selectedSegmentIndex = (selected < self.mapMode.numberOfSegments) ? selected : 0;
+    //[self mapModeChanged:self.mapMode];
 
     NSLayoutConstraint *bottomMapMode = [NSLayoutConstraint
                                constraintWithItem:self.mapMode
@@ -447,6 +457,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         //
     }
     
+    [self mapModeChanged:self.mapMode];
+    
     if (!self.warning &&
         ![Setting existsSettingWithKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC]) {
         self.warning = TRUE;
@@ -507,7 +519,60 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (IBAction)mapModeChanged:(UISegmentedControl *)sender {
+#if OSM
+    if (self.osmOverlay) {
+        [self.mapView removeOverlay:self.osmOverlay];
+        self.osmOverlay = nil;
+    }
+    if (self.osmCopyright) {
+        [self.osmCopyright removeFromSuperview];
+        self.osmCopyright = nil;
+    }
+    self.mapView.subviews[1].hidden = false; // the standard attribution view
+#endif
     switch (sender.selectedSegmentIndex) {
+#if OSM
+        case 6: {
+            self.mapView.mapType = MKMapTypeStandard;
+            NSString *osmTemplateString = @"https://tile.openstreetmap.org/{z}/{x}/{y}.png";
+            NSString *osmCopyrightString = @"© OpenStreetMap contributors";
+            self.osmOverlay = [[MKTileOverlay alloc] initWithURLTemplate:osmTemplateString];
+            self.osmOverlay.canReplaceMapContent = YES;
+            self.osmRenderer = [[MKTileOverlayRenderer alloc] initWithTileOverlay:self.osmOverlay];
+
+            [self.mapView insertOverlay:self.osmOverlay atIndex:0];
+            self.mapView.subviews[1].hidden = true;
+            self.osmCopyright = [[UITextField alloc] init];
+            self.osmCopyright.text = osmCopyrightString;
+            self.osmCopyright.font = [UIFont systemFontOfSize:UIFont.smallSystemFontSize];
+            self.osmCopyright.enabled = false;
+            self.osmCopyright.translatesAutoresizingMaskIntoConstraints = false;
+            [self.view addSubview:self.osmCopyright];
+            
+            NSLayoutConstraint *bottomCopyright = [NSLayoutConstraint
+                                                   constraintWithItem:self.osmCopyright
+                                                   attribute:NSLayoutAttributeBottom
+                                                   relatedBy:NSLayoutRelationEqual
+                                                   toItem:self.mapView
+                                                   attribute:NSLayoutAttributeBottomMargin
+                                                   multiplier:1
+                                                   constant:0];
+            NSLayoutConstraint *trailingCopyright = [NSLayoutConstraint
+                                                     constraintWithItem:self.osmCopyright
+                                                     attribute:NSLayoutAttributeTrailing
+                                                     relatedBy:NSLayoutRelationEqual
+                                                     toItem:self.mapView
+                                                     attribute:NSLayoutAttributeTrailingMargin
+                                                     multiplier:1
+                                                     constant:0];
+            
+            [NSLayoutConstraint activateConstraints:@[bottomCopyright,
+                                                      trailingCopyright]];
+            
+
+            break;
+        }
+#endif
         case 5:
             self.mapView.mapType = MKMapTypeMutedStandard;
             break;
@@ -529,7 +594,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             break;
     }
     [self.mapView setNeedsLayout];
-    [[NSUserDefaults standardUserDefaults] setInteger:self.mapView.mapType
+    [self.mapView setNeedsDisplay];
+
+    [[NSUserDefaults standardUserDefaults] setInteger:sender.selectedSegmentIndex
                                                forKey:@"mapMode"];
 
 }
@@ -676,6 +743,10 @@ didChangeDragState:(MKAnnotationViewDragState)newState
         } else {
             return nil;
         }
+        
+    } else if ([overlay isKindOfClass:[MKTileOverlay class]]) {
+        return self.osmRenderer;
+
     } else {
         return nil;
     }
