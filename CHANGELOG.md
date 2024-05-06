@@ -1,6 +1,17 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+
+## OwnTracks 17.3.0 iOS/ipadOS/macOS
+* Release Date 2024-05-06
+
+** UI Improvements and Bug Fixes
+    [NEW] osmTemplate / osmCopyright optional parameters #794
+    [NEW] OSM map tiles #794
+    [NEW] force MQTT cleanSession after configaration change #792
+    [NEW] cleanSession automatically after config change or kill app #792
+    [FIX] API Usage Documentation #787
+
 ## OwnTracks 17.2.5 iOS/ipadOS/macOS
 * Release Date 2024-03-19
 
