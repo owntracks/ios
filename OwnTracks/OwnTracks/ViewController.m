@@ -529,7 +529,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         [self.osmCopyright removeFromSuperview];
         self.osmCopyright = nil;
     }
-    self.mapView.subviews[1].hidden = false; // the standard attribution view
+    for (UIView *view in self.mapView.subviews) {
+        if ([NSStringFromClass(view.class) isEqualToString:@"MKAttributionLabel"]) {
+            view.hidden = FALSE; // the standard attribution view
+        }
+    }
 #endif
     switch (sender.selectedSegmentIndex) {
 #if OSM
@@ -553,7 +557,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             self.osmRenderer = [[MKTileOverlayRenderer alloc] initWithTileOverlay:self.osmOverlay];
 
             [self.mapView insertOverlay:self.osmOverlay atIndex:0];
-            self.mapView.subviews[1].hidden = true;
+            for (UIView *view in self.mapView.subviews) {
+                if ([NSStringFromClass(view.class) isEqualToString:@"MKAttributionLabel"]) {
+                    view.hidden = TRUE; // the standard attribution view
+                }
+            }
             self.osmCopyright = [[UITextField alloc] init];
             self.osmCopyright.text = osmCopyrightString;
             self.osmCopyright.font = [UIFont systemFontOfSize:UIFont.smallSystemFontSize];
