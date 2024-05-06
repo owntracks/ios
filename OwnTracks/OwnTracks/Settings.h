@@ -76,6 +76,12 @@ typedef NS_ENUM(int, ConnectionMode) {
 
 + (int)theMaximumHistoryInMOC:(NSManagedObjectContext * _Nonnull)context;
 
++ (NSString * _Nullable)theOSMTemplate:(NSManagedObjectContext * _Nonnull)context;
++ (void)setOSMTemplate:(NSString * _Nullable)osmTemplate inMOC:(NSManagedObjectContext * _Nonnull)context;
+
++ (NSString * _Nullable)theOSMCopyrightInMOC:(NSManagedObjectContext * _Nonnull)context;
++ (void)setOSMCopyright:(NSString * _Nullable)osmCopyright inMOC:(NSManagedObjectContext * _Nonnull)context;
+
 + (BOOL)validIdsInMOC:(NSManagedObjectContext * _Nonnull)context;
 
 + (Settings * _Nonnull)sharedInstance;

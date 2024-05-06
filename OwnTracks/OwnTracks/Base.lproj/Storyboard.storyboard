@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="e04-OU-xZ4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="e04-OU-xZ4">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1542,6 +1542,68 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="b93-FM-f36">
+                                        <rect key="frame" x="0.0" y="1702" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="b93-FM-f36" id="DkY-gn-AtB">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="OSM Template" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auA-1g-QGd">
+                                                    <rect key="frame" x="20" y="11.5" width="112" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="OSMTemplate" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="JS1-vt-wVV">
+                                                    <rect key="frame" x="140" y="13" width="160" height="18.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                    <connections>
+                                                        <action selector="osmTemplateChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="Cc1-en-2ir"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="JS1-vt-wVV" secondAttribute="trailing" constant="20" symbolic="YES" id="6TS-7z-7hZ"/>
+                                                <constraint firstItem="JS1-vt-wVV" firstAttribute="leading" secondItem="auA-1g-QGd" secondAttribute="trailing" constant="8" symbolic="YES" id="7Fn-6G-opm"/>
+                                                <constraint firstAttribute="centerY" secondItem="JS1-vt-wVV" secondAttribute="centerY" id="L1B-lS-fIS"/>
+                                                <constraint firstAttribute="centerY" secondItem="auA-1g-QGd" secondAttribute="centerY" id="MSh-g4-ox2"/>
+                                                <constraint firstItem="auA-1g-QGd" firstAttribute="leading" secondItem="DkY-gn-AtB" secondAttribute="leading" constant="20" symbolic="YES" id="SRv-TT-aKg"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="H69-ra-4H5">
+                                        <rect key="frame" x="0.0" y="1746" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="H69-ra-4H5" id="MoF-Bd-7a5">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="OSM Copyright" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7wK-3s-ZUa">
+                                                    <rect key="frame" x="20" y="11.5" width="117" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="OSMCopyright" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="yAb-Me-E2d">
+                                                    <rect key="frame" x="145" y="13" width="155" height="18.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                    <connections>
+                                                        <action selector="osmCopyrightChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="aab-B7-Fbg"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="7wK-3s-ZUa" firstAttribute="leading" secondItem="MoF-Bd-7a5" secondAttribute="leading" constant="20" symbolic="YES" id="11Z-hc-djn"/>
+                                                <constraint firstAttribute="centerY" secondItem="7wK-3s-ZUa" secondAttribute="centerY" id="4zH-XY-MUk"/>
+                                                <constraint firstItem="yAb-Me-E2d" firstAttribute="leading" secondItem="7wK-3s-ZUa" secondAttribute="trailing" constant="8" symbolic="YES" id="Rgx-Eq-KEF"/>
+                                                <constraint firstAttribute="trailing" secondItem="yAb-Me-E2d" secondAttribute="trailing" constant="20" symbolic="YES" id="ePf-gg-sBH"/>
+                                                <constraint firstAttribute="centerY" secondItem="yAb-Me-E2d" secondAttribute="centerY" id="ibf-Fk-tY5"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -1558,6 +1620,8 @@
                         <outlet property="UIAuth" destination="33v-yr-JsC" id="9DE-kp-ETu"/>
                         <outlet property="UIDeviceID" destination="e0q-hc-0z2" id="TK0-5x-gc6"/>
                         <outlet property="UIHost" destination="tQs-PK-sbV" id="HF8-Qb-dKp"/>
+                        <outlet property="UIOSMCopyright" destination="yAb-Me-E2d" id="BjW-S4-g6Z"/>
+                        <outlet property="UIOSMTemplate" destination="JS1-vt-wVV" id="BcJ-u9-rea"/>
                         <outlet property="UIPassword" destination="4OY-Dm-bnz" id="4Ut-LK-mZC"/>
                         <outlet property="UIPort" destination="ZW3-WS-Wb7" id="XQA-lt-bVV"/>
                         <outlet property="UITLS" destination="8Fv-Fd-pIm" id="U8q-TZ-ZsT"/>

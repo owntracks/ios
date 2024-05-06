@@ -302,6 +302,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.frcRegions = nil;
     self.frcWaypoints = nil;
     [self updateMoveButton];
+    [self setMapMode:self.mapMode];
 }
 
 - (NSInteger)noMap {
@@ -534,8 +535,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 #if OSM
         case 6: {
             self.mapView.mapType = MKMapTypeStandard;
-            NSString *osmTemplateString = @"https://tile.openstreetmap.org/{z}/{x}/{y}.png";
-            NSString *osmCopyrightString = @"© OpenStreetMap contributors";
+            
+            NSString *osmTemplateString = [Settings stringForKey:@"osmtemplate_preference"
+                                                           inMOC:CoreData.sharedInstance.mainMOC];
+            if (!osmTemplateString || osmTemplateString.length == 0) {
+                osmTemplateString = @"https://tile.openstreetmap.org/{z}/{x}/{y}.png";
+            }
+            
+            NSString *osmCopyrightString = [Settings stringForKey:@"osmcopyright_preference"
+                                                            inMOC:CoreData.sharedInstance.mainMOC];
+            if (!osmCopyrightString || osmCopyrightString.length == 0) {
+                osmCopyrightString = @"© OpenStreetMap contributors";
+            }
+
             self.osmOverlay = [[MKTileOverlay alloc] initWithURLTemplate:osmTemplateString];
             self.osmOverlay.canReplaceMapContent = YES;
             self.osmRenderer = [[MKTileOverlayRenderer alloc] initWithTileOverlay:self.osmOverlay];

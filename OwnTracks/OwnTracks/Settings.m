@@ -115,6 +115,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             object = dictionary[@"encryptionKey"];
             if (object) [self setString:object forKey:@"secret_preference" inMOC:context];
 
+            object = dictionary[@"osmTemplate"];
+            if (object) [self setString:object forKey:@"osmtemplate_preference" inMOC:context];
+
+            object = dictionary[@"osmCopyright"];
+            if (object) [self setString:object forKey:@"osmcopyright_preference" inMOC:context];
+
             object = dictionary[@"username"];
             if (object) [self setString:object forKey:@"user_preference" inMOC:context];
 
@@ -425,6 +431,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     dict[@"auth"] =                 @([Settings boolForKey:@"auth_preference" inMOC:context]);
     dict[@"usePassword"] =          @([Settings boolForKey:@"usepassword_preference" inMOC:context]);
     dict[@"encryptionKey"] =        [Settings stringOrZeroForKey:@"secret_preference" inMOC:context];
+    dict[@"osmTemplate"] =          [Settings theOSMTemplate:context];
+    dict[@"osmCopyright"] =         [Settings theOSMCopyrightInMOC:context];
     dict[@"username"] =             [Settings stringOrZeroForKey:@"user_preference" inMOC:context];
     dict[@"password"] =             [Settings stringOrZeroForKey:@"pass_preference" inMOC:context];
 
@@ -745,6 +753,24 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 + (int)theMaximumHistoryInMOC:(NSManagedObjectContext *)context {
     return [self intForKey:@"maxhistory_preference" inMOC:context];
+}
+
++ (NSString *)theOSMTemplate:(NSManagedObjectContext *)context {
+    return [self stringForKey:@"osmtemplate_preference" inMOC:context];
+}
++ (void)setOSMTemplate:(NSString *)osmTemplate inMOC:(NSManagedObjectContext *)context {
+    [self setString:osmTemplate
+             forKey:@"osmtemplate_preference"
+              inMOC:context];
+}
+
++ (NSString *)theOSMCopyrightInMOC:(NSManagedObjectContext *)context {
+    return [self stringForKey:@"osmcopyright_preference" inMOC:context];
+}
++ (void)setOSMCopyright:(NSString *)osmCopyright inMOC:(NSManagedObjectContext *)context {
+    [self setString:osmCopyright
+             forKey:@"osmcopyright_preference"
+              inMOC:context];
 }
 
 + (BOOL)validIdsInMOC:(NSManagedObjectContext *)context {

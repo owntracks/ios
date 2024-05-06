@@ -42,6 +42,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIsecret;
 @property (weak, nonatomic) IBOutlet UITextField *UIurl;
 @property (weak, nonatomic) IBOutlet UITextField *UIhttpHeaders;
+@property (weak, nonatomic) IBOutlet UITextField *UIOSMTemplate;
+@property (weak, nonatomic) IBOutlet UITextField *UIOSMCopyright;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *UImodeSwitch;
 @property (weak, nonatomic) IBOutlet UITextField *UIignoreStaleLocations;
 @property (weak, nonatomic) IBOutlet UITextField *UIignoreInaccurateLocations;
@@ -98,6 +100,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.UIpassphrase.delegate = self;
     self.UIurl.delegate = self;
     self.UIhttpHeaders.delegate = self;
+    self.UIOSMTemplate.delegate = self;
+    self.UIOSMCopyright.delegate = self;
     self.UIlocatorDisplacement.delegate = self;
     self.UIsubTopic.delegate = self;
     self.UIpubTopicBase.delegate = self;
@@ -349,6 +353,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         [Settings setString:self.UIhttpHeaders.text
                      forKey:@"httpheaders_preference"
                       inMOC:CoreData.sharedInstance.mainMOC];
+    
+    if (self.UIOSMTemplate)
+        [Settings setOSMTemplate:self.UIOSMTemplate.text
+                           inMOC:CoreData.sharedInstance.mainMOC];
+    
+    if (self.UIOSMCopyright)
+        [Settings setOSMCopyright:self.UIOSMCopyright.text
+                            inMOC:CoreData.sharedInstance.mainMOC];
 
     // important to save UImode last. Otherwise parameters not valid in the old mode may get persisted
     if (self.UImodeSwitch) {
@@ -688,6 +700,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         [Settings stringForKey:@"httpheaders_preference"
                          inMOC:CoreData.sharedInstance.mainMOC];
         self.UIhttpHeaders.enabled = !locked;
+    }
+
+    if (self.UIOSMTemplate) {
+        self.UIOSMTemplate.text =
+        [Settings theOSMTemplate:CoreData.sharedInstance.mainMOC];
+        self.UIOSMTemplate.enabled = !locked;
+    }
+
+    if (self.UIOSMCopyright) {
+        self.UIOSMCopyright.text =
+        [Settings theOSMCopyrightInMOC:CoreData.sharedInstance.mainMOC];
+        self.UIOSMCopyright.enabled = !locked;
     }
 
     if (self.UImodeSwitch) {
@@ -1243,6 +1267,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 - (IBAction)httpHeadersChanged:(UITextField *)sender {
     [self changeWarning];
+}
+- (IBAction)osmTemplateChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)osmCopyrightChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
 }
 - (IBAction)clientPKCSChanged:(UITextField *)sender {
     [self changeWarning];
