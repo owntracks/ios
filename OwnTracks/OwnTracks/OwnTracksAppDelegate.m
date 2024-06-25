@@ -242,15 +242,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center
        willPresentNotification:(UNNotification *)notification
          withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
-    if (@available(iOS 14.0, *)) {
-        completionHandler(UNNotificationPresentationOptionBanner |
-                          UNNotificationPresentationOptionSound);
-    } else {
-        completionHandler(UNNotificationPresentationOptionList |
-                          UNNotificationPresentationOptionBanner |
-                          UNNotificationPresentationOptionSound);
-    }
-    
+    DDLogInfo(@"[OwnTracksAppDelegate] willPresentNotification");
+    completionHandler(UNNotificationPresentationOptionList |
+                      UNNotificationPresentationOptionBanner |
+                      UNNotificationPresentationOptionSound);
 }
 
 #if APNS
@@ -838,17 +833,22 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
             UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
             content.body = notificationMessage;
             content.sound = [UNNotificationSound defaultSound];
-            UNTimeIntervalNotificationTrigger* trigger = [UNTimeIntervalNotificationTrigger
+            UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger
                                                           triggerWithTimeInterval:1.0
                                                           repeats:NO];
             NSString *notificationIdentifier = [NSString stringWithFormat:@"region%f",
                                                 [NSDate date].timeIntervalSince1970];
             
-            UNNotificationRequest* request = [UNNotificationRequest requestWithIdentifier:notificationIdentifier
-                                                                                  content:content
-                                                                                  trigger:trigger];
+            UNNotificationRequest* request =
+            [UNNotificationRequest requestWithIdentifier:notificationIdentifier
+                                                 content:content
+                                                 trigger:trigger];
             UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
-            [center addNotificationRequest:request withCompletionHandler:nil];
+            [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+                if (error) {
+                    DDLogError(@"[OwnTracksAppDelegate] addNotificationRequest %@", error);
+                }
+            }];
             
             [History historyInGroup:NSLocalizedString(@"Region",
                                                       @"Header of an alert message regarding circular region")
@@ -1572,133 +1572,155 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                 trigger:(NSString *)trigger
                 withPOI:(NSString *)poi {
     NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
-    
-    if (location &&
-        CLLocationCoordinate2DIsValid(location.coordinate) &&
-        location.coordinate.latitude != 0.0 &&
-        location.coordinate.longitude != 0.0 &&
-        [Settings validIdsInMOC:moc]) {
         
-        int ignoreInaccurateLocations =
-        [Settings intForKey:@"ignoreinaccuratelocations_preference"
-                      inMOC:moc];
+    if (!location) {
+        DDLogError(@"[OwnTracksAppDelegate] location is nil");
+        return FALSE;
+    }
+    
+    if (!CLLocationCoordinate2DIsValid(location.coordinate) ||
+        location.coordinate.latitude == 0.0 ||
+        location.coordinate.longitude == 0.0 ||
+        // horizontalAccuracy: A negative value indicates that the latitude and longitude are invalid.
+        location.horizontalAccuracy < 0.0) {
+        DDLogVerbose(@"[OwnTracksAppDelegate] isValid:%d lat:%f lon:%f acc:%f",
+                     CLLocationCoordinate2DIsValid(location.coordinate),
+                     location.coordinate.latitude,
+                     location.coordinate.longitude,
+                     location.horizontalAccuracy);
+        return FALSE;
+    }
+
+    
+    if (![Settings validIdsInMOC:moc]) {
+        DDLogError(@"[OwnTracksAppDelegate] settings not valid (yet)");
+        return FALSE;
+    }
+        
+    int ignoreInaccurateLocations =
+    [Settings intForKey:@"ignoreinaccuratelocations_preference"
+                  inMOC:moc];
+        
+    if (ignoreInaccurateLocations > 0 &&
+        location.horizontalAccuracy > 0.0 &&
+        location.horizontalAccuracy > ignoreInaccurateLocations) {
         DDLogVerbose(@"[OwnTracksAppDelegate] location accuracy:%fm, ignoreIncacurationLocations:%dm",
                      location.horizontalAccuracy, ignoreInaccurateLocations);
-        
-        if (ignoreInaccurateLocations == 0 || location.horizontalAccuracy < ignoreInaccurateLocations) {
-            Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:moc]
-                              inManagedObjectContext:moc];
-            if (friend) {
-                for (Region *anyRegion in friend.hasRegions) {
-                    if (anyRegion.CLregion.isFollow) {
-                        if ((anyRegion.radius).doubleValue > 0) {
-                            anyRegion.lat = @(location.coordinate.latitude);
-                            anyRegion.lon = @(location.coordinate.longitude);
-                            double time = [anyRegion.CLregion.identifier substringFromIndex:1].doubleValue;
-                            if (time == HUGE_VAL || time == -HUGE_VAL || time == 0.0) {
-                                time = 30.0;
-                            }
-                            if (location.speed >= 0.0) {
-                                anyRegion.radius = @(MAX(location.speed * time, 50.0));
-                            } else {
-                                anyRegion.radius = @(50.0);
-                            }
-                            [[LocationManager sharedInstance] startRegion:anyRegion.CLregion];
-                        }
-                    }
+        return FALSE;
+    }
+    
+    Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:moc]
+                      inManagedObjectContext:moc];
+    if (!friend) {
+        DDLogError(@"[OwnTracksAppDelegate] no friend found");
+        return FALSE;
+
+    }
+    
+    // Update +follow region
+    for (Region *anyRegion in friend.hasRegions) {
+        if (anyRegion.CLregion.isFollow) {
+            if ((anyRegion.radius).doubleValue > 0) {
+                anyRegion.lat = @(location.coordinate.latitude);
+                anyRegion.lon = @(location.coordinate.longitude);
+                double time = [anyRegion.CLregion.identifier substringFromIndex:1].doubleValue;
+                if (time == HUGE_VAL || time == -HUGE_VAL || time == 0.0) {
+                    time = 30.0;
                 }
-                
-                friend.tid = [Settings stringForKey:@"trackerid_preference"
-                                              inMOC:moc];
-                
-                OwnTracking *ownTracking = [OwnTracking sharedInstance];
-                NSDate *createdAt = location.timestamp;
-                if (fabs(location.timestamp.timeIntervalSince1970 -
-                         [NSDate date].timeIntervalSince1970) > 1.0) {
-                    createdAt = [NSDate date];
-                }
-                
-                NSNumber *batteryLevel = [NSNumber numberWithFloat:[UIDevice currentDevice].batteryLevel];
-                
-                NSString *tag = [[NSUserDefaults standardUserDefaults] stringForKey:@"tag"];
-                
-                Waypoint *waypoint = [ownTracking addWaypointFor:friend
-                                                        location:location
-                                                       createdAt:createdAt
-                                                         trigger:trigger
-                                                             poi:poi
-                                                             tag:tag
-                                                         battery:batteryLevel];
-                if (waypoint) {
-                    [CoreData.sharedInstance sync:moc];
-                    
-                    NSDictionary *json = [[OwnTracking sharedInstance] waypointAsJSON:waypoint];
-                    if (json) {
-                        NSData *data = [self jsonToData:json];
-                        [self.connection sendData:data
-                                            topic:[Settings theGeneralTopicInMOC:moc]
-                                       topicAlias:@(1)
-                                              qos:[Settings intForKey:@"qos_preference"
-                                                                inMOC:moc]
-                                           retain:[Settings boolForKey:@"retain_preference"
-                                                                 inMOC:moc]];
-                    } else {
-                        DDLogError(@"[OwnTracksAppDelegate] no JSON created from waypoint %@", waypoint);
-                        return FALSE;
-                    }
-                    [ownTracking limitWaypointsFor:friend
-                                         toMaximum:[Settings intForKey:@"positions_preference"
-                                                                 inMOC:moc]];
+                if (location.speed >= 0.0) {
+                    anyRegion.radius = @(MAX(location.speed * time, 50.0));
                 } else {
-                    DDLogError(@"[OwnTracksAppDelegate] waypoint creation failed from friend %@, location %@", friend, location);
-                    return FALSE;
+                    anyRegion.radius = @(MAX(location.horizontalAccuracy, 50.0));
                 }
-                
-                if ([UIDevice currentDevice].isBatteryMonitoringEnabled) {
-                    UIDeviceBatteryState batteryState = [UIDevice currentDevice].batteryState;
-                    float batteryLevel = [UIDevice currentDevice].batteryLevel;
-                    if ([LocationManager sharedInstance].monitoring == LocationMonitoringMove) {
-                        int downgrade = [Settings intForKey:@"downgrade_preference"
-                                                      inMOC:moc];
-                        
-                        if (batteryState != UIDeviceBatteryStateFull && batteryState != UIDeviceBatteryStateCharging && batteryLevel < downgrade / 100.0) {
-                            // Move Mode, but battery is not full, not charging and less than downgrade%
-                            [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"downgraded"];
-                            LocationManager.sharedInstance.monitoring = LocationMonitoringSignificant;
-                            [Settings setInt:(int)[LocationManager sharedInstance].monitoring
-                                      forKey:@"monitoring_preference" inMOC:moc];
-                            [CoreData.sharedInstance sync:moc];
-                            [self background];
-                        } else {
-                            // Move Mode, battery is full, charging or has more than downgrade%
-                        }
-                    } else {
-                        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"downgraded"]) {
-                            if (batteryState == UIDeviceBatteryStateFull || batteryState == UIDeviceBatteryStateCharging) {
-                                // not Move Mode, previously downgraded and battery is charging or full
-                                [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
-                                LocationManager.sharedInstance.monitoring = LocationMonitoringMove;
-                                [Settings setInt:(int)[LocationManager sharedInstance].monitoring
-                                          forKey:@"monitoring_preference" inMOC:moc];
-                                [CoreData.sharedInstance sync:moc];
-                                [self background];
-                            } else {
-                                // not Move Mode, previously downgraded but battery is not charging nor full
-                            }
-                        } else {
-                            // not Move Mode, but not previously downgraded
-                        }
-                    }
-                }
-                
-            } else {
-                DDLogError(@"[OwnTracksAppDelegate] no friend found");
-                return FALSE;
+                [[LocationManager sharedInstance] startRegion:anyRegion.CLregion];
             }
         }
+    }
+              
+    
+    friend.tid = [Settings stringForKey:@"trackerid_preference"
+                                  inMOC:moc];
+    
+    OwnTracking *ownTracking = [OwnTracking sharedInstance];
+    NSDate *createdAt = location.timestamp;
+    if (fabs(location.timestamp.timeIntervalSince1970 -
+             [NSDate date].timeIntervalSince1970) > 1.0) {
+        createdAt = [NSDate date];
+    }
+    
+    NSNumber *batteryLevel = [NSNumber numberWithFloat:[UIDevice currentDevice].batteryLevel];
+    
+    NSString *tag = [[NSUserDefaults standardUserDefaults] stringForKey:@"tag"];
+    
+    Waypoint *waypoint = [ownTracking addWaypointFor:friend
+                                            location:location
+                                           createdAt:createdAt
+                                             trigger:trigger
+                                                 poi:poi
+                                                 tag:tag
+                                             battery:batteryLevel];
+    if (waypoint) {
+        [CoreData.sharedInstance sync:moc];
+        
+        NSDictionary *json = [[OwnTracking sharedInstance] waypointAsJSON:waypoint];
+        if (json) {
+            NSData *data = [self jsonToData:json];
+            [self.connection sendData:data
+                                topic:[Settings theGeneralTopicInMOC:moc]
+                           topicAlias:@(1)
+                                  qos:[Settings intForKey:@"qos_preference"
+                                                    inMOC:moc]
+                               retain:[Settings boolForKey:@"retain_preference"
+                                                     inMOC:moc]];
+        } else {
+            DDLogError(@"[OwnTracksAppDelegate] no JSON created from waypoint %@", waypoint);
+            return FALSE;
+        }
+        [ownTracking limitWaypointsFor:friend
+                             toMaximum:[Settings intForKey:@"positions_preference"
+                                                     inMOC:moc]];
     } else {
-        DDLogError(@"[OwnTracksAppDelegate] invalid location");
+        DDLogError(@"[OwnTracksAppDelegate] waypoint creation failed from friend %@, location %@",
+                   friend,
+                   location);
         return FALSE;
+    }
+    
+    if ([UIDevice currentDevice].isBatteryMonitoringEnabled) {
+        UIDeviceBatteryState batteryState = [UIDevice currentDevice].batteryState;
+        float batteryLevel = [UIDevice currentDevice].batteryLevel;
+        if ([LocationManager sharedInstance].monitoring == LocationMonitoringMove) {
+            int downgrade = [Settings intForKey:@"downgrade_preference"
+                                          inMOC:moc];
+            
+            if (batteryState != UIDeviceBatteryStateFull && batteryState != UIDeviceBatteryStateCharging && batteryLevel < downgrade / 100.0) {
+                // Move Mode, but battery is not full, not charging and less than downgrade%
+                [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"downgraded"];
+                LocationManager.sharedInstance.monitoring = LocationMonitoringSignificant;
+                [Settings setInt:(int)[LocationManager sharedInstance].monitoring
+                          forKey:@"monitoring_preference" inMOC:moc];
+                [CoreData.sharedInstance sync:moc];
+                [self background];
+            } else {
+                // Move Mode, battery is full, charging or has more than downgrade%
+            }
+        } else {
+            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"downgraded"]) {
+                if (batteryState == UIDeviceBatteryStateFull || batteryState == UIDeviceBatteryStateCharging) {
+                    // not Move Mode, previously downgraded and battery is charging or full
+                    [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+                    LocationManager.sharedInstance.monitoring = LocationMonitoringMove;
+                    [Settings setInt:(int)[LocationManager sharedInstance].monitoring
+                              forKey:@"monitoring_preference" inMOC:moc];
+                    [CoreData.sharedInstance sync:moc];
+                    [self background];
+                } else {
+                    // not Move Mode, previously downgraded but battery is not charging nor full
+                }
+            } else {
+                // not Move Mode, but not previously downgraded
+            }
+        }
     }
     return TRUE;
 }

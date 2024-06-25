@@ -1,6 +1,12 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 17.4.0 iOS/ipadOS/macOS
+* Release Date 2024-06-10
+
+** UI Improvements and Bug Fixes
+    [FIX] +follow region is too small #797
+    [FIX] tentative fix for OwnTracks publishing invalid coordinates #668
 
 ## OwnTracks 17.3.0 iOS/ipadOS/macOS
 * Release Date 2024-05-06
