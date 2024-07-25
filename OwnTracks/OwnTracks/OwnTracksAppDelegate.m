@@ -1114,8 +1114,8 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                                     [self status];
 
                                 } else if ([action isEqualToString:@"reportLocation"]) {
-                                    if ([LocationManager sharedInstance].monitoring == LocationMonitoringSignificant ||
-                                        [LocationManager sharedInstance].monitoring == LocationMonitoringMove ||
+                                    if (([LocationManager sharedInstance].monitoring == LocationMonitoringSignificant ||
+                                        [LocationManager sharedInstance].monitoring == LocationMonitoringMove) &&
                                         [Settings boolForKey:@"allowremotelocation_preference"
                                                        inMOC:CoreData.sharedInstance.queuedMOC]) {
                                         [self performSelectorOnMainThread:@selector(reportLocation)
