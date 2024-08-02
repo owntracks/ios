@@ -2425,11 +2425,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="xPg-64-2bK">
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="xPg-64-2bK">
                                                     <rect key="frame" x="20" y="7" width="335" height="30"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R0X-4j-vxu">
-                                                            <rect key="frame" x="0.0" y="0.0" width="106.5" height="30"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="85" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="GWb-rR-c25"/>
                                                             </constraints>
@@ -2441,7 +2441,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b91-ur-Ooi">
-                                                            <rect key="frame" x="114.5" y="0.0" width="106" height="30"/>
+                                                            <rect key="frame" x="93" y="0.0" width="51" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="6d0-pr-yIB"/>
                                                             </constraints>
@@ -2453,22 +2453,18 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="evM-XZ-F0H">
-                                                            <rect key="frame" x="228.5" y="0.0" width="106.5" height="30"/>
+                                                            <rect key="frame" x="152" y="0.0" width="183" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="MHS-3q-q8K"/>
                                                             </constraints>
-                                                            <state key="normal" title="Send Status">
+                                                            <state key="normal" title="Send Debug Status">
                                                                 <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </state>
                                                             <connections>
-                                                                <action selector="sendStatusPressed:" destination="G87-RS-wz7" eventType="touchUpInside" id="vM9-al-qee"/>
+                                                                <action selector="sendDebugStatusPressed:" destination="G87-RS-wz7" eventType="touchUpInside" id="77M-ZS-Rwx"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="b91-ur-Ooi" firstAttribute="width" secondItem="R0X-4j-vxu" secondAttribute="width" id="Vg5-Jl-qUd"/>
-                                                        <constraint firstItem="evM-XZ-F0H" firstAttribute="width" secondItem="b91-ur-Ooi" secondAttribute="width" id="f6Z-1H-Ver"/>
-                                                    </constraints>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
