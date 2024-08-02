@@ -137,7 +137,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self.tableView setNeedsDisplay];
 }
 
-- (IBAction)publishPressed:(UIButton *)sender {
+- (IBAction)sendStatusPressed:(UIButton *)sender {
     OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [ad status];
 }

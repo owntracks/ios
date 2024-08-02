@@ -3,7 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -2452,16 +2452,16 @@
                                                                 <segue destination="pyP-9X-XNY" kind="push" id="LX4-zO-Dsc"/>
                                                             </connections>
                                                         </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="evM-XZ-F0H" userLabel="Publish">
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="evM-XZ-F0H">
                                                             <rect key="frame" x="228.5" y="0.0" width="106.5" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="MHS-3q-q8K"/>
                                                             </constraints>
-                                                            <state key="normal" title="Publish">
+                                                            <state key="normal" title="Send Status">
                                                                 <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </state>
                                                             <connections>
-                                                                <action selector="publishPressed:" destination="G87-RS-wz7" eventType="touchUpInside" id="i77-ZS-aAf"/>
+                                                                <action selector="sendStatusPressed:" destination="G87-RS-wz7" eventType="touchUpInside" id="vM9-al-qee"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
