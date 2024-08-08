@@ -163,9 +163,6 @@
 /* indicates a locked configuration */
 "locked" = "gesperrt";
 
-/* content of an alert message regarging missing Mac Catalyst Export */
-"Mac Catalyst does not support export yet" = "Mac Catalyst unterstützt noch keinen Export";
-
 /* Manual */
 "Manual" = "Manuell";
 

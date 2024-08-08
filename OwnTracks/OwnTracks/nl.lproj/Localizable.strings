@@ -151,9 +151,6 @@
 /* indicates a locked configuration */
 "locked" = "op slot";
 
-/* content of an alert message regarging missing Mac Catalyst Export */
-"Mac Catalyst does not support export yet" = "Mac Catalyst ondersteunt nog geen export";
-
 /* Manual */
 "Manual" = "Handmatig";
 

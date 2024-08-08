@@ -128,36 +128,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     NSURL *fileURL =
     [NSURL fileURLWithPath:ad.fl.logFileManager.sortedLogFilePaths[indexPath.row]];
     
-#if TARGET_OS_MACCATALYST
-    if (@available(macCatalyst 14.0, *)) {
-        UIDocumentPickerViewController *dpvc =
-        [[UIDocumentPickerViewController alloc] initForExportingURLs:@[fileURL] asCopy:TRUE];
-        dpvc.shouldShowFileExtensions = TRUE;
-        [self presentViewController:dpvc animated:TRUE completion:^{
-            //
-        }];
-    } else {
-        UIAlertController *ac = [UIAlertController
-                                 alertControllerWithTitle:NSLocalizedString(@"Export", @"Export")
-                                 message:NSLocalizedString(@"Mac Catalyst does not support export yet",
-                                                           @"content of an alert message regarging missing Mac Catalyst Export")
-                                 preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *ok = [UIAlertAction
-                             actionWithTitle:NSLocalizedString(@"Continue",
-                                                               @"Continue button title")
-                             
-                             style:UIAlertActionStyleDefault
-                             handler:nil];
-        [ac addAction:ok];
-        [self presentViewController:ac animated:TRUE completion:nil];
-    }
-#else
-
     self.dic = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
     self.dic.delegate = self;
 
     [self.dic presentOptionsMenuFromRect:self.navigationController.navigationBar.frame inView:self.tableView animated:TRUE];
-#endif
 }
 
 @end

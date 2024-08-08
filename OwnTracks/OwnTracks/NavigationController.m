@@ -133,9 +133,6 @@
 }
 
 - (void)alert:(NSDictionary *)parameters {
-    // in MACCATALYST the UIAlert does not dismiss when told so.
-    // This means we cannot dismiss it after a few seconds
-
     if (self.presentedViewController) {
         [self.queuedAlerts addObject:parameters];
         return;

@@ -62,11 +62,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.mapView.mapType = MKMapTypeStandard;
     
     self.mapView.showsScale = FALSE;
-    
-#if TARGET_OS_MACCATALYST
-    self.mapView.showsCompass = TRUE;
-#endif
-    
+        
     DDLogInfo(@"[ViewController] viewDidLoad mapView region %g %g %g %g",
               self.mapView.region.center.latitude,
               self.mapView.region.center.longitude,
@@ -319,14 +315,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         self.mapView.scrollEnabled = TRUE;
         self.mapView.pitchEnabled = TRUE;
         self.mapView.rotateEnabled = TRUE;
-#if TARGET_OS_MACCATALYST
-        self.mapView.showsZoomControls = TRUE;
-        if (@available(macCatalyst 14.0, *)) {
-            self.mapView.showsPitchControl = TRUE;
-        } else {
-            // Fallback on earlier versions
-        }
-#endif
+
         if (!self.trackingButton) {
             self.trackingButton = [MKUserTrackingButton userTrackingButtonWithMapView:self.mapView];
             self.trackingButton.translatesAutoresizingMaskIntoConstraints = false;
@@ -357,14 +346,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         self.mapView.scrollEnabled = FALSE;
         self.mapView.pitchEnabled = FALSE;
         self.mapView.rotateEnabled = FALSE;
-#if TARGET_OS_MACCATALYST
-        self.mapView.showsZoomControls = FALSE;
-        if (@available(macCatalyst 14.0, *)) {
-            self.mapView.showsPitchControl = FALSE;
-        } else {
-            // Fallback on earlier versions
-        }
-#endif
+
         if (self.trackingButton) {
             [self.trackingButton removeFromSuperview];
             self.trackingButton = nil;

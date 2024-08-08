@@ -17,17 +17,13 @@
 
     CFArrayRef siRef = CNCopySupportedInterfaces();
     if (siRef != NULL) {
-        if (@available(macCatalyst 14.0, *)) {
-            CFDictionaryRef niRef = CNCopyCurrentNetworkInfo(CFArrayGetValueAtIndex(siRef, 0));
-            if (niRef != NULL) {
-                CFStringRef ssidRef = CFDictionaryGetValue(niRef, kCNNetworkInfoKeySSID);
-                if (ssidRef != NULL) {
-                    ssid = (__bridge NSString *)ssidRef;
-                }
-                CFRelease(niRef);
+        CFDictionaryRef niRef = CNCopyCurrentNetworkInfo(CFArrayGetValueAtIndex(siRef, 0));
+        if (niRef != NULL) {
+            CFStringRef ssidRef = CFDictionaryGetValue(niRef, kCNNetworkInfoKeySSID);
+            if (ssidRef != NULL) {
+                ssid = (__bridge NSString *)ssidRef;
             }
-        } else {
-            // Fallback on earlier versions
+            CFRelease(niRef);
         }
         CFRelease(siRef);
     }
@@ -39,17 +35,13 @@
 
     CFArrayRef siRef = CNCopySupportedInterfaces();
     if (siRef != NULL) {
-        if (@available(macCatalyst 14.0, *)) {
-            CFDictionaryRef niRef = CNCopyCurrentNetworkInfo(CFArrayGetValueAtIndex(siRef, 0));
-            if (niRef != NULL) {
-                CFStringRef bssidRef = CFDictionaryGetValue(niRef, kCNNetworkInfoKeyBSSID);
-                if (bssidRef != NULL) {
-                    bssid = (__bridge NSString *)(bssidRef);
-                }
-                CFRelease(niRef);
+        CFDictionaryRef niRef = CNCopyCurrentNetworkInfo(CFArrayGetValueAtIndex(siRef, 0));
+        if (niRef != NULL) {
+            CFStringRef bssidRef = CFDictionaryGetValue(niRef, kCNNetworkInfoKeyBSSID);
+            if (bssidRef != NULL) {
+                bssid = (__bridge NSString *)(bssidRef);
             }
-        } else {
-            // Fallback on earlier versions
+            CFRelease(niRef);
         }
         CFRelease(siRef);
     }

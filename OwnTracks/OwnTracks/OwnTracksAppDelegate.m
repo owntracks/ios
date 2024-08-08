@@ -180,10 +180,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             break;
         case UIBackgroundRefreshStatusDenied:
             DDLogWarn(@"[OwnTracksAppDelegate] UIBackgroundRefreshStatusDenied");
-#if !TARGET_OS_MACCATALYST
-            self.backgroundFetchCheckMessage = NSLocalizedString(@"You disabled background fetch",
-                                                                 @"You disabled background fetch");
-#endif
             break;
         case UIBackgroundRefreshStatusRestricted:
             DDLogWarn(@"[OwnTracksAppDelegate] UIBackgroundRefreshStatusRestricted");
@@ -264,27 +260,14 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     DDLogInfo(@"[OwnTracksAppDelegate] applicationWillResignActive");
-    //    #if !TARGET_OS_MACCATALYST
-    //            if ([LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
-    //                [self.connection disconnect];
-    //            }
-    //    #else
-    //            [self.connection disconnect];
-    //    #endif
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     DDLogInfo(@"[OwnTracksAppDelegate] applicationDidEnterBackground");
-#if !TARGET_OS_MACCATALYST
     [self background];
-#if !TARGET_OS_MACCATALYST
     if ([LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
         [self.connection disconnect];
     }
-#else
-    [self.connection disconnect];
-#endif
-#endif
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -600,10 +583,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
     [input close];
     
-    // MAC CATALYST opens files in place
-#if !TARGET_OS_MACCATALYST
     [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
-#endif
     
     if (error) {
         self.processingMessage = [NSString stringWithFormat:@"%@ %@: %@ %@",
