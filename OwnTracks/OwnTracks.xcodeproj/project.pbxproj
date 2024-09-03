@@ -344,6 +344,8 @@
 		84C7C0332898FAF90088A544 /* Tours.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tours.h; sourceTree = "<group>"; };
 		84C7C0342898FAF90088A544 /* Tours.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tours.m; sourceTree = "<group>"; };
 		84CC5A511FEC71840010314C /* OwnTracks-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-29.png"; sourceTree = "<group>"; };
+		84CE578D2C87459F007689E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		84CE578E2C8745B8007689E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OwnTracksToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D3072E1ACD644500FACB9E /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		84D307321ACD644500FACB9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1166,6 +1168,7 @@
 				84B0351B261D95F2000F2ECA /* sv */,
 				84BE75962771EBA2006CBDCF /* tr */,
 				848806F928C9E7A500F7DFFD /* da */,
+				84CE578E2C8745B8007689E5 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1179,6 +1182,7 @@
 				84B0351A261D95F2000F2ECA /* sv */,
 				84BE75972771EBA2006CBDCF /* tr */,
 				848806FC28C9E7A500F7DFFD /* da */,
+				84CE578D2C87459F007689E5 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

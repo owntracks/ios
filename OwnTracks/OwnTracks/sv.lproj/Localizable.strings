@@ -5,13 +5,13 @@
 "a region" = "ett område";
 
 /* Address resolver disabled */
-"Address resolver disabled" = "Upplösning av adress avstängd";
+"Address resolver disabled" = "Adressupplösning avstängd";
 
 /* reverseGeocodeLocation error */
-"Address resolver failed" = "Adressupplysningen misslyckades";
+"Address resolver failed" = "Adressfråga misslyckades";
 
 /* Headline in addressbook related error messages */
-"Addressbook Access" = "Åtkomst till adressboken";
+"Addressbook Access" = "Åtkomst till kontakter";
 
 /* Location Manager error message */
 "App is not allowed to use location services" = "Appen får inte använda platstjänster";
@@ -29,7 +29,7 @@
 "App use of location services is unclear" = "Användning av platstjänster i appen är oklar";
 
 /* Display after processing beacon QR code */
-"Beacon QR successfully processed" = "Fyr-QR har bearbetats";
+"Beacon QR successfully processed" = "Beacon-QR bearbetad";
 
 /* Cancel button title */
 "Cancel" = "Avbryt";
@@ -37,8 +37,11 @@
 /* Header of an alert message regarding a card */
 "Card" = "Kort";
 
+/* Choose action title */
+"Choose action" = "Välj aktion";
+
 /* Location Manager error message */
-"Circular region monitoring not available" = "Övervakning av område inte tillgänglig";
+"Circular region monitoring not available" = "Cirkulär områdesövervakning ej tillgänglig";
 
 /* Clipboard */
 "Clipboard" = "Urklipp";
@@ -58,23 +61,26 @@
 /* Continue button title */
 "Continue" = "Fortsätt";
 
+/* Alert message header for copy */
+"Copied" = "Kopierad";
+
 /* content of an alert message regarding circular region */
 "created at center of map" = "skapas mitt på kartan";
 
 /* Message map interaction */
-"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Tillåter du interaktioner med kartan? Om du svarar ja kan karttjänsten analysera förfrågningar.";
+"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Tillåter du interaktioner med kartan? Om du svarar ja, kan karttjänsten analysera förfrågningar";
 
 /* Message Revgeo */
-"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Vill du upplösa adresser? Om du svarar ja kan adressupplösningstjänsten analysera dina förfrågningar.";
+"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Vill du adressuplösa? Om du svarar ja, kan geocoding-tjänsten analysera dina förfrågningar";
 
 /* reverseGeocodeLocation text */
-"due to rate limit or off-line" = "på grund av satsgräns eller off-line";
+"due to rate limit or off-line" = "på grund av rate-limit eller offline";
 
 /* Display when entering region (region name follows) */
-"Entering" = "Beträder";
+"Entering" = "Inträder";
 
 /* friend enters region verb */
-"enters" = "beträder";
+"enters" = "inträder";
 
 /* description connection error state */
 "error" = "fel";
@@ -85,6 +91,9 @@
 /* Export */
 "Export" = "Exportera";
 
+/* Fetching sharing list from backend */
+"Fetching tour list from backend" = "Hämtar reselista från backend";
+
 /* Display when file processing succeeds (filename follows) */
 "File" = "Fil";
 
@@ -92,7 +101,7 @@
 "file open error" = "filöppningsfel";
 
 /* Fly */
-"Fly" = "Flyga";
+"Fly" = "Fly";
 
 /* Alert message header for friend's messages */
 "Friend" = "Vän";
@@ -101,7 +110,7 @@
 "has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change" = "har nekats av användaren. Om du tillåter OwnTracks att komma åt dina kontakter kan du länka dina enheter till kontakter. OwnTracks visar sedan kontaktnamnet och bilden istället för enhets-ID. Ingen information om din adressbok laddas upp till någon server. Gå till Inställningar / Sekretess / Kontakter för att ändra";
 
 /* CNAuthorizationStatusRestricted */
-"has been restricted, possibly due to restrictions such as parental controls." = "har begränsats, möjligen på grund av begränsningar så som föräldrakontroll.";
+"has been restricted, possibly due to restrictions such as parental controls." = "har begränsats, möjligen på grund av begränsningar såsom föräldrakontroll.";
 
 /* Hyb */
 "Hyb" = "Hyb";
@@ -110,10 +119,10 @@
 "HybFly" = "HybFly";
 
 /* Location Manager error message */
-"iBeacon ranging not available" = "iBeacon mätning är inte tillgängligt";
+"iBeacon ranging not available" = "mätning för iBeacon ej tillgängligt";
 
 /* Location Manager error message */
-"iBeacon region monitoring not available" = "iBeacon områdesövervakning inte tillgänglig";
+"iBeacon region monitoring not available" = "områdesövervakning för iBeacon ej tillgänglig";
 
 /* description connection idle state */
 "idle" = "inaktiv";
@@ -128,7 +137,7 @@
 "Inline Configuration incorrect" = "Felaktig inline-konfiguration";
 
 /* Display for incorrectly encoded inline config */
-"Inline Configuration incorrectly encoded" = "Inline-konfiguration felaktigt kodad";
+"Inline Configuration incorrectly encoded" = "Syntaxfel i inline-konfiguration";
 
 /* Display for config without parameters */
 "Inline Configuration missing parameters" = "Inline-konfiguration saknar parametrar";
@@ -158,10 +167,7 @@
 "Manual" = "Manuell";
 
 /* Title map interaction */
-"Map Interaction" = "Interaktion med kartan";
-
-/* Alert header for connection change warning */
-"Connection change" = "Lägesändring";
+"Map Interaction" = "Kartinteraktion";
 
 /* Move */
 "Move" = "Flytta";
@@ -181,20 +187,23 @@
 /* No location recorded indication */
 "No location recorded" = "Ingen plats har registrerats";
 
-/* Display after trying to process a file *//* No pressure available */
-"No pressure available" = "No pressure available";
+/* No or empty tour list received from backend */
+"No or empty tour list received from backend" = "Mottog ingen eller tom reslista";
 
 /* Display after trying to process a file */
-"no url specified" = "ingen webbadress specificerad";
+"no url specified" = "ingen URL specificerad";
 
 /* Alert message header for notification messages */
-"Notification" = "Meddelande";
+"Notification" = "Notifiering";
+
+/* Open button title */
+"Open" = "Öppna";
 
 /* temporary display while opening URL */
 "opening URL" = "öppnar URL";
 
 /* Alert content for connection change warning */
-"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Tänk på att dina lagrade vägpunkter och platser kommer att raderas på den här enheten av sekretesskäl. Vänligen säkerhetskopiera de innan.";
+"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Notera att dina lagrade vägpunkter och platser kommer att raderas på den här enheten av sekretesskäl. Vänligen säkerhetskopiera innan.";
 
 /* Alert header regarding protocol input */
 "Protocol invalid" = "Protokollet ogiltigt";
@@ -203,7 +212,7 @@
 "Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1 or 5 for MQTT V5" = "Protokoll kan vara 3 för MQTT V3.1 eller 4 för MQTT V3.1.1 eller 5 för MQTT V5";
 
 /* content of an alert message regarding user publish */
-"publish queued on user request" = "publicering ställt i kö på användarens begäran";
+"publish queued on user request" = "publicering köad på användarens begäran";
 
 /* Quiet */
 "Quiet" = "Tyst";
@@ -211,8 +220,17 @@
 /* Header of an alert message regarding circular region */
 "Region" = "Område";
 
+/* Remove button title */
+"Remove" = "Ta bort";
+
+/* Requesting tour */
+"Requesting tour" = "Hämtar resa";
+
+/* Requesting tour list */
+"Requesting tour list" = "Hämtar reslista";
+
 /* temporary display while resolving address */
-"resolving..." = "bestämmer ...";
+"resolving..." = "namnupplöser ...";
 
 /* Alert message header for Request Response */
 "Response" = "Svar";
@@ -223,11 +241,23 @@
 /* Sat */
 "Sat" = "Sat";
 
-/* User Activity (Siri) Send location now */
+/* Send button title */
+"Send" = "Skicka";
+
+/* Send location now button */
 "Send location now" = "Skicka plats nu";
 
 /* content of an alert message regarding card */
-"set and sent to backend" = "ställ in och skickas till backend";
+"set and sent to backend" = "inställt och skickat till backend";
+
+/* Set POI buttonSet POI title */
+"Set POI" = "Sätt POI";
+
+/* Set tag button */
+"Set tag" = "Sätt etikett";
+
+/* Set Tag title */
+"Set Tag" = "Sätt etikett";
 
 /* Settings screen title */
 "Settings" = "inställningar";
@@ -253,6 +283,18 @@
 /* Display when file processing succeeds */
 "successfully processed" = "framgångsrikt bearbetad";
 
+/* Shortcut Switch to Manual Monitoring Mode */
+"Switch to Manual Monitoring Mode" = "Byt till manuellt övervakningsläge";
+
+/* Shortcut Switch to Move Monitoring Monitoring Mode */
+"Switch to Move Monitoring Mode" = "Byt till rörelseövervakningsläge";
+
+/* Shortcut Switch to Quiet Monitoring Mode */
+"Switch to Quiet Monitoring Mode" = "Byt till tyst övervakningsläge";
+
+/* Shortcut Switch to Significant Changes Monitoring Mode */
+"Switch to Significant Changes Monitoring Mode" = "Byt till signifikant övervakningsläge";
+
 /* Table is empty */
 "Table is empty" = "Tabellen är tom";
 
@@ -264,6 +306,30 @@
 
 /* Topic copied to clipboard */
 "Topic copied to clipboard" = "Ämne kopierat från urklipp";
+
+/* Tour created */
+"Tour created" = "Resa skapad";
+
+/* Tour deleted */
+"Tour deleted" = "Resa borttagen";
+
+/* Tour list received */
+"Tour list received" = "Reslista mottagen";
+
+/* Tour list request timed out */
+"Tour list request timed out" = "Reslisteförfrågan nådde timeout";
+
+/* Tour request timed out */
+"Tour request timed out" = "Reseförfrågan nådde timeout";
+
+/* Tours list header */
+"Tours" = "Resor";
+
+/* Tours status header */
+"Tours status" = "Resestatus";
+
+/* Tours status header */
+"Tours Status" = "Resestatus";
 
 /* Alert header regarding TrackerID input */
 "TrackerID invalid" = "TrackerID ogiltigt";
@@ -281,10 +347,10 @@
 "unknown state" = "okänt tillstånd";
 
 /* Display for unknown url path */
-"unknown url path" = "okänd webbadress";
+"unknown url path" = "okänd URL";
 
 /* URL copied to Clipboard */
-"URL copied to Clipboard" = "URL kopierad till Urklipp";
+"URL copied to Clipboard" = "URL kopierad till urklipp";
 
 /* webView didFailLoadWithError display */
 "webView didFailLoadWithError" = "webView didFailLoadWithError";
@@ -299,43 +365,8 @@
 "You cannot use background fetch" = "Du kan inte använda bakgrundshämtning";
 
 /* You disabled background fetch */
-"You disabled background fetch" = "Du inaktiverade bakgrundshämtningen";
+"You disabled background fetch" = "Du har stängt av bakgrundsuppdatering";
 
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "För fullständigt integritetsskydd måste du konfigurera din egen OwnTracks-server och redigera konfigurationen. Detaljerad information på https://owntracks.org/booklet";
 
-/* Alert message header for copy */
-"Copied" = "Copied";
-
-/* Send location now button */
-"Send location now" = "Send location now";
-
-/* Set POI button */
-"Set POI" = "Set POI";
-
-/* Set tag button */
-"Set tag" = "Set tag";
-
-/* Set POI title */
-"Set POI" = "Set POI";
-
-/* Set Tag title */
-"Set Tag" = "Set Tag";
-
-/* Send button title*/
-"Send" = "Send";
-
-/* Remove button title*/
-"Remove" = "Remove";
-
-/* Shortcut Switch to Move Monitoring Monitoring Mode */
-"Switch to Move Monitoring Mode" = "Switch to Move Monitoring Mode";
-
-/* Shortcut Switch to Significant Changes Monitoring Mode */
-"Switch to Significant Changes Monitoring Mode" = "Switch to Significant Changes Monitoring Mode";
-
-/* Shortcut Switch to Manual Monitoring Mode */
-"Switch to Manual Monitoring Mode" = "Switch to Manual Monitoring Mode";
-
-/* Shortcut Switch to Quiet Monitoring Mode */
-"Switch to Quiet Monitoring Mode" = "Switch to Quiet Monitoring Mode";

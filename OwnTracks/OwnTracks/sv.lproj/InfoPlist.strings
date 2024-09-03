@@ -23,7 +23,7 @@
 "NSLocationWhenInUseUsageDescription" = "Din plats används för att dela och spara den på en server du väljer";
 
 /* Privacy - Motion Usage Description */
-"NSMotionUsageDescription" = "På begäran levererar OwnTracks din stegräkning, antal trappor och distansen";
+"NSMotionUsageDescription" = "OwnTracks levererar stegräkning, antal trappor och avstånd vid förfrågan";
 
 /* (No Comment) */
 "OwnTracks CER File" = "OwnTracks CER-fil";
