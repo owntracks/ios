@@ -5,6 +5,7 @@ OwnTracks iOS App Release Notes
 * Release Date 2024-09-03
 
 ** UI Improvements and Bug Fixes
+
     [NEW] Swedish Language #671
     [NEW] remove deprecated Featured Content #802
     [FIX] rename "Publish" in Settings #803
@@ -16,6 +17,7 @@ OwnTracks iOS App Release Notes
 * Release Date 2024-05-06
 
 ** UI Improvements and Bug Fixes
+
     [NEW] osmTemplate / osmCopyright optional parameters #794
     [NEW] OSM map tiles #794
     [NEW] force MQTT cleanSession after configaration change #792
