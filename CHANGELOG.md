@@ -1,10 +1,12 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 17.4.1 iOS/ipadOS
-* Release Date 2024-08-08
+## OwnTracks 17.4.2 iOS/ipadOS
+* Release Date 2024-09-03
 
 ** UI Improvements and Bug Fixes
+    [NEW] Swedish Language #671
+    [NEW] remove deprecated Featured Content #802
     [FIX] rename "Publish" in Settings #803
     [FIX] +follow region is too small #797
     [FIX] tentative fix for OwnTracks publishing invalid coordinates #668
