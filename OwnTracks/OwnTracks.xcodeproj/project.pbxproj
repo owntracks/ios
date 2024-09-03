@@ -10,7 +10,6 @@
 		73E486C3060A00AFA424FB27 /* Pods_OwnTracks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8900A3EAFD109D20F95E6DD8 /* Pods_OwnTracks.framework */; };
 		84001C141C78982800413E5B /* Queue+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84001C111C78982800413E5B /* Queue+CoreDataProperties.m */; };
 		8400D9731D83825E00DEA134 /* HTTP.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8400D9721D83825E00DEA134 /* HTTP.plist */; };
-		8404876B1C5386DD00569C79 /* FeaturedContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8404876A1C5386DD00569C79 /* FeaturedContentVC.m */; };
 		8408CA4425F00FB400354FF3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 84F9622525F008EC007A391A /* InfoPlist.strings */; };
 		8411B82C189FDB140019D2D6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82B189FDB140019D2D6 /* Foundation.framework */; };
 		8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8411B82D189FDB140019D2D6 /* CoreGraphics.framework */; };
@@ -163,8 +162,6 @@
 		84001C111C78982800413E5B /* Queue+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Queue+CoreDataProperties.m"; sourceTree = "<group>"; };
 		8400D9721D83825E00DEA134 /* HTTP.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HTTP.plist; sourceTree = "<group>"; };
 		8400D9741D84946E00DEA134 /* Model 9.1.7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.1.7.xcdatamodel"; sourceTree = "<group>"; };
-		840487691C5386DD00569C79 /* FeaturedContentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeaturedContentVC.h; sourceTree = "<group>"; };
-		8404876A1C5386DD00569C79 /* FeaturedContentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeaturedContentVC.m; sourceTree = "<group>"; };
 		840BBDD318E4274200DC113C /* Model 6.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 6.2.xcdatamodel"; sourceTree = "<group>"; };
 		8411B828189FDB140019D2D6 /* OwnTracks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OwnTracks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8411B82B189FDB140019D2D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -462,15 +459,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		8404876C1C53872700569C79 /* FeaturedContent */ = {
-			isa = PBXGroup;
-			children = (
-				840487691C5386DD00569C79 /* FeaturedContentVC.h */,
-				8404876A1C5386DD00569C79 /* FeaturedContentVC.m */,
-			);
-			name = FeaturedContent;
-			sourceTree = "<group>";
-		};
 		8411B81F189FDB140019D2D6 = {
 			isa = PBXGroup;
 			children = (
@@ -664,7 +652,6 @@
 				84A1737B1B428F3600CCB7D0 /* Regions */,
 				84A1737C1B428F3E00CCB7D0 /* Settings */,
 				843B91741C8A14BF00DBD306 /* Storyboard.storyboard */,
-				8404876C1C53872700569C79 /* FeaturedContent */,
 				8411B842189FDB140019D2D6 /* Images.xcassets */,
 				84FAEA7125F01DA100DCD479 /* Launch Screen.storyboard */,
 			);
@@ -1071,7 +1058,6 @@
 				84E8A18D1BB94782002518AA /* Region+CoreDataProperties.m in Sources */,
 				84C7C0352898FAF90088A544 /* Tours.m in Sources */,
 				849CE153289CF2FF004B32BF /* ToursStatusCell.m in Sources */,
-				8404876B1C5386DD00569C79 /* FeaturedContentVC.m in Sources */,
 				842E6ECE20BEE96F001928FA /* Region+CoreDataClass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

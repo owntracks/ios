@@ -9,16 +9,13 @@
     "properties": {
         "_type": { "$ref": "#/$defs/_type" },
         "action": { "$ref": "#/$defs/action" },
-        "content": { "$ref": "#/$defs/content" },
         "lat": { "$ref": "#/$defs/lat" },
         "lon": { "$ref": "#/$defs/lon" },
         "tst": { "$ref": "#/$defs/tst" },
-        "notification": { "$ref": "#/$defs/notification" },
         "ntours": { "$ref": "#/$defs/ntours" },
         "request": { "$ref": "#/$defs/request" },
         "tours": { "$ref": "#/$defs/tours" },
-        "uuid": { "$ref": "#/$defs/uuid" },
-        "url": { "$ref": "#/$defs/url" }
+        "uuid": { "$ref": "#/$defs/uuid" }
     },
     "required": [ "_type" ],
     "allOf": [
@@ -103,26 +100,6 @@
                 "required": [ "response" ]
             }, "then": {
                 "required": [ "request" ]
-            }
-        },
-        {
-            "if": {
-                "properties": {
-                    "action": { "const": "action" }
-                },
-                "required": [ "action" ]
-            }, "then": {
-                "oneOf": [
-                    {
-                        "required": [ "content" ]
-                    },
-                    {
-                        "required": [ "url" ]
-                    },
-                    {
-                        "required": [ "notification" ]
-                    }
-                ]
             }
         },
         {
@@ -327,13 +304,6 @@
                 "leave"
             ]
         },
-        "content": {
-            "type": "string",
-            "contentMediaType": "text/html"
-        },
-        "url": {
-            "type": "string"
-        },
         "poi": {
             "description": "Point of interest name",
             "type": "string"
@@ -375,13 +345,10 @@
         },
         "t": {
             "$comment": "how to format this list? enum? different meanings in transition and location",
-            "description": "Trigger for the location report. p ping issued randomly by background task (iOS,Android) c circular region enter/leave event (iOS,Android) b beacon region enter/leave event (iOS) r response to a reportLocation cmd message (iOS,Android) u manual publish requested by the user (iOS,Android) t timer based publish in move move (iOS) v updated by Settings/Privacy/Locations Services/System Services/Frequent Locations monitoring (iOS) f First publish after reboot m Manually requested locations (e.g. by publishing to /cmd) t Time for location published because device is moving.  T Time for location published because of time passed while device is stationary (maxInterval) k Transitioning from move to stationary (park) v Transitioning from stationary to move (mo-v-e) l Last known position when device lost GPS fix L Last known position before gracefull shutdown, o Corner M Mileage ! Tow or fake tow or sensor without ignition a motionless (aka park) i ignition on I ignition off e external power off E external power ON 1 Devices powered up 2 Battery stop charging 3 Battery start charging 9 Battery power low h harsh behavior s speed alarm ",
+            "description": "Trigger for the location report. p ping issued randomly by background task (iOS,Android) c circular region enter/leave event (iOS,Android) C circular region enter/leave event for `+follow` region (iOS) b beacon region enter/leave event (iOS) r response to a reportLocation cmd message (iOS,Android) u manual publish requested by the user (iOS,Android) t timer based publish in move move (iOS) v updated by Settings/Privacy/Locations Services/System Services/Frequent Locations monitoring (iOS) f First publish after reboot m Manually requested locations (e.g. by publishing to /cmd) t Time for location published because device is moving.  T Time for location published because of time passed while device is stationary (maxInterval) k Transitioning from move to stationary (park) v Transitioning from stationary to move (mo-v-e) l Last known position when device lost GPS fix L Last known position before gracefull shutdown, o Corner M Mileage ! Tow or fake tow or sensor without ignition a motionless (aka park) i ignition on I ignition off e external power off E external power ON 1 Devices powered up 2 Battery stop charging 3 Battery start charging 9 Battery power low h harsh behavior s speed alarm ",
             "type": "string",
             "minLength": 1,
             "maxLength": 1
-        },
-        "notification": {
-            "type": "string"
         },
         "dist": {
             "description": "Distance travelled since the last location report",

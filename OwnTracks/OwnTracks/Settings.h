@@ -10,9 +10,6 @@
 #import "Setting+CoreDataClass.h"
 #import "MQTTMessage.h"
 
-#define SETTINGS_ACTION @"action"
-#define SETTINGS_ACTIONURL @"actionurl"
-#define SETTINGS_ACTIONEXTERN @"actionextern"
 #define SETTINGS_PROTOCOL @"mqttProtocolLevel"
 
 typedef NS_ENUM(int, ConnectionMode) {

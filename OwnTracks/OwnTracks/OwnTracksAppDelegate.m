@@ -1117,12 +1117,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                                     [self performSelectorOnMainThread:@selector(waypoints)
                                                            withObject:nil
                                                         waitUntilDone:NO];
-                                    
-                                } else if ([action isEqualToString:@"action"]) {
-                                    [self performSelectorOnMainThread:@selector(performAction:)
-                                                           withObject:dictionary
-                                                        waitUntilDone:NO];
-                                    
+                                                                        
                                 } else if ([action isEqualToString:@"setWaypoints"]) {
                                     [self performSelectorOnMainThread:@selector(performSetWaypoints:)
                                                            withObject:dictionary
@@ -1289,88 +1284,6 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                           qos:[Settings intForKey:@"qos_preference"
                                             inMOC:CoreData.sharedInstance.mainMOC]
                        retain:NO];
-}
-
-- (void)performAction:(NSDictionary *)dictionary {
-    NSString *content = dictionary[@"content"];
-    if (content && ![content isKindOfClass:[NSString class]]) {
-        DDLogWarn(@"[OwnTracksAppDelegate performAction] content is not a string");
-        content = nil;
-    }
-    
-    NSString *url = dictionary[@"url"];
-    if (url && ![url isKindOfClass:[NSString class]]) {
-        DDLogWarn(@"[OwnTracksAppDelegate performAction] url is not a string");
-        url = nil;
-    }
-
-    NSString *notificationMessage = dictionary[@"notification"];
-    if (notificationMessage && ![notificationMessage isKindOfClass:[NSString class]]) {
-        DDLogWarn(@"[OwnTracksAppDelegate performAction] notification is not a string");
-        notificationMessage = nil;
-    }
-
-    NSNumber *external = dictionary[@"extern"];
-    if (external && ![external isKindOfClass:[NSNumber class]]) {
-        DDLogWarn(@"[OwnTracksAppDelegate performAction] external is not a number");
-        external = nil;
-    }
-
-    
-    [Settings setString:content
-                 forKey:SETTINGS_ACTION
-                  inMOC:CoreData.sharedInstance.mainMOC];
-    [Settings setString:url
-                 forKey:SETTINGS_ACTIONURL
-                  inMOC:CoreData.sharedInstance.mainMOC];
-    [Settings setBool:external.boolValue
-               forKey:SETTINGS_ACTIONEXTERN
-                inMOC:CoreData.sharedInstance.mainMOC];
-    
-    if (notificationMessage) {
-        UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
-        content.body = notificationMessage;
-        content.sound = [UNNotificationSound defaultSound];
-        UNTimeIntervalNotificationTrigger* trigger = [UNTimeIntervalNotificationTrigger
-                                                      triggerWithTimeInterval:1.0
-                                                      repeats:NO];
-        NSString *notificationIdentifier = [NSString stringWithFormat:@"action%f",
-                                            [NSDate date].timeIntervalSince1970];
-        DDLogVerbose(@"[OwnTracksAppDelegate] notificationIdentifier:%@", notificationIdentifier);
-        
-        UNNotificationRequest* request = [UNNotificationRequest         requestWithIdentifier:notificationIdentifier
-                                                                                      content:content
-                                                                                      trigger:trigger];
-        UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
-        [center addNotificationRequest:request withCompletionHandler:nil];
-        
-        [History historyInGroup:NSLocalizedString(@"Notification",
-                                                  @"Alert message header for notification messages")
-                       withText:notificationMessage
-                             at:nil
-                          inMOC:[CoreData sharedInstance].mainMOC
-                        maximum:[Settings theMaximumHistoryInMOC:[CoreData sharedInstance].mainMOC]];
-        [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
-        
-        [self.navigationController alert:
-             NSLocalizedString(@"Notification",
-                               @"Alert message header for notification messages")
-                                 message:notificationMessage
-                            dismissAfter:2.0
-        ];
-    }
-    
-    if (content || url) {
-        if (url && ![url isEqualToString:self.action]) {
-            self.action = url;
-        } else {
-            if (content && ![content isEqualToString:self.action]) {
-                self.action = content;
-            }
-        }
-    } else {
-        self.action = nil;
-    }
 }
 
 - (void)performResponse:(NSDictionary *)dictionary {

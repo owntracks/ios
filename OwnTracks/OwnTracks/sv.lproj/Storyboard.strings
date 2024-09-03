@@ -88,9 +88,6 @@
 /* Class = "UITableViewSection"; headerTitle = "HTTP Mode"; ObjectID = "Ac4-3H-YRL"; */
 "Ac4-3H-YRL.headerTitle" = "HTTP-läge";
 
-/* Class = "UINavigationItem"; title = "Featured"; ObjectID = "AdM-qz-URl"; */
-"AdM-qz-URl.title" = "Utvalda";
-
 /* Class = "UILabel"; text = "Street\n1\n2\n3\n4"; ObjectID = "apt-Il-Ih4"; Note = "Don't Translate, Placeholder"; */
 "apt-Il-Ih4.text" = "Gata\n1\n2\n3\n4";
 
