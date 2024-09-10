@@ -313,10 +313,6 @@ static LocationManager *theInstance = nil;
     self.manager.pausesLocationUpdatesAutomatically = NO;
     self.manager.allowsBackgroundLocationUpdates = TRUE;
     
-    [self.manager stopUpdatingLocation];
-    [self.manager stopMonitoringVisits];
-    [self.manager stopMonitoringSignificantLocationChanges];
-    
     switch (monitoring) {
         case LocationMonitoringMove:
             self.manager.distanceFilter = kCLDistanceFilterNone;
@@ -324,6 +320,9 @@ static LocationManager *theInstance = nil;
             [self.activityTimer invalidate];
             
             [self.manager startUpdatingLocation];
+            [self.manager stopMonitoringSignificantLocationChanges];
+            [self.manager stopMonitoringVisits];
+
             if (self.minTime > 0.0) {
                 self.activityTimer = [NSTimer timerWithTimeInterval:self.minTime
                                                              target:self selector:@selector(activityTimer:)
@@ -336,6 +335,7 @@ static LocationManager *theInstance = nil;
             
         case LocationMonitoringSignificant:
             [self.activityTimer invalidate];
+            [self.manager stopUpdatingLocation];
             [self.manager startMonitoringSignificantLocationChanges];
             [self.manager startMonitoringVisits];
             break;
@@ -344,6 +344,9 @@ static LocationManager *theInstance = nil;
         case LocationMonitoringQuiet:
         default:
             [self.activityTimer invalidate];
+            [self.manager stopUpdatingLocation];
+            [self.manager stopMonitoringSignificantLocationChanges];
+            [self.manager stopMonitoringVisits];
             break;
     }
     NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
