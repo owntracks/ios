@@ -1174,6 +1174,11 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
 
 - (void)updateUI {
     [UIApplication sharedApplication].applicationIconBadgeNumber = self.connectionBuffered.intValue;
+    [[UNUserNotificationCenter currentNotificationCenter]
+     setBadgeCount:self.connectionBuffered.intValue
+     withCompletionHandler:^(NSError * _Nullable error) {
+        //
+    }];
 }
 
 - (void)dump {

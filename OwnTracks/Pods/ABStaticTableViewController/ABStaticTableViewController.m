@@ -30,13 +30,13 @@
 
 - (BOOL)isRowVisible:(NSIndexPath *)indexPath
 {
-    BOOL(^block)() = self.rowsVisibility[indexPath];
+    BOOL(^block)(void) = self.rowsVisibility[indexPath];
     return (!block) || block();
 }
 
 - (BOOL)isSectionVisible:(NSInteger)section
 {
-    BOOL(^block)() = self.sectionsVisibility[@(section)];
+    BOOL(^block)(void) = self.sectionsVisibility[@(section)];
     return (!block) || block();
 }
 
@@ -49,7 +49,7 @@
         if (ip.section == section
             && ip.row <= indexPath.row + rowDelta)
         {
-            BOOL (^block)() = self.rowsVisibility[ip];
+            BOOL (^block)(void) = self.rowsVisibility[ip];
             rowDelta += block() ? 0 : 1;
         }
     }
@@ -63,7 +63,7 @@
     {
         if (sec.integerValue <= section + secDelta)
         {
-            BOOL (^block)() = self.sectionsVisibility[sec];
+            BOOL (^block)(void) = self.sectionsVisibility[sec];
             secDelta += block() ? 0 : 1;
         }
     }
@@ -79,7 +79,7 @@
         if (ip.section == indexPath.section
             && ip.row < indexPath.row)
         {
-            BOOL (^block)() = self.rowsVisibility[ip];
+            BOOL (^block)(void) = self.rowsVisibility[ip];
             rowDelta += block() ? 0 : 1;
         }
     }
@@ -93,7 +93,7 @@
     {
         if (sec.integerValue < section)
         {
-            BOOL (^block)() = self.sectionsVisibility[sec];
+            BOOL (^block)(void) = self.sectionsVisibility[sec];
             secDelta += block() ? 0 : 1;
         }
     }
@@ -208,7 +208,7 @@
 {
     NSInteger count = 0;
     for (NSNumber *sec in self.sectionsVisibility) {
-        BOOL (^block)() = self.sectionsVisibility[sec];
+        BOOL (^block)(void) = self.sectionsVisibility[sec];
         count += block() ? 0 : 1;
     }
     return [super numberOfSectionsInTableView:tableView] - count;
@@ -220,7 +220,7 @@
     NSInteger count = 0;
     for (NSIndexPath *ip in self.rowsVisibility) {
         if (ip.section == realSection) {
-            BOOL (^block)() = self.rowsVisibility[ip];
+            BOOL (^block)(void) = self.rowsVisibility[ip];
             count += block() ? 0 : 1;
         }
     }

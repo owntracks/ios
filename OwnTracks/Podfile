@@ -2,14 +2,13 @@ source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
 target 'OwnTracks' do
-platform :ios, '14.0'
-pod 'CocoaLumberjack'
-pod 'ABStaticTableViewController', :git => 'https://github.com/ckrey/ABStaticTableViewController.git'
+platform :ios, '16.0'
 pod 'mqttc/MinL', :git => 'https://github.com/ckrey/mqttc.git'
 
-#pod 'libsodium', '~> 1.0'
-pod 'libsodium'
+pod 'ABStaticTableViewController', :git => 'https://github.com/k06a/ABStaticTableViewController.git'
+pod 'CocoaLumberjack'
 pod 'DSJSONSchemaValidation'
+pod 'libsodium'
 end
 
 
