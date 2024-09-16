@@ -1,13 +1,16 @@
+ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
 CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ABStaticTableViewController" "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack" "${PODS_CONFIGURATION_BUILD_DIR}/DSJSONSchemaValidation" "${PODS_CONFIGURATION_BUILD_DIR}/libsodium" "${PODS_CONFIGURATION_BUILD_DIR}/mqttc"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ABStaticTableViewController" "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack" "${PODS_CONFIGURATION_BUILD_DIR}/DSJSONSchemaValidation" "${PODS_CONFIGURATION_BUILD_DIR}/Sodium" "${PODS_CONFIGURATION_BUILD_DIR}/mqttc" "${PODS_ROOT}/Sodium"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1 LUMBERJACK=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ABStaticTableViewController/ABStaticTableViewController.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack/CocoaLumberjack.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/DSJSONSchemaValidation/DSJSONSchemaValidation.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/libsodium/libsodium.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/mqttc/mqttc.framework/Headers" "$(PODS_ROOT)/libsodium/src/libsodium/include/sodium" "$(PODS_ROOT)/libsodium/src/libsodium/include"
-LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_CFLAGS = $(inherited) -DNATIVE_LITTLE_ENDIAN=1 -DHAVE_MADVISE -DHAVE_MMAP -DHAVE_MPROTECT -DHAVE_POSIX_MEMALIGN -DHAVE_WEAK_SYMBOLS
-OTHER_LDFLAGS = $(inherited) -framework "ABStaticTableViewController" -framework "CocoaLumberjack" -framework "DSJSONSchemaValidation" -framework "libsodium" -framework "mqttc"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ABStaticTableViewController/ABStaticTableViewController.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack/CocoaLumberjack.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/DSJSONSchemaValidation/DSJSONSchemaValidation.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Sodium/Sodium.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/mqttc/mqttc.framework/Headers" "${PODS_XCFRAMEWORKS_BUILD_DIR}/Sodium/Headers"
+LD_RUNPATH_SEARCH_PATHS = $(inherited) /usr/lib/swift '@executable_path/Frameworks' '@loader_path/Frameworks'
+LIBRARY_SEARCH_PATHS = $(inherited) "${DT_TOOLCHAIN_DIR}/usr/lib/swift/${PLATFORM_NAME}" "${PODS_XCFRAMEWORKS_BUILD_DIR}/Sodium" /usr/lib/swift
+OTHER_LDFLAGS = $(inherited) -framework "ABStaticTableViewController" -framework "CocoaLumberjack" -framework "DSJSONSchemaValidation" -framework "Sodium" -framework "mqttc"
+OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
 PODS_ROOT = ${SRCROOT}/Pods
 PODS_XCFRAMEWORKS_BUILD_DIR = $(PODS_CONFIGURATION_BUILD_DIR)/XCFrameworkIntermediates
+SWIFT_INCLUDE_PATHS = $(inherited) "${PODS_XCFRAMEWORKS_BUILD_DIR}/Clibsodium"
 USE_RECURSIVE_SCRIPT_INPUTS_IN_SCRIPT_PHASES = YES
