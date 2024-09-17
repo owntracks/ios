@@ -40,9 +40,6 @@
 /* Choose action title */
 "Choose action" = "Välj aktion";
 
-/* Location Manager error message */
-"Circular region monitoring not available" = "Cirkulär områdesövervakning ej tillgänglig";
-
 /* Clipboard */
 "Clipboard" = "Urklipp";
 
@@ -118,12 +115,6 @@
 /* HybFly */
 "HybFly" = "HybFly";
 
-/* Location Manager error message */
-"iBeacon ranging not available" = "mätning för iBeacon ej tillgängligt";
-
-/* Location Manager error message */
-"iBeacon region monitoring not available" = "områdesövervakning för iBeacon ej tillgänglig";
-
 /* description connection idle state */
 "idle" = "inaktiv";
 
@@ -156,9 +147,6 @@
 
 /* Location copied to clipboard */
 "Location copied to clipboard" = "Platsen kopierades till urklipp";
-
-/* Location Manager error message */
-"Location services are not enabled" = "Platstjänster är inte aktiverade";
 
 /* indicates a locked configuration */
 "locked" = "låst";
@@ -270,9 +258,6 @@
 
 /* Significant */
 "Significant" = "Signifikant";
-
-/* Location Manager error message */
-"Significant location change monitoring not available" = "Övervakning av signifikant platsändring inte tillgänglig";
 
 /* HTTP Description Text */
 "Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Liknar MQTT-läge, förutom att dataöverföring använder HTTP, inte MQTT.";

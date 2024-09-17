@@ -445,58 +445,7 @@ static LocationManager *theInstance = nil;
             DDLogInfo(@"[LocationManager] %@", @"App use of location services is unclear");
             break;
     }
-    
-    if (![CLLocationManager locationServicesEnabled]) {
-        [ad.navigationController alert:@"LocationManager"
-                               message:
-             NSLocalizedString(@"Location services are not enabled",
-                               @"Location Manager error message")
-        ];
-        DDLogInfo(@"[LocationManager] %@", @"Location services are not enabled");
-    }
-    
-#if 0
-    if (![CLLocationManager significantLocationChangeMonitoringAvailable]) {
-        [delegate.navigationController alert:@"LocationManager"
-                                     message:
-             NSLocalizedString(@"Significant location change monitoring not available",
-                               @"Location Manager error message")
-        ];
-        DDLogInfo(@"[LocationManager] %@", @"Significant location change monitoring not available");
-    }
-    
-    if (![CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
-        [delegate.navigationController alert:@"LocationManager"
-                                     message:
-             NSLocalizedString(@"Circular region monitoring not available",
-                               @"Location Manager error message")
-        ];
-        DDLogInfo(@"[LocationManager] %@", @"Circular region monitoring not available");
-    }
-    
-    if (![CLLocationManager isMonitoringAvailableForClass:[CLBeaconRegion class]]) {
-        [delegate.navigationController alert:@"LocationManager"
-                                     message:
-             NSLocalizedString(@"iBeacon region monitoring not available",
-                               @"Location Manager error message")
-        ];
-        DDLogInfo(@"[LocationManager] %@", @"iBeacon region monitoring not available");
-    }
-    
-    if (![CLLocationManager isRangingAvailable]) {
-        [delegate.navigationController alert:@"LocationManager"
-                                     message:
-             NSLocalizedString(@"iBeacon ranging not available",
-                               @"Location Manager error message")
-        ];
-        DDLogInfo(@"[LocationManager] %@", @"iBeacon ranging not available");
-    }
-    
-    if (![CLLocationManager headingAvailable]) {
-        // [delegate.navigationController alert:where message:@"Heading not available"];
-        DDLogInfo(@"[LocationManager] %@", @"Heading not available");
-    }
-#endif
+        
 }
 
 - (void)locationManager:(CLLocationManager *)manager

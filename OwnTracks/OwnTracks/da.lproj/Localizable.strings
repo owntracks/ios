@@ -37,9 +37,6 @@
 /* Header of an alert message regarding a card */
 "Card" = "Kort";
 
-/* Location Manager error message */
-"Circular region monitoring not available" = "Cirkulær regionsovervågning ikke tilgængelig";
-
 /* Clipboard */
 "Clipboard" = "Udklipsholder";
 
@@ -112,12 +109,6 @@
 /* HybFly */
 "HybFly" = "HybFly";
 
-/* Location Manager error message */
-"iBeacon ranging not available" = "iBeacon-måling er ikke tilgængelig";
-
-/* Location Manager error message */
-"iBeacon region monitoring not available" = "iBeacon-regionsovervågning er ikke tilgængelig";
-
 /* description connection idle state */
 "idle" = "ledig";
 
@@ -150,9 +141,6 @@
 
 /* Location copied to clipboard */
 "Location copied to clipboard" = "Position kopieret til udklipsholder";
-
-/* Location Manager error message */
-"Location services are not enabled" = "Lokationstjenester er ikke slået til";
 
 /* indicates a locked configuration */
 "locked" = "låst";
@@ -252,9 +240,6 @@
 
 /* Significant */
 "Significant" = "Betydelig";
-
-/* Location Manager error message */
-"Significant location change monitoring not available" = "Betydelig ændring overvågningstilstand er ikke tilgængelig";
 
 /* HTTP Description Text */
 "Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Ligner MQTT-tilstanden, bortset fra at data overføres med HTTP, ikke MQTT.";

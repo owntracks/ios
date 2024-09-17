@@ -31,9 +31,6 @@
 /* Cancel button title */
 "Cancel" = "Cancel";
 
-/* Location Manager error message */
-"Circular region monitoring not available" = "Circular region monitoring not available";
-
 /* Clipboard */
 "Clipboard" = "Clipboard";
 
@@ -97,12 +94,6 @@
 /* HybFly */
 "HybFly" = "HybFly";
 
-/* Location Manager error message */
-"iBeacon ranging not available" = "iBeacon ranging not available";
-
-/* Location Manager error message */
-"iBeacon region monitoring not available" = "iBeacon region monitoring not available";
-
 /* description connection idle state */
 "idle" = "idle";
 
@@ -138,9 +129,6 @@
 
 /* Topic copied to clipboard */
 "Topic copied to clipboard" = "Topic copied to clipboard";
-
-/* Location Manager error message */
-"Location services are not enabled" = "Location services are not enabled";
 
 /* indicates a locked configuration */
 "locked" = "locked";
@@ -213,9 +201,6 @@
 
 /* Significant */
 "Significant" = "Significant";
-
-/* Location Manager error message */
-"Significant location change monitoring not available" = "Significant location change monitoring not available";
 
 /* Std */
 "Std" = "Std";

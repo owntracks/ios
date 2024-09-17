@@ -37,9 +37,6 @@
 /* Header of an alert message regarding a card */
 "Card" = "Karta";
 
-/* Location Manager error message */
-"Circular region monitoring not available" = "Monitorowanie okręgu niedostępne";
-
 /* Clipboard */
 "Clipboard" = "Clipboard";
 
@@ -109,12 +106,6 @@
 /* HybFly */
 "HybFly" = "HybFly";
 
-/* Location Manager error message */
-"iBeacon ranging not available" = "Obszarowanie iBeacon niedostępne";
-
-/* Location Manager error message */
-"iBeacon region monitoring not available" = "Monitorowanie obszaru iBeacon niedostępne";
-
 /* description connection idle state */
 "idle" = "bezczynność";
 
@@ -147,9 +138,6 @@
 
 /* Location copied to clipboard */
 "Location copied to clipboard" = "Location copied to clipboard";
-
-/* Location Manager error message */
-"Location services are not enabled" = "Usługi lokalizacji nie są włączone";
 
 /* indicates a locked configuration */
 "locked" = "zablokowane";
@@ -240,9 +228,6 @@
 
 /* Significant */
 "Significant" = "Znaczący";
-
-/* Location Manager error message */
-"Significant location change monitoring not available" = "Monitorowanie znaczących zmian lokalizacji niedostępne";
 
 /* HTTP Description Text */
 "Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Podobnie do trybu MQTT, jednak transmisja danych używa protokołu HTTP, zamiast MQTT.";
