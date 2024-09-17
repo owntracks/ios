@@ -1699,41 +1699,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0ABF8FB5BF9CA697E0B3A08D0A137D74 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8E34C205EF9B4CCA9E2FE69D04B10BF9 /* mqttc.debug.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/mqttc/mqttc-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/mqttc/mqttc-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/mqttc/mqttc.modulemap";
-				PRODUCT_MODULE_NAME = mqttc;
-				PRODUCT_NAME = mqttc;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
 		0B81D513057850284EB364CAAA363E0F /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2E8E46FC48056D67AB53541622988A3A /* Pods-OwnTracks.release.xcconfig */;
@@ -2081,6 +2046,41 @@
 			};
 			name = Debug;
 		};
+		772B7C4688499841CB1E78E9D13CD139 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E34C205EF9B4CCA9E2FE69D04B10BF9 /* mqttc.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/mqttc/mqttc-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/mqttc/mqttc-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/mqttc/mqttc.modulemap";
+				PRODUCT_MODULE_NAME = mqttc;
+				PRODUCT_NAME = mqttc;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
 		957F0F7F85250F604E6E637B1B9134E8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6C5BD630F6479B3C01F6BB5699D5176C /* ABStaticTableViewController.release.xcconfig */;
@@ -2116,7 +2116,7 @@
 			};
 			name = Release;
 		};
-		ABD01F5789DA36036A94340C76F2538F /* Release */ = {
+		A2DC55A3EDA4002010636BFF41BF61DE /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 43ED6FDF79500E58B2120CABB567AD66 /* mqttc.release.xcconfig */;
 			buildSettings = {
@@ -2132,7 +2132,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/mqttc/mqttc-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/mqttc/mqttc-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 16;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2311,8 +2311,8 @@
 		41BB42EB051A4850016D2F54ACEAE763 /* Build configuration list for PBXNativeTarget "mqttc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				0ABF8FB5BF9CA697E0B3A08D0A137D74 /* Debug */,
-				ABD01F5789DA36036A94340C76F2538F /* Release */,
+				772B7C4688499841CB1E78E9D13CD139 /* Debug */,
+				A2DC55A3EDA4002010636BFF41BF61DE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

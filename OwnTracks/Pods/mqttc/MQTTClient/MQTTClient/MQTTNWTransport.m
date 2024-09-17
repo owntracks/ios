@@ -168,13 +168,15 @@ didReceiveChallenge:(NSURLAuthenticationChallenge *)challenge
         DDLogVerbose(@"[MQTTNWTransport] SecTrustGetCertificateCount %ld",
                      (long)certificateCount);
 
+        CFArrayRef certs = SecTrustCopyCertificateChain(challenge.protectionSpace.serverTrust);
         for (CFIndex index = 0; index < certificateCount; index++) {
-            SecCertificateRef certificateRef  = SecTrustGetCertificateAtIndex(challenge.protectionSpace.serverTrust, index);
+            SecCertificateRef certificateRef  = (SecCertificateRef)CFArrayGetValueAtIndex(certs, index);
             NSString *summary = (NSString*)CFBridgingRelease(
                                    SecCertificateCopySubjectSummary(certificateRef)
                                 );
             DDLogVerbose(@"[MQTTNWTransport] SecCertificateCopySubjectSummary %@", summary);
         }
+        CFRelease(certs);
 
         if (self.allowUntrustedCertificates) {
             if ([challenge.protectionSpace.host isEqualToString:self.host]) {
