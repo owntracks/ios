@@ -1,11 +1,13 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 17.4.3 iOS/ipadOS
-* Release Date 2024-09-10
+## OwnTracks 18.0.1 iOS/ipadOS
+* Release Date 2024-09-17
 
-** UI Improvements and Bug Fixes
+** iOS 18 ready, cleanup, and bug fixes
 
+    [NEW] iOS 18 ready (with Xcode 16), minimum supported iOS/ipadOS version 16.0
+    [NEW] upgrade libsodium
     [FIX] tentative fix for not being able to upgrade monitoring mode in background
     [FIX] Swedish Language #671
     [FIX] rename "Publish" in Settings #803
@@ -13,6 +15,7 @@ OwnTracks iOS App Release Notes
     [FIX] tentative fix for OwnTracks publishing invalid coordinates #668
     [FIX] reportLocation command triggering in Manual mode #800
     [NEW] remove deprecated Featured Content #802
+    [NEW] Bye bye OwnTracksToday widget (Deprecated API) #812	
 
 ## OwnTracks 17.3.0 iOS/ipadOS/macOS
 * Release Date 2024-05-06

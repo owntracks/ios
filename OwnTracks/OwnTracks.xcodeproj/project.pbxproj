@@ -30,7 +30,6 @@
 		8411B910189FEC070019D2D6 /* PersonTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B907189FEC070019D2D6 /* PersonTVC.m */; };
 		8411B911189FEC070019D2D6 /* StatusTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B909189FEC070019D2D6 /* StatusTVC.m */; };
 		8411B912189FEC070019D2D6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B90B189FEC070019D2D6 /* ViewController.m */; };
-		841D1A301C8AFF8000DC5765 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 841D1A2E1C8AFF8000DC5765 /* Localizable.strings */; };
 		841D3523209C5DDF0084FCD0 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841D3522209C5DDF0084FCD0 /* UserNotifications.framework */; };
 		841D3525209C74E70084FCD0 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841D3524209C74E60084FCD0 /* Contacts.framework */; };
 		8422AF681AF825C7008932A2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8422AF671AF825C7008932A2 /* SystemConfiguration.framework */; };
@@ -39,7 +38,6 @@
 		842E6ED620BEF031001928FA /* Queue+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E6ED220BEF031001928FA /* Queue+CoreDataClass.m */; };
 		842E6ED720BEF031001928FA /* Waypoint+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 842E6ED420BEF031001928FA /* Waypoint+CoreDataClass.m */; };
 		8436DFD62BA9D72F00118AFF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8436DFD52BA9D72F00118AFF /* PrivacyInfo.xcprivacy */; };
-		8436DFDA2BA9DD4B00118AFF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8436DFD92BA9DD4B00118AFF /* PrivacyInfo.xcprivacy */; };
 		8436DFDC2BA9DD6100118AFF /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 8436DFDB2BA9DD6100118AFF /* PrivacyInfo.xcprivacy */; };
 		843A57AB24A9A4D600A5441B /* IntentHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 843A57AA24A9A4D600A5441B /* IntentHandler.m */; };
 		843A57AF24A9A4D700A5441B /* OwnTracksIntents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 843A57A724A9A4D600A5441B /* OwnTracksIntents.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -59,7 +57,6 @@
 		8479EEB718E4529900923B24 /* MQTT.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* MQTT.plist */; };
 		847D5C8C2612554B00B6DCD5 /* ModesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D5C8B2612554B00B6DCD5 /* ModesTVC.m */; };
 		847F31B925EFB8600018C0A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 847F31B725EFB8600018C0A6 /* InfoPlist.strings */; };
-		847F31BC25EFB8600018C0A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 847F31BA25EFB8600018C0A6 /* InfoPlist.strings */; };
 		847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847F8B5719295C65003876D4 /* CoreMotion.framework */; };
 		8483A9BA2B9E0BE400774E8B /* NSNumber+decimals.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B47C25C844A500B2AC07 /* NSNumber+decimals.m */; };
 		8483A9BC2B9E0C6E00774E8B /* OwnTracksPressureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8483A9BB2B9E0C6E00774E8B /* OwnTracksPressureTests.m */; };
@@ -71,9 +68,7 @@
 		84929F0B20AAC0D000227D00 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84929F0A20AAC0CF00227D00 /* WebKit.framework */; };
 		84930A2C1B3755AF00810C3A /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84930A2B1B3755AF00810C3A /* TabBarController.m */; };
 		8495CFE42B039941007F7C90 /* LogsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8495CFE32B039941007F7C90 /* LogsTVC.m */; };
-		849B1E061FE911FD0016EF1A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 849B1E081FE911FD0016EF1A /* MainInterface.storyboard */; };
 		849CE153289CF2FF004B32BF /* ToursStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 849CE152289CF2FF004B32BF /* ToursStatusCell.m */; };
-		84A488E21F7BBFD900ADCF98 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84A488E11F7BBFD900ADCF98 /* Media.xcassets */; };
 		84AFD40B2434486200F1E922 /* OwnTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AFD40A2434486200F1E922 /* OwnTracking.m */; };
 		84B0CDAD239E2EFA00CE9305 /* BackgroundTasks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B0CDAC239E2EFA00CE9305 /* BackgroundTasks.framework */; };
 		84B7397A1A65629200B103F4 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B739791A65629200B103F4 /* LocationManager.m */; };
@@ -83,10 +78,6 @@
 		84C7C032289821280088A544 /* ToursTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C031289821280088A544 /* ToursTVC.m */; };
 		84C7C0352898FAF90088A544 /* Tours.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C0342898FAF90088A544 /* Tours.m */; };
 		84CC5A521FEC71850010314C /* OwnTracks-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CC5A511FEC71840010314C /* OwnTracks-29.png */; };
-		84D3072F1ACD644500FACB9E /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D3072E1ACD644500FACB9E /* NotificationCenter.framework */; };
-		84D307351ACD644500FACB9E /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D307341ACD644500FACB9E /* TodayViewController.m */; };
-		84D3073A1ACD644500FACB9E /* OwnTracksToday.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		84D307681ACDA62100FACB9E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AF468F1AB9571800E954E3 /* CoreLocation.framework */; };
 		84D6B47D25C844A500B2AC07 /* NSNumber+decimals.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B47C25C844A500B2AC07 /* NSNumber+decimals.m */; };
 		84DDEAC71BD9F37900B01879 /* SettingsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DDEAC61BD9F37900B01879 /* SettingsTVC.m */; };
 		84DE749824A9E1C600C0DA68 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84DE749B24A9E1C600C0DA68 /* Intents.intentdefinition */; };
@@ -118,13 +109,6 @@
 			remoteGlobalIDString = 8411B827189FDB140019D2D6;
 			remoteInfo = OwnTracks;
 		};
-		84D307381ACD644500FACB9E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8411B820189FDB140019D2D6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 84D3072C1ACD644500FACB9E;
-			remoteInfo = OwnTracksToday;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -144,7 +128,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				84D3073A1ACD644500FACB9E /* OwnTracksToday.appex in Embed Foundation Extensions */,
 				843A57AF24A9A4D700A5441B /* OwnTracksIntents.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
@@ -202,9 +185,6 @@
 		841D1A231C8AF70900DC5765 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		841D1A251C8AF72000DC5765 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		841D1A261C8AF7C600DC5765 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		841D1A2F1C8AFF8000DC5765 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		841D1A311C8AFF8400DC5765 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		841D1A321C8AFF8600DC5765 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		841D3522209C5DDF0084FCD0 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		841D3524209C74E60084FCD0 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
 		841D3526209DA1960084FCD0 /* Model 9.8.7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.8.7.xcdatamodel"; sourceTree = "<group>"; };
@@ -221,7 +201,6 @@
 		842E6ED320BEF031001928FA /* Waypoint+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Waypoint+CoreDataClass.h"; sourceTree = "<group>"; };
 		842E6ED420BEF031001928FA /* Waypoint+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Waypoint+CoreDataClass.m"; sourceTree = "<group>"; };
 		8436DFD52BA9D72F00118AFF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		8436DFD92BA9DD4B00118AFF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		8436DFDB2BA9DD6100118AFF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		843817FB1C386A8700CE14EE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		843A57A724A9A4D600A5441B /* OwnTracksIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OwnTracksIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -256,12 +235,10 @@
 		847444391DA4BC9600975BE4 /* ConnType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnType.m; sourceTree = "<group>"; };
 		8474B15319A8CB7D00427427 /* Model 7.3.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.1.xcdatamodel"; sourceTree = "<group>"; };
 		847D5C7626121F4200B6DCD5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		847D5C80261224CF00B6DCD5 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		847D5C81261224CF00B6DCD5 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		847D5C8A2612554B00B6DCD5 /* ModesTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModesTVC.h; sourceTree = "<group>"; };
 		847D5C8B2612554B00B6DCD5 /* ModesTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ModesTVC.m; sourceTree = "<group>"; };
 		847F31B825EFB8600018C0A6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		847F31BB25EFB8600018C0A6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		847F8B5719295C65003876D4 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		8483A9BB2B9E0C6E00774E8B /* OwnTracksPressureTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwnTracksPressureTests.m; sourceTree = "<group>"; };
 		84856A8B1BD6201800621533 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -270,9 +247,6 @@
 		848806F728C9E7A500F7DFFD /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		848806F828C9E7A500F7DFFD /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		848806F928C9E7A500F7DFFD /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		848806FA28C9E7A500F7DFFD /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
-		848806FB28C9E7A500F7DFFD /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainInterface.strings; sourceTree = "<group>"; };
-		848806FC28C9E7A500F7DFFD /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8488CFDE25A45CC3000AFEE2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/Library/Frameworks/Security.framework; sourceTree = DEVELOPER_DIR; };
 		8492603E2B0235D700F6DC13 /* message.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = message.json; sourceTree = "<group>"; };
 		849260402B0247C200F6DC13 /* Validation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Validation.h; path = coredata/Validation.h; sourceTree = "<group>"; };
@@ -290,11 +264,6 @@
 		8495CFE32B039941007F7C90 /* LogsTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LogsTVC.m; sourceTree = "<group>"; };
 		849ABA0028F21D140078AE41 /* Model 16.3.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 16.3.0.xcdatamodel"; sourceTree = "<group>"; };
 		849B1E021FE9114C0016EF1A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		849B1E041FE9114D0016EF1A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		849B1E091FE912010016EF1A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		849B1E0B1FE912030016EF1A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/MainInterface.strings; sourceTree = "<group>"; };
-		849B1E0D1FE912050016EF1A /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MainInterface.strings; sourceTree = "<group>"; };
-		849B1E0E1FE912330016EF1A /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		849B359924A7578000BEC1BB /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/Intents.framework; sourceTree = DEVELOPER_DIR; };
 		849B3C0F242F9EFC0052EE6D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.2.sdk/System/Library/Frameworks/CoreLocation.framework; sourceTree = DEVELOPER_DIR; };
 		849B3C10242F9F190052EE6D /* Network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Network.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS6.2.sdk/System/Library/Frameworks/Network.framework; sourceTree = DEVELOPER_DIR; };
@@ -308,31 +277,21 @@
 		849CE16F289FBA06004B32BF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Storyboard.strings; sourceTree = "<group>"; };
 		849D457B18CDACDF00201BF3 /* MQTT.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = MQTT.plist; sourceTree = "<group>"; };
 		84A173691B428E5C00CCB7D0 /* Model 8.2.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.1.xcdatamodel"; sourceTree = "<group>"; };
-		84A488E11F7BBFD900ADCF98 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		84AE8ADB25C165D600C0B0EE /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX11.1.sdk/System/iOSSupport/System/Library/Frameworks/MapKit.framework; sourceTree = DEVELOPER_DIR; };
 		84AF468F1AB9571800E954E3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		84AFD40A2434486200F1E922 /* OwnTracking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OwnTracking.m; sourceTree = "<group>"; };
-		84B0350F261D9506000F2ECA /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		84B03510261D9506000F2ECA /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		84B03511261D9506000F2ECA /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		84B03512261D9506000F2ECA /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84B03513261D9506000F2ECA /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84B03516261D9506000F2ECA /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
-		84B03519261D95F2000F2ECA /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
-		84B0351A261D95F2000F2ECA /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84B0351B261D95F2000F2ECA /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84B0351C261D95F2000F2ECA /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		84B0351E261D95F2000F2ECA /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		84B03520261D95F2000F2ECA /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		84B0CDAC239E2EFA00CE9305 /* BackgroundTasks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BackgroundTasks.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/BackgroundTasks.framework; sourceTree = DEVELOPER_DIR; };
 		84B739781A65629200B103F4 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		84B739791A65629200B103F4 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
-		84BE758E2771EADA006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/MainInterface.strings; sourceTree = "<group>"; };
 		84BE75912771EADF006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		84BE75932771EAE0006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		84BE75942771EAE0006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		84BE75962771EBA2006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		84BE75972771EBA2006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84C38C14193F88C200F56D04 /* Model 7.2.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.2.2.xcdatamodel"; sourceTree = "<group>"; };
 		84C756A61A89F706003BC8A8 /* Model 7.4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.4.xcdatamodel"; sourceTree = "<group>"; };
 		84C7C02A2885B18E0088A544 /* CreateCardTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateCardTVC.h; sourceTree = "<group>"; };
@@ -344,14 +303,8 @@
 		84C7C0332898FAF90088A544 /* Tours.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tours.h; sourceTree = "<group>"; };
 		84C7C0342898FAF90088A544 /* Tours.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tours.m; sourceTree = "<group>"; };
 		84CC5A511FEC71840010314C /* OwnTracks-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-29.png"; sourceTree = "<group>"; };
-		84CE578D2C87459F007689E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84CE578E2C8745B8007689E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OwnTracksToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D3072E1ACD644500FACB9E /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		84D307321ACD644500FACB9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84D307331ACD644500FACB9E /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
-		84D307341ACD644500FACB9E /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
-		84D307661ACD8F4300FACB9E /* OwnTracksToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OwnTracksToday.entitlements; sourceTree = "<group>"; };
 		84D6B47B25C844A500B2AC07 /* NSNumber+decimals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSNumber+decimals.h"; sourceTree = "<group>"; };
 		84D6B47C25C844A500B2AC07 /* NSNumber+decimals.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+decimals.m"; sourceTree = "<group>"; };
 		84D7516F1B35B1C600B06A0C /* Model 8.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.1.xcdatamodel"; sourceTree = "<group>"; };
@@ -436,15 +389,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		84D3072A1ACD644500FACB9E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				84D307681ACDA62100FACB9E /* CoreLocation.framework in Frameworks */,
-				84D3072F1ACD644500FACB9E /* NotificationCenter.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -465,7 +409,6 @@
 			isa = PBXGroup;
 			children = (
 				8411B833189FDB140019D2D6 /* OwnTracks */,
-				84D307301ACD644500FACB9E /* OwnTracksToday */,
 				843A57A824A9A4D600A5441B /* OwnTracksIntents */,
 				8456D0A32B55749E003A45D4 /* OwnTracksTests */,
 				8411B82A189FDB140019D2D6 /* Frameworks */,
@@ -478,7 +421,6 @@
 			isa = PBXGroup;
 			children = (
 				8411B828189FDB140019D2D6 /* OwnTracks.app */,
-				84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */,
 				843A57A724A9A4D600A5441B /* OwnTracksIntents.appex */,
 				8456D0A22B55749E003A45D4 /* OwnTracksTests.xctest */,
 			);
@@ -713,30 +655,6 @@
 			name = Settings;
 			sourceTree = "<group>";
 		};
-		84D307301ACD644500FACB9E /* OwnTracksToday */ = {
-			isa = PBXGroup;
-			children = (
-				84D307661ACD8F4300FACB9E /* OwnTracksToday.entitlements */,
-				84D307331ACD644500FACB9E /* TodayViewController.h */,
-				84D307341ACD644500FACB9E /* TodayViewController.m */,
-				849B1E081FE911FD0016EF1A /* MainInterface.storyboard */,
-				84D307311ACD644500FACB9E /* Supporting Files */,
-				84A488E11F7BBFD900ADCF98 /* Media.xcassets */,
-				8436DFD92BA9DD4B00118AFF /* PrivacyInfo.xcprivacy */,
-			);
-			path = OwnTracksToday;
-			sourceTree = "<group>";
-		};
-		84D307311ACD644500FACB9E /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				841D1A2E1C8AFF8000DC5765 /* Localizable.strings */,
-				84D307321ACD644500FACB9E /* Info.plist */,
-				847F31BA25EFB8600018C0A6 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -757,7 +675,6 @@
 			);
 			dependencies = (
 				8452741524A8EF0B00C44340 /* PBXTargetDependency */,
-				84D307391ACD644500FACB9E /* PBXTargetDependency */,
 			);
 			name = OwnTracks;
 			productName = OwnTracks;
@@ -798,23 +715,6 @@
 			productName = OwnTracksTests;
 			productReference = 8456D0A22B55749E003A45D4 /* OwnTracksTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		84D3072C1ACD644500FACB9E /* OwnTracksToday */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 84D3073D1ACD644600FACB9E /* Build configuration list for PBXNativeTarget "OwnTracksToday" */;
-			buildPhases = (
-				84D307291ACD644500FACB9E /* Sources */,
-				84D3072A1ACD644500FACB9E /* Frameworks */,
-				84D3072B1ACD644500FACB9E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = OwnTracksToday;
-			productName = OwnTracksToday;
-			productReference = 84D3072D1ACD644500FACB9E /* OwnTracksToday.appex */;
-			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -858,14 +758,6 @@
 						CreatedOnToolsVersion = 15.2;
 						TestTargetID = 8411B827189FDB140019D2D6;
 					};
-					84D3072C1ACD644500FACB9E = {
-						CreatedOnToolsVersion = 6.2;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-						};
-					};
 				};
 			};
 			buildConfigurationList = 8411B823189FDB140019D2D6 /* Build configuration list for PBXProject "OwnTracks" */;
@@ -888,7 +780,6 @@
 			projectRoot = "";
 			targets = (
 				8411B827189FDB140019D2D6 /* OwnTracks */,
-				84D3072C1ACD644500FACB9E /* OwnTracksToday */,
 				843A57A624A9A4D600A5441B /* OwnTracksIntents */,
 				8456D0A12B55749E003A45D4 /* OwnTracksTests */,
 			);
@@ -932,18 +823,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		84D3072B1ACD644500FACB9E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8436DFDA2BA9DD4B00118AFF /* PrivacyInfo.xcprivacy in Resources */,
-				849B1E061FE911FD0016EF1A /* MainInterface.storyboard in Resources */,
-				847F31BC25EFB8600018C0A6 /* InfoPlist.strings in Resources */,
-				84A488E21F7BBFD900ADCF98 /* Media.xcassets in Resources */,
-				841D1A301C8AFF8000DC5765 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1083,14 +962,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		84D307291ACD644500FACB9E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				84D307351ACD644500FACB9E /* TodayViewController.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1104,12 +975,6 @@
 			isa = PBXTargetDependency;
 			target = 8411B827189FDB140019D2D6 /* OwnTracks */;
 			targetProxy = 8456D0A62B55749E003A45D4 /* PBXContainerItemProxy */;
-		};
-		84D307391ACD644500FACB9E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilter = ios;
-			target = 84D3072C1ACD644500FACB9E /* OwnTracksToday */;
-			targetProxy = 84D307381ACD644500FACB9E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1125,21 +990,6 @@
 				84B03520261D95F2000F2ECA /* sv */,
 				84BE75912771EADF006CBDCF /* tr */,
 				848806F828C9E7A500F7DFFD /* da */,
-			);
-			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		841D1A2E1C8AFF8000DC5765 /* Localizable.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				841D1A2F1C8AFF8000DC5765 /* Base */,
-				841D1A311C8AFF8400DC5765 /* en */,
-				841D1A321C8AFF8600DC5765 /* de */,
-				849B1E041FE9114D0016EF1A /* pl */,
-				84B0350F261D9506000F2ECA /* nl */,
-				84B03519261D95F2000F2ECA /* sv */,
-				84BE75942771EAE0006CBDCF /* tr */,
-				848806FA28C9E7A500F7DFFD /* da */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1171,35 +1021,6 @@
 				84CE578E2C8745B8007689E5 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		847F31BA25EFB8600018C0A6 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				847F31BB25EFB8600018C0A6 /* de */,
-				847D5C80261224CF00B6DCD5 /* pl */,
-				84B03510261D9506000F2ECA /* nl */,
-				84B0351A261D95F2000F2ECA /* sv */,
-				84BE75972771EBA2006CBDCF /* tr */,
-				848806FC28C9E7A500F7DFFD /* da */,
-				84CE578D2C87459F007689E5 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		849B1E081FE911FD0016EF1A /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				849B1E091FE912010016EF1A /* Base */,
-				849B1E0B1FE912030016EF1A /* en */,
-				849B1E0D1FE912050016EF1A /* de */,
-				849B1E0E1FE912330016EF1A /* pl */,
-				84B03511261D9506000F2ECA /* nl */,
-				84B0351E261D95F2000F2ECA /* sv */,
-				84BE758E2771EADA006CBDCF /* tr */,
-				848806FB28C9E7A500F7DFFD /* da */,
-			);
-			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 		84DE749B24A9E1C600C0DA68 /* Intents.intentdefinition */ = {
@@ -1359,7 +1180,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17.4.3;
+				CURRENT_PROJECT_VERSION = 18.0.1;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = C652JFWU23;
 				ENABLE_BITCODE = NO;
@@ -1383,7 +1204,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OwnTracks",
 				);
-				MARKETING_VERSION = 17.4.3;
+				MARKETING_VERSION = 18.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1413,7 +1234,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17.4.3;
+				CURRENT_PROJECT_VERSION = 18.0.1;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = C652JFWU23;
 				ENABLE_BITCODE = NO;
@@ -1437,7 +1258,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OwnTracks",
 				);
-				MARKETING_VERSION = 17.4.3;
+				MARKETING_VERSION = 18.0.1;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1468,7 +1289,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17.4.3;
+				CURRENT_PROJECT_VERSION = 18.0.1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = C652JFWU23;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1480,7 +1301,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 17.4.3;
+				MARKETING_VERSION = 18.0.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude.OwnTracksIntents;
@@ -1507,7 +1328,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 17.4.3;
+				CURRENT_PROJECT_VERSION = 18.0.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = C652JFWU23;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1519,7 +1340,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 17.4.3;
+				MARKETING_VERSION = 18.0.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude.OwnTracksIntents;
@@ -1542,7 +1363,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 17.4.3;
+				CURRENT_PROJECT_VERSION = 18.0.1;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = C652JFWU23;
@@ -1553,7 +1374,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.1;
-				MARKETING_VERSION = 17.4.3;
+				MARKETING_VERSION = 18.0.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.OwnTracksTests;
@@ -1581,7 +1402,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 17.4.3;
+				CURRENT_PROJECT_VERSION = 18.0.1;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = C652JFWU23;
@@ -1592,7 +1413,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.1;
-				MARKETING_VERSION = 17.4.3;
+				MARKETING_VERSION = 18.0.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.OwnTracksTests;
@@ -1605,73 +1426,6 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OwnTracks.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/OwnTracks";
-			};
-			name = Release;
-		};
-		84D3073B1ACD644600FACB9E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = OwnTracksToday/OwnTracksToday.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 17.4.3;
-				DEVELOPMENT_TEAM = C652JFWU23;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = OwnTracksToday/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 17.4.3;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.mqttitude.MQTTitude.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		84D3073C1ACD644600FACB9E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "";
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_ENTITLEMENTS = OwnTracksToday/OwnTracksToday.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 17.4.3;
-				DEVELOPMENT_TEAM = C652JFWU23;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				INFOPLIST_FILE = OwnTracksToday/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 17.4.3;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "org.mqttitude.MQTTitude.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1710,15 +1464,6 @@
 			buildConfigurations = (
 				8456D0A92B55749E003A45D4 /* Debug */,
 				8456D0AA2B55749E003A45D4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		84D3073D1ACD644600FACB9E /* Build configuration list for PBXNativeTarget "OwnTracksToday" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				84D3073B1ACD644600FACB9E /* Debug */,
-				84D3073C1ACD644600FACB9E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -40,9 +40,6 @@
 /* Choose action title */
 "Choose action" = "Eylem seçin";
 
-/* Location Manager error message */
-"Circular region monitoring not available" = "Dairesel bölge izleme mevcut değil";
-
 /* Clipboard */
 "Clipboard" = "Pano";
 
@@ -118,12 +115,6 @@
 /* HybFly */
 "HybFly" = "HybFly";
 
-/* Location Manager error message */
-"iBeacon ranging not available" = "iBeacon aralığı mevcut değil";
-
-/* Location Manager error message */
-"iBeacon region monitoring not available" = "iBeacon bölge izleme mevcut değil";
-
 /* description connection idle state */
 "idle" = "Boşta";
 
@@ -156,9 +147,6 @@
 
 /* Location copied to clipboard */
 "Location copied to clipboard" = "Konum panoya kopyalandı";
-
-/* Location Manager error message */
-"Location services are not enabled" = "Konum hizmetleri etkinleştirilmedi";
 
 /* indicates a locked configuration */
 "locked" = "kilitli";
@@ -276,9 +264,6 @@
 
 /* Significant */
 "Significant" = "Önemli";
-
-/* Location Manager error message */
-"Significant location change monitoring not available" = "Önemli konum değişikliği izleme mevcut değil";
 
 /* HTTP Description Text */
 "Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Veri iletiminin MQTT'yi değil HTTP kullanması dışında MQTT moduna benzer.";

@@ -34,9 +34,6 @@
 /* Cancel button title */
 "Cancel" = "Annuleer";
 
-/* Location Manager error message */
-"Circular region monitoring not available" = "Circulaire regiobewaking niet beschikbaar";
-
 /* Clipboard */
 "Clipboard" = "Klembord";
 
@@ -106,12 +103,6 @@
 /* HybFly */
 "HybFly" = "HybVlieg";
 
-/* Location Manager error message */
-"iBeacon ranging not available" = "iBeacon variërend niet beschikbaar";
-
-/* Location Manager error message */
-"iBeacon region monitoring not available" = "iBeacon-regiobewaking niet beschikbaar";
-
 /* description connection idle state */
 "idle" = "inactief";
 
@@ -144,9 +135,6 @@
 
 /* Location copied to clipboard */
 "Location copied to clipboard" = "Locatie gekopieerd naar klembord";
-
-/* Location Manager error message */
-"Location services are not enabled" = "Locatieservices zijn niet ingeschakeld";
 
 /* indicates a locked configuration */
 "locked" = "op slot";
@@ -234,9 +222,6 @@
 
 /* Significant */
 "Significant" = "Significant";
-
-/* Location Manager error message */
-"Significant location change monitoring not available" = "Bewaking van significante locatiewijzigingen niet beschikbaar";
 
 /* HTTP Description Text */
 "Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Vergelijkbaar met de MQTT-modus, behalve dat gegevensoverdracht HTTP gebruikt, niet MQTT.";

@@ -2,5 +2,5 @@ ${PODS_ROOT}/Target Support Files/Pods-OwnTracks/Pods-OwnTracks-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/ABStaticTableViewController/ABStaticTableViewController.framework
 ${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework
 ${BUILT_PRODUCTS_DIR}/DSJSONSchemaValidation/DSJSONSchemaValidation.framework
-${BUILT_PRODUCTS_DIR}/libsodium/libsodium.framework
+${BUILT_PRODUCTS_DIR}/Sodium/Sodium.framework
 ${BUILT_PRODUCTS_DIR}/mqttc/mqttc.framework

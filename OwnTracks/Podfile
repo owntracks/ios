@@ -8,7 +8,8 @@ pod 'mqttc/MinL', :git => 'https://github.com/ckrey/mqttc.git'
 pod 'ABStaticTableViewController', :git => 'https://github.com/k06a/ABStaticTableViewController.git'
 pod 'CocoaLumberjack'
 pod 'DSJSONSchemaValidation'
-pod 'libsodium'
+#pod 'libsodium'
+pod 'Sodium'
 end
 
 

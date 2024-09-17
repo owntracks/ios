@@ -14,6 +14,7 @@
 #import <UIKit/UIKit.h>
 #import <mqttc/MQTTLog.h>
 #import "sodium.h"
+#import "Sodium/sodium_lib.h"
 #import "LocationManager.h"
 #import "Settings.h"
 #import "OwnTracksAppDelegate.h"
