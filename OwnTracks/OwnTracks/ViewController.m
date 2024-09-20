@@ -341,7 +341,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             [NSLayoutConstraint activateConstraints:@[topTracking, leadingTracking]];
         }
     } else {
-        self.mapView.showsUserLocation = FALSE;
+        self.mapView.showsUserLocation = TRUE;
         self.mapView.zoomEnabled = FALSE;
         self.mapView.scrollEnabled = FALSE;
         self.mapView.pitchEnabled = FALSE;
@@ -356,6 +356,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
     return noMap;
 }
+
 - (IBAction)askForMap:(UIBarButtonItem *)sender {
     UIAlertController *ac =
     [UIAlertController alertControllerWithTitle:NSLocalizedString(@"Map Interaction",
@@ -425,7 +426,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         [self presentViewController:ac animated:TRUE completion:nil];
     }
 }
-
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
