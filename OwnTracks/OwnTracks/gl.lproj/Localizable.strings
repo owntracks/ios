@@ -1,0 +1,366 @@
+/* New featured content indicator */
+"!" = "!";
+
+/* name of an unknown or hidden region */
+"a region" = "unha zona";
+
+/* Address resolver disabled */
+"Address resolver disabled" = "O resolvedor de enderezos está desactivado";
+
+/* reverseGeocodeLocation error */
+"Address resolver failed" = "Produciuse un fallo na resolución de enderezos";
+
+/* Headline in addressbook related error messages */
+"Addressbook Access" = "Acceso ao caderno de enderezos";
+
+/* Location Manager error message */
+"App is not allowed to use location services" = "A aplicación non ten permiso para usar os servizos de localización";
+
+/* Location Manager error message */
+"App is not allowed to use location services in background" = "A aplicación non ten permiso para usar os servizos de localización en segundo plano";
+
+/* Location Manager error message */
+"App is not allowed to use location services yet" = "A aplicación aínda non ten permiso para usar os servizos de localización";
+
+/* Location Manager error message */
+"App use of location services is restricted" = "O uso dos servizos de localización por parte das aplicación está restrinxido";
+
+/* Location Manager error message */
+"App use of location services is unclear" = "O uso dos servizos de localización por parte das aplicacións non está claro";
+
+/* Display after processing beacon QR code */
+"Beacon QR successfully processed" = "O QR de balizamento foi procesado correctamente";
+
+/* Cancel button title */
+"Cancel" = "Cancelar";
+
+/* Header of an alert message regarding a card */
+"Card" = "Tarxeta";
+
+/* Choose action title */
+"Choose action" = "Escolla a acción";
+
+/* Clipboard */
+"Clipboard" = "Portapapeis";
+
+/* description connection closed state */
+"closed" = "pechado";
+
+/* description connection closing state */
+"closing" = "pechando";
+
+/* description connection connected state */
+"connected" = "conectado";
+
+/* description connection connected state */
+"connecting" = "conectando";
+
+/* Alert header for connection change warning */
+"Connection change" = "Cambio de conexión";
+
+/* Continue button title */
+"Continue" = "Continuar";
+
+/* Alert message header for copy */
+"Copied" = "Copiado";
+
+/* content of an alert message regarding circular region */
+"created at center of map" = "creado no centro do mapa";
+
+/* Message map interaction */
+"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Quere que o mapa permita a interacción? Se escolle si, o provedor de mapas pode analizar as súas solicitudes de teselas";
+
+/* Message Revgeo */
+"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Quere resolver enderezos? Se escolle si, o provedor de xeocodificación pode analizar as súas solicitudes";
+
+/* reverseGeocodeLocation text */
+"due to rate limit or off-line" = "por mor do límite de taxa ou sen conexión";
+
+/* Display when entering region (region name follows) */
+"Entering" = "Introducir";
+
+/* friend enters region verb */
+"enters" = "entra";
+
+/* description connection error state */
+"error" = "erro";
+
+/* Display when file processing fails */
+"Error processing file" = "Produciuse un erro ao procesar o ficheiro";
+
+/* Export */
+"Export" = "Exportar";
+
+/* Fetching sharing list from backend */
+"Fetching tour list from backend" = "Obtendo a lista de percorridos da infraestrutura";
+
+/* Display when file processing succeeds (filename follows) */
+"File" = "Ficheiro";
+
+/* Display after trying to open a file */
+"file open error" = "produciuse un erro de apertura do ficheiro";
+
+/* Fly */
+"Fly" = "Voo";
+
+/* Alert message header for friend's messages */
+"Friend" = "Amigo";
+
+/* CNAuthorizationStatusDenied */
+"has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change" = "foi denegado polo usuario. Se permite que OwnTracks acceda aos seus contactos, pode vincular os seus dispositivos aos contactos. OwnTracks amosará entón o nome e a imaxe do contacto no canto do ID do dispositivo. Non se enviará ningunha información do seu caderno de enderezos a ningún servidor. Vaia a Configuración/Privacidade/Contactos para cambialo";
+
+/* CNAuthorizationStatusRestricted */
+"has been restricted, possibly due to restrictions such as parental controls." = "foi restrinxido, posiblemente por mor de restricións como os controis paternos.";
+
+/* Hyb */
+"Hyb" = "Híb.";
+
+/* HybFly */
+"HybFly" = "Híb.Voo";
+
+/* description connection idle state */
+"idle" = "inactivo";
+
+/* Warning displayed if location is inaccurate or old */
+"Inaccurate or old location information" = "Información de localización inexacta ou antiga";
+
+/* certificate error message */
+"incorrect file or passphrase" = "ficheiro ou frase de paso incorrectos";
+
+/* Display for incorrect inline config */
+"Inline Configuration incorrect" = "Configuración en liña incorrecta";
+
+/* Display for incorrectly encoded inline config */
+"Inline Configuration incorrectly encoded" = "Configuración en liña codificada incorrectamente";
+
+/* Display for config without parameters */
+"Inline Configuration missing parameters" = "Faltan parámetros de configuración en liña";
+
+/* Display after processing inline config */
+"Inline Configuration successfully processed" = "A configuración en liña procesouse correctamente";
+
+/* friend leaves region verb */
+"leaves" = "sae";
+
+/* Display when leaving region (region name follows) */
+"Leaving" = "Saíndo";
+
+/* Header of an alert message regarding a location */
+"Location" = "Localización";
+
+/* Location copied to clipboard */
+"Location copied to clipboard" = "A localización foi copiada no portapapeis";
+
+/* indicates a locked configuration */
+"locked" = "bloqueado";
+
+/* Manual */
+"Manual" = "Manual";
+
+/* Title map interaction */
+"Map Interaction" = "Interacción con mapas";
+
+/* Move */
+"Move" = "Mover";
+
+/* Mute */
+"Mute" = "Silenciar";
+
+/* No button title */
+"No" = "Non";
+
+/* dummy for missing content */
+"no content available" = "non hai ningún contido dispoñible";
+
+/* No location available indication */
+"No location available" = "Non hai ningunha localización dispoñíbel";
+
+/* No location recorded indication */
+"No location recorded" = "Non hai ningunha localización gravada";
+
+/* No or empty tour list received from backend */
+"No or empty tour list received from backend" = "Non se recibiu ningunha lista de percorridos ou a infraestrutura está baleira";
+
+/* No pressure available */
+"No pressure available" = "A presión non está dispoñíbel";
+
+/* Display after trying to process a file */
+"no url specified" = "non se especificou ningún URL";
+
+/* Alert message header for notification messages */
+"Notification" = "Notificación";
+
+/* Open button title */
+"Open" = "Abrir";
+
+/* temporary display while opening URL */
+"opening URL" = "URL de apertura";
+
+/* OSM */
+"OSM" = "OSM";
+
+/* Alert content for connection change warning */
+"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Teña en conta que os seus puntos de paso e localizacións almacenados eliminaranse deste dispositivo por motivos de privacidade. Faga unha copia de seguranza antes.";
+
+/* Alert header regarding protocol input */
+"Protocol invalid" = "Protocolo non válido";
+
+/* Alert content regarding protocol input */
+"Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1 or 5 for MQTT V5" = "O protocolo pode ser 3 para MQTT V3.1 ou 4 para MQTT V3.1.1 ou 5 para MQTT V5";
+
+/* content of an alert message regarding user publish */
+"publish queued on user request" = "publicar en cola a petición do usuario";
+
+/* Quiet */
+"Quiet" = "Silencioso";
+
+/* Header of an alert message regarding circular region */
+"Region" = "Zona";
+
+/* Remove button title */
+"Remove" = "Retirar";
+
+/* Requesting tour */
+"Requesting tour" = "Solicitando percorridos";
+
+/* Requesting tour list */
+"Requesting tour list" = "Solicitando a lista de percorridos";
+
+/* temporary display while resolving address */
+"resolving..." = "resolvendo…";
+
+/* Alert message header for Request Response */
+"Response" = "Resposta";
+
+/* Title Revgeo */
+"Reverse Geocoding Address Resolution" = "Resolución de enderezos de xeocodificación inversa";
+
+/* Sat */
+"Sat" = "Sat.";
+
+/* Send button title */
+"Send" = "Enviar";
+
+/* Send location now button */
+"Send location now" = "Enviar a localización agora";
+
+/* content of an alert message regarding card */
+"set and sent to backend" = "definida e enviada á infraestrutura";
+
+/* Set POI buttonSet POI title */
+"Set POI" = "Definir POI";
+
+/* Set tag button */
+"Set tag" = "Definir etiqueta";
+
+/* Set Tag title */
+"Set Tag" = "Definir etiqueta";
+
+/* Settings screen title */
+"Settings" = "Axustes";
+
+/* Header of an alert message regarding missing setup */
+"Setup" = "Configuración";
+
+/* MQTT Description Text */
+"Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Configure o seu propio servidor OwnTracks para unha protección total da privacidade. Máis información en https://owntracks.org/booklet";
+
+/* Significant */
+"Significant" = "Significante";
+
+/* HTTP Description Text */
+"Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Semellante ao modo MQTT, agás que a transmisión de datos usa HTTP, non MQTT.";
+
+/* Std */
+"Std" = "Estándar";
+
+/* Display when file processing succeeds */
+"successfully processed" = "procesado correctamente";
+
+/* Shortcut Switch to Manual Monitoring Mode */
+"Switch to Manual Monitoring Mode" = "Cambiar ao modo de monitorización manual";
+
+/* Shortcut Switch to Move Monitoring Monitoring Mode */
+"Switch to Move Monitoring Mode" = "Cambiar ao modo de monitorización de cambios por movemento";
+
+/* Shortcut Switch to Quiet Monitoring Mode */
+"Switch to Quiet Monitoring Mode" = "Cambiar ao modo de monitorización silencioso";
+
+/* Shortcut Switch to Significant Changes Monitoring Mode */
+"Switch to Significant Changes Monitoring Mode" = "Cambiar ao modo de monitorización de cambios significativos";
+
+/* Table is empty */
+"Table is empty" = "A táboa está baleira";
+
+/* Heading for certificate error message */
+"TLS Client Certificate" = "Certificado TLS do cliente ";
+
+/* Warning displayed if necessary settings are missing */
+"To publish your location userID and deviceID must be set" = "Para publicar a súa localización, debe definir o ID de usuario e o ID do dispositivo";
+
+/* Topic copied to clipboard */
+"Topic copied to clipboard" = "O tema foi copiado no portapapeis";
+
+/* Tour created */
+"Tour created" = "Creouse o percorrido";
+
+/* Tour deleted */
+"Tour deleted" = "O percorrido foi eliminado";
+
+/* Tour list received */
+"Tour list received" = "Recibiuse a lista de percorridos ";
+
+/* Tour list request timed out */
+"Tour list request timed out" = "Esgotouse o tempo de espera da solicitude da lista de percorridos";
+
+/* Tour request timed out */
+"Tour request timed out" = "Esgotouse o tempo de espera da solicitude de percorridos";
+
+/* Tours list header */
+"Tours" = "Percorridos";
+
+/* Tours status header */
+"Tours status" = "Estado dos percorridos";
+
+/* Tours status header */
+"Tours Status" = "Estado dos percorridos";
+
+/* Alert header regarding TrackerID input */
+"TrackerID invalid" = "ID do trazador non é válido";
+
+/* Alert content regarding TrackerID input */
+"TrackerID may be empty or up to 2 characters long" = "O ID do trazador pode estar baleiro ou ter ata 2 caracteres";
+
+/* Alert content regarding TrackerID input */
+"TrackerID may contain alphanumeric characters only" = "O ID do trazador pode conter só caracteres alfanuméricos";
+
+/* Display after entering an unknown scheme in url */
+"unknown scheme in url" = "esquema descoñecido no URL";
+
+/* description connection unknown state */
+"unknown state" = "estado descoñecido";
+
+/* Display for unknown url path */
+"unknown url path" = "ruta URL descoñecida";
+
+/* URL copied to Clipboard */
+"URL copied to Clipboard" = "URL copiado no portapapeis";
+
+/* webView didFailLoadWithError display */
+"webView didFailLoadWithError" = "webView falladoAoCargarConErro";
+
+/* Please Note Text */
+"When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "Ao cambiar entre modos, todos os datos de OwnTracks eliminaranse por motivos de privacidade.";
+
+/* Yes button title */
+"Yes" = "Si";
+
+/* You cannot use background fetch */
+"You cannot use background fetch" = "Vde. non pode usar a recuperación en segundo plano";
+
+/* You disabled background fetch */
+"You disabled background fetch" = "Vde. desactivou a recuperación en segundo plano";
+
+/* Text explaining the Setup */
+"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Debe configurar o seu propio servidor OwnTracks e editar a súa configuración para unha protección total da privacidade. Dispón de información detallada en https://owntracks.org/booklet";
+

@@ -1,0 +1,558 @@
+/* Class = "UITextField"; placeholder = "Radius"; ObjectID = "0WN-ST-XQq"; Note = "Don't translate. Technical Term"; */
+"0WN-ST-XQq.placeholder" = "Radio";
+
+/* Class = "UILabel"; text = "Parameters"; ObjectID = "1Lf-oi-0xo"; */
+"1Lf-oi-0xo.text" = "Parámetros";
+
+/* Class = "UILabel"; text = "Street\n1\n2\n3\n4"; ObjectID = "1PK-JM-nD2"; */
+"1PK-JM-nD2.text" = "Rúa\n1\n2\n3\n4";
+
+/* Class = "UILabel"; text = "maxHistory"; ObjectID = "2F5-PF-efV"; Note = "Don't translate, technical term"; */
+"2F5-PF-efV.text" = "historialMáx";
+
+/* Class = "UITextField"; placeholder = "secret"; ObjectID = "2FK-gv-e75"; */
+"2FK-gv-e75.placeholder" = "segredo";
+
+/* Class = "UILabel"; text = "Mode"; ObjectID = "3ad-LO-zcn"; */
+"3ad-LO-zcn.text" = "Modo";
+
+/* Class = "UILabel"; text = "pubRetain"; ObjectID = "3Hs-lP-khD"; Note = "Don't translate, technical term"; */
+"3Hs-lP-khD.text" = "reterPubli";
+
+/* Class = "UINavigationItem"; title = "Friends"; ObjectID = "03k-Ca-PSS"; */
+"03k-Ca-PSS.title" = "Amigos";
+
+/* Class = "UILabel"; text = "locked"; ObjectID = "3K5-oQ-oxQ"; Note = "Don't translate, technical term"; */
+"3K5-oQ-oxQ.text" = "bloqueado";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "4OY-Dm-bnz"; */
+"4OY-Dm-bnz.placeholder" = "Contrasinal";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "5df-yk-myT"; */
+"5df-yk-myT.text" = "Título";
+
+/* Class = "UITextField"; placeholder = "days"; ObjectID = "5Nq-by-zFb"; */
+"5Nq-by-zFb.placeholder" = "días";
+
+/* Class = "UILabel"; text = "11:30 PM"; ObjectID = "6AN-cF-srI"; Note = "Don't translate. Placeholder"; */
+"6AN-cF-srI.text" = "11:30 PM";
+
+/* Class = "UITableViewSection"; headerTitle = "Client Certificate"; ObjectID = "6aR-4g-W4D"; */
+"6aR-4g-W4D.headerTitle" = "Certificado de cliente";
+
+/* Class = "UIButton"; normalTitle = "Github"; ObjectID = "6ms-eE-0jF"; */
+"6ms-eE-0jF.normalTitle" = "Github";
+
+/* Class = "UILabel"; text = "Filename"; ObjectID = "7ie-NC-EFG"; Note = "Don't translate, technical term"; */
+"7ie-NC-EFG.text" = "Nome de ficheiro";
+
+/* Class = "UINavigationItem"; title = "Tours"; ObjectID = "7Qj-vi-EaF"; */
+"7Qj-vi-EaF.title" = "Percorridos";
+
+/* Class = "UIButton"; normalTitle = "Create Card"; ObjectID = "7rX-Bq-DGb"; */
+"7rX-Bq-DGb.normalTitle" = "Crear  a Tarxeta";
+
+/* Class = "UISegmentedControl"; 7W2-Mn-fUG.segmentTitles[0] = "MQTT"; ObjectID = "7W2-Mn-fUG"; Note = "Don't translate, technical term"; */
+"7W2-Mn-fUG.segmentTitles[0]" = "MQTT";
+
+/* Class = "UISegmentedControl"; 7W2-Mn-fUG.segmentTitles[1] = "HTTP"; ObjectID = "7W2-Mn-fUG"; Note = "Don't translate, technical term"; */
+"7W2-Mn-fUG.segmentTitles[1]" = "HTTP";
+
+/* Class = "UILabel"; text = "OSM Copyright"; ObjectID = "7wK-3s-ZUa"; */
+"7wK-3s-ZUa.text" = "Copyright de OSM";
+
+/* Class = "UITableViewSection"; headerTitle = "Circular Region"; ObjectID = "7xg-sB-qXa"; */
+"7xg-sB-qXa.headerTitle" = "Zona circular";
+
+/* Class = "UINavigationItem"; title = "Waypoint"; ObjectID = "8DB-l4-Dop"; */
+"8DB-l4-Dop.title" = "Punto de paso";
+
+/* Class = "UINavigationItem"; title = "History"; ObjectID = "9IF-HL-6Bf"; */
+"9IF-HL-6Bf.title" = "Historial";
+
+/* Class = "UITableViewSection"; headerTitle = "Info"; ObjectID = "9tZ-tQ-x72"; */
+"9tZ-tQ-x72.headerTitle" = "Info";
+
+/* Class = "UIButton"; normalTitle = "Export Waypoints"; ObjectID = "54d-E6-cWX"; */
+"54d-E6-cWX.normalTitle" = "Exportar puntos de paso";
+
+/* Class = "UILabel"; text = "keepAlive"; ObjectID = "222-vu-d4y"; Note = "Don't translate, technical term"; */
+"222-vu-d4y.text" = "keepAlive";
+
+/* Class = "UITextField"; placeholder = "<batterylevel>"; ObjectID = "572-Up-z9B"; Note = "Placeholder. Do not translate"; */
+"572-Up-z9B.placeholder" = "<nivelDaBatería>";
+
+/* Class = "UITableViewSection"; headerTitle = "Please note"; ObjectID = "a09-rn-TZE"; */
+"a09-rn-TZE.headerTitle" = "Teña en conta";
+
+/* Class = "UILabel"; text = "Host"; ObjectID = "a19-FN-Mwf"; */
+"a19-FN-Mwf.text" = "Máquina/sevidor";
+
+/* Class = "UITableViewSection"; headerTitle = "HTTP Mode"; ObjectID = "Ac4-3H-YRL"; */
+"Ac4-3H-YRL.headerTitle" = "Modo HTTP";
+
+/* Class = "UILabel"; text = "Street\n1\n2\n3\n4"; ObjectID = "apt-Il-Ih4"; Note = "Don't Translate, Placeholder"; */
+"apt-Il-Ih4.text" = "Rúa\n1\n2\n3\n4";
+
+/* Class = "UILabel"; text = "OSM Template"; ObjectID = "auA-1g-QGd"; */
+"auA-1g-QGd.text" = "Modelo OSM";
+
+/* Class = "UILabel"; text = "Allow Untrusted Certificates"; ObjectID = "aVN-vG-YjO"; Note = "Don't translate, technical term"; */
+"aVN-vG-YjO.text" = "Permitir certificados non fiábeis";
+
+/* Class = "UIButton"; normalTitle = "Logs"; ObjectID = "b91-ur-Ooi"; */
+"b91-ur-Ooi.normalTitle" = "Rexistros";
+
+/* Class = "UINavigationItem"; title = "Credits and License"; ObjectID = "BPo-EV-Jgg"; */
+"BPo-EV-Jgg.title" = "Recoñecementos e licenza";
+
+/* Class = "UILabel"; text = "Passphrase"; ObjectID = "BTX-XN-kzE"; Note = "Don't translate, technical term"; */
+"BTX-XN-kzE.text" = "Frase de paso";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "C1o-h4-z6h"; */
+"C1o-h4-z6h.text" = "Contrasinal";
+
+/* Class = "UITextField"; placeholder = "qos"; ObjectID = "cBn-p7-eqG"; Note = "Placeholder. Do not translate"; */
+"cBn-p7-eqG.placeholder" = "qos";
+
+/* Class = "UILabel"; text = "Tag"; ObjectID = "ch2-SH-JfC"; */
+"ch2-SH-JfC.text" = "Etiqueta";
+
+/* Class = "UILabel"; text = "Minor"; ObjectID = "crJ-Yr-XNh"; */
+"crJ-Yr-XNh.text" = "Menor";
+
+/* Class = "UILabel"; text = "cmd"; ObjectID = "cTs-Rr-JTs"; Note = "Don't translate, technical term"; */
+"cTs-Rr-JTs.text" = "orde";
+
+/* Class = "UILabel"; text = "Latitude"; ObjectID = "Cuh-Tm-IcV"; */
+"Cuh-Tm-IcV.text" = "Latitude";
+
+/* Class = "UILabel"; text = "extendedData"; ObjectID = "cxz-nO-ptK"; Note = "Don't translate, technical term"; */
+"cxz-nO-ptK.text" = "datosEstendidos";
+
+/* Class = "UILabel"; text = "Topic"; ObjectID = "Dgw-5m-uvy"; */
+"Dgw-5m-uvy.text" = "Tema";
+
+/* Class = "UITableViewSection"; headerTitle = "Beacon Region"; ObjectID = "dPT-PC-ShQ"; */
+"dPT-PC-ShQ.headerTitle" = "Zona balizada";
+
+/* Class = "UITextField"; placeholder = "trackerid"; ObjectID = "dUg-TH-IQ0"; Note = "Don't translate, technical term"; */
+"dUg-TH-IQ0.placeholder" = "IDdoTrazador";
+
+/* Class = "UITextView"; text = "Copyright © 2013-2024 by Christoph Krey, https://owntracks.org"; ObjectID = "dZg-CC-7yD"; */
+"dZg-CC-7yD.text" = "Copyright © 2013-2024 by Christoph Krey, https://owntracks.org";
+
+/* Class = "UILabel"; text = "ranging"; ObjectID = "DZx-uw-XhQ"; Note = "Don't translate, technical term"; */
+"DZx-uw-XhQ.text" = "fluctuante";
+
+/* Class = "UITextField"; placeholder = "deviceid"; ObjectID = "e0q-hc-0z2"; Note = "Placeholder. Do not translate"; */
+"e0q-hc-0z2.placeholder" = "IDdeDispositivo";
+
+/* Class = "UITabBarController"; title = "Tab Bar"; ObjectID = "e04-OU-xZ4"; */
+"e04-OU-xZ4.title" = "Barra de lapelas";
+
+/* Class = "UIButton"; normalTitle = "Documentation"; ObjectID = "ePs-kX-VDJ"; */
+"ePs-kX-VDJ.normalTitle" = "Documentación";
+
+/* Class = "UIBarButtonItem"; title = "-"; ObjectID = "ere-0U-4rD"; Note = "Placeholder. Do not translate"; */
+"ere-0U-4rD.title" = "-";
+
+/* Class = "UIButton"; normalTitle = "Send Debug Status"; ObjectID = "evM-XZ-F0H"; */
+"evM-XZ-F0H.normalTitle" = "Enviar o estado da depuración";
+
+/* Class = "UILabel"; text = "Port"; ObjectID = "EWI-7o-7Jo"; */
+"EWI-7o-7Jo.text" = "Porto";
+
+/* Class = "UILabel"; text = "clientId"; ObjectID = "fHY-ry-yB3"; Note = "Don't translate, technical term"; */
+"fHY-ry-yB3.text" = "IDdoCliente";
+
+/* Class = "UIButton"; normalTitle = "Web"; ObjectID = "Fng-qL-diO"; */
+"Fng-qL-diO.normalTitle" = "Web";
+
+/* Class = "UITextField"; placeholder = "uuid"; ObjectID = "fPO-vc-4UX"; */
+"fPO-vc-4UX.placeholder" = "uuid";
+
+/* Class = "UILabel"; text = "POI"; ObjectID = "Fup-3w-dk7"; */
+"Fup-3w-dk7.text" = "POI";
+
+/* Class = "UILabel"; text = "Credits and Licence"; ObjectID = "FYQ-ba-bf8"; */
+"FYQ-ba-bf8.text" = "Recoñecementos e licenza";
+
+/* Class = "UILabel"; text = "Version"; ObjectID = "g84-aA-XOI"; */
+"g84-aA-XOI.text" = "Versión";
+
+/* Class = "UITableViewSection"; headerTitle = "OwnTracks - Your location companion"; ObjectID = "Gjb-Ud-8a8"; */
+"Gjb-Ud-8a8.headerTitle" = "OwnTracks - o seu compañeiro de localización";
+
+/* Class = "UITextField"; placeholder = "<Distance>"; ObjectID = "gkb-3O-jAy"; Note = "Placeholder. Don't translate."; */
+"gkb-3O-jAy.placeholder" = "<Distancia>";
+
+/* Class = "UILabel"; text = "pubTopicBase"; ObjectID = "gkR-ph-8W7"; Note = "Don't translate, technical term"; */
+"gkR-ph-8W7.text" = "púbTemaBase";
+
+/* Class = "UINavigationItem"; title = "Regions"; ObjectID = "GM9-KK-8vY"; */
+"GM9-KK-8vY.title" = "Zonas";
+
+/* Class = "UILabel"; text = "locatorDisplacement"; ObjectID = "gtX-x4-Vwl"; Note = "Don't translate, technical term"; */
+"gtX-x4-Vwl.text" = "desprazamentoDoLocalizador";
+
+/* Class = "UITextField"; placeholder = "Name for new tour"; ObjectID = "guB-Ga-J3e"; */
+"guB-Ga-J3e.placeholder" = "Nome do novo percorrido";
+
+/* Class = "UINavigationItem"; title = "Certificates"; ObjectID = "GWL-01-fh1"; Note = "Don't translate, technical term"; */
+"GWL-01-fh1.title" = "Certificados";
+
+/* Class = "UILabel"; text = "Batterylevel"; ObjectID = "gXA-0p-FKt"; */
+"gXA-0p-FKt.text" = "Nivel da batería";
+
+/* Class = "UILabel"; text = "effective pubTopic"; ObjectID = "H7d-L2-cbZ"; Note = "Don't translate, technical term"; */
+"H7d-L2-cbZ.text" = "púbTema efectivo";
+
+/* Class = "UITabBarItem"; title = "Regions"; ObjectID = "HB5-wo-JZx"; */
+"HB5-wo-JZx.title" = "Zonas";
+
+/* Class = "UIButton"; normalTitle = "Navigate"; ObjectID = "hcc-3n-8aC"; */
+"hcc-3n-8aC.normalTitle" = "Navegar";
+
+/* Class = "UITabBarItem"; title = "Map"; ObjectID = "HCO-pB-vNN"; */
+"HCO-pB-vNN.title" = "Mapa";
+
+/* Class = "UITextField"; placeholder = "<Version>"; ObjectID = "hdf-7C-N25"; Note = "Placeholder, do not translate"; */
+"hdf-7C-N25.placeholder" = "<Versión>";
+
+/* Class = "UILabel"; text = "effective deviceId"; ObjectID = "hE7-sf-UPA"; Note = "Don't translate, technical term"; */
+"hE7-sf-UPA.text" = "ID efectivo de dispositivo";
+
+/* Class = "UINavigationItem"; title = "Region"; ObjectID = "Hfg-cd-JM1"; */
+"Hfg-cd-JM1.title" = "Zona";
+
+/* Class = "UINavigationItem"; title = "Status Info"; ObjectID = "hFq-9F-EAc"; */
+"hFq-9F-EAc.title" = "Información de estado";
+
+/* Class = "UILabel"; text = "Info"; ObjectID = "hLa-Yd-Jmn"; */
+"hLa-Yd-Jmn.text" = "Info";
+
+/* Class = "UITextField"; placeholder = "pubTopicBase"; ObjectID = "hNb-lH-EGK"; Note = "Placeholder. Do not translate"; */
+"hNb-lH-EGK.placeholder" = "púbTemaBase";
+
+/* Class = "UILabel"; text = "effective clientId"; ObjectID = "hQX-dc-Yix"; Note = "Don't translate, technical term"; */
+"hQX-dc-Yix.text" = "ID efectivo de cliente";
+
+/* Class = "UITextView"; text = "<Parameters>"; ObjectID = "HQZ-wy-aC5"; Note = "Don't translate. Placeholder!"; */
+"HQZ-wy-aC5.text" = "<Parametros>";
+
+/* Class = "UITextField"; placeholder = "timestamp"; ObjectID = "HVH-Pt-DXp"; */
+"HVH-Pt-DXp.placeholder" = "marca de tempo";
+
+/* Class = "UILabel"; text = "locatorInterval"; ObjectID = "hY6-k2-neH"; Note = "Don't translate, technical term"; */
+"hY6-k2-neH.text" = "intervaloDoLocalizador";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "I19-GX-iMA"; */
+"I19-GX-iMA.text" = "Etiqueta";
+
+/* Class = "UITextField"; placeholder = "info"; ObjectID = "Ikm-SR-MCD"; */
+"Ikm-SR-MCD.placeholder" = "info";
+
+/* Class = "UIButton"; normalTitle = "Select from Photo Library"; ObjectID = "IL1-c9-0c1"; */
+"IL1-c9-0c1.normalTitle" = "Seleccionar na fototeca";
+
+/* Class = "UITextField"; placeholder = "clientId"; ObjectID = "IsX-6T-YbC"; Note = "Placeholder. Do not translate"; */
+"IsX-6T-YbC.placeholder" = "IDdoCliente";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "jaH-UC-XYI"; */
+"jaH-UC-XYI.title" = "Axustes";
+
+/* Class = "UILabel"; text = "subQos"; ObjectID = "jH3-JK-ef6"; Note = "Don't translate, technical term"; */
+"jH3-JK-ef6.text" = "subCdeS";
+
+/* Class = "UITextField"; placeholder = "Meters"; ObjectID = "jqJ-cr-0tT"; Note = "Don't translate, technical term"; */
+"jqJ-cr-0tT.placeholder" = "Metros";
+
+/* Class = "UITextField"; placeholder = "OSMTemplate"; ObjectID = "JS1-vt-wVV"; */
+"JS1-vt-wVV.placeholder" = "modeloOSM";
+
+/* Class = "UITextField"; placeholder = "client certificate file"; ObjectID = "JSF-BR-9Nb"; Note = "Don't translate, technical term"; */
+"JSF-BR-9Nb.placeholder" = "ficheiro de certificado de cliente";
+
+/* Class = "UILabel"; text = "sub"; ObjectID = "Jw3-DE-n5i"; Note = "Don't translate, technical term"; */
+"Jw3-DE-n5i.text" = "sub";
+
+/* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "jwK-F1-3iE"; Note = "Placeholder. Don't translate."; */
+"jwK-F1-3iE.placeholder" = "<Coordenadas>";
+
+/* Class = "UITextField"; placeholder = "longitude"; ObjectID = "JZL-1C-khg"; */
+"JZL-1C-khg.placeholder" = "lonxitude";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "K3J-wU-omB"; Note = "Don't Translate. Placeholder"; */
+"K3J-wU-omB.text" = "Nome";
+
+/* Class = "UITextField"; placeholder = "passphrase"; ObjectID = "KhB-Z4-umi"; Note = "Don't translate, technical term"; */
+"KhB-Z4-umi.placeholder" = "frase de paso";
+
+/* Class = "UINavigationItem"; title = "Persons"; ObjectID = "KOf-PY-JcB"; */
+"KOf-PY-JcB.title" = "Persoas";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Kvr-J3-4fw"; */
+"Kvr-J3-4fw.text" = "Título";
+
+/* Class = "UILabel"; text = "Activity"; ObjectID = "L2M-p0-CtV"; */
+"L2M-p0-CtV.text" = "Actividade";
+
+/* Class = "UITextField"; placeholder = "mode"; ObjectID = "LEn-Jc-PvC"; Note = "Placeholder. Do not translate"; */
+"LEn-Jc-PvC.placeholder" = "modo";
+
+/* Class = "UITextField"; placeholder = "latitude"; ObjectID = "Lmo-Kp-uCi"; */
+"Lmo-Kp-uCi.placeholder" = "latitude";
+
+/* Class = "UILabel"; text = "Secret encryption key"; ObjectID = "lQx-Zr-z69"; */
+"lQx-Zr-z69.text" = "Chave de cifrado secreta";
+
+/* Class = "UITextField"; placeholder = "number"; ObjectID = "lTh-wG-5YG"; */
+"lTh-wG-5YG.placeholder" = "número";
+
+/* Class = "UITextField"; placeholder = "Meters"; ObjectID = "M0H-SF-pCO"; */
+"M0H-SF-pCO.placeholder" = "Metros";
+
+/* Class = "UITextField"; placeholder = "httpHeaders"; ObjectID = "mca-nZ-Fzz"; */
+"mca-nZ-Fzz.placeholder" = "cabeceirasHTTP";
+
+/* Class = "UILabel"; text = "Created At"; ObjectID = "mhI-D6-Y0f"; */
+"mhI-D6-Y0f.text" = "Creado en";
+
+/* Class = "UILabel"; text = "Pressure"; ObjectID = "MLp-t9-oef"; */
+"MLp-t9-oef.text" = "Presión";
+
+/* Class = "UITextView"; text = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, Sodium, and DSJSONSchemaValidation."; ObjectID = "Moe-Di-frm"; */
+"Moe-Di-frm.text" = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, Sodium, and DSJSONSchemaValidation.";
+
+/* Class = "UITabBarItem"; title = "Friends"; ObjectID = "msF-bI-hEJ"; */
+"msF-bI-hEJ.title" = "Amigos";
+
+/* Class = "UINavigationItem"; title = "Modes"; ObjectID = "nJk-gq-XUi"; */
+"nJk-gq-XUi.title" = "Modos";
+
+/* Class = "UILabel"; text = "positions"; ObjectID = "NkN-Ib-izC"; Note = "Don't translate, technical term"; */
+"NkN-Ib-izC.text" = "posicións";
+
+/* Class = "UITableViewSection"; headerTitle = "Expert Mode"; ObjectID = "NRQ-7X-SLM"; */
+"NRQ-7X-SLM.headerTitle" = "Modo experto";
+
+/* Class = "UINavigationItem"; title = "TLS"; ObjectID = "NS8-pg-IlP"; Note = "Don't translate, technical term"; */
+"NS8-pg-IlP.title" = "TLS";
+
+/* Class = "UITextField"; placeholder = "timestamp"; ObjectID = "nwd-8O-YcR"; */
+"nwd-8O-YcR.placeholder" = "marca de tempo";
+
+/* Class = "UILabel"; text = "Proto"; ObjectID = "NZB-F6-F8c"; */
+"NZB-F6-F8c.text" = "Proto";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "o8t-NB-IV6"; */
+"o8t-NB-IV6.text" = "Nome";
+
+/* Class = "UITextField"; placeholder = "Seconds"; ObjectID = "oBs-Zn-P4m"; */
+"oBs-Zn-P4m.placeholder" = "Segundos";
+
+/* Class = "UINavigationItem"; title = "Map"; ObjectID = "OeB-EW-2jx"; */
+"OeB-EW-2jx.title" = "Mapa";
+
+/* Class = "UILabel"; text = "Longitude"; ObjectID = "OgN-Bg-AeZ"; */
+"OgN-Bg-AeZ.text" = "Lonxitude";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "OIH-xB-QZe"; */
+"OIH-xB-QZe.text" = "Subtítulo";
+
+/* Class = "UITextField"; placeholder = "userid"; ObjectID = "Oiq-Kb-qLx"; */
+"Oiq-Kb-qLx.placeholder" = "eDdoUsuario";
+
+/* Class = "UILabel"; text = "HTTP Headers"; ObjectID = "p6D-3d-Jq2"; */
+"p6D-3d-Jq2.text" = "Cabeceiras HTTP";
+
+/* Class = "UINavigationItem"; title = "Logs"; ObjectID = "p61-Zk-kOq"; */
+"p61-Zk-kOq.title" = "Rexistros";
+
+/* Class = "UITextField"; placeholder = "qos"; ObjectID = "PBp-Kc-CwF"; Note = "Placeholder. Do not translate"; */
+"PBp-Kc-CwF.placeholder" = "CdeS";
+
+/* Class = "UITextField"; placeholder = "url"; ObjectID = "pD2-Zj-Toq"; */
+"pD2-Zj-Toq.placeholder" = "url";
+
+/* Class = "UILabel"; text = "URL"; ObjectID = "pHe-yA-a8f"; */
+"pHe-yA-a8f.text" = "URL";
+
+/* Class = "UITextField"; placeholder = "proto"; ObjectID = "pn1-hA-OmO"; */
+"pn1-hA-OmO.placeholder" = "proto";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "pOi-JI-Qg7"; */
+"pOi-JI-Qg7.text" = "Subtítulo";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "pRh-Nl-A5i"; */
+"pRh-Nl-A5i.title" = "Elemento";
+
+/* Class = "UILabel"; text = "To"; ObjectID = "pud-EK-OTL"; */
+"pud-EK-OTL.text" = "A";
+
+/* Class = "UILabel"; text = "Radius for Region (m)"; ObjectID = "Q3S-EG-XKZ"; */
+"Q3S-EG-XKZ.text" = "Raio para a zona (m)";
+
+/* Class = "UILabel"; text = "Websockets"; ObjectID = "qg7-Fn-2Qr"; Note = "Don't translate, technical term"; */
+"qg7-Fn-2Qr.text" = "Conectadores web";
+
+/* Class = "UILabel"; text = "UUID"; ObjectID = "Qpu-nC-kBF"; */
+"Qpu-nC-kBF.text" = "UUID";
+
+/* Class = "UIButton"; normalTitle = "Settings"; ObjectID = "R0X-4j-vxu"; */
+"R0X-4j-vxu.normalTitle" = "Axustes";
+
+/* Class = "UILabel"; text = "effective tid"; ObjectID = "rdL-4M-Ugx"; Note = "Don't translate, technical term"; */
+"rdL-4M-Ugx.text" = "tid efectivo";
+
+/* Class = "UINavigationItem"; title = "Create Card"; ObjectID = "rJ2-2y-TWr"; */
+"rJ2-2y-TWr.title" = "Crear  a Tarxeta";
+
+/* Class = "UIButton"; normalTitle = "Publish Waypoints"; ObjectID = "rMe-Is-0BE"; */
+"rMe-Is-0BE.normalTitle" = "Publicar os puntos de paso";
+
+/* Class = "UIButton"; configuration.title = "Use Camera"; ObjectID = "Rvi-2b-Hb0"; */
+"Rvi-2b-Hb0.configuration.title" = "Usar a cámara";
+
+/* Class = "UIButton"; normalTitle = "Use Camera"; ObjectID = "Rvi-2b-Hb0"; */
+"Rvi-2b-Hb0.normalTitle" = "Usar a cámara";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "rx4-uC-NeB"; */
+"rx4-uC-NeB.text" = "Subtítulo";
+
+/* Class = "UILabel"; text = "Status"; ObjectID = "Rxv-hL-MC1"; Note = "Placeholder. Do not translate!"; */
+"Rxv-hL-MC1.text" = "Estado";
+
+/* Class = "UITextField"; placeholder = "name"; ObjectID = "s1I-Ff-fYw"; */
+"s1I-Ff-fYw.placeholder" = "nome";
+
+/* Class = "UILabel"; text = "TrackerID"; ObjectID = "SaB-mS-8Nw"; Note = "Don't translate, technical term"; */
+"SaB-mS-8Nw.text" = "TrackerID";
+
+/* Class = "UILabel"; text = "UserID"; ObjectID = "SAr-Vi-xHD"; */
+"SAr-Vi-xHD.text" = "IDdoUsuario";
+
+/* Class = "UILabel"; text = "downgrade"; ObjectID = "Sbl-15-Idv"; Note = "Don't translate, technical term"; */
+"Sbl-15-Idv.text" = "reverter";
+
+/* Class = "UILabel"; text = "Distance"; ObjectID = "SCe-XW-vBZ"; */
+"SCe-XW-vBZ.text" = "Distancia";
+
+/* Class = "UINavigationItem"; title = "Create Tour"; ObjectID = "SR5-Yo-l2L"; */
+"SR5-Yo-l2L.title" = "Crear un percorrido";
+
+/* Class = "UITextView"; text = "<status>"; ObjectID = "src-OY-ZUR"; Note = "Don't translate. Placeholder"; */
+"src-OY-ZUR.text" = "<estado>";
+
+/* Class = "UITextField"; placeholder = "subTopic"; ObjectID = "suj-kA-G3U"; Note = "Placeholder. Do not translate"; */
+"suj-kA-G3U.placeholder" = "subTema";
+
+/* Class = "UILabel"; text = "From"; ObjectID = "SZe-bR-3x5"; */
+"SZe-bR-3x5.text" = "Dende";
+
+/* Class = "UILabel"; text = "Major"; ObjectID = "sZM-l3-N2o"; */
+"sZM-l3-N2o.text" = "Maior";
+
+/* Class = "UITextField"; placeholder = "minor"; ObjectID = "Tc6-JR-qOB"; */
+"Tc6-JR-qOB.placeholder" = "menor";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "THV-Ij-ayz"; */
+"THV-Ij-ayz.text" = "Título";
+
+/* Class = "UIButton"; normalTitle = "Tours"; ObjectID = "tiK-11-lia"; */
+"tiK-11-lia.normalTitle" = "Percorridos";
+
+/* Class = "UITableViewSection"; headerTitle = "Connection"; ObjectID = "TPY-zx-JfY"; */
+"TPY-zx-JfY.headerTitle" = "Conexión";
+
+/* Class = "UITextField"; placeholder = "host"; ObjectID = "tQs-PK-sbV"; Note = "Don't translate, technical term"; */
+"tQs-PK-sbV.placeholder" = "máquina/servidor";
+
+/* Class = "UITableViewSection"; headerTitle = "Location"; ObjectID = "uci-TJ-YaO"; */
+"uci-TJ-YaO.headerTitle" = "Localización";
+
+/* Class = "UILabel"; text = "DeviceID"; ObjectID = "uJc-pU-O6W"; Note = "Don't translate, technical term"; */
+"uJc-pU-O6W.text" = "ID de dispositivo";
+
+/* Class = "UILabel"; text = "Authentication"; ObjectID = "UjS-PQ-pwa"; */
+"UjS-PQ-pwa.text" = "Autenticación";
+
+/* Class = "UITextField"; placeholder = "major"; ObjectID = "UqU-7l-HX1"; */
+"UqU-7l-HX1.placeholder" = "maior";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "Urx-Dz-nZk"; */
+"Urx-Dz-nZk.text" = "Subtítulo";
+
+/* Class = "UILabel"; text = "monitoring"; ObjectID = "vhk-Yh-d0n"; Note = "Don't translate, technical term"; */
+"vhk-Yh-d0n.text" = "monitorización";
+
+/* Class = "UILabel"; text = "ignoreStaleLocations"; ObjectID = "vHW-Iv-6Q1"; Note = "Don't translate, technical term"; */
+"vHW-Iv-6Q1.text" = "ignorarLocalizaciónsObsoletas";
+
+/* Class = "UITableViewSection"; headerTitle = "MQTT Mode"; ObjectID = "vi2-IZ-KJt"; */
+"vi2-IZ-KJt.headerTitle" = "Modo MQTT";
+
+/* Class = "UILabel"; text = "TLS"; ObjectID = "VQE-Wz-JiS"; Note = "Technical termin. Do not translate"; */
+"VQE-Wz-JiS.text" = "TLS";
+
+/* Class = "UILabel"; text = "allowRemoteLocation"; ObjectID = "VqT-ix-RdG"; Note = "Don't translate, technical term"; */
+"VqT-ix-RdG.text" = "permitirLocalizaciónRemota";
+
+/* Class = "UILabel"; text = "effective subTopic"; ObjectID = "vUl-tT-Aw3"; Note = "Don't translate, technical term"; */
+"vUl-tT-Aw3.text" = "subTema efectivo";
+
+/* Class = "UILabel"; text = "cleanSession"; ObjectID = "VYy-2S-U3O"; Note = "Don't translate, technical term"; */
+"VYy-2S-U3O.text" = "limparSessión";
+
+/* Class = "UILabel"; text = "subTopic"; ObjectID = "w8s-ld-3gB"; Note = "Don't translate, technical term"; */
+"w8s-ld-3gB.text" = "subTema";
+
+/* Class = "UITextField"; placeholder = "topic"; ObjectID = "wKK-9Q-BMU"; */
+"wKK-9Q-BMU.placeholder" = "tema";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "WPX-rf-Obi"; */
+"WPX-rf-Obi.text" = "Nome";
+
+/* Class = "UILabel"; text = "Timestamp"; ObjectID = "x2d-ex-SAA"; */
+"x2d-ex-SAA.text" = "Marcade tempo";
+
+/* Class = "UILabel"; text = "pubQos"; ObjectID = "x67-7L-vnt"; Note = "Don't translate, technical term"; */
+"x67-7L-vnt.text" = "pubQos";
+
+/* Class = "UITextField"; placeholder = "downgrade%"; ObjectID = "XkO-CT-wUS"; Note = "Placeholder. Do not translate"; */
+"XkO-CT-wUS.placeholder" = "reverter %";
+
+/* Class = "UITextField"; placeholder = "OSMCopyright"; ObjectID = "yAb-Me-E2d"; */
+"yAb-Me-E2d.placeholder" = "copyrightOSM";
+
+/* Class = "UIButton"; normalTitle = "Mastodon"; ObjectID = "YlH-Kr-wOD"; */
+"YlH-Kr-wOD.normalTitle" = "Mastodon";
+
+/* Class = "UILabel"; text = "Coordinates"; ObjectID = "Ym9-bx-HAr"; */
+"Ym9-bx-HAr.text" = "Coordenadas";
+
+/* Class = "UILabel"; text = "ignoreInaccurateLocations"; ObjectID = "yni-yE-tcr"; Note = "Don't translate, technical term"; */
+"yni-yE-tcr.text" = "ignoreInaccurateLocations";
+
+/* Class = "UITextField"; placeholder = "number"; ObjectID = "yny-2e-dpz"; */
+"yny-2e-dpz.placeholder" = "número";
+
+/* Class = "UIButton"; normalTitle = "Publish Settings"; ObjectID = "YQ6-jA-Rsh"; */
+"YQ6-jA-Rsh.normalTitle" = "Axustes de publicación";
+
+/* Class = "UIButton"; normalTitle = "Export Settings"; ObjectID = "ysB-cv-35Y"; */
+"ysB-cv-35Y.normalTitle" = "Axustes de importación";
+
+/* Class = "UILabel"; text = "Coordinates"; ObjectID = "Yx0-Kk-yOQ"; */
+"Yx0-Kk-yOQ.text" = "Coordenadas";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "z87-2B-BRC"; */
+"z87-2B-BRC.text" = "Título";
+
+/* Class = "UITextField"; placeholder = "seconds"; ObjectID = "ZT5-mN-Tt5"; */
+"ZT5-mN-Tt5.placeholder" = "segundos";
+
+/* Class = "UITextField"; placeholder = "port"; ObjectID = "ZW3-WS-Wb7"; Note = "Don't translate, technical term"; */
+"ZW3-WS-Wb7.placeholder" = "porto";
+
