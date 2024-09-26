@@ -1,6 +1,12 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 18.0.2 iOS/ipadOS
+* Release Date 2024-09-26
+
+** Som UI enhancements
+    [NEW] keep user location available even in no-map mode #809
+
 ## OwnTracks 18.0.1 iOS/ipadOS
 * Release Date 2024-09-17
 
