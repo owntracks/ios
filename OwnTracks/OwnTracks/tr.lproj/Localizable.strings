@@ -88,7 +88,7 @@
 /* Export */
 "Export" = "İhracat";
 
-/* Fetching sharing list from backend */
+/* Fetching tour list from backend */
 "Fetching tour list from backend" = "Fetching tour list from backend";
 
 /* Display when file processing succeeds (filename follows) */
@@ -157,9 +157,6 @@
 /* Title map interaction */
 "Map Interaction" = "Harita Etkileşimi";
 
-/* Alert header for connection change warning */
-"Connection change" = "Mod değişikliği";
-
 /* Move */
 "Move" = "Hareket";
 
@@ -177,9 +174,6 @@
 
 /* No location recorded indication */
 "No location recorded" = "Konum kaydedilmedi";
-
-/* Display after trying to process a file *//* No pressure available */
-"No pressure available" = "No pressure available";
 
 /* No or empty tour list received from backend */
 "No or empty tour list received from backend" = "No or empty tour list received from backend";
@@ -238,7 +232,7 @@
 /* Send button title */
 "Send" = "Gönder";
 
-/* Send location now button */
+/* Send location now */
 "Send location now" = "Şimdi konumu gönder";
 
 /* content of an alert message regarding card */

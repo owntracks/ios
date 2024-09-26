@@ -244,9 +244,6 @@
 /* You disabled background fetch */
 "You disabled background fetch" = "You disabled background fetch";
 
-/* User Activity (Siri) Send location now */
-"Send location now" = "Send location now";
-
 /* MQTT Description Text */
 "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet";
 
@@ -325,7 +322,7 @@
 /* Alert message header for copy */
 "Copied" = "Copied";
 
-/* Send location now button */
+/* Send location now */
 "Send location now" = "Send location now";
 
 /* Set POI button */

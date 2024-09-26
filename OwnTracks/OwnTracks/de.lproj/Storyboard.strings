@@ -58,6 +58,9 @@
 /* Class = "UISegmentedControl"; 7W2-Mn-fUG.segmentTitles[1] = "HTTP"; ObjectID = "7W2-Mn-fUG"; Note = "Don't translate, technical term"; */
 "7W2-Mn-fUG.segmentTitles[1]" = "HTTP";
 
+/* Class = "UILabel"; text = "OSM Copyright"; ObjectID = "7wK-3s-ZUa"; */
+"7wK-3s-ZUa.text" = "OSM Copyright";
+
 /* Class = "UITableViewSection"; headerTitle = "Circular Region"; ObjectID = "7xg-sB-qXa"; */
 "7xg-sB-qXa.headerTitle" = "Kreisförmige Region";
 
@@ -72,9 +75,6 @@
 
 /* Class = "UIButton"; normalTitle = "Export Waypoints"; ObjectID = "54d-E6-cWX"; */
 "54d-E6-cWX.normalTitle" = "Regionen exportieren";
-
-/* Class = "UITextField"; placeholder = "willTopic"; ObjectID = "79P-sU-en0"; Note = "Placeholder. Do not translate"; */
-"79P-sU-en0.placeholder" = "willTopic";
 
 /* Class = "UILabel"; text = "keepAlive"; ObjectID = "222-vu-d4y"; Note = "Don't translate, technical term"; */
 "222-vu-d4y.text" = "keepAlive";
@@ -94,8 +94,14 @@
 /* Class = "UILabel"; text = "Street\n1\n2\n3\n4"; ObjectID = "apt-Il-Ih4"; Note = "Don't Translate, Placeholder"; */
 "apt-Il-Ih4.text" = "Strasse\n1\n2\n3\n4";
 
+/* Class = "UILabel"; text = "OSM Template"; ObjectID = "auA-1g-QGd"; */
+"auA-1g-QGd.text" = "OSM Template";
+
 /* Class = "UILabel"; text = "Allow Untrusted Certificates"; ObjectID = "aVN-vG-YjO"; Note = "Don't translate, technical term"; */
 "aVN-vG-YjO.text" = "Erlaube unbestätigte Zertifikate";
+
+/* Class = "UIButton"; normalTitle = "Logs"; ObjectID = "b91-ur-Ooi"; */
+"b91-ur-Ooi.normalTitle" = "Logs";
 
 /* Class = "UINavigationItem"; title = "Credits and License"; ObjectID = "BPo-EV-Jgg"; */
 "BPo-EV-Jgg.title" = "Danksagung und Lizenzen";
@@ -108,6 +114,9 @@
 
 /* Class = "UITextField"; placeholder = "qos"; ObjectID = "cBn-p7-eqG"; Note = "Placeholder. Do not translate"; */
 "cBn-p7-eqG.placeholder" = "qos";
+
+/* Class = "UILabel"; text = "Tag"; ObjectID = "ch2-SH-JfC"; */
+"ch2-SH-JfC.text" = "Tag";
 
 /* Class = "UILabel"; text = "Minor"; ObjectID = "crJ-Yr-XNh"; */
 "crJ-Yr-XNh.text" = "Minor";
@@ -123,9 +132,6 @@
 
 /* Class = "UILabel"; text = "Topic"; ObjectID = "Dgw-5m-uvy"; */
 "Dgw-5m-uvy.text" = "Topic";
-
-/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "dhG-pz-V9R"; */
-"dhG-pz-V9R.title" = "Item";
 
 /* Class = "UITableViewSection"; headerTitle = "Beacon Region"; ObjectID = "dPT-PC-ShQ"; */
 "dPT-PC-ShQ.headerTitle" = "Beacon Region";
@@ -148,6 +154,12 @@
 /* Class = "UIButton"; normalTitle = "Documentation"; ObjectID = "ePs-kX-VDJ"; */
 "ePs-kX-VDJ.normalTitle" = "Dokumentation";
 
+/* Class = "UIBarButtonItem"; title = "-"; ObjectID = "ere-0U-4rD"; Note = "Placeholder. Do not translate"; */
+"ere-0U-4rD.title" = "-";
+
+/* Class = "UIButton"; normalTitle = "Send Debug Status"; ObjectID = "evM-XZ-F0H"; */
+"evM-XZ-F0H.normalTitle" = "Send Debug Status";
+
 /* Class = "UILabel"; text = "Port"; ObjectID = "EWI-7o-7Jo"; */
 "EWI-7o-7Jo.text" = "Port";
 
@@ -160,17 +172,17 @@
 /* Class = "UITextField"; placeholder = "uuid"; ObjectID = "fPO-vc-4UX"; */
 "fPO-vc-4UX.placeholder" = "uuid";
 
+/* Class = "UILabel"; text = "POI"; ObjectID = "Fup-3w-dk7"; */
+"Fup-3w-dk7.text" = "POI";
+
 /* Class = "UILabel"; text = "Credits and Licence"; ObjectID = "FYQ-ba-bf8"; */
 "FYQ-ba-bf8.text" = "Danksagung und Lizenzen";
 
 /* Class = "UILabel"; text = "Version"; ObjectID = "g84-aA-XOI"; */
 "g84-aA-XOI.text" = "Version";
 
-/* Class = "UITextField"; placeholder = "qos"; ObjectID = "giY-cI-jfy"; Note = "Placeholder. Do not translate"; */
-"giY-cI-jfy.placeholder" = "qos";
-
 /* Class = "UITableViewSection"; headerTitle = "OwnTracks - Your location companion"; ObjectID = "Gjb-Ud-8a8"; */
-"Gjb-Ud-8a8.headerTitle" = "OwnTracks - Your location companion";
+"Gjb-Ud-8a8.headerTitle" = "OwnTracks -Your location companion";
 
 /* Class = "UITextField"; placeholder = "<Distance>"; ObjectID = "gkb-3O-jAy"; Note = "Placeholder. Don't translate."; */
 "gkb-3O-jAy.placeholder" = "<Entfernung>";
@@ -247,9 +259,6 @@
 /* Class = "UITextField"; placeholder = "clientId"; ObjectID = "IsX-6T-YbC"; Note = "Placeholder. Do not translate"; */
 "IsX-6T-YbC.placeholder" = "clientId";
 
-/* Class = "UILabel"; text = "willTopic"; ObjectID = "iuh-ye-xuh"; Note = "Don't translate, technical term"; */
-"iuh-ye-xuh.text" = "willTopic";
-
 /* Class = "UINavigationItem"; title = "Settings"; ObjectID = "jaH-UC-XYI"; */
 "jaH-UC-XYI.title" = "Einstellungen";
 
@@ -259,14 +268,14 @@
 /* Class = "UITextField"; placeholder = "Meters"; ObjectID = "jqJ-cr-0tT"; Note = "Don't translate, technical term"; */
 "jqJ-cr-0tT.placeholder" = "Meter";
 
+/* Class = "UITextField"; placeholder = "OSMTemplate"; ObjectID = "JS1-vt-wVV"; */
+"JS1-vt-wVV.placeholder" = "OSMTemplate";
+
 /* Class = "UITextField"; placeholder = "client certificate file"; ObjectID = "JSF-BR-9Nb"; Note = "Don't translate, technical term"; */
 "JSF-BR-9Nb.placeholder" = "client certificate file";
 
 /* Class = "UILabel"; text = "sub"; ObjectID = "Jw3-DE-n5i"; Note = "Don't translate, technical term"; */
 "Jw3-DE-n5i.text" = "sub";
-
-/* Class = "UILabel"; text = "effective willTopic"; ObjectID = "jwg-hb-6ed"; Note = "Don't translate, technical term"; */
-"jwg-hb-6ed.text" = "effektives willTopic";
 
 /* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "jwK-F1-3iE"; Note = "Placeholder. Don't translate."; */
 "jwK-F1-3iE.placeholder" = "coordinate";
@@ -304,11 +313,17 @@
 /* Class = "UITextField"; placeholder = "Meters"; ObjectID = "M0H-SF-pCO"; */
 "M0H-SF-pCO.placeholder" = "Meter";
 
+/* Class = "UITextField"; placeholder = "httpHeaders"; ObjectID = "mca-nZ-Fzz"; */
+"mca-nZ-Fzz.placeholder" = "httpHeaders";
+
 /* Class = "UILabel"; text = "Created At"; ObjectID = "mhI-D6-Y0f"; */
 "mhI-D6-Y0f.text" = "Created At";
 
-/* Class = "UITextView"; text = "Uses the following cocoapods (http://cocoapods.org):\n CocoaLumberjack,\nABStaticTableViewController,\nlibsodium (libsodium.org),DSJSONSchemaValidation\n"; ObjectID = "Moe-Di-frm"; */
-"Moe-Di-frm.text" = "Uses the following cocoapods (http://cocoapods.org):\n CocoaLumberjack,\nABStaticTableViewController,\nlibsodium (libsodium.org),DSJSONSchemaValidation\n";
+/* Class = "UILabel"; text = "Pressure"; ObjectID = "MLp-t9-oef"; */
+"MLp-t9-oef.text" = "Druck";
+
+/* Class = "UITextView"; text = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, Sodium, and DSJSONSchemaValidation."; ObjectID = "Moe-Di-frm"; */
+"Moe-Di-frm.text" = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, Sodium, and DSJSONSchemaValidation.";
 
 /* Class = "UITabBarItem"; title = "Friends"; ObjectID = "msF-bI-hEJ"; */
 "msF-bI-hEJ.title" = "Freunde";
@@ -349,6 +364,12 @@
 /* Class = "UITextField"; placeholder = "userid"; ObjectID = "Oiq-Kb-qLx"; */
 "Oiq-Kb-qLx.placeholder" = "userid";
 
+/* Class = "UILabel"; text = "HTTP Headers"; ObjectID = "p6D-3d-Jq2"; */
+"p6D-3d-Jq2.text" = "HTTP Headers";
+
+/* Class = "UINavigationItem"; title = "Logs"; ObjectID = "p61-Zk-kOq"; */
+"p61-Zk-kOq.title" = "Logs";
+
 /* Class = "UITextField"; placeholder = "qos"; ObjectID = "PBp-Kc-CwF"; Note = "Placeholder. Do not translate"; */
 "PBp-Kc-CwF.placeholder" = "qos";
 
@@ -360,6 +381,9 @@
 
 /* Class = "UITextField"; placeholder = "proto"; ObjectID = "pn1-hA-OmO"; */
 "pn1-hA-OmO.placeholder" = "proto";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "pOi-JI-Qg7"; */
+"pOi-JI-Qg7.text" = "Subtitle";
 
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "pRh-Nl-A5i"; */
 "pRh-Nl-A5i.title" = "Eintrag";
@@ -381,9 +405,6 @@
 
 /* Class = "UILabel"; text = "effective tid"; ObjectID = "rdL-4M-Ugx"; Note = "Don't translate, technical term"; */
 "rdL-4M-Ugx.text" = "effektiver tid";
-
-/* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "RfS-uy-gRR"; Note = "Placeholder. Don't translate."; */
-"RfS-uy-gRR.placeholder" = "<Coordinates>";
 
 /* Class = "UINavigationItem"; title = "Create Card"; ObjectID = "rJ2-2y-TWr"; */
 "rJ2-2y-TWr.title" = "Erstelle Visitenkarte";
@@ -433,11 +454,11 @@
 /* Class = "UILabel"; text = "Major"; ObjectID = "sZM-l3-N2o"; */
 "sZM-l3-N2o.text" = "Major";
 
-/* Class = "UILabel"; text = "willQos"; ObjectID = "t48-sP-9SU"; Note = "Don't translate, technical term"; */
-"t48-sP-9SU.text" = "willQos";
-
 /* Class = "UITextField"; placeholder = "minor"; ObjectID = "Tc6-JR-qOB"; */
 "Tc6-JR-qOB.placeholder" = "minor";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "THV-Ij-ayz"; */
+"THV-Ij-ayz.text" = "Title";
 
 /* Class = "UIButton"; normalTitle = "Tours"; ObjectID = "tiK-11-lia"; */
 "tiK-11-lia.normalTitle" = "Touren";
@@ -450,9 +471,6 @@
 
 /* Class = "UITableViewSection"; headerTitle = "Location"; ObjectID = "uci-TJ-YaO"; */
 "uci-TJ-YaO.headerTitle" = "Location";
-
-/* Class = "UILabel"; text = "willRetain"; ObjectID = "udF-FX-N41"; Note = "Don't translate, technical term"; */
-"udF-FX-N41.text" = "willRetain";
 
 /* Class = "UILabel"; text = "DeviceID"; ObjectID = "uJc-pU-O6W"; Note = "Don't translate, technical term"; */
 "uJc-pU-O6W.text" = "DeviceID";
@@ -504,6 +522,9 @@
 
 /* Class = "UITextField"; placeholder = "downgrade%"; ObjectID = "XkO-CT-wUS"; Note = "Placeholder. Do not translate"; */
 "XkO-CT-wUS.placeholder" = "zurückstufen bei %";
+
+/* Class = "UITextField"; placeholder = "OSMCopyright"; ObjectID = "yAb-Me-E2d"; */
+"yAb-Me-E2d.placeholder" = "OSMCopyright";
 
 /* Class = "UIButton"; normalTitle = "Mastodon"; ObjectID = "YlH-Kr-wOD"; */
 "YlH-Kr-wOD.normalTitle" = "Mastodon";

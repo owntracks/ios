@@ -70,9 +70,6 @@
 /* Class = "UIButton"; normalTitle = "Export Waypoints"; ObjectID = "54d-E6-cWX"; */
 "54d-E6-cWX.normalTitle" = "Eksportér Rutepunkter";
 
-/* Class = "UITextField"; placeholder = "willTopic"; ObjectID = "79P-sU-en0"; Note = "Placeholder. Do not translate"; */
-"79P-sU-en0.placeholder" = "willTopic";
-
 /* Class = "UILabel"; text = "keepAlive"; ObjectID = "222-vu-d4y"; Note = "Don't translate, technical term"; */
 "222-vu-d4y.text" = "keepAlive";
 
@@ -118,9 +115,6 @@
 /* Class = "UILabel"; text = "Topic"; ObjectID = "Dgw-5m-uvy"; */
 "Dgw-5m-uvy.text" = "Emne";
 
-/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "dhG-pz-V9R"; */
-"dhG-pz-V9R.title" = "Element";
-
 /* Class = "UITableViewSection"; headerTitle = "Beacon Region"; ObjectID = "dPT-PC-ShQ"; */
 "dPT-PC-ShQ.headerTitle" = "Beacon Region";
 
@@ -128,7 +122,7 @@
 "dUg-TH-IQ0.placeholder" = "trackerid";
 
 /* Class = "UITextView"; text = "Copyright © 2013-2024 by Christoph Krey, https://owntracks.org"; ObjectID = "dZg-CC-7yD"; */
-"dZg-CC-7yD.text" = "Copyright © 2013-2024 af Christoph Krey, https://owntracks.org";
+"dZg-CC-7yD.text" = "Copyright © 2013-2024 by Christoph Krey, https://owntracks.org";
 
 /* Class = "UILabel"; text = "ranging"; ObjectID = "DZx-uw-XhQ"; Note = "Don't translate, technical term"; */
 "DZx-uw-XhQ.text" = "ranging";
@@ -141,6 +135,9 @@
 
 /* Class = "UIButton"; normalTitle = "Documentation"; ObjectID = "ePs-kX-VDJ"; */
 "ePs-kX-VDJ.normalTitle" = "Dokumentation";
+
+/* Class = "UIBarButtonItem"; title = "-"; ObjectID = "ere-0U-4rD"; Note = "Placeholder. Do not translate"; */
+"ere-0U-4rD.title" = "-";
 
 /* Class = "UILabel"; text = "Port"; ObjectID = "EWI-7o-7Jo"; */
 "EWI-7o-7Jo.text" = "Port";
@@ -159,9 +156,6 @@
 
 /* Class = "UILabel"; text = "Version"; ObjectID = "g84-aA-XOI"; */
 "g84-aA-XOI.text" = "Version";
-
-/* Class = "UITextField"; placeholder = "qos"; ObjectID = "giY-cI-jfy"; Note = "Placeholder. Do not translate"; */
-"giY-cI-jfy.placeholder" = "qos";
 
 /* Class = "UITableViewSection"; headerTitle = "OwnTracks - Your location companion"; ObjectID = "Gjb-Ud-8a8"; */
 "Gjb-Ud-8a8.headerTitle" = "OwnTracks - Din positionspartner";
@@ -241,9 +235,6 @@
 /* Class = "UITextField"; placeholder = "clientId"; ObjectID = "IsX-6T-YbC"; Note = "Placeholder. Do not translate"; */
 "IsX-6T-YbC.placeholder" = "clientId";
 
-/* Class = "UILabel"; text = "willTopic"; ObjectID = "iuh-ye-xuh"; Note = "Don't translate, technical term"; */
-"iuh-ye-xuh.text" = "willTopic";
-
 /* Class = "UINavigationItem"; title = "Settings"; ObjectID = "jaH-UC-XYI"; */
 "jaH-UC-XYI.title" = "Indstillinger";
 
@@ -258,9 +249,6 @@
 
 /* Class = "UILabel"; text = "sub"; ObjectID = "Jw3-DE-n5i"; Note = "Don't translate, technical term"; */
 "Jw3-DE-n5i.text" = "sub";
-
-/* Class = "UILabel"; text = "effective willTopic"; ObjectID = "jwg-hb-6ed"; Note = "Don't translate, technical term"; */
-"jwg-hb-6ed.text" = "effective willTopic";
 
 /* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "jwK-F1-3iE"; Note = "Placeholder. Don't translate."; */
 "jwK-F1-3iE.placeholder" = "<Koordinater>";
@@ -298,8 +286,8 @@
 /* Class = "UITextField"; placeholder = "Meters"; ObjectID = "M0H-SF-pCO"; */
 "M0H-SF-pCO.placeholder" = "Meter";
 
-/* Class = "UITextView"; text = "Uses the following cocoapods (http://cocoapods.org):\n CocoaLumberjack,\nABStaticTableViewController,\nlibsodium (libsodium.org),DSJSONSchemaValidation\n"; ObjectID = "Moe-Di-frm"; */
-"Moe-Di-frm.text" = "Uses the following cocoapods (http://cocoapods.org):\n CocoaLumberjack,\nABStaticTableViewController,\nlibsodium (libsodium.org),DSJSONSchemaValidation\n";
+/* Class = "UITextView"; text = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, Sodium, and DSJSONSchemaValidation."; ObjectID = "Moe-Di-frm"; */
+"Moe-Di-frm.text" = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, Sodium, and DSJSONSchemaValidation.";
 
 /* Class = "UITabBarItem"; title = "Friends"; ObjectID = "msF-bI-hEJ"; */
 "msF-bI-hEJ.title" = "Venner";
@@ -367,9 +355,6 @@
 /* Class = "UILabel"; text = "effective tid"; ObjectID = "rdL-4M-Ugx"; Note = "Don't translate, technical term"; */
 "rdL-4M-Ugx.text" = "effective id";
 
-/* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "RfS-uy-gRR"; Note = "Placeholder. Don't translate."; */
-"RfS-uy-gRR.placeholder" = "<Coordinates>";
-
 /* Class = "UINavigationItem"; title = "Create Card"; ObjectID = "rJ2-2y-TWr"; */
 "rJ2-2y-TWr.title" = "Opret Kort";
 
@@ -415,9 +400,6 @@
 /* Class = "UILabel"; text = "From"; ObjectID = "SZe-bR-3x5"; */
 "SZe-bR-3x5.text" = "Fra";
 
-/* Class = "UILabel"; text = "willQos"; ObjectID = "t48-sP-9SU"; Note = "Don't translate, technical term"; */
-"t48-sP-9SU.text" = "willQos";
-
 /* Class = "UIButton"; normalTitle = "Tours"; ObjectID = "tiK-11-lia"; */
 "tiK-11-lia.normalTitle" = "Ture";
 
@@ -429,9 +411,6 @@
 
 /* Class = "UITableViewSection"; headerTitle = "Location"; ObjectID = "uci-TJ-YaO"; */
 "uci-TJ-YaO.headerTitle" = "Position";
-
-/* Class = "UILabel"; text = "willRetain"; ObjectID = "udF-FX-N41"; Note = "Don't translate, technical term"; */
-"udF-FX-N41.text" = "willRetain";
 
 /* Class = "UILabel"; text = "DeviceID"; ObjectID = "uJc-pU-O6W"; Note = "Don't translate, technical term"; */
 "uJc-pU-O6W.text" = "DeviceID";

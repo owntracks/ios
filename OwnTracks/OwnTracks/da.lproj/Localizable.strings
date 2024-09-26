@@ -82,7 +82,7 @@
 /* Export */
 "Export" = "Eksportér";
 
-/* Fetching sharing list from backend */
+/* Fetching tour list from backend */
 "Fetching tour list from backend" = "Henter tur-liste fra serveren";
 
 /* Display when file processing succeeds (filename follows) */
@@ -151,9 +151,6 @@
 /* Title map interaction */
 "Map Interaction" = "Kortinteraktion";
 
-/* Alert header for connection change warning */
-"Connection change" = "Tilstandsændring";
-
 /* Move */
 "Move" = "Bevægelse";
 
@@ -171,9 +168,6 @@
 
 /* No location recorded indication */
 "No location recorded" = "Ingen placering gemt";
-
-/* Display after trying to process a file *//* No pressure available */
-"No pressure available" = "No pressure available";
 
 /* No or empty tour list received from backend */
 "No or empty tour list received from backend" = "Ingen eller tom liste modtaget fra serveren";
@@ -223,7 +217,7 @@
 /* Sat */
 "Sat" = "Sat";
 
-/* User Activity (Siri) Send location now */
+/* Send location now */
 "Send location now" = "Send position nu";
 
 /* content of an alert message regarding card */
@@ -319,41 +313,6 @@
 /* You cannot use background fetch */
 "You cannot use background fetch" = "Du kan ikke bruge baggrundsfetch";
 
-/* You disabled background fetch */
-"You disabled background fetch" = "Du slog baggrundsfetch fra";
-
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Du skal opsætte din egen OwnTracks server og redigere din konfiguration for fuld privatlivsbeskyttelse. Detaljeret info på https://owntracks.org/booklet";
 
-/* Send location now button */
-"Send location now" = "Send location now";
-
-/* Set POI button */
-"Set POI" = "Set POI";
-
-/* Set tag button */
-"Set tag" = "Set tag";
-
-/* Set POI title */
-"Set POI" = "Set POI";
-
-/* Set Tag title */
-"Set Tag" = "Set Tag";
-
-/* Send button title*/
-"Send" = "Send";
-
-/* Remove button title*/
-"Remove" = "Remove";
-
-/* Shortcut Switch to Move Monitoring Monitoring Mode */
-"Switch to Move Monitoring Mode" = "Switch to Move Monitoring Mode";
-
-/* Shortcut Switch to Significant Changes Monitoring Mode */
-"Switch to Significant Changes Monitoring Mode" = "Switch to Significant Changes Monitoring Mode";
-
-/* Shortcut Switch to Manual Monitoring Mode */
-"Switch to Manual Monitoring Mode" = "Switch to Manual Monitoring Mode";
-
-/* Shortcut Switch to Quiet Monitoring Mode */
-"Switch to Quiet Monitoring Mode" = "Switch to Quiet Monitoring Mode";

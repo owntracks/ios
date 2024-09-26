@@ -73,9 +73,6 @@
 /* Class = "UIButton"; normalTitle = "Export Waypoints"; ObjectID = "54d-E6-cWX"; */
 "54d-E6-cWX.normalTitle" = "Ara Noktaları Dışa Aktar";
 
-/* Class = "UITextField"; placeholder = "willTopic"; ObjectID = "79P-sU-en0"; Note = "Placeholder. Do not translate"; */
-"79P-sU-en0.placeholder" = "willTopic";
-
 /* Class = "UILabel"; text = "keepAlive"; ObjectID = "222-vu-d4y"; Note = "Don't translate, technical term"; */
 "222-vu-d4y.text" = "hayatta kal";
 
@@ -124,9 +121,6 @@
 /* Class = "UILabel"; text = "Topic"; ObjectID = "Dgw-5m-uvy"; */
 "Dgw-5m-uvy.text" = "Konu";
 
-/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "dhG-pz-V9R"; */
-"dhG-pz-V9R.title" = "Öğe";
-
 /* Class = "UITableViewSection"; headerTitle = "Beacon Region"; ObjectID = "dPT-PC-ShQ"; */
 "dPT-PC-ShQ.headerTitle" = "İşaret Bölgesi";
 
@@ -134,7 +128,7 @@
 "dUg-TH-IQ0.placeholder" = "izci kimliği";
 
 /* Class = "UITextView"; text = "Copyright © 2013-2024 by Christoph Krey, https://owntracks.org"; ObjectID = "dZg-CC-7yD"; */
-"dZg-CC-7yD.text" = "Telif hakkı © 2013-2021, Christoph Krey, https://owntracks.org";
+"dZg-CC-7yD.text" = "Copyright © 2013-2024 by Christoph Krey, https://owntracks.org";
 
 /* Class = "UILabel"; text = "ranging"; ObjectID = "DZx-uw-XhQ"; Note = "Don't translate, technical term"; */
 "DZx-uw-XhQ.text" = "değişen";
@@ -147,6 +141,9 @@
 
 /* Class = "UIButton"; normalTitle = "Documentation"; ObjectID = "ePs-kX-VDJ"; */
 "ePs-kX-VDJ.normalTitle" = "Dokümantasyon";
+
+/* Class = "UIBarButtonItem"; title = "-"; ObjectID = "ere-0U-4rD"; Note = "Placeholder. Do not translate"; */
+"ere-0U-4rD.title" = "-";
 
 /* Class = "UILabel"; text = "Port"; ObjectID = "EWI-7o-7Jo"; */
 "EWI-7o-7Jo.text" = "Liman";
@@ -165,9 +162,6 @@
 
 /* Class = "UILabel"; text = "Version"; ObjectID = "g84-aA-XOI"; */
 "g84-aA-XOI.text" = "Versiyon";
-
-/* Class = "UITextField"; placeholder = "qos"; ObjectID = "giY-cI-jfy"; Note = "Placeholder. Do not translate"; */
-"giY-cI-jfy.placeholder" = "qos";
 
 /* Class = "UITableViewSection"; headerTitle = "OwnTracks - Your location companion"; ObjectID = "Gjb-Ud-8a8"; */
 "Gjb-Ud-8a8.headerTitle" = "OwnTracks - Konum arkadaşınız";
@@ -247,9 +241,6 @@
 /* Class = "UITextField"; placeholder = "clientId"; ObjectID = "IsX-6T-YbC"; Note = "Placeholder. Do not translate"; */
 "IsX-6T-YbC.placeholder" = "Müşteri Kimliği";
 
-/* Class = "UILabel"; text = "willTopic"; ObjectID = "iuh-ye-xuh"; Note = "Don't translate, technical term"; */
-"iuh-ye-xuh.text" = "willTopic";
-
 /* Class = "UINavigationItem"; title = "Settings"; ObjectID = "jaH-UC-XYI"; */
 "jaH-UC-XYI.title" = "Ayarlar";
 
@@ -264,9 +255,6 @@
 
 /* Class = "UILabel"; text = "sub"; ObjectID = "Jw3-DE-n5i"; Note = "Don't translate, technical term"; */
 "Jw3-DE-n5i.text" = "alt";
-
-/* Class = "UILabel"; text = "effective willTopic"; ObjectID = "jwg-hb-6ed"; Note = "Don't translate, technical term"; */
-"jwg-hb-6ed.text" = "etkili irade";
 
 /* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "jwK-F1-3iE"; Note = "Placeholder. Don't translate."; */
 "jwK-F1-3iE.placeholder" = "Koordinatlar";
@@ -307,8 +295,8 @@
 /* Class = "UILabel"; text = "Created At"; ObjectID = "mhI-D6-Y0f"; */
 "mhI-D6-Y0f.text" = "Oluşturulma Tarihi";
 
-/* Class = "UITextView"; text = "Uses the following cocoapods (http://cocoapods.org):\n CocoaLumberjack,\nABStaticTableViewController,\nlibsodium (libsodium.org),DSJSONSchemaValidation\n"; ObjectID = "Moe-Di-frm"; */
-"Moe-Di-frm.text" = "Uses the following cocoapods (http://cocoapods.org):\n CocoaLumberjack,\nABStaticTableViewController,\nlibsodium (libsodium.org),DSJSONSchemaValidation\n";
+/* Class = "UITextView"; text = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, Sodium, and DSJSONSchemaValidation."; ObjectID = "Moe-Di-frm"; */
+"Moe-Di-frm.text" = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, Sodium, and DSJSONSchemaValidation.";
 
 /* Class = "UITabBarItem"; title = "Friends"; ObjectID = "msF-bI-hEJ"; */
 "msF-bI-hEJ.title" = "Arkadaşlar";
@@ -382,9 +370,6 @@
 /* Class = "UILabel"; text = "effective tid"; ObjectID = "rdL-4M-Ugx"; Note = "Don't translate, technical term"; */
 "rdL-4M-Ugx.text" = "etkili haber";
 
-/* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "RfS-uy-gRR"; Note = "Placeholder. Don't translate."; */
-"RfS-uy-gRR.placeholder" = "<Koordinatlar>";
-
 /* Class = "UINavigationItem"; title = "Create Card"; ObjectID = "rJ2-2y-TWr"; */
 "rJ2-2y-TWr.title" = "Kart Oluştur";
 
@@ -433,9 +418,6 @@
 /* Class = "UILabel"; text = "Major"; ObjectID = "sZM-l3-N2o"; */
 "sZM-l3-N2o.text" = "Majör";
 
-/* Class = "UILabel"; text = "willQos"; ObjectID = "t48-sP-9SU"; Note = "Don't translate, technical term"; */
-"t48-sP-9SU.text" = "willQos";
-
 /* Class = "UITextField"; placeholder = "minor"; ObjectID = "Tc6-JR-qOB"; */
 "Tc6-JR-qOB.placeholder" = "minör";
 
@@ -450,9 +432,6 @@
 
 /* Class = "UITableViewSection"; headerTitle = "Location"; ObjectID = "uci-TJ-YaO"; */
 "uci-TJ-YaO.headerTitle" = "yer";
-
-/* Class = "UILabel"; text = "willRetain"; ObjectID = "udF-FX-N41"; Note = "Don't translate, technical term"; */
-"udF-FX-N41.text" = "WillRetain";
 
 /* Class = "UILabel"; text = "DeviceID"; ObjectID = "uJc-pU-O6W"; Note = "Don't translate, technical term"; */
 "uJc-pU-O6W.text" = "Cihaz Kimliği";

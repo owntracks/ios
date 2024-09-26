@@ -148,9 +148,6 @@
 /* Title map interaction */
 "Map Interaction" = "Interakcja z mapą";
 
-/* Alert header for connection change warning */
-"Connection change" = "Zmiana trybu";
-
 /* Move */
 "Move" = "Poruszania";
 
@@ -168,9 +165,6 @@
 
 /* No location recorded indication */
 "No location recorded" = "No location recorded";
-
-/* Display after trying to process a file *//* No pressure available */
-"No pressure available" = "No pressure available";
 
 /* Display after trying to process a file */
 "no url specified" = "URL nieznany";
@@ -199,6 +193,9 @@
 /* Header of an alert message regarding circular region */
 "Region" = "Obszar";
 
+/* Requesting tour */
+"Requesting tour" = "Requesting tour";
+
 /* temporary display while resolving address */
 "resolving..." = "rozwiązywanie...";
 
@@ -211,7 +208,7 @@
 /* Sat */
 "Sat" = "Sat";
 
-/* User Activity (Siri) Send location now */
+/* Send location now */
 "Send location now" = "Send location now";
 
 /* content of an alert message regarding card */
@@ -283,44 +280,6 @@
 /* You cannot use background fetch */
 "You cannot use background fetch" = "Nie możesz użyć pobrania w tle";
 
-/* You disabled background fetch */
-"You disabled background fetch" = "Wyłączyłeś pobieranie w tle";
-
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Możesz skonfigurować własny serwer OwnTracks dla pełnej ochrony prywatności. Więcej informacji tutaj: https://owntracks.org/booklet";
 
-/* Alert message header for copy */
-"Copied" = "Copied";
-
-/* Send location now button */
-"Send location now" = "Send location now";
-
-/* Set POI button */
-"Set POI" = "Set POI";
-
-/* Set tag button */
-"Set tag" = "Set tag";
-
-/* Set POI title */
-"Set POI" = "Set POI";
-
-/* Set Tag title */
-"Set Tag" = "Set Tag";
-
-/* Send button title*/
-"Send" = "Send";
-
-/* Remove button title*/
-"Remove" = "Remove";
-
-/* Shortcut Switch to Move Monitoring Monitoring Mode */
-"Switch to Move Monitoring Mode" = "Switch to Move Monitoring Mode";
-
-/* Shortcut Switch to Significant Changes Monitoring Mode */
-"Switch to Significant Changes Monitoring Mode" = "Switch to Significant Changes Monitoring Mode";
-
-/* Shortcut Switch to Manual Monitoring Mode */
-"Switch to Manual Monitoring Mode" = "Switch to Manual Monitoring Mode";
-
-/* Shortcut Switch to Quiet Monitoring Mode */
-"Switch to Quiet Monitoring Mode" = "Switch to Quiet Monitoring Mode";

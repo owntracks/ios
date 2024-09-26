@@ -282,7 +282,7 @@
 /* No or empty tour list received from backend */
 "No or empty tour list received from backend" = "No or empty tour list received from backend";
 
-/* Fetching sharing list from backend */
+/* Fetching tour list from backend */
 "Fetching tour list from backend" = "Fetching tour list from backend";
 
 /* Header of an alert message regarding a card */
@@ -321,7 +321,7 @@
 /* Alert message header for copy */
 "Copied" = "Copied";
 
-/* Send location now button */
+/* Send location now */
 "Send location now" = "Send location now";
 
 /* Set POI button */

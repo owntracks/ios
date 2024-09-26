@@ -88,7 +88,7 @@
 /* Export */
 "Export" = "Exportera";
 
-/* Fetching sharing list from backend */
+/* Fetching tour list from backend */
 "Fetching tour list from backend" = "Hämtar reselista från backend";
 
 /* Display when file processing succeeds (filename follows) */
@@ -232,7 +232,7 @@
 /* Send button title */
 "Send" = "Skicka";
 
-/* Send location now button */
+/* Send location now */
 "Send location now" = "Skicka plats nu";
 
 /* content of an alert message regarding card */

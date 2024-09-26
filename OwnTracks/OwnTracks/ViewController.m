@@ -983,7 +983,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
                              message:nil
                              preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *sendNow = [UIAlertAction actionWithTitle:NSLocalizedString(@"Send location now",
-                                                                              @"Send location now button")
+                                                                              @"Send location now")
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * _Nonnull action) {
         [self sendNow:nil];

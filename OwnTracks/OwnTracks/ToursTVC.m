@@ -236,7 +236,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 - (NSString *)tableView:(UITableView *)tableView
 titleForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        return NSLocalizedString(@"Tours", @"Tour list header");
+        return NSLocalizedString(@"Tours", @"Tours list header");
     } else {
         return NSLocalizedString(@"Tours status", @"Tours status header");
     }

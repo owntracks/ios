@@ -91,7 +91,7 @@
 /* Export */
 "Export" = "Exportar";
 
-/* Fetching sharing list from backend */
+/* Fetching tour list from backend */
 "Fetching tour list from backend" = "Obtendo a lista de percorridos da infraestrutura";
 
 /* Display when file processing succeeds (filename follows) */
@@ -241,7 +241,7 @@
 /* Send button title */
 "Send" = "Enviar";
 
-/* Send location now button */
+/* Send location now */
 "Send location now" = "Enviar a localización agora";
 
 /* content of an alert message regarding card */

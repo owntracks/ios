@@ -1,0 +1,39 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "OwnTracks";
+
+/* Bundle name */
+"CFBundleName" = "OwnTracks";
+
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "OwnTracks utilise votre appareil photo sur demande pour créer une Carte";
+
+/* Privacy - Contacts Usage Description */
+"NSContactsUsageDescription" = "Si vous autorisez Owntracks accéder à vos contacts, vous pourrez lier vos appareils aux contacts. Owntracks affichera le nom du contact et son image au lieu du numéro d'appareil. aucun contact de votre répertoire ne sera transmis au serveur.";
+
+/* Privacy - Location Always and When In Use Usage Description */
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Votre position est partagée et enregistré sur le serveur de votre choix";
+
+/* Privacy - Location Always Usage Description */
+"NSLocationAlwaysUsageDescription" = "Votre position est partagée et enregistré sur le serveur de votre choix";
+
+/* Privacy - Location Usage Description */
+"NSLocationUsageDescription" = "Votre position est partagée et enregistré sur le serveur de votre choix";
+
+/* Privacy - Location When In Use Usage Description */
+"NSLocationWhenInUseUsageDescription" = "Votre position est partagée et enregistré sur le serveur de votre choix";
+
+/* Privacy - Motion Usage Description */
+"NSMotionUsageDescription" = "OwnTracks fournit sur demande votre nombre de pas, les étages montés et la distance parcourue";
+
+/* (No Comment) */
+"OwnTracks CER File" = "Fichier OwnTracks CER";
+
+/* (No Comment) */
+"OwnTracks Configuration File" = "Fichier de configuration Owntracks";
+
+/* (No Comment) */
+"OwnTracks PKCS12 File" = "Fichier PXCS12 Owntracks";
+
+/* (No Comment) */
+"OwnTracks Waypoints File" = "Fichier de Waypoints OwnTracks";
+

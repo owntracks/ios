@@ -55,6 +55,9 @@
 /* description connection connected state */
 "connecting" = "verbinden...";
 
+/* Alert header for connection change warning */
+"Connection change" = "Connection Change";
+
 /* Continue button title */
 "Continue" = "Weiter";
 
@@ -88,7 +91,7 @@
 /* Export */
 "Export" = "Export";
 
-/* Fetching sharing list from backend */
+/* Fetching tour list from backend */
 "Fetching tour list from backend" = "Tourenliste Anfrage läuft";
 
 /* Display when file processing succeeds (filename follows) */
@@ -157,9 +160,6 @@
 /* Title map interaction */
 "Map Interaction" = "Karten Interaktion";
 
-/* Alert header for connection change warning */
-"Connection change" = "Verbindungswechsel";
-
 /* Move */
 "Move" = "Bewegung";
 
@@ -178,11 +178,11 @@
 /* No location recorded indication */
 "No location recorded" = "Keine Position verfügbar\n";
 
-/* Display after trying to process a file *//* No pressure available */
-"No pressure available" = "No pressure available";
-
 /* No or empty tour list received from backend */
 "No or empty tour list received from backend" = "Tourenliste nicht vorhanden oder leer";
+
+/* No pressure available */
+"No pressure available" = "Kein Druck vorhanden";
 
 /* Display after trying to process a file */
 "no url specified" = "keine URL angegeben";
@@ -195,6 +195,9 @@
 
 /* temporary display while opening URL */
 "opening URL" = "URL wird geöffnet";
+
+/* OSM */
+"OSM" = "OSM";
 
 /* Alert content for connection change warning */
 "Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Bitte beachten Sie, dass gespeicherte Regionen und Positionen auf diesem Gerät gelöscht werden. Bitte sichern Sie diese vorher.";
@@ -238,7 +241,7 @@
 /* Send button title */
 "Send" = "Senden";
 
-/* Send location now button */
+/* Send location now */
 "Send location now" = "Sende Position sofort";
 
 /* content of an alert message regarding card */
@@ -273,6 +276,18 @@
 
 /* Display when file processing succeeds */
 "successfully processed" = "erfolgreich verarbeitet";
+
+/* Shortcut Switch to Manual Monitoring Mode */
+"Switch to Manual Monitoring Mode" = "Monitoring auf Manuell ändern";
+
+/* Shortcut Switch to Move Monitoring Monitoring Mode */
+"Switch to Move Monitoring Mode" = "Monitoring auf Bewegung ändern";
+
+/* Shortcut Switch to Quiet Monitoring Mode */
+"Switch to Quiet Monitoring Mode" = "Monitoring auf Still ändern";
+
+/* Shortcut Switch to Significant Changes Monitoring Mode */
+"Switch to Significant Changes Monitoring Mode" = "Monitoring auf Wesentlich ändern";
 
 /* Table is empty */
 "Table is empty" = "Tabelle ist leer";
@@ -349,14 +364,3 @@
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Konfigurieren Sie Ihren OwnTracks Server für vollständigen Datenschutz. Mehr Information hier: https://owntracks.org/booklet";
 
-/* Shortcut Switch to Move Monitoring Monitoring Mode */
-"Switch to Move Monitoring Mode" = "Monitoring auf Bewegung ändern";
-
-/* Shortcut Switch to Significant Changes Monitoring Mode */
-"Switch to Significant Changes Monitoring Mode" = "Monitoring auf Wesentlich ändern";
-
-/* Shortcut Switch to Manual Monitoring Mode */
-"Switch to Manual Monitoring Mode" = "Monitoring auf Manuell ändern";
-
-/* Shortcut Switch to Quiet Monitoring Mode */
-"Switch to Quiet Monitoring Mode" = "Monitoring auf Still ändern";

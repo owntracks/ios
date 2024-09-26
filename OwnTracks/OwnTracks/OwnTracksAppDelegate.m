@@ -1431,7 +1431,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     self.sendNowActivity =
     [[NSUserActivity alloc]
      initWithActivityType:@"org.mqttitude.MQTTitude.sendNow"];
-    self.sendNowActivity.title = NSLocalizedString(@"Send location now", @"User Activity (Siri) Send location now");
+    self.sendNowActivity.title = NSLocalizedString(@"Send location now", @"Send location now");
     self.sendNowActivity.eligibleForSearch = true;
     self.sendNowActivity.eligibleForPrediction = true;
     [self.sendNowActivity becomeCurrent];

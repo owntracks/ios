@@ -127,6 +127,9 @@
 /* Class = "UITextField"; placeholder = "trackerid"; ObjectID = "dUg-TH-IQ0"; Note = "Don't translate, technical term"; */
 "dUg-TH-IQ0.placeholder" = "trackerid";
 
+/* Class = "UITextView"; text = "Copyright © 2013-2024 by Christoph Krey, https://owntracks.org"; ObjectID = "dZg-CC-7yD"; */
+"dZg-CC-7yD.text" = "Copyright © 2013-2024 by Christoph Krey, https://owntracks.org";
+
 /* Class = "UILabel"; text = "ranging"; ObjectID = "DZx-uw-XhQ"; Note = "Don't translate, technical term"; */
 "DZx-uw-XhQ.text" = "varierar";
 
@@ -138,6 +141,9 @@
 
 /* Class = "UIButton"; normalTitle = "Documentation"; ObjectID = "ePs-kX-VDJ"; */
 "ePs-kX-VDJ.normalTitle" = "Dokumentation";
+
+/* Class = "UIBarButtonItem"; title = "-"; ObjectID = "ere-0U-4rD"; Note = "Placeholder. Do not translate"; */
+"ere-0U-4rD.title" = "-";
 
 /* Class = "UILabel"; text = "Port"; ObjectID = "EWI-7o-7Jo"; */
 "EWI-7o-7Jo.text" = "Port";
@@ -156,6 +162,9 @@
 
 /* Class = "UILabel"; text = "Version"; ObjectID = "g84-aA-XOI"; */
 "g84-aA-XOI.text" = "Version";
+
+/* Class = "UITableViewSection"; headerTitle = "OwnTracks - Your location companion"; ObjectID = "Gjb-Ud-8a8"; */
+"Gjb-Ud-8a8.headerTitle" = "OwnTracks - din platskompis";
 
 /* Class = "UITextField"; placeholder = "<Distance>"; ObjectID = "gkb-3O-jAy"; Note = "Placeholder. Don't translate."; */
 "gkb-3O-jAy.placeholder" = "<Distance>";
@@ -285,6 +294,9 @@
 
 /* Class = "UILabel"; text = "Created At"; ObjectID = "mhI-D6-Y0f"; */
 "mhI-D6-Y0f.text" = "Skapad";
+
+/* Class = "UITextView"; text = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, Sodium, and DSJSONSchemaValidation."; ObjectID = "Moe-Di-frm"; */
+"Moe-Di-frm.text" = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, Sodium, and DSJSONSchemaValidation.";
 
 /* Class = "UITabBarItem"; title = "Friends"; ObjectID = "msF-bI-hEJ"; */
 "msF-bI-hEJ.title" = "Vänner";
