@@ -55,6 +55,9 @@
 /* description connection connected state */
 "connecting" = "Bağlanıyor";
 
+/* Alert header for connection change warning */
+"Connection change" = "Connection change";
+
 /* Continue button title */
 "Continue" = "Devam et";
 
@@ -178,6 +181,9 @@
 /* No or empty tour list received from backend */
 "No or empty tour list received from backend" = "No or empty tour list received from backend";
 
+/* No pressure available */
+"No pressure available" = "No pressure available";
+
 /* Display after trying to process a file */
 "no url specified" = "URL belirtilmedi";
 
@@ -189,6 +195,9 @@
 
 /* temporary display while opening URL */
 "opening URL" = "açılış URL'si";
+
+/* OSM */
+"OSM" = "OSM";
 
 /* Alert content for connection change warning */
 "Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Lütfen saklanan yol noktalarınızın ve konumlarınızın gizlilik nedeniyle bu cihazda silineceğini unutmayın. Lütfen daha önce yedekleyin.";

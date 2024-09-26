@@ -55,6 +55,9 @@
 /* description connection connected state */
 "connecting" = "connexion";
 
+/* Alert header for connection change warning */
+"Connection change" = "Connection Change";
+
 /* Continue button title */
 "Continue" = "Continuer";
 
@@ -178,6 +181,9 @@
 /* No or empty tour list received from backend */
 "No or empty tour list received from backend" = "Liste de tournées vide ou inexistante reçue du backend";
 
+/* No pressure available */
+"No pressure available" = "No pressure available";
+
 /* Display after trying to process a file */
 "no url specified" = "pas d'url spécifié";
 
@@ -189,6 +195,9 @@
 
 /* temporary display while opening URL */
 "opening URL" = "ouverture de l'URL";
+
+/* OSM */
+"OSM" = "OSM";
 
 /* Alert content for connection change warning */
 "Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Sachez que les waypoints et les lieux que vous avez enregistrés seront supprimés sur cet appareil pour des raisons de confidentialité. Veuillez faire une sauvegarde avant.";
@@ -267,6 +276,18 @@
 
 /* Display when file processing succeeds */
 "successfully processed" = "traitement réussi";
+
+/* Shortcut Switch to Manual Monitoring Mode */
+"Switch to Manual Monitoring Mode" = "Switch to Manual Monitoring Mode";
+
+/* Shortcut Switch to Move Monitoring Monitoring Mode */
+"Switch to Move Monitoring Mode" = "Switch to Move Monitoring Mode";
+
+/* Shortcut Switch to Quiet Monitoring Mode */
+"Switch to Quiet Monitoring Mode" = "Switch to Quiet Monitoring Mode";
+
+/* Shortcut Switch to Significant Changes Monitoring Mode */
+"Switch to Significant Changes Monitoring Mode" = "Switch to Significant Changes Monitoring Mode";
 
 /* Table is empty */
 "Table is empty" = "La table est vide";

@@ -34,6 +34,12 @@
 /* Cancel button title */
 "Cancel" = "Annuleer";
 
+/* Header of an alert message regarding a card */
+"Card" = "Card";
+
+/* Choose action title */
+"Choose action" = "Choose action";
+
 /* Clipboard */
 "Clipboard" = "Klembord";
 
@@ -49,8 +55,14 @@
 /* description connection connected state */
 "connecting" = "verbinden";
 
+/* Alert header for connection change warning */
+"Connection change" = "Connection Change";
+
 /* Continue button title */
 "Continue" = "Doorgaan";
+
+/* Alert message header for copy */
+"Copied" = "Copied";
 
 /* content of an alert message regarding circular region */
 "created at center of map" = "gemaakt in het midden van de kaart";
@@ -78,6 +90,9 @@
 
 /* Export */
 "Export" = "Exporteren";
+
+/* Fetching tour list from backend */
+"Fetching tour list from backend" = "Fetching tour list from backend";
 
 /* Display when file processing succeeds (filename follows) */
 "File" = "Bestand";
@@ -163,14 +178,26 @@
 /* No location recorded indication */
 "No location recorded" = "Geen locatie geregistreerd";
 
+/* No or empty tour list received from backend */
+"No or empty tour list received from backend" = "No or empty tour list received from backend";
+
+/* No pressure available */
+"No pressure available" = "No pressure available";
+
 /* Display after trying to process a file */
 "no url specified" = "geen url opgegeven";
 
 /* Alert message header for notification messages */
 "Notification" = "Notificatie";
 
+/* Open button title */
+"Open" = "Open";
+
 /* temporary display while opening URL */
 "opening URL" = "openings-URL";
+
+/* OSM */
+"OSM" = "OSM";
 
 /* Alert content for connection change warning */
 "Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Houd er rekening mee dat uw opgeslagen waypoints en locaties om privacyredenen op dit apparaat worden verwijderd. Maak alstublieft eerst een back-up.";
@@ -190,8 +217,14 @@
 /* Header of an alert message regarding circular region */
 "Region" = "Regio";
 
+/* Remove button title */
+"Remove" = "Remove";
+
 /* Requesting tour */
 "Requesting tour" = "Requesting tour";
+
+/* Requesting tour list */
+"Requesting tour list" = "Requesting tour list";
 
 /* temporary display while resolving address */
 "resolving..." = "opzoeken...";
@@ -205,8 +238,23 @@
 /* Sat */
 "Sat" = "Sat";
 
+/* Send button title */
+"Send" = "Send";
+
 /* Send location now */
 "Send location now" = "Verstuur nu locatie";
+
+/* content of an alert message regarding card */
+"set and sent to backend" = "set and sent to backend";
+
+/* Set POI buttonSet POI title */
+"Set POI" = "Set POI";
+
+/* Set tag button */
+"Set tag" = "Set tag";
+
+/* Set Tag title */
+"Set Tag" = "Set Tag";
 
 /* Settings screen title */
 "Settings" = "Instellingen";
@@ -229,6 +277,18 @@
 /* Display when file processing succeeds */
 "successfully processed" = "succesvol verwerkt";
 
+/* Shortcut Switch to Manual Monitoring Mode */
+"Switch to Manual Monitoring Mode" = "Switch to Manual Monitoring Mode";
+
+/* Shortcut Switch to Move Monitoring Monitoring Mode */
+"Switch to Move Monitoring Mode" = "Switch to Move Monitoring Mode";
+
+/* Shortcut Switch to Quiet Monitoring Mode */
+"Switch to Quiet Monitoring Mode" = "Switch to Quiet Monitoring Mode";
+
+/* Shortcut Switch to Significant Changes Monitoring Mode */
+"Switch to Significant Changes Monitoring Mode" = "Switch to Significant Changes Monitoring Mode";
+
 /* Table is empty */
 "Table is empty" = "Tabel is leeg";
 
@@ -240,6 +300,30 @@
 
 /* Topic copied to clipboard */
 "Topic copied to clipboard" = "Onderwerp gekopieerd naar klembord";
+
+/* Tour created */
+"Tour created" = "Tour created";
+
+/* Tour deleted */
+"Tour deleted" = "Tour deleted";
+
+/* Tour list received */
+"Tour list received" = "Tour list received";
+
+/* Tour list request timed out */
+"Tour list request timed out" = "Tour list request timed out";
+
+/* Tour request timed out */
+"Tour request timed out" = "Tour request timed out";
+
+/* Tours list header */
+"Tours" = "Tours";
+
+/* Tours status header */
+"Tours status" = "Tours status";
+
+/* Tours status header */
+"Tours Status" = "Tours Status";
 
 /* Alert header regarding TrackerID input */
 "TrackerID invalid" = "TrackerID ongeldig";
@@ -273,6 +357,9 @@
 
 /* You cannot use background fetch */
 "You cannot use background fetch" = "U kunt niet op de achtergrond ophalen";
+
+/* You disabled background fetch */
+"You disabled background fetch" = "You disabled background fetch";
 
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "U moet uw eigen OwnTracks-server instellen en uw configuratie bewerken voor volledige privacybescherming. Gedetailleerde informatie op https://owntracks.org/booklet";

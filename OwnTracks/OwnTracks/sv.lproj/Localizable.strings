@@ -55,6 +55,9 @@
 /* description connection connected state */
 "connecting" = "ansluter";
 
+/* Alert header for connection change warning */
+"Connection change" = "Connection Change";
+
 /* Continue button title */
 "Continue" = "Fortsätt";
 
@@ -178,6 +181,9 @@
 /* No or empty tour list received from backend */
 "No or empty tour list received from backend" = "Mottog ingen eller tom reslista";
 
+/* No pressure available */
+"No pressure available" = "No pressure available";
+
 /* Display after trying to process a file */
 "no url specified" = "ingen URL specificerad";
 
@@ -189,6 +195,9 @@
 
 /* temporary display while opening URL */
 "opening URL" = "öppnar URL";
+
+/* OSM */
+"OSM" = "OSM";
 
 /* Alert content for connection change warning */
 "Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Notera att dina lagrade vägpunkter och platser kommer att raderas på den här enheten av sekretesskäl. Vänligen säkerhetskopiera innan.";
