@@ -617,7 +617,9 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
                         disconnectHandler:nil];
 
         if (self.reconnectTimer) {
-            [self.reconnectTimer invalidate];
+            if (self.reconnectTimer.isValid) {
+                [self.reconnectTimer invalidate];
+            }
             self.reconnectTimer = nil;
         }
     }
@@ -693,7 +695,12 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
                    }[@(eventCode)],
                  (long)eventCode, error);
     
-    [self.reconnectTimer invalidate];
+    if (self.reconnectTimer) {
+        if (self.reconnectTimer.isValid) {
+            [self.reconnectTimer invalidate];
+        }
+        self.reconnectTimer = nil;
+    }
     switch (eventCode) {
         case MQTTSessionEventConnected:
             self.reconnectTime = RECONNECT_TIMER;
