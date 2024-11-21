@@ -434,7 +434,7 @@
 "SAr-Vi-xHD.text" = "UserID";
 
 /* Class = "UILabel"; text = "downgrade"; ObjectID = "Sbl-15-Idv"; Note = "Don't translate, technical term"; */
-"Sbl-15-Idv.text" = "zurückstufen";
+"Sbl-15-Idv.text" = "downgrade";
 
 /* Class = "UILabel"; text = "Distance"; ObjectID = "SCe-XW-vBZ"; */
 "SCe-XW-vBZ.text" = "Entfernung";
@@ -521,7 +521,7 @@
 "x67-7L-vnt.text" = "pubQos";
 
 /* Class = "UITextField"; placeholder = "downgrade%"; ObjectID = "XkO-CT-wUS"; Note = "Placeholder. Do not translate"; */
-"XkO-CT-wUS.placeholder" = "zurückstufen bei %";
+"XkO-CT-wUS.placeholder" = "downgrade%";
 
 /* Class = "UITextField"; placeholder = "OSMCopyright"; ObjectID = "yAb-Me-E2d"; */
 "yAb-Me-E2d.placeholder" = "OSMCopyright";
