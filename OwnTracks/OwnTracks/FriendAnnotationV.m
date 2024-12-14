@@ -59,8 +59,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     return image;
 }
 
-- (void)drawRect:(CGRect)rect
-{
+- (void)drawRect:(CGRect)rect {
     // It is all within a circle
     UIBezierPath *circle = [UIBezierPath bezierPathWithOvalInRect:rect];
     [circle addClip];

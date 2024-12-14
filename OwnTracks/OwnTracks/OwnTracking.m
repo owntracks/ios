@@ -323,13 +323,32 @@ static OwnTracking *theInstance = nil;
             return;
         }
 
+        NSData *image = nil;
+        NSString *imageBase64 = dictionary[@"image"];
+        if (imageBase64 && ![imageBase64 isKindOfClass:[NSString class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does not contain valid imageBase64: not processed");
+            return;
+        }
+        
+        if (imageBase64) {
+            image = [[NSData alloc] initWithBase64EncodedString:imageBase64 options:0];
+        }
+
+        NSString *imageName = dictionary[@"imagename"];
+        if (imageName && ![imageName isKindOfClass:[NSString class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does not contain valid imageName: not processed");
+            return;
+        }
+
         Waypoint *waypoint = [self addWaypointFor:friend
                                          location:location
                                         createdAt:createdAt
                                           trigger:t
                                               poi:poi
                                               tag:tag
-                                          battery:batteryLevel];
+                                          battery:batteryLevel
+                                            image:image
+                                        imageName:imageName];
         DDLogInfo(@"[OwnTracking processLocation] waypoint added %@ %@ %@ %@ %@",
                   waypoint.coordinateText,
                   waypoint.infoText,
@@ -565,7 +584,9 @@ static OwnTracking *theInstance = nil;
                      trigger:(NSString *)trigger
                      poi:(NSString *)poi
                      tag:(NSString *)tag
-                     battery:(NSNumber *)battery {
+                     battery:(NSNumber *)battery
+                       image:(NSData *)image
+                   imageName:(NSString *)imageName {
     Waypoint *waypoint = [NSEntityDescription insertNewObjectForEntityForName:@"Waypoint"
                                                        inManagedObjectContext:friend.managedObjectContext];
     waypoint.belongsTo = friend;
@@ -587,6 +608,8 @@ static OwnTracking *theInstance = nil;
     waypoint.vel = @(speed);
     waypoint.cog = @(location.course);
     waypoint.placemark = nil;
+    waypoint.image = image;
+    waypoint.imageName = imageName;
 
     return waypoint;
 }
@@ -738,6 +761,14 @@ static OwnTracking *theInstance = nil;
     
     if (waypoint.tag && waypoint.tag.length > 0) {
         json[@"tag"] = waypoint.tag;
+    }
+    
+    if (waypoint.image) {
+        json[@"image"] = [waypoint.image base64EncodedStringWithOptions:0];
+    }
+    
+    if (waypoint.imageName) {
+        json[@"imagename"] = waypoint.imageName;
     }
 
     return json;

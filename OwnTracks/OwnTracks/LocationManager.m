@@ -152,12 +152,12 @@ static LocationManager *theInstance = nil;
         }
     } else if ([keyPath isEqualToString:@"sendNow"]) {
         OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [ad sendNow:self.location withPOI:nil];
+        [ad sendNow:self.location withPOI:nil withImage:nil withImageName:nil];
     } else if ([keyPath isEqualToString:@"poi"]) {
         NSUserDefaults *shared = object;
         NSString *poi = [shared stringForKey:@"poi"];
         OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [ad sendNow:self.location withPOI:poi];
+        [ad sendNow:self.location withPOI:poi withImage:nil withImageName:nil];
     } else if ([keyPath isEqualToString:@"tag"]) {
         NSUserDefaults *shared = object;
         NSString *tag = [shared stringForKey:@"tag"];
@@ -453,7 +453,7 @@ static LocationManager *theInstance = nil;
     DDLogVerbose(@"[LocationManager] didUpdateLocations");
     
     for (CLLocation *location in locations) {
-        DDLogInfo(@"[LocationManager] Location: %@ last: %@ Δs:%f/%f Δm:%f/%f",
+        DDLogInfo(@"[LocationManager] Location: %@ last: %@ Δs:%.0f/%.0f Δm:%.0f/%.0f",
                   location,
                   self.lastUsedLocation,
                   self.lastUsedLocation ? [location.timestamp timeIntervalSinceDate:self.lastUsedLocation.timestamp] : 0,

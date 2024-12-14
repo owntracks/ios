@@ -328,6 +328,9 @@
 /* Set POI button */
 "Set POI" = "Set POI";
 
+/* Set POI with image button */
+"Set POI with image" = "Set POI with image";
+
 /* Set tag button */
 "Set tag" = "Set tag";
 
