@@ -1,6 +1,12 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 18.1.0 iOS/ipadOS
+* Release Date 2024-12-14
+
+** UI enhancements
+    [NEW] POI with photos (tagging) #824
+
 ## OwnTracks 18.0.4 iOS/ipadOS
 * Release Date 2024-09-26
 
