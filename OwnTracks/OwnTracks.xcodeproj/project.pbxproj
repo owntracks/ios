@@ -61,6 +61,7 @@
 		8483A9BA2B9E0BE400774E8B /* NSNumber+decimals.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B47C25C844A500B2AC07 /* NSNumber+decimals.m */; };
 		8483A9BC2B9E0C6E00774E8B /* OwnTracksPressureTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8483A9BB2B9E0C6E00774E8B /* OwnTracksPressureTests.m */; };
 		8488CFDF25A45CC3000AFEE2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8488CFDE25A45CC3000AFEE2 /* Security.framework */; };
+		849197F22D0084F300072AF6 /* PhotoAnnotationV.m in Sources */ = {isa = PBXBuildFile; fileRef = 849197F12D0084F300072AF6 /* PhotoAnnotationV.m */; };
 		8492603F2B0235D700F6DC13 /* message.json in Resources */ = {isa = PBXBuildFile; fileRef = 8492603E2B0235D700F6DC13 /* message.json */; };
 		849260422B0247C200F6DC13 /* Validation.m in Sources */ = {isa = PBXBuildFile; fileRef = 849260412B0247C200F6DC13 /* Validation.m */; };
 		849260442B0373E300F6DC13 /* encryption.json in Resources */ = {isa = PBXBuildFile; fileRef = 849260432B0373E300F6DC13 /* encryption.json */; };
@@ -73,6 +74,10 @@
 		84B0CDAD239E2EFA00CE9305 /* BackgroundTasks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B0CDAC239E2EFA00CE9305 /* BackgroundTasks.framework */; };
 		84B7397A1A65629200B103F4 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B739791A65629200B103F4 /* LocationManager.m */; };
 		84BD03AA25D5301F0077B9B8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AE8ADB25C165D600C0B0EE /* MapKit.framework */; };
+		84C3F4562CEF7490004DB332 /* AttachPhotoTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C3F4552CEF7490004DB332 /* AttachPhotoTVC.m */; };
+		84C3F45C2CEF904F004DB332 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84C3F45B2CEF904F004DB332 /* AssetsLibrary.framework */; };
+		84C3F45D2CF09F91004DB332 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84C3F4572CEF8911004DB332 /* Photos.framework */; };
+		84C3F45E2CF09F9B004DB332 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84C3F4592CEF891B004DB332 /* PhotosUI.framework */; };
 		84C7C02C2885B18E0088A544 /* CreateCardTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C02B2885B18E0088A544 /* CreateCardTVC.m */; };
 		84C7C02F2885B1B00088A544 /* CreateTourTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C02E2885B1B00088A544 /* CreateTourTVC.m */; };
 		84C7C032289821280088A544 /* ToursTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C031289821280088A544 /* ToursTVC.m */; };
@@ -252,6 +257,9 @@
 		848F37282CA56D62008D68FE /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Intents.strings; sourceTree = "<group>"; };
 		848F372A2CA56D98008D68FE /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Intents.strings; sourceTree = "<group>"; };
 		848F372C2CA56DC5008D68FE /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Intents.strings; sourceTree = "<group>"; };
+		849197EE2CFF732900072AF6 /* Model 18.1.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 18.1.0.xcdatamodel"; sourceTree = "<group>"; };
+		849197F02D0084F300072AF6 /* PhotoAnnotationV.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoAnnotationV.h; sourceTree = "<group>"; };
+		849197F12D0084F300072AF6 /* PhotoAnnotationV.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoAnnotationV.m; sourceTree = "<group>"; };
 		8492603E2B0235D700F6DC13 /* message.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = message.json; sourceTree = "<group>"; };
 		849260402B0247C200F6DC13 /* Validation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Validation.h; path = coredata/Validation.h; sourceTree = "<group>"; };
 		849260412B0247C200F6DC13 /* Validation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Validation.m; path = coredata/Validation.m; sourceTree = "<group>"; };
@@ -291,6 +299,11 @@
 		84BE75932771EAE0006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84BE75962771EBA2006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84C38C14193F88C200F56D04 /* Model 7.2.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.2.2.xcdatamodel"; sourceTree = "<group>"; };
+		84C3F4542CEF7490004DB332 /* AttachPhotoTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AttachPhotoTVC.h; sourceTree = "<group>"; };
+		84C3F4552CEF7490004DB332 /* AttachPhotoTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AttachPhotoTVC.m; sourceTree = "<group>"; };
+		84C3F4572CEF8911004DB332 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		84C3F4592CEF891B004DB332 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
+		84C3F45B2CEF904F004DB332 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		84C756A61A89F706003BC8A8 /* Model 7.4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.4.xcdatamodel"; sourceTree = "<group>"; };
 		84C7C02A2885B18E0088A544 /* CreateCardTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateCardTVC.h; sourceTree = "<group>"; };
 		84C7C02B2885B18E0088A544 /* CreateCardTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateCardTVC.m; sourceTree = "<group>"; };
@@ -376,12 +389,15 @@
 				8470352923D5E6B10041AAFB /* SystemConfiguration.framework in Frameworks */,
 				84BD03AA25D5301F0077B9B8 /* MapKit.framework in Frameworks */,
 				845273D324A8736000C44340 /* Intents.framework in Frameworks */,
+				84C3F45D2CF09F91004DB332 /* Photos.framework in Frameworks */,
 				847F8B5819295C65003876D4 /* CoreMotion.framework in Frameworks */,
 				8411B82E189FDB140019D2D6 /* CoreGraphics.framework in Frameworks */,
+				84C3F45C2CEF904F004DB332 /* AssetsLibrary.framework in Frameworks */,
 				8411B832189FDB140019D2D6 /* CoreData.framework in Frameworks */,
 				8411B830189FDB140019D2D6 /* UIKit.framework in Frameworks */,
 				8411B82C189FDB140019D2D6 /* Foundation.framework in Frameworks */,
 				73E486C3060A00AFA424FB27 /* Pods_OwnTracks.framework in Frameworks */,
+				84C3F45E2CF09F9B004DB332 /* PhotosUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +456,9 @@
 		8411B82A189FDB140019D2D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84C3F45B2CEF904F004DB332 /* AssetsLibrary.framework */,
+				84C3F4592CEF891B004DB332 /* PhotosUI.framework */,
+				84C3F4572CEF8911004DB332 /* Photos.framework */,
 				84AE8ADB25C165D600C0B0EE /* MapKit.framework */,
 				843B7B7F25A8859100B814D5 /* libcommonCrypto.tbd */,
 				8488CFDE25A45CC3000AFEE2 /* Security.framework */,
@@ -598,6 +617,10 @@
 				846FFA4E1B40C13C001482A6 /* NavigationController.m */,
 				8411B90A189FEC070019D2D6 /* ViewController.h */,
 				8411B90B189FEC070019D2D6 /* ViewController.m */,
+				84C3F4542CEF7490004DB332 /* AttachPhotoTVC.h */,
+				84C3F4552CEF7490004DB332 /* AttachPhotoTVC.m */,
+				849197F02D0084F300072AF6 /* PhotoAnnotationV.h */,
+				849197F12D0084F300072AF6 /* PhotoAnnotationV.m */,
 				84FD93052353950100CCEC3B /* OwnTracksEditTVC.h */,
 				84FD93062353950100CCEC3B /* OwnTracksEditTVC.m */,
 				84E402062314140400F1D6E6 /* HistoryTVC.h */,
@@ -928,7 +951,9 @@
 				842E6ED620BEF031001928FA /* Queue+CoreDataClass.m in Sources */,
 				84FD93072353950100CCEC3B /* OwnTracksEditTVC.m in Sources */,
 				84E8A18C1BB94782002518AA /* Waypoint+CoreDataProperties.m in Sources */,
+				84C3F4562CEF7490004DB332 /* AttachPhotoTVC.m in Sources */,
 				8411B90F189FEC070019D2D6 /* RegionsTVC.m in Sources */,
+				849197F22D0084F300072AF6 /* PhotoAnnotationV.m in Sources */,
 				8411B88B189FE79B0019D2D6 /* CoreData.m in Sources */,
 				84E8A18A1BB94782002518AA /* Friend+CoreDataProperties.m in Sources */,
 				84D6B47D25C844A500B2AC07 /* NSNumber+decimals.m in Sources */,
@@ -1202,7 +1227,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18.0.4;
+				CURRENT_PROJECT_VERSION = 18.1.0;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = C652JFWU23;
 				ENABLE_BITCODE = NO;
@@ -1226,7 +1251,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OwnTracks",
 				);
-				MARKETING_VERSION = 18.0.4;
+				MARKETING_VERSION = 18.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1256,7 +1281,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18.0.4;
+				CURRENT_PROJECT_VERSION = 18.1.0;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = C652JFWU23;
 				ENABLE_BITCODE = NO;
@@ -1280,7 +1305,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OwnTracks",
 				);
-				MARKETING_VERSION = 18.0.4;
+				MARKETING_VERSION = 18.1.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1311,7 +1336,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18.0.4;
+				CURRENT_PROJECT_VERSION = 18.1.0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = C652JFWU23;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1323,7 +1348,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 18.0.4;
+				MARKETING_VERSION = 18.1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude.OwnTracksIntents;
@@ -1350,7 +1375,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 18.0.4;
+				CURRENT_PROJECT_VERSION = 18.1.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = C652JFWU23;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1362,7 +1387,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 18.0.4;
+				MARKETING_VERSION = 18.1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude.OwnTracksIntents;
@@ -1385,7 +1410,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18.0.4;
+				CURRENT_PROJECT_VERSION = 18.1.0;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = C652JFWU23;
@@ -1396,7 +1421,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.1;
-				MARKETING_VERSION = 18.0.4;
+				MARKETING_VERSION = 18.1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.OwnTracksTests;
@@ -1434,7 +1459,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.1;
-				MARKETING_VERSION = 18.0.4;
+				MARKETING_VERSION = 18.1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.OwnTracksTests;
@@ -1495,6 +1520,7 @@
 		8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				849197EE2CFF732900072AF6 /* Model 18.1.0.xcdatamodel */,
 				849ABA0028F21D140078AE41 /* Model 16.3.0.xcdatamodel */,
 				841EDC1F2768FA4F009AC46F /* Model 15.0.1.xcdatamodel */,
 				843B7BA525A8AF0100B814D5 /* Model 14.0.1.xcdatamodel */,
@@ -1525,7 +1551,7 @@
 				84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */,
 				8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 849ABA0028F21D140078AE41 /* Model 16.3.0.xcdatamodel */;
+			currentVersion = 849197EE2CFF732900072AF6 /* Model 18.1.0.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

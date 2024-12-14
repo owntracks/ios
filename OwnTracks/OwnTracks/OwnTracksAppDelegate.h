@@ -41,7 +41,10 @@
 @property (strong, nonatomic) DDFileLogger * _Nullable fl;
 
 
-- (BOOL)sendNow:(CLLocation *_Nonnull)location withPOI:(nullable NSString *)poi;
+- (BOOL)sendNow:(CLLocation *_Nonnull)location
+        withPOI:(nullable NSString *)poi
+      withImage:(nullable NSData *)image
+  withImageName:(nullable NSString *)imageName;
 - (void)dump;
 - (void)status;
 - (void)waypoints;

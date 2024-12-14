@@ -777,20 +777,20 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     [self background];
     if (self.inRefresh) {
         self.inRefresh = FALSE;
-        [self publishLocation:location trigger:@"p" withPOI:nil];
+        [self publishLocation:location trigger:@"p" withPOI:nil withImage:nil withImageName:nil];
     } else {
-        [self publishLocation:location trigger:nil withPOI:nil];
+        [self publishLocation:location trigger:nil withPOI:nil withImage:nil withImageName:nil];
     }
 }
 
 - (void)timerLocation:(CLLocation *)location {
     [self background];
-    [self publishLocation:location trigger:@"t" withPOI:nil];
+    [self publishLocation:location trigger:@"t" withPOI:nil withImage:nil withImageName:nil];
 }
 
 - (void)visitLocation:(CLLocation *)location {
     [self background];
-    [self publishLocation:location trigger:@"v" withPOI:nil];
+    [self publishLocation:location trigger:@"v" withPOI:nil withImage:nil withImageName:nil];
 }
 
 - (void)regionEvent:(CLRegion *)region enter:(BOOL)enter {
@@ -904,13 +904,13 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
             }
             
             if ([region isKindOfClass:[CLBeaconRegion class]]) {
-                [self publishLocation:[LocationManager sharedInstance].location trigger:@"b" withPOI:nil];
+                [self publishLocation:[LocationManager sharedInstance].location trigger:@"b" withPOI:nil withImage:nil withImageName:nil];
             } else {
-                [self publishLocation:[LocationManager sharedInstance].location trigger:@"c" withPOI:nil];
+                [self publishLocation:[LocationManager sharedInstance].location trigger:@"c" withPOI:nil withImage:nil withImageName:nil];
             }
         } else {
             if ([LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
-                [self publishLocation:[LocationManager sharedInstance].location trigger:@"C" withPOI:nil];
+                [self publishLocation:[LocationManager sharedInstance].location trigger:@"C" withPOI:nil withImage:nil withImageName:nil];
             }
         }
     }
@@ -1422,8 +1422,11 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
 
 #pragma actions
 
-- (BOOL)sendNow:(CLLocation *)location withPOI:(NSString *)poi {
-    DDLogInfo(@"[OwnTracksAppDelegate] sendNow %@ withPOI %@", location, poi);
+- (BOOL)sendNow:(CLLocation *)location
+        withPOI:(NSString *)poi
+      withImage:(nullable NSData *)image
+  withImageName:(nullable NSString *)imageName {
+    DDLogInfo(@"[OwnTracksAppDelegate] sendNow %@ withPOI %@ %@ %@", location, poi, image, imageName);
     
     if (self.sendNowActivity) {
         [self.sendNowActivity invalidate];
@@ -1435,13 +1438,16 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     self.sendNowActivity.eligibleForSearch = true;
     self.sendNowActivity.eligibleForPrediction = true;
     [self.sendNowActivity becomeCurrent];
-    return [self publishLocation:location trigger:@"u" withPOI:poi];
+    return [self publishLocation:location trigger:@"u"
+                         withPOI:poi
+                       withImage:image
+                   withImageName:imageName];
 }
 
 - (void)reportLocation {
     DDLogInfo(@"[OwnTracksAppDelegate] reportLocation");
     CLLocation *location = [LocationManager sharedInstance].location;
-    [self publishLocation:location trigger:@"r" withPOI:nil];
+    [self publishLocation:location trigger:@"r" withPOI:nil withImage:nil withImageName:nil];
 }
 
 - (void)connectionOff {
@@ -1468,7 +1474,9 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
 
 - (BOOL)publishLocation:(CLLocation *)location
                 trigger:(NSString *)trigger
-                withPOI:(NSString *)poi {
+                withPOI:(NSString *)poi
+              withImage:(NSData *)image
+          withImageName:(NSString *)imageName {
     NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
         
     if (!location) {
@@ -1512,7 +1520,6 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     if (!friend) {
         DDLogError(@"[OwnTracksAppDelegate] no friend found");
         return FALSE;
-
     }
     
     // Update +follow region
@@ -1556,7 +1563,9 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                                              trigger:trigger
                                                  poi:poi
                                                  tag:tag
-                                             battery:batteryLevel];
+                                             battery:batteryLevel
+                                               image:image
+                                           imageName:imageName];
     if (waypoint) {
         [CoreData.sharedInstance sync:moc];
         
@@ -1765,7 +1774,10 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
     
     if ([userActivity.activityType isEqualToString:@"org.mqttitude.MQTTitude.sendNow"] ||
         [userActivity.activityType isEqualToString:@"OwnTracksSendNowIntent"]) {
-        if ([self sendNow:[LocationManager sharedInstance].location withPOI:nil]) {
+        if ([self sendNow:[LocationManager sharedInstance].location
+                  withPOI:nil
+                withImage:nil
+            withImageName:nil]) {
             [self.navigationController alert:
                  NSLocalizedString(@"Location",
                                    @"Header of an alert message regarding a location")
@@ -1824,7 +1836,10 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
     } else if ([userActivity.activityType isEqualToString:@"OwnTracksPointOfInterestIntent"]) {
         OwnTracksPointOfInterestIntent *intent = (OwnTracksPointOfInterestIntent *)userActivity.interaction.intent;
         NSString *name = intent.name;
-        if ([self sendNow:[LocationManager sharedInstance].location withPOI:name]) {
+        if ([self sendNow:[LocationManager sharedInstance].location
+                  withPOI:name
+                withImage:nil
+            withImageName:nil]) {
             [self.navigationController alert:
                  NSLocalizedString(@"Location",
                                    @"Header of an alert message regarding a location")

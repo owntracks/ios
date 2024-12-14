@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "StatusTVC.h"
 #import "FriendAnnotationV.h"
+#import "PhotoAnnotationV.h"
 #import "FriendsTVC.h"
 #import "RegionsTVC.h"
 #import "WaypointTVC.h"
@@ -608,6 +609,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 #define REUSE_ID_BEACON @"Annotation_beacon"
 #define REUSE_ID_PICTURE @"Annotation_picture"
 #define REUSE_ID_POI @"Annotation_poi"
+#define REUSE_ID_IMAGE @"Annotation_image"
 #define REUSE_ID_OTHER @"Annotation_other"
 
 // This is a hack because the FriendAnnotationView did not erase it's callout after being dragged
@@ -663,15 +665,30 @@ didChangeDragState:(MKAnnotationViewDragState)newState
 
     } else if ([annotation isKindOfClass:[Waypoint class]]) {
         Waypoint *waypoint = (Waypoint *)annotation;
-        MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_POI];
-        MKMarkerAnnotationView *mAV;
-        if (!annotationView) {
-            mAV = [[MKMarkerAnnotationView alloc] initWithAnnotation:waypoint reuseIdentifier:REUSE_ID_POI];
+        MKAnnotationView *annotationView;
+        if (waypoint.image) {
+            annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_IMAGE];
+            PhotoAnnotationV *pAV;
+            if (!annotationView) {
+                pAV = [[PhotoAnnotationV alloc] initWithAnnotation:waypoint reuseIdentifier:REUSE_ID_IMAGE];
+            } else {
+                pAV = (PhotoAnnotationV *)annotationView;
+            }
+            pAV.displayPriority = MKFeatureDisplayPriorityRequired;
+            pAV.poiImage = [UIImage imageWithData:waypoint.image];
+            pAV.canShowCallout = YES;
+            annotationView = pAV;
         } else {
-            mAV = (MKMarkerAnnotationView *)annotationView;
+            annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_POI];
+            MKMarkerAnnotationView *mAV;
+            if (!annotationView) {
+                mAV = [[MKMarkerAnnotationView alloc] initWithAnnotation:waypoint reuseIdentifier:REUSE_ID_POI];
+            } else {
+                mAV = (MKMarkerAnnotationView *)annotationView;
+            }
+            mAV.displayPriority = MKFeatureDisplayPriorityRequired;
+            annotationView = mAV;
         }
-        mAV.displayPriority = MKFeatureDisplayPriorityRequired;
-        annotationView = mAV;
         [annotationView setNeedsDisplay];
         return annotationView;
     } else if ([annotation isKindOfClass:[Region class]]) {
@@ -986,7 +1003,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
                                                                               @"Send location now")
                                                       style:UIAlertActionStyleDefault
                                                     handler:^(UIAlertAction * _Nonnull action) {
-        [self sendNow:nil];
+        [self sendNow:nil withImage:nil withImageName:nil];
     }];
     UIAlertAction *setPoi = [UIAlertAction actionWithTitle:NSLocalizedString(@"Set POI",
                                                                              @"Set POI button")
@@ -994,6 +1011,13 @@ calloutAccessoryControlTapped:(UIControl *)control {
                                                    handler:^(UIAlertAction * _Nonnull action) {
         [self setPOI:nil];
 
+    }];
+    UIAlertAction *setPoiWithImage = [UIAlertAction actionWithTitle:NSLocalizedString(@"Set POI with image",
+                                                                                      @"Set POI with image button")
+                                                              style:UIAlertActionStyleDefault
+                                                            handler:^(UIAlertAction * _Nonnull action) {
+        [self setPOIWithImage:nil];
+        
     }];
     UIAlertAction *setTag = [UIAlertAction actionWithTitle:NSLocalizedString(@"Set tag",
                                                                              @"Set tag button")
@@ -1010,6 +1034,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
     }];
     [ac addAction:sendNow];
     [ac addAction:setPoi];
+    [ac addAction:setPoiWithImage];
     [ac addAction:setTag];
     [ac addAction:cancel];
     [self presentViewController:ac
@@ -1019,15 +1044,17 @@ calloutAccessoryControlTapped:(UIControl *)control {
     }];
 }
 
-- (void)sendNow:(nullable NSString *)poi {
+- (void)sendNow:(nullable NSString *)poi
+      withImage:(nullable NSData *)image
+  withImageName:(nullable NSString *)imageName {
     OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     BOOL validIds = [Settings validIdsInMOC:CoreData.sharedInstance.mainMOC];
     int ignoreInaccurateLocations = [Settings intForKey:@"ignoreinaccuratelocations_preference"
                                                       inMOC:CoreData.sharedInstance.mainMOC];
     CLLocation *location = self.mapView.userLocation.location;
 
-    DDLogVerbose(@"[ViewController] sendNow %dm %d %@ %@",
-                 ignoreInaccurateLocations, validIds, location, poi);
+    DDLogVerbose(@"[ViewController] sendNow %dm %d %@ %@ %@ %@",
+                 ignoreInaccurateLocations, validIds, location, poi, image, imageName);
 
     if (!validIds) {
         NSString *message = NSLocalizedString(@"To publish your location userID and deviceID must be set",
@@ -1063,7 +1090,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
         return;
     }
 
-    if ([ad sendNow:location withPOI:poi]) {
+    if ([ad sendNow:location withPOI:poi withImage:image withImageName:imageName]) {
         [ad.navigationController alert:
          NSLocalizedString(@"Location",
                            @"Header of an alert message regarding a location")
@@ -1124,7 +1151,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
                                                                            @"Send button title")
                                                    style:UIAlertActionStyleDefault
                                                  handler:^(UIAlertAction * _Nonnull action) {
-        [self sendNow:ac.textFields[0].text];
+        [self sendNow:ac.textFields[0].text withImage:nil withImageName:nil];
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:NSLocalizedString(@"Cancel",
                                                                              @"Cancel button title")
@@ -1144,6 +1171,10 @@ calloutAccessoryControlTapped:(UIControl *)control {
     }];
 }
 
+- (IBAction)setPOIWithImage:(id)sender {
+    [self performSegueWithIdentifier:@"AttachPhotoSegue" sender:sender];
+}
+
 - (IBAction)setTag:(UIBarButtonItem *)sender {
     UIAlertController *ac = [UIAlertController
                              alertControllerWithTitle:NSLocalizedString(@"Set Tag", @"Set Tag title")
@@ -1158,7 +1189,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
         } else {
             [[NSUserDefaults standardUserDefaults] setObject:ac.textFields[0].text forKey:@"tag"];
         }
-        [self sendNow:nil];
+        [self sendNow:nil withImage:nil withImageName:nil];
     }];
     UIAlertAction *remove = [UIAlertAction actionWithTitle:NSLocalizedString(@"Remove",
                                                                              @"Remove button title")
@@ -1185,6 +1216,21 @@ calloutAccessoryControlTapped:(UIControl *)control {
         //
     }];
 
+}
+
+- (IBAction)attachPhoto:(UIStoryboardSegue *)segue {
+    if ([segue.sourceViewController respondsToSelector:@selector(photo)] &&
+        [segue.sourceViewController respondsToSelector:@selector(poi)] &&
+        [segue.sourceViewController respondsToSelector:@selector(data)] &&
+        [segue.sourceViewController respondsToSelector:@selector(imageName)]) {
+        UITextField *poi = [segue.sourceViewController performSelector:@selector(poi)];
+        UIImageView *photo = [segue.sourceViewController performSelector:@selector(photo)];
+        NSString *imageName = [segue.sourceViewController performSelector:@selector(imageName)];
+        NSData *data = [segue.sourceViewController performSelector:@selector(data)];
+        
+        NSData *jpg = UIImageJPEGRepresentation(photo.image, 0.9);
+        [self sendNow:poi.text withImage:jpg withImageName:imageName];
+    }
 }
 
 @end

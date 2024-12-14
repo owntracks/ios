@@ -43,6 +43,9 @@
 /* Class = "UIButton"; normalTitle = "Github"; ObjectID = "6ms-eE-0jF"; */
 "6ms-eE-0jF.normalTitle" = "Github";
 
+/* Class = "UIButton"; normalTitle = "Select from Photo Library"; ObjectID = "7BS-sH-tIQ"; */
+"7BS-sH-tIQ.normalTitle" = "Aus Fotoalbum wählen";
+
 /* Class = "UILabel"; text = "Filename"; ObjectID = "7ie-NC-EFG"; Note = "Don't translate, technical term"; */
 "7ie-NC-EFG.text" = "Filename";
 
@@ -193,6 +196,9 @@
 /* Class = "UINavigationItem"; title = "Regions"; ObjectID = "GM9-KK-8vY"; */
 "GM9-KK-8vY.title" = "Regionen";
 
+/* Class = "UINavigationItem"; title = "Set POI with Image"; ObjectID = "gPt-L8-JdW"; */
+"gPt-L8-JdW.title" = "Sehenswürdigkeit mit Bild";
+
 /* Class = "UILabel"; text = "locatorDisplacement"; ObjectID = "gtX-x4-Vwl"; Note = "Don't translate, technical term"; */
 "gtX-x4-Vwl.text" = "locatorDisplacement";
 
@@ -246,6 +252,9 @@
 
 /* Class = "UILabel"; text = "locatorInterval"; ObjectID = "hY6-k2-neH"; Note = "Don't translate, technical term"; */
 "hY6-k2-neH.text" = "locatorInterval";
+
+/* Class = "UILabel"; text = "POI"; ObjectID = "hZs-K3-Uc0"; */
+"hZs-K3-Uc0.text" = "Sehenswürdigkeit";
 
 /* Class = "UILabel"; text = "Label"; ObjectID = "I19-GX-iMA"; */
 "I19-GX-iMA.text" = "Titel";

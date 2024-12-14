@@ -247,8 +247,11 @@
 /* content of an alert message regarding card */
 "set and sent to backend" = "inställt och skickat till backend";
 
-/* Set POI buttonSet POI title */
+/* Set POI button */
 "Set POI" = "Sätt POI";
+
+/* Set POI with image button */
+"Set POI with image" = "Set POI with image";
 
 /* Set tag button */
 "Set tag" = "Sätt etikett";

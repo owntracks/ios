@@ -2,8 +2,8 @@
 //  Waypoint+CoreDataProperties.h
 //  OwnTracks
 //
-//  Created by Christoph Krey on 17.11.22.
-//  Copyright © 2022 OwnTracks. All rights reserved.
+//  Created by Christoph Krey on 03.12.24.
+//  Copyright © 2024 OwnTracks. All rights reserved.
 //
 //
 
@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, copy) NSDate *tst;
 @property (nullable, nonatomic, copy) NSNumber *vac;
 @property (nullable, nonatomic, copy) NSNumber *vel;
+@property (nullable, nonatomic, retain) NSData *image;
+@property (nullable, nonatomic, copy) NSString *imageName;
 @property (nullable, nonatomic, retain) Friend *belongsTo;
 
 @end

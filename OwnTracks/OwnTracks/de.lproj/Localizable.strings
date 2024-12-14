@@ -250,6 +250,9 @@
 /* Set POI buttonSet POI title */
 "Set POI" = "Sehenswürdigkeit benennen";
 
+/* Set POI with image button */
+"Set POI with image" = "Sehenswürdigkeit mit Bild";
+
 /* Set tag button */
 "Set tag" = "Markierung setzen";
 

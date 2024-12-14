@@ -29,7 +29,9 @@ createdAt:(NSDate *)createdAt
 trigger:(NSString *)trigger
 poi:(NSString *)poi
 tag:(NSString *)tag
-battery:(NSNumber *)battery;
+battery:(NSNumber *)battery
+image:(NSData *)image
+imageName:(NSString *)imageName;
 
 - (void)limitWaypointsFor:(Friend *)friend toMaximum:(NSInteger)max;
 
