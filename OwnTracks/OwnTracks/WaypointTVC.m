@@ -29,6 +29,8 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *bookmarkButton;
 @property (weak, nonatomic) IBOutlet UITextField *UIpoi;
 @property (weak, nonatomic) IBOutlet UITextField *UItag;
+@property (weak, nonatomic) IBOutlet UIImageView *UIphoto;
+@property (weak, nonatomic) IBOutlet UITextField *UIimageName;
 
 @property (nonatomic) BOOL needsUpdate;
 @property (strong, nonatomic) CLRegion *oldRegion;
@@ -90,6 +92,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.UItopic.text = self.waypoint.belongsTo.topic;
     self.UIpoi.text = self.waypoint.poi;
     self.UItag.text = self.waypoint.tag;
+    self.UIphoto.image = [UIImage imageWithData:self.waypoint.image];
+    self.UIimageName.text = self.waypoint.imageName;
 
     [self.waypoint addObserver:self
                     forKeyPath:@"placemark"

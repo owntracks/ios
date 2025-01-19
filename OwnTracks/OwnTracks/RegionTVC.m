@@ -41,10 +41,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.UIminor.delegate = self;
     self.UIradius.delegate = self;
     
-    self.title = (self.editRegion).name;
+    self.title = (self.region).name;
     
     [self setup];
-    self.oldRegion = self.editRegion.CLregion;
+    self.oldRegion = self.region.CLregion;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -55,46 +55,56 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     if (self.needsUpdate) {
-        self.editRegion.name = self.UIname.text;
+        self.region.name = self.UIname.text;
 
-        self.editRegion.lat = @((self.UIlatitude.text).doubleValue);
-        self.editRegion.lon = @((self.UIlongitude.text).doubleValue);
-        self.editRegion.radius = @((self.UIradius.text).doubleValue);
+        self.region.lat = @((self.UIlatitude.text).doubleValue);
+        self.region.lon = @((self.UIlongitude.text).doubleValue);
+        self.region.radius = @((self.UIradius.text).doubleValue);
         
-        self.editRegion.uuid = self.UIuuid.text;
+        self.region.uuid = self.UIuuid.text;
         DDLogVerbose(@"UImajor %@", self.UImajor.text);
         DDLogVerbose(@"UImajor intValue %d", [self.UImajor.text intValue]);
         DDLogVerbose(@"UImajor NSNumber %@", @(self.UImajor.text.intValue));
-        self.editRegion.major = @((self.UImajor.text).intValue);
-        self.editRegion.minor = @((self.UIminor.text).intValue);
+        self.region.major = @((self.UImajor.text).intValue);
+        self.region.minor = @((self.UIminor.text).intValue);
         
         OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [ad sendRegion:self.editRegion];
+        [ad sendRegion:self.region];
         if (self.oldRegion) {
             DDLogVerbose(@"stopMonitoringForRegion %@", self.oldRegion.identifier);
             [[LocationManager sharedInstance] stopRegion:self.oldRegion];
         }
-        if (self.editRegion.CLregion) {
-            DDLogVerbose(@"startMonitoringForRegion %@", self.editRegion.name);
-            [[LocationManager sharedInstance] startRegion:self.editRegion.CLregion];
+        if (self.region.CLregion) {
+            DDLogVerbose(@"startMonitoringForRegion %@", self.region.name);
+            [[LocationManager sharedInstance] startRegion:self.region.CLregion];
         }
     }
-    [CoreData.sharedInstance sync:self.editRegion.managedObjectContext];
+    [CoreData.sharedInstance sync:self.region.managedObjectContext];
 }
 
 - (void)setup {
-    self.UIname.text = self.editRegion.name;
+    self.UIname.text = self.region.name;
+    self.UIname.enabled = [self.editing boolValue];
 
-    self.UIlatitude.text = [NSString stringWithFormat:@"%.14g", (self.editRegion.lat).doubleValue];
-    self.UIlongitude.text = [NSString stringWithFormat:@"%.14g", (self.editRegion.lon).doubleValue];
-    self.UIradius.text = [NSString stringWithFormat:@"%.14g", (self.editRegion.radius).doubleValue];
+    self.UIlatitude.text = [NSString stringWithFormat:@"%.14g", (self.region.lat).doubleValue];
+    self.UIlatitude.enabled = [self.editing boolValue];
+
+    self.UIlongitude.text = [NSString stringWithFormat:@"%.14g", (self.region.lon).doubleValue];
+    self.UIlongitude.enabled = [self.editing boolValue];
+
+    self.UIradius.text = [NSString stringWithFormat:@"%.14g", (self.region.radius).doubleValue];
+    self.UIradius.enabled = [self.editing boolValue];
     
-    self.UIuuid.text = self.editRegion.uuid;
-    DDLogVerbose(@"UImajor NSNumber %@", self.editRegion.major);
-    DDLogVerbose(@"UImajor unsignedIntValue %u", [self.editRegion.major unsignedIntValue]);
-    DDLogVerbose(@"UImajor NSString %@", [NSString stringWithFormat:@"%u", [self.editRegion.major unsignedIntValue]]);
-    self.UImajor.text = [NSString stringWithFormat:@"%u", (self.editRegion.major).unsignedShortValue];
-    self.UIminor.text = [NSString stringWithFormat:@"%u", (self.editRegion.minor).unsignedShortValue];
+    self.UIuuid.text = self.region.uuid;
+    self.UIuuid.enabled = [self.editing boolValue];
+    DDLogVerbose(@"UImajor NSNumber %@", self.region.major);
+    DDLogVerbose(@"UImajor unsignedIntValue %u", [self.region.major unsignedIntValue]);
+    DDLogVerbose(@"UImajor NSString %@", [NSString stringWithFormat:@"%u", [self.region.major unsignedIntValue]]);
+    self.UImajor.text = [NSString stringWithFormat:@"%u", (self.region.major).unsignedShortValue];
+    self.UImajor.enabled = [self.editing boolValue];
+
+    self.UIminor.text = [NSString stringWithFormat:@"%u", (self.region.minor).unsignedShortValue];
+    self.UIminor.enabled = [self.editing boolValue];
 }
 
 - (IBAction)latitudechanged:(UITextField *)sender {
@@ -122,4 +132,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.needsUpdate = TRUE;
 }
 
+- (IBAction)navigatePressed:(UIButton *)sender {
+    CLLocationCoordinate2D coord = CLLocationCoordinate2DMake((self.region.lat).doubleValue,
+                                                              (self.region.lon).doubleValue);
+    MKPlacemark* place = [[MKPlacemark alloc] initWithCoordinate: coord addressDictionary: nil];
+    MKMapItem* destination = [[MKMapItem alloc] initWithPlacemark: place];
+    destination.name = self.region.name;
+    NSArray* items = @[destination];
+    NSDictionary* options = @{MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving};
+    [MKMapItem openMapsWithItems: items launchOptions: options];
+}
 @end

@@ -10,6 +10,7 @@
 #import "Region+CoreDataClass.h"
 
 @interface RegionTVC : UITableViewController <UITextFieldDelegate>
-@property (strong, nonatomic) Region *editRegion;
+@property (strong, nonatomic) Region *region;
+@property (strong, nonatomic) NSNumber *editing;
 
 @end

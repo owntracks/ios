@@ -475,11 +475,27 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if ([segue.identifier isEqualToString:@"showWaypointFromMap"]) {
         if ([segue.destinationViewController respondsToSelector:@selector(setWaypoint:)]) {
             MKAnnotationView *view = (MKAnnotationView *)sender;
-            Friend *friend  = (Friend *)view.annotation;
-            Waypoint *waypoint = friend.newestWaypoint;
-            if (waypoint) {
+            if ([view.annotation isKindOfClass:[Friend class]]) {
+                Friend *friend  = (Friend *)view.annotation;
+                Waypoint *waypoint = friend.newestWaypoint;
+                if (waypoint) {
+                    [segue.destinationViewController performSelector:@selector(setWaypoint:) withObject:waypoint];
+                }
+            } else if ([view.annotation isKindOfClass:[Waypoint class]]) {
+                Waypoint *waypoint  = (Waypoint *)view.annotation;
                 [segue.destinationViewController performSelector:@selector(setWaypoint:) withObject:waypoint];
             }
+        }
+    } else if ([segue.identifier isEqualToString:@"showRegionFromMap"]) {
+        if ([segue.destinationViewController respondsToSelector:@selector(setRegion:)]) {
+            MKAnnotationView *view = (MKAnnotationView *)sender;
+            if ([view.annotation isKindOfClass:[Region class]]) {
+                Region *region  = (Region *)view.annotation;
+                [segue.destinationViewController performSelector:@selector(setRegion:) withObject:region];
+            }
+        }
+        if ([segue.destinationViewController respondsToSelector:@selector(setEditing:)]) {
+            [segue.destinationViewController performSelector:@selector(setEditing:) withObject:@(FALSE)];
         }
     }
 }
@@ -677,6 +693,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             pAV.displayPriority = MKFeatureDisplayPriorityRequired;
             pAV.poiImage = [UIImage imageWithData:waypoint.image];
             pAV.canShowCallout = YES;
+            pAV.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
             annotationView = pAV;
         } else {
             annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:REUSE_ID_POI];
@@ -687,6 +704,8 @@ didChangeDragState:(MKAnnotationViewDragState)newState
                 mAV = (MKMarkerAnnotationView *)annotationView;
             }
             mAV.displayPriority = MKFeatureDisplayPriorityRequired;
+            mAV.canShowCallout = YES;
+            mAV.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
             annotationView = mAV;
         }
         [annotationView setNeedsDisplay];
@@ -712,6 +731,8 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             annotationView = mAV;
             annotationView.draggable = true;
             annotationView.canShowCallout = YES;
+            annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+
             [annotationView setNeedsDisplay];
             return annotationView;
         } else {
@@ -730,6 +751,7 @@ didChangeDragState:(MKAnnotationViewDragState)newState
             annotationView = mAV;
             annotationView.draggable = true;
             annotationView.canShowCallout = YES;
+            annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
             [annotationView setNeedsDisplay];
             return annotationView;
         }
@@ -775,7 +797,13 @@ didChangeDragState:(MKAnnotationViewDragState)newState
  annotationView:(MKAnnotationView *)view
 calloutAccessoryControlTapped:(UIControl *)control {
     if (control == view.rightCalloutAccessoryView) {
-        [self performSegueWithIdentifier:@"showWaypointFromMap" sender:view];
+        if ([view.annotation isKindOfClass:[Region class]]) {
+            [self performSegueWithIdentifier:@"showRegionFromMap" sender:view];
+        } else if ([view.annotation isKindOfClass:[Friend class]]) {
+            [self performSegueWithIdentifier:@"showWaypointFromMap" sender:view];
+        } else if ([view.annotation isKindOfClass:[Waypoint class]]) {
+            [self performSegueWithIdentifier:@"showWaypointFromMap" sender:view];
+        }
     }
 }
 

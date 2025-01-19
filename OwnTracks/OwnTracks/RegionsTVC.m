@@ -56,8 +56,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if (indexPath) {
         if ([segue.identifier isEqualToString:@"setRegion:"]) {
             Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
-            if ([segue.destinationViewController respondsToSelector:@selector(setEditRegion:)]) {
-                [segue.destinationViewController performSelector:@selector(setEditRegion:) withObject:region];
+            if ([segue.destinationViewController respondsToSelector:@selector(setRegion:)]) {
+                [segue.destinationViewController performSelector:@selector(setRegion:) withObject:region];
+            }
+            if ([segue.destinationViewController respondsToSelector:@selector(setEditing:)]) {
+                [segue.destinationViewController performSelector:@selector(setEditing:) withObject:@(TRUE)];
             }
         }
     }
