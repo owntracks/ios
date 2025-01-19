@@ -308,6 +308,16 @@
             "description": "Point of interest name",
             "type": "string"
         },
+        "image": {
+            "description": "Base64 encoded image associated with the poi",
+            "type": "string",
+            "pattern": "^[-A-Za-z0-9+/]*={0,3}$",
+            "contentEncoding": "base64"
+        },
+        "imagename": {
+            "description": "Name of the image associated with the poi",
+            "type": "string"
+        },
         "tag": {
             "description": "Name of the tag",
             "type": "string"
