@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 08.12.16.
-//  Copyright © 2016-2024  OwnTracks. All rights reserved.
+//  Copyright © 2016-2025  OwnTracks. All rights reserved.
 //
 
 #import "Friend+CoreDataClass.h"

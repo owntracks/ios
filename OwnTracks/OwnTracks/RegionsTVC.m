@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 29.09.13.
-//  Copyright © 2013-2024  Christoph Krey. All rights reserved.
+//  Copyright © 2013-2025  Christoph Krey. All rights reserved.
 //
 
 #import "RegionsTVC.h"
@@ -82,8 +82,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                                lat:location.coordinate.latitude
                                                lon:location.coordinate.longitude];
         [self.tableView reloadData];
-        if ([segue.destinationViewController respondsToSelector:@selector(setEditRegion:)]) {
-            [segue.destinationViewController performSelector:@selector(setEditRegion:) withObject:newRegion];
+        if ([segue.destinationViewController respondsToSelector:@selector(setRegion:)]) {
+            [segue.destinationViewController performSelector:@selector(setRegion:) withObject:newRegion];
+        }
+        if ([segue.destinationViewController respondsToSelector:@selector(setEditing:)]) {
+            [segue.destinationViewController performSelector:@selector(setEditing:) withObject:@(TRUE)];
         }
     }
 }

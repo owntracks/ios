@@ -12,7 +12,7 @@
   },
   "source": {
     "git": "https://github.com/ckrey/mqttc.git",
-    "tag": "14.0.1",
+    "tag": "18.0.1",
     "submodules": true
   },
   "requires_arc": true,

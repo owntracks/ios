@@ -2,7 +2,7 @@
 // MQTTDecoder.h
 // MQTTClient.framework
 // 
-// Copyright © 2013-2022, Christoph Krey. All rights reserved.
+// Copyright © 2013-2025, Christoph Krey. All rights reserved.
 //
 // based on
 //

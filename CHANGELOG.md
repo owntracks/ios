@@ -1,6 +1,13 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 18.2.0 iOS/ipadOS
+* Release Date 2025-01-19
+
+** UI enhancements
+    [NEW] Navigate to Region / POI #829
+    [NEW] add optional image and imagename properties to location message JSON schema
+
 ## OwnTracks 18.1.0 iOS/ipadOS
 * Release Date 2024-12-14
 

@@ -3,7 +3,7 @@
 //  MQTTClient
 //
 //  Created by Christoph Krey on 01.10.19.
-//  Copyright © 2019-2022 Christoph Krey. All rights reserved.
+//  Copyright © 2019-2025 Christoph Krey. All rights reserved.
 //
 
 #import <mqttc/MQTTNWTransport.h>

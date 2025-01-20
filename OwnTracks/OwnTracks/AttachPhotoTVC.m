@@ -3,7 +3,7 @@
 //  OwnTracks
 //
 //  Created by Christoph Krey on 21.11.24.
-//  Copyright © 2024 OwnTracks. All rights reserved.
+//  Copyright © 2024-2025 OwnTracks. All rights reserved.
 //
 
 #import "AttachPhotoTVC.h"
