@@ -28,6 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull createdAtText;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSDate * _Nonnull effectiveTimestamp;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull infoText;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull triggerText;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull monitoringText;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull connectionText;
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull batteryStatusText;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull batteryLevelText;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull defaultPlacemark;
 

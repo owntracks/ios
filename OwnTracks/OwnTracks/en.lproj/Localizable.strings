@@ -356,3 +356,15 @@
 
 /* Shortcut Switch to Quiet Monitoring Mode */
 "Switch to Quiet Monitoring Mode" = "Switch to Quiet Monitoring Mode";
+
+/* Battery status unkown */
+"unknown" = "unknown";
+
+/* Battery status unplugged */
+"unplugged" = "unplugged";
+
+/* Battery status charging */
+"charging" = "charging";
+
+/* Battery status full */
+"full" = "full";

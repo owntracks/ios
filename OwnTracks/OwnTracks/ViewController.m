@@ -1254,7 +1254,8 @@ calloutAccessoryControlTapped:(UIControl *)control {
         UITextField *poi = [segue.sourceViewController performSelector:@selector(poi)];
         UIImageView *photo = [segue.sourceViewController performSelector:@selector(photo)];
         NSString *imageName = [segue.sourceViewController performSelector:@selector(imageName)];
-        NSData *data = [segue.sourceViewController performSelector:@selector(data)];
+        //we don't use the raw photo data currently
+        //NSData *data = [segue.sourceViewController performSelector:@selector(data)];
         
         NSData *jpg = UIImageJPEGRepresentation(photo.image, 0.9);
         [self sendNow:poi.text withImage:jpg withImageName:imageName];

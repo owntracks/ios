@@ -202,8 +202,11 @@
 /* Class = "UINavigationItem"; title = "Certificates"; ObjectID = "GWL-01-fh1"; Note = "Don't translate, technical term"; */
 "GWL-01-fh1.title" = "Certifikater";
 
-/* Class = "UILabel"; text = "Batterylevel"; ObjectID = "gXA-0p-FKt"; */
-"gXA-0p-FKt.text" = "Batteriniveau";
+/* Class = "UILabel"; text = "Battery Status"; ObjectID = "gXA-0p-FKt"; */
+"gXA-0p-FKt.text" = "Battery Status";
+
+/* Class = "UILabel"; text = "Battery Level"; ObjectID = "ABs-5w-ixf"; */
+"ABs-5w-ixf.text" = "Batteri Niveau";
 
 /* Class = "UILabel"; text = "effective pubTopic"; ObjectID = "H7d-L2-cbZ"; Note = "Don't translate, technical term"; */
 "H7d-L2-cbZ.text" = "effective pubTopic";

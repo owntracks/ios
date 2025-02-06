@@ -1542,7 +1542,6 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
         }
     }
               
-    
     friend.tid = [Settings stringForKey:@"trackerid_preference"
                                   inMOC:moc];
     
@@ -1555,8 +1554,50 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     
     NSNumber *batteryLevel = [NSNumber numberWithFloat:[UIDevice currentDevice].batteryLevel];
     
+    UIDeviceBatteryState batteryState = [UIDevice currentDevice].batteryState;
+    NSNumber *bs = [NSNumber numberWithInteger:batteryState];
+
     NSString *tag = [[NSUserDefaults standardUserDefaults] stringForKey:@"tag"];
     
+    NSMutableArray <NSString *> *inRegions = [[NSMutableArray alloc] init];
+    NSMutableArray <NSString *> *inRids = [[NSMutableArray alloc] init];
+    for (Region *region in friend.hasRegions) {
+        if (!region.CLregion.isFollow) {
+            if ([LocationManager sharedInstance].insideCircularRegions[region.name] ||
+                [LocationManager sharedInstance].insideBeaconRegions[region.name]) {
+                [inRegions addObject:region.name];
+                [inRids addObject:region.getAndFillRid];
+            }
+        }
+    }
+
+    NSString *conn = nil;
+    NSString *ssid = nil;
+    NSString *bssid = nil;
+    switch ([ConnType connectionType:[Settings theHostInMOC:moc]]) {
+        case ConnectionTypeNone:
+            conn = @"o";
+            break;
+
+        case ConnectionTypeWIFI:
+        {
+            conn = @"w";
+            ssid = [ConnType SSID];
+            bssid = [ConnType BSSID];
+            break;
+        }
+            
+        case ConnectionTypeWWAN:
+            conn = @"m";
+            break;
+
+        case ConnectionTypeUnknown:
+        default:
+            break;
+    }
+
+    NSNumber *m = [NSNumber numberWithInteger:[LocationManager sharedInstance].monitoring];
+
     Waypoint *waypoint = [ownTracking addWaypointFor:friend
                                             location:location
                                            createdAt:createdAt
@@ -1565,7 +1606,14 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                                                  tag:tag
                                              battery:batteryLevel
                                                image:image
-                                           imageName:imageName];
+                                           imageName:imageName
+                                           inRegions:inRegions
+                                              inRids:inRids
+                                               bssid:bssid
+                                                ssid:ssid
+                                                   m:m
+                                                conn:conn
+                                                  bs:bs];
     if (waypoint) {
         [CoreData.sharedInstance sync:moc];
         

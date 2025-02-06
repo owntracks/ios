@@ -377,8 +377,11 @@
 /* Class = "UILabel"; text = "Version"; ObjectID = "g84-aA-XOI"; */
 "g84-aA-XOI.text" = "Version";
 
-/* Class = "UILabel"; text = "Batterylevel"; ObjectID = "gXA-0p-FKt"; */
-"gXA-0p-FKt.text" = "Batterylevel";
+/* Class = "UILabel"; text = "Battery Status"; ObjectID = "gXA-0p-FKt"; */
+"gXA-0p-FKt.text" = "Battery Status";
+
+/* Class = "UILabel"; text = "Battery Level"; ObjectID = "ABs-5w-ixf"; */
+"ABs-5w-ixf.text" = "Battery Level";
 
 /* Class = "UILabel"; text = "pubTopicBase"; ObjectID = "gkR-ph-8W7"; Note = "Don't translate, technical term"; */
 "gkR-ph-8W7.text" = "pubTopicBase";

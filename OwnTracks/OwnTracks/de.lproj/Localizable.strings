@@ -367,3 +367,14 @@
 /* Text explaining the Setup */
 "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Konfigurieren Sie Ihren OwnTracks Server für vollständigen Datenschutz. Mehr Information hier: https://owntracks.org/booklet";
 
+/* Battery status unkown */
+"unknown" = "unbekannt";
+
+/* Battery status unplugged */
+"unplugged" = "nicht ladend";
+
+/* Battery status charging */
+"charging" = "ladend";
+
+/* Battery status full */
+"full" = "voll";

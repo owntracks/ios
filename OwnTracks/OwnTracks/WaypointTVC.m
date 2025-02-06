@@ -20,12 +20,17 @@
 @interface WaypointTVC ()
 @property (weak, nonatomic) IBOutlet UITextField *UIcoordinate;
 @property (weak, nonatomic) IBOutlet UITextField *UIdistance;
+@property (weak, nonatomic) IBOutlet UITextField *UItrigger;
+@property (weak, nonatomic) IBOutlet UITextField *UImonitoring;
+@property (weak, nonatomic) IBOutlet UITextField *UIconnection;
+@property (weak, nonatomic) IBOutlet UITextField *UIregions;
 @property (weak, nonatomic) IBOutlet UILabel *UIplace;
 @property (weak, nonatomic) IBOutlet UITextField *UItimestamp;
 @property (weak, nonatomic) IBOutlet UITextField *UItopic;
 @property (weak, nonatomic) IBOutlet UITextField *UIinfo;
 @property (weak, nonatomic) IBOutlet UITextField *UIcreatedAt;
 @property (weak, nonatomic) IBOutlet UITextField *UIbatterylevel;
+@property (weak, nonatomic) IBOutlet UITextField *UIbatterystatus;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *bookmarkButton;
 @property (weak, nonatomic) IBOutlet UITextField *UIpoi;
 @property (weak, nonatomic) IBOutlet UITextField *UItag;
@@ -84,10 +89,28 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.UIcoordinate.text = (self.waypoint).coordinateText;
     CLLocationDistance distance = [self.waypoint getDistanceFrom:[LocationManager sharedInstance].location];
     self.UIdistance.text = [Waypoint distanceText:distance];
+    self.UItrigger.text = self.waypoint.triggerText;
+    self.UImonitoring.text = self.waypoint.monitoringText;
+    self.UIconnection.text = self.waypoint.connectionText;
     
+    self.UIregions.text = @"-";
+    if (self.waypoint.inRegions) {
+        NSArray <NSString *>* inRegions = [NSJSONSerialization JSONObjectWithData:self.waypoint.inRegions
+                                                                          options:0
+                                                                            error:nil];
+        for (NSString *inRegion in inRegions) {
+            if ([self.UIregions.text isEqualToString:@"-"]) {
+                self.UIregions.text = inRegion;
+            } else {
+                self.UIregions.text = [self.UIregions.text stringByAppendingFormat:@", %@", inRegion];
+            }
+        }
+    }
+
     self.UItimestamp.text = (self.waypoint).timestampText;
     self.UIcreatedAt.text = (self.waypoint).createdAtText;
     self.UIinfo.text = (self.waypoint).infoText;
+    self.UIbatterystatus.text = (self.waypoint).batteryStatusText;
     self.UIbatterylevel.text = (self.waypoint).batteryLevelText;
     self.UItopic.text = self.waypoint.belongsTo.topic;
     self.UIpoi.text = self.waypoint.poi;

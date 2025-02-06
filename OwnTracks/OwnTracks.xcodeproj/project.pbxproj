@@ -313,6 +313,7 @@
 		84C7C031289821280088A544 /* ToursTVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToursTVC.m; sourceTree = "<group>"; };
 		84C7C0332898FAF90088A544 /* Tours.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tours.h; sourceTree = "<group>"; };
 		84C7C0342898FAF90088A544 /* Tours.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tours.m; sourceTree = "<group>"; };
+		84C8E2742D54C14D006F9E41 /* Model 18.3.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 18.3.0.xcdatamodel"; sourceTree = "<group>"; };
 		84CC5A511FEC71840010314C /* OwnTracks-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-29.png"; sourceTree = "<group>"; };
 		84CE578E2C8745B8007689E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84D3072E1ACD644500FACB9E /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -1520,6 +1521,7 @@
 		8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				84C8E2742D54C14D006F9E41 /* Model 18.3.0.xcdatamodel */,
 				849197EE2CFF732900072AF6 /* Model 18.1.0.xcdatamodel */,
 				849ABA0028F21D140078AE41 /* Model 16.3.0.xcdatamodel */,
 				841EDC1F2768FA4F009AC46F /* Model 15.0.1.xcdatamodel */,
@@ -1551,7 +1553,7 @@
 				84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */,
 				8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 849197EE2CFF732900072AF6 /* Model 18.1.0.xcdatamodel */;
+			currentVersion = 84C8E2742D54C14D006F9E41 /* Model 18.3.0.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

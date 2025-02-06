@@ -12,6 +12,7 @@
 #import <MapKit/MapKit.h>
 #import <Contacts/Contacts.h>
 #import "CoreData.h"
+#import "LocationManager.h"
 
 @implementation Waypoint
 
@@ -159,8 +160,62 @@
     return [mf stringFromMeasurement:m];
 }
 
+- (NSString *)triggerText {
+    if (self.trigger) {
+        return self.trigger;
+    } else {
+        return @"-";
+    }
+}
+
+- (NSString *)monitoringText {
+    if (self.m) {
+        switch (self.m.integerValue) {
+            case LocationMonitoringMove:
+                return NSLocalizedString(@"Move", @"Move");
+            case LocationMonitoringSignificant:
+                return NSLocalizedString(@"Significant", @"Significant");
+            case LocationMonitoringManual:
+                return NSLocalizedString(@"Manual", @"Manual");
+            case LocationMonitoringQuiet:
+                return NSLocalizedString(@"Quiet", @"Quiet");
+            default:
+                return self.m.stringValue;
+        }
+    } else {
+        return @"-";
+    }
+}
+
+- (NSString *)connectionText{
+    if (self.conn && self.conn.length > 0) {
+        return self.conn;
+    } else {
+        return @"-";
+    }
+}
+
+- (NSString *)batteryStatusText {
+    if (self.bs) {
+        switch (self.bs.integerValue) {
+            case 3:
+                return NSLocalizedString(@"full", @"Battery status full");
+            case 2:
+                return NSLocalizedString(@"charging", @"Battery status charging");
+
+            case 1:
+                return NSLocalizedString(@"unplugged", @"Battery status unplugged");
+
+            case 0:
+            default:
+                return NSLocalizedString(@"unknown", @"Battery status unknown");
+        }
+    } else {
+        return @"-";
+    }
+}
+
 - (NSString *)batteryLevelText {
-    NSLog(@"self.batt %@", self.batt);
     if (self.batt && self.batt.doubleValue >= 0.0) {
         NSString *text = [NSString stringWithFormat:@"%0.f%%",
                           (self.batt).doubleValue * 100.0

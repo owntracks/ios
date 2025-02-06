@@ -339,6 +339,48 @@ static OwnTracking *theInstance = nil;
             DDLogError(@"[OwnTracking processLocation] json does not contain valid imageName: not processed");
             return;
         }
+        
+        NSArray <NSString *> *inRegions = dictionary[@"inregions"];
+        if (inRegions && ![inRegions isKindOfClass:[NSArray class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does not contain valid inRegions: not processed");
+            return;
+        }
+
+        NSArray <NSString *> *inRids = dictionary[@"inrids"];
+        if (inRegions && ![inRegions isKindOfClass:[NSArray class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does not contain valid inRegions: not processed");
+            return;
+        }
+
+        NSString *ssid = dictionary[@"ssid"];
+        if (ssid && ![ssid isKindOfClass:[NSString class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does not contain valid ssid: not processed");
+            return;
+        }
+        
+        NSString *bssid = dictionary[@"bssid"];
+        if (bssid && ![bssid isKindOfClass:[NSString class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does not contain valid bssid: not processed");
+            return;
+        }
+        
+        NSString *conn = dictionary[@"conn"];
+        if (conn && ![conn isKindOfClass:[NSString class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does not contain valid conn: not processed");
+            return;
+        }
+        
+        NSNumber *m = dictionary[@"m"];
+        if (m && ![m isKindOfClass:[NSNumber class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does contain invalid m: not processed");
+            return;
+        }
+
+        NSNumber *bs = dictionary[@"bs"];
+        if (bs && ![bs isKindOfClass:[NSNumber class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does contain invalid bs: not processed");
+            return;
+        }
 
         Waypoint *waypoint = [self addWaypointFor:friend
                                          location:location
@@ -348,7 +390,15 @@ static OwnTracking *theInstance = nil;
                                               tag:tag
                                           battery:batteryLevel
                                             image:image
-                                        imageName:imageName];
+                                        imageName:imageName
+                                        inRegions:inRegions
+                                           inRids:inRids
+                                            bssid:bssid
+                                             ssid:ssid
+                                                m:m
+                                             conn:conn
+                                               bs:bs];
+        
         DDLogInfo(@"[OwnTracking processLocation] waypoint added %@ %@ %@ %@ %@",
                   waypoint.coordinateText,
                   waypoint.infoText,
@@ -592,7 +642,14 @@ static OwnTracking *theInstance = nil;
                      tag:(NSString *)tag
                      battery:(NSNumber *)battery
                        image:(NSData *)image
-                   imageName:(NSString *)imageName {
+                   imageName:(NSString *)imageName
+                   inRegions:(NSArray<NSString *> *)inRegions
+                      inRids:(NSArray<NSString *> *)inRids
+                       bssid:(NSString *)bssid
+                        ssid:(NSString *)ssid
+                           m:(NSNumber *)m
+                        conn:(NSString *)conn
+                          bs:(NSNumber *)bs {
     Waypoint *waypoint = [NSEntityDescription insertNewObjectForEntityForName:@"Waypoint"
                                                        inManagedObjectContext:friend.managedObjectContext];
     waypoint.belongsTo = friend;
@@ -616,6 +673,25 @@ static OwnTracking *theInstance = nil;
     waypoint.placemark = nil;
     waypoint.image = image;
     waypoint.imageName = imageName;
+    if (inRegions && [NSJSONSerialization isValidJSONObject:inRegions]) {
+        waypoint.inRegions = [NSJSONSerialization dataWithJSONObject:inRegions
+                                                             options:0
+                                                               error:nil];
+    } else {
+        waypoint.inRegions = nil;
+    }
+    if (inRids && [NSJSONSerialization isValidJSONObject:inRids]) {
+        waypoint.inRids = [NSJSONSerialization dataWithJSONObject:inRids
+                                                          options:0
+                                                            error:nil];
+    } else {
+        waypoint.inRids = nil;
+    }
+    waypoint.ssid = ssid;
+    waypoint.bssid = bssid;
+    waypoint.bs = bs;
+    waypoint.m = m;
+    waypoint.conn = conn;
 
     return waypoint;
 }
@@ -693,35 +769,21 @@ static OwnTracking *theInstance = nil;
             json[@"p"] = altitude.pressure.threeDecimals;
         }
 
-        switch ([ConnType connectionType:[Settings theHostInMOC:waypoint.managedObjectContext]]) {
-            case ConnectionTypeNone:
-                json[@"conn"] = @"o";
-                break;
-
-            case ConnectionTypeWIFI:
-            {
-                json[@"conn"] = @"w";
-                NSString *ssid = [ConnType SSID];
-                if (ssid) {
-                    json[@"SSID"] = ssid;
-                }
-                NSString *bssid = [ConnType BSSID];
-                if (bssid) {
-                    json[@"BSSID"] = bssid;
-                }
-                break;
-            }
-                
-            case ConnectionTypeWWAN:
-                json[@"conn"] = @"m";
-                break;
-
-            case ConnectionTypeUnknown:
-            default:
-                break;
+        if (waypoint.conn && waypoint.conn.length > 0) {
+            json[@"conn"] = waypoint.conn;
         }
 
-        json[@"m"] = [NSNumber numberWithInt:(int)[LocationManager sharedInstance].monitoring];
+        if (waypoint.ssid && waypoint.ssid.length > 0) {
+            json[@"ssid"] = waypoint.ssid;
+        }
+
+        if (waypoint.bssid && waypoint.bssid.length > 0) {
+            json[@"bssid"] = waypoint.bssid;
+        }
+
+        if (waypoint.m) {
+            json[@"m"] = waypoint.m;
+        }
     }
 
     NSString *tid = [Settings stringForKey:@"trackerid_preference" inMOC:waypoint.managedObjectContext];
@@ -736,29 +798,20 @@ static OwnTracking *theInstance = nil;
         json[@"batt"] = @(batteryLevelInt);
     }
 
-    UIDeviceBatteryState batteryState = [UIDevice currentDevice].batteryState;
-    if (batteryState != UIDeviceBatteryStateUnknown) {
-        [json setValue:@(batteryState) forKey:@"bs"];
+    if (waypoint.bs.doubleValue != UIDeviceBatteryStateUnknown) {
+        json[@"bs"] = waypoint.bs;
     }
 
-    NSMutableArray <NSString *> *inRegions = [[NSMutableArray alloc] init];
-    NSMutableArray <NSString *> *inRids = [[NSMutableArray alloc] init];
-    for (Region *region in waypoint.belongsTo.hasRegions) {
-        if (!region.CLregion.isFollow) {
-            if ([LocationManager sharedInstance].insideCircularRegions[region.name] ||
-                [LocationManager sharedInstance].insideBeaconRegions[region.name]) {
-                [inRegions addObject:region.name];
-                [inRids addObject:region.getAndFillRid];
-            }
-        }
+    if (waypoint.inRegions) {
+        json[@"inregions"] = [NSJSONSerialization JSONObjectWithData:waypoint.inRegions
+                                                             options:0
+                                                               error:nil];
     }
 
-    if (inRegions.count > 0) {
-        json[@"inregions"] = inRegions;
-    }
-
-    if (inRids.count > 0) {
-        json[@"inrids"] = inRids;
+    if (waypoint.inRids) {
+        json[@"inrids"] = [NSJSONSerialization JSONObjectWithData:waypoint.inRids
+                                                          options:0
+                                                            error:nil];
     }
     
     if (waypoint.poi && waypoint.poi.length > 0) {
