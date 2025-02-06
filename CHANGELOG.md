@@ -1,10 +1,12 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 18.2.0 iOS/ipadOS
-* Release Date 2025-01-19
+## OwnTracks 18.3.0 iOS/ipadOS
+* Release Date 2025-01-06
 
 ** UI enhancements
+    [NEW] Display region on Friends' details page? #831
+    [FIX] speedup old waypoints deletion
     [NEW] Navigate to Region / POI #829
     [NEW] add optional image and imagename properties to location message JSON schema
 
