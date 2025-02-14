@@ -45,6 +45,11 @@
     }];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self adjust];
+}
+
 - (void)adjust {
     
     NSMutableArray *viewControllers = [[NSMutableArray alloc] initWithArray:self.viewControllers];
