@@ -45,7 +45,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    self.tableView.sectionIndexMinimumDisplayRowCount = 4;
     [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     [self reset];
 }
 
@@ -71,6 +76,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     id <NSFetchedResultsSectionInfo> sectionInfo = (self.fetchedResultsController).sections[section];
     return sectionInfo.numberOfObjects;
+}
+
+- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    return self.fetchedResultsController.sectionIndexTitles;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    return [self.fetchedResultsController sectionForSectionIndexTitle:title
+                                                           atIndex:index];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
