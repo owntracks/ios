@@ -69,7 +69,7 @@
     }
 
     [picker dismissViewControllerAnimated:TRUE completion:^{
-        //
+        [self adjustSaveButton];
     }];
 }
 
