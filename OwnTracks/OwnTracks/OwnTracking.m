@@ -559,13 +559,16 @@ static OwnTracking *theInstance = nil;
 
 - (void)limitWaypointsFor:(Friend *)friend
                 toMaximum:(NSInteger)max {
-    DDLogVerbose(@"[OwnTracking] limitWaypointsFor %@ hasWaypoints.count %lu / %lu",
+    
+    DDLogVerbose(@"[OwnTracking] limitWaypointsFor %@ hasWaypoints.count %lu / %ld",
                  friend.topic, (unsigned long)friend.hasWaypoints.count, max);
 
-    for (NSInteger i = friend.hasWaypoints.count; i > max; i--) {
-        DDLogVerbose(@"[OwnTracking] limitWaypointsFor %@ i %lu / %lu",
-                     friend.topic, i, max);
+    if (max < 1) {
+        DDLogWarn(@"[OwnTracking] limitWaypointsFor max adjusted %ld -> 1", max);
+        max = 1;
+    }
 
+    for (NSInteger i = friend.hasWaypoints.count; i > max; i--) {
         Waypoint *oldestWaypoint = nil;
         for (Waypoint *waypoint in friend.hasWaypoints) {
             if (!oldestWaypoint || (!waypoint.isDeleted && [oldestWaypoint.tst compare:waypoint.tst] == NSOrderedDescending)) {
@@ -584,6 +587,7 @@ static OwnTracking *theInstance = nil;
             newestWaypoint = waypoint;
         }
     }
+
     if (newestWaypoint && ![newestWaypoint.tst isEqualToDate:friend.lastLocation]) {
         friend.lastLocation = newestWaypoint.tst;
         [CoreData.sharedInstance sync:friend.managedObjectContext];
