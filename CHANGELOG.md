@@ -1,6 +1,15 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 18.3.2 iOS/ipadOS
+* Release Date 2025-02-19
+
+** UI fixes
+    [FIX] warn and correct negative or zero position max
+    [FIX] Can't post POI with image #834
+    [NEW] add section index to history for easy naviagation
+    [FIX] History tab shown although disabled by default #833
+
 ## OwnTracks 18.3.1 iOS/ipadOS
 * Release Date 2025-01-06
 
