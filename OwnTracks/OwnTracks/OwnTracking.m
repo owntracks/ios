@@ -35,19 +35,6 @@ static OwnTracking *theInstance = nil;
 - (instancetype)init {
     self = [super init];
     self.inQueue = @(0);
-
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification
-                                                      object:nil 
-                                                       queue:nil
-                                                  usingBlock:^(NSNotification *note){
-        [self performSelectorOnMainThread:@selector(share) withObject:nil waitUntilDone:NO];
-    }];
-    [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification
-                                                      object:nil
-                                                       queue:nil
-                                                  usingBlock:^(NSNotification *note){
-        [self performSelectorOnMainThread:@selector(share) withObject:nil waitUntilDone:NO];
-    }];
     return self;
 }
 
@@ -168,7 +155,6 @@ static OwnTracking *theInstance = nil;
             }
             if ((self.inQueue).intValue == 0) {
                 [context save:nil];
-                [self performSelectorOnMainThread:@selector(share) withObject:nil waitUntilDone:NO];
             }
         }];
 
@@ -584,50 +570,6 @@ static OwnTracking *theInstance = nil;
         friend.lastLocation = newestWaypoint.tst;
         [CoreData.sharedInstance sync:friend.managedObjectContext];
     }
-}
-
-- (void)share {
-    NSArray *friends = [Friend allNonStaleFriendsInManagedObjectContext:CoreData.sharedInstance.mainMOC];
-    NSMutableDictionary *sharedFriends = [[NSMutableDictionary alloc] init];
-    CLLocation *myCLLocation = [LocationManager sharedInstance].location;
-    
-    for (Friend *friend in friends) {
-        NSString *name = friend.name;
-        NSData *image = friend.image;
-        
-        if (!image) {
-            image = UIImageJPEGRepresentation([UIImage imageNamed:@"Friend"], 0.5);
-        }
-        
-        Waypoint *waypoint = friend.newestWaypoint;
-        if (waypoint) {
-            CLLocation *location = [[CLLocation alloc]
-                                    initWithLatitude:(waypoint.lat).doubleValue
-                                    longitude:(waypoint.lon).doubleValue];
-            NSNumber *distance = @([myCLLocation distanceFromLocation:location]);
-            if (name) {
-                if (waypoint.tst &&
-                    waypoint.lat &&
-                    waypoint.lon &&
-                    friend.topic &&
-                    image) {
-                    NSMutableDictionary *aFriend = [[NSMutableDictionary alloc] init];
-                    aFriend[@"image"] = image;
-                    aFriend[@"distance"] = distance;
-                    aFriend[@"longitude"] = waypoint.lon;
-                    aFriend[@"latitude"] = waypoint.lat;
-                    aFriend[@"timestamp"] = waypoint.tst;
-                    aFriend[@"topic"] = friend.topic;
-                    sharedFriends[name] = aFriend;
-                } else {
-                    DDLogError(@"[OwnTracking] friend or location incomplete");
-                }
-            }
-        }
-    }
-    DDLogVerbose(@"[OwnTracking] sharedFriends %@", [sharedFriends allKeys]);
-    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
-    [shared setValue:sharedFriends forKey:@"sharedFriends"];
 }
 
 - (Waypoint *)addWaypointFor:(Friend *)friend
