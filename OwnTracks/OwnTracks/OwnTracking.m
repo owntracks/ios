@@ -398,19 +398,11 @@ static OwnTracking *theInstance = nil;
                                                 m:m
                                              conn:conn
                                                bs:bs];
-        
-        DDLogInfo(@"[OwnTracking processLocation] waypoint added %@ %@ %@ %@ %@",
-                  waypoint.coordinateText,
-                  waypoint.infoText,
-                  waypoint.timestampText,
-                  waypoint.createdAtText,
-                  waypoint.batteryLevelText);
-
         [self limitWaypointsFor:friend
                       toMaximum:[Settings intForKey:@"positions_preference"
                                               inMOC:friend.managedObjectContext]];
-        DDLogInfo(@"[OwnTracking] processed location for friend %@",
-                  friend.topic);
+        DDLogInfo(@"[OwnTracking] processed location for friend %@ @%@",
+                  friend.topic, waypoint.effectiveTimestamp);
     } else {
         DDLogError(@"[OwnTracking processLocation] json is no dictionary");
     }
