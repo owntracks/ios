@@ -378,3 +378,6 @@
 
 /* Battery status full */
 "full" = "full";
+
+/* "Please keep OwnTracks running to ensure the desired functionality" */
+"Please keep OwnTracks running to ensure the desired functionality" = "Please keep OwnTracks running to ensure the desired functionality";
