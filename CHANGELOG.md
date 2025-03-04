@@ -1,6 +1,15 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 18.3.3 iOS/ipadOS
+* Release Date 2025-03-04
+
+** Bugfixes and performance optimizations
+    [FIX] App killed due to overrun background time #836
+    [NEW] show warning message after app swipe out #832
+    remove sharedFriends only used by obsolete today widget
+    processing messages Streamline logging #835
+
 ## OwnTracks 18.3.2 iOS/ipadOS
 * Release Date 2025-02-19
 
