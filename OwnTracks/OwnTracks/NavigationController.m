@@ -16,9 +16,15 @@
 @end
 
 @implementation NavigationController
+
+static NavigationController *theInstance = nil;
+
++ (NavigationController *)sharedInstance {
+    return theInstance;
+}
+
 - (void)viewDidLoad {
-    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    ad.navigationController = self;
+    theInstance = self;
     self.queuedAlerts = [[NSMutableArray alloc] init];
 
     self.progressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleBar];
@@ -101,9 +107,25 @@
     }
 }
 
++ (void)alert:(NSString *)title
+      message:(NSString *)message {
+    NavigationController *nc = NavigationController.sharedInstance;
+    if (nc) {
+        [nc alert:title message:message];
+    }
+ }
 - (void)alert:(NSString *)title
       message:(NSString *)message {
     [self alert:title message:message dismissAfter:0];
+}
+
++ (void)alert:(NSString *)title
+      message:(NSString *)message
+          url:(NSString *)url {
+    NavigationController *nc = NavigationController.sharedInstance;
+    if (nc) {
+        [nc alert:title message:message url:url];
+    }
 }
 
 - (void)alert:(NSString *)title
@@ -118,6 +140,15 @@
                            }
                         waitUntilDone:NO];
 
+}
+
++ (void)alert:(NSString *)title
+      message:(NSString *)message
+ dismissAfter:(NSTimeInterval)interval {
+    NavigationController *nc = NavigationController.sharedInstance;
+    if (nc) {
+        [nc alert:title message:message dismissAfter:interval];
+    }
 }
 
 - (void)alert:(NSString *)title

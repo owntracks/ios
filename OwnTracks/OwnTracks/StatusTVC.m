@@ -175,12 +175,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                         ];
             UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
             [generalPasteboard setString:locationString];
-            OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-            [ad.navigationController alert:NSLocalizedString(@"Clipboard",
-                                                             @"Clipboard")
-                                   message:NSLocalizedString(@"Location copied to clipboard",
-                                                             @"Location copied to clipboard")
-                              dismissAfter:1
+            [NavigationController alert:NSLocalizedString(@"Clipboard",
+                                                          @"Clipboard")
+                                message:NSLocalizedString(@"Location copied to clipboard",
+                                                          @"Location copied to clipboard")
+                           dismissAfter:1
             ];
         }
     }

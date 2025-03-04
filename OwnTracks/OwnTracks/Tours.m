@@ -277,18 +277,16 @@ static Tours *theInstance = nil;
                                 UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
                                 [generalPasteboard setString:tour.url];
                                 
-                                OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-                                
-                                [ad.navigationController alert:
+                                [NavigationController alert:
                                      NSLocalizedString(@"Response",
                                                        @"Alert message header for Request Response")
-                                                       message:
+                                                    message:
                                      [NSString stringWithFormat:@"%@ %ld %@\n",
                                       NSLocalizedString(@"URL copied to Clipboard",
                                                         @"URL copied to Clipboard"),
                                       (long)status.integerValue,
                                       tour.url]
-                                                           url:tour.url
+                                                        url:tour.url
                                 ];
                             } else {
                                 DDLogError(@"[Tours] processResponse invalid tour");

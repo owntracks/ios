@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface NavigationController : UINavigationController
-- (void)alert:(NSString *)title message:(NSString *)message;
-- (void)alert:(NSString *)title message:(NSString *)message url:(NSString *)url;
-- (void)alert:(NSString *)title message:(NSString *)message dismissAfter:(NSTimeInterval)interval;
++ (NavigationController *)sharedInstance;
++ (void)alert:(NSString *)title message:(NSString *)message;
++ (void)alert:(NSString *)title message:(NSString *)message url:(NSString *)url;
++ (void)alert:(NSString *)title message:(NSString *)message dismissAfter:(NSTimeInterval)interval;
 
 @end

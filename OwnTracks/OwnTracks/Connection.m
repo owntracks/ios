@@ -146,7 +146,7 @@ DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)idle {
-    DDLogInfo(@"[Connection] idle");
+    DDLogVerbose(@"[Connection] idle");
 }
 
 - (void)connectTo:(NSString *)host
@@ -231,7 +231,7 @@ allowUntrustedCertificates:(BOOL)allowUntrustedCertificates
 }
 
 - (MQTTSession *)newMQTTSession:(BOOL)force {
-    DDLogInfo(@"[Connection] new session");
+    DDLogInfo(@"[Connection] newMQTTSession");
     MQTTSession *session;
     MQTTTransport *mqttTransport;
 
@@ -323,7 +323,6 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
             [self.httpHeaders addObject:@{@"key": key, @"value": value}];
         }
     }
-    DDLogInfo(@"[Connection] httpHeaders %@ %@", self.httpHeaders, httpHeaders);
     self.reconnectTime = RECONNECT_TIMER;
     self.reconnectFlag = FALSE;
     self.state = state_starting;
@@ -411,10 +410,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 }
 
 - (void)HTTPerror:(NSString *)message {
-    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    
-    [ad.navigationController alert:@"HTTP"
-                           message:message];
+    [NavigationController alert:@"HTTP" message:message];
 }
 
 - (void)sendHTTP:(NSString *)topic data:(NSData *)data {
@@ -596,7 +592,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
                 topic = [NSString stringWithFormat:@"owntracks/http/%@", message[@"tid"]];
             }
         }
-        DDLogInfo(@"[Connection] oneMessage topic %@", topic);
+        DDLogVerbose(@"[Connection] oneMessage topic %@", topic);
         
         [self.delegate handleMessage:self
                                 data:[NSJSONSerialization dataWithJSONObject:message options:0 error:nil]
@@ -747,11 +743,10 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
             reasonString:(NSString *)reasonString
           userProperties:(NSArray<NSDictionary<NSString *,NSString *> *> *)userProperties
              reasonCodes:(NSArray<NSNumber *> *)reasonCodes {
-    DDLogInfo(@"[Connection] subAckReceived mid=%u rc=%@ up=%@",
+    DDLogInfo(@"[Connection] subAckReceived mid=%u reasonCodes=%@ userProperties=%@",
               msgID,
-              reasonCodes,
+              [reasonCodes componentsJoinedByString:@", "],
               userProperties);
-
 }
 
 - (void)unsubAckReceivedV5:(MQTTSession *)session

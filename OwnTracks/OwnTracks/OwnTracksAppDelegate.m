@@ -35,7 +35,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
 @property (strong, nonatomic) NSString *backgroundFetchCheckMessage;
 
-@property (strong, nonatomic) BGTaskScheduler *bgTaskScheduler;
 @property (strong, nonatomic) BGTask *bgTask;
 
 @property (strong, nonatomic) CoreData *coreData;
@@ -43,17 +42,28 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 @property (strong, nonatomic) NSUserActivity *sendNowActivity;
 
-#define BACKGROUND_DISCONNECT_AFTER 15.0
+#define BACKGROUND_DISCONNECT_AFTER 25.0
 #define BACKGROUND_HOLD_FOR 10.0
 @property (strong, nonatomic) NSTimer *disconnectTimer;
 @property (strong, nonatomic) NSTimer *holdTimer;
 @property (strong, nonatomic) NSTimer *bgTimer;
 
-
-
 @end
 
 @implementation OwnTracksAppDelegate
+
+- (instancetype)init {
+    self = [super init];
+    self.inQueue = @(0);
+    return self;
+}
+
+- (void)syncProcessing {
+    while ((self.inQueue).unsignedLongValue > 0) {
+        DDLogVerbose(@"[OwnTracksAppDelegate] syncProcessing %lu", [self.inQueue unsignedLongValue]);
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    };
+}
 
 - (void)setShortcutItems {
     UIApplication *application = [UIApplication sharedApplication];
@@ -126,51 +136,30 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self setShortcutItems];
     
 #define TASK_IDENTIFIER @"updateSituation"
-    self.bgTaskScheduler = [BGTaskScheduler sharedScheduler];
-    BOOL success = [self.bgTaskScheduler
+    BOOL success = [[BGTaskScheduler sharedScheduler]
                     registerForTaskWithIdentifier:TASK_IDENTIFIER
                     usingQueue:nil
                     launchHandler:^(__kindof BGTask * _Nonnull task) {
         DDLogVerbose(@"[OwnTracksAppDelegate] launchHandler %@",
                      task.identifier);
-        NSError *error;
-        BGAppRefreshTaskRequest *bgAppRefreshTaskRequest =
-        [[BGAppRefreshTaskRequest alloc] initWithIdentifier:TASK_IDENTIFIER];
-        bgAppRefreshTaskRequest.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:15 * 60];
-        
-        BOOL success = [self.bgTaskScheduler submitTaskRequest:bgAppRefreshTaskRequest error:&error];
-        DDLogVerbose(@"[OwnTracksAppDelegate] submitTaskRequest %@ @ %@ %d, %@",
-                     bgAppRefreshTaskRequest.identifier,
-                     bgAppRefreshTaskRequest.earliestBeginDate,
-                     success,
-                     error);
         
         task.expirationHandler = ^{
-            DDLogVerbose(@"[OwnTracksAppDelegate] bgTaskEspirationHandler");
+            DDLogWarn(@"[OwnTracksAppDelegate] bgTaskExpirationHandler");
             if (self.bgTask) {
                 [self.bgTask setTaskCompletedWithSuccess:FALSE];
                 self.bgTask = nil;
             }
         };
+        self.bgTask = task;
         [self performSelectorOnMainThread:@selector(doRefresh)
                                withObject:nil
                             waitUntilDone:TRUE];
-        self.bgTask = task;
+        [self scheduleRefreshTask];
     }];
     DDLogVerbose(@"[OwnTracksAppDelegate] registerForTaskWithIdentifier %@ %d",
                  TASK_IDENTIFIER, success);
     
-    NSError *error;
-    BGAppRefreshTaskRequest *bgAppRefreshTaskRequest =
-    [[BGAppRefreshTaskRequest alloc] initWithIdentifier:TASK_IDENTIFIER];
-    bgAppRefreshTaskRequest.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:15 * 60];
-    success = [self.bgTaskScheduler submitTaskRequest:bgAppRefreshTaskRequest error:&error];
-    DDLogVerbose(@"[OwnTracksAppDelegate] submitTaskRequest %@ @ %@ %d, %@",
-                 bgAppRefreshTaskRequest.identifier,
-                 bgAppRefreshTaskRequest.earliestBeginDate,
-                 success,
-                 error);
-    
+    [self scheduleRefreshTask];
     self.backgroundTask = UIBackgroundTaskInvalid;
     
     UIBackgroundRefreshStatus status = [UIApplication sharedApplication].backgroundRefreshStatus;
@@ -206,6 +195,18 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     return YES;
 }
 
+- (void)scheduleRefreshTask {
+    NSError *error;
+    BGAppRefreshTaskRequest *bgAppRefreshTaskRequest =
+    [[BGAppRefreshTaskRequest alloc] initWithIdentifier:TASK_IDENTIFIER];
+    BOOL success = [[BGTaskScheduler sharedScheduler] submitTaskRequest:bgAppRefreshTaskRequest error:&error];
+    DDLogVerbose(@"[OwnTracksAppDelegate] submitTaskRequest %@ @ %@ %d, %@",
+                 bgAppRefreshTaskRequest.identifier,
+                 bgAppRefreshTaskRequest.earliestBeginDate,
+                 success,
+                 error);
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     DDLogVerbose(@"[OwnTracksAppDelegate] didFinishLaunchingWithOptions %@", launchOptions);
@@ -238,7 +239,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center
        willPresentNotification:(UNNotification *)notification
          withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
-    DDLogInfo(@"[OwnTracksAppDelegate] willPresentNotification");
+    DDLogVerbose(@"[OwnTracksAppDelegate] willPresentNotification");
     completionHandler(UNNotificationPresentationOptionList |
                       UNNotificationPresentationOptionBanner |
                       UNNotificationPresentationOptionSound);
@@ -268,6 +269,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     if ([LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
         [self.connection disconnect];
     }
+    [self scheduleRefreshTask];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -275,6 +277,27 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [self background];
     [self.connection disconnect];
     
+    NSString *notificationMessage = NSLocalizedString(@"Please keep OwnTracks running to ensure the desired functionality",
+                                                      @"Please keep OwnTracks running to ensure the desired functionality");
+    UNMutableNotificationContent *content = [[UNMutableNotificationContent alloc] init];
+    content.body = notificationMessage;
+    content.sound = [UNNotificationSound defaultSound];
+    UNTimeIntervalNotificationTrigger *trigger = [UNTimeIntervalNotificationTrigger
+                                                  triggerWithTimeInterval:1.0
+                                                  repeats:NO];
+    NSString *notificationIdentifier = [NSString stringWithFormat:@"terminate%f",
+                                        [NSDate date].timeIntervalSince1970];
+    
+    UNNotificationRequest* request =
+    [UNNotificationRequest requestWithIdentifier:notificationIdentifier
+                                         content:content
+                                         trigger:trigger];
+    UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+    [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
+        //
+    }];
+    
+
 }
 
 -(BOOL)application:(UIApplication *)app
@@ -465,8 +488,8 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
                                                                 contents:data
                                                               attributes:nil];
                     } else {
-                        [self.navigationController alert:@"processNSURL"
-                                                 message:
+                        [NavigationController alert:@"processNSURL"
+                                            message:
                          [NSString stringWithFormat:@"OOPS %@ %@",
                           [NSError errorWithDomain:@"OwnTracks"
                                               code:2
@@ -474,24 +497,24 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
                           url]];
                     }
                 } else {
-                    [self.navigationController alert:@"processNSURL"
-                                             message:
+                    [NavigationController alert:@"processNSURL"
+                                        message:
                          [NSString stringWithFormat:@"httpResponse.statusCode %ld %@",
                           (long)httpResponse.statusCode,
                           url]
                     ];
                 }
             } else {
-                [self.navigationController alert:@"processNSURL"
-                                         message:
+                [NavigationController alert:@"processNSURL"
+                                    message:
                      [NSString stringWithFormat:@"response %@ %@",
                       response,
                       url]
                 ];
             }
         } else {
-            [self.navigationController alert:@"processNSURL"
-                                     message:
+            [NavigationController alert:@"processNSURL"
+                                message:
                  [NSString stringWithFormat:@"dataTaskWithRequest %@ %@",
                   error,
                   url]
@@ -508,8 +531,8 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"reload" object:nil];
 
     if (error) {
-        [self.navigationController alert:@"processNSURL"
-                                 message:
+        [NavigationController alert:@"processNSURL"
+                            message:
              [NSString stringWithFormat:@"configFromDictionary %@ %@",
               error,
               json]
@@ -521,8 +544,8 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     NSError *error = [Settings waypointsFromDictionary:json inMOC:CoreData.sharedInstance.mainMOC];
     [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
     if (error) {
-        [self.navigationController alert:@"processNSURL"
-                                 message:
+        [NavigationController alert:@"processNSURL"
+                            message:
              [NSString stringWithFormat:@"waypointsFromDictionary %@ %@",
               error,
               json]
@@ -617,14 +640,14 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     }
     
     if (self.backgroundFetchCheckMessage) {
-        [self.navigationController alert:@"Background Fetch"
-                                 message:self.backgroundFetchCheckMessage];
+        [NavigationController alert:@"Background Fetch"
+                            message:self.backgroundFetchCheckMessage];
         self.backgroundFetchCheckMessage = nil;
     }
     
     if (self.processingMessage) {
-        [self.navigationController alert:@"openURL"
-                                 message:self.processingMessage];
+        [NavigationController alert:@"openURL"
+                            message:self.processingMessage];
         self.processingMessage = nil;
         [self reconnect];
     }
@@ -633,8 +656,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
         NSString *message = NSLocalizedString(@"To publish your location userID and deviceID must be set",
                                               @"Warning displayed if necessary settings are missing");
         
-        [self.navigationController alert:@"Settings"
-                                 message:message];
+        [NavigationController alert:@"Settings" message:message];
     }
 }
 
@@ -1026,12 +1048,13 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                 self.disconnectTimer = nil;
             }
             
-            DDLogVerbose(@"[OwnTracksAppDelegate] endBackGroundTask %lu",
+            DDLogInfo(@"[OwnTracksAppDelegate] endBackGroundTask %lu",
                          (unsigned long)self.backgroundTask);
             [[UIApplication sharedApplication] endBackgroundTask:self.backgroundTask];
             self.backgroundTask = UIBackgroundTaskInvalid;
         }
         if (self.bgTask) {
+            DDLogInfo(@"[OwnTracksAppDelegate] setTaskCompletedWithSuccess");
             [self.bgTask setTaskCompletedWithSuccess:TRUE];
             self.bgTask = nil;
         }
@@ -1042,8 +1065,19 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                  data:(NSData *)data
               onTopic:(NSString *)topic
              retained:(BOOL)retained {
-    DDLogVerbose(@"[OwnTracksAppDelegate] handleMessage");
-    
+    @synchronized (self.inQueue) {
+        self.inQueue = @((self.inQueue).unsignedLongValue + 1);
+    }
+#define LEN2PRINT 256
+    NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    DDLogVerbose(@"[OwnTracksAppDelegate] handleMessage queueing inQueue=%@ topic=%@ data(%lu)=%@",
+                 self.inQueue,
+                 topic,
+                 (unsigned long)dataString.length,
+                 dataString.length <= LEN2PRINT ?
+                 dataString :
+                 [NSString stringWithFormat:@"%@...", [dataString substringToIndex:LEN2PRINT]]);
+
     [CoreData.sharedInstance.queuedMOC performBlock:^{
         (void)[[OwnTracking sharedInstance] processMessage:topic
                                                       data:data
@@ -1158,6 +1192,11 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
             }
         }
         [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
+        @synchronized (self.inQueue) {
+            self.inQueue = @((self.inQueue).unsignedLongValue - 1);
+        }
+        DDLogVerbose(@"[OwnTracksAppDelegate] handleMessage done inQueue=%@",
+                     self.inQueue);
     }];
     
     return true;
@@ -1250,6 +1289,10 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     }
     iOS[@"altimeterIsRelativeAltitudeAvailable"] = [NSNumber numberWithBool:[LocationManager sharedInstance].altimeterIsRelativeAltitudeAvailable];
     
+    iOS[@"pedometerIsStepCountingAvailable"] = [NSNumber numberWithBool:[CMPedometer isStepCountingAvailable]];
+    iOS[@"pedometerIsFloorCountingAvailable"] = [NSNumber numberWithBool:[CMPedometer isFloorCountingAvailable]];
+    iOS[@"pedometerIsDistanceAvailable"] = [NSNumber numberWithBool:[CMPedometer isDistanceAvailable]];
+
     UIDevice *device = [UIDevice currentDevice];
     //iOS[@"deviceName"] = device.name;
     iOS[@"deviceSystemName"] = device.systemName;
@@ -1364,14 +1407,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
         
         fromDate = [[NSCalendar currentCalendar] dateFromComponents:components];
     }
-    
-    DDLogInfo(@"[OwnTracksAppDelegate] isStepCountingAvailable %d",
-              [CMPedometer isStepCountingAvailable]);
-    DDLogInfo(@"[OwnTracksAppDelegate] isFloorCountingAvailable %d",
-              [CMPedometer isFloorCountingAvailable]);
-    DDLogInfo(@"[OwnTracksAppDelegate] isDistanceAvailable %d",
-              [CMPedometer isDistanceAvailable]);
-    
+        
     if (!self.pedometer) {
         self.pedometer = [[CMPedometer alloc] init];
     }
@@ -1459,7 +1495,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     DDLogInfo(@"[OwnTracksAppDelegate] terminateSession");
     
     [self connectionOff];
-    [[OwnTracking sharedInstance] syncProcessing];
+    [self syncProcessing];
     [[LocationManager sharedInstance] resetRegions];
     [self.connection reset];
     [Friend deleteAllFriendsInManagedObjectContext:CoreData.sharedInstance.mainMOC];
@@ -1634,6 +1670,8 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
         [ownTracking limitWaypointsFor:friend
                              toMaximum:[Settings intForKey:@"positions_preference"
                                                      inMOC:moc]];
+        [CoreData.sharedInstance sync:moc];
+
     } else {
         DDLogError(@"[OwnTracksAppDelegate] waypoint creation failed from friend %@, location %@",
                    friend,
@@ -1747,10 +1785,10 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                                                   passphrase:passPhrase];
             if (!certificates) {
                 DDLogWarn(@"[OwnTracksAppDelegate] TLS Client Certificate incorrect file or passphrase");
-                [self.navigationController alert:
+                [NavigationController alert:
                      NSLocalizedString(@"TLS Client Certificate",
                                        @"Heading for certificate error message")
-                                         message:
+                                    message:
                      NSLocalizedString(@"incorrect file or passphrase",
                                        @"certificate error message")
                 ];
@@ -1826,19 +1864,19 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
                   withPOI:nil
                 withImage:nil
             withImageName:nil]) {
-            [self.navigationController alert:
+            [NavigationController alert:
                  NSLocalizedString(@"Location",
                                    @"Header of an alert message regarding a location")
-                                     message:
+                                message:
                  NSLocalizedString(@"publish queued on user request",
                                    @"content of an alert message regarding user publish")
-                                dismissAfter:1
+                           dismissAfter:1
             ];
         } else {
-            [self.navigationController alert:
+            [NavigationController alert:
              NSLocalizedString(@"Location",
                                @"Header of an alert message regarding a location")
-                                     message:
+                                message:
              NSLocalizedString(@"publish queued on user request",
                                @"content of an alert message regarding user publish")];
         }
@@ -1888,19 +1926,19 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
                   withPOI:name
                 withImage:nil
             withImageName:nil]) {
-            [self.navigationController alert:
+            [NavigationController alert:
                  NSLocalizedString(@"Location",
                                    @"Header of an alert message regarding a location")
-                                     message:
+                                message:
                  NSLocalizedString(@"publish queued on user request",
                                    @"content of an alert message regarding user publish")
-                                dismissAfter:1
+                           dismissAfter:1
             ];
         } else {
-            [self.navigationController alert:
+            [NavigationController alert:
              NSLocalizedString(@"Location",
                                @"Header of an alert message regarding a location")
-                                     message:
+                                message:
              NSLocalizedString(@"publish queued on user request",
                                @"content of an alert message regarding user publish")];
         }

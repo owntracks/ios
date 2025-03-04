@@ -446,13 +446,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if (!self.warning &&
         ![Setting existsSettingWithKey:@"mode" inMOC:CoreData.sharedInstance.mainMOC]) {
         self.warning = TRUE;
-        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [ad.navigationController alert:
-         NSLocalizedString(@"Setup",
-                           @"Header of an alert message regarding missing setup")
-                               message:
-         NSLocalizedString(@"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet",
-                           @"Text explaining the Setup")
+        [NavigationController alert:
+             NSLocalizedString(@"Setup",
+                               @"Header of an alert message regarding missing setup")
+                            message:
+             NSLocalizedString(@"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet",
+                               @"Text explaining the Setup")
         ];
     }
     
@@ -1075,7 +1074,6 @@ calloutAccessoryControlTapped:(UIControl *)control {
 - (void)sendNow:(nullable NSString *)poi
       withImage:(nullable NSData *)image
   withImageName:(nullable NSString *)imageName {
-    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     BOOL validIds = [Settings validIdsInMOC:CoreData.sharedInstance.mainMOC];
     int ignoreInaccurateLocations = [Settings intForKey:@"ignoreinaccuratelocations_preference"
                                                       inMOC:CoreData.sharedInstance.mainMOC];
@@ -1088,7 +1086,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
         NSString *message = NSLocalizedString(@"To publish your location userID and deviceID must be set",
                                               @"Warning displayed if necessary settings are missing");
 
-        [ad.navigationController alert:@"Settings" message:message];
+        [NavigationController alert:@"Settings" message:message];
         return;
     }
 
@@ -1097,41 +1095,42 @@ calloutAccessoryControlTapped:(UIControl *)control {
         (location.coordinate.latitude == 0.0 &&
          location.coordinate.longitude == 0.0)
         ) {
-        [ad.navigationController alert:
-         NSLocalizedString(@"Location",
-                           @"Header of an alert message regarding a location")
-                                     message:
-         NSLocalizedString(@"No location available",
-                           @"Warning displayed if not location available")
-         ];
+        [NavigationController alert:
+             NSLocalizedString(@"Location",
+                               @"Header of an alert message regarding a location")
+                            message:
+             NSLocalizedString(@"No location available",
+                               @"Warning displayed if not location available")
+        ];
         return;
     }
 
     if (ignoreInaccurateLocations != 0 && location.horizontalAccuracy > ignoreInaccurateLocations) {
-        [ad.navigationController alert:
-         NSLocalizedString(@"Location",
-                           @"Header of an alert message regarding a location")
-                                     message:
-         NSLocalizedString(@"Inaccurate or old location information",
-                           @"Warning displayed if location is inaccurate or old")
-         ];
+        [NavigationController alert:
+             NSLocalizedString(@"Location",
+                               @"Header of an alert message regarding a location")
+                            message:
+             NSLocalizedString(@"Inaccurate or old location information",
+                               @"Warning displayed if location is inaccurate or old")
+        ];
         return;
     }
 
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     if ([ad sendNow:location withPOI:poi withImage:image withImageName:imageName]) {
-        [ad.navigationController alert:
-         NSLocalizedString(@"Location",
-                           @"Header of an alert message regarding a location")
-                                     message:
-         NSLocalizedString(@"publish queued on user request",
-                           @"content of an alert message regarding user publish")
-                                dismissAfter:1
-         ];
+        [NavigationController alert:
+             NSLocalizedString(@"Location",
+                               @"Header of an alert message regarding a location")
+                            message:
+             NSLocalizedString(@"publish queued on user request",
+                               @"content of an alert message regarding user publish")
+                       dismissAfter:1
+        ];
     } else {
-        [ad.navigationController alert:
+        [NavigationController alert:
          NSLocalizedString(@"Location",
                            @"Header of an alert message regarding a location")
-                                     message:
+                            message:
          NSLocalizedString(@"publish queued on user request",
                            @"content of an alert message regarding user publish")];
     }
@@ -1158,14 +1157,13 @@ calloutAccessoryControlTapped:(UIControl *)control {
                                                lon:self.mapView.centerCoordinate.longitude];
         [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
 
-        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [ad.navigationController alert:
+        [NavigationController alert:
              NSLocalizedString(@"Region",
                                @"Header of an alert message regarding circular region")
-                               message:
+                            message:
              NSLocalizedString(@"created at center of map",
                                @"content of an alert message regarding circular region")
-                          dismissAfter:1
+                       dismissAfter:1
         ];
     }
 }

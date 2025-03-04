@@ -915,10 +915,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                             inMOC:moc]
                        retain:YES];
         
-        [ad.navigationController alert:
+        [NavigationController alert:
          NSLocalizedString(@"Card",
                            @"Header of an alert message regarding a card")
-                               message:
+                            message:
          NSLocalizedString(@"set and sent to backend",
                            @"content of an alert message regarding card")];
     }
@@ -1251,7 +1251,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 - (void)reconnect {
     OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [ad connectionOff];
-    [[OwnTracking sharedInstance] syncProcessing];
+    [ad syncProcessing];
     [self updateValues];
     [ad reconnect];
 }

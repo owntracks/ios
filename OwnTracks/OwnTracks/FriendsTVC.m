@@ -33,10 +33,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     
-    [[OwnTracking sharedInstance] addObserver:self
-                                   forKeyPath:@"inQueue"
-                                      options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
-                                      context:nil];
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+
+    [ad addObserver:self
+         forKeyPath:@"inQueue"
+            options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+            context:nil];
     
     return self;
 }
@@ -147,8 +149,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)object;
     [self performSelectorOnMainThread:@selector(setBadge:)
-                           withObject:[OwnTracking sharedInstance].inQueue
+                           withObject:ad.inQueue
                         waitUntilDone:NO];
 }
 

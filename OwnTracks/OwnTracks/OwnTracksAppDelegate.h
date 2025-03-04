@@ -26,7 +26,6 @@
 @interface OwnTracksAppDelegate : UIResponder <UIApplicationDelegate, ConnectionDelegate, LocationManagerDelegate, UNUserNotificationCenterDelegate>
 
 @property (strong, nonatomic) UIWindow * _Nullable window;
-@property (weak, nonatomic) NavigationController * _Nullable navigationController;
 
 @property (strong, nonatomic) NSString * _Nullable processingMessage;
 
@@ -39,7 +38,7 @@
 @property (nonatomic) BOOL inRefresh;
 
 @property (strong, nonatomic) DDFileLogger * _Nullable fl;
-
+@property (strong, nonatomic) NSNumber * _Nonnull inQueue;
 
 - (BOOL)sendNow:(CLLocation *_Nonnull)location
         withPOI:(nullable NSString *)poi
@@ -53,5 +52,6 @@
 - (void)reconnect;
 - (void)connectionOff;
 - (void)terminateSession;
+- (void)syncProcessing;
 
 @end

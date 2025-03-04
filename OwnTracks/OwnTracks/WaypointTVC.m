@@ -150,22 +150,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         NSString *locationString = (self.waypoint).shortCoordinateText;
         UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
         [generalPasteboard setString:locationString];
-        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [ad.navigationController alert:NSLocalizedString(@"Clipboard",
-                                                         @"Clipboard")
-                               message:NSLocalizedString(@"Location copied to clipboard",
-                                                         @"Location copied to clipboard")
-                          dismissAfter:1
+        [NavigationController alert:NSLocalizedString(@"Clipboard",
+                                                      @"Clipboard")
+                            message:NSLocalizedString(@"Location copied to clipboard",
+                                                      @"Location copied to clipboard")
+                       dismissAfter:1
         ];
     } else if (indexPath.section == 1 && indexPath.row == 6) {
         UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
         [generalPasteboard setString:(self.waypoint).belongsTo.topic];
-        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [ad.navigationController alert:NSLocalizedString(@"Clipboard",
-                                                         @"Clipboard")
-                               message:NSLocalizedString(@"Topic copied to clipboard",
-                                                         @"Topic copied to clipboard")
-                          dismissAfter:1
+        [NavigationController alert:NSLocalizedString(@"Clipboard",
+                                                      @"Clipboard")
+                            message:NSLocalizedString(@"Topic copied to clipboard",
+                                                      @"Topic copied to clipboard")
+                       dismissAfter:1
         ];
     }
 

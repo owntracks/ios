@@ -218,16 +218,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         UIPasteboard *generalPasteboard = [UIPasteboard generalPasteboard];
         [generalPasteboard setString:tour.url];
 
-        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-        [ad.navigationController alert:
+        [NavigationController alert:
              NSLocalizedString(@"Copied",
                                @"Alert message header for copy")
-                               message:
+                            message:
              [NSString stringWithFormat:@"%@ %@\n",
               NSLocalizedString(@"URL copied to Clipboard",
                                 @"URL copied to Clipboard"),
               tour.url]
-                                   url:tour.url
+                                url:tour.url
         ];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:TRUE];
