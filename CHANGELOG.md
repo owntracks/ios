@@ -1,8 +1,8 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 18.3.3 iOS/ipadOS
-* Release Date 2025-03-04
+## OwnTracks 18.3.4 iOS/ipadOS
+* Release Date 2025-03-05
 
 ** Bugfixes and performance optimizations
     [FIX] App killed due to overrun background time #836
