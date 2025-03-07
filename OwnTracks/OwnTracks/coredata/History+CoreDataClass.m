@@ -8,6 +8,7 @@
 //
 
 #import "History+CoreDataClass.h"
+#import "CoreData.h"
 
 @implementation History
 
@@ -37,6 +38,8 @@
             [context deleteObject:[matches objectAtIndex:toDelete - 1]];
         }
     }
+    [CoreData.sharedInstance sync:context];
+
 }
 
 - (NSString *)timestampText {
@@ -55,7 +58,5 @@
 
     return matches;
 }
-
-
 
 @end

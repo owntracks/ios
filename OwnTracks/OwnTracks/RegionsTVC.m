@@ -155,7 +155,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
         if (region) {
             [[OwnTracking sharedInstance] removeRegion:region context:context];
-            [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
         }
     }
 }

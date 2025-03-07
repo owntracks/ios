@@ -16,7 +16,7 @@
 @end
 
 @implementation CoreData
-static const DDLogLevel ddLogLevel = DDLogLevelInfo;
+static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
 
 + (CoreData *)sharedInstance {
     static dispatch_once_t once = 0;
@@ -33,9 +33,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.PSC = [self createPersistentStoreCoordinator];
 
     self.mainMOC = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    self.mainMOC.name = @"mainMOC";
     self.mainMOC.persistentStoreCoordinator = self.PSC;
 
     self.queuedMOC = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    self.queuedMOC.name = @"queuedMOC";
     //self.queuedMOC.persistentStoreCoordinator = self.PSC;
     self.queuedMOC.parentContext = self.mainMOC;
 
@@ -43,10 +45,26 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)sync:(NSManagedObjectContext *)context {
+    DDLogVerbose(@"[CoreData] sync: %ld,%ld,%ld %@ %@",
+              context.insertedObjects.count,
+              context.updatedObjects.count,
+              context.deletedObjects.count,
+              context.name, context.parentContext ? context.parentContext.name : @"nil");
+
     if (context.hasChanges) {
         NSError *error = nil;
         if (![context save:&error]) {
             DDLogError(@"[CoreData] save error: %@", error);
+        }
+        if (context.parentContext) {
+            DDLogVerbose(@"[CoreData] parentcontext sync: %ld,%ld,%ld",
+                      context.parentContext.insertedObjects.count,
+                      context.parentContext.updatedObjects.count,
+                      context.parentContext.deletedObjects.count);
+
+            if (![context.parentContext save:&error]) {
+                DDLogError(@"[CoreData] parentcontext save error: %@", error);
+            }
         }
     }
 }

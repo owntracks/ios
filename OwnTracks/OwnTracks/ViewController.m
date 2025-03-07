@@ -1155,7 +1155,6 @@ calloutAccessoryControlTapped:(UIControl *)control {
                                             radius:0
                                                lat:self.mapView.centerCoordinate.latitude
                                                lon:self.mapView.centerCoordinate.longitude];
-        [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
 
         [NavigationController alert:
              NSLocalizedString(@"Region",

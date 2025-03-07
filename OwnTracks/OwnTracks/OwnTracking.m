@@ -77,7 +77,6 @@ static OwnTracking *theInstance = nil;
                             Friend *friend = [Friend friendWithTopic:device
                                               inManagedObjectContext:context];
                             [self processFace:friend dictionary:dictionary];
-                            DDLogInfo(@"[OwnTracking] processed card for own device");
                         }];
                     } else {
                         DDLogInfo(@"[OwnTracking] unhandled record type for own device _type:%@", dictionary[@"_type"]);
@@ -94,6 +93,7 @@ static OwnTracking *theInstance = nil;
                 if (friend) {
                     [context deleteObject:friend];
                 }
+                [CoreData.sharedInstance sync:context];
                 DDLogInfo(@"[OwnTracking] deleted friend %@",
                           device);
             } else {
@@ -106,7 +106,7 @@ static OwnTracking *theInstance = nil;
                             
                         } else if ([type isEqualToString:@"transition"]) {
                             [self processTransitionMessage:dictionary inManagedObjectContext:context];
-                            
+
                         } else if ([type isEqualToString:@"card"]) {
                             Friend *friend = [Friend friendWithTopic:device
                                               inManagedObjectContext:context];
@@ -490,8 +490,11 @@ static OwnTracking *theInstance = nil;
             } else {
                 friend.cardImage = nil;
             }
-            DDLogInfo(@"[OwnTracking] processed card for friend friend %@",
+
+            DDLogInfo(@"[OwnTracking] processed card for friend %@",
                       friend.topic);
+            [CoreData.sharedInstance sync:friend.managedObjectContext];
+
         } else {
             DDLogError(@"[OwnTracking processFace] json is no dictionary");
         }
@@ -522,7 +525,6 @@ static OwnTracking *theInstance = nil;
             [friend.managedObjectContext deleteObject:oldestWaypoint];
         }
     }
-    //[CoreData.sharedInstance sync:friend.managedObjectContext];
 
     Waypoint *newestWaypoint = nil;
     for (Waypoint *waypoint in friend.hasWaypoints) {
@@ -533,8 +535,8 @@ static OwnTracking *theInstance = nil;
 
     if (newestWaypoint && ![newestWaypoint.tst isEqualToDate:friend.lastLocation]) {
         friend.lastLocation = newestWaypoint.tst;
-        //[CoreData.sharedInstance sync:friend.managedObjectContext];
     }
+    [CoreData.sharedInstance sync:friend.managedObjectContext];
 }
 
 - (Waypoint *)addWaypointFor:(Friend *)friend
@@ -596,6 +598,7 @@ static OwnTracking *theInstance = nil;
     waypoint.m = m;
     waypoint.conn = conn;
 
+    [[CoreData sharedInstance] sync:waypoint.managedObjectContext];
     return waypoint;
 }
 
@@ -621,13 +624,16 @@ static OwnTracking *theInstance = nil;
     region.radius = @(radius);
     region.lat = @(lat);
     region.lon = @(lon);
+    [[CoreData sharedInstance] sync:region.managedObjectContext];
     [[LocationManager sharedInstance] startRegion:region.CLregion];
     return region;
 }
 
 - (void)removeRegion:(Region *)region context:(NSManagedObjectContext *)context {
+    DDLogInfo(@"[OwnTracking] removeRegion %@", region.name);
     [[LocationManager sharedInstance] stopRegion:region.CLregion];
     [context deleteObject:region];
+    [[CoreData sharedInstance] sync:context];
 }
 
 
@@ -754,4 +760,5 @@ static OwnTracking *theInstance = nil;
                      (region.minor).unsignedIntValue? [NSString stringWithFormat: @":%@", region.minor] : @""];
     return json;
 }
+
 @end

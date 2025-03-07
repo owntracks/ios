@@ -858,7 +858,6 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                                  at:nil
                               inMOC:moc
                             maximum:[Settings theMaximumHistoryInMOC:moc]];
-            [CoreData.sharedInstance sync:moc];
             
             Friend *myself = [Friend existsFriendWithTopic:[Settings theGeneralTopicInMOC:moc]
                                     inManagedObjectContext:moc];
@@ -1651,8 +1650,6 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                                                 conn:conn
                                                   bs:bs];
     if (waypoint) {
-        [CoreData.sharedInstance sync:moc];
-        
         NSDictionary *json = [[OwnTracking sharedInstance] waypointAsJSON:waypoint];
         if (json) {
             NSData *data = [self jsonToData:json];
@@ -1670,7 +1667,6 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
         [ownTracking limitWaypointsFor:friend
                              toMaximum:[Settings intForKey:@"positions_preference"
                                                      inMOC:moc]];
-        [CoreData.sharedInstance sync:moc];
 
     } else {
         DDLogError(@"[OwnTracksAppDelegate] waypoint creation failed from friend %@, location %@",

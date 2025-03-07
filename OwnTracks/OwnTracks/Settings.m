@@ -382,10 +382,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     Friend *friend = [Friend friendWithTopic:[self theGeneralTopicInMOC:context]
                             inManagedObjectContext:context];
 
-    for (Region *region in friend.hasRegions) {
-            DDLogVerbose(@"[Settings][clearWaypoints] removeRegion %@", region.rid);
-            [[OwnTracking sharedInstance] removeRegion:region context:context];
+    while (friend.hasRegions.count) {
+        Region *region = friend.hasRegions.anyObject;
+        DDLogInfo(@"[Settings][clearWaypoints] removeRegion %@", region.rid);
+        [[OwnTracking sharedInstance] removeRegion:region context:context];
     }
+    DDLogInfo(@"[Settings][clearWaypoints] clearWaypoints");
     return nil;
 }
 
