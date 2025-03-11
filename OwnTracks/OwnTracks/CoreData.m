@@ -16,7 +16,7 @@
 @end
 
 @implementation CoreData
-static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 + (CoreData *)sharedInstance {
     static dispatch_once_t once = 0;
@@ -57,14 +57,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelVerbose;
             DDLogError(@"[CoreData] save error: %@", error);
         }
         if (context.parentContext) {
-            DDLogVerbose(@"[CoreData] parentcontext sync: %ld,%ld,%ld",
-                      context.parentContext.insertedObjects.count,
-                      context.parentContext.updatedObjects.count,
-                      context.parentContext.deletedObjects.count);
-
-            if (![context.parentContext save:&error]) {
-                DDLogError(@"[CoreData] parentcontext save error: %@", error);
-            }
+            [self performSelectorOnMainThread:@selector(sync:) withObject:context.parentContext waitUntilDone:YES];
         }
     }
 }

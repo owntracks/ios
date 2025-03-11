@@ -35,100 +35,98 @@ static OwnTracking *theInstance = nil;
               retained:(BOOL)retained
                context:(NSManagedObjectContext *)context {
     
-    [context performBlock:^{
-        DDLogVerbose(@"[OwnTracking] performBlock %@ %@",
-                     topic,
-                     [[NSString alloc] initWithData:data
-                                           encoding:NSUTF8StringEncoding]);
-        
-        NSDictionary *dictionary = nil;
-        id json = [[Validation sharedInstance] validateMessageData:data];
-        if (json && [json isKindOfClass:[NSDictionary class]]) {
-            dictionary = json;
+    DDLogVerbose(@"[OwnTracking] processMessage %@ %@",
+                 topic,
+                 [[NSString alloc] initWithData:data
+                                       encoding:NSUTF8StringEncoding]);
+    
+    NSDictionary *dictionary = nil;
+    id json = [[Validation sharedInstance] validateMessageData:data];
+    if (json && [json isKindOfClass:[NSDictionary class]]) {
+        dictionary = json;
+    }
+    
+    NSArray *topicComponents = [topic componentsSeparatedByString:@"/"];
+    NSArray *baseComponents = [[Settings theGeneralTopicInMOC:context]
+                               componentsSeparatedByString:@"/"];
+    
+    NSString *device = @"";
+    BOOL ownDevice = true;
+    
+    for (int i = 0; i < baseComponents.count; i++) {
+        if (i > 0) {
+            device = [device stringByAppendingString:@"/"];
         }
-        
-        NSArray *topicComponents = [topic componentsSeparatedByString:@"/"];
-        NSArray *baseComponents = [[Settings theGeneralTopicInMOC:context]
-                                   componentsSeparatedByString:@"/"];
-        
-        NSString *device = @"";
-        BOOL ownDevice = true;
-        
-        for (int i = 0; i < baseComponents.count; i++) {
-            if (i > 0) {
-                device = [device stringByAppendingString:@"/"];
-            }
-            if (i < topicComponents.count) {
-                device = [device stringByAppendingString:topicComponents[i]];
-                if (![baseComponents[i] isEqualToString:topicComponents [i]]) {
-                    ownDevice = false;
-                }
-            } else {
+        if (i < topicComponents.count) {
+            device = [device stringByAppendingString:topicComponents[i]];
+            if (![baseComponents[i] isEqualToString:topicComponents [i]]) {
                 ownDevice = false;
             }
+        } else {
+            ownDevice = false;
         }
-        
-        if (ownDevice) {
+    }
+    
+    if (ownDevice) {
+        if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
+            NSString *type = dictionary[@"_type"];
+            if (type && [type isKindOfClass:[NSString class]]) {
+                if ([type isEqualToString:@"card"]) {
+                    [context performBlock:^{
+                        Friend *friend = [Friend friendWithTopic:device
+                                          inManagedObjectContext:context];
+                        [self processFace:friend dictionary:dictionary];
+                    }];
+                } else {
+                    DDLogInfo(@"[OwnTracking] unhandled record type for own device _type:%@", dictionary[@"_type"]);
+                }
+            } else {
+                DDLogError(@"[OwnTracking] JSON object without _type as String received for own device");
+            }
+        } else {
+            DDLogError(@"[OwnTracking] no JSON dictionary received for own device");
+        }
+    } else /* not own device */ {
+        if (data && data.length == 0) { // data.length == 0 -> delete friend
+            Friend *friend = [Friend existsFriendWithTopic:device inManagedObjectContext:context];
+            if (friend) {
+                [context deleteObject:friend];
+            }
+            [CoreData.sharedInstance sync:context];
+            DDLogInfo(@"[OwnTracking] deleted friend %@",
+                      device);
+        } else {
             if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
                 NSString *type = dictionary[@"_type"];
                 if (type && [type isKindOfClass:[NSString class]]) {
-                    if ([type isEqualToString:@"card"]) {
-                        [context performBlock:^{
-                            Friend *friend = [Friend friendWithTopic:device
-                                              inManagedObjectContext:context];
-                            [self processFace:friend dictionary:dictionary];
-                        }];
+                    if ([type isEqualToString:@"location"]) {
+                        Friend *friend = [Friend friendWithTopic:device inManagedObjectContext:context];
+                        [self processLocation:friend dictionary:dictionary];
+                        
+                    } else if ([type isEqualToString:@"transition"]) {
+                        [self processTransitionMessage:dictionary inManagedObjectContext:context];
+                        
+                    } else if ([type isEqualToString:@"card"]) {
+                        Friend *friend = [Friend friendWithTopic:device
+                                          inManagedObjectContext:context];
+                        [self processFace:friend dictionary:dictionary];
+                        
+                    } else if ([type isEqualToString:@"lwt"]) {
+                        DDLogInfo(@"[OwnTracking] received lwt for friend %@",
+                                  device);
+                        // ignore
+                        
                     } else {
-                        DDLogInfo(@"[OwnTracking] unhandled record type for own device _type:%@", dictionary[@"_type"]);
+                        DDLogVerbose(@"[OwnTracking] unhandled record type for other device _type:%@", type);
                     }
                 } else {
-                    DDLogError(@"[OwnTracking] JSON object without _type as String received for own device");
+                    DDLogError(@"[OwnTracking] JSON object without _type as String received for other device");
                 }
             } else {
-                DDLogError(@"[OwnTracking] no JSON dictionary received for own device");
-            }
-        } else /* not own device */ {
-            if (data && data.length == 0) { // data.length == 0 -> delete friend
-                Friend *friend = [Friend existsFriendWithTopic:device inManagedObjectContext:context];
-                if (friend) {
-                    [context deleteObject:friend];
-                }
-                [CoreData.sharedInstance sync:context];
-                DDLogInfo(@"[OwnTracking] deleted friend %@",
-                          device);
-            } else {
-                if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
-                    NSString *type = dictionary[@"_type"];
-                    if (type && [type isKindOfClass:[NSString class]]) {
-                        if ([type isEqualToString:@"location"]) {
-                            Friend *friend = [Friend friendWithTopic:device inManagedObjectContext:context];
-                            [self processLocation:friend dictionary:dictionary];
-                            
-                        } else if ([type isEqualToString:@"transition"]) {
-                            [self processTransitionMessage:dictionary inManagedObjectContext:context];
-
-                        } else if ([type isEqualToString:@"card"]) {
-                            Friend *friend = [Friend friendWithTopic:device
-                                              inManagedObjectContext:context];
-                            [self processFace:friend dictionary:dictionary];
-                            
-                        } else if ([type isEqualToString:@"lwt"]) {
-                            DDLogInfo(@"[OwnTracking] received lwt for friend %@",
-                                      device);
-                            // ignore
-                            
-                        } else {
-                            DDLogVerbose(@"[OwnTracking] unhandled record type for other device _type:%@", type);
-                        }
-                    } else {
-                        DDLogError(@"[OwnTracking] JSON object without _type as String received for other device");
-                    }
-                } else {
-                    DDLogError(@"[OwnTracking] no JSON dictionary received for other device");
-                }
+                DDLogError(@"[OwnTracking] no JSON dictionary received for other device");
             }
         }
-    }];
+    }
     
     return TRUE;
 }

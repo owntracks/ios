@@ -22,9 +22,6 @@
 
 @interface FriendsTVC ()
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
-
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
-
 @end
 
 @implementation FriendsTVC
@@ -310,7 +307,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
      forChangeType:(NSFetchedResultsChangeType)type {
     NSDictionary *d = @{@"type": @(type),
                         @"sectionIndex": @(sectionIndex)};
-    DDLogInfo(@"[FriensTVC] didChangeSection %@", d);
+    DDLogVerbose(@"[FriensTVC] didChangeSection %@", d);
     [self performSelectorOnMainThread:@selector(didChangeSection:) withObject:d waitUntilDone:TRUE];
 }
 
@@ -346,7 +343,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (newIndexPath) {
         d[@"newIndexPath"] = newIndexPath;
     }
-    DDLogInfo(@"[FriendsTVC] didChangeObject %@", d);
+    DDLogVerbose(@"[FriendsTVC] didChangeObject %@", d);
     [self performSelectorOnMainThread:@selector(didChangeObject:) withObject:d waitUntilDone:TRUE];
 }
 
