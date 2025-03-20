@@ -78,7 +78,7 @@ static OwnTracking *theInstance = nil;
                         [self processFace:friend dictionary:dictionary];
                     }];
                 } else {
-                    DDLogInfo(@"[OwnTracking] unhandled record type for own device _type:%@", dictionary[@"_type"]);
+                    DDLogVerbose(@"[OwnTracking] unhandled record type for own device _type:%@", dictionary[@"_type"]);
                 }
             } else {
                 DDLogError(@"[OwnTracking] JSON object without _type as String received for own device");
