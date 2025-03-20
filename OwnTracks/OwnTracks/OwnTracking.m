@@ -139,6 +139,11 @@ static OwnTracking *theInstance = nil;
             return;
         }
         NSDate *timestamp = [NSDate dateWithTimeIntervalSince1970:tst.doubleValue];
+        if (friend.lastLocation && [friend.lastLocation compare:timestamp] != NSOrderedAscending) {
+            DDLogInfo(@"[OwnTracking] skipped location for friend %@ @%@",
+                      friend.topic, timestamp);
+            return;
+        }
 
         NSNumber *lat = dictionary[@"lat"];
         if (!lat || ![lat isKindOfClass:[NSNumber class]]) {
@@ -335,27 +340,27 @@ static OwnTracking *theInstance = nil;
             return;
         }
 
-        Waypoint *waypoint = [self addWaypointFor:friend
-                                         location:location
-                                        createdAt:createdAt
-                                          trigger:t
-                                              poi:poi
-                                              tag:tag
-                                          battery:batteryLevel
-                                            image:image
-                                        imageName:imageName
-                                        inRegions:inRegions
-                                           inRids:inRids
-                                            bssid:bssid
-                                             ssid:ssid
-                                                m:m
-                                             conn:conn
-                                               bs:bs];
+        (void)[self addWaypointFor:friend
+                          location:location
+                         createdAt:createdAt
+                           trigger:t
+                               poi:poi
+                               tag:tag
+                           battery:batteryLevel
+                             image:image
+                         imageName:imageName
+                         inRegions:inRegions
+                            inRids:inRids
+                             bssid:bssid
+                              ssid:ssid
+                                 m:m
+                              conn:conn
+                                bs:bs];
         [self limitWaypointsFor:friend
                       toMaximum:[Settings intForKey:@"positions_preference"
                                               inMOC:friend.managedObjectContext]];
         DDLogInfo(@"[OwnTracking] processed location for friend %@ @%@",
-                  friend.topic, waypoint.effectiveTimestamp);
+                  friend.topic, timestamp);
     } else {
         DDLogError(@"[OwnTracking processLocation] json is no dictionary");
     }
