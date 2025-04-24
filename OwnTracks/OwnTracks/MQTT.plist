@@ -54,6 +54,8 @@
 	<string></string>
 	<key>positions_preference</key>
 	<integer>50</integer>
+	<key>days_preference</key>
+	<integer>-1</integer>
 	<key>clientpkcs</key>
 	<string></string>
 	<key>passphrase</key>

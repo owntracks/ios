@@ -206,6 +206,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             object = dictionary[@"positions"];
             if (object) [self setString:object forKey:@"positions_preference" inMOC:context];
 
+            object = dictionary[@"days"];
+            if (object) [self setString:object forKey:@"days_preference" inMOC:context];
+
             object = dictionary[@"maxHistory"];
             if (object) [self setString:object forKey:@"maxhistory_preference" inMOC:context];
 
@@ -420,6 +423,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     dict[@"downgrade"] =                    @([Settings intForKey:@"downgrade_preference" inMOC:context]);
     dict[@"waypoints"] =                    [Settings waypointsToArrayInMOC:context];
     dict[@"positions"] =                    @([Settings intForKey:@"positions_preference" inMOC:context]);
+    dict[@"days"] =                         @([Settings intForKey:@"days_preference" inMOC:context]);
     dict[@"maxHistory"] =                   @([Settings intForKey:@"maxhistory_preference" inMOC:context]);
     dict[@"locatorDisplacement"] =          @([Settings intForKey:@"mindist_preference" inMOC:context]);
     dict[@"locatorInterval"] =              @([Settings intForKey:@"mintime_preference" inMOC:context]);
@@ -605,7 +609,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     return [Settings theGeneralTopicInMOC:context];
 }
 
-+ (MQTTQosLevel)theWillQosInMOC:(NSManagedObjectContext *)context {
++ (NSInteger)theWillQosInMOC:(NSManagedObjectContext *)context {
     // willQos is now the same as pubQos
     return [Settings intForKey:@"qos_preference" inMOC:context];
 }

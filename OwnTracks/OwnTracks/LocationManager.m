@@ -375,8 +375,10 @@ static LocationManager *theInstance = nil;
 
 - (void)activityTimer:(NSTimer *)timer {
     DDLogInfo(@"[LocationManager] activityTimer fired after %f", self.minTime);
-    if (self.manager.location) {
-        [self.delegate timerLocation:self.manager.location];
+    CLLocation *location = self.manager.location;
+    if (location) {
+        [self.delegate timerLocation:location];
+        self.lastUsedLocation = location;
     } else {
         DDLogWarn(@"[LocationManager] activityTimer found no location");
     }

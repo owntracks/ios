@@ -340,27 +340,25 @@ static OwnTracking *theInstance = nil;
             return;
         }
 
-        (void)[self addWaypointFor:friend
-                          location:location
-                         createdAt:createdAt
-                           trigger:t
-                               poi:poi
-                               tag:tag
-                           battery:batteryLevel
-                             image:image
-                         imageName:imageName
-                         inRegions:inRegions
-                            inRids:inRids
-                             bssid:bssid
-                              ssid:ssid
-                                 m:m
-                              conn:conn
-                                bs:bs];
-        [self limitWaypointsFor:friend
-                      toMaximum:[Settings intForKey:@"positions_preference"
-                                              inMOC:friend.managedObjectContext]];
-        DDLogInfo(@"[OwnTracking] processed location for friend %@ @%@",
-                  friend.topic, timestamp);
+        (void)[friend addWaypoint:location
+                        createdAt:createdAt
+                          trigger:t
+                              poi:poi
+                              tag:tag
+                          battery:batteryLevel
+                            image:image
+                        imageName:imageName
+                        inRegions:inRegions
+                           inRids:inRids
+                            bssid:bssid
+                             ssid:ssid
+                                m:m
+                             conn:conn
+                               bs:bs];
+        int positions = [Settings intForKey:@"positions_preference" inMOC:friend.managedObjectContext];
+        NSInteger remainingPositions = [friend limitWaypointsToMaximum:positions];
+        DDLogInfo(@"[OwnTracking] processed location for friend %@ @%@ (%ld)",
+                  friend.topic, timestamp, remainingPositions);
     } else {
         DDLogError(@"[OwnTracking processLocation] json is no dictionary");
     }
@@ -504,105 +502,6 @@ static OwnTracking *theInstance = nil;
     } else {
         DDLogError(@"[OwnTracking processFace] no friend");
     }
-}
-
-- (void)limitWaypointsFor:(Friend *)friend
-                toMaximum:(NSInteger)max {
-    
-    DDLogVerbose(@"[OwnTracking] limitWaypointsFor %@ hasWaypoints.count %lu / %ld",
-                 friend.topic, (unsigned long)friend.hasWaypoints.count, max);
-
-    if (max < 1) {
-        DDLogWarn(@"[OwnTracking] limitWaypointsFor max adjusted %ld -> 1", max);
-        max = 1;
-    }
-
-    for (NSInteger i = friend.hasWaypoints.count; i > max; i--) {
-        Waypoint *oldestWaypoint = nil;
-        for (Waypoint *waypoint in friend.hasWaypoints) {
-            if (!oldestWaypoint || (!waypoint.isDeleted && [oldestWaypoint.tst compare:waypoint.tst] == NSOrderedDescending)) {
-                oldestWaypoint = waypoint;
-            }
-        }
-        if (oldestWaypoint) {
-            [friend.managedObjectContext deleteObject:oldestWaypoint];
-        }
-    }
-
-    Waypoint *newestWaypoint = nil;
-    for (Waypoint *waypoint in friend.hasWaypoints) {
-        if (!newestWaypoint || (!waypoint.isDeleted && [newestWaypoint.tst compare:waypoint.tst] == NSOrderedAscending)) {
-            newestWaypoint = waypoint;
-        }
-    }
-
-    if (newestWaypoint && ![newestWaypoint.tst isEqualToDate:friend.lastLocation]) {
-        friend.lastLocation = newestWaypoint.tst;
-    }
-    [CoreData.sharedInstance sync:friend.managedObjectContext];
-}
-
-- (Waypoint *)addWaypointFor:(Friend *)friend
-                    location:(CLLocation *)location
-                   createdAt:(NSDate *)createdAt
-                     trigger:(NSString *)trigger
-                     poi:(NSString *)poi
-                     tag:(NSString *)tag
-                     battery:(NSNumber *)battery
-                       image:(NSData *)image
-                   imageName:(NSString *)imageName
-                   inRegions:(NSArray<NSString *> *)inRegions
-                      inRids:(NSArray<NSString *> *)inRids
-                       bssid:(NSString *)bssid
-                        ssid:(NSString *)ssid
-                           m:(NSNumber *)m
-                        conn:(NSString *)conn
-                          bs:(NSNumber *)bs {
-    Waypoint *waypoint = [NSEntityDescription insertNewObjectForEntityForName:@"Waypoint"
-                                                       inManagedObjectContext:friend.managedObjectContext];
-    waypoint.belongsTo = friend;
-    waypoint.trigger = trigger;
-    waypoint.poi = poi;
-    waypoint.tag = tag;
-    waypoint.acc = @(location.horizontalAccuracy);
-    waypoint.alt = @(location.altitude);
-    waypoint.lat = @(location.coordinate.latitude);
-    waypoint.lon = @(location.coordinate.longitude);
-    waypoint.vac = @(location.verticalAccuracy);
-    waypoint.tst = location.timestamp;
-    waypoint.createdAt = createdAt;
-    waypoint.batt = battery;
-    double speed = location.speed;
-    if (speed != -1) {
-        speed = speed * 3600 / 1000;
-    }
-    waypoint.vel = @(speed);
-    waypoint.cog = @(location.course);
-    waypoint.placemark = nil;
-    waypoint.image = image;
-    waypoint.imageName = imageName;
-    if (inRegions && [NSJSONSerialization isValidJSONObject:inRegions]) {
-        waypoint.inRegions = [NSJSONSerialization dataWithJSONObject:inRegions
-                                                             options:0
-                                                               error:nil];
-    } else {
-        waypoint.inRegions = nil;
-    }
-    if (inRids && [NSJSONSerialization isValidJSONObject:inRids]) {
-        waypoint.inRids = [NSJSONSerialization dataWithJSONObject:inRids
-                                                          options:0
-                                                            error:nil];
-    } else {
-        waypoint.inRids = nil;
-    }
-    waypoint.ssid = ssid;
-    waypoint.bssid = bssid;
-    waypoint.bs = bs;
-    waypoint.m = m;
-    waypoint.conn = conn;
-
-    [[CoreData sharedInstance] sync:waypoint.managedObjectContext];
-    return waypoint;
 }
 
 - (Region *)addRegionFor:(NSString *)rid

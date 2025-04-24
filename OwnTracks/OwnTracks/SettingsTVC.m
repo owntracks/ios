@@ -59,6 +59,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIlocatorDisplacement;
 @property (weak, nonatomic) IBOutlet UITextField *UIlocatorInterval;
 @property (weak, nonatomic) IBOutlet UITextField *UIpositions;
+@property (weak, nonatomic) IBOutlet UITextField *UIdays;
 @property (weak, nonatomic) IBOutlet UITextField *UImaxHistory;
 @property (weak, nonatomic) IBOutlet UITextField *UIsubQos;
 @property (weak, nonatomic) IBOutlet UITextField *UIkeepAlive;
@@ -107,6 +108,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.UIpubTopicBase.delegate = self;
     self.UIlocatorInterval.delegate = self;
     self.UIpositions.delegate = self;
+    self.UIdays.delegate = self;
     self.UImaxHistory.delegate = self;
     self.UIsubQos.delegate = self;
     self.UIkeepAlive.delegate = self;
@@ -248,6 +250,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if (self.UIpositions)
         [Settings setString:self.UIpositions.text
                      forKey:@"positions_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
+    if (self.UIdays)
+        [Settings setString:self.UIdays.text
+                     forKey:@"days_preference"
                       inMOC:CoreData.sharedInstance.mainMOC];
 
     if (self.UImaxHistory)
@@ -583,6 +590,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         [Settings stringForKey:@"positions_preference"
                          inMOC:CoreData.sharedInstance.mainMOC];
         self.UIpositions.enabled = !locked;
+    }
+    if (self.UIdays) {
+        self.UIdays.text =
+        [Settings stringForKey:@"days_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIdays.enabled = !locked;
     }
     if (self.UImaxHistory) {
         self.UImaxHistory.text =
@@ -1150,6 +1163,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self updated];
 }
 - (IBAction)positionsChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)daysChanged:(UITextField *)sender {
     [self updateValues];
     [self updated];
 }

@@ -21,7 +21,10 @@
 @property (weak, nonatomic) IBOutlet UITextView *UIparameters;
 @property (weak, nonatomic) IBOutlet UITextView *UIstatusField;
 @property (weak, nonatomic) IBOutlet UITextField *UIVersion;
+@property (weak, nonatomic) IBOutlet UITextField *UItrackpoints;
+@property (weak, nonatomic) IBOutlet UIButton *UIexportTrack;
 
+@property (strong, nonatomic) UIDocumentInteractionController *dic;
 @end
 
 @implementation StatusTVC
@@ -40,7 +43,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
             context:nil];
     [[LocationManager sharedInstance] addObserver:self
-                                       forKeyPath:@"location"
+                                       forKeyPath:@"lastUsedLocation"
                                           options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                                           context:nil];
 }
@@ -54,7 +57,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             forKeyPath:@"connectionBuffered"
                context:nil];
     [[LocationManager sharedInstance] removeObserver:self
-                                          forKeyPath:@"location"
+                                          forKeyPath:@"lastUsedLocation"
                                              context:nil];
     [super viewWillDisappear:animated];
 }
@@ -134,6 +137,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                            [NSLocale currentLocale].localeIdentifier
                            ];
 
+    NSString *topic = [Settings theGeneralTopicInMOC:[CoreData sharedInstance].mainMOC];
+    Friend *myself = [Friend existsFriendWithTopic:topic
+                            inManagedObjectContext:[CoreData sharedInstance].mainMOC];
+    self.UItrackpoints.text = [NSString stringWithFormat:@"%ld", myself.hasWaypoints.count];
+    
     [self.tableView setNeedsDisplay];
 }
 
@@ -162,6 +170,31 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://owntracks.org/booklet"]
                                        options:@{}
                              completionHandler:nil];
+}
+
+- (IBAction)exportTrackPressed:(UIButton *)sender {
+    NSError *error;
+
+    NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
+                                                                 inDomain:NSUserDomainMask
+                                                        appropriateForURL:nil
+                                                                   create:YES
+                                                                    error:&error];
+    NSString *fileName = [NSString stringWithFormat:@"track.gpx"];
+    NSURL *fileURL = [directoryURL URLByAppendingPathComponent:fileName];
+
+    NSString *topic = [Settings theGeneralTopicInMOC:[CoreData sharedInstance].mainMOC];
+    Friend *myself = [Friend existsFriendWithTopic:topic
+                            inManagedObjectContext:[CoreData sharedInstance].mainMOC];
+
+    [[NSFileManager defaultManager] createFileAtPath:fileURL.path
+                                            contents:[myself trackAsGPX]
+                                          attributes:nil];
+
+    self.dic = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
+    self.dic.delegate = self;
+
+    [self.dic presentOptionsMenuFromRect:self.UIexportTrack.frame inView:self.UIexportTrack animated:TRUE];
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView

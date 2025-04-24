@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "Setting+CoreDataClass.h"
-#import "MQTTMessage.h"
 
 #define SETTINGS_PROTOCOL @"mqttProtocolLevel"
 
@@ -68,7 +67,7 @@ typedef NS_ENUM(int, ConnectionMode) {
 + (BOOL)theMqttUsePasswordInMOC:(NSManagedObjectContext * _Nonnull)context;
 + (BOOL)theMqttAuthInMOC:(NSManagedObjectContext * _Nonnull)context;
 + (BOOL)theLockedInMOC:(NSManagedObjectContext * _Nonnull)context;
-+ (MQTTQosLevel)theWillQosInMOC:(NSManagedObjectContext * _Nonnull)context;
++ (NSInteger)theWillQosInMOC:(NSManagedObjectContext * _Nonnull)context;
 + (BOOL)theWillRetainFlagInMOC:(NSManagedObjectContext * _Nonnull)context;
 
 + (int)theMaximumHistoryInMOC:(NSManagedObjectContext * _Nonnull)context;

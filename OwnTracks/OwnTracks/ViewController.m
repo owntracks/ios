@@ -883,7 +883,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
 
 - (NSFetchedResultsController *)frcWaypoints {
     if (!_frcWaypoints) {
-        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Waypoint"];
+        NSFetchRequest<Waypoint *> *request = Waypoint.fetchRequest;
         request.predicate = [NSPredicate predicateWithFormat:@"poi <> NULL"];
 
         request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tst" ascending:TRUE]];

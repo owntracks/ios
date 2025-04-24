@@ -377,6 +377,10 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
         
         return 0;
     } else {
+        if (self.port == 0) {
+            return 0;
+        }
+        
         if (self.state != state_connected) {
             [self connectToLast];
         }
@@ -884,8 +888,12 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     self.state = state_starting;
     self.lastErrorCode = nil;
     
-    if (self.reconnectTime < RECONNECT_TIMER_MAX) {
-        self.reconnectTime *= 2;
+    if (self.port != 0) {
+        if (self.reconnectTime < RECONNECT_TIMER_MAX) {
+            self.reconnectTime *= 2.0;
+        }
+    } else {
+        self.reconnectTime = 24.0*60.0*60.0;
     }
     [self connectToInternal];
 }

@@ -1211,11 +1211,12 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
 }
 
 - (void)updateUI {
-    [UIApplication sharedApplication].applicationIconBadgeNumber = self.connectionBuffered.intValue;
     [[UNUserNotificationCenter currentNotificationCenter]
      setBadgeCount:self.connectionBuffered.intValue
      withCompletionHandler:^(NSError * _Nullable error) {
-        //
+        if (error) {
+            DDLogError(@"[OwnTracksAppDelegate setBadgeCount] error %@", error);
+        }
     }];
 }
 
@@ -1580,7 +1581,6 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     friend.tid = [Settings stringForKey:@"trackerid_preference"
                                   inMOC:moc];
     
-    OwnTracking *ownTracking = [OwnTracking sharedInstance];
     NSDate *createdAt = location.timestamp;
     if (fabs(location.timestamp.timeIntervalSince1970 -
              [NSDate date].timeIntervalSince1970) > 1.0) {
@@ -1633,22 +1633,21 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
 
     NSNumber *m = [NSNumber numberWithInteger:[LocationManager sharedInstance].monitoring];
 
-    Waypoint *waypoint = [ownTracking addWaypointFor:friend
-                                            location:location
-                                           createdAt:createdAt
-                                             trigger:trigger
-                                                 poi:poi
-                                                 tag:tag
-                                             battery:batteryLevel
-                                               image:image
-                                           imageName:imageName
-                                           inRegions:inRegions
-                                              inRids:inRids
-                                               bssid:bssid
-                                                ssid:ssid
-                                                   m:m
-                                                conn:conn
-                                                  bs:bs];
+    Waypoint *waypoint = [friend addWaypoint:location
+                                   createdAt:createdAt
+                                     trigger:trigger
+                                         poi:poi
+                                         tag:tag
+                                     battery:batteryLevel
+                                       image:image
+                                   imageName:imageName
+                                   inRegions:inRegions
+                                      inRids:inRids
+                                       bssid:bssid
+                                        ssid:ssid
+                                           m:m
+                                        conn:conn
+                                          bs:bs];
     if (waypoint) {
         NSDictionary *json = [[OwnTracking sharedInstance] waypointAsJSON:waypoint];
         if (json) {
@@ -1664,10 +1663,18 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
             DDLogError(@"[OwnTracksAppDelegate] no JSON created from waypoint %@", waypoint);
             return FALSE;
         }
-        [ownTracking limitWaypointsFor:friend
-                             toMaximum:[Settings intForKey:@"positions_preference"
-                                                     inMOC:moc]];
-
+        
+        int days = [Settings intForKey:@"days_preference" inMOC:moc];
+        NSInteger remainingPositions = -1;
+        if (days >= 0) {
+            remainingPositions = [friend limitWaypointsToMaximumDays:days];
+        } else {
+            int positions = [Settings intForKey:@"positions_preference" inMOC:moc];
+            remainingPositions = [friend limitWaypointsToMaximum:positions];
+        }
+        DDLogInfo(@"[OwnTracksAppDelegate] stored location @%@ (%ld)",
+                  createdAt, remainingPositions);
+        
     } else {
         DDLogError(@"[OwnTracksAppDelegate] waypoint creation failed from friend %@, location %@",
                    friend,

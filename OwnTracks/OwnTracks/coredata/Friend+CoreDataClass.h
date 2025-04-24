@@ -32,6 +32,27 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSArray *)allFriendsInManagedObjectContext:(NSManagedObjectContext *)context;
 + (NSArray *)allNonStaleFriendsInManagedObjectContext:(NSManagedObjectContext *)context;
 
+- (Waypoint *)addWaypoint:(nonnull CLLocation *)location
+createdAt:(nullable NSDate *)createdAt
+trigger:(nullable NSString *)trigger
+poi:(nullable NSString *)poi
+tag:(nullable NSString *)tag
+battery:(nullable NSNumber *)battery
+image:(nullable NSData *)image
+imageName:(nullable NSString *)imageName
+inRegions:(nullable NSArray <NSString *> *)inRegions
+inRids:(nullable NSArray <NSString *> *)inRids
+bssid:(nullable NSString *)bssid
+ssid:(nullable NSString *)ssid
+m:(nullable NSNumber *)m
+conn:(nullable NSString *)conn
+bs:(nullable NSNumber *)bs;
+
+- (NSInteger)limitWaypointsToMaximum:(NSInteger)max;
+- (NSInteger)limitWaypointsToMaximumDays:(NSInteger)days;
+
+- (NSData *)trackAsGPX;
+
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull name;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull nameOrTopic;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSData * _Nonnull image;
