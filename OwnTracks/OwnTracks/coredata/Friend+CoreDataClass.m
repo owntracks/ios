@@ -425,7 +425,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                [formatter stringFromDate:waypoint.tst]
         ];
     }
-    xml = [xml stringByAppendingString:@"\n/</trkseg></trk></gpx>"];
+    xml = [xml stringByAppendingString:@"\n</trkseg></trk></gpx>"];
     return [xml dataUsingEncoding:NSUTF8StringEncoding];
 }
 
