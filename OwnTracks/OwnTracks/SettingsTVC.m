@@ -72,6 +72,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *UIeffectiveTid;
 @property (weak, nonatomic) IBOutlet UILabel *UIeffectiveDeviceId;
 @property (weak, nonatomic) IBOutlet UITextField *UIdowngrade;
+@property (weak, nonatomic) IBOutlet UITextField *UIadapt;
 @property (weak, nonatomic) IBOutlet UIButton *createCardButton;
 @property (weak, nonatomic) IBOutlet UIButton *toursButton;
 @property (weak, nonatomic) IBOutlet UIButton *logsButton;
@@ -116,6 +117,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.UImonitoring.delegate = self;
     self.UIclientId.delegate = self;
     self.UIdowngrade.delegate = self;
+    self.UIadapt.delegate = self;
 
     OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [ad addObserver:self
@@ -280,6 +282,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if (self.UImonitoring) {
         [LocationManager sharedInstance].monitoring = (self.UImonitoring.text).intValue;
         [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
         [Settings setString:self.UImonitoring.text
                      forKey:@"monitoring_preference"
                       inMOC:CoreData.sharedInstance.mainMOC];
@@ -290,6 +293,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                      forKey:@"downgrade_preference"
                       inMOC:CoreData.sharedInstance.mainMOC];
     }
+    
+    if (self.UIadapt)
+        [Settings setString:self.UIadapt.text
+                   forKey:@"adapt_preference"
+                    inMOC:CoreData.sharedInstance.mainMOC];
+
 
     if (self.UIignoreInaccurateLocations)
         [Settings setString:self.UIignoreInaccurateLocations.text
@@ -628,6 +637,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                          inMOC:CoreData.sharedInstance.mainMOC];
         self.UIdowngrade.enabled = !locked;
     }
+    
+    if (self.UIadapt) {
+        self.UIadapt.text =
+        [Settings stringForKey:@"adapt_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIadapt.enabled = !locked;
+    }
+
 
     if (self.UIignoreInaccurateLocations) {
         self.UIignoreInaccurateLocations.text =
@@ -953,6 +970,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self.UIsubTopic resignFirstResponder];
     [self.UImonitoring resignFirstResponder];
     [self.UIdowngrade resignFirstResponder];
+    [self.UIadapt resignFirstResponder];
     [self.UIpubQos resignFirstResponder];
     [self.UIsubQos resignFirstResponder];
     [self.UIkeepAlive resignFirstResponder];
@@ -1194,6 +1212,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self updated];
 }
 - (IBAction)downgradeChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)adaptChanged:(UITextField *)sender {
     [self updateValues];
     [self updated];
 }

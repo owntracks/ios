@@ -383,4 +383,33 @@
     XCTAssert(remainingPositions == 1);
 }
 
+- (void)testFetchWaypoints {
+    NSManagedObjectContext *moc = [CoreData sharedInstance].mainMOC;
+    Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:moc]
+                      inManagedObjectContext:moc];
+    [moc performBlockAndWait:^{
+        NSFetchRequest<Waypoint *> *request = Waypoint.fetchRequest;
+        request.predicate = [NSPredicate predicateWithFormat:@"belongsTo = %@", friend];
+        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tst" ascending:TRUE]];
+        NSError *error;
+        NSArray <Waypoint *>*result = [request execute:&error];
+        NSLog(@"error:%@ result:%@", error, result);
+    }];
+}
+
+- (void)testFetchLatest1000Waypoints {
+    NSManagedObjectContext *moc = [CoreData sharedInstance].mainMOC;
+    Friend *friend = [Friend friendWithTopic:[Settings theGeneralTopicInMOC:moc]
+                      inManagedObjectContext:moc];
+    [moc performBlockAndWait:^{
+        NSFetchRequest<Waypoint *> *request = Waypoint.fetchRequest;
+        request.predicate = [NSPredicate predicateWithFormat:@"belongsTo = %@", friend];
+        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tst" ascending:FALSE]];
+        request.fetchLimit = 1000;
+        NSError *error;
+        NSArray <Waypoint *>*result = [request execute:&error];
+        NSLog(@"error:%@ result:%@", error, result);
+    }];
+}
+
 @end

@@ -240,24 +240,30 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (MKPolyline *)polyLine {
     CLLocationCoordinate2D coordinate = self.coordinate;
-    MKPolyline *polyLine = [MKPolyline polylineWithCoordinates:&coordinate count:1];
+    __block MKPolyline *polyLine = [MKPolyline polylineWithCoordinates:&coordinate count:1];
 
-    NSSet *waypoints = self.hasWaypoints;
-    if (waypoints && waypoints.count > 0) {
-        CLLocationCoordinate2D *coordinates = malloc(waypoints.count * sizeof(CLLocationCoordinate2D));
-        if (coordinates) {
-            int count = 0;
-            NSArray *sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"effectiveTimestamp" ascending:TRUE]];
-            for (Waypoint *waypoint in [waypoints sortedArrayUsingDescriptors:sortDescriptors]) {
-                coordinates[count++] = CLLocationCoordinate2DMake(
-                                                                  (waypoint.lat).doubleValue,
-                                                                  (waypoint.lon).doubleValue
-                                                                  );
+    [self.managedObjectContext performBlockAndWait:^{
+        NSFetchRequest<Waypoint *> *request = Waypoint.fetchRequest;
+        request.predicate = [NSPredicate predicateWithFormat:@"belongsTo = %@", self];
+        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tst" ascending:FALSE]];
+        request.fetchLimit = 1000;
+        NSError *error;
+        NSArray <Waypoint *>*result = [request execute:&error];
+        NSLog(@"error:%@ result:%@", error, result);
+        if (result && result.count > 0) {
+            CLLocationCoordinate2D *coordinates = malloc(result.count * sizeof(CLLocationCoordinate2D));
+            if (coordinates) {
+                int count = 0;
+                for (Waypoint *waypoint in result) {
+                    coordinates[count++] =
+                    CLLocationCoordinate2DMake((waypoint.lat).doubleValue,
+                                               (waypoint.lon).doubleValue);
+                }
+                polyLine = [MKPolyline polylineWithCoordinates:coordinates count:result.count];
+                free(coordinates);
             }
         }
-        polyLine = [MKPolyline polylineWithCoordinates:coordinates count:waypoints.count];
-        free(coordinates);
-    }
+    }];
     return polyLine;
 }
 
@@ -409,24 +415,36 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     return self.hasWaypoints.count;
 }
 
-- (NSData *)trackAsGPX {
+- (void)trackToGPX:(NSOutputStream *)output {
     NSISO8601DateFormatter *formatter = [[NSISO8601DateFormatter alloc] init];
     NSString *xml = @"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>";
     xml = [xml stringByAppendingString:@"\n<gpx xmlns=\"http://www.topografix.com/GPX/1/1\" version=\"1.1\" creator=\"OwnTracks\">"];
     xml = [xml stringByAppendingString:@"\n<trk><trkseg>"];
+    NSData *data = [xml dataUsingEncoding:NSUTF8StringEncoding];
+    [output write:data.bytes maxLength:data.length];
     
-    NSSet *waypoints = self.hasWaypoints;
-    NSArray *sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"effectiveTimestamp" ascending:TRUE]];
-    for (Waypoint *waypoint in [waypoints sortedArrayUsingDescriptors:sortDescriptors]) {
-        xml = [xml stringByAppendingFormat:@"\n<trkpt lat=\"%.6f\" lon=\"%.6f\"><ele>%.2f</ele><time>%@</time></trkpt>",
-               waypoint.lat.doubleValue,
-               waypoint.lon.doubleValue,
-               waypoint.alt.doubleValue,
-               [formatter stringFromDate:waypoint.tst]
-        ];
-    }
-    xml = [xml stringByAppendingString:@"\n</trkseg></trk></gpx>"];
-    return [xml dataUsingEncoding:NSUTF8StringEncoding];
+    [self.managedObjectContext performBlockAndWait:^{
+        NSFetchRequest<Waypoint *> *request = Waypoint.fetchRequest;
+        request.predicate = [NSPredicate predicateWithFormat:@"belongsTo = %@", self];
+        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tst" ascending:TRUE]];
+        NSError *error;
+        NSArray <Waypoint *>*result = [request execute:&error];
+        NSLog(@"error:%@ result:%@", error, result);
+        for (Waypoint *waypoint in result) {
+            NSString *xml = [NSString stringWithFormat:@"\n<trkpt lat=\"%.6f\" lon=\"%.6f\"><ele>%.2f</ele><time>%@</time></trkpt>",
+                   waypoint.lat.doubleValue,
+                   waypoint.lon.doubleValue,
+                   waypoint.alt.doubleValue,
+                   [formatter stringFromDate:waypoint.tst]
+            ];
+            NSData *data = [xml dataUsingEncoding:NSUTF8StringEncoding];
+            [output write:data.bytes maxLength:data.length];
+        }
+    }];
+
+    xml = @"\n</trkseg></trk></gpx>";
+    data = [xml dataUsingEncoding:NSUTF8StringEncoding];
+    [output write:data.bytes maxLength:data.length];
 }
 
 @end

@@ -15,6 +15,7 @@
 @property (strong, nonatomic) CLLocationManager *manager;
 @property (strong, nonatomic) CMAltimeter *altimeter;
 @property (strong, nonatomic) CLLocation *lastUsedLocation;
+@property (strong, nonatomic) CLLocation *lastLocationWithMovement;
 @property (strong, nonatomic) NSTimer *activityTimer;
 @property (strong, nonatomic) NSMutableSet *pendingRegionEvents;
 - (void)holdDownExpired:(NSTimer *)timer;
@@ -80,6 +81,12 @@ static LocationManager *theInstance = nil;
     self.insideCircularRegions = [[NSMutableDictionary alloc] init];
     self.rangedBeacons = [[NSMutableArray alloc] init];
     self.lastUsedLocation = [[CLLocation alloc] initWithLatitude:0 longitude:0];
+    self.lastLocationWithMovement = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(0.0, 0.0)
+                                                                  altitude:(0.0)
+                                                        horizontalAccuracy:-1.0
+                                                          verticalAccuracy:-1.0
+                                                                 timestamp:[NSDate now]];
+    self.lastLocationWithMovement = nil;
     self.pendingRegionEvents = [[NSMutableSet alloc] init];
     
     [self authorize];
@@ -377,8 +384,8 @@ static LocationManager *theInstance = nil;
     DDLogInfo(@"[LocationManager] activityTimer fired after %f", self.minTime);
     CLLocation *location = self.manager.location;
     if (location) {
-        [self.delegate timerLocation:location];
         self.lastUsedLocation = location;
+        [self.delegate timerLocation:location];
     } else {
         DDLogWarn(@"[LocationManager] activityTimer found no location");
     }
@@ -452,8 +459,11 @@ static LocationManager *theInstance = nil;
      didUpdateLocations:(NSArray *)locations {
     DDLogVerbose(@"[LocationManager] didUpdateLocations");
     
+    int count = 0;
     for (CLLocation *location in locations) {
-        DDLogInfo(@"[LocationManager] Location: %@ last: %@ Δs:%.0f/%.0f Δm:%.0f/%.0f",
+        count++;
+        DDLogInfo(@"[LocationManager] Location#%d: %@ last: %@ Δs:%.0f/%.0f Δm:%.0f/%.0f",
+                  count,
                   location,
                   self.lastUsedLocation,
                   self.lastUsedLocation ? [location.timestamp timeIntervalSinceDate:self.lastUsedLocation.timestamp] : 0,
@@ -461,11 +471,18 @@ static LocationManager *theInstance = nil;
                   self.lastUsedLocation ? [location distanceFromLocation:self.lastUsedLocation] : 0,
                   self.minDist
                   );
+        
+        if (location.speed > 0.0) {
+            self.lastLocationWithMovement = location;
+        }
+        
         if (self.lastUsedLocation &&
             [location.timestamp timeIntervalSinceDate:self.lastUsedLocation.timestamp] <= 0) {
             continue;
         }
-        if (self.lastUsedLocation && 
+        
+        if (self.monitoring == LocationMonitoringMove &&
+            self.lastUsedLocation &&
             [location distanceFromLocation:self.lastUsedLocation] < self.minDist) {
             continue;
         }
@@ -480,7 +497,6 @@ static LocationManager *theInstance = nil;
     DDLogError(@"[LocationManager] didFailWithError %@ %@", error.localizedDescription, error.userInfo);
     // error
 }
-
 
 /*
  *

@@ -187,10 +187,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     Friend *myself = [Friend existsFriendWithTopic:topic
                             inManagedObjectContext:[CoreData sharedInstance].mainMOC];
 
-    [[NSFileManager defaultManager] createFileAtPath:fileURL.path
-                                            contents:[myself trackAsGPX]
-                                          attributes:nil];
-
+    NSOutputStream *output = [NSOutputStream outputStreamWithURL:fileURL append:FALSE];
+    [output open];
+    [myself trackToGPX:output];
+    [output close];
+    
     self.dic = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
     self.dic.delegate = self;
 

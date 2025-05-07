@@ -51,7 +51,7 @@ bs:(nullable NSNumber *)bs;
 - (NSInteger)limitWaypointsToMaximum:(NSInteger)max;
 - (NSInteger)limitWaypointsToMaximumDays:(NSInteger)days;
 
-- (NSData *)trackAsGPX;
+- (void)trackToGPX:(NSOutputStream *)output;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull name;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nonnull nameOrTopic;

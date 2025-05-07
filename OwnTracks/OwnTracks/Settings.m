@@ -176,6 +176,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             object = dictionary[@"downgrade"];
             if (object) [self setString:object forKey:@"downgrade_preference" inMOC:context];
             
+            object = dictionary[@"adapt"];
+            if (object) [self setString:object forKey:@"adapt_preference" inMOC:context];
+            
             object = dictionary[@"ranging"];
             if (object) [self setString:object forKey:@"ranging_preference" inMOC:context];
             
@@ -421,6 +424,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     dict[@"pubTopicBase"] =                 [Settings stringOrZeroForKey:@"topic_preference" inMOC:context];
     dict[@"monitoring"] =                   @([Settings intForKey:@"monitoring_preference" inMOC:context]);
     dict[@"downgrade"] =                    @([Settings intForKey:@"downgrade_preference" inMOC:context]);
+    dict[@"adapt"] =                        @([Settings intForKey:@"adapt_preference" inMOC:context]);
     dict[@"waypoints"] =                    [Settings waypointsToArrayInMOC:context];
     dict[@"positions"] =                    @([Settings intForKey:@"positions_preference" inMOC:context]);
     dict[@"days"] =                         @([Settings intForKey:@"days_preference" inMOC:context]);

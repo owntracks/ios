@@ -751,6 +751,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
         LocationMonitoring monitoring = LocationMonitoringMove;
         [LocationManager sharedInstance].monitoring = monitoring;
         [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
         NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
         [Settings setInt:(int)[LocationManager sharedInstance].monitoring
                   forKey:@"monitoring_preference" inMOC:moc];
@@ -760,6 +761,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
         LocationMonitoring monitoring = LocationMonitoringSignificant;
         [LocationManager sharedInstance].monitoring = monitoring;
         [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
         NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
         [Settings setInt:(int)[LocationManager sharedInstance].monitoring
                   forKey:@"monitoring_preference" inMOC:moc];
@@ -769,6 +771,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
         LocationMonitoring monitoring = LocationMonitoringManual;
         [LocationManager sharedInstance].monitoring = monitoring;
         [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
         NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
         [Settings setInt:(int)[LocationManager sharedInstance].monitoring
                   forKey:@"monitoring_preference" inMOC:moc];
@@ -778,6 +781,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
         LocationMonitoring monitoring = LocationMonitoringQuiet;
         [LocationManager sharedInstance].monitoring = monitoring;
         [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
         NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
         [Settings setInt:(int)[LocationManager sharedInstance].monitoring
                   forKey:@"monitoring_preference" inMOC:moc];
@@ -916,6 +920,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                         }
                         LocationManager.sharedInstance.monitoring = newMonitoring;
                         [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+                        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
                         [Settings setInt:(int)[LocationManager sharedInstance].monitoring
                                   forKey:@"monitoring_preference" inMOC:moc];
                         [CoreData.sharedInstance sync:moc];
@@ -1682,6 +1687,10 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
         return FALSE;
     }
     
+    if ([trigger isEqualToString:@"p"]) {
+        return TRUE;
+    }
+    
     if ([UIDevice currentDevice].isBatteryMonitoringEnabled) {
         UIDeviceBatteryState batteryState = [UIDevice currentDevice].batteryState;
         float batteryLevel = [UIDevice currentDevice].batteryLevel;
@@ -1692,6 +1701,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
             if (batteryState != UIDeviceBatteryStateFull && batteryState != UIDeviceBatteryStateCharging && batteryLevel < downgrade / 100.0) {
                 // Move Mode, but battery is not full, not charging and less than downgrade%
                 [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"downgraded"];
+                DDLogInfo(@"[OwnTracksAppDelegate] downgraded TRUE");
                 LocationManager.sharedInstance.monitoring = LocationMonitoringSignificant;
                 [Settings setInt:(int)[LocationManager sharedInstance].monitoring
                           forKey:@"monitoring_preference" inMOC:moc];
@@ -1705,6 +1715,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                 if (batteryState == UIDeviceBatteryStateFull || batteryState == UIDeviceBatteryStateCharging) {
                     // not Move Mode, previously downgraded and battery is charging or full
                     [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+                    DDLogInfo(@"[OwnTracksAppDelegate] downgraded FALSE");
                     LocationManager.sharedInstance.monitoring = LocationMonitoringMove;
                     [Settings setInt:(int)[LocationManager sharedInstance].monitoring
                               forKey:@"monitoring_preference" inMOC:moc];
@@ -1718,6 +1729,58 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
             }
         }
     }
+    
+    if ([LocationManager sharedInstance].monitoring == LocationMonitoringMove) {
+        CLLocation *lastLocationWithMovement = [LocationManager sharedInstance].lastLocationWithMovement;
+        NSInteger adapt = [Settings intForKey:@"adapt_preference"
+                                        inMOC:moc];
+        
+        if (adapt > 0) {
+            if (lastLocationWithMovement && [lastLocationWithMovement.timestamp timeIntervalSinceNow] < -adapt * 60.0) {
+                BOOL insideFollowRegion = FALSE;
+                for (Region *region in friend.hasRegions) {
+                    if (region.CLregion.isFollow) {
+                        if ([LocationManager sharedInstance].insideCircularRegions[region.name]) {
+                            insideFollowRegion = TRUE;
+                            break;
+                        }
+                    }
+                }
+                
+                if (insideFollowRegion) {
+                    // Move Mode, but not moving, in a follow Region, and adapt is on
+                    [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"adapted"];
+                    DDLogInfo(@"[OwnTracksAppDelegate] adapted TRUE");
+                    LocationManager.sharedInstance.monitoring = LocationMonitoringSignificant;
+                    [Settings setInt:(int)[LocationManager sharedInstance].monitoring
+                              forKey:@"monitoring_preference" inMOC:moc];
+                    [CoreData.sharedInstance sync:moc];
+                    [self background];
+                }
+            }
+        }
+    } else {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"adapted"]) {
+            // not Move Mode, previously adapted
+            CLLocation *lastLocationWithMovement = [LocationManager sharedInstance].lastLocationWithMovement;
+            NSInteger adapt = [Settings intForKey:@"adapt_preference"
+                                            inMOC:moc];
+            
+            if (adapt <= 0 ||
+                (lastLocationWithMovement &&
+                 [lastLocationWithMovement.timestamp timeIntervalSinceNow] >= -adapt * 60.0)) {
+                
+                [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
+                DDLogInfo(@"[OwnTracksAppDelegate] adapted FALSE");
+                LocationManager.sharedInstance.monitoring = LocationMonitoringMove;
+                [Settings setInt:(int)[LocationManager sharedInstance].monitoring
+                          forKey:@"monitoring_preference" inMOC:moc];
+                [CoreData.sharedInstance sync:moc];
+                [self background];
+            }
+        }
+    }
+
     return TRUE;
 }
 
@@ -1906,6 +1969,7 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
         }
         [LocationManager sharedInstance].monitoring = monitoring;
         [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
         NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
         [Settings setInt:(int)[LocationManager sharedInstance].monitoring
                   forKey:@"monitoring_preference" inMOC:moc];
