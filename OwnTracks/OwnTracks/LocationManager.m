@@ -38,7 +38,8 @@
 
 @end
 
-#define BACKGROUND_STOP_AFTER 5.0
+#define BACKGROUND_STOP_AFTER 5.0 // seconds
+#define ASSUME_NO_MOTION 0.05 // meters per second (0.05 m/sec is 180 m/hour)
 
 @implementation PendingRegionEvent
 
@@ -472,7 +473,7 @@ static LocationManager *theInstance = nil;
                   self.minDist
                   );
         
-        if (location.speed > 0.0) {
+        if (location.speed > ASSUME_NO_MOTION) {
             self.lastLocationWithMovement = location;
         }
         

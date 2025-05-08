@@ -14,6 +14,8 @@
 #import <Contacts/Contacts.h>
 #import <CocoaLumberjack/CocoaLumberjack.h>
 
+#define MAXIMUM_TRACK_POINTS 1000
+
 @implementation Friend
 static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
@@ -246,7 +248,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         NSFetchRequest<Waypoint *> *request = Waypoint.fetchRequest;
         request.predicate = [NSPredicate predicateWithFormat:@"belongsTo = %@", self];
         request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tst" ascending:FALSE]];
-        request.fetchLimit = 1000;
+        request.fetchLimit = MAXIMUM_TRACK_POINTS;
         NSError *error;
         NSArray <Waypoint *>*result = [request execute:&error];
         NSLog(@"error:%@ result:%@", error, result);
