@@ -1,7 +1,7 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 18.4.0 iOS/ipadOS
+## OwnTracks 18.4.1 iOS/ipadOS
 * Release Date 2025-05-08
 
 ** Enhancements, bugfixes, and performance optimizations
