@@ -1762,22 +1762,14 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     } else {
         if ([[NSUserDefaults standardUserDefaults] boolForKey:@"adapted"]) {
             // not Move Mode, previously adapted
-            CLLocation *lastLocationWithMovement = [LocationManager sharedInstance].lastLocationWithMovement;
-            NSInteger adapt = [Settings intForKey:@"adapt_preference"
-                                            inMOC:moc];
             
-            if (adapt <= 0 ||
-                (lastLocationWithMovement &&
-                 [lastLocationWithMovement.timestamp timeIntervalSinceNow] >= -adapt * 60.0)) {
-                
-                [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
-                DDLogInfo(@"[OwnTracksAppDelegate] adapted FALSE");
-                LocationManager.sharedInstance.monitoring = LocationMonitoringMove;
-                [Settings setInt:(int)[LocationManager sharedInstance].monitoring
-                          forKey:@"monitoring_preference" inMOC:moc];
-                [CoreData.sharedInstance sync:moc];
-                [self background];
-            }
+            [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
+            DDLogInfo(@"[OwnTracksAppDelegate] adapted FALSE");
+            LocationManager.sharedInstance.monitoring = LocationMonitoringMove;
+            [Settings setInt:(int)[LocationManager sharedInstance].monitoring
+                      forKey:@"monitoring_preference" inMOC:moc];
+            [CoreData.sharedInstance sync:moc];
+            [self background];
         }
     }
 
