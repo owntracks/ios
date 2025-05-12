@@ -86,8 +86,7 @@ static LocationManager *theInstance = nil;
                                                                   altitude:(0.0)
                                                         horizontalAccuracy:-1.0
                                                           verticalAccuracy:-1.0
-                                                                 timestamp:[NSDate now]];
-    self.lastLocationWithMovement = nil;
+                                                                 timestamp:[NSDate date]];
     self.pendingRegionEvents = [[NSMutableSet alloc] init];
     
     [self authorize];
@@ -456,6 +455,20 @@ static LocationManager *theInstance = nil;
         
 }
 
++ (NSString *)CLLocationText:(CLLocation *)location {
+    NSISO8601DateFormatter *formatter = [[NSISO8601DateFormatter alloc] init];
+    formatter.formatOptions |= NSISO8601DateFormatWithFractionalSeconds;
+
+    return [NSString stringWithFormat:@"%g%g(±%.0f,%.2f,%.2f)@%@",
+            location.coordinate.longitude,
+            location.coordinate.latitude,
+            location.horizontalAccuracy,
+            location.speed,
+            location.course,
+            [formatter stringFromDate:location.timestamp]];
+}
+
+
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations {
     DDLogVerbose(@"[LocationManager] didUpdateLocations");
@@ -463,15 +476,17 @@ static LocationManager *theInstance = nil;
     int count = 0;
     for (CLLocation *location in locations) {
         count++;
-        DDLogInfo(@"[LocationManager] Location#%d: %@ last: %@ Δs:%.0f/%.0f Δm:%.0f/%.0f",
+        DDLogInfo(@"[LocationManager] Location#%d: Δs:%.0f/%.0f Δm:%.0f/%.0f Δs:%.0f %@ %@ %@",
                   count,
-                  location,
-                  self.lastUsedLocation,
                   self.lastUsedLocation ? [location.timestamp timeIntervalSinceDate:self.lastUsedLocation.timestamp] : 0,
                   self.minTime,
                   self.lastUsedLocation ? [location distanceFromLocation:self.lastUsedLocation] : 0,
-                  self.minDist
-                  );
+                  self.minDist,
+                  [location.timestamp timeIntervalSinceDate:self.lastLocationWithMovement.timestamp],
+                  [LocationManager CLLocationText:location],
+                  self.lastUsedLocation ? [LocationManager CLLocationText:self.lastUsedLocation] : @"nil",
+                  [LocationManager CLLocationText:self.lastLocationWithMovement]
+        );
         
         if (location.speed > ASSUME_NO_MOTION) {
             self.lastLocationWithMovement = location;

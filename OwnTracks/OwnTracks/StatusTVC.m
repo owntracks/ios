@@ -111,8 +111,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                ad.connection.lastErrorCode.userInfo : @""
                                ];
     
-    if ([LocationManager sharedInstance].location) {
-        self.UILocation.text = [Waypoint CLLocationCoordinateText:[LocationManager sharedInstance].location];
+    CLLocation *location = [LocationManager sharedInstance].location;
+
+    if (location) {
+        self.UILocation.text = [Waypoint CLLocationCoordinateText:location];
     } else {
         self.UILocation.text =NSLocalizedString( @"No location recorded",  @"No location recorded indication");
     }

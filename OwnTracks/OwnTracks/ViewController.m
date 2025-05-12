@@ -298,7 +298,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)updateAccuracyButton {
-    CLLocation *location = self.mapView.userLocation.location;
+    CLLocation *location = self.mapView.userLocation.location;    
     self.accuracyButton.title = [Waypoint CLLocationAccuracyText:location];
     self.actionButton.enabled = ![self.accuracyButton.title isEqualToString:@"-"];
 }

@@ -42,6 +42,7 @@ typedef NS_ENUM(NSInteger, LocationMonitoring) {
 @property (nonatomic) double minDist;
 @property (nonatomic) double minTime;
 @property (readonly, nonatomic) CLLocation *location;
+@property (readonly, nonatomic) CLLocation *lastUsedLocation;
 @property (readonly, nonatomic) CLLocation *lastLocationWithMovement;
 @property (strong, nonatomic) CMAltitudeData *altitude;
 
