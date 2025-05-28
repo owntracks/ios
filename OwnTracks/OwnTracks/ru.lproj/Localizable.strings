@@ -1,0 +1,371 @@
+/* name of an unknown or hidden region */
+"a region" = "a region";
+
+/* reverseGeocodeLocation error */
+"Address resolver failed" = "Address resolver failed";
+
+/* Headline in addressbook related error messages */
+"Addressbook Access" = "Addressbook Access";
+
+/* Location Manager error message */
+"App is not allowed to use location services" = "App is not allowed to use location services";
+
+/* Location Manager error message */
+"App is not allowed to use location services in background" = "App is not allowed to use location services in background";
+
+/* Location Manager error message */
+"App is not allowed to use location services yet" = "App is not allowed to use location services yet";
+
+/* Location Manager error message */
+"App use of location services is restricted" = "App use of location services is restricted";
+
+/* Location Manager error message */
+"App use of location services is unclear" = "App use of location services is unclear";
+
+/* Display after processing beacon QR code */
+"Beacon QR successfully processed" = "Beacon QR successfully processed";
+
+/* Cancel button title */
+"Cancel" = "Cancel";
+
+/* Clipboard */
+"Clipboard" = "Clipboard";
+
+/* description connection closed state */
+"closed" = "closed";
+
+/* description connection closing state */
+"closing" = "closing";
+
+/* description connection connected state */
+"connected" = "connected";
+
+/* description connection connected state */
+"connecting" = "connecting";
+
+/* Continue button title */
+"Continue" = "Continue";
+
+/* content of an alert message regarding circular region */
+"created at center of map" = "created at center of map";
+
+/* reverseGeocodeLocation text */
+"due to rate limit or off-line" = "due to rate limit or off-line";
+
+/* Display when entering region (region name follows) */
+"Entering" = "Entering";
+
+/* friend enters region verb */
+"enters" = "enters";
+
+/* description connection error state */
+"error" = "error";
+
+/* Display when file processing fails */
+"Error processing file" = "Error processing file";
+
+/* Export */
+"Export" = "Export";
+
+/* Display when file processing succeeds (filename follows) */
+"File" = "File";
+
+/* Display after trying to open a file */
+"file open error" = "file open error";
+
+/* Fly */
+"Fly" = "Fly";
+
+/* Alert message header for friend's messages */
+"Friend" = "Friend";
+
+/* CNAuthorizationStatusDenied */
+"has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change" = "has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change";
+
+/* CNAuthorizationStatusRestricted */
+"has been restricted, possibly due to restrictions such as parental controls." = "has been restricted, possibly due to restrictions such as parental controls.";
+
+/* Hyb */
+"Hyb" = "Hyb";
+
+/* HybFly */
+"HybFly" = "HybFly";
+
+/* description connection idle state */
+"idle" = "idle";
+
+/* Warning displayed if location is inaccurate or old */
+"Inaccurate or old location information" = "Inaccurate or old location information";
+
+/* certificate error message */
+"incorrect file or passphrase" = "incorrect file or passphrase";
+
+/* Display for incorrect inline config */
+"Inline Configuration incorrect" = "Inline Configuration incorrect";
+
+/* Display for incorrectly encoded inline config */
+"Inline Configuration incorrectly encoded" = "Inline Configuration incorrectly encoded";
+
+/* Display for config without parameters */
+"Inline Configuration missing parameters" = "Inline Configuration missing parameters";
+
+/* Display after processing inline config */
+"Inline Configuration successfully processed" = "Inline Configuration successfully processed";
+
+/* Display when leaving region (region name follows) */
+"Leaving" = "Leaving";
+
+/* friend leaves region verb */
+"leaves" = "leaves";
+
+/* Header of an alert message regarding a location */
+"Location" = "Location";
+
+/* Location copied to clipboard */
+"Location copied to clipboard" = "Location copied to clipboard";
+
+/* Topic copied to clipboard */
+"Topic copied to clipboard" = "Topic copied to clipboard";
+
+/* indicates a locked configuration */
+"locked" = "locked";
+
+/* Header of an alert message regarding missing setup */
+"Setup" = "Setup";
+
+/* Text explaining the Setup */
+"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet";
+
+/* Manual */
+"Manual" = "Manual";
+
+/* Alert header for connection change warning */
+"Connection change" = "Connection change";
+
+/* Move */
+"Move" = "Move";
+
+/* Mute */
+"Mute" = "Mute";
+
+/* dummy for missing content */
+"no content available" = "no content available";
+
+/* Warning displayed if not location available */
+"No location available" = "No location available";
+
+/* No location recorded indication */
+"No location recorded" = "No location recorded";
+
+/* No pressure available */
+"No pressure available" = "No pressure available";
+
+/* Display after trying to process a file */
+"no url specified" = "no url specified";
+
+/* Alert message header for notification messages */
+"Notification" = "Notification";
+
+/* temporary display while opening URL */
+"opening URL" = "opening URL";
+
+/* Alert content for connection change warning */
+"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before.";
+
+/* Alert header regarding protocol input */
+"Protocol invalid" = "Protocol invalid";
+
+/* Alert content regarding protocol input */
+"Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1 or 5 for MQTT V5" = "Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1 or 5 for MQTT V5";
+
+/* content of an alert message regarding user publish */
+"publish queued on user request" = "publish queued on user request";
+
+/* Quiet */
+"Quiet" = "Quiet";
+
+/* Header of an alert message regarding circular region */
+"Region" = "Region";
+
+/* temporary display while resolving address */
+"resolving..." = "resolving...";
+
+/* Sat */
+"Sat" = "Sat";
+
+/* Settings screen title */
+"Settings" = "Settings";
+
+/* Significant */
+"Significant" = "Significant";
+
+/* Std */
+"Std" = "Std";
+
+/* Display when file processing succeeds */
+"successfully processed" = "successfully processed";
+
+/* Table is empty */
+"Table is empty" = "Table is empty";
+
+/* Heading for certificate error message */
+"TLS Client Certificate" = "TLS Client Certificate";
+
+/* Warning displayed if necessary settings are missing */
+"To publish your location userID and deviceID must be set" = "To publish your location userID and deviceID must be set";
+
+/* Alert header regarding TrackerID input */
+"TrackerID invalid" = "TrackerID invalid";
+
+/* Alert content regarding TrackerID input */
+"TrackerID may be empty or up to 2 characters long" = "TrackerID may be empty or up to 2 characters long";
+
+/* Alert content regarding TrackerID input */
+"TrackerID may contain alphanumeric characters only" = "TrackerID may contain alphanumeric characters only";
+
+/* Display after entering an unknown scheme in url */
+"unknown scheme in url" = "unknown scheme in url";
+
+/* description connection unknown state */
+"unknown state" = "unknown state";
+
+/* Display for unknown url path */
+"unknown url path" = "unknown url path";
+
+/* webView didFailLoadWithError display */
+"webView didFailLoadWithError" = "webView didFailLoadWithError";
+
+/* You cannot use background fetch */
+"You cannot use background fetch" = "You cannot use background fetch";
+
+/* You disabled background fetch */
+"You disabled background fetch" = "You disabled background fetch";
+
+/* MQTT Description Text */
+"Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet";
+
+/* HTTP Description Text */
+"Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Similar to MQTT mode, except data transmission uses HTTP, not MQTT.";
+/* Please Note Text */
+
+"When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "When switching between modes, all OwnTracks data will be deleted for privacy reasons.";
+
+/* Title map interaction */
+"Map Interaction" = "Map Interaction";
+
+/* Message map interaction */
+"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests";
+
+/* Address resolver disabled */
+"Address resolver disabled" = "Address resolver disabled";
+
+/* Title Revgeo */
+"Reverse Geocoding Address Resolution" = "Reverse Geocoding Address Resolution";
+
+/* Message Revgeo */
+"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests";
+
+/* Yes button title */
+"Yes" = "Yes";
+
+/* No button title */
+"No" = "No";
+
+/* Alert message header for Request Response */
+"Response" = "Response";
+
+/* URL copied to Clipboard */
+"URL copied to Clipboard" = "URL copied to Clipboard";
+
+/* No or empty tour list received from backend */
+"No or empty tour list received from backend" = "No or empty tour list received from backend";
+
+/* Fetching tour list from backend */
+"Fetching tour list from backend" = "Fetching tour list from backend";
+
+/* Header of an alert message regarding a card */
+"Card" = "Card";
+
+/* content of an alert message regarding card */
+"set and sent to backend" = "set and sent to backend";
+
+/* Tours list header */
+"Tours" = "Tours";
+
+/* Tours status header */
+"Tours Status" = "Tours Status";
+
+/* Tour list received */
+"Tour list received" = "Tour list received";
+
+/* Requesting tour list */
+"Requesting tour list" = "Requesting tour list";
+
+/* Tour list request timed out */
+"Tour list request timed out" = "Tour list request timed out";
+
+/* Tour created */
+"Tour created" = "Tour created";
+
+ /* Requesting tour */
+"Requesting tour" = "Requesting tour";
+
+/* Tour request timed out */
+"Tour request timed out" = "Tour request timed out";
+
+/* Tour deleted */
+"Tour deleted" = "Tour deleted";
+
+/* Alert message header for copy */
+"Copied" = "Copied";
+
+/* Send location now */
+"Send location now" = "Send location now";
+
+/* Set POI button */
+"Set POI" = "Set POI";
+
+/* Set POI with image button */
+"Set POI with image" = "Set POI with image";
+
+/* Set tag button */
+"Set tag" = "Set tag";
+
+/* Set POI title */
+"Set POI" = "Set POI";
+
+/* Set Tag title */
+"Set Tag" = "Set Tag";
+
+/* Send button title */
+"Send" = "Send";
+
+/* Remove button title */
+"Remove" = "Remove";
+
+/* Shortcut Switch to Move Monitoring Monitoring Mode */
+"Switch to Move Monitoring Mode" = "Switch to Move Monitoring Mode";
+
+/* Shortcut Switch to Significant Changes Monitoring Mode */
+"Switch to Significant Changes Monitoring Mode" = "Switch to Significant Changes Monitoring Mode";
+
+/* Shortcut Switch to Manual Monitoring Mode */
+"Switch to Manual Monitoring Mode" = "Switch to Manual Monitoring Mode";
+
+/* Shortcut Switch to Quiet Monitoring Mode */
+"Switch to Quiet Monitoring Mode" = "Switch to Quiet Monitoring Mode";
+
+/* Battery status unkown */
+"unknown" = "unknown";
+
+/* Battery status unplugged */
+"unplugged" = "unplugged";
+
+/* Battery status charging */
+"charging" = "charging";
+
+/* Battery status full */
+"full" = "full";
+
+/* "Please keep OwnTracks running to ensure the desired functionality" */
+"Please keep OwnTracks running to ensure the desired functionality" = "Please keep OwnTracks running to ensure the desired functionality";
