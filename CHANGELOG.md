@@ -1,8 +1,8 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 18.4.2 iOS/ipadOS
-* Release Date 2025-05-12
+## OwnTracks 18.4.3 iOS/ipadOS
+* Release Date 2025-06-17
 
 ** Enhancements, bugfixes, and performance optimizations
 
@@ -10,6 +10,10 @@ OwnTracks iOS App Release Notes
     [NEW] offline mode #722
     [FIX] Incorrect log message (cmd is handled elsewhere) #841
     [FIX] Processing duplicate (same tst and createdAt) location messages results in @(null) timestamps #840
+    [NEW]  Add motion state detection #846
+    [FIX] remove abandoned Czech language
+    [NEW] add Romanian and Russian (placeholder)
+    [FIX] Language cleanup
 
 ## OwnTracks 18.3.5 iOS/ipadOS
 * Release Date 2025-03-11
