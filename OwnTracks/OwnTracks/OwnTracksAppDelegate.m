@@ -1294,6 +1294,22 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     }
     iOS[@"altimeterIsRelativeAltitudeAvailable"] = [NSNumber numberWithBool:[LocationManager sharedInstance].altimeterIsRelativeAltitudeAvailable];
     
+    switch([LocationManager sharedInstance].motionActivityManagerAuthorizationStatus) {
+        case CMAuthorizationStatusDenied:
+            iOS[@"motionActivityManagerAuthorizationStatus"] = @"CMAuthorizationStatusDenied";
+            break;
+        case CMAuthorizationStatusAuthorized:
+            iOS[@"motionActivityManagerAuthorizationStatus"] = @"CMAuthorizationStatusAuthorized";
+            break;
+        case CMAuthorizationStatusRestricted:
+            iOS[@"motionActivityManagerAuthorizationStatus"] = @"CMAuthorizationStatusRestricted";
+            break;
+        case CMAuthorizationStatusNotDetermined:
+            iOS[@"motionActivityManagerAuthorizationStatus"] = @"CMAuthorizationStatusNotDetermined";
+            break;
+    }
+    iOS[@"motionActivityManagerIsActivityAvailable"] = [NSNumber numberWithBool:[LocationManager sharedInstance].motionActivityManagerIsActivityAvailable];
+
     iOS[@"pedometerIsStepCountingAvailable"] = [NSNumber numberWithBool:[CMPedometer isStepCountingAvailable]];
     iOS[@"pedometerIsFloorCountingAvailable"] = [NSNumber numberWithBool:[CMPedometer isFloorCountingAvailable]];
     iOS[@"pedometerIsDistanceAvailable"] = [NSNumber numberWithBool:[CMPedometer isDistanceAvailable]];
@@ -1638,6 +1654,42 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
 
     NSNumber *m = [NSNumber numberWithInteger:[LocationManager sharedInstance].monitoring];
 
+    NSNumber *p = nil;
+    CMAltitudeData *altitudeData = [LocationManager sharedInstance].altitudeData;
+    if (altitudeData) {
+        p = altitudeData.pressure;
+    }
+
+    NSMutableArray <NSString *> *motionActivities = nil;
+    CMMotionActivity *motionActivity = [LocationManager sharedInstance].motionActivity;
+    if (motionActivity &&
+        (motionActivity.confidence == CMMotionActivityConfidenceMedium ||
+         motionActivity.confidence == CMMotionActivityConfidenceHigh)) {
+        NSMutableArray <NSString *> *ma = [[NSMutableArray alloc] init];
+        if (motionActivity.stationary) {
+            [ma addObject:@"stationary"];
+        }
+        if (motionActivity.walking) {
+            [ma addObject:@"walking"];
+        }
+        if (motionActivity.running) {
+            [ma addObject:@"running"];
+        }
+        if (motionActivity.automotive) {
+            [ma addObject:@"automotive"];
+        }
+        if (motionActivity.cycling) {
+            [ma addObject:@"cycling"];
+        }
+        if (motionActivity.unknown) {
+            [ma addObject:@"unknown"];
+        }
+        
+        if (ma.count > 0) {
+            motionActivities = ma;
+        }
+    }
+
     Waypoint *waypoint = [friend addWaypoint:location
                                    createdAt:createdAt
                                      trigger:trigger
@@ -1652,7 +1704,9 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                                         ssid:ssid
                                            m:m
                                         conn:conn
-                                          bs:bs];
+                                          bs:bs
+                                    pressure:p
+                            motionActivities:motionActivities];
     if (waypoint) {
         NSDictionary *json = [[OwnTracking sharedInstance] waypointAsJSON:waypoint];
         if (json) {

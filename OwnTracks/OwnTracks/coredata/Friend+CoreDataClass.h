@@ -46,7 +46,9 @@ bssid:(nullable NSString *)bssid
 ssid:(nullable NSString *)ssid
 m:(nullable NSNumber *)m
 conn:(nullable NSString *)conn
-bs:(nullable NSNumber *)bs;
+bs:(nullable NSNumber *)bs
+pressure:(nullable NSNumber *)pressure
+motionActivities:(nullable NSArray <NSString *> *)motionActivities;
 
 - (NSInteger)limitWaypointsToMaximum:(NSInteger)max;
 - (NSInteger)limitWaypointsToMaximumDays:(NSInteger)days;

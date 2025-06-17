@@ -18,6 +18,7 @@
 @interface StatusTVC ()
 @property (weak, nonatomic) IBOutlet UITextField *UILocation;
 @property (weak, nonatomic) IBOutlet UITextField *UIpressure;
+@property (weak, nonatomic) IBOutlet UITextField *UImotionActivities;
 @property (weak, nonatomic) IBOutlet UITextView *UIparameters;
 @property (weak, nonatomic) IBOutlet UITextView *UIstatusField;
 @property (weak, nonatomic) IBOutlet UITextField *UIVersion;
@@ -46,6 +47,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                        forKeyPath:@"lastUsedLocation"
                                           options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                                           context:nil];
+    [[LocationManager sharedInstance] addObserver:self
+                                       forKeyPath:@"altitudeData"
+                                          options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                          context:nil];
+    [[LocationManager sharedInstance] addObserver:self
+                                       forKeyPath:@"motionActivity"
+                                          options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                          context:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -58,6 +67,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                context:nil];
     [[LocationManager sharedInstance] removeObserver:self
                                           forKeyPath:@"lastUsedLocation"
+                                             context:nil];
+    [[LocationManager sharedInstance] removeObserver:self
+                                          forKeyPath:@"altitudeData"
+                                             context:nil];
+    [[LocationManager sharedInstance] removeObserver:self
+                                          forKeyPath:@"motionActivity"
                                              context:nil];
     [super viewWillDisappear:animated];
 }
@@ -119,8 +134,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         self.UILocation.text =NSLocalizedString( @"No location recorded",  @"No location recorded indication");
     }
 
-    if ([LocationManager sharedInstance].altitude) {
-        NSMeasurement *m = [[NSMeasurement alloc] initWithDoubleValue:[LocationManager sharedInstance].altitude.pressure.doubleValue
+    if ([LocationManager sharedInstance].altitudeData) {
+        NSMeasurement *m = [[NSMeasurement alloc] initWithDoubleValue:[LocationManager sharedInstance].altitudeData.pressure.doubleValue
                                                                  unit:[NSUnitPressure kilopascals]];
         NSMeasurementFormatter *mf = [[NSMeasurementFormatter alloc] init];
         mf.unitOptions = NSMeasurementFormatterUnitOptionsNaturalScale;
@@ -134,6 +149,56 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         self.UIparameters.text = (ad.connection).parameters;
     }
     
+    NSString *motionActivities = @"-";
+    CMMotionActivity *motionActivity = [LocationManager sharedInstance].motionActivity;
+    if (motionActivity &&
+        (motionActivity.confidence == CMMotionActivityConfidenceMedium ||
+         motionActivity.confidence == CMMotionActivityConfidenceHigh)) {
+        if (motionActivity.stationary) {
+            if ([motionActivities isEqualToString:@"-"]) {
+                motionActivities = @"stationary";
+            } else {
+                motionActivities = [motionActivities stringByAppendingFormat:@", stationary"];
+            }
+        }
+        if (motionActivity.walking) {
+            if ([motionActivities isEqualToString:@"-"]) {
+                motionActivities = @"walking";
+            } else {
+                motionActivities = [motionActivities stringByAppendingFormat:@", walking"];
+            }
+        }
+        if (motionActivity.running) {
+            if ([motionActivities isEqualToString:@"-"]) {
+                motionActivities = @"running";
+            } else {
+                motionActivities = [motionActivities stringByAppendingFormat:@", running"];
+            }
+        }
+        if (motionActivity.automotive) {
+            if ([motionActivities isEqualToString:@"-"]) {
+                motionActivities = @"automotive";
+            } else {
+                motionActivities = [motionActivities stringByAppendingFormat:@", automotive"];
+            }
+        }
+        if (motionActivity.cycling) {
+            if ([motionActivities isEqualToString:@"-"]) {
+                motionActivities = @"cycling";
+            } else {
+                motionActivities = [motionActivities stringByAppendingFormat:@", cycling"];
+            }
+        }
+        if (motionActivity.unknown) {
+            if ([motionActivities isEqualToString:@"-"]) {
+                motionActivities = @"unknown";
+            } else {
+                motionActivities = [motionActivities stringByAppendingFormat:@", unknown"];
+            }
+        }
+    }
+    self.UImotionActivities.text = motionActivities;
+
     self.UIVersion.text = [NSString stringWithFormat:@"%@/%@",
                            [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"],
                            [NSLocale currentLocale].localeIdentifier

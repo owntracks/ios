@@ -55,6 +55,7 @@
 		846FFA5E1B420938001482A6 /* FriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA5D1B420938001482A6 /* FriendTableViewCell.m */; };
 		8470352923D5E6B10041AAFB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8470352823D5E6B10041AAFB /* SystemConfiguration.framework */; };
 		8474443A1DA4BC9600975BE4 /* ConnType.m in Sources */ = {isa = PBXBuildFile; fileRef = 847444391DA4BC9600975BE4 /* ConnType.m */; };
+		847667B32DF9B8C7001AD950 /* Waypoint+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 847667B22DF9B8C7001AD950 /* Waypoint+CoreDataProperties.m */; };
 		8479EEB718E4529900923B24 /* MQTT.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* MQTT.plist */; };
 		847D5C8C2612554B00B6DCD5 /* ModesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D5C8B2612554B00B6DCD5 /* ModesTVC.m */; };
 		847F31B925EFB8600018C0A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 847F31B725EFB8600018C0A6 /* InfoPlist.strings */; };
@@ -94,7 +95,6 @@
 		84E402082314140400F1D6E6 /* HistoryTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E402072314140400F1D6E6 /* HistoryTVC.m */; };
 		84E8A1891BB94782002518AA /* Setting+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */; };
 		84E8A18A1BB94782002518AA /* Friend+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1811BB94782002518AA /* Friend+CoreDataProperties.m */; };
-		84E8A18C1BB94782002518AA /* Waypoint+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1851BB94782002518AA /* Waypoint+CoreDataProperties.m */; };
 		84E8A18D1BB94782002518AA /* Region+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1871BB94782002518AA /* Region+CoreDataProperties.m */; };
 		84FAEA7225F01DA100DCD479 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84FAEA7125F01DA100DCD479 /* Launch Screen.storyboard */; };
 		84FD93072353950100CCEC3B /* OwnTracksEditTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FD93062353950100CCEC3B /* OwnTracksEditTVC.m */; };
@@ -241,6 +241,9 @@
 		847444381DA4BC9600975BE4 /* ConnType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnType.h; sourceTree = "<group>"; };
 		847444391DA4BC9600975BE4 /* ConnType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnType.m; sourceTree = "<group>"; };
 		8474B15319A8CB7D00427427 /* Model 7.3.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.1.xcdatamodel"; sourceTree = "<group>"; };
+		847667AA2DF9B488001AD950 /* Model 18.4.3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 18.4.3.xcdatamodel"; sourceTree = "<group>"; };
+		847667B12DF9B8C7001AD950 /* Waypoint+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Waypoint+CoreDataProperties.h"; sourceTree = "<group>"; };
+		847667B22DF9B8C7001AD950 /* Waypoint+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Waypoint+CoreDataProperties.m"; sourceTree = "<group>"; };
 		847D5C7626121F4200B6DCD5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		847D5C81261224CF00B6DCD5 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		847D5C8A2612554B00B6DCD5 /* ModesTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModesTVC.h; sourceTree = "<group>"; };
@@ -367,8 +370,6 @@
 		84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Setting+CoreDataProperties.m"; sourceTree = "<group>"; };
 		84E8A1801BB94782002518AA /* Friend+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Friend+CoreDataProperties.h"; sourceTree = "<group>"; };
 		84E8A1811BB94782002518AA /* Friend+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Friend+CoreDataProperties.m"; sourceTree = "<group>"; };
-		84E8A1841BB94782002518AA /* Waypoint+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Waypoint+CoreDataProperties.h"; sourceTree = "<group>"; };
-		84E8A1851BB94782002518AA /* Waypoint+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Waypoint+CoreDataProperties.m"; sourceTree = "<group>"; };
 		84E8A1861BB94782002518AA /* Region+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Region+CoreDataProperties.h"; sourceTree = "<group>"; };
 		84E8A1871BB94782002518AA /* Region+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Region+CoreDataProperties.m"; sourceTree = "<group>"; };
 		84F0AFE31C830C1D00C9F69F /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
@@ -558,6 +559,8 @@
 		8411B867189FE1ED0019D2D6 /* coredata */ = {
 			isa = PBXGroup;
 			children = (
+				847667B12DF9B8C7001AD950 /* Waypoint+CoreDataProperties.h */,
+				847667B22DF9B8C7001AD950 /* Waypoint+CoreDataProperties.m */,
 				84E40200231413D400F1D6E6 /* History+CoreDataProperties.h */,
 				84E40201231413D400F1D6E6 /* History+CoreDataClass.h */,
 				84E40202231413D400F1D6E6 /* History+CoreDataClass.m */,
@@ -578,8 +581,6 @@
 				84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */,
 				842E6ECF20BEF031001928FA /* Setting+CoreDataClass.h */,
 				842E6ED020BEF031001928FA /* Setting+CoreDataClass.m */,
-				84E8A1841BB94782002518AA /* Waypoint+CoreDataProperties.h */,
-				84E8A1851BB94782002518AA /* Waypoint+CoreDataProperties.m */,
 				842E6ED320BEF031001928FA /* Waypoint+CoreDataClass.h */,
 				842E6ED420BEF031001928FA /* Waypoint+CoreDataClass.m */,
 				8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */,
@@ -970,7 +971,6 @@
 				8411B90E189FEC070019D2D6 /* FriendsTVC.m in Sources */,
 				842E6ED620BEF031001928FA /* Queue+CoreDataClass.m in Sources */,
 				84FD93072353950100CCEC3B /* OwnTracksEditTVC.m in Sources */,
-				84E8A18C1BB94782002518AA /* Waypoint+CoreDataProperties.m in Sources */,
 				84C3F4562CEF7490004DB332 /* AttachPhotoTVC.m in Sources */,
 				8411B90F189FEC070019D2D6 /* RegionsTVC.m in Sources */,
 				849197F22D0084F300072AF6 /* PhotoAnnotationV.m in Sources */,
@@ -985,6 +985,7 @@
 				84C7C032289821280088A544 /* ToursTVC.m in Sources */,
 				845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */,
 				84B7397A1A65629200B103F4 /* LocationManager.m in Sources */,
+				847667B32DF9B8C7001AD950 /* Waypoint+CoreDataProperties.m in Sources */,
 				849260422B0247C200F6DC13 /* Validation.m in Sources */,
 				847D5C8C2612554B00B6DCD5 /* ModesTVC.m in Sources */,
 				84AFD40B2434486200F1E922 /* OwnTracking.m in Sources */,
@@ -1547,6 +1548,7 @@
 		8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				847667AA2DF9B488001AD950 /* Model 18.4.3.xcdatamodel */,
 				84C8E2742D54C14D006F9E41 /* Model 18.3.0.xcdatamodel */,
 				849197EE2CFF732900072AF6 /* Model 18.1.0.xcdatamodel */,
 				849ABA0028F21D140078AE41 /* Model 16.3.0.xcdatamodel */,
@@ -1579,7 +1581,7 @@
 				84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */,
 				8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 84C8E2742D54C14D006F9E41 /* Model 18.3.0.xcdatamodel */;
+			currentVersion = 847667AA2DF9B488001AD950 /* Model 18.4.3.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

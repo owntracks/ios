@@ -13,7 +13,6 @@
 
 @interface LocationManager()
 @property (strong, nonatomic) CLLocationManager *manager;
-@property (strong, nonatomic) CMAltimeter *altimeter;
 @property (strong, nonatomic) CLLocation *lastUsedLocation;
 @property (strong, nonatomic) CLLocation *lastLocationWithMovement;
 @property (strong, nonatomic) NSTimer *activityTimer;
@@ -27,8 +26,16 @@
 @property (strong, nonatomic) NSUserDefaults *sharedUserDefaults;
 
 @property (nonatomic) CLAuthorizationStatus locationManagerAuthorizationStatus;
+
 @property (nonatomic) CMAuthorizationStatus altimeterAuthorizationStatus;
 @property (nonatomic) BOOL altimeterIsRelativeAltitudeAvailable;
+@property (strong, nonatomic) CMAltimeter *altimeter;
+@property (strong, nonatomic) CMAltitudeData *altitudeData;
+
+@property (nonatomic) CMAuthorizationStatus motionActivityManagerAuthorizationStatus;
+@property (nonatomic) BOOL motionActivityManagerIsActivityAvailable;
+@property (strong, nonatomic) CMMotionActivityManager *motionActivityManager;
+@property (strong, nonatomic) CMMotionActivity *motionActivity;
 
 @end
 
@@ -77,6 +84,7 @@ static LocationManager *theInstance = nil;
     self.manager.delegate = self;
     
     self.altimeter = [[CMAltimeter alloc] init];
+    self.motionActivityManager = [[CMMotionActivityManager alloc] init];
     
     self.insideBeaconRegions = [[NSMutableDictionary alloc] init];
     self.insideCircularRegions = [[NSMutableDictionary alloc] init];
@@ -182,9 +190,9 @@ static LocationManager *theInstance = nil;
     
     self.altimeterAuthorizationStatus = [CMAltimeter authorizationStatus];
     self.altimeterIsRelativeAltitudeAvailable = [CMAltimeter isRelativeAltitudeAvailable];
-    DDLogVerbose(@"[LocationManager] CMAltimeter status=%ld, available=%d",
-                 (long)self.altimeterAuthorizationStatus,
-                 self.altimeterIsRelativeAltitudeAvailable);
+    DDLogInfo(@"[LocationManager] CMAltimeter status=%ld, available=%d",
+              (long)self.altimeterAuthorizationStatus,
+              self.altimeterIsRelativeAltitudeAvailable);
     
     if (self.altimeterIsRelativeAltitudeAvailable &&
         (self.altimeterAuthorizationStatus == CMAuthorizationStatusNotDetermined ||
@@ -192,8 +200,25 @@ static LocationManager *theInstance = nil;
         DDLogVerbose(@"[LocationManager] startRelativeAltitudeUpdatesToQueue");
         [self.altimeter startRelativeAltitudeUpdatesToQueue:[NSOperationQueue mainQueue]
                                                 withHandler:^(CMAltitudeData *altitudeData, NSError *error) {
-            DDLogVerbose(@"[LocationManager] altitudeData %@", altitudeData);
-            self.altitude = altitudeData;
+            DDLogVerbose(@"[LocationManager] altitudeData %@ error %@", altitudeData, error);
+            self.altitudeData = altitudeData;
+        }];
+    }
+    
+    self.motionActivityManagerAuthorizationStatus = [CMMotionActivityManager authorizationStatus];
+    self.motionActivityManagerIsActivityAvailable = [CMMotionActivityManager isActivityAvailable];
+    DDLogInfo(@"[LocationManager] CMMotionActivityManager status=%ld, available=%d",
+              (long)self.motionActivityManagerAuthorizationStatus,
+              self.motionActivityManagerIsActivityAvailable);
+    
+    if (self.motionActivityManagerIsActivityAvailable &&
+        (self.motionActivityManagerAuthorizationStatus == CMAuthorizationStatusNotDetermined ||
+         self.motionActivityManagerAuthorizationStatus == CMAuthorizationStatusAuthorized)) {
+        DDLogVerbose(@"[LocationManager] startActivityUpdatesToQueue");
+        [self.motionActivityManager startActivityUpdatesToQueue:[NSOperationQueue mainQueue]
+                                                    withHandler:^(CMMotionActivity * _Nullable activity) {
+            DDLogVerbose(@"[LocationManager] activity %@", activity);
+            self.motionActivity = activity;
         }];
     }
 }
@@ -246,6 +271,11 @@ static LocationManager *theInstance = nil;
     if ([CMAltimeter isRelativeAltitudeAvailable]) {
         DDLogVerbose(@"[LocationManager] stopRelativeAltitudeUpdates");
         [self.altimeter stopRelativeAltitudeUpdates];
+    }
+    
+    if ([CMMotionActivityManager isActivityAvailable]) {
+        DDLogVerbose(@"[LocationManager] stopActivityUpdates");
+        [self.motionActivityManager stopActivityUpdates];
     }
 }
 

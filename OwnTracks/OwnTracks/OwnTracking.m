@@ -236,7 +236,6 @@ static OwnTracking *theInstance = nil;
             cogDirection = cog.doubleValue;
         }
 
-        
         CLLocation *location = [[CLLocation alloc]
                                 initWithCoordinate:coord
                                 altitude:altDistance
@@ -339,6 +338,18 @@ static OwnTracking *theInstance = nil;
             DDLogError(@"[OwnTracking processLocation] json does contain invalid bs: not processed");
             return;
         }
+        
+        NSNumber *p = dictionary[@"p"];
+        if (p && ![p isKindOfClass:[NSNumber class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does contain invalid p: not processed");
+            return;
+        }
+
+        NSArray <NSString *> *motionActivities = dictionary[@"motionactivities"];
+        if (inRegions && ![inRegions isKindOfClass:[NSArray class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does not contain valid motionactivities: not processed");
+            return;
+        }
 
         (void)[friend addWaypoint:location
                         createdAt:createdAt
@@ -354,7 +365,9 @@ static OwnTracking *theInstance = nil;
                              ssid:ssid
                                 m:m
                              conn:conn
-                               bs:bs];
+                               bs:bs
+                         pressure:p
+                 motionActivities:motionActivities];
         int positions = [Settings intForKey:@"positions_preference" inMOC:friend.managedObjectContext];
         NSInteger remainingPositions = [friend limitWaypointsToMaximum:positions];
         DDLogInfo(@"[OwnTracking] processed location for friend %@ @%@ (%ld)",
@@ -575,9 +588,14 @@ static OwnTracking *theInstance = nil;
             json[@"cog"] = waypoint.cog.zeroDecimals;
         }
 
-        CMAltitudeData *altitude = [LocationManager sharedInstance].altitude;
-        if (altitude) {
-            json[@"p"] = altitude.pressure.threeDecimals;
+        if (waypoint.pressure) {
+            json[@"p"] = waypoint.pressure.threeDecimals;
+        }
+
+        if (waypoint.motionActivities) {
+            json[@"motionactivities"] = [NSJSONSerialization JSONObjectWithData:waypoint.motionActivities
+                                                                        options:0
+                                                                          error:nil];
         }
 
         if (waypoint.conn && waypoint.conn.length > 0) {

@@ -298,7 +298,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                      ssid:(NSString *)ssid
                         m:(NSNumber *)m
                      conn:(NSString *)conn
-                       bs:(NSNumber *)bs {
+                       bs:(NSNumber *)bs
+                 pressure:(NSNumber *)pressure
+         motionActivities:(NSArray <NSString *> *)motionActivities
+{
     Waypoint *waypoint = [NSEntityDescription insertNewObjectForEntityForName:@"Waypoint"
                                                        inManagedObjectContext:self.managedObjectContext];
     waypoint.belongsTo = self;
@@ -341,6 +344,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     waypoint.bs = bs;
     waypoint.m = m;
     waypoint.conn = conn;
+    waypoint.pressure = pressure;
+    if (motionActivities && [NSJSONSerialization isValidJSONObject:motionActivities]) {
+        waypoint.motionActivities = [NSJSONSerialization dataWithJSONObject:motionActivities
+                                                          options:0
+                                                            error:nil];
+    } else {
+        waypoint.motionActivities = nil;
+    }
 
     [[CoreData sharedInstance] sync:waypoint.managedObjectContext];
     return waypoint;

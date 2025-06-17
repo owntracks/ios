@@ -36,6 +36,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *UItag;
 @property (weak, nonatomic) IBOutlet UIImageView *UIphoto;
 @property (weak, nonatomic) IBOutlet UITextField *UIimageName;
+@property (weak, nonatomic) IBOutlet UITextField *UIpressure;
+@property (weak, nonatomic) IBOutlet UITextField *UImotionActivities;
 
 @property (nonatomic) BOOL needsUpdate;
 @property (strong, nonatomic) CLRegion *oldRegion;
@@ -105,6 +107,31 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 self.UIregions.text = [self.UIregions.text stringByAppendingFormat:@", %@", inRegion];
             }
         }
+    }
+
+    self.UImotionActivities.text = @"-";
+    if (self.waypoint.motionActivities) {
+        NSArray <NSString *>* motionActivities = [NSJSONSerialization JSONObjectWithData:self.waypoint.motionActivities
+                                                                          options:0
+                                                                            error:nil];
+        for (NSString *motionActivity in motionActivities) {
+            if ([self.UImotionActivities.text isEqualToString:@"-"]) {
+                self.UImotionActivities.text = motionActivity;
+            } else {
+                self.UImotionActivities.text = [self.UImotionActivities.text stringByAppendingFormat:@", %@", motionActivity];
+            }
+        }
+    }
+
+    if (self.waypoint.pressure) {
+        NSMeasurement *m = [[NSMeasurement alloc] initWithDoubleValue:self.waypoint.pressure.doubleValue
+                                                                 unit:[NSUnitPressure kilopascals]];
+        NSMeasurementFormatter *mf = [[NSMeasurementFormatter alloc] init];
+        mf.unitOptions = NSMeasurementFormatterUnitOptionsNaturalScale;
+        mf.numberFormatter.maximumFractionDigits = 3;
+        self.UIpressure.text = [mf stringFromMeasurement:m];
+    } else {
+        self.UIpressure.text = NSLocalizedString( @"No pressure available",  @"No pressure available");
     }
 
     self.UItimestamp.text = (self.waypoint).timestampText;
