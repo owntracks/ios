@@ -19,7 +19,7 @@
 @implementation Friend
 static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
-+ (Friend *)existsFriendWithTopic:(NSString *)topic
++ (Friend * _Nullable)existsFriendWithTopic:(NSString *)topic
            inManagedObjectContext:(NSManagedObjectContext *)context {
     Friend *friend = nil;
 
@@ -105,7 +105,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     return self.name ? self.name : self.topic;
 }
 
-+ (NSString *)nameOfPerson:(NSString *)contactId {
++ (NSString * _Nullable)nameOfPerson:(NSString *)contactId {
     NSString *name = nil;
 
     CNContactStore *contactStore = [[CNContactStore alloc] init];
@@ -141,7 +141,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     return data;
 }
 
-+ (NSData *)imageDataOfPerson:(NSString *)contactId {
++ (NSData * _Nullable)imageDataOfPerson:(NSString *)contactId {
     NSData *imageData = nil;
 
     CNContactStore *contactStore = [[CNContactStore alloc] init];
@@ -180,7 +180,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     return effectiveTid;
 }
 
-- (Waypoint *)newestWaypoint {
+- (Waypoint * _Nullable)newestWaypoint {
     Waypoint *newestWaypoint = nil;
 
     for (Waypoint *waypoint in [self.hasWaypoints copy]) {

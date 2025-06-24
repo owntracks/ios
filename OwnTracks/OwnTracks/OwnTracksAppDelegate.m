@@ -124,6 +124,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
      NSISO8601DateFormatWithFractionalSeconds];
     self.fl.logFormatter = [[DDLogFileFormatterDefault alloc]
                             initWithDateFormatter:(NSDateFormatter *)isoFormatter];
+    self.fl.logFileManager.maximumNumberOfLogFiles = MAXIMUM_NUMBER_OF_LOG_FILES;
     [DDLog addLogger:self.fl withLevel:DDLogLevelVerbose];
     
     DDLogInfo(@"[OwnTracksAppDelegate] OwnTracks starting %@/%@ %@",
@@ -156,7 +157,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                             waitUntilDone:TRUE];
         [self scheduleRefreshTask];
     }];
-    DDLogVerbose(@"[OwnTracksAppDelegate] registerForTaskWithIdentifier %@ %d",
+    DDLogInfo(@"[OwnTracksAppDelegate] registerForTaskWithIdentifier %@ %d",
                  TASK_IDENTIFIER, success);
     
     [self scheduleRefreshTask];
@@ -200,7 +201,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     BGAppRefreshTaskRequest *bgAppRefreshTaskRequest =
     [[BGAppRefreshTaskRequest alloc] initWithIdentifier:TASK_IDENTIFIER];
     BOOL success = [[BGTaskScheduler sharedScheduler] submitTaskRequest:bgAppRefreshTaskRequest error:&error];
-    DDLogVerbose(@"[OwnTracksAppDelegate] submitTaskRequest %@ @ %@ %d, %@",
+    DDLogInfo(@"[OwnTracksAppDelegate] submitTaskRequest %@ @ %@ %d, %@",
                  bgAppRefreshTaskRequest.identifier,
                  bgAppRefreshTaskRequest.earliestBeginDate,
                  success,
@@ -670,9 +671,11 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 }
 
 - (void)background {
+#ifdef VERBOSE
     NSTimeInterval backgroundTimeRemaining = [UIApplication sharedApplication].backgroundTimeRemaining;
-    DDLogVerbose(@"[OwnTracksAppDelegate] background backgroundTimeRemaining: %@",
+    DDLogInfo(@"[OwnTracksAppDelegate] background backgroundTimeRemaining: %@",
                  backgroundTimeRemaining > 24 * 3600 ? @"∞": @(floor(backgroundTimeRemaining)).stringValue);
+#endif
     
     [self startBackgroundTimer];
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground &&
@@ -1025,11 +1028,12 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
      **
      ** If the background task is ended, occasionally the disconnect message is not received well before the server senses the tcp disconnect
      **/
-    
+#ifdef VERBOSE
     NSTimeInterval backgroundTimeRemaining = [UIApplication sharedApplication].backgroundTimeRemaining;
     DDLogVerbose(@"[OwnTracksAppDelegate] checkState: %@, backgroundTimeRemaining: %@",
                  state,
                  backgroundTimeRemaining > 24 * 3600 ? @"∞": @(floor(backgroundTimeRemaining)).stringValue);
+#endif
     
     if (state.intValue == state_starting) {
         if (self.backgroundTask) {
@@ -1072,6 +1076,8 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     @synchronized (self.inQueue) {
         self.inQueue = @((self.inQueue).unsignedLongValue + 1);
     }
+
+#ifdef VERBOSE
 #define LEN2PRINT 256
     NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     DDLogVerbose(@"[OwnTracksAppDelegate] handleMessage queueing inQueue=%@ topic=%@ data(%lu)=%@",
@@ -1081,7 +1087,8 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                  dataString.length <= LEN2PRINT ?
                  dataString :
                  [NSString stringWithFormat:@"%@...", [dataString substringToIndex:LEN2PRINT]]);
-
+#endif
+    
     [CoreData.sharedInstance.queuedMOC performBlock:^{
         (void)[[OwnTracking sharedInstance] processMessage:topic
                                                       data:data

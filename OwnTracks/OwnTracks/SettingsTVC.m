@@ -385,20 +385,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 [Settings setInt:CONNECTION_MODE_HTTP
                           forKey:@"mode"
                            inMOC:CoreData.sharedInstance.mainMOC];
+                DDLogVerbose(@"[Settings] mode set to %d", CONNECTION_MODE_HTTP);
+
                 break;
             case 0:
             default:
                 [Settings setInt:CONNECTION_MODE_MQTT
                           forKey:@"mode"
                            inMOC:CoreData.sharedInstance.mainMOC];
+                DDLogVerbose(@"[Settings] mode set to %d", CONNECTION_MODE_MQTT);
                 break;
         }
     }
 
     [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
-    int mode = [Settings intForKey:@"mode"
-                             inMOC:CoreData.sharedInstance.mainMOC];
-    DDLogVerbose(@"[Settings] mode set to %d", mode);
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath

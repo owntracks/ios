@@ -218,24 +218,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (IBAction)modesChanged:(UISegmentedControl *)segmentedControl {
     int monitoring;
-    OwnTracksEnum intentMonitoring;
     switch (segmentedControl.selectedSegmentIndex) {
         case 3:
             monitoring = LocationMonitoringMove;
-            intentMonitoring = OwnTracksEnumMove;
             break;
         case 2:
             monitoring = LocationMonitoringSignificant;
-            intentMonitoring = OwnTracksEnumSignificant;
             break;
         case 1:
             monitoring = LocationMonitoringManual;
-            intentMonitoring = OwnTracksEnumManual;
             break;
         case 0:
         default:
             monitoring = LocationMonitoringQuiet;
-            intentMonitoring = OwnTracksEnumQuiet;
             break;
     }
     if (monitoring != [LocationManager sharedInstance].monitoring) {

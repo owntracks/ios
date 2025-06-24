@@ -12,7 +12,7 @@
 
 @implementation Setting
 
-+ (Setting *)existsSettingWithKey:(NSString *)key inMOC:(NSManagedObjectContext *)context {
++ (Setting * _Nullable)existsSettingWithKey:(NSString *)key inMOC:(NSManagedObjectContext *)context {
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Setting"];
     request.predicate = [NSPredicate predicateWithFormat:@"key = %@", key];
 

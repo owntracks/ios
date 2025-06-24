@@ -311,7 +311,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         }
 
         NSArray *components = [desc componentsSeparatedByString:@":"];
-        NSString *name = components.count >= 1 ? components[0] : nil;
+        NSString *name = components[0];
         NSString *uuid = components.count >= 2 ? components[1] : nil;
         unsigned int major = components.count >= 3 ? [components[2] unsignedIntValue]: 0;
         unsigned int minor = components.count >= 4 ? [components[3] unsignedIntValue]: 0;

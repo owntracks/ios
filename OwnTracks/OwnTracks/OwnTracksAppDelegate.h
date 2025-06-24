@@ -37,6 +37,7 @@
 @property (strong, nonatomic) NSString * _Nullable action;
 @property (nonatomic) BOOL inRefresh;
 
+#define MAXIMUM_NUMBER_OF_LOG_FILES 5
 @property (strong, nonatomic) DDFileLogger * _Nullable fl;
 @property (strong, nonatomic) NSNumber * _Nonnull inQueue;
 

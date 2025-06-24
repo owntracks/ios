@@ -52,7 +52,9 @@
                                         ssid:nil
                                            m:nil
                                         conn:nil
-                                          bs:nil];
+                                          bs:nil
+                                    pressure:nil
+                            motionActivities:nil];
     XCTAssertNotNil(waypoint);
     NSISO8601DateFormatter *formatter = [[NSISO8601DateFormatter alloc] init];
     formatter.formatOptions |= NSISO8601DateFormatWithFractionalSeconds;
@@ -92,7 +94,9 @@
                              ssid:nil
                                 m:nil
                              conn:nil
-                               bs:nil];
+                               bs:nil
+                         pressure:nil
+                 motionActivities:nil];
     }
     NSISO8601DateFormatter *formatter = [[NSISO8601DateFormatter alloc] init];
     formatter.formatOptions |= NSISO8601DateFormatWithFractionalSeconds;
@@ -139,7 +143,9 @@
                              ssid:nil
                                 m:nil
                              conn:nil
-                               bs:nil];
+                               bs:nil
+                         pressure:nil
+                 motionActivities:nil];
     }
     NSISO8601DateFormatter *formatter = [[NSISO8601DateFormatter alloc] init];
     formatter.formatOptions |= NSISO8601DateFormatWithFractionalSeconds;
@@ -186,7 +192,9 @@
                              ssid:nil
                                 m:nil
                              conn:nil
-                               bs:nil];
+                               bs:nil
+                         pressure:nil
+                 motionActivities:nil];
     }
     NSISO8601DateFormatter *formatter = [[NSISO8601DateFormatter alloc] init];
     formatter.formatOptions |= NSISO8601DateFormatWithFractionalSeconds;
@@ -233,7 +241,9 @@
                              ssid:nil
                                 m:nil
                              conn:nil
-                               bs:nil];
+                               bs:nil
+                         pressure:nil
+                 motionActivities:nil];
         NSInteger remainingPositions = [friend limitWaypointsToMaximumDays:30];
         NSLog(@"addWaypoint remainingPositions=%ld", remainingPositions);
     }
@@ -276,7 +286,9 @@
                              ssid:nil
                                 m:nil
                              conn:nil
-                               bs:nil];
+                               bs:nil
+                         pressure:nil
+                 motionActivities:nil];
         NSInteger remainingPositions = [friend limitWaypointsToMaximumDays:30];
         NSLog(@"addWaypoint remainingPositions=%ld", remainingPositions);
     }
@@ -319,7 +331,9 @@
                              ssid:nil
                                 m:nil
                              conn:nil
-                               bs:nil];
+                               bs:nil
+                         pressure:nil
+                 motionActivities:nil];
     }
     NSISO8601DateFormatter *formatter = [[NSISO8601DateFormatter alloc] init];
     formatter.formatOptions |= NSISO8601DateFormatWithFractionalSeconds;
@@ -366,7 +380,9 @@
                              ssid:nil
                                 m:nil
                              conn:nil
-                               bs:nil];
+                               bs:nil
+                         pressure:nil
+                 motionActivities:nil];
     }
     NSISO8601DateFormatter *formatter = [[NSISO8601DateFormatter alloc] init];
     formatter.formatOptions |= NSISO8601DateFormatWithFractionalSeconds;

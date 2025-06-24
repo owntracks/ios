@@ -86,6 +86,7 @@
 		84C7C0352898FAF90088A544 /* Tours.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C0342898FAF90088A544 /* Tours.m */; };
 		84CC5A521FEC71850010314C /* OwnTracks-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CC5A511FEC71840010314C /* OwnTracks-29.png */; };
 		84D6B47D25C844A500B2AC07 /* NSNumber+decimals.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B47C25C844A500B2AC07 /* NSNumber+decimals.m */; };
+		84DC826F2E0757CE0045CD05 /* OwnTracksBatteryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC826E2E0757CE0045CD05 /* OwnTracksBatteryTests.m */; };
 		84DDEAC71BD9F37900B01879 /* SettingsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DDEAC61BD9F37900B01879 /* SettingsTVC.m */; };
 		84DE749824A9E1C600C0DA68 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84DE749B24A9E1C600C0DA68 /* Intents.intentdefinition */; };
 		84DE749924A9E1C600C0DA68 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84DE749B24A9E1C600C0DA68 /* Intents.intentdefinition */; };
@@ -354,6 +355,7 @@
 		84DC68772CA5603000FCFE44 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Intents.strings; sourceTree = "<group>"; };
 		84DC687D2CA5603700FCFE44 /* gl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = gl; path = gl.lproj/Intents.strings; sourceTree = "<group>"; };
 		84DC687F2CA5603A00FCFE44 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Intents.strings; sourceTree = "<group>"; };
+		84DC826E2E0757CE0045CD05 /* OwnTracksBatteryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwnTracksBatteryTests.m; sourceTree = "<group>"; };
 		84DDEAC51BD9F37900B01879 /* SettingsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTVC.h; sourceTree = "<group>"; };
 		84DDEAC61BD9F37900B01879 /* SettingsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTVC.m; sourceTree = "<group>"; };
 		84DE749724A9A68B00C0DA68 /* OwnTracksIntents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OwnTracksIntents.entitlements; sourceTree = "<group>"; };
@@ -619,6 +621,7 @@
 				845537C62DB6BEBB00FE7758 /* OwnTracksStorageTests.m */,
 				8456D0A42B55749E003A45D4 /* OwnTracksTests.m */,
 				8483A9BB2B9E0C6E00774E8B /* OwnTracksPressureTests.m */,
+				84DC826E2E0757CE0045CD05 /* OwnTracksBatteryTests.m */,
 			);
 			path = OwnTracksTests;
 			sourceTree = "<group>";
@@ -1015,6 +1018,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8483A9BC2B9E0C6E00774E8B /* OwnTracksPressureTests.m in Sources */,
+				84DC826F2E0757CE0045CD05 /* OwnTracksBatteryTests.m in Sources */,
 				8456D0A52B55749E003A45D4 /* OwnTracksTests.m in Sources */,
 				845537C72DB6BEBB00FE7758 /* OwnTracksStorageTests.m in Sources */,
 				8483A9BA2B9E0BE400774E8B /* NSNumber+decimals.m in Sources */,
@@ -1261,7 +1265,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18.4.3;
+				CURRENT_PROJECT_VERSION = 18.4.4;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1284,7 +1288,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OwnTracks",
 				);
-				MARKETING_VERSION = 18.4.3;
+				MARKETING_VERSION = 18.4.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1314,7 +1318,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18.4.3;
+				CURRENT_PROJECT_VERSION = 18.4.4;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1337,7 +1341,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OwnTracks",
 				);
-				MARKETING_VERSION = 18.4.3;
+				MARKETING_VERSION = 18.4.4;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1368,7 +1372,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18.4.3;
+				CURRENT_PROJECT_VERSION = 18.4.4;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -1379,7 +1383,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 18.4.3;
+				MARKETING_VERSION = 18.4.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude.OwnTracksIntents;
@@ -1406,7 +1410,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 18.4.3;
+				CURRENT_PROJECT_VERSION = 18.4.4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -1417,7 +1421,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 18.4.3;
+				MARKETING_VERSION = 18.4.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude.OwnTracksIntents;
@@ -1440,7 +1444,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18.4.3;
+				CURRENT_PROJECT_VERSION = 18.4.4;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -1450,7 +1454,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.1;
-				MARKETING_VERSION = 18.4.3;
+				MARKETING_VERSION = 18.4.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.OwnTracksTests;
@@ -1487,7 +1491,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.1;
-				MARKETING_VERSION = 18.4.3;
+				MARKETING_VERSION = 18.4.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.OwnTracksTests;

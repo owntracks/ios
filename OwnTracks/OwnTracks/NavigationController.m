@@ -24,6 +24,7 @@ static NavigationController *theInstance = nil;
 }
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
     theInstance = self;
     self.queuedAlerts = [[NSMutableArray alloc] init];
 

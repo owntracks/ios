@@ -19,14 +19,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 
-+ (Friend *)existsFriendWithTopic:(NSString *)topic
++ (Friend * _Nullable)existsFriendWithTopic:(NSString *)topic
            inManagedObjectContext:(NSManagedObjectContext *)context;
 
 + (Friend *)friendWithTopic:(NSString *)topic
      inManagedObjectContext:(NSManagedObjectContext *)context;
 
-+ (NSString *)nameOfPerson:(NSString *)contactId;
-+ (NSData *)imageDataOfPerson:(NSString *)contactId;
++ (NSString * _Nullable)nameOfPerson:(NSString *)contactId;
++ (NSData * _Nullable)imageDataOfPerson:(NSString *)contactId;
 
 + (void)deleteAllFriendsInManagedObjectContext:(NSManagedObjectContext *)context;
 + (NSArray *)allFriendsInManagedObjectContext:(NSManagedObjectContext *)context;
@@ -61,7 +61,7 @@ motionActivities:(nullable NSArray <NSString *> *)motionActivities;
 
 + (NSString *)effectiveTid:(NSString *)tid device:(NSString *)device;
 @property (NS_NONATOMIC_IOSONLY, getter=getEffectiveTid, readonly, copy) NSString * _Nonnull effectiveTid;
-@property (NS_NONATOMIC_IOSONLY, readonly, strong) Waypoint * _Nonnull newestWaypoint;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong) Waypoint * _Nullable newestWaypoint;
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) MKPolyline * _Nonnull polyLine;
 
 @end

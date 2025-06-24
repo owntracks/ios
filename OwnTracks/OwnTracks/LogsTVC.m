@@ -10,8 +10,6 @@
 
 #import "OwnTracksAppDelegate.h"
 
-#import <CocoaLumberjack/CocoaLumberjack.h>
-
 @interface LogsTVC ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *actionButton;
 
@@ -20,8 +18,6 @@
 @end
 
 @implementation LogsTVC
-
-static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,11 +30,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     self.actionButton.enabled = FALSE;
-    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
-    DDLogVerbose(@"[LogsTVC] #logs:%lu max#:%lu]",
-                 (unsigned long)ad.fl.logFileManager.sortedLogFileInfos.count,
-                 (unsigned long)ad.fl.logFileManager.maximumNumberOfLogFiles);
 }
 
 #pragma mark - Table view data source
