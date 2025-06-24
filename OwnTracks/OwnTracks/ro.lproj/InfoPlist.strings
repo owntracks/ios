@@ -1,0 +1,39 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "OwnTracks";
+
+/* Bundle name */
+"CFBundleName" = "OwnTracks";
+
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "OwnTracks uses your camera on request to create a Card";
+
+/* Privacy - Contacts Usage Description */
+"NSContactsUsageDescription" = "Dacă permiți OwnTracks să-ți acceseze contactele, îți poți conecta dispozitivele la contacte. OwnTracks va afișa apoi numele și imaginea contactului în loc de ID-ul dispozitivului. Nicio informație din agenda ta nu va fi încărcată pe niciun server.";
+
+/* Privacy - Location Always and When In Use Usage Description */
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Locația ta este folosită pentru a o partaja și a o înregistra pe un server la alegerea ta";
+
+/* Privacy - Location Always Usage Description */
+"NSLocationAlwaysUsageDescription" = "Locația ta este folosită pentru a o partaja și a o înregistra pe un server la alegerea ta";
+
+/* Privacy - Location Usage Description */
+"NSLocationUsageDescription" = "Locația ta este folosită pentru a o partaja și a o înregistra pe un server la alegerea ta";
+
+/* Privacy - Location When In Use Usage Description */
+"NSLocationWhenInUseUsageDescription" = "Locația ta este folosită pentru a o partaja și a o înregistra pe un server la alegerea ta";
+
+/* Privacy - Motion Usage Description */
+"NSMotionUsageDescription" = "OwnTracks îți oferă numărul de pași, etajele urcate și distanța parcursă la cerere";
+
+/* No comment provided by engineer. */
+"OwnTracks CER File" = "OwnTracks CER File";
+
+/* No comment provided by engineer. */
+"OwnTracks Configuration File" = "OwnTracks Configuration File";
+
+/* No comment provided by engineer. */
+"OwnTracks PKCS12 File" = "OwnTracks PKCS12 File";
+
+/* No comment provided by engineer. */
+"OwnTracks Waypoints File" = "OwnTracks Waypoints File";
+

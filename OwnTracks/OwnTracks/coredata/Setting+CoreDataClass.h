@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Setting : NSManagedObject
 
-+ (Setting *)existsSettingWithKey:(NSString *)key inMOC:(NSManagedObjectContext *)context;
++ (Setting * _Nullable)existsSettingWithKey:(NSString *)key inMOC:(NSManagedObjectContext *)context;
 + (Setting *)settingWithKey:(NSString *)key inMOC:(NSManagedObjectContext *)context;
 + (NSArray *)allSettingsInMOC:(NSManagedObjectContext *)context;
 

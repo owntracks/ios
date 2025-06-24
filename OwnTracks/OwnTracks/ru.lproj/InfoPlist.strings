@@ -1,0 +1,18 @@
+/* Privacy - Contacts Usage Description */
+NSContactsUsageDescription = "If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server.";
+
+/* Privacy - Location Always and When In Use Usage Description */
+NSLocationAlwaysAndWhenInUseUsageDescription = "Your location is used to share and record it on a server of your choice";
+
+/* Privacy - Location Always Usage Description */
+NSLocationAlwaysUsageDescription = "Your location is used to share and record it on a server of your choice";
+
+/* Privacy - Location Usage Description */
+NSLocationUsageDescription = "Your location is used to share and record it on a server of your choice";
+
+/* Privacy - Location When In Use Usage Description */
+NSLocationWhenInUseUsageDescription = "Your location is used to share and record it on a server of your choice";
+
+/* Privacy - Motion Usage Description */
+NSMotionUsageDescription = "OwnTracks delivers your step count, floors climbed and distance walked on request";
+

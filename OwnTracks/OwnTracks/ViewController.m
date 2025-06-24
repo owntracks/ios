@@ -218,29 +218,25 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (IBAction)modesChanged:(UISegmentedControl *)segmentedControl {
     int monitoring;
-    OwnTracksEnum intentMonitoring;
     switch (segmentedControl.selectedSegmentIndex) {
         case 3:
             monitoring = LocationMonitoringMove;
-            intentMonitoring = OwnTracksEnumMove;
             break;
         case 2:
             monitoring = LocationMonitoringSignificant;
-            intentMonitoring = OwnTracksEnumSignificant;
             break;
         case 1:
             monitoring = LocationMonitoringManual;
-            intentMonitoring = OwnTracksEnumManual;
             break;
         case 0:
         default:
             monitoring = LocationMonitoringQuiet;
-            intentMonitoring = OwnTracksEnumQuiet;
             break;
     }
     if (monitoring != [LocationManager sharedInstance].monitoring) {
         [LocationManager sharedInstance].monitoring = monitoring;
         [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
         [Settings setInt:(int)[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"
                    inMOC:CoreData.sharedInstance.mainMOC];
         [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
@@ -270,6 +266,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
     for (NSInteger index = 0; index < self.modes.numberOfSegments; index++) {
         NSString *title = [self.modes titleForSegmentAtIndex:index];
+        if ([title hasSuffix:@"#"]) {
+            title = [title substringToIndex:title.length-1];
+        }
         if ([title hasSuffix:@"!"]) {
             title = [title substringToIndex:title.length-1];
         }
@@ -284,12 +283,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             title = [title stringByAppendingString:@"!"];
         }
     }
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"adapted"]) {
+        if (![title hasSuffix:@"#"]) {
+            title = [title stringByAppendingString:@"#"];
+        }
+    }
     [self.modes setTitle:title forSegmentAtIndex:index];
 
 }
 
 - (void)updateAccuracyButton {
-    CLLocation *location = self.mapView.userLocation.location;
+    CLLocation *location = self.mapView.userLocation.location;    
     self.accuracyButton.title = [Waypoint CLLocationAccuracyText:location];
     self.actionButton.enabled = ![self.accuracyButton.title isEqualToString:@"-"];
 }
@@ -883,7 +887,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
 
 - (NSFetchedResultsController *)frcWaypoints {
     if (!_frcWaypoints) {
-        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Waypoint"];
+        NSFetchRequest<Waypoint *> *request = Waypoint.fetchRequest;
         request.predicate = [NSPredicate predicateWithFormat:@"poi <> NULL"];
 
         request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tst" ascending:TRUE]];

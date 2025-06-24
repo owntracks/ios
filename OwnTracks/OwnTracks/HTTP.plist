@@ -30,6 +30,8 @@
 	<string></string>
 	<key>positions_preference</key>
 	<integer>50</integer>
+	<key>days_preference</key>
+	<integer>-1</integer>
 	<key>sub_preference</key>
 	<true/>
 	<key>maxhistory_preference</key>
@@ -38,5 +40,7 @@
 	<integer>0</integer>
 	<key>httpheaders_preference</key>
 	<string></string>
+	<key>adapt_preference</key>
+	<integer>0</integer>
 </dict>
 </plist>

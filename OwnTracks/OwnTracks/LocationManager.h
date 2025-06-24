@@ -42,12 +42,20 @@ typedef NS_ENUM(NSInteger, LocationMonitoring) {
 @property (nonatomic) double minDist;
 @property (nonatomic) double minTime;
 @property (readonly, nonatomic) CLLocation *location;
-@property (strong, nonatomic) CMAltitudeData *altitude;
+@property (readonly, nonatomic) CLLocation *lastUsedLocation;
+@property (readonly, nonatomic) CLLocation *lastLocationWithMovement;
 
 @property (readonly, nonatomic) CLAuthorizationStatus locationManagerAuthorizationStatus;
 
 @property (readonly, nonatomic) CMAuthorizationStatus altimeterAuthorizationStatus;
 @property (readonly, nonatomic) BOOL altimeterIsRelativeAltitudeAvailable;
+@property (readonly, nonatomic) CMAltitudeData *altitudeData;
+
+@property (readonly, nonatomic) CMAuthorizationStatus motionActivityManagerAuthorizationStatus;
+@property (readonly, nonatomic) BOOL motionActivityManagerIsActivityAvailable;
+@property (readonly, nonatomic) CMMotionActivity *motionActivity;
+
+
 
 - (void)start;
 - (void)wakeup;

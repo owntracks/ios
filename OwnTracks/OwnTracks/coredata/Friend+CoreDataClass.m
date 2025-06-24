@@ -10,11 +10,16 @@
 #import "Region+CoreDataClass.h"
 #import "Waypoint+CoreDataClass.h"
 #import "Settings.h"
+#import "CoreData.h"
 #import <Contacts/Contacts.h>
+#import <CocoaLumberjack/CocoaLumberjack.h>
+
+#define MAXIMUM_TRACK_POINTS 1000
 
 @implementation Friend
+static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
-+ (Friend *)existsFriendWithTopic:(NSString *)topic
++ (Friend * _Nullable)existsFriendWithTopic:(NSString *)topic
            inManagedObjectContext:(NSManagedObjectContext *)context {
     Friend *friend = nil;
 
@@ -100,7 +105,7 @@
     return self.name ? self.name : self.topic;
 }
 
-+ (NSString *)nameOfPerson:(NSString *)contactId {
++ (NSString * _Nullable)nameOfPerson:(NSString *)contactId {
     NSString *name = nil;
 
     CNContactStore *contactStore = [[CNContactStore alloc] init];
@@ -136,7 +141,7 @@
     return data;
 }
 
-+ (NSData *)imageDataOfPerson:(NSString *)contactId {
++ (NSData * _Nullable)imageDataOfPerson:(NSString *)contactId {
     NSData *imageData = nil;
 
     CNContactStore *contactStore = [[CNContactStore alloc] init];
@@ -175,7 +180,7 @@
     return effectiveTid;
 }
 
-- (Waypoint *)newestWaypoint {
+- (Waypoint * _Nullable)newestWaypoint {
     Waypoint *newestWaypoint = nil;
 
     for (Waypoint *waypoint in [self.hasWaypoints copy]) {
@@ -237,24 +242,30 @@
 
 - (MKPolyline *)polyLine {
     CLLocationCoordinate2D coordinate = self.coordinate;
-    MKPolyline *polyLine = [MKPolyline polylineWithCoordinates:&coordinate count:1];
+    __block MKPolyline *polyLine = [MKPolyline polylineWithCoordinates:&coordinate count:1];
 
-    NSSet *waypoints = self.hasWaypoints;
-    if (waypoints && waypoints.count > 0) {
-        CLLocationCoordinate2D *coordinates = malloc(waypoints.count * sizeof(CLLocationCoordinate2D));
-        if (coordinates) {
-            int count = 0;
-            NSArray *sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"effectiveTimestamp" ascending:TRUE]];
-            for (Waypoint *waypoint in [waypoints sortedArrayUsingDescriptors:sortDescriptors]) {
-                coordinates[count++] = CLLocationCoordinate2DMake(
-                                                                  (waypoint.lat).doubleValue,
-                                                                  (waypoint.lon).doubleValue
-                                                                  );
+    [self.managedObjectContext performBlockAndWait:^{
+        NSFetchRequest<Waypoint *> *request = Waypoint.fetchRequest;
+        request.predicate = [NSPredicate predicateWithFormat:@"belongsTo = %@", self];
+        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tst" ascending:FALSE]];
+        request.fetchLimit = MAXIMUM_TRACK_POINTS;
+        NSError *error;
+        NSArray <Waypoint *>*result = [request execute:&error];
+        NSLog(@"error:%@ result:%@", error, result);
+        if (result && result.count > 0) {
+            CLLocationCoordinate2D *coordinates = malloc(result.count * sizeof(CLLocationCoordinate2D));
+            if (coordinates) {
+                int count = 0;
+                for (Waypoint *waypoint in result) {
+                    coordinates[count++] =
+                    CLLocationCoordinate2DMake((waypoint.lat).doubleValue,
+                                               (waypoint.lon).doubleValue);
+                }
+                polyLine = [MKPolyline polylineWithCoordinates:coordinates count:result.count];
+                free(coordinates);
             }
         }
-        polyLine = [MKPolyline polylineWithCoordinates:coordinates count:waypoints.count];
-        free(coordinates);
-    }
+    }];
     return polyLine;
 }
 
@@ -273,5 +284,180 @@
     }
 }
 
+- (Waypoint *)addWaypoint:(CLLocation *)location
+                createdAt:(NSDate *)createdAt
+                  trigger:(NSString *)trigger
+                      poi:(NSString *)poi
+                      tag:(NSString *)tag
+                  battery:(NSNumber *)battery
+                    image:(NSData *)image
+                imageName:(NSString *)imageName
+                inRegions:(NSArray<NSString *> *)inRegions
+                   inRids:(NSArray<NSString *> *)inRids
+                    bssid:(NSString *)bssid
+                     ssid:(NSString *)ssid
+                        m:(NSNumber *)m
+                     conn:(NSString *)conn
+                       bs:(NSNumber *)bs
+                 pressure:(NSNumber *)pressure
+         motionActivities:(NSArray <NSString *> *)motionActivities
+{
+    Waypoint *waypoint = [NSEntityDescription insertNewObjectForEntityForName:@"Waypoint"
+                                                       inManagedObjectContext:self.managedObjectContext];
+    waypoint.belongsTo = self;
+    waypoint.trigger = trigger;
+    waypoint.poi = poi;
+    waypoint.tag = tag;
+    waypoint.acc = @(location.horizontalAccuracy);
+    waypoint.alt = @(location.altitude);
+    waypoint.lat = @(location.coordinate.latitude);
+    waypoint.lon = @(location.coordinate.longitude);
+    waypoint.vac = @(location.verticalAccuracy);
+    waypoint.tst = location.timestamp;
+    waypoint.createdAt = createdAt;
+    waypoint.batt = battery;
+    double speed = location.speed;
+    if (speed != -1) {
+        speed = speed * 3600 / 1000;
+    }
+    waypoint.vel = @(speed);
+    waypoint.cog = @(location.course);
+    waypoint.placemark = nil;
+    waypoint.image = image;
+    waypoint.imageName = imageName;
+    if (inRegions && [NSJSONSerialization isValidJSONObject:inRegions]) {
+        waypoint.inRegions = [NSJSONSerialization dataWithJSONObject:inRegions
+                                                             options:0
+                                                               error:nil];
+    } else {
+        waypoint.inRegions = nil;
+    }
+    if (inRids && [NSJSONSerialization isValidJSONObject:inRids]) {
+        waypoint.inRids = [NSJSONSerialization dataWithJSONObject:inRids
+                                                          options:0
+                                                            error:nil];
+    } else {
+        waypoint.inRids = nil;
+    }
+    waypoint.ssid = ssid;
+    waypoint.bssid = bssid;
+    waypoint.bs = bs;
+    waypoint.m = m;
+    waypoint.conn = conn;
+    waypoint.pressure = pressure;
+    if (motionActivities && [NSJSONSerialization isValidJSONObject:motionActivities]) {
+        waypoint.motionActivities = [NSJSONSerialization dataWithJSONObject:motionActivities
+                                                          options:0
+                                                            error:nil];
+    } else {
+        waypoint.motionActivities = nil;
+    }
+
+    [[CoreData sharedInstance] sync:waypoint.managedObjectContext];
+    return waypoint;
+}
+
+- (NSInteger)limitWaypointsToMaximum:(NSInteger)max {
+    if (max < 1) {
+        max = 1;
+    }
+    NSISO8601DateFormatter *formatter = [[NSISO8601DateFormatter alloc] init];
+    formatter.formatOptions |= NSISO8601DateFormatWithFractionalSeconds;
+
+    for (NSInteger i = self.hasWaypoints.count; i > max; i--) {
+        DDLogVerbose(@"count=%ld i=%ld max=%ld", self.hasWaypoints.count, i, max);
+        Waypoint *oldestWaypoint = nil;
+        for (Waypoint *waypoint in self.hasWaypoints) {
+            if (!waypoint.isDeleted) {
+                if (!oldestWaypoint || [oldestWaypoint.tst compare:waypoint.tst] == NSOrderedDescending) {
+                    oldestWaypoint = waypoint;
+                }
+            }
+        }
+        if (oldestWaypoint) {
+            DDLogVerbose(@"delete i=%ld %@", i, [formatter stringFromDate:oldestWaypoint.tst]);
+            [self.managedObjectContext deleteObject:oldestWaypoint];
+        }
+    }
+
+    Waypoint *newestWaypoint = nil;
+    for (Waypoint *waypoint in self.hasWaypoints) {
+        if (!waypoint.isDeleted) {
+            if (!newestWaypoint || [newestWaypoint.tst compare:waypoint.tst] == NSOrderedAscending) {
+                newestWaypoint = waypoint;
+            }
+        }
+    }
+
+    if (newestWaypoint && ![newestWaypoint.tst isEqualToDate:self.lastLocation]) {
+        self.lastLocation = newestWaypoint.tst;
+    }
+    [CoreData.sharedInstance sync:self.managedObjectContext];
+    return self.hasWaypoints.count;
+}
+
+- (NSInteger)limitWaypointsToMaximumDays:(NSInteger)days {
+    if (days <= 0) {
+        return [self limitWaypointsToMaximum:1];
+    }
+    
+    NSISO8601DateFormatter *formatter = [[NSISO8601DateFormatter alloc] init];
+    formatter.formatOptions |= NSISO8601DateFormatWithFractionalSeconds;
+    NSDate *oldest = [NSDate dateWithTimeIntervalSinceNow:-24.0*60.0*60.0*(days+1.0)];
+
+    for (Waypoint *waypoint in self.hasWaypoints) {
+        if (!waypoint.isDeleted && [waypoint.tst compare:oldest] == NSOrderedAscending) {
+            DDLogVerbose(@"delete oldest=%@ > %@",
+                         [formatter stringFromDate:oldest],
+                         [formatter stringFromDate:waypoint.tst]);
+            [self.managedObjectContext deleteObject:waypoint];
+        }
+    }
+
+    Waypoint *newestWaypoint = nil;
+    for (Waypoint *waypoint in self.hasWaypoints) {
+        if (!newestWaypoint || (!waypoint.isDeleted && [newestWaypoint.tst compare:waypoint.tst] == NSOrderedAscending)) {
+            newestWaypoint = waypoint;
+        }
+    }
+
+    if (newestWaypoint && ![newestWaypoint.tst isEqualToDate:self.lastLocation]) {
+        self.lastLocation = newestWaypoint.tst;
+    }
+    [CoreData.sharedInstance sync:self.managedObjectContext];
+    return self.hasWaypoints.count;
+}
+
+- (void)trackToGPX:(NSOutputStream *)output {
+    NSISO8601DateFormatter *formatter = [[NSISO8601DateFormatter alloc] init];
+    NSString *xml = @"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?>";
+    xml = [xml stringByAppendingString:@"\n<gpx xmlns=\"http://www.topografix.com/GPX/1/1\" version=\"1.1\" creator=\"OwnTracks\">"];
+    xml = [xml stringByAppendingString:@"\n<trk><trkseg>"];
+    NSData *data = [xml dataUsingEncoding:NSUTF8StringEncoding];
+    [output write:data.bytes maxLength:data.length];
+    
+    [self.managedObjectContext performBlockAndWait:^{
+        NSFetchRequest<Waypoint *> *request = Waypoint.fetchRequest;
+        request.predicate = [NSPredicate predicateWithFormat:@"belongsTo = %@", self];
+        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tst" ascending:TRUE]];
+        NSError *error;
+        NSArray <Waypoint *>*result = [request execute:&error];
+        NSLog(@"error:%@ result:%@", error, result);
+        for (Waypoint *waypoint in result) {
+            NSString *xml = [NSString stringWithFormat:@"\n<trkpt lat=\"%.6f\" lon=\"%.6f\"><ele>%.2f</ele><time>%@</time></trkpt>",
+                   waypoint.lat.doubleValue,
+                   waypoint.lon.doubleValue,
+                   waypoint.alt.doubleValue,
+                   [formatter stringFromDate:waypoint.tst]
+            ];
+            NSData *data = [xml dataUsingEncoding:NSUTF8StringEncoding];
+            [output write:data.bytes maxLength:data.length];
+        }
+    }];
+
+    xml = @"\n</trkseg></trk></gpx>";
+    data = [xml dataUsingEncoding:NSUTF8StringEncoding];
+    [output write:data.bytes maxLength:data.length];
+}
 
 @end

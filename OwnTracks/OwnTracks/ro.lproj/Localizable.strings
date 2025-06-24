@@ -1,6 +1,9 @@
 /* name of an unknown or hidden region */
 "a region" = "a region";
 
+/* Address resolver disabled */
+"Address resolver disabled" = "Address resolver disabled";
+
 /* reverseGeocodeLocation error */
 "Address resolver failed" = "Address resolver failed";
 
@@ -28,6 +31,15 @@
 /* Cancel button title */
 "Cancel" = "Cancel";
 
+/* Header of an alert message regarding a card */
+"Card" = "Card";
+
+/* Battery status charging */
+"charging" = "charging";
+
+/* Choose action title */
+"Choose action" = "Choose action";
+
 /* Clipboard */
 "Clipboard" = "Clipboard";
 
@@ -43,11 +55,23 @@
 /* description connection connected state */
 "connecting" = "connecting";
 
+/* Alert header for connection change warning */
+"Connection change" = "Connection change";
+
 /* Continue button title */
 "Continue" = "Continue";
 
+/* Alert message header for copy */
+"Copied" = "Copied";
+
 /* content of an alert message regarding circular region */
 "created at center of map" = "created at center of map";
+
+/* Message map interaction */
+"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests";
+
+/* Message Revgeo */
+"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests";
 
 /* reverseGeocodeLocation text */
 "due to rate limit or off-line" = "due to rate limit or off-line";
@@ -67,6 +91,9 @@
 /* Export */
 "Export" = "Export";
 
+/* Fetching tour list from backend */
+"Fetching tour list from backend" = "Fetching tour list from backend";
+
 /* Display when file processing succeeds (filename follows) */
 "File" = "File";
 
@@ -78,6 +105,9 @@
 
 /* Alert message header for friend's messages */
 "Friend" = "Friend";
+
+/* Battery status full */
+"full" = "full";
 
 /* CNAuthorizationStatusDenied */
 "has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change" = "has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change";
@@ -112,11 +142,11 @@
 /* Display after processing inline config */
 "Inline Configuration successfully processed" = "Inline Configuration successfully processed";
 
-/* Display when leaving region (region name follows) */
-"Leaving" = "Leaving";
-
 /* friend leaves region verb */
 "leaves" = "leaves";
+
+/* Display when leaving region (region name follows) */
+"Leaving" = "Leaving";
 
 /* Header of an alert message regarding a location */
 "Location" = "Location";
@@ -124,29 +154,23 @@
 /* Location copied to clipboard */
 "Location copied to clipboard" = "Location copied to clipboard";
 
-/* Topic copied to clipboard */
-"Topic copied to clipboard" = "Topic copied to clipboard";
-
 /* indicates a locked configuration */
 "locked" = "locked";
-
-/* Header of an alert message regarding missing setup */
-"Setup" = "Setup";
-
-/* Text explaining the Setup */
-"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet";
 
 /* Manual */
 "Manual" = "Manual";
 
-/* Alert header for connection change warning */
-"Connection change" = "Connection change";
+/* Title map interaction */
+"Map Interaction" = "Map Interaction";
 
 /* Move */
 "Move" = "Move";
 
 /* Mute */
 "Mute" = "Mute";
+
+/* No button title */
+"No" = "No";
 
 /* dummy for missing content */
 "no content available" = "no content available";
@@ -157,6 +181,9 @@
 /* No location recorded indication */
 "No location recorded" = "No location recorded";
 
+/* No or empty tour list received from backend */
+"No or empty tour list received from backend" = "No or empty tour list received from backend";
+
 /* No pressure available */
 "No pressure available" = "No pressure available";
 
@@ -166,11 +193,20 @@
 /* Alert message header for notification messages */
 "Notification" = "Notification";
 
+/* Open button title */
+"Open" = "Open";
+
 /* temporary display while opening URL */
 "opening URL" = "opening URL";
 
+/* OSM */
+"OSM" = "OSM";
+
 /* Alert content for connection change warning */
 "Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before.";
+
+/* "Please keep OwnTracks running to ensure the desired functionality" */
+"Please keep OwnTracks running to ensure the desired functionality" = "Please keep OwnTracks running to ensure the desired functionality";
 
 /* Alert header regarding protocol input */
 "Protocol invalid" = "Protocol invalid";
@@ -187,23 +223,80 @@
 /* Header of an alert message regarding circular region */
 "Region" = "Region";
 
+/* Remove button title */
+"Remove" = "Remove";
+
+/* Requesting tour */
+"Requesting tour" = "Requesting tour";
+
+/* Requesting tour list */
+"Requesting tour list" = "Requesting tour list";
+
 /* temporary display while resolving address */
 "resolving..." = "resolving...";
+
+/* Alert message header for Request Response */
+"Response" = "Response";
+
+/* Title Revgeo */
+"Reverse Geocoding Address Resolution" = "Reverse Geocoding Address Resolution";
 
 /* Sat */
 "Sat" = "Sat";
 
+/* Send button title */
+"Send" = "Send";
+
+/* Send location now */
+"Send location now" = "Send location now";
+
+/* content of an alert message regarding card */
+"set and sent to backend" = "set and sent to backend";
+
+/* Set POI buttonSet POI title */
+"Set POI" = "Set POI";
+
+/* Set POI with image button */
+"Set POI with image" = "Set POI with image";
+
+/* Set tag button */
+"Set tag" = "Set tag";
+
+/* Set Tag title */
+"Set Tag" = "Set Tag";
+
 /* Settings screen title */
 "Settings" = "Settings";
 
+/* Header of an alert message regarding missing setup */
+"Setup" = "Setup";
+
+/* MQTT Description Text */
+"Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet";
+
 /* Significant */
 "Significant" = "Significant";
+
+/* HTTP Description Text */
+"Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Similar to MQTT mode, except data transmission uses HTTP, not MQTT.";
 
 /* Std */
 "Std" = "Std";
 
 /* Display when file processing succeeds */
 "successfully processed" = "successfully processed";
+
+/* Shortcut Switch to Manual Monitoring Mode */
+"Switch to Manual Monitoring Mode" = "Switch to Manual Monitoring Mode";
+
+/* Shortcut Switch to Move Monitoring Monitoring Mode */
+"Switch to Move Monitoring Mode" = "Switch to Move Monitoring Mode";
+
+/* Shortcut Switch to Quiet Monitoring Mode */
+"Switch to Quiet Monitoring Mode" = "Switch to Quiet Monitoring Mode";
+
+/* Shortcut Switch to Significant Changes Monitoring Mode */
+"Switch to Significant Changes Monitoring Mode" = "Switch to Significant Changes Monitoring Mode";
 
 /* Table is empty */
 "Table is empty" = "Table is empty";
@@ -214,6 +307,33 @@
 /* Warning displayed if necessary settings are missing */
 "To publish your location userID and deviceID must be set" = "To publish your location userID and deviceID must be set";
 
+/* Topic copied to clipboard */
+"Topic copied to clipboard" = "Topic copied to clipboard";
+
+/* Tour created */
+"Tour created" = "Tour created";
+
+/* Tour deleted */
+"Tour deleted" = "Tour deleted";
+
+/* Tour list received */
+"Tour list received" = "Tour list received";
+
+/* Tour list request timed out */
+"Tour list request timed out" = "Tour list request timed out";
+
+/* Tour request timed out */
+"Tour request timed out" = "Tour request timed out";
+
+/* Tours list header */
+"Tours" = "Tours";
+
+/* Tours status header */
+"Tours status" = "Tours status";
+
+/* Tours status header */
+"Tours Status" = "Tours Status";
+
 /* Alert header regarding TrackerID input */
 "TrackerID invalid" = "TrackerID invalid";
 
@@ -222,6 +342,9 @@
 
 /* Alert content regarding TrackerID input */
 "TrackerID may contain alphanumeric characters only" = "TrackerID may contain alphanumeric characters only";
+
+/* Battery status unkown */
+"unknown" = "unknown";
 
 /* Display after entering an unknown scheme in url */
 "unknown scheme in url" = "unknown scheme in url";
@@ -232,8 +355,20 @@
 /* Display for unknown url path */
 "unknown url path" = "unknown url path";
 
+/* Battery status unplugged */
+"unplugged" = "unplugged";
+
+/* URL copied to Clipboard */
+"URL copied to Clipboard" = "URL copied to Clipboard";
+
 /* webView didFailLoadWithError display */
 "webView didFailLoadWithError" = "webView didFailLoadWithError";
+
+/* Please Note Text */
+"When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "When switching between modes, all OwnTracks data will be deleted for privacy reasons.";
+
+/* Yes button title */
+"Yes" = "Yes";
 
 /* You cannot use background fetch */
 "You cannot use background fetch" = "You cannot use background fetch";
@@ -241,131 +376,6 @@
 /* You disabled background fetch */
 "You disabled background fetch" = "You disabled background fetch";
 
-/* MQTT Description Text */
-"Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet";
+/* Text explaining the Setup */
+"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet";
 
-/* HTTP Description Text */
-"Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Similar to MQTT mode, except data transmission uses HTTP, not MQTT.";
-/* Please Note Text */
-
-"When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "When switching between modes, all OwnTracks data will be deleted for privacy reasons.";
-
-/* Title map interaction */
-"Map Interaction" = "Map Interaction";
-
-/* Message map interaction */
-"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests";
-
-/* Address resolver disabled */
-"Address resolver disabled" = "Address resolver disabled";
-
-/* Title Revgeo */
-"Reverse Geocoding Address Resolution" = "Reverse Geocoding Address Resolution";
-
-/* Message Revgeo */
-"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests";
-
-/* Yes button title */
-"Yes" = "Yes";
-
-/* No button title */
-"No" = "No";
-
-/* Alert message header for Request Response */
-"Response" = "Response";
-
-/* URL copied to Clipboard */
-"URL copied to Clipboard" = "URL copied to Clipboard";
-
-/* No or empty tour list received from backend */
-"No or empty tour list received from backend" = "No or empty tour list received from backend";
-
-/* Fetching tour list from backend */
-"Fetching tour list from backend" = "Fetching tour list from backend";
-
-/* Header of an alert message regarding a card */
-"Card" = "Card";
-
-/* content of an alert message regarding card */
-"set and sent to backend" = "set and sent to backend";
-
-/* Tours list header */
-"Tours" = "Tours";
-
-/* Tours status header */
-"Tours Status" = "Tours Status";
-
-/* Tour list received */
-"Tour list received" = "Tour list received";
-
-/* Requesting tour list */
-"Requesting tour list" = "Requesting tour list";
-
-/* Tour list request timed out */
-"Tour list request timed out" = "Tour list request timed out";
-
-/* Tour created */
-"Tour created" = "Tour created";
-
- /* Requesting tour */
-"Requesting tour" = "Requesting tour";
-
-/* Tour request timed out */
-"Tour request timed out" = "Tour request timed out";
-
-/* Tour deleted */
-"Tour deleted" = "Tour deleted";
-
-/* Alert message header for copy */
-"Copied" = "Copied";
-
-/* Send location now */
-"Send location now" = "Send location now";
-
-/* Set POI button */
-"Set POI" = "Set POI";
-
-/* Set POI with image button */
-"Set POI with image" = "Set POI with image";
-
-/* Set tag button */
-"Set tag" = "Set tag";
-
-/* Set POI title */
-"Set POI" = "Set POI";
-
-/* Set Tag title */
-"Set Tag" = "Set Tag";
-
-/* Send button title */
-"Send" = "Send";
-
-/* Remove button title */
-"Remove" = "Remove";
-
-/* Shortcut Switch to Move Monitoring Monitoring Mode */
-"Switch to Move Monitoring Mode" = "Switch to Move Monitoring Mode";
-
-/* Shortcut Switch to Significant Changes Monitoring Mode */
-"Switch to Significant Changes Monitoring Mode" = "Switch to Significant Changes Monitoring Mode";
-
-/* Shortcut Switch to Manual Monitoring Mode */
-"Switch to Manual Monitoring Mode" = "Switch to Manual Monitoring Mode";
-
-/* Shortcut Switch to Quiet Monitoring Mode */
-"Switch to Quiet Monitoring Mode" = "Switch to Quiet Monitoring Mode";
-
-/* Battery status unkown */
-"unknown" = "unknown";
-
-/* Battery status unplugged */
-"unplugged" = "unplugged";
-
-/* Battery status charging */
-"charging" = "charging";
-
-/* Battery status full */
-"full" = "full";
-
-/* "Please keep OwnTracks running to ensure the desired functionality" */
-"Please keep OwnTracks running to ensure the desired functionality" = "Please keep OwnTracks running to ensure the desired functionality";

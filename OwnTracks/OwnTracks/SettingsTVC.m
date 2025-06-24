@@ -59,6 +59,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *UIlocatorDisplacement;
 @property (weak, nonatomic) IBOutlet UITextField *UIlocatorInterval;
 @property (weak, nonatomic) IBOutlet UITextField *UIpositions;
+@property (weak, nonatomic) IBOutlet UITextField *UIdays;
 @property (weak, nonatomic) IBOutlet UITextField *UImaxHistory;
 @property (weak, nonatomic) IBOutlet UITextField *UIsubQos;
 @property (weak, nonatomic) IBOutlet UITextField *UIkeepAlive;
@@ -71,6 +72,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *UIeffectiveTid;
 @property (weak, nonatomic) IBOutlet UILabel *UIeffectiveDeviceId;
 @property (weak, nonatomic) IBOutlet UITextField *UIdowngrade;
+@property (weak, nonatomic) IBOutlet UITextField *UIadapt;
 @property (weak, nonatomic) IBOutlet UIButton *createCardButton;
 @property (weak, nonatomic) IBOutlet UIButton *toursButton;
 @property (weak, nonatomic) IBOutlet UIButton *logsButton;
@@ -107,6 +109,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.UIpubTopicBase.delegate = self;
     self.UIlocatorInterval.delegate = self;
     self.UIpositions.delegate = self;
+    self.UIdays.delegate = self;
     self.UImaxHistory.delegate = self;
     self.UIsubQos.delegate = self;
     self.UIkeepAlive.delegate = self;
@@ -114,6 +117,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.UImonitoring.delegate = self;
     self.UIclientId.delegate = self;
     self.UIdowngrade.delegate = self;
+    self.UIadapt.delegate = self;
 
     OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
     [ad addObserver:self
@@ -250,6 +254,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                      forKey:@"positions_preference"
                       inMOC:CoreData.sharedInstance.mainMOC];
 
+    if (self.UIdays)
+        [Settings setString:self.UIdays.text
+                     forKey:@"days_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+
     if (self.UImaxHistory)
         [Settings setString:self.UImaxHistory.text
                      forKey:@"maxhistory_preference"
@@ -273,6 +282,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if (self.UImonitoring) {
         [LocationManager sharedInstance].monitoring = (self.UImonitoring.text).intValue;
         [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
         [Settings setString:self.UImonitoring.text
                      forKey:@"monitoring_preference"
                       inMOC:CoreData.sharedInstance.mainMOC];
@@ -283,6 +293,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                      forKey:@"downgrade_preference"
                       inMOC:CoreData.sharedInstance.mainMOC];
     }
+    
+    if (self.UIadapt)
+        [Settings setString:self.UIadapt.text
+                   forKey:@"adapt_preference"
+                    inMOC:CoreData.sharedInstance.mainMOC];
+
 
     if (self.UIignoreInaccurateLocations)
         [Settings setString:self.UIignoreInaccurateLocations.text
@@ -369,20 +385,20 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 [Settings setInt:CONNECTION_MODE_HTTP
                           forKey:@"mode"
                            inMOC:CoreData.sharedInstance.mainMOC];
+                DDLogVerbose(@"[Settings] mode set to %d", CONNECTION_MODE_HTTP);
+
                 break;
             case 0:
             default:
                 [Settings setInt:CONNECTION_MODE_MQTT
                           forKey:@"mode"
                            inMOC:CoreData.sharedInstance.mainMOC];
+                DDLogVerbose(@"[Settings] mode set to %d", CONNECTION_MODE_MQTT);
                 break;
         }
     }
 
     [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
-    int mode = [Settings intForKey:@"mode"
-                             inMOC:CoreData.sharedInstance.mainMOC];
-    DDLogVerbose(@"[Settings] mode set to %d", mode);
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath
@@ -584,6 +600,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                          inMOC:CoreData.sharedInstance.mainMOC];
         self.UIpositions.enabled = !locked;
     }
+    if (self.UIdays) {
+        self.UIdays.text =
+        [Settings stringForKey:@"days_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIdays.enabled = !locked;
+    }
     if (self.UImaxHistory) {
         self.UImaxHistory.text =
         [Settings stringForKey:@"maxhistory_preference"
@@ -615,6 +637,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                          inMOC:CoreData.sharedInstance.mainMOC];
         self.UIdowngrade.enabled = !locked;
     }
+    
+    if (self.UIadapt) {
+        self.UIadapt.text =
+        [Settings stringForKey:@"adapt_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIadapt.enabled = !locked;
+    }
+
 
     if (self.UIignoreInaccurateLocations) {
         self.UIignoreInaccurateLocations.text =
@@ -940,6 +970,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self.UIsubTopic resignFirstResponder];
     [self.UImonitoring resignFirstResponder];
     [self.UIdowngrade resignFirstResponder];
+    [self.UIadapt resignFirstResponder];
     [self.UIpubQos resignFirstResponder];
     [self.UIsubQos resignFirstResponder];
     [self.UIkeepAlive resignFirstResponder];
@@ -1153,6 +1184,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self updateValues];
     [self updated];
 }
+- (IBAction)daysChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
 - (IBAction)maxHistoryChanged:(UITextField *)sender {
     [self updateValues];
     [self updated];
@@ -1177,6 +1212,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self updated];
 }
 - (IBAction)downgradeChanged:(UITextField *)sender {
+    [self updateValues];
+    [self updated];
+}
+- (IBAction)adaptChanged:(UITextField *)sender {
     [self updateValues];
     [self updated];
 }
