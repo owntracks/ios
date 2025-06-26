@@ -1669,9 +1669,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
 
     NSMutableArray <NSString *> *motionActivities = nil;
     CMMotionActivity *motionActivity = [LocationManager sharedInstance].motionActivity;
-    if (motionActivity &&
-        (motionActivity.confidence == CMMotionActivityConfidenceMedium ||
-         motionActivity.confidence == CMMotionActivityConfidenceHigh)) {
+    if (motionActivity) {
         NSMutableArray <NSString *> *ma = [[NSMutableArray alloc] init];
         if (motionActivity.stationary) {
             [ma addObject:@"stationary"];
