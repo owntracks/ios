@@ -376,6 +376,9 @@
 /* Class = "UITabBarItem"; title = "Friends"; ObjectID = "msF-bI-hEJ"; */
 "msF-bI-hEJ.title" = "Prieteni";
 
+/* Class = "UITabBarItem"; title = "History"; ObjectID = "atB-MR-YSl"; */
+"atB-MR-YSl.title" = "Istoric";
+
 /* Class = "UITextField"; placeholder = "<batterylevel>"; ObjectID = "N2S-5K-ajg"; Note = "Placeholder. Do not translate"; */
 "N2S-5K-ajg.placeholder" = "<batterylevel>";
 

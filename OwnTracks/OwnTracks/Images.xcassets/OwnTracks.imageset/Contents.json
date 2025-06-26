@@ -1,23 +1,23 @@
 {
   "images" : [
     {
+      "filename" : "OwnTracks-33.png",
       "idiom" : "universal",
-      "filename" : "Info-25.png",
       "scale" : "1x"
     },
     {
+      "filename" : "OwnTracks-33@2x.png",
       "idiom" : "universal",
-      "filename" : "Info-25@2x.png",
       "scale" : "2x"
     },
     {
+      "filename" : "OwnTracks-33@3x.png",
       "idiom" : "universal",
-      "filename" : "Info-25@3x.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

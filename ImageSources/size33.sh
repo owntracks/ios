@@ -1,7 +1,7 @@
 #!/bin/bash
 
-INK=/Applications/Inkscape.app/Contents/Resources/bin/inkscape
-IMAGEW=imagew
+INK=`which inkscape`
+IMAGEW=`which imagew`
 
 if [[ -z "$1" ]] 
 then
@@ -15,6 +15,7 @@ MYPWD=`pwd`
 
 # need to use absolute paths in OSX
 
-$INK -z -C -e "$MYPWD/$BASE-33.png" -f 		$MYPWD/$SVG -w 33 -h 33
-$INK -z -C -e "$MYPWD/$BASE-33@2x.png" -f 	$MYPWD/$SVG -w 66 -h 66
-$INK -z -C -e "$MYPWD/$BASE-33@3x.png" -f 	$MYPWD/$SVG -w 99 -h 99
+$INK -C --export-type="png" --export-filename "$MYPWD/$BASE-33.png"	-w 33 -h 33 $MYPWD/$SVG
+$INK -C --export-type="png" --export-filename "$MYPWD/$BASE-33@2x.png"	-w 66 -h 66 $MYPWD/$SVG
+$INK -C --export-type="png" --export-filename "$MYPWD/$BASE-33@3x.png"	-w 99 -h 99 $MYPWD/$SVG
+

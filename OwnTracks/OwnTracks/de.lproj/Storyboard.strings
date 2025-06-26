@@ -340,6 +340,9 @@
 /* Class = "UITabBarItem"; title = "Friends"; ObjectID = "msF-bI-hEJ"; */
 "msF-bI-hEJ.title" = "Freunde";
 
+/* Class = "UITabBarItem"; title = "History"; ObjectID = "atB-MR-YSl"; */
+"atB-MR-YSl.title" = "Verlauf";
+
 /* Class = "UINavigationItem"; title = "Modes"; ObjectID = "nJk-gq-XUi"; */
 "nJk-gq-XUi.title" = "Modes";
 

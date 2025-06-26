@@ -157,10 +157,6 @@ No information of your address book will be uploaded to any server.</string>
 		<string>OwnTracksTagIntent</string>
 		<string>org.mqttitude.MQTTitude.sendNow</string>
 	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>fontawesome-webfont.ttf</string>
-	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
