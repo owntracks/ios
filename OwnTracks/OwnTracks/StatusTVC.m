@@ -149,52 +149,40 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         self.UIparameters.text = (ad.connection).parameters;
     }
     
-    NSString *motionActivities = @"-";
+    NSString *motionActivities = @"()";
     CMMotionActivity *motionActivity = [LocationManager sharedInstance].motionActivity;
-    if (motionActivity &&
-        (motionActivity.confidence == CMMotionActivityConfidenceMedium ||
-         motionActivity.confidence == CMMotionActivityConfidenceHigh)) {
+    if (motionActivity != nil) {
+        switch (motionActivity.confidence) {
+            case CMMotionActivityConfidenceLow:
+                motionActivities = @"(L)";
+                break;
+                
+            case CMMotionActivityConfidenceMedium:
+                motionActivities = @"(M)";
+                break;
+                
+            case CMMotionActivityConfidenceHigh:
+                motionActivities = @"(H)";
+                break;
+        }
+        
         if (motionActivity.stationary) {
-            if ([motionActivities isEqualToString:@"-"]) {
-                motionActivities = @"stationary";
-            } else {
-                motionActivities = [motionActivities stringByAppendingFormat:@", stationary"];
-            }
+            motionActivities = [motionActivities stringByAppendingFormat:@" stationary"];
         }
         if (motionActivity.walking) {
-            if ([motionActivities isEqualToString:@"-"]) {
-                motionActivities = @"walking";
-            } else {
-                motionActivities = [motionActivities stringByAppendingFormat:@", walking"];
-            }
+            motionActivities = [motionActivities stringByAppendingFormat:@" walking"];
         }
         if (motionActivity.running) {
-            if ([motionActivities isEqualToString:@"-"]) {
-                motionActivities = @"running";
-            } else {
-                motionActivities = [motionActivities stringByAppendingFormat:@", running"];
-            }
+            motionActivities = [motionActivities stringByAppendingFormat:@" running"];
         }
         if (motionActivity.automotive) {
-            if ([motionActivities isEqualToString:@"-"]) {
-                motionActivities = @"automotive";
-            } else {
-                motionActivities = [motionActivities stringByAppendingFormat:@", automotive"];
-            }
+            motionActivities = [motionActivities stringByAppendingFormat:@" automotive"];
         }
         if (motionActivity.cycling) {
-            if ([motionActivities isEqualToString:@"-"]) {
-                motionActivities = @"cycling";
-            } else {
-                motionActivities = [motionActivities stringByAppendingFormat:@", cycling"];
-            }
+            motionActivities = [motionActivities stringByAppendingFormat:@" cycling"];
         }
         if (motionActivity.unknown) {
-            if ([motionActivities isEqualToString:@"-"]) {
-                motionActivities = @"unknown";
-            } else {
-                motionActivities = [motionActivities stringByAppendingFormat:@", unknown"];
-            }
+            motionActivities = [motionActivities stringByAppendingFormat:@" unknown"];
         }
     }
     self.UImotionActivities.text = motionActivities;
