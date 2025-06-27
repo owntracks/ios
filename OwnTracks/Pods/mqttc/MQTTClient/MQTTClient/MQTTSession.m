@@ -371,7 +371,7 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
 
 - (NSString * _Nonnull)topicToSend:(NSString * _Nonnull)topic topicAlias:(NSNumber * _Nullable)topicAlias {
     NSString *topicToSend = topic;
-    if (topicAlias) {
+    if (topicAlias != nil) {
         if (self.brokerTopicAliasMaximum &&
             self.brokerTopicAliasMaximum.intValue >= topicAlias.intValue) {
             NSString *storedAlias = [self.brokerTopicAliases objectForKey:topicAlias];
@@ -519,7 +519,7 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
     
     if (MQTTStrict.strict &&
         topicAlias &&
-        (!self.brokerTopicAliasMaximum ||
+        (self.brokerTopicAliasMaximum == nil||
          self.brokerTopicAliasMaximum.intValue == 0 ||
          self.brokerTopicAliasMaximum.intValue < topicAlias.intValue)) {
             NSException* myException = [NSException
@@ -596,7 +596,7 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
             }
             if (unprocessedMessageNotExists &&
                 windowSize < self.persistence.maxWindowSize &&
-                (!self.brokerReceiveMaximum ||
+                (self.brokerReceiveMaximum == nil ||
                  windowSize < self.brokerReceiveMaximum.unsignedIntegerValue)) {
                 msg = [MQTTMessage publishMessageWithData:data
                                                   onTopic:topicToSend
@@ -876,7 +876,7 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                 case MQTT_None:
                 {
                     if (windowSize < self.persistence.maxWindowSize &&
-                        (!self.brokerReceiveMaximum ||
+                        (self.brokerReceiveMaximum == nil ||
                          windowSize < self.brokerReceiveMaximum.unsignedIntegerValue)) {
                         DDLogVerbose(@"[MQTTSession] PUBLISH queued message %@", flow.messageId);
                         NSString *topicToSend = [self topicToSend:flow.topic topicAlias:flow.topicAlias];
@@ -1066,7 +1066,7 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                                 self.sharedSubscriptionAvailable = message.properties.sharedSubscriptionAvailable;
                             }
                             
-                            if (self.serverKeepAlive) {
+                            if (self.serverKeepAlive != nil) {
                                 self.effectiveKeepAlive = (self.serverKeepAlive).unsignedShortValue;
                             } else {
                                 self.effectiveKeepAlive = self.keepAliveInterval;
@@ -1106,7 +1106,7 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                         } else {
                             NSString *errorDescription = @"unknown";
                             NSInteger errorCode = 0;
-                            if (message.returnCode) {
+                            if (message.returnCode != nil) {
                                 errorCode = (message.returnCode).intValue;
                                 errorDescription = [NSString stringWithFormat:@"MQTTReasonCode: %d",
                                                     (message.returnCode).intValue];
@@ -1288,7 +1288,7 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
     }
     
     if (msg.properties && msg.properties.topicAlias) {
-        if (!self.topicAliasMaximum || self.topicAliasMaximum.intValue < msg.properties.topicAlias.intValue) {
+        if (self.topicAliasMaximum == nil || self.topicAliasMaximum.intValue < msg.properties.topicAlias.intValue) {
             return; // TODO should be disconnect
         } else {
             if (topic && topic.length > 0) {
@@ -1919,16 +1919,16 @@ userProperties:(NSArray <NSDictionary <NSString *, NSString *> *> * _Nullable)us
               msgID:(UInt16)msgID {
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObject:publishHandler
                                                                    forKey:@"Block"];
-    if (error) {
+    if (error != nil) {
         dict[@"Error"] = error;
     }
-    if (reasonString) {
+    if (reasonString != nil) {
         dict[@"ReasonString"] = reasonString;
     }
-    if (userProperties) {
+    if (userProperties != nil) {
         dict[@"UserProperties"] = userProperties;
     }
-    if (reasonCode) {
+    if (reasonCode != nil) {
         dict[@"ReasonCode"] = reasonCode;
     }
     dict[@"msgID"] = @(msgID);

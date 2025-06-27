@@ -2054,9 +2054,9 @@
 			};
 			name = Debug;
 		};
-		772B7C4688499841CB1E78E9D13CD139 /* Debug */ = {
+		7FC016897A016A91F3A62FF8CFFA9C5F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8E34C205EF9B4CCA9E2FE69D04B10BF9 /* mqttc.debug.xcconfig */;
+			baseConfigurationReference = 43ED6FDF79500E58B2120CABB567AD66 /* mqttc.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -2070,7 +2070,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/mqttc/mqttc-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/mqttc/mqttc-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2084,10 +2084,11 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Debug;
+			name = Release;
 		};
 		957F0F7F85250F604E6E637B1B9134E8 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -2124,9 +2125,9 @@
 			};
 			name = Release;
 		};
-		A2DC55A3EDA4002010636BFF41BF61DE /* Release */ = {
+		C2DF092CAA260C9C368AD93959AB19A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43ED6FDF79500E58B2120CABB567AD66 /* mqttc.release.xcconfig */;
+			baseConfigurationReference = 8E34C205EF9B4CCA9E2FE69D04B10BF9 /* mqttc.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -2140,7 +2141,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/mqttc/mqttc-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/mqttc/mqttc-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2154,11 +2155,10 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 		D7B07253C55F784F989BC74C709BB4ED /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2315,8 +2315,8 @@
 		41BB42EB051A4850016D2F54ACEAE763 /* Build configuration list for PBXNativeTarget "mqttc" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				772B7C4688499841CB1E78E9D13CD139 /* Debug */,
-				A2DC55A3EDA4002010636BFF41BF61DE /* Release */,
+				C2DF092CAA260C9C368AD93959AB19A1 /* Debug */,
+				7FC016897A016A91F3A62FF8CFFA9C5F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

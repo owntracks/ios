@@ -159,35 +159,35 @@
 
     if (protocolLevel == MQTTProtocolVersion50) {
         NSMutableData *properties = [[NSMutableData alloc] init];
-        if (sessionExpiryInterval) {
+        if (sessionExpiryInterval != nil) {
             [properties appendByte:MQTTSessionExpiryInterval];
             [properties appendUInt32BigEndian:sessionExpiryInterval.unsignedIntValue];
         }
-        if (authMethod) {
+        if (authMethod != nil) {
             [properties appendByte:MQTTAuthMethod];
             [properties appendMQTTString:authMethod];
         }
-        if (authData) {
+        if (authData != nil) {
             [properties appendByte:MQTTAuthData];
             [properties appendBinaryData:authData];
         }
-        if (requestProblemInformation) {
+        if (requestProblemInformation != nil) {
             [properties appendByte:MQTTRequestProblemInformation];
             [properties appendByte:requestProblemInformation.unsignedIntValue];
         }
-        if (requestResponseInformation) {
+        if (requestResponseInformation != nil) {
             [properties appendByte:MQTTRequestResponseInformation];
             [properties appendByte:requestResponseInformation.unsignedIntValue];
         }
-        if (receiveMaximum) {
+        if (receiveMaximum != nil) {
             [properties appendByte:MQTTReceiveMaximum];
             [properties appendUInt16BigEndian:receiveMaximum.unsignedIntValue];
         }
-        if (topicAliasMaximum) {
+        if (topicAliasMaximum != nil) {
             [properties appendByte:MQTTTopicAliasMaximum];
             [properties appendUInt16BigEndian:topicAliasMaximum.unsignedIntValue];
         }
-        if (userProperties) {
+        if (userProperties != nil) {
             for (NSDictionary *userProperty in userProperties) {
                 for (NSString *key in userProperty.allKeys) {
                     [properties appendByte:MQTTUserProperty];
@@ -196,7 +196,7 @@
                 }
             }
         }
-        if (maximumPacketSize) {
+        if (maximumPacketSize != nil) {
             [properties appendByte:MQTTMaximumPacketSize];
             [properties appendUInt32BigEndian:maximumPacketSize.unsignedIntValue];
         }
@@ -208,27 +208,27 @@
     if (will) {
         if (protocolLevel == MQTTProtocolVersion50) {
             NSMutableData *properties = [[NSMutableData alloc] init];
-            if (will.payloadFormatIndicator) {
+            if (will.payloadFormatIndicator != nil) {
                 [properties appendByte:MQTTPayloadFormatIndicator];
                 [properties appendByte:will.payloadFormatIndicator.unsignedIntValue];
             }
-            if (will.willDelayInterval) {
+            if (will.willDelayInterval != nil) {
                 [properties appendByte:MQTTWillDelayInterval];
                 [properties appendUInt32BigEndian:will.willDelayInterval.unsignedIntValue];
             }
-            if (will.messageExpiryInterval) {
+            if (will.messageExpiryInterval != nil) {
                 [properties appendByte:MQTTMessageExpiryInterval];
                 [properties appendUInt32BigEndian:will.messageExpiryInterval.unsignedIntValue];
             }
-            if (will.responseTopic) {
+            if (will.responseTopic != nil) {
                 [properties appendByte:MQTTResponseTopic];
                 [properties appendMQTTString:will.responseTopic];
             }
-            if (will.correlationData) {
+            if (will.correlationData != nil) {
                 [properties appendByte:MQTTCorrelationData];
                 [properties appendBinaryData:will.correlationData];
             }
-            if (will.userProperties) {
+            if (will.userProperties != nil) {
                 for (NSDictionary *userProperty in will.userProperties) {
                     for (NSString *key in userProperty.allKeys) {
                         [properties appendByte:MQTTUserProperty];
@@ -237,7 +237,7 @@
                     }
                 }
             }
-            if (will.contentType) {
+            if (will.contentType != nil) {
                 [properties appendByte:MQTTContentType];
                 [properties appendMQTTString:will.contentType];
             }
@@ -245,18 +245,18 @@
             [data appendData:properties];
         }
 
-        if (will.topic) {
+        if (will.topic != nil) {
             [data appendMQTTString:will.topic];
         }
-        if (will.data) {
+        if (will.data != nil) {
             [data appendBinaryData:will.data];
         }
     }
 
-    if (userName) {
+    if (userName != nil) {
         [data appendMQTTString:userName];
     }
-    if (password) {
+    if (password != nil) {
         [data appendMQTTString:password];
     }
 
@@ -278,19 +278,19 @@
     NSMutableData* data = [NSMutableData data];
     if (protocolLevel == MQTTProtocolVersion50) {
         NSMutableData *properties = [[NSMutableData alloc] init];
-        if (authMethod) {
+        if (authMethod != nil) {
             [properties appendByte:MQTTAuthMethod];
             [properties appendMQTTString:authMethod];
         }
-        if (authData) {
+        if (authData != nil) {
             [properties appendByte:MQTTAuthData];
             [properties appendBinaryData:authData];
         }
-        if (reasonString) {
+        if (reasonString != nil) {
             [properties appendByte:MQTTReasonString];
             [properties appendMQTTString:reasonString];
         }
-        if (userProperties) {
+        if (userProperties != nil) {
             for (NSDictionary *userProperty in userProperties) {
                 for (NSString *key in userProperty.allKeys) {
                     [properties appendByte:MQTTUserProperty];
@@ -320,15 +320,15 @@
     NSMutableData* data = [NSMutableData data];
     if (protocolLevel == MQTTProtocolVersion50) {
         NSMutableData *properties = [[NSMutableData alloc] init];
-        if (sessionExpiryInterval) {
+        if (sessionExpiryInterval != nil) {
             [properties appendByte:MQTTSessionExpiryInterval];
             [properties appendUInt32BigEndian:sessionExpiryInterval.unsignedIntValue];
         }
-        if (reasonString) {
+        if (reasonString != nil) {
             [properties appendByte:MQTTReasonString];
             [properties appendMQTTString:reasonString];
         }
-        if (userProperties) {
+        if (userProperties != nil) {
             for (NSDictionary *userProperty in userProperties) {
                 for (NSString *key in userProperty.allKeys) {
                     [properties appendByte:MQTTUserProperty];
@@ -359,11 +359,11 @@
     [data appendUInt16BigEndian:msgId];
     if (protocolLevel == MQTTProtocolVersion50) {
         NSMutableData *properties = [[NSMutableData alloc] init];
-        if (subscriptionIdentifier) {
+        if (subscriptionIdentifier != nil) {
             [properties appendByte:MQTTSubscriptionIdentifier];
             [properties appendVariableLength:subscriptionIdentifier.unsignedLongValue];
         }
-        if (userProperties) {
+        if (userProperties != nil) {
             for (NSDictionary *userProperty in userProperties) {
                 for (NSString *key in userProperty.allKeys) {
                     [properties appendByte:MQTTUserProperty];
@@ -396,7 +396,7 @@
 
     if (protocolLevel == MQTTProtocolVersion50) {
         NSMutableData *properties = [[NSMutableData alloc] init];
-        if (userProperties) {
+        if (userProperties != nil) {
             for (NSDictionary *userProperty in userProperties) {
                 for (NSString *key in userProperty.allKeys) {
                     [properties appendByte:MQTTUserProperty];
@@ -438,27 +438,27 @@
     if (msgId) [data appendUInt16BigEndian:msgId];
     if (protocolLevel == MQTTProtocolVersion50) {
         NSMutableData *properties = [[NSMutableData alloc] init];
-        if (payloadFormatIndicator) {
+        if (payloadFormatIndicator != nil) {
             [properties appendByte:MQTTPayloadFormatIndicator];
             [properties appendByte:payloadFormatIndicator.unsignedIntValue];
         }
-        if (messageExpiryInterval) {
+        if (messageExpiryInterval != nil) {
             [properties appendByte:MQTTMessageExpiryInterval];
             [properties appendUInt32BigEndian:messageExpiryInterval.unsignedIntValue];
         }
-        if (topicAlias) {
+        if (topicAlias != nil) {
             [properties appendByte:MQTTTopicAlias];
             [properties appendUInt16BigEndian:topicAlias.unsignedIntValue];
         }
-        if (responseTopic) {
+        if (responseTopic != nil) {
             [properties appendByte:MQTTResponseTopic];
             [properties appendMQTTString:responseTopic];
         }
-        if (correlationData) {
+        if (correlationData != nil) {
             [properties appendByte:MQTTCorrelationData];
             [properties appendBinaryData:correlationData];
         }
-        if (userProperties) {
+        if (userProperties != nil) {
             for (NSDictionary *userProperty in userProperties) {
                 for (NSString *key in userProperty.allKeys) {
                     [properties appendByte:MQTTUserProperty];
@@ -467,7 +467,7 @@
                 }
             }
         }
-        if (contentType) {
+        if (contentType != nil) {
             [properties appendByte:MQTTContentType];
             [properties appendMQTTString:contentType];
         }
@@ -493,11 +493,11 @@
     [data appendUInt16BigEndian:msgId];
     if (protocolLevel == MQTTProtocolVersion50) {
         NSMutableData *properties = [[NSMutableData alloc] init];
-        if (reasonString) {
+        if (reasonString != nil) {
             [properties appendByte:MQTTReasonString];
             [properties appendMQTTString:reasonString];
         }
-        if (userProperties) {
+        if (userProperties != nil) {
             for (NSDictionary *userProperty in userProperties) {
                 for (NSString *key in userProperty.allKeys) {
                     [properties appendByte:MQTTUserProperty];
@@ -525,11 +525,11 @@
     [data appendUInt16BigEndian:msgId];
     if (protocolLevel == MQTTProtocolVersion50) {
         NSMutableData *properties = [[NSMutableData alloc] init];
-        if (reasonString) {
+        if (reasonString != nil) {
             [properties appendByte:MQTTReasonString];
             [properties appendMQTTString:reasonString];
         }
-        if (userProperties) {
+        if (userProperties != nil) {
             for (NSDictionary *userProperty in userProperties) {
                 for (NSString *key in userProperty.allKeys) {
                     [properties appendByte:MQTTUserProperty];
@@ -557,11 +557,11 @@
     [data appendUInt16BigEndian:msgId];
     if (protocolLevel == MQTTProtocolVersion50) {
         NSMutableData *properties = [[NSMutableData alloc] init];
-        if (reasonString) {
+        if (reasonString != nil) {
             [properties appendByte:MQTTReasonString];
             [properties appendMQTTString:reasonString];
         }
-        if (userProperties) {
+        if (userProperties != nil) {
             for (NSDictionary *userProperty in userProperties) {
                 for (NSString *key in userProperty.allKeys) {
                     [properties appendByte:MQTTUserProperty];
@@ -590,11 +590,11 @@
     [data appendUInt16BigEndian:msgId];
     if (protocolLevel == MQTTProtocolVersion50) {
         NSMutableData *properties = [[NSMutableData alloc] init];
-        if (reasonString) {
+        if (reasonString != nil) {
             [properties appendByte:MQTTReasonString];
             [properties appendMQTTString:reasonString];
         }
-        if (userProperties) {
+        if (userProperties != nil) {
             for (NSDictionary *userProperty in userProperties) {
                 for (NSString *key in userProperty.allKeys) {
                     [properties appendByte:MQTTUserProperty];

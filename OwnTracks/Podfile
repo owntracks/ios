@@ -3,7 +3,7 @@ use_frameworks!
 
 target 'OwnTracks' do
 platform :ios, '17.0'
-pod 'mqttc/MinL', :git => 'https://github.com/ckrey/mqttc.git'
+pod 'mqttc/MinL', :git => 'https://github.com/ckrey/mqttc.git', :branch => '26'
 
 pod 'ABStaticTableViewController', :git => 'https://github.com/k06a/ABStaticTableViewController.git'
 pod 'CocoaLumberjack'
