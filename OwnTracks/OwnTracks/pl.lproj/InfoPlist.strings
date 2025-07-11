@@ -1,8 +1,8 @@
 /* Bundle display name */
-"CFBundleDisplayName" = "OwnTracks";
+"CFBundleDisplayName" = "Sauron";
 
 /* Bundle name */
-"CFBundleName" = "OwnTracks";
+"CFBundleName" = "Sauron";
 
 /* Privacy - Camera Usage Description */
 "NSCameraUsageDescription" = "OwnTracks używa Twojej kamery na żądanie, aby utworzyć Kartę";

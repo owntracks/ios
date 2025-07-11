@@ -40,6 +40,7 @@
 @property (strong, nonatomic) DDFileLogger * _Nullable fl;
 @property (strong, nonatomic) NSNumber * _Nonnull inQueue;
 
+
 - (BOOL)sendNow:(CLLocation *_Nonnull)location
         withPOI:(nullable NSString *)poi
       withImage:(nullable NSData *)image

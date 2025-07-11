@@ -29,31 +29,38 @@
  */
 typedef NS_ENUM(NSInteger, LocationMonitoring) {
     LocationMonitoringQuiet = -1,
-    LocationMonitoringManual,
-    LocationMonitoringSignificant,
-    LocationMonitoringMove
+    LocationMonitoringManual = 0,
+    LocationMonitoringSignificant = 1,
+    LocationMonitoringMove = 2
 };
 
 
-+ (LocationManager *)sharedInstance;
 @property (weak, nonatomic) id<LocationManagerDelegate> delegate;
 @property (nonatomic) LocationMonitoring monitoring;
 @property (nonatomic) BOOL ranging;
 @property (nonatomic) double minDist;
 @property (nonatomic) double minTime;
+@property (nonatomic) BOOL wasLaunchedByLocationUpdate;
 @property (readonly, nonatomic) CLLocation *location;
 @property (strong, nonatomic) CMAltitudeData *altitude;
+
+// Maximum number of regions that can be monitored simultaneously
+#define MAX_MONITORED_REGIONS 20
+
+// Properties for region management
+@property (strong, nonatomic) NSMutableArray *pendingRegions;
+@property (nonatomic) BOOL isManagingRegions;
 
 @property (readonly, nonatomic) CLAuthorizationStatus locationManagerAuthorizationStatus;
 
 @property (readonly, nonatomic) CMAuthorizationStatus altimeterAuthorizationStatus;
 @property (readonly, nonatomic) BOOL altimeterIsRelativeAltitudeAvailable;
 
++ (LocationManager *)sharedInstance;
 - (void)start;
 - (void)wakeup;
 - (void)sleep;
-- (void)stop;
-
+- (void)authorize;
 - (void)startRegion:(CLRegion *)region;
 - (void)stopRegion:(CLRegion *)region;
 - (void)resetRegions;
@@ -63,6 +70,9 @@ typedef NS_ENUM(NSInteger, LocationMonitoring) {
 - (BOOL)insideCircularRegion:(NSString *)identifier;
 @property (readonly, strong, nonatomic) NSMutableDictionary *insideBeaconRegions;
 @property (readonly, strong, nonatomic) NSMutableDictionary *insideCircularRegions;
+
+- (void)setWasLaunchedByLocationUpdate:(BOOL)launched;
+- (void)stopContinuousLocationUpdates;
 
 @end
 

@@ -19,6 +19,15 @@
 #import <UserNotifications/UserNotifications.h>
 #import <UserNotifications/UNUserNotificationCenter.h>
 
+
+@interface OwnTracking ()
+- (void)actuallyProcessLocation:(Friend *)aFriend dictionary:(NSDictionary *)dictionary;
+- (void)publishStatus:(BOOL)isActive;
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSTimer *> *debounceTimers;
+@property (strong, nonatomic) NSMutableDictionary<NSString *, NSDictionary *> *debouncePayloads;
+@end
+
+
 @implementation OwnTracking
 static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 static OwnTracking *theInstance = nil;
@@ -29,6 +38,65 @@ static OwnTracking *theInstance = nil;
     }
     return theInstance;
 }
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.debouncePayloads = [NSMutableDictionary dictionary];
+        self.debounceTimers = [NSMutableDictionary dictionary];
+    }
+    return self;
+}
+
+- (void)publishStatus:(BOOL)isActive {
+    // Only publish user_status when app is in foreground
+    UIApplicationState appState = [UIApplication sharedApplication].applicationState;
+    if (appState != UIApplicationStateActive) {
+        DDLogInfo(@"[OwnTracking] Skipping publishStatus: app not in foreground (state: %ld)", (long)appState);
+        return;
+    }
+    
+    NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
+    NSString *tid = [Settings stringForKey:@"trackerid_preference" inMOC:moc];
+    
+    NSString *topic = [Settings theGeneralTopicInMOC:moc];
+    
+    
+    OwnTracksAppDelegate *appDelegate = (OwnTracksAppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (!tid || !topic || !appDelegate.connection) {
+        DDLogWarn(@"[OwnTracking] Skipping publishStatus: missing tid, topic, or connection");
+        return;
+    }
+    
+    
+    // Append a suffix so we don't interfere with location stream
+    NSString *statusTopic = [topic stringByAppendingString:@"/status"];
+    
+    NSDictionary *payload = @{
+        @"_type": @"user_status",
+        @"tid": tid,
+        @"active": @(isActive),
+        @"tst": @((NSInteger)[[NSDate date] timeIntervalSince1970])
+    };
+    
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:payload options:0 error:&error];
+    if (!jsonData || error) {
+        DDLogError(@"[OwnTracking] Failed to serialize user_status: %@", error);
+        return;
+    }
+    
+    MQTTQosLevel qos = [Settings intForKey:@"qos_preference" inMOC:moc];
+    
+    [appDelegate.connection sendData:jsonData
+     
+                               topic:statusTopic
+                          topicAlias:nil
+                                 qos:qos
+                              retain:YES];
+    
+    DDLogInfo(@"[OwnTracking] Published user_status (%@) to %@ (app state: %ld)", isActive ? @"active" : @"inactive", statusTopic, (long)appState);
+}
+
 
 - (BOOL)processMessage:(NSString *)topic
                   data:(NSData *)data
@@ -130,18 +198,137 @@ static OwnTracking *theInstance = nil;
     
     return TRUE;
 }
+- (NSData *)statusPayloadDataForActive:(BOOL)isActive {
+    NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
+    
+    NSString *tid = [Settings stringForKey:@"trackerid_preference" inMOC:moc];
+    if (!tid) {
+        DDLogWarn(@"[OwnTracking] Missing tracker ID");
+        return nil;
+    }
+    
+    NSDictionary *payload = @{
+        @"_type": @"user_status",
+        @"tid": tid,
+        @"active": @(isActive),
+        @"tst": @((NSInteger)[[NSDate date] timeIntervalSince1970])
+    };
+    
+    NSError *error = nil;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:payload options:0 error:&error];
+    if (!jsonData || error) {
+        DDLogError(@"[OwnTracking] Failed to serialize user_status: %@", error);
+        return nil;
+    }
+    
+    return jsonData;
+}
+
+- (void)debounceLocationForFriend:(Friend *)friend dictionary:(NSDictionary *)dictionary {
+    NSString *key = friend.topic;
+    if (!key) return;
+    
+    
+    // Store latest payload
+    self.debouncePayloads[key] = dictionary;
+    
+    // Cancel existing timer
+    NSTimer *existing = self.debounceTimers[key];
+    if (existing) {
+        [existing invalidate];
+    }
+    
+    // Start a new timer
+    __weak typeof(self) weakSelf = self;
+
+    NSTimer *timer = [NSTimer timerWithTimeInterval:2.0
+                                              target:weakSelf
+                                            selector:@selector(debounceTimerFired:)
+                                            userInfo:@{ @"key": key }
+                                             repeats:NO];
+
+    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSDefaultRunLoopMode];
+
+    self.debounceTimers[key] = timer;
+
+}
+- (void)debounceTimerFired:(NSTimer *)timer {
+    NSString *key = timer.userInfo[@"key"];
+    if (!key) return;
+
+    NSDictionary *latest = self.debouncePayloads[key];
+    if (latest) {
+        DDLogInfo(@"[Debounce] Timer fired for key: %@", key);
+        Friend *friend = [Friend friendWithTopic:key
+                        inManagedObjectContext:CoreData.sharedInstance.queuedMOC];
+        if (friend) {
+            [self actuallyProcessLocation:friend dictionary:latest];
+        }
+    }
+
+    [self.debounceTimers removeObjectForKey:key];
+    [self.debouncePayloads removeObjectForKey:key];
+}
 
 - (void)processLocation:(Friend *)friend dictionary:(NSDictionary *)dictionary {
     if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
+        //NSNumber *tst = dictionary[@"tst"];
+        
         NSNumber *tst = dictionary[@"tst"];
+
         if (!tst || ![tst isKindOfClass:[NSNumber class]]) {
             DDLogError(@"[OwnTracking processLocation] json does not contain valid tst: not processed");
             return;
         }
+        // 🆕 Add max age check
+        NSTimeInterval nowTS = [[NSDate date] timeIntervalSince1970];
+        NSTimeInterval timestampTS = tst.doubleValue;
+        NSTimeInterval age = nowTS - timestampTS;
+   
+        
+        // if (friend.lastLocation == nil && age > 120.0) {
+        //      DDLogInfo(@"[OwnTracking] Stale message (%.1f sec old) for new friend friend %@ Dont Discard.", age, friend.topic);
+        
+        // }
+        //43200){//12 hours
+        if ( (age) < 60*30){//12 hours
+            //DDLogInfo(@"[OwnTracking] NEW! Looks Realtime, skip debounce (%.1f sec old) for friend %@", age, friend.topic);
+            [self actuallyProcessLocation:friend dictionary:dictionary];
+        }
+        else if ( (age) >  600000) // 1 week 
+        {
+            //DDLogInfo(@"[OwnTracking] NEW! Really Old, throw away, and skip debounce (%.1f sec old) for friend %@", age, friend.topic);
+            return;
+        }
+        else{
+            [self debounceLocationForFriend:friend dictionary:dictionary];
+        }
+
+        
+      
+    }
+    return;
+}
+        
+- (void)actuallyProcessLocation:(Friend *)friend dictionary:(NSDictionary *)dictionary {
+    if (dictionary && [dictionary isKindOfClass:[NSDictionary class]]) {
+        NSNumber *tst = dictionary[@"tst"];
+
+        if (!tst || ![tst isKindOfClass:[NSNumber class]]) {
+            DDLogError(@"[OwnTracking processLocation] json does not contain valid tst: not processed");
+            return;
+        }
+
+       
         NSDate *timestamp = [NSDate dateWithTimeIntervalSince1970:tst.doubleValue];
+
+        // 🆕 Add max age check
+        NSTimeInterval age = [[NSDate date] timeIntervalSince1970] - tst.doubleValue;
+        NSTimeInterval nowTS = [[NSDate date] timeIntervalSince1970];
+
+        // 🧠 Existing duplicate check
         if (friend.lastLocation && [friend.lastLocation compare:timestamp] != NSOrderedAscending) {
-            DDLogInfo(@"[OwnTracking] skipped location for friend %@ @%@",
-                      friend.topic, timestamp);
+            DDLogInfo(@"[OwnTracking] ORIG! skipped location for friend %@ @%@", friend.topic, timestamp);
             return;
         }
 
@@ -652,6 +839,9 @@ static OwnTracking *theInstance = nil;
     json[@"lon"] = waypoint.lon.sixDecimals;
 
     json[@"tst"] = [NSNumber doubleValueWithZeroDecimals:waypoint.tst.timeIntervalSince1970];
+
+    // Add version number
+    json[@"ver"] = [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"];
 
     if (fabs(waypoint.tst.timeIntervalSince1970 -
              waypoint.createdAt.timeIntervalSince1970) > 1.0) {

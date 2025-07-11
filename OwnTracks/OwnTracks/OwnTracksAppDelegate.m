@@ -30,7 +30,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 // experimental code for APNS
 #define APNS FALSE
 
-@interface OwnTracksAppDelegate()
+@interface OwnTracksAppDelegate ()
+@property (strong, nonatomic) NSTimer *statusTimer;
+- (void)publishUserActive:(BOOL)isActive;
+- (void)publishActiveTimerFired;
+
+
 
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundTask;
 @property (strong, nonatomic) NSString *backgroundFetchCheckMessage;
@@ -50,12 +55,30 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 @end
 
+
+
+
 @implementation OwnTracksAppDelegate
+
 
 - (instancetype)init {
     self = [super init];
     self.inQueue = @(0);
     return self;
+}
+- (void)publishActiveTimerFired {
+    UIApplicationState appState = [UIApplication sharedApplication].applicationState;
+    DDLogInfo(@"[OwnTracksAppDelegate] publishActiveTimerFired - app state: %ld", (long)appState);
+    
+    // Only publish status if app is in foreground
+    if (appState == UIApplicationStateActive) {
+        [[OwnTracking sharedInstance] publishStatus:YES];
+    } else {
+        DDLogInfo(@"[OwnTracksAppDelegate] Skipping status publish - app not in foreground");
+    }
+}
+- (void)publishUserActive:(BOOL)isActive {
+    [[OwnTracking sharedInstance] publishStatus:isActive];
 }
 
 - (void)syncProcessing {
@@ -112,7 +135,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 #ifdef DEBUG
-    [DDLog addLogger:[DDOSLogger sharedInstance] withLevel:DDLogLevelVerbose];
+    [DDLog addLogger:[DDOSLogger sharedInstance] withLevel:DDLogLevelWarning];
 #endif
     [DDLog addLogger:[DDOSLogger sharedInstance] withLevel:DDLogLevelWarning];
     
@@ -124,7 +147,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
      NSISO8601DateFormatWithFractionalSeconds];
     self.fl.logFormatter = [[DDLogFileFormatterDefault alloc]
                             initWithDateFormatter:(NSDateFormatter *)isoFormatter];
-    [DDLog addLogger:self.fl withLevel:DDLogLevelVerbose];
+    [DDLog addLogger:self.fl withLevel:DDLogLevelWarning];
     
     DDLogInfo(@"[OwnTracksAppDelegate] OwnTracks starting %@/%@ %@",
               [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"],
@@ -208,8 +231,14 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    DDLogVerbose(@"[OwnTracksAppDelegate] didFinishLaunchingWithOptions %@", launchOptions);
+    if (launchOptions[UIApplicationLaunchOptionsLocationKey] && 
+        [[NSUserDefaults standardUserDefaults] boolForKey:@"wasTerminated"]) {
+        // True cold launch by SLC after termination
+        DDLogVerbose(@"[OwnTracksAppDelegate] didFinishLaunchingWithOptions True cold launch by SLC after termination %@", launchOptions);
+    }
+    else {
+        DDLogVerbose(@"[OwnTracksAppDelegate] didFinishLaunchingWithOptions %@", launchOptions);
+    }
     
     self.connection = [[Connection alloc] init];
     self.connection.delegate = self;
@@ -222,6 +251,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     LocationManager *locationManager = [LocationManager sharedInstance];
     locationManager.delegate = self;
     
+    // Check if app was launched by a location update
+    if (launchOptions[UIApplicationLaunchOptionsLocationKey]) {
+        DDLogWarn(@"[OwnTracksAppDelegate] App was launched by location update");
+        locationManager.wasLaunchedByLocationUpdate = YES;
+    }
+    
     NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
     locationManager.monitoring = [Settings intForKey:@"monitoring_preference"
                                                inMOC:moc];
@@ -232,6 +267,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     locationManager.minTime = [Settings doubleForKey:@"mintime_preference"
                                                inMOC:moc];
     [locationManager start];
+
+    // Publish initial status after a short delay to ensure connection is established
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self status];
+        [[OwnTracking sharedInstance] publishStatus:YES];
+    });
     
     return YES;
 }
@@ -266,16 +307,34 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     DDLogInfo(@"[OwnTracksAppDelegate] applicationDidEnterBackground");
     [self background];
-    if ([LocationManager sharedInstance].monitoring != LocationMonitoringMove) {
+    if (self.statusTimer) {
+        [self.statusTimer invalidate];
+        self.statusTimer = nil;
+        DDLogInfo(@"[OwnTracksAppDelegate] Status timer stopped (background)");
+    } else {
+        DDLogInfo(@"[OwnTracksAppDelegate] No status timer to stop (background)");
+    }
+    LocationMonitoring mode = [LocationManager sharedInstance].monitoring;
+    if (mode == LocationMonitoringQuiet || mode == LocationMonitoringManual) {
         [self.connection disconnect];
     }
     [self scheduleRefreshTask];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
-    DDLogInfo(@"[OwnTracksAppDelegate] applicationWillTerminate");
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"wasTerminated"];
+    DDLogWarn(@"[OwnTracksAppDelegate] applicationWillTerminate Set Bool");
     [self background];
     [self.connection disconnect];
+    DDLogWarn(@"[OwnTracksAppDelegate] applicationWillTerminate stopContinuousLocationUpdates");
+    [[LocationManager sharedInstance] stopContinuousLocationUpdates];
+    
+    // Clean up status timer
+    if (self.statusTimer) {
+        [self.statusTimer invalidate];
+        self.statusTimer = nil;
+        DDLogWarn(@"[OwnTracksAppDelegate] Status timer stopped (termination)");
+    }
     
     NSString *notificationMessage = NSLocalizedString(@"Please keep OwnTracks running to ensure the desired functionality",
                                                       @"Please keep OwnTracks running to ensure the desired functionality");
@@ -296,8 +355,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) {
         //
     }];
-    
-
+    DDLogWarn(@"[AppDelegate] Will terminate, monitoring=%ld", [LocationManager sharedInstance].monitoring);
 }
 
 -(BOOL)application:(UIApplication *)app
@@ -359,7 +417,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
                     NSURL *urlFromString = [NSURL URLWithString:urlString];
                     return [self processNSURL:urlFromString];
                 } else if (base64String) {
-                    NSData *jsonData = [[NSData alloc] initWithBase64EncodedString:base64String options:0];
+                    NSData *jsonData = [[NSData alloc] initWithBase64EncodedString:base64String options:NSDataBase64DecodingIgnoreUnknownCharacters];
                     if (jsonData) {
                         NSDictionary *dict = nil;
                         id json = [[Validation sharedInstance] validateMessageData:jsonData];
@@ -630,8 +688,27 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     DDLogInfo(@"[OwnTracksAppDelegate] applicationDidBecomeActive");
-    
+    [[OwnTracking sharedInstance] publishStatus:YES];
+
     [self.connection connectToLast];
+
+        // Start repeating timer
+        if (self.statusTimer == nil) {
+            self.statusTimer = [NSTimer scheduledTimerWithTimeInterval:30.0
+                                                                target:self
+                                                              selector:@selector(publishActiveTimerFired)
+                                                              userInfo:nil
+                                                               repeats:YES];
+            [[NSRunLoop mainRunLoop] addTimer:self.statusTimer forMode:NSRunLoopCommonModes];
+            DDLogInfo(@"[OwnTracksAppDelegate] Status timer started (30s interval)");
+        } else {
+            DDLogInfo(@"[OwnTracksAppDelegate] Status timer already exists");
+        }
+    
+
+
+
+
     
     if (self.disconnectTimer && self.disconnectTimer.isValid) {
         DDLogVerbose(@"[OwnTracksAppDelegate] disconnectTimer invalidate %@",
@@ -652,12 +729,22 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
         [self reconnect];
     }
     
+    // 💡 Restore location monitoring mode
+    NSManagedObjectContext *moc = [CoreData sharedInstance].mainMOC;
+    LocationMonitoring mode = [Settings intForKey:@"monitoring_preference" inMOC:moc];
+    DDLogInfo(@"[OwnTracksAppDelegate] Reapplying monitoring mode after activation: %ld", (long)mode);
+    [[LocationManager sharedInstance] setMonitoring:mode];
+
+
+
+    
     if (![Settings validIdsInMOC:CoreData.sharedInstance.mainMOC]) {
         NSString *message = NSLocalizedString(@"To publish your location userID and deviceID must be set",
                                               @"Warning displayed if necessary settings are missing");
         
         [NavigationController alert:@"Settings" message:message];
     }
+
 }
 
 - (void)doRefresh {
@@ -1012,6 +1099,14 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     
     self.connectionState = @(state);
     [self performSelectorOnMainThread:@selector(checkState:) withObject:@(state) waitUntilDone:NO];
+
+    // Also publish status when connection is established
+    if (state == state_connected) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self status];
+            //[[OwnTracking sharedInstance] publishStatus:YES];
+        });
+    }
 }
 
 - (void)checkState:(NSNumber *)state {
@@ -1104,8 +1199,13 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
         
         DDLogVerbose(@"[OwnTracksAppDelegate] device %@ owndevice %d", device, ownDevice);
         
-        if (ownDevice) {
-            
+        //if (ownDevice) {
+        NSString *baseTopic = [Settings theGeneralTopicInMOC:CoreData.sharedInstance.queuedMOC];
+        BOOL isCmdSubtopic = [topic isEqualToString:[baseTopic stringByAppendingString:@"/cmd"]];
+        BOOL isBaseTopic = [topic isEqualToString:baseTopic];
+
+        if (isBaseTopic || isCmdSubtopic) {
+
             NSDictionary *dictionary = nil;
             id json = [[Validation sharedInstance] validateMessageData:data];
             if (json && [json isKindOfClass:[NSDictionary class]]) {
@@ -1326,7 +1426,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     json[@"iOS"] = iOS;
     
     [self.connection sendData:[self jsonToData:json]
-                        topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/status"]
+                        topic:[[Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC] stringByAppendingString:@"/device_status"]
                    topicAlias:@(8)
                           qos:[Settings intForKey:@"qos_preference"
                                             inMOC:CoreData.sharedInstance.mainMOC]
@@ -1588,8 +1688,15 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     }
     
     NSNumber *batteryLevel = [NSNumber numberWithFloat:[UIDevice currentDevice].batteryLevel];
-    
+    if (batteryLevel.floatValue == -1) {
+        // Default to 99% battery when in simulator
+        batteryLevel = [NSNumber numberWithFloat:0.99];
+    }
     UIDeviceBatteryState batteryState = [UIDevice currentDevice].batteryState;
+    if (batteryState == UIDeviceBatteryStateUnknown) {
+        // Default to charging state in simulator
+        batteryState = UIDeviceBatteryStateCharging;
+    }
     NSNumber *bs = [NSNumber numberWithInteger:batteryState];
 
     NSString *tag = [[NSUserDefaults standardUserDefaults] stringForKey:@"tag"];
@@ -1963,7 +2070,10 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
     
 }
 
+
+
 #endif
+
 
 @end
 

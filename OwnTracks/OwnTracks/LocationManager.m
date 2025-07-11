@@ -17,17 +17,14 @@
 @property (strong, nonatomic) CLLocation *lastUsedLocation;
 @property (strong, nonatomic) NSTimer *activityTimer;
 @property (strong, nonatomic) NSMutableSet *pendingRegionEvents;
-- (void)holdDownExpired:(NSTimer *)timer;
-
 @property (strong, nonatomic) NSMutableDictionary *insideBeaconRegions;
 @property (strong, nonatomic) NSMutableDictionary *insideCircularRegions;
 @property (strong, nonatomic) NSMutableArray *rangedBeacons;
 @property (strong, nonatomic) NSTimer *backgroundTimer;
 @property (strong, nonatomic) NSUserDefaults *sharedUserDefaults;
-
-@property (nonatomic) CLAuthorizationStatus locationManagerAuthorizationStatus;
-@property (nonatomic) CMAuthorizationStatus altimeterAuthorizationStatus;
-@property (nonatomic) BOOL altimeterIsRelativeAltitudeAvailable;
+@property (readwrite, nonatomic) CLAuthorizationStatus locationManagerAuthorizationStatus;
+@property (readwrite, nonatomic) CMAuthorizationStatus altimeterAuthorizationStatus;
+@property (readwrite, nonatomic) BOOL altimeterIsRelativeAltitudeAvailable;
 
 @end
 
@@ -62,10 +59,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 static LocationManager *theInstance = nil;
 
 + (LocationManager *)sharedInstance {
-    if (theInstance == nil) {
-        theInstance = [[LocationManager alloc] init];
-    }
-    return theInstance;
+    static LocationManager *sharedLocationManager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedLocationManager = [[self alloc] init];
+    });
+    return sharedLocationManager;
 }
 
 - (instancetype)init {
@@ -81,6 +80,8 @@ static LocationManager *theInstance = nil;
     self.rangedBeacons = [[NSMutableArray alloc] init];
     self.lastUsedLocation = [[CLLocation alloc] initWithLatitude:0 longitude:0];
     self.pendingRegionEvents = [[NSMutableSet alloc] init];
+    self.pendingRegions = [[NSMutableArray alloc] init];
+    self.isManagingRegions = NO;
     
     [self authorize];
     
@@ -93,14 +94,6 @@ static LocationManager *theInstance = nil;
         //
     }];
     [[NSNotificationCenter defaultCenter]
-     addObserverForName:UIApplicationDidBecomeActiveNotification
-     object:nil
-     queue:nil
-     usingBlock:^(NSNotification *note){
-        DDLogVerbose(@"[LocationManager] UIApplicationDidBecomeActiveNotification");
-        [self wakeup];
-    }];
-    [[NSNotificationCenter defaultCenter]
      addObserverForName:UIApplicationWillResignActiveNotification
      object:nil
      queue:nil
@@ -108,19 +101,10 @@ static LocationManager *theInstance = nil;
         DDLogVerbose(@"[LocationManager] UIApplicationWillResignActiveNotification");
         [self sleep];
     }];
-    [[NSNotificationCenter defaultCenter]
-     addObserverForName:UIApplicationWillTerminateNotification
-     object:nil
-     queue:nil
-     usingBlock:^(NSNotification *note){
-        DDLogVerbose(@"[LocationManager] UIApplicationWillTerminateNotification");
-        [self stop];
-    }];
+
     
     self.sharedUserDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
-    [self.sharedUserDefaults addObserver:self forKeyPath:@"monitoring"
-                                 options:NSKeyValueObservingOptionNew
-                                 context:nil];
+
     [self.sharedUserDefaults addObserver:self forKeyPath:@"sendNow"
                                  options:NSKeyValueObservingOptionNew
                                  context:nil];
@@ -138,19 +122,7 @@ static LocationManager *theInstance = nil;
                       ofObject:(id)object
                         change:(NSDictionary<NSKeyValueChangeKey,id> *)change
                        context:(void *)context {
-    if ([keyPath isEqualToString:@"monitoring"]) {
-        NSUserDefaults *shared = object;
-        NSInteger monitoring = [shared integerForKey:@"monitoring"];
-        if (monitoring != self.monitoring) {
-            self.monitoring = monitoring;
-            [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
-            NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
-            [Settings setInt:(int)[LocationManager sharedInstance].monitoring
-                      forKey:@"monitoring_preference" inMOC:moc];
-            [CoreData.sharedInstance sync:moc];
-
-        }
-    } else if ([keyPath isEqualToString:@"sendNow"]) {
+    if ([keyPath isEqualToString:@"sendNow"]) {
         OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         [ad sendNow:self.location withPOI:nil withImage:nil withImageName:nil];
     } else if ([keyPath isEqualToString:@"poi"]) {
@@ -189,13 +161,30 @@ static LocationManager *theInstance = nil;
             self.altitude = altitudeData;
         }];
     }
+
 }
 
 - (void)wakeup {
     DDLogVerbose(@"[LocationManager] wakeup");
     [self authorize];
-    if (self.monitoring == LocationMonitoringMove) {
-        [self.activityTimer invalidate];
+
+    //if (self.monitoring != LocationMonitoringMove) {
+        //self.monitoring = LocationMonitoringMove;
+       // [[NSUserDefaults standardUserDefaults] setInteger:LocationMonitoringMove forKey:@"monitoring_preference"];
+      //  DDLogInfo(@"[LocationManager] wakeup: switched to LocationMonitoringMove");
+    //}
+    [[NSUserDefaults standardUserDefaults] setInteger:LocationMonitoringMove forKey:@"monitoring_preference"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+    // Manage regions when waking up
+    [self manageRegions];
+
+    // Optional: Force UI update
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"monitoringPreferenceChanged" object:nil];
+
+    [self.activityTimer invalidate];
+
+    if (self.minTime > 0.0) {
         self.activityTimer = [NSTimer timerWithTimeInterval:self.minTime
                                                      target:self
                                                    selector:@selector(activityTimer:)
@@ -204,15 +193,18 @@ static LocationManager *theInstance = nil;
         [[NSRunLoop currentRunLoop] addTimer:self.activityTimer
                                      forMode:NSRunLoopCommonModes];
     }
+
     for (CLRegion *region in self.manager.monitoredRegions) {
-        DDLogVerbose(@"[LocationManager] requestStateForRegion %@", region.identifier);
         [self.manager requestStateForRegion:region];
     }
+
     if (self.monitoring == LocationMonitoringSignificant) {
         [self.manager requestLocation];
     }
+
     [self startBackgroundTimer];
 }
+
 
 - (void)authorize {
     self.locationManagerAuthorizationStatus = self.manager.authorizationStatus;
@@ -223,29 +215,65 @@ static LocationManager *theInstance = nil;
     }
 }
 
+
 - (void)sleep {
     DDLogVerbose(@"[LocationManager] sleep");
+
     for (CLBeaconIdentityConstraint *beaconIdentityConstraint in self.manager.rangedBeaconConstraints) {
         [self.manager stopRangingBeaconsSatisfyingConstraint:beaconIdentityConstraint];
     }
+
     if (self.monitoring != LocationMonitoringMove) {
         [self.activityTimer invalidate];
     }
 }
 
+
+
 - (void)stop {
-    DDLogVerbose(@"[LocationManager] stop");
+    DDLogInfo(@"[LocationManager] stop called - app is terminating");
+    DDLogInfo(@"[LocationManager] Current monitoring mode: %ld", (long)self.monitoring);
+    DDLogInfo(@"[LocationManager] Background state: %ld", 
+              (long)[UIApplication sharedApplication].applicationState);
     
     if ([CMAltimeter isRelativeAltitudeAvailable]) {
-        DDLogVerbose(@"[LocationManager] stopRelativeAltitudeUpdates");
+        DDLogInfo(@"[LocationManager] stopRelativeAltitudeUpdates");
         [self.altimeter stopRelativeAltitudeUpdates];
     }
 }
 
-- (void)startRegion:(CLRegion *)region {
-    if (region) {
-        [self.manager startMonitoringForRegion:region];
+- (void)stopContinuousLocationUpdates {
+    DDLogInfo(@"[LocationManager] stopContinuousLocationUpdates called");
+    if (self.manager) {
+        [self.manager stopUpdatingLocation];
+        if (self.activityTimer) {
+            [self.activityTimer invalidate];
+            self.activityTimer = nil;
+        }
     }
+}
+
+- (void)startRegion:(CLRegion *)region {
+    if (!region) {
+        return;
+    }
+    
+    // If we're already monitoring this region, do nothing
+    if ([self.manager.monitoredRegions containsObject:region]) {
+        return;
+    }
+    
+    // If we're at the limit, add to pending
+    if (self.manager.monitoredRegions.count >= MAX_MONITORED_REGIONS) {
+        if (![self.pendingRegions containsObject:region]) {
+            [self.pendingRegions addObject:region];
+        }
+        DDLogWarn(@"[LocationManager] Region limit reached, added to pending: %@", region.identifier);
+        return;
+    }
+    
+    // Start monitoring the region
+    [self.manager startMonitoringForRegion:region];
 }
 
 - (void)stopRegion:(CLRegion *)region {
@@ -315,35 +343,32 @@ static LocationManager *theInstance = nil;
     
     switch (monitoring) {
         case LocationMonitoringMove:
+            DDLogInfo(@"[LocationManager] Starting continuous location updates in Move mode");
             self.manager.distanceFilter = kCLDistanceFilterNone;
             self.manager.desiredAccuracy = kCLLocationAccuracyBest;
             [self.activityTimer invalidate];
-            
+            [self.manager startMonitoringVisits];
             [self.manager startUpdatingLocation];
-            [self.manager stopMonitoringSignificantLocationChanges];
+            [self.manager startMonitoringSignificantLocationChanges];
+            DDLogInfo(@"[LocationManager] Also started SLC as fallback");
             [self.manager stopMonitoringVisits];
-
-            if (self.minTime > 0.0) {
-                self.activityTimer = [NSTimer timerWithTimeInterval:self.minTime
-                                                             target:self selector:@selector(activityTimer:)
-                                                           userInfo:Nil
-                                                            repeats:YES];
-                [[NSRunLoop currentRunLoop] addTimer:self.activityTimer
-                                             forMode:NSRunLoopCommonModes];
-            }
             break;
-            
+
         case LocationMonitoringSignificant:
             [self.activityTimer invalidate];
+            DDLogInfo(@"[LocationManager] Enabling Significant: startMonitoringSignificantLocationChanges");
+
             [self.manager stopUpdatingLocation];
             [self.manager startMonitoringSignificantLocationChanges];
             [self.manager startMonitoringVisits];
             break;
-            
+
         case LocationMonitoringManual:
         case LocationMonitoringQuiet:
         default:
             [self.activityTimer invalidate];
+            DDLogInfo(@"[LocationManager] Disabling all monitoring (Manual/Quiet)");
+
             [self.manager stopUpdatingLocation];
             [self.manager stopMonitoringSignificantLocationChanges];
             [self.manager stopMonitoringVisits];
@@ -351,6 +376,8 @@ static LocationManager *theInstance = nil;
     }
     NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
     [shared setInteger:self.monitoring forKey:@"monitoring"];
+    [shared synchronize]; // 🚀 Force flush to disk
+
 }
 
 - (void)setRanging:(BOOL)ranging {
@@ -448,16 +475,28 @@ static LocationManager *theInstance = nil;
 
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations {
-    DDLogVerbose(@"[LocationManager] didUpdateLocations");
+    DDLogInfo(@"[LocationManager] didUpdateLocations triggered in state: %ld", 
+              (long)[UIApplication sharedApplication].applicationState);
+    
+    // Log if this was triggered by SLC
+    if (self.wasLaunchedByLocationUpdate) {
+        DDLogWarn(@"[LocationManager] Location update from SLC wake");
+        [self.manager startMonitoringVisits];
+        [self.manager stopUpdatingLocation];
+    } else {
+        DDLogInfo(@"[LocationManager] Location update from continuous updates");
+    }
     
     for (CLLocation *location in locations) {
-        DDLogInfo(@"[LocationManager] Location: %@ last: %@ Δs:%.0f/%.0f Δm:%.0f/%.0f",
+        DDLogInfo(@"[LocationManager] Location: %@ last: %@ Δs:%.0f/%.0f Δm:%.0f/%.0f monitoring:%ld bgState:%ld",
                   location,
                   self.lastUsedLocation,
                   self.lastUsedLocation ? [location.timestamp timeIntervalSinceDate:self.lastUsedLocation.timestamp] : 0,
                   self.minTime,
                   self.lastUsedLocation ? [location distanceFromLocation:self.lastUsedLocation] : 0,
-                  self.minDist
+                  self.minDist,
+                  (long)self.monitoring,
+                  (long)[UIApplication sharedApplication].applicationState
                   );
         if (self.lastUsedLocation &&
             [location.timestamp timeIntervalSinceDate:self.lastUsedLocation.timestamp] <= 0) {
@@ -470,6 +509,19 @@ static LocationManager *theInstance = nil;
 
         self.lastUsedLocation = location;
         [self.delegate newLocation:location];
+    }
+    
+    // Only stop continuous updates if the app was terminated and restarted by SLC
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground &&
+        self.monitoring == LocationMonitoringMove &&
+        self.wasLaunchedByLocationUpdate) {
+        DDLogInfo(@"[LocationManager] App was launched by SLC after termination - stopping continuous updates");
+        [self.manager stopUpdatingLocation];
+        if (self.activityTimer) {
+            [self.activityTimer invalidate];
+            self.activityTimer = nil;
+        }
+        self.wasLaunchedByLocationUpdate = NO; // Reset for next time
     }
 }
 
@@ -596,16 +648,23 @@ static LocationManager *theInstance = nil;
     [self.manager requestStateForRegion:region];
 }
 
-- (void)locationManager:(CLLocationManager *)manager monitoringDidFailForRegion:(CLRegion *)region withError:(NSError *)error {
-    DDLogError(@"[LocationManager] monitoringDidFailForRegion %@ %@ %@", region, error.localizedDescription, error.userInfo);
-    for (CLRegion *monitoredRegion in manager.monitoredRegions) {
-        DDLogError(@"[LocationManager] monitoredRegion: %@", monitoredRegion);
+- (void)locationManager:(CLLocationManager *)manager 
+monitoringDidFailForRegion:(CLRegion *)region 
+withError:(NSError *)error {
+    DDLogError(@"[LocationManager] monitoringDidFailForRegion %@ %@ %@", 
+               region, error.localizedDescription, error.userInfo);
+    
+    // If error is region limit exceeded
+    if (error.domain == kCLErrorDomain && error.code == 5) {
+        DDLogWarn(@"[LocationManager] Region monitoring limit exceeded, managing regions");
+        [self manageRegions];
+        return;
     }
     
-    if ((error.domain != kCLErrorDomain || error.code != 5) && [manager.monitoredRegions containsObject:region]) {
-        // error
+    // For other errors, stop monitoring the problematic region
+    if ([manager.monitoredRegions containsObject:region]) {
+        [self stopRegion:region];
     }
-    
 }
 
 /*
@@ -708,7 +767,6 @@ didFailRangingBeaconsForConstraint:(CLBeaconIdentityConstraint *)beaconConstrain
     }
 }
 
-
 - (void)startBackgroundTimer {
     DDLogInfo(@"[LocationManager] startBackgroundTimer");
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
@@ -721,11 +779,93 @@ didFailRangingBeaconsForConstraint:(CLBeaconIdentityConstraint *)beaconConstrain
     }
 }
 
+
+
+/*
+ - (void)startBackgroundTimer {
+    DDLogInfo(@"[LocationManager] startBackgroundTimer");
+    if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground) {
+        if (!self.backgroundTimer || !self.backgroundTimer.isValid) {
+            self.backgroundTimer = [NSTimer scheduledTimerWithTimeInterval:BACKGROUND_STOP_AFTER
+                                                                    target:self
+                                                                  selector:@selector(stopInBackground)
+                                                                  userInfo:nil repeats:FALSE];
+        }
+    }
+}
+ */
+
 - (void)stopInBackground {
     DDLogInfo(@"[LocationManager] stopInBackground");
     self.backgroundTimer = nil;
     [self sleep];
 }
+
+- (void)setWasLaunchedByLocationUpdate:(BOOL)launched {
+    _wasLaunchedByLocationUpdate = launched;
+    DDLogInfo(@"[LocationManager] Setting wasLaunchedByLocationUpdate=%d", launched);
+}
+
+// New method to manage regions based on proximity
+- (void)manageRegions {
+    if (self.isManagingRegions) {
+        return;
+    }
+    
+    self.isManagingRegions = YES;
+    
+    // Get current location
+    CLLocation *currentLocation = self.location;
+    
+    // Sort all regions (monitored + pending) by distance from current location
+    NSMutableArray *allRegions = [NSMutableArray arrayWithArray:[self.manager.monitoredRegions allObjects]];
+    [allRegions addObjectsFromArray:self.pendingRegions];
+    
+    // Remove duplicates
+    NSSet *uniqueRegions = [NSSet setWithArray:allRegions];
+    allRegions = [NSMutableArray arrayWithArray:[uniqueRegions allObjects]];
+    
+    // Sort regions by distance from current location
+    [allRegions sortUsingComparator:^NSComparisonResult(CLRegion *region1, CLRegion *region2) {
+        if ([region1 isKindOfClass:[CLCircularRegion class]] && [region2 isKindOfClass:[CLCircularRegion class]]) {
+            CLCircularRegion *circRegion1 = (CLCircularRegion *)region1;
+            CLCircularRegion *circRegion2 = (CLCircularRegion *)region2;
+            
+            CLLocation *loc1 = [[CLLocation alloc] initWithLatitude:circRegion1.center.latitude
+                                                        longitude:circRegion1.center.longitude];
+            CLLocation *loc2 = [[CLLocation alloc] initWithLatitude:circRegion2.center.latitude
+                                                        longitude:circRegion2.center.longitude];
+            
+            CLLocationDistance dist1 = [currentLocation distanceFromLocation:loc1];
+            CLLocationDistance dist2 = [currentLocation distanceFromLocation:loc2];
+            
+            return dist1 > dist2 ? NSOrderedDescending : NSOrderedAscending;
+        }
+        return NSOrderedSame;
+    }];
+    
+    // Stop monitoring regions beyond the limit
+    NSArray *currentMonitoredRegions = [self.manager.monitoredRegions allObjects];
+    if (currentMonitoredRegions.count > MAX_MONITORED_REGIONS) {
+        for (NSInteger i = MAX_MONITORED_REGIONS; i < currentMonitoredRegions.count; i++) {
+            CLRegion *region = currentMonitoredRegions[i];
+            [self stopRegion:region];
+        }
+    }
+    
+    // Start monitoring closest regions up to the limit
+    self.pendingRegions = [NSMutableArray array];
+    for (CLRegion *region in allRegions) {
+        if (self.manager.monitoredRegions.count < MAX_MONITORED_REGIONS) {
+            [self startRegion:region];
+        } else {
+            [self.pendingRegions addObject:region];
+        }
+    }
+    
+    self.isManagingRegions = NO;
+}
+
 
 @end
 

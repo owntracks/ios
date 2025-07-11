@@ -101,13 +101,19 @@ typedef NS_ENUM(unsigned int, MQTTDecoderState) {
                     toRead = data.length - readHere;
                 }
 
-                if (toRead > 0) {
+                if (readHere + toRead <= data.length && toRead > 0) {
                     DDLogDebug(@"[MQTTDecoder] buffer getBytes %ld/%lu %ld", (long)readHere, (unsigned long)data.length, (long)toRead);
 
                     [data getBytes:&buffer range:NSMakeRange(readHere, toRead)];
                     readHere += toRead;
                     [self.dataBuffer appendBytes:buffer length:toRead];
+                } else {
+                    DDLogError(@"[MQTTDecoder] ⚠️ Invalid read range: readHere=%ld, toRead=%ld, dataLength=%lu",
+                               (long)readHere, (long)toRead, (unsigned long)data.length);
+                    // Optionally trigger a decode failure here to safely bail out
+                    return;
                 }
+
             }
             if (self.dataBuffer.length == self.length + self.offset) {
                 DDLogDebug(@"[MQTTDecoder] received (%lu)=%@...", (unsigned long)self.dataBuffer.length,

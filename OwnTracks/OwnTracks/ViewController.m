@@ -216,9 +216,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     }
 }
 
+
 - (IBAction)modesChanged:(UISegmentedControl *)segmentedControl {
-    int monitoring;
+    NSInteger monitoring;
     OwnTracksEnum intentMonitoring;
+
     switch (segmentedControl.selectedSegmentIndex) {
         case 3:
             monitoring = LocationMonitoringMove;
@@ -238,15 +240,25 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             intentMonitoring = OwnTracksEnumQuiet;
             break;
     }
-    if (monitoring != [LocationManager sharedInstance].monitoring) {
-        [LocationManager sharedInstance].monitoring = monitoring;
-        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
-        [Settings setInt:(int)[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"
-                   inMOC:CoreData.sharedInstance.mainMOC];
+
+    LocationManager *locationManager = [LocationManager sharedInstance];
+    if (monitoring != locationManager.monitoring) {
+        [locationManager setMonitoring:monitoring];
+
+        // Clear any downgrade flag, since this is a user override
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"downgraded"];
+        [[NSUserDefaults standardUserDefaults] synchronize]; // ✅ force flush if app is killed soon after
+
+        // Persist preference for future app launches
+        [Settings setInt:(int)monitoring forKey:@"monitoring_preference"
+                  inMOC:CoreData.sharedInstance.mainMOC];
         [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
+
+        // Update any UI state related to selected mode
         [self updateMoveButton];
     }
 }
+
 
 - (void)updateMoveButton {
     BOOL locked = [Settings theLockedInMOC:CoreData.sharedInstance.mainMOC];

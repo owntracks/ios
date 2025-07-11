@@ -41,7 +41,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8411B827189FDB140019D2D6"
-            BuildableName = "OwnTracks.app"
+            BuildableName = "Sauron.app"
             BlueprintName = "OwnTracks"
             ReferencedContainer = "container:OwnTracks.xcodeproj">
          </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8411B827189FDB140019D2D6"
-            BuildableName = "OwnTracks.app"
+            BuildableName = "Sauron.app"
             BlueprintName = "OwnTracks"
             ReferencedContainer = "container:OwnTracks.xcodeproj">
          </BuildableReference>

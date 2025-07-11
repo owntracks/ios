@@ -14,7 +14,7 @@
 
 @interface OwnTracking : NSObject
 + (OwnTracking *)sharedInstance;
-
+- (void)publishStatus:(BOOL)isActive; // ← Add this line
 - (BOOL)processMessage:(NSString *)topic
                   data:(NSData *)data
               retained:(BOOL)retained

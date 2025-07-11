@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		221943B32E14461B00D0E2FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 221943B22E14461B00D0E2FB /* Assets.xcassets */; };
 		73E486C3060A00AFA424FB27 /* Pods_OwnTracks.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8900A3EAFD109D20F95E6DD8 /* Pods_OwnTracks.framework */; };
 		84001C141C78982800413E5B /* Queue+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84001C111C78982800413E5B /* Queue+CoreDataProperties.m */; };
 		8400D9731D83825E00DEA134 /* HTTP.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8400D9721D83825E00DEA134 /* HTTP.plist */; };
@@ -46,8 +47,6 @@
 		845299E71DFA004000A4DC21 /* Friend+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 845299E01DFA004000A4DC21 /* Friend+CoreDataClass.m */; };
 		8456D0A52B55749E003A45D4 /* OwnTracksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8456D0A42B55749E003A45D4 /* OwnTracksTests.m */; };
 		845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845AA1B31B44245100945856 /* CertificatesTVC.m */; };
-		845AA1BC1B4846AF00945856 /* OwnTracks-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1B91B4846AF00945856 /* OwnTracks-64.png */; };
-		845AA1BD1B4846AF00945856 /* OwnTracks-320.png in Resources */ = {isa = PBXBuildFile; fileRef = 845AA1BA1B4846AF00945856 /* OwnTracks-320.png */; };
 		846B38E92785B50B003E4852 /* elgolfo1.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 846B38E82785B50B003E4852 /* elgolfo1.gpx */; };
 		846FFA4F1B40C13C001482A6 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA4E1B40C13C001482A6 /* NavigationController.m */; };
 		846FFA581B419687001482A6 /* RegionTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA571B419687001482A6 /* RegionTVC.m */; };
@@ -82,7 +81,6 @@
 		84C7C02F2885B1B00088A544 /* CreateTourTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C02E2885B1B00088A544 /* CreateTourTVC.m */; };
 		84C7C032289821280088A544 /* ToursTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C031289821280088A544 /* ToursTVC.m */; };
 		84C7C0352898FAF90088A544 /* Tours.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C0342898FAF90088A544 /* Tours.m */; };
-		84CC5A521FEC71850010314C /* OwnTracks-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CC5A511FEC71840010314C /* OwnTracks-29.png */; };
 		84D6B47D25C844A500B2AC07 /* NSNumber+decimals.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B47C25C844A500B2AC07 /* NSNumber+decimals.m */; };
 		84DDEAC71BD9F37900B01879 /* SettingsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DDEAC61BD9F37900B01879 /* SettingsTVC.m */; };
 		84DE749824A9E1C600C0DA68 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84DE749B24A9E1C600C0DA68 /* Intents.intentdefinition */; };
@@ -142,6 +140,7 @@
 
 /* Begin PBXFileReference section */
 		0A2FDE06B0FB716EB485F358 /* Pods_OwnTracksWrist_WatchKit_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OwnTracksWrist_WatchKit_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		221943B22E14461B00D0E2FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3BB208567F97092FB552528E /* Pods-OwnTracksWrist WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracksWrist WatchKit Extension.release.xcconfig"; path = "Target Support Files/Pods-OwnTracksWrist WatchKit Extension/Pods-OwnTracksWrist WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
 		794B1518CFE4BFD07F305FFB /* Pods-OwnTracks.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracks.debug.xcconfig"; path = "Target Support Files/Pods-OwnTracks/Pods-OwnTracks.debug.xcconfig"; sourceTree = "<group>"; };
 		84001C0D1C78729200413E5B /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
@@ -151,7 +150,7 @@
 		8400D9721D83825E00DEA134 /* HTTP.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HTTP.plist; sourceTree = "<group>"; };
 		8400D9741D84946E00DEA134 /* Model 9.1.7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.1.7.xcdatamodel"; sourceTree = "<group>"; };
 		840BBDD318E4274200DC113C /* Model 6.2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 6.2.xcdatamodel"; sourceTree = "<group>"; };
-		8411B828189FDB140019D2D6 /* OwnTracks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OwnTracks.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8411B828189FDB140019D2D6 /* Sauron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sauron.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8411B82B189FDB140019D2D6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8411B82D189FDB140019D2D6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		8411B82F189FDB140019D2D6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -224,8 +223,6 @@
 		84595203253DF78200807097 /* Model 13.4.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 13.4.0.xcdatamodel"; sourceTree = "<group>"; };
 		845AA1B21B44245100945856 /* CertificatesTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificatesTVC.h; sourceTree = "<group>"; };
 		845AA1B31B44245100945856 /* CertificatesTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificatesTVC.m; sourceTree = "<group>"; };
-		845AA1B91B4846AF00945856 /* OwnTracks-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-64.png"; sourceTree = "<group>"; };
-		845AA1BA1B4846AF00945856 /* OwnTracks-320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-320.png"; sourceTree = "<group>"; };
 		846B38E82785B50B003E4852 /* elgolfo1.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = elgolfo1.gpx; sourceTree = "<group>"; };
 		846FFA1B1B4023BE001482A6 /* Model 8.2.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.0.xcdatamodel"; sourceTree = "<group>"; };
 		846FFA431B402A1F001482A6 /* OwnTracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OwnTracking.h; sourceTree = "<group>"; };
@@ -314,7 +311,6 @@
 		84C7C0332898FAF90088A544 /* Tours.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tours.h; sourceTree = "<group>"; };
 		84C7C0342898FAF90088A544 /* Tours.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Tours.m; sourceTree = "<group>"; };
 		84C8E2742D54C14D006F9E41 /* Model 18.3.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 18.3.0.xcdatamodel"; sourceTree = "<group>"; };
-		84CC5A511FEC71840010314C /* OwnTracks-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-29.png"; sourceTree = "<group>"; };
 		84CE578E2C8745B8007689E5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84D3072E1ACD644500FACB9E /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		84D6B47B25C844A500B2AC07 /* NSNumber+decimals.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSNumber+decimals.h"; sourceTree = "<group>"; };
@@ -435,6 +431,7 @@
 		8411B81F189FDB140019D2D6 = {
 			isa = PBXGroup;
 			children = (
+				221943B22E14461B00D0E2FB /* Assets.xcassets */,
 				8411B833189FDB140019D2D6 /* OwnTracks */,
 				843A57A824A9A4D600A5441B /* OwnTracksIntents */,
 				8456D0A32B55749E003A45D4 /* OwnTracksTests */,
@@ -447,7 +444,7 @@
 		8411B829189FDB140019D2D6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8411B828189FDB140019D2D6 /* OwnTracks.app */,
+				8411B828189FDB140019D2D6 /* Sauron.app */,
 				843A57A724A9A4D600A5441B /* OwnTracksIntents.appex */,
 				8456D0A22B55749E003A45D4 /* OwnTracksTests.xctest */,
 			);
@@ -495,7 +492,6 @@
 		8411B833189FDB140019D2D6 /* OwnTracks */ = {
 			isa = PBXGroup;
 			children = (
-				8411B897189FEB790019D2D6 /* assets */,
 				8411B867189FE1ED0019D2D6 /* coredata */,
 				8411B83C189FDB140019D2D6 /* OwnTracksAppDelegate.h */,
 				8411B83D189FDB140019D2D6 /* OwnTracksAppDelegate.m */,
@@ -575,16 +571,6 @@
 				8411B889189FE79B0019D2D6 /* CoreData.m */,
 			);
 			path = coredata;
-			sourceTree = "<group>";
-		};
-		8411B897189FEB790019D2D6 /* assets */ = {
-			isa = PBXGroup;
-			children = (
-				84CC5A511FEC71840010314C /* OwnTracks-29.png */,
-				845AA1B91B4846AF00945856 /* OwnTracks-64.png */,
-				845AA1BA1B4846AF00945856 /* OwnTracks-320.png */,
-			);
-			path = assets;
 			sourceTree = "<group>";
 		};
 		843A57A824A9A4D600A5441B /* OwnTracksIntents */ = {
@@ -712,7 +698,7 @@
 			);
 			name = OwnTracks;
 			productName = OwnTracks;
-			productReference = 8411B828189FDB140019D2D6 /* OwnTracks.app */;
+			productReference = 8411B828189FDB140019D2D6 /* Sauron.app */;
 			productType = "com.apple.product-type.application";
 		};
 		843A57A624A9A4D600A5441B /* OwnTracksIntents */ = {
@@ -830,16 +816,14 @@
 				8479EEB718E4529900923B24 /* MQTT.plist in Resources */,
 				8400D9731D83825E00DEA134 /* HTTP.plist in Resources */,
 				843B91721C8A14BF00DBD306 /* Storyboard.storyboard in Resources */,
-				84CC5A521FEC71850010314C /* OwnTracks-29.png in Resources */,
 				849260462B037B0000F6DC13 /* messages.json in Resources */,
 				8492603F2B0235D700F6DC13 /* message.json in Resources */,
+				221943B32E14461B00D0E2FB /* Assets.xcassets in Resources */,
 				8436DFD62BA9D72F00118AFF /* PrivacyInfo.xcprivacy in Resources */,
-				845AA1BD1B4846AF00945856 /* OwnTracks-320.png in Resources */,
 				84FAEA7225F01DA100DCD479 /* Launch Screen.storyboard in Resources */,
 				849260442B0373E300F6DC13 /* encryption.json in Resources */,
 				8411B843189FDB140019D2D6 /* Images.xcassets in Resources */,
 				84E2C4511EC34B3B00BC02CE /* Localizable.strings in Resources */,
-				845AA1BC1B4846AF00945856 /* OwnTracks-64.png in Resources */,
 				8408CA4425F00FB400354FF3 /* InfoPlist.strings in Resources */,
 				846B38E92785B50B003E4852 /* elgolfo1.gpx in Resources */,
 				8411B8E1189FEB790019D2D6 /* Location.gpx in Resources */,
@@ -914,9 +898,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OwnTracks/Pods-OwnTracks-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-OwnTracks/Pods-OwnTracks-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1228,9 +1216,9 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18.3.6;
+				CURRENT_PROJECT_VERSION = 18.6.2;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
-				DEVELOPMENT_TEAM = C652JFWU23;
+				DEVELOPMENT_TEAM = CFR426ZH5P;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1240,7 +1228,7 @@
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
 				INFOPLIST_FILE = "OwnTracks/Base.lproj/OwnTracks-Info.plist";
 				"INFOPLIST_FILE[sdk=*]" = "OwnTracks/Base.lproj/OwnTracks-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = OwnTracks;
+				INFOPLIST_KEY_CFBundleDisplayName = Sauron;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1252,9 +1240,9 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OwnTracks",
 				);
-				MARKETING_VERSION = 18.3.6;
-				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				MARKETING_VERSION = 18.6.2;
+				PRODUCT_BUNDLE_IDENTIFIER = org.laskatj.owntracksfork;
+				PRODUCT_NAME = Sauron;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
@@ -1282,9 +1270,9 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18.3.6;
+				CURRENT_PROJECT_VERSION = 18.6.2;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
-				DEVELOPMENT_TEAM = C652JFWU23;
+				DEVELOPMENT_TEAM = CFR426ZH5P;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1294,7 +1282,7 @@
 				GCC_PREFIX_HEADER = "OwnTracks/OwnTracks-Prefix.pch";
 				INFOPLIST_FILE = "OwnTracks/Base.lproj/OwnTracks-Info.plist";
 				"INFOPLIST_FILE[sdk=*]" = "OwnTracks/Base.lproj/OwnTracks-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = OwnTracks;
+				INFOPLIST_KEY_CFBundleDisplayName = Sauron;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1306,10 +1294,10 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OwnTracks",
 				);
-				MARKETING_VERSION = 18.3.6;
+				MARKETING_VERSION = 18.6.2;
 				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.laskatj.owntracksfork;
+				PRODUCT_NAME = Sauron;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
@@ -1339,7 +1327,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 18.3.6;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = C652JFWU23;
+				DEVELOPMENT_TEAM = CFR426ZH5P;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = OwnTracksIntents/Info.plist;
@@ -1352,7 +1340,7 @@
 				MARKETING_VERSION = 18.3.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude.OwnTracksIntents;
+				PRODUCT_BUNDLE_IDENTIFIER = org.laskatj.owntracksfork.intent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1378,7 +1366,7 @@
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 18.3.6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = C652JFWU23;
+				DEVELOPMENT_TEAM = CFR426ZH5P;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = OwnTracksIntents/Info.plist;
@@ -1391,7 +1379,7 @@
 				MARKETING_VERSION = 18.3.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude.OwnTracksIntents;
+				PRODUCT_BUNDLE_IDENTIFIER = org.laskatj.owntracksfork.intent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1414,7 +1402,7 @@
 				CURRENT_PROJECT_VERSION = 18.3.6;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = C652JFWU23;
+				DEVELOPMENT_TEAM = CFR426ZH5P;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -1452,7 +1440,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = C652JFWU23;
+				DEVELOPMENT_TEAM = CFR426ZH5P;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
