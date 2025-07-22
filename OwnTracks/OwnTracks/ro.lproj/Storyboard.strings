@@ -103,6 +103,9 @@
 /* Class = "UITableViewSection"; headerTitle = "HTTP Mode"; ObjectID = "Ac4-3H-YRL"; */
 "Ac4-3H-YRL.headerTitle" = "Mod HTTP";
 
+/* Class = "UILabel"; text = "Pressure"; ObjectID = "AFw-QA-oz1"; */
+"AFw-QA-oz1.text" = "Pressure";
+
 /* Class = "UILabel"; text = "Street\n1\n2\n3\n4"; ObjectID = "apt-Il-Ih4"; Note = "Don't Translate, Placeholder"; */
 "apt-Il-Ih4.text" = "Street\n1\n2\n3\n4";
 
@@ -120,6 +123,9 @@
 
 /* Class = "UILabel"; text = "Passphrase"; ObjectID = "BTX-XN-kzE"; Note = "Don't translate, technical term"; */
 "BTX-XN-kzE.text" = "Frază acces";
+
+/* Class = "UILabel"; text = "MotionActivities"; ObjectID = "BxB-GS-7zQ"; */
+"BxB-GS-7zQ.text" = "MotionActivities";
 
 /* Class = "UILabel"; text = "Password"; ObjectID = "C1o-h4-z6h"; */
 "C1o-h4-z6h.text" = "Parolă";
@@ -417,6 +423,9 @@
 
 /* Class = "UITextField"; placeholder = "userid"; ObjectID = "Oiq-Kb-qLx"; */
 "Oiq-Kb-qLx.placeholder" = "userid";
+
+/* Class = "UILabel"; text = "Motion Activities"; ObjectID = "OWG-f7-FLn"; */
+"OWG-f7-FLn.text" = "Motion Activities";
 
 /* Class = "UILabel"; text = "HTTP Headers"; ObjectID = "p6D-3d-Jq2"; */
 "p6D-3d-Jq2.text" = "HTTP Headers";

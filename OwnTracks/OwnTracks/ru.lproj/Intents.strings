@@ -1,66 +1,99 @@
+/* (No Comment) */
 "1p9eFA" = "Mark your next Position";
 
-"5EuzDa" = "manual";
+/* (No Comment) */
+"5EuzDa" = "вручную";
 
+/* (No Comment) */
 "9QQuvB" = "Set a tag for all subsequent locations";
 
-"A8tk7h" = "Point Of Interest";
+/* (No Comment) */
+"A8tk7h" = "Точка интереса";
 
-"B33bKe" = "quiet";
+/* (No Comment) */
+"B33bKe" = "выкл";
 
-"EJYIEL" = "Send current location";
-
-"EqYRFW" = "move";
-
-"FYfTj6" = "Change Monitoring Mode";
-
-"GJDEib-5EuzDa" = "Just to confirm, you wanted ‘manual’?";
-
-"GJDEib-B33bKe" = "Just to confirm, you wanted ‘quiet’?";
-
-"GJDEib-EqYRFW" = "Just to confirm, you wanted ‘move’?";
-
-"GJDEib-l7Rl2N" = "Just to confirm, you wanted ‘significant’?";
-
-"JYqwqK" = "Tag";
-
-"JylJeF" = "Change Monitoring Mode";
-
-"KwS9So" = "Name";
-
-"MfQBKX" = "Monitoring Mode";
-
-"Ogyrko" = "Change your monitoring mode";
-
-"P5jx7T-5EuzDa" = "There are ${count} options matching ‘manual’.";
-
-"P5jx7T-B33bKe" = "There are ${count} options matching ‘quiet’.";
-
-"P5jx7T-EqYRFW" = "There are ${count} options matching ‘move’.";
-
-"P5jx7T-l7Rl2N" = "There are ${count} options matching ‘significant’.";
-
-"PKS8bh" = "Monitoring";
-
-"QISlRY" = "Name of the Point of Interest";
-
-"Qdfnga" = "Tag";
-
-"SW8Qnb" = "Tag to be applied to all subsequent positions";
-
-"WvwXPJ" = "Send your location immediately";
-
+/* (No Comment) */
 "d8xyQf" = "Tag to be applied to all subsequent positions";
 
-"g3MVqx" = "Tag";
+/* (No Comment) */
+"EJYIEL" = "Отправить текущую локацию";
 
-"l7Rl2N" = "significant";
+/* (No Comment) */
+"EqYRFW" = "движение";
 
-"rpbQ0I" = "Name of the Point of Interest";
+/* (No Comment) */
+"FYfTj6" = "Изменить режим мониторинга";
 
-"u3pDrc" = "Send Now";
+/* (No Comment) */
+"g3MVqx" = "Тэг";
 
-"vuIozC" = "Change Monitoring";
+/* (No Comment) */
+"GJDEib-5EuzDa" = "Подтвердите, выбор  «вручную»?";
 
-"wcOPCR" = "Name of the Point of Interest";
+/* (No Comment) */
+"GJDEib-B33bKe" = "Подтвердите, выбор  «выкл»?";
+
+/* (No Comment) */
+"GJDEib-EqYRFW" = "Подтвердите, выбор  «движение»?";
+
+/* (No Comment) */
+"GJDEib-l7Rl2N" = "Подтвердите, выбор  «значимые»?";
+
+/* (No Comment) */
+"JylJeF" = "Изменить режим мониторинга";
+
+/* (No Comment) */
+"JYqwqK" = "Тег";
+
+/* (No Comment) */
+"KwS9So" = "Имя";
+
+/* (No Comment) */
+"l7Rl2N" = "значимый";
+
+/* (No Comment) */
+"MfQBKX" = "Режим мониторинга";
+
+/* (No Comment) */
+"Ogyrko" = "Измените режим мониторинга";
+
+/* (No Comment) */
+"P5jx7T-5EuzDa" = "Есть ${count} вариантов, соответствующих «вручную».";
+
+/* (No Comment) */
+"P5jx7T-B33bKe" = "Есть ${count} вариантов, соответствующих «выкл».";
+
+/* (No Comment) */
+"P5jx7T-EqYRFW" = "Есть ${count} вариантов, соответствующих «движение».";
+
+/* (No Comment) */
+"P5jx7T-l7Rl2N" = "Есть ${count} вариантов, соответствующих «значимый».";
+
+/* (No Comment) */
+"PKS8bh" = "Мониторинг";
+
+/* (No Comment) */
+"Qdfnga" = "Тэг";
+
+/* (No Comment) */
+"QISlRY" = "Имя точки интереса";
+
+/* (No Comment) */
+"rpbQ0I" = "Имя точки интереса";
+
+/* (No Comment) */
+"SW8Qnb" = "Tag to be applied to all subsequent positions";
+
+/* (No Comment) */
+"u3pDrc" = "Отправить сейчас";
+
+/* (No Comment) */
+"vuIozC" = "Изменить мониторинг";
+
+/* (No Comment) */
+"wcOPCR" = "Имя точки интереса";
+
+/* (No Comment) */
+"WvwXPJ" = "Отправить текущее местоположение сейчас";
 
