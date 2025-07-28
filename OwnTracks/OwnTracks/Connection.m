@@ -888,7 +888,7 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     self.state = state_starting;
     self.lastErrorCode = nil;
     
-    if (self.port != 0) {
+    if (self.url != nil || self.port != 0) {
         if (self.reconnectTime < RECONNECT_TIMER_MAX) {
             self.reconnectTime *= 2.0;
         }
