@@ -696,7 +696,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                          anyDevice,
                          anyDevice,
                          anyDevice,
-                         [self theGeneralTopicInMOC:context]];
+                         anyDevice];
     }
     NSString *userId = [Settings theUserIdInMOC:context];
     if (userId) {

@@ -98,6 +98,10 @@
 "idle" = "idle";
 
 /* Warning displayed if location is inaccurate or old */
+"Logs Rolled Over" = "Logs Rolled Over";
+
+/* Message shown when logs are rolled over */
+"Log files have been rolled over to a new file" = "Log files have been rolled over to a new file";
 "Inaccurate or old location information" = "Inaccurate or old location information";
 
 /* certificate error message */

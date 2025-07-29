@@ -95,6 +95,24 @@
         {
             "if": {
                 "properties": {
+                    "_type": { "const": "logs" }
+                },
+                "required": [ "_type" ]
+            }, "then": {
+                "properties": {
+                    "tst": { "$ref": "#/$defs/tst" },
+                    "filename": { "type": "string" },
+                    "fileSize": { "type": "integer" },
+                    "totalLines": { "type": "integer" },
+                    "publishedLines": { "type": "integer" },
+                    "lines": { "type": "array", "items": { "type": "string" } }
+                },
+                "required": [ "tst", "filename", "fileSize", "totalLines", "publishedLines", "lines" ]
+            }
+        },
+        {
+            "if": {
+                "properties": {
                     "action": { "const": "response" }
                 },
                 "required": [ "response" ]
@@ -138,6 +156,7 @@
                 "cmd",
                 "configuration",
                 "location",
+                "logs",
                 "lwt",
                 "request",
                 "status",
@@ -152,14 +171,26 @@
             "type": "string",
             "enum": [ 
                 "action",
+                "checkConnection",
+                "clearBadge",
+                "clearLogs",
+                "clearQueue",
                 "clearWaypoints",
+                "diagnoseBadge",
                 "dump", 
+                "forceCleanRestart",
+                "forceReconnect",
+                "publishLogs",
+                "recoverDecoder",
                 "reportLocation",
                 "reportSteps",
                 "response",
+                "resetSession",
+                "rolloverLogs",
                 "setConfiguration",
                 "setWaypoints",
                 "status",
+                "testWebSocket",
                 "waypoints"
             ]
         },

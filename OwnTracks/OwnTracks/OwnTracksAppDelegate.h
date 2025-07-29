@@ -39,6 +39,7 @@
 
 @property (strong, nonatomic) DDFileLogger * _Nullable fl;
 @property (strong, nonatomic) NSNumber * _Nonnull inQueue;
+@property (strong, nonatomic) NSDate *lastQueueEmptyTime;
 
 
 - (BOOL)sendNow:(CLLocation *_Nonnull)location
@@ -48,11 +49,17 @@
 - (void)dump;
 - (void)status;
 - (void)waypoints;
+- (void)publishLogs;
+- (void)rolloverLogs;
+- (void)clearLogs;
 - (void)sendRegion:(nonnull Region *)region;
 - (void)sendEmpty:(nonnull NSString *)topic;
 - (void)reconnect;
 - (void)connectionOff;
 - (void)terminateSession;
 - (void)syncProcessing;
+- (void)clearBadge;
+- (void)diagnoseBadgeIssue;
+- (NSString *)checkNetworkReachability;
 
 @end

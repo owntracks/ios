@@ -36,10 +36,11 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.mainMOC.name = @"mainMOC";
     self.mainMOC.persistentStoreCoordinator = self.PSC;
 
+    // Fix: Use separate contexts instead of parent-child relationship to prevent deadlocks
     self.queuedMOC = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     self.queuedMOC.name = @"queuedMOC";
-    //self.queuedMOC.persistentStoreCoordinator = self.PSC;
-    self.queuedMOC.parentContext = self.mainMOC;
+    self.queuedMOC.persistentStoreCoordinator = self.PSC;
+    self.queuedMOC.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
 
     return self;
 }
@@ -55,10 +56,31 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         NSError *error = nil;
         if (![context save:&error]) {
             DDLogError(@"[CoreData] save error: %@", error);
+            
+            // Handle merge conflicts by refreshing the context
+            if (error.code == 133020) { // NSCocoaErrorDomain merge conflict
+                DDLogWarn(@"[CoreData] Merge conflict detected, refreshing context");
+                [context performBlock:^{
+                    [context refreshAllObjects];
+                }];
+                
+                // If we get multiple merge conflicts, trigger recovery
+                static int conflictCount = 0;
+                conflictCount++;
+                if (conflictCount > 5) {
+                    DDLogError(@"[CoreData] Too many merge conflicts, triggering recovery");
+                    [self recoverFromStuckContexts];
+                    conflictCount = 0;
+                }
+            }
         }
-        if (context.parentContext) {
-            [self performSelectorOnMainThread:@selector(sync:) withObject:context.parentContext waitUntilDone:YES];
-        }
+        
+        // Post notification to trigger UI updates since we're using separate contexts
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"CoreDataDidSaveNotification" 
+                                                                object:nil 
+                                                              userInfo:@{@"context": context}];
+        });
     }
 }
 
@@ -117,5 +139,39 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     return model;
 }
 
+// Add method to merge changes from queued context to main context
+- (void)mergeChangesFromQueuedContext {
+    [self.mainMOC performBlock:^{
+        // Use merge policy to handle conflicts
+        self.mainMOC.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy;
+        
+        // Refresh the main context to see changes from queued context
+        [self.mainMOC refreshAllObjects];
+        
+        // Post notification to trigger UI updates
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"CoreDataDidSaveNotification" 
+                                                                object:nil 
+                                                              userInfo:nil];
+        });
+    }];
+}
+
+// Add recovery method for stuck contexts
+- (void)recoverFromStuckContexts {
+    DDLogWarn(@"[CoreData] Attempting to recover from stuck contexts");
+    
+    // Reset queued context
+    [self.queuedMOC performBlock:^{
+        [self.queuedMOC reset];
+    }];
+    
+    // Reset main context
+    [self.mainMOC performBlock:^{
+        [self.mainMOC reset];
+    }];
+    
+    DDLogInfo(@"[CoreData] Contexts reset, recovery complete");
+}
 
 @end

@@ -142,6 +142,19 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [ad status];
 }
 
+- (IBAction)rolloverLogsPressed:(UIButton *)sender {
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad rolloverLogs];
+    
+    // Show a brief confirmation message
+    [NavigationController alert:NSLocalizedString(@"Logs Rolled Over",
+                                                  @"Logs Rolled Over")
+                          message:NSLocalizedString(@"Log files have been rolled over to a new file",
+                                                    @"Log files have been rolled over to a new file")
+                     dismissAfter:2
+    ];
+}
+
 - (IBAction)webPressed:(UIButton *)sender {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://owntracks.org"]
                                        options:@{}

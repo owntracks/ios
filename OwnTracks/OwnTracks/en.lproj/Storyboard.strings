@@ -368,6 +368,9 @@
 /* Class = "UIButton"; normalTitle = "Send Debug Status"; ObjectID = "evM-XZ-F0H"; */
 "evM-XZ-F0H.normalTitle" = "Send Debug Status";
 
+/* Class = "UIButton"; normalTitle = "Rollover Logs"; ObjectID = "rollover-logs-btn"; */
+"rollover-logs-btn.normalTitle" = "Rollover Logs";
+
 /* Class = "UILabel"; text = "clientId"; ObjectID = "fHY-ry-yB3"; Note = "Don't translate, technical term"; */
 "fHY-ry-yB3.text" = "clientId";
 

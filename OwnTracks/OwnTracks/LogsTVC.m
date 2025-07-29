@@ -134,4 +134,41 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self.dic presentOptionsMenuFromRect:self.navigationController.navigationBar.frame inView:self.tableView animated:TRUE];
 }
 
+- (IBAction)rolloverLogsPressed:(UIBarButtonItem *)sender {
+    OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+    [ad rolloverLogs];
+    
+    // Refresh the table view after rollover
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView reloadData];
+    });
+}
+
+- (IBAction)clearLogsPressed:(UIBarButtonItem *)sender {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Clear Logs"
+                                                                   message:@"This will delete all log files and create a fresh log file. Are you sure?"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel
+                                                         handler:nil];
+    
+    UIAlertAction *clearAction = [UIAlertAction actionWithTitle:@"Clear Logs"
+                                                          style:UIAlertActionStyleDestructive
+                                                        handler:^(UIAlertAction * _Nonnull action) {
+        OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
+        [ad clearLogs];
+        
+        // Refresh the table view after clearing
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+        });
+    }];
+    
+    [alert addAction:cancelAction];
+    [alert addAction:clearAction];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 @end

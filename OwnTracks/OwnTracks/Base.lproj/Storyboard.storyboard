@@ -2716,6 +2716,18 @@
                                                                 <action selector="sendDebugStatusPressed:" destination="G87-RS-wz7" eventType="touchUpInside" id="77M-ZS-Rwx"/>
                                                             </connections>
                                                         </button>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rollover-logs-btn">
+                                                            <rect key="frame" x="152" y="0.0" width="120" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="rollover-logs-height"/>
+                                                            </constraints>
+                                                            <state key="normal" title="Rollover Logs">
+                                                                <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="rolloverLogsPressed:" destination="G87-RS-wz7" eventType="touchUpInside" id="rollover-logs-action"/>
+                                                            </connections>
+                                                        </button>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>

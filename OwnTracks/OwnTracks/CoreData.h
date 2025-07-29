@@ -16,4 +16,6 @@
 
 + (CoreData *)sharedInstance;
 - (void)sync:(NSManagedObjectContext *)context;
+- (void)mergeChangesFromQueuedContext;
+- (void)recoverFromStuckContexts;
 @end

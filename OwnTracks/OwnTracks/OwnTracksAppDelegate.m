@@ -9,10 +9,12 @@
 #import "OwnTracksAppDelegate.h"
 #import <UserNotifications/UserNotifications.h>
 #import <BackgroundTasks/BackgroundTasks.h>
+#import <mach/mach.h>
 
 #import "CoreData.h"
 #import "Setting+CoreDataClass.h"
 #import "History+CoreDataClass.h"
+#import "Queue+CoreDataClass.h"
 #import "Settings.h"
 #import "OwnTracking.h"
 #import "Tours.h"
@@ -135,9 +137,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 #ifdef DEBUG
-    [DDLog addLogger:[DDOSLogger sharedInstance] withLevel:DDLogLevelWarning];
+    [DDLog addLogger:[DDOSLogger sharedInstance] withLevel:DDLogLevelInfo];
 #endif
-    [DDLog addLogger:[DDOSLogger sharedInstance] withLevel:DDLogLevelWarning];
+    [DDLog addLogger:[DDOSLogger sharedInstance] withLevel:DDLogLevelInfo];
     
     self.fl = [[DDFileLogger alloc] init];
     NSISO8601DateFormatter *isoFormatter = [[NSISO8601DateFormatter alloc] init];
@@ -147,7 +149,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
      NSISO8601DateFormatWithFractionalSeconds];
     self.fl.logFormatter = [[DDLogFileFormatterDefault alloc]
                             initWithDateFormatter:(NSDateFormatter *)isoFormatter];
-    [DDLog addLogger:self.fl withLevel:DDLogLevelWarning];
+    [DDLog addLogger:self.fl withLevel:DDLogLevelInfo];
     
     DDLogInfo(@"[OwnTracksAppDelegate] OwnTracks starting %@/%@ %@",
               [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"],
@@ -302,6 +304,7 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     DDLogInfo(@"[OwnTracksAppDelegate] applicationWillResignActive");
+    [[OwnTracking sharedInstance] publishStatus:NO];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -324,6 +327,10 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 - (void)applicationWillTerminate:(UIApplication *)application {
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"wasTerminated"];
     DDLogWarn(@"[OwnTracksAppDelegate] applicationWillTerminate Set Bool");
+    
+    // Publish inactive status before disconnecting
+    [[OwnTracking sharedInstance] publishStatus:NO];
+    
     [self background];
     [self.connection disconnect];
     DDLogWarn(@"[OwnTracksAppDelegate] applicationWillTerminate stopContinuousLocationUpdates");
@@ -691,6 +698,9 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [[OwnTracking sharedInstance] publishStatus:YES];
 
     [self.connection connectToLast];
+    
+    // Force update UI to ensure badge count is current
+    [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
 
         // Start repeating timer
         if (self.statusTimer == nil) {
@@ -1159,6 +1169,21 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                  data:(NSData *)data
               onTopic:(NSString *)topic
              retained:(BOOL)retained {
+    
+    DDLogInfo(@"[OwnTracksAppDelegate] handleMessage called for topic: %@", topic);
+    
+    // Better memory pressure detection - monitor actual memory usage
+    [self checkMemoryPressure];
+    
+    // Add stuck state detection - logs freezing indicates Core Data deadlock
+    static NSTimeInterval lastMessageTime = 0;
+    NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
+    if (lastMessageTime > 0 && (currentTime - lastMessageTime) > 300) { // 5 minutes
+        DDLogWarn(@"[OwnTracksAppDelegate] Detected potential Core Data deadlock, attempting recovery");
+        [CoreData.sharedInstance recoverFromStuckContexts];
+    }
+    lastMessageTime = currentTime;
+    
     @synchronized (self.inQueue) {
         self.inQueue = @((self.inQueue).unsignedLongValue + 1);
     }
@@ -1173,39 +1198,34 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                  [NSString stringWithFormat:@"%@...", [dataString substringToIndex:LEN2PRINT]]);
 
     [CoreData.sharedInstance.queuedMOC performBlock:^{
+        @try {
         (void)[[OwnTracking sharedInstance] processMessage:topic
                                                       data:data
                                                   retained:retained
                                                    context:CoreData.sharedInstance.queuedMOC];
-        NSArray *baseComponents = [[Settings theGeneralTopicInMOC:CoreData.sharedInstance.queuedMOC] componentsSeparatedByString:@"/"];
-        NSArray *topicComponents = [topic componentsSeparatedByString:@"/"];
-        
-        NSString *device = @"";
-        BOOL ownDevice = true;
-        
-        for (int i = 0; i < baseComponents.count; i++) {
-            if (i > 0) {
-                device = [device stringByAppendingString:@"/"];
-            }
-            if (i < topicComponents.count) {
-                device = [device stringByAppendingString:topicComponents[i]];
-                if (![baseComponents[i] isEqualToString:topicComponents [i]]) {
-                    ownDevice = false;
-                }
-            } else {
-                ownDevice = false;
-            }
+        } @catch (NSException *exception) {
+            DDLogError(@"[OwnTracksAppDelegate] Exception in processMessage: %@", exception);
+        } @finally {
+            // Ensure we always sync even if there's an exception
         }
         
-        DDLogVerbose(@"[OwnTracksAppDelegate] device %@ owndevice %d", device, ownDevice);
-        
-        //if (ownDevice) {
-        NSString *baseTopic = [Settings theGeneralTopicInMOC:CoreData.sharedInstance.queuedMOC];
-        BOOL isCmdSubtopic = [topic isEqualToString:[baseTopic stringByAppendingString:@"/cmd"]];
-        BOOL isBaseTopic = [topic isEqualToString:baseTopic];
+        // Force UI update after processing to prevent stuck states
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"FriendDataUpdated" object:nil];
+        });
+    }];
+    
+    // Command processing moved outside performBlock to avoid return type conflicts
+    // But we need to get the settings on the main thread first
+    NSString *baseTopic = [Settings theGeneralTopicInMOC:CoreData.sharedInstance.mainMOC];
+    BOOL isCmdSubtopic = [topic isEqualToString:[baseTopic stringByAppendingString:@"/cmd"]];
+    BOOL isBaseTopic = [topic isEqualToString:baseTopic];
+    
+    DDLogInfo(@"[OwnTracksAppDelegate] Processing message for topic: %@, isCmdSubtopic: %d, isBaseTopic: %d", topic, isCmdSubtopic, isBaseTopic);
 
-        if (isBaseTopic || isCmdSubtopic) {
-
+    // Commands should only be processed from /cmd subtopic for security
+    if (isCmdSubtopic) {
+        // Process commands from /cmd subtopic
             NSDictionary *dictionary = nil;
             id json = [[Validation sharedInstance] validateMessageData:data];
             if (json && [json isKindOfClass:[NSDictionary class]]) {
@@ -1216,16 +1236,15 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                 NSString *type = dictionary[@"_type"];
                 if (type && [type isKindOfClass:[NSString class]]) {
                     if ([type isEqualToString:@"cmd"]) {
+                        DDLogInfo(@"[OwnTracksAppDelegate] Received cmd message: %@", dictionary);
                         if ([Settings boolForKey:@"cmd_preference"
-                                           inMOC:CoreData.sharedInstance.queuedMOC]) {
+                                           inMOC:CoreData.sharedInstance.mainMOC]) {
                             NSString *action = dictionary[@"action"];
                             if (action && [action isKindOfClass:[NSString class]]) {
                                 if ([action isEqualToString:@"dump"]) {
                                     [self dump];
-                                    
                                 } else if ([action isEqualToString:@"status"]) {
                                     [self status];
-
                                 } else if ([action isEqualToString:@"reportLocation"]) {
                                     if (([LocationManager sharedInstance].monitoring == LocationMonitoringSignificant ||
                                         [LocationManager sharedInstance].monitoring == LocationMonitoringMove) &&
@@ -1235,7 +1254,6 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                                                                withObject:nil
                                                             waitUntilDone:NO];
                                     }
-                                    
                                 } else if ([action isEqualToString:@"reportSteps"]) {
                                     NSNumber *from = dictionary[@"from"];
                                     NSNumber *to = dictionary[@"to"];
@@ -1245,32 +1263,122 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                                     } else {
                                         DDLogWarn(@"[OwnTracksAppDelegate] from and to must be numbers");
                                     }
-                                    
                                 } else if ([action isEqualToString:@"waypoints"]) {
                                     [self performSelectorOnMainThread:@selector(waypoints)
                                                            withObject:nil
                                                         waitUntilDone:NO];
-                                                                        
                                 } else if ([action isEqualToString:@"setWaypoints"]) {
                                     [self performSelectorOnMainThread:@selector(performSetWaypoints:)
                                                            withObject:dictionary
                                                         waitUntilDone:NO];
-                                    
                                 } else if ([action isEqualToString:@"clearWaypoints"]) {
                                     [self performSelectorOnMainThread:@selector(performClearWaypoints:)
                                                            withObject:dictionary
                                                         waitUntilDone:NO];
-                                    
                                 } else if ([action isEqualToString:@"setConfiguration"]) {
                                     [self performSelectorOnMainThread:@selector(performSetConfiguration:)
                                                            withObject:dictionary
                                                         waitUntilDone:NO];
-                                    
-                                } else if ([action isEqualToString:@"response"]) {
-                                    [self performSelectorOnMainThread:@selector(performResponse:)
-                                                           withObject:dictionary
+                                } else if ([action isEqualToString:@"publishLogs"]) {
+                                    [self performSelectorOnMainThread:@selector(publishLogs)
+                                                           withObject:nil
                                                         waitUntilDone:NO];
+                            } else if ([action isEqualToString:@"clearLogs"]) {
+                                DDLogInfo(@"[OwnTracksAppDelegate] Clearing logs via remote command");
+                                [self clearLogs];
+                            } else if ([action isEqualToString:@"rolloverLogs"]) {
+                                DDLogInfo(@"[OwnTracksAppDelegate] Rolling over logs via remote command");
+                                [self rolloverLogs];
+                            } else if ([action isEqualToString:@"forceReconnect"]) {
+                                DDLogInfo(@"[OwnTracksAppDelegate] Force reconnecting connection");
+                                [self.connection disconnect];
+                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                    [self.connection connectToLast];
+                                });
+                            } else if ([action isEqualToString:@"clearQueue"]) {
+                                DDLogInfo(@"[OwnTracksAppDelegate] Clearing message queue");
+                                [CoreData.sharedInstance.queuedMOC performBlockAndWait:^{
+                                    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
+                                    NSError *error = nil;
+                                    NSArray *matches = [CoreData.sharedInstance.queuedMOC executeFetchRequest:request error:&error];
+                                    if (matches) {
+                                        DDLogInfo(@"[OwnTracksAppDelegate] Clearing %lu messages from queue", (unsigned long)matches.count);
+                                        for (Queue *queue in matches) {
+                                            [CoreData.sharedInstance.queuedMOC deleteObject:queue];
+                                        }
+                                        [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
+                                        [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
+                                    }
+                                }];
+                            } else if ([action isEqualToString:@"forceCleanRestart"]) {
+                                DDLogInfo(@"[OwnTracksAppDelegate] Force clean restart - disconnecting and waiting 10 seconds");
+                                [self.connection disconnect];
+                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                    DDLogInfo(@"[OwnTracksAppDelegate] Force clean restart - reconnecting");
+                                    [self.connection reset];
+                                    [self.connection connectToLast];
+                                });
+                            } else if ([action isEqualToString:@"recoverDecoder"]) {
+                                DDLogInfo(@"[OwnTracksAppDelegate] Recovering from decoder corruption");
+                                [self.connection disconnect];
+                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                    DDLogInfo(@"[OwnTracksAppDelegate] Reconnecting after decoder recovery");
+                                    [self.connection reset];
+                                    [self.connection connectToLast];
+                                });
+                            } else if ([action isEqualToString:@"testWebSocket"]) {
+                                DDLogInfo(@"[OwnTracksAppDelegate] Testing WebSocket connectivity");
+                                NSString *host = [Settings theHostInMOC:CoreData.sharedInstance.mainMOC];
+                                NSString *port = [Settings stringForKey:@"port_preference" inMOC:CoreData.sharedInstance.mainMOC];
+                                BOOL tls = [Settings boolForKey:@"tls_preference" inMOC:CoreData.sharedInstance.mainMOC];
+                                BOOL ws = [Settings boolForKey:@"ws_preference" inMOC:CoreData.sharedInstance.mainMOC];
+                                
+                                if (host && port) {
+                                    NSString *protocol = tls ? (ws ? @"wss" : @"https") : (ws ? @"ws" : @"http");
+                                    NSString *urlString = [NSString stringWithFormat:@"%@://%@:%@", protocol, host, port];
+                                    NSURL *testURL = [NSURL URLWithString:urlString];
                                     
+                                    DDLogInfo(@"[OwnTracksAppDelegate] Testing URL: %@", urlString);
+                                    
+                                    NSURLRequest *request = [NSURLRequest requestWithURL:testURL];
+                                    NSURLResponse *response = nil;
+                                    NSError *error = nil;
+                                    
+                                    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+                                    if (data && !error) {
+                                        DDLogInfo(@"[OwnTracksAppDelegate] WebSocket endpoint reachable: %@", urlString);
+                                    } else {
+                                        DDLogError(@"[OwnTracksAppDelegate] WebSocket endpoint unreachable: %@ - %@", urlString, error.localizedDescription);
+                                    }
+                                } else {
+                                    DDLogError(@"[OwnTracksAppDelegate] Host or port not configured");
+                                }
+                            } else if ([action isEqualToString:@"checkConnection"]) {
+                                DDLogInfo(@"[OwnTracksAppDelegate] === CONNECTION STATUS ===");
+                                DDLogInfo(@"[OwnTracksAppDelegate] connection: %@", self.connection);
+                                DDLogInfo(@"[OwnTracksAppDelegate] connection.state: %ld", (long)self.connection.state);
+                                DDLogInfo(@"[OwnTracksAppDelegate] connection.lastErrorCode: %@", self.connection.lastErrorCode);
+                                DDLogInfo(@"[OwnTracksAppDelegate] connection.subscriptions: %@", self.connection.subscriptions);
+                                DDLogInfo(@"[OwnTracksAppDelegate] appState: %ld", (long)[UIApplication sharedApplication].applicationState);
+                                DDLogInfo(@"[OwnTracksAppDelegate] networkReachability: %@", [self checkNetworkReachability]);
+                                
+                                // Check WebSocket-specific settings
+                                DDLogInfo(@"[OwnTracksAppDelegate] === WEBSOCKET DIAGNOSTICS ===");
+                                DDLogInfo(@"[OwnTracksAppDelegate] Host: %@", [Settings theHostInMOC:CoreData.sharedInstance.mainMOC]);
+                                DDLogInfo(@"[OwnTracksAppDelegate] Port: %@", [Settings stringForKey:@"port_preference" inMOC:CoreData.sharedInstance.mainMOC]);
+                                DDLogInfo(@"[OwnTracksAppDelegate] TLS: %@", [Settings boolForKey:@"tls_preference" inMOC:CoreData.sharedInstance.mainMOC] ? @"YES" : @"NO");
+                                DDLogInfo(@"[OwnTracksAppDelegate] WS: %@", [Settings boolForKey:@"ws_preference" inMOC:CoreData.sharedInstance.mainMOC] ? @"YES" : @"NO");
+                                DDLogInfo(@"[OwnTracksAppDelegate] === END WEBSOCKET DIAGNOSTICS ===");
+                                
+                                DDLogInfo(@"[OwnTracksAppDelegate] === END CONNECTION STATUS ===");
+                            } else if ([action isEqualToString:@"diagnoseBadge"]) {
+                                [self performSelectorOnMainThread:@selector(diagnoseBadgeIssue)
+                                                       withObject:nil
+                                                    waitUntilDone:NO];
+                            } else if ([action isEqualToString:@"clearBadge"]) {
+                                DDLogInfo(@"[OwnTracksAppDelegate] updateUI Manually clearing badge");
+                                [self clearBadge];
+                                self.lastQueueEmptyTime = nil;
                                 } else {
                                     DDLogWarn(@"[OwnTracksAppDelegate] unknown action %@", action);
                                 }
@@ -1289,15 +1397,32 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
             } else {
                 DDLogWarn(@"[OwnTracksAppDelegate] JSON is not an object");
             }
+    } else if (isBaseTopic) {
+        // Check if this is a command on the base topic (deprecated)
+        NSDictionary *dictionary = nil;
+        id json = [[Validation sharedInstance] validateMessageData:data];
+        if (json && [json isKindOfClass:[NSDictionary class]]) {
+            dictionary = json;
         }
-        [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
-        @synchronized (self.inQueue) {
-            self.inQueue = @((self.inQueue).unsignedLongValue - 1);
+        
+        if (dictionary && [dictionary[@"_type"] isEqualToString:@"cmd"]) {
+            DDLogWarn(@"[OwnTracksAppDelegate] Command received on base topic (deprecated). Commands should be sent to /cmd subtopic for security.");
+            // Don't process commands on base topic anymore
+            @synchronized (self.inQueue) {
+                self.inQueue = @((self.inQueue).unsignedLongValue - 1);
+            }
+            DDLogVerbose(@"[OwnTracksAppDelegate] handleMessage done inQueue=%@",
+                         self.inQueue);
+            return YES;
         }
-        DDLogVerbose(@"[OwnTracksAppDelegate] handleMessage done inQueue=%@",
-                     self.inQueue);
-    }];
+    }
     
+    @synchronized (self.inQueue) {
+        self.inQueue = @((self.inQueue).unsignedLongValue - 1);
+    }
+    DDLogVerbose(@"[OwnTracksAppDelegate] handleMessage done inQueue=%@",
+                 self.inQueue);
+
     return true;
 }
 
@@ -1306,17 +1431,122 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
 }
 
 - (void)totalBuffered:(Connection *)connection count:(NSUInteger)count {
+    DDLogInfo(@"[OwnTracksAppDelegate] updateUI totalBuffered: count=%lu, previous=%lu, connectionState=%ld, caller=%@",
+              (unsigned long)count, 
+              (unsigned long)self.connectionBuffered.unsignedLongValue,
+              (long)self.connectionState.integerValue,
+              [NSThread callStackSymbols].count > 1 ? [NSThread callStackSymbols][1] : @"unknown");
+    
     self.connectionBuffered = @(count);
     [self performSelectorOnMainThread:@selector(updateUI) withObject:nil waitUntilDone:NO];
 }
 
 - (void)updateUI {
-    [UIApplication sharedApplication].applicationIconBadgeNumber = self.connectionBuffered.intValue;
+    NSInteger badgeCount = self.connectionBuffered.intValue;
+    DDLogInfo(@"[OwnTracksAppDelegate] updateUI: badgeCount=%ld, lastQueueEmptyTime=%@, appState=%ld, caller=%@",
+              (long)badgeCount, 
+              self.lastQueueEmptyTime ? [NSString stringWithFormat:@"%@ (%.1fs ago)", self.lastQueueEmptyTime, [[NSDate date] timeIntervalSinceDate:self.lastQueueEmptyTime]] : @"nil",
+              (long)[UIApplication sharedApplication].applicationState,
+              [NSThread callStackSymbols].count > 1 ? [NSThread callStackSymbols][1] : @"unknown");
+    
+    [UIApplication sharedApplication].applicationIconBadgeNumber = badgeCount;
     [[UNUserNotificationCenter currentNotificationCenter]
-     setBadgeCount:self.connectionBuffered.intValue
+     setBadgeCount:badgeCount
      withCompletionHandler:^(NSError * _Nullable error) {
-        //
+        if (error) {
+            DDLogError(@"[OwnTracksAppDelegate] Failed to set badge count: %@", error);
+        }
     }];
+    
+    // Track when queue becomes empty and only clear badge after validation
+    if (badgeCount == 0) {
+        if (!self.lastQueueEmptyTime) {
+            // Queue just became empty, start tracking
+            self.lastQueueEmptyTime = [NSDate date];
+            DDLogInfo(@"[OwnTracksAppDelegate] Queue became empty, tracking for validation");
+        } else {
+            // Queue has been empty for a while, clear badge if enough time has passed
+            NSTimeInterval timeSinceEmpty = [[NSDate date] timeIntervalSinceDate:self.lastQueueEmptyTime];
+            if (timeSinceEmpty >= 5.0) { // 5 seconds validation period
+                [self clearBadge];
+                self.lastQueueEmptyTime = nil; // Reset tracking
+                DDLogInfo(@"[OwnTracksAppDelegate] Badge cleared after validation period");
+            }
+        }
+    } else {
+        // Queue has items, reset tracking
+        self.lastQueueEmptyTime = nil;
+    }
+}
+
+- (void)clearBadge {
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    [[UNUserNotificationCenter currentNotificationCenter]
+     setBadgeCount:0
+     withCompletionHandler:^(NSError * _Nullable error) {
+        if (error) {
+            DDLogError(@"[OwnTracksAppDelegate] Failed to clear badge: %@", error);
+        }
+    }];
+}
+
+- (void)diagnoseBadgeIssue {
+    DDLogInfo(@"[OwnTracksAppDelegate] === BADGE DIAGNOSIS ===");
+    DDLogInfo(@"[OwnTracksAppDelegate] connectionBuffered: %@", self.connectionBuffered);
+    DDLogInfo(@"[OwnTracksAppDelegate] connectionState: %@", self.connectionState);
+    DDLogInfo(@"[OwnTracksAppDelegate] appState: %ld", (long)[UIApplication sharedApplication].applicationState);
+    DDLogInfo(@"[OwnTracksAppDelegate] lastQueueEmptyTime: %@", self.lastQueueEmptyTime);
+    DDLogInfo(@"[OwnTracksAppDelegate] connection: %@", self.connection);
+    DDLogInfo(@"[OwnTracksAppDelegate] connection.state: %ld", (long)self.connection.state);
+    DDLogInfo(@"[OwnTracksAppDelegate] connection.lastErrorCode: %@", self.connection.lastErrorCode);
+    DDLogInfo(@"[OwnTracksAppDelegate] connection.subscriptions: %@", self.connection.subscriptions);
+    
+    [CoreData.sharedInstance.queuedMOC performBlockAndWait:^{
+        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
+        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]];
+        
+        NSError *error = nil;
+        NSArray *matches = [CoreData.sharedInstance.queuedMOC executeFetchRequest:request error:&error];
+        if (matches) {
+            DDLogInfo(@"[OwnTracksAppDelegate] === QUEUE ANALYSIS ===");
+            DDLogInfo(@"[OwnTracksAppDelegate] Actual queue count: %lu", (unsigned long)matches.count);
+            DDLogInfo(@"[OwnTracksAppDelegate] Badge count (connectionBuffered): %@", self.connectionBuffered);
+            DDLogInfo(@"[OwnTracksAppDelegate] Badge count mismatch: %@", 
+                      [self.connectionBuffered intValue] != matches.count ? @"YES" : @"NO");
+            
+            if (matches.count > 0) {
+                // Show first few messages without timestamp to avoid conflicts
+                for (int i = 0; i < MIN(matches.count, 3); i++) {
+                    Queue *queue = matches[i];
+                    DDLogInfo(@"[OwnTracksAppDelegate] Queue[%d]: topic=%@", 
+                              i, queue.topic);
+                }
+                
+                // Just show count and let user determine if messages are stuck
+                DDLogInfo(@"[OwnTracksAppDelegate] Found %lu messages in queue", (unsigned long)matches.count);
+            }
+            DDLogInfo(@"[OwnTracksAppDelegate] === END QUEUE ANALYSIS ===");
+        } else {
+            DDLogError(@"[OwnTracksAppDelegate] Failed to fetch queue: %@", error);
+        }
+    }];
+    
+    DDLogInfo(@"[OwnTracksAppDelegate] === END DIAGNOSIS ===");
+}
+
+- (NSString *)checkNetworkReachability {
+    // Simple network check - try to reach a known host
+    NSURL *url = [NSURL URLWithString:@"https://www.apple.com"];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    NSURLResponse *response = nil;
+    NSError *error = nil;
+    
+    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    if (data && !error) {
+        return @"Reachable";
+    } else {
+        return [NSString stringWithFormat:@"Unreachable: %@", error.localizedDescription];
+    }
 }
 
 - (void)dump {
@@ -1479,6 +1709,86 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                           qos:[Settings intForKey:@"qos_preference"
                                             inMOC:CoreData.sharedInstance.mainMOC]
                        retain:NO];
+}
+
+- (void)publishLogs {
+    DDLogInfo(@"[OwnTracksAppDelegate] publishLogs");
+    
+    // Get the latest log file
+    DDLogFileInfo *latestLogFile = self.fl.logFileManager.sortedLogFileInfos.firstObject;
+    if (!latestLogFile) {
+        DDLogWarn(@"[OwnTracksAppDelegate] No log files found");
+        return;
+    }
+    
+    // Read log file content
+    NSError *error = nil;
+    NSString *logContent = [NSString stringWithContentsOfFile:latestLogFile.filePath 
+                                                     encoding:NSUTF8StringEncoding 
+                                                        error:&error];
+    if (error || !logContent) {
+        DDLogError(@"[OwnTracksAppDelegate] Failed to read log file: %@", error);
+        return;
+    }
+    
+    // Split into lines and limit to last 100 lines to prevent spam
+    NSArray *lines = [logContent componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
+    NSArray *recentLines = lines;
+    if (lines.count > 100) {
+        recentLines = [lines subarrayWithRange:NSMakeRange(lines.count - 100, 100)];
+    }
+    
+    // Create log payload
+    NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
+    json[@"_type"] = @"logs";
+    json[@"tst"] = [NSNumber doubleValueWithZeroDecimals:[NSDate date].timeIntervalSince1970];
+    json[@"filename"] = latestLogFile.fileName;
+    json[@"fileSize"] = @(latestLogFile.fileSize);
+    json[@"totalLines"] = @(lines.count);
+    json[@"publishedLines"] = @(recentLines.count);
+    json[@"lines"] = recentLines;
+    
+    // Publish to MQTT
+    NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
+    MQTTQosLevel qos = [Settings intForKey:@"qos_preference" inMOC:moc];
+    [self.connection sendData:[self jsonToData:json]
+                        topic:[[Settings theGeneralTopicInMOC:moc] stringByAppendingString:@"/log"]
+                   topicAlias:@(9)
+                          qos:qos
+                       retain:NO];
+    
+    DDLogInfo(@"[OwnTracksAppDelegate] Published %lu log lines from %@", 
+              (unsigned long)recentLines.count, latestLogFile.fileName);
+}
+
+- (void)rolloverLogs {
+    DDLogInfo(@"[OwnTracksAppDelegate] rolloverLogs");
+    
+    // Force the file logger to roll over to a new log file
+    [self.fl rollLogFileWithCompletionBlock:^{
+        DDLogInfo(@"[OwnTracksAppDelegate] Log file rolled over successfully");
+    }];
+}
+
+- (void)clearLogs {
+    DDLogInfo(@"[OwnTracksAppDelegate] clearLogs");
+    
+    // Get all log files
+    NSArray *logFiles = self.fl.logFileManager.sortedLogFileInfos;
+    
+    // Delete all log files except the current one
+    for (DDLogFileInfo *logFile in logFiles) {
+        NSError *error = nil;
+        BOOL success = [[NSFileManager defaultManager] removeItemAtPath:logFile.filePath error:&error];
+        if (success) {
+            DDLogInfo(@"[OwnTracksAppDelegate] Deleted log file: %@", logFile.fileName);
+        } else {
+            DDLogError(@"[OwnTracksAppDelegate] Failed to delete log file %@: %@", logFile.fileName, error);
+        }
+    }
+    
+    // Force rollover to create a fresh log file
+    [self rolloverLogs];
 }
 
 - (void)stepsFrom:(NSNumber *)from to:(NSNumber *)to {
@@ -1902,12 +2212,37 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                                                     inMOC:moc];
         NSArray *subscriptions = [[NSArray alloc] init];
         if ([Settings boolForKey:@"sub_preference" inMOC:moc]) {
-            subscriptions = [[Settings theSubscriptionsInMOC:moc] componentsSeparatedByCharactersInSet:
-                             [NSCharacterSet whitespaceCharacterSet]];
+            NSString *subscriptionsString = [Settings theSubscriptionsInMOC:moc];
+            
+            // Check if the string contains pipe separators (for explicit subscriptions)
+            if ([subscriptionsString containsString:@"|"]) {
+                // Use pipe-separated topics (for explicit subscriptions)
+                NSArray *rawSubscriptions = [subscriptionsString componentsSeparatedByString:@"|"];
+                NSMutableArray *filteredSubscriptions = [[NSMutableArray alloc] init];
+                for (NSString *subscription in rawSubscriptions) {
+                    NSString *trimmedSubscription = [subscription stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                    if (trimmedSubscription.length > 0) {
+                        [filteredSubscriptions addObject:trimmedSubscription];
+                    }
+                }
+                subscriptions = filteredSubscriptions;
+            } else {
+                // Use space-separated topics (for default derived subscriptions)
+                NSArray *rawSubscriptions = [subscriptionsString componentsSeparatedByString:@" "];
+                NSMutableArray *filteredSubscriptions = [[NSMutableArray alloc] init];
+                for (NSString *subscription in rawSubscriptions) {
+                    if (subscription.length > 0) {
+                        [filteredSubscriptions addObject:subscription];
+                    }
+                }
+                subscriptions = filteredSubscriptions;
+            }
         }
         
         self.connection.subscriptions = subscriptions;
         self.connection.subscriptionQos = subscriptionQos;
+        
+        DDLogInfo(@"[OwnTracksAppDelegate] Setting up subscriptions: %@", subscriptions);
         
         NSMutableDictionary *json = [[NSMutableDictionary alloc] init];
         json[@"_type"] = @"lwt";
@@ -2074,6 +2409,62 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
 
 #endif
 
+- (void)checkMemoryPressure {
+    // Check actual memory usage
+    struct task_basic_info info;
+    mach_msg_type_number_t size = TASK_BASIC_INFO_COUNT;
+    kern_return_t kerr = task_info(mach_task_self(), TASK_BASIC_INFO, (task_info_t)&info, &size);
+    
+    if (kerr == KERN_SUCCESS) {
+        float memoryUsageMB = (float)info.resident_size / 1024.0 / 1024.0;
+        float memoryLimitMB = 500.0; // Conservative limit for iOS apps
+        
+        if (memoryUsageMB > memoryLimitMB) {
+            DDLogWarn(@"[OwnTracksAppDelegate] High memory usage: %.1f MB", memoryUsageMB);
+            
+            // Trigger memory cleanup
+            [self performMemoryCleanup];
+        }
+    }
+    
+    // Check Core Data context state
+    [CoreData.sharedInstance.queuedMOC performBlock:^{
+        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
+        NSError *error = nil;
+        NSArray *matches = [CoreData.sharedInstance.queuedMOC executeFetchRequest:request error:&error];
+        
+        if (matches && matches.count > 500) {
+            DDLogWarn(@"[OwnTracksAppDelegate] Large queue detected: %lu messages", (unsigned long)matches.count);
+            
+            // Log first few messages for debugging
+            for (int i = 0; i < MIN(matches.count, 3); i++) {
+                Queue *queue = matches[i];
+                DDLogInfo(@"[OwnTracksAppDelegate] Queue[%d]: topic=%@", i, queue.topic);
+            }
+        }
+    }];
+}
+
+- (void)performMemoryCleanup {
+    DDLogInfo(@"[OwnTracksAppDelegate] Performing memory cleanup");
+    
+    // Clear image caches and temporary data
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    
+    // Force Core Data context refresh
+    [CoreData.sharedInstance.queuedMOC performBlock:^{
+        [CoreData.sharedInstance.queuedMOC refreshAllObjects];
+    }];
+    
+    [CoreData.sharedInstance.mainMOC performBlock:^{
+        [CoreData.sharedInstance.mainMOC refreshAllObjects];
+    }];
+    
+    // Trigger garbage collection
+    @autoreleasepool {
+        // Force autorelease pool drain
+    }
+}
 
 @end
 

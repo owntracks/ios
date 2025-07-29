@@ -119,13 +119,21 @@ DDLogLevel ddLogLevel = DDLogLevelInfo;
                 NSError *error = nil;
                 NSArray *matches = [CoreData.sharedInstance.queuedMOC executeFetchRequest:request error:&error];
                 if (matches) {
+                    DDLogInfo(@"[Connection] main: queue count=%lu, state=%ld, url=%@", 
+                              (unsigned long)matches.count, 
+                              (long)self.state,
+                              self.url ? @"YES" : @"NO");
+                    
                     [self.delegate totalBuffered: self count:matches.count];
                     if (matches.count) {
                         Queue *queue = matches.firstObject;
                         
                         if (self.state == state_starting) {
+                            DDLogInfo(@"[Connection] main: sending HTTP message, topic=%@", queue.topic);
                             [self sendHTTP:queue.topic data:queue.data];
                             runUntilDate = 0.1;
+                        } else {
+                            DDLogInfo(@"[Connection] main: not sending, state=%ld", (long)self.state);
                         }
 
                         if (matches.count > 100 * 1024) {
@@ -778,6 +786,55 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     [self.delegate messageDelivered:self msgID:msgID];
 }
 
+- (void)newMessageV5:(MQTTSession *)session
+                data:(NSData *)data
+             onTopic:(NSString *)topic
+                 qos:(MQTTQosLevel)qos
+            retained:(BOOL)retained
+                 mid:(unsigned int)mid
+payloadFormatIndicator:(NSNumber *)payloadFormatIndicator
+ messageExpiryInterval:(NSNumber *)messageExpiryInterval
+            topicAlias:(NSNumber *)topicAlias
+         responseTopic:(NSString *)responseTopic
+       correlationData:(NSData *)correlationData
+        userProperties:(NSArray<NSDictionary<NSString *,NSString *> *> *)userProperties
+           contentType:(NSString *)contentType
+subscriptionIdentifiers:(NSArray<NSNumber *> *)subscriptionIdentifiers {
+    
+    DDLogInfo(@"[Connection] newMessageV5 called for topic: %@", topic);
+    
+    // Add memory safety checks
+    if (!data || data.length == 0) {
+        DDLogError(@"[Connection] newMessageV5: received nil or empty data");
+        return;
+    }
+    
+    if (!topic || topic.length == 0) {
+        DDLogError(@"[Connection] newMessageV5: received nil or empty topic");
+        return;
+    }
+
+    if (self.key && self.key.length) {
+        data = [self decrypt:data];
+        if (!data) {
+            DDLogError(@"[Connection] newMessageV5: decryption failed");
+            return;
+        }
+    }
+
+    // Add additional safety check before delegating
+    if (!self.delegate) {
+        DDLogError(@"[Connection] newMessageV5: delegate is nil");
+        return;
+    }
+    
+    // Delegate to the same handleMessage method
+    [self.delegate handleMessage:self
+                           data:data
+                        onTopic:topic
+                       retained:retained];
+}
+
 - (BOOL)newMessageWithFeedbackV5:(MQTTSession *)session
                             data:(NSData *)data
                          onTopic:(NSString *)topic
@@ -793,19 +850,47 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
                      contentType:(NSString *)contentType
          subscriptionIdentifiers:(NSArray<NSNumber *> *)subscriptionIdentifiers {
 
+    DDLogInfo(@"[Connection] newMessageWithFeedbackV5 called for topic: %@", topic);
+
+    // Add memory safety checks
+    if (!data || data.length == 0) {
+        DDLogError(@"[Connection] newMessageWithFeedbackV5: received nil or empty data");
+        return NO;
+    }
+    
+
+    
+    if (!topic || topic.length == 0) {
+        DDLogError(@"[Connection] newMessageWithFeedbackV5: received nil or empty topic");
+        return NO;
+    }
+
     if (self.key && self.key.length) {
         data = [self decrypt:data];
+        if (!data) {
+            DDLogError(@"[Connection] newMessageWithFeedbackV5: decryption failed");
+            return NO;
+        }
     }
 
 #define LEN2PRINT 2048
     NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    /*DDLogInfo(@"[Connection] received topic=%@ dataString(%lu)=%@",
+    
+
+    
+    DDLogInfo(@"[Connection] received topic=%@ dataString(%lu)=%@",
               topic,
               (unsigned long)dataString.length,
               dataString.length <= LEN2PRINT ?
               dataString :
               [NSString stringWithFormat:@"%@...", [dataString substringToIndex:LEN2PRINT]]);
-     */
+    
+    // Add additional safety check before delegating
+    if (!self.delegate) {
+        DDLogError(@"[Connection] newMessageWithFeedbackV5: delegate is nil");
+        return NO;
+    }
+    
     return [self.delegate handleMessage:self
                                    data:data
                                 onTopic:topic
@@ -820,7 +905,9 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
                  (unsigned long)flowingOut);
     self.inCount = flowingIn;
     self.outCount = flowingOut;
-    [self.delegate totalBuffered: self count:flowingOut ? flowingOut : flowingIn];
+    
+    // Use outgoing message count (flowingOut) for badge - these are messages waiting to be published
+    [self.delegate totalBuffered: self count:flowingOut];
 }
 
 #pragma internal helpers
