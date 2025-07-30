@@ -2070,7 +2070,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/mqttc/mqttc-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/mqttc/mqttc-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2141,7 +2141,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/mqttc/mqttc-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/mqttc/mqttc-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
