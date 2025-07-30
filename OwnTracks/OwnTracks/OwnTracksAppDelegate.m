@@ -16,7 +16,6 @@
 #import "Settings.h"
 #import "OwnTracking.h"
 #import "Tours.h"
-#import "ConnType.h"
 #import "NSNumber+decimals.h"
 #import "Validation.h"
 
@@ -1634,31 +1633,6 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
         }
     }
 
-    NSString *conn = nil;
-    NSString *ssid = nil;
-    NSString *bssid = nil;
-    switch ([ConnType connectionType:[Settings theHostInMOC:moc]]) {
-        case ConnectionTypeNone:
-            conn = @"o";
-            break;
-
-        case ConnectionTypeWIFI:
-        {
-            conn = @"w";
-            ssid = [ConnType SSID];
-            bssid = [ConnType BSSID];
-            break;
-        }
-            
-        case ConnectionTypeWWAN:
-            conn = @"m";
-            break;
-
-        case ConnectionTypeUnknown:
-        default:
-            break;
-    }
-
     NSNumber *m = [NSNumber numberWithInteger:[LocationManager sharedInstance].monitoring];
 
     NSNumber *p = nil;
@@ -1705,10 +1679,10 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                                    imageName:imageName
                                    inRegions:inRegions
                                       inRids:inRids
-                                       bssid:bssid
-                                        ssid:ssid
+                                       bssid:nil
+                                        ssid:nil
                                            m:m
-                                        conn:conn
+                                        conn:nil
                                           bs:bs
                                     pressure:p
                             motionActivities:motionActivities];

@@ -12,7 +12,6 @@
 #import "Waypoint+CoreDataClass.h"
 #import "History+CoreDataClass.h"
 #import "CoreData.h"
-#import "ConnType.h"
 #import "NSNumber+decimals.h"
 #import "Validation.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
