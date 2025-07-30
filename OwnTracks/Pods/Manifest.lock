@@ -1,8 +1,8 @@
 PODS:
   - ABStaticTableViewController (1.1.1)
-  - CocoaLumberjack (3.8.5):
-    - CocoaLumberjack/Core (= 3.8.5)
-  - CocoaLumberjack/Core (3.8.5)
+  - CocoaLumberjack (3.9.0):
+    - CocoaLumberjack/Core (= 3.9.0)
+  - CocoaLumberjack/Core (3.9.0)
   - DSJSONSchemaValidation (2.0.7)
   - mqttc/MinL (26.0.0):
     - CocoaLumberjack
@@ -38,11 +38,11 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   ABStaticTableViewController: d8cfbdd596fbf58b515b13e49cc8ca8ca86c6e12
-  CocoaLumberjack: 6a459bc897d6d80bd1b8c78482ec7ad05dffc3f0
+  CocoaLumberjack: 5644158777912b7de7469fa881f8a3f259c2512a
   DSJSONSchemaValidation: 46e30ccfa9908c49d184f453d556f55aa0aac1ff
   mqttc: 19b57d2b680396670fb01e8febf37b9bde99a9d8
   Sodium: 23d11554ecd556196d313cf6130d406dfe7ac6da
 
-PODFILE CHECKSUM: 06ff27fe34baf8b5d9bbdaa64e2c4bb59155864e
+PODFILE CHECKSUM: fca1344456d3f5184cdc71c5e2d33a1a8504fa90
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.16.2
