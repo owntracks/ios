@@ -1753,11 +1753,12 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     if ([UIDevice currentDevice].isBatteryMonitoringEnabled) {
         UIDeviceBatteryState batteryState = [UIDevice currentDevice].batteryState;
         float batteryLevel = [UIDevice currentDevice].batteryLevel;
+        int downgrade = [Settings intForKey:@"downgrade_preference"
+                                      inMOC:moc];
         if ([LocationManager sharedInstance].monitoring == LocationMonitoringMove) {
-            int downgrade = [Settings intForKey:@"downgrade_preference"
-                                          inMOC:moc];
-            
-            if (batteryState != UIDeviceBatteryStateFull && batteryState != UIDeviceBatteryStateCharging && batteryLevel < downgrade / 100.0) {
+            if (batteryState != UIDeviceBatteryStateFull &&
+                batteryState != UIDeviceBatteryStateCharging &&
+                batteryLevel < downgrade / 100.0) {
                 // Move Mode, but battery is not full, not charging and less than downgrade%
                 [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"downgraded"];
                 DDLogInfo(@"[OwnTracksAppDelegate] downgraded TRUE");
@@ -1771,8 +1772,10 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
             }
         } else {
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"downgraded"]) {
-                if (batteryState == UIDeviceBatteryStateFull || batteryState == UIDeviceBatteryStateCharging) {
-                    // not Move Mode, previously downgraded and battery is charging or full
+                if (batteryState == UIDeviceBatteryStateFull
+                    || batteryState == UIDeviceBatteryStateCharging ||
+                    batteryLevel >= downgrade / 100.0) {
+                    // not Move Mode, previously downgraded and battery is charging or full or more than downgrade%
                     [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
                     DDLogInfo(@"[OwnTracksAppDelegate] downgraded FALSE");
                     LocationManager.sharedInstance.monitoring = LocationMonitoringMove;
