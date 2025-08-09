@@ -1,6 +1,13 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 18.4.7 iOS/ipadOS
+* Release Date 2025-08-09
+
+** Bugfixes and Performance Enhancements
+
+    [FIX] speedup message burst processing
+
 ## OwnTracks 18.4.6 iOS/ipadOS
 * Release Date 2025-07-28
 
