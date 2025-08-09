@@ -353,7 +353,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         waypoint.motionActivities = nil;
     }
 
-    [[CoreData sharedInstance] sync:waypoint.managedObjectContext];
     return waypoint;
 }
 
@@ -392,7 +391,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if (newestWaypoint && ![newestWaypoint.tst isEqualToDate:self.lastLocation]) {
         self.lastLocation = newestWaypoint.tst;
     }
-    [CoreData.sharedInstance sync:self.managedObjectContext];
     return self.hasWaypoints.count;
 }
 
@@ -424,7 +422,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if (newestWaypoint && ![newestWaypoint.tst isEqualToDate:self.lastLocation]) {
         self.lastLocation = newestWaypoint.tst;
     }
-    [CoreData.sharedInstance sync:self.managedObjectContext];
     return self.hasWaypoints.count;
 }
 
