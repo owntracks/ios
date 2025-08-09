@@ -1202,9 +1202,11 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                 DDLogWarn(@"[OwnTracksAppDelegate] JSON is not an object");
             }
         }
-        [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
         @synchronized (self.inQueue) {
             self.inQueue = @((self.inQueue).unsignedLongValue - 1);
+            if (self.inQueue.intValue == 0) {
+                [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
+            }
         }
         DDLogVerbose(@"[OwnTracksAppDelegate] handleMessage done inQueue=%@",
                      self.inQueue);
@@ -1736,6 +1738,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
             int positions = [Settings intForKey:@"positions_preference" inMOC:moc];
             remainingPositions = [friend limitWaypointsToMaximum:positions];
         }
+        [CoreData.sharedInstance sync:moc];
         DDLogInfo(@"[OwnTracksAppDelegate] stored location @%@ (%ld)",
                   createdAt, remainingPositions);
         
