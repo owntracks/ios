@@ -1,6 +1,16 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 18.5.0 iOS/ipadOS
+* Release Date 2025-08-21
+
+** Internationalization additional Languages
+
+    [NEW] Add simplified Chinese
+    [NEW] Add Russian
+    [NEW] Add Romanian
+    [FIX] Remove abandoned Czech
+
 ## OwnTracks 18.4.7 iOS/ipadOS
 * Release Date 2025-08-09
 
