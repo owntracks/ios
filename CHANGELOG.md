@@ -1,6 +1,20 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 18.4.7 iOS/ipadOS
+* Release Date 2025-08-09
+
+** Bugfixes and Performance Enhancements
+
+    [FIX] speedup message burst processing
+
+## OwnTracks 18.4.6 iOS/ipadOS
+* Release Date 2025-07-28
+
+** Bugfixes
+
+    [FIX] Reconnect timer gets set to 86400 when using HTTP Issue #857
+
 ## OwnTracks 18.4.5 iOS/ipadOS
 * Release Date 2025-06-26
 
