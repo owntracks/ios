@@ -1,18 +1,39 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "OwnTracks";
+
+/* Bundle name */
+"CFBundleName" = "OwnTracks";
+
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "OwnTracks uses your camera on request to create a Card";
+
 /* Privacy - Contacts Usage Description */
-NSContactsUsageDescription = "If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server.";
+"NSContactsUsageDescription" = "Если вы разрешите OwnTracks доступ к вашим контактам, вы сможете связать свои устройства с контактами. Тогда OwnTracks будет отображать имя и изображение контакта вместо идентификатора устройства. Никакая информация из вашей адресной книги не будет загружена на какой-либо сервер.";
 
 /* Privacy - Location Always and When In Use Usage Description */
-NSLocationAlwaysAndWhenInUseUsageDescription = "Your location is used to share and record it on a server of your choice";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Ваше местоположение сохраняется и обрабатывается на выбранном вами сервере";
 
 /* Privacy - Location Always Usage Description */
-NSLocationAlwaysUsageDescription = "Your location is used to share and record it on a server of your choice";
+"NSLocationAlwaysUsageDescription" = "Ваше местоположение сохраняется и обрабатывается на выбранном вами сервере";
 
 /* Privacy - Location Usage Description */
-NSLocationUsageDescription = "Your location is used to share and record it on a server of your choice";
+"NSLocationUsageDescription" = "Ваше местоположение сохраняется и обрабатывается на выбранном вами сервере";
 
 /* Privacy - Location When In Use Usage Description */
-NSLocationWhenInUseUsageDescription = "Your location is used to share and record it on a server of your choice";
+"NSLocationWhenInUseUsageDescription" = "Ваше местоположение сохраняется и обрабатывается на выбранном вами сервере";
 
 /* Privacy - Motion Usage Description */
-NSMotionUsageDescription = "OwnTracks delivers your step count, floors climbed and distance walked on request";
+"NSMotionUsageDescription" = "OwnTracks передает количество ваших шагов, пройденных этажей и расстояние по запросу";
+
+/* No comment provided by engineer. */
+"OwnTracks CER File" = "OwnTracks CER File";
+
+/* No comment provided by engineer. */
+"OwnTracks Configuration File" = "OwnTracks Configuration File";
+
+/* No comment provided by engineer. */
+"OwnTracks PKCS12 File" = "OwnTracks PKCS12 File";
+
+/* No comment provided by engineer. */
+"OwnTracks Waypoints File" = "OwnTracks Waypoints File";
 

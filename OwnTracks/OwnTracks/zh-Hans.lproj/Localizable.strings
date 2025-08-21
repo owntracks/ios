@@ -1,0 +1,381 @@
+/* name of an unknown or hidden region */
+"a region" = "一个区域";
+
+/* Address resolver disabled */
+"Address resolver disabled" = "地址解析器已禁用";
+
+/* reverseGeocodeLocation error */
+"Address resolver failed" = "地址解析失败";
+
+/* Headline in addressbook related error messages */
+"Addressbook Access" = "通讯录访问";
+
+/* Location Manager error message */
+"App is not allowed to use location services" = "应用不允许使用定位服务";
+
+/* Location Manager error message */
+"App is not allowed to use location services in background" = "应用不允许在后台使用定位服务";
+
+/* Location Manager error message */
+"App is not allowed to use location services yet" = "应用尚未被允许使用定位服务";
+
+/* Location Manager error message */
+"App use of location services is restricted" = "应用使用定位服务受限";
+
+/* Location Manager error message */
+"App use of location services is unclear" = "应用使用定位服务情况不明";
+
+/* Display after processing beacon QR code */
+"Beacon QR successfully processed" = "信标二维码处理成功";
+
+/* Cancel button title */
+"Cancel" = "取消";
+
+/* Header of an alert message regarding a card */
+"Card" = "卡片";
+
+/* Battery status charging */
+"charging" = "收费";
+
+/* Choose action title */
+"Choose action" = "选择操作";
+
+/* Clipboard */
+"Clipboard" = "剪贴板";
+
+/* description connection closed state */
+"closed" = "已关闭";
+
+/* description connection closing state */
+"closing" = "正在关闭";
+
+/* description connection connected state */
+"connected" = "已连接";
+
+/* description connection connected state */
+"connecting" = "正在连接";
+
+/* Alert header for connection change warning */
+"Connection change" = "连接更改";
+
+/* Continue button title */
+"Continue" = "继续";
+
+/* Alert message header for copy */
+"Copied" = "已复制";
+
+/* content of an alert message regarding circular region */
+"created at center of map" = "在地图中心创建";
+
+/* Message map interaction */
+"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "您是否希望地图允许交互？如果选择是，地图提供商可能会分析您的瓦片请求";
+
+/* Message Revgeo */
+"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "您是否希望解析地址？如果选择是，地理编码提供商可能会分析您的请求";
+
+/* reverseGeocodeLocation text */
+"due to rate limit or off-line" = "由于速率限制或离线";
+
+/* Display when entering region (region name follows) */
+"Entering" = "进入";
+
+/* friend enters region verb */
+"enters" = "进入";
+
+/* description connection error state */
+"error" = "错误";
+
+/* Display when file processing fails */
+"Error processing file" = "文件处理错误";
+
+/* Export */
+"Export" = "导出";
+
+/* Fetching tour list from backend */
+"Fetching tour list from backend" = "正在从后端获取旅程列表";
+
+/* Display when file processing succeeds (filename follows) */
+"File" = "文件";
+
+/* Display after trying to open a file */
+"file open error" = "文件打开错误";
+
+/* Fly */
+"Fly" = "飞行";
+
+/* Alert message header for friend's messages */
+"Friend" = "朋友";
+
+/* Battery status full */
+"full" = "满的";
+
+/* CNAuthorizationStatusDenied */
+"has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change" = "已被用户拒绝。如果您允许 OwnTracks 访问您的联系人，您可以将您的设备与联系人关联。OwnTracks 将显示联系人姓名和图像，而不是设备 ID。您的地址簿信息不会上传到任何服务器。请前往“设置/隐私/联系人”进行更改";
+
+/* CNAuthorizationStatusRestricted */
+"has been restricted, possibly due to restrictions such as parental controls." = "已被限制，可能由于家长控制等限制。";
+
+/* Hyb */
+"Hyb" = "混合";
+
+/* HybFly */
+"HybFly" = "混合飞行";
+
+/* description connection idle state */
+"idle" = "空闲";
+
+/* Warning displayed if location is inaccurate or old */
+"Inaccurate or old location information" = "不准确或过时的位置信息";
+
+/* certificate error message */
+"incorrect file or passphrase" = "文件或密码不正确";
+
+/* Display for incorrect inline config */
+"Inline Configuration incorrect" = "内联配置不正确";
+
+/* Display for incorrectly encoded inline config */
+"Inline Configuration incorrectly encoded" = "内联配置编码不正确";
+
+/* Display for config without parameters */
+"Inline Configuration missing parameters" = "内联配置缺少参数";
+
+/* Display after processing inline config */
+"Inline Configuration successfully processed" = "内联配置处理成功";
+
+/* friend leaves region verb */
+"leaves" = "离开";
+
+/* Display when leaving region (region name follows) */
+"Leaving" = "离开";
+
+/* Header of an alert message regarding a location */
+"Location" = "位置";
+
+/* Location copied to clipboard */
+"Location copied to clipboard" = "位置已复制到剪贴板";
+
+/* indicates a locked configuration */
+"locked" = "已锁定";
+
+/* Manual */
+"Manual" = "手动";
+
+/* Title map interaction */
+"Map Interaction" = "地图交互";
+
+/* Move */
+"Move" = "移动";
+
+/* Mute */
+"Mute" = "静音";
+
+/* No button title */
+"No" = "否";
+
+/* dummy for missing content */
+"no content available" = "无可用内容";
+
+/* Warning displayed if not location available */
+"No location available" = "无可用位置";
+
+/* No location recorded indication */
+"No location recorded" = "未记录位置";
+
+/* No or empty tour list received from backend */
+"No or empty tour list received from backend" = "未从后端收到旅程列表或列表为空";
+
+/* No pressure available */
+"No pressure available" = "无可用压力数据";
+
+/* Display after trying to process a file */
+"no url specified" = "未指定 URL";
+
+/* Alert message header for notification messages */
+"Notification" = "通知";
+
+/* Open button title */
+"Open" = "打开";
+
+/* temporary display while opening URL */
+"opening URL" = "正在打开 URL";
+
+/* OSM */
+"OSM" = "开放状态管理模块";
+
+/* Alert content for connection change warning */
+"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "请注意，出于隐私原因，您在此设备上存储的航点和位置将被删除。请提前备份。";
+
+/* "Please keep OwnTracks running to ensure the desired functionality" */
+"Please keep OwnTracks running to ensure the desired functionality" = "请保持 OwnTracks 运行以确保所需的功能";
+
+/* Alert header regarding protocol input */
+"Protocol invalid" = "协议无效";
+
+/* Alert content regarding protocol input */
+"Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1 or 5 for MQTT V5" = "协议可以是 MQTT V3.1 的 3，MQTT V3.1.1 的 4，或 MQTT V5 的 5";
+
+/* content of an alert message regarding user publish */
+"publish queued on user request" = "已根据用户请求将发布排队";
+
+/* Quiet */
+"Quiet" = "安静";
+
+/* Header of an alert message regarding circular region */
+"Region" = "区域";
+
+/* Remove button title */
+"Remove" = "消除";
+
+/* Requesting tour */
+"Requesting tour" = "请求参观";
+
+/* Requesting tour list */
+"Requesting tour list" = "正在请求旅程列表";
+
+/* temporary display while resolving address */
+"resolving..." = "正在解析...";
+
+/* Alert message header for Request Response */
+"Response" = "响应";
+
+/* Title Revgeo */
+"Reverse Geocoding Address Resolution" = "逆地理编码地址解析";
+
+/* Sat */
+"Sat" = "卫星";
+
+/* Send button title */
+"Send" = "发送";
+
+/* Send location now */
+"Send location now" = "立即发送位置";
+
+/* content of an alert message regarding card */
+"set and sent to backend" = "已设置并发送到后端";
+
+/* Set POI buttonSet POI title */
+"Set POI" = "设置兴趣点";
+
+/* Set POI with image button */
+"Set POI with image" = "使用图像设置 POI";
+
+/* Set tag button */
+"Set tag" = "设置标签";
+
+/* Set Tag title */
+"Set Tag" = "设置标签";
+
+/* Settings screen title */
+"Settings" = "设置";
+
+/* Header of an alert message regarding missing setup */
+"Setup" = "设置";
+
+/* MQTT Description Text */
+"Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "设置您自己的 OwnTracks 服务器以获得全面的隐私保护。更多信息请访问 https://owntracks.org/booklet";
+
+/* Significant */
+"Significant" = "重要";
+
+/* HTTP Description Text */
+"Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "与 MQTT 模式类似，但数据传输使用 HTTP，而非 MQTT。";
+
+/* Std */
+"Std" = "标准";
+
+/* Display when file processing succeeds */
+"successfully processed" = "处理成功";
+
+/* Shortcut Switch to Manual Monitoring Mode */
+"Switch to Manual Monitoring Mode" = "切换到手动监控模式";
+
+/* Shortcut Switch to Move Monitoring Monitoring Mode */
+"Switch to Move Monitoring Mode" = "切换到移动监控模式";
+
+/* Shortcut Switch to Quiet Monitoring Mode */
+"Switch to Quiet Monitoring Mode" = "切换到安静监控模式";
+
+/* Shortcut Switch to Significant Changes Monitoring Mode */
+"Switch to Significant Changes Monitoring Mode" = "切换到重大变化监控模式";
+
+/* Table is empty */
+"Table is empty" = "表格为空";
+
+/* Heading for certificate error message */
+"TLS Client Certificate" = "TLS 客户端证书";
+
+/* Warning displayed if necessary settings are missing */
+"To publish your location userID and deviceID must be set" = "要发布您的位置，必须设置用户ID和设备ID";
+
+/* Topic copied to clipboard */
+"Topic copied to clipboard" = "主题已复制到剪贴板";
+
+/* Tour created */
+"Tour created" = "旅程已创建";
+
+/* Tour deleted */
+"Tour deleted" = "行程已删除";
+
+/* Tour list received */
+"Tour list received" = "已收到旅程列表";
+
+/* Tour list request timed out */
+"Tour list request timed out" = "旅程列表请求超时";
+
+/* Tour request timed out */
+"Tour request timed out" = "游览请求超时";
+
+/* Tours list header */
+"Tours" = "旅程";
+
+/* Tours status header */
+"Tours status" = "旅游状态";
+
+/* Tours status header */
+"Tours Status" = "旅程状态";
+
+/* Alert header regarding TrackerID input */
+"TrackerID invalid" = "TrackerID 无效";
+
+/* Alert content regarding TrackerID input */
+"TrackerID may be empty or up to 2 characters long" = "TrackerID 可以为空或最多2个字符长";
+
+/* Alert content regarding TrackerID input */
+"TrackerID may contain alphanumeric characters only" = "TrackerID 只能包含字母数字字符";
+
+/* Battery status unkown */
+"unknown" = "未知";
+
+/* Display after entering an unknown scheme in url */
+"unknown scheme in url" = "URL 中未知方案";
+
+/* description connection unknown state */
+"unknown state" = "未知状态";
+
+/* Display for unknown url path */
+"unknown url path" = "未知 URL 路径";
+
+/* Battery status unplugged */
+"unplugged" = "未插入";
+
+/* URL copied to Clipboard */
+"URL copied to Clipboard" = "URL 已复制到剪贴板";
+
+/* webView didFailLoadWithError display */
+"webView didFailLoadWithError" = "webView 加载失败并出现错误";
+
+/* Please Note Text */
+"When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "切换模式时，所有 OwnTracks 数据将因隐私原因被删除。";
+
+/* Yes button title */
+"Yes" = "是";
+
+/* You cannot use background fetch */
+"You cannot use background fetch" = "您无法使用后台抓取";
+
+/* You disabled background fetch */
+"You disabled background fetch" = "您已禁用后台抓取";
+
+/* Text explaining the Setup */
+"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "您需要设置自己的 OwnTracks 服务器并编辑您的配置以获得全面的隐私保护。详细信息请访问 https://owntracks.org/booklet";
+

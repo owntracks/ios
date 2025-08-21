@@ -25,15 +25,15 @@
 /* Privacy - Motion Usage Description */
 "NSMotionUsageDescription" = "OwnTracks fournit sur demande votre nombre de pas, les étages montés et la distance parcourue";
 
-/* (No Comment) */
+/* No comment provided by engineer. */
 "OwnTracks CER File" = "Fichier OwnTracks CER";
 
-/* (No Comment) */
+/* No comment provided by engineer. */
 "OwnTracks Configuration File" = "Fichier de configuration Owntracks";
 
-/* (No Comment) */
+/* No comment provided by engineer. */
 "OwnTracks PKCS12 File" = "Fichier PXCS12 Owntracks";
 
-/* (No Comment) */
+/* No comment provided by engineer. */
 "OwnTracks Waypoints File" = "Fichier de Waypoints OwnTracks";
 

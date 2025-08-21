@@ -1,8 +1,11 @@
 /* name of an unknown or hidden region */
-"a region" = "a region";
+"a region" = "регион";
+
+/* Address resolver disabled */
+"Address resolver disabled" = "Address resolver disabled";
 
 /* reverseGeocodeLocation error */
-"Address resolver failed" = "Address resolver failed";
+"Address resolver failed" = "Ошибка определения адреса";
 
 /* Headline in addressbook related error messages */
 "Addressbook Access" = "Addressbook Access";
@@ -28,26 +31,47 @@
 /* Cancel button title */
 "Cancel" = "Cancel";
 
+/* Header of an alert message regarding a card */
+"Card" = "Card";
+
+/* Battery status charging */
+"charging" = "заряжается";
+
+/* Choose action title */
+"Choose action" = "Choose action";
+
 /* Clipboard */
 "Clipboard" = "Clipboard";
 
 /* description connection closed state */
-"closed" = "closed";
+"closed" = "закрыто";
 
 /* description connection closing state */
-"closing" = "closing";
+"closing" = "закрывается";
 
 /* description connection connected state */
-"connected" = "connected";
+"connected" = "соединено";
 
 /* description connection connected state */
-"connecting" = "connecting";
+"connecting" = "соединение";
+
+/* Alert header for connection change warning */
+"Connection change" = "Connection change";
 
 /* Continue button title */
-"Continue" = "Continue";
+"Continue" = "Продолжить";
+
+/* Alert message header for copy */
+"Copied" = "Copied";
 
 /* content of an alert message regarding circular region */
-"created at center of map" = "created at center of map";
+"created at center of map" = "создано в центре карты";
+
+/* Message map interaction */
+"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests";
+
+/* Message Revgeo */
+"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests";
 
 /* reverseGeocodeLocation text */
 "due to rate limit or off-line" = "due to rate limit or off-line";
@@ -59,19 +83,22 @@
 "enters" = "enters";
 
 /* description connection error state */
-"error" = "error";
+"error" = "ошибка";
 
 /* Display when file processing fails */
 "Error processing file" = "Error processing file";
 
 /* Export */
-"Export" = "Export";
+"Export" = "Экспорт";
+
+/* Fetching tour list from backend */
+"Fetching tour list from backend" = "Fetching tour list from backend";
 
 /* Display when file processing succeeds (filename follows) */
-"File" = "File";
+"File" = "Файл";
 
 /* Display after trying to open a file */
-"file open error" = "file open error";
+"file open error" = "ошибка открытия файла";
 
 /* Fly */
 "Fly" = "Fly";
@@ -79,11 +106,14 @@
 /* Alert message header for friend's messages */
 "Friend" = "Friend";
 
+/* Battery status full */
+"full" = "заряжена";
+
 /* CNAuthorizationStatusDenied */
 "has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change" = "has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change";
 
 /* CNAuthorizationStatusRestricted */
-"has been restricted, possibly due to restrictions such as parental controls." = "has been restricted, possibly due to restrictions such as parental controls.";
+"has been restricted, possibly due to restrictions such as parental controls." = "было ограничено, возможно, из-за таких ограничений, как родительский контроль.";
 
 /* Hyb */
 "Hyb" = "Hyb";
@@ -92,7 +122,7 @@
 "HybFly" = "HybFly";
 
 /* description connection idle state */
-"idle" = "idle";
+"idle" = "неактивный";
 
 /* Warning displayed if location is inaccurate or old */
 "Inaccurate or old location information" = "Inaccurate or old location information";
@@ -112,11 +142,11 @@
 /* Display after processing inline config */
 "Inline Configuration successfully processed" = "Inline Configuration successfully processed";
 
+/* friend leaves region verb */
+"leaves" = "покидает";
+
 /* Display when leaving region (region name follows) */
 "Leaving" = "Leaving";
-
-/* friend leaves region verb */
-"leaves" = "leaves";
 
 /* Header of an alert message regarding a location */
 "Location" = "Location";
@@ -124,29 +154,23 @@
 /* Location copied to clipboard */
 "Location copied to clipboard" = "Location copied to clipboard";
 
-/* Topic copied to clipboard */
-"Topic copied to clipboard" = "Topic copied to clipboard";
-
 /* indicates a locked configuration */
 "locked" = "locked";
-
-/* Header of an alert message regarding missing setup */
-"Setup" = "Setup";
-
-/* Text explaining the Setup */
-"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet";
 
 /* Manual */
 "Manual" = "Manual";
 
-/* Alert header for connection change warning */
-"Connection change" = "Connection change";
+/* Title map interaction */
+"Map Interaction" = "Map Interaction";
 
 /* Move */
 "Move" = "Move";
 
 /* Mute */
 "Mute" = "Mute";
+
+/* No button title */
+"No" = "Нет";
 
 /* dummy for missing content */
 "no content available" = "no content available";
@@ -155,174 +179,81 @@
 "No location available" = "No location available";
 
 /* No location recorded indication */
-"No location recorded" = "No location recorded";
+"No location recorded" = "Нет сохраненных локаций";
+
+/* No or empty tour list received from backend */
+"No or empty tour list received from backend" = "Сервер не вернул список туров";
 
 /* No pressure available */
-"No pressure available" = "No pressure available";
+"No pressure available" = "Давление недоступно";
 
 /* Display after trying to process a file */
 "no url specified" = "no url specified";
 
 /* Alert message header for notification messages */
-"Notification" = "Notification";
+"Notification" = "Уведомление";
+
+/* Open button title */
+"Open" = "Открыть";
 
 /* temporary display while opening URL */
-"opening URL" = "opening URL";
+"opening URL" = "URL открывается";
+
+/* OSM */
+"OSM" = "OSM";
 
 /* Alert content for connection change warning */
-"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before.";
+"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Обратите внимание: сохранённые путевые точки и местоположения будут удалены с этого устройства по соображениям конфиденциальности. Пожалуйста, сделайте резервную копию заранее.";
+
+/* "Please keep OwnTracks running to ensure the desired functionality" */
+"Please keep OwnTracks running to ensure the desired functionality" = "Пожалуйста, не закрывайте OwnTracks, чтобы обеспечить необходимую функциональность.";
 
 /* Alert header regarding protocol input */
-"Protocol invalid" = "Protocol invalid";
+"Protocol invalid" = "Недопустимый протокол";
 
 /* Alert content regarding protocol input */
-"Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1 or 5 for MQTT V5" = "Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1 or 5 for MQTT V5";
+"Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1 or 5 for MQTT V5" = "Протокол может быть 3 для MQTT V3.1 или 4 для MQTT V3.1.1 или 5 для MQTT V5";
 
 /* content of an alert message regarding user publish */
 "publish queued on user request" = "publish queued on user request";
 
 /* Quiet */
-"Quiet" = "Quiet";
+"Quiet" = "Выкл";
 
 /* Header of an alert message regarding circular region */
-"Region" = "Region";
+"Region" = "Регион";
 
-/* temporary display while resolving address */
-"resolving..." = "resolving...";
+/* Remove button title */
+"Remove" = "Удалить";
 
-/* Sat */
-"Sat" = "Sat";
-
-/* Settings screen title */
-"Settings" = "Settings";
-
-/* Significant */
-"Significant" = "Significant";
-
-/* Std */
-"Std" = "Std";
-
-/* Display when file processing succeeds */
-"successfully processed" = "successfully processed";
-
-/* Table is empty */
-"Table is empty" = "Table is empty";
-
-/* Heading for certificate error message */
-"TLS Client Certificate" = "TLS Client Certificate";
-
-/* Warning displayed if necessary settings are missing */
-"To publish your location userID and deviceID must be set" = "To publish your location userID and deviceID must be set";
-
-/* Alert header regarding TrackerID input */
-"TrackerID invalid" = "TrackerID invalid";
-
-/* Alert content regarding TrackerID input */
-"TrackerID may be empty or up to 2 characters long" = "TrackerID may be empty or up to 2 characters long";
-
-/* Alert content regarding TrackerID input */
-"TrackerID may contain alphanumeric characters only" = "TrackerID may contain alphanumeric characters only";
-
-/* Display after entering an unknown scheme in url */
-"unknown scheme in url" = "unknown scheme in url";
-
-/* description connection unknown state */
-"unknown state" = "unknown state";
-
-/* Display for unknown url path */
-"unknown url path" = "unknown url path";
-
-/* webView didFailLoadWithError display */
-"webView didFailLoadWithError" = "webView didFailLoadWithError";
-
-/* You cannot use background fetch */
-"You cannot use background fetch" = "You cannot use background fetch";
-
-/* You disabled background fetch */
-"You disabled background fetch" = "You disabled background fetch";
-
-/* MQTT Description Text */
-"Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet";
-
-/* HTTP Description Text */
-"Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Similar to MQTT mode, except data transmission uses HTTP, not MQTT.";
-/* Please Note Text */
-
-"When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "When switching between modes, all OwnTracks data will be deleted for privacy reasons.";
-
-/* Title map interaction */
-"Map Interaction" = "Map Interaction";
-
-/* Message map interaction */
-"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests";
-
-/* Address resolver disabled */
-"Address resolver disabled" = "Address resolver disabled";
-
-/* Title Revgeo */
-"Reverse Geocoding Address Resolution" = "Reverse Geocoding Address Resolution";
-
-/* Message Revgeo */
-"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests";
-
-/* Yes button title */
-"Yes" = "Yes";
-
-/* No button title */
-"No" = "No";
-
-/* Alert message header for Request Response */
-"Response" = "Response";
-
-/* URL copied to Clipboard */
-"URL copied to Clipboard" = "URL copied to Clipboard";
-
-/* No or empty tour list received from backend */
-"No or empty tour list received from backend" = "No or empty tour list received from backend";
-
-/* Fetching tour list from backend */
-"Fetching tour list from backend" = "Fetching tour list from backend";
-
-/* Header of an alert message regarding a card */
-"Card" = "Card";
-
-/* content of an alert message regarding card */
-"set and sent to backend" = "set and sent to backend";
-
-/* Tours list header */
-"Tours" = "Tours";
-
-/* Tours status header */
-"Tours Status" = "Tours Status";
-
-/* Tour list received */
-"Tour list received" = "Tour list received";
+/* Requesting tour */
+"Requesting tour" = "Запрашиваем тур";
 
 /* Requesting tour list */
 "Requesting tour list" = "Requesting tour list";
 
-/* Tour list request timed out */
-"Tour list request timed out" = "Tour list request timed out";
+/* temporary display while resolving address */
+"resolving..." = "определение...";
 
-/* Tour created */
-"Tour created" = "Tour created";
+/* Alert message header for Request Response */
+"Response" = "Ответ";
 
- /* Requesting tour */
-"Requesting tour" = "Requesting tour";
+/* Title Revgeo */
+"Reverse Geocoding Address Resolution" = "Reverse Geocoding Address Resolution";
 
-/* Tour request timed out */
-"Tour request timed out" = "Tour request timed out";
+/* Sat */
+"Sat" = "Sat";
 
-/* Tour deleted */
-"Tour deleted" = "Tour deleted";
-
-/* Alert message header for copy */
-"Copied" = "Copied";
+/* Send button title */
+"Send" = "Отправить";
 
 /* Send location now */
-"Send location now" = "Send location now";
+"Send location now" = "Отправить локацию";
 
-/* Set POI button */
+/* content of an alert message regarding card */
+"set and sent to backend" = "set and sent to backend";
+
+/* Set POI buttonSet POI title */
 "Set POI" = "Set POI";
 
 /* Set POI with image button */
@@ -331,41 +262,120 @@
 /* Set tag button */
 "Set tag" = "Set tag";
 
-/* Set POI title */
-"Set POI" = "Set POI";
-
 /* Set Tag title */
 "Set Tag" = "Set Tag";
 
-/* Send button title */
-"Send" = "Send";
+/* Settings screen title */
+"Settings" = "Настройки";
 
-/* Remove button title */
-"Remove" = "Remove";
+/* Header of an alert message regarding missing setup */
+"Setup" = "Настройка";
 
-/* Shortcut Switch to Move Monitoring Monitoring Mode */
-"Switch to Move Monitoring Mode" = "Switch to Move Monitoring Mode";
+/* MQTT Description Text */
+"Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Настройте собственный сервер OwnTracks для полной защиты приватности. Подробнее: https://owntracks.org/booklet";
 
-/* Shortcut Switch to Significant Changes Monitoring Mode */
-"Switch to Significant Changes Monitoring Mode" = "Switch to Significant Changes Monitoring Mode";
+/* Significant */
+"Significant" = "Significant";
+
+/* HTTP Description Text */
+"Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Похоже на режим MQTT, за исключением того, что передача данных осуществляется по HTTP, а не через MQTT.";
+
+/* Std */
+"Std" = "Std";
+
+/* Display when file processing succeeds */
+"successfully processed" = "successfully processed";
 
 /* Shortcut Switch to Manual Monitoring Mode */
 "Switch to Manual Monitoring Mode" = "Switch to Manual Monitoring Mode";
 
+/* Shortcut Switch to Move Monitoring Monitoring Mode */
+"Switch to Move Monitoring Mode" = "Switch to Move Monitoring Mode";
+
 /* Shortcut Switch to Quiet Monitoring Mode */
 "Switch to Quiet Monitoring Mode" = "Switch to Quiet Monitoring Mode";
 
+/* Shortcut Switch to Significant Changes Monitoring Mode */
+"Switch to Significant Changes Monitoring Mode" = "Switch to Significant Changes Monitoring Mode";
+
+/* Table is empty */
+"Table is empty" = "Нет данных";
+
+/* Heading for certificate error message */
+"TLS Client Certificate" = "Сертификат клиента TLS";
+
+/* Warning displayed if necessary settings are missing */
+"To publish your location userID and deviceID must be set" = "Для отправки местоположения необходимо задать userID и deviceID";
+
+/* Topic copied to clipboard */
+"Topic copied to clipboard" = "Топик скопирован в буфер обмена";
+
+/* Tour created */
+"Tour created" = "Тур создан";
+
+/* Tour deleted */
+"Tour deleted" = "Тур удален";
+
+/* Tour list received */
+"Tour list received" = "Tour list received";
+
+/* Tour list request timed out */
+"Tour list request timed out" = "Tour list request timed out";
+
+/* Tour request timed out */
+"Tour request timed out" = "Tour request timed out";
+
+/* Tours list header */
+"Tours" = "Туры";
+
+/* Tours status header */
+"Tours status" = "Статус тура";
+
+/* Tours status header */
+"Tours Status" = "Статус тура";
+
+/* Alert header regarding TrackerID input */
+"TrackerID invalid" = "Недопустимый trackerId";
+
+/* Alert content regarding TrackerID input */
+"TrackerID may be empty or up to 2 characters long" = "TrackerID может быть пустым или содержать до 2 символов";
+
+/* Alert content regarding TrackerID input */
+"TrackerID may contain alphanumeric characters only" = "В TrackerID допустимы только латинские буквы и цифры";
+
 /* Battery status unkown */
-"unknown" = "unknown";
+"unknown" = "неизвестен";
+
+/* Display after entering an unknown scheme in url */
+"unknown scheme in url" = "unknown scheme in url";
+
+/* description connection unknown state */
+"unknown state" = "неизвестное состояние";
+
+/* Display for unknown url path */
+"unknown url path" = "unknown url path";
 
 /* Battery status unplugged */
-"unplugged" = "unplugged";
+"unplugged" = "Не подключено к сети";
 
-/* Battery status charging */
-"charging" = "charging";
+/* URL copied to Clipboard */
+"URL copied to Clipboard" = "URL скопирован в буфер обмена";
 
-/* Battery status full */
-"full" = "full";
+/* webView didFailLoadWithError display */
+"webView didFailLoadWithError" = "webView didFailLoadWithError";
 
-/* "Please keep OwnTracks running to ensure the desired functionality" */
-"Please keep OwnTracks running to ensure the desired functionality" = "Please keep OwnTracks running to ensure the desired functionality";
+/* Please Note Text */
+"When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "При переключении между режимами все данные OwnTracks будут удалены по соображениям конфиденциальности.";
+
+/* Yes button title */
+"Yes" = "Да";
+
+/* You cannot use background fetch */
+"You cannot use background fetch" = "Фоновая загрузка недоступна";
+
+/* You disabled background fetch */
+"You disabled background fetch" = "Вы отключили фоновую загрузку";
+
+/* Text explaining the Setup */
+"You need to setup your own OwnTracks server and edit your configuration for full privacy protection. Detailed info on https://owntracks.org/booklet" = "Вам нужно настроить собственный сервер OwnTracks и изменить конфигурацию для полной защиты приватности. Подробная информация: https://owntracks.org/booklet";
+
