@@ -1,11 +1,12 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 18.5.0 iOS/ipadOS
-* Release Date 2025-08-21
+## OwnTracks 18.5.1 iOS/ipadOS
+* Release Date 2025-08-22
 
-** Internationalization additional Languages
+** Bug fixes and additional Languages
 
+    [FIX] honor broker's max_topic_alias in MQTTv5 #864
     [NEW] Add simplified Chinese
     [NEW] Add Russian
     [NEW] Add Romanian
