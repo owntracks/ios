@@ -391,8 +391,8 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 
         if (topicAlias &&
             topicAlias.unsignedIntValue > 0 &&
-            self.session.topicAliasMaximum &&
-            self.session.topicAliasMaximum.unsignedIntValue >= topicAlias.unsignedIntValue) {
+            self.session.brokerTopicAliasMaximum &&
+            self.session.brokerTopicAliasMaximum.unsignedIntValue >= topicAlias.unsignedIntValue) {
             effectiveTopicAlias = topicAlias;
         }
 
