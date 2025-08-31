@@ -1,10 +1,10 @@
 PODS:
   - ABStaticTableViewController (1.1.1)
-  - CocoaLumberjack (3.8.5):
-    - CocoaLumberjack/Core (= 3.8.5)
-  - CocoaLumberjack/Core (3.8.5)
+  - CocoaLumberjack (3.9.0):
+    - CocoaLumberjack/Core (= 3.9.0)
+  - CocoaLumberjack/Core (3.9.0)
   - DSJSONSchemaValidation (2.0.7)
-  - mqttc/MinL (18.0.1):
+  - mqttc/MinL (18.0.2):
     - CocoaLumberjack
   - Sodium (0.9.1)
 
@@ -32,16 +32,16 @@ CHECKOUT OPTIONS:
     :commit: 73f175043330748ec408b0e4ec3f7b95622125b8
     :git: https://github.com/k06a/ABStaticTableViewController.git
   mqttc:
-    :commit: 9ece00afdef39cf730d7894d3ca3bf7b1be95b8e
+    :commit: 452f4ceb3a72649472bd036d977716bae28510f3
     :git: https://github.com/ckrey/mqttc.git
 
 SPEC CHECKSUMS:
   ABStaticTableViewController: d8cfbdd596fbf58b515b13e49cc8ca8ca86c6e12
-  CocoaLumberjack: 6a459bc897d6d80bd1b8c78482ec7ad05dffc3f0
+  CocoaLumberjack: 5644158777912b7de7469fa881f8a3f259c2512a
   DSJSONSchemaValidation: 46e30ccfa9908c49d184f453d556f55aa0aac1ff
-  mqttc: 5faa4bc35811d91da3efcd2f6ab5f1e3d771a7d1
+  mqttc: 2bb57395b88a197927f0862eb0525b1063b1012c
   Sodium: 23d11554ecd556196d313cf6130d406dfe7ac6da
 
 PODFILE CHECKSUM: 5bcc9521a761314c49864e23e5c00c40d0ec53a8
 
-COCOAPODS: 1.12.1
+COCOAPODS: 1.16.2
