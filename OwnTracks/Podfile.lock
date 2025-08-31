@@ -4,7 +4,7 @@ PODS:
     - CocoaLumberjack/Core (= 3.9.0)
   - CocoaLumberjack/Core (3.9.0)
   - DSJSONSchemaValidation (2.0.7)
-  - mqttc/MinL (18.0.2):
+  - mqttc/MinL (18.0.4):
     - CocoaLumberjack
   - Sodium (0.9.1)
 
@@ -32,14 +32,14 @@ CHECKOUT OPTIONS:
     :commit: 73f175043330748ec408b0e4ec3f7b95622125b8
     :git: https://github.com/k06a/ABStaticTableViewController.git
   mqttc:
-    :commit: 452f4ceb3a72649472bd036d977716bae28510f3
+    :commit: ae78a4204520b2b2f61f04d9bd67bbd82adfc77c
     :git: https://github.com/ckrey/mqttc.git
 
 SPEC CHECKSUMS:
   ABStaticTableViewController: d8cfbdd596fbf58b515b13e49cc8ca8ca86c6e12
   CocoaLumberjack: 5644158777912b7de7469fa881f8a3f259c2512a
   DSJSONSchemaValidation: 46e30ccfa9908c49d184f453d556f55aa0aac1ff
-  mqttc: 2bb57395b88a197927f0862eb0525b1063b1012c
+  mqttc: 7ea5a95c305d27bbd9d4c4707d77988d3a7b375f
   Sodium: 23d11554ecd556196d313cf6130d406dfe7ac6da
 
 PODFILE CHECKSUM: 5bcc9521a761314c49864e23e5c00c40d0ec53a8

@@ -1034,7 +1034,7 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                                 }
                                 for (id<MQTTFlow> flow in [self.persistence allFlowsforClientId:self.clientId
                                                                                    incomingFlag:FALSE]) {
-                                    if (flow.commandType != MQTT_None) {
+                                    if (!flow.commandType || flow.commandType.unsignedShortValue != MQTT_None) {
                                         [self.persistence deleteFlow:flow];
                                     }
                                 }
@@ -1670,6 +1670,12 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                                                            reasonString:nil
                                                          userProperties:nil]];
         }
+    } else {
+        (void)[self encode:[MQTTMessage pubcompMessageWithMessageId:message.mid
+                                                      protocolLevel:self.protocolLevel
+                                                         returnCode:MQTTPacketIdentifierNotFound
+                                                       reasonString:nil
+                                                     userProperties:nil]];
     }
 }
 
