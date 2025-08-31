@@ -659,9 +659,12 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     self.state = state_connected;
     
     /*
-     * if clean-session is set or if it's the first time we connect in non-clean-session-mode, subscribe to topic
+     * if clean-session is set or
+     * if it's the first time we connect in non-clean-session-mode or
+     * we can assume the broker doesn't know anymore
+     * subscribe to topic
      */
-    if (self.clean || !self.reconnectFlag) {
+    if (self.clean || !self.reconnectFlag || !sessionPresent) {
         for (NSString *topicFilter in self.subscriptions) {
             if (topicFilter.length) {
                 DDLogInfo(@"[Connection] subscribe %@ qos=%d",
