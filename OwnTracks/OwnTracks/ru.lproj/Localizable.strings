@@ -2,46 +2,46 @@
 "a region" = "регион";
 
 /* Address resolver disabled */
-"Address resolver disabled" = "Address resolver disabled";
+"Address resolver disabled" = "Определение адреса отключено";
 
 /* reverseGeocodeLocation error */
 "Address resolver failed" = "Ошибка определения адреса";
 
 /* Headline in addressbook related error messages */
-"Addressbook Access" = "Addressbook Access";
+"Addressbook Access" = "Доступ к адресной книге";
 
 /* Location Manager error message */
-"App is not allowed to use location services" = "App is not allowed to use location services";
+"App is not allowed to use location services" = "Приложению не разрешено использовать службы определения местоположения";
 
 /* Location Manager error message */
-"App is not allowed to use location services in background" = "App is not allowed to use location services in background";
+"App is not allowed to use location services in background" = "Приложению не разрешено использовать службы определения местоположения в фоновом режиме";
 
 /* Location Manager error message */
-"App is not allowed to use location services yet" = "App is not allowed to use location services yet";
+"App is not allowed to use location services yet" = "Приложению ещё не разрешено использовать службы определения местоположения";
 
 /* Location Manager error message */
-"App use of location services is restricted" = "App use of location services is restricted";
+"App use of location services is restricted" = "Использование служб определения местоположения приложением ограничено";
 
 /* Location Manager error message */
-"App use of location services is unclear" = "App use of location services is unclear";
+"App use of location services is unclear" = "Использование служб определения местоположения приложением неясно";
 
 /* Display after processing beacon QR code */
-"Beacon QR successfully processed" = "Beacon QR successfully processed";
+"Beacon QR successfully processed" = "QR-код маяка успешно обработан";
 
 /* Cancel button title */
-"Cancel" = "Cancel";
+"Cancel" = "Отмена";
 
 /* Header of an alert message regarding a card */
-"Card" = "Card";
+"Card" = "Карта";
 
 /* Battery status charging */
 "charging" = "заряжается";
 
 /* Choose action title */
-"Choose action" = "Choose action";
+"Choose action" = "Выберите действие";
 
 /* Clipboard */
-"Clipboard" = "Clipboard";
+"Clipboard" = "Буф обмена";
 
 /* description connection closed state */
 "closed" = "закрыто";
@@ -56,43 +56,43 @@
 "connecting" = "соединение";
 
 /* Alert header for connection change warning */
-"Connection change" = "Connection change";
+"Connection change" = "Подключение изменено";
 
 /* Continue button title */
 "Continue" = "Продолжить";
 
 /* Alert message header for copy */
-"Copied" = "Copied";
+"Copied" = "Скопировано";
 
 /* content of an alert message regarding circular region */
 "created at center of map" = "создано в центре карты";
 
 /* Message map interaction */
-"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests";
+"Do you want the map to allow interaction? If you choose yes, the map provider may analyze your tile requests" = "Хотите разрешить взаимодействие с картой? Если вы выберете «Да», поставщик карт может анализировать ваши запросы к тайлам";
 
 /* Message Revgeo */
-"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests";
+"Do you want to resolve adresses? If you choose yes, the geocoding provider may analyze your requests" = "Хотите выполнять разрешение адресов? Если вы выберете «Да», поставщик геокодирования может анализировать ваши запросы";
 
 /* reverseGeocodeLocation text */
-"due to rate limit or off-line" = "due to rate limit or off-line";
+"due to rate limit or off-line" = "из-за превышения лимита или офлайна";
 
 /* Display when entering region (region name follows) */
-"Entering" = "Entering";
+"Entering" = "Вход в";
 
 /* friend enters region verb */
-"enters" = "enters";
+"enters" = "входит";
 
 /* description connection error state */
 "error" = "ошибка";
 
 /* Display when file processing fails */
-"Error processing file" = "Error processing file";
+"Error processing file" = "Ошибка при обработке файл";
 
 /* Export */
 "Export" = "Экспорт";
 
 /* Fetching tour list from backend */
-"Fetching tour list from backend" = "Fetching tour list from backend";
+"Fetching tour list from backend" = "Получение списка туров с сервера";
 
 /* Display when file processing succeeds (filename follows) */
 "File" = "Файл";
@@ -104,13 +104,13 @@
 "Fly" = "Fly";
 
 /* Alert message header for friend's messages */
-"Friend" = "Friend";
+"Friend" = "Друг";
 
 /* Battery status full */
 "full" = "заряжена";
 
 /* CNAuthorizationStatusDenied */
-"has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change" = "has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change";
+"has been denied by user. If you allow OwnTracks to access your contacts, you can link your devices to contacts. OwnTracks will then display the contact name and image instead of the device Id. No information of your address book will be uploaded to any server. Go to Settings/Privacy/Contacts to change" = "было отклонено пользователем. Если вы разрешите OwnTracks доступ к вашим контактам, вы сможете связать свои устройства с контактами. Тогда OwnTracks будет отображать имя и изображение контакта вместо идентификатора устройства. Информация из вашей адресной книги не будет загружена ни на какой сервер. Перейдите в Настройки/Конфиденциальность/Контакты, чтобы изменить";
 
 /* CNAuthorizationStatusRestricted */
 "has been restricted, possibly due to restrictions such as parental controls." = "было ограничено, возможно, из-за таких ограничений, как родительский контроль.";
@@ -125,46 +125,46 @@
 "idle" = "неактивный";
 
 /* Warning displayed if location is inaccurate or old */
-"Inaccurate or old location information" = "Inaccurate or old location information";
+"Inaccurate or old location information" = "Неточная или устаревшая информация о местоположении";
 
 /* certificate error message */
-"incorrect file or passphrase" = "incorrect file or passphrase";
+"incorrect file or passphrase" = "неверный файл или парольная фраза";
 
 /* Display for incorrect inline config */
-"Inline Configuration incorrect" = "Inline Configuration incorrect";
+"Inline Configuration incorrect" = "Неправильная встроенная конфигурация";
 
 /* Display for incorrectly encoded inline config */
-"Inline Configuration incorrectly encoded" = "Inline Configuration incorrectly encoded";
+"Inline Configuration incorrectly encoded" = "Встроенная конфигурация закодирована неправильно";
 
 /* Display for config without parameters */
-"Inline Configuration missing parameters" = "Inline Configuration missing parameters";
+"Inline Configuration missing parameters" = "Во встроенной конфигурации отсутствуют параметры";
 
 /* Display after processing inline config */
-"Inline Configuration successfully processed" = "Inline Configuration successfully processed";
+"Inline Configuration successfully processed" = "Встроенная конфигурация успешно обработана";
 
 /* friend leaves region verb */
 "leaves" = "покидает";
 
 /* Display when leaving region (region name follows) */
-"Leaving" = "Leaving";
+"Leaving" = "Покидает";
 
 /* Header of an alert message regarding a location */
-"Location" = "Location";
+"Location" = "Локация";
 
 /* Location copied to clipboard */
-"Location copied to clipboard" = "Location copied to clipboard";
+"Location copied to clipboard" = "Позиция скопировано в буфер обмена";
 
 /* indicates a locked configuration */
-"locked" = "locked";
+"locked" = "блок";
 
 /* Manual */
-"Manual" = "Manual";
+"Manual" = "Руч";
 
 /* Title map interaction */
-"Map Interaction" = "Map Interaction";
+"Map Interaction" = "Взаимодействие с картой";
 
 /* Move */
-"Move" = "Move";
+"Move" = "Движ";
 
 /* Mute */
 "Mute" = "Mute";
@@ -173,10 +173,10 @@
 "No" = "Нет";
 
 /* dummy for missing content */
-"no content available" = "no content available";
+"no content available" = "нет доступного содержимого";
 
 /* Warning displayed if not location available */
-"No location available" = "No location available";
+"No location available" = "Местоположение недоступно";
 
 /* No location recorded indication */
 "No location recorded" = "Нет сохраненных локаций";
@@ -188,7 +188,7 @@
 "No pressure available" = "Давление недоступно";
 
 /* Display after trying to process a file */
-"no url specified" = "no url specified";
+"no url specified" = "не указан URL";
 
 /* Alert message header for notification messages */
 "Notification" = "Уведомление";
@@ -215,7 +215,7 @@
 "Protocol may be 3 for MQTT V3.1 or 4 for MQTT V3.1.1 or 5 for MQTT V5" = "Протокол может быть 3 для MQTT V3.1 или 4 для MQTT V3.1.1 или 5 для MQTT V5";
 
 /* content of an alert message regarding user publish */
-"publish queued on user request" = "publish queued on user request";
+"publish queued on user request" = "публикация поставлена в очередь по запросу пользователя";
 
 /* Quiet */
 "Quiet" = "Выкл";
@@ -230,7 +230,7 @@
 "Requesting tour" = "Запрашиваем тур";
 
 /* Requesting tour list */
-"Requesting tour list" = "Requesting tour list";
+"Requesting tour list" = "Запрашиваем список туров";
 
 /* temporary display while resolving address */
 "resolving..." = "определение...";
@@ -239,10 +239,10 @@
 "Response" = "Ответ";
 
 /* Title Revgeo */
-"Reverse Geocoding Address Resolution" = "Reverse Geocoding Address Resolution";
+"Reverse Geocoding Address Resolution" = "Обратное геокодирование для определения адреса";
 
 /* Sat */
-"Sat" = "Sat";
+"Sat" = "Спут";
 
 /* Send button title */
 "Send" = "Отправить";
@@ -251,19 +251,19 @@
 "Send location now" = "Отправить локацию";
 
 /* content of an alert message regarding card */
-"set and sent to backend" = "set and sent to backend";
+"set and sent to backend" = "установлено и отправлено на сервер";
 
 /* Set POI buttonSet POI title */
-"Set POI" = "Set POI";
+"Set POI" = "Установить POI";
 
 /* Set POI with image button */
-"Set POI with image" = "Set POI with image";
+"Set POI with image" = "Установить POI с изображением";
 
 /* Set tag button */
-"Set tag" = "Set tag";
+"Set tag" = "Установить тег";
 
 /* Set Tag title */
-"Set Tag" = "Set Tag";
+"Set Tag" = "Установить тег";
 
 /* Settings screen title */
 "Settings" = "Настройки";
@@ -275,28 +275,28 @@
 "Setup your own OwnTracks server for full privacy protection. More Info on https://owntracks.org/booklet" = "Настройте собственный сервер OwnTracks для полной защиты приватности. Подробнее: https://owntracks.org/booklet";
 
 /* Significant */
-"Significant" = "Significant";
+"Significant" = "сущ";
 
 /* HTTP Description Text */
 "Similar to MQTT mode, except data transmission uses HTTP, not MQTT." = "Похоже на режим MQTT, за исключением того, что передача данных осуществляется по HTTP, а не через MQTT.";
 
 /* Std */
-"Std" = "Std";
+"Std" = "СТД";
 
 /* Display when file processing succeeds */
-"successfully processed" = "successfully processed";
+"successfully processed" = "успешно обработано";
 
 /* Shortcut Switch to Manual Monitoring Mode */
-"Switch to Manual Monitoring Mode" = "Switch to Manual Monitoring Mode";
+"Switch to Manual Monitoring Mode" = "Переключиться в режим ручного мониторинга";
 
 /* Shortcut Switch to Move Monitoring Monitoring Mode */
-"Switch to Move Monitoring Mode" = "Switch to Move Monitoring Mode";
+"Switch to Move Monitoring Mode" = "Переключиться в режим мониторинга перемещений";
 
 /* Shortcut Switch to Quiet Monitoring Mode */
-"Switch to Quiet Monitoring Mode" = "Switch to Quiet Monitoring Mode";
+"Switch to Quiet Monitoring Mode" = "Переключиться в тихий режим мониторинга";
 
 /* Shortcut Switch to Significant Changes Monitoring Mode */
-"Switch to Significant Changes Monitoring Mode" = "Switch to Significant Changes Monitoring Mode";
+"Switch to Significant Changes Monitoring Mode" = "Переключиться в режим мониторинга значительных изменений";
 
 /* Table is empty */
 "Table is empty" = "Нет данных";
@@ -317,13 +317,13 @@
 "Tour deleted" = "Тур удален";
 
 /* Tour list received */
-"Tour list received" = "Tour list received";
+"Tour list received" = "список туров получен";
 
 /* Tour list request timed out */
-"Tour list request timed out" = "Tour list request timed out";
+"Tour list request timed out" = "запрос списка туров превысил время ожидания";
 
 /* Tour request timed out */
-"Tour request timed out" = "Tour request timed out";
+"Tour request timed out" = "запрос тура превысил время ожидания";
 
 /* Tours list header */
 "Tours" = "Туры";
@@ -347,13 +347,13 @@
 "unknown" = "неизвестен";
 
 /* Display after entering an unknown scheme in url */
-"unknown scheme in url" = "unknown scheme in url";
+"unknown scheme in url" = "неизвестная схема в URL";
 
 /* description connection unknown state */
 "unknown state" = "неизвестное состояние";
 
 /* Display for unknown url path */
-"unknown url path" = "unknown url path";
+"unknown url path" = "неизвестный путь запроса";
 
 /* Battery status unplugged */
 "unplugged" = "Не подключено к сети";
@@ -362,7 +362,7 @@
 "URL copied to Clipboard" = "URL скопирован в буфер обмена";
 
 /* webView didFailLoadWithError display */
-"webView didFailLoadWithError" = "webView didFailLoadWithError";
+"webView didFailLoadWithError" = "Не удалось загрузить страницу";
 
 /* Please Note Text */
 "When switching between modes, all OwnTracks data will be deleted for privacy reasons." = "При переключении между режимами все данные OwnTracks будут удалены по соображениям конфиденциальности.";

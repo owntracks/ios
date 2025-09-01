@@ -47,16 +47,16 @@
 "6ms-eE-0jF.normalTitle" = "Github";
 
 /* Class = "UIButton"; normalTitle = "Select from Photo Library"; ObjectID = "7BS-sH-tIQ"; */
-"7BS-sH-tIQ.normalTitle" = "Select from Photo Library";
+"7BS-sH-tIQ.normalTitle" = "Выбрать из фотогалереи";
 
 /* Class = "UILabel"; text = "Filename"; ObjectID = "7ie-NC-EFG"; Note = "Don't translate, technical term"; */
 "7ie-NC-EFG.text" = "Filename";
 
 /* Class = "UINavigationItem"; title = "Tours"; ObjectID = "7Qj-vi-EaF"; */
-"7Qj-vi-EaF.title" = "Tours";
+"7Qj-vi-EaF.title" = "Туры";
 
 /* Class = "UIButton"; normalTitle = "Create Card"; ObjectID = "7rX-Bq-DGb"; */
-"7rX-Bq-DGb.normalTitle" = "Create Card";
+"7rX-Bq-DGb.normalTitle" = "Создать карточку";
 
 /* Class = "UISegmentedControl"; 7W2-Mn-fUG.segmentTitles[0] = "MQTT"; ObjectID = "7W2-Mn-fUG"; Note = "Don't translate, technical term"; */
 "7W2-Mn-fUG.segmentTitles[0]" = "MQTT";
@@ -65,7 +65,7 @@
 "7W2-Mn-fUG.segmentTitles[1]" = "HTTP";
 
 /* Class = "UILabel"; text = "OSM Copyright"; ObjectID = "7wK-3s-ZUa"; */
-"7wK-3s-ZUa.text" = "OSM копирайт";
+"7wK-3s-ZUa.text" = "OSM Копирайт";
 
 /* Class = "UITableViewSection"; headerTitle = "Circular Region"; ObjectID = "7xg-sB-qXa"; */
 "7xg-sB-qXa.headerTitle" = "Круговая зона";
@@ -83,7 +83,7 @@
 "54d-E6-cWX.normalTitle" = "Экспортировать путевые точки";
 
 /* Class = "UILabel"; text = "Trigger"; ObjectID = "80F-rf-ecS"; */
-"80F-rf-ecS.text" = "Trigger";
+"80F-rf-ecS.text" = "Тригер";
 
 /* Class = "UILabel"; text = "keepAlive"; ObjectID = "222-vu-d4y"; Note = "Don't translate, technical term"; */
 "222-vu-d4y.text" = "keepAlive";
@@ -98,19 +98,19 @@
 "a19-FN-Mwf.text" = "Хост";
 
 /* Class = "UILabel"; text = "Battery Level"; ObjectID = "ABs-5w-ixf"; */
-"ABs-5w-ixf.text" = "Battery Level";
+"ABs-5w-ixf.text" = "Заряд батареи";
 
 /* Class = "UITableViewSection"; headerTitle = "HTTP Mode"; ObjectID = "Ac4-3H-YRL"; */
 "Ac4-3H-YRL.headerTitle" = "режим HTTP";
 
 /* Class = "UILabel"; text = "Pressure"; ObjectID = "AFw-QA-oz1"; */
-"AFw-QA-oz1.text" = "Pressure";
+"AFw-QA-oz1.text" = "Давление";
 
 /* Class = "UILabel"; text = "Street\n1\n2\n3\n4"; ObjectID = "apt-Il-Ih4"; Note = "Don't Translate, Placeholder"; */
 "apt-Il-Ih4.text" = "Street\n1\n2\n3\n4";
 
 /* Class = "UILabel"; text = "OSM Template"; ObjectID = "auA-1g-QGd"; */
-"auA-1g-QGd.text" = "OSM Template";
+"auA-1g-QGd.text" = "OSM Шаблон";
 
 /* Class = "UILabel"; text = "Allow Untrusted Certificates"; ObjectID = "aVN-vG-YjO"; Note = "Don't translate, technical term"; */
 "aVN-vG-YjO.text" = "Allow Untrusted Certificates";
@@ -125,7 +125,7 @@
 "BTX-XN-kzE.text" = "кодовая фраза";
 
 /* Class = "UILabel"; text = "MotionActivities"; ObjectID = "BxB-GS-7zQ"; */
-"BxB-GS-7zQ.text" = "MotionActivities";
+"BxB-GS-7zQ.text" = "РежимАктивности";
 
 /* Class = "UILabel"; text = "Password"; ObjectID = "C1o-h4-z6h"; */
 "C1o-h4-z6h.text" = "Пароль";
@@ -149,7 +149,7 @@
 "Cuh-Tm-IcV.text" = "Широта";
 
 /* Class = "UILabel"; text = "Points"; ObjectID = "cUO-zP-KuY"; */
-"cUO-zP-KuY.text" = "Точки";
+"cUO-zP-KuY.text" = "Позиции";
 
 /* Class = "UILabel"; text = "adapt"; ObjectID = "CUu-az-qIs"; Note = "Don't translate, technical term"; */
 "CUu-az-qIs.text" = "adapt";
@@ -191,7 +191,7 @@
 "ere-0U-4rD.title" = "-";
 
 /* Class = "UIButton"; normalTitle = "Send Debug Status"; ObjectID = "evM-XZ-F0H"; */
-"evM-XZ-F0H.normalTitle" = "Отправить отладочную информацию";
+"evM-XZ-F0H.normalTitle" = "Отпр. отладку";
 
 /* Class = "UILabel"; text = "Port"; ObjectID = "EWI-7o-7Jo"; */
 "EWI-7o-7Jo.text" = "Порт";
@@ -233,13 +233,13 @@
 "GM9-KK-8vY.title" = "Регионы";
 
 /* Class = "UINavigationItem"; title = "Set POI with Image"; ObjectID = "gPt-L8-JdW"; */
-"gPt-L8-JdW.title" = "Set POI with Image";
+"gPt-L8-JdW.title" = "Установить POI с изображением";
 
 /* Class = "UILabel"; text = "locatorDisplacement"; ObjectID = "gtX-x4-Vwl"; Note = "Don't translate, technical term"; */
 "gtX-x4-Vwl.text" = "locatorDisplacement";
 
 /* Class = "UITextField"; placeholder = "Name for new tour"; ObjectID = "guB-Ga-J3e"; */
-"guB-Ga-J3e.placeholder" = "Name for new tour";
+"guB-Ga-J3e.placeholder" = "Название нового тура";
 
 /* Class = "UINavigationItem"; title = "Certificates"; ObjectID = "GWL-01-fh1"; Note = "Don't translate, technical term"; */
 "GWL-01-fh1.title" = "Сертификаты";
@@ -317,7 +317,7 @@
 "jqJ-cr-0tT.placeholder" = "Meters";
 
 /* Class = "UITextField"; placeholder = "OSMTemplate"; ObjectID = "JS1-vt-wVV"; */
-"JS1-vt-wVV.placeholder" = "OSMTemplate";
+"JS1-vt-wVV.placeholder" = "OSMШаблон";
 
 /* Class = "UITextField"; placeholder = "client certificate file"; ObjectID = "JSF-BR-9Nb"; Note = "Don't translate, technical term"; */
 "JSF-BR-9Nb.placeholder" = "client certificate file";
@@ -347,7 +347,7 @@
 "Kvr-J3-4fw.text" = "Заголовок";
 
 /* Class = "UILabel"; text = "Activity"; ObjectID = "L2M-p0-CtV"; */
-"L2M-p0-CtV.text" = "Activity";
+"L2M-p0-CtV.text" = "Активность";
 
 /* Class = "UITextField"; placeholder = "mode"; ObjectID = "LEn-Jc-PvC"; Note = "Placeholder. Do not translate"; */
 "LEn-Jc-PvC.placeholder" = "mode";
@@ -365,7 +365,7 @@
 "M0H-SF-pCO.placeholder" = "Метры";
 
 /* Class = "UITextField"; placeholder = "httpHeaders"; ObjectID = "mca-nZ-Fzz"; */
-"mca-nZ-Fzz.placeholder" = "httpHeaders";
+"mca-nZ-Fzz.placeholder" = "HTTPЗаголовки";
 
 /* Class = "UILabel"; text = "Created At"; ObjectID = "mhI-D6-Y0f"; */
 "mhI-D6-Y0f.text" = "Создано";
@@ -377,7 +377,7 @@
 "MLp-t9-oef.text" = "Давление";
 
 /* Class = "UITextView"; text = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, Sodium, and DSJSONSchemaValidation."; ObjectID = "Moe-Di-frm"; */
-"Moe-Di-frm.text" = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, Sodium, and DSJSONSchemaValidation.";
+"Moe-Di-frm.text" = "Использует следующие CocoaPods ([http://cocoapods.org](http://cocoapods.org)): CocoaLumberjack, ABStaticTableViewController, Sodium и DSJSONSchemaValidation.";
 
 /* Class = "UITabBarItem"; title = "Friends"; ObjectID = "msF-bI-hEJ"; */
 "msF-bI-hEJ.title" = "Друзья";
@@ -407,7 +407,7 @@
 "o8t-NB-IV6.text" = "Имя";
 
 /* Class = "UILabel"; text = "Image"; ObjectID = "OBg-Ct-0Aj"; */
-"OBg-Ct-0Aj.text" = "изображение";
+"OBg-Ct-0Aj.text" = "Изображение";
 
 /* Class = "UITextField"; placeholder = "Seconds"; ObjectID = "oBs-Zn-P4m"; */
 "oBs-Zn-P4m.placeholder" = "Секунды";
@@ -425,7 +425,7 @@
 "Oiq-Kb-qLx.placeholder" = "идентификатор пользователя";
 
 /* Class = "UILabel"; text = "Motion Activities"; ObjectID = "OWG-f7-FLn"; */
-"OWG-f7-FLn.text" = "Motion Activities";
+"OWG-f7-FLn.text" = "Режим активности";
 
 /* Class = "UILabel"; text = "HTTP Headers"; ObjectID = "p6D-3d-Jq2"; */
 "p6D-3d-Jq2.text" = "заголовки HTTP";
@@ -449,7 +449,7 @@
 "pOi-JI-Qg7.text" = "Подзаголовок";
 
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "pRh-Nl-A5i"; */
-"pRh-Nl-A5i.title" = "Item";
+"pRh-Nl-A5i.title" = "пункт";
 
 /* Class = "UILabel"; text = "To"; ObjectID = "pud-EK-OTL"; */
 "pud-EK-OTL.text" = "До";
@@ -476,7 +476,7 @@
 "rJ2-2y-TWr.title" = "Создать карточку";
 
 /* Class = "UIButton"; normalTitle = "Publish Waypoints"; ObjectID = "rMe-Is-0BE"; */
-"rMe-Is-0BE.normalTitle" = "Publish Waypoints";
+"rMe-Is-0BE.normalTitle" = "Опубликовать путевые точки";
 
 /* Class = "UIButton"; configuration.title = "Use Camera"; ObjectID = "Rvi-2b-Hb0"; */
 "Rvi-2b-Hb0.configuration.title" = "Использовать камеру";
@@ -509,7 +509,7 @@
 "SCe-XW-vBZ.text" = "Дистанция";
 
 /* Class = "UINavigationItem"; title = "Create Tour"; ObjectID = "SR5-Yo-l2L"; */
-"SR5-Yo-l2L.title" = "Create Tour";
+"SR5-Yo-l2L.title" = "Создать тур";
 
 /* Class = "UITextView"; text = "<status>"; ObjectID = "src-OY-ZUR"; Note = "Don't translate. Placeholder"; */
 "src-OY-ZUR.text" = "<status>";
@@ -569,7 +569,7 @@
 "vHW-Iv-6Q1.text" = "ignoreStaleLocations";
 
 /* Class = "UITableViewSection"; headerTitle = "MQTT Mode"; ObjectID = "vi2-IZ-KJt"; */
-"vi2-IZ-KJt.headerTitle" = "Режим MGTT";
+"vi2-IZ-KJt.headerTitle" = "Режим MQTT";
 
 /* Class = "UILabel"; text = "TLS"; ObjectID = "VQE-Wz-JiS"; Note = "Technical termin. Do not translate"; */
 "VQE-Wz-JiS.text" = "TLS";
@@ -605,7 +605,7 @@
 "Xom-Gk-dU5.placeholder" = "числа";
 
 /* Class = "UITextField"; placeholder = "OSMCopyright"; ObjectID = "yAb-Me-E2d"; */
-"yAb-Me-E2d.placeholder" = "OSMCopyright";
+"yAb-Me-E2d.placeholder" = "OSMКопирайт";
 
 /* Class = "UIButton"; normalTitle = "Mastodon"; ObjectID = "YlH-Kr-wOD"; */
 "YlH-Kr-wOD.normalTitle" = "Mastodon";

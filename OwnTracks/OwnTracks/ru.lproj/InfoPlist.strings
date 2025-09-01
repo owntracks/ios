@@ -5,7 +5,7 @@
 "CFBundleName" = "OwnTracks";
 
 /* Privacy - Camera Usage Description */
-"NSCameraUsageDescription" = "OwnTracks uses your camera on request to create a Card";
+"NSCameraUsageDescription" = "OwnTracks использует вашу камеру для создания карточки";
 
 /* Privacy - Contacts Usage Description */
 "NSContactsUsageDescription" = "Если вы разрешите OwnTracks доступ к вашим контактам, вы сможете связать свои устройства с контактами. Тогда OwnTracks будет отображать имя и изображение контакта вместо идентификатора устройства. Никакая информация из вашей адресной книги не будет загружена на какой-либо сервер.";
@@ -26,14 +26,14 @@
 "NSMotionUsageDescription" = "OwnTracks передает количество ваших шагов, пройденных этажей и расстояние по запросу";
 
 /* No comment provided by engineer. */
-"OwnTracks CER File" = "OwnTracks CER File";
+"OwnTracks CER File" = "OwnTracks серт файл";
 
 /* No comment provided by engineer. */
-"OwnTracks Configuration File" = "OwnTracks Configuration File";
+"OwnTracks Configuration File" = "OwnTracks файл конфигурации";
 
 /* No comment provided by engineer. */
-"OwnTracks PKCS12 File" = "OwnTracks PKCS12 File";
+"OwnTracks PKCS12 File" = "OwnTracks PKCS12 файл";
 
 /* No comment provided by engineer. */
-"OwnTracks Waypoints File" = "OwnTracks Waypoints File";
+"OwnTracks Waypoints File" = "Файл путевых точек OwnTracks";
 
