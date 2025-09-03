@@ -4,8 +4,9 @@ OwnTracks iOS App Release Notes
 ## OwnTracks 18.5.2 iOS/ipadOS
 * Release Date 2025-08-31
 
-** Bug fixes
+** Bug fixes and translation updates
 
+    [NEW] Russian and French translation update
     [FIX] SUBSCRIBE is not repeated if MQTT broker reports no "sessionPresent" in CONNACK #866
     [FIX] cleanup if broker repors no sessionpresent in CONNACK (mqttc)
 
