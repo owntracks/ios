@@ -1028,6 +1028,16 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                                 self.sessionPresent = true;
                             } else {
                                 self.sessionPresent = false;
+                                for (id<MQTTFlow> flow in [self.persistence allFlowsforClientId:self.clientId
+                                                                                   incomingFlag:TRUE]) {
+                                    [self.persistence deleteFlow:flow];
+                                }
+                                for (id<MQTTFlow> flow in [self.persistence allFlowsforClientId:self.clientId
+                                                                                   incomingFlag:FALSE]) {
+                                    if (!flow.commandType || flow.commandType.unsignedShortValue != MQTT_None) {
+                                        [self.persistence deleteFlow:flow];
+                                    }
+                                }
                             }
                             __weak typeof(self) weakSelf = self;
                             if (@available(macOS 10.12, iOS 10.0, watchOS 3.0, tvOS 10.0, *)) {
@@ -1660,6 +1670,12 @@ NSString * const MQTTSessionErrorDomain = @"MQTT";
                                                            reasonString:nil
                                                          userProperties:nil]];
         }
+    } else {
+        (void)[self encode:[MQTTMessage pubcompMessageWithMessageId:message.mid
+                                                      protocolLevel:self.protocolLevel
+                                                         returnCode:MQTTPacketIdentifierNotFound
+                                                       reasonString:nil
+                                                     userProperties:nil]];
     }
 }
 

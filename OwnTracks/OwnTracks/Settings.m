@@ -176,6 +176,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             object = dictionary[@"downgrade"];
             if (object) [self setString:object forKey:@"downgrade_preference" inMOC:context];
             
+            object = dictionary[@"adapt"];
+            if (object) [self setString:object forKey:@"adapt_preference" inMOC:context];
+            
             object = dictionary[@"ranging"];
             if (object) [self setString:object forKey:@"ranging_preference" inMOC:context];
             
@@ -205,6 +208,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             
             object = dictionary[@"positions"];
             if (object) [self setString:object forKey:@"positions_preference" inMOC:context];
+
+            object = dictionary[@"days"];
+            if (object) [self setString:object forKey:@"days_preference" inMOC:context];
 
             object = dictionary[@"maxHistory"];
             if (object) [self setString:object forKey:@"maxhistory_preference" inMOC:context];
@@ -305,7 +311,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         }
 
         NSArray *components = [desc componentsSeparatedByString:@":"];
-        NSString *name = components.count >= 1 ? components[0] : nil;
+        NSString *name = components[0];
         NSString *uuid = components.count >= 2 ? components[1] : nil;
         unsigned int major = components.count >= 3 ? [components[2] unsignedIntValue]: 0;
         unsigned int minor = components.count >= 4 ? [components[3] unsignedIntValue]: 0;
@@ -418,8 +424,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     dict[@"pubTopicBase"] =                 [Settings stringOrZeroForKey:@"topic_preference" inMOC:context];
     dict[@"monitoring"] =                   @([Settings intForKey:@"monitoring_preference" inMOC:context]);
     dict[@"downgrade"] =                    @([Settings intForKey:@"downgrade_preference" inMOC:context]);
+    dict[@"adapt"] =                        @([Settings intForKey:@"adapt_preference" inMOC:context]);
     dict[@"waypoints"] =                    [Settings waypointsToArrayInMOC:context];
     dict[@"positions"] =                    @([Settings intForKey:@"positions_preference" inMOC:context]);
+    dict[@"days"] =                         @([Settings intForKey:@"days_preference" inMOC:context]);
     dict[@"maxHistory"] =                   @([Settings intForKey:@"maxhistory_preference" inMOC:context]);
     dict[@"locatorDisplacement"] =          @([Settings intForKey:@"mindist_preference" inMOC:context]);
     dict[@"locatorInterval"] =              @([Settings intForKey:@"mintime_preference" inMOC:context]);
@@ -605,7 +613,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     return [Settings theGeneralTopicInMOC:context];
 }
 
-+ (MQTTQosLevel)theWillQosInMOC:(NSManagedObjectContext *)context {
++ (NSInteger)theWillQosInMOC:(NSManagedObjectContext *)context {
     // willQos is now the same as pubQos
     return [Settings intForKey:@"qos_preference" inMOC:context];
 }

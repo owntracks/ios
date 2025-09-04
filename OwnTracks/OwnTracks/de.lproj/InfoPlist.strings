@@ -25,15 +25,15 @@
 /* Privacy - Motion Usage Description */
 "NSMotionUsageDescription" = "OwnTracks überträgt die Anzahl Ihrer Schritte, die Anzahl erklommener Etagen und die zurückgelegte Strecke auf Nachfrage";
 
-/* (No Comment) */
+/* No comment provided by engineer. */
 "OwnTracks CER File" = "OwnTracks CER File";
 
-/* (No Comment) */
+/* No comment provided by engineer. */
 "OwnTracks Configuration File" = "OwnTracks Configuration File";
 
-/* (No Comment) */
+/* No comment provided by engineer. */
 "OwnTracks PKCS12 File" = "OwnTracks PKCS12 File";
 
-/* (No Comment) */
+/* No comment provided by engineer. */
 "OwnTracks Waypoints File" = "OwnTracks Waypoints File";
 

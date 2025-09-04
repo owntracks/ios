@@ -149,7 +149,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
      NSISO8601DateFormatWithFractionalSeconds];
     self.fl.logFormatter = [[DDLogFileFormatterDefault alloc]
                             initWithDateFormatter:(NSDateFormatter *)isoFormatter];
-    [DDLog addLogger:self.fl withLevel:DDLogLevelInfo];
+    self.fl.logFileManager.maximumNumberOfLogFiles = MAXIMUM_NUMBER_OF_LOG_FILES;
+    [DDLog addLogger:self.fl withLevel:DDLogLevelVerbose];
     
     DDLogInfo(@"[OwnTracksAppDelegate] OwnTracks starting %@/%@ %@",
               [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"],
@@ -181,7 +182,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                             waitUntilDone:TRUE];
         [self scheduleRefreshTask];
     }];
-    DDLogVerbose(@"[OwnTracksAppDelegate] registerForTaskWithIdentifier %@ %d",
+    DDLogInfo(@"[OwnTracksAppDelegate] registerForTaskWithIdentifier %@ %d",
                  TASK_IDENTIFIER, success);
     
     [self scheduleRefreshTask];
@@ -225,7 +226,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     BGAppRefreshTaskRequest *bgAppRefreshTaskRequest =
     [[BGAppRefreshTaskRequest alloc] initWithIdentifier:TASK_IDENTIFIER];
     BOOL success = [[BGTaskScheduler sharedScheduler] submitTaskRequest:bgAppRefreshTaskRequest error:&error];
-    DDLogVerbose(@"[OwnTracksAppDelegate] submitTaskRequest %@ @ %@ %d, %@",
+    DDLogInfo(@"[OwnTracksAppDelegate] submitTaskRequest %@ @ %@ %d, %@",
                  bgAppRefreshTaskRequest.identifier,
                  bgAppRefreshTaskRequest.earliestBeginDate,
                  success,
@@ -767,9 +768,11 @@ fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
 }
 
 - (void)background {
+#ifdef VERBOSE
     NSTimeInterval backgroundTimeRemaining = [UIApplication sharedApplication].backgroundTimeRemaining;
-    DDLogVerbose(@"[OwnTracksAppDelegate] background backgroundTimeRemaining: %@",
+    DDLogInfo(@"[OwnTracksAppDelegate] background backgroundTimeRemaining: %@",
                  backgroundTimeRemaining > 24 * 3600 ? @"∞": @(floor(backgroundTimeRemaining)).stringValue);
+#endif
     
     [self startBackgroundTimer];
     if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground &&
@@ -848,6 +851,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
         LocationMonitoring monitoring = LocationMonitoringMove;
         [LocationManager sharedInstance].monitoring = monitoring;
         [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
         NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
         [Settings setInt:(int)[LocationManager sharedInstance].monitoring
                   forKey:@"monitoring_preference" inMOC:moc];
@@ -857,6 +861,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
         LocationMonitoring monitoring = LocationMonitoringSignificant;
         [LocationManager sharedInstance].monitoring = monitoring;
         [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
         NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
         [Settings setInt:(int)[LocationManager sharedInstance].monitoring
                   forKey:@"monitoring_preference" inMOC:moc];
@@ -866,6 +871,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
         LocationMonitoring monitoring = LocationMonitoringManual;
         [LocationManager sharedInstance].monitoring = monitoring;
         [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
         NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
         [Settings setInt:(int)[LocationManager sharedInstance].monitoring
                   forKey:@"monitoring_preference" inMOC:moc];
@@ -875,6 +881,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
         LocationMonitoring monitoring = LocationMonitoringQuiet;
         [LocationManager sharedInstance].monitoring = monitoring;
         [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
         NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
         [Settings setInt:(int)[LocationManager sharedInstance].monitoring
                   forKey:@"monitoring_preference" inMOC:moc];
@@ -1013,6 +1020,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                         }
                         LocationManager.sharedInstance.monitoring = newMonitoring;
                         [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+                        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
                         [Settings setInt:(int)[LocationManager sharedInstance].monitoring
                                   forKey:@"monitoring_preference" inMOC:moc];
                         [CoreData.sharedInstance sync:moc];
@@ -1125,11 +1133,12 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
      **
      ** If the background task is ended, occasionally the disconnect message is not received well before the server senses the tcp disconnect
      **/
-    
+#ifdef VERBOSE
     NSTimeInterval backgroundTimeRemaining = [UIApplication sharedApplication].backgroundTimeRemaining;
     DDLogVerbose(@"[OwnTracksAppDelegate] checkState: %@, backgroundTimeRemaining: %@",
                  state,
                  backgroundTimeRemaining > 24 * 3600 ? @"∞": @(floor(backgroundTimeRemaining)).stringValue);
+#endif
     
     if (state.intValue == state_starting) {
         if (self.backgroundTask) {
@@ -1186,6 +1195,8 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     @synchronized (self.inQueue) {
         self.inQueue = @((self.inQueue).unsignedLongValue + 1);
     }
+
+#ifdef VERBOSE
 #define LEN2PRINT 256
     NSString *dataString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     DDLogVerbose(@"[OwnTracksAppDelegate] handleMessage queueing inQueue=%@ topic=%@ data(%lu)=%@",
@@ -1195,7 +1206,8 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                  dataString.length <= LEN2PRINT ?
                  dataString :
                  [NSString stringWithFormat:@"%@...", [dataString substringToIndex:LEN2PRINT]]);
-
+#endif
+    
     [CoreData.sharedInstance.queuedMOC performBlock:^{
         @try {
         DDLogInfo(@"[OwnTracksAppDelegate] Processing message for topic: %@", topic);
@@ -1446,111 +1458,13 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
 }
 
 - (void)updateUI {
-    NSInteger badgeCount = self.connectionBuffered.intValue;
-    DDLogInfo(@"[OwnTracksAppDelegate] updateUI: badgeCount=%ld, lastQueueEmptyTime=%@, appState=%ld, caller=%@",
-              (long)badgeCount, 
-              self.lastQueueEmptyTime ? [NSString stringWithFormat:@"%@ (%.1fs ago)", self.lastQueueEmptyTime, [[NSDate date] timeIntervalSinceDate:self.lastQueueEmptyTime]] : @"nil",
-              (long)[UIApplication sharedApplication].applicationState,
-              [NSThread callStackSymbols].count > 1 ? [NSThread callStackSymbols][1] : @"unknown");
-    
-    [UIApplication sharedApplication].applicationIconBadgeNumber = badgeCount;
     [[UNUserNotificationCenter currentNotificationCenter]
      setBadgeCount:badgeCount
      withCompletionHandler:^(NSError * _Nullable error) {
         if (error) {
-            DDLogError(@"[OwnTracksAppDelegate] Failed to set badge count: %@", error);
+            DDLogError(@"[OwnTracksAppDelegate setBadgeCount] error %@", error);
         }
     }];
-    
-    // Track when queue becomes empty and only clear badge after validation
-    if (badgeCount == 0) {
-        if (!self.lastQueueEmptyTime) {
-            // Queue just became empty, start tracking
-            self.lastQueueEmptyTime = [NSDate date];
-            DDLogInfo(@"[OwnTracksAppDelegate] Queue became empty, tracking for validation");
-        } else {
-            // Queue has been empty for a while, clear badge if enough time has passed
-            NSTimeInterval timeSinceEmpty = [[NSDate date] timeIntervalSinceDate:self.lastQueueEmptyTime];
-            if (timeSinceEmpty >= 5.0) { // 5 seconds validation period
-                [self clearBadge];
-                self.lastQueueEmptyTime = nil; // Reset tracking
-                DDLogInfo(@"[OwnTracksAppDelegate] Badge cleared after validation period");
-            }
-        }
-    } else {
-        // Queue has items, reset tracking
-        self.lastQueueEmptyTime = nil;
-    }
-}
-
-- (void)clearBadge {
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    [[UNUserNotificationCenter currentNotificationCenter]
-     setBadgeCount:0
-     withCompletionHandler:^(NSError * _Nullable error) {
-        if (error) {
-            DDLogError(@"[OwnTracksAppDelegate] Failed to clear badge: %@", error);
-        }
-    }];
-}
-
-- (void)diagnoseBadgeIssue {
-    DDLogInfo(@"[OwnTracksAppDelegate] === BADGE DIAGNOSIS ===");
-    DDLogInfo(@"[OwnTracksAppDelegate] connectionBuffered: %@", self.connectionBuffered);
-    DDLogInfo(@"[OwnTracksAppDelegate] connectionState: %@", self.connectionState);
-    DDLogInfo(@"[OwnTracksAppDelegate] appState: %ld", (long)[UIApplication sharedApplication].applicationState);
-    DDLogInfo(@"[OwnTracksAppDelegate] lastQueueEmptyTime: %@", self.lastQueueEmptyTime);
-    DDLogInfo(@"[OwnTracksAppDelegate] connection: %@", self.connection);
-    DDLogInfo(@"[OwnTracksAppDelegate] connection.state: %ld", (long)self.connection.state);
-    DDLogInfo(@"[OwnTracksAppDelegate] connection.lastErrorCode: %@", self.connection.lastErrorCode);
-    DDLogInfo(@"[OwnTracksAppDelegate] connection.subscriptions: %@", self.connection.subscriptions);
-    
-    [CoreData.sharedInstance.queuedMOC performBlockAndWait:^{
-        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
-        request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"timestamp" ascending:YES]];
-        
-        NSError *error = nil;
-        NSArray *matches = [CoreData.sharedInstance.queuedMOC executeFetchRequest:request error:&error];
-        if (matches) {
-            DDLogInfo(@"[OwnTracksAppDelegate] === QUEUE ANALYSIS ===");
-            DDLogInfo(@"[OwnTracksAppDelegate] Actual queue count: %lu", (unsigned long)matches.count);
-            DDLogInfo(@"[OwnTracksAppDelegate] Badge count (connectionBuffered): %@", self.connectionBuffered);
-            DDLogInfo(@"[OwnTracksAppDelegate] Badge count mismatch: %@", 
-                      [self.connectionBuffered intValue] != matches.count ? @"YES" : @"NO");
-            
-            if (matches.count > 0) {
-                // Show first few messages without timestamp to avoid conflicts
-                for (int i = 0; i < MIN(matches.count, 3); i++) {
-                    Queue *queue = matches[i];
-                    DDLogInfo(@"[OwnTracksAppDelegate] Queue[%d]: topic=%@", 
-                              i, queue.topic);
-                }
-                
-                // Just show count and let user determine if messages are stuck
-                DDLogInfo(@"[OwnTracksAppDelegate] Found %lu messages in queue", (unsigned long)matches.count);
-            }
-            DDLogInfo(@"[OwnTracksAppDelegate] === END QUEUE ANALYSIS ===");
-        } else {
-            DDLogError(@"[OwnTracksAppDelegate] Failed to fetch queue: %@", error);
-        }
-    }];
-    
-    DDLogInfo(@"[OwnTracksAppDelegate] === END DIAGNOSIS ===");
-}
-
-- (NSString *)checkNetworkReachability {
-    // Simple network check - try to reach a known host
-    NSURL *url = [NSURL URLWithString:@"https://www.apple.com"];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    NSURLResponse *response = nil;
-    NSError *error = nil;
-    
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
-    if (data && !error) {
-        return @"Reachable";
-    } else {
-        return [NSString stringWithFormat:@"Unreachable: %@", error.localizedDescription];
-    }
 }
 
 - (void)dump {
@@ -1622,6 +1536,22 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     }
     iOS[@"altimeterIsRelativeAltitudeAvailable"] = [NSNumber numberWithBool:[LocationManager sharedInstance].altimeterIsRelativeAltitudeAvailable];
     
+    switch([LocationManager sharedInstance].motionActivityManagerAuthorizationStatus) {
+        case CMAuthorizationStatusDenied:
+            iOS[@"motionActivityManagerAuthorizationStatus"] = @"CMAuthorizationStatusDenied";
+            break;
+        case CMAuthorizationStatusAuthorized:
+            iOS[@"motionActivityManagerAuthorizationStatus"] = @"CMAuthorizationStatusAuthorized";
+            break;
+        case CMAuthorizationStatusRestricted:
+            iOS[@"motionActivityManagerAuthorizationStatus"] = @"CMAuthorizationStatusRestricted";
+            break;
+        case CMAuthorizationStatusNotDetermined:
+            iOS[@"motionActivityManagerAuthorizationStatus"] = @"CMAuthorizationStatusNotDetermined";
+            break;
+    }
+    iOS[@"motionActivityManagerIsActivityAvailable"] = [NSNumber numberWithBool:[LocationManager sharedInstance].motionActivityManagerIsActivityAvailable];
+
     iOS[@"pedometerIsStepCountingAvailable"] = [NSNumber numberWithBool:[CMPedometer isStepCountingAvailable]];
     iOS[@"pedometerIsFloorCountingAvailable"] = [NSNumber numberWithBool:[CMPedometer isFloorCountingAvailable]];
     iOS[@"pedometerIsDistanceAvailable"] = [NSNumber numberWithBool:[CMPedometer isDistanceAvailable]];
@@ -1994,7 +1924,6 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     friend.tid = [Settings stringForKey:@"trackerid_preference"
                                   inMOC:moc];
     
-    OwnTracking *ownTracking = [OwnTracking sharedInstance];
     NSDate *createdAt = location.timestamp;
     if (fabs(location.timestamp.timeIntervalSince1970 -
              [NSDate date].timeIntervalSince1970) > 1.0) {
@@ -2054,22 +1983,57 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
 
     NSNumber *m = [NSNumber numberWithInteger:[LocationManager sharedInstance].monitoring];
 
-    Waypoint *waypoint = [ownTracking addWaypointFor:friend
-                                            location:location
-                                           createdAt:createdAt
-                                             trigger:trigger
-                                                 poi:poi
-                                                 tag:tag
-                                             battery:batteryLevel
-                                               image:image
-                                           imageName:imageName
-                                           inRegions:inRegions
-                                              inRids:inRids
-                                               bssid:bssid
-                                                ssid:ssid
-                                                   m:m
-                                                conn:conn
-                                                  bs:bs];
+    NSNumber *p = nil;
+    CMAltitudeData *altitudeData = [LocationManager sharedInstance].altitudeData;
+    if (altitudeData) {
+        p = altitudeData.pressure;
+    }
+
+    NSMutableArray <NSString *> *motionActivities = nil;
+    CMMotionActivity *motionActivity = [LocationManager sharedInstance].motionActivity;
+    if (motionActivity) {
+        NSMutableArray <NSString *> *ma = [[NSMutableArray alloc] init];
+        if (motionActivity.stationary) {
+            [ma addObject:@"stationary"];
+        }
+        if (motionActivity.walking) {
+            [ma addObject:@"walking"];
+        }
+        if (motionActivity.running) {
+            [ma addObject:@"running"];
+        }
+        if (motionActivity.automotive) {
+            [ma addObject:@"automotive"];
+        }
+        if (motionActivity.cycling) {
+            [ma addObject:@"cycling"];
+        }
+        if (motionActivity.unknown) {
+            [ma addObject:@"unknown"];
+        }
+        
+        if (ma.count > 0) {
+            motionActivities = ma;
+        }
+    }
+
+    Waypoint *waypoint = [friend addWaypoint:location
+                                   createdAt:createdAt
+                                     trigger:trigger
+                                         poi:poi
+                                         tag:tag
+                                     battery:batteryLevel
+                                       image:image
+                                   imageName:imageName
+                                   inRegions:inRegions
+                                      inRids:inRids
+                                       bssid:bssid
+                                        ssid:ssid
+                                           m:m
+                                        conn:conn
+                                          bs:bs
+                                    pressure:p
+                            motionActivities:motionActivities];
     if (waypoint) {
         NSDictionary *json = [[OwnTracking sharedInstance] waypointAsJSON:waypoint];
         if (json) {
@@ -2085,10 +2049,19 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
             DDLogError(@"[OwnTracksAppDelegate] no JSON created from waypoint %@", waypoint);
             return FALSE;
         }
-        [ownTracking limitWaypointsFor:friend
-                             toMaximum:[Settings intForKey:@"positions_preference"
-                                                     inMOC:moc]];
-
+        
+        int days = [Settings intForKey:@"days_preference" inMOC:moc];
+        NSInteger remainingPositions = -1;
+        if (days >= 0) {
+            remainingPositions = [friend limitWaypointsToMaximumDays:days];
+        } else {
+            int positions = [Settings intForKey:@"positions_preference" inMOC:moc];
+            remainingPositions = [friend limitWaypointsToMaximum:positions];
+        }
+        [CoreData.sharedInstance sync:moc];
+        DDLogInfo(@"[OwnTracksAppDelegate] stored location @%@ (%ld)",
+                  createdAt, remainingPositions);
+        
     } else {
         DDLogError(@"[OwnTracksAppDelegate] waypoint creation failed from friend %@, location %@",
                    friend,
@@ -2096,16 +2069,22 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
         return FALSE;
     }
     
+    if ([trigger isEqualToString:@"p"]) {
+        return TRUE;
+    }
+    
     if ([UIDevice currentDevice].isBatteryMonitoringEnabled) {
         UIDeviceBatteryState batteryState = [UIDevice currentDevice].batteryState;
         float batteryLevel = [UIDevice currentDevice].batteryLevel;
+        int downgrade = [Settings intForKey:@"downgrade_preference"
+                                      inMOC:moc];
         if ([LocationManager sharedInstance].monitoring == LocationMonitoringMove) {
-            int downgrade = [Settings intForKey:@"downgrade_preference"
-                                          inMOC:moc];
-            
-            if (batteryState != UIDeviceBatteryStateFull && batteryState != UIDeviceBatteryStateCharging && batteryLevel < downgrade / 100.0) {
+            if (batteryState != UIDeviceBatteryStateFull &&
+                batteryState != UIDeviceBatteryStateCharging &&
+                batteryLevel < downgrade / 100.0) {
                 // Move Mode, but battery is not full, not charging and less than downgrade%
                 [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"downgraded"];
+                DDLogInfo(@"[OwnTracksAppDelegate] downgraded TRUE");
                 LocationManager.sharedInstance.monitoring = LocationMonitoringSignificant;
                 [Settings setInt:(int)[LocationManager sharedInstance].monitoring
                           forKey:@"monitoring_preference" inMOC:moc];
@@ -2116,9 +2095,12 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
             }
         } else {
             if ([[NSUserDefaults standardUserDefaults] boolForKey:@"downgraded"]) {
-                if (batteryState == UIDeviceBatteryStateFull || batteryState == UIDeviceBatteryStateCharging) {
-                    // not Move Mode, previously downgraded and battery is charging or full
+                if (batteryState == UIDeviceBatteryStateFull
+                    || batteryState == UIDeviceBatteryStateCharging ||
+                    batteryLevel >= downgrade / 100.0) {
+                    // not Move Mode, previously downgraded and battery is charging or full or more than downgrade%
                     [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+                    DDLogInfo(@"[OwnTracksAppDelegate] downgraded FALSE");
                     LocationManager.sharedInstance.monitoring = LocationMonitoringMove;
                     [Settings setInt:(int)[LocationManager sharedInstance].monitoring
                               forKey:@"monitoring_preference" inMOC:moc];
@@ -2132,6 +2114,50 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
             }
         }
     }
+    
+    if ([LocationManager sharedInstance].monitoring == LocationMonitoringMove) {
+        CLLocation *lastLocationWithMovement = [LocationManager sharedInstance].lastLocationWithMovement;
+        NSInteger adapt = [Settings intForKey:@"adapt_preference"
+                                        inMOC:moc];
+        
+        if (adapt > 0) {
+            if (lastLocationWithMovement && [lastLocationWithMovement.timestamp timeIntervalSinceNow] < -adapt * 60.0) {
+                BOOL insideFollowRegion = FALSE;
+                for (Region *region in friend.hasRegions) {
+                    if (region.CLregion.isFollow) {
+                        if ([LocationManager sharedInstance].insideCircularRegions[region.name]) {
+                            insideFollowRegion = TRUE;
+                            break;
+                        }
+                    }
+                }
+                
+                if (insideFollowRegion) {
+                    // Move Mode, but not moving, in a follow Region, and adapt is on
+                    [[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"adapted"];
+                    DDLogInfo(@"[OwnTracksAppDelegate] adapted TRUE");
+                    LocationManager.sharedInstance.monitoring = LocationMonitoringSignificant;
+                    [Settings setInt:(int)[LocationManager sharedInstance].monitoring
+                              forKey:@"monitoring_preference" inMOC:moc];
+                    [CoreData.sharedInstance sync:moc];
+                    [self background];
+                }
+            }
+        }
+    } else {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"adapted"]) {
+            // not Move Mode, previously adapted
+            
+            [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
+            DDLogInfo(@"[OwnTracksAppDelegate] adapted FALSE");
+            LocationManager.sharedInstance.monitoring = LocationMonitoringMove;
+            [Settings setInt:(int)[LocationManager sharedInstance].monitoring
+                      forKey:@"monitoring_preference" inMOC:moc];
+            [CoreData.sharedInstance sync:moc];
+            [self background];
+        }
+    }
+
     return TRUE;
 }
 
@@ -2345,6 +2371,7 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
         }
         [LocationManager sharedInstance].monitoring = monitoring;
         [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
         NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
         [Settings setInt:(int)[LocationManager sharedInstance].monitoring
                   forKey:@"monitoring_preference" inMOC:moc];

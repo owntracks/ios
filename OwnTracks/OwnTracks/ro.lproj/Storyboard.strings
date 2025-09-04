@@ -1,0 +1,642 @@
+/* Class = "UILabel"; text = "days"; ObjectID = "0Eb-tP-jZe"; Note = "Don't translate, technical term"; */
+"0Eb-tP-jZe.text" = "days";
+
+/* Class = "UITextField"; placeholder = "Radius"; ObjectID = "0WN-ST-XQq"; Note = "Don't translate. Technical Term"; */
+"0WN-ST-XQq.placeholder" = "Rază";
+
+/* Class = "UILabel"; text = "Parameters"; ObjectID = "1Lf-oi-0xo"; */
+"1Lf-oi-0xo.text" = "Parametri";
+
+/* Class = "UILabel"; text = "Street\n1\n2\n3\n4"; ObjectID = "1PK-JM-nD2"; */
+"1PK-JM-nD2.text" = "Stradă\n1\n2\n3\n4";
+
+/* Class = "UILabel"; text = "maxHistory"; ObjectID = "2F5-PF-efV"; Note = "Don't translate, technical term"; */
+"2F5-PF-efV.text" = "maxHistory";
+
+/* Class = "UITextField"; placeholder = "secret"; ObjectID = "2FK-gv-e75"; */
+"2FK-gv-e75.placeholder" = "secret";
+
+/* Class = "UILabel"; text = "Mode"; ObjectID = "3ad-LO-zcn"; */
+"3ad-LO-zcn.text" = "Mod";
+
+/* Class = "UILabel"; text = "pubRetain"; ObjectID = "3Hs-lP-khD"; Note = "Don't translate, technical term"; */
+"3Hs-lP-khD.text" = "pubRetain";
+
+/* Class = "UINavigationItem"; title = "Friends"; ObjectID = "03k-Ca-PSS"; */
+"03k-Ca-PSS.title" = "Prieteni";
+
+/* Class = "UILabel"; text = "locked"; ObjectID = "3K5-oQ-oxQ"; Note = "Don't translate, technical term"; */
+"3K5-oQ-oxQ.text" = "blocat";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "4OY-Dm-bnz"; */
+"4OY-Dm-bnz.placeholder" = "Parolă";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "5df-yk-myT"; */
+"5df-yk-myT.text" = "Titlu";
+
+/* Class = "UITextField"; placeholder = "days"; ObjectID = "5Nq-by-zFb"; */
+"5Nq-by-zFb.placeholder" = "zile";
+
+/* Class = "UILabel"; text = "11:30 PM"; ObjectID = "6AN-cF-srI"; Note = "Don't translate. Placeholder"; */
+"6AN-cF-srI.text" = "11:30";
+
+/* Class = "UITableViewSection"; headerTitle = "Client Certificate"; ObjectID = "6aR-4g-W4D"; */
+"6aR-4g-W4D.headerTitle" = "Certificat client";
+
+/* Class = "UIButton"; normalTitle = "Github"; ObjectID = "6ms-eE-0jF"; */
+"6ms-eE-0jF.normalTitle" = "GitHub";
+
+/* Class = "UIButton"; normalTitle = "Select from Photo Library"; ObjectID = "7BS-sH-tIQ"; */
+"7BS-sH-tIQ.normalTitle" = "Select from Photo Library";
+
+/* Class = "UILabel"; text = "Filename"; ObjectID = "7ie-NC-EFG"; Note = "Don't translate, technical term"; */
+"7ie-NC-EFG.text" = "Nume fișier";
+
+/* Class = "UINavigationItem"; title = "Tours"; ObjectID = "7Qj-vi-EaF"; */
+"7Qj-vi-EaF.title" = "Tours";
+
+/* Class = "UIButton"; normalTitle = "Create Card"; ObjectID = "7rX-Bq-DGb"; */
+"7rX-Bq-DGb.normalTitle" = "Create Card";
+
+/* Class = "UISegmentedControl"; 7W2-Mn-fUG.segmentTitles[0] = "MQTT"; ObjectID = "7W2-Mn-fUG"; Note = "Don't translate, technical term"; */
+"7W2-Mn-fUG.segmentTitles[0]" = "MQTT";
+
+/* Class = "UISegmentedControl"; 7W2-Mn-fUG.segmentTitles[1] = "HTTP"; ObjectID = "7W2-Mn-fUG"; Note = "Don't translate, technical term"; */
+"7W2-Mn-fUG.segmentTitles[1]" = "HTTP";
+
+/* Class = "UILabel"; text = "OSM Copyright"; ObjectID = "7wK-3s-ZUa"; */
+"7wK-3s-ZUa.text" = "OSM Copyright";
+
+/* Class = "UITableViewSection"; headerTitle = "Circular Region"; ObjectID = "7xg-sB-qXa"; */
+"7xg-sB-qXa.headerTitle" = "Regiune circulară";
+
+/* Class = "UINavigationItem"; title = "Waypoint"; ObjectID = "8DB-l4-Dop"; */
+"8DB-l4-Dop.title" = "Punct de referință";
+
+/* Class = "UINavigationItem"; title = "History"; ObjectID = "9IF-HL-6Bf"; */
+"9IF-HL-6Bf.title" = "Istoric";
+
+/* Class = "UITableViewSection"; headerTitle = "Info"; ObjectID = "9tZ-tQ-x72"; */
+"9tZ-tQ-x72.headerTitle" = "Informații";
+
+/* Class = "UIButton"; normalTitle = "Export Waypoints"; ObjectID = "54d-E6-cWX"; */
+"54d-E6-cWX.normalTitle" = "Exportă punct de referință";
+
+/* Class = "UILabel"; text = "Trigger"; ObjectID = "80F-rf-ecS"; */
+"80F-rf-ecS.text" = "Trigger";
+
+/* Class = "UILabel"; text = "keepAlive"; ObjectID = "222-vu-d4y"; Note = "Don't translate, technical term"; */
+"222-vu-d4y.text" = "keepAlive";
+
+/* Class = "UITextField"; placeholder = "<batterylevel>"; ObjectID = "572-Up-z9B"; Note = "Placeholder. Do not translate"; */
+"572-Up-z9B.placeholder" = "<nivel baterie>";
+
+/* Class = "UITableViewSection"; headerTitle = "Please note"; ObjectID = "a09-rn-TZE"; */
+"a09-rn-TZE.headerTitle" = "Please note";
+
+/* Class = "UILabel"; text = "Host"; ObjectID = "a19-FN-Mwf"; */
+"a19-FN-Mwf.text" = "Host";
+
+/* Class = "UILabel"; text = "Battery Level"; ObjectID = "ABs-5w-ixf"; */
+"ABs-5w-ixf.text" = "Battery Level";
+
+/* Class = "UITableViewSection"; headerTitle = "HTTP Mode"; ObjectID = "Ac4-3H-YRL"; */
+"Ac4-3H-YRL.headerTitle" = "Mod HTTP";
+
+/* Class = "UILabel"; text = "Pressure"; ObjectID = "AFw-QA-oz1"; */
+"AFw-QA-oz1.text" = "Pressure";
+
+/* Class = "UILabel"; text = "Street\n1\n2\n3\n4"; ObjectID = "apt-Il-Ih4"; Note = "Don't Translate, Placeholder"; */
+"apt-Il-Ih4.text" = "Street\n1\n2\n3\n4";
+
+/* Class = "UILabel"; text = "OSM Template"; ObjectID = "auA-1g-QGd"; */
+"auA-1g-QGd.text" = "OSM Template";
+
+/* Class = "UILabel"; text = "Allow Untrusted Certificates"; ObjectID = "aVN-vG-YjO"; Note = "Don't translate, technical term"; */
+"aVN-vG-YjO.text" = "Allow Untrusted Certificates";
+
+/* Class = "UIButton"; normalTitle = "Logs"; ObjectID = "b91-ur-Ooi"; */
+"b91-ur-Ooi.normalTitle" = "Logs";
+
+/* Class = "UINavigationItem"; title = "Credits and License"; ObjectID = "BPo-EV-Jgg"; */
+"BPo-EV-Jgg.title" = "Credite și licență";
+
+/* Class = "UILabel"; text = "Passphrase"; ObjectID = "BTX-XN-kzE"; Note = "Don't translate, technical term"; */
+"BTX-XN-kzE.text" = "Frază acces";
+
+/* Class = "UILabel"; text = "MotionActivities"; ObjectID = "BxB-GS-7zQ"; */
+"BxB-GS-7zQ.text" = "MotionActivities";
+
+/* Class = "UILabel"; text = "Password"; ObjectID = "C1o-h4-z6h"; */
+"C1o-h4-z6h.text" = "Parolă";
+
+/* Class = "UITextField"; placeholder = "qos"; ObjectID = "cBn-p7-eqG"; Note = "Placeholder. Do not translate"; */
+"cBn-p7-eqG.placeholder" = "qos";
+
+/* Class = "UIButton"; normalTitle = "Export GPX"; ObjectID = "Cex-Jr-Uiu"; */
+"Cex-Jr-Uiu.normalTitle" = "Export GPX";
+
+/* Class = "UILabel"; text = "Tag"; ObjectID = "ch2-SH-JfC"; */
+"ch2-SH-JfC.text" = "Tag";
+
+/* Class = "UILabel"; text = "Minor"; ObjectID = "crJ-Yr-XNh"; */
+"crJ-Yr-XNh.text" = "Minor";
+
+/* Class = "UILabel"; text = "cmd"; ObjectID = "cTs-Rr-JTs"; Note = "Don't translate, technical term"; */
+"cTs-Rr-JTs.text" = "cmd";
+
+/* Class = "UILabel"; text = "Latitude"; ObjectID = "Cuh-Tm-IcV"; */
+"Cuh-Tm-IcV.text" = "Latitudine";
+
+/* Class = "UILabel"; text = "Points"; ObjectID = "cUO-zP-KuY"; */
+"cUO-zP-KuY.text" = "Points";
+
+/* Class = "UILabel"; text = "adapt"; ObjectID = "CUu-az-qIs"; Note = "Don't translate, technical term"; */
+"CUu-az-qIs.text" = "adapt";
+
+/* Class = "UILabel"; text = "extendedData"; ObjectID = "cxz-nO-ptK"; Note = "Don't translate, technical term"; */
+"cxz-nO-ptK.text" = "extendedData";
+
+/* Class = "UITextField"; placeholder = "<Distance>"; ObjectID = "cYc-8p-mIM"; Note = "Placeholder. Don't translate."; */
+"cYc-8p-mIM.placeholder" = "<Distance>";
+
+/* Class = "UILabel"; text = "Image Name"; ObjectID = "CYj-Uw-Bhk"; */
+"CYj-Uw-Bhk.text" = "Image Name";
+
+/* Class = "UILabel"; text = "Topic"; ObjectID = "Dgw-5m-uvy"; */
+"Dgw-5m-uvy.text" = "Subiect";
+
+/* Class = "UITableViewSection"; headerTitle = "Beacon Region"; ObjectID = "dPT-PC-ShQ"; */
+"dPT-PC-ShQ.headerTitle" = "Beacon Region";
+
+/* Class = "UITextField"; placeholder = "trackerid"; ObjectID = "dUg-TH-IQ0"; Note = "Don't translate, technical term"; */
+"dUg-TH-IQ0.placeholder" = "trackerid";
+
+/* Class = "UITextView"; text = "Copyright © 2013-2025 by Christoph Krey, https://owntracks.org"; ObjectID = "dZg-CC-7yD"; */
+"dZg-CC-7yD.text" = "Copyright © 2013-2025 by Christoph Krey, https://owntracks.org";
+
+/* Class = "UILabel"; text = "ranging"; ObjectID = "DZx-uw-XhQ"; Note = "Don't translate, technical term"; */
+"DZx-uw-XhQ.text" = "variind";
+
+/* Class = "UITextField"; placeholder = "deviceid"; ObjectID = "e0q-hc-0z2"; Note = "Placeholder. Do not translate"; */
+"e0q-hc-0z2.placeholder" = "deviceid";
+
+/* Class = "UITabBarController"; title = "Tab Bar"; ObjectID = "e04-OU-xZ4"; */
+"e04-OU-xZ4.title" = "Tab Bar";
+
+/* Class = "UIButton"; normalTitle = "Documentation"; ObjectID = "ePs-kX-VDJ"; */
+"ePs-kX-VDJ.normalTitle" = "Documentation";
+
+/* Class = "UIBarButtonItem"; title = "-"; ObjectID = "ere-0U-4rD"; Note = "Placeholder. Do not translate"; */
+"ere-0U-4rD.title" = "–";
+
+/* Class = "UIButton"; normalTitle = "Send Debug Status"; ObjectID = "evM-XZ-F0H"; */
+"evM-XZ-F0H.normalTitle" = "Send Debug Status";
+
+/* Class = "UILabel"; text = "Port"; ObjectID = "EWI-7o-7Jo"; */
+"EWI-7o-7Jo.text" = "Port";
+
+/* Class = "UITextField"; placeholder = "minutes"; ObjectID = "FDy-XH-ARB"; Note = "Placeholder. Do not translate"; */
+"FDy-XH-ARB.placeholder" = "minutes";
+
+/* Class = "UILabel"; text = "clientId"; ObjectID = "fHY-ry-yB3"; Note = "Don't translate, technical term"; */
+"fHY-ry-yB3.text" = "clientId";
+
+/* Class = "UIButton"; normalTitle = "Web"; ObjectID = "Fng-qL-diO"; */
+"Fng-qL-diO.normalTitle" = "Web";
+
+/* Class = "UITextField"; placeholder = "uuid"; ObjectID = "fPO-vc-4UX"; */
+"fPO-vc-4UX.placeholder" = "uuid";
+
+/* Class = "UILabel"; text = "POI"; ObjectID = "Fup-3w-dk7"; */
+"Fup-3w-dk7.text" = "POI";
+
+/* Class = "UILabel"; text = "Credits and Licence"; ObjectID = "FYQ-ba-bf8"; */
+"FYQ-ba-bf8.text" = "Credite și licență";
+
+/* Class = "UILabel"; text = "Version"; ObjectID = "g84-aA-XOI"; */
+"g84-aA-XOI.text" = "Versiune";
+
+/* Class = "UITextField"; placeholder = "<Distance>"; ObjectID = "Gg9-jR-tgq"; Note = "Placeholder. Don't translate."; */
+"Gg9-jR-tgq.placeholder" = "<Distance>";
+
+/* Class = "UITableViewSection"; headerTitle = "OwnTracks - Your location companion"; ObjectID = "Gjb-Ud-8a8"; */
+"Gjb-Ud-8a8.headerTitle" = "OwnTracks – Însoțitorul tău de locație";
+
+/* Class = "UITextField"; placeholder = "<Distance>"; ObjectID = "gkb-3O-jAy"; Note = "Placeholder. Don't translate."; */
+"gkb-3O-jAy.placeholder" = "<Distanță>";
+
+/* Class = "UILabel"; text = "pubTopicBase"; ObjectID = "gkR-ph-8W7"; Note = "Don't translate, technical term"; */
+"gkR-ph-8W7.text" = "pubTopicBase";
+
+/* Class = "UINavigationItem"; title = "Regions"; ObjectID = "GM9-KK-8vY"; */
+"GM9-KK-8vY.title" = "Regiuni";
+
+/* Class = "UINavigationItem"; title = "Set POI with Image"; ObjectID = "gPt-L8-JdW"; */
+"gPt-L8-JdW.title" = "Set POI with Image";
+
+/* Class = "UILabel"; text = "locatorDisplacement"; ObjectID = "gtX-x4-Vwl"; Note = "Don't translate, technical term"; */
+"gtX-x4-Vwl.text" = "locatorDisplacement";
+
+/* Class = "UITextField"; placeholder = "Name for new tour"; ObjectID = "guB-Ga-J3e"; */
+"guB-Ga-J3e.placeholder" = "Name for new tour";
+
+/* Class = "UINavigationItem"; title = "Certificates"; ObjectID = "GWL-01-fh1"; Note = "Don't translate, technical term"; */
+"GWL-01-fh1.title" = "Certificate";
+
+/* Class = "UILabel"; text = "Battery Status"; ObjectID = "gXA-0p-FKt"; */
+"gXA-0p-FKt.text" = "Nivel baterie";
+
+/* Class = "UILabel"; text = "effective pubTopic"; ObjectID = "H7d-L2-cbZ"; Note = "Don't translate, technical term"; */
+"H7d-L2-cbZ.text" = "pubTopic efectiv";
+
+/* Class = "UITabBarItem"; title = "Regions"; ObjectID = "HB5-wo-JZx"; */
+"HB5-wo-JZx.title" = "Regiuni";
+
+/* Class = "UIButton"; normalTitle = "Navigate"; ObjectID = "hcc-3n-8aC"; */
+"hcc-3n-8aC.normalTitle" = "Navighează";
+
+/* Class = "UITabBarItem"; title = "Map"; ObjectID = "HCO-pB-vNN"; */
+"HCO-pB-vNN.title" = "Hartă";
+
+/* Class = "UITextField"; placeholder = "<Version>"; ObjectID = "hdf-7C-N25"; Note = "Placeholder, do not translate"; */
+"hdf-7C-N25.placeholder" = "<Versiune>";
+
+/* Class = "UILabel"; text = "effective deviceId"; ObjectID = "hE7-sf-UPA"; Note = "Don't translate, technical term"; */
+"hE7-sf-UPA.text" = "deviceId efectiv";
+
+/* Class = "UINavigationItem"; title = "Region"; ObjectID = "Hfg-cd-JM1"; */
+"Hfg-cd-JM1.title" = "Regiune";
+
+/* Class = "UINavigationItem"; title = "Status Info"; ObjectID = "hFq-9F-EAc"; */
+"hFq-9F-EAc.title" = "Informații stare";
+
+/* Class = "UILabel"; text = "Info"; ObjectID = "hLa-Yd-Jmn"; */
+"hLa-Yd-Jmn.text" = "Informații";
+
+/* Class = "UITextField"; placeholder = "pubTopicBase"; ObjectID = "hNb-lH-EGK"; Note = "Placeholder. Do not translate"; */
+"hNb-lH-EGK.placeholder" = "pubTopicBase";
+
+/* Class = "UILabel"; text = "effective clientId"; ObjectID = "hQX-dc-Yix"; Note = "Don't translate, technical term"; */
+"hQX-dc-Yix.text" = "clientId efectiv";
+
+/* Class = "UITextView"; text = "<Parameters>"; ObjectID = "HQZ-wy-aC5"; Note = "Don't translate. Placeholder!"; */
+"HQZ-wy-aC5.text" = "<Parametri>";
+
+/* Class = "UILabel"; text = "Regions"; ObjectID = "HRd-i4-drH"; */
+"HRd-i4-drH.text" = "Regions";
+
+/* Class = "UITextField"; placeholder = "timestamp"; ObjectID = "HVH-Pt-DXp"; */
+"HVH-Pt-DXp.placeholder" = "datare";
+
+/* Class = "UILabel"; text = "locatorInterval"; ObjectID = "hY6-k2-neH"; Note = "Don't translate, technical term"; */
+"hY6-k2-neH.text" = "locatorInterval";
+
+/* Class = "UILabel"; text = "POI"; ObjectID = "hZs-K3-Uc0"; */
+"hZs-K3-Uc0.text" = "POI";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "I19-GX-iMA"; */
+"I19-GX-iMA.text" = "Etichetă";
+
+/* Class = "UITextField"; placeholder = "info"; ObjectID = "Ikm-SR-MCD"; */
+"Ikm-SR-MCD.placeholder" = "informații";
+
+/* Class = "UIButton"; normalTitle = "Select from Photo Library"; ObjectID = "IL1-c9-0c1"; */
+"IL1-c9-0c1.normalTitle" = "Select from Photo Library";
+
+/* Class = "UITextField"; placeholder = "clientId"; ObjectID = "IsX-6T-YbC"; Note = "Placeholder. Do not translate"; */
+"IsX-6T-YbC.placeholder" = "clientId";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "jaH-UC-XYI"; */
+"jaH-UC-XYI.title" = "Setări";
+
+/* Class = "UILabel"; text = "subQos"; ObjectID = "jH3-JK-ef6"; Note = "Don't translate, technical term"; */
+"jH3-JK-ef6.text" = "subQos";
+
+/* Class = "UITextField"; placeholder = "Meters"; ObjectID = "jqJ-cr-0tT"; Note = "Don't translate, technical term"; */
+"jqJ-cr-0tT.placeholder" = "Metri";
+
+/* Class = "UITextField"; placeholder = "OSMTemplate"; ObjectID = "JS1-vt-wVV"; */
+"JS1-vt-wVV.placeholder" = "OSMTemplate";
+
+/* Class = "UITextField"; placeholder = "client certificate file"; ObjectID = "JSF-BR-9Nb"; Note = "Don't translate, technical term"; */
+"JSF-BR-9Nb.placeholder" = "client certificate file";
+
+/* Class = "UILabel"; text = "sub"; ObjectID = "Jw3-DE-n5i"; Note = "Don't translate, technical term"; */
+"Jw3-DE-n5i.text" = "sub";
+
+/* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "jwK-F1-3iE"; Note = "Placeholder. Don't translate."; */
+"jwK-F1-3iE.placeholder" = "<Coordonate>";
+
+/* Class = "UITextField"; placeholder = "longitude"; ObjectID = "JZL-1C-khg"; */
+"JZL-1C-khg.placeholder" = "longitudine";
+
+/* Class = "UITextField"; placeholder = "<Distance>"; ObjectID = "k0E-xM-eKF"; Note = "Placeholder. Don't translate."; */
+"k0E-xM-eKF.placeholder" = "<Distance>";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "K3J-wU-omB"; Note = "Don't Translate. Placeholder"; */
+"K3J-wU-omB.text" = "Nume";
+
+/* Class = "UITextField"; placeholder = "passphrase"; ObjectID = "KhB-Z4-umi"; Note = "Don't translate, technical term"; */
+"KhB-Z4-umi.placeholder" = "passphrase";
+
+/* Class = "UINavigationItem"; title = "Persons"; ObjectID = "KOf-PY-JcB"; */
+"KOf-PY-JcB.title" = "Persoane";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Kvr-J3-4fw"; */
+"Kvr-J3-4fw.text" = "Titlu";
+
+/* Class = "UILabel"; text = "Activity"; ObjectID = "L2M-p0-CtV"; */
+"L2M-p0-CtV.text" = "Activity";
+
+/* Class = "UITextField"; placeholder = "mode"; ObjectID = "LEn-Jc-PvC"; Note = "Placeholder. Do not translate"; */
+"LEn-Jc-PvC.placeholder" = "mode";
+
+/* Class = "UITextField"; placeholder = "latitude"; ObjectID = "Lmo-Kp-uCi"; */
+"Lmo-Kp-uCi.placeholder" = "latitudine";
+
+/* Class = "UILabel"; text = "Secret encryption key"; ObjectID = "lQx-Zr-z69"; */
+"lQx-Zr-z69.text" = "Cheie secretă de criptare";
+
+/* Class = "UITextField"; placeholder = "number"; ObjectID = "lTh-wG-5YG"; */
+"lTh-wG-5YG.placeholder" = "număr";
+
+/* Class = "UITextField"; placeholder = "Meters"; ObjectID = "M0H-SF-pCO"; */
+"M0H-SF-pCO.placeholder" = "Metri";
+
+/* Class = "UITextField"; placeholder = "httpHeaders"; ObjectID = "mca-nZ-Fzz"; */
+"mca-nZ-Fzz.placeholder" = "httpHeaders";
+
+/* Class = "UILabel"; text = "Created At"; ObjectID = "mhI-D6-Y0f"; */
+"mhI-D6-Y0f.text" = "Creat la";
+
+/* Class = "UITextField"; placeholder = "<number of track points>"; ObjectID = "MLm-qe-ecm"; Note = "Placeholder, do not translate"; */
+"MLm-qe-ecm.placeholder" = "<number of track points>";
+
+/* Class = "UILabel"; text = "Pressure"; ObjectID = "MLp-t9-oef"; */
+"MLp-t9-oef.text" = "Pressure";
+
+/* Class = "UITextView"; text = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, Sodium, and DSJSONSchemaValidation."; ObjectID = "Moe-Di-frm"; */
+"Moe-Di-frm.text" = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, Sodium, and DSJSONSchemaValidation.";
+
+/* Class = "UITabBarItem"; title = "Friends"; ObjectID = "msF-bI-hEJ"; */
+"msF-bI-hEJ.title" = "Prieteni";
+
+/* Class = "UITextField"; placeholder = "<batterylevel>"; ObjectID = "N2S-5K-ajg"; Note = "Placeholder. Do not translate"; */
+"N2S-5K-ajg.placeholder" = "<batterylevel>";
+
+/* Class = "UINavigationItem"; title = "Modes"; ObjectID = "nJk-gq-XUi"; */
+"nJk-gq-XUi.title" = "Moduri";
+
+/* Class = "UILabel"; text = "positions"; ObjectID = "NkN-Ib-izC"; Note = "Don't translate, technical term"; */
+"NkN-Ib-izC.text" = "poziții";
+
+/* Class = "UITableViewSection"; headerTitle = "Expert Mode"; ObjectID = "NRQ-7X-SLM"; */
+"NRQ-7X-SLM.headerTitle" = "Mod expert";
+
+/* Class = "UINavigationItem"; title = "TLS"; ObjectID = "NS8-pg-IlP"; Note = "Don't translate, technical term"; */
+"NS8-pg-IlP.title" = "TLS";
+
+/* Class = "UITextField"; placeholder = "timestamp"; ObjectID = "nwd-8O-YcR"; */
+"nwd-8O-YcR.placeholder" = "datare";
+
+/* Class = "UILabel"; text = "Proto"; ObjectID = "NZB-F6-F8c"; */
+"NZB-F6-F8c.text" = "Proto";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "o8t-NB-IV6"; */
+"o8t-NB-IV6.text" = "Nume";
+
+/* Class = "UILabel"; text = "Image"; ObjectID = "OBg-Ct-0Aj"; */
+"OBg-Ct-0Aj.text" = "Image";
+
+/* Class = "UITextField"; placeholder = "Seconds"; ObjectID = "oBs-Zn-P4m"; */
+"oBs-Zn-P4m.placeholder" = "secunde";
+
+/* Class = "UINavigationItem"; title = "Map"; ObjectID = "OeB-EW-2jx"; */
+"OeB-EW-2jx.title" = "Hartă";
+
+/* Class = "UILabel"; text = "Longitude"; ObjectID = "OgN-Bg-AeZ"; */
+"OgN-Bg-AeZ.text" = "Longitudine";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "OIH-xB-QZe"; */
+"OIH-xB-QZe.text" = "Subtitlu";
+
+/* Class = "UITextField"; placeholder = "userid"; ObjectID = "Oiq-Kb-qLx"; */
+"Oiq-Kb-qLx.placeholder" = "userid";
+
+/* Class = "UILabel"; text = "Motion Activities"; ObjectID = "OWG-f7-FLn"; */
+"OWG-f7-FLn.text" = "Motion Activities";
+
+/* Class = "UILabel"; text = "HTTP Headers"; ObjectID = "p6D-3d-Jq2"; */
+"p6D-3d-Jq2.text" = "HTTP Headers";
+
+/* Class = "UINavigationItem"; title = "Logs"; ObjectID = "p61-Zk-kOq"; */
+"p61-Zk-kOq.title" = "Logs";
+
+/* Class = "UITextField"; placeholder = "qos"; ObjectID = "PBp-Kc-CwF"; Note = "Placeholder. Do not translate"; */
+"PBp-Kc-CwF.placeholder" = "qos";
+
+/* Class = "UITextField"; placeholder = "url"; ObjectID = "pD2-Zj-Toq"; */
+"pD2-Zj-Toq.placeholder" = "url";
+
+/* Class = "UILabel"; text = "URL"; ObjectID = "pHe-yA-a8f"; */
+"pHe-yA-a8f.text" = "URL";
+
+/* Class = "UITextField"; placeholder = "proto"; ObjectID = "pn1-hA-OmO"; */
+"pn1-hA-OmO.placeholder" = "proto";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "pOi-JI-Qg7"; */
+"pOi-JI-Qg7.text" = "Subtitle";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "pRh-Nl-A5i"; */
+"pRh-Nl-A5i.title" = "Item";
+
+/* Class = "UILabel"; text = "To"; ObjectID = "pud-EK-OTL"; */
+"pud-EK-OTL.text" = "Către";
+
+/* Class = "UILabel"; text = "Radius for Region (m)"; ObjectID = "Q3S-EG-XKZ"; */
+"Q3S-EG-XKZ.text" = "Rază pentru regiune (m)";
+
+/* Class = "UILabel"; text = "Websockets"; ObjectID = "qg7-Fn-2Qr"; Note = "Don't translate, technical term"; */
+"qg7-Fn-2Qr.text" = "Websockets";
+
+/* Class = "UILabel"; text = "UUID"; ObjectID = "Qpu-nC-kBF"; */
+"Qpu-nC-kBF.text" = "UUID";
+
+/* Class = "UILabel"; text = "Monitoring"; ObjectID = "qzE-dw-Sbl"; */
+"qzE-dw-Sbl.text" = "Monitoring";
+
+/* Class = "UIButton"; normalTitle = "Settings"; ObjectID = "R0X-4j-vxu"; */
+"R0X-4j-vxu.normalTitle" = "Setări";
+
+/* Class = "UILabel"; text = "effective tid"; ObjectID = "rdL-4M-Ugx"; Note = "Don't translate, technical term"; */
+"rdL-4M-Ugx.text" = "effective tid";
+
+/* Class = "UINavigationItem"; title = "Create Card"; ObjectID = "rJ2-2y-TWr"; */
+"rJ2-2y-TWr.title" = "Create Card";
+
+/* Class = "UIButton"; normalTitle = "Publish Waypoints"; ObjectID = "rMe-Is-0BE"; */
+"rMe-Is-0BE.normalTitle" = "Publish Waypoints";
+
+/* Class = "UIButton"; configuration.title = "Use Camera"; ObjectID = "Rvi-2b-Hb0"; */
+"Rvi-2b-Hb0.configuration.title" = "Folosește camera";
+
+/* Class = "UIButton"; normalTitle = "Use Camera"; ObjectID = "Rvi-2b-Hb0"; */
+"Rvi-2b-Hb0.normalTitle" = "Folosește camera";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "rx4-uC-NeB"; */
+"rx4-uC-NeB.text" = "Subtitlu";
+
+/* Class = "UILabel"; text = "Status"; ObjectID = "Rxv-hL-MC1"; Note = "Placeholder. Do not translate!"; */
+"Rxv-hL-MC1.text" = "Stare";
+
+/* Class = "UITextField"; placeholder = "name"; ObjectID = "s1I-Ff-fYw"; */
+"s1I-Ff-fYw.placeholder" = "nume";
+
+/* Class = "UILabel"; text = "Image"; ObjectID = "s8o-vR-msg"; */
+"s8o-vR-msg.text" = "Image";
+
+/* Class = "UILabel"; text = "TrackerID"; ObjectID = "SaB-mS-8Nw"; Note = "Don't translate, technical term"; */
+"SaB-mS-8Nw.text" = "ID urmăritor";
+
+/* Class = "UILabel"; text = "UserID"; ObjectID = "SAr-Vi-xHD"; */
+"SAr-Vi-xHD.text" = "ID utilizator";
+
+/* Class = "UILabel"; text = "downgrade"; ObjectID = "Sbl-15-Idv"; Note = "Don't translate, technical term"; */
+"Sbl-15-Idv.text" = "downgrade";
+
+/* Class = "UILabel"; text = "Distance"; ObjectID = "SCe-XW-vBZ"; */
+"SCe-XW-vBZ.text" = "Distanță";
+
+/* Class = "UINavigationItem"; title = "Create Tour"; ObjectID = "SR5-Yo-l2L"; */
+"SR5-Yo-l2L.title" = "Create Tour";
+
+/* Class = "UITextView"; text = "<status>"; ObjectID = "src-OY-ZUR"; Note = "Don't translate. Placeholder"; */
+"src-OY-ZUR.text" = "<stare>";
+
+/* Class = "UITextField"; placeholder = "subTopic"; ObjectID = "suj-kA-G3U"; Note = "Placeholder. Do not translate"; */
+"suj-kA-G3U.placeholder" = "subTopic";
+
+/* Class = "UITextField"; placeholder = "<Distance>"; ObjectID = "SUY-eb-SwY"; Note = "Placeholder. Don't translate."; */
+"SUY-eb-SwY.placeholder" = "<Distance>";
+
+/* Class = "UILabel"; text = "From"; ObjectID = "SZe-bR-3x5"; */
+"SZe-bR-3x5.text" = "De la";
+
+/* Class = "UILabel"; text = "Major"; ObjectID = "sZM-l3-N2o"; */
+"sZM-l3-N2o.text" = "Major";
+
+/* Class = "UITextField"; placeholder = "minor"; ObjectID = "Tc6-JR-qOB"; */
+"Tc6-JR-qOB.placeholder" = "minor";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "THV-Ij-ayz"; */
+"THV-Ij-ayz.text" = "Title";
+
+/* Class = "UIButton"; normalTitle = "Tours"; ObjectID = "tiK-11-lia"; */
+"tiK-11-lia.normalTitle" = "Tours";
+
+/* Class = "UITableViewSection"; headerTitle = "Connection"; ObjectID = "TPY-zx-JfY"; */
+"TPY-zx-JfY.headerTitle" = "Conexiune";
+
+/* Class = "UITextField"; placeholder = "host"; ObjectID = "tQs-PK-sbV"; Note = "Don't translate, technical term"; */
+"tQs-PK-sbV.placeholder" = "gazdă";
+
+/* Class = "UILabel"; text = "Connection"; ObjectID = "tyE-Sj-AO8"; */
+"tyE-Sj-AO8.text" = "Connection";
+
+/* Class = "UITableViewSection"; headerTitle = "Track"; ObjectID = "U6s-u3-Ajq"; */
+"U6s-u3-Ajq.headerTitle" = "Track";
+
+/* Class = "UITableViewSection"; headerTitle = "Location"; ObjectID = "uci-TJ-YaO"; */
+"uci-TJ-YaO.headerTitle" = "Locație";
+
+/* Class = "UILabel"; text = "DeviceID"; ObjectID = "uJc-pU-O6W"; Note = "Don't translate, technical term"; */
+"uJc-pU-O6W.text" = "ID dispozitiv";
+
+/* Class = "UILabel"; text = "Authentication"; ObjectID = "UjS-PQ-pwa"; */
+"UjS-PQ-pwa.text" = "Autentificare";
+
+/* Class = "UITextField"; placeholder = "major"; ObjectID = "UqU-7l-HX1"; */
+"UqU-7l-HX1.placeholder" = "major";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "Urx-Dz-nZk"; */
+"Urx-Dz-nZk.text" = "Subtitlu";
+
+/* Class = "UILabel"; text = "monitoring"; ObjectID = "vhk-Yh-d0n"; Note = "Don't translate, technical term"; */
+"vhk-Yh-d0n.text" = "monitorizare";
+
+/* Class = "UILabel"; text = "ignoreStaleLocations"; ObjectID = "vHW-Iv-6Q1"; Note = "Don't translate, technical term"; */
+"vHW-Iv-6Q1.text" = "ignoreStaleLocations";
+
+/* Class = "UITableViewSection"; headerTitle = "MQTT Mode"; ObjectID = "vi2-IZ-KJt"; */
+"vi2-IZ-KJt.headerTitle" = "Mod MQTT";
+
+/* Class = "UILabel"; text = "TLS"; ObjectID = "VQE-Wz-JiS"; Note = "Technical termin. Do not translate"; */
+"VQE-Wz-JiS.text" = "TLS";
+
+/* Class = "UILabel"; text = "allowRemoteLocation"; ObjectID = "VqT-ix-RdG"; Note = "Don't translate, technical term"; */
+"VqT-ix-RdG.text" = "allowRemoteLocation";
+
+/* Class = "UILabel"; text = "effective subTopic"; ObjectID = "vUl-tT-Aw3"; Note = "Don't translate, technical term"; */
+"vUl-tT-Aw3.text" = "effective subTopic";
+
+/* Class = "UILabel"; text = "cleanSession"; ObjectID = "VYy-2S-U3O"; Note = "Don't translate, technical term"; */
+"VYy-2S-U3O.text" = "cleanSession";
+
+/* Class = "UILabel"; text = "subTopic"; ObjectID = "w8s-ld-3gB"; Note = "Don't translate, technical term"; */
+"w8s-ld-3gB.text" = "subTopic";
+
+/* Class = "UITextField"; placeholder = "topic"; ObjectID = "wKK-9Q-BMU"; */
+"wKK-9Q-BMU.placeholder" = "subiect";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "WPX-rf-Obi"; */
+"WPX-rf-Obi.text" = "Nume";
+
+/* Class = "UILabel"; text = "Timestamp"; ObjectID = "x2d-ex-SAA"; */
+"x2d-ex-SAA.text" = "Timestamp";
+
+/* Class = "UILabel"; text = "pubQos"; ObjectID = "x67-7L-vnt"; Note = "Don't translate, technical term"; */
+"x67-7L-vnt.text" = "pubQos";
+
+/* Class = "UITextField"; placeholder = "downgrade%"; ObjectID = "XkO-CT-wUS"; Note = "Placeholder. Do not translate"; */
+"XkO-CT-wUS.placeholder" = "downgrade%";
+
+/* Class = "UITextField"; placeholder = "number"; ObjectID = "Xom-Gk-dU5"; */
+"Xom-Gk-dU5.placeholder" = "number";
+
+/* Class = "UITextField"; placeholder = "OSMCopyright"; ObjectID = "yAb-Me-E2d"; */
+"yAb-Me-E2d.placeholder" = "OSMCopyright";
+
+/* Class = "UIButton"; normalTitle = "Mastodon"; ObjectID = "YlH-Kr-wOD"; */
+"YlH-Kr-wOD.normalTitle" = "Mastodon";
+
+/* Class = "UILabel"; text = "Coordinates"; ObjectID = "Ym9-bx-HAr"; */
+"Ym9-bx-HAr.text" = "Coordonate";
+
+/* Class = "UILabel"; text = "ignoreInaccurateLocations"; ObjectID = "yni-yE-tcr"; Note = "Don't translate, technical term"; */
+"yni-yE-tcr.text" = "ignoreInaccurateLocations";
+
+/* Class = "UITextField"; placeholder = "number"; ObjectID = "yny-2e-dpz"; */
+"yny-2e-dpz.placeholder" = "număr";
+
+/* Class = "UIButton"; normalTitle = "Publish Settings"; ObjectID = "YQ6-jA-Rsh"; */
+"YQ6-jA-Rsh.normalTitle" = "Publică setări";
+
+/* Class = "UIButton"; normalTitle = "Export Settings"; ObjectID = "ysB-cv-35Y"; */
+"ysB-cv-35Y.normalTitle" = "Exportă setări";
+
+/* Class = "UIButton"; normalTitle = "Navigate"; ObjectID = "Yuf-Fp-w12"; */
+"Yuf-Fp-w12.normalTitle" = "Navigate";
+
+/* Class = "UILabel"; text = "Coordinates"; ObjectID = "Yx0-Kk-yOQ"; */
+"Yx0-Kk-yOQ.text" = "Coordonate";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "z87-2B-BRC"; */
+"z87-2B-BRC.text" = "Titlu";
+
+/* Class = "UITextField"; placeholder = "seconds"; ObjectID = "ZT5-mN-Tt5"; */
+"ZT5-mN-Tt5.placeholder" = "secunde";
+
+/* Class = "UITextField"; placeholder = "port"; ObjectID = "ZW3-WS-Wb7"; Note = "Don't translate, technical term"; */
+"ZW3-WS-Wb7.placeholder" = "port";
+

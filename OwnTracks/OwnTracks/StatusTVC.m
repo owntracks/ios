@@ -18,10 +18,14 @@
 @interface StatusTVC ()
 @property (weak, nonatomic) IBOutlet UITextField *UILocation;
 @property (weak, nonatomic) IBOutlet UITextField *UIpressure;
+@property (weak, nonatomic) IBOutlet UITextField *UImotionActivities;
 @property (weak, nonatomic) IBOutlet UITextView *UIparameters;
 @property (weak, nonatomic) IBOutlet UITextView *UIstatusField;
 @property (weak, nonatomic) IBOutlet UITextField *UIVersion;
+@property (weak, nonatomic) IBOutlet UITextField *UItrackpoints;
+@property (weak, nonatomic) IBOutlet UIButton *UIexportTrack;
 
+@property (strong, nonatomic) UIDocumentInteractionController *dic;
 @end
 
 @implementation StatusTVC
@@ -40,7 +44,15 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
             context:nil];
     [[LocationManager sharedInstance] addObserver:self
-                                       forKeyPath:@"location"
+                                       forKeyPath:@"lastUsedLocation"
+                                          options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                          context:nil];
+    [[LocationManager sharedInstance] addObserver:self
+                                       forKeyPath:@"altitudeData"
+                                          options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                          context:nil];
+    [[LocationManager sharedInstance] addObserver:self
+                                       forKeyPath:@"motionActivity"
                                           options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
                                           context:nil];
 }
@@ -54,7 +66,13 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             forKeyPath:@"connectionBuffered"
                context:nil];
     [[LocationManager sharedInstance] removeObserver:self
-                                          forKeyPath:@"location"
+                                          forKeyPath:@"lastUsedLocation"
+                                             context:nil];
+    [[LocationManager sharedInstance] removeObserver:self
+                                          forKeyPath:@"altitudeData"
+                                             context:nil];
+    [[LocationManager sharedInstance] removeObserver:self
+                                          forKeyPath:@"motionActivity"
                                              context:nil];
     [super viewWillDisappear:animated];
 }
@@ -108,14 +126,16 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                ad.connection.lastErrorCode.userInfo : @""
                                ];
     
-    if ([LocationManager sharedInstance].location) {
-        self.UILocation.text = [Waypoint CLLocationCoordinateText:[LocationManager sharedInstance].location];
+    CLLocation *location = [LocationManager sharedInstance].location;
+
+    if (location) {
+        self.UILocation.text = [Waypoint CLLocationCoordinateText:location];
     } else {
         self.UILocation.text =NSLocalizedString( @"No location recorded",  @"No location recorded indication");
     }
 
-    if ([LocationManager sharedInstance].altitude) {
-        NSMeasurement *m = [[NSMeasurement alloc] initWithDoubleValue:[LocationManager sharedInstance].altitude.pressure.doubleValue
+    if ([LocationManager sharedInstance].altitudeData) {
+        NSMeasurement *m = [[NSMeasurement alloc] initWithDoubleValue:[LocationManager sharedInstance].altitudeData.pressure.doubleValue
                                                                  unit:[NSUnitPressure kilopascals]];
         NSMeasurementFormatter *mf = [[NSMeasurementFormatter alloc] init];
         mf.unitOptions = NSMeasurementFormatterUnitOptionsNaturalScale;
@@ -129,11 +149,54 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         self.UIparameters.text = (ad.connection).parameters;
     }
     
+    NSString *motionActivities = @"()";
+    CMMotionActivity *motionActivity = [LocationManager sharedInstance].motionActivity;
+    if (motionActivity != nil) {
+        switch (motionActivity.confidence) {
+            case CMMotionActivityConfidenceLow:
+                motionActivities = @"(L)";
+                break;
+                
+            case CMMotionActivityConfidenceMedium:
+                motionActivities = @"(M)";
+                break;
+                
+            case CMMotionActivityConfidenceHigh:
+                motionActivities = @"(H)";
+                break;
+        }
+        
+        if (motionActivity.stationary) {
+            motionActivities = [motionActivities stringByAppendingFormat:@" stationary"];
+        }
+        if (motionActivity.walking) {
+            motionActivities = [motionActivities stringByAppendingFormat:@" walking"];
+        }
+        if (motionActivity.running) {
+            motionActivities = [motionActivities stringByAppendingFormat:@" running"];
+        }
+        if (motionActivity.automotive) {
+            motionActivities = [motionActivities stringByAppendingFormat:@" automotive"];
+        }
+        if (motionActivity.cycling) {
+            motionActivities = [motionActivities stringByAppendingFormat:@" cycling"];
+        }
+        if (motionActivity.unknown) {
+            motionActivities = [motionActivities stringByAppendingFormat:@" unknown"];
+        }
+    }
+    self.UImotionActivities.text = motionActivities;
+
     self.UIVersion.text = [NSString stringWithFormat:@"%@/%@",
                            [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"],
                            [NSLocale currentLocale].localeIdentifier
                            ];
 
+    NSString *topic = [Settings theGeneralTopicInMOC:[CoreData sharedInstance].mainMOC];
+    Friend *myself = [Friend existsFriendWithTopic:topic
+                            inManagedObjectContext:[CoreData sharedInstance].mainMOC];
+    self.UItrackpoints.text = [NSString stringWithFormat:@"%ld", myself.hasWaypoints.count];
+    
     [self.tableView setNeedsDisplay];
 }
 
@@ -175,6 +238,32 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://owntracks.org/booklet"]
                                        options:@{}
                              completionHandler:nil];
+}
+
+- (IBAction)exportTrackPressed:(UIButton *)sender {
+    NSError *error;
+
+    NSURL *directoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory
+                                                                 inDomain:NSUserDomainMask
+                                                        appropriateForURL:nil
+                                                                   create:YES
+                                                                    error:&error];
+    NSString *fileName = [NSString stringWithFormat:@"track.gpx"];
+    NSURL *fileURL = [directoryURL URLByAppendingPathComponent:fileName];
+
+    NSString *topic = [Settings theGeneralTopicInMOC:[CoreData sharedInstance].mainMOC];
+    Friend *myself = [Friend existsFriendWithTopic:topic
+                            inManagedObjectContext:[CoreData sharedInstance].mainMOC];
+
+    NSOutputStream *output = [NSOutputStream outputStreamWithURL:fileURL append:FALSE];
+    [output open];
+    [myself trackToGPX:output];
+    [output close];
+    
+    self.dic = [UIDocumentInteractionController interactionControllerWithURL:fileURL];
+    self.dic.delegate = self;
+
+    [self.dic presentOptionsMenuFromRect:self.UIexportTrack.frame inView:self.UIexportTrack animated:TRUE];
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView

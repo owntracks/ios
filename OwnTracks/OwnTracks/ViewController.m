@@ -224,34 +224,25 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     switch (segmentedControl.selectedSegmentIndex) {
         case 3:
             monitoring = LocationMonitoringMove;
-            intentMonitoring = OwnTracksEnumMove;
             break;
         case 2:
             monitoring = LocationMonitoringSignificant;
-            intentMonitoring = OwnTracksEnumSignificant;
             break;
         case 1:
             monitoring = LocationMonitoringManual;
-            intentMonitoring = OwnTracksEnumManual;
             break;
         case 0:
         default:
             monitoring = LocationMonitoringQuiet;
-            intentMonitoring = OwnTracksEnumQuiet;
             break;
     }
-
-    LocationManager *locationManager = [LocationManager sharedInstance];
-    if (monitoring != locationManager.monitoring) {
-        [locationManager setMonitoring:monitoring];
-
-        // Clear any downgrade flag, since this is a user override
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"downgraded"];
+    if (monitoring != [LocationManager sharedInstance].monitoring) {
+        [LocationManager sharedInstance].monitoring = monitoring;
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+        [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"adapted"];
         [[NSUserDefaults standardUserDefaults] synchronize]; // ✅ force flush if app is killed soon after
-
-        // Persist preference for future app launches
-        [Settings setInt:(int)monitoring forKey:@"monitoring_preference"
-                  inMOC:CoreData.sharedInstance.mainMOC];
+        [Settings setInt:(int)[LocationManager sharedInstance].monitoring forKey:@"monitoring_preference"
+                   inMOC:CoreData.sharedInstance.mainMOC];
         [CoreData.sharedInstance sync:CoreData.sharedInstance.mainMOC];
 
         // Update any UI state related to selected mode
@@ -282,6 +273,9 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
 
     for (NSInteger index = 0; index < self.modes.numberOfSegments; index++) {
         NSString *title = [self.modes titleForSegmentAtIndex:index];
+        if ([title hasSuffix:@"#"]) {
+            title = [title substringToIndex:title.length-1];
+        }
         if ([title hasSuffix:@"!"]) {
             title = [title substringToIndex:title.length-1];
         }
@@ -296,12 +290,17 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             title = [title stringByAppendingString:@"!"];
         }
     }
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"adapted"]) {
+        if (![title hasSuffix:@"#"]) {
+            title = [title stringByAppendingString:@"#"];
+        }
+    }
     [self.modes setTitle:title forSegmentAtIndex:index];
 
 }
 
 - (void)updateAccuracyButton {
-    CLLocation *location = self.mapView.userLocation.location;
+    CLLocation *location = self.mapView.userLocation.location;    
     self.accuracyButton.title = [Waypoint CLLocationAccuracyText:location];
     self.actionButton.enabled = ![self.accuracyButton.title isEqualToString:@"-"];
 }
@@ -895,7 +894,7 @@ calloutAccessoryControlTapped:(UIControl *)control {
 
 - (NSFetchedResultsController *)frcWaypoints {
     if (!_frcWaypoints) {
-        NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Waypoint"];
+        NSFetchRequest<Waypoint *> *request = Waypoint.fetchRequest;
         request.predicate = [NSPredicate predicateWithFormat:@"poi <> NULL"];
 
         request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"tst" ascending:TRUE]];

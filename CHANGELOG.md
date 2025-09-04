@@ -1,10 +1,56 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 18.3.6 iOS/ipadOS
-* Release Date 2025-03-20
+## OwnTracks 18.5.2 iOS/ipadOS
+* Release Date 2025-08-31
 
-** Bugfixes and performance optimizations
+** Bug fixes and translation updates
+
+    [NEW] Russian and French translation update
+    [FIX] SUBSCRIBE is not repeated if MQTT broker reports no "sessionPresent" in CONNACK #866
+    [FIX] cleanup if broker repors no sessionpresent in CONNACK (mqttc)
+
+## OwnTracks 18.5.1 iOS/ipadOS
+* Release Date 2025-08-22
+
+** Bug fixes and additional Languages
+
+    [FIX] honor broker's max_topic_alias in MQTTv5 #864
+    [NEW] Add simplified Chinese
+    [NEW] Add Russian
+    [NEW] Add Romanian
+    [FIX] Remove abandoned Czech
+
+## OwnTracks 18.4.7 iOS/ipadOS
+* Release Date 2025-08-09
+
+** Bugfixes and Performance Enhancements
+
+    [FIX] speedup message burst processing
+
+## OwnTracks 18.4.6 iOS/ipadOS
+* Release Date 2025-07-28
+
+** Bugfixes
+
+    [FIX] Reconnect timer gets set to 86400 when using HTTP Issue #857
+
+## OwnTracks 18.4.5 iOS/ipadOS
+* Release Date 2025-06-26
+
+** Enhancements, bugfixes, and performance optimizations
+
+    [NEW] Automatically "adapt" to changes in movement #843
+    [NEW] offline mode #722
+    [NEW] Add motion state detection #846
+    [NEW] add Romanian and Russian (placeholder)
+
+    [FIX] Incorrect log message (cmd is handled elsewhere) #841
+    [FIX] Processing duplicate (same tst and createdAt) location messages results in @(null) timestamps #840
+    [FIX] remove abandoned Czech language
+    [FIX] Language cleanup
+    [FIX] cleanup
+    [FIX] use CMMotionActivity even with CMMotionActivityConfidenceLow #846
 
 ## OwnTracks 18.3.5 iOS/ipadOS
 * Release Date 2025-03-11

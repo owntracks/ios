@@ -21,42 +21,44 @@
 }
 
 - (void)empty {
-    self.emptyLabel = [[UILabel alloc] init];
-    self.emptyLabel.translatesAutoresizingMaskIntoConstraints = false;
-    if (self.emptyText) {
-        self.emptyLabel.text = self.emptyText;
-    } else {
-        self.emptyLabel.text = NSLocalizedString(@"Table is empty",
-                                                 @"Table is empty");
+    if (self.constraints == nil) {
+        self.emptyLabel = [[UILabel alloc] init];
+        self.emptyLabel.translatesAutoresizingMaskIntoConstraints = false;
+        if (self.emptyText) {
+            self.emptyLabel.text = self.emptyText;
+        } else {
+            self.emptyLabel.text = NSLocalizedString(@"Table is empty",
+                                                     @"Table is empty");
+        }
+        self.tableView.backgroundView = self.emptyLabel;
+        NSLayoutConstraint *center = [NSLayoutConstraint
+                                      constraintWithItem:self.emptyLabel
+                                      attribute:NSLayoutAttributeCenterX
+                                      relatedBy:NSLayoutRelationEqual
+                                      toItem:self.tableView
+                                      attribute:NSLayoutAttributeCenterX
+                                      multiplier:1
+                                      constant:0];
+        NSLayoutConstraint *middle = [NSLayoutConstraint
+                                      constraintWithItem:self.emptyLabel
+                                      attribute:NSLayoutAttributeCenterY
+                                      relatedBy:NSLayoutRelationEqual
+                                      toItem:self.tableView
+                                      attribute:NSLayoutAttributeCenterY
+                                      multiplier:1
+                                      constant:0];
+        self.constraints = @[center, middle];
+        [NSLayoutConstraint activateConstraints:self.constraints];
     }
-    self.tableView.backgroundView = self.emptyLabel;
-    NSLayoutConstraint *center = [NSLayoutConstraint
-                                  constraintWithItem:self.emptyLabel
-                                  attribute:NSLayoutAttributeCenterX
-                                  relatedBy:NSLayoutRelationEqual
-                                  toItem:self.tableView
-                                  attribute:NSLayoutAttributeCenterX
-                                  multiplier:1
-                                  constant:0];
-    NSLayoutConstraint *middle = [NSLayoutConstraint
-                                  constraintWithItem:self.emptyLabel
-                                  attribute:NSLayoutAttributeCenterY
-                                  relatedBy:NSLayoutRelationEqual
-                                  toItem:self.tableView
-                                  attribute:NSLayoutAttributeCenterY
-                                  multiplier:1
-                                  constant:0];
-    self.constraints = @[center, middle];
-    [NSLayoutConstraint activateConstraints:self.constraints];
 }
 
 - (void)nonempty {
-    if (self.constraints) {
+    if (self.constraints != nil) {
         [NSLayoutConstraint deactivateConstraints:self.constraints];
+        self.tableView.backgroundView = nil;
         self.constraints = nil;
+        self.emptyLabel = nil;
     }
-    self.emptyLabel = nil;
-    self.tableView.backgroundView = nil;
 }
 
 @end

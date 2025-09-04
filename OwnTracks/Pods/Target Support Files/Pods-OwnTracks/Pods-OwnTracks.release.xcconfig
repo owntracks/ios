@@ -4,8 +4,9 @@ FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ABStaticT
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1 LUMBERJACK=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ABStaticTableViewController/ABStaticTableViewController.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack/CocoaLumberjack.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/DSJSONSchemaValidation/DSJSONSchemaValidation.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/Sodium/Sodium.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/mqttc/mqttc.framework/Headers" "${PODS_XCFRAMEWORKS_BUILD_DIR}/Sodium/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) /usr/lib/swift '@executable_path/Frameworks' '@loader_path/Frameworks'
-LIBRARY_SEARCH_PATHS = $(inherited) "${DT_TOOLCHAIN_DIR}/usr/lib/swift/${PLATFORM_NAME}" "${PODS_XCFRAMEWORKS_BUILD_DIR}/Sodium" /usr/lib/swift
+LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_XCFRAMEWORKS_BUILD_DIR}/Sodium" "${TOOLCHAIN_DIR}/usr/lib/swift/${PLATFORM_NAME}" /usr/lib/swift
 OTHER_LDFLAGS = $(inherited) -framework "ABStaticTableViewController" -framework "CocoaLumberjack" -framework "DSJSONSchemaValidation" -framework "Sodium" -framework "mqttc"
+OTHER_MODULE_VERIFIER_FLAGS = $(inherited) "-F${PODS_CONFIGURATION_BUILD_DIR}/ABStaticTableViewController" "-F${PODS_CONFIGURATION_BUILD_DIR}/CocoaLumberjack" "-F${PODS_CONFIGURATION_BUILD_DIR}/DSJSONSchemaValidation" "-F${PODS_CONFIGURATION_BUILD_DIR}/Sodium" "-F${PODS_CONFIGURATION_BUILD_DIR}/mqttc"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

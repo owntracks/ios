@@ -20,25 +20,6 @@
               retained:(BOOL)retained
                context:(NSManagedObjectContext *)context;
 
-- (Waypoint *)addWaypointFor:(Friend *)friend
-location:(CLLocation *)location
-createdAt:(NSDate *)createdAt
-trigger:(NSString *)trigger
-poi:(NSString *)poi
-tag:(NSString *)tag
-battery:(NSNumber *)battery
-image:(NSData *)image
-imageName:(NSString *)imageName
-inRegions:(NSArray <NSString *> *)inRegions
-inRids:(NSArray <NSString *> *)inRids
-bssid:(NSString *)bssid
-ssid:(NSString *)ssid
-m:(NSNumber *)m
-conn:(NSString *)conn
-bs:(NSNumber *)bs;
-
-- (void)limitWaypointsFor:(Friend *)friend toMaximum:(NSInteger)max;
-
 - (Region *)addRegionFor:(NSString *)rid
 friend:(Friend *)friend
 name:(NSString *)name

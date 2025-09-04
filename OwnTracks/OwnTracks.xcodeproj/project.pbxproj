@@ -45,6 +45,7 @@
 		843B91721C8A14BF00DBD306 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 843B91741C8A14BF00DBD306 /* Storyboard.storyboard */; };
 		845273D324A8736000C44340 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 849B359924A7578000BEC1BB /* Intents.framework */; };
 		845299E71DFA004000A4DC21 /* Friend+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 845299E01DFA004000A4DC21 /* Friend+CoreDataClass.m */; };
+		845537C72DB6BEBB00FE7758 /* OwnTracksStorageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 845537C62DB6BEBB00FE7758 /* OwnTracksStorageTests.m */; };
 		8456D0A52B55749E003A45D4 /* OwnTracksTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8456D0A42B55749E003A45D4 /* OwnTracksTests.m */; };
 		845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 845AA1B31B44245100945856 /* CertificatesTVC.m */; };
 		846B38E92785B50B003E4852 /* elgolfo1.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 846B38E82785B50B003E4852 /* elgolfo1.gpx */; };
@@ -53,6 +54,7 @@
 		846FFA5E1B420938001482A6 /* FriendTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FFA5D1B420938001482A6 /* FriendTableViewCell.m */; };
 		8470352923D5E6B10041AAFB /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8470352823D5E6B10041AAFB /* SystemConfiguration.framework */; };
 		8474443A1DA4BC9600975BE4 /* ConnType.m in Sources */ = {isa = PBXBuildFile; fileRef = 847444391DA4BC9600975BE4 /* ConnType.m */; };
+		847667B32DF9B8C7001AD950 /* Waypoint+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 847667B22DF9B8C7001AD950 /* Waypoint+CoreDataProperties.m */; };
 		8479EEB718E4529900923B24 /* MQTT.plist in Resources */ = {isa = PBXBuildFile; fileRef = 849D457B18CDACDF00201BF3 /* MQTT.plist */; };
 		847D5C8C2612554B00B6DCD5 /* ModesTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 847D5C8B2612554B00B6DCD5 /* ModesTVC.m */; };
 		847F31B925EFB8600018C0A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 847F31B725EFB8600018C0A6 /* InfoPlist.strings */; };
@@ -82,6 +84,7 @@
 		84C7C032289821280088A544 /* ToursTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C031289821280088A544 /* ToursTVC.m */; };
 		84C7C0352898FAF90088A544 /* Tours.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C7C0342898FAF90088A544 /* Tours.m */; };
 		84D6B47D25C844A500B2AC07 /* NSNumber+decimals.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6B47C25C844A500B2AC07 /* NSNumber+decimals.m */; };
+		84DC826F2E0757CE0045CD05 /* OwnTracksBatteryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DC826E2E0757CE0045CD05 /* OwnTracksBatteryTests.m */; };
 		84DDEAC71BD9F37900B01879 /* SettingsTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DDEAC61BD9F37900B01879 /* SettingsTVC.m */; };
 		84DE749824A9E1C600C0DA68 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84DE749B24A9E1C600C0DA68 /* Intents.intentdefinition */; };
 		84DE749924A9E1C600C0DA68 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 84DE749B24A9E1C600C0DA68 /* Intents.intentdefinition */; };
@@ -91,7 +94,6 @@
 		84E402082314140400F1D6E6 /* HistoryTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E402072314140400F1D6E6 /* HistoryTVC.m */; };
 		84E8A1891BB94782002518AA /* Setting+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */; };
 		84E8A18A1BB94782002518AA /* Friend+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1811BB94782002518AA /* Friend+CoreDataProperties.m */; };
-		84E8A18C1BB94782002518AA /* Waypoint+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1851BB94782002518AA /* Waypoint+CoreDataProperties.m */; };
 		84E8A18D1BB94782002518AA /* Region+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E8A1871BB94782002518AA /* Region+CoreDataProperties.m */; };
 		84FAEA7225F01DA100DCD479 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84FAEA7125F01DA100DCD479 /* Launch Screen.storyboard */; };
 		84FD93072353950100CCEC3B /* OwnTracksEditTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FD93062353950100CCEC3B /* OwnTracksEditTVC.m */; };
@@ -218,11 +220,14 @@
 		845299DA1DF9FD6200A4DC21 /* Model 9.5.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 9.5.0.xcdatamodel"; sourceTree = "<group>"; };
 		845299DF1DFA004000A4DC21 /* Friend+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Friend+CoreDataClass.h"; sourceTree = "<group>"; };
 		845299E01DFA004000A4DC21 /* Friend+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Friend+CoreDataClass.m"; sourceTree = "<group>"; };
+		845537C62DB6BEBB00FE7758 /* OwnTracksStorageTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = OwnTracksStorageTests.m; path = Pods/OwnTracksStorageTests.m; sourceTree = SOURCE_ROOT; };
 		8456D0A22B55749E003A45D4 /* OwnTracksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OwnTracksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8456D0A42B55749E003A45D4 /* OwnTracksTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwnTracksTests.m; sourceTree = "<group>"; };
 		84595203253DF78200807097 /* Model 13.4.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 13.4.0.xcdatamodel"; sourceTree = "<group>"; };
 		845AA1B21B44245100945856 /* CertificatesTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificatesTVC.h; sourceTree = "<group>"; };
 		845AA1B31B44245100945856 /* CertificatesTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificatesTVC.m; sourceTree = "<group>"; };
+		845AA1B91B4846AF00945856 /* OwnTracks-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-64.png"; sourceTree = "<group>"; };
+		845AA1BA1B4846AF00945856 /* OwnTracks-320.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OwnTracks-320.png"; sourceTree = "<group>"; };
 		846B38E82785B50B003E4852 /* elgolfo1.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = elgolfo1.gpx; sourceTree = "<group>"; };
 		846FFA1B1B4023BE001482A6 /* Model 8.2.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.2.0.xcdatamodel"; sourceTree = "<group>"; };
 		846FFA431B402A1F001482A6 /* OwnTracking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OwnTracking.h; sourceTree = "<group>"; };
@@ -236,6 +241,9 @@
 		847444381DA4BC9600975BE4 /* ConnType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConnType.h; sourceTree = "<group>"; };
 		847444391DA4BC9600975BE4 /* ConnType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConnType.m; sourceTree = "<group>"; };
 		8474B15319A8CB7D00427427 /* Model 7.3.1.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.3.1.xcdatamodel"; sourceTree = "<group>"; };
+		847667AA2DF9B488001AD950 /* Model 18.4.3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 18.4.3.xcdatamodel"; sourceTree = "<group>"; };
+		847667B12DF9B8C7001AD950 /* Waypoint+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Waypoint+CoreDataProperties.h"; sourceTree = "<group>"; };
+		847667B22DF9B8C7001AD950 /* Waypoint+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Waypoint+CoreDataProperties.m"; sourceTree = "<group>"; };
 		847D5C7626121F4200B6DCD5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		847D5C81261224CF00B6DCD5 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		847D5C8A2612554B00B6DCD5 /* ModesTVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModesTVC.h; sourceTree = "<group>"; };
@@ -292,6 +300,16 @@
 		84B0CDAC239E2EFA00CE9305 /* BackgroundTasks.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BackgroundTasks.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/BackgroundTasks.framework; sourceTree = DEVELOPER_DIR; };
 		84B739781A65629200B103F4 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		84B739791A65629200B103F4 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
+		84BA0A0F2DE6F24B00AFACA9 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Storyboard.strings; sourceTree = "<group>"; };
+		84BA0A102DE6F24B00AFACA9 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Intents.strings; sourceTree = "<group>"; };
+		84BA0A112DE6F24B00AFACA9 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
+		84BA0A132DE6F24B00AFACA9 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		84BA0A142DE6F24B00AFACA9 /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		84BA0A152DE6F25400AFACA9 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Storyboard.strings; sourceTree = "<group>"; };
+		84BA0A162DE6F25400AFACA9 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Intents.strings; sourceTree = "<group>"; };
+		84BA0A172DE6F25400AFACA9 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		84BA0A192DE6F25400AFACA9 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		84BA0A1A2DE6F25400AFACA9 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84BE75912771EADF006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		84BE75932771EAE0006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		84BE75962771EBA2006CBDCF /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -331,10 +349,10 @@
 		84DC686F2CA55B7000FCFE44 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Storyboard.strings; sourceTree = "<group>"; };
 		84DC68712CA55B9900FCFE44 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Storyboard.strings; sourceTree = "<group>"; };
 		84DC68732CA55BB900FCFE44 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Storyboard.strings; sourceTree = "<group>"; };
-		84DC68752CA5602E00FCFE44 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Intents.strings; sourceTree = "<group>"; };
 		84DC68772CA5603000FCFE44 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Intents.strings; sourceTree = "<group>"; };
 		84DC687D2CA5603700FCFE44 /* gl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = gl; path = gl.lproj/Intents.strings; sourceTree = "<group>"; };
 		84DC687F2CA5603A00FCFE44 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Intents.strings; sourceTree = "<group>"; };
+		84DC826E2E0757CE0045CD05 /* OwnTracksBatteryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OwnTracksBatteryTests.m; sourceTree = "<group>"; };
 		84DDEAC51BD9F37900B01879 /* SettingsTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsTVC.h; sourceTree = "<group>"; };
 		84DDEAC61BD9F37900B01879 /* SettingsTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsTVC.m; sourceTree = "<group>"; };
 		84DE749724A9A68B00C0DA68 /* OwnTracksIntents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OwnTracksIntents.entitlements; sourceTree = "<group>"; };
@@ -351,8 +369,6 @@
 		84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Setting+CoreDataProperties.m"; sourceTree = "<group>"; };
 		84E8A1801BB94782002518AA /* Friend+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Friend+CoreDataProperties.h"; sourceTree = "<group>"; };
 		84E8A1811BB94782002518AA /* Friend+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Friend+CoreDataProperties.m"; sourceTree = "<group>"; };
-		84E8A1841BB94782002518AA /* Waypoint+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Waypoint+CoreDataProperties.h"; sourceTree = "<group>"; };
-		84E8A1851BB94782002518AA /* Waypoint+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Waypoint+CoreDataProperties.m"; sourceTree = "<group>"; };
 		84E8A1861BB94782002518AA /* Region+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Region+CoreDataProperties.h"; sourceTree = "<group>"; };
 		84E8A1871BB94782002518AA /* Region+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Region+CoreDataProperties.m"; sourceTree = "<group>"; };
 		84F0AFE31C830C1D00C9F69F /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
@@ -368,6 +384,11 @@
 		8900A3EAFD109D20F95E6DD8 /* Pods_OwnTracks.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OwnTracks.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		96DD60728B6E7C01CD032AF5 /* Pods-OwnTracksWrist WatchKit App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracksWrist WatchKit App.release.xcconfig"; path = "Target Support Files/Pods-OwnTracksWrist WatchKit App/Pods-OwnTracksWrist WatchKit App.release.xcconfig"; sourceTree = "<group>"; };
 		9DBE9F76099A512C36F126BC /* Pods-OwnTracks.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracks.release.xcconfig"; path = "Target Support Files/Pods-OwnTracks/Pods-OwnTracks.release.xcconfig"; sourceTree = "<group>"; };
+		B1AC89F92E2FDF3400E0E194 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Storyboard.strings"; sourceTree = "<group>"; };
+		B1AC89FA2E2FDF3500E0E194 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Intents.strings"; sourceTree = "<group>"; };
+		B1AC89FB2E2FDF3700E0E194 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		B1AC89FD2E2FDF3900E0E194 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		B1AC89FE2E2FDF3900E0E194 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		BA827F68D1E69AEA6BCC7251 /* Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig"; path = "Target Support Files/Pods-OwnTracksWrist WatchKit Extension/Pods-OwnTracksWrist WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		BB060471B4BDB6B94FD6C4A2 /* Pods-OwnTracksWrist WatchKit App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OwnTracksWrist WatchKit App.debug.xcconfig"; path = "Target Support Files/Pods-OwnTracksWrist WatchKit App/Pods-OwnTracksWrist WatchKit App.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -542,6 +563,8 @@
 		8411B867189FE1ED0019D2D6 /* coredata */ = {
 			isa = PBXGroup;
 			children = (
+				847667B12DF9B8C7001AD950 /* Waypoint+CoreDataProperties.h */,
+				847667B22DF9B8C7001AD950 /* Waypoint+CoreDataProperties.m */,
 				84E40200231413D400F1D6E6 /* History+CoreDataProperties.h */,
 				84E40201231413D400F1D6E6 /* History+CoreDataClass.h */,
 				84E40202231413D400F1D6E6 /* History+CoreDataClass.m */,
@@ -562,8 +585,6 @@
 				84E8A17F1BB94782002518AA /* Setting+CoreDataProperties.m */,
 				842E6ECF20BEF031001928FA /* Setting+CoreDataClass.h */,
 				842E6ED020BEF031001928FA /* Setting+CoreDataClass.m */,
-				84E8A1841BB94782002518AA /* Waypoint+CoreDataProperties.h */,
-				84E8A1851BB94782002518AA /* Waypoint+CoreDataProperties.m */,
 				842E6ED320BEF031001928FA /* Waypoint+CoreDataClass.h */,
 				842E6ED420BEF031001928FA /* Waypoint+CoreDataClass.m */,
 				8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */,
@@ -589,8 +610,10 @@
 		8456D0A32B55749E003A45D4 /* OwnTracksTests */ = {
 			isa = PBXGroup;
 			children = (
+				845537C62DB6BEBB00FE7758 /* OwnTracksStorageTests.m */,
 				8456D0A42B55749E003A45D4 /* OwnTracksTests.m */,
 				8483A9BB2B9E0C6E00774E8B /* OwnTracksPressureTests.m */,
+				84DC826E2E0757CE0045CD05 /* OwnTracksBatteryTests.m */,
 			);
 			path = OwnTracksTests;
 			sourceTree = "<group>";
@@ -745,7 +768,7 @@
 				BuildIndependentTargetsInParallel = YES;
 				CLASSPREFIX = OwnTracks;
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 1630;
 				ORGANIZATIONNAME = OwnTracks;
 				TargetAttributes = {
 					8411B827189FDB140019D2D6 = {
@@ -795,6 +818,9 @@
 				da,
 				gl,
 				fr,
+				ro,
+				ru,
+				"zh-Hans",
 			);
 			mainGroup = 8411B81F189FDB140019D2D6;
 			productRefGroup = 8411B829189FDB140019D2D6 /* Products */;
@@ -887,8 +913,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "
-";
+			shellScript = "\n";
 		};
 		E1F1C1838DEABD333F5AC82C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -939,7 +964,6 @@
 				8411B90E189FEC070019D2D6 /* FriendsTVC.m in Sources */,
 				842E6ED620BEF031001928FA /* Queue+CoreDataClass.m in Sources */,
 				84FD93072353950100CCEC3B /* OwnTracksEditTVC.m in Sources */,
-				84E8A18C1BB94782002518AA /* Waypoint+CoreDataProperties.m in Sources */,
 				84C3F4562CEF7490004DB332 /* AttachPhotoTVC.m in Sources */,
 				8411B90F189FEC070019D2D6 /* RegionsTVC.m in Sources */,
 				849197F22D0084F300072AF6 /* PhotoAnnotationV.m in Sources */,
@@ -954,6 +978,7 @@
 				84C7C032289821280088A544 /* ToursTVC.m in Sources */,
 				845AA1B41B44245100945856 /* CertificatesTVC.m in Sources */,
 				84B7397A1A65629200B103F4 /* LocationManager.m in Sources */,
+				847667B32DF9B8C7001AD950 /* Waypoint+CoreDataProperties.m in Sources */,
 				849260422B0247C200F6DC13 /* Validation.m in Sources */,
 				847D5C8C2612554B00B6DCD5 /* ModesTVC.m in Sources */,
 				84AFD40B2434486200F1E922 /* OwnTracking.m in Sources */,
@@ -983,7 +1008,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				8483A9BC2B9E0C6E00774E8B /* OwnTracksPressureTests.m in Sources */,
+				84DC826F2E0757CE0045CD05 /* OwnTracksBatteryTests.m in Sources */,
 				8456D0A52B55749E003A45D4 /* OwnTracksTests.m in Sources */,
+				845537C72DB6BEBB00FE7758 /* OwnTracksStorageTests.m in Sources */,
 				8483A9BA2B9E0BE400774E8B /* NSNumber+decimals.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1018,6 +1045,9 @@
 				848806F828C9E7A500F7DFFD /* da */,
 				84DC68392CA53B1000FCFE44 /* gl */,
 				84DC685F2CA555CE00FCFE44 /* fr */,
+				84BA0A112DE6F24B00AFACA9 /* ro */,
+				84BA0A172DE6F25400AFACA9 /* ru */,
+				B1AC89FB2E2FDF3700E0E194 /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1035,6 +1065,9 @@
 				84DC686F2CA55B7000FCFE44 /* nl */,
 				84DC68712CA55B9900FCFE44 /* da */,
 				84DC68732CA55BB900FCFE44 /* en */,
+				84BA0A0F2DE6F24B00AFACA9 /* ro */,
+				84BA0A152DE6F25400AFACA9 /* ru */,
+				B1AC89F92E2FDF3400E0E194 /* zh-Hans */,
 			);
 			name = Storyboard.storyboard;
 			sourceTree = "<group>";
@@ -1051,6 +1084,9 @@
 				84CE578E2C8745B8007689E5 /* en */,
 				84DC683C2CA53B1000FCFE44 /* gl */,
 				84DC68622CA555CE00FCFE44 /* fr */,
+				84BA0A142DE6F24B00AFACA9 /* ro */,
+				84BA0A1A2DE6F25400AFACA9 /* ru */,
+				B1AC89FE2E2FDF3900E0E194 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1059,7 +1095,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				84DE749A24A9E1C600C0DA68 /* Base */,
-				84DC68752CA5602E00FCFE44 /* en */,
 				84DC68772CA5603000FCFE44 /* da */,
 				84DC687D2CA5603700FCFE44 /* gl */,
 				84DC687F2CA5603A00FCFE44 /* de */,
@@ -1068,6 +1103,10 @@
 				848F37282CA56D62008D68FE /* sv */,
 				848F372A2CA56D98008D68FE /* tr */,
 				848F372C2CA56DC5008D68FE /* fr */,
+				84BA0A102DE6F24B00AFACA9 /* ro */,
+				84BA0A162DE6F25400AFACA9 /* ru */,
+				B1AC89FA2E2FDF3500E0E194 /* zh-Hans */,
+				84635BCA2E30F93400B72E62 /* en */,
 			);
 			name = Intents.intentdefinition;
 			sourceTree = "<group>";
@@ -1092,6 +1131,9 @@
 				848806F728C9E7A500F7DFFD /* da */,
 				84DC683B2CA53B1000FCFE44 /* gl */,
 				84DC68612CA555CE00FCFE44 /* fr */,
+				84BA0A132DE6F24B00AFACA9 /* ro */,
+				84BA0A192DE6F25400AFACA9 /* ru */,
+				B1AC89FD2E2FDF3900E0E194 /* zh-Hans */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1131,6 +1173,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = C652JFWU23;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1186,6 +1229,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = C652JFWU23;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
@@ -1216,9 +1260,9 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18.6.5;
+				CURRENT_PROJECT_VERSION = 19.5.2;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
-				DEVELOPMENT_TEAM = CFR426ZH5P;
+				DEVELOPMENT_TEAM = C652JFWU23;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1240,9 +1284,10 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OwnTracks",
 				);
-				MARKETING_VERSION = 18.6.5;
+				MARKETING_VERSION = 18.3.6;
 				PRODUCT_BUNDLE_IDENTIFIER = org.laskatj.owntracksfork;
 				PRODUCT_NAME = Sauron;
+
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
@@ -1270,9 +1315,9 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18.6.5;
+				CURRENT_PROJECT_VERSION = 19.5.2;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
-				DEVELOPMENT_TEAM = CFR426ZH5P;
+				DEVELOPMENT_TEAM = C652JFWU23;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1294,7 +1339,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OwnTracks",
 				);
-				MARKETING_VERSION = 18.6.5;
+				MARKETING_VERSION = 19.5.2;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.laskatj.owntracksfork;
 				PRODUCT_NAME = Sauron;
@@ -1325,9 +1370,9 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18.3.6;
+				CURRENT_PROJECT_VERSION = 18.5.2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = CFR426ZH5P;
+				DEVELOPMENT_TEAM = C652JFWU23;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = OwnTracksIntents/Info.plist;
@@ -1337,7 +1382,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 18.3.6;
+				MARKETING_VERSION = 18.5.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.laskatj.owntracksfork.intent;
@@ -1364,9 +1409,9 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 18.3.6;
+				CURRENT_PROJECT_VERSION = 18.5.2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = CFR426ZH5P;
+				DEVELOPMENT_TEAM = C652JFWU23;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = OwnTracksIntents/Info.plist;
@@ -1376,7 +1421,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 18.3.6;
+				MARKETING_VERSION = 18.5.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.laskatj.owntracksfork.intent;
@@ -1399,10 +1444,10 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 18.3.6;
+				CURRENT_PROJECT_VERSION = 18.5.2;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = CFR426ZH5P;
+				DEVELOPMENT_TEAM = C652JFWU23;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -1410,7 +1455,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.1;
-				MARKETING_VERSION = 18.3.6;
+				MARKETING_VERSION = 18.5.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.OwnTracksTests;
@@ -1440,7 +1485,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = CFR426ZH5P;
+				DEVELOPMENT_TEAM = C652JFWU23;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
@@ -1448,7 +1493,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.1;
-				MARKETING_VERSION = 18.3.6;
+				MARKETING_VERSION = 18.5.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.OwnTracksTests;
@@ -1509,6 +1554,7 @@
 		8411B87D189FE35C0019D2D6 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				847667AA2DF9B488001AD950 /* Model 18.4.3.xcdatamodel */,
 				84C8E2742D54C14D006F9E41 /* Model 18.3.0.xcdatamodel */,
 				849197EE2CFF732900072AF6 /* Model 18.1.0.xcdatamodel */,
 				849ABA0028F21D140078AE41 /* Model 16.3.0.xcdatamodel */,
@@ -1541,7 +1587,7 @@
 				84F468E21AD484CC00CF8C4F /* Model 8.0.xcdatamodel */,
 				8411B87E189FE35C0019D2D6 /* Model.xcdatamodel */,
 			);
-			currentVersion = 84C8E2742D54C14D006F9E41 /* Model 18.3.0.xcdatamodel */;
+			currentVersion = 847667AA2DF9B488001AD950 /* Model 18.4.3.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

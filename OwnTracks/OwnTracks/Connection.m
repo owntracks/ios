@@ -385,6 +385,10 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
         
         return 0;
     } else {
+        if (self.port == 0) {
+            return 0;
+        }
+        
         if (self.state != state_connected) {
             [self connectToLast];
         }
@@ -395,8 +399,8 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
 
         if (topicAlias &&
             topicAlias.unsignedIntValue > 0 &&
-            self.session.topicAliasMaximum &&
-            self.session.topicAliasMaximum.unsignedIntValue >= topicAlias.unsignedIntValue) {
+            self.session.brokerTopicAliasMaximum &&
+            self.session.brokerTopicAliasMaximum.unsignedIntValue >= topicAlias.unsignedIntValue) {
             effectiveTopicAlias = topicAlias;
         }
 
@@ -663,9 +667,12 @@ willPerformHTTPRedirection:(NSHTTPURLResponse *)redirectResponse
     self.state = state_connected;
     
     /*
-     * if clean-session is set or if it's the first time we connect in non-clean-session-mode, subscribe to topic
+     * if clean-session is set or
+     * if it's the first time we connect in non-clean-session-mode or
+     * we can assume the broker doesn't know anymore
+     * subscribe to topic
      */
-    if (self.clean || !self.reconnectFlag) {
+    if (self.clean || !self.reconnectFlag || !sessionPresent) {
         for (NSString *topicFilter in self.subscriptions) {
             if (topicFilter.length) {
                 DDLogInfo(@"[Connection] subscribe %@ qos=%d",
@@ -972,8 +979,12 @@ subscriptionIdentifiers:(NSArray<NSNumber *> *)subscriptionIdentifiers {
     self.state = state_starting;
     self.lastErrorCode = nil;
     
-    if (self.reconnectTime < RECONNECT_TIMER_MAX) {
-        self.reconnectTime *= 2;
+    if (self.url != nil || self.port != 0) {
+        if (self.reconnectTime < RECONNECT_TIMER_MAX) {
+            self.reconnectTime *= 2.0;
+        }
+    } else {
+        self.reconnectTime = 24.0*60.0*60.0;
     }
     [self connectToInternal];
 }

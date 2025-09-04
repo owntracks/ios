@@ -13,8 +13,8 @@
 
 @interface LocationManager()
 @property (strong, nonatomic) CLLocationManager *manager;
-@property (strong, nonatomic) CMAltimeter *altimeter;
 @property (strong, nonatomic) CLLocation *lastUsedLocation;
+@property (strong, nonatomic) CLLocation *lastLocationWithMovement;
 @property (strong, nonatomic) NSTimer *activityTimer;
 @property (strong, nonatomic) NSMutableSet *pendingRegionEvents;
 @property (strong, nonatomic) NSMutableDictionary *insideBeaconRegions;
@@ -22,9 +22,18 @@
 @property (strong, nonatomic) NSMutableArray *rangedBeacons;
 @property (strong, nonatomic) NSTimer *backgroundTimer;
 @property (strong, nonatomic) NSUserDefaults *sharedUserDefaults;
-@property (readwrite, nonatomic) CLAuthorizationStatus locationManagerAuthorizationStatus;
-@property (readwrite, nonatomic) CMAuthorizationStatus altimeterAuthorizationStatus;
-@property (readwrite, nonatomic) BOOL altimeterIsRelativeAltitudeAvailable;
+
+@property (nonatomic) CLAuthorizationStatus locationManagerAuthorizationStatus;
+
+@property (nonatomic) CMAuthorizationStatus altimeterAuthorizationStatus;
+@property (nonatomic) BOOL altimeterIsRelativeAltitudeAvailable;
+@property (strong, nonatomic) CMAltimeter *altimeter;
+@property (strong, nonatomic) CMAltitudeData *altitudeData;
+
+@property (nonatomic) CMAuthorizationStatus motionActivityManagerAuthorizationStatus;
+@property (nonatomic) BOOL motionActivityManagerIsActivityAvailable;
+@property (strong, nonatomic) CMMotionActivityManager *motionActivityManager;
+@property (strong, nonatomic) CMMotionActivity *motionActivity;
 
 @end
 
@@ -34,7 +43,8 @@
 
 @end
 
-#define BACKGROUND_STOP_AFTER 5.0
+#define BACKGROUND_STOP_AFTER 5.0 // seconds
+#define ASSUME_NO_MOTION 0.05 // meters per second (0.05 m/sec is 180 m/hour)
 
 @implementation PendingRegionEvent
 
@@ -74,11 +84,17 @@ static LocationManager *theInstance = nil;
     self.manager.delegate = self;
     
     self.altimeter = [[CMAltimeter alloc] init];
+    self.motionActivityManager = [[CMMotionActivityManager alloc] init];
     
     self.insideBeaconRegions = [[NSMutableDictionary alloc] init];
     self.insideCircularRegions = [[NSMutableDictionary alloc] init];
     self.rangedBeacons = [[NSMutableArray alloc] init];
     self.lastUsedLocation = [[CLLocation alloc] initWithLatitude:0 longitude:0];
+    self.lastLocationWithMovement = [[CLLocation alloc] initWithCoordinate:CLLocationCoordinate2DMake(0.0, 0.0)
+                                                                  altitude:(0.0)
+                                                        horizontalAccuracy:-1.0
+                                                          verticalAccuracy:-1.0
+                                                                 timestamp:[NSDate date]];
     self.pendingRegionEvents = [[NSMutableSet alloc] init];
     self.pendingRegions = [[NSMutableArray alloc] init];
     self.isManagingRegions = NO;
@@ -147,9 +163,9 @@ static LocationManager *theInstance = nil;
     
     self.altimeterAuthorizationStatus = [CMAltimeter authorizationStatus];
     self.altimeterIsRelativeAltitudeAvailable = [CMAltimeter isRelativeAltitudeAvailable];
-    DDLogVerbose(@"[LocationManager] CMAltimeter status=%ld, available=%d",
-                 (long)self.altimeterAuthorizationStatus,
-                 self.altimeterIsRelativeAltitudeAvailable);
+    DDLogInfo(@"[LocationManager] CMAltimeter status=%ld, available=%d",
+              (long)self.altimeterAuthorizationStatus,
+              self.altimeterIsRelativeAltitudeAvailable);
     
     if (self.altimeterIsRelativeAltitudeAvailable &&
         (self.altimeterAuthorizationStatus == CMAuthorizationStatusNotDetermined ||
@@ -157,11 +173,27 @@ static LocationManager *theInstance = nil;
         DDLogVerbose(@"[LocationManager] startRelativeAltitudeUpdatesToQueue");
         [self.altimeter startRelativeAltitudeUpdatesToQueue:[NSOperationQueue mainQueue]
                                                 withHandler:^(CMAltitudeData *altitudeData, NSError *error) {
-            DDLogVerbose(@"[LocationManager] altitudeData %@", altitudeData);
-            self.altitude = altitudeData;
+            DDLogVerbose(@"[LocationManager] altitudeData %@ error %@", altitudeData, error);
+            self.altitudeData = altitudeData;
         }];
     }
-
+    
+    self.motionActivityManagerAuthorizationStatus = [CMMotionActivityManager authorizationStatus];
+    self.motionActivityManagerIsActivityAvailable = [CMMotionActivityManager isActivityAvailable];
+    DDLogInfo(@"[LocationManager] CMMotionActivityManager status=%ld, available=%d",
+              (long)self.motionActivityManagerAuthorizationStatus,
+              self.motionActivityManagerIsActivityAvailable);
+    
+    if (self.motionActivityManagerIsActivityAvailable &&
+        (self.motionActivityManagerAuthorizationStatus == CMAuthorizationStatusNotDetermined ||
+         self.motionActivityManagerAuthorizationStatus == CMAuthorizationStatusAuthorized)) {
+        DDLogVerbose(@"[LocationManager] startActivityUpdatesToQueue");
+        [self.motionActivityManager startActivityUpdatesToQueue:[NSOperationQueue mainQueue]
+                                                    withHandler:^(CMMotionActivity * _Nullable activity) {
+            DDLogVerbose(@"[LocationManager] activity %@", activity);
+            self.motionActivity = activity;
+        }];
+    }
 }
 
 - (void)wakeup {
@@ -240,16 +272,10 @@ static LocationManager *theInstance = nil;
         DDLogInfo(@"[LocationManager] stopRelativeAltitudeUpdates");
         [self.altimeter stopRelativeAltitudeUpdates];
     }
-}
-
-- (void)stopContinuousLocationUpdates {
-    DDLogInfo(@"[LocationManager] stopContinuousLocationUpdates called");
-    if (self.manager) {
-        [self.manager stopUpdatingLocation];
-        if (self.activityTimer) {
-            [self.activityTimer invalidate];
-            self.activityTimer = nil;
-        }
+    
+    if ([CMMotionActivityManager isActivityAvailable]) {
+        DDLogVerbose(@"[LocationManager] stopActivityUpdates");
+        [self.motionActivityManager stopActivityUpdates];
     }
 }
 
@@ -402,8 +428,10 @@ static LocationManager *theInstance = nil;
 
 - (void)activityTimer:(NSTimer *)timer {
     DDLogInfo(@"[LocationManager] activityTimer fired after %f", self.minTime);
-    if (self.manager.location) {
-        [self.delegate timerLocation:self.manager.location];
+    CLLocation *location = self.manager.location;
+    if (location) {
+        self.lastUsedLocation = location;
+        [self.delegate timerLocation:location];
     } else {
         DDLogWarn(@"[LocationManager] activityTimer found no location");
     }
@@ -473,36 +501,50 @@ static LocationManager *theInstance = nil;
         
 }
 
++ (NSString *)CLLocationText:(CLLocation *)location {
+    NSISO8601DateFormatter *formatter = [[NSISO8601DateFormatter alloc] init];
+    formatter.formatOptions |= NSISO8601DateFormatWithFractionalSeconds;
+
+    return [NSString stringWithFormat:@"%g%g(±%.0f,%.2f,%.2f)@%@",
+            location.coordinate.longitude,
+            location.coordinate.latitude,
+            location.horizontalAccuracy,
+            location.speed,
+            location.course,
+            [formatter stringFromDate:location.timestamp]];
+}
+
+
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations {
-    DDLogInfo(@"[LocationManager] didUpdateLocations triggered in state: %ld", 
-              (long)[UIApplication sharedApplication].applicationState);
+    DDLogVerbose(@"[LocationManager] didUpdateLocations");
     
-    // Log if this was triggered by SLC
-    if (self.wasLaunchedByLocationUpdate) {
-        DDLogWarn(@"[LocationManager] Location update from SLC wake");
-        [self.manager startMonitoringVisits];
-        [self.manager stopUpdatingLocation];
-    } else {
-        DDLogInfo(@"[LocationManager] Location update from continuous updates");
-    }
-    
+    int count = 0;
     for (CLLocation *location in locations) {
-        DDLogInfo(@"[LocationManager] Location: %@ last: %@ Δs:%.0f/%.0f Δm:%.0f/%.0f monitoring:%ld bgState:%ld",
-                  location,
-                  self.lastUsedLocation,
+        count++;
+        DDLogInfo(@"[LocationManager] Location#%d: Δs:%.0f/%.0f Δm:%.0f/%.0f Δs:%.0f %@ %@ %@",
+                  count,
                   self.lastUsedLocation ? [location.timestamp timeIntervalSinceDate:self.lastUsedLocation.timestamp] : 0,
                   self.minTime,
                   self.lastUsedLocation ? [location distanceFromLocation:self.lastUsedLocation] : 0,
                   self.minDist,
-                  (long)self.monitoring,
-                  (long)[UIApplication sharedApplication].applicationState
-                  );
+                  [location.timestamp timeIntervalSinceDate:self.lastLocationWithMovement.timestamp],
+                  [LocationManager CLLocationText:location],
+                  self.lastUsedLocation ? [LocationManager CLLocationText:self.lastUsedLocation] : @"nil",
+                  [LocationManager CLLocationText:self.lastLocationWithMovement]
+        );
+        
+        if (location.speed > ASSUME_NO_MOTION) {
+            self.lastLocationWithMovement = location;
+        }
+        
         if (self.lastUsedLocation &&
             [location.timestamp timeIntervalSinceDate:self.lastUsedLocation.timestamp] <= 0) {
             continue;
         }
-        if (self.lastUsedLocation && 
+        
+        if (self.monitoring == LocationMonitoringMove &&
+            self.lastUsedLocation &&
             [location distanceFromLocation:self.lastUsedLocation] < self.minDist) {
             continue;
         }
@@ -530,7 +572,6 @@ static LocationManager *theInstance = nil;
     DDLogError(@"[LocationManager] didFailWithError %@ %@", error.localizedDescription, error.userInfo);
     // error
 }
-
 
 /*
  *

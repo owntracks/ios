@@ -1,0 +1,39 @@
+/* Bundle display name */
+"CFBundleDisplayName" = "OwnTracks";
+
+/* Bundle name */
+"CFBundleName" = "OwnTracks";
+
+/* Privacy - Camera Usage Description */
+"NSCameraUsageDescription" = "OwnTracks 根据要求使用您的相机创建卡片";
+
+/* Privacy - Contacts Usage Description */
+"NSContactsUsageDescription" = "如果您允许 OwnTracks 访问您的联系人，您可以将您的设备与联系人关联。OwnTracks 将显示联系人姓名和图像，而不是设备 ID。您的地址簿信息不会上传到任何服务器。";
+
+/* Privacy - Location Always and When In Use Usage Description */
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "您的位置用于在您选择的服务器上共享和记录。";
+
+/* Privacy - Location Always Usage Description */
+"NSLocationAlwaysUsageDescription" = "您的位置用于在您选择的服务器上共享和记录。";
+
+/* Privacy - Location Usage Description */
+"NSLocationUsageDescription" = "您的位置用于在您选择的服务器上共享和记录。";
+
+/* Privacy - Location When In Use Usage Description */
+"NSLocationWhenInUseUsageDescription" = "您的位置用于在您选择的服务器上共享和记录。";
+
+/* Privacy - Motion Usage Description */
+"NSMotionUsageDescription" = "OwnTracks 会根据请求提供您的步数、爬楼层数和步行距离。";
+
+/* No comment provided by engineer. */
+"OwnTracks CER File" = "OwnTracks CER文件";
+
+/* No comment provided by engineer. */
+"OwnTracks Configuration File" = "OwnTracks配置文件";
+
+/* No comment provided by engineer. */
+"OwnTracks PKCS12 File" = "OwnTracks PKCS12 文件";
+
+/* No comment provided by engineer. */
+"OwnTracks Waypoints File" = "OwnTracks 航点文件";
+

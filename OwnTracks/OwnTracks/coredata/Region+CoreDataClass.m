@@ -114,7 +114,7 @@
     }
 }
 
-- (CLRegion *)CLregion {
+- (CLRegion * _Nullable)CLregion {
     CLRegion *region = nil;
 
     if (self.name && self.name.length) {

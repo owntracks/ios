@@ -7,295 +7,295 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		005B4B25D888B116E6EA960F45ACEDAA /* DSJSONSchemaSpecification.h in Headers */ = {isa = PBXBuildFile; fileRef = 883097A6E492F91D47B93BDCE1C014E3 /* DSJSONSchemaSpecification.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		046CE0A3C4B2C0D54BF742EEED6DE32E /* DSJSONSchemaSpecification.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6263763C7C0F104A4D590D15D17D5E /* DSJSONSchemaSpecification.m */; };
-		04B0F3E215E694A784C153FEF03EE0A9 /* DDFileLogger+Buffering.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C6EC40961CA5510351C326A177093B /* DDFileLogger+Buffering.m */; };
-		04E5792865E6A0E437584324C8E74EB3 /* DSJSONSchemaEnumValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = E2549946DA3647F3FF5A3003804FA899 /* DSJSONSchemaEnumValidator.m */; };
-		0698C9BF2A268F588CA9127033BF2CAD /* crypto_generichash_blake2b.h in Headers */ = {isa = PBXBuildFile; fileRef = CF15EEEA50E019909AD0B435109F3D48 /* crypto_generichash_blake2b.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		0734C6F3779ED07F18C07DDE4EA7A6A3 /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2B4A14DDB4A1E3AB8A695BE26C1A4C /* DDFileLogger.m */; };
-		07F93F4D8F7472F315B7793FE0F6189B /* DSJSONSchemaConstValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FFD954231958509A4F93AE049A829D /* DSJSONSchemaConstValidator.m */; };
-		0852ED16BD84A3AF48C46934C197A1A2 /* DSJSONSchemaTypeValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = B33376F5132E44332C5576504844D967 /* DSJSONSchemaTypeValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0C17091111A6906A585168E751FCD6DF /* DSJSONSchemaArrayValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9916936930AA81E7C64DA7510F1290D3 /* DSJSONSchemaArrayValidator.m */; };
-		0C4B7E72D37F085CDCBAB66F11221E07 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = E26C2392586FC0220CB5A5286319EFBB /* DDTTYLogger.m */; };
-		0D335FA8438C13F40C6D2ABF31EBEEA9 /* DSJSONBooleanSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AADB95CAF28CE884705EFDB3ABD2B71 /* DSJSONBooleanSchema.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0D9C05ED0309DA2CEA7F493FC218C942 /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = 925A149A613FED03DDE654BF3C1ECC93 /* version.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		0DB481CDE33C20AC3088E75524B5E388 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E18DF85A91A2D4A4B160A039BAB402 /* Box.swift */; };
-		0E840FC1DF5A14F486F90E541176BD5E /* DDAssertMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = A1152E814E9704959C3C8AA146D68CE6 /* DDAssertMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0EAA28E5BBD71411CE6836B63040D87B /* crypto_box.h in Headers */ = {isa = PBXBuildFile; fileRef = AC4CFE6D546EA923835CCA35956DA1A1 /* crypto_box.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		0FB076DAF324C56541B63E4AC19B97D0 /* crypto_generichash.h in Headers */ = {isa = PBXBuildFile; fileRef = 043674BBD3157A2B18B216E401E9E132 /* crypto_generichash.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		0FCFB9399A8A8B896D7C46B5FC5F63BF /* NSDictionary+DSJSONDeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = F23C69E4120EE2134B21B97B7E774689 /* NSDictionary+DSJSONDeepMutableCopy.m */; };
-		0FDC37E9E529798CE5BE50BE3A0AAE60 /* Sodium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DF89DA1EEE7E619FE3A6733B4216AE /* Sodium.swift */; };
-		101434190809D330189D6EB3D716531A /* DSJSONSchemaPropertyNamesValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = D5CFD8FE637207A70C9F142B6B986C7C /* DSJSONSchemaPropertyNamesValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		13D5DC86AD3FF17CB68E55C8C0738C56 /* export.h in Headers */ = {isa = PBXBuildFile; fileRef = A3F1782BB99657DDDAF3465D7812D363 /* export.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		13DAD6293E342483DB5B2E36F45D0911 /* crypto_core_hsalsa20.h in Headers */ = {isa = PBXBuildFile; fileRef = 73041334C81325EFA02DDBBC10CDFADE /* crypto_core_hsalsa20.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		14103B17F4A26E096D21B1A23D140F69 /* crypto_shorthash.h in Headers */ = {isa = PBXBuildFile; fileRef = E695EE03ED7124974A8AC8EC49DF2828 /* crypto_shorthash.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		14F45344756E3DA27EE52588C97966AA /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8CD8EF5F12099FB5D07C29536E0BF8 /* DDASLLogger.m */; };
-		151E4266F78F2530B79F52343441860B /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 046A8B8EC7ACC0A70745ACC11B8CB4B9 /* CLIColor.m */; };
-		1660A17BC64AC5796E9B6DFDB11957B0 /* DDLoggerNames.h in Headers */ = {isa = PBXBuildFile; fileRef = 999FF10C73B09D52E92E2FE112DA9A7E /* DDLoggerNames.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		176640F54C5CA2072A147E4FD89E69EB /* MQTTProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA366F983F1BD25CCD0CE738715E154 /* MQTTProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		19BAF8A858D34350F191B8BAB59A0FCC /* SecretKeyGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487D03982B9BB75DCF5D63B3DA8C8654 /* SecretKeyGenerator.swift */; };
-		19DCB826ACFD1C52E33600CA1C891FA0 /* DSJSONSchemaNumericValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C557DE074290210E8D6657BA3993022 /* DSJSONSchemaNumericValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1B3785168DD3A42B9EA8A7716C6C5D2C /* CocoaLumberjack-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6E003257746029C70AED97F16F797 /* CocoaLumberjack-dummy.m */; };
-		1C441A7A75BE5BE870626AD34D69B693 /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 045D826F73AA32BA1C86649E56C1A238 /* DDASLLogCapture.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1C62B5EDBA649AC42ED2B17810FE96B2 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E0B0219EC591E027D030F8858A1EA0 /* DDDispatchQueueLogFormatter.m */; };
-		1C7CA7B7A809BFFAA4F10DDE1A82B108 /* DSJSONSchema+StandardValidators.h in Headers */ = {isa = PBXBuildFile; fileRef = D6D4FE073FA7A0BDE7C6F749B7975ED9 /* DSJSONSchema+StandardValidators.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1DDD1BE931CF3A2D6807535288AA67C7 /* MQTTNWTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = AC20A7B809DEA8BC9872B0DFC1D8B06B /* MQTTNWTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E703E838F61D4C6EAF1B6BD2D3A3295 /* DSJSONSchema+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 74A14143CC03E0CD97FEAA96FB8CD667 /* DSJSONSchema+Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		1E828CBEFD395F689E758CC00DEEE395 /* DSJSONDictionarySchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 856B421FE53DE972BDD11C32B71DBB3E /* DSJSONDictionarySchema.m */; };
-		1EAB7D6C231ECF1BFF92544A94B2711C /* MQTTDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C80F5E4CA4B0DE06EDEB85BEDC7D873 /* MQTTDecoder.m */; };
-		1F18382552F400006C8B43B71B87A9C6 /* crypto_stream_xchacha20.h in Headers */ = {isa = PBXBuildFile; fileRef = C7C554E480A01DFE27849B3BD8F65FCB /* crypto_stream_xchacha20.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		20128416CCD9952CB07E0D1E292DB058 /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C5537A70E48CF4C36AE133771F8B0DA /* utils.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		21FF24D62B0FC310E9FF9F7365C5474E /* DSJSONSchemaArrayItemsValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 68DBC32DEF7420147935E5047C7E7887 /* DSJSONSchemaArrayItemsValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		22F0BB226C481564F56F0A666266ADEA /* DSJSONSchemaValidationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B47CAFBDD9AAD797ABA39C1C559CA10 /* DSJSONSchemaValidationContext.m */; };
-		23372ED555CD57375631587F438A5418 /* DDLegacyMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 5285FC5119ADA26749889EF7DE9DC3E6 /* DDLegacyMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2407B4933BF849ABD9CA0877DA09F18F /* crypto_hash.h in Headers */ = {isa = PBXBuildFile; fileRef = 88695FC9642B7D95636C36659155409B /* crypto_hash.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		2A517C9696BDBF9A74F388C881B84CD1 /* NonceGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC30F8A1555498AF2E6A88BD38EDD03 /* NonceGenerator.swift */; };
-		2A9BE77FC11A78546CC2E9644CE84F75 /* MQTTTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA14E16CD981B72BCC41ED06F3FBE52 /* MQTTTransport.m */; };
-		2CD16B0EAF039D87C23E23B3C34439D8 /* KeyPairGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7825E7E0ADC3EA0D57C71769C82AB0E /* KeyPairGenerator.swift */; };
-		2DC4FE16A42B62BF7129255F8A97715B /* DSJSONSchemaObjectPropertiesValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD73EBE20CF3838178F294DEB37DBAC /* DSJSONSchemaObjectPropertiesValidator.m */; };
-		2DE23927C97BE740998CA81F5AB25C03 /* DSJSONSchemaErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E495148D8FA1F533297045894579894 /* DSJSONSchemaErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		2E02BD2F499C7E8B113BFF3D6BAFB675 /* crypto_stream_salsa20.h in Headers */ = {isa = PBXBuildFile; fileRef = 852463B0B2B778355F965BA3520D46C9 /* crypto_stream_salsa20.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		2E42BFE4944AC610096C38889414BB88 /* DSJSONSchemaValidationOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = CBF274446BF8D5CF60D564BA9EA7F385 /* DSJSONSchemaValidationOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		30F1339F0F8ADACB3E902D84ACB4135F /* crypto_hash_sha512.h in Headers */ = {isa = PBXBuildFile; fileRef = B0C88C5A3A8AA6DB8BC20E00BA946600 /* crypto_hash_sha512.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		326174019976A2CAB22C774DF095CC55 /* crypto_core_ristretto255.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CECEFFA933FFDBFDE878A4E5C42A46F /* crypto_core_ristretto255.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		3396C092D31E3E8B09FDFE88B1CA2F02 /* DSJSONSchemaObjectPropertiesValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 01019F1878500DBC891C1E295C953701 /* DSJSONSchemaObjectPropertiesValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		33BA1E444175B25B1EAEA56938A65F71 /* NSNumber+DSJSONNumberTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C4B71EBD5B3E800577F26FFC1119F44 /* NSNumber+DSJSONNumberTypes.m */; };
-		340F678F9EDCF26FA515D4A895FBDBA8 /* DSJSONSchemaValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 58E1AF995DF90A2C2CFEC3939BD5B9EC /* DSJSONSchemaValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3542E695B6D9C9CA5AC0169A3E566CFF /* crypto_pwhash_argon2i.h in Headers */ = {isa = PBXBuildFile; fileRef = 8566906217E9BD53C82566EF273DA859 /* crypto_pwhash_argon2i.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		354CE2234DCD510B1E6307A7A9E6A6D8 /* SecretStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF031778D73E8DB2943C90FE2DDB6D /* SecretStream.swift */; };
-		35606BDDF653FAE0F4FC3DBB26B60D22 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		35E0E6ABB828DCB877586E25D90C335E /* MQTTPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 4248E0297D5E4C7160D2A6E4044F60E0 /* MQTTPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3616A72266CC7C5F0FD4D8DD2DEB61F7 /* DSJSONSchemaStringValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 500C3AEC23C4CAE86C1E23B8CC9C7A64 /* DSJSONSchemaStringValidator.m */; };
-		36BB67A98C9C43EC84C8D93DA2C8BC9E /* CocoaLumberjack-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = ABEA8D41B72F4264FD9E848900CAC173 /* CocoaLumberjack-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		38FA7A5C7F9E4ABA22B96A42FB2C8345 /* DSJSONSchemaFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = C13A8757C409A2525BB46949FCB17FB6 /* DSJSONSchemaFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		39DE5694B6C61C3CB05AC4E751F62B3E /* DSJSONSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = AF0D21D48103393FE8A79242540D8B8E /* DSJSONSchema.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3A40B1E861507CE7BC354FA532FD1E10 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F17527C30B6AEB67F2C3465256281E /* DDLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3A6CE7B970727B21B3C037D332CA186F /* DSJSONSchemaTypeValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 43686C937309E56231F1D690ED99C9FB /* DSJSONSchemaTypeValidator.m */; };
-		3C300F7F61768971E920423E784C4008 /* NSNumber+DSJSONNumberTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 082CCD94FA09D6642601EAEC3CEEADC7 /* NSNumber+DSJSONNumberTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3C5218BE3ACFA07805B27C3CC2BD8A55 /* crypto_onetimeauth_poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = B926062CA39EF5BC9611457D672C2D16 /* crypto_onetimeauth_poly1305.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		3DD14FAC39ECA96350482D4B6A7230A4 /* DSJSONSchemaValidationContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 54D123743A3A06F9D218D7C602236CB3 /* DSJSONSchemaValidationContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3EC5DF9E9DB09616DD5BDE753B6BDAE4 /* DDContextFilterLogFormatter+Deprecated.h in Headers */ = {isa = PBXBuildFile; fileRef = D9D56E4756C30BF772BB41FCFDB5FE63 /* DDContextFilterLogFormatter+Deprecated.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		3FA15B8170C600E16C1C4F9A99B7F6A0 /* MQTTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 14E2D092647C9623C0A3443B2FC8DB37 /* MQTTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		402855F5486CFC4D1ED04DB67B05FACE /* DSJSONSchemaDependenciesValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1212EDDC0F5FCF398CBB7303323BD5 /* DSJSONSchemaDependenciesValidator.m */; };
-		41CBA5D2C9648EB4DF72E25DF5CABBF6 /* DSJSONSchemaDependenciesValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 972E6D13C3704555C1BC21E9CAED71FC /* DSJSONSchemaDependenciesValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		41F282069598D72EE5303988D4750522 /* MQTTWill.m in Sources */ = {isa = PBXBuildFile; fileRef = DCFCD09BB17D8485D8838B3E6085CED5 /* MQTTWill.m */; };
-		4261A3997EEEBCF9C9FA5408FAE56AC2 /* KeyPairProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44678A7248FE1795CEACB25A2C4A4DA /* KeyPairProtocol.swift */; };
-		43478277E468752EC02197B436D4E056 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52702D048D40180FBC60B792DB0BB8 /* Stream.swift */; };
-		459BA7E28A281F58F18585AEA391C43A /* DSJSONSchemaStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 60D3172FA92FFED03188BBB52302336E /* DSJSONSchemaStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		45D4AE64989C881105E98B2C84214F11 /* DDOSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D510C923552FE0131A2AE3065A177DC /* DDOSLogger.m */; };
-		45E8C46189ABF0DC8770BC366DFDA43D /* MQTTProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1516E71EC12C1203F39A6308BF78E8 /* MQTTProperties.m */; };
-		47B0D7E2D85013CF20459470EE4C6357 /* DSJSONSchemaObjectValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 228702BCAB3288811195940D29C4C627 /* DSJSONSchemaObjectValidator.m */; };
-		489DA021F82B5020A46915B655807F0E /* MQTTCoreDataPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1E1A647B5CB3BFE8D58F7891CAB30F /* MQTTCoreDataPersistence.m */; };
-		4952EB757F8A815AC88C167BB7DF9B5A /* crypto_stream_salsa208.h in Headers */ = {isa = PBXBuildFile; fileRef = FC577E34CD519416657D8F7899608179 /* crypto_stream_salsa208.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		4D62650AF035288892ABDEEB2E3C62D9 /* crypto_core_hchacha20.h in Headers */ = {isa = PBXBuildFile; fileRef = CAFBE88DDEDDD46FA86E6FAC3BA79EAA /* crypto_core_hchacha20.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		4DFCF0D5A855788002B000B3028633B7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		4EE05522DCC1337535713E5090A9072A /* crypto_secretbox.h in Headers */ = {isa = PBXBuildFile; fileRef = 64A1C9A6929F1927AF20DDDB4DDFBC68 /* crypto_secretbox.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		50540929CDE9DF20D6184F17B5B933A9 /* crypto_onetimeauth.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C496866833177B324D2DEA49BDDE4EE /* crypto_onetimeauth.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		526BEA844435FF12B0A26B1DDCC4A19B /* DSJSONDictionarySchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 89B9B8C1CD63023A79A815D1279F3844 /* DSJSONDictionarySchema.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		53D2E9EA5E92C4101AE37956AD817A83 /* NSURL+DSJSONReferencing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5782124C36CAF799FAB6239FE6C5E0F5 /* NSURL+DSJSONReferencing.m */; };
-		53F0E6FAD8F725770D68E98C1F99EF8A /* DDLoggerNames.m in Sources */ = {isa = PBXBuildFile; fileRef = 466C02C640B3C2737CF1418ECED09FC6 /* DDLoggerNames.m */; };
-		5588640C05E41BC6EDE069987644D704 /* DSJSONSchemaCombiningValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B38B6A363E862C0ACBD022900FC9129 /* DSJSONSchemaCombiningValidator.m */; };
-		56EB31DD1BD343AC71D01F74B5677773 /* DSJSONSchemaContentValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = D76B8F1B1F866FEDA75C40C310D1E5FD /* DSJSONSchemaContentValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5794A73D49627EEADD01F13B0945545A /* crypto_kx.h in Headers */ = {isa = PBXBuildFile; fileRef = 50A2100892FA8F7CE95C4DE7A180DE5F /* crypto_kx.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		57F2F8CCBBB7383545CBE14F85D00AB9 /* crypto_sign_edwards25519sha512batch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E29475305996A46584CA9C243657FF7 /* crypto_sign_edwards25519sha512batch.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		596BFDFBDD054821561A1AB80A35E79C /* crypto_secretstream_xchacha20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = ED269F8B88D7B2D683C6C20834E0B5DB /* crypto_secretstream_xchacha20poly1305.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		597781D49C0C42AA8E7B6FE2E222CA29 /* crypto_aead_aes256gcm.h in Headers */ = {isa = PBXBuildFile; fileRef = 32E5089EC3E9AC4B93F589BF7D18A16B /* crypto_aead_aes256gcm.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		599ED829231904AB3E7DC5AB6899D882 /* NSArray+DSJSONComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7799D26455EA43DA5670E6EEF686A5 /* NSArray+DSJSONComparison.m */; };
-		5A3F329979E10DC04C484678EB348ADA /* crypto_core_salsa208.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D5F9CCB89203C7E42E2AA39543B1AF1 /* crypto_core_salsa208.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		5C18B9D6C0DE2756E43CC910E2D530C3 /* PWHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2328435754C80F5211B647D8FD865A3E /* PWHash.swift */; };
-		5EF26A1BA03012FDCA0AA83527E92A83 /* CocoaLumberjackPrivacy.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 519AF98C92B517DD023896CD077EBFD4 /* CocoaLumberjackPrivacy.bundle */; };
-		60A86D9FE209D650D6D1F056C10C76B1 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 894715184246E2998CE7F6BD7E296941 /* DDContextFilterLogFormatter.m */; };
-		62AA934CB2017977299BFB18CC7D6F45 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 799381569BEFBE0EFCD5A12771DEED33 /* DDASLLogCapture.m */; };
-		63BA5DE36301526738081707DDD7E558 /* crypto_auth_hmacsha256.h in Headers */ = {isa = PBXBuildFile; fileRef = 072503D6197F08D74F5CD6EC061CFF8B /* crypto_auth_hmacsha256.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		647AF8501E4B686E3276E003205A5745 /* MQTTStrict.h in Headers */ = {isa = PBXBuildFile; fileRef = A75F8C189994A3AE99647DE2C7751F80 /* MQTTStrict.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		66752C2FE8A0F93258143944ED9E2050 /* DSJSONSchemaContentValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F02C729F85676E4EBAD18DA4657E9866 /* DSJSONSchemaContentValidator.m */; };
-		6679C96C24C99332AA39A18E5D343A4F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		67DDA13C9BC206999BE3418F5FB86469 /* MQTTNWTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AF6581C4AE9BF3DCD4AC652EE45C73 /* MQTTNWTransport.m */; };
-		68B78F0BF7C06519EBE68DC8A84C77AB /* GenericHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F44C38A47CCC272C006A2EC09B1B676 /* GenericHash.swift */; };
-		6931FE86F06AC2867A8DFEA27F3B01BF /* DDMultiFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = CF37D3A974D88FA07040AC41C1EA581B /* DDMultiFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6BB6C8758538530C2D0448DF7841A9AB /* crypto_sign_ed25519.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CEAFB43CFF34BB56542F2599075C494 /* crypto_sign_ed25519.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		6D68EA69355883B818C1D856638DDFCF /* NSURL+DSJSONReferencing.h in Headers */ = {isa = PBXBuildFile; fileRef = B4BC3A4FABD990AB57B625105C566F43 /* NSURL+DSJSONReferencing.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		6DD8F4F63299911BEC1299F24C44B822 /* DSJSONSchemaStringValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C449BD145377DAF65F47C3E5EF922B8 /* DSJSONSchemaStringValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7032A6875C826CD5FE42B5F5F79461FE /* ABStaticTableViewController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBF4D0D98897513DCB1E6E168B67990 /* ABStaticTableViewController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		71575B1917B80389827512C77D44CA97 /* DSJSONSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 849FCFE7D2A418BFE4BB821DDD34059E /* DSJSONSchema.m */; };
-		73101E9BD7FA795799EC682F4F940D3F /* MQTTLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 402892CC2E2EB4576820CB4DDEDC46F8 /* MQTTLog.m */; };
-		747765C0DAB6BDAFF185117ECB6DB05B /* crypto_stream_salsa2012.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB3A65AF51135CB41184FEBD8F86EC8 /* crypto_stream_salsa2012.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		74A34557640D79181CFB8982892239DA /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = B5AF5DB705813F02B822CBCD0764CD5C /* DDASLLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7587BAEEDD178D83D4D160F4775954E0 /* crypto_stream_xsalsa20.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E70F39EED454814496CAB89114DC90F /* crypto_stream_xsalsa20.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		775AA92A28E86FF785DC2736D6396F8E /* MQTTSession.h in Headers */ = {isa = PBXBuildFile; fileRef = C8EE4E6A85DAE3025A33530EEB7CC39C /* MQTTSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		779E82F0A2DDDC4F5A4D61F3DD0C2325 /* DSJSONSchemaDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 47289FD0814E4117691EA72D244D5634 /* DSJSONSchemaDefinitions.m */; };
-		77C51E11C6B1423D2E58379899978B05 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		78084D60EA90F95A442E4522DECE1629 /* MQTTInMemoryPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 16B7B8CEF1616EA2071BA9AB8605414D /* MQTTInMemoryPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7815BDFA6BF24EFC7BF7156FB277E695 /* DSJSONSchemaArrayItemsValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAFE6142F368F521B06544B66BFB0A6 /* DSJSONSchemaArrayItemsValidator.m */; };
-		785D4A1EF2F70B71368B2D3E9FCC6672 /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = CC0B24BFAF533B3269B4DCFB7C34C4AA /* DDContextFilterLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7A649F468CFB53C1B7CF8BB4270A8A0C /* DDFileLogger+Buffering.h in Headers */ = {isa = PBXBuildFile; fileRef = 18607E8D571C42E66DFB8C00963777F8 /* DDFileLogger+Buffering.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7ADF692CC23F08461FD80DFB69D17A7E /* crypto_scalarmult_ed25519.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D4E4789B08257288E30D76A025557B0 /* crypto_scalarmult_ed25519.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		7CB93B88F3194A92D400D663C947DBA0 /* MQTTStrict.m in Sources */ = {isa = PBXBuildFile; fileRef = DCDD0EEDFCF0972309D4E21DCDD5D00E /* MQTTStrict.m */; };
-		7CDCB3E28E2C4AE650101FB43EC059B5 /* DSJSONSchemaContainsValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 263F13FE181A1F817151F0075BC9995D /* DSJSONSchemaContainsValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		81A518F1D54878EF591E86BAE1B030AD /* DSJSONSchema+StandardValidators.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5D381CD5C3F31D91A16B46201B1CCD /* DSJSONSchema+StandardValidators.m */; };
-		81F607FA8C322131F8C47957135299FE /* crypto_pwhash.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D63DEE9C135801DB7F272A38555C653 /* crypto_pwhash.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		85840DACF26355C8A8C508769995D753 /* NSString+DSJSONPointer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C275B18F5E74F0D5AFFE66598BEF56C /* NSString+DSJSONPointer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		86A327CD874844A140E5D53757EACE40 /* DSJSONSchemaValidation-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7D33311D8C11C0816E3CB9E5A52644 /* DSJSONSchemaValidation-dummy.m */; };
-		86A7FA45DDDDB7884F20906014D91ED6 /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = 6337709239BE208016C508466340518E /* DDLog+LOGV.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		898C963B41C1D7719F7F3E5D9D62F362 /* core.h in Headers */ = {isa = PBXBuildFile; fileRef = 31010AA86DAD725F99D52DFE4C934A55 /* core.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		89B16ED597765B24E768CBC89BEF53F3 /* crypto_kdf.h in Headers */ = {isa = PBXBuildFile; fileRef = 513152A3479DA5E6605E8AD14FF6D0BD /* crypto_kdf.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		8B96E3971CAF3196DDAE153A19914212 /* ABStaticTableViewController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C5CD8F339781DC34732E5363F5CB254 /* ABStaticTableViewController-dummy.m */; };
-		8C42C2878AD13CC9EB33E756B591DC9C /* ShortHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404C4C72E68F13FC8F946BFA24B19717 /* ShortHash.swift */; };
-		8CCB58B477FB656D0DC3725374C7A957 /* KeyDerivation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B5F6D9C09071376DAD60CC580CC3A /* KeyDerivation.swift */; };
-		8DB49254F13D3CB1662134A6C0D3C51C /* DSJSONSchemaStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = A99AF0398D7FC594C265848045EE783D /* DSJSONSchemaStorage.m */; };
-		8F75F25BF537E03B9261135F0F9D848F /* crypto_verify_16.h in Headers */ = {isa = PBXBuildFile; fileRef = 20DFADF635567BD00595A5351F377155 /* crypto_verify_16.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		8F976A985FC1F3678AC394002848DD41 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADC730A17422203B3712C0FC323EFFE /* Utils.swift */; };
-		8FD8490F0B24C8805FDEEB9CFBE92ABA /* DSJSONSchemaEnumValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = C41EBED01288967C8B663721C1ADD9E3 /* DSJSONSchemaEnumValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		908D531C5384DC99BC5293E6938166FC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		90E4D1096E303F35CEE0D94435BB34C3 /* mqttc-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D563C3F5C10D95ABF7DFFFFDA869901 /* mqttc-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		916CC90CA12CDDD95DA6D3E9CF295CF6 /* DDFileLogger+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 619201006241C05B4431DEA5BE219254 /* DDFileLogger+Internal.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		97B87EC0527E3573DFDC07E38CC9A214 /* NSString+DSJSONPointer.m in Sources */ = {isa = PBXBuildFile; fileRef = B92D1F77DACB0B898547A4B8DFF2B3D1 /* NSString+DSJSONPointer.m */; };
-		9832E797AFCE4B505E7B8A772C754D35 /* NSDictionary+DSJSONComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4CAF26632DE4A6EB4234A6A5A90862 /* NSDictionary+DSJSONComparison.m */; };
-		986AE9F2B6066FDD30B6DD9EF9AA5929 /* Aead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404A56E4A429916875FA8BAC4C4CBF68 /* Aead.swift */; };
-		9A4D7DA95312938E51D36346DE03F0E1 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5D56B9BE51C1E0052B6DF90231D639 /* Auth.swift */; };
-		9BBE894670C01C0F33B5F82146203C87 /* DSJSONSchemaValidation-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D054C33B3F9AF953876A1F013A641A8A /* DSJSONSchemaValidation-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9BF06014FB42786E7C1DAA24C0F1E481 /* DSJSONSchemaPropertyNamesValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA24D1B960EF662E5DE86B14C558552 /* DSJSONSchemaPropertyNamesValidator.m */; };
-		9D5A75038DDCD586D45C0000E5110845 /* crypto_aead_xchacha20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = 26BA4686E6FC5EB5C672A9D18FDF0F7C /* crypto_aead_xchacha20poly1305.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		9D68D1399F62A6530107EFD2BC6A7A80 /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = F9EEFFAF86E738E316CF44C5F81A3579 /* CocoaLumberjack.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9E3002E0F7ADBC606623CAAC97F2556C /* DSJSONSchemaReference.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DD674788BE2612607CB0316B1C629B6 /* DSJSONSchemaReference.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9EFDC13C725A33073FC33C7E0AF0BD70 /* MQTTLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 63AB2110630884165BDC27BDCE93BE5B /* MQTTLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9F09E59725D2329850683BADDDDE25A1 /* runtime.h in Headers */ = {isa = PBXBuildFile; fileRef = F522F717E12A1D3EB0D0AB66657C1721 /* runtime.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		9F8AD02CC875669C814A71B7841FACA8 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B5908BAAE8EB9FBDB47492A014A12AB5 /* PrivacyInfo.xcprivacy */; };
-		9FB41688AC9978B6351414EF3623143E /* MQTTDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 324885A3A7FC57BD17D9BD8BDF4B071D /* MQTTDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A174AFC4C8F2FB987A5FD850F28991BC /* crypto_kdf_blake2b.h in Headers */ = {isa = PBXBuildFile; fileRef = 7672B83A14695789C0A64393D645AAA2 /* crypto_kdf_blake2b.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		A18B52B19082274AEE781F888179A826 /* crypto_stream.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E560FD9BFDC03C78F09A60DD05F633D /* crypto_stream.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		A23E505EAF987FACEC55EE41DB6309F9 /* DSJSONSchemaFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C941DD89AD52859AF3E1A9882577BC9 /* DSJSONSchemaFactory.m */; };
-		A586DE51C837571411EF70E1D8376575 /* RandomBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EEB9DBE87DA8FA5A34208678AC3FEF /* RandomBytes.swift */; };
-		A676A092DEECD6F80451658729DE0A9F /* MQTTWill.h in Headers */ = {isa = PBXBuildFile; fileRef = 222E3D94E11F611A955E7F290C936CB7 /* MQTTWill.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A7160C81357D2D83ED96AE3642BC98E0 /* crypto_box_curve25519xsalsa20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = B106E77AEF94BF93B8F4450D1DDAE29D /* crypto_box_curve25519xsalsa20poly1305.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		A71F9F6325D63D4DF79E658FF4B53856 /* randombytes_sysrandom.h in Headers */ = {isa = PBXBuildFile; fileRef = 99F462C261178B706FBE726C68BBD63A /* randombytes_sysrandom.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		A7997699A75A1CD98FAEAF0BFD52E3F7 /* DSJSONSchemaConditionalValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3065B9A0B26FA6CDCF804EAF662DE666 /* DSJSONSchemaConditionalValidator.m */; };
-		AAAFAA8AA66D9D5B91C98522DDDF6B27 /* Pods-OwnTracks-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C5A54F6678FC22F814CF562D1EE4C06 /* Pods-OwnTracks-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AB6160ACE3DE6D8830ADFD03182DA697 /* crypto_secretbox_xchacha20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = E1635F3AD456A2BDD894130B8D9251A7 /* crypto_secretbox_xchacha20poly1305.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		AD6BEAE7FBF419A47DCBEF332D34203F /* randombytes.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B647D9428B03759712DEBEA7744520D /* randombytes.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		AE70C50BDFAA924379CE5ABF4BC55CFF /* crypto_scalarmult_ristretto255.h in Headers */ = {isa = PBXBuildFile; fileRef = ECAFC5D702C871A3B7E69E6E4871F8D3 /* crypto_scalarmult_ristretto255.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		AF1A8B87589AB61E31AA2A47201FCB1A /* crypto_core_curve25519.h in Headers */ = {isa = PBXBuildFile; fileRef = A673155FF0C805151ECCCE3D512933AD /* crypto_core_curve25519.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		B059B9E77CEE9DF6E5E40675BC5C0A06 /* Sodium.h in Headers */ = {isa = PBXBuildFile; fileRef = F6C74CFBAA0D278FF986C5F3EB394339 /* Sodium.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B0C14476E3DB18D266E4296F68F12955 /* MQTTTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D15BE5E0E51305386F2FD35C392328F /* MQTTTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B10D3098FFD604DD507B42B5CD0C6DA4 /* DDOSLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 96BA06D8B2F65C9CEE330DD0903BEEEC /* DDOSLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B15770D204819057410D528763C0050D /* mqttc-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C4E6AA49EC6F72FC8366DC5D504B1 /* mqttc-dummy.m */; };
-		B3770939D3607C580DE919C02A67DB85 /* DSJSONSchemaNumericValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5548317D9244753245A60043EBF6BA /* DSJSONSchemaNumericValidator.m */; };
-		B42AD0745AEAB36D0A6F7601F89D52C6 /* crypto_aead_chacha20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = DB082D1877E488203D6C8ABE32A8411D /* crypto_aead_chacha20poly1305.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		B4ABEE9FA8E21153FC21BC7A64E6C6A6 /* NSDictionary+DSJSONComparison.h in Headers */ = {isa = PBXBuildFile; fileRef = FD17BDE2C52DA47399234FF143271E81 /* NSDictionary+DSJSONComparison.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		B59431B47B84676A914AD3E032025323 /* ABStaticTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 860E8520246FC053BA08B43DEEE267B3 /* ABStaticTableViewController.m */; };
-		B631888372F63F6D10C5DAAF4E8BCEBD /* DSJSONSchemaErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FE763E5C8DD7704FA90F6EDAFF98E6 /* DSJSONSchemaErrors.m */; };
-		B80C817B173FCBC51509BD04F8E850EB /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E999B7A15A7782F2794E9B7BF85F8A /* DDMultiFormatter.m */; };
-		B8FF38AB23F5EA12CC29ECEDFD81A93C /* crypto_pwhash_argon2id.h in Headers */ = {isa = PBXBuildFile; fileRef = E8FB82E354321F1501EF1345075C53E2 /* crypto_pwhash_argon2id.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		BA7E439A6CBC3B2CEC7A8B787732DD20 /* crypto_verify_32.h in Headers */ = {isa = PBXBuildFile; fileRef = 298B737F2EFC8D5E695EC7A8C92710C6 /* crypto_verify_32.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		BB3001311740223347D54082C4B6A0CC /* ExitCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE189D406005D5C16ABA456AB1345E2B /* ExitCode.swift */; };
-		BD13B090EE48CF43C664702CB0AC2F39 /* DSJSONSchemaFormatValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 286B5FCEE48925524E5A6D813774CEE7 /* DSJSONSchemaFormatValidator.m */; };
-		BE28C900C24D72A21BED28853D87B83D /* DSJSONSchemaCombiningValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = B77BD9EC72C82AC2623DBB0C5A36FB84 /* DSJSONSchemaCombiningValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BE3E13C6D0DAC6424F230D995F178C81 /* crypto_core_salsa20.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A5ADB430A3A6F061ECE49CDE6EF5B47 /* crypto_core_salsa20.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		BEBF7103F97F9450B34E63A789B7F7A3 /* crypto_secretbox_xsalsa20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = 46E9B8265F21CEAEC406664C2C4B6823 /* crypto_secretbox_xsalsa20poly1305.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		BF2EF0AB5B7ABB780A6BCB33A31FBE09 /* DSJSONSchemaContainsValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6CB6E83FF6FF74119B8AD8A4BCC303 /* DSJSONSchemaContainsValidator.m */; };
-		C1C4B9819D1C0D4746ACB635F6B67F71 /* MQTTMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B16A107A4D055D740A0A3C55FD2E6B35 /* MQTTMessage.m */; };
-		C1CB9699AB28735C3ACB08B9D534D12D /* NSDictionary+DSJSONDeepMutableCopy.h in Headers */ = {isa = PBXBuildFile; fileRef = 972117125DD953A78CAB5F43681078DE /* NSDictionary+DSJSONDeepMutableCopy.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C241BB5BE59D7948F452F385B33A492D /* DSJSONSchemaValidationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8833D399E01C3B8D3FD97829453EB4EC /* DSJSONSchemaValidationOptions.m */; };
-		C463AB018CFA6634AC8D632986EC1668 /* crypto_core_ed25519.h in Headers */ = {isa = PBXBuildFile; fileRef = 050CDAC53FDCD6F9F16D55EC8149A455 /* crypto_core_ed25519.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		C565413530D41D54FDD667E83ACC1F95 /* crypto_hash_sha256.h in Headers */ = {isa = PBXBuildFile; fileRef = 89D9E3B8DC55E5F6B5ED59080CDBFC27 /* crypto_hash_sha256.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		C736A55FA5780D8C1D3BB51D9F5D9BBF /* DSJSONSchemaConstValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 543FFB52510AF971E4B32EAC226B7909 /* DSJSONSchemaConstValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CA6784D19BE4E5E00D83D37D2BA5AE31 /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C519BD9CEA569C3864E4ADB608B587B /* DDFileLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CC626DAA183798E82B7998240A642A1B /* NSObject+DSJSONComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = EC131EC97E65F5BA97BEEABE060D8BEC /* NSObject+DSJSONComparison.m */; };
-		CC7D7143DD378E7727A973E27BD0AF7C /* SecretBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169003042CF3B33B677B3AC1D12CD3FA /* SecretBox.swift */; };
-		CD87CC6AB8824EFB309E57745BB8EE5C /* NSObject+DSJSONComparison.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A5A5E91FB5E96EB0532AFEDA98EC7F /* NSObject+DSJSONComparison.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D01071AB4BEA43D5A88C6EFA05DA5BB8 /* DSJSONSchemaDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = F94BEDF07F96FB48A253B1CEBF14CB20 /* DSJSONSchemaDefinitions.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0A348E1170498963FCDC6680332CEE8 /* crypto_auth_hmacsha512256.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F638478AE0E4B8DD99376B6CD13D3B7 /* crypto_auth_hmacsha512256.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		D102B595CF6F7C979C9B1A3D40353DF3 /* MQTTMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BE4BCDF6C9FF0CC6C6B51F7A15CDACD /* MQTTMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D17F5C2D10978A3D417637F2E715D817 /* DSJSONSchemaConditionalValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = BE495805685200BB7CAED8B4C315F33E /* DSJSONSchemaConditionalValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D1F9EFE307366C07758245D09A47EB43 /* crypto_auth_hmacsha512.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D576F8E24DDFD97D6F1C4A819C91FD /* crypto_auth_hmacsha512.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		D253EB3010B82DA95FB67A5727B23B18 /* crypto_scalarmult_curve25519.h in Headers */ = {isa = PBXBuildFile; fileRef = A1F97ED5A9B8FF8F455A20EE18FD7F52 /* crypto_scalarmult_curve25519.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		D2E2E55E50A405973C6E840731603721 /* KeyExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC175F477F27DDC22E2B414DFCD377B4 /* KeyExchange.swift */; };
-		D5E9AA89D0254C236E8D712C382FAAB4 /* sodium_lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 008BAF7108458E0138A91AD33BC87415 /* sodium_lib.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		D664C641B07563D3B539E5DC989032A4 /* crypto_shorthash_siphash24.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0DB75836814CE4906CD2FE83DD04FC /* crypto_shorthash_siphash24.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		D9661421E55ADBAD6492CEF7B23A261F /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 75EB377EA0BE0578EF42E54DB96360B2 /* DDTTYLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D9A8BFA1B7D22FFAF5B0A2413762899A /* DSJSONBooleanSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB52CA3FB116EA6EB069B5BE030DA8F /* DSJSONBooleanSchema.m */; };
-		D9D18947B8BA162C813F52735D9CF44C /* crypto_stream_chacha20.h in Headers */ = {isa = PBXBuildFile; fileRef = E9BAF996ED25A6BC13A2F74291723FD4 /* crypto_stream_chacha20.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		DABAF83A4D7373F27DE183F8C7C63D68 /* crypto_box_curve25519xchacha20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = EAAC5083C8D4502E6C9D536C090C1094 /* crypto_box_curve25519xchacha20poly1305.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		DBB78D506D28300A1789E9BABFEF34B5 /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = AA38BCCC7E2FC4667F92F9078CF5311D /* DDAbstractDatabaseLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DC6FEF5DB98902C63DB8FD0A37546A4B /* crypto_core_salsa2012.h in Headers */ = {isa = PBXBuildFile; fileRef = 51FB00AE11895FA7497B7CB4E9EEB337 /* crypto_core_salsa2012.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		DCA928270A1C6B0F5F6B3E190CAA7941 /* randombytes_internal_random.h in Headers */ = {isa = PBXBuildFile; fileRef = 063812F36089BBC29A2825ECEC437FDD /* randombytes_internal_random.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		DE3D375AEE795F16331351D70BD5C6BF /* DSJSONSchemaArrayValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 71FCF805DEAD2F151E3A20102E51A333 /* DSJSONSchemaArrayValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E12B82FB3B4F924975E60C83F0964232 /* Bytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6E289754A882FBEE2A804A81A6C2A8 /* Bytes.swift */; };
-		E287E0CF0410BFABB33B06749BA30E4E /* Sodium-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF73DDDA75E076E71269C98F950F331 /* Sodium-dummy.m */; };
-		E3E0DD8115B9DC082E686FCF12D52196 /* DDContextFilterLogFormatter+Deprecated.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D435D44C91D6F6B69EA74F09C5DFE70 /* DDContextFilterLogFormatter+Deprecated.m */; };
-		E7A99E0D3125547ED88E8C4507DF6202 /* MQTTCoreDataPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 764A33D73FE7E9AA192E9928D4E36222 /* MQTTCoreDataPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E7C633300E7833822D228326360F5DC4 /* ABStaticTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 25E11B0F94F8F5195B773EEB58A6CCC7 /* ABStaticTableViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		E7DC450C7D79AFC4AAFF28685FE52BD0 /* DDLogMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 380C90F91F02CEE334B52B061C9CB92E /* DDLogMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EA5A90521DE5C7CD05E60AAEB178B58C /* MQTTInMemoryPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 9238FED176D9E65F7BACBE8E20974A7B /* MQTTInMemoryPersistence.m */; };
-		EA5F66B22B30832448F06C580F2C4986 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		EDE95D9BC798A3A1DE0B06207553B9D3 /* crypto_sign.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A1A7BE4CC59203ACD15C43486E404B4 /* crypto_sign.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		EE62AB3A77192ECF3483978BB85D74E1 /* crypto_auth.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FE20CAA7A96383CA2A665C3279DF598 /* crypto_auth.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		EFF680DA8D56AF26DDA0687FB3CB8249 /* MQTTSession.m in Sources */ = {isa = PBXBuildFile; fileRef = B06A0C4E26A4FAE7E4A88B0BE0EECE14 /* MQTTSession.m */; };
-		F10A517D304B21C66089063F62C1E96C /* DSJSONSchemaFormatValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 0453672C6BC77F0F0E2CB06C723C407A /* DSJSONSchemaFormatValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F1B9900DA0365F4E0E9684CD2F5E5698 /* Sign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B15E19083BC4DA6C9277CA4EBB2EDC /* Sign.swift */; };
-		F241854184DE7439358FAB47AFBA1C82 /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 662DC3D6B86ECC797038BA4A33256ADB /* DDLog.m */; };
-		F3C31893F2ED5F19BCE1D3E1C4FB94AA /* DSJSONSchemaReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29B51976558A158CB69AED8BCBC8EC /* DSJSONSchemaReference.m */; };
-		F4336532394954AF530FA87A948AD626 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9475389D63EC2A52B8092E237A0C6E99 /* DDAbstractDatabaseLogger.m */; };
-		F44AC0D2CB1660565CAF047CB427C1A3 /* DSJSONSchemaObjectValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 67FA75784717EBEF76F1AD814CA687E1 /* DSJSONSchemaObjectValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F56D313AB75B250C070647387F02D314 /* Pods-OwnTracks-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B65E1D133DCF38AB738E65268F56AFAA /* Pods-OwnTracks-dummy.m */; };
-		F572FAE0C322C9CEBBED42608B421312 /* CLIColor.h in Headers */ = {isa = PBXBuildFile; fileRef = C36454BB2B8046E33D614D1F8D174A69 /* CLIColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F69F22406427FA91B3AFD9F8240AF3EA /* Sodium-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D32110E254FF6439372E69607995EB89 /* Sodium-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F6B9154B4052E117F9970851947DB2B2 /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 10F0F8BFD99355A2DEFDEB27FDFDA47C /* DDDispatchQueueLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FAB66E3F57B715533AB9870D499B6688 /* crypto_verify_64.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BD73CDD66C7F12CA9A2907521C63048 /* crypto_verify_64.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		FAC755EFCC45F397C544C6B58EA9B4D6 /* NSArray+DSJSONComparison.h in Headers */ = {isa = PBXBuildFile; fileRef = D20E9C1A478750852EF99E0992EE7396 /* NSArray+DSJSONComparison.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FD32BF4529B6F6E746ED45DB2948B07C /* crypto_scalarmult.h in Headers */ = {isa = PBXBuildFile; fileRef = A937D6DE77F1C7DF641ED262B6C014DB /* crypto_scalarmult.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		FEB75FB8295C8501AC49993B17912620 /* crypto_pwhash_scryptsalsa208sha256.h in Headers */ = {isa = PBXBuildFile; fileRef = 18423273ACFC28DF9D63F80775C4BB80 /* crypto_pwhash_scryptsalsa208sha256.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		00A371613AB54091D747EC56D64F942D /* crypto_shorthash.h in Headers */ = {isa = PBXBuildFile; fileRef = E695EE03ED7124974A8AC8EC49DF2828 /* crypto_shorthash.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		0108EB6153A46A58F533ED9CA9CFA9C1 /* DSJSONSchemaDefinitions.h in Headers */ = {isa = PBXBuildFile; fileRef = F94BEDF07F96FB48A253B1CEBF14CB20 /* DSJSONSchemaDefinitions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		02AB86072FA42BB694BAD7BECADE5736 /* crypto_scalarmult_curve25519.h in Headers */ = {isa = PBXBuildFile; fileRef = A1F97ED5A9B8FF8F455A20EE18FD7F52 /* crypto_scalarmult_curve25519.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		051B615BDF3B554C37C6628A32B6B381 /* SecretKeyGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 487D03982B9BB75DCF5D63B3DA8C8654 /* SecretKeyGenerator.swift */; };
+		069C8146E32B4D2B2ADC204BD52E322D /* crypto_stream_salsa20.h in Headers */ = {isa = PBXBuildFile; fileRef = 852463B0B2B778355F965BA3520D46C9 /* crypto_stream_salsa20.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		06B9206915431D676045B9D18E669B55 /* MQTTTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D15BE5E0E51305386F2FD35C392328F /* MQTTTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		077195EC937531379C8DCA58607B5ADF /* DSJSONSchemaReference.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DD674788BE2612607CB0316B1C629B6 /* DSJSONSchemaReference.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		07F08FBA78D83D9D6A48B02050925A72 /* crypto_onetimeauth_poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = B926062CA39EF5BC9611457D672C2D16 /* crypto_onetimeauth_poly1305.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		0A9F3A96C434AA79BF96CA21772C6DA5 /* mqttc-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 311C4E6AA49EC6F72FC8366DC5D504B1 /* mqttc-dummy.m */; };
+		0ACA08673865671AB2D03251236DA24E /* DDLegacyMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 5285FC5119ADA26749889EF7DE9DC3E6 /* DDLegacyMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0B483CCFB03F9015E91680511C7336FC /* DDLoggerNames.m in Sources */ = {isa = PBXBuildFile; fileRef = 466C02C640B3C2737CF1418ECED09FC6 /* DDLoggerNames.m */; };
+		0BD157359CA8A75A767114AA8934E125 /* ExitCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE189D406005D5C16ABA456AB1345E2B /* ExitCode.swift */; };
+		0D5C759E4E019E2D3FE310DC5974A000 /* crypto_verify_32.h in Headers */ = {isa = PBXBuildFile; fileRef = 298B737F2EFC8D5E695EC7A8C92710C6 /* crypto_verify_32.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		0D8AC104E8B961A0DCEF9FF765287AAA /* MQTTLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 402892CC2E2EB4576820CB4DDEDC46F8 /* MQTTLog.m */; };
+		0EC5C336AE9D087D9F429D454520A35E /* DSJSONSchemaValidationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B47CAFBDD9AAD797ABA39C1C559CA10 /* DSJSONSchemaValidationContext.m */; };
+		0FEAE26AD9312294867260A194B324AB /* Pods-OwnTracks-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C5A54F6678FC22F814CF562D1EE4C06 /* Pods-OwnTracks-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		10649E7187B5AB92EC4D7F0D8866F570 /* DDLog+LOGV.h in Headers */ = {isa = PBXBuildFile; fileRef = 6337709239BE208016C508466340518E /* DDLog+LOGV.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		11AF8F05498BFDD98CE3EC267ADED06B /* NSURL+DSJSONReferencing.m in Sources */ = {isa = PBXBuildFile; fileRef = 5782124C36CAF799FAB6239FE6C5E0F5 /* NSURL+DSJSONReferencing.m */; };
+		147358D7CA412C0CB9ACA676F2F79311 /* randombytes.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B647D9428B03759712DEBEA7744520D /* randombytes.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		14D390701B71D34466287F3D3DC8AF33 /* crypto_kdf_blake2b.h in Headers */ = {isa = PBXBuildFile; fileRef = 7672B83A14695789C0A64393D645AAA2 /* crypto_kdf_blake2b.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		15F8B885CCCCF9042F633A4FB949699D /* KeyDerivation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 371B5F6D9C09071376DAD60CC580CC3A /* KeyDerivation.swift */; };
+		15FD1FED206A96AE7788E975F6514DEA /* DDAssertMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = A1152E814E9704959C3C8AA146D68CE6 /* DDAssertMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		174A6438CE0CAC61AD90D6254414099D /* DSJSONSchemaArrayValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9916936930AA81E7C64DA7510F1290D3 /* DSJSONSchemaArrayValidator.m */; };
+		179559514EEBA2577833D259426E5E05 /* GenericHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F44C38A47CCC272C006A2EC09B1B676 /* GenericHash.swift */; };
+		179608F1693C08FA170650A3ABFF0DA9 /* crypto_verify_64.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BD73CDD66C7F12CA9A2907521C63048 /* crypto_verify_64.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		1A026343D5376807C460E8EFE400821C /* crypto_scalarmult_ristretto255.h in Headers */ = {isa = PBXBuildFile; fileRef = ECAFC5D702C871A3B7E69E6E4871F8D3 /* crypto_scalarmult_ristretto255.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		1A04A6160DBD72CE7056B719F45E794D /* DSJSONSchemaFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C941DD89AD52859AF3E1A9882577BC9 /* DSJSONSchemaFactory.m */; };
+		1BCB6FF21E253B8805FEB2C02A7F307D /* DSJSONSchemaDefinitions.m in Sources */ = {isa = PBXBuildFile; fileRef = 47289FD0814E4117691EA72D244D5634 /* DSJSONSchemaDefinitions.m */; };
+		1CED1777127DCC37B590DC65CC67BF8B /* crypto_hash.h in Headers */ = {isa = PBXBuildFile; fileRef = 88695FC9642B7D95636C36659155409B /* crypto_hash.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		1D4AD31FBB71D8B80AFD406AE45D4CE3 /* DDFileLogger+Buffering.h in Headers */ = {isa = PBXBuildFile; fileRef = 18607E8D571C42E66DFB8C00963777F8 /* DDFileLogger+Buffering.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1E9D63679853DE479CDBCC5AA03C3A3A /* crypto_stream_salsa2012.h in Headers */ = {isa = PBXBuildFile; fileRef = 7BB3A65AF51135CB41184FEBD8F86EC8 /* crypto_stream_salsa2012.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		1FCA233F6E88DC785BC57F0D109A46CE /* MQTTNWTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = AC20A7B809DEA8BC9872B0DFC1D8B06B /* MQTTNWTransport.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		237AAFCC69194DC6FF1B5C283DC6D059 /* crypto_scalarmult.h in Headers */ = {isa = PBXBuildFile; fileRef = A937D6DE77F1C7DF641ED262B6C014DB /* crypto_scalarmult.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		24674FE89C9C27AE6329249DE9BB0D34 /* DSJSONSchemaFormatValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 286B5FCEE48925524E5A6D813774CEE7 /* DSJSONSchemaFormatValidator.m */; };
+		25FE185A58F22A6D4AF8392261DF8BE9 /* DSJSONSchemaTypeValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = B33376F5132E44332C5576504844D967 /* DSJSONSchemaTypeValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		27F306A8CCBA31CA1C4D3AEFFB0DA8BD /* DSJSONSchemaSpecification.h in Headers */ = {isa = PBXBuildFile; fileRef = 883097A6E492F91D47B93BDCE1C014E3 /* DSJSONSchemaSpecification.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2AB1F914671DE050EB2D8F316BB8D44B /* DSJSONSchemaFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = C13A8757C409A2525BB46949FCB17FB6 /* DSJSONSchemaFactory.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2B47CA9EB20CFB43CE525BC223DE40CF /* DSJSONSchemaErrors.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E495148D8FA1F533297045894579894 /* DSJSONSchemaErrors.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2C3FACD1875FBE9D95D906F72AA2517F /* MQTTPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 4248E0297D5E4C7160D2A6E4044F60E0 /* MQTTPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2FFC456CD5354A1F4BCC6EB04F80E86D /* CocoaLumberjack-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = ABEA8D41B72F4264FD9E848900CAC173 /* CocoaLumberjack-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		305A6E52F1DEA30CA3D0637000DB36B5 /* crypto_core_ristretto255.h in Headers */ = {isa = PBXBuildFile; fileRef = 7CECEFFA933FFDBFDE878A4E5C42A46F /* crypto_core_ristretto255.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		31B572273BE5C7B254B189D9E767814B /* MQTTWill.m in Sources */ = {isa = PBXBuildFile; fileRef = DCFCD09BB17D8485D8838B3E6085CED5 /* MQTTWill.m */; };
+		31FA54DAF31239FB6950299683AC2998 /* SecretBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169003042CF3B33B677B3AC1D12CD3FA /* SecretBox.swift */; };
+		3257E4D5D4BE94124397CFB3DC8B2E44 /* DSJSONSchemaConditionalValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3065B9A0B26FA6CDCF804EAF662DE666 /* DSJSONSchemaConditionalValidator.m */; };
+		32FFD891DC3D00BA22418F8D8902068A /* NSString+DSJSONPointer.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C275B18F5E74F0D5AFFE66598BEF56C /* NSString+DSJSONPointer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		331B26D8F1C270904267C62119D8761F /* DSJSONSchemaArrayItemsValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = CEAFE6142F368F521B06544B66BFB0A6 /* DSJSONSchemaArrayItemsValidator.m */; };
+		339E921E6FCB4E73F0651AD7463B8D30 /* crypto_core_salsa2012.h in Headers */ = {isa = PBXBuildFile; fileRef = 51FB00AE11895FA7497B7CB4E9EEB337 /* crypto_core_salsa2012.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		34E54F3CB28C47B7BB47CAEFA7D2B6B6 /* NSDictionary+DSJSONComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E4CAF26632DE4A6EB4234A6A5A90862 /* NSDictionary+DSJSONComparison.m */; };
+		367276B4934CA75933956CE5E611648B /* MQTTProperties.h in Headers */ = {isa = PBXBuildFile; fileRef = ECA366F983F1BD25CCD0CE738715E154 /* MQTTProperties.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		38BFAFAD81B3954C80FC4E4A3B1EDF09 /* MQTTInMemoryPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 9238FED176D9E65F7BACBE8E20974A7B /* MQTTInMemoryPersistence.m */; };
+		39A0E7309DB26213FA8E4D7B27356C3E /* Sodium-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CAF73DDDA75E076E71269C98F950F331 /* Sodium-dummy.m */; };
+		3BAAB2AA7A5C48AD30B21CCEBBF96345 /* Bytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C6E289754A882FBEE2A804A81A6C2A8 /* Bytes.swift */; };
+		3BD3FB2BAF08BC24161588F47BB67926 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 799381569BEFBE0EFCD5A12771DEED33 /* DDASLLogCapture.m */; };
+		3D318A5FDE53F07175FEA0842BDD6758 /* crypto_hash_sha256.h in Headers */ = {isa = PBXBuildFile; fileRef = 89D9E3B8DC55E5F6B5ED59080CDBFC27 /* crypto_hash_sha256.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		3DAA58912C968FC5997F75451D522389 /* DSJSONSchemaObjectPropertiesValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 01019F1878500DBC891C1E295C953701 /* DSJSONSchemaObjectPropertiesValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3E000E68CCA3BCA9094A82DD1C547B79 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADC730A17422203B3712C0FC323EFFE /* Utils.swift */; };
+		3ECFD627466C53CFC64F6334C57FEE2D /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 046A8B8EC7ACC0A70745ACC11B8CB4B9 /* CLIColor.m */; };
+		409E997170FD25DBC5437D6AC2E38D6B /* DDContextFilterLogFormatter+Deprecated.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D435D44C91D6F6B69EA74F09C5DFE70 /* DDContextFilterLogFormatter+Deprecated.m */; };
+		42542BF22C5F788EB25A28E02DC7B247 /* DDFileLogger+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 619201006241C05B4431DEA5BE219254 /* DDFileLogger+Internal.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		431CEFD2430478FF357462FBB2001C93 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
+		463E824909A30E802084AFF05EA2E129 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
+		469E201C424639D9A4CF27CF44B3CCD1 /* DSJSONSchemaValidation-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8F7D33311D8C11C0816E3CB9E5A52644 /* DSJSONSchemaValidation-dummy.m */; };
+		477FF4CB296A952ACF1BA79BD2438603 /* DSJSONSchemaContentValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = D76B8F1B1F866FEDA75C40C310D1E5FD /* DSJSONSchemaContentValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47A0C8E0BD923B0E1F377D731AD142CB /* DSJSONSchemaArrayItemsValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 68DBC32DEF7420147935E5047C7E7887 /* DSJSONSchemaArrayItemsValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		47DD62E6B4548450BFD53E524BC85526 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
+		4877544848AF9AE5177B752FD1BEE506 /* MQTTCoreDataPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D1E1A647B5CB3BFE8D58F7891CAB30F /* MQTTCoreDataPersistence.m */; };
+		48ADB21EB7CE83EDADC7DF8E94CD3EF1 /* DSJSONSchemaCombiningValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B38B6A363E862C0ACBD022900FC9129 /* DSJSONSchemaCombiningValidator.m */; };
+		4B0C2C9AC58F489109D6EC9344271D49 /* DSJSONSchemaReference.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A29B51976558A158CB69AED8BCBC8EC /* DSJSONSchemaReference.m */; };
+		4C4E2127ED48872FFEF7208DD10CE417 /* DDLogMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 380C90F91F02CEE334B52B061C9CB92E /* DDLogMacros.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4C9340B4C7C7E8E8A41DBA8CDB838167 /* utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C5537A70E48CF4C36AE133771F8B0DA /* utils.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		4F7941480A36D4FE2752A59FFE46BCBE /* MQTTStrict.h in Headers */ = {isa = PBXBuildFile; fileRef = A75F8C189994A3AE99647DE2C7751F80 /* MQTTStrict.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5003DA5BDEE030EE3D37153A0906388C /* MQTTInMemoryPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 16B7B8CEF1616EA2071BA9AB8605414D /* MQTTInMemoryPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50AB0EBF3D41877E125FB7C70F35AECF /* DSJSONSchemaConditionalValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = BE495805685200BB7CAED8B4C315F33E /* DSJSONSchemaConditionalValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		518090CC815C648531DEF570E0282A9A /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C519BD9CEA569C3864E4ADB608B587B /* DDFileLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5198C4068A707AA6521634A1F124D86D /* DSJSONSchemaContainsValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D6CB6E83FF6FF74119B8AD8A4BCC303 /* DSJSONSchemaContainsValidator.m */; };
+		52322DAC17F1DB81D1784891B389B52C /* crypto_auth_hmacsha512256.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F638478AE0E4B8DD99376B6CD13D3B7 /* crypto_auth_hmacsha512256.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		5436C243FD8DE9F9EA9BDBD9E1BC7BBE /* SecretStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DF031778D73E8DB2943C90FE2DDB6D /* SecretStream.swift */; };
+		56ADC444405713DB49F6BD7A226E066A /* randombytes_sysrandom.h in Headers */ = {isa = PBXBuildFile; fileRef = 99F462C261178B706FBE726C68BBD63A /* randombytes_sysrandom.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		56FC4DB490D54539B2A2BF6C77694988 /* export.h in Headers */ = {isa = PBXBuildFile; fileRef = A3F1782BB99657DDDAF3465D7812D363 /* export.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		5934AAB7C63F27790679C653D435B686 /* crypto_sign_ed25519.h in Headers */ = {isa = PBXBuildFile; fileRef = 8CEAFB43CFF34BB56542F2599075C494 /* crypto_sign_ed25519.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		5B19247E90B29C3614EF9EA54FE169B6 /* Sodium.h in Headers */ = {isa = PBXBuildFile; fileRef = F6C74CFBAA0D278FF986C5F3EB394339 /* Sodium.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5C1610DC8C584B9EF03BC0D41BECF43B /* DSJSONSchemaContentValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = F02C729F85676E4EBAD18DA4657E9866 /* DSJSONSchemaContentValidator.m */; };
+		5C83144A022941EA96D908DCDC1E8837 /* DSJSONSchema+Protected.h in Headers */ = {isa = PBXBuildFile; fileRef = 74A14143CC03E0CD97FEAA96FB8CD667 /* DSJSONSchema+Protected.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5EED9049014D35B526E998ABEFCFF364 /* DSJSONSchemaContainsValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 263F13FE181A1F817151F0075BC9995D /* DSJSONSchemaContainsValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		617658E5DC34C6F010B8FD117A8A8E0F /* MQTTDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 324885A3A7FC57BD17D9BD8BDF4B071D /* MQTTDecoder.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6188FEB1F91AE588BBAF3B11B0491AC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
+		637C5FAD4B45C35795FA621F4963E732 /* DSJSONSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 849FCFE7D2A418BFE4BB821DDD34059E /* DSJSONSchema.m */; };
+		640BACB577DE46FF0538B3FFCBD22EE8 /* KeyPairProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44678A7248FE1795CEACB25A2C4A4DA /* KeyPairProtocol.swift */; };
+		68D49078DD8E90B6E158EE83EA6545C2 /* sodium_lib.h in Headers */ = {isa = PBXBuildFile; fileRef = 008BAF7108458E0138A91AD33BC87415 /* sodium_lib.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		68E149B32A29E60B61F9666208D4F189 /* crypto_scalarmult_ed25519.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D4E4789B08257288E30D76A025557B0 /* crypto_scalarmult_ed25519.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		6917E548776FE5632AA24D8C3A78AB4A /* DSJSONSchemaEnumValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = C41EBED01288967C8B663721C1ADD9E3 /* DSJSONSchemaEnumValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6A13BF6A687451398E5167E9A29B3B1B /* crypto_box_curve25519xchacha20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = EAAC5083C8D4502E6C9D536C090C1094 /* crypto_box_curve25519xchacha20poly1305.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		6A1EF7A82AE503A1D69F3E8AA3BE9960 /* DSJSONSchemaPropertyNamesValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = D5CFD8FE637207A70C9F142B6B986C7C /* DSJSONSchemaPropertyNamesValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6AA3B9E561A1FF62FBC87AB1D07F58E0 /* KeyPairGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7825E7E0ADC3EA0D57C71769C82AB0E /* KeyPairGenerator.swift */; };
+		6B19B36C1891DA69B5BFDB32C888E872 /* DSJSONSchemaValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 58E1AF995DF90A2C2CFEC3939BD5B9EC /* DSJSONSchemaValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6C3D53C1AF5DB9F40429732B9C907C57 /* crypto_verify_16.h in Headers */ = {isa = PBXBuildFile; fileRef = 20DFADF635567BD00595A5351F377155 /* crypto_verify_16.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		6D48BD7F588F5122B2F892720EC28D32 /* MQTTClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 14E2D092647C9623C0A3443B2FC8DB37 /* MQTTClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D9A340649492805FBE653B9DA770321 /* DSJSONSchemaStringValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C449BD145377DAF65F47C3E5EF922B8 /* DSJSONSchemaStringValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7008BA4DEEAAB956B3BFF7FACC52A54F /* crypto_core_hchacha20.h in Headers */ = {isa = PBXBuildFile; fileRef = CAFBE88DDEDDD46FA86E6FAC3BA79EAA /* crypto_core_hchacha20.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		70B2179B8453BB559EA662BB11D4CAB0 /* crypto_stream_salsa208.h in Headers */ = {isa = PBXBuildFile; fileRef = FC577E34CD519416657D8F7899608179 /* crypto_stream_salsa208.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		70E3A6994DA44E2A8432D8F963E7A6F2 /* crypto_box_curve25519xsalsa20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = B106E77AEF94BF93B8F4450D1DDAE29D /* crypto_box_curve25519xsalsa20poly1305.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		71FD554707A3F6ED44EF39072372AA76 /* MQTTWill.h in Headers */ = {isa = PBXBuildFile; fileRef = 222E3D94E11F611A955E7F290C936CB7 /* MQTTWill.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		721CDA4CA97CA0C2292EB1A571847FE1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
+		737A1AD192FD8751C41614FF6FC42014 /* DSJSONSchemaValidationContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 54D123743A3A06F9D218D7C602236CB3 /* DSJSONSchemaValidationContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		74B6D42D337D2EF1415FE0946E7AAA31 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = E26C2392586FC0220CB5A5286319EFBB /* DDTTYLogger.m */; };
+		75179B72A27123CCA8818C66F857B8CB /* NSNumber+DSJSONNumberTypes.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C4B71EBD5B3E800577F26FFC1119F44 /* NSNumber+DSJSONNumberTypes.m */; };
+		7820898EE05E31131117EDC2226AC3FD /* Aead.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404A56E4A429916875FA8BAC4C4CBF68 /* Aead.swift */; };
+		78734EE9EBDCB7834BE90ABBF112CC22 /* DSJSONSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = AF0D21D48103393FE8A79242540D8B8E /* DSJSONSchema.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		788E7E16C2B1D3C35F2E60A12487D5AF /* crypto_pwhash_argon2id.h in Headers */ = {isa = PBXBuildFile; fileRef = E8FB82E354321F1501EF1345075C53E2 /* crypto_pwhash_argon2id.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		79B67F62362F87CEB11EFCCE5B57B94F /* NSObject+DSJSONComparison.h in Headers */ = {isa = PBXBuildFile; fileRef = A7A5A5E91FB5E96EB0532AFEDA98EC7F /* NSObject+DSJSONComparison.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B7B1470676C0B99F6FD910DF95D7B9D /* DSJSONDictionarySchema.m in Sources */ = {isa = PBXBuildFile; fileRef = 856B421FE53DE972BDD11C32B71DBB3E /* DSJSONDictionarySchema.m */; };
+		7BE360E619D5ADCBE9D497C24BE5EC68 /* crypto_core_hsalsa20.h in Headers */ = {isa = PBXBuildFile; fileRef = 73041334C81325EFA02DDBBC10CDFADE /* crypto_core_hsalsa20.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7EADF190AFFCC263B1EF6E17620CEBC4 /* DSJSONSchemaNumericValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 7C557DE074290210E8D6657BA3993022 /* DSJSONSchemaNumericValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7FB01DF1C6749DEE68E44A87952E43A5 /* crypto_generichash.h in Headers */ = {isa = PBXBuildFile; fileRef = 043674BBD3157A2B18B216E401E9E132 /* crypto_generichash.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		819EB917835BFD768035FD20604C508E /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E18DF85A91A2D4A4B160A039BAB402 /* Box.swift */; };
+		848734CB32D83686BA2ADF54B49112D6 /* CocoaLumberjack.h in Headers */ = {isa = PBXBuildFile; fileRef = F9EEFFAF86E738E316CF44C5F81A3579 /* CocoaLumberjack.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		84C1945554A2AB818C58A6D7C81077FF /* crypto_sign.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A1A7BE4CC59203ACD15C43486E404B4 /* crypto_sign.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		84D0B9E18992B5CD1A6C077ECE04ECBE /* DSJSONBooleanSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = ACB52CA3FB116EA6EB069B5BE030DA8F /* DSJSONBooleanSchema.m */; };
+		84D500D92A25B8FA71DC7CE1C4D1FF5A /* DDASLLogCapture.h in Headers */ = {isa = PBXBuildFile; fileRef = 045D826F73AA32BA1C86649E56C1A238 /* DDASLLogCapture.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		851843DD27A5B6021B8EF69A5C425DEF /* DDOSLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 96BA06D8B2F65C9CEE330DD0903BEEEC /* DDOSLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		85C098D52B88765F24DFF8308731D89A /* crypto_shorthash_siphash24.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A0DB75836814CE4906CD2FE83DD04FC /* crypto_shorthash_siphash24.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		88865E9584757A537D53D301A2748B2F /* MQTTMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BE4BCDF6C9FF0CC6C6B51F7A15CDACD /* MQTTMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8999555E20BEE79DC1331F0CD8A0B599 /* DDFileLogger+Buffering.m in Sources */ = {isa = PBXBuildFile; fileRef = 93C6EC40961CA5510351C326A177093B /* DDFileLogger+Buffering.m */; };
+		8AA71B73BA5D5185F878005DB73104D5 /* MQTTSession.m in Sources */ = {isa = PBXBuildFile; fileRef = B06A0C4E26A4FAE7E4A88B0BE0EECE14 /* MQTTSession.m */; };
+		8BC8B5821B19E18B0D502D3F0095C08B /* NSArray+DSJSONComparison.h in Headers */ = {isa = PBXBuildFile; fileRef = D20E9C1A478750852EF99E0992EE7396 /* NSArray+DSJSONComparison.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8BF1998FFAEB1EA98D0431CCFD6297D6 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 894715184246E2998CE7F6BD7E296941 /* DDContextFilterLogFormatter.m */; };
+		8ECC618CFC2EED6D4122AA55B9F3CF42 /* DDTTYLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 75EB377EA0BE0578EF42E54DB96360B2 /* DDTTYLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		912087237D8F4D886719EE2DAA7A61F7 /* MQTTLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 63AB2110630884165BDC27BDCE93BE5B /* MQTTLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9302BB6381963DFD79873918F33B1849 /* mqttc-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D563C3F5C10D95ABF7DFFFFDA869901 /* mqttc-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		93FA50C36BB35FFECA0C0DF337C0490E /* crypto_hash_sha512.h in Headers */ = {isa = PBXBuildFile; fileRef = B0C88C5A3A8AA6DB8BC20E00BA946600 /* crypto_hash_sha512.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		94993BD9CBBCCB41CB311228554FA231 /* Pods-OwnTracks-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B65E1D133DCF38AB738E65268F56AFAA /* Pods-OwnTracks-dummy.m */; };
+		96797699323B44EC1038DA2A502C9E58 /* NSDictionary+DSJSONDeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = F23C69E4120EE2134B21B97B7E774689 /* NSDictionary+DSJSONDeepMutableCopy.m */; };
+		978A50E77A42C87FEE54A62C3854517E /* crypto_secretstream_xchacha20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = ED269F8B88D7B2D683C6C20834E0B5DB /* crypto_secretstream_xchacha20poly1305.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		97DCE58F6AD88A1D2558FDB1FF9110DB /* DSJSONSchemaErrors.m in Sources */ = {isa = PBXBuildFile; fileRef = 78FE763E5C8DD7704FA90F6EDAFF98E6 /* DSJSONSchemaErrors.m */; };
+		9C75DD21226B375FE799D34340A531B2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */; };
+		9F344784BA7A747A795B2FC2E48701D6 /* DSJSONSchema+StandardValidators.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A5D381CD5C3F31D91A16B46201B1CCD /* DSJSONSchema+StandardValidators.m */; };
+		A084A117152FF2D00C3EABF6290C6C29 /* crypto_auth.h in Headers */ = {isa = PBXBuildFile; fileRef = 3FE20CAA7A96383CA2A665C3279DF598 /* crypto_auth.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A10A3AF029355E631521AE29A18EA0D2 /* DDASLLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = B5AF5DB705813F02B822CBCD0764CD5C /* DDASLLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A1BE4E801727BD0BFBE617DDCC9623C9 /* DSJSONBooleanSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AADB95CAF28CE884705EFDB3ABD2B71 /* DSJSONBooleanSchema.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A283717124885E1D091F6F24A9384612 /* crypto_aead_aes256gcm.h in Headers */ = {isa = PBXBuildFile; fileRef = 32E5089EC3E9AC4B93F589BF7D18A16B /* crypto_aead_aes256gcm.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A375F8C765A9756B27CB85AD64683081 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = B5908BAAE8EB9FBDB47492A014A12AB5 /* PrivacyInfo.xcprivacy */; };
+		A3D9606CD870FF2591959303AAE15BF1 /* DDMultiFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = CF37D3A974D88FA07040AC41C1EA581B /* DDMultiFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A3FDFE793EC587FABE480724966B6952 /* NSDictionary+DSJSONComparison.h in Headers */ = {isa = PBXBuildFile; fileRef = FD17BDE2C52DA47399234FF143271E81 /* NSDictionary+DSJSONComparison.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A49EB656F2833F36E0B16C8B596D3E97 /* DSJSONSchemaDependenciesValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 972E6D13C3704555C1BC21E9CAED71FC /* DSJSONSchemaDependenciesValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A79CBA30CDF130687E7FDF8AB81DB996 /* crypto_generichash_blake2b.h in Headers */ = {isa = PBXBuildFile; fileRef = CF15EEEA50E019909AD0B435109F3D48 /* crypto_generichash_blake2b.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A7BE5A9DE1A82077C813A8E5110F283A /* crypto_auth_hmacsha256.h in Headers */ = {isa = PBXBuildFile; fileRef = 072503D6197F08D74F5CD6EC061CFF8B /* crypto_auth_hmacsha256.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A83EED35EF2CBF8C8045357C1A111E72 /* crypto_pwhash_scryptsalsa208sha256.h in Headers */ = {isa = PBXBuildFile; fileRef = 18423273ACFC28DF9D63F80775C4BB80 /* crypto_pwhash_scryptsalsa208sha256.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A87D928417C413E90C092AF44E0735A6 /* MQTTNWTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AF6581C4AE9BF3DCD4AC652EE45C73 /* MQTTNWTransport.m */; };
+		A9FABFD9F78EA640C5DB00664FBEA65F /* NSArray+DSJSONComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E7799D26455EA43DA5670E6EEF686A5 /* NSArray+DSJSONComparison.m */; };
+		AA232A11ACB814A6C1C65E96C1C778A1 /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE52702D048D40180FBC60B792DB0BB8 /* Stream.swift */; };
+		AA37841B7B7CCC65BD5554A6A12C472F /* crypto_secretbox_xsalsa20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = 46E9B8265F21CEAEC406664C2C4B6823 /* crypto_secretbox_xsalsa20poly1305.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		AA6B9E2B704B33855B62836222769FDD /* ABStaticTableViewController-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 4FBF4D0D98897513DCB1E6E168B67990 /* ABStaticTableViewController-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ACD54EB957BA177CB48649D8FB62D213 /* DDLog.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F17527C30B6AEB67F2C3465256281E /* DDLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AD6165D3905DCBBAEC13A2054F83B360 /* crypto_onetimeauth.h in Headers */ = {isa = PBXBuildFile; fileRef = 4C496866833177B324D2DEA49BDDE4EE /* crypto_onetimeauth.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		AD64F9599E22AC31934EA6454F7B97FA /* runtime.h in Headers */ = {isa = PBXBuildFile; fileRef = F522F717E12A1D3EB0D0AB66657C1721 /* runtime.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		AD7EA83D362F920B1AC8703AFE6A4B34 /* crypto_sign_edwards25519sha512batch.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E29475305996A46584CA9C243657FF7 /* crypto_sign_edwards25519sha512batch.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		AE71C415000671C4E540952C2440C924 /* crypto_stream_xchacha20.h in Headers */ = {isa = PBXBuildFile; fileRef = C7C554E480A01DFE27849B3BD8F65FCB /* crypto_stream_xchacha20.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		AF56ADE81D9556B193D9F4B62EACB382 /* DSJSONDictionarySchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 89B9B8C1CD63023A79A815D1279F3844 /* DSJSONDictionarySchema.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B00837F0AC13B6E7E43F338AA344C2FC /* ABStaticTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 860E8520246FC053BA08B43DEEE267B3 /* ABStaticTableViewController.m */; };
+		B0BA3AEFBBBF5E8D09E45DD840580A2C /* DDContextFilterLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = CC0B24BFAF533B3269B4DCFB7C34C4AA /* DDContextFilterLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B0F3275816116094CF3B231AE3E8712B /* DSJSONSchemaFormatValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 0453672C6BC77F0F0E2CB06C723C407A /* DSJSONSchemaFormatValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B20B67B53F7014D27E7C810B5BF86211 /* NSDictionary+DSJSONDeepMutableCopy.h in Headers */ = {isa = PBXBuildFile; fileRef = 972117125DD953A78CAB5F43681078DE /* NSDictionary+DSJSONDeepMutableCopy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B36BC0B128B55B579F3F8CBFCCD45A80 /* DSJSONSchemaEnumValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = E2549946DA3647F3FF5A3003804FA899 /* DSJSONSchemaEnumValidator.m */; };
+		B4B576C3B92E4DA07B5363515D8DA020 /* DDLoggerNames.h in Headers */ = {isa = PBXBuildFile; fileRef = 999FF10C73B09D52E92E2FE112DA9A7E /* DDLoggerNames.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B52EE865781215E950E98A3FA86C6719 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E0B0219EC591E027D030F8858A1EA0 /* DDDispatchQueueLogFormatter.m */; };
+		B54FAA141356725A6FD70EDBE5943B9D /* crypto_secretbox.h in Headers */ = {isa = PBXBuildFile; fileRef = 64A1C9A6929F1927AF20DDDB4DDFBC68 /* crypto_secretbox.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		B55896C2F4631101CA5B1EB3150C43AE /* MQTTProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E1516E71EC12C1203F39A6308BF78E8 /* MQTTProperties.m */; };
+		B6B3526732C6E3FBBDD10839E142D8E6 /* crypto_pwhash.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D63DEE9C135801DB7F272A38555C653 /* crypto_pwhash.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		B8ADE96583F2D89DCA2D64B0B8D8E30C /* DSJSONSchemaObjectValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 67FA75784717EBEF76F1AD814CA687E1 /* DSJSONSchemaObjectValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B93652DE3EA2C5140DB98BC66F3D2997 /* Sodium.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DF89DA1EEE7E619FE3A6733B4216AE /* Sodium.swift */; };
+		BA34810C0EA3F3902AFB8F55DF290987 /* crypto_core_ed25519.h in Headers */ = {isa = PBXBuildFile; fileRef = 050CDAC53FDCD6F9F16D55EC8149A455 /* crypto_core_ed25519.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		BA98B1AD91FEF61B3CB1EBB9B0965503 /* KeyExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC175F477F27DDC22E2B414DFCD377B4 /* KeyExchange.swift */; };
+		BBC6264F67C1A8617ED483629994FB45 /* DDContextFilterLogFormatter+Deprecated.h in Headers */ = {isa = PBXBuildFile; fileRef = D9D56E4756C30BF772BB41FCFDB5FE63 /* DDContextFilterLogFormatter+Deprecated.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BD4059AF317CB2607982C4896F2D13DD /* crypto_stream_chacha20.h in Headers */ = {isa = PBXBuildFile; fileRef = E9BAF996ED25A6BC13A2F74291723FD4 /* crypto_stream_chacha20.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		BE0812620397CF68F901A73255E65667 /* NonceGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAC30F8A1555498AF2E6A88BD38EDD03 /* NonceGenerator.swift */; };
+		BE1E59605B324B4188DAC33192CD5C68 /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = AA38BCCC7E2FC4667F92F9078CF5311D /* DDAbstractDatabaseLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BE2E0D14E7CEBBF252D37EF185C5488E /* MQTTStrict.m in Sources */ = {isa = PBXBuildFile; fileRef = DCDD0EEDFCF0972309D4E21DCDD5D00E /* MQTTStrict.m */; };
+		BF86AD978F86C24F11EE7FBF36CFD562 /* NSObject+DSJSONComparison.m in Sources */ = {isa = PBXBuildFile; fileRef = EC131EC97E65F5BA97BEEABE060D8BEC /* NSObject+DSJSONComparison.m */; };
+		BF94559D4E1D70857F91242B8370CBAC /* crypto_kdf.h in Headers */ = {isa = PBXBuildFile; fileRef = 513152A3479DA5E6605E8AD14FF6D0BD /* crypto_kdf.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C0B25BD93DEBEE86AAB8FE2AB25724CC /* ShortHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 404C4C72E68F13FC8F946BFA24B19717 /* ShortHash.swift */; };
+		C0D1AE435FFC82F5CA91B676CB9310C6 /* CocoaLumberjackPrivacy.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 519AF98C92B517DD023896CD077EBFD4 /* CocoaLumberjackPrivacy.bundle */; };
+		C1DCBD0BE8C450A127A7941A5D42B379 /* DSJSONSchema+StandardValidators.h in Headers */ = {isa = PBXBuildFile; fileRef = D6D4FE073FA7A0BDE7C6F749B7975ED9 /* DSJSONSchema+StandardValidators.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C30A242FDE27C3D2F280CC69282C7811 /* ABStaticTableViewController-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C5CD8F339781DC34732E5363F5CB254 /* ABStaticTableViewController-dummy.m */; };
+		C425A895CFCD0F15020C13C74DD461A8 /* crypto_pwhash_argon2i.h in Headers */ = {isa = PBXBuildFile; fileRef = 8566906217E9BD53C82566EF273DA859 /* crypto_pwhash_argon2i.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C44502B4224592CEF1A21974F0E6CB43 /* crypto_stream_xsalsa20.h in Headers */ = {isa = PBXBuildFile; fileRef = 9E70F39EED454814496CAB89114DC90F /* crypto_stream_xsalsa20.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C63BC81A37CE1F304990A09525B013B4 /* crypto_aead_xchacha20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = 26BA4686E6FC5EB5C672A9D18FDF0F7C /* crypto_aead_xchacha20poly1305.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		C69A49C4613B4105518BE02E471AD9FB /* ABStaticTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 25E11B0F94F8F5195B773EEB58A6CCC7 /* ABStaticTableViewController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C737A8BBF7B36F822C9CD1AFBCA1D6ED /* DSJSONSchemaTypeValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 43686C937309E56231F1D690ED99C9FB /* DSJSONSchemaTypeValidator.m */; };
+		C9B895E59C2822C71D606B2C494A2D3F /* DSJSONSchemaStringValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 500C3AEC23C4CAE86C1E23B8CC9C7A64 /* DSJSONSchemaStringValidator.m */; };
+		CA12CEF51925FEB3C7BA44564B2C9FE0 /* crypto_box.h in Headers */ = {isa = PBXBuildFile; fileRef = AC4CFE6D546EA923835CCA35956DA1A1 /* crypto_box.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CA147049772D5AE5A76AAE1AE8F1B640 /* DSJSONSchemaSpecification.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6263763C7C0F104A4D590D15D17D5E /* DSJSONSchemaSpecification.m */; };
+		CB98D2092F6F164052AD25D009624E67 /* MQTTMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = B16A107A4D055D740A0A3C55FD2E6B35 /* MQTTMessage.m */; };
+		CC1DB53C806092D4A4F53D4A04EAD7AF /* crypto_core_salsa208.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D5F9CCB89203C7E42E2AA39543B1AF1 /* crypto_core_salsa208.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CCD287B06F54A20AE674621613349235 /* CocoaLumberjack-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D6E003257746029C70AED97F16F797 /* CocoaLumberjack-dummy.m */; };
+		CE1896114816208295B3067298020A5D /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2B4A14DDB4A1E3AB8A695BE26C1A4C /* DDFileLogger.m */; };
+		CE23528A42A23A647C30ED036F365A5A /* DSJSONSchemaDependenciesValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1212EDDC0F5FCF398CBB7303323BD5 /* DSJSONSchemaDependenciesValidator.m */; };
+		CE47F488A5B44DC0D2BCC1A907EF281B /* DSJSONSchemaCombiningValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = B77BD9EC72C82AC2623DBB0C5A36FB84 /* DSJSONSchemaCombiningValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CF02B6ED1FEB42B5237CD358C550B96B /* DSJSONSchemaPropertyNamesValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0AA24D1B960EF662E5DE86B14C558552 /* DSJSONSchemaPropertyNamesValidator.m */; };
+		CF4891D3C056C1BB95A0E87253AF52F8 /* crypto_core_salsa20.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A5ADB430A3A6F061ECE49CDE6EF5B47 /* crypto_core_salsa20.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		CFF247F65A514ECCCCD5FD9282A8E9B1 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5D56B9BE51C1E0052B6DF90231D639 /* Auth.swift */; };
+		D00D021F66B0EFB675B1A55DBDF2540A /* RandomBytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EEB9DBE87DA8FA5A34208678AC3FEF /* RandomBytes.swift */; };
+		D00E9800D0E99886488B8D4D554072C4 /* DSJSONSchemaStorage.h in Headers */ = {isa = PBXBuildFile; fileRef = 60D3172FA92FFED03188BBB52302336E /* DSJSONSchemaStorage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D1C234D06BA16A98E3F9745AF3518310 /* DSJSONSchemaValidationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8833D399E01C3B8D3FD97829453EB4EC /* DSJSONSchemaValidationOptions.m */; };
+		D2B6560BDA644A22F2A1EBBE5296E0FE /* DSJSONSchemaNumericValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A5548317D9244753245A60043EBF6BA /* DSJSONSchemaNumericValidator.m */; };
+		D35F4A3BE444179960FA35AE9CB4ADB2 /* NSURL+DSJSONReferencing.h in Headers */ = {isa = PBXBuildFile; fileRef = B4BC3A4FABD990AB57B625105C566F43 /* NSURL+DSJSONReferencing.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3625C11A44B3A332682DEB5DC8DAB90 /* DSJSONSchemaObjectPropertiesValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BD73EBE20CF3838178F294DEB37DBAC /* DSJSONSchemaObjectPropertiesValidator.m */; };
+		D482806F8B768757BAE45164A5EBF018 /* NSNumber+DSJSONNumberTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 082CCD94FA09D6642601EAEC3CEEADC7 /* NSNumber+DSJSONNumberTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D5143FDC604ED8326A65715673F78B79 /* MQTTCoreDataPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = 764A33D73FE7E9AA192E9928D4E36222 /* MQTTCoreDataPersistence.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D98A4F7B29ACA2AAFCBF72825037803B /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 662DC3D6B86ECC797038BA4A33256ADB /* DDLog.m */; };
+		DBB251F6916E5FC52A62E67CE553BC45 /* DDDispatchQueueLogFormatter.h in Headers */ = {isa = PBXBuildFile; fileRef = 10F0F8BFD99355A2DEFDEB27FDFDA47C /* DDDispatchQueueLogFormatter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DC06514D3D468904AC3DB11D5687C0D1 /* DSJSONSchemaValidation-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D054C33B3F9AF953876A1F013A641A8A /* DSJSONSchemaValidation-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		DE0B8A8EB5D516C4BB64B14728821E47 /* crypto_kx.h in Headers */ = {isa = PBXBuildFile; fileRef = 50A2100892FA8F7CE95C4DE7A180DE5F /* crypto_kx.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		DF6E62320D0B34A796EB1A4B607B1510 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A8CD8EF5F12099FB5D07C29536E0BF8 /* DDASLLogger.m */; };
+		E0FB92949D17A5F661923ED9797F4306 /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = 925A149A613FED03DDE654BF3C1ECC93 /* version.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E1E1A4101F4BAC1A32274D9E1E86F95E /* core.h in Headers */ = {isa = PBXBuildFile; fileRef = 31010AA86DAD725F99D52DFE4C934A55 /* core.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E6DEC728D60D398D9A3FF5619296EF10 /* randombytes_internal_random.h in Headers */ = {isa = PBXBuildFile; fileRef = 063812F36089BBC29A2825ECEC437FDD /* randombytes_internal_random.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E8ADB5DCE66D324A9625DA552704F75A /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9475389D63EC2A52B8092E237A0C6E99 /* DDAbstractDatabaseLogger.m */; };
+		E8FD30D67BD317E55E47EF350364530D /* MQTTSession.h in Headers */ = {isa = PBXBuildFile; fileRef = C8EE4E6A85DAE3025A33530EEB7CC39C /* MQTTSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E95F7F31A062EBA24C6A951640AAAB28 /* crypto_secretbox_xchacha20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = E1635F3AD456A2BDD894130B8D9251A7 /* crypto_secretbox_xchacha20poly1305.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E960E9015EA04190BB18A2A8934C532A /* NSString+DSJSONPointer.m in Sources */ = {isa = PBXBuildFile; fileRef = B92D1F77DACB0B898547A4B8DFF2B3D1 /* NSString+DSJSONPointer.m */; };
+		E9FC0B711E102AB804BC618979BE56DD /* DSJSONSchemaObjectValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 228702BCAB3288811195940D29C4C627 /* DSJSONSchemaObjectValidator.m */; };
+		EDFBBFC10ED3F4E99DFE18C5CDF76CCC /* crypto_auth_hmacsha512.h in Headers */ = {isa = PBXBuildFile; fileRef = F5D576F8E24DDFD97D6F1C4A819C91FD /* crypto_auth_hmacsha512.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		EE28013DF2E8459ADCD9FBE3D1253C5E /* DSJSONSchemaConstValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 543FFB52510AF971E4B32EAC226B7909 /* DSJSONSchemaConstValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EEB83FECFA66EB08C5A2747DA4771B5D /* MQTTTransport.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FA14E16CD981B72BCC41ED06F3FBE52 /* MQTTTransport.m */; };
+		EFD5BF14ADB088207C22729974B68DA6 /* MQTTDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C80F5E4CA4B0DE06EDEB85BEDC7D873 /* MQTTDecoder.m */; };
+		F0BF86A8A54CF7302CA16B6B0BFECFBB /* crypto_aead_chacha20poly1305.h in Headers */ = {isa = PBXBuildFile; fileRef = DB082D1877E488203D6C8ABE32A8411D /* crypto_aead_chacha20poly1305.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		F26C36426617D8546F47A8DD1CC60751 /* crypto_stream.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E560FD9BFDC03C78F09A60DD05F633D /* crypto_stream.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		F39F92D741F4FE8F281D78C0325B8F8C /* DDOSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D510C923552FE0131A2AE3065A177DC /* DDOSLogger.m */; };
+		F4A53C39597B5ED9CB5E97CF9F6B2A11 /* CLIColor.h in Headers */ = {isa = PBXBuildFile; fileRef = C36454BB2B8046E33D614D1F8D174A69 /* CLIColor.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F67124D921A9AF37343815AC08EEF79E /* Sodium-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = D32110E254FF6439372E69607995EB89 /* Sodium-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F79ACA4C4028A13F7375416AA2652BA2 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E999B7A15A7782F2794E9B7BF85F8A /* DDMultiFormatter.m */; };
+		F870ED629BF69DA23BD0D2D5D9E1B990 /* DSJSONSchemaArrayValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 71FCF805DEAD2F151E3A20102E51A333 /* DSJSONSchemaArrayValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FBABF549E0614CF879F56E8900119517 /* DSJSONSchemaStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = A99AF0398D7FC594C265848045EE783D /* DSJSONSchemaStorage.m */; };
+		FC6BE7FCF608CC3041C5AABA2005D034 /* DSJSONSchemaValidationOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = CBF274446BF8D5CF60D564BA9EA7F385 /* DSJSONSchemaValidationOptions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FCEE2077384CFEBBD4BEFB978E2618F5 /* PWHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2328435754C80F5211B647D8FD865A3E /* PWHash.swift */; };
+		FD2454CF7ADD655F99FE7C39B86D35FC /* crypto_core_curve25519.h in Headers */ = {isa = PBXBuildFile; fileRef = A673155FF0C805151ECCCE3D512933AD /* crypto_core_curve25519.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		FF7C48E901D3BB870E4AA5D5C8F95E73 /* Sign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B15E19083BC4DA6C9277CA4EBB2EDC /* Sign.swift */; };
+		FFF5ACFDC5E40AE3BBD794D38FFD08D6 /* DSJSONSchemaConstValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 08FFD954231958509A4F93AE049A829D /* DSJSONSchemaConstValidator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		41A653C871D07FDD5C1721561CDDEF94 /* PBXContainerItemProxy */ = {
+		2351E728DD2342837644E3C922F3F85B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 9AC54079097E3E3B70EBE9D712693CE4;
 			remoteInfo = Sodium;
 		};
-		5030242056792A7BE211CEBE872D4D5D /* PBXContainerItemProxy */ = {
+		28428071DE2A5313442163066EB36D13 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = E95654B155D25890BE8E26081FCA8265;
 			remoteInfo = CocoaLumberjack;
 		};
-		68791F24E9F1C41A357EBA9E0E0586B4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 79E8FCE79597E6EBF96074BD00A72E8E;
-			remoteInfo = DSJSONSchemaValidation;
-		};
-		B696250210A947F64C726F4ADA7D3627 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E95654B155D25890BE8E26081FCA8265;
-			remoteInfo = CocoaLumberjack;
-		};
-		C568FA3CB8F2B59F12B7D8B8EA279F25 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 276021C4482165D46E0CBBEFB822FE95;
-			remoteInfo = "CocoaLumberjack-CocoaLumberjackPrivacy";
-		};
-		C6158B0CCAD8091FC7F2D7D4005566EE /* PBXContainerItemProxy */ = {
+		583EBEFCF875B0F5D148F40D18962567 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = B1284C8E6CD9B45E97F433902C9D77F1;
 			remoteInfo = ABStaticTableViewController;
 		};
-		E4D467FBA8DDE857F8678122BAEE2B53 /* PBXContainerItemProxy */ = {
+		64C07922480F39F84E6F2FDC44F92CA8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 276021C4482165D46E0CBBEFB822FE95;
+			remoteInfo = "CocoaLumberjack-CocoaLumberjackPrivacy";
+		};
+		69E09154788CD8D413E06BAAB742C0DD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E95654B155D25890BE8E26081FCA8265;
+			remoteInfo = CocoaLumberjack;
+		};
+		6D0B6A8C786EF141E4DA1F517E5AD67B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 548A45AC34FA8106E3C61F961FDA5936;
 			remoteInfo = mqttc;
+		};
+		E0A5B11837F3AF785FDE2CA526570D91 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 79E8FCE79597E6EBF96074BD00A72E8E;
+			remoteInfo = DSJSONSchemaValidation;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -367,6 +367,7 @@
 		371B5F6D9C09071376DAD60CC580CC3A /* KeyDerivation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KeyDerivation.swift; path = Sodium/KeyDerivation.swift; sourceTree = "<group>"; };
 		372649C65941B19526937C468552C63A /* Sodium-xcframeworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Sodium-xcframeworks.sh"; sourceTree = "<group>"; };
 		380C90F91F02CEE334B52B061C9CB92E /* DDLogMacros.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDLogMacros.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDLogMacros.h; sourceTree = "<group>"; };
+		384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		3C449BD145377DAF65F47C3E5EF922B8 /* DSJSONSchemaStringValidator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DSJSONSchemaStringValidator.h; path = DSJSONSchemaValidation/DSJSONSchemaStringValidator.h; sourceTree = "<group>"; };
 		3E1516E71EC12C1203F39A6308BF78E8 /* MQTTProperties.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MQTTProperties.m; path = MQTTClient/MQTTClient/MQTTProperties.m; sourceTree = "<group>"; };
 		3EE462BF0870DEA383D837905264F3BB /* Sodium-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Sodium-prefix.pch"; sourceTree = "<group>"; };
@@ -422,7 +423,6 @@
 		6E560FD9BFDC03C78F09A60DD05F633D /* crypto_stream.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_stream.h; path = Sodium/libsodium/crypto_stream.h; sourceTree = "<group>"; };
 		6E5D56B9BE51C1E0052B6DF90231D639 /* Auth.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Auth.swift; path = Sodium/Auth.swift; sourceTree = "<group>"; };
 		71FCF805DEAD2F151E3A20102E51A333 /* DSJSONSchemaArrayValidator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DSJSONSchemaArrayValidator.h; path = DSJSONSchemaValidation/DSJSONSchemaArrayValidator.h; sourceTree = "<group>"; };
-		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		73041334C81325EFA02DDBBC10CDFADE /* crypto_core_hsalsa20.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = crypto_core_hsalsa20.h; path = Sodium/libsodium/crypto_core_hsalsa20.h; sourceTree = "<group>"; };
 		74A14143CC03E0CD97FEAA96FB8CD667 /* DSJSONSchema+Protected.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "DSJSONSchema+Protected.h"; path = "DSJSONSchemaValidation/DSJSONSchema+Protected.h"; sourceTree = "<group>"; };
 		75EB377EA0BE0578EF42E54DB96360B2 /* DDTTYLogger.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DDTTYLogger.h; path = Sources/CocoaLumberjack/include/CocoaLumberjack/DDTTYLogger.h; sourceTree = "<group>"; };
@@ -578,58 +578,58 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		20EE81BC956266DF86DA9F67BACF4E3D /* Frameworks */ = {
+		8BDE1E4E50CE949DD5EFA370310C1369 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6075CA7D2002373530CDED3146A1D685 /* Frameworks */ = {
+		8E522B367F84E5B07918691051324081 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EA5F66B22B30832448F06C580F2C4986 /* Foundation.framework in Frameworks */,
+				721CDA4CA97CA0C2292EB1A571847FE1 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7540B8AE0BB941328F4A1AEAF077C0B5 /* Frameworks */ = {
+		9FC99C9C950CFE9C5CBCC20CBE435199 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				908D531C5384DC99BC5293E6938166FC /* Foundation.framework in Frameworks */,
+				9C75DD21226B375FE799D34340A531B2 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BB7376D0E746172C91FD2FC7955AC8F3 /* Frameworks */ = {
+		AC09E6666A6D297130E4E6B10402616F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				35606BDDF653FAE0F4FC3DBB26B60D22 /* Foundation.framework in Frameworks */,
+				463E824909A30E802084AFF05EA2E129 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D85F02B18D9AEF6874BBE56E103B47D9 /* Frameworks */ = {
+		ADF96596FFF347C7CE7F858D430F2FDE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				77C51E11C6B1423D2E58379899978B05 /* Foundation.framework in Frameworks */,
+				47DD62E6B4548450BFD53E524BC85526 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF001A3D00343917D98155BBDFFDB515 /* Frameworks */ = {
+		B6BE19BB5AF53FF7E4E2453C0FE99B1D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6679C96C24C99332AA39A18E5D343A4F /* Foundation.framework in Frameworks */,
+				431CEFD2430478FF357462FBB2001C93 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E156DB0C77DA767A364A7F5EC1069CFB /* Frameworks */ = {
+		BFF23001B35C80FFA75A9E5E3D7E3AED /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4DFCF0D5A855788002B000B3028633B7 /* Foundation.framework in Frameworks */,
+				6188FEB1F91AE588BBAF3B11B0491AC4 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -675,14 +675,6 @@
 				2DFCB45F064CD829D1A3997FA12955BA /* Pods-OwnTracks */,
 			);
 			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */,
-			);
-			name = iOS;
 			sourceTree = "<group>";
 		};
 		5789CBE07D8014A22619BD36D5EAFA7C /* MinL */ = {
@@ -1039,7 +1031,7 @@
 		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				578452D2E740E91742655AC8F1636D1F /* iOS */,
+				E4801F62A6B08CD9B5410329F1A18FDE /* iOS */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1057,6 +1049,14 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/ABStaticTableViewController";
+			sourceTree = "<group>";
+		};
+		E4801F62A6B08CD9B5410329F1A18FDE /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				384DDA2CB25005BD6479B5987C619DD4 /* Foundation.framework */,
+			);
+			name = iOS;
 			sourceTree = "<group>";
 		};
 		EBE6714AF6F3BBE54EEA367C41E54791 /* mqttc */ = {
@@ -1086,187 +1086,187 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		3E1A49F995947094FCA4E81C0A2C6C9D /* Headers */ = {
+		19F71544E200CCB60FC7B706C3674C28 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90E4D1096E303F35CEE0D94435BB34C3 /* mqttc-umbrella.h in Headers */,
-				3FA15B8170C600E16C1C4F9A99B7F6A0 /* MQTTClient.h in Headers */,
-				E7A99E0D3125547ED88E8C4507DF6202 /* MQTTCoreDataPersistence.h in Headers */,
-				9FB41688AC9978B6351414EF3623143E /* MQTTDecoder.h in Headers */,
-				78084D60EA90F95A442E4522DECE1629 /* MQTTInMemoryPersistence.h in Headers */,
-				9EFDC13C725A33073FC33C7E0AF0BD70 /* MQTTLog.h in Headers */,
-				D102B595CF6F7C979C9B1A3D40353DF3 /* MQTTMessage.h in Headers */,
-				1DDD1BE931CF3A2D6807535288AA67C7 /* MQTTNWTransport.h in Headers */,
-				35E0E6ABB828DCB877586E25D90C335E /* MQTTPersistence.h in Headers */,
-				176640F54C5CA2072A147E4FD89E69EB /* MQTTProperties.h in Headers */,
-				775AA92A28E86FF785DC2736D6396F8E /* MQTTSession.h in Headers */,
-				647AF8501E4B686E3276E003205A5745 /* MQTTStrict.h in Headers */,
-				B0C14476E3DB18D266E4296F68F12955 /* MQTTTransport.h in Headers */,
-				A676A092DEECD6F80451658729DE0A9F /* MQTTWill.h in Headers */,
+				F4A53C39597B5ED9CB5E97CF9F6B2A11 /* CLIColor.h in Headers */,
+				848734CB32D83686BA2ADF54B49112D6 /* CocoaLumberjack.h in Headers */,
+				2FFC456CD5354A1F4BCC6EB04F80E86D /* CocoaLumberjack-umbrella.h in Headers */,
+				BE1E59605B324B4188DAC33192CD5C68 /* DDAbstractDatabaseLogger.h in Headers */,
+				84D500D92A25B8FA71DC7CE1C4D1FF5A /* DDASLLogCapture.h in Headers */,
+				A10A3AF029355E631521AE29A18EA0D2 /* DDASLLogger.h in Headers */,
+				15FD1FED206A96AE7788E975F6514DEA /* DDAssertMacros.h in Headers */,
+				B0BA3AEFBBBF5E8D09E45DD840580A2C /* DDContextFilterLogFormatter.h in Headers */,
+				BBC6264F67C1A8617ED483629994FB45 /* DDContextFilterLogFormatter+Deprecated.h in Headers */,
+				DBB251F6916E5FC52A62E67CE553BC45 /* DDDispatchQueueLogFormatter.h in Headers */,
+				518090CC815C648531DEF570E0282A9A /* DDFileLogger.h in Headers */,
+				1D4AD31FBB71D8B80AFD406AE45D4CE3 /* DDFileLogger+Buffering.h in Headers */,
+				42542BF22C5F788EB25A28E02DC7B247 /* DDFileLogger+Internal.h in Headers */,
+				0ACA08673865671AB2D03251236DA24E /* DDLegacyMacros.h in Headers */,
+				ACD54EB957BA177CB48649D8FB62D213 /* DDLog.h in Headers */,
+				10649E7187B5AB92EC4D7F0D8866F570 /* DDLog+LOGV.h in Headers */,
+				B4B576C3B92E4DA07B5363515D8DA020 /* DDLoggerNames.h in Headers */,
+				4C4E2127ED48872FFEF7208DD10CE417 /* DDLogMacros.h in Headers */,
+				A3D9606CD870FF2591959303AAE15BF1 /* DDMultiFormatter.h in Headers */,
+				851843DD27A5B6021B8EF69A5C425DEF /* DDOSLogger.h in Headers */,
+				8ECC618CFC2EED6D4122AA55B9F3CF42 /* DDTTYLogger.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		664868FFD1835C2DCC42067BB50C4981 /* Headers */ = {
+		2E6253F5F60C7122244025C816A43D0F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F572FAE0C322C9CEBBED42608B421312 /* CLIColor.h in Headers */,
-				9D68D1399F62A6530107EFD2BC6A7A80 /* CocoaLumberjack.h in Headers */,
-				36BB67A98C9C43EC84C8D93DA2C8BC9E /* CocoaLumberjack-umbrella.h in Headers */,
-				DBB78D506D28300A1789E9BABFEF34B5 /* DDAbstractDatabaseLogger.h in Headers */,
-				1C441A7A75BE5BE870626AD34D69B693 /* DDASLLogCapture.h in Headers */,
-				74A34557640D79181CFB8982892239DA /* DDASLLogger.h in Headers */,
-				0E840FC1DF5A14F486F90E541176BD5E /* DDAssertMacros.h in Headers */,
-				785D4A1EF2F70B71368B2D3E9FCC6672 /* DDContextFilterLogFormatter.h in Headers */,
-				3EC5DF9E9DB09616DD5BDE753B6BDAE4 /* DDContextFilterLogFormatter+Deprecated.h in Headers */,
-				F6B9154B4052E117F9970851947DB2B2 /* DDDispatchQueueLogFormatter.h in Headers */,
-				CA6784D19BE4E5E00D83D37D2BA5AE31 /* DDFileLogger.h in Headers */,
-				7A649F468CFB53C1B7CF8BB4270A8A0C /* DDFileLogger+Buffering.h in Headers */,
-				916CC90CA12CDDD95DA6D3E9CF295CF6 /* DDFileLogger+Internal.h in Headers */,
-				23372ED555CD57375631587F438A5418 /* DDLegacyMacros.h in Headers */,
-				3A40B1E861507CE7BC354FA532FD1E10 /* DDLog.h in Headers */,
-				86A7FA45DDDDB7884F20906014D91ED6 /* DDLog+LOGV.h in Headers */,
-				1660A17BC64AC5796E9B6DFDB11957B0 /* DDLoggerNames.h in Headers */,
-				E7DC450C7D79AFC4AAFF28685FE52BD0 /* DDLogMacros.h in Headers */,
-				6931FE86F06AC2867A8DFEA27F3B01BF /* DDMultiFormatter.h in Headers */,
-				B10D3098FFD604DD507B42B5CD0C6DA4 /* DDOSLogger.h in Headers */,
-				D9661421E55ADBAD6492CEF7B23A261F /* DDTTYLogger.h in Headers */,
+				E1E1A4101F4BAC1A32274D9E1E86F95E /* core.h in Headers */,
+				A283717124885E1D091F6F24A9384612 /* crypto_aead_aes256gcm.h in Headers */,
+				F0BF86A8A54CF7302CA16B6B0BFECFBB /* crypto_aead_chacha20poly1305.h in Headers */,
+				C63BC81A37CE1F304990A09525B013B4 /* crypto_aead_xchacha20poly1305.h in Headers */,
+				A084A117152FF2D00C3EABF6290C6C29 /* crypto_auth.h in Headers */,
+				A7BE5A9DE1A82077C813A8E5110F283A /* crypto_auth_hmacsha256.h in Headers */,
+				EDFBBFC10ED3F4E99DFE18C5CDF76CCC /* crypto_auth_hmacsha512.h in Headers */,
+				52322DAC17F1DB81D1784891B389B52C /* crypto_auth_hmacsha512256.h in Headers */,
+				CA12CEF51925FEB3C7BA44564B2C9FE0 /* crypto_box.h in Headers */,
+				6A13BF6A687451398E5167E9A29B3B1B /* crypto_box_curve25519xchacha20poly1305.h in Headers */,
+				70E3A6994DA44E2A8432D8F963E7A6F2 /* crypto_box_curve25519xsalsa20poly1305.h in Headers */,
+				FD2454CF7ADD655F99FE7C39B86D35FC /* crypto_core_curve25519.h in Headers */,
+				BA34810C0EA3F3902AFB8F55DF290987 /* crypto_core_ed25519.h in Headers */,
+				7008BA4DEEAAB956B3BFF7FACC52A54F /* crypto_core_hchacha20.h in Headers */,
+				7BE360E619D5ADCBE9D497C24BE5EC68 /* crypto_core_hsalsa20.h in Headers */,
+				305A6E52F1DEA30CA3D0637000DB36B5 /* crypto_core_ristretto255.h in Headers */,
+				CF4891D3C056C1BB95A0E87253AF52F8 /* crypto_core_salsa20.h in Headers */,
+				339E921E6FCB4E73F0651AD7463B8D30 /* crypto_core_salsa2012.h in Headers */,
+				CC1DB53C806092D4A4F53D4A04EAD7AF /* crypto_core_salsa208.h in Headers */,
+				7FB01DF1C6749DEE68E44A87952E43A5 /* crypto_generichash.h in Headers */,
+				A79CBA30CDF130687E7FDF8AB81DB996 /* crypto_generichash_blake2b.h in Headers */,
+				1CED1777127DCC37B590DC65CC67BF8B /* crypto_hash.h in Headers */,
+				3D318A5FDE53F07175FEA0842BDD6758 /* crypto_hash_sha256.h in Headers */,
+				93FA50C36BB35FFECA0C0DF337C0490E /* crypto_hash_sha512.h in Headers */,
+				BF94559D4E1D70857F91242B8370CBAC /* crypto_kdf.h in Headers */,
+				14D390701B71D34466287F3D3DC8AF33 /* crypto_kdf_blake2b.h in Headers */,
+				DE0B8A8EB5D516C4BB64B14728821E47 /* crypto_kx.h in Headers */,
+				AD6165D3905DCBBAEC13A2054F83B360 /* crypto_onetimeauth.h in Headers */,
+				07F08FBA78D83D9D6A48B02050925A72 /* crypto_onetimeauth_poly1305.h in Headers */,
+				B6B3526732C6E3FBBDD10839E142D8E6 /* crypto_pwhash.h in Headers */,
+				C425A895CFCD0F15020C13C74DD461A8 /* crypto_pwhash_argon2i.h in Headers */,
+				788E7E16C2B1D3C35F2E60A12487D5AF /* crypto_pwhash_argon2id.h in Headers */,
+				A83EED35EF2CBF8C8045357C1A111E72 /* crypto_pwhash_scryptsalsa208sha256.h in Headers */,
+				237AAFCC69194DC6FF1B5C283DC6D059 /* crypto_scalarmult.h in Headers */,
+				02AB86072FA42BB694BAD7BECADE5736 /* crypto_scalarmult_curve25519.h in Headers */,
+				68E149B32A29E60B61F9666208D4F189 /* crypto_scalarmult_ed25519.h in Headers */,
+				1A026343D5376807C460E8EFE400821C /* crypto_scalarmult_ristretto255.h in Headers */,
+				B54FAA141356725A6FD70EDBE5943B9D /* crypto_secretbox.h in Headers */,
+				E95F7F31A062EBA24C6A951640AAAB28 /* crypto_secretbox_xchacha20poly1305.h in Headers */,
+				AA37841B7B7CCC65BD5554A6A12C472F /* crypto_secretbox_xsalsa20poly1305.h in Headers */,
+				978A50E77A42C87FEE54A62C3854517E /* crypto_secretstream_xchacha20poly1305.h in Headers */,
+				00A371613AB54091D747EC56D64F942D /* crypto_shorthash.h in Headers */,
+				85C098D52B88765F24DFF8308731D89A /* crypto_shorthash_siphash24.h in Headers */,
+				84C1945554A2AB818C58A6D7C81077FF /* crypto_sign.h in Headers */,
+				5934AAB7C63F27790679C653D435B686 /* crypto_sign_ed25519.h in Headers */,
+				AD7EA83D362F920B1AC8703AFE6A4B34 /* crypto_sign_edwards25519sha512batch.h in Headers */,
+				F26C36426617D8546F47A8DD1CC60751 /* crypto_stream.h in Headers */,
+				BD4059AF317CB2607982C4896F2D13DD /* crypto_stream_chacha20.h in Headers */,
+				069C8146E32B4D2B2ADC204BD52E322D /* crypto_stream_salsa20.h in Headers */,
+				1E9D63679853DE479CDBCC5AA03C3A3A /* crypto_stream_salsa2012.h in Headers */,
+				70B2179B8453BB559EA662BB11D4CAB0 /* crypto_stream_salsa208.h in Headers */,
+				AE71C415000671C4E540952C2440C924 /* crypto_stream_xchacha20.h in Headers */,
+				C44502B4224592CEF1A21974F0E6CB43 /* crypto_stream_xsalsa20.h in Headers */,
+				6C3D53C1AF5DB9F40429732B9C907C57 /* crypto_verify_16.h in Headers */,
+				0D5C759E4E019E2D3FE310DC5974A000 /* crypto_verify_32.h in Headers */,
+				179608F1693C08FA170650A3ABFF0DA9 /* crypto_verify_64.h in Headers */,
+				56FC4DB490D54539B2A2BF6C77694988 /* export.h in Headers */,
+				147358D7CA412C0CB9ACA676F2F79311 /* randombytes.h in Headers */,
+				E6DEC728D60D398D9A3FF5619296EF10 /* randombytes_internal_random.h in Headers */,
+				56ADC444405713DB49F6BD7A226E066A /* randombytes_sysrandom.h in Headers */,
+				AD64F9599E22AC31934EA6454F7B97FA /* runtime.h in Headers */,
+				5B19247E90B29C3614EF9EA54FE169B6 /* Sodium.h in Headers */,
+				F67124D921A9AF37343815AC08EEF79E /* Sodium-umbrella.h in Headers */,
+				68D49078DD8E90B6E158EE83EA6545C2 /* sodium_lib.h in Headers */,
+				4C9340B4C7C7E8E8A41DBA8CDB838167 /* utils.h in Headers */,
+				E0FB92949D17A5F661923ED9797F4306 /* version.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7FACF813C64FEA9352B06B455EB036DE /* Headers */ = {
+		85189E377624DC0F87C3D711AEBDEAF4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7C633300E7833822D228326360F5DC4 /* ABStaticTableViewController.h in Headers */,
-				7032A6875C826CD5FE42B5F5F79461FE /* ABStaticTableViewController-umbrella.h in Headers */,
+				A1BE4E801727BD0BFBE617DDCC9623C9 /* DSJSONBooleanSchema.h in Headers */,
+				AF56ADE81D9556B193D9F4B62EACB382 /* DSJSONDictionarySchema.h in Headers */,
+				78734EE9EBDCB7834BE90ABBF112CC22 /* DSJSONSchema.h in Headers */,
+				5C83144A022941EA96D908DCDC1E8837 /* DSJSONSchema+Protected.h in Headers */,
+				C1DCBD0BE8C450A127A7941A5D42B379 /* DSJSONSchema+StandardValidators.h in Headers */,
+				47A0C8E0BD923B0E1F377D731AD142CB /* DSJSONSchemaArrayItemsValidator.h in Headers */,
+				F870ED629BF69DA23BD0D2D5D9E1B990 /* DSJSONSchemaArrayValidator.h in Headers */,
+				CE47F488A5B44DC0D2BCC1A907EF281B /* DSJSONSchemaCombiningValidator.h in Headers */,
+				50AB0EBF3D41877E125FB7C70F35AECF /* DSJSONSchemaConditionalValidator.h in Headers */,
+				EE28013DF2E8459ADCD9FBE3D1253C5E /* DSJSONSchemaConstValidator.h in Headers */,
+				5EED9049014D35B526E998ABEFCFF364 /* DSJSONSchemaContainsValidator.h in Headers */,
+				477FF4CB296A952ACF1BA79BD2438603 /* DSJSONSchemaContentValidator.h in Headers */,
+				0108EB6153A46A58F533ED9CA9CFA9C1 /* DSJSONSchemaDefinitions.h in Headers */,
+				A49EB656F2833F36E0B16C8B596D3E97 /* DSJSONSchemaDependenciesValidator.h in Headers */,
+				6917E548776FE5632AA24D8C3A78AB4A /* DSJSONSchemaEnumValidator.h in Headers */,
+				2B47CA9EB20CFB43CE525BC223DE40CF /* DSJSONSchemaErrors.h in Headers */,
+				2AB1F914671DE050EB2D8F316BB8D44B /* DSJSONSchemaFactory.h in Headers */,
+				B0F3275816116094CF3B231AE3E8712B /* DSJSONSchemaFormatValidator.h in Headers */,
+				7EADF190AFFCC263B1EF6E17620CEBC4 /* DSJSONSchemaNumericValidator.h in Headers */,
+				3DAA58912C968FC5997F75451D522389 /* DSJSONSchemaObjectPropertiesValidator.h in Headers */,
+				B8ADE96583F2D89DCA2D64B0B8D8E30C /* DSJSONSchemaObjectValidator.h in Headers */,
+				6A1EF7A82AE503A1D69F3E8AA3BE9960 /* DSJSONSchemaPropertyNamesValidator.h in Headers */,
+				077195EC937531379C8DCA58607B5ADF /* DSJSONSchemaReference.h in Headers */,
+				27F306A8CCBA31CA1C4D3AEFFB0DA8BD /* DSJSONSchemaSpecification.h in Headers */,
+				D00E9800D0E99886488B8D4D554072C4 /* DSJSONSchemaStorage.h in Headers */,
+				6D9A340649492805FBE653B9DA770321 /* DSJSONSchemaStringValidator.h in Headers */,
+				25FE185A58F22A6D4AF8392261DF8BE9 /* DSJSONSchemaTypeValidator.h in Headers */,
+				DC06514D3D468904AC3DB11D5687C0D1 /* DSJSONSchemaValidation-umbrella.h in Headers */,
+				737A1AD192FD8751C41614FF6FC42014 /* DSJSONSchemaValidationContext.h in Headers */,
+				FC6BE7FCF608CC3041C5AABA2005D034 /* DSJSONSchemaValidationOptions.h in Headers */,
+				6B19B36C1891DA69B5BFDB32C888E872 /* DSJSONSchemaValidator.h in Headers */,
+				8BC8B5821B19E18B0D502D3F0095C08B /* NSArray+DSJSONComparison.h in Headers */,
+				A3FDFE793EC587FABE480724966B6952 /* NSDictionary+DSJSONComparison.h in Headers */,
+				B20B67B53F7014D27E7C810B5BF86211 /* NSDictionary+DSJSONDeepMutableCopy.h in Headers */,
+				D482806F8B768757BAE45164A5EBF018 /* NSNumber+DSJSONNumberTypes.h in Headers */,
+				79B67F62362F87CEB11EFCCE5B57B94F /* NSObject+DSJSONComparison.h in Headers */,
+				32FFD891DC3D00BA22418F8D8902068A /* NSString+DSJSONPointer.h in Headers */,
+				D35F4A3BE444179960FA35AE9CB4ADB2 /* NSURL+DSJSONReferencing.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C37668D9F44398DFBD1F3D71D062DB84 /* Headers */ = {
+		87B702A8BB6EA49FB3ACEC429BAC4095 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				898C963B41C1D7719F7F3E5D9D62F362 /* core.h in Headers */,
-				597781D49C0C42AA8E7B6FE2E222CA29 /* crypto_aead_aes256gcm.h in Headers */,
-				B42AD0745AEAB36D0A6F7601F89D52C6 /* crypto_aead_chacha20poly1305.h in Headers */,
-				9D5A75038DDCD586D45C0000E5110845 /* crypto_aead_xchacha20poly1305.h in Headers */,
-				EE62AB3A77192ECF3483978BB85D74E1 /* crypto_auth.h in Headers */,
-				63BA5DE36301526738081707DDD7E558 /* crypto_auth_hmacsha256.h in Headers */,
-				D1F9EFE307366C07758245D09A47EB43 /* crypto_auth_hmacsha512.h in Headers */,
-				D0A348E1170498963FCDC6680332CEE8 /* crypto_auth_hmacsha512256.h in Headers */,
-				0EAA28E5BBD71411CE6836B63040D87B /* crypto_box.h in Headers */,
-				DABAF83A4D7373F27DE183F8C7C63D68 /* crypto_box_curve25519xchacha20poly1305.h in Headers */,
-				A7160C81357D2D83ED96AE3642BC98E0 /* crypto_box_curve25519xsalsa20poly1305.h in Headers */,
-				AF1A8B87589AB61E31AA2A47201FCB1A /* crypto_core_curve25519.h in Headers */,
-				C463AB018CFA6634AC8D632986EC1668 /* crypto_core_ed25519.h in Headers */,
-				4D62650AF035288892ABDEEB2E3C62D9 /* crypto_core_hchacha20.h in Headers */,
-				13DAD6293E342483DB5B2E36F45D0911 /* crypto_core_hsalsa20.h in Headers */,
-				326174019976A2CAB22C774DF095CC55 /* crypto_core_ristretto255.h in Headers */,
-				BE3E13C6D0DAC6424F230D995F178C81 /* crypto_core_salsa20.h in Headers */,
-				DC6FEF5DB98902C63DB8FD0A37546A4B /* crypto_core_salsa2012.h in Headers */,
-				5A3F329979E10DC04C484678EB348ADA /* crypto_core_salsa208.h in Headers */,
-				0FB076DAF324C56541B63E4AC19B97D0 /* crypto_generichash.h in Headers */,
-				0698C9BF2A268F588CA9127033BF2CAD /* crypto_generichash_blake2b.h in Headers */,
-				2407B4933BF849ABD9CA0877DA09F18F /* crypto_hash.h in Headers */,
-				C565413530D41D54FDD667E83ACC1F95 /* crypto_hash_sha256.h in Headers */,
-				30F1339F0F8ADACB3E902D84ACB4135F /* crypto_hash_sha512.h in Headers */,
-				89B16ED597765B24E768CBC89BEF53F3 /* crypto_kdf.h in Headers */,
-				A174AFC4C8F2FB987A5FD850F28991BC /* crypto_kdf_blake2b.h in Headers */,
-				5794A73D49627EEADD01F13B0945545A /* crypto_kx.h in Headers */,
-				50540929CDE9DF20D6184F17B5B933A9 /* crypto_onetimeauth.h in Headers */,
-				3C5218BE3ACFA07805B27C3CC2BD8A55 /* crypto_onetimeauth_poly1305.h in Headers */,
-				81F607FA8C322131F8C47957135299FE /* crypto_pwhash.h in Headers */,
-				3542E695B6D9C9CA5AC0169A3E566CFF /* crypto_pwhash_argon2i.h in Headers */,
-				B8FF38AB23F5EA12CC29ECEDFD81A93C /* crypto_pwhash_argon2id.h in Headers */,
-				FEB75FB8295C8501AC49993B17912620 /* crypto_pwhash_scryptsalsa208sha256.h in Headers */,
-				FD32BF4529B6F6E746ED45DB2948B07C /* crypto_scalarmult.h in Headers */,
-				D253EB3010B82DA95FB67A5727B23B18 /* crypto_scalarmult_curve25519.h in Headers */,
-				7ADF692CC23F08461FD80DFB69D17A7E /* crypto_scalarmult_ed25519.h in Headers */,
-				AE70C50BDFAA924379CE5ABF4BC55CFF /* crypto_scalarmult_ristretto255.h in Headers */,
-				4EE05522DCC1337535713E5090A9072A /* crypto_secretbox.h in Headers */,
-				AB6160ACE3DE6D8830ADFD03182DA697 /* crypto_secretbox_xchacha20poly1305.h in Headers */,
-				BEBF7103F97F9450B34E63A789B7F7A3 /* crypto_secretbox_xsalsa20poly1305.h in Headers */,
-				596BFDFBDD054821561A1AB80A35E79C /* crypto_secretstream_xchacha20poly1305.h in Headers */,
-				14103B17F4A26E096D21B1A23D140F69 /* crypto_shorthash.h in Headers */,
-				D664C641B07563D3B539E5DC989032A4 /* crypto_shorthash_siphash24.h in Headers */,
-				EDE95D9BC798A3A1DE0B06207553B9D3 /* crypto_sign.h in Headers */,
-				6BB6C8758538530C2D0448DF7841A9AB /* crypto_sign_ed25519.h in Headers */,
-				57F2F8CCBBB7383545CBE14F85D00AB9 /* crypto_sign_edwards25519sha512batch.h in Headers */,
-				A18B52B19082274AEE781F888179A826 /* crypto_stream.h in Headers */,
-				D9D18947B8BA162C813F52735D9CF44C /* crypto_stream_chacha20.h in Headers */,
-				2E02BD2F499C7E8B113BFF3D6BAFB675 /* crypto_stream_salsa20.h in Headers */,
-				747765C0DAB6BDAFF185117ECB6DB05B /* crypto_stream_salsa2012.h in Headers */,
-				4952EB757F8A815AC88C167BB7DF9B5A /* crypto_stream_salsa208.h in Headers */,
-				1F18382552F400006C8B43B71B87A9C6 /* crypto_stream_xchacha20.h in Headers */,
-				7587BAEEDD178D83D4D160F4775954E0 /* crypto_stream_xsalsa20.h in Headers */,
-				8F75F25BF537E03B9261135F0F9D848F /* crypto_verify_16.h in Headers */,
-				BA7E439A6CBC3B2CEC7A8B787732DD20 /* crypto_verify_32.h in Headers */,
-				FAB66E3F57B715533AB9870D499B6688 /* crypto_verify_64.h in Headers */,
-				13D5DC86AD3FF17CB68E55C8C0738C56 /* export.h in Headers */,
-				AD6BEAE7FBF419A47DCBEF332D34203F /* randombytes.h in Headers */,
-				DCA928270A1C6B0F5F6B3E190CAA7941 /* randombytes_internal_random.h in Headers */,
-				A71F9F6325D63D4DF79E658FF4B53856 /* randombytes_sysrandom.h in Headers */,
-				9F09E59725D2329850683BADDDDE25A1 /* runtime.h in Headers */,
-				B059B9E77CEE9DF6E5E40675BC5C0A06 /* Sodium.h in Headers */,
-				F69F22406427FA91B3AFD9F8240AF3EA /* Sodium-umbrella.h in Headers */,
-				D5E9AA89D0254C236E8D712C382FAAB4 /* sodium_lib.h in Headers */,
-				20128416CCD9952CB07E0D1E292DB058 /* utils.h in Headers */,
-				0D9C05ED0309DA2CEA7F493FC218C942 /* version.h in Headers */,
+				9302BB6381963DFD79873918F33B1849 /* mqttc-umbrella.h in Headers */,
+				6D48BD7F588F5122B2F892720EC28D32 /* MQTTClient.h in Headers */,
+				D5143FDC604ED8326A65715673F78B79 /* MQTTCoreDataPersistence.h in Headers */,
+				617658E5DC34C6F010B8FD117A8A8E0F /* MQTTDecoder.h in Headers */,
+				5003DA5BDEE030EE3D37153A0906388C /* MQTTInMemoryPersistence.h in Headers */,
+				912087237D8F4D886719EE2DAA7A61F7 /* MQTTLog.h in Headers */,
+				88865E9584757A537D53D301A2748B2F /* MQTTMessage.h in Headers */,
+				1FCA233F6E88DC785BC57F0D109A46CE /* MQTTNWTransport.h in Headers */,
+				2C3FACD1875FBE9D95D906F72AA2517F /* MQTTPersistence.h in Headers */,
+				367276B4934CA75933956CE5E611648B /* MQTTProperties.h in Headers */,
+				E8FD30D67BD317E55E47EF350364530D /* MQTTSession.h in Headers */,
+				4F7941480A36D4FE2752A59FFE46BCBE /* MQTTStrict.h in Headers */,
+				06B9206915431D676045B9D18E669B55 /* MQTTTransport.h in Headers */,
+				71FD554707A3F6ED44EF39072372AA76 /* MQTTWill.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C5930638A18151E0ADE42C32CC1C2801 /* Headers */ = {
+		BBC5EB3446D87559B56C9983F4163D81 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D335FA8438C13F40C6D2ABF31EBEEA9 /* DSJSONBooleanSchema.h in Headers */,
-				526BEA844435FF12B0A26B1DDCC4A19B /* DSJSONDictionarySchema.h in Headers */,
-				39DE5694B6C61C3CB05AC4E751F62B3E /* DSJSONSchema.h in Headers */,
-				1E703E838F61D4C6EAF1B6BD2D3A3295 /* DSJSONSchema+Protected.h in Headers */,
-				1C7CA7B7A809BFFAA4F10DDE1A82B108 /* DSJSONSchema+StandardValidators.h in Headers */,
-				21FF24D62B0FC310E9FF9F7365C5474E /* DSJSONSchemaArrayItemsValidator.h in Headers */,
-				DE3D375AEE795F16331351D70BD5C6BF /* DSJSONSchemaArrayValidator.h in Headers */,
-				BE28C900C24D72A21BED28853D87B83D /* DSJSONSchemaCombiningValidator.h in Headers */,
-				D17F5C2D10978A3D417637F2E715D817 /* DSJSONSchemaConditionalValidator.h in Headers */,
-				C736A55FA5780D8C1D3BB51D9F5D9BBF /* DSJSONSchemaConstValidator.h in Headers */,
-				7CDCB3E28E2C4AE650101FB43EC059B5 /* DSJSONSchemaContainsValidator.h in Headers */,
-				56EB31DD1BD343AC71D01F74B5677773 /* DSJSONSchemaContentValidator.h in Headers */,
-				D01071AB4BEA43D5A88C6EFA05DA5BB8 /* DSJSONSchemaDefinitions.h in Headers */,
-				41CBA5D2C9648EB4DF72E25DF5CABBF6 /* DSJSONSchemaDependenciesValidator.h in Headers */,
-				8FD8490F0B24C8805FDEEB9CFBE92ABA /* DSJSONSchemaEnumValidator.h in Headers */,
-				2DE23927C97BE740998CA81F5AB25C03 /* DSJSONSchemaErrors.h in Headers */,
-				38FA7A5C7F9E4ABA22B96A42FB2C8345 /* DSJSONSchemaFactory.h in Headers */,
-				F10A517D304B21C66089063F62C1E96C /* DSJSONSchemaFormatValidator.h in Headers */,
-				19DCB826ACFD1C52E33600CA1C891FA0 /* DSJSONSchemaNumericValidator.h in Headers */,
-				3396C092D31E3E8B09FDFE88B1CA2F02 /* DSJSONSchemaObjectPropertiesValidator.h in Headers */,
-				F44AC0D2CB1660565CAF047CB427C1A3 /* DSJSONSchemaObjectValidator.h in Headers */,
-				101434190809D330189D6EB3D716531A /* DSJSONSchemaPropertyNamesValidator.h in Headers */,
-				9E3002E0F7ADBC606623CAAC97F2556C /* DSJSONSchemaReference.h in Headers */,
-				005B4B25D888B116E6EA960F45ACEDAA /* DSJSONSchemaSpecification.h in Headers */,
-				459BA7E28A281F58F18585AEA391C43A /* DSJSONSchemaStorage.h in Headers */,
-				6DD8F4F63299911BEC1299F24C44B822 /* DSJSONSchemaStringValidator.h in Headers */,
-				0852ED16BD84A3AF48C46934C197A1A2 /* DSJSONSchemaTypeValidator.h in Headers */,
-				9BBE894670C01C0F33B5F82146203C87 /* DSJSONSchemaValidation-umbrella.h in Headers */,
-				3DD14FAC39ECA96350482D4B6A7230A4 /* DSJSONSchemaValidationContext.h in Headers */,
-				2E42BFE4944AC610096C38889414BB88 /* DSJSONSchemaValidationOptions.h in Headers */,
-				340F678F9EDCF26FA515D4A895FBDBA8 /* DSJSONSchemaValidator.h in Headers */,
-				FAC755EFCC45F397C544C6B58EA9B4D6 /* NSArray+DSJSONComparison.h in Headers */,
-				B4ABEE9FA8E21153FC21BC7A64E6C6A6 /* NSDictionary+DSJSONComparison.h in Headers */,
-				C1CB9699AB28735C3ACB08B9D534D12D /* NSDictionary+DSJSONDeepMutableCopy.h in Headers */,
-				3C300F7F61768971E920423E784C4008 /* NSNumber+DSJSONNumberTypes.h in Headers */,
-				CD87CC6AB8824EFB309E57745BB8EE5C /* NSObject+DSJSONComparison.h in Headers */,
-				85840DACF26355C8A8C508769995D753 /* NSString+DSJSONPointer.h in Headers */,
-				6D68EA69355883B818C1D856638DDFCF /* NSURL+DSJSONReferencing.h in Headers */,
+				0FEAE26AD9312294867260A194B324AB /* Pods-OwnTracks-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E6898C1B38D610AAF8FB12C1C162BFCB /* Headers */ = {
+		D973BECD8FEF070EA47278A6A451177C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAAFAA8AA66D9D5B91C98522DDDF6B27 /* Pods-OwnTracks-umbrella.h in Headers */,
+				C69A49C4613B4105518BE02E471AD9FB /* ABStaticTableViewController.h in Headers */,
+				AA6B9E2B704B33855B62836222769FDD /* ABStaticTableViewController-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1275,11 +1275,11 @@
 /* Begin PBXNativeTarget section */
 		276021C4482165D46E0CBBEFB822FE95 /* CocoaLumberjack-CocoaLumberjackPrivacy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 82C5E5A260984D083ACA8105649181B4 /* Build configuration list for PBXNativeTarget "CocoaLumberjack-CocoaLumberjackPrivacy" */;
+			buildConfigurationList = D8F5DE3B01D75AD4CE27C6FBBEF00FA5 /* Build configuration list for PBXNativeTarget "CocoaLumberjack-CocoaLumberjackPrivacy" */;
 			buildPhases = (
-				5A4B100E54C6D5E3D007179FFC70F599 /* Sources */,
-				20EE81BC956266DF86DA9F67BACF4E3D /* Frameworks */,
-				2DA0C980C0ECBAF450BE042CE3872CA7 /* Resources */,
+				D5693CF566F373B19D193E23C183D6B9 /* Sources */,
+				8BDE1E4E50CE949DD5EFA370310C1369 /* Frameworks */,
+				9F1FD848F0D8758512C4DDFDD89763D2 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -1292,17 +1292,17 @@
 		};
 		548A45AC34FA8106E3C61F961FDA5936 /* mqttc */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 41BB42EB051A4850016D2F54ACEAE763 /* Build configuration list for PBXNativeTarget "mqttc" */;
+			buildConfigurationList = EE3E0531556B0EADC588AF1C2090DA74 /* Build configuration list for PBXNativeTarget "mqttc" */;
 			buildPhases = (
-				3E1A49F995947094FCA4E81C0A2C6C9D /* Headers */,
-				8683626B497E8004E25EFDB34C13F0B0 /* Sources */,
-				6075CA7D2002373530CDED3146A1D685 /* Frameworks */,
-				C01211855DC9E69BD53EB9DD13ECF064 /* Resources */,
+				87B702A8BB6EA49FB3ACEC429BAC4095 /* Headers */,
+				D689E42DB777EF3201740CD28B87C03F /* Sources */,
+				8E522B367F84E5B07918691051324081 /* Frameworks */,
+				4179890FE8D7E6AD32BC7CACC33A379F /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				38F1DF8ACDE5BD1E8AC9CA971270D221 /* PBXTargetDependency */,
+				0EA8D2057008830D90D65002F05ECC16 /* PBXTargetDependency */,
 			);
 			name = mqttc;
 			productName = mqttc;
@@ -1311,12 +1311,12 @@
 		};
 		79E8FCE79597E6EBF96074BD00A72E8E /* DSJSONSchemaValidation */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 68B14FBB7CA3A50E1B115ECE9E431D72 /* Build configuration list for PBXNativeTarget "DSJSONSchemaValidation" */;
+			buildConfigurationList = A63A2B47ED0B48CDA654F2AAADD2068E /* Build configuration list for PBXNativeTarget "DSJSONSchemaValidation" */;
 			buildPhases = (
-				C5930638A18151E0ADE42C32CC1C2801 /* Headers */,
-				A30F229235DE4961A349D29DE255A311 /* Sources */,
-				DF001A3D00343917D98155BBDFFDB515 /* Frameworks */,
-				E1E552E4008FAB84B6117B5F1EDC13E2 /* Resources */,
+				85189E377624DC0F87C3D711AEBDEAF4 /* Headers */,
+				DD8F59D77ACDCED20D1F2AC856FF21B2 /* Sources */,
+				BFF23001B35C80FFA75A9E5E3D7E3AED /* Frameworks */,
+				1DAD88E4F31E221C3FAC143780082A67 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -1329,13 +1329,13 @@
 		};
 		9AC54079097E3E3B70EBE9D712693CE4 /* Sodium */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0E35C350F50CC550D03B5CFF9054BA74 /* Build configuration list for PBXNativeTarget "Sodium" */;
+			buildConfigurationList = 57E064E3D7EFAF18730AB165CD4A50B7 /* Build configuration list for PBXNativeTarget "Sodium" */;
 			buildPhases = (
-				C37668D9F44398DFBD1F3D71D062DB84 /* Headers */,
-				CDA85289F616062B85D25429C9D48E4E /* [CP] Copy XCFrameworks */,
-				8D44FB0CFDB308A6BD1EDC7A06C05D0A /* Sources */,
-				BB7376D0E746172C91FD2FC7955AC8F3 /* Frameworks */,
-				3B8AA8FC4B7F120B2B24F0D91153EE3E /* Resources */,
+				2E6253F5F60C7122244025C816A43D0F /* Headers */,
+				8EBAE685B53BF00661E2F008CA1B867E /* [CP] Copy XCFrameworks */,
+				DD24404A7CBE28C9B07BEF350EFB3F9D /* Sources */,
+				ADF96596FFF347C7CE7F858D430F2FDE /* Frameworks */,
+				6DCE98E85CE66BBE6A243F4C8E01E3D3 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -1348,12 +1348,12 @@
 		};
 		B1284C8E6CD9B45E97F433902C9D77F1 /* ABStaticTableViewController */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 14EEC00E2760F5065FD7F756999832E6 /* Build configuration list for PBXNativeTarget "ABStaticTableViewController" */;
+			buildConfigurationList = 8A3C27C553DB3C635A814516B493DF7F /* Build configuration list for PBXNativeTarget "ABStaticTableViewController" */;
 			buildPhases = (
-				7FACF813C64FEA9352B06B455EB036DE /* Headers */,
-				23EEC09FB7D0FEDCF24642C77EE79EC1 /* Sources */,
-				D85F02B18D9AEF6874BBE56E103B47D9 /* Frameworks */,
-				29C1012FEE70954E2F2E922DC53BAF8F /* Resources */,
+				D973BECD8FEF070EA47278A6A451177C /* Headers */,
+				B2906D5DBD806F51B56CD33ACEB52BA2 /* Sources */,
+				B6BE19BB5AF53FF7E4E2453C0FE99B1D /* Frameworks */,
+				EEC5A832286DDB88474B3FE286832DC4 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -1366,21 +1366,21 @@
 		};
 		B9EE78846755BE52CF868196039C0140 /* Pods-OwnTracks */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BAF4EF346667A09304FC54D947FC5C95 /* Build configuration list for PBXNativeTarget "Pods-OwnTracks" */;
+			buildConfigurationList = 246706239F0C9631CFBF210B3C914A2F /* Build configuration list for PBXNativeTarget "Pods-OwnTracks" */;
 			buildPhases = (
-				E6898C1B38D610AAF8FB12C1C162BFCB /* Headers */,
-				0357B9C164A65BE1FA7C4D22D418B875 /* Sources */,
-				E156DB0C77DA767A364A7F5EC1069CFB /* Frameworks */,
-				E221FF01E4C45D8D6FDC76BDC24A954A /* Resources */,
+				BBC5EB3446D87559B56C9983F4163D81 /* Headers */,
+				BD421CA1A4BC37E5932A5B5EDDA8C0D2 /* Sources */,
+				9FC99C9C950CFE9C5CBCC20CBE435199 /* Frameworks */,
+				CE28A9057F4CA7BD0EAF233DA564863B /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9F76521B50EE24AE82D023FEDE0681FD /* PBXTargetDependency */,
-				C2B229DD722954DB5B03B45A9F0E569C /* PBXTargetDependency */,
-				6F39C127A0370A21769BAC8A0232D05A /* PBXTargetDependency */,
-				AC28C3DD9BDFFD5F19712A300265CD4B /* PBXTargetDependency */,
-				9717F000CF36A15067C954E83B96E93C /* PBXTargetDependency */,
+				2A78AF61956E504A6E15366A6EEDE0B6 /* PBXTargetDependency */,
+				1FDEE1365C70FEB84BE377B9128317EF /* PBXTargetDependency */,
+				BB6BEAFFE39793C7A49B2BEFFBBD554E /* PBXTargetDependency */,
+				26C946E30B7E33E1807067798E711509 /* PBXTargetDependency */,
+				7D2194F4F69C26200DA542D7024C8E96 /* PBXTargetDependency */,
 			);
 			name = "Pods-OwnTracks";
 			productName = Pods_OwnTracks;
@@ -1389,17 +1389,17 @@
 		};
 		E95654B155D25890BE8E26081FCA8265 /* CocoaLumberjack */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DDAC93DAEC8029E24B38690FC798E325 /* Build configuration list for PBXNativeTarget "CocoaLumberjack" */;
+			buildConfigurationList = EFABCB1AA366BA3738F44C3D05F78B9F /* Build configuration list for PBXNativeTarget "CocoaLumberjack" */;
 			buildPhases = (
-				664868FFD1835C2DCC42067BB50C4981 /* Headers */,
-				7C4BDEC4C218E4BB480995780BF90132 /* Sources */,
-				7540B8AE0BB941328F4A1AEAF077C0B5 /* Frameworks */,
-				BE6E0F1F4B85F89631FDA0A9C0EA69E8 /* Resources */,
+				19F71544E200CCB60FC7B706C3674C28 /* Headers */,
+				44CAAC8C7371097CC4CB31D99A2968F5 /* Sources */,
+				AC09E6666A6D297130E4E6B10402616F /* Frameworks */,
+				733DA9B308AA16637874BF0749DC79C8 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				46D1FDA77110DB8F833F588872543839 /* PBXTargetDependency */,
+				AFC7000F79EA7094ED8E3E0A665FAD5C /* PBXTargetDependency */,
 			);
 			name = CocoaLumberjack;
 			productName = CocoaLumberjack;
@@ -1412,9 +1412,8 @@
 		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1300;
-				LastUpgradeCheck = 1620;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1640;
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 12.0";
@@ -1441,51 +1440,51 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		29C1012FEE70954E2F2E922DC53BAF8F /* Resources */ = {
+		1DAD88E4F31E221C3FAC143780082A67 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		2DA0C980C0ECBAF450BE042CE3872CA7 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9F8AD02CC875669C814A71B7841FACA8 /* PrivacyInfo.xcprivacy in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3B8AA8FC4B7F120B2B24F0D91153EE3E /* Resources */ = {
+		4179890FE8D7E6AD32BC7CACC33A379F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BE6E0F1F4B85F89631FDA0A9C0EA69E8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5EF26A1BA03012FDCA0AA83527E92A83 /* CocoaLumberjackPrivacy.bundle in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C01211855DC9E69BD53EB9DD13ECF064 /* Resources */ = {
+		6DCE98E85CE66BBE6A243F4C8E01E3D3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E1E552E4008FAB84B6117B5F1EDC13E2 /* Resources */ = {
+		733DA9B308AA16637874BF0749DC79C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0D1AE435FFC82F5CA91B676CB9310C6 /* CocoaLumberjackPrivacy.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9F1FD848F0D8758512C4DDFDD89763D2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A375F8C765A9756B27CB85AD64683081 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CE28A9057F4CA7BD0EAF233DA564863B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E221FF01E4C45D8D6FDC76BDC24A954A /* Resources */ = {
+		EEC5A832286DDB88474B3FE286832DC4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1495,7 +1494,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		CDA85289F616062B85D25429C9D48E4E /* [CP] Copy XCFrameworks */ = {
+		8EBAE685B53BF00661E2F008CA1B867E /* [CP] Copy XCFrameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1503,9 +1502,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Sodium/Sodium-xcframeworks-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy XCFrameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Sodium/Sodium-xcframeworks-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1515,194 +1518,233 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0357B9C164A65BE1FA7C4D22D418B875 /* Sources */ = {
+		44CAAC8C7371097CC4CB31D99A2968F5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F56D313AB75B250C070647387F02D314 /* Pods-OwnTracks-dummy.m in Sources */,
+				3ECFD627466C53CFC64F6334C57FEE2D /* CLIColor.m in Sources */,
+				CCD287B06F54A20AE674621613349235 /* CocoaLumberjack-dummy.m in Sources */,
+				E8ADB5DCE66D324A9625DA552704F75A /* DDAbstractDatabaseLogger.m in Sources */,
+				3BD3FB2BAF08BC24161588F47BB67926 /* DDASLLogCapture.m in Sources */,
+				DF6E62320D0B34A796EB1A4B607B1510 /* DDASLLogger.m in Sources */,
+				8BF1998FFAEB1EA98D0431CCFD6297D6 /* DDContextFilterLogFormatter.m in Sources */,
+				409E997170FD25DBC5437D6AC2E38D6B /* DDContextFilterLogFormatter+Deprecated.m in Sources */,
+				B52EE865781215E950E98A3FA86C6719 /* DDDispatchQueueLogFormatter.m in Sources */,
+				CE1896114816208295B3067298020A5D /* DDFileLogger.m in Sources */,
+				8999555E20BEE79DC1331F0CD8A0B599 /* DDFileLogger+Buffering.m in Sources */,
+				D98A4F7B29ACA2AAFCBF72825037803B /* DDLog.m in Sources */,
+				0B483CCFB03F9015E91680511C7336FC /* DDLoggerNames.m in Sources */,
+				F79ACA4C4028A13F7375416AA2652BA2 /* DDMultiFormatter.m in Sources */,
+				F39F92D741F4FE8F281D78C0325B8F8C /* DDOSLogger.m in Sources */,
+				74B6D42D337D2EF1415FE0946E7AAA31 /* DDTTYLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		23EEC09FB7D0FEDCF24642C77EE79EC1 /* Sources */ = {
+		B2906D5DBD806F51B56CD33ACEB52BA2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B59431B47B84676A914AD3E032025323 /* ABStaticTableViewController.m in Sources */,
-				8B96E3971CAF3196DDAE153A19914212 /* ABStaticTableViewController-dummy.m in Sources */,
+				B00837F0AC13B6E7E43F338AA344C2FC /* ABStaticTableViewController.m in Sources */,
+				C30A242FDE27C3D2F280CC69282C7811 /* ABStaticTableViewController-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5A4B100E54C6D5E3D007179FFC70F599 /* Sources */ = {
+		BD421CA1A4BC37E5932A5B5EDDA8C0D2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				94993BD9CBBCCB41CB311228554FA231 /* Pods-OwnTracks-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D5693CF566F373B19D193E23C183D6B9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7C4BDEC4C218E4BB480995780BF90132 /* Sources */ = {
+		D689E42DB777EF3201740CD28B87C03F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				151E4266F78F2530B79F52343441860B /* CLIColor.m in Sources */,
-				1B3785168DD3A42B9EA8A7716C6C5D2C /* CocoaLumberjack-dummy.m in Sources */,
-				F4336532394954AF530FA87A948AD626 /* DDAbstractDatabaseLogger.m in Sources */,
-				62AA934CB2017977299BFB18CC7D6F45 /* DDASLLogCapture.m in Sources */,
-				14F45344756E3DA27EE52588C97966AA /* DDASLLogger.m in Sources */,
-				60A86D9FE209D650D6D1F056C10C76B1 /* DDContextFilterLogFormatter.m in Sources */,
-				E3E0DD8115B9DC082E686FCF12D52196 /* DDContextFilterLogFormatter+Deprecated.m in Sources */,
-				1C62B5EDBA649AC42ED2B17810FE96B2 /* DDDispatchQueueLogFormatter.m in Sources */,
-				0734C6F3779ED07F18C07DDE4EA7A6A3 /* DDFileLogger.m in Sources */,
-				04B0F3E215E694A784C153FEF03EE0A9 /* DDFileLogger+Buffering.m in Sources */,
-				F241854184DE7439358FAB47AFBA1C82 /* DDLog.m in Sources */,
-				53F0E6FAD8F725770D68E98C1F99EF8A /* DDLoggerNames.m in Sources */,
-				B80C817B173FCBC51509BD04F8E850EB /* DDMultiFormatter.m in Sources */,
-				45D4AE64989C881105E98B2C84214F11 /* DDOSLogger.m in Sources */,
-				0C4B7E72D37F085CDCBAB66F11221E07 /* DDTTYLogger.m in Sources */,
+				0A9F3A96C434AA79BF96CA21772C6DA5 /* mqttc-dummy.m in Sources */,
+				4877544848AF9AE5177B752FD1BEE506 /* MQTTCoreDataPersistence.m in Sources */,
+				EFD5BF14ADB088207C22729974B68DA6 /* MQTTDecoder.m in Sources */,
+				38BFAFAD81B3954C80FC4E4A3B1EDF09 /* MQTTInMemoryPersistence.m in Sources */,
+				0D8AC104E8B961A0DCEF9FF765287AAA /* MQTTLog.m in Sources */,
+				CB98D2092F6F164052AD25D009624E67 /* MQTTMessage.m in Sources */,
+				A87D928417C413E90C092AF44E0735A6 /* MQTTNWTransport.m in Sources */,
+				B55896C2F4631101CA5B1EB3150C43AE /* MQTTProperties.m in Sources */,
+				8AA71B73BA5D5185F878005DB73104D5 /* MQTTSession.m in Sources */,
+				BE2E0D14E7CEBBF252D37EF185C5488E /* MQTTStrict.m in Sources */,
+				EEB83FECFA66EB08C5A2747DA4771B5D /* MQTTTransport.m in Sources */,
+				31B572273BE5C7B254B189D9E767814B /* MQTTWill.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8683626B497E8004E25EFDB34C13F0B0 /* Sources */ = {
+		DD24404A7CBE28C9B07BEF350EFB3F9D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B15770D204819057410D528763C0050D /* mqttc-dummy.m in Sources */,
-				489DA021F82B5020A46915B655807F0E /* MQTTCoreDataPersistence.m in Sources */,
-				1EAB7D6C231ECF1BFF92544A94B2711C /* MQTTDecoder.m in Sources */,
-				EA5A90521DE5C7CD05E60AAEB178B58C /* MQTTInMemoryPersistence.m in Sources */,
-				73101E9BD7FA795799EC682F4F940D3F /* MQTTLog.m in Sources */,
-				C1C4B9819D1C0D4746ACB635F6B67F71 /* MQTTMessage.m in Sources */,
-				67DDA13C9BC206999BE3418F5FB86469 /* MQTTNWTransport.m in Sources */,
-				45E8C46189ABF0DC8770BC366DFDA43D /* MQTTProperties.m in Sources */,
-				EFF680DA8D56AF26DDA0687FB3CB8249 /* MQTTSession.m in Sources */,
-				7CB93B88F3194A92D400D663C947DBA0 /* MQTTStrict.m in Sources */,
-				2A9BE77FC11A78546CC2E9644CE84F75 /* MQTTTransport.m in Sources */,
-				41F282069598D72EE5303988D4750522 /* MQTTWill.m in Sources */,
+				7820898EE05E31131117EDC2226AC3FD /* Aead.swift in Sources */,
+				CFF247F65A514ECCCCD5FD9282A8E9B1 /* Auth.swift in Sources */,
+				819EB917835BFD768035FD20604C508E /* Box.swift in Sources */,
+				3BAAB2AA7A5C48AD30B21CCEBBF96345 /* Bytes.swift in Sources */,
+				0BD157359CA8A75A767114AA8934E125 /* ExitCode.swift in Sources */,
+				179559514EEBA2577833D259426E5E05 /* GenericHash.swift in Sources */,
+				15F8B885CCCCF9042F633A4FB949699D /* KeyDerivation.swift in Sources */,
+				BA98B1AD91FEF61B3CB1EBB9B0965503 /* KeyExchange.swift in Sources */,
+				6AA3B9E561A1FF62FBC87AB1D07F58E0 /* KeyPairGenerator.swift in Sources */,
+				640BACB577DE46FF0538B3FFCBD22EE8 /* KeyPairProtocol.swift in Sources */,
+				BE0812620397CF68F901A73255E65667 /* NonceGenerator.swift in Sources */,
+				FCEE2077384CFEBBD4BEFB978E2618F5 /* PWHash.swift in Sources */,
+				D00D021F66B0EFB675B1A55DBDF2540A /* RandomBytes.swift in Sources */,
+				31FA54DAF31239FB6950299683AC2998 /* SecretBox.swift in Sources */,
+				051B615BDF3B554C37C6628A32B6B381 /* SecretKeyGenerator.swift in Sources */,
+				5436C243FD8DE9F9EA9BDBD9E1BC7BBE /* SecretStream.swift in Sources */,
+				C0B25BD93DEBEE86AAB8FE2AB25724CC /* ShortHash.swift in Sources */,
+				FF7C48E901D3BB870E4AA5D5C8F95E73 /* Sign.swift in Sources */,
+				B93652DE3EA2C5140DB98BC66F3D2997 /* Sodium.swift in Sources */,
+				39A0E7309DB26213FA8E4D7B27356C3E /* Sodium-dummy.m in Sources */,
+				AA232A11ACB814A6C1C65E96C1C778A1 /* Stream.swift in Sources */,
+				3E000E68CCA3BCA9094A82DD1C547B79 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8D44FB0CFDB308A6BD1EDC7A06C05D0A /* Sources */ = {
+		DD8F59D77ACDCED20D1F2AC856FF21B2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				986AE9F2B6066FDD30B6DD9EF9AA5929 /* Aead.swift in Sources */,
-				9A4D7DA95312938E51D36346DE03F0E1 /* Auth.swift in Sources */,
-				0DB481CDE33C20AC3088E75524B5E388 /* Box.swift in Sources */,
-				E12B82FB3B4F924975E60C83F0964232 /* Bytes.swift in Sources */,
-				BB3001311740223347D54082C4B6A0CC /* ExitCode.swift in Sources */,
-				68B78F0BF7C06519EBE68DC8A84C77AB /* GenericHash.swift in Sources */,
-				8CCB58B477FB656D0DC3725374C7A957 /* KeyDerivation.swift in Sources */,
-				D2E2E55E50A405973C6E840731603721 /* KeyExchange.swift in Sources */,
-				2CD16B0EAF039D87C23E23B3C34439D8 /* KeyPairGenerator.swift in Sources */,
-				4261A3997EEEBCF9C9FA5408FAE56AC2 /* KeyPairProtocol.swift in Sources */,
-				2A517C9696BDBF9A74F388C881B84CD1 /* NonceGenerator.swift in Sources */,
-				5C18B9D6C0DE2756E43CC910E2D530C3 /* PWHash.swift in Sources */,
-				A586DE51C837571411EF70E1D8376575 /* RandomBytes.swift in Sources */,
-				CC7D7143DD378E7727A973E27BD0AF7C /* SecretBox.swift in Sources */,
-				19BAF8A858D34350F191B8BAB59A0FCC /* SecretKeyGenerator.swift in Sources */,
-				354CE2234DCD510B1E6307A7A9E6A6D8 /* SecretStream.swift in Sources */,
-				8C42C2878AD13CC9EB33E756B591DC9C /* ShortHash.swift in Sources */,
-				F1B9900DA0365F4E0E9684CD2F5E5698 /* Sign.swift in Sources */,
-				0FDC37E9E529798CE5BE50BE3A0AAE60 /* Sodium.swift in Sources */,
-				E287E0CF0410BFABB33B06749BA30E4E /* Sodium-dummy.m in Sources */,
-				43478277E468752EC02197B436D4E056 /* Stream.swift in Sources */,
-				8F976A985FC1F3678AC394002848DD41 /* Utils.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A30F229235DE4961A349D29DE255A311 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D9A8BFA1B7D22FFAF5B0A2413762899A /* DSJSONBooleanSchema.m in Sources */,
-				1E828CBEFD395F689E758CC00DEEE395 /* DSJSONDictionarySchema.m in Sources */,
-				71575B1917B80389827512C77D44CA97 /* DSJSONSchema.m in Sources */,
-				81A518F1D54878EF591E86BAE1B030AD /* DSJSONSchema+StandardValidators.m in Sources */,
-				7815BDFA6BF24EFC7BF7156FB277E695 /* DSJSONSchemaArrayItemsValidator.m in Sources */,
-				0C17091111A6906A585168E751FCD6DF /* DSJSONSchemaArrayValidator.m in Sources */,
-				5588640C05E41BC6EDE069987644D704 /* DSJSONSchemaCombiningValidator.m in Sources */,
-				A7997699A75A1CD98FAEAF0BFD52E3F7 /* DSJSONSchemaConditionalValidator.m in Sources */,
-				07F93F4D8F7472F315B7793FE0F6189B /* DSJSONSchemaConstValidator.m in Sources */,
-				BF2EF0AB5B7ABB780A6BCB33A31FBE09 /* DSJSONSchemaContainsValidator.m in Sources */,
-				66752C2FE8A0F93258143944ED9E2050 /* DSJSONSchemaContentValidator.m in Sources */,
-				779E82F0A2DDDC4F5A4D61F3DD0C2325 /* DSJSONSchemaDefinitions.m in Sources */,
-				402855F5486CFC4D1ED04DB67B05FACE /* DSJSONSchemaDependenciesValidator.m in Sources */,
-				04E5792865E6A0E437584324C8E74EB3 /* DSJSONSchemaEnumValidator.m in Sources */,
-				B631888372F63F6D10C5DAAF4E8BCEBD /* DSJSONSchemaErrors.m in Sources */,
-				A23E505EAF987FACEC55EE41DB6309F9 /* DSJSONSchemaFactory.m in Sources */,
-				BD13B090EE48CF43C664702CB0AC2F39 /* DSJSONSchemaFormatValidator.m in Sources */,
-				B3770939D3607C580DE919C02A67DB85 /* DSJSONSchemaNumericValidator.m in Sources */,
-				2DC4FE16A42B62BF7129255F8A97715B /* DSJSONSchemaObjectPropertiesValidator.m in Sources */,
-				47B0D7E2D85013CF20459470EE4C6357 /* DSJSONSchemaObjectValidator.m in Sources */,
-				9BF06014FB42786E7C1DAA24C0F1E481 /* DSJSONSchemaPropertyNamesValidator.m in Sources */,
-				F3C31893F2ED5F19BCE1D3E1C4FB94AA /* DSJSONSchemaReference.m in Sources */,
-				046CE0A3C4B2C0D54BF742EEED6DE32E /* DSJSONSchemaSpecification.m in Sources */,
-				8DB49254F13D3CB1662134A6C0D3C51C /* DSJSONSchemaStorage.m in Sources */,
-				3616A72266CC7C5F0FD4D8DD2DEB61F7 /* DSJSONSchemaStringValidator.m in Sources */,
-				3A6CE7B970727B21B3C037D332CA186F /* DSJSONSchemaTypeValidator.m in Sources */,
-				86A327CD874844A140E5D53757EACE40 /* DSJSONSchemaValidation-dummy.m in Sources */,
-				22F0BB226C481564F56F0A666266ADEA /* DSJSONSchemaValidationContext.m in Sources */,
-				C241BB5BE59D7948F452F385B33A492D /* DSJSONSchemaValidationOptions.m in Sources */,
-				599ED829231904AB3E7DC5AB6899D882 /* NSArray+DSJSONComparison.m in Sources */,
-				9832E797AFCE4B505E7B8A772C754D35 /* NSDictionary+DSJSONComparison.m in Sources */,
-				0FCFB9399A8A8B896D7C46B5FC5F63BF /* NSDictionary+DSJSONDeepMutableCopy.m in Sources */,
-				33BA1E444175B25B1EAEA56938A65F71 /* NSNumber+DSJSONNumberTypes.m in Sources */,
-				CC626DAA183798E82B7998240A642A1B /* NSObject+DSJSONComparison.m in Sources */,
-				97B87EC0527E3573DFDC07E38CC9A214 /* NSString+DSJSONPointer.m in Sources */,
-				53D2E9EA5E92C4101AE37956AD817A83 /* NSURL+DSJSONReferencing.m in Sources */,
+				84D0B9E18992B5CD1A6C077ECE04ECBE /* DSJSONBooleanSchema.m in Sources */,
+				7B7B1470676C0B99F6FD910DF95D7B9D /* DSJSONDictionarySchema.m in Sources */,
+				637C5FAD4B45C35795FA621F4963E732 /* DSJSONSchema.m in Sources */,
+				9F344784BA7A747A795B2FC2E48701D6 /* DSJSONSchema+StandardValidators.m in Sources */,
+				331B26D8F1C270904267C62119D8761F /* DSJSONSchemaArrayItemsValidator.m in Sources */,
+				174A6438CE0CAC61AD90D6254414099D /* DSJSONSchemaArrayValidator.m in Sources */,
+				48ADB21EB7CE83EDADC7DF8E94CD3EF1 /* DSJSONSchemaCombiningValidator.m in Sources */,
+				3257E4D5D4BE94124397CFB3DC8B2E44 /* DSJSONSchemaConditionalValidator.m in Sources */,
+				FFF5ACFDC5E40AE3BBD794D38FFD08D6 /* DSJSONSchemaConstValidator.m in Sources */,
+				5198C4068A707AA6521634A1F124D86D /* DSJSONSchemaContainsValidator.m in Sources */,
+				5C1610DC8C584B9EF03BC0D41BECF43B /* DSJSONSchemaContentValidator.m in Sources */,
+				1BCB6FF21E253B8805FEB2C02A7F307D /* DSJSONSchemaDefinitions.m in Sources */,
+				CE23528A42A23A647C30ED036F365A5A /* DSJSONSchemaDependenciesValidator.m in Sources */,
+				B36BC0B128B55B579F3F8CBFCCD45A80 /* DSJSONSchemaEnumValidator.m in Sources */,
+				97DCE58F6AD88A1D2558FDB1FF9110DB /* DSJSONSchemaErrors.m in Sources */,
+				1A04A6160DBD72CE7056B719F45E794D /* DSJSONSchemaFactory.m in Sources */,
+				24674FE89C9C27AE6329249DE9BB0D34 /* DSJSONSchemaFormatValidator.m in Sources */,
+				D2B6560BDA644A22F2A1EBBE5296E0FE /* DSJSONSchemaNumericValidator.m in Sources */,
+				D3625C11A44B3A332682DEB5DC8DAB90 /* DSJSONSchemaObjectPropertiesValidator.m in Sources */,
+				E9FC0B711E102AB804BC618979BE56DD /* DSJSONSchemaObjectValidator.m in Sources */,
+				CF02B6ED1FEB42B5237CD358C550B96B /* DSJSONSchemaPropertyNamesValidator.m in Sources */,
+				4B0C2C9AC58F489109D6EC9344271D49 /* DSJSONSchemaReference.m in Sources */,
+				CA147049772D5AE5A76AAE1AE8F1B640 /* DSJSONSchemaSpecification.m in Sources */,
+				FBABF549E0614CF879F56E8900119517 /* DSJSONSchemaStorage.m in Sources */,
+				C9B895E59C2822C71D606B2C494A2D3F /* DSJSONSchemaStringValidator.m in Sources */,
+				C737A8BBF7B36F822C9CD1AFBCA1D6ED /* DSJSONSchemaTypeValidator.m in Sources */,
+				469E201C424639D9A4CF27CF44B3CCD1 /* DSJSONSchemaValidation-dummy.m in Sources */,
+				0EC5C336AE9D087D9F429D454520A35E /* DSJSONSchemaValidationContext.m in Sources */,
+				D1C234D06BA16A98E3F9745AF3518310 /* DSJSONSchemaValidationOptions.m in Sources */,
+				A9FABFD9F78EA640C5DB00664FBEA65F /* NSArray+DSJSONComparison.m in Sources */,
+				34E54F3CB28C47B7BB47CAEFA7D2B6B6 /* NSDictionary+DSJSONComparison.m in Sources */,
+				96797699323B44EC1038DA2A502C9E58 /* NSDictionary+DSJSONDeepMutableCopy.m in Sources */,
+				75179B72A27123CCA8818C66F857B8CB /* NSNumber+DSJSONNumberTypes.m in Sources */,
+				BF86AD978F86C24F11EE7FBF36CFD562 /* NSObject+DSJSONComparison.m in Sources */,
+				E960E9015EA04190BB18A2A8934C532A /* NSString+DSJSONPointer.m in Sources */,
+				11AF8F05498BFDD98CE3EC267ADED06B /* NSURL+DSJSONReferencing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		38F1DF8ACDE5BD1E8AC9CA971270D221 /* PBXTargetDependency */ = {
+		0EA8D2057008830D90D65002F05ECC16 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = CocoaLumberjack;
 			target = E95654B155D25890BE8E26081FCA8265 /* CocoaLumberjack */;
-			targetProxy = 5030242056792A7BE211CEBE872D4D5D /* PBXContainerItemProxy */;
+			targetProxy = 28428071DE2A5313442163066EB36D13 /* PBXContainerItemProxy */;
 		};
-		46D1FDA77110DB8F833F588872543839 /* PBXTargetDependency */ = {
+		1FDEE1365C70FEB84BE377B9128317EF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "CocoaLumberjack-CocoaLumberjackPrivacy";
-			target = 276021C4482165D46E0CBBEFB822FE95 /* CocoaLumberjack-CocoaLumberjackPrivacy */;
-			targetProxy = C568FA3CB8F2B59F12B7D8B8EA279F25 /* PBXContainerItemProxy */;
+			name = CocoaLumberjack;
+			target = E95654B155D25890BE8E26081FCA8265 /* CocoaLumberjack */;
+			targetProxy = 69E09154788CD8D413E06BAAB742C0DD /* PBXContainerItemProxy */;
 		};
-		6F39C127A0370A21769BAC8A0232D05A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = DSJSONSchemaValidation;
-			target = 79E8FCE79597E6EBF96074BD00A72E8E /* DSJSONSchemaValidation */;
-			targetProxy = 68791F24E9F1C41A357EBA9E0E0586B4 /* PBXContainerItemProxy */;
-		};
-		9717F000CF36A15067C954E83B96E93C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = mqttc;
-			target = 548A45AC34FA8106E3C61F961FDA5936 /* mqttc */;
-			targetProxy = E4D467FBA8DDE857F8678122BAEE2B53 /* PBXContainerItemProxy */;
-		};
-		9F76521B50EE24AE82D023FEDE0681FD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ABStaticTableViewController;
-			target = B1284C8E6CD9B45E97F433902C9D77F1 /* ABStaticTableViewController */;
-			targetProxy = C6158B0CCAD8091FC7F2D7D4005566EE /* PBXContainerItemProxy */;
-		};
-		AC28C3DD9BDFFD5F19712A300265CD4B /* PBXTargetDependency */ = {
+		26C946E30B7E33E1807067798E711509 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = Sodium;
 			target = 9AC54079097E3E3B70EBE9D712693CE4 /* Sodium */;
-			targetProxy = 41A653C871D07FDD5C1721561CDDEF94 /* PBXContainerItemProxy */;
+			targetProxy = 2351E728DD2342837644E3C922F3F85B /* PBXContainerItemProxy */;
 		};
-		C2B229DD722954DB5B03B45A9F0E569C /* PBXTargetDependency */ = {
+		2A78AF61956E504A6E15366A6EEDE0B6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = CocoaLumberjack;
-			target = E95654B155D25890BE8E26081FCA8265 /* CocoaLumberjack */;
-			targetProxy = B696250210A947F64C726F4ADA7D3627 /* PBXContainerItemProxy */;
+			name = ABStaticTableViewController;
+			target = B1284C8E6CD9B45E97F433902C9D77F1 /* ABStaticTableViewController */;
+			targetProxy = 583EBEFCF875B0F5D148F40D18962567 /* PBXContainerItemProxy */;
+		};
+		7D2194F4F69C26200DA542D7024C8E96 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = mqttc;
+			target = 548A45AC34FA8106E3C61F961FDA5936 /* mqttc */;
+			targetProxy = 6D0B6A8C786EF141E4DA1F517E5AD67B /* PBXContainerItemProxy */;
+		};
+		AFC7000F79EA7094ED8E3E0A665FAD5C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "CocoaLumberjack-CocoaLumberjackPrivacy";
+			target = 276021C4482165D46E0CBBEFB822FE95 /* CocoaLumberjack-CocoaLumberjackPrivacy */;
+			targetProxy = 64C07922480F39F84E6F2FDC44F92CA8 /* PBXContainerItemProxy */;
+		};
+		BB6BEAFFE39793C7A49B2BEFFBBD554E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DSJSONSchemaValidation;
+			target = 79E8FCE79597E6EBF96074BD00A72E8E /* DSJSONSchemaValidation */;
+			targetProxy = E0A5B11837F3AF785FDE2CA526570D91 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0B81D513057850284EB364CAAA363E0F /* Release */ = {
+		19CC8506C5C38E511031C0D1A5204C1B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2E8E46FC48056D67AB53541622988A3A /* Pods-OwnTracks.release.xcconfig */;
+			baseConfigurationReference = 8E34C205EF9B4CCA9E2FE69D04B10BF9 /* mqttc.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/mqttc/mqttc-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/mqttc/mqttc-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/mqttc/mqttc.modulemap";
+				PRODUCT_MODULE_NAME = mqttc;
+				PRODUCT_NAME = mqttc;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		243972669C1DBC79BD5967D27A7CEB9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ADF9D4B48472501C2F5DD752CD99157F /* Pods-OwnTracks.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -1714,9 +1756,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "Target Support Files/Pods-OwnTracks/Pods-OwnTracks-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1732,67 +1776,14 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		158077F51C232761FB33B42A7C92DE6D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 27667B7DDED8D49F6C392FD1DF313FB1 /* CocoaLumberjack.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGNING_ALLOWED = NO;
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/CocoaLumberjack";
-				IBSC_MODULE = CocoaLumberjack;
-				INFOPLIST_FILE = "Target Support Files/CocoaLumberjack/ResourceBundle-CocoaLumberjackPrivacy-CocoaLumberjack-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
-				PRODUCT_NAME = CocoaLumberjackPrivacy;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		1A94E91ED885CDD6EC968C645F5C7EBE /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 779F6EDFD46AD11D15B5A57AEFBC5171 /* Sodium.debug.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/Sodium/Sodium-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Sodium/Sodium-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/Sodium/Sodium.modulemap";
-				PRODUCT_MODULE_NAME = Sodium;
-				PRODUCT_NAME = Sodium;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		22DEFF9D56747A0B3089D1B4D01A91F8 /* Release */ = {
+		2675084ADF8057ABA9F01F521D020A14 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 252A08077E555443D019984766D3BD09 /* DSJSONSchemaValidation.release.xcconfig */;
+			baseConfigurationReference = B74E88CC6C57C9AE715F7D69BF4E4EBD /* DSJSONSchemaValidation.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1802,7 +1793,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_PREFIX_HEADER = "Target Support Files/DSJSONSchemaValidation/DSJSONSchemaValidation-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "Target Support Files/DSJSONSchemaValidation/DSJSONSchemaValidation-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
@@ -1817,13 +1811,52 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
+		};
+		2F4339F29C6B452434667670A9D36E7E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 779F6EDFD46AD11D15B5A57AEFBC5171 /* Sodium.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/Sodium/Sodium-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/Sodium/Sodium-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Sodium/Sodium.modulemap";
+				PRODUCT_MODULE_NAME = Sodium;
+				PRODUCT_NAME = Sodium;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 		30E0B9EFD9A5C45D0D351231E81B30B3 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1887,9 +1920,9 @@
 			};
 			name = Release;
 		};
-		313F60CC7EC499FF6362ED5274846C0C /* Debug */ = {
+		4255FF506F7570CC9AC8AC0E6C1AB7A5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ADF9D4B48472501C2F5DD752CD99157F /* Pods-OwnTracks.debug.xcconfig */;
+			baseConfigurationReference = 2E8E46FC48056D67AB53541622988A3A /* Pods-OwnTracks.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -1901,9 +1934,11 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = "Target Support Files/Pods-OwnTracks/Pods-OwnTracks-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1919,12 +1954,110 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
+			name = Release;
+		};
+		5B2F04FA6D1093158FBA21AB12D9C044 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DBFA63B524C3DA7AB94041ADF5A37B0E /* Sodium.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/Sodium/Sodium-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/Sodium/Sodium-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/Sodium/Sodium.modulemap";
+				PRODUCT_MODULE_NAME = Sodium;
+				PRODUCT_NAME = Sodium;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		71AB0DA39D8AAE7C3FC9D2068CD62957 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 27667B7DDED8D49F6C392FD1DF313FB1 /* CocoaLumberjack.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGNING_ALLOWED = NO;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/CocoaLumberjack";
+				IBSC_MODULE = CocoaLumberjack;
+				INFOPLIST_FILE = "Target Support Files/CocoaLumberjack/ResourceBundle-CocoaLumberjackPrivacy-CocoaLumberjack-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				PRODUCT_NAME = CocoaLumberjackPrivacy;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
 			name = Debug;
 		};
-		372F0D6B058EE3D21656CFF914431462 /* Release */ = {
+		7F26D2EBDDF4306611A7CBA0380A2C9E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 43ED6FDF79500E58B2120CABB567AD66 /* mqttc.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/mqttc/mqttc-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/mqttc/mqttc-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/mqttc/mqttc.modulemap";
+				PRODUCT_MODULE_NAME = mqttc;
+				PRODUCT_NAME = mqttc;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		881D60EDF61A636A5FB4A92BFAAA9ED3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3322E2A4C0612D329F3D07DD17D795C0 /* CocoaLumberjack.release.xcconfig */;
 			buildSettings = {
@@ -1937,7 +2070,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_PREFIX_HEADER = "Target Support Files/CocoaLumberjack/CocoaLumberjack-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "Target Support Files/CocoaLumberjack/CocoaLumberjack-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
@@ -1952,7 +2088,8 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.8;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 6.1;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1960,9 +2097,9 @@
 			};
 			name = Release;
 		};
-		4B02E94F7F1DC5D74669A8A13B3647B7 /* Release */ = {
+		93E14C5C7ED4D8FF97DF3ED37C052999 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DBFA63B524C3DA7AB94041ADF5A37B0E /* Sodium.release.xcconfig */;
+			baseConfigurationReference = 27667B7DDED8D49F6C392FD1DF313FB1 /* CocoaLumberjack.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -1973,21 +2110,63 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/Sodium/Sodium-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Sodium/Sodium-Info.plist";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/CocoaLumberjack/CocoaLumberjack-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/CocoaLumberjack/CocoaLumberjack-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MODULEMAP_FILE = "Target Support Files/Sodium/Sodium.modulemap";
-				PRODUCT_MODULE_NAME = Sodium;
-				PRODUCT_NAME = Sodium;
+				MODULEMAP_FILE = "Target Support Files/CocoaLumberjack/CocoaLumberjack.modulemap";
+				PRODUCT_MODULE_NAME = CocoaLumberjack;
+				PRODUCT_NAME = CocoaLumberjack;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 6.1;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		981DE587DAFBFB099AEC3D6F71F2A26C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6C5BD630F6479B3C01F6BB5699D5176C /* ABStaticTableViewController.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/ABStaticTableViewController/ABStaticTableViewController-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/ABStaticTableViewController/ABStaticTableViewController-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/ABStaticTableViewController/ABStaticTableViewController.modulemap";
+				PRODUCT_MODULE_NAME = ABStaticTableViewController;
+				PRODUCT_NAME = ABStaticTableViewController;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -1996,7 +2175,84 @@
 			};
 			name = Release;
 		};
-		638AC1692E5A6C9CE5E4389AF66BDF91 /* Release */ = {
+		A33E651F511E67C156070B12B3E6448F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D0D7324DE83843B2F03DF25EA5CDB7BA /* ABStaticTableViewController.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/ABStaticTableViewController/ABStaticTableViewController-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/ABStaticTableViewController/ABStaticTableViewController-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/ABStaticTableViewController/ABStaticTableViewController.modulemap";
+				PRODUCT_MODULE_NAME = ABStaticTableViewController;
+				PRODUCT_NAME = ABStaticTableViewController;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B440D516840FC7A0AB3609BFF1C61DEA /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 252A08077E555443D019984766D3BD09 /* DSJSONSchemaValidation.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = NO;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_PREFIX_HEADER = "Target Support Files/DSJSONSchemaValidation/DSJSONSchemaValidation-prefix.pch";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Target Support Files/DSJSONSchemaValidation/DSJSONSchemaValidation-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MODULEMAP_FILE = "Target Support Files/DSJSONSchemaValidation/DSJSONSchemaValidation.modulemap";
+				PRODUCT_MODULE_NAME = DSJSONSchemaValidation;
+				PRODUCT_NAME = DSJSONSchemaValidation;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		D2423CF89B01641EFFD7BDD2CA884465 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3322E2A4C0612D329F3D07DD17D795C0 /* CocoaLumberjack.release.xcconfig */;
 			buildSettings = {
@@ -2012,215 +2268,6 @@
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
-		};
-		6C54EDFCB3A4AD680508036D0C1FF642 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D0D7324DE83843B2F03DF25EA5CDB7BA /* ABStaticTableViewController.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/ABStaticTableViewController/ABStaticTableViewController-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ABStaticTableViewController/ABStaticTableViewController-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/ABStaticTableViewController/ABStaticTableViewController.modulemap";
-				PRODUCT_MODULE_NAME = ABStaticTableViewController;
-				PRODUCT_NAME = ABStaticTableViewController;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		772B7C4688499841CB1E78E9D13CD139 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8E34C205EF9B4CCA9E2FE69D04B10BF9 /* mqttc.debug.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/mqttc/mqttc-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/mqttc/mqttc-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/mqttc/mqttc.modulemap";
-				PRODUCT_MODULE_NAME = mqttc;
-				PRODUCT_NAME = mqttc;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		957F0F7F85250F604E6E637B1B9134E8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6C5BD630F6479B3C01F6BB5699D5176C /* ABStaticTableViewController.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/ABStaticTableViewController/ABStaticTableViewController-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/ABStaticTableViewController/ABStaticTableViewController-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/ABStaticTableViewController/ABStaticTableViewController.modulemap";
-				PRODUCT_MODULE_NAME = ABStaticTableViewController;
-				PRODUCT_NAME = ABStaticTableViewController;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		A2DC55A3EDA4002010636BFF41BF61DE /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43ED6FDF79500E58B2120CABB567AD66 /* mqttc.release.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/mqttc/mqttc-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/mqttc/mqttc-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/mqttc/mqttc.modulemap";
-				PRODUCT_MODULE_NAME = mqttc;
-				PRODUCT_NAME = mqttc;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		D7B07253C55F784F989BC74C709BB4ED /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B74E88CC6C57C9AE715F7D69BF4E4EBD /* DSJSONSchemaValidation.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/DSJSONSchemaValidation/DSJSONSchemaValidation-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/DSJSONSchemaValidation/DSJSONSchemaValidation-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/DSJSONSchemaValidation/DSJSONSchemaValidation.modulemap";
-				PRODUCT_MODULE_NAME = DSJSONSchemaValidation;
-				PRODUCT_NAME = DSJSONSchemaValidation;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		EA11AA17750E62ACF1734C5034E091F1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 27667B7DDED8D49F6C392FD1DF313FB1 /* CocoaLumberjack.debug.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/CocoaLumberjack/CocoaLumberjack-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/CocoaLumberjack/CocoaLumberjack-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/CocoaLumberjack/CocoaLumberjack.modulemap";
-				PRODUCT_MODULE_NAME = CocoaLumberjack;
-				PRODUCT_NAME = CocoaLumberjack;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.8;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
 		};
 		F4FF6A0D1970CA9705974E3CB2134802 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2291,29 +2338,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0E35C350F50CC550D03B5CFF9054BA74 /* Build configuration list for PBXNativeTarget "Sodium" */ = {
+		246706239F0C9631CFBF210B3C914A2F /* Build configuration list for PBXNativeTarget "Pods-OwnTracks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1A94E91ED885CDD6EC968C645F5C7EBE /* Debug */,
-				4B02E94F7F1DC5D74669A8A13B3647B7 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		14EEC00E2760F5065FD7F756999832E6 /* Build configuration list for PBXNativeTarget "ABStaticTableViewController" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6C54EDFCB3A4AD680508036D0C1FF642 /* Debug */,
-				957F0F7F85250F604E6E637B1B9134E8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		41BB42EB051A4850016D2F54ACEAE763 /* Build configuration list for PBXNativeTarget "mqttc" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				772B7C4688499841CB1E78E9D13CD139 /* Debug */,
-				A2DC55A3EDA4002010636BFF41BF61DE /* Release */,
+				243972669C1DBC79BD5967D27A7CEB9B /* Debug */,
+				4255FF506F7570CC9AC8AC0E6C1AB7A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2327,38 +2356,56 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		68B14FBB7CA3A50E1B115ECE9E431D72 /* Build configuration list for PBXNativeTarget "DSJSONSchemaValidation" */ = {
+		57E064E3D7EFAF18730AB165CD4A50B7 /* Build configuration list for PBXNativeTarget "Sodium" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D7B07253C55F784F989BC74C709BB4ED /* Debug */,
-				22DEFF9D56747A0B3089D1B4D01A91F8 /* Release */,
+				2F4339F29C6B452434667670A9D36E7E /* Debug */,
+				5B2F04FA6D1093158FBA21AB12D9C044 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		82C5E5A260984D083ACA8105649181B4 /* Build configuration list for PBXNativeTarget "CocoaLumberjack-CocoaLumberjackPrivacy" */ = {
+		8A3C27C553DB3C635A814516B493DF7F /* Build configuration list for PBXNativeTarget "ABStaticTableViewController" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				158077F51C232761FB33B42A7C92DE6D /* Debug */,
-				638AC1692E5A6C9CE5E4389AF66BDF91 /* Release */,
+				A33E651F511E67C156070B12B3E6448F /* Debug */,
+				981DE587DAFBFB099AEC3D6F71F2A26C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BAF4EF346667A09304FC54D947FC5C95 /* Build configuration list for PBXNativeTarget "Pods-OwnTracks" */ = {
+		A63A2B47ED0B48CDA654F2AAADD2068E /* Build configuration list for PBXNativeTarget "DSJSONSchemaValidation" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				313F60CC7EC499FF6362ED5274846C0C /* Debug */,
-				0B81D513057850284EB364CAAA363E0F /* Release */,
+				2675084ADF8057ABA9F01F521D020A14 /* Debug */,
+				B440D516840FC7A0AB3609BFF1C61DEA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		DDAC93DAEC8029E24B38690FC798E325 /* Build configuration list for PBXNativeTarget "CocoaLumberjack" */ = {
+		D8F5DE3B01D75AD4CE27C6FBBEF00FA5 /* Build configuration list for PBXNativeTarget "CocoaLumberjack-CocoaLumberjackPrivacy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				EA11AA17750E62ACF1734C5034E091F1 /* Debug */,
-				372F0D6B058EE3D21656CFF914431462 /* Release */,
+				71AB0DA39D8AAE7C3FC9D2068CD62957 /* Debug */,
+				D2423CF89B01641EFFD7BDD2CA884465 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EE3E0531556B0EADC588AF1C2090DA74 /* Build configuration list for PBXNativeTarget "mqttc" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				19CC8506C5C38E511031C0D1A5204C1B /* Debug */,
+				7F26D2EBDDF4306611A7CBA0380A2C9E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EFABCB1AA366BA3738F44C3D05F78B9F /* Build configuration list for PBXNativeTarget "CocoaLumberjack" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93E14C5C7ED4D8FF97DF3ED37C052999 /* Debug */,
+				881D60EDF61A636A5FB4A92BFAAA9ED3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

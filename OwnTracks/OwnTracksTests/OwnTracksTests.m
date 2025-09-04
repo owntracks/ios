@@ -20,14 +20,14 @@
 @end
 
 @interface NSObject (safeIntValue)
-- (int)safeIntValue;
+- (NSInteger)safeIntValue;
 @end
 
 @implementation NSObject (safeIntValue)
-- (int)safeIntValue{
-    int i = 0;
+- (NSInteger)safeIntValue{
+    NSInteger i = 0;
     if (self && [self respondsToSelector:@selector(intValue)]) {
-        i = (int)[self performSelector:@selector(intValue)];
+        i = (NSInteger)[self performSelector:@selector(intValue)];
     }
     return i;
 }
@@ -252,6 +252,7 @@
                                            [lat doubleValue],
                                            [lon doubleValue]
                                            );
+                NSLog(@"coordinage %f,%f", coordinate.latitude, coordinate.longitude);
             }
             
             NSNumber *vel = dictionary[@"vel"];
@@ -287,7 +288,7 @@
     NSArray *a = [NSArray array];
     id nix = nil;
     
-    int i;
+    NSInteger i;
     id o;
     i = -1;
     o = n;
