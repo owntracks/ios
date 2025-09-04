@@ -1179,8 +1179,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     static NSTimeInterval lastMessageTime = 0;
     NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
     if (lastMessageTime > 0 && (currentTime - lastMessageTime) > 300) { // 5 minutes
-        DDLogWarn(@"[OwnTracksAppDelegate] Detected potential Core Data deadlock, attempting recovery");
-        [CoreData.sharedInstance recoverFromStuckContexts];
+        DDLogWarn(@"[OwnTracksAppDelegate] Detected potential Core Data deadlock, but recovery not needed with merge policy");
     }
     lastMessageTime = currentTime;
     
@@ -1199,14 +1198,19 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
 
     [CoreData.sharedInstance.queuedMOC performBlock:^{
         @try {
+        DDLogInfo(@"[OwnTracksAppDelegate] Processing message for topic: %@", topic);
         (void)[[OwnTracking sharedInstance] processMessage:topic
                                                       data:data
                                                   retained:retained
                                                    context:CoreData.sharedInstance.queuedMOC];
+        DDLogInfo(@"[OwnTracksAppDelegate] Message processing completed for topic: %@", topic);
         } @catch (NSException *exception) {
             DDLogError(@"[OwnTracksAppDelegate] Exception in processMessage: %@", exception);
         } @finally {
             // Ensure we always sync even if there's an exception
+            DDLogInfo(@"[OwnTracksAppDelegate] Syncing Core Data context for topic: %@", topic);
+            [CoreData.sharedInstance sync:CoreData.sharedInstance.queuedMOC];
+            DDLogInfo(@"[OwnTracksAppDelegate] Core Data sync completed for topic: %@", topic);
         }
         
         // Force UI update after processing to prevent stuck states
@@ -2417,23 +2421,28 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
     
     if (kerr == KERN_SUCCESS) {
         float memoryUsageMB = (float)info.resident_size / 1024.0 / 1024.0;
-        float memoryLimitMB = 500.0; // Conservative limit for iOS apps
+        float memoryLimitMB = 800.0; // Increased limit to be less aggressive
         
         if (memoryUsageMB > memoryLimitMB) {
             DDLogWarn(@"[OwnTracksAppDelegate] High memory usage: %.1f MB", memoryUsageMB);
             
-            // Trigger memory cleanup
-            [self performMemoryCleanup];
+            // Only trigger cleanup occasionally to avoid interfering with Core Data
+            static NSTimeInterval lastCleanupTime = 0;
+            NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+            if (now - lastCleanupTime > 60) { // Only cleanup once per minute
+                [self performMemoryCleanup];
+                lastCleanupTime = now;
+            }
         }
     }
     
-    // Check Core Data context state
+    // Check Core Data context state - but don't trigger cleanup from here
     [CoreData.sharedInstance.queuedMOC performBlock:^{
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Queue"];
         NSError *error = nil;
         NSArray *matches = [CoreData.sharedInstance.queuedMOC executeFetchRequest:request error:&error];
         
-        if (matches && matches.count > 500) {
+        if (matches && matches.count > 1000) { // Increased threshold
             DDLogWarn(@"[OwnTracksAppDelegate] Large queue detected: %lu messages", (unsigned long)matches.count);
             
             // Log first few messages for debugging
@@ -2451,16 +2460,8 @@ continueUserActivity:(nonnull NSUserActivity *)userActivity
     // Clear image caches and temporary data
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
     
-    // Force Core Data context refresh
-    [CoreData.sharedInstance.queuedMOC performBlock:^{
-        [CoreData.sharedInstance.queuedMOC refreshAllObjects];
-    }];
-    
-    [CoreData.sharedInstance.mainMOC performBlock:^{
-        [CoreData.sharedInstance.mainMOC refreshAllObjects];
-    }];
-    
-    // Trigger garbage collection
+    // Don't refresh contexts that might be in use - this can cause crashes
+    // Instead, just trigger garbage collection
     @autoreleasepool {
         // Force autorelease pool drain
     }
