@@ -757,12 +757,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
             [NSIndexPath indexPathForRow:8 inSection:0], // protocol / tls
             [NSIndexPath indexPathForRow:0 inSection:1], // subTopic
             [NSIndexPath indexPathForRow:1 inSection:1], // clientId
-            [NSIndexPath indexPathForRow:9 inSection:1], // subQos
-            [NSIndexPath indexPathForRow:10 inSection:1], // keepAlive
-            [NSIndexPath indexPathForRow:11 inSection:1], // pubQos
-            [NSIndexPath indexPathForRow:17 inSection:1], // sub
-            [NSIndexPath indexPathForRow:19 inSection:1], // pubRetain
-            [NSIndexPath indexPathForRow:20 inSection:1] // cleanSession
+            [NSIndexPath indexPathForRow:10 inSection:1], // subQos
+            [NSIndexPath indexPathForRow:11 inSection:1], // keepAlive
+            [NSIndexPath indexPathForRow:12 inSection:1], // pubQos
+            [NSIndexPath indexPathForRow:19 inSection:1], // sub
+            [NSIndexPath indexPathForRow:21 inSection:1], // pubRetain
+            [NSIndexPath indexPathForRow:22 inSection:1] // cleanSession
         ];
 
         for (NSIndexPath *indexPath in mqttPaths) {
@@ -792,7 +792,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         // hide HTTP related rows if not in HTTP mode
         NSArray <NSIndexPath *> *httpPaths = @[
             [NSIndexPath indexPathForRow:13 inSection:0], // url
-            [NSIndexPath indexPathForRow:22 inSection:1] // httpHeaders
+            [NSIndexPath indexPathForRow:24 inSection:1] // httpHeaders
         ];
 
         for (NSIndexPath *indexPath in httpPaths) {
@@ -800,12 +800,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             } else if (![self isRowVisible:indexPath] && mode == CONNECTION_MODE_HTTP) {
                 [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-        }
-        
-        for (NSInteger section = 0; section < self.tableView.numberOfSections; section++) {
-            for (NSInteger row = 0; row < [self.tableView numberOfRowsInSection:section]; row++) {
-                NSTableViewCell
             }
         }
 
