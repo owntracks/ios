@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="e04-OU-xZ4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="e04-OU-xZ4">
     <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eED-yn-0ps">
-                                <rect key="frame" x="0.0" y="138" width="390" height="540"/>
+                                <rect key="frame" x="0.0" y="148" width="390" height="579"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="EiO-on-q7c" appends="YES" id="k6b-KH-2BJ"/>
@@ -152,7 +151,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="trackerid" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dUg-TH-IQ0">
-                                                    <rect key="frame" x="101" y="12.666666666666666" width="199" height="18.666666666666671"/>
+                                                    <rect key="frame" x="101" y="11" width="199" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <attributedString key="userComments">
@@ -312,7 +311,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="deviceid" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e0q-hc-0z2">
-                                                    <rect key="frame" x="96" y="12.666666666666666" width="204" height="18.666666666666671"/>
+                                                    <rect key="frame" x="96" y="11" width="204" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <attributedString key="userComments">
@@ -361,7 +360,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="host" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tQs-PK-sbV">
-                                                    <rect key="frame" x="64" y="12.666666666666666" width="236" height="18.666666666666671"/>
+                                                    <rect key="frame" x="64" y="11" width="236" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL" enablesReturnKeyAutomatically="YES"/>
                                                     <attributedString key="userComments">
@@ -449,7 +448,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Fv-Fd-pIm">
-                                                    <rect key="frame" x="192.66666666666666" y="6.6666666666666679" width="51" height="31.000000000000004"/>
+                                                    <rect key="frame" x="180.66666666666666" y="8" width="63" height="28"/>
                                                     <connections>
                                                         <action selector="tlsChanged:" destination="nAk-La-kdM" eventType="valueChanged" id="MMO-9k-LNI"/>
                                                     </connections>
@@ -461,7 +460,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TLS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQE-Wz-JiS">
-                                                    <rect key="frame" x="154.66666666666666" y="11.666666666666666" width="30" height="20.666666666666671"/>
+                                                    <rect key="frame" x="142.66666666666666" y="11.666666666666666" width="30" height="20.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -470,7 +469,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="proto" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pn1-hA-OmO">
-                                                    <rect key="frame" x="70" y="13.666666666666664" width="76.666666666666686" height="17"/>
+                                                    <rect key="frame" x="70" y="13.666666666666664" width="64.666666666666686" height="17"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="n4Q-IZ-KuE">
                                                             <attributedString key="userComments">
@@ -521,7 +520,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="userid" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Oiq-Kb-qLx">
-                                                    <rect key="frame" x="80" y="12.666666666666666" width="220" height="18.666666666666671"/>
+                                                    <rect key="frame" x="80" y="11" width="220" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
@@ -659,7 +658,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="url" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="pD2-Zj-Toq">
-                                                    <rect key="frame" x="60" y="12.666666666666666" width="240" height="18.666666666666671"/>
+                                                    <rect key="frame" x="60" y="11" width="240" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
@@ -697,7 +696,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="subTopic" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="suj-kA-G3U">
-                                                    <rect key="frame" x="96" y="12.666666666666666" width="204" height="18.666666666666671"/>
+                                                    <rect key="frame" x="96" y="11" width="204" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <attributedString key="userComments">
@@ -749,7 +748,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="clientId" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="IsX-6T-YbC">
-                                                    <rect key="frame" x="84" y="12.666666666666666" width="216" height="18.666666666666671"/>
+                                                    <rect key="frame" x="84" y="11" width="216" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <attributedString key="userComments">
@@ -801,7 +800,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="pubTopicBase" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="hNb-lH-EGK">
-                                                    <rect key="frame" x="135" y="12.666666666666666" width="165" height="18.666666666666671"/>
+                                                    <rect key="frame" x="135" y="11" width="165" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <attributedString key="userComments">
@@ -853,7 +852,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="days" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Nq-by-zFb">
-                                                    <rect key="frame" x="188" y="12.666666666666666" width="112" height="18.666666666666671"/>
+                                                    <rect key="frame" x="188" y="11" width="112" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -887,7 +886,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Meters" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jqJ-cr-0tT">
-                                                    <rect key="frame" x="229.66666666666666" y="12.666666666666666" width="70.333333333333343" height="18.666666666666671"/>
+                                                    <rect key="frame" x="229.66666666666666" y="11" width="70.333333333333343" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <attributedString key="userComments">
@@ -924,7 +923,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Meters" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M0H-SF-pCO">
-                                                    <rect key="frame" x="185" y="12.666666666666666" width="115" height="18.666666666666671"/>
+                                                    <rect key="frame" x="185" y="11" width="115" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -958,7 +957,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Seconds" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oBs-Zn-P4m">
-                                                    <rect key="frame" x="137" y="12.666666666666666" width="163" height="18.666666666666671"/>
+                                                    <rect key="frame" x="137" y="11" width="163" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -992,7 +991,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lTh-wG-5YG">
-                                                    <rect key="frame" x="97" y="12.666666666666666" width="203" height="18.666666666666671"/>
+                                                    <rect key="frame" x="97" y="11" width="203" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -1026,7 +1025,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xom-Gk-dU5">
-                                                    <rect key="frame" x="64" y="12.666666666666666" width="236" height="18.666666666666671"/>
+                                                    <rect key="frame" x="64" y="11" width="236" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -1061,7 +1060,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yny-2e-dpz">
-                                                    <rect key="frame" x="115" y="12.666666666666666" width="185" height="18.666666666666671"/>
+                                                    <rect key="frame" x="115" y="11" width="185" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -1095,7 +1094,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="qos" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PBp-Kc-CwF">
-                                                    <rect key="frame" x="87" y="12.666666666666666" width="213" height="18.666666666666671"/>
+                                                    <rect key="frame" x="87" y="11" width="213" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <attributedString key="userComments">
@@ -1132,7 +1131,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="seconds" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZT5-mN-Tt5">
-                                                    <rect key="frame" x="101" y="12.666666666666666" width="199" height="18.666666666666671"/>
+                                                    <rect key="frame" x="101" y="11" width="199" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -1166,7 +1165,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="qos" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cBn-p7-eqG">
-                                                    <rect key="frame" x="88.666666666666671" y="12.666666666666666" width="211.33333333333331" height="18.666666666666671"/>
+                                                    <rect key="frame" x="88.666666666666671" y="11" width="211.33333333333331" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <attributedString key="userComments">
@@ -1203,7 +1202,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="mode" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LEn-Jc-PvC">
-                                                    <rect key="frame" x="110" y="12.666666666666666" width="190" height="18.666666666666671"/>
+                                                    <rect key="frame" x="110" y="11" width="190" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <attributedString key="userComments">
@@ -1240,7 +1239,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="downgrade%" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XkO-CT-wUS">
-                                                    <rect key="frame" x="114" y="12.666666666666666" width="186" height="18.666666666666671"/>
+                                                    <rect key="frame" x="114" y="11" width="186" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <attributedString key="userComments">
@@ -1277,7 +1276,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="minutes" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FDy-XH-ARB">
-                                                    <rect key="frame" x="72" y="12.666666666666664" width="228" height="19"/>
+                                                    <rect key="frame" x="72" y="11" width="228" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <attributedString key="userComments">
@@ -1594,12 +1593,15 @@
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="HTTP Headers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p6D-3d-Jq2">
                                                     <rect key="frame" x="20" y="11.666666666666664" width="112" height="21"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <bool key="isElement" value="NO"/>
+                                                    </accessibility>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="httpHeaders" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="mca-nZ-Fzz">
-                                                    <rect key="frame" x="140" y="12.666666666666666" width="160" height="18.666666666666671"/>
+                                                    <rect key="frame" x="140" y="11" width="160" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
@@ -1630,7 +1632,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="OSMTemplate" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="JS1-vt-wVV">
-                                                    <rect key="frame" x="140" y="12.666666666666666" width="160" height="18.666666666666671"/>
+                                                    <rect key="frame" x="140" y="11" width="160" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
@@ -1661,7 +1663,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="OSMCopyright" minimumFontSize="12" translatesAutoresizingMaskIntoConstraints="NO" id="yAb-Me-E2d">
-                                                    <rect key="frame" x="145" y="12.666666666666666" width="155" height="18.666666666666671"/>
+                                                    <rect key="frame" x="145" y="11" width="155" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
@@ -2002,7 +2004,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="&lt;Coordinates&gt;" textAlignment="right" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="jwK-F1-3iE">
-                                                    <rect key="frame" x="121" y="12.666666666666664" width="234" height="19"/>
+                                                    <rect key="frame" x="121" y="11" width="234" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <attributedString key="userComments">
@@ -2038,7 +2040,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="&lt;Distance&gt;" textAlignment="right" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="gkb-3O-jAy">
-                                                    <rect key="frame" x="95" y="12.666666666666664" width="260" height="19"/>
+                                                    <rect key="frame" x="95" y="11" width="260" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <attributedString key="userComments">
@@ -2074,7 +2076,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="&lt;Distance&gt;" textAlignment="right" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Gg9-jR-tgq">
-                                                    <rect key="frame" x="82.666666666666657" y="12.666666666666664" width="272.33333333333337" height="19"/>
+                                                    <rect key="frame" x="82.666666666666657" y="11" width="272.33333333333337" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <attributedString key="userComments">
@@ -2110,7 +2112,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="&lt;Distance&gt;" textAlignment="right" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="cYc-8p-mIM">
-                                                    <rect key="frame" x="110" y="12.666666666666664" width="245" height="19"/>
+                                                    <rect key="frame" x="110" y="11" width="245" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <attributedString key="userComments">
@@ -2146,7 +2148,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="&lt;Distance&gt;" textAlignment="right" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="k0E-xM-eKF">
-                                                    <rect key="frame" x="115.66666666666667" y="12.666666666666664" width="239.33333333333331" height="19"/>
+                                                    <rect key="frame" x="115.66666666666667" y="11" width="239.33333333333331" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <attributedString key="userComments">
@@ -2182,7 +2184,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="&lt;Distance&gt;" textAlignment="right" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="SUY-eb-SwY">
-                                                    <rect key="frame" x="89" y="12.666666666666664" width="266" height="19"/>
+                                                    <rect key="frame" x="89" y="11" width="266" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <attributedString key="userComments">
@@ -2278,7 +2280,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="timestamp" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HVH-Pt-DXp">
-                                                    <rect key="frame" x="113" y="12.666666666666664" width="242" height="19"/>
+                                                    <rect key="frame" x="113" y="11" width="242" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -2311,7 +2313,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="timestamp" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nwd-8O-YcR">
-                                                    <rect key="frame" x="109.66666666666667" y="12.666666666666664" width="245.33333333333331" height="19"/>
+                                                    <rect key="frame" x="109.66666666666667" y="11" width="245.33333333333331" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -2344,7 +2346,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="info" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ikm-SR-MCD">
-                                                    <rect key="frame" x="57" y="12.666666666666664" width="298" height="19"/>
+                                                    <rect key="frame" x="57" y="11" width="298" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -2377,7 +2379,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="&lt;batterylevel&gt;" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="572-Up-z9B">
-                                                    <rect key="frame" x="136.66666666666663" y="12.666666666666664" width="218.33333333333337" height="19"/>
+                                                    <rect key="frame" x="136.66666666666663" y="11" width="218.33333333333337" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <attributedString key="userComments">
@@ -2413,7 +2415,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="&lt;batterylevel&gt;" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="N2S-5K-ajg">
-                                                    <rect key="frame" x="127.66666666666667" y="12.666666666666664" width="227.33333333333331" height="19"/>
+                                                    <rect key="frame" x="127.66666666666667" y="11" width="227.33333333333331" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <attributedString key="userComments">
@@ -2449,7 +2451,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="topic" textAlignment="right" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="wKK-9Q-BMU">
-                                                    <rect key="frame" x="70" y="12.666666666666664" width="285" height="19"/>
+                                                    <rect key="frame" x="70" y="11" width="285" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -2482,7 +2484,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="rG9-Ai-rOW">
-                                                    <rect key="frame" x="55.666666666666657" y="12.666666666666664" width="299.33333333333337" height="19"/>
+                                                    <rect key="frame" x="55.666666666666657" y="11" width="299.33333333333337" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -2515,7 +2517,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="XJq-dU-nec">
-                                                    <rect key="frame" x="55.666666666666657" y="12.666666666666664" width="299.33333333333337" height="19"/>
+                                                    <rect key="frame" x="55.666666666666657" y="11" width="299.33333333333337" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -2579,7 +2581,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="c5e-R1-UdI">
-                                                    <rect key="frame" x="124" y="12.666666666666664" width="231" height="19"/>
+                                                    <rect key="frame" x="124" y="11" width="231" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -2612,7 +2614,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="zSi-qv-jhI">
-                                                    <rect key="frame" x="95" y="12.666666666666664" width="260" height="19"/>
+                                                    <rect key="frame" x="95" y="11" width="260" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -2645,7 +2647,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="eHR-x0-Fue">
-                                                    <rect key="frame" x="155" y="12.666666666666664" width="200" height="19"/>
+                                                    <rect key="frame" x="155" y="11" width="200" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -2712,7 +2714,7 @@
                     <tabBarItem key="tabBarItem" title="Map" image="OwnTracks" id="HCO-pB-vNN"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aK3-EO-u98">
-                        <rect key="frame" x="0.0" y="94" width="390" height="44"/>
+                        <rect key="frame" x="0.0" y="94" width="390" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -3234,7 +3236,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="client certificate file" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JSF-BR-9Nb">
-                                                    <rect key="frame" x="20" y="20.666666666666671" width="323.66666666666669" height="18.333333333333329"/>
+                                                    <rect key="frame" x="20" y="20.666666666666668" width="323.66666666666669" height="22.000000000000004"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <attributedString key="userComments">
@@ -3303,7 +3305,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allow Untrusted Certificates" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aVN-vG-YjO">
-                                                    <rect key="frame" x="20" y="11.666666666666666" width="293" height="20.666666666666671"/>
+                                                    <rect key="frame" x="20" y="11.666666666666666" width="281" height="20.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -3312,7 +3314,7 @@
                                                     </attributedString>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ziU-bT-6kO">
-                                                    <rect key="frame" x="321" y="6.6666666666666679" width="51" height="31.000000000000004"/>
+                                                    <rect key="frame" x="309" y="8" width="63" height="28"/>
                                                     <connections>
                                                         <action selector="allowUntrustedCertificatesChanged:" destination="N8y-lP-Jsi" eventType="valueChanged" id="j0i-AQ-RqX"/>
                                                     </connections>
@@ -3515,20 +3517,20 @@
                             <tableViewSection id="Pqx-Hm-xQU">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="4XR-WI-mto">
-                                        <rect key="frame" x="0.0" y="50" width="390" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="390" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4XR-WI-mto" id="61G-9U-yOz">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="51"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o8t-NB-IV6">
-                                                    <rect key="frame" x="20" y="11.333333333333336" width="45" height="21"/>
+                                                    <rect key="frame" x="20" y="15" width="45" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zgs-5W-R7W">
-                                                    <rect key="frame" x="73" y="5" width="297" height="34"/>
+                                                    <rect key="frame" x="73" y="8.6666666666666643" width="297" height="34"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
@@ -3546,7 +3548,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="232" id="O5x-SW-9bA">
-                                        <rect key="frame" x="0.0" y="93.666667938232422" width="390" height="232"/>
+                                        <rect key="frame" x="0.0" y="101" width="390" height="232"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="O5x-SW-9bA" id="nQf-d8-1i9">
                                             <rect key="frame" x="0.0" y="0.0" width="390" height="232"/>
@@ -3569,14 +3571,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="hYC-CP-T4N">
-                                        <rect key="frame" x="0.0" y="325.66666793823242" width="390" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="333" width="390" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hYC-CP-T4N" id="eUB-jj-4jz">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="51"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rvi-2b-Hb0">
-                                                    <rect key="frame" x="20" y="4.6666666666666679" width="118" height="34.333333333333329"/>
+                                                    <rect key="frame" x="20" y="8.3333333333333321" width="118" height="34.333333333333343"/>
                                                     <state key="normal" title="Use Camera"/>
                                                     <buttonConfiguration key="configuration" style="plain" title="Use Camera"/>
                                                     <connections>
@@ -3584,7 +3586,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IL1-c9-0c1">
-                                                    <rect key="frame" x="195" y="7" width="175" height="30"/>
+                                                    <rect key="frame" x="195" y="10.666666666666664" width="175" height="30"/>
                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                                     <state key="normal" title="Select from Photo Library"/>
                                                     <connections>
@@ -3636,21 +3638,21 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogCell" textLabel="THV-Ij-ayz" detailTextLabel="pOi-JI-Qg7" style="IBUITableViewCellStyleSubtitle" id="Qjw-M7-9Wk">
-                                <rect key="frame" x="0.0" y="50" width="390" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="50" width="390" height="51"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qjw-M7-9Wk" id="KXy-AR-6kc">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="51"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="THV-Ij-ayz">
-                                            <rect key="frame" x="16" y="6.0000000000000009" width="25" height="14.333333333333334"/>
+                                            <rect key="frame" x="16" y="10" width="25" height="14.333333333333334"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pOi-JI-Qg7">
-                                            <rect key="frame" x="15.999999999999996" y="22.333333333333336" width="43.666666666666664" height="14.333333333333334"/>
+                                            <rect key="frame" x="15.999999999999996" y="26.333333333333332" width="43.666666666666664" height="14.333333333333334"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                             <nil key="textColor"/>
@@ -3692,20 +3694,20 @@
                             <tableViewSection id="CNa-Fb-bNr">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="i9x-SI-Ifm">
-                                        <rect key="frame" x="0.0" y="50" width="390" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="390" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="i9x-SI-Ifm" id="Fau-ym-Co3">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="51"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I19-GX-iMA">
-                                                    <rect key="frame" x="19.999999999999996" y="11.333333333333336" width="41.666666666666657" height="21"/>
+                                                    <rect key="frame" x="19.999999999999996" y="15" width="41.666666666666657" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name for new tour" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="guB-Ga-J3e">
-                                                    <rect key="frame" x="69.666666666666657" y="5" width="300.33333333333337" height="34"/>
+                                                    <rect key="frame" x="69.666666666666657" y="8.6666666666666643" width="300.33333333333337" height="34"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
@@ -3723,14 +3725,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="oOo-30-MsU">
-                                        <rect key="frame" x="0.0" y="93.666667938232422" width="390" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="101" width="390" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="oOo-30-MsU" id="3xG-yP-vtI">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="51"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SZe-bR-3x5">
-                                                    <rect key="frame" x="20" y="11.333333333333336" width="50" height="21"/>
+                                                    <rect key="frame" x="20" y="15" width="50" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="D2H-0M-Nqh"/>
                                                     </constraints>
@@ -3739,7 +3741,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="0f5-gd-MxE">
-                                                    <rect key="frame" x="78" y="4" width="292" height="36"/>
+                                                    <rect key="frame" x="78" y="7.6666666666666679" width="292" height="36"/>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
@@ -3752,14 +3754,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="QSp-HV-bRl">
-                                        <rect key="frame" x="0.0" y="137.33333587646484" width="390" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="152" width="390" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QSp-HV-bRl" id="FCN-Ol-RRN">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="51"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pud-EK-OTL">
-                                                    <rect key="frame" x="20" y="11.333333333333336" width="50" height="21"/>
+                                                    <rect key="frame" x="20" y="15" width="50" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="50" id="zWH-mV-Wcm"/>
                                                     </constraints>
@@ -3768,7 +3770,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="sGk-1E-zg5">
-                                                    <rect key="frame" x="78" y="4" width="292" height="36"/>
+                                                    <rect key="frame" x="78" y="7.6666666666666679" width="292" height="36"/>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
@@ -3823,21 +3825,21 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TourCell" textLabel="5df-yk-myT" detailTextLabel="rx4-uC-NeB" style="IBUITableViewCellStyleSubtitle" id="fwi-yP-OE1">
-                                <rect key="frame" x="0.0" y="50" width="390" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="50" width="390" height="51"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fwi-yP-OE1" id="PPn-nC-e29">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="51"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5df-yk-myT">
-                                            <rect key="frame" x="16" y="7.0000000000000009" width="25" height="14.333333333333334"/>
+                                            <rect key="frame" x="16" y="10" width="25" height="14.333333333333334"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rx4-uC-NeB">
-                                            <rect key="frame" x="15.999999999999996" y="23.333333333333336" width="40.666666666666664" height="13.333333333333334"/>
+                                            <rect key="frame" x="15.999999999999996" y="26.333333333333332" width="40.666666666666664" height="13.333333333333334"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                             <nil key="textColor"/>
@@ -3847,17 +3849,17 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ToursStatusCell" id="fvo-Ck-wOb" customClass="ToursStatusCell">
-                                <rect key="frame" x="0.0" y="93.666667938232422" width="390" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="101" width="390" height="51"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fvo-Ck-wOb" id="CTR-bG-sfN">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="51"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="9n4-Ol-UYc">
-                                            <rect key="frame" x="84.666666666666671" y="12" width="20" height="20"/>
+                                            <rect key="frame" x="84.666666666666671" y="15.666666666666664" width="20" height="20"/>
                                         </activityIndicatorView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Activity" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L2M-p0-CtV">
-                                            <rect key="frame" x="19.999999999999996" y="11.333333333333336" width="56.666666666666657" height="21"/>
+                                            <rect key="frame" x="19.999999999999996" y="15" width="56.666666666666657" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -3980,7 +3982,7 @@
                     <tabBarItem key="tabBarItem" tag="95" title="Friends" image="Friends" id="msF-bI-hEJ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="HAz-7E-YjW">
-                        <rect key="frame" x="0.0" y="94" width="390" height="44"/>
+                        <rect key="frame" x="0.0" y="94" width="390" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -4017,7 +4019,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s1I-Ff-fYw">
-                                                    <rect key="frame" x="73" y="12.666666666666666" width="297" height="18.666666666666671"/>
+                                                    <rect key="frame" x="73" y="11" width="297" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
@@ -4055,7 +4057,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Radius" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0WN-ST-XQq">
-                                                    <rect key="frame" x="192.66666666666663" y="12.666666666666666" width="177.33333333333337" height="18.666666666666671"/>
+                                                    <rect key="frame" x="192.66666666666663" y="11" width="177.33333333333337" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <attributedString key="userComments">
@@ -4092,7 +4094,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="latitude" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lmo-Kp-uCi">
-                                                    <rect key="frame" x="91" y="12.666666666666666" width="279" height="18.666666666666671"/>
+                                                    <rect key="frame" x="91" y="11" width="279" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -4126,7 +4128,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="longitude" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JZL-1C-khg">
-                                                    <rect key="frame" x="105" y="12.666666666666666" width="265" height="18.666666666666671"/>
+                                                    <rect key="frame" x="105" y="11" width="265" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -4192,7 +4194,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="uuid" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fPO-vc-4UX">
-                                                    <rect key="frame" x="69" y="12.666666666666666" width="301" height="18.666666666666671"/>
+                                                    <rect key="frame" x="69" y="11" width="301" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <connections>
@@ -4226,7 +4228,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="major" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UqU-7l-HX1">
-                                                    <rect key="frame" x="71" y="12.666666666666666" width="299" height="18.666666666666671"/>
+                                                    <rect key="frame" x="71" y="11" width="299" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -4260,7 +4262,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="minor" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tc6-JR-qOB">
-                                                    <rect key="frame" x="72" y="12.666666666666666" width="298" height="18.666666666666671"/>
+                                                    <rect key="frame" x="72" y="11" width="298" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                                     <connections>
@@ -4310,7 +4312,7 @@
                     <tabBarItem key="tabBarItem" tag="96" title="Regions" image="Regions" id="HB5-wo-JZx"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="qvG-MG-aSJ">
-                        <rect key="frame" x="0.0" y="94" width="390" height="44"/>
+                        <rect key="frame" x="0.0" y="94" width="390" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -4331,20 +4333,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="bne-Cg-ABt">
-                            <rect key="frame" x="0.0" y="133.66666793823242" width="390" height="44"/>
+                            <rect key="frame" x="0.0" y="133" width="390" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="historyCell" textLabel="z87-2B-BRC" detailTextLabel="Urx-Dz-nZk" style="IBUITableViewCellStyleSubtitle" id="dz3-47-MeC">
-                                <rect key="frame" x="0.0" y="50" width="390" height="55.666667938232422"/>
+                                <rect key="frame" x="0.0" y="50" width="390" height="55"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dz3-47-MeC" id="nPn-9m-ahE">
-                                    <rect key="frame" x="0.0" y="0.0" width="390" height="55.666667938232422"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="390" height="55"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="z87-2B-BRC">
-                                            <rect key="frame" x="16" y="8.9999999999999982" width="33" height="20.333333333333332"/>
+                                            <rect key="frame" x="16" y="9.9999999999999982" width="33" height="20.333333333333332"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -4384,7 +4386,7 @@
                 <navigationController id="TPg-fQ-Bo1" customClass="NavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="97" systemItem="history" id="atB-MR-YSl"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ufd-Tv-UVd">
-                        <rect key="frame" x="0.0" y="94" width="390" height="44"/>
+                        <rect key="frame" x="0.0" y="94" width="390" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -4407,20 +4409,20 @@
                             <tableViewSection headerTitle="" id="L4z-P5-rkK">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Qba-lS-g7P">
-                                        <rect key="frame" x="0.0" y="50" width="390" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="50" width="390" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qba-lS-g7P" id="T6i-6X-LLA">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="51"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="POI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZs-K3-Uc0">
-                                                    <rect key="frame" x="20" y="11.333333333333336" width="27.666666666666671" height="21"/>
+                                                    <rect key="frame" x="20" y="15" width="27.666666666666671" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zov-Uf-3SE">
-                                                    <rect key="frame" x="55.666666666666657" y="5" width="314.33333333333337" height="34"/>
+                                                    <rect key="frame" x="55.666666666666657" y="8.6666666666666643" width="314.33333333333337" height="34"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
@@ -4438,7 +4440,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="232" id="a8p-83-MaA">
-                                        <rect key="frame" x="0.0" y="93.666667938232422" width="390" height="232"/>
+                                        <rect key="frame" x="0.0" y="101" width="390" height="232"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="a8p-83-MaA" id="aKH-cf-jXW">
                                             <rect key="frame" x="0.0" y="0.0" width="390" height="232"/>
@@ -4469,14 +4471,14 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="2ed-JJ-w7w">
-                                        <rect key="frame" x="0.0" y="325.66666793823242" width="390" height="43.666667938232422"/>
+                                        <rect key="frame" x="0.0" y="333" width="390" height="51"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2ed-JJ-w7w" id="nbh-kt-CGi">
-                                            <rect key="frame" x="0.0" y="0.0" width="390" height="43.666667938232422"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="390" height="51"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7BS-sH-tIQ">
-                                                    <rect key="frame" x="107.66666666666669" y="7" width="175" height="30"/>
+                                                    <rect key="frame" x="107.66666666666669" y="10.666666666666664" width="175" height="30"/>
                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                                     <state key="normal" title="Select from Photo Library"/>
                                                     <connections>

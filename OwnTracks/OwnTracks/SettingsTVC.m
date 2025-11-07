@@ -802,6 +802,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                 [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
             }
         }
+        
+        for (NSInteger section = 0; section < self.tableView.numberOfSections; section++) {
+            for (NSInteger row = 0; row < [self.tableView numberOfRowsInSection:section]; row++) {
+                NSTableViewCell
+            }
+        }
 
         // hide mode row if locked
         if (self.UImodeSwitch) {

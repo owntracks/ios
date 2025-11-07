@@ -1,6 +1,6 @@
 {
   "name": "mqttc",
-  "version": "18.0.4",
+  "version": "26.0.0",
   "summary": "iOS, macOS, watchOS and tvOS native ObjectiveC MQTT Client Framework",
   "homepage": "https://github.com/ckrey/mqttc",
   "license": {
@@ -12,15 +12,15 @@
   },
   "source": {
     "git": "https://github.com/ckrey/mqttc.git",
-    "tag": "18.0.4",
+    "tag": "26.0.0",
     "submodules": true
   },
   "requires_arc": true,
   "platforms": {
-    "ios": "16",
-    "osx": "13",
-    "tvos": "16",
-    "watchos": "9"
+    "ios": "17",
+    "osx": "14",
+    "tvos": "17",
+    "watchos": "10"
   },
   "default_subspecs": "Core",
   "subspecs": [
