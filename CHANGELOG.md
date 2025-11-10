@@ -1,6 +1,14 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 26.1.0 iOS/ipadOS
+* Release Date 2025-11-10
+
+** Bug Fixes and iOS 26 adpation
+
+    [NEW] adapt to XCode 26 - requires iOS 17 or later
+    [FIX] Settings options missing HTTP Mode #874
+
 ## OwnTracks 18.5.2 iOS/ipadOS
 * Release Date 2025-08-31
 
