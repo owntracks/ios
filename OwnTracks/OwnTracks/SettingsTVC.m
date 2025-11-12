@@ -523,18 +523,38 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                          inMOC:CoreData.sharedInstance.mainMOC];
         self.UIUserID.enabled = !locked;
     }
-    if (self.UIPassword) {
-        self.UIPassword.text =
-        [Settings stringForKey:@"pass_preference"
-                         inMOC:CoreData.sharedInstance.mainMOC];
-        self.UIPassword.enabled = !locked;
+    
+    if (self.UIAuth) {
+        self.UIAuth.on =
+        [Settings boolForKey:@"auth_preference"
+                       inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIAuth.enabled = !locked;
     }
+    
     if (self.UIUsePassword) {
         self.UIUsePassword.on =
         [Settings boolForKey:@"usepassword_preference"
                        inMOC:CoreData.sharedInstance.mainMOC];
         self.UIUsePassword.enabled = !locked;
+        if (self.UIAuth) {
+            self.UIUsePassword.enabled = !locked && self.UIAuth.on;
+        }
     }
+
+    if (self.UIPassword) {
+    }
+
+    if (self.UIPassword) {
+        self.UIPassword.text =
+        [Settings stringForKey:@"pass_preference"
+                         inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIPassword.enabled = !locked;
+        if (self.UIAuth && self.UIUsePassword) {
+            self.UIPassword.enabled = !locked && self.UIAuth.on && self.UIUsePassword.on;
+        }
+
+    }
+
     if (self.UIsecret) {
         self.UIsecret.text =
         [Settings stringForKey:@"secret_preference"
@@ -664,12 +684,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                        inMOC:CoreData.sharedInstance.mainMOC];
         self.UIWS.enabled = !locked;
     }
-    if (self.UIAuth) {
-        self.UIAuth.on =
-        [Settings boolForKey:@"auth_preference"
-                       inMOC:CoreData.sharedInstance.mainMOC];
-        self.UIAuth.enabled = !locked;
-    }
+
     if (self.UIranging) {
         self.UIranging.on =
         [Settings boolForKey:@"ranging_preference"
@@ -742,76 +757,6 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         self.UIOSMCopyright.text =
         [Settings theOSMCopyrightInMOC:CoreData.sharedInstance.mainMOC];
         self.UIOSMCopyright.enabled = !locked;
-    }
-
-    if (self.UImodeSwitch) {
-
-        int mode =
-        [Settings intForKey:@"mode"
-                      inMOC:CoreData.sharedInstance.mainMOC];
-
-        // hide MQTT related rows if not MQTT mode
-        NSArray <NSIndexPath *> *mqttPaths = @[
-            [NSIndexPath indexPathForRow:6 inSection:0], // host
-            [NSIndexPath indexPathForRow:7 inSection:0], // port / websockets
-            [NSIndexPath indexPathForRow:8 inSection:0], // protocol / tls
-            [NSIndexPath indexPathForRow:0 inSection:1], // subTopic
-            [NSIndexPath indexPathForRow:1 inSection:1], // clientId
-            [NSIndexPath indexPathForRow:10 inSection:1], // subQos
-            [NSIndexPath indexPathForRow:11 inSection:1], // keepAlive
-            [NSIndexPath indexPathForRow:12 inSection:1], // pubQos
-            [NSIndexPath indexPathForRow:19 inSection:1], // sub
-            [NSIndexPath indexPathForRow:21 inSection:1], // pubRetain
-            [NSIndexPath indexPathForRow:22 inSection:1] // cleanSession
-        ];
-
-        for (NSIndexPath *indexPath in mqttPaths) {
-            if ([self isRowVisible:indexPath] && mode != CONNECTION_MODE_MQTT) {
-                [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if (![self isRowVisible:indexPath] && mode == CONNECTION_MODE_MQTT) {
-                [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-        }
-
-        if (self.UIUserID) {
-            if (self.UIAuth) {
-                self.UIUserID.enabled = !locked;
-            }
-        }
-        if (self.UIUsePassword) {
-            if (self.UIAuth) {
-                self.UIUsePassword.enabled = !locked && self.UIAuth.on;
-            }
-        }
-        if (self.UIPassword) {
-            if (self.UIAuth) {
-                self.UIPassword.enabled = !locked && self.UIAuth.on && self.UIUsePassword.on;
-            }
-        }
-
-        // hide HTTP related rows if not in HTTP mode
-        NSArray <NSIndexPath *> *httpPaths = @[
-            [NSIndexPath indexPathForRow:13 inSection:0], // url
-            [NSIndexPath indexPathForRow:24 inSection:1] // httpHeaders
-        ];
-
-        for (NSIndexPath *indexPath in httpPaths) {
-            if ([self isRowVisible:indexPath] && mode != CONNECTION_MODE_HTTP) {
-                [self deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if (![self isRowVisible:indexPath] && mode == CONNECTION_MODE_HTTP) {
-                [self insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-        }
-
-        // hide mode row if locked
-        if (self.UImodeSwitch) {
-            NSIndexPath *modeIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-            if ([self isRowVisible:modeIndexPath] && locked) {
-                [self deleteRowsAtIndexPaths:@[modeIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            } else if (![self isRowVisible:modeIndexPath] && !locked) {
-                [self insertRowsAtIndexPaths:@[modeIndexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-            }
-        }
     }
 
     if (self.UITLS) {

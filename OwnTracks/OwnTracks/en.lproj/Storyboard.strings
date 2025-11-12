@@ -2,6 +2,9 @@
 /* Class = "UINavigationItem"; title = "Friends"; ObjectID = "03k-Ca-PSS"; */
 "03k-Ca-PSS.title" = "Friends";
 
+/* Class = "UILabel"; text = "days"; ObjectID = "0Eb-tP-jZe"; Note = "Don't translate, technical term"; */
+"0Eb-tP-jZe.text" = "days";
+
 /* Class = "UITextField"; placeholder = "Radius"; ObjectID = "0WN-ST-XQq"; Note = "Don't translate. Technical Term"; */
 "0WN-ST-XQq.placeholder" = "Radius";
 
@@ -53,6 +56,9 @@
 /* Class = "UIButton"; normalTitle = "Github"; ObjectID = "6ms-eE-0jF"; */
 "6ms-eE-0jF.normalTitle" = "Github";
 
+/* Class = "UIButton"; normalTitle = "Select from Photo Library"; ObjectID = "7BS-sH-tIQ"; */
+"7BS-sH-tIQ.normalTitle" = "Select from Photo Library";
+
 /* Class = "UINavigationItem"; title = "Tours"; ObjectID = "7Qj-vi-EaF"; */
 "7Qj-vi-EaF.title" = "Tours";
 
@@ -74,6 +80,9 @@
 /* Class = "UITableViewSection"; headerTitle = "Circular Region"; ObjectID = "7xg-sB-qXa"; */
 "7xg-sB-qXa.headerTitle" = "Circular Region";
 
+/* Class = "UILabel"; text = "Trigger"; ObjectID = "80F-rf-ecS"; */
+"80F-rf-ecS.text" = "Trigger";
+
 /* Class = "UINavigationItem"; title = "Waypoint"; ObjectID = "8DB-l4-Dop"; */
 "8DB-l4-Dop.title" = "Waypoint";
 
@@ -82,6 +91,12 @@
 
 /* Class = "UITableViewSection"; headerTitle = "Info"; ObjectID = "9tZ-tQ-x72"; */
 "9tZ-tQ-x72.headerTitle" = "Info";
+
+/* Class = "UILabel"; text = "Battery Level"; ObjectID = "ABs-5w-ixf"; */
+"ABs-5w-ixf.text" = "Battery Level";
+
+/* Class = "UILabel"; text = "Pressure"; ObjectID = "AFw-QA-oz1"; */
+"AFw-QA-oz1.text" = "Pressure";
 
 /* Class = "UITableViewSection"; headerTitle = "HTTP Mode"; ObjectID = "Ac4-3H-YRL"; */
 "Ac4-3H-YRL.headerTitle" = "HTTP Mode";
@@ -92,8 +107,20 @@
 /* Class = "UILabel"; text = "Passphrase"; ObjectID = "BTX-XN-kzE"; Note = "Don't translate, technical term"; */
 "BTX-XN-kzE.text" = "Passphrase";
 
+/* Class = "UILabel"; text = "MotionActivities"; ObjectID = "BxB-GS-7zQ"; */
+"BxB-GS-7zQ.text" = "MotionActivities";
+
 /* Class = "UILabel"; text = "Password"; ObjectID = "C1o-h4-z6h"; */
 "C1o-h4-z6h.text" = "Password";
+
+/* Class = "UILabel"; text = "adapt"; ObjectID = "CUu-az-qIs"; Note = "Don't translate, technical term"; */
+"CUu-az-qIs.text" = "adapt";
+
+/* Class = "UILabel"; text = "Image Name"; ObjectID = "CYj-Uw-Bhk"; */
+"CYj-Uw-Bhk.text" = "Image Name";
+
+/* Class = "UIButton"; normalTitle = "Export GPX"; ObjectID = "Cex-Jr-Uiu"; */
+"Cex-Jr-Uiu.normalTitle" = "Export GPX";
 
 /* Class = "UILabel"; text = "Latitude"; ObjectID = "Cuh-Tm-IcV"; */
 "Cuh-Tm-IcV.text" = "Latitude";
@@ -106,6 +133,9 @@
 
 /* Class = "UILabel"; text = "Port"; ObjectID = "EWI-7o-7Jo"; */
 "EWI-7o-7Jo.text" = "Port";
+
+/* Class = "UITextField"; placeholder = "minutes"; ObjectID = "FDy-XH-ARB"; Note = "Placeholder. Do not translate"; */
+"FDy-XH-ARB.placeholder" = "minutes";
 
 /* Class = "UILabel"; text = "Credits and Licence"; ObjectID = "FYQ-ba-bf8"; */
 "FYQ-ba-bf8.text" = "Credits and Licence";
@@ -122,6 +152,9 @@
 /* Class = "UINavigationItem"; title = "Certificates"; ObjectID = "GWL-01-fh1"; Note = "Don't translate, technical term"; */
 "GWL-01-fh1.title" = "Certificates";
 
+/* Class = "UITextField"; placeholder = "<Distance>"; ObjectID = "Gg9-jR-tgq"; Note = "Placeholder. Don't translate."; */
+"Gg9-jR-tgq.placeholder" = "<Distance>";
+
 /* Class = "UITableViewSection"; headerTitle = "OwnTracks - Your location companion"; ObjectID = "Gjb-Ud-8a8"; */
 "Gjb-Ud-8a8.headerTitle" = "OwnTracks - Your location companion";
 
@@ -136,6 +169,9 @@
 
 /* Class = "UITextView"; text = "<Parameters>"; ObjectID = "HQZ-wy-aC5"; Note = "Don't translate. Placeholder!"; */
 "HQZ-wy-aC5.text" = "<Parameters>";
+
+/* Class = "UILabel"; text = "Regions"; ObjectID = "HRd-i4-drH"; */
+"HRd-i4-drH.text" = "Regions";
 
 /* Class = "UITextField"; placeholder = "timestamp"; ObjectID = "HVH-Pt-DXp"; */
 "HVH-Pt-DXp.placeholder" = "timestamp";
@@ -191,11 +227,17 @@
 /* Class = "UITextField"; placeholder = "Meters"; ObjectID = "M0H-SF-pCO"; */
 "M0H-SF-pCO.placeholder" = "Meters";
 
+/* Class = "UITextField"; placeholder = "<number of track points>"; ObjectID = "MLm-qe-ecm"; Note = "Placeholder, do not translate"; */
+"MLm-qe-ecm.placeholder" = "<number of track points>";
+
 /* Class = "UILabel"; text = "Pressure"; ObjectID = "MLp-t9-oef"; */
 "MLp-t9-oef.text" = "Pressure";
 
 /* Class = "UITextView"; text = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, Sodium, and DSJSONSchemaValidation."; ObjectID = "Moe-Di-frm"; */
 "Moe-Di-frm.text" = "Uses the following cocoapods (http://cocoapods.org): CocoaLumberjack, ABStaticTableViewController, Sodium, and DSJSONSchemaValidation.";
+
+/* Class = "UITextField"; placeholder = "<batterylevel>"; ObjectID = "N2S-5K-ajg"; Note = "Placeholder. Do not translate"; */
+"N2S-5K-ajg.placeholder" = "<batterylevel>";
 
 /* Class = "UITableViewSection"; headerTitle = "Expert Mode"; ObjectID = "NRQ-7X-SLM"; */
 "NRQ-7X-SLM.headerTitle" = "Expert Mode";
@@ -209,8 +251,14 @@
 /* Class = "UILabel"; text = "positions"; ObjectID = "NkN-Ib-izC"; Note = "Don't translate, technical term"; */
 "NkN-Ib-izC.text" = "positions";
 
+/* Class = "UILabel"; text = "Image"; ObjectID = "OBg-Ct-0Aj"; */
+"OBg-Ct-0Aj.text" = "Image";
+
 /* Class = "UILabel"; text = "Subtitle"; ObjectID = "OIH-xB-QZe"; */
 "OIH-xB-QZe.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "Motion Activities"; ObjectID = "OWG-f7-FLn"; */
+"OWG-f7-FLn.text" = "Motion Activities";
 
 /* Class = "UINavigationItem"; title = "Map"; ObjectID = "OeB-EW-2jx"; */
 "OeB-EW-2jx.title" = "Map";
@@ -251,6 +299,9 @@
 /* Class = "UINavigationItem"; title = "Create Tour"; ObjectID = "SR5-Yo-l2L"; */
 "SR5-Yo-l2L.title" = "Create Tour";
 
+/* Class = "UITextField"; placeholder = "<Distance>"; ObjectID = "SUY-eb-SwY"; Note = "Placeholder. Don't translate."; */
+"SUY-eb-SwY.placeholder" = "<Distance>";
+
 /* Class = "UILabel"; text = "From"; ObjectID = "SZe-bR-3x5"; */
 "SZe-bR-3x5.text" = "From";
 
@@ -268,6 +319,9 @@
 
 /* Class = "UITextField"; placeholder = "minor"; ObjectID = "Tc6-JR-qOB"; */
 "Tc6-JR-qOB.placeholder" = "minor";
+
+/* Class = "UITableViewSection"; headerTitle = "Track"; ObjectID = "U6s-u3-Ajq"; */
+"U6s-u3-Ajq.headerTitle" = "Track";
 
 /* Class = "UILabel"; text = "Authentication"; ObjectID = "UjS-PQ-pwa"; */
 "UjS-PQ-pwa.text" = "Authentication";
@@ -293,6 +347,9 @@
 /* Class = "UITextField"; placeholder = "downgrade%"; ObjectID = "XkO-CT-wUS"; Note = "Placeholder. Do not translate"; */
 "XkO-CT-wUS.placeholder" = "downgrade%";
 
+/* Class = "UITextField"; placeholder = "number"; ObjectID = "Xom-Gk-dU5"; */
+"Xom-Gk-dU5.placeholder" = "number";
+
 /* Class = "UIButton"; normalTitle = "Publish Settings"; ObjectID = "YQ6-jA-Rsh"; */
 "YQ6-jA-Rsh.normalTitle" = "Publish Settings";
 
@@ -301,6 +358,9 @@
 
 /* Class = "UILabel"; text = "Coordinates"; ObjectID = "Ym9-bx-HAr"; */
 "Ym9-bx-HAr.text" = "Coordinates";
+
+/* Class = "UIButton"; normalTitle = "Navigate"; ObjectID = "Yuf-Fp-w12"; */
+"Yuf-Fp-w12.normalTitle" = "Navigate";
 
 /* Class = "UILabel"; text = "Coordinates"; ObjectID = "Yx0-Kk-yOQ"; */
 "Yx0-Kk-yOQ.text" = "Coordinates";
@@ -334,6 +394,12 @@
 
 /* Class = "UILabel"; text = "cmd"; ObjectID = "cTs-Rr-JTs"; Note = "Don't translate, technical term"; */
 "cTs-Rr-JTs.text" = "cmd";
+
+/* Class = "UILabel"; text = "Points"; ObjectID = "cUO-zP-KuY"; */
+"cUO-zP-KuY.text" = "Points";
+
+/* Class = "UITextField"; placeholder = "<Distance>"; ObjectID = "cYc-8p-mIM"; Note = "Placeholder. Don't translate."; */
+"cYc-8p-mIM.placeholder" = "<Distance>";
 
 /* Class = "UILabel"; text = "Tag"; ObjectID = "ch2-SH-JfC"; */
 "ch2-SH-JfC.text" = "Tag";
@@ -377,11 +443,11 @@
 /* Class = "UILabel"; text = "Version"; ObjectID = "g84-aA-XOI"; */
 "g84-aA-XOI.text" = "Version";
 
+/* Class = "UINavigationItem"; title = "Set POI with Image"; ObjectID = "gPt-L8-JdW"; */
+"gPt-L8-JdW.title" = "Set POI with Image";
+
 /* Class = "UILabel"; text = "Battery Status"; ObjectID = "gXA-0p-FKt"; */
 "gXA-0p-FKt.text" = "Battery Status";
-
-/* Class = "UILabel"; text = "Battery Level"; ObjectID = "ABs-5w-ixf"; */
-"ABs-5w-ixf.text" = "Battery Level";
 
 /* Class = "UILabel"; text = "pubTopicBase"; ObjectID = "gkR-ph-8W7"; Note = "Don't translate, technical term"; */
 "gkR-ph-8W7.text" = "pubTopicBase";
@@ -413,6 +479,9 @@
 /* Class = "UILabel"; text = "locatorInterval"; ObjectID = "hY6-k2-neH"; Note = "Don't translate, technical term"; */
 "hY6-k2-neH.text" = "locatorInterval";
 
+/* Class = "UILabel"; text = "POI"; ObjectID = "hZs-K3-Uc0"; */
+"hZs-K3-Uc0.text" = "POI";
+
 /* Class = "UIButton"; normalTitle = "Navigate"; ObjectID = "hcc-3n-8aC"; */
 "hcc-3n-8aC.normalTitle" = "Navigate";
 
@@ -430,6 +499,9 @@
 
 /* Class = "UITextField"; placeholder = "<Coordinates>"; ObjectID = "jwK-F1-3iE"; Note = "Placeholder. Don't translate."; */
 "jwK-F1-3iE.placeholder" = "<Coordinates>";
+
+/* Class = "UITextField"; placeholder = "<Distance>"; ObjectID = "k0E-xM-eKF"; Note = "Placeholder. Don't translate."; */
+"k0E-xM-eKF.placeholder" = "<Distance>";
 
 /* Class = "UILabel"; text = "Secret encryption key"; ObjectID = "lQx-Zr-z69"; */
 "lQx-Zr-z69.text" = "Secret encryption key";
@@ -485,6 +557,9 @@
 /* Class = "UILabel"; text = "Websockets"; ObjectID = "qg7-Fn-2Qr"; Note = "Don't translate, technical term"; */
 "qg7-Fn-2Qr.text" = "Websockets";
 
+/* Class = "UILabel"; text = "Monitoring"; ObjectID = "qzE-dw-Sbl"; */
+"qzE-dw-Sbl.text" = "Monitoring";
+
 /* Class = "UINavigationItem"; title = "Create Card"; ObjectID = "rJ2-2y-TWr"; */
 "rJ2-2y-TWr.title" = "Create Card";
 
@@ -500,6 +575,9 @@
 /* Class = "UITextField"; placeholder = "name"; ObjectID = "s1I-Ff-fYw"; */
 "s1I-Ff-fYw.placeholder" = "name";
 
+/* Class = "UILabel"; text = "Image"; ObjectID = "s8o-vR-msg"; */
+"s8o-vR-msg.text" = "Image";
+
 /* Class = "UILabel"; text = "Major"; ObjectID = "sZM-l3-N2o"; */
 "sZM-l3-N2o.text" = "Major";
 
@@ -514,6 +592,9 @@
 
 /* Class = "UIButton"; normalTitle = "Tours"; ObjectID = "tiK-11-lia"; */
 "tiK-11-lia.normalTitle" = "Tours";
+
+/* Class = "UILabel"; text = "Connection"; ObjectID = "tyE-Sj-AO8"; */
+"tyE-Sj-AO8.text" = "Connection";
 
 /* Class = "UILabel"; text = "DeviceID"; ObjectID = "uJc-pU-O6W"; Note = "Don't translate, technical term"; */
 "uJc-pU-O6W.text" = "DeviceID";

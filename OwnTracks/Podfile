@@ -6,7 +6,6 @@ platform :ios, '17.0'
 #pod 'mqttc/MinL', :git => 'https://github.com/ckrey/mqttc.git'
 pod 'mqttc/MinL', :path => '~/mqttc'
 
-pod 'ABStaticTableViewController', :git => 'https://github.com/k06a/ABStaticTableViewController.git'
 pod 'CocoaLumberjack'
 pod 'DSJSONSchemaValidation'
 pod 'Sodium'

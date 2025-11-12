@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ABStaticTableViewController.h"
 
-@interface SettingsTVC : ABStaticTableViewController <UIDocumentInteractionControllerDelegate, UITextFieldDelegate>
+@interface SettingsTVC : UITableViewController <UIDocumentInteractionControllerDelegate, UITextFieldDelegate>
 @end

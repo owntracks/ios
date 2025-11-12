@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ABStaticTableViewController.h"
 
-@interface StatusTVC : ABStaticTableViewController <UIDocumentInteractionControllerDelegate>
+@interface StatusTVC : UITableViewController <UIDocumentInteractionControllerDelegate>
 
 @end
