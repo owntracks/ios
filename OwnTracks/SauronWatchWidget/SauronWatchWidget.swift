@@ -8,15 +8,13 @@ import SwiftUI
 
 // MARK: - Shared data
 
-// On watchOS, widget extensions run in-process with the watch app during complication
-// rendering, so UserDefaults.standard is accessible directly.
 private struct WidgetData {
     let mode: String
     let queueDepth: Int
     let lastUpload: Date?
 
     static func load() -> WidgetData {
-        let d = UserDefaults.standard
+        let d = WatchWidgetDefaults.store
         return WidgetData(
             mode: d.string(forKey: "watch_tracking_mode") ?? "passive",
             queueDepth: d.integer(forKey: "widget_queue_depth"),
@@ -40,8 +38,7 @@ struct SauronTimelineProvider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<SauronEntry>) -> Void) {
         let data = WidgetData.load()
         let entry = SauronEntry(date: Date(), mode: data.mode, queueDepth: data.queueDepth, lastUpload: data.lastUpload)
-        // Refresh every 15 minutes; the app also calls WidgetCenter.shared.reloadAllTimelines on state change.
-        let next = Calendar.current.date(byAdding: .minute, value: 15, to: Date()) ?? Date()
+        let next = Calendar.current.date(byAdding: .minute, value: 5, to: Date()) ?? Date()
         completion(Timeline(entries: [entry], policy: .after(next)))
     }
 }
@@ -53,32 +50,78 @@ struct SauronEntry: TimelineEntry {
     let lastUpload: Date?
 }
 
-// MARK: - Complication views
+// MARK: - Complication helpers
 
-struct CircularView: View {
+/// Vector eye without GeometryReader (zero-sized in many watch complication slots).
+private struct DrawnSauronEye: View {
+    let isOpen: Bool
+
+    var body: some View {
+        ZStack {
+            if isOpen {
+                Ellipse()
+                    .strokeBorder(lineWidth: 2.5)
+                    .frame(width: 36, height: 18)
+                Capsule()
+                    .frame(width: 5, height: 16)
+            } else {
+                Capsule()
+                    .trim(from: 0.0, to: 0.5)
+                    .frame(width: 32, height: 32)
+                    .rotationEffect(.degrees(90))
+                    .offset(y: 2)
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .widgetAccentable()
+    }
+}
+
+private struct SauronComplicationEye: View {
     let entry: SauronEntry
-    @Environment(\.widgetRenderingMode) var renderingMode
+    var padding: CGFloat = 6
+    var showBuildStamp: Bool = false
+
     private var isActive: Bool { entry.mode == "active" }
 
     var body: some View {
         ZStack {
-            if renderingMode == .fullColor {
-                Image("SauronIcon")
-                    .resizable()
-                    .scaledToFill()
-                    .saturation(isActive ? 1 : 0)
-                    .opacity(isActive ? 1 : 0.55)
-                    .clipShape(Circle())
-            } else {
-                // Accented mode: mark the image so the system applies the face's tint color.
-                // Active = full opacity (vivid tinted eye), Passive = dimmed.
-                Image("SauronIcon")
-                    .resizable()
-                    .scaledToFill()
-                    .opacity(isActive ? 1 : 0.4)
-                    .clipShape(Circle())
-                    .widgetAccentable()
+            statusRing
+            DrawnSauronEye(isOpen: isActive)
+                .padding(padding)
+            if showBuildStamp {
+                VStack {
+                    HStack {
+                        Spacer()
+                        Text(WidgetBuildLabel.text)
+                            .font(.system(size: 7, weight: .bold).monospacedDigit())
+                            .minimumScaleFactor(0.5)
+                            .lineLimit(1)
+                    }
+                    Spacer()
+                }
+                .padding(2)
             }
+        }
+    }
+
+    @ViewBuilder
+    private var statusRing: some View {
+        Circle()
+            .stroke(lineWidth: isActive ? 3 : 1.5)
+            .opacity(isActive ? 1 : 0.35)
+            .widgetAccentable()
+    }
+}
+
+// MARK: - Complication views
+
+struct CircularView: View {
+    let entry: SauronEntry
+
+    var body: some View {
+        ZStack {
+            SauronComplicationEye(entry: entry, showBuildStamp: true)
             if entry.queueDepth > 0 {
                 VStack {
                     Spacer()
@@ -89,64 +132,36 @@ struct CircularView: View {
                 }
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
 struct CornerView: View {
     let entry: SauronEntry
-    @Environment(\.widgetRenderingMode) var renderingMode
     private var isActive: Bool { entry.mode == "active" }
 
     var body: some View {
-        if renderingMode == .fullColor {
-            Image("SauronIcon")
-                .resizable()
-                .scaledToFill()
-                .saturation(isActive ? 1 : 0)
-                .opacity(isActive ? 1 : 0.55)
-                .widgetLabel {
-                    Text(isActive ? "Active" : "Passive")
-                }
-        } else {
-            Image("SauronIcon")
-                .resizable()
-                .scaledToFill()
-                .opacity(isActive ? 1 : 0.4)
-                .widgetAccentable()
-                .widgetLabel {
-                    Text(isActive ? "Active" : "Passive")
-                }
-        }
+        SauronComplicationEye(entry: entry, padding: 4)
+            .widgetLabel {
+                Text("\(isActive ? "Active" : "Passive") · \(WidgetBuildLabel.text)")
+            }
     }
 }
 
 struct RectangularView: View {
     let entry: SauronEntry
-    @Environment(\.widgetRenderingMode) var renderingMode
     private var isActive: Bool { entry.mode == "active" }
 
     var body: some View {
         HStack(spacing: 6) {
-            if renderingMode == .fullColor {
-                Image("SauronIcon")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 28, height: 28)
-                    .clipShape(Circle())
-                    .saturation(isActive ? 1 : 0)
-                    .opacity(isActive ? 1 : 0.55)
-            } else {
-                Image("SauronIcon")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 28, height: 28)
-                    .clipShape(Circle())
-                    .opacity(isActive ? 1 : 0.4)
-                    .widgetAccentable()
-            }
+            SauronComplicationEye(entry: entry, padding: 4)
+                .frame(width: 28, height: 28)
             VStack(alignment: .leading, spacing: 1) {
                 Text(isActive ? "Active" : "Passive")
                     .font(.headline)
+                Text(WidgetBuildLabel.text)
+                    .font(.system(size: 8).monospacedDigit())
+                    .foregroundStyle(.secondary)
                 if let last = entry.lastUpload {
                     Text(last, style: .relative)
                         .font(.caption2)
@@ -172,10 +187,10 @@ struct InlineView: View {
     private var isActive: Bool { entry.mode == "active" }
 
     var body: some View {
-        Label {
-            Text(isActive ? "Active" : "Passive")
-        } icon: {
-            Image(systemName: isActive ? "eye.fill" : "eye.slash")
+        HStack(spacing: 3) {
+            DrawnSauronEye(isOpen: isActive)
+                .frame(width: 14, height: 14)
+            Text("\(isActive ? "Active" : "Passive") \(WidgetBuildLabel.text)")
         }
     }
 }
@@ -187,32 +202,36 @@ struct SauronWidgetEntryView: View {
     @Environment(\.widgetFamily) var family
 
     var body: some View {
-        switch family {
-        case .accessoryCircular:
-            CircularView(entry: entry)
-        case .accessoryCorner:
-            CornerView(entry: entry)
-        case .accessoryRectangular:
-            RectangularView(entry: entry)
-        case .accessoryInline:
-            InlineView(entry: entry)
-        default:
-            CircularView(entry: entry)
+        Group {
+            switch family {
+            case .accessoryCircular:
+                CircularView(entry: entry)
+            case .accessoryCorner:
+                CornerView(entry: entry)
+            case .accessoryRectangular:
+                RectangularView(entry: entry)
+            case .accessoryInline:
+                InlineView(entry: entry)
+            default:
+                CircularView(entry: entry)
+            }
         }
+        .containerBackground(.clear, for: .widget)
     }
 }
 
 // MARK: - Widget declaration
 
 struct SauronWatchWidget: Widget {
-    let kind = "SauronWatchWidget"
+    /// Bump kind when complication metadata or art changes so watchOS picks up a new entry.
+    let kind = "SauronComplicationV3"
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: SauronTimelineProvider()) { entry in
             SauronWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("OwnTracks")
-        .description("Tracking mode and queue status.")
+        .configurationDisplayName("Sauron Eye")
+        .description("Open eye + ring = active; closed = passive. Build on face.")
         .supportedFamilies([
             .accessoryCircular,
             .accessoryCorner,

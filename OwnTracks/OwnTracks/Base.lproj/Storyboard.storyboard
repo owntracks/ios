@@ -712,6 +712,37 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Watch-Webhook-Cell">
+                                        <rect key="frame" x="0.0" y="44.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Watch-Webhook-Cell" id="Watch-Webhook-Content">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Watch URL" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Watch-Webhook-Label">
+                                                    <rect key="frame" x="20" y="11.666666666666666" width="82" height="20.666666666666671"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="watch ingest webhook" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Watch-Webhook-Field">
+                                                    <rect key="frame" x="110" y="12.666666666666666" width="190" height="18.666666666666671"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="URL"/>
+                                                    <connections>
+                                                        <action selector="watchWebhookUrlChanged:" destination="nAk-La-kdM" eventType="editingChanged" id="Watch-Webhook-Action"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Watch-Webhook-Label" firstAttribute="leading" secondItem="Watch-Webhook-Content" secondAttribute="leading" constant="20" symbolic="YES" id="Watch-Webhook-Label-Lead"/>
+                                                <constraint firstAttribute="centerY" secondItem="Watch-Webhook-Label" secondAttribute="centerY" id="Watch-Webhook-Label-CenterY"/>
+                                                <constraint firstItem="Watch-Webhook-Field" firstAttribute="leading" secondItem="Watch-Webhook-Label" secondAttribute="trailing" constant="8" symbolic="YES" id="Watch-Webhook-Field-Lead"/>
+                                                <constraint firstAttribute="trailing" secondItem="Watch-Webhook-Field" secondAttribute="trailing" constant="20" symbolic="YES" id="Watch-Webhook-Field-Trail"/>
+                                                <constraint firstAttribute="centerY" secondItem="Watch-Webhook-Field" secondAttribute="centerY" id="Watch-Webhook-Field-CenterY"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="OIDC-Discovery-Cell">
                                         <rect key="frame" x="0.0" y="44.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
@@ -1861,6 +1892,7 @@
                         <outlet property="UIsubTopic" destination="suj-kA-G3U" id="ojd-rd-q75"/>
                         <outlet property="UItrackerid" destination="dUg-TH-IQ0" id="17R-jS-PUg"/>
                         <outlet property="UIurl" destination="pD2-Zj-Toq" id="sdO-19-1bJ"/>
+                        <outlet property="UIwatchWebhookUrl" destination="Watch-Webhook-Field" id="Watch-Webhook-Outlet"/>
                         <outlet property="UIwebappurl" destination="WebApp-URL-Field" id="WebApp-URL-Outlet"/>
                         <outlet property="UIoidcDiscoveryURL" destination="OIDC-Discovery-Field" id="OIDC-Discovery-Outlet"/>
                         <outlet property="UIoauthClientID" destination="OIDC-ClientID-Field" id="OIDC-ClientID-Outlet"/>

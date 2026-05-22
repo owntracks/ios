@@ -25,16 +25,26 @@ struct WatchHTTPConfig: Codable, Equatable {
     /// Optional OAuth refresh endpoint for `WatchOAuthRefresher` (future).
     var oauthRefreshURL: String?
     var oauthClientId: String?
+    /// Watch-specific ingest URL synced from iPhone `watch_webhook_url_preference`.
+    var watchWebhookURL: String?
+
+    /// Matches default in iOS `HTTP.plist` until phone sync delivers an override.
+    static let bundledWatchWebhookURL = "https://homeassistant.tlaska.com/api/webhook/applewatch"
 
     static var empty: WatchHTTPConfig {
-        WatchHTTPConfig(httpURL: "", authBasic: false, user: "user", pass: "", limitU: "user", limitD: "device", httpHeaderLines: "", trackerId: nil, deviceId: nil, publishTopic: nil, includeExtendedData: true, oauthRefreshURL: nil, oauthClientId: nil)
+        WatchHTTPConfig(httpURL: "", authBasic: false, user: "user", pass: "", limitU: "user", limitD: "device", httpHeaderLines: "", trackerId: nil, deviceId: nil, publishTopic: nil, includeExtendedData: true, oauthRefreshURL: nil, oauthClientId: nil, watchWebhookURL: nil)
     }
 
-    /// URL used for POSTs: watch override when set, otherwise iPhone `httpURL`.
+    /// URL used for POSTs: phone-synced watch webhook, else phone `httpURL`, else bundled default.
     var effectiveIngestURL: String {
-        let o = WatchTrackingPolicy.ingestURLOverride.trimmingCharacters(in: .whitespacesAndNewlines)
-        if !o.isEmpty { return o }
-        return httpURL
+        if let w = watchWebhookURL?.trimmingCharacters(in: .whitespacesAndNewlines), !w.isEmpty {
+            return w
+        }
+        let http = httpURL.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !http.isEmpty {
+            return http
+        }
+        return Self.bundledWatchWebhookURL
     }
 }
 

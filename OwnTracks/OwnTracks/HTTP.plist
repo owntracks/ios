@@ -12,6 +12,8 @@
 	<string></string>
 	<key>url_preference</key>
 	<string>https://host:port/path</string>
+	<key>watch_webhook_url_preference</key>
+	<string>https://homeassistant.tlaska.com/api/webhook/applewatch</string>
 	<key>auth_preference</key>
 	<false/>
 	<key>user_preference</key>

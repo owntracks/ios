@@ -28,10 +28,38 @@ final class WatchConfigStore: NSObject, ObservableObject {
         }
     }
 
+    /// Ask the iPhone for the latest HTTP + watch webhook settings.
+    func requestConfigFromPhone() {
+        guard WCSession.isSupported() else { return }
+        let session = WCSession.default
+        guard session.activationState == .activated else { return }
+
+        if !session.applicationContext.isEmpty {
+            applyFromPhone(session.applicationContext)
+        }
+
+        guard session.isReachable else {
+            DispatchQueue.main.async {
+                self.lastSyncMessage = "Phone not reachable"
+            }
+            return
+        }
+
+        session.sendMessage(["requestWatchConfig": true], replyHandler: { [weak self] reply in
+            DispatchQueue.main.async {
+                self?.applyFromPhone(reply)
+            }
+        }, errorHandler: { [weak self] error in
+            DispatchQueue.main.async {
+                self?.lastSyncMessage = "WC: \(error.localizedDescription)"
+            }
+        })
+    }
+
     func applyFromPhone(_ dict: [String: Any]) {
         let url = dict["httpURL"] as? String ?? ""
-        let override = WatchTrackingPolicy.ingestURLOverride.trimmingCharacters(in: .whitespacesAndNewlines)
-        if url.isEmpty && override.isEmpty {
+        let watchWebhook = dict["watchWebhookURL"] as? String ?? ""
+        if url.isEmpty && watchWebhook.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             lastSyncMessage = "No HTTP URL"
             return
         }
@@ -48,6 +76,7 @@ final class WatchConfigStore: NSObject, ObservableObject {
         let refresh = dict["oauthRefreshURL"] as? String
         let client = dict["oauthClientId"] as? String
 
+        let rawWebhook = watchWebhook.trimmingCharacters(in: .whitespacesAndNewlines)
         let c = WatchHTTPConfig(
             httpURL: url,
             authBasic: authBasic,
@@ -61,7 +90,8 @@ final class WatchConfigStore: NSObject, ObservableObject {
             publishTopic: rawTopic.flatMap { $0.isEmpty ? nil : $0 },
             includeExtendedData: ext,
             oauthRefreshURL: refresh,
-            oauthClientId: client
+            oauthClientId: client,
+            watchWebhookURL: rawWebhook.isEmpty ? nil : rawWebhook
         )
         config = c
         if let data = try? JSONEncoder().encode(c) {
@@ -80,6 +110,9 @@ extension WatchConfigStore: WCSessionDelegate {
                 self.lastSyncMessage = "WC active"
             }
             self.consumeContext(session)
+            if self.config.effectiveIngestURL.isEmpty {
+                self.requestConfigFromPhone()
+            }
         }
     }
 

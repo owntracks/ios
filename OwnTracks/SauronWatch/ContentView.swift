@@ -5,14 +5,13 @@
 
 import SwiftUI
 import CoreLocation
-import WidgetKit
 
 struct ContentView: View {
     @EnvironmentObject private var config: WatchConfigStore
     @EnvironmentObject private var tracker: WatchLocationTracker
     @EnvironmentObject private var scheduler: WatchUploadScheduler
 
-    @AppStorage("watch_tracking_mode") private var modeRaw: String = WatchTrackingMode.passive.rawValue
+    @AppStorage("watch_tracking_mode", store: WatchSharedDefaults.store) private var modeRaw: String = WatchTrackingMode.passive.rawValue
     @State private var sendNowBusy = false
     @State private var sendNowHint: String?
 
@@ -34,7 +33,7 @@ struct ContentView: View {
                     Button {
                         modeRaw = WatchTrackingMode.passive.rawValue
                         tracker.apply(mode: .passive)
-                        WidgetCenter.shared.reloadAllTimelines()
+                        WatchWidgetSync.reloadWidgetTimelines()
                     } label: {
                         Text("Passive").frame(maxWidth: .infinity)
                     }
@@ -44,7 +43,7 @@ struct ContentView: View {
                     Button {
                         modeRaw = WatchTrackingMode.active.rawValue
                         tracker.apply(mode: .active)
-                        WidgetCenter.shared.reloadAllTimelines()
+                        WatchWidgetSync.reloadWidgetTimelines()
                     } label: {
                         Text("Active").frame(maxWidth: .infinity)
                     }
@@ -143,6 +142,10 @@ struct ContentView: View {
                     Text(authLabel(tracker.authorization))
                         .font(.caption2)
                         .foregroundStyle(.secondary)
+
+                    Text(WatchAppVersion.label)
+                        .font(.system(size: 9))
+                        .foregroundStyle(.tertiary)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
@@ -151,13 +154,21 @@ struct ContentView: View {
         }
         .onAppear {
             tracker.apply(mode: mode)
+            config.requestConfigFromPhone()
+            WatchWidgetSync.reloadWidgetTimelines()
         }
     }
 
     private func displayPostURL(_ cfg: WatchHTTPConfig) -> String {
+        if let synced = cfg.watchWebhookURL, !synced.isEmpty {
+            return "Webhook: \(synced)"
+        }
         let u = cfg.effectiveIngestURL
-        if u.isEmpty { return "(need iPhone sync for auth)" }
-        return u
+        if u == WatchHTTPConfig.bundledWatchWebhookURL {
+            return "Webhook (default): \(u)"
+        }
+        if u.isEmpty { return "Open Sauron on iPhone → Settings" }
+        return "HTTP: \(u)"
     }
 
     private func authLabel(_ s: CLAuthorizationStatus) -> String {
@@ -169,6 +180,16 @@ struct ContentView: View {
         case .authorizedWhenInUse: return "when in use"
         @unknown default: return "unknown"
         }
+    }
+}
+
+/// Shown in the watch UI so you can confirm which build is installed on the watch.
+enum WatchAppVersion {
+    static var label: String {
+        let info = Bundle.main.infoDictionary
+        let version = info?["CFBundleShortVersionString"] as? String ?? "?"
+        let build = info?["CFBundleVersion"] as? String ?? "?"
+        return "v\(version) (\(build))"
     }
 }
 

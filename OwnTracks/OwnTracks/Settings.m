@@ -984,6 +984,25 @@ static NSString * const kOwnTracksNeedsWebProvisioningMigratedV1Key = @"owntrack
     return [Settings stringForKeyRaw:key inMOC:context];
 }
 
++ (NSString *)stringForKeyUsingPlistDefaultWhenEmpty:(NSString *)key
+                                              inMOC:(NSManagedObjectContext *)context {
+    NSString *value = [Settings stringForKeyRaw:key inMOC:context];
+    if (value.length) {
+        return value;
+    }
+    id object = ([SettingsDefaults theDefaults].httpDefaults)[key];
+    if (!object) {
+        object = ([SettingsDefaults theDefaults].mqttDefaults)[key];
+    }
+    if ([object isKindOfClass:[NSString class]]) {
+        return (NSString *)object;
+    }
+    if ([object isKindOfClass:[NSNumber class]]) {
+        return ((NSNumber *)object).stringValue;
+    }
+    return @"";
+}
+
 + (NSString *)stringForKeyRaw:(NSString *)key
                         inMOC:(NSManagedObjectContext *)context {
     __block NSString *value = nil;

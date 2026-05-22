@@ -16,7 +16,7 @@ enum WatchTrackingMode: String, CaseIterable {
 enum WatchTrackingPolicy {
     /// When non-empty, location POSTs use this URL instead of the HTTP URL synced from iPhone
     /// (e.g. separate Home Assistant webhook for watch).
-    static let ingestURLOverride = "https://homeassistant.tlaska.com/api/webhook/applewatch"
+    static let ingestURLOverride = ""
 
     /// Passive: coarse updates, best-effort background behavior.
     static let passiveDesiredAccuracy = kCLLocationAccuracyHundredMeters

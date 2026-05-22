@@ -36,6 +36,9 @@ typedef NS_ENUM(int, ConnectionMode) {
 
 + (NSString * _Nullable)stringForKey:(NSString * _Nonnull)key 
                                inMOC:(NSManagedObjectContext * _Nonnull)context;
+/// Stored value when non-empty; otherwise bundled `HTTP.plist` / `MQTT.plist` default for `key`.
++ (NSString * _Nonnull)stringForKeyUsingPlistDefaultWhenEmpty:(NSString * _Nonnull)key
+                                                       inMOC:(NSManagedObjectContext * _Nonnull)context;
 + (int)intForKey:(NSString * _Nonnull)key
            inMOC:(NSManagedObjectContext * _Nonnull)context;
 + (double)doubleForKey:(NSString * _Nonnull)key

@@ -45,6 +45,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *UIpublish;
 @property (weak, nonatomic) IBOutlet UITextField *UIsecret;
 @property (weak, nonatomic) IBOutlet UITextField *UIurl;
+@property (weak, nonatomic) IBOutlet UITextField *UIwatchWebhookUrl;
 @property (weak, nonatomic) IBOutlet UITextField *UIwebappurl;
 @property (weak, nonatomic) IBOutlet UITextField *UIoidcDiscoveryURL;
 @property (weak, nonatomic) IBOutlet UITextField *UIoauthClientID;
@@ -152,6 +153,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     self.UIDeviceID.delegate = self;
     self.UIpassphrase.delegate = self;
     self.UIurl.delegate = self;
+    self.UIwatchWebhookUrl.delegate = self;
     self.UIwebappurl.delegate = self;
     self.UIhttpHeaders.delegate = self;
     self.UIOSMTemplate.delegate = self;
@@ -189,7 +191,8 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                                object:nil];
 
     [self updated];
-    
+    [[OwnTracksWatchBridge shared] pushConfigToWatchIfNeeded];
+
     self.warningShown = FALSE;
 }
 
@@ -424,6 +427,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     if (self.UIurl)
         [Settings setString:self.UIurl.text
                      forKey:@"url_preference"
+                      inMOC:CoreData.sharedInstance.mainMOC];
+    if (self.UIwatchWebhookUrl)
+        [Settings setString:self.UIwatchWebhookUrl.text
+                     forKey:@"watch_webhook_url_preference"
                       inMOC:CoreData.sharedInstance.mainMOC];
 
     if (self.UIwebappurl)
@@ -860,6 +867,12 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
         [Settings stringForKey:@"url_preference"
                          inMOC:CoreData.sharedInstance.mainMOC];
         self.UIurl.enabled = !locked;
+    }
+    if (self.UIwatchWebhookUrl) {
+        self.UIwatchWebhookUrl.text =
+        [Settings stringForKeyUsingPlistDefaultWhenEmpty:@"watch_webhook_url_preference"
+                                                   inMOC:CoreData.sharedInstance.mainMOC];
+        self.UIwatchWebhookUrl.enabled = !locked;
     }
 
     if (self.UIwebappurl) {
@@ -1320,6 +1333,10 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
     [self updated];
 }
 - (IBAction)urlChanged:(UITextField *)sender {
+    [self changeWarning];
+}
+- (IBAction)watchWebhookUrlChanged:(UITextField *)sender {
+    [self updateValues];
     [self changeWarning];
 }
 - (IBAction)webappurlChanged:(UITextField *)sender {
