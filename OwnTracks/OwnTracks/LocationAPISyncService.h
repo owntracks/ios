@@ -64,7 +64,7 @@ FOUNDATION_EXPORT NSNotificationName _Nonnull const OwnTracksLocationMQTTAllowli
 @property (nonatomic) NSInteger take;
 @end
 
-/// One device returned by `GET /api/users/devices`. Used as the source of identity for dashcam queries.
+/// One device returned by `GET /api/users/devices`, or derived from dashcam clip payloads for filter chips.
 @interface OTWebDeviceItem : NSObject
 @property (nonatomic) NSInteger deviceId;
 @property (nonatomic, copy, nullable) NSString *topicId;
@@ -79,7 +79,7 @@ FOUNDATION_EXPORT NSNotificationName _Nonnull const OwnTracksLocationMQTTAllowli
 @property (nonatomic, copy, nullable) NSString *fileName;
 @end
 
-/// A single dashcam clip from `GET /api/dashcam/clips`.
+/// A single dashcam clip from `GET /api/dashcam/clips`. Includes `deviceId`, `owner` (`user`), and `device` on each clip.
 @interface OTDashcamClipItem : NSObject
 @property (nonatomic) NSInteger deviceId;
 @property (nonatomic, copy, nullable) NSString *owner;
@@ -240,12 +240,18 @@ FOUNDATION_EXPORT NSNotificationName _Nonnull const OwnTracksLocationMQTTAllowli
                            sandbox:(BOOL)sandbox
                         completion:(void (^)(NSError * _Nullable error))completion;
 
-/// GET `/api/users/devices?includeAllForAdmin=true` — admin-only device inventory used as the dashcam device picker source.
+/// GET `/api/users/devices?includeAllForAdmin=true` — admin-only device inventory.
 - (void)fetchUsersDevicesIncludeAllForAdmin:(BOOL)includeAllForAdmin
                                  completion:(void (^)(NSArray<OTWebDeviceItem *> * _Nullable devices,
                                                       NSError * _Nullable error))completion;
 
-/// GET `/api/dashcam/clips?deviceId=&from=&to=` for one device. Returned items are populated with `owner`/`device`/`deviceId` from the response envelope. Completion is invoked on an arbitrary background thread.
+/// GET `/api/dashcam/clips?from=&to=` for all accessible devices. Each clip includes `deviceId`, `user`, and `device`. Results are cached in-memory by window; completion is on an arbitrary background thread.
+- (void)fetchDashcamClipsFromUnix:(NSInteger)fromUnix
+                           toUnix:(NSInteger)toUnix
+                       completion:(void (^)(NSArray<OTDashcamClipItem *> * _Nullable clips,
+                                            NSError * _Nullable error))completion;
+
+/// GET `/api/dashcam/clips?deviceId=&from=&to=` for one device (legacy envelope). Completion is on an arbitrary background thread.
 - (void)fetchDashcamClipsForDeviceId:(NSInteger)deviceId
                             fromUnix:(NSInteger)fromUnix
                               toUnix:(NSInteger)toUnix

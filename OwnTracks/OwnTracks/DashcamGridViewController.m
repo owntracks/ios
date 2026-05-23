@@ -153,7 +153,6 @@ typedef NS_ENUM(NSInteger, OTDashcamReasonFilter) {
 @property (nonatomic, strong, nullable) NSNumber *deviceFilterId;
 
 @property (nonatomic) NSTimeInterval windowSeconds;
-@property (nonatomic) NSInteger pendingDeviceFetches;
 
 @property (nonatomic, strong) NSCache<NSString *, UIImage *> *thumbCache;
 @property (nonatomic, strong) NSCache<NSString *, UIImage *> *deviceImageCache;
@@ -416,86 +415,81 @@ typedef NS_ENUM(NSInteger, OTDashcamReasonFilter) {
 
 #pragma mark - Data loading
 
+- (NSArray<OTWebDeviceItem *> *)devicesFromClips:(NSArray<OTDashcamClipItem *> *)clips {
+    NSMutableDictionary<NSNumber *, OTWebDeviceItem *> *byId = [NSMutableDictionary dictionary];
+    for (OTDashcamClipItem *clip in clips) {
+        if (clip.deviceId <= 0) {
+            continue;
+        }
+        NSNumber *key = @(clip.deviceId);
+        if (byId[key]) {
+            continue;
+        }
+        OTWebDeviceItem *item = [[OTWebDeviceItem alloc] init];
+        item.deviceId = clip.deviceId;
+        item.ownerName = clip.owner;
+        item.deviceName = clip.device;
+        if (clip.owner.length > 0 && clip.device.length > 0) {
+            item.topicId = [NSString stringWithFormat:@"%@/%@", clip.owner, clip.device];
+        }
+        byId[key] = item;
+    }
+    return [byId.allValues sortedArrayUsingComparator:^NSComparisonResult(OTWebDeviceItem *a, OTWebDeviceItem *b) {
+        NSString *aName = a.deviceName ?: a.topicId ?: @"";
+        NSString *bName = b.deviceName ?: b.topicId ?: @"";
+        return [aName localizedCaseInsensitiveCompare:bName];
+    }];
+}
+
 - (void)reloadAll {
     [self.refreshControl beginRefreshing];
     self.emptyLabel.hidden = YES;
-    if (self.devices.count == 0) {
+    if (self.allClips.count == 0) {
         [self.loadingIndicator startAnimating];
     }
+    NSTimeInterval now = [NSDate date].timeIntervalSince1970;
+    NSInteger to = (NSInteger)now;
+    NSInteger from = (NSInteger)(now - self.windowSeconds);
     __weak typeof(self) wself = self;
-    [[LocationAPISyncService sharedInstance] fetchUsersDevicesIncludeAllForAdmin:YES
-                                                                      completion:^(NSArray<OTWebDeviceItem *> * _Nullable devices, NSError * _Nullable error) {
+    [[LocationAPISyncService sharedInstance] fetchDashcamClipsFromUnix:from
+                                                                toUnix:to
+                                                            completion:^(NSArray<OTDashcamClipItem *> * _Nullable clips, NSError * _Nullable error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             __strong typeof(wself) sself = wself;
             if (!sself) {
                 return;
             }
-            if (error || !devices) {
-                [sself.refreshControl endRefreshing];
-                [sself.loadingIndicator stopAnimating];
-                DDLogWarn(@"[Dashcam] devices fetch failed: %@", error.localizedDescription);
-                sself.emptyLabel.text = @"Could not load devices.";
+            [sself.refreshControl endRefreshing];
+            [sself.loadingIndicator stopAnimating];
+            if (error || !clips) {
+                DDLogWarn(@"[Dashcam] clips fetch failed: %@", error.localizedDescription);
+                sself.allClips = @[];
+                sself.devices = @[];
+                sself.deviceFilterId = nil;
+                [sself updateFilterChips];
+                [sself applyFilters];
+                sself.emptyLabel.text = @"Could not load dashcam events.";
                 sself.emptyLabel.hidden = NO;
                 return;
             }
-            sself.devices = devices;
-            [sself updateFilterChips];
-            [sself fetchClipsForAllDevices];
-        });
-    }];
-}
-
-- (void)fetchClipsForAllDevices {
-    NSTimeInterval now = [NSDate date].timeIntervalSince1970;
-    NSInteger to = (NSInteger)now;
-    NSInteger from = (NSInteger)(now - self.windowSeconds);
-    NSMutableArray<OTDashcamClipItem *> *aggregate = [NSMutableArray array];
-    NSArray<OTWebDeviceItem *> *snapshot = [self.devices copy];
-    if (snapshot.count == 0) {
-        [self.refreshControl endRefreshing];
-        [self.loadingIndicator stopAnimating];
-        self.allClips = @[];
-        [self applyFilters];
-        self.emptyLabel.text = @"No accessible devices found.";
-        self.emptyLabel.hidden = NO;
-        return;
-    }
-    self.pendingDeviceFetches = (NSInteger)snapshot.count;
-    __weak typeof(self) wself = self;
-    for (OTWebDeviceItem *device in snapshot) {
-        [[LocationAPISyncService sharedInstance] fetchDashcamClipsForDeviceId:device.deviceId
-                                                                      fromUnix:from
-                                                                        toUnix:to
-                                                                    completion:^(NSArray<OTDashcamClipItem *> * _Nullable clips, NSError * _Nullable error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                __strong typeof(wself) sself = wself;
-                if (!sself) {
-                    return;
-                }
-                if (clips.count > 0) {
-                    @synchronized (aggregate) {
-                        [aggregate addObjectsFromArray:clips];
+            sself.allClips = clips;
+            sself.devices = [sself devicesFromClips:clips];
+            if (sself.deviceFilterId) {
+                BOOL stillPresent = NO;
+                for (OTWebDeviceItem *device in sself.devices) {
+                    if (device.deviceId == sself.deviceFilterId.integerValue) {
+                        stillPresent = YES;
+                        break;
                     }
                 }
-                if (error) {
-                    DDLogVerbose(@"[Dashcam] clips fetch failed for device %ld: %@", (long)device.deviceId, error.localizedDescription);
+                if (!stillPresent) {
+                    sself.deviceFilterId = nil;
                 }
-                sself.pendingDeviceFetches--;
-                if (sself.pendingDeviceFetches <= 0) {
-                    [sself.refreshControl endRefreshing];
-                    [sself.loadingIndicator stopAnimating];
-                    NSArray<OTDashcamClipItem *> *sorted = [aggregate sortedArrayUsingComparator:^NSComparisonResult(OTDashcamClipItem *a, OTDashcamClipItem *b) {
-                        if (a.eventUnixTimestamp == b.eventUnixTimestamp) {
-                            return NSOrderedSame;
-                        }
-                        return a.eventUnixTimestamp > b.eventUnixTimestamp ? NSOrderedAscending : NSOrderedDescending;
-                    }];
-                    sself.allClips = sorted;
-                    [sself applyFilters];
-                }
-            });
-        }];
-    }
+            }
+            [sself updateFilterChips];
+            [sself applyFilters];
+        });
+    }];
 }
 
 - (void)applyFilters {

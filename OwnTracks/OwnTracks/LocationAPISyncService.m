@@ -386,6 +386,11 @@ static NSArray<NSDictionary *> *OTExtractRouteHistoryPointsFromJSONData(NSData *
 @property (nonatomic, copy, nullable) NSArray<OTWebLocationItem *> *lastGeolocationCacheItems;
 @property (nonatomic, strong, nullable) NSDate *lastSuccessfulGeolocationCacheFetchDate;
 @property (nonatomic) BOOL geolocationCacheFetchInFlight;
+/// Last successful bulk `GET /api/dashcam/clips?from=&to=` (main thread only).
+@property (nonatomic, copy, nullable) NSArray<OTDashcamClipItem *> *lastDashcamClips;
+@property (nonatomic) NSInteger lastDashcamFromUnix;
+@property (nonatomic) NSInteger lastDashcamToUnix;
+@property (nonatomic) BOOL dashcamClipsFetchInFlight;
 /// From `GET /api/authorization/user` (main thread only).
 @property (nonatomic) BOOL authorizationUserProfileLoaded;
 @property (nonatomic) BOOL authorizationUserIsAdmin;
@@ -1036,6 +1041,10 @@ static NSArray<NSDictionary *> *OTExtractRouteHistoryPointsFromJSONData(NSData *
         sself.authorizationUserCanViewRouteHistory = YES;
         sself.authAPIHomeZoneId = nil;
         sself.authAPIWorkZoneId = nil;
+        sself.lastDashcamClips = nil;
+        sself.lastDashcamFromUnix = 0;
+        sself.lastDashcamToUnix = 0;
+        sself.dashcamClipsFetchInFlight = NO;
         [[NSNotificationCenter defaultCenter] postNotificationName:OwnTracksCurrentUserProfileDidUpdateNotification
                                                               object:sself];
         [[NSNotificationCenter defaultCenter] postNotificationName:OwnTracksLocationMQTTAllowlistDidUpdateNotification
@@ -2854,9 +2863,16 @@ static OTDashcamClipItem *OTDashcamClipItemFromDictionary(NSDictionary *dict,
     }
     OTDashcamClipItem *item = [[OTDashcamClipItem alloc] init];
     item.clipId = clipId;
-    item.deviceId = envelopeDeviceId;
-    item.owner = envelopeUser;
-    item.device = envelopeDevice;
+    NSNumber *clipDeviceIdNum = OTDashcamSafeNumber(dict[@"deviceId"]);
+    if (clipDeviceIdNum) {
+        item.deviceId = clipDeviceIdNum.integerValue;
+    } else if (envelopeDeviceId > 0) {
+        item.deviceId = envelopeDeviceId;
+    }
+    NSString *clipUser = OTDashcamSafeString(dict[@"user"]);
+    item.owner = clipUser.length > 0 ? clipUser : envelopeUser;
+    NSString *clipDeviceName = OTDashcamSafeString(dict[@"device"]);
+    item.device = clipDeviceName.length > 0 ? clipDeviceName : envelopeDevice;
     item.eventFolderName = OTDashcamSafeString(dict[@"eventFolderName"]);
     NSNumber *ts = OTDashcamSafeNumber(dict[@"eventUnixTimestamp"]);
     item.eventUnixTimestamp = ts ? ts.doubleValue : 0.0;
@@ -2893,6 +2909,108 @@ static OTDashcamClipItem *OTDashcamClipItemFromDictionary(NSDictionary *dict,
     }
     item.cameras = [cams copy];
     return item;
+}
+
+static NSArray<OTDashcamClipItem *> *OTDashcamClipsSortedByEventDesc(NSArray<OTDashcamClipItem *> *clips) {
+    return [clips sortedArrayUsingComparator:^NSComparisonResult(OTDashcamClipItem *a, OTDashcamClipItem *b) {
+        if (a.eventUnixTimestamp == b.eventUnixTimestamp) {
+            return NSOrderedSame;
+        }
+        return a.eventUnixTimestamp > b.eventUnixTimestamp ? NSOrderedAscending : NSOrderedDescending;
+    }];
+}
+
+- (void)fetchDashcamClipsFromUnix:(NSInteger)fromUnix
+                           toUnix:(NSInteger)toUnix
+                       completion:(void (^)(NSArray<OTDashcamClipItem *> * _Nullable, NSError * _Nullable))completion {
+    NSManagedObjectContext *mainMOC = CoreData.sharedInstance.mainMOC;
+    __block NSURL *url = nil;
+    [mainMOC performBlockAndWait:^{
+        url = [WebAppURLResolver dashcamClipsAPIRequestURLFromPreferenceInMOC:mainMOC
+                                                                     fromUnix:fromUnix
+                                                                       toUnix:toUnix];
+    }];
+    if (!url) {
+        completion(nil, [NSError errorWithDomain:@"LocationAPISyncService"
+                                            code:1
+                                        userInfo:@{NSLocalizedDescriptionKey: @"No web app origin"}]);
+        return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.dashcamClipsFetchInFlight = YES;
+    });
+    __weak typeof(self) wself = self;
+    [self performAuthenticatedGET:url completion:^(NSData * _Nullable data, NSError * _Nullable error) {
+        void (^finish)(NSArray<OTDashcamClipItem *> * _Nullable, NSError * _Nullable) = ^(NSArray<OTDashcamClipItem *> *clips, NSError *err) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                __strong typeof(wself) sself = wself;
+                if (sself) {
+                    sself.dashcamClipsFetchInFlight = NO;
+                }
+            });
+            if (completion) {
+                completion(clips, err);
+            }
+        };
+        if (error) {
+            finish(nil, error);
+            return;
+        }
+        if (!data.length) {
+            NSArray<OTDashcamClipItem *> *empty = @[];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                __strong typeof(wself) sself = wself;
+                if (sself) {
+                    sself.lastDashcamClips = empty;
+                    sself.lastDashcamFromUnix = fromUnix;
+                    sself.lastDashcamToUnix = toUnix;
+                }
+            });
+            finish(empty, nil);
+            return;
+        }
+        NSError *jsonErr = nil;
+        id obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:&jsonErr];
+        if (jsonErr || ![obj isKindOfClass:[NSDictionary class]]) {
+            DDLogWarn(@"[Dashcam] bulk clips parse error: %@", jsonErr.localizedDescription);
+            finish(nil, jsonErr ?: [NSError errorWithDomain:@"LocationAPISyncService"
+                                                       code:2
+                                                   userInfo:@{NSLocalizedDescriptionKey: @"Bad clip payload"}]);
+            return;
+        }
+        NSDictionary *root = (NSDictionary *)obj;
+        id clipsRaw = root[@"clips"];
+        if (![clipsRaw isKindOfClass:[NSArray class]]) {
+            NSArray<OTDashcamClipItem *> *empty = @[];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                __strong typeof(wself) sself = wself;
+                if (sself) {
+                    sself.lastDashcamClips = empty;
+                    sself.lastDashcamFromUnix = fromUnix;
+                    sself.lastDashcamToUnix = toUnix;
+                }
+            });
+            finish(empty, nil);
+            return;
+        }
+        NSMutableArray<OTDashcamClipItem *> *out = [NSMutableArray array];
+        for (id entry in (NSArray *)clipsRaw) {
+            OTDashcamClipItem *clip = OTDashcamClipItemFromDictionary(entry, 0, nil, nil);
+            if (clip) {
+                [out addObject:clip];
+            }
+        }
+        NSArray<OTDashcamClipItem *> *sorted = OTDashcamClipsSortedByEventDesc([out copy]);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            __strong typeof(wself) sself = wself;
+            if (sself) {
+                sself.lastDashcamClips = sorted;
+                sself.lastDashcamFromUnix = fromUnix;
+                sself.lastDashcamToUnix = toUnix;
+            }
+        });
+        finish(sorted, nil);
+    }];
 }
 
 - (void)fetchUsersDevicesIncludeAllForAdmin:(BOOL)includeAllForAdmin

@@ -2,9 +2,9 @@
 //  DashcamGridViewController.h
 //  OwnTracks
 //
-//  Admin-only Dash Cam tab: fetches `/api/users/devices?includeAllForAdmin=true`,
-//  then `/api/dashcam/clips` per accessible device in a sliding time window, and
-//  merges the results into a single grid sorted by event time descending.
+//  Admin-only Dash Cam tab: fetches `/api/dashcam/clips?from=&to=` once per time
+//  window, caches clips in LocationAPISyncService, derives device filter chips from
+//  clips that have footage, and filters client-side by reason and device.
 //
 
 #import <UIKit/UIKit.h>

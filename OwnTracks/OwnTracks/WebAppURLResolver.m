@@ -264,6 +264,23 @@
 }
 
 + (nullable NSURL *)dashcamClipsAPIRequestURLFromPreferenceInMOC:(NSManagedObjectContext *)moc
+                                                       fromUnix:(NSInteger)fromUnix
+                                                         toUnix:(NSInteger)toUnix {
+    NSURL *origin = [self webAppOriginURLFromPreferenceInMOC:moc];
+    if (!origin) {
+        return nil;
+    }
+    NSURLComponents *c = [NSURLComponents componentsWithURL:origin resolvingAgainstBaseURL:NO];
+    c.path = @"/api/dashcam/clips";
+    c.queryItems = @[
+        [NSURLQueryItem queryItemWithName:@"from" value:[NSString stringWithFormat:@"%ld", (long)fromUnix]],
+        [NSURLQueryItem queryItemWithName:@"to" value:[NSString stringWithFormat:@"%ld", (long)toUnix]],
+    ];
+    c.fragment = nil;
+    return c.URL;
+}
+
++ (nullable NSURL *)dashcamClipsAPIRequestURLFromPreferenceInMOC:(NSManagedObjectContext *)moc
                                                         deviceId:(NSInteger)deviceId
                                                        fromUnix:(NSInteger)fromUnix
                                                          toUnix:(NSInteger)toUnix {

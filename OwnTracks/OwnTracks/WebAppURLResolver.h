@@ -68,7 +68,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable NSURL *)usersDevicesAPIRequestURLFromPreferenceInMOC:(NSManagedObjectContext *)moc
                                               includeAllForAdmin:(BOOL)includeAllForAdmin;
 
-/// GET {origin}/api/dashcam/clips?deviceId=&from=&to=
+/// GET {origin}/api/dashcam/clips?from=&to= (all accessible devices).
++ (nullable NSURL *)dashcamClipsAPIRequestURLFromPreferenceInMOC:(NSManagedObjectContext *)moc
+                                                       fromUnix:(NSInteger)fromUnix
+                                                         toUnix:(NSInteger)toUnix;
+
+/// GET {origin}/api/dashcam/clips?deviceId=&from=&to= (single device; legacy).
 + (nullable NSURL *)dashcamClipsAPIRequestURLFromPreferenceInMOC:(NSManagedObjectContext *)moc
                                                         deviceId:(NSInteger)deviceId
                                                        fromUnix:(NSInteger)fromUnix
