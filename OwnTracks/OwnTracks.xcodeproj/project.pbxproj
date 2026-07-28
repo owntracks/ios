@@ -29,6 +29,7 @@
 		8411B88E189FE9940019D2D6 /* Connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B88D189FE9940019D2D6 /* Connection.m */; };
 		8411B891189FE9CE0019D2D6 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 8411B890189FE9CE0019D2D6 /* Settings.m */; };
 		8411B8E1189FEB790019D2D6 /* Location.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 8411B8AE189FEB790019D2D6 /* Location.gpx */; };
+		841A1289301885A8003ED05C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841A1288301885A8003ED05C /* SceneDelegate.swift */; };
 		841D3523209C5DDF0084FCD0 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841D3522209C5DDF0084FCD0 /* UserNotifications.framework */; };
 		841D3525209C74E70084FCD0 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841D3524209C74E60084FCD0 /* Contacts.framework */; };
 		8422AF681AF825C7008932A2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8422AF671AF825C7008932A2 /* SystemConfiguration.framework */; };
@@ -189,6 +190,7 @@
 		8411B890189FE9CE0019D2D6 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		8411B8AE189FEB790019D2D6 /* Location.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Location.gpx; path = assets/Location.gpx; sourceTree = "<group>"; };
 		84195B201ABCBC9400A9FA97 /* Model 7.5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.5.xcdatamodel"; sourceTree = "<group>"; };
+		841A1288301885A8003ED05C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		841D1A231C8AF70900DC5765 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		841D1A251C8AF72000DC5765 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		841D1A261C8AF7C600DC5765 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -619,6 +621,7 @@
 		846FFA491B40A301001482A6 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				841A1288301885A8003ED05C /* SceneDelegate.swift */,
 				846EFA3A2F6ABED20088232B /* TabBarController.swift */,
 				846EFA3E2F6BECDF0088232B /* NavigationController.swift */,
 				84DB101F2F6C41D500DF0651 /* ViewController.swift */,
@@ -959,6 +962,7 @@
 				84AFD40B2434486200F1E922 /* OwnTracking.m in Sources */,
 				8411B891189FE9CE0019D2D6 /* Settings.m in Sources */,
 				845299E71DFA004000A4DC21 /* Friend+CoreDataClass.m in Sources */,
+				841A1289301885A8003ED05C /* SceneDelegate.swift in Sources */,
 				8411B88E189FE9940019D2D6 /* Connection.m in Sources */,
 				845451B13002865F00AF9FCE /* OwnTracksFormatter.swift in Sources */,
 				846EFA3B2F6ABED20088232B /* TabBarController.swift in Sources */,

@@ -51,4 +51,6 @@
 - (void)terminateSession;
 - (void)syncProcessing;
 
+- (BOOL)openURL:(nullable NSURL *)url;
+
 @end

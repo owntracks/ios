@@ -268,6 +268,10 @@
            openURL:(NSURL *)url
            options:(NSDictionary<NSString *,id> *)options {
     OwnTracksLogDefault("[OwnTracksAppDelegate] openURL %@ options %@", url, options);
+    return [self openURL:url];
+}
+
+- (BOOL)openURL:(NSURL *)url {
     if (url) {
         OwnTracksLogDebug("[OwnTracksAppDelegate] URL scheme %@", url.scheme);
         
@@ -1140,7 +1144,7 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
                             OwnTracksLogError("[OwnTracksAppDelegate] remote cmd not allowed");
                         }
                     } else {
-                        OwnTracksLogError("[OwnTracksAppDelegate] unhandled _type (%{public}@) in JSON", type);
+                        OwnTracksLogInfo("[OwnTracksAppDelegate] unhandled _type (%{public}@) in JSON", type);
                     }
                 } else {
                     OwnTracksLogError("[OwnTracksAppDelegate] no _type in JSON");
