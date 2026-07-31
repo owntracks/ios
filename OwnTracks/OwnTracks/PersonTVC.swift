@@ -72,7 +72,8 @@ class PersonTVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionKeys = sections.keys.sorted();
-        let persons = sectionKeys[section];
+        let sectionKey = sectionKeys[section];
+        let persons : [CNContact]  = sections[sectionKey] ?? [];
         return persons.count;
     }
 
