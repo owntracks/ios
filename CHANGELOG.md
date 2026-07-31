@@ -12,6 +12,7 @@ OwnTracks iOS App Release Notes
 - [NEW] Transitioning to the UIKit scene-based life cycle
 - [FIX] avoid crash when using intents w/o auth keys
 - [FIX] Copy coordinates / topic into clipboard #903
+- [FIX] incomplete address book selection lists for friends
 
 ## OwnTracks 26.2.3 iOS/ipadOS
 * Release Date 2026-05-15
