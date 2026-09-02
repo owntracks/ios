@@ -14,6 +14,7 @@
 #import "CoreData.h"
 #import "Waypoint+CoreDataClass.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
+#import "SauronSharedDefaults.h"
 
 @interface StatusTVC ()
 @property (weak, nonatomic) IBOutlet UITextField *UILocation;
@@ -126,7 +127,7 @@ static const DDLogLevel ddLogLevel = DDLogLevelInfo;
                                    ad.connection.lastErrorCode.userInfo : @""
                                    ];
 
-    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+    NSUserDefaults *shared = SauronSharedDefaults();
     NSArray *wakeupEvents = [shared arrayForKey:@"backgroundWakeupEvents"];
     if (wakeupEvents.count) {
         [statusText appendString:@"\n\nBackground Wakeups:"];

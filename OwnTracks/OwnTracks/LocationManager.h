@@ -71,6 +71,7 @@ typedef NS_ENUM(NSInteger, LocationMonitoring) {
 - (void)sleep;
 - (void)stop;
 - (void)authorize;
+- (void)syncMonitoringFromSharedDefaults;
 
 - (void)startRegion:(CLRegion *)region;
 - (void)stopRegion:(CLRegion *)region;

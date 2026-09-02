@@ -392,6 +392,9 @@ static BOOL OT_APNSIndicatesInboxRefresh(NSDictionary *userInfo) {
     NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
     locationManager.monitoring = [Settings intForKey:@"monitoring_preference"
                                                inMOC:moc];
+    // A Siri shortcut may have changed monitoring while we were not running;
+    // the app group holds the newer value, so let it win over Core Data.
+    [locationManager syncMonitoringFromSharedDefaults];
     locationManager.ranging = [Settings boolForKey:@"ranging_preference"
                                              inMOC:moc];
     locationManager.minDist = [Settings doubleForKey:@"mindist_preference"

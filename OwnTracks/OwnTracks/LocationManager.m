@@ -7,6 +7,7 @@
 //
 
 #import "LocationManager.h"
+#import "SauronSharedDefaults.h"
 #import "OwnTracksAppDelegate.h"
 #import "CoreData.h"
 #import <CocoaLumberjack/CocoaLumberjack.h>
@@ -110,7 +111,7 @@ static LocationManager *theInstance = nil;
      queue:nil
      usingBlock:^(NSNotification *note){
         DDLogVerbose(@"[LocationManager] UIApplicationWillEnterForegroundNotification");
-        //
+        [self syncMonitoringFromSharedDefaults];
     }];
     [[NSNotificationCenter defaultCenter]
      addObserverForName:UIApplicationDidBecomeActiveNotification
@@ -137,7 +138,7 @@ static LocationManager *theInstance = nil;
         [self stop];
     }];
     
-    self.sharedUserDefaults = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+    self.sharedUserDefaults = SauronSharedDefaults();
     [self.sharedUserDefaults addObserver:self forKeyPath:@"monitoring"
                                  options:NSKeyValueObservingOptionNew
                                  context:nil];
@@ -160,16 +161,7 @@ static LocationManager *theInstance = nil;
                        context:(void *)context {
     if ([keyPath isEqualToString:@"monitoring"]) {
         NSUserDefaults *shared = object;
-        NSInteger monitoring = [shared integerForKey:@"monitoring"];
-        if (monitoring != self.monitoring) {
-            self.monitoring = monitoring;
-            [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
-            NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
-            [Settings setInt:(int)[LocationManager sharedInstance].monitoring
-                      forKey:@"monitoring_preference" inMOC:moc];
-            [CoreData.sharedInstance sync:moc];
-
-        }
+        [self applySharedMonitoring:[shared integerForKey:@"monitoring"] reason:@"KVO"];
     } else if ([keyPath isEqualToString:@"sendNow"]) {
         OwnTracksAppDelegate *ad = (OwnTracksAppDelegate *)[UIApplication sharedApplication].delegate;
         [ad sendNow:self.location withPOI:nil withImage:nil withImageName:nil];
@@ -187,6 +179,34 @@ static LocationManager *theInstance = nil;
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"tag"];
         }
     }
+}
+
+- (void)applySharedMonitoring:(NSInteger)monitoring reason:(NSString *)reason {
+    if (monitoring == self.monitoring) {
+        return;
+    }
+    DDLogInfo(@"[LocationManager] monitoring %ld -> %ld from shared app group (%@)",
+              (long)self.monitoring, (long)monitoring, reason);
+    self.monitoring = monitoring;
+    [[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"downgraded"];
+    NSManagedObjectContext *moc = CoreData.sharedInstance.mainMOC;
+    [Settings setInt:(int)[LocationManager sharedInstance].monitoring
+              forKey:@"monitoring_preference" inMOC:moc];
+    [CoreData.sharedInstance sync:moc];
+}
+
+- (void)syncMonitoringFromSharedDefaults {
+    // KVO on the shared app group only reaches a live process. A Siri shortcut
+    // fired while the app was suspended or terminated leaves the new value
+    // sitting in the container with nobody listening, and the next launch would
+    // overwrite it from Core Data. So reconcile explicitly at launch and on
+    // every foreground.
+    id value = [self.sharedUserDefaults objectForKey:@"monitoring"];
+    if (![value isKindOfClass:[NSNumber class]]) {
+        // Absent is not the same as 0/Manual - never apply a missing key.
+        return;
+    }
+    [self applySharedMonitoring:((NSNumber *)value).integerValue reason:@"foreground sync"];
 }
 
 - (void)start {
@@ -443,7 +463,7 @@ static LocationManager *theInstance = nil;
             [self.manager stopMonitoringVisits];
             break;
     }
-    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+    NSUserDefaults *shared = SauronSharedDefaults();
     [shared setInteger:self.monitoring forKey:@"monitoring"];
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import "IntentHandler.h"
+#import "SauronSharedDefaults.h"
 #import "OwnTracksSendNowIntent.h"
 #import "OwnTracksChangeMonitoringIntent.h"
 #import "OwnTracksEnum.h"
@@ -28,7 +29,7 @@
 
 - (void)handleSendNow:(nonnull OwnTracksSendNowIntent *)intent
            completion:(nonnull void (^)(OwnTracksSendNowIntentResponse * _Nonnull))completion {
-    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+    NSUserDefaults *shared = SauronSharedDefaults();
      [shared setObject:[NSDate date] forKey:@"sendNow"];
      [shared synchronize];
     
@@ -38,7 +39,7 @@
 
 - (void)handleChangeMonitoring:(nonnull OwnTracksChangeMonitoringIntent *)intent
                     completion:(nonnull void (^)(OwnTracksChangeMonitoringIntentResponse * _Nonnull))completion {
-    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+    NSUserDefaults *shared = SauronSharedDefaults();
      NSInteger monitoring = [shared integerForKey:@"monitoring"];
      switch (intent.monitoring) {
          case OwnTracksEnumQuiet:
@@ -80,7 +81,7 @@
 
 - (void)handleTag:(OwnTracksTagIntent *)intent
        completion:(void (^)(OwnTracksTagIntentResponse * _Nonnull))completion {
-    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+    NSUserDefaults *shared = SauronSharedDefaults();
      [shared setObject:intent.tag forKey:@"tag"];
      [shared synchronize];
 
@@ -94,7 +95,7 @@
 }
 
 - (void)handlePointOfInterest:(OwnTracksPointOfInterestIntent *)intent completion:(void (^)(OwnTracksPointOfInterestIntentResponse * _Nonnull))completion {
-    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
+    NSUserDefaults *shared = SauronSharedDefaults();
     [shared setObject:intent.name forKey:@"poi"];
     [shared synchronize];
 

@@ -1972,6 +1972,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2,6";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/OwnTracks";
 			};
 			name = Debug;
 		};
@@ -2011,6 +2012,7 @@
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2,6";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/OwnTracks";
 			};
 			name = Release;
 		};
