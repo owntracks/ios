@@ -77,6 +77,7 @@ typedef NS_ENUM(int, ConnectionMode) {
 + (BOOL)theWillRetainFlagInMOC:(NSManagedObjectContext * _Nonnull)context;
 
 + (int)theMaximumHistoryInMOC:(NSManagedObjectContext * _Nonnull)context;
++ (double)theDefaultRegionRadiusInMOC:(NSManagedObjectContext * _Nonnull)context;
 
 + (ConnectionMode)theModeInMOC:(NSManagedObjectContext * _Nonnull)context;
 + (void)setMode:(ConnectionMode)mode inMOC:(NSManagedObjectContext * _Nonnull)context;

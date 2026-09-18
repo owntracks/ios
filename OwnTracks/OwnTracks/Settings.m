@@ -1207,6 +1207,11 @@ static SettingsDefaults *defaults;
     return [self intForKey:@"maxhistory_preference" inMOC:context];
 }
 
++ (double)theDefaultRegionRadiusInMOC:(NSManagedObjectContext *)context {
+    double value = [self doubleForKey:@"regionradius_preference" inMOC:context];
+    return value > 0 ? value : 50.0;
+}
+
 + (ConnectionMode)theModeInMOC:(NSManagedObjectContext *)context {
     return [self intForKey:@"mode" inMOC:context];
 }

@@ -59,7 +59,7 @@ class RegionsTVC: OwnTracksEditFetchTVC {
                                                                        uuid: nil,
                                                                        major: 0,
                                                                        minor: 0,
-                                                                       radius: 0,
+                                                                       radius: Settings.theDefaultRegionRadius(inMOC: moc),
                                                                        lat: location.coordinate.latitude,
                                                                        lon: location.coordinate.longitude);
                 tableView.reloadData();
