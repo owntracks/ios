@@ -856,7 +856,7 @@ class SettingsTVC: UITableViewController, UIDocumentInteractionControllerDelegat
                                 }
                                 if jsonData != nil  && ad.connection != nil {
                                     ad.connection!.send(jsonData,
-                                                        topic: Settings.theGeneralTopic(inMOC: moc),
+                                                        topic: Settings.theGeneralTopic(inMOC: moc) + "/info",
                                                         topicAlias: NSNumber(value: 0),
                                                         qos: Settings.theQos(inMOC: moc),
                                                         retain: true);
