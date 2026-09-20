@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 110;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -132,24 +132,20 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		84100AD923AE8D8800FC2361 /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
-			dstSubfolderSpec = 16;
+			dstSubfolder = Product;
 			files = (
 			);
 			name = "Embed Watch Content";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		844E826B1AB8061500516D1A /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 13;
+			dstSubfolder = PlugIns;
 			files = (
 				843A57AF24A9A4D700A5441B /* OwnTracksIntents.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -382,13 +378,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		84BC863A2F5EAD0900F26105 /* OwnTracksUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = OwnTracksUITests; sourceTree = "<group>"; };
+		84BC863A2F5EAD0900F26105 /* OwnTracksUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = OwnTracksUITests;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		8411B825189FDB140019D2D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				84929F0B20AAC0D000227D00 /* WebKit.framework in Frameworks */,
 				8488CFDF25A45CC3000AFEE2 /* Security.framework in Frameworks */,
@@ -412,28 +411,21 @@
 				84A4002B2F8ABBFA00340475 /* MQTTClient in Frameworks */,
 				84C3F45E2CF09F9B004DB332 /* PhotosUI.framework in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		843A57A424A9A4D600A5441B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8456D09F2B55749E003A45D4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		84BC86362F5EAD0900F26105 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -711,8 +703,6 @@
 			);
 			buildRules = (
 			);
-			dependencies = (
-			);
 			name = OwnTracksIntents;
 			productName = OwnTracksIntents;
 			productReference = 843A57A724A9A4D600A5441B /* OwnTracksIntents.appex */;
@@ -753,8 +743,6 @@
 				84BC863A2F5EAD0900F26105 /* OwnTracksUITests */,
 			);
 			name = OwnTracksUITests;
-			packageProductDependencies = (
-			);
 			productName = OwnTracksUITests;
 			productReference = 84BC86392F5EAD0900F26105 /* OwnTracksUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -809,7 +797,6 @@
 				};
 			};
 			buildConfigurationList = 8411B823189FDB140019D2D6 /* Build configuration list for PBXProject "OwnTracks" */;
-			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -833,6 +820,7 @@
 				84ED67902F1E9A0E0013A265 /* XCRemoteSwiftPackageReference "JSONSchemaValidation" */,
 				84C2E5E22F8ABA0400D5FFD5 /* XCRemoteSwiftPackageReference "MQTTClient" */,
 			);
+			preferredProjectObjectVersion = 110;
 			productRefGroup = 8411B829189FDB140019D2D6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -848,7 +836,6 @@
 /* Begin PBXResourcesBuildPhase section */
 		8411B826189FDB140019D2D6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				8479EEB718E4529900923B24 /* MQTT.plist in Resources */,
 				8400D9731D83825E00DEA134 /* HTTP.plist in Resources */,
@@ -867,59 +854,43 @@
 				846B38E92785B50B003E4852 /* elgolfo1.gpx in Resources */,
 				8411B8E1189FEB790019D2D6 /* Location.gpx in Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		843A57A524A9A4D600A5441B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				8436DFDC2BA9DD6100118AFF /* PrivacyInfo.xcprivacy in Resources */,
 				847F31B925EFB8600018C0A6 /* InfoPlist.strings in Resources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8456D0A02B55749E003A45D4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		84BC86372F5EAD0900F26105 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		8466B31E2397F58500537795 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/newOutputFile",
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "
-";
+			shellScript = (
+				"",
+				"",
+			);
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8411B824189FDB140019D2D6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				849551F52EF41EAE00675342 /* CreateTourTVC.swift in Sources */,
 				8411B83A189FDB140019D2D6 /* main.m in Sources */,
@@ -973,33 +944,26 @@
 				84E03DBC2F655996006756BE /* PersonTVC.swift in Sources */,
 				84A452BA2F35157000AA6A29 /* StatusTVC.swift in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		843A57A324A9A4D600A5441B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				84DE749924A9E1C600C0DA68 /* Intents.intentdefinition in Sources */,
 				843A57AB24A9A4D600A5441B /* IntentHandler.m in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8456D09E2B55749E003A45D4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				84DC826F2E0757CE0045CD05 /* OwnTracksBatteryTests.m in Sources */,
 				8456D0A52B55749E003A45D4 /* OwnTracksTests.m in Sources */,
 				8483A9BA2B9E0BE400774E8B /* NSNumber+decimals.m in Sources */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		84BC86352F5EAD0900F26105 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
@@ -1132,7 +1096,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		8411B858189FDB140019D2D6 /* Debug */ = {
+		8411B858189FDB140019D2D6 /* Debug configuration for PBXProject "OwnTracks" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1189,7 +1153,7 @@
 			};
 			name = Debug;
 		};
-		8411B859189FDB140019D2D6 /* Release */ = {
+		8411B859189FDB140019D2D6 /* Release configuration for PBXProject "OwnTracks" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1240,7 +1204,7 @@
 			};
 			name = Release;
 		};
-		8411B85B189FDB140019D2D6 /* Debug */ = {
+		8411B85B189FDB140019D2D6 /* Debug configuration for PBXNativeTarget "OwnTracks" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1250,7 +1214,7 @@
 				CODE_SIGN_ENTITLEMENTS = OwnTracks/OwnTracks.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 26.3.1;
+				CURRENT_PROJECT_VERSION = 27.0.1;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = C652JFWU23;
 				ENABLE_APP_SANDBOX = YES;
@@ -1270,7 +1234,7 @@
 				"INFOPLIST_FILE[sdk=*]" = "OwnTracks/Base.lproj/OwnTracks-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = OwnTracks;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1280,7 +1244,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OwnTracks",
 				);
-				MARKETING_VERSION = 26.3.1;
+				MARKETING_VERSION = 27.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -1297,7 +1261,7 @@
 			};
 			name = Debug;
 		};
-		8411B85C189FDB140019D2D6 /* Release */ = {
+		8411B85C189FDB140019D2D6 /* Release configuration for PBXNativeTarget "OwnTracks" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1307,7 +1271,7 @@
 				CODE_SIGN_ENTITLEMENTS = OwnTracks/OwnTracks.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 26.3.1;
+				CURRENT_PROJECT_VERSION = 27.0.1;
 				DERIVE_MACCATALYST_PRODUCT_BUNDLE_IDENTIFIER = NO;
 				DEVELOPMENT_TEAM = C652JFWU23;
 				ENABLE_APP_SANDBOX = YES;
@@ -1327,7 +1291,7 @@
 				"INFOPLIST_FILE[sdk=*]" = "OwnTracks/Base.lproj/OwnTracks-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = OwnTracks;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1337,7 +1301,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/OwnTracks",
 				);
-				MARKETING_VERSION = 26.3.1;
+				MARKETING_VERSION = 27.0.1;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1354,7 +1318,7 @@
 			};
 			name = Release;
 		};
-		843A57B124A9A4D700A5441B /* Debug */ = {
+		843A57B124A9A4D700A5441B /* Debug configuration for PBXNativeTarget "OwnTracksIntents" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1366,7 +1330,7 @@
 				CODE_SIGN_ENTITLEMENTS = OwnTracksIntents/OwnTracksIntents.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 26.3.1;
+				CURRENT_PROJECT_VERSION = 27.0.1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = C652JFWU23;
 				ENABLE_APP_SANDBOX = YES;
@@ -1374,13 +1338,13 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = OwnTracksIntents/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 26.3.1;
+				MARKETING_VERSION = 27.0.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude.OwnTracksIntents;
@@ -1393,7 +1357,7 @@
 			};
 			name = Debug;
 		};
-		843A57B224A9A4D700A5441B /* Release */ = {
+		843A57B224A9A4D700A5441B /* Release configuration for PBXNativeTarget "OwnTracksIntents" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1406,7 +1370,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 26.3.1;
+				CURRENT_PROJECT_VERSION = 27.0.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = C652JFWU23;
 				ENABLE_APP_SANDBOX = YES;
@@ -1414,13 +1378,13 @@
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = OwnTracksIntents/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 26.3.1;
+				MARKETING_VERSION = 27.0.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.MQTTitude.OwnTracksIntents;
@@ -1433,7 +1397,7 @@
 			};
 			name = Release;
 		};
-		8456D0A92B55749E003A45D4 /* Debug */ = {
+		8456D0A92B55749E003A45D4 /* Debug configuration for PBXNativeTarget "OwnTracksTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1445,7 +1409,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 26.3.1;
+				CURRENT_PROJECT_VERSION = 27.0.1;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = "";
@@ -1454,10 +1418,10 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.1;
-				MARKETING_VERSION = 26.3.1;
+				MARKETING_VERSION = 27.0.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.OwnTracksTests;
@@ -1478,7 +1442,7 @@
 			};
 			name = Debug;
 		};
-		8456D0AA2B55749E003A45D4 /* Release */ = {
+		8456D0AA2B55749E003A45D4 /* Release configuration for PBXNativeTarget "OwnTracksTests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1499,10 +1463,10 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.1;
-				MARKETING_VERSION = 26.3.1;
+				MARKETING_VERSION = 27.0.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mqttitude.OwnTracksTests;
@@ -1522,7 +1486,7 @@
 			};
 			name = Release;
 		};
-		84BC86412F5EAD0900F26105 /* Debug */ = {
+		84BC86412F5EAD0900F26105 /* Debug configuration for PBXNativeTarget "OwnTracksUITests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1539,7 +1503,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -1553,7 +1517,7 @@
 			};
 			name = Debug;
 		};
-		84BC86422F5EAD0900F26105 /* Release */ = {
+		84BC86422F5EAD0900F26105 /* Release configuration for PBXNativeTarget "OwnTracksUITests" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1571,7 +1535,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 27.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -1591,46 +1555,41 @@
 		8411B823189FDB140019D2D6 /* Build configuration list for PBXProject "OwnTracks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8411B858189FDB140019D2D6 /* Debug */,
-				8411B859189FDB140019D2D6 /* Release */,
+				8411B858189FDB140019D2D6 /* Debug configuration for PBXProject "OwnTracks" */,
+				8411B859189FDB140019D2D6 /* Release configuration for PBXProject "OwnTracks" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		8411B85A189FDB140019D2D6 /* Build configuration list for PBXNativeTarget "OwnTracks" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8411B85B189FDB140019D2D6 /* Debug */,
-				8411B85C189FDB140019D2D6 /* Release */,
+				8411B85B189FDB140019D2D6 /* Debug configuration for PBXNativeTarget "OwnTracks" */,
+				8411B85C189FDB140019D2D6 /* Release configuration for PBXNativeTarget "OwnTracks" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		843A57B024A9A4D700A5441B /* Build configuration list for PBXNativeTarget "OwnTracksIntents" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				843A57B124A9A4D700A5441B /* Debug */,
-				843A57B224A9A4D700A5441B /* Release */,
+				843A57B124A9A4D700A5441B /* Debug configuration for PBXNativeTarget "OwnTracksIntents" */,
+				843A57B224A9A4D700A5441B /* Release configuration for PBXNativeTarget "OwnTracksIntents" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		8456D0A82B55749E003A45D4 /* Build configuration list for PBXNativeTarget "OwnTracksTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8456D0A92B55749E003A45D4 /* Debug */,
-				8456D0AA2B55749E003A45D4 /* Release */,
+				8456D0A92B55749E003A45D4 /* Debug configuration for PBXNativeTarget "OwnTracksTests" */,
+				8456D0AA2B55749E003A45D4 /* Release configuration for PBXNativeTarget "OwnTracksTests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		84BC86432F5EAD0900F26105 /* Build configuration list for PBXNativeTarget "OwnTracksUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				84BC86412F5EAD0900F26105 /* Debug */,
-				84BC86422F5EAD0900F26105 /* Release */,
+				84BC86412F5EAD0900F26105 /* Debug configuration for PBXNativeTarget "OwnTracksUITests" */,
+				84BC86422F5EAD0900F26105 /* Release configuration for PBXNativeTarget "OwnTracksUITests" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */

@@ -22,7 +22,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func sceneWillEnterForeground(_ scene: UIScene) {
-        let ad = UIApplication.shared.delegate as! OwnTracksAppDelegate;
     }
     
     func sceneDidEnterBackground(_ scene: UIScene) {
