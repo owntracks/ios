@@ -169,9 +169,6 @@
 /* temporary display while opening URL */
 "opening URL" = "opening URL";
 
-/* Alert content for connection change warning */
-"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before.";
-
 /* Alert header regarding protocol input */
 "Protocol invalid" = "Protocol invalid";
 

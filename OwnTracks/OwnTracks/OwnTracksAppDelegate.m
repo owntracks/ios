@@ -341,10 +341,6 @@
                 [self performSelectorOnMainThread:@selector(configFromDictionary:)
                                        withObject:dict
                                     waitUntilDone:TRUE];
-                
-                self.processingMessage = NSLocalizedString(@"Configuration successfully processed",
-                                                           @"Display after processing config");
-                OwnTracksLogDefault("[OwnTracksAppDelegate] Configuration successfully processed");
                 return TRUE;
             } else {
                 self.processingMessage = NSLocalizedString(@"Configuration incorrect",
@@ -1467,9 +1463,6 @@ performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completio
     [self connectionOff];
     [self syncProcessing];
     [[LocationManager sharedInstance] resetRegions];
-    [self.connection reset];
-    [Friend deleteAllFriendsInManagedObjectContext:CoreData.sharedInstance.mainMOC];
-    [[CoreData sharedInstance] sync:CoreData.sharedInstance.mainMOC];
 }
 
 - (void)reconnect {

@@ -196,9 +196,6 @@
 /* OSM */
 "OSM" = "OSM";
 
-/* Alert content for connection change warning */
-"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Notera att dina lagrade vägpunkter och platser kommer att raderas på den här enheten av sekretesskäl. Vänligen säkerhetskopiera innan.";
-
 /* Alert header regarding protocol input */
 "Protocol invalid" = "Protokollet ogiltigt";
 

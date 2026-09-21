@@ -202,9 +202,6 @@
 /* OSM */
 "OSM" = "开放状态管理模块";
 
-/* Alert content for connection change warning */
-"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "请注意，出于隐私原因，您在此设备上存储的航点和位置将被删除。请提前备份。";
-
 /* "Please keep OwnTracks running to ensure the desired functionality" */
 "Please keep OwnTracks running to ensure the desired functionality" = "请保持 OwnTracks 运行以确保所需的功能";
 

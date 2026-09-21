@@ -202,9 +202,6 @@
 /* OSM */
 "OSM" = "OSM";
 
-/* Alert content for connection change warning */
-"Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before." = "Обратите внимание: сохранённые путевые точки и местоположения будут удалены с этого устройства по соображениям конфиденциальности. Пожалуйста, сделайте резервную копию заранее.";
-
 /* "Please keep OwnTracks running to ensure the desired functionality" */
 "Please keep OwnTracks running to ensure the desired functionality" = "Пожалуйста, не закрывайте OwnTracks, чтобы обеспечить необходимую функциональность.";
 

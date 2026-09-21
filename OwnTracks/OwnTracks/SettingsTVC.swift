@@ -80,7 +80,6 @@ class SettingsTVC: UITableViewController, UIDocumentInteractionControllerDelegat
     @IBOutlet weak var UIeffectiveTid: UILabel!
     @IBOutlet weak var UIeffectiveDeviceId: UILabel!
 
-    var warningShown = false;
     var dic: UIDocumentInteractionController?
     
     override func viewWillAppear(_ animated: Bool) {
@@ -124,7 +123,6 @@ class SettingsTVC: UITableViewController, UIDocumentInteractionControllerDelegat
         lm.addObserver(self, forKeyPath: "monitoring", options: [.initial, .new], context: nil);
         
         updated();
-        warningShown = false;
     }
     override func viewWillDisappear(_ animated: Bool) {
         let ad = UIApplication.shared.delegate as! OwnTracksAppDelegate;
@@ -936,7 +934,10 @@ class SettingsTVC: UITableViewController, UIDocumentInteractionControllerDelegat
     }
     
     @IBAction func modeSwitchChanged(_ sender: UISegmentedControl){
-        changeWarning();
+        let ad = UIApplication.shared.delegate as! OwnTracksAppDelegate;
+        ad.terminateSession();
+        updateValues();
+        updated();
     }
     
     @IBAction func tidChanged(_ sender: UITextField) {
@@ -978,15 +979,24 @@ class SettingsTVC: UITableViewController, UIDocumentInteractionControllerDelegat
     }
     
     @IBAction func deviceIdChanged(_ sender: UITextField) {
-        changeWarning();
+        let ad = UIApplication.shared.delegate as! OwnTracksAppDelegate;
+        ad.terminateSession();
+        updateValues();
+        updated();
     }
     
     @IBAction func hostChanged(_ sender: UITextField) {
-        changeWarning();
+        let ad = UIApplication.shared.delegate as! OwnTracksAppDelegate;
+        ad.terminateSession();
+        updateValues();
+        updated();
     }
     
     @IBAction func portChanged(_ sender: UITextField) {
-        changeWarning();
+        let ad = UIApplication.shared.delegate as! OwnTracksAppDelegate;
+        ad.terminateSession();
+        updateValues();
+        updated();
     }
     
     @IBAction func wsChanged(_ sender: UISwitch) {
@@ -1000,11 +1010,17 @@ class SettingsTVC: UITableViewController, UIDocumentInteractionControllerDelegat
     }
     
     @IBAction func useridChanged(_ sender: UITextField) {
-        changeWarning();
+        let ad = UIApplication.shared.delegate as! OwnTracksAppDelegate;
+        ad.terminateSession();
+        updateValues();
+        updated();
     }
     
     @IBAction func authChanged(_ sender: UISwitch) {
-        changeWarning();
+        let ad = UIApplication.shared.delegate as! OwnTracksAppDelegate;
+        ad.terminateSession();
+        updateValues();
+        updated();
     }
 
     @IBAction func passwordChanged(_ sender: UITextField) {
@@ -1023,15 +1039,24 @@ class SettingsTVC: UITableViewController, UIDocumentInteractionControllerDelegat
     }
     
     @IBAction func urlChanged(_ sender: UITextField) {
-        changeWarning();
+        let ad = UIApplication.shared.delegate as! OwnTracksAppDelegate;
+        ad.terminateSession();
+        updateValues();
+        updated();
     }
     
     @IBAction func subTopicChanged(_ sender: UITextField) {
-        changeWarning();
+        let ad = UIApplication.shared.delegate as! OwnTracksAppDelegate;
+        ad.terminateSession();
+        updateValues();
+        updated();
     }
 
     @IBAction func clientIdChanged(_ sender: UITextField) {
-        changeWarning();
+        let ad = UIApplication.shared.delegate as! OwnTracksAppDelegate;
+        ad.terminateSession();
+        updateValues();
+        updated();
     }
     
     @IBAction func pubTopicChanged(_ sender: UITextField) {
@@ -1080,7 +1105,10 @@ class SettingsTVC: UITableViewController, UIDocumentInteractionControllerDelegat
     }
 
     @IBAction func subQosChanged(_ sender: UITextField) {
-        changeWarning();
+        let ad = UIApplication.shared.delegate as! OwnTracksAppDelegate;
+        ad.terminateSession();
+        updateValues();
+        updated();
     }
     
     @IBAction func keepAliveChanged(_ sender: UITextField) {
@@ -1109,7 +1137,10 @@ class SettingsTVC: UITableViewController, UIDocumentInteractionControllerDelegat
     }
     
     @IBAction func httpHeadersChanged(_ sender: UITextField) {
-        changeWarning();
+        let ad = UIApplication.shared.delegate as! OwnTracksAppDelegate;
+        ad.terminateSession();
+        updateValues();
+        updated();
     }
     
     @IBAction func osmTemplateChanged(_ sender: UITextField) {
@@ -1123,7 +1154,10 @@ class SettingsTVC: UITableViewController, UIDocumentInteractionControllerDelegat
     }
     
     @IBAction func clientPKCSChanged(_ sender: UITextField) {
-        changeWarning();
+        let ad = UIApplication.shared.delegate as! OwnTracksAppDelegate;
+        ad.terminateSession();
+        updateValues();
+        updated();
     }
     
     @IBAction func passphraseChanged(_ sender: UITextField) {
@@ -1157,7 +1191,10 @@ class SettingsTVC: UITableViewController, UIDocumentInteractionControllerDelegat
     }
 
     @IBAction func cleanSessionChanged(_ sender: UISwitch) {
-        changeWarning();
+        let ad = UIApplication.shared.delegate as! OwnTracksAppDelegate;
+        ad.terminateSession();
+        updateValues();
+        updated();
     }
 
     // Remote Control Section
@@ -1217,8 +1254,6 @@ class SettingsTVC: UITableViewController, UIDocumentInteractionControllerDelegat
         let ok = UIAlertAction(title: NSLocalizedString("Continue",
                                                         comment: "Continue button title"),
                                style: .destructive) { _ in
-            let ad = UIApplication.shared.delegate as! OwnTracksAppDelegate;
-            ad.terminateSession();
             self.updateValues();
             self.updated();
         }
@@ -1245,39 +1280,6 @@ class SettingsTVC: UITableViewController, UIDocumentInteractionControllerDelegat
         updateValues();
     }
 
-    func changeWarning() {
-        if warningShown {
-            let ad = UIApplication.shared.delegate as! OwnTracksAppDelegate;
-            ad.terminateSession();
-            updateValues();
-            updated();
-        } else {
-            let ac = UIAlertController(title:NSLocalizedString("Connection change",
-                                                                comment:"Alert header for connection change warning"),
-                                       message: NSLocalizedString("Please be aware your stored waypoints and locations will be deleted on this device for privacy reasons. Please backup before.",
-                                                                  comment: "Alert content for connection change warning"),
-                                       preferredStyle: .alert);
-            let cancel = UIAlertAction(title: NSLocalizedString("Cancel",
-                                                                comment:"Cancel button title"),
-                                       style: .cancel) { _ in
-                self.updated();
-                self.warningShown = false;
-            }
-            let ok = UIAlertAction(title: NSLocalizedString("Continue",
-                                                            comment: "Continue button title"),
-                                   style: .destructive) { _ in
-                let ad = UIApplication.shared.delegate as! OwnTracksAppDelegate;
-                ad.terminateSession();
-                self.updateValues();
-                self.updated();
-                self.warningShown = true;
-            }
-            ac.addAction(cancel);
-            ac.addAction(ok);
-            present(ac, animated: true);
-        }
-    }
-    
     func reconnect() {
         let ad = UIApplication.shared.delegate as! OwnTracksAppDelegate;
         ad.connectionOff();
