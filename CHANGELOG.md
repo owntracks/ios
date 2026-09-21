@@ -1,15 +1,19 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 26.3.1 iOS/ipadOS
-* Release Date 2026-07-09
+## OwnTracks 27.0.1 iOS/ipadOS
+* Release Date 2026-09-21
 
 ### UI enhancements and fixes
 
+- [NEW] Xcode 27, minimum iOS Version 17
+- [NEW] do  not clear waypoints and queue for connection changes #900 #906
 - [NEW] Status info page enhancements #899
 - [NEW] date and number formatting according to system settings (Region, Language, Number Format, Date Format, Measurement System) #901
 - [NEW] increase log level
 - [NEW] Transitioning to the UIKit scene-based life cycle
+- [FIX] show region monitoring problems in UI and log #908
+- [FIX] Card Info is published it main device topic instead of /info #914
 - [FIX] avoid crash when using intents w/o auth keys
 - [FIX] Copy coordinates / topic into clipboard #903
 - [FIX] incomplete address book selection lists for friends
