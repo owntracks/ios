@@ -44,7 +44,6 @@
     if (intent.IntentAuthKey != nil) {
         NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:@"group.org.owntracks.Owntracks"];
         NSInteger monitoring = [shared integerForKey:@"monitoring"];
-        [shared setObject:@{@"monitoring": @(monitoring), @"intentAuthKey": intent.IntentAuthKey} forKey:@"monitoringWithAuthKey"];
         switch (intent.monitoring) {
             case OwnTracksEnumQuiet:
                 monitoring = -1;
@@ -61,6 +60,7 @@
             default:
                 break;
         }
+        [shared setObject:@{@"monitoring": @(monitoring), @"intentAuthKey": intent.IntentAuthKey} forKey:@"monitoringWithAuthKey"];
         [shared synchronize];
         response = [[OwnTracksChangeMonitoringIntentResponse alloc] initWithCode:OwnTracksChangeMonitoringIntentResponseCodeSuccess userActivity:nil];
     }
