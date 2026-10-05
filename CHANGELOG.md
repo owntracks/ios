@@ -1,6 +1,13 @@
 OwnTracks iOS App Release Notes
 ===================================
 
+## OwnTracks 27.0.2 iOS/ipadOS
+* Release Date 2026-10-05
+
+### UI enhancements and fixes
+
+- [FIX] Change monitoring mode does not work anymore #919
+
 ## OwnTracks 27.0.1 iOS/ipadOS
 * Release Date 2026-09-21
 
