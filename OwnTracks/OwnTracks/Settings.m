@@ -720,7 +720,7 @@ static SettingsDefaults *defaults;
         CLLocationCoordinate2D coord = CLLocationCoordinate2DMake(latDegrees, lonDegrees);
         if (!CLLocationCoordinate2DIsValid(coord)) {
             remove = TRUE;
-            OwnTracksLogError("[Settings][setWaypoints] coord is no valid: not processed");
+            OwnTracksLogError("[Settings][setWaypoints] coord is not valid: not processed/deleted");
         }
 
         Friend *friend = [Friend friendWithTopic:[self theGeneralTopicInMOC:context]
@@ -785,18 +785,20 @@ static SettingsDefaults *defaults;
                 }
             }
         } else {
-            changes = [changes stringByAppendingFormat:@"Region %@ will be inserted\n", name];
-            if (doChange) {
-                [[OwnTracking sharedInstance] addRegionFor:rid
-                                                    friend:friend
-                                                      name:name
-                                                       tst:tst
-                                                      uuid:uuid
-                                                     major:major
-                                                     minor:minor
-                                                    radius:radDistance
-                                                       lat:latDegrees
-                                                       lon:lonDegrees];
+            if (!remove) {
+                changes = [changes stringByAppendingFormat:@"Region %@ will be inserted\n", name];
+                if (doChange) {
+                    [[OwnTracking sharedInstance] addRegionFor:rid
+                                                        friend:friend
+                                                          name:name
+                                                           tst:tst
+                                                          uuid:uuid
+                                                         major:major
+                                                         minor:minor
+                                                        radius:radDistance
+                                                           lat:latDegrees
+                                                           lon:lonDegrees];
+                }
             }
         }
     }
