@@ -1,13 +1,15 @@
 OwnTracks iOS App Release Notes
 ===================================
 
-## OwnTracks 27.0.2 iOS/ipadOS
-* Release Date 2026-10-07
+## OwnTracks 27.0.3 iOS/ipadOS
+* Release Date 2026-10-14
 
 ### UI enhancements and fixes
 
 - [FIX] Change monitoring mode does not work anymore #919
 - [FIX] Unexpected behavior when deleting waypoints via setWaypoints #920
+- [NEW] MQTT protocol version now defaults to 5
+- [FIX] error logging and bail out on kaputt MQTT packages
 
 ## OwnTracks 27.0.1 iOS/ipadOS
 * Release Date 2026-09-21
