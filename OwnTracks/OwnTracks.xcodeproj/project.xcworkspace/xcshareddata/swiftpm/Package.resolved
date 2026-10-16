@@ -16,7 +16,7 @@
       "location" : "git@github.com:ckrey/MQTTClient.git",
       "state" : {
         "branch" : "main",
-        "revision" : "3feee48c14d5f0783fa2b82b3bb44fe87e75807c"
+        "revision" : "962bcd0078dfcd35f6f171d5533686e82fe34850"
       }
     },
     {
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/jedisct1/swift-sodium.git",
       "state" : {
-        "revision" : "e7e799cd1eaa4d0f6d3eab56832e7f4b377f4a4f",
-        "version" : "0.10.0"
+        "revision" : "cfd195c76882aa9b997560ca7cb95d72fbf5db00",
+        "version" : "0.11.0"
       }
     }
   ],
