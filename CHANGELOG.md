@@ -11,6 +11,7 @@ OwnTracks iOS App Release Notes
 - [NEW] MQTT protocol version now defaults to 5
 - [FIX] error logging and bail out on kaputt MQTT packages
 - [FIX] tentative fix for occasional app crash after coming out of bad patches of cellular reception with MQTT #921
+- [FIX] updated sodium library
 
 
 ## OwnTracks 27.0.1 iOS/ipadOS
