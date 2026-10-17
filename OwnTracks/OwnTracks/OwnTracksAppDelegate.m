@@ -109,7 +109,7 @@
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     
-    OwnTracksLogDefault("[OwnTracksAppDelegate] OwnTracks starting %@/%@ %@",
+    OwnTracksLogDefault("[OwnTracksAppDelegate] OwnTracks starting %{public}@/%{public}@ %{public}@",
                         [NSBundle mainBundle].infoDictionary[@"CFBundleVersion"],
                         [NSLocale currentLocale].localeIdentifier,
                         launchOptions);
